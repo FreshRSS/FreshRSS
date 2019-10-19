@@ -41,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Informace',
-		'keep_history' => 'Zachovat tento minimální počet článků',
+		'keep_min' => 'Zachovat tento minimální počet článků',
 		'moved_category_deleted' => 'Po smazání kategorie budou v ní obsažené kanály automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'Nejsou označeny žádné kanály.',

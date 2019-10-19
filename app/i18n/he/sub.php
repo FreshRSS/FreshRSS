@@ -41,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'מידע',
-		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
+		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'אף הזנה לא נבחרה.',

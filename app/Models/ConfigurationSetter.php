@@ -89,11 +89,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['language'] = $value;
 	}
 
-	private function _old_entries(&$data, $value) {
-		$value = intval($value);
-		$data['old_entries'] = $value > 0 ? $value : 3;
-	}
-
 	private function _passwordHash(&$data, $value) {
 		$data['passwordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}

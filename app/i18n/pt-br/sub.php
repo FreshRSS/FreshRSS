@@ -41,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Informações',
-		'keep_history' => 'Número mínimo de artigos para manter',
+		'keep_min' => 'Número mínimo de artigos para manter',
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'Nenhum feed selecionado.',

@@ -41,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Información',
-		'keep_history' => 'Número mínimo de artículos a conservar',
+		'keep_min' => 'Número mínimo de artículos a conservar',
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'No hay funentes seleccionadas.',

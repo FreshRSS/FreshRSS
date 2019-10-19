@@ -41,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => '信息',
-		'keep_history' => '至少保存的文章数',
+		'keep_min' => '至少保存的文章数',
 		'moved_category_deleted' => '删除分类时，其中的 RSS 源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择 RSS 源。',

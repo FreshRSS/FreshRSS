@@ -41,7 +41,7 @@ return array(
 			'help' => 'Écrivez une recherche par ligne.',
 		),
 		'information' => 'Informations',
-		'keep_history' => 'Nombre minimum d’articles à conserver',
+		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',
 		'no_selected' => 'Aucun flux sélectionné.',

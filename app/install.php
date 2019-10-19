@@ -86,7 +86,6 @@ function saveStep1() {
 		// Then, we set $_SESSION vars
 		$_SESSION['title'] = $system_conf->title;
 		$_SESSION['auth_type'] = $system_conf->auth_type;
-		$_SESSION['old_entries'] = $user_conf->old_entries;
 		$_SESSION['default_user'] = $current_user;
 		$_SESSION['passwordHash'] = $user_conf->passwordHash;
 
@@ -184,14 +183,12 @@ function saveStep3() {
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
 		$_SESSION['title'] = $system_default_config->title;
-		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
 			$_SESSION['default_user'] = param('default_user', '');
 		}
 
-		if (empty($_SESSION['old_entries']) ||
-		    empty($_SESSION['auth_type']) ||
+		if (empty($_SESSION['auth_type']) ||
 		    empty($_SESSION['default_user'])) {
 			return false;
 		}
@@ -208,10 +205,6 @@ function saveStep3() {
 		FreshRSS_Context::$system_conf->default_user = $_SESSION['default_user'];
 		FreshRSS_Context::$system_conf->save();
 
-		if ((!ctype_digit($_SESSION['old_entries'])) ||($_SESSION['old_entries'] < 1)) {
-			$_SESSION['old_entries'] = $user_default_config->old_entries;
-		}
-
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
 		recursive_unlink(USERS_PATH . '/' . $_SESSION['default_user']);
@@ -225,7 +218,6 @@ function saveStep3() {
 				'',
 				[
 					'language' => $_SESSION['language'],
-					'old_entries' => $_SESSION['old_entries'],
 				]
 			);
 		} catch (Exception $e) {
@@ -317,8 +309,7 @@ function checkStep2() {
 }
 
 function checkStep3() {
-	$conf = !empty($_SESSION['old_entries']) &&
-	        !empty($_SESSION['default_user']);
+	$conf = !empty($_SESSION['default_user']);
 
 	$form = isset($_SESSION['auth_type']);
 
@@ -592,13 +583,6 @@ function printStep3() {
 
 	<form action="index.php?step=3" method="post">
 		<legend><?php echo _t('install.conf'); ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
-			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : $user_default_config->old_entries; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
-			</div>
-		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>

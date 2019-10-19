@@ -7,7 +7,7 @@ return array(
 		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
-		'keep_history_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
+		'keep_min_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
 		'keep_labels' => 'Never delete labels',	//TODO - Translation
 		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
@@ -16,8 +16,8 @@ return array(
 		'policy' => 'Purge policy',	//TODO - Translation
 		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Jetzt bereinigen',
-		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
-		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivierung',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 	),

@@ -7,7 +7,7 @@ return array(
 		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => '详细选项位于单独的 RSS 源设置',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
-		'keep_history_by_feed' => '至少保存的文章数',
+		'keep_min_by_feed' => '至少保存的文章数',
 		'keep_labels' => 'Never delete labels',	//TODO - Translation
 		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
@@ -16,8 +16,8 @@ return array(
 		'policy' => 'Purge policy',	//TODO - Translation
 		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => '立即清除',
-		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
-		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => '存档',
 		'ttl' => '最小自动更新时间',
 	),

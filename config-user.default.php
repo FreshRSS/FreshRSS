@@ -5,16 +5,13 @@
 # override.
 return array (
 	'language' => 'en',
-	'old_entries' => 3,	//TODO: Move to archiving
 	'archiving' => [
-		'enable_retention_count_limit' => false,
-		'retention_count_limit' => 200,
-		'enable_retention_period' => true,
-		'retention_period' => 'P3M',
+		'keep_period' => 'P3M',
+		'keep_max' => 200,
+		'keep_min' => 50,
 		'keep_favourites' => true,
 		'keep_labels' => true,
 		'keep_unreads' => false,
-		'keep_history' => 50,
 	],
 	'ttl_default' => 3600,
 	'mail_login' => '',

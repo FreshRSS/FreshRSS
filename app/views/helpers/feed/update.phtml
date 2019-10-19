@@ -106,29 +106,29 @@
 				$archiving['default'] = false;
 			}
 			$volatile = [
-				'retention_period_count' => '3',
-				'retention_period_unit' => 'P1M',
+				'enable_keep_period' => false,
+				'keep_period_count' => '3',
+				'keep_period_unit' => 'P1M',
 			];
-			$retentionPeriod = isset($archiving['retention_period']) ? $archiving['retention_period'] : '';
-			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
-				$volatile['retention_period_count'] = $matches['count'];
-				$volatile['retention_period_unit'] = str_replace($matches['count'], '1', $retentionPeriod);
+			if (!empty($archiving['keep_period'])) {
+				if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $archiving['keep_period'], $matches)) {
+					$volatile['enable_keep_period'] = true;
+					$volatile['keep_period_count'] = $matches['count'];
+					$volatile['keep_period_unit'] = str_replace($matches['count'], '1', $archiving['keep_period']);
+				}
 			}
 			//Legacy
 			if ($this->feed->keepHistory() == -1) {	//Infinite
-				$archiving['enable_retention_count_limit'] = false;
-				$archiving['enable_retention_period'] = false;
-				$archiving['keep_history'] = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+				$archiving['keep_period'] = false;
+				$archiving['keep_max'] = false;
+				$archiving['keep_min'] = false;
 			}
 			//Defaults
-			if (!isset($archiving['enable_retention_count_limit'])) {
-				$archiving['enable_retention_count_limit'] = false;
+			if (!isset($archiving['keep_max'])) {
+				$archiving['keep_max'] = false;
 			}
-			if (!isset($archiving['retention_count_limit'])) {
-				$archiving['retention_count_limit'] = 200;
-			}
-			if (!isset($archiving['enable_retention_period'])) {
-				$archiving['enable_retention_period'] = false;
+			if (!isset($archiving['keep_min'])) {
+				$archiving['keep_min'] = 50;
 			}
 			if (!isset($archiving['keep_favourites'])) {
 				$archiving['keep_favourites'] = true;
@@ -138,9 +138,6 @@
 			}
 			if (!isset($archiving['keep_unreads'])) {
 				$archiving['keep_unreads'] = false;
-			}
-			if (!isset($archiving['keep_history'])) {
-				$archiving['keep_history'] = 50;
 			}
 		?>
 
@@ -159,26 +156,26 @@
 		</div>
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
-				<label class="checkbox" for="enable_retention_count_limit">
-					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?= $archiving['enable_retention_count_limit'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['enable_retention_count_limit'] ? 1 : 0 ?>"/>
-					<?= _t('conf.archiving.retention_count_limit') ?>
-					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?= $archiving['retention_count_limit'] ?>" data-leave-validation="<?= $archiving['retention_count_limit'] ?>"/>
+				<label class="checkbox" for="enable_keep_max">
+					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?> data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
+					<?= _t('conf.archiving.keep_max') ?>
+					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= $archiving['keep_max'] ?>" data-leave-validation="<?= $archiving['keep_max'] ?>"/>
 				</label>
 			</div>
 		</div>
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
-				<label class="checkbox" for="enable_retention_period">
-					<input type="checkbox" name="enable_retention_period" id="enable_retention_period" value="1"<?= $archiving['enable_retention_period'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['enable_retention_period'] ? 1 : 0 ?>"/>
-					<?= _t('conf.archiving.retention_period') ?>
-					<input type="number" id="retention_period_count" name="retention_period_count" min="0" value="<?= $volatile['retention_period_count'] ?>" data-leave-validation="<?= $volatile['retention_period_count'] ?>"/>
-					<select class="number" name="retention_period_unit" id="retention_period_unit" data-leave-validation="<?= $volatile['retention_period_unit'] ?>">
+				<label class="checkbox" for="enable_keep_period">
+					<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.keep_period') ?>
+					<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>" data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
+					<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
 						<option></option>
-						<option value="P1Y" <?= 'P1Y' === $volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
-						<option value="P1M" <?= 'P1M' === $volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
-						<option value="P1W" <?= 'P1W' === $volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.weeks') ?></option>
-						<option value="P1D" <?= 'P1D' === $volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
-						<option value="PT1H" <?= 'PT1H' === $volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.hours') ?></option>
+						<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
+						<option value="P1M" <?= 'P1M' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
+						<option value="P1W" <?= 'P1W' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.weeks') ?></option>
+						<option value="P1D" <?= 'P1D' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
+						<option value="PT1H" <?= 'PT1H' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.hours') ?></option>
 					</select>
 				</label>
 			</div>
@@ -210,8 +207,8 @@
 		</div>
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
-				<label for="keep_history"><?php echo _t('sub.feed.keep_history'); ?>
-					<input type="number" id="keep_history" name="keep_history" min="0" value="<?= $archiving['keep_history'] ?>" data-leave-validation="<?= $archiving['keep_history'] ?>">
+				<label for="keep_min"><?php echo _t('sub.feed.keep_min'); ?>
+					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" data-leave-validation="<?= $archiving['keep_min'] ?>">
 				</label>
 			</div>
 		</div>

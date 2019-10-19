@@ -40,7 +40,7 @@ return array(
 			'help' => 'Napíšte jeden výraz hľadania na riadok.',
 		),
 		'information' => 'Informácia',
-		'keep_history' => 'Minimálny počet článkov na uchovanie',
+		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',

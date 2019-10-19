@@ -53,15 +53,20 @@ class FreshRSS_Context {
 		self::$user_conf = Minz_Configuration::get('user');
 
 		//Legacy
-		$keep_history_default = FreshRSS_Context::$user_conf->param('keep_history_default', -5);
-		if ($keep_history_default > -5) {	//Freshrss < 1.15
+		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
+		if ($oldEntries > 0) {	//Freshrss < 1.15
+			$archiving['keep_period'] = 'P' . $oldEntries . 'M';
+		}
+
+		$keepMin = (int)FreshRSS_Context::$user_conf->param('keep_history_default', -5);
+		if ($keepMin != 0 && $keepMin > -5) {	//Freshrss < 1.15
 			$archiving = FreshRSS_Context::$user_conf->archiving;
-			if ($keep_history_default >= 0) {
-				$archiving['keep_history'] = $keep_history_default;
-			} elseif ($keep_history_default == -1) {	//Infinite
-				$archiving['enable_retention_count_limit'] = false;
-				$archiving['enable_retention_period'] = false;
-				$archiving['keep_history'] = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+			if ($keepMin > 0) {
+				$archiving['keep_min'] = $keepMin;
+			} elseif ($keepMin == -1) {	//Infinite
+				$archiving['keep_period'] = false;
+				$archiving['keep_max'] = false;
+				$archiving['keep_min'] = false;
 			}
 			FreshRSS_Context::$user_conf->archiving = $archiving;
 		}

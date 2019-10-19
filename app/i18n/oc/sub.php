@@ -40,7 +40,7 @@ return array(
 			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'information' => 'Informacions',
-		'keep_history' => 'Nombre minimum d’articles de servar',
+		'keep_min' => 'Nombre minimum d’articles de servar',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',

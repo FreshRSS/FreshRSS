@@ -6,7 +6,7 @@ return array(
 		'advanced' => 'Pokročilé',
 		'delete_after' => 'Vymazať články po',
 		'help' => 'Viac možností nájdete v nastaveniach kanála',
-		'keep_history_by_feed' => 'Minimálny počet článkov kanála na zachovanie',
+		'keep_min_by_feed' => 'Minimálny počet článkov kanála na zachovanie',
 		'optimize' => 'Optimalizovať databázu',
 		'optimize_help' => 'Občas vykonajte na zmenšenie veľkosti databázy',
 		'purge_now' => 'Vyčistiť teraz',

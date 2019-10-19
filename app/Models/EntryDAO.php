@@ -559,32 +559,29 @@ SQL;
 		if (!empty($options['keep_labels'])) {
 			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
 		}
+		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
+			$sql .= ' AND id > (SELECT e2.id FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
+			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min)';
+			$params[':id_feed2'] = $id_feed;
+			$params[':keep_min'] = (int)$options['keep_min'];
+		}
 		//Keep at least the articles seen at the last refresh
-		$sql .= ' AND `lastSeen` < (SELECT MAX(e2.`lastSeen`) FROM `_entry` e2 WHERE e2.id_feed = :id_feed2)';
-		$params[':id_feed2'] = $id_feed;
+		$sql .= ' AND `lastSeen` < (SELECT MAX(e3.`lastSeen`) FROM `_entry` e3 WHERE e3.id_feed = :id_feed3)';
+		$params[':id_feed3'] = $id_feed;
 
 		//==Inclusions==
 		$sql .= ' AND (1=0';
-		if (!empty($options['enable_retention_period'])) {
+		if (!empty($options['keep_period'])) {
 			$sql .= ' OR `lastSeen` < :max_last_seen';
 			$now = new DateTime('now');
-			$now->sub(new DateInterval($options['retention_period']));
+			$now->sub(new DateInterval($options['keep_period']));
 			$params[':max_last_seen'] = $now->format('U');
 		}
-		if (!empty($options['enable_retention_count_limit'])) {
-			$sql .= ' OR id <= COALESCE((SELECT e3.id FROM `_entry` e3 WHERE e3.id_feed = :id_feed3';
-			$params[':id_feed3'] = $id_feed;
-			if (!empty($options['keep_favourites'])) {
-				$sql .= ' AND e3.is_favorite = 0';
-			}
-			if (!empty($options['keep_unreads'])) {
-				$sql .= ' AND e3.is_read = 1';
-			}
-			if (!empty($options['keep_labels'])) {
-				$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = e3.id)';
-			}
-			$sql .= ' ORDER BY e3.`lastSeen` DESC LIMIT 1 OFFSET :countLimit), 0)';
-			$params[':countLimit'] = $options['retention_count_limit'];
+		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
+			$sql .= ' OR id <= COALESCE((SELECT e4.id FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
+			      . ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max), 0)';
+			$params[':id_feed4'] = $id_feed;
+			$params[':keep_max'] = (int)$options['keep_max'];
 		}
 		$sql .= ')';
 

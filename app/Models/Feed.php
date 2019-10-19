@@ -7,7 +7,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	const TTL_DEFAULT = 0;
 
-	const KEEP_HISTORY_DEFAULT = -2;	//TODO: Update for new mechanism
+	const KEEP_HISTORY_DEFAULT = -3;	//Legacy < FreshRSS 1.15
 
 	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	const ARCHIVING_RETENTION_PERIOD = 'P3M';
