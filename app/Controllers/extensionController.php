@@ -80,10 +80,10 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 */
 	public function configureAction() {
 		if (Minz_Request::param('ajax')) {
-			$this->view->_useLayout(false);
+			$this->view->_layout(false);
 		} else {
 			$this->indexAction();
-			$this->view->change_view('extension', 'index');
+			$this->view->_path('extension/index.phtml');
 		}
 
 		$ext_name = urldecode(Minz_Request::param('e'));

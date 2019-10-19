@@ -15,6 +15,9 @@ return array(
 		'version' => 'Version',
 		'website' => 'Site Internet',
 	),
+	'tos' => array(
+		'title' => 'Conditions Générales d’Utilisation',
+	),
 	'feed' => array(
 		'add' => 'Vous pouvez ajouter des flux.',
 		'empty' => 'Il n’y a aucun article à afficher.',

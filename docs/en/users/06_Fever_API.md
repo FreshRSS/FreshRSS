@@ -6,7 +6,7 @@ and general aspects of API access.
 ## RSS clients
 
 There are many RSS clients existing supporting Fever APIs but they seem to understand the Fever API a bit differently.
-If your favorite client does not work properly with this API, create an issue and we will have a look.
+If your favourite client does not work properly with this API, create an issue and we will have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
@@ -21,15 +21,15 @@ Then point your mobile application to the URL of `fever.php` (e.g. `https://fres
 Tested with:
 
 - Android
-  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)
+  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 
 - iOS
-  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
-  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-  - [Reeder 4](https://itunes.apple.com/app/reeder-4/id1449412357) when using self-hosted Fever option
+  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
+  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
+  - [Reeder](https://www.reederapp.com/) (Use its Google Reader API / native FreshRSS option when possible)
 
 - MacOS
-  - [ReadKit](https://itunes.apple.com/app/readkit/id588726889)
+  - [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 ## Features

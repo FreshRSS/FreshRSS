@@ -15,11 +15,11 @@ $white: #fff; // le blanc (des fois qu'on aurait envie de le teinter un peu)
 // on essaiera de teinter ces gris suivant la couleur principale
 $grey-darker: #524236;
 $grey-dark: #766556;
-$grey-medium-dark: #bbaa99; 
+$grey-medium-dark: #ba9;
 $grey-medium: #d9ccbf;
-$grey-medium-light: #e4d8cc; 
-$grey-light: #f5f0ec; 
-$grey-lighter: #fcfaf8; 
+$grey-medium-light: #e4d8cc;
+$grey-light: #f5f0ec;
+$grey-lighter: #fcfaf8;
 
 $unread-font-color: #161a38;
 $unread-bg: #f2f6f8;
@@ -39,8 +39,8 @@ $success-light: #cffdef;
 $success-text: #0c7556;
 
 // les favoris
-$fav-bg: #FFC300;
-$fav-light: #FFF6DA;
+$fav-bg: #ffc300;
+$fav-light: #fff6da;
 
 // la couleur de sidebar, utile si on a envie d'un thème qui aurait une sidebar foncé, e.g.
 $sid-font-color: #363330; // la couleur de fond de la barre de gauche et du header
@@ -49,5 +49,5 @@ $sid-bg-alt: #f7f2ea; // le background de l'intérieur des groupes
 $sid-bg-dark: #efe3d3; // les hovers
 $sid-sep: #f0e7da; // les séparateurs
 $sid-active: $main-first; // la couleur active
-$sid-active-font: #FFFFFF; // la couleur active
+$sid-active-font: #fff; // la couleur active
 $sid-pills: rgba(35,35,0, 0.15); // les gélules

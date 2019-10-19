@@ -429,7 +429,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			if ($needFeedCacheRefresh) {
-				$feedDAO->updateCachedValue($feed->id());
+				$feedDAO->updateCachedValues($feed->id());
 			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
@@ -530,7 +530,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param('notification', $notif);
 			// No layout in ajax request.
-			$this->view->_useLayout(false);
+			$this->view->_layout(false);
 		} else {
 			// Redirect to the main page with correct notification.
 			if ($updated_feeds === 1) {

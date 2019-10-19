@@ -15,6 +15,9 @@ return array(
 		'version' => 'Versión',
 		'website' => 'Web',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'Puedes añadir fuentes.',
 		'empty' => 'No hay artículos a mostrar.',

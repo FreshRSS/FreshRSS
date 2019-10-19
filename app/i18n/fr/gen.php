@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualiser',
+		'back' => '← Retour',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
 		'create' => 'Créer',
@@ -22,6 +23,7 @@ return array(
 		'update' => 'Mettre à jour',
 	),
 	'auth' => array(
+		'accept_tos' => 'Accepter les <a href="%s">Conditions Générales d’Utilisation</a>.',
 		'email' => 'Adresse courriel',
 		'keep_logged_in' => 'Rester connecté <small>(%s jours)</small>',
 		'login' => 'Connexion',
@@ -165,10 +167,10 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basés sur Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

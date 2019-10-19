@@ -5,13 +5,11 @@ require(LIB_PATH . '/favicons.php');
 require(LIB_PATH . '/http-conditional.php');
 
 function show_default_favicon($cacheSeconds = 3600) {
-	global $default_favicon;
-
 	header('Content-Disposition: inline; filename="default_favicon.ico"');
 
-	$default_mtime = @filemtime($default_favicon);
+	$default_mtime = @filemtime(DEFAULT_FAVICON);
 	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
-		readfile($default_favicon);
+		readfile(DEFAULT_FAVICON);
 	}
 }
 
@@ -20,8 +18,8 @@ if (!ctype_xdigit($id)) {
 	$id = '0';
 }
 
-$txt = $favicons_dir . $id . '.txt';
-$ico = $favicons_dir . $id . '.ico';
+$txt = FAVICONS_DIR . $id . '.txt';
+$ico = FAVICONS_DIR . $id . '.ico';
 
 $ico_mtime = @filemtime($ico);
 $txt_mtime = @filemtime($txt);

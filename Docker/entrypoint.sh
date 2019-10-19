@@ -6,6 +6,8 @@ chown -R :www-data .
 chmod -R g+r . && chmod -R g+w ./data/
 
 find /etc/php*/ -name php.ini -exec sed -r -i "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" {} \;
+find /etc/php*/ -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" {} \;
+find /etc/php*/ -name php.ini -exec sed -r -i "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
 if [ -n "$CRON_MIN" ]; then
 	(

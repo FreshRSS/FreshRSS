@@ -15,14 +15,13 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 		$sql = <<<SQL
 SELECT strftime('{$period}', e.date, 'unixepoch') AS period
 , COUNT(1) AS count
-FROM `{$this->prefix}entry` AS e
+FROM `_entry` AS e
 {$restrict}
 GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
 		$repartition = array();
