@@ -56,7 +56,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 	* iOS
-		* [Reeder-4](https://apps.apple.com/app/reeder-4/id1449412357) (Commercial)
+		* [Reeder](https://www.reederapp.com/) (Commercial)
 	* MacOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 	* Firefox
