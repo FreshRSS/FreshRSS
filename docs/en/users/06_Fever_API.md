@@ -26,7 +26,7 @@ Tested with:
 - iOS
   - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
   - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
-  - [Reeder](https://www.reederapp.com/) (Use its Google Reader API / native FreshRSS option when possible)
+  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)
 
 - MacOS
   - [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
