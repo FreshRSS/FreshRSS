@@ -2,7 +2,8 @@
 
 return array(
 	'archiving' => array(
-		'_' => 'Archivar',
+		'_' => 'Archius',
+		'advanced' => 'Avançat',
 		'delete_after' => 'Levar los articles aprèp',
 		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
@@ -18,7 +19,7 @@ return array(
 		'purge_now' => 'Purgar ara',
 		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
 		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
-		'title' => 'Archivar',
+		'title' => 'Archius',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 	),
 	'display' => array(

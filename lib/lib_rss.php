@@ -300,7 +300,11 @@ function invalidateHttpCache($username = '') {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_Session::param('currentUser', '_');
 	}
-	return touch(join_path(DATA_PATH, 'users', $username, 'log.txt'));
+	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
+	if (!$ok) {
+		//TODO: Display notification error on front-end
+	}
+	return $ok;
 }
 
 function listUsers() {

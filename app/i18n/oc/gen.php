@@ -23,7 +23,7 @@ return array(
 		'update' => 'Actualizar',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'Accepti las <a href="%s">condicions d’utilizacion</a>.',
 		'email' => 'Adreça de corrièl',
 		'keep_logged_in' => 'Demorar connectat <small>(%s jorns) </small>',
 		'login' => 'Connexion',

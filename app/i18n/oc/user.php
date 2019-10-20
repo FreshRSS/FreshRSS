@@ -24,7 +24,7 @@ return array(
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.', // TODO - Translation
+			'invalid' => 'Vos cal acceptar las condicions d’utilizacion per poder vos inscriure.',
 		),
 	),
 	'mailer' => array(
