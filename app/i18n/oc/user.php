@@ -24,7 +24,7 @@ return array(
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Vos cal acceptar las conditions d’utilizacion per poder vos inscriure.',
+			'invalid' => 'Vos cal acceptar las condicions d’utilizacion per poder vos inscriure.',
 		),
 	),
 	'mailer' => array(
