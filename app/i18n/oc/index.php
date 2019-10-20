@@ -16,7 +16,7 @@ return array(
 		'version' => 'Version',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'title' => 'Conditions d’utilizacion',
 	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',
