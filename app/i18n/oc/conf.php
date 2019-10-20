@@ -2,7 +2,7 @@
 
 return array(
 	'archiving' => array(
-		'_' => 'Archivar',
+		'_' => 'Archius',
 		'advanced' => 'Avançat',
 		'delete_after' => 'Levar los articles aprèp',
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
@@ -10,7 +10,7 @@ return array(
 		'optimize' => 'Optimizar la basa de donada',
 		'optimize_help' => 'De far de temps en temps per redusir la talha de la basa de donadas',
 		'purge_now' => 'Purgar ara',
-		'title' => 'Archivar',
+		'title' => 'Archius',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 	),
 	'display' => array(
