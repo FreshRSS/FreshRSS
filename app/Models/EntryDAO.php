@@ -26,9 +26,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->pdo->commit();
 		}
 		try {
-			require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
-			$ok = $this->pdo->exec(SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_INDEX_ENTRY_1) !== false;
+			$ok = $this->pdo->exec($SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_INDEX_ENTRY_1) !== false;
 		} catch (Exception $ex) {
 			Minz_Log::error(__method__ . ' error: ' . $ex->getMessage());
 		}

@@ -15,11 +15,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	const LENGTH_INDEX_UNICODE = 191;
 
 	public function create() {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 		$db = FreshRSS_Context::$system_conf->db;
 
 		try {
-			$sql = sprintf(SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
+			$sql = sprintf($SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
 			return $this->pdo->exec($sql) !== false;
 		} catch (PDOException $e) {
 			$_SESSION['bd_error'] = $e->getMessage();
@@ -164,11 +164,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public function ensureCaseInsensitiveGuids() {
 		$ok = true;
 		if ($this->pdo->dbType() === 'mysql') {
-			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
+			include(APP_PATH . '/SQL/install.sql.mysql.php');
 
 			$ok = false;
 			try {
-				$ok = $this->pdo->exec(SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
+				$ok = $this->pdo->exec($SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
 			} catch (Exception $e) {
 				$ok = false;
 				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
@@ -243,7 +243,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		Minz_ModelPdo::clean();
 		$userDAOSQLite = new FreshRSS_UserDAO('', $sqlite);
-		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', $sqlite);
+		$categoryDAOSQLite = new FreshRSS_CategoryDAOSQLite('', $sqlite);
 		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', $sqlite);
 		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', $sqlite);
 		$tagDAOSQLite = new FreshRSS_TagDAOSQLite('', $sqlite);

@@ -45,7 +45,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					attributes
 				)
 				VALUES
-				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);

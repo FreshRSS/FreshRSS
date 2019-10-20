@@ -6,7 +6,6 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	protected function addColumn($name) {
 		Minz_Log::warning(__method__ . ': ' . $name);
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 		try {
 			if ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
@@ -20,12 +19,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 						continue;
 					}
 					$keepHistory = $feed['keep_history'];
-					$attributes = empty($feed['attributes']) ? [] : json_decode($feed['attributes']);
+					$attributes = empty($feed['attributes']) ? [] : json_decode($feed['attributes'], true);
 					if ($attributes == null) {
 						$attributes = [];
 					}
 					if ($keepHistory > 0) {
-						$attributes['archiving']['keep_period'] = 'P' . intval($keepHistory) . 'M';
+						$attributes['archiving']['keep_min'] = intval($keepHistory);
 					} elseif ($keepHistory == -1) {	//Infinite
 						$attributes['archiving']['keep_period'] = false;
 						$attributes['archiving']['keep_max'] = false;
@@ -38,7 +37,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 					$stm->execute();
 				}
 
-				$this->pdo->exec('ALTER TABLE `_feed` DROP COLUMN keep_history');
+				if ($this->pdo->dbType() !== 'sqlite') {	//SQLite does not support DROP COLUMN
+					$this->pdo->exec('ALTER TABLE `_feed` DROP COLUMN keep_history');
+				} else {
+					$this->pdo->exec('DROP INDEX IF EXISTS feed_keep_history_index');	//SQLite at least drop index
+				}
 				return $ok;
 			}
 		} catch (Exception $e) {

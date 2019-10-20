@@ -1,9 +1,9 @@
 <?php
-const SQL_CREATE_DB = <<<'SQL'
+$SQL_CREATE_DB = <<<'SQL'
 CREATE DATABASE IF NOT EXISTS `%1$s` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SQL;
 
-const SQL_CREATE_TABLES = <<<'SQL'
+$SQL_CREATE_TABLES = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
@@ -64,11 +64,11 @@ ENGINE = INNODB;
 INSERT IGNORE INTO `_category` (id, name) VALUES(1, "Uncategorized");
 SQL;
 
-const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+$SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
 CREATE INDEX `entry_feed_read_index` ON `_entry` (`id_feed`,`is_read`);	-- v1.7
 SQL;
 
-const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
+$SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 ENGINE = INNODB;
 SQL;
 
-const SQL_CREATE_TABLE_TAGS = <<<'SQL'
+$SQL_CREATE_TABLE_TAGS = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(63) NOT NULL,
@@ -112,16 +112,16 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (	-- v1.12
 ENGINE = INNODB;
 SQL;
 
-const SQL_INSERT_FEED = <<<'SQL'
+$SQL_INSERT_FEED = <<<'SQL'
 INSERT IGNORE INTO `_feed` (url, category, name, website, description, ttl)
 	VALUES(:url, 1, :name, :website, :description, 86400);
 SQL;
 
-const SQL_DROP_TABLES = <<<'SQL'
+$SQL_DROP_TABLES = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;
 
-const SQL_UPDATE_GUID_LATIN1_BIN = <<<'SQL'
+$SQL_UPDATE_GUID_LATIN1_BIN = <<<'SQL'
 ALTER TABLE `_entrytmp` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;	-- v1.12
 ALTER TABLE `_entry` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
 SQL;

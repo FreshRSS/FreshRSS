@@ -1,9 +1,9 @@
 <?php
-const SQL_CREATE_DB = <<<'SQL'
+$SQL_CREATE_DB = <<<'SQL'
 SELECT 1;	-- Do nothing for SQLite
 SQL;
 
-const SQL_CREATE_TABLES = <<<'SQL'
+$SQL_CREATE_TABLES = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
@@ -59,11 +59,11 @@ CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`)
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
 SQL;
 
-const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+$SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
 CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 SQL;
 
-const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
+$SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
 SQL;
 
-const SQL_CREATE_TABLE_TAGS = <<<'SQL'
+$SQL_CREATE_TABLE_TAGS = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(63) NOT NULL,
@@ -102,12 +102,12 @@ CREATE TABLE IF NOT EXISTS `entrytag` (
 CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
 SQL;
 
-const SQL_INSERT_FEED = <<<'SQL'
+$SQL_INSERT_FEED = <<<'SQL'
 INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
 	VALUES(:url, 1, :name, :website, :description, 86400);
 SQL;
 
-const SQL_DROP_TABLES = <<<'SQL'
+$SQL_DROP_TABLES = <<<'SQL'
 DROP TABLE IF EXISTS `entrytag`;
 DROP TABLE IF EXISTS `tag`;
 DROP TABLE IF EXISTS `entrytmp`;
