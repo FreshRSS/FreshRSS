@@ -10,7 +10,35 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		try {
 			if ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
-				$this->pdo->exec(SQL_DROP_INDEX_KEEP_HISTORY);
+
+				$stm = $this->pdo->query('SELECT * FROM `_feed`');
+				$feeds = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+				$stm = $this->pdo->prepare('UPDATE `_feed` SET attributes = :attributes WHERE id = :id');
+				foreach ($feeds as $feed) {
+					if (empty($feed['keep_history']) || empty($feed['id'])) {
+						continue;
+					}
+					$keepHistory = $feed['keep_history'];
+					$attributes = empty($feed['attributes']) ? [] : json_decode($feed['attributes']);
+					if ($attributes == null) {
+						$attributes = [];
+					}
+					if ($keepHistory > 0) {
+						$attributes['archiving']['keep_period'] = 'P' . intval($keepHistory) . 'M';
+					} elseif ($keepHistory == -1) {	//Infinite
+						$attributes['archiving']['keep_period'] = false;
+						$attributes['archiving']['keep_max'] = false;
+						$attributes['archiving']['keep_min'] = false;
+					} else {
+						continue;
+					}
+					$stm->bindValue(':id', $feed['id'], PDO::PARAM_INT);
+					$stm->bindValue(':attributes', json_encode($attributes));
+					$stm->execute();
+				}
+
+				$this->pdo->exec('ALTER TABLE `_feed` DROP COLUMN keep_history');
 				return $ok;
 			}
 		} catch (Exception $e) {
@@ -118,10 +146,19 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function selectAll() {
-		$sql = 'SELECT id, name FROM `_category`';
+		$sql = 'SELECT id, name, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
-		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			yield $row;
+		if ($stm != false) {
+			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				yield $row;
+			}
+		} else {
+			$info = $this->pdo->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->selectAll();
+			}
+			Minz_Log::error('SQL error addCategory: ' . json_encode($info));
+			return false;
 		}
 	}
 

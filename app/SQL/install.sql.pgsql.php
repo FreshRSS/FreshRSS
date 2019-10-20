@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"pathEntries" VARCHAR(511) DEFAULT NULL,
 	"httpAuth" VARCHAR(511) DEFAULT NULL,
 	"error" SMALLINT DEFAULT 0,
-	"keep_history" INT NOT NULL DEFAULT -2,
 	"ttl" INT NOT NULL DEFAULT 0,
 	"attributes" TEXT,	-- v1.11.0
 	"cache_nbEntries" INT DEFAULT 0,
@@ -109,8 +108,4 @@ SQL;
 
 const SQL_DROP_TABLES = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
-SQL;
-
-const SQL_DROP_INDEX_KEEP_HISTORY = <<<'SQL'
-DROP INDEX IF EXISTS `_keep_history_index`;	--v1.15
 SQL;

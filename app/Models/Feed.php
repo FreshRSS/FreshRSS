@@ -7,8 +7,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 	const TTL_DEFAULT = 0;
 
-	const KEEP_HISTORY_DEFAULT = -3;	//Legacy < FreshRSS 1.15
-
 	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
@@ -26,7 +24,6 @@ class FreshRSS_Feed extends Minz_Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
 	private $attributes = [];
 	private $mute = false;
@@ -111,9 +108,6 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function inError() {
 		return $this->error;
-	}
-	public function keepHistory() {
-		return $this->keep_history;
 	}
 	public function ttl() {
 		return $this->ttl;
@@ -231,12 +225,6 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _error($value) {
 		$this->error = (bool)$value;
-	}
-	public function _keepHistory($value) {
-		$value = intval($value);
-		$value = min($value, 1000000);
-		$value = max($value, self::KEEP_HISTORY_DEFAULT);
-		$this->keep_history = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);

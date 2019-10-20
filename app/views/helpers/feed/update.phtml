@@ -117,12 +117,6 @@
 					$volatile['keep_period_unit'] = str_replace($matches['count'], '1', $archiving['keep_period']);
 				}
 			}
-			//Legacy
-			if ($this->feed->keepHistory() == -1) {	//Infinite
-				$archiving['keep_period'] = false;
-				$archiving['keep_max'] = false;
-				$archiving['keep_min'] = false;
-			}
 			//Defaults
 			if (!isset($archiving['keep_max'])) {
 				$archiving['keep_max'] = false;

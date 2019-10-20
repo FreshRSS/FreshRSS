@@ -158,7 +158,6 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				'pathEntries' => Minz_Request::param('path_entries', ''),
 				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
-				'keep_history' => FreshRSS_Feed::KEEP_HISTORY_DEFAULT,	//Legacy < FreshRSS 1.15
 				'ttl' => $ttl * ($mute ? -1 : 1),
 				'attributes' => $feed->attributes(),
 			);

@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
-	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,
 	`ttl` INT NOT NULL DEFAULT 0,
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,
@@ -115,8 +114,4 @@ DROP TABLE IF EXISTS `entrytmp`;
 DROP TABLE IF EXISTS `entry`;
 DROP TABLE IF EXISTS `feed`;
 DROP TABLE IF EXISTS `category`;
-SQL;
-
-const SQL_DROP_INDEX_KEEP_HISTORY = <<<'SQL'
-DROP INDEX IF EXISTS feed_keep_history_index;	--v1.15
 SQL;
