@@ -16,7 +16,7 @@ return array(
 		'version' => 'Version',
 	),
 	'tos' => array(
-		'title' => 'Conditions d’utilizacion',
+		'title' => 'Condicions d’utilizacion',
 	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',
