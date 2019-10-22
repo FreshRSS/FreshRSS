@@ -11,7 +11,7 @@ But we can **only** do that for free clients.
 
 ### Usage & Authentication
 
-Before you can start to use this API, you have to enable and setup API access, which is [documented here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html),
+Before you can start to use this API, you have to enable and setup API access, which is [documented here](06_Mobile_access.md),
 and then re-set the user’s API password.
 
 Then point your mobile application to the URL of `fever.php` (e.g. `https://freshrss.example.net/api/fever.php`).

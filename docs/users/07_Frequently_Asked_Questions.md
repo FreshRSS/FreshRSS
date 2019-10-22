@@ -13,7 +13,7 @@ Of course, ```/i``` has a purpose! We used it for performance and usability:
 
 To increase security, FreshRSS is hosted in two sections. The first section is public (```./p``` folder) and the second section is private (everything else). Therefore the ```robots.txt``` file is located in ```./p``` sub-folder.
 
-As explained in the [security section](/en/User_documentation/Installation/Security), it is highly recommended to make only the public section available at the domain level. With that configuration, ```./p``` is the root folder for http://demo.freshrss.org/, thus making ```robots.txt``` available at the root of the application.
+As explained in the [administration section](../admins/03_Installation.md), it is highly recommended to make only the public section available at the domain level. With that configuration, ```./p``` is the root folder for http://demo.freshrss.org/, thus making ```robots.txt``` available at the root of the application.
 
 The same rule applies for ```favicon.ico``` and ```.htaccess```.
 

@@ -30,11 +30,11 @@ FreshRSS comes with absolutely no warranty.
 
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
-# [Documentation](https://freshrss.github.io/FreshRSS/en/)
-* [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html), where you can discover all the possibilities offered by FreshRSS
-* [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
-* [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
-* [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.md) for those who want to help improve FreshRSS
+# [Documentation](https://freshrss.github.io/FreshRSS/)
+* [User documentation](https://freshrss.github.io/FreshRSS/users/02_First_steps.html), where you can discover all the possibilities offered by FreshRSS
+* [Administrator documentation](https://freshrss.github.io/FreshRSS/admins/01_Index.html) for detailed installation and maintenance related tasks
+* [Developer documentation](https://freshrss.github.io/FreshRSS/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
+* [Contributor guidelines](https://freshrss.github.io/FreshRSS/contributing.md) for those who want to help improve FreshRSS
 
 # Requirements
 * A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
@@ -56,7 +56,7 @@ See the [list of releases](../../releases).
 * Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the newest features, or help testing or developing the next stable version.
 
 
-# [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
+# [Installation](https://freshrss.github.io/FreshRSS/admins/02_Installation.html)
 
 ## Automated install
 * [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
@@ -73,7 +73,7 @@ See the [list of releases](../../releases).
 6. Advanced configuration settings can be found in [config.default.php](config.default.php) and modified in `data/config.php`.
 7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
-More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
+More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/admins/02_Installation.html).
 
 ## Advice
 * For better security, expose only the `./p/` folder to the Web.
@@ -99,7 +99,7 @@ FreshRSS supports access from native apps for Linux, Android, iOS, and OS X, via
 
 ## Google Reader-like API
 
-There is more information available about our Google Reader compatible API on the page [mobile access](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html).
+There is more information available about our Google Reader compatible API on the page [mobile access](https://freshrss.github.io/FreshRSS/users/06_Mobile_access.html).
 
 Supported clients are:
 
@@ -116,7 +116,7 @@ Supported clients are:
 
 ## Fever API
 
-See our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) page.
+See our [Fever API documentation](https://freshrss.github.io/FreshRSS/users/06_Fever_API.html) page.
 
 Supported clients are:
 
