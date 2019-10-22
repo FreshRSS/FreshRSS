@@ -1,5 +1,5 @@
-<?php echo _t('user.mailer.email_need_validation.welcome', $this->username); ?>
+<?= _t('user.mailer.email_need_validation.welcome', $this->username) ?>
 
-<?php echo _t('user.mailer.email_need_validation.body', $this->site_title); ?>
+<?= _t('user.mailer.email_need_validation.body', $this->site_title) ?>
 
-<?php echo $this->validation_url; ?>
+<?= $this->validation_url ?>

@@ -5,16 +5,16 @@
 ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<form method="post" action="<?php echo _url('user', 'profile'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('conf.profile'); ?></legend>
+	<form method="post" action="<?= _url('user', 'profile') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('conf.profile') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="current_user"><?php echo _t('conf.user.current'); ?></label>
+			<label class="group-name" for="current_user"><?= _t('conf.user.current') ?></label>
 			<div class="group-controls">
-				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Session::param('currentUser', '_'); ?>" />
+				<input id="current_user" type="text" disabled="disabled" value="<?= Minz_Session::param('currentUser', '_') ?>" />
 			</div>
 		</div>
 
@@ -23,78 +23,78 @@
 				<div class="group-controls">
 					<label class="checkbox" for="is_admin">
 						<input type="checkbox" id="is_admin" disabled checked />
-						<?php echo _t('conf.user.is_admin'); ?>
+						<?= _t('conf.user.is_admin') ?>
 					</label>
 				</div>
 			</div>
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name" for="email"><?php echo _t('conf.profile.email'); ?></label>
+			<label class="group-name" for="email"><?= _t('conf.profile.email') ?></label>
 			<div class="group-controls">
-				<input id="email" name="email" type="email" value="<?php echo FreshRSS_Context::$user_conf->mail_login; ?>" />
+				<input id="email" name="email" type="email" value="<?= FreshRSS_Context::$user_conf->mail_login ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="newPasswordPlain"><?php echo _t('conf.profile.password_form'); ?></label>
+			<label class="group-name" for="newPasswordPlain"><?= _t('conf.profile.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?php echo _i('key'); ?></a>
+					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></a>
 				</div>
-				<?php echo _i('help'); ?> <?php echo _t('conf.profile.password_format'); ?>
-				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+				<?= _i('help') ?> <?= _t('conf.profile.password_format') ?>
+				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 
 		<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
 		<div class="form-group">
-			<label class="group-name" for="apiPasswordPlain"><?php echo _t('conf.profile.password_api'); ?></label>
+			<label class="group-name" for="apiPasswordPlain"><?= _t('conf.profile.password_api') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?php echo _i('key'); ?></a>
+					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?= _i('key') ?></a>
 				</div>
-				<?php echo _i('help'); ?> <kbd><a href="../api/"><?php echo Minz_Url::display('/api/', 'html', true); ?></a></kbd>
+				<?= _i('help') ?> <kbd><a href="../api/"><?= Minz_Url::display('/api/', 'html', true) ?></a></kbd>
 			</div>
 		</div>
 		<?php } ?>
 
 		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
 		<div class="form-group">
-			<label class="group-name" for="token"><?php echo _t('admin.auth.token'); ?></label>
+			<label class="group-name" for="token"><?= _t('admin.auth.token') ?></label>
 			<?php $token = FreshRSS_Context::$user_conf->token; ?>
 			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?php echo $token; ?>" placeholder="<?php echo _t('gen.short.blank_to_disable'); ?>"<?php
-					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo $token; ?>"/>
-				<?php echo _i('help'); ?> <?php echo _t('admin.auth.token_help'); ?>
-				<kbd><?php echo Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_Session::param('currentUser'), 'token' => $token, 'hours' => FreshRSS_Context::$user_conf->since_hours_posts_per_rss)), 'html', true); ?></kbd>
+				<input type="text" id="token" name="token" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>"<?php
+					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?= $token ?>"/>
+				<?= _i('help') ?> <?= _t('admin.auth.token_help') ?>
+				<kbd><?= Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_Session::param('currentUser'), 'token' => $token, 'hours' => FreshRSS_Context::$user_conf->since_hours_posts_per_rss)), 'html', true) ?></kbd>
 			</div>
 		</div>
 		<?php } ?>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>
 
 	<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
-	<form id="crypto-form" method="post" action="<?php echo _url('user', 'delete'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('conf.profile.delete'); ?></legend>
+	<form id="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('conf.profile.delete') ?></legend>
 
-		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('conf.profile.delete.warn'); ?></p>
+		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('conf.profile.delete.warn') ?></p>
 
 		<div class="form-group">
-			<label class="group-name" for="passwordPlain"><?php echo _t('gen.auth.password'); ?></label>
+			<label class="group-name" for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="group-controls">
 					<input type="password" id="passwordPlain" required="required" />
 					<input type="hidden" id="challenge" name="challenge" /><br />
-					<noscript><strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
+					<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 			</div>
 		</div>
 
@@ -106,9 +106,9 @@
 						'php', true
 					));
 				?>
-				<input type="hidden" name="r" value="<?php echo $redirect_url; ?>" />
-				<input type="hidden" name="username" id="username" value="<?php echo Minz_Session::param('currentUser', '_'); ?>" />
-				<button type="submit" class="btn btn-attention confirm"><?php echo _t('gen.action.remove'); ?></button>
+				<input type="hidden" name="r" value="<?= $redirect_url ?>" />
+				<input type="hidden" name="username" id="username" value="<?= Minz_Session::param('currentUser', '_') ?>" />
+				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>
 	</form>

@@ -1,33 +1,33 @@
 <div class="prompt">
-	<h1><?php echo _t('gen.auth.login'); ?></h1>
+	<h1><?= _t('gen.auth.login') ?></h1>
 
 	<?php if (!max_registrations_reached()) { ?>
-		<a href="<?php echo _url('auth', 'register'); ?>"><?php echo _t('gen.auth.registration.ask'); ?></a>
+		<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
 	<?php } ?>
 
-	<form id="crypto-form" method="post" action="<?php echo _url('auth', 'login'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div>
-			<label for="username"><?php echo _t('gen.auth.username'); ?></label>
-			<input type="text" id="username" name="username" autocomplete="username" size="16" required="required" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" autofocus="autofocus" />
+			<label for="username"><?= _t('gen.auth.username') ?></label>
+			<input type="text" id="username" name="username" autocomplete="username" size="16" required="required" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autofocus="autofocus" />
 		</div>
 		<div>
-			<label for="passwordPlain"><?php echo _t('gen.auth.password'); ?></label>
+			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 				<input type="password" id="passwordPlain" required="required" />
 				<input type="hidden" id="challenge" name="challenge" /><br />
-				<noscript><strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
+				<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 		</div>
 		<div>
 			<label class="checkbox" for="keep_logged_in">
 				<input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
-				<?php echo _t('gen.auth.keep_logged_in', $this->cookie_days); ?>
+				<?= _t('gen.auth.keep_logged_in', $this->cookie_days) ?>
 			</label>
 			<br />
 		</div>
 		<div>
-			<button id="loginButton" type="submit" class="btn btn-important"><?php echo _t('gen.auth.login'); ?></button>
+			<button id="loginButton" type="submit" class="btn btn-important"><?= _t('gen.auth.login') ?></button>
 		</div>
 	</form>
 
-	<p><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('gen.freshrss.about'); ?></a></p>
+	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
 </div>

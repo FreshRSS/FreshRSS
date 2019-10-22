@@ -1,77 +1,77 @@
 <?php $this->partial('aside_subscription'); ?>
 
 <div class="post drop-section">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h2><?php echo _t('sub.title'); ?></h2>
+	<h2><?= _t('sub.title') ?></h2>
 
-	<form id="add_rss" method="post" action="<?php echo _url('feed', 'add'); ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="stick">
-			<input type="url" name="url_rss" class="long" placeholder="<?php echo _t('sub.feed.add'); ?>" />
+			<input type="url" name="url_rss" class="long" placeholder="<?= _t('sub.feed.add') ?>" />
 			<div class="dropdown">
 				<div id="dropdown-cat" class="dropdown-target"></div>
 
-				<a class="dropdown-toggle btn" href="#dropdown-cat"><?php echo _i('down'); ?></a>
+				<a class="dropdown-toggle btn" href="#dropdown-cat"><?= _i('down') ?></a>
 				<ul class="dropdown-menu">
 					<li class="dropdown-close"><a href="#close">❌</a></li>
 
-					<li class="dropdown-header"><?php echo _t('sub.category'); ?></li>
+					<li class="dropdown-header"><?= _t('sub.category') ?></li>
 
 					<li class="input">
 						<select name="category" id="category">
 						<?php foreach ($this->categories as $cat) { ?>
-						<option value="<?php echo $cat->id(); ?>"<?php echo $cat->id() == 1 ? ' selected="selected"' : ''; ?>>
-							<?php echo $cat->name(); ?>
+						<option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
+							<?= $cat->name() ?>
 						</option>
 						<?php } ?>
-						<option value="nc"><?php echo _t('sub.category.new'); ?></option>
+						<option value="nc"><?= _t('sub.category.new') ?></option>
 						</select>
 					</li>
 
 					<li class="input" aria-hidden="true">
-						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo _t('sub.category.new'); ?>" />
+						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?= _t('sub.category.new') ?>" />
 					</li>
 
 					<li class="separator"></li>
 
-					<li class="dropdown-header"><?php echo _t('sub.feed.auth.http'); ?></li>
+					<li class="dropdown-header"><?= _t('sub.feed.auth.http') ?></li>
 					<li class="input">
-						<input type="text" name="http_user" id="http_user_feed" value=" " autocomplete="off" placeholder="<?php echo _t('sub.feed.auth.username'); ?>" />
+						<input type="text" name="http_user" id="http_user_feed" value=" " autocomplete="off" placeholder="<?= _t('sub.feed.auth.username') ?>" />
 					</li>
 					<li class="input">
-						<input type="password" name="http_pass" id="http_pass_feed" autocomplete="new-password" placeholder="<?php echo _t('sub.feed.auth.password'); ?>" />
+						<input type="password" name="http_pass" id="http_pass_feed" autocomplete="new-password" placeholder="<?= _t('sub.feed.auth.password') ?>" />
 					</li>
 				</ul>
 			</div>
-			<button class="btn" type="submit"><?php echo _i('add'); ?></button>
+			<button class="btn" type="submit"><?= _i('add') ?></button>
 		</div>
 	</form>
 
 	<p class="alert alert-warn">
-		<?php echo _t('sub.feed.moved_category_deleted', $this->default_category->name()); ?>
+		<?= _t('sub.feed.moved_category_deleted', $this->default_category->name()) ?>
 	</p>
 
 	<?php if ($this->onlyFeedsWithError): ?>
 	<p class="alert alert-warn">
-		<?php echo _t('sub.feed.showing.error'); ?>
+		<?= _t('sub.feed.showing.error') ?>
 	</p>
 	<?php endif; ?>
 
 	<div class="box">
-		<div class="box-title"><label for="new-category"><?php echo _t('sub.category.add'); ?></label></div>
+		<div class="box-title"><label for="new-category"><?= _t('sub.category.add') ?></label></div>
 
 		<ul class="box-content box-content-centered">
-			<form action="<?php echo _url('category', 'create'); ?>" method="post">
-				<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-				<li class="item"><input type="text" id="new-category" name="new-category" placeholder="<?php echo _t('sub.category.new'); ?>" /></li>
-				<li class="item"><button class="btn btn-important" type="submit"><?php echo _t('gen.action.submit'); ?></button></li>
+			<form action="<?= _url('category', 'create') ?>" method="post">
+				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<li class="item"><input type="text" id="new-category" name="new-category" placeholder="<?= _t('sub.category.new') ?>" /></li>
+				<li class="item"><button class="btn btn-important" type="submit"><?= _t('gen.action.submit') ?></button></li>
 			</form>
 		</ul>
 	</div>
 
 	<form id="controller-category" method="post" aria-hidden="true">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	</form>
 
 	<?php
@@ -80,10 +80,10 @@
 	?>
 	<div class="box">
 		<div class="box-title">
-			<a class="configure open-slider" href="<?php echo _url('subscription', 'category', 'id', $cat->id()); ?>"><?php echo _i('configure'); ?></a>
-			<?php echo $cat->name(); ?>
+			<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
+			<?= $cat->name() ?>
 		</div>
-		<ul class="box-content" data-cat-id="<?php echo $cat->id(); ?>">
+		<ul class="box-content" data-cat-id="<?= $cat->id() ?>">
 			<?php if (!empty($feeds)) { ?>
 			<?php
 					foreach ($feeds as $feed) {
@@ -93,17 +93,17 @@
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
-			<li class="item feed<?php echo $error, $empty, $feed->mute() ? ' mute': ''; ?>"
+			<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute': '' ?>"
 			    draggable="true"
-			    data-feed-id="<?php echo $feed->id(); ?>"
+			    data-feed-id="<?= $feed->id() ?>"
 			    dropzone="move">
-				<a class="configure open-slider" href="<?php echo _url('subscription', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
-				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?>
+				<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
+				<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /> <?= $feed->name() ?>
 			</li>
 			<?php 	}
 				} else {
 			?>
-			<li class="item disabled" dropzone="move"><?php echo _t('sub.category.empty'); ?></li>
+			<li class="item disabled" dropzone="move"><?= _t('sub.category.empty') ?></li>
 			<?php } ?>
 		</ul>
 	</div>
@@ -111,16 +111,16 @@
 
 	<ul>
 		<?php if ($this->onlyFeedsWithError): ?>
-		<li><a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('sub.feed.show.all'); ?></a></li>
+		<li><a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.feed.show.all') ?></a></li>
 		<?php else: ?>
-		<li><a href="<?php echo _url('subscription', 'index', 'error', 1); ?>"><?php echo _t('sub.feed.show.error'); ?></a></li>
+		<li><a href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _t('sub.feed.show.error') ?></a></li>
 		<?php endif; ?>
 	</ul>
 </div>
 
 <?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?php echo $class; ?>></a>
-<div id="slider"<?php echo $class; ?>>
+<a href="#" id="close-slider"<?= $class ?>></a>
+<div id="slider"<?= $class ?>>
 <?php
 	if (isset($this->feed)) {
 		$this->renderHelper('feed/update');

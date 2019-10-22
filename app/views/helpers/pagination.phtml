@@ -18,26 +18,26 @@
 ?>
 
 <form id="mark-read-pagination" method="post">
-<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 <ul class="pagination">
 	<li class="item pager-next">
 	<?php if (FreshRSS_Context::$next_id) { ?>
-		<a id="load_more" href="<?php echo Minz_Url::display($url_next); ?>">
-			<?php echo _t('gen.pagination.load_more'); ?>
+		<a id="load_more" href="<?= Minz_Url::display($url_next) ?>">
+			<?= _t('gen.pagination.load_more') ?>
 		</a>
 	<?php } elseif ($url_mark_read) { ?>
 		<button id="bigMarkAsRead"
-		        class="as-link <?php echo FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>"
+		        class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
 		        form="mark-read-pagination"
-		        formaction="<?php echo Minz_Url::display($url_mark_read); ?>"
+		        formaction="<?= Minz_Url::display($url_mark_read) ?>"
 		        type="submit">
-			<?php echo _t('gen.pagination.nothing_to_load'); ?><br />
+			<?= _t('gen.pagination.nothing_to_load') ?><br />
 			<span class="bigTick">✓</span><br />
-			<?php echo _t('gen.pagination.mark_all_read'); ?>
+			<?= _t('gen.pagination.mark_all_read') ?>
 		</button>
 	<?php } else { ?>
 		<a id="bigMarkAsRead" href=".">
-			<?php echo _t('gen.pagination.nothing_to_load'); ?><br />
+			<?= _t('gen.pagination.nothing_to_load') ?><br />
 		</a>
 	<?php } ?>
 	</li>

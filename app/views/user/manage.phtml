@@ -1,35 +1,35 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<form method="post" action="<?php echo _url('user', 'create'); ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('admin.user.create'); ?></legend>
+	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('admin.user.create') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="new_user_language"><?php echo _t('admin.user.language'); ?></label>
+			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
 			<div class="group-controls">
 				<select name="new_user_language" id="new_user_language">
 				<?php $languages = Minz_Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $lang) { ?>
-				<option value="<?php echo $lang; ?>"<?php echo FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : ''; ?>><?php echo _t('gen.lang.' . $lang); ?></option>
+				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="new_user_name"><?php echo _t('admin.user.username'); ?></label>
+			<label class="group-name" for="new_user_name"><?= _t('admin.user.username') ?></label>
 			<div class="group-controls">
-				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" placeholder="demo" />
+				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" placeholder="demo" />
 			</div>
 		</div>
 
 		<?php if ($this->show_email_field) { ?>
 			<div class="form-group">
 				<label class="group-name" for="new_user_email">
-					<?php echo _t('gen.auth.email'); ?>
+					<?= _t('gen.auth.email') ?>
 				</label>
 				<div class="group-controls">
 					<input id="new_user_email" name="new_user_email" type="email" required />
@@ -38,72 +38,72 @@
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('admin.user.password_form'); ?></label>
+			<label class="group-name" for="new_user_passwordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
-					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?php echo _i('key'); ?></a>
+					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></a>
 				</div>
-				<?php echo _i('help'); ?> <?php echo _t('admin.user.password_format'); ?>
-				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+				<?= _i('help') ?> <?= _t('admin.user.password_format') ?>
+				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.create'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.create') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>
 
-	<form method="post" action="<?php echo _url('user', 'update'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('admin.user.update_users'); ?></legend>
+	<form method="post" action="<?= _url('user', 'update') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('admin.user.update_users') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="current_user"><?php echo _t('admin.user.selected'); ?></label>
+			<label class="group-name" for="current_user"><?= _t('admin.user.selected') ?></label>
 			<div class="group-controls">
 				<select id="current_user" name="username">
 					<option selected="selected"> </option>
 					<?php foreach (listUsers() as $username) { ?>
-					<option value="<?php echo $username; ?>"><?php echo $username; ?></option>
+					<option value="<?= $username ?>"><?= $username ?></option>
 					<?php } ?>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="newPasswordPlain"><?php echo _t('admin.user.password_form'); ?></label>
+			<label class="group-name" for="newPasswordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?php echo _i('key'); ?></a>
+					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></a>
 				</div>
-				<?php echo _i('help'); ?> <?php echo _t('conf.profile.password_format'); ?>
-				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+				<?= _i('help') ?> <?= _t('conf.profile.password_format') ?>
+				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.update'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.update') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>
 
-	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('admin.user.delete_users'); ?></legend>
+	<form method="post" action="<?= _url('user', 'delete') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('admin.user.delete_users') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="user-list"><?php echo _t('admin.user.selected'); ?></label>
+			<label class="group-name" for="user-list"><?= _t('admin.user.selected') ?></label>
 			<div class="group-controls">
 				<select id="user-list" class="select-change" name="username">
 					<option selected="selected"> </option>
 					<?php foreach (listUsers() as $username) { ?>
-					<option data-url="<?php echo _url('user', 'manage', 'u', $username); ?>" <?php echo $this->current_user === $username ? 'selected="selected"' : ''; ?> value="<?php echo $username; ?>"><?php echo $username; ?></option>
+					<option data-url="<?= _url('user', 'manage', 'u', $username) ?>" <?= $this->current_user === $username ? 'selected="selected"' : '' ?> value="<?= $username ?>"><?= $username ?></option>
 					<?php } ?>
 				</select>
 
@@ -115,7 +115,7 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-attention confirm"><?php echo _t('gen.action.remove'); ?></button>
+				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>
 	</form>

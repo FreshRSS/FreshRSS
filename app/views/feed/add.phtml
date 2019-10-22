@@ -1,90 +1,90 @@
 <?php if ($this->feed) { ?>
 <div class="post">
-	<h1><?php echo _t('sub.feed.add'); ?></h1>
+	<h1><?= _t('sub.feed.add') ?></h1>
 
 	<?php if (!$this->load_ok) { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('feedback.sub.feed.internal_problem', _url('index', 'logs')); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('feedback.sub.feed.internal_problem', _url('index', 'logs')) ?></p>
 	<?php } ?>
 
-	<form method="post" action="<?php echo _url('feed', 'add'); ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('sub.feed.information'); ?></legend>
+	<form method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('sub.feed.information') ?></legend>
 		<?php if ($this->load_ok) { ?>
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('sub.feed.title'); ?></label>
+			<label class="group-name"><?= _t('sub.feed.title') ?></label>
 			<div class="group-controls">
-				<label><?php echo $this->feed->name() ; ?></label>
+				<label><?= $this->feed->name()  ?></label>
 			</div>
 		</div>
 
 		<?php $desc = $this->feed->description(); if ($desc != '') { ?>
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('sub.feed.description'); ?></label>
+			<label class="group-name"><?= _t('sub.feed.description') ?></label>
 			<div class="group-controls">
-				<label><?php echo htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8'); ?></label>
+				<label><?= htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8') ?></label>
 			</div>
 		</div>
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('sub.feed.website'); ?></label>
+			<label class="group-name"><?= _t('sub.feed.website') ?></label>
 			<div class="group-controls">
-				<?php echo $this->feed->website(); ?>
-				<a class="btn" target="_blank" rel="noreferrer" href="<?php echo $this->feed->website(); ?>"><?php echo _i('link'); ?></a>
+				<?= $this->feed->website() ?>
+				<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
 			</div>
 		</div>
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name" for="url"><?php echo _t('sub.feed.url'); ?></label>
+			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url_rss" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
+					<input type="text" name="url_rss" id="url" class="extend" value="<?= $this->feed->url() ?>" />
+					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
 				</div>
-				<a class="btn" target="_blank" rel="noreferrer" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo _t('sub.feed.validator'); ?></a>
+				<a class="btn" target="_blank" rel="noreferrer" href="http://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="category"><?php echo _t('sub.category'); ?></label>
+			<label class="group-name" for="category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
 				<select name="category" id="category">
 					<?php foreach ($this->categories as $cat) { ?>
-					<option value="<?php echo $cat->id(); ?>"<?php echo $cat->id() == 1 ? ' selected="selected"' : ''; ?>>
-						<?php echo $cat->name(); ?>
+					<option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
+						<?= $cat->name() ?>
 					</option>
 					<?php } ?>
-					<option value="nc"><?php echo _t('sub.category.new'); ?></option>
+					<option value="nc"><?= _t('sub.category.new') ?></option>
 				</select>
 
 				<span aria-hidden="true">
-					<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo _t('sub.category.new'); ?>" />
+					<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?= _t('sub.category.new') ?>" />
 				</span>
 			</div>
 		</div>
 
-		<legend><?php echo _t('sub.feed.auth.http'); ?></legend>
+		<legend><?= _t('sub.feed.auth.http') ?></legend>
 		<?php $auth = $this->feed->httpAuth(false); ?>
 		<div class="form-group">
-			<label class="group-name" for="http_user"><?php echo _t('sub.feed.auth.username'); ?></label>
+			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" class="extend" value="<?php echo empty($auth['username']) ? ' ' : $auth['username']; ?>" autocomplete="off" />
+				<input type="text" name="http_user" id="http_user" class="extend" value="<?= empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
 			</div>
 
-			<label class="group-name" for="http_pass"><?php echo _t('sub.feed.auth.password'); ?></label>
+			<label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass" id="http_pass" class="extend" value="<?php echo $auth['password']; ?>" autocomplete="new-password" />
+				<input type="password" name="http_pass" id="http_pass" class="extend" value="<?= $auth['password'] ?>" autocomplete="new-password" />
 			</div>
 
 			<div class="group-controls">
-				<?php echo _i('help'); ?> <?php echo _t('sub.feed.auth.help'); ?>
+				<?= _i('help') ?> <?= _t('sub.feed.auth.help') ?>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>
