@@ -161,9 +161,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		} else {
 			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->selectAll();
+				foreach ($this->selectAll() as $category) {	// `yield from` requires PHP 7+
+					yield $category;
+				}
 			}
-			Minz_Log::error('SQL error addCategory: ' . json_encode($info));
+			Minz_Log::error(__method__ . ' error: ' . json_encode($info));
 			return false;
 		}
 	}
