@@ -462,7 +462,8 @@ class FreshRSS_Feed extends Minz_Model {
 	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
 		$archiving = $this->attributes('archiving');
 		if ($archiving == null) {
-			$category = $categoryDAO->searchById($this->category());
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$category = $catDAO->searchById($this->category());
 			$archiving = $category == null ? null : $category->attributes('archiving');
 			if ($archiving == null) {
 				$archiving = FreshRSS_Context::$user_conf->archiving;
@@ -473,7 +474,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$nb = $entryDAO->cleanOldEntries($this->id(), $archiving);
 			if ($nb > 0) {
 				$needFeedCacheRefresh = true;
-				Minz_Log::debug($nb . ' old entries cleaned in feed [' . $this->url(false) . ']');
+				Minz_Log::debug($nb . ' entries cleaned in feed [' . $this->url(false) . '] with: ' . json_encode($archiving));
 			}
 			return $nb;
 		}

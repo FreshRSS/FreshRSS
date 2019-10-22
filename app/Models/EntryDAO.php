@@ -560,7 +560,7 @@ SQL;
 			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
 		}
 		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
-			$sql .= ' AND id > (SELECT e2.id FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
+			$sql .= ' AND id < (SELECT e2.id FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
 			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min)';
 			$params[':id_feed2'] = $id_feed;
 			$params[':keep_min'] = (int)$options['keep_min'];
