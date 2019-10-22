@@ -36,7 +36,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 						continue;
 					}
 					$stm->bindValue(':id', $feed['id'], PDO::PARAM_INT);
-					$stm->bindValue(':attributes', json_encode($attributes));
+					$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES));
 					$stm->execute();
 				}
 
@@ -78,7 +78,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		}
 		$values = array(
 			$valuesTmp['name'],
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes']),
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$valuesTmp['name'],
 		);
 
@@ -118,7 +118,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		}
 		$values = array(
 			$valuesTmp['name'],
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes']),
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$id,
 			$valuesTmp['name'],
 		);

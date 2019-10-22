@@ -69,7 +69,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			base64_encode($valuesTmp['httpAuth']),
 			isset($valuesTmp['error']) ? intval($valuesTmp['error']) : 0,
 			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes']),
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 		);
 
 		if ($stm && $stm->execute($values)) {
@@ -136,7 +136,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($key === 'httpAuth') {
 				$valuesTmp[$key] = base64_encode($v);
 			} elseif ($key === 'attributes') {
-				$valuesTmp[$key] = is_string($valuesTmp[$key]) ? $valuesTmp[$key] : json_encode($valuesTmp[$key]);
+				$valuesTmp[$key] = is_string($valuesTmp[$key]) ? $valuesTmp[$key] : json_encode($valuesTmp[$key], JSON_UNESCAPED_SLASHES);
 			}
 		}
 		$set = substr($set, 0, -2);
