@@ -1,7 +1,7 @@
 # Only relevant for Docker Hub or QEMU multi-architecture builds.
 # Prefer the normal `Dockerfile` if you are building manually on the targeted architecture.
 
-FROM arm32v7/ubuntu:19.04
+FROM arm32v7/ubuntu:19.10
 
 # Requires ./hooks/*
 COPY ./Docker/qemu-arm-* /usr/bin/

@@ -52,5 +52,5 @@ We are working on a better way to handle internationalization but don't hesitate
 
 ## Contribute to documentation
 
-The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. 
+The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it.
 If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!

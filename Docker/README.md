@@ -36,7 +36,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   --net freshrss-network \
   -p 80:80 \
   -p 443:443 \
-  --name traefik traefik --docker \
+  --name traefik traefik:1.7 --docker \
   --loglevel=info \
   --entryPoints='Name:http Address::80 Compress:true Redirect.EntryPoint:https' \
   --entryPoints='Name:https Address::443 Compress:true TLS TLS.MinVersion:VersionTLS12 TLS.SniStrict:true TLS.CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA' \
@@ -48,7 +48,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 See [more information about Docker and Let’s Encrypt in Træfik](https://docs.traefik.io/user-guide/docker-and-lets-encrypt/).
 
 
-## Run FreshRSS 
+## Run FreshRSS
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
@@ -328,7 +328,7 @@ server {
 	}
 
 	location /freshrss/ {
-		proxy_pass http://freshrss/;
+		proxy_pass http://freshrss;
 		add_header X-Frame-Options SAMEORIGIN;
 		add_header X-XSS-Protection "1; mode=block";
 		proxy_redirect off;

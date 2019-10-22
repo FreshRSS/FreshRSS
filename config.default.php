@@ -123,33 +123,38 @@ return array(
 		//CURLOPT_PROXYUSERPWD => 'user:password',
 	),
 
-	'db' => array(
+	'db' => [
 
-		# Type of database: `sqlite` or `mysql`.
+		# Type of database: `sqlite` or `mysql` or 'pgsql'
 		'type' => 'sqlite',
 
-		# MySQL host.
+		# Database server
 		'host' => 'localhost',
 
-		# MySQL user.
+		# Database user
 		'user' => '',
 
-		# MySQL password.
+		# Database password
 		'password' => '',
 
-		# MySQL database.
+		# Database name
 		'base' => '',
 
-		# MySQL table prefix.
+		# Tables prefix (useful if you use the same database for multiple things)
 		'prefix' => 'freshrss_',
 
-		'pdo_options' => array(
+		# Additional connection string parameters, such as PostgreSQL 'sslmode=??;sslrootcert=??'
+		# https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+		'connection_uri_params' => '',
+
+		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
+		'pdo_options' => [
 			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
 			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
 			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
-		),
+		],
 
-	),
+	],
 
 	# Configure the default feeds to which users will automatically be subscribed.
 	'default_feeds' => array(

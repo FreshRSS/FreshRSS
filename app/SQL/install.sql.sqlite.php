@@ -1,13 +1,16 @@
 <?php
-global $SQL_CREATE_TABLES;
-$SQL_CREATE_TABLES = array(
-'CREATE TABLE IF NOT EXISTS `category` (
+const SQL_CREATE_DB = <<<'SQL'
+SELECT 1;	-- Do nothing for SQLite
+SQL;
+
+const SQL_CREATE_TABLES = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
 	UNIQUE (`name`)
-);',
+);
 
-'CREATE TABLE IF NOT EXISTS `feed` (
+CREATE TABLE IF NOT EXISTS `feed` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`url` VARCHAR(511) NOT NULL,
 	`category` SMALLINT DEFAULT 0,
@@ -26,12 +29,12 @@ $SQL_CREATE_TABLES = array(
 	`cache_nbUnreads` INT DEFAULT 0,
 	FOREIGN KEY (`category`) REFERENCES `category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 	UNIQUE (`url`)
-);',
-'CREATE INDEX IF NOT EXISTS feed_name_index ON `feed`(`name`);',
-'CREATE INDEX IF NOT EXISTS feed_priority_index ON `feed`(`priority`);',
-'CREATE INDEX IF NOT EXISTS feed_keep_history_index ON `feed`(`keep_history`);',
+);
+CREATE INDEX IF NOT EXISTS feed_name_index ON `feed`(`name`);
+CREATE INDEX IF NOT EXISTS feed_priority_index ON `feed`(`priority`);
+CREATE INDEX IF NOT EXISTS feed_keep_history_index ON `feed`(`keep_history`);
 
-'CREATE TABLE IF NOT EXISTS `entry` (
+CREATE TABLE IF NOT EXISTS `entry` (
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
@@ -48,17 +51,21 @@ $SQL_CREATE_TABLES = array(
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
-);',
-'CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);',
-'CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);',
-'CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);',	//v1.1.1
-
-'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "%2$s");',
 );
+CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);
+CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);
+CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.1.1
+CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 
-global $SQL_CREATE_TABLE_ENTRYTMP;
-$SQL_CREATE_TABLE_ENTRYTMP = array(
-'CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
+INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
+SQL;
+
+const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
+SQL;
+
+const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
@@ -75,42 +82,37 @@ $SQL_CREATE_TABLE_ENTRYTMP = array(
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
-);',
-'CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);',
-
-'CREATE INDEX IF NOT EXISTS `entry_feed_read_index` ON `entry`(`id_feed`,`is_read`);',	//v1.7
 );
+CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
+SQL;
 
-global $SQL_CREATE_TABLE_TAGS;
-$SQL_CREATE_TABLE_TAGS = array(
-'CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
+const SQL_CREATE_TABLE_TAGS = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(63) NOT NULL,
 	`attributes` TEXT,
 	UNIQUE (`name`)
-);',
-'CREATE TABLE IF NOT EXISTS `entrytag` (
+);
+CREATE TABLE IF NOT EXISTS `entrytag` (
 	`id_tag` SMALLINT,
 	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);',
-'CREATE INDEX entrytag_id_entry_index ON `entrytag` (`id_entry`);',
 );
+CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
+SQL;
 
-define(
-	'SQL_INSERT_FEED',
-	'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
-		VALUES(:url, 1, :name, :website, :description, 86400);'
-);
+const SQL_INSERT_FEED = <<<'SQL'
+INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
+	VALUES(:url, 1, :name, :website, :description, 86400);
+SQL;
 
-global $SQL_DROP_TABLES;
-$SQL_DROP_TABLES = [
-	'DROP TABLE IF EXISTS `entrytag`',
-	'DROP TABLE IF EXISTS `tag`',
-	'DROP TABLE IF EXISTS `entrytmp`',
-	'DROP TABLE IF EXISTS `entry`',
-	'DROP TABLE IF EXISTS `feed`',
-	'DROP TABLE IF EXISTS `category`',
-];
+const SQL_DROP_TABLES = <<<'SQL'
+DROP TABLE IF EXISTS `entrytag`;
+DROP TABLE IF EXISTS `tag`;
+DROP TABLE IF EXISTS `entrytmp`;
+DROP TABLE IF EXISTS `entry`;
+DROP TABLE IF EXISTS `feed`;
+DROP TABLE IF EXISTS `category`;
+SQL;

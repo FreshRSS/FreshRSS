@@ -46,7 +46,7 @@ FreshRSS comes with absolutely no warranty.
 * PHP 5.6+ (PHP 7+ recommended for higher performance)
 	* Required extensions: [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype), and [PDO_MySQL](https://www.php.net/pdo-mysql) or [PDO_SQLite](https://www.php.net/pdo-sqlite) or [PDO_PGSQL](https://www.php.net/pdo-pgsql)
 	* Recommended extensions: [GMP](https://www.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://www.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://www.php.net/mbstring) (for Unicode strings), [iconv](https://www.php.net/iconv) (for charset conversion), [ZIP](https://www.php.net/zip) (for import/export), [zlib](https://www.php.net/zlib) (for compressed feeds)
-* MySQL 5.5.3+ (recommended) or MariaDB equivalent, or SQLite 3.7.4+, or PostgreSQL 9.2+
+* MySQL 5.5.3+ or MariaDB equivalent, or SQLite 3.7.4+, or PostgreSQL 9.5+
 
 
 # Releases
@@ -110,6 +110,8 @@ Supported clients are:
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+* iOS
+	* [Reeder-4](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 
@@ -122,11 +124,10 @@ Supported clients are:
 * Android
 	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 * iOS
-	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
-	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)
-	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Closed source)
+	* [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
+	* [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
 * MacOS
-	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Closed source)
+	* [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 # Included libraries

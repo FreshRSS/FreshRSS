@@ -15,25 +15,17 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	protected function autoUpdateDb($errorInfo) {
-		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='tag'")) {
+		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'tag') === false) {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				return $tagDAO->createTagTable();	//v1.12.0
 			}
 		}
-		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
+		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'entrytmp') === false) {
 				return $this->createEntryTempTable();	//v1.7.0
-			}
-		}
-		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
-			$showCreate = $tableInfo->fetchColumn();
-			foreach (array('lastSeen', 'hash') as $column) {
-				if (stripos($showCreate, $column) === false) {
-					return $this->addColumn($column);
-				}
 			}
 		}
 		return false;
@@ -44,27 +36,27 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
 	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
-	FROM `' . $this->prefix . 'entrytmp`
+	FROM `_entrytmp`
 	ORDER BY date;
-INSERT OR IGNORE INTO `' . $this->prefix . 'entry`
+INSERT OR IGNORE INTO `_entry`
 	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
 	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 	FROM `tmp`
 	ORDER BY date;
-DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
+DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
 DROP TABLE IF EXISTS `tmp`;
 ';
-		$hadTransaction = $this->bd->inTransaction();
+		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
-			$this->bd->beginTransaction();
+			$this->pdo->beginTransaction();
 		}
-		$result = $this->bd->exec($sql) !== false;
+		$result = $this->pdo->exec($sql) !== false;
 		if (!$result) {
-			Minz_Log::error('SQL error commitNewEntries: ' . json_encode($this->bd->errorInfo()));
+			Minz_Log::error('SQL error commitNewEntries: ' . json_encode($this->pdo->errorInfo()));
 		}
 		if (!$hadTransaction) {
-			$this->bd->commit();
+			$this->pdo->commit();
 		}
 		return $result;
 	}
@@ -74,10 +66,10 @@ DROP TABLE IF EXISTS `tmp`;
 	}
 
 	protected function updateCacheUnreads($catId = false, $feedId = false) {
-		$sql = 'UPDATE `' . $this->prefix . 'feed` '
+		$sql = 'UPDATE `_feed` '
 		 . 'SET `cache_nbUnreads`=('
-		 .	'SELECT COUNT(*) AS nbUnreads FROM `' . $this->prefix . 'entry` e '
-		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0)';
+		 .	'SELECT COUNT(*) AS nbUnreads FROM `_entry` e '
+		 .	'WHERE e.id_feed=`_feed`.id AND e.is_read=0)';
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
@@ -92,11 +84,11 @@ DROP TABLE IF EXISTS `tmp`;
 			$sql .= ' category=?';
 			$values[] = $catId;
 		}
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		if ($stm && $stm->execute($values)) {
 			return true;
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
@@ -126,30 +118,30 @@ DROP TABLE IF EXISTS `tmp`;
 				return $affected;
 			}
 		} else {
-			$this->bd->beginTransaction();
-			$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=? WHERE id=? AND is_read=?';
+			$this->pdo->beginTransaction();
+			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';
 			$values = array($is_read ? 1 : 0, $ids, $is_read ? 0 : 1);
-			$stm = $this->bd->prepare($sql);
+			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markRead 1: ' . $info[2]);
-				$this->bd->rollBack();
+				$this->pdo->rollBack();
 				return false;
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
-				$sql = 'UPDATE `' . $this->prefix . 'feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE id=(SELECT e.id_feed FROM `' . $this->prefix . 'entry` e WHERE e.id=?)';
+				$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
+				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=?)';
 				$values = array($ids);
-				$stm = $this->bd->prepare($sql);
+				$stm = $this->pdo->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
-					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 					Minz_Log::error('SQL error markRead 2: ' . $info[2]);
-					$this->bd->rollBack();
+					$this->pdo->rollBack();
 					return false;
 				}
 			}
-			$this->bd->commit();
+			$this->pdo->commit();
 			return $affected;
 		}
 	}
@@ -182,19 +174,19 @@ DROP TABLE IF EXISTS `tmp`;
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
+		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
 		} elseif ($priorityMin >= 0) {
-			$sql .= ' AND id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
+			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
 		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
-		$stm = $this->bd->prepare($sql . $search);
+		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
@@ -223,17 +215,17 @@ DROP TABLE IF EXISTS `tmp`;
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` '
+		$sql = 'UPDATE `_entry` '
 			 . 'SET is_read = ? '
 			 . 'WHERE is_read <> ? AND id <= ? AND '
-			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
+			 . 'id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)';
 		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
-		$stm = $this->bd->prepare($sql . $search);
+		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
@@ -257,10 +249,10 @@ DROP TABLE IF EXISTS `tmp`;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+		$sql = 'UPDATE `_entry` e '
 			 . 'SET e.is_read = ? '
 			 . 'WHERE e.is_read <> ? AND e.id <= ? AND '
-			 . 'e.id IN (SELECT et.id_entry FROM `' . $this->prefix . 'entrytag` et '
+			 . 'e.id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == '' ? '' : 'WHERE et.id = ?')
 			 . ')';
 		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
@@ -270,9 +262,9 @@ DROP TABLE IF EXISTS `tmp`;
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
 
-		$stm = $this->bd->prepare($sql . $search);
+		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
 			return false;
 		}

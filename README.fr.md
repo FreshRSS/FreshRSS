@@ -46,7 +46,7 @@ FreshRSS n’est fourni avec aucune garantie.
 * PHP 5.6+ (PHP 7+ recommandé pour de meilleures performances)
 	* Requis : [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype), et [PDO_MySQL](https://www.php.net/pdo-mysql) ou [PDO_SQLite](https://www.php.net/pdo-sqlite) ou [PDO_PGSQL](https://www.php.net/pdo-pgsql)
 	* Recommandés : [GMP](https://www.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://www.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://www.php.net/mbstring) (pour le texte Unicode), [iconv](https://www.php.net/iconv) (pour conversion d’encodages), [ZIP](https://www.php.net/zip) (pour import/export), [zlib](https://www.php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ (recommandé) ou équivalent MariaDB, ou SQLite 3.7.4+, ou PostgreSQL 9.2+
+* MySQL 5.5.3+ ou équivalent MariaDB, ou SQLite 3.7.4+, ou PostgreSQL 9.5+
 
 
 # Téléchargement
@@ -187,6 +187,8 @@ Tout client supportant une API de type Google Reader ; Sélection :
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+* iOS
+	* [Reeder-4](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 
@@ -199,11 +201,10 @@ Tout client supportant une API de type Fever ; Sélection :
 * Android
 	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 * iOS
-	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
-	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
-	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Propriétaire)
+	* [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
+	* [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
 * MacOS
-	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Propriétaire)
+	* [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 # Bibliothèques incluses

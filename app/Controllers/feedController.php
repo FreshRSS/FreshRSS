@@ -429,7 +429,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			if ($needFeedCacheRefresh) {
-				$feedDAO->updateCachedValue($feed->id());
+				$feedDAO->updateCachedValues($feed->id());
 			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();

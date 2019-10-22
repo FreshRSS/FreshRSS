@@ -1,29 +1,54 @@
 ﻿# FreshRSS changelog
 
-## 2019-XX-XX FreshRSS 1.14.4-dev
+## 2019-1X-XX FreshRSS 1.14.4-dev
 
+* CLI
+	* Command line to export/import any database to/from SQLite [#2496](https://github.com/FreshRSS/FreshRSS/pull/2496)
 * Features
 	* New option to display article authors underneath the article title [#2487](https://github.com/FreshRSS/FreshRSS/pull/2487)
-	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476)
+	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476), [#2481](https://github.com/FreshRSS/FreshRSS/pull/2481)
+	* Ability to define default user settings in `data/config-user.custom.php` [#2490](https://github.com/FreshRSS/FreshRSS/pull/2490)
+		* Including default feeds [#2515](https://github.com/FreshRSS/FreshRSS/pull/2515)
+	* Allow recreating users if they still exist in database [#2555](https://github.com/FreshRSS/FreshRSS/pull/2555)
+	* Add optional database connection URI parameters [#2549](https://github.com/FreshRSS/FreshRSS/issues/2549), [#2559](https://github.com/FreshRSS/FreshRSS/pull/2559)
+	* Allow longer articles with MySQL / MariaDB (up to 16MB compressed instead of 64kB) [#2448](https://github.com/FreshRSS/FreshRSS/issues/2448)
+	* Add support for terms of service [#2520](https://github.com/FreshRSS/FreshRSS/pull/2520)
+	* Add sharing with [Lemmy](https://github.com/dessalines/lemmy) [#2510](https://github.com/FreshRSS/FreshRSS/pull/2510)
+* API
+	* Add support for [Reeder-4](https://www.reederapp.com/) client [#2513](https://github.com/FreshRSS/FreshRSS/issues/2513)
 * Compatibility
 	* Require at least PHP 5.6+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495), [#2527](https://github.com/FreshRSS/FreshRSS/pull/2527)
+	* Require `php-json` and remove remove `JSON.php` fallback [#2528](https://github.com/FreshRSS/FreshRSS/pull/2528)
+	* Require at least PostgreSQL 9.5+ [#2554](https://github.com/FreshRSS/FreshRSS/pull/2554)
 * Deployment
 	* Take advantage of `mod_authz_core` instead of `mod_access_compat` when running on Apache 2.4+ [#2461](https://github.com/FreshRSS/FreshRSS/pull/2461)
-	* Docker: Alpine image updated to 3.10 with PHP 7.3.8 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.10 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Git ignore `themes/xTheme-*` [#2511](https://github.com/FreshRSS/FreshRSS/pull/2511)
+	* New environment variable `FRESHRSS_ENV` to control Minz development mode [#2508](https://github.com/FreshRSS/FreshRSS/pull/2508)
 * Bug fixing
 	* Fix missing PHP `opcache` package in Docker Alpine [#2498](https://github.com/FreshRSS/FreshRSS/pull/2498)
+	* Fix IE11 / Edge keyboard compatibility [#2507](https://github.com/FreshRSS/FreshRSS/pull/2507)
+	* Use `<dc:creator>` instead of `<author>` for RSS 2.0 outputs [#2542](https://github.com/FreshRSS/FreshRSS/pull/2542)
+	* Fix PostgreSQL and SQLite database size estimation [#2562](https://github.com/FreshRSS/FreshRSS/pull/2562)
 * Security
 	* Fix referrer vulnerability when opening an article original link with a shortcut [#2506](https://github.com/FreshRSS/FreshRSS/pull/2506)
 	* Slight refactoring of access check [#2471](https://github.com/FreshRSS/FreshRSS/pull/2471)
+* UI
+	* Optimize dynamic favicon for HiDPI screens [#2539](https://github.com/FreshRSS/FreshRSS/pull/2539)
+	* Hide the admin checkbox if user is not admin [#2531](https://github.com/FreshRSS/FreshRSS/pull/2531)
 * I18n
-	* Improve Dutch [#2503](https://github.com/FreshRSS/FreshRSS/pull/2503)
 	* Add Slovak [#2497](https://github.com/FreshRSS/FreshRSS/pull/2497)
+	* Improve Dutch [#2503](https://github.com/FreshRSS/FreshRSS/pull/2503)
+	* Improve Occitan [#2519](https://github.com/FreshRSS/FreshRSS/pull/2519)
 * Extensions
 	* Additional hooks [#2482](https://github.com/FreshRSS/FreshRSS/pull/2482)
 	* New call to change the layout [#2467](https://github.com/FreshRSS/FreshRSS/pull/2467)
 * Misc.
+	* PDO (database) refactoring for code simplification [#2522](https://github.com/FreshRSS/FreshRSS/pull/2522)
 	* Automatic check of CSS syntax in Travis CI [#2477](https://github.com/FreshRSS/FreshRSS/pull/2477)
 	* Remove support for sharing with Google+ [#2464](https://github.com/FreshRSS/FreshRSS/pull/2464)
+	* Redirect connected users accessing registration page [#2530](https://github.com/FreshRSS/FreshRSS/pull/2530)
+	* Add Makefile [#2481](https://github.com/FreshRSS/FreshRSS/pull/2481)
 
 
 ## 2019-07-25 FreshRSS 1.14.3
@@ -306,8 +331,8 @@
 
 * API
 	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/pull/1406)
-		* iOS: [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303), [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-		* MacOS: [Readkit](https://itunes.apple.com/app/readkit/id588726889)
+		* iOS: [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303), [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)
+		* MacOS: [Readkit](https://apps.apple.com/app/readkit/id588726889)
 * Features
 	* Several per-feed options (implemented in JSON) [#1838](https://github.com/FreshRSS/FreshRSS/pull/1838)
 		* Mark updated articles as read [#891](https://github.com/FreshRSS/FreshRSS/issues/891)
@@ -504,7 +529,7 @@
 	* Simplified Chinese [#1541](https://github.com/FreshRSS/FreshRSS/pull/1541)
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 	* Improve Dutch [#1559](https://github.com/FreshRSS/FreshRSS/pull/1559)
-	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/) 
+	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/)
 * Security
 	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.
@@ -530,7 +555,7 @@
 	* New command `./cli/reconfigure.php` to update an existing installation [#1439](https://github.com/FreshRSS/FreshRSS/pull/1439)
 	* Many CLI improvements [#1447](https://github.com/FreshRSS/FreshRSS/pull/1447)
 		* More information (number of feeds, articles, etc.) in `./cli/user-info.php`
-		* Better idempotency of `./cli/do-install.php` and language parameter [#1449](https://github.com/FreshRSS/FreshRSS/issues/1449) 
+		* Better idempotency of `./cli/do-install.php` and language parameter [#1449](https://github.com/FreshRSS/FreshRSS/issues/1449)
 * Bug fixing
 	* Fix several CLI issues [#1445](https://github.com/FreshRSS/FreshRSS/issues/1445)
 		* Fix CLI install bugs with SQLite [#1443](https://github.com/FreshRSS/FreshRSS/issues/1443), [#1448](https://github.com/FreshRSS/FreshRSS/issues/1448)
