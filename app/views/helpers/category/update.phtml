@@ -136,6 +136,13 @@
 				</label>
 			</div>
 		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<div class="group-controls">
+				<label for="keep_min"><?php echo _t('sub.feed.keep_min'); ?>
+					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" data-leave-validation="<?= $archiving['keep_min'] ?>">
+				</label>
+			</div>
+		</div>
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>

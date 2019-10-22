@@ -459,6 +459,27 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->entries = $entries;
 	}
 
+	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+		$archiving = $this->attributes('archiving');
+		if ($archiving == null) {
+			$category = $categoryDAO->searchById($this->category());
+			$archiving = $category == null ? null : $category->attributes('archiving');
+			if ($archiving == null) {
+				$archiving = FreshRSS_Context::$user_conf->archiving;
+			}
+		}
+		if (is_array($archiving)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$nb = $entryDAO->cleanOldEntries($this->id(), $archiving);
+			if ($nb > 0) {
+				$needFeedCacheRefresh = true;
+				Minz_Log::debug($nb . ' old entries cleaned in feed [' . $this->url(false) . ']');
+			}
+			return $nb;
+		}
+		return false;
+	}
+
 	protected function cacheFilename() {
 		return CACHE_PATH . '/' . md5($this->url) . '.spc';
 	}

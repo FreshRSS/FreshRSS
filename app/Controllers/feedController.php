@@ -248,7 +248,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 
 		// Create a list of feeds to actualize.
 		// If feed_id is set and valid, corresponding feed is added to the list but
@@ -399,23 +398,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			if (mt_rand(0, 30) === 1) {	// Remove old entries once in 30.
-				if (null === $archiving = $feed->attributes('archiving')) {
-					$category = $categoryDAO->searchById($feed->category());
-					if (null === $category || null === $archiving = $category->attributes('archiving')) {
-						$archiving = FreshRSS_Context::$user_conf->archiving;
-					}
+				if (!$entryDAO->inTransaction()) {
+					$entryDAO->beginTransaction();
 				}
-				if (null !== $archiving) {
-					// TODO: move this function in web cron when available (see entry::purge)
-					if (!$entryDAO->inTransaction()) {
-						$entryDAO->beginTransaction();
-					}
-
-					$nb = $entryDAO->cleanOldEntries($feed->id(), $archiving);
-					if ($nb > 0) {
-						$needFeedCacheRefresh = true;
-						Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');
-					}
+				$nb = $feed->cleanOldEntries();
+				if ($nb > 0) {
+					$needFeedCacheRefresh = true;
 				}
 			}
 

@@ -181,32 +181,20 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function purgeAction() {
 		@set_time_limit(300);
 
-		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
-		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$nb_total = 0;
 
 		invalidateHttpCache();
 
-		foreach ($feeds as $feed) {
-			if (null === $archiving = $feed->attributes('archiving')) {
-				$category = $categoryDAO->searchById($feed->category());
-				if (null === $category || null === $archiving = $category->attributes('archiving')) {
-					$archiving = FreshRSS_Context::$user_conf->archiving;
-				}
-			}
+		$feedDAO->beginTransaction();
 
-			if (null !== $archiving) {
-				$nb = $entryDAO->cleanOldEntries($feed->id(), $archiving);
-				if ($nb > 0) {
-					$nb_total += $nb;
-					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');
-				}
-			}
+		foreach ($feeds as $feed) {
+			$nb_total += $feed->cleanOldEntries();
 		}
 
 		$feedDAO->updateCachedValues();
+		$feedDAO->commit();
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->minorDbMaintenance();

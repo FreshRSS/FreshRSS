@@ -209,6 +209,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				$category->_attributes('archiving', [
 					'keep_period' => $keepPeriod,
 					'keep_max' => $keepMax,
+					'keep_min' => intval(Minz_Request::param('keep_min', 0)),
 					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
