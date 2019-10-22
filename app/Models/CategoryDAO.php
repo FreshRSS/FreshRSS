@@ -20,7 +20,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 					}
 					$keepHistory = $feed['keep_history'];
 					$attributes = empty($feed['attributes']) ? [] : json_decode($feed['attributes'], true);
-					if ($attributes == null) {
+					if (is_string($attributes)) {	//Legacy risk of double-encoding
+						$attributes = json_decode($attributes, true);
+					}
+					if (!is_array($attributes)) {
 						$attributes = [];
 					}
 					if ($keepHistory > 0) {
