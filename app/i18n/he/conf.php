@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'ארכוב',
-		'advanced' => 'מתקדם',
 		'delete_after' => 'מחיקת מאמרים לאחר',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'אפשרויות נוספות זמינות בזרמים ספציפיים',
-		'keep_history_by_feed' => 'Minimum number of articles to keep by feed',	//TODO - Translation
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Minimum number of articles to keep by feed',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'מיטוב בסיס הנתונים',
 		'optimize_help' => 'ביצוע לעיתים קרובות על מנת למטב את בסיס הנתונים',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'ניקוי עכשיו',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'ארכוב',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
 	),

@@ -162,6 +162,13 @@ return array(
 		'nothing_to_load' => '没有更多文章了',
 		'previous' => '上一页',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',

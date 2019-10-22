@@ -3,7 +3,7 @@
 class FreshRSS_Tag extends Minz_Model {
 	private $id = 0;
 	private $name;
-	private $attributes = array();
+	private $attributes = [];
 	private $nbEntries = -1;
 	private $nbUnread = -1;
 

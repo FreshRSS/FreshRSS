@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => '보관',
-		'advanced' => '고급 설정',
 		'delete_after' => '다음 기간보다 오래된 글 삭제',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => '더 자세한 옵션은 개별 피드 설정에 있습니다',
-		'keep_history_by_feed' => '피드별 최소 유지 글 개수',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => '피드별 최소 유지 글 개수',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => '데이터베이스 최적화',
 		'optimize_help' => '데이터베이스 크기를 줄이기 위해 가끔씩 수행해주세요',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => '지금 삭제',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => '보관',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 	),

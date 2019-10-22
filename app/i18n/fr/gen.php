@@ -162,6 +162,13 @@ return array(
 		'nothing_to_load' => 'Fin des articles',
 		'previous' => 'Précédent',
 	),
+	'period' => array(
+		'days' => 'jours',
+		'hours' => 'heures',
+		'months' => 'mois',
+		'weeks' => 'semaines',
+		'years' => 'années',
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',

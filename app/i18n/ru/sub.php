@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Category',	//TODO - Translation
 		'add' => 'Add a category',	//TODO - Translation
+		'archiving' => 'Archivage',	//TODO - Translation
 		'empty' => 'Empty category',	//TODO - Translation
 		'information' => 'Information',	//TODO - Translation
 		'new' => 'New category',	//TODO - Translation
@@ -40,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Information',	//TODO - Translation
-		'keep_history' => 'Minimum number of articles to keep',	//TODO - Translation
+		'keep_min' => 'Minimum number of articles to keep',	//TODO - Translation
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	//TODO - Translation
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'No feed selected.',	//TODO - Translation

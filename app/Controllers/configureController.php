@@ -196,9 +196,31 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::$user_conf->old_entries = Minz_Request::param('old_entries', 3);
-			FreshRSS_Context::$user_conf->keep_history_default = Minz_Request::param('keep_history_default', 0);
+			if (!Minz_Request::paramBoolean('enable_keep_max')) {
+				$keepMax = false;
+			} elseif (!$keepMax = Minz_Request::param('keep_max')) {
+				$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+			}
+			if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
+				$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
+				if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
+					$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+				}
+			} else {
+				$keepPeriod = false;
+			}
+
 			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::param('ttl_default', FreshRSS_Feed::TTL_DEFAULT);
+			FreshRSS_Context::$user_conf->archiving = [
+				'keep_period' => $keepPeriod,
+				'keep_max' => $keepMax,
+				'keep_min' => Minz_Request::param('keep_min_default', 0),
+				'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
+				'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
+				'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
+			];
+			FreshRSS_Context::$user_conf->keep_history_default = null;	//Legacy < FreshRSS 1.15
+			FreshRSS_Context::$user_conf->old_entries = null;	//Legacy < FreshRSS 1.15
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
@@ -206,7 +228,20 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			                   array('c' => 'configure', 'a' => 'archiving'));
 		}
 
-		Minz_View::prependTitle(_t('conf.archiving.title') . ' · ');
+		$volatile = [
+				'enable_keep_period' => false,
+				'keep_period_count' => '3',
+				'keep_period_unit' => 'P1M',
+			];
+		$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
+		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
+			$volatile = [
+				'enable_keep_period' => true,
+				'keep_period_count' => $matches['count'],
+				'keep_period_unit' => str_replace($matches['count'], 1, $keepPeriod),
+			];
+		}
+		FreshRSS_Context::$user_conf->volatile = $volatile;
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
@@ -217,6 +252,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (FreshRSS_Auth::hasAccess('admin')) {
 			$this->view->size_total = $databaseDAO->size(true);
 		}
+
+		Minz_View::prependTitle(_t('conf.archiving.title') . ' · ');
 	}
 
 	/**

@@ -162,6 +162,13 @@ return array(
 		'nothing_to_load' => 'Er zijn geen artikelen meer',
 		'previous' => 'Vorige',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
 		'email' => 'Email',
 		'Known' => 'Known-gebaseerde sites',

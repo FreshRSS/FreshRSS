@@ -7,8 +7,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	const TTL_DEFAULT = 0;
 
-	const KEEP_HISTORY_DEFAULT = -2;
-	const KEEP_HISTORY_INFINITE = -1;
+	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
+	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
 	private $id = 0;
 	private $url;
@@ -24,9 +24,8 @@ class FreshRSS_Feed extends Minz_Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
-	private $attributes = array();
+	private $attributes = [];
 	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';
@@ -109,9 +108,6 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function inError() {
 		return $this->error;
-	}
-	public function keepHistory() {
-		return $this->keep_history;
 	}
 	public function ttl() {
 		return $this->ttl;
@@ -229,12 +225,6 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _error($value) {
 		$this->error = (bool)$value;
-	}
-	public function _keepHistory($value) {
-		$value = intval($value);
-		$value = min($value, 1000000);
-		$value = max($value, self::KEEP_HISTORY_DEFAULT);
-		$this->keep_history = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);
@@ -467,6 +457,28 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$this->entries = $entries;
+	}
+
+	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+		$archiving = $this->attributes('archiving');
+		if ($archiving == null) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$category = $catDAO->searchById($this->category());
+			$archiving = $category == null ? null : $category->attributes('archiving');
+			if ($archiving == null) {
+				$archiving = FreshRSS_Context::$user_conf->archiving;
+			}
+		}
+		if (is_array($archiving)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$nb = $entryDAO->cleanOldEntries($this->id(), $archiving);
+			if ($nb > 0) {
+				$needFeedCacheRefresh = true;
+				Minz_Log::debug($nb . ' entries cleaned in feed [' . $this->url(false) . '] with: ' . json_encode($archiving));
+			}
+			return $nb;
+		}
+		return false;
 	}
 
 	protected function cacheFilename() {

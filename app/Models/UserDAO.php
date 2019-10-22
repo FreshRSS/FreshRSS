@@ -2,14 +2,14 @@
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 	public function createUser($insertDefaultFeeds = false) {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
-			$sql = SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS;
+			$sql = $SQL_CREATE_TABLES . $SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_TABLE_TAGS;
 			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 			if ($ok && $insertDefaultFeeds) {
 				$default_feeds = FreshRSS_Context::$system_conf->default_feeds;
-				$stm = $this->pdo->prepare(SQL_INSERT_FEED);
+				$stm = $this->pdo->prepare($SQL_INSERT_FEED);
 				foreach ($default_feeds as $feed) {
 					$parameters = [
 						':url' => $feed['url'],
@@ -38,9 +38,8 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			fwrite(STDERR, 'Deleting SQL data for user “' . $this->current_user . "”…\n");
 		}
 
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-
-		$ok = $this->pdo->exec(SQL_DROP_TABLES) !== false;
+		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		$ok = $this->pdo->exec($SQL_DROP_TABLES) !== false;
 
 		if ($ok) {
 			return true;

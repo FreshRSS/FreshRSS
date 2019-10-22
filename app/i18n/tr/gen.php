@@ -162,6 +162,13 @@ return array(
 		'nothing_to_load' => 'Başka makale yok',
 		'previous' => 'Önceki',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',

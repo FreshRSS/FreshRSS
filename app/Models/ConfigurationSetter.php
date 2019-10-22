@@ -79,11 +79,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
 	}
 
-	private function _keep_history_default(&$data, $value) {
-		$value = intval($value);
-		$data['keep_history_default'] = $value >= FreshRSS_Feed::KEEP_HISTORY_INFINITE ? $value : 0;
-	}
-
 	// It works for system config too!
 	private function _language(&$data, $value) {
 		$value = strtolower($value);
@@ -92,11 +87,6 @@ class FreshRSS_ConfigurationSetter {
 			$value = 'en';
 		}
 		$data['language'] = $value;
-	}
-
-	private function _old_entries(&$data, $value) {
-		$value = intval($value);
-		$data['old_entries'] = $value > 0 ? $value : 3;
 	}
 
 	private function _passwordHash(&$data, $value) {

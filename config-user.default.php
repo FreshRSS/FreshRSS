@@ -5,8 +5,14 @@
 # override.
 return array (
 	'language' => 'en',
-	'old_entries' => 3,
-	'keep_history_default' => 50,
+	'archiving' => [
+		'keep_period' => 'P3M',
+		'keep_max' => 200,
+		'keep_min' => 50,
+		'keep_favourites' => true,
+		'keep_labels' => true,
+		'keep_unreads' => false,
+	],
 	'ttl_default' => 3600,
 	'mail_login' => '',
 	'email_validation_token' => '',

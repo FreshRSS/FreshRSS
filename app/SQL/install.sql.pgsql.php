@@ -1,12 +1,13 @@
 <?php
-const SQL_CREATE_DB = <<<'SQL'
+$SQL_CREATE_DB = <<<'SQL'
 CREATE DATABASE "%1$s" ENCODING 'UTF8';
 SQL;
 
-const SQL_CREATE_TABLES = <<<'SQL'
+$SQL_CREATE_TABLES = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR(255) UNIQUE NOT NULL
+	"name" VARCHAR(255) UNIQUE NOT NULL,
+	"attributes" TEXT	-- v1.15.0
 );
 
 CREATE TABLE IF NOT EXISTS `_feed` (
@@ -21,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"pathEntries" VARCHAR(511) DEFAULT NULL,
 	"httpAuth" VARCHAR(511) DEFAULT NULL,
 	"error" SMALLINT DEFAULT 0,
-	"keep_history" INT NOT NULL DEFAULT -2,
 	"ttl" INT NOT NULL DEFAULT 0,
 	"attributes" TEXT,	-- v1.11.0
 	"cache_nbEntries" INT DEFAULT 0,
@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 );
 CREATE INDEX IF NOT EXISTS `_name_index` ON `_feed` ("name");
 CREATE INDEX IF NOT EXISTS `_priority_index` ON `_feed` ("priority");
-CREATE INDEX IF NOT EXISTS `_keep_history_index` ON `_feed` ("keep_history");
 
 CREATE TABLE IF NOT EXISTS `_entry` (
 	"id" BIGINT NOT NULL PRIMARY KEY,
@@ -60,11 +59,11 @@ INSERT INTO `_category` (id, name)
 	RETURNING nextval('`_category_id_seq`');
 SQL;
 
-const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+$SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 SQL;
 
-const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
+$SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"id" BIGINT NOT NULL PRIMARY KEY,
 	"guid" VARCHAR(760) NOT NULL,
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
 SQL;
 
-const SQL_CREATE_TABLE_TAGS = <<<'SQL'
+$SQL_CREATE_TABLE_TAGS = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(63) UNIQUE NOT NULL,
@@ -101,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (
 CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry");
 SQL;
 
-const SQL_INSERT_FEED = <<<'SQL'
+$SQL_INSERT_FEED = <<<'SQL'
 INSERT INTO `_feed` (url, category, name, website, description, ttl)
 	SELECT :url::VARCHAR, 1, :name, :website, :description, 86400
 		WHERE NOT EXISTS (SELECT id FROM `_feed` WHERE url = :url);
 SQL;
 
-const SQL_DROP_TABLES = <<<'SQL'
+$SQL_DROP_TABLES = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;

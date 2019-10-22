@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'Arşiv',
-		'advanced' => 'Gelişmiş',
 		'delete_after' => 'Makelelerin tutulacağı süre',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
-		'keep_history_by_feed' => 'Akışta en az tutulacak makale sayısı',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Akışta en az tutulacak makale sayısı',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Veritabanı optimize et',
 		'optimize_help' => 'Bu işlem bazen veritabanı boyutunu düşürmeye yardımcı olur',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Şimdi temizle',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Arşiv',
 		'ttl' => 'Şu süreden sık otomatik yenileme yapma',
 	),

@@ -13,14 +13,14 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->pdo->commit();
 		}
 		try {
-			require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 			Minz_Log::warning('SQL ALTER GUID case sensitivity...');
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->ensureCaseInsensitiveGuids();
 
 			Minz_Log::warning('SQL CREATE TABLE tag...');
-			$ok = $this->pdo->exec(SQL_CREATE_TABLE_TAGS) !== false;
+			$ok = $this->pdo->exec($SQL_CREATE_TABLE_TAGS) !== false;
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
 		}
@@ -48,9 +48,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 		$values = array(
 			$valuesTmp['name'],
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$valuesTmp['name'],
 		);
 
@@ -81,9 +84,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 		$values = array(
 			$valuesTmp['name'],
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$id,
 			$valuesTmp['name'],
 		);

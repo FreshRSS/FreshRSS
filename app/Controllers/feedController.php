@@ -267,10 +267,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$maxFeeds = 10;
 		}
 
-		// Calculate date of oldest entries we accept in DB.
-		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
-		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
-
 		// WebSub (PubSubHubbub) support
 		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;
 		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
@@ -323,12 +319,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
-			$feed_history = $feed->keepHistory();
-			if ($isNewFeed) {
-				$feed_history = FreshRSS_Feed::KEEP_HISTORY_INFINITE;
-			} elseif (FreshRSS_Feed::KEEP_HISTORY_DEFAULT === $feed_history) {
-				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
-			}
 			$needFeedCacheRefresh = false;
 
 			// We want chronological order and SimplePie uses reverse order.
@@ -376,15 +366,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							}
 							$entryDAO->updateEntry($entry->toArray());
 						}
-					} elseif ($feed_history == 0 && $entry_date < $date_min) {
-						// This entry should not be added considering configuration and date.
-						$oldGuids[] = $entry->guid();
 					} else {
 						$id = uTimeString();
 						$entry->_id($id);
-						if ($entry_date < $date_min) {
-							$entry->_isRead(true);	//Old article that was not in database. Probably an error, so mark as read
-						}
 
 						$entry->applyFilterActions();
 
@@ -413,17 +397,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
 			}
 
-			if ($feed_history >= 0 && mt_rand(0, 30) === 1) {
-				// TODO: move this function in web cron when available (see entry::purge)
-				// Remove old entries once in 30.
+			if (mt_rand(0, 30) === 1) {	// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
 					$entryDAO->beginTransaction();
 				}
-
-				$nb = $entryDAO->cleanOldEntries($feed->id(), $date_min, max($feed_history, count($entries) + 10));
+				$nb = $feed->cleanOldEntries();
 				if ($nb > 0) {
 					$needFeedCacheRefresh = true;
-					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');
 				}
 			}
 

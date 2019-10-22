@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Categorie',
 		'add' => 'Voeg categorie toe',
+		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
 		'new' => 'Nieuwe categorie',
@@ -40,7 +41,7 @@ return array(
 			'help' => 'Voer één zoekfilter per lijn in.',
 		),
 		'information' => 'Informatie',
-		'keep_history' => 'Minimum aantal artikelen om te houden',
+		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
 		'no_selected' => 'Geen feed geselecteerd.',

@@ -33,5 +33,121 @@
 				<?php endif;?>
 			</div>
 		</div>
+
+		<legend><?php echo _t('sub.category.archiving'); ?></legend>
+		<?php
+			$archiving = $this->category->attributes('archiving');
+			if (empty($archiving)) {
+				$archiving = [ 'default' => true ];
+			} else {
+				$archiving['default'] = false;
+			}
+			$volatile = [
+				'enable_keep_period' => false,
+				'keep_period_count' => '3',
+				'keep_period_unit' => 'P1M',
+			];
+			if (!empty($archiving['keep_period'])) {
+				if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $archiving['keep_period'], $matches)) {
+					$volatile['enable_keep_period'] = true;
+					$volatile['keep_period_count'] = $matches['count'];
+					$volatile['keep_period_unit'] = str_replace($matches['count'], '1', $archiving['keep_period']);
+				}
+			}
+			//Defaults
+			if (!isset($archiving['keep_max'])) {
+				$archiving['keep_max'] = false;
+			}
+			if (!isset($archiving['keep_favourites'])) {
+				$archiving['keep_favourites'] = true;
+			}
+			if (!isset($archiving['keep_labels'])) {
+				$archiving['keep_labels'] = true;
+			}
+			if (!isset($archiving['keep_unreads'])) {
+				$archiving['keep_unreads'] = false;
+			}
+			if (!isset($archiving['keep_min'])) {
+				$archiving['keep_min'] = 50;
+			}
+		?>
+
+		<p class="alert alert-warn">
+			<?= _t('conf.archiving.policy_warning') ?>
+		</p>
+
+		<div class="form-group">
+			<label class="group-name"><?= _t('conf.archiving.policy') ?></label>
+			<div class="group-controls">
+				<label class="checkbox">
+					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
+					<?= _t('gen.short.by_default') ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="enable_keep_max">
+					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?> data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
+					<?= _t('conf.archiving.keep_max') ?>
+					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>" data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="enable_keep_period">
+					<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.keep_period') ?>
+					<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>" data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
+					<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
+						<option></option>
+						<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
+						<option value="P1M" <?= 'P1M' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
+						<option value="P1W" <?= 'P1W' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.weeks') ?></option>
+						<option value="P1D" <?= 'P1D' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
+						<option value="PT1H" <?= 'PT1H' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.hours') ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<label class="group-name"><?= _t('conf.archiving.exception') ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="keep_favourites">
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.keep_favourites') ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="keep_labels">
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.keep_labels') ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="keep_unreads">
+					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_unreads'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.keep_unreads') ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+			<div class="group-controls">
+				<label for="keep_min"><?php echo _t('sub.feed.keep_min'); ?>
+					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" data-leave-validation="<?= $archiving['keep_min'] ?>">
+				</label>
+			</div>
+		</div>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
 	</form>
 </div>

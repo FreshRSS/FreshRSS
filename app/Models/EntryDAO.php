@@ -26,9 +26,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->pdo->commit();
 		}
 		try {
-			require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
-			$ok = $this->pdo->exec(SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_INDEX_ENTRY_1) !== false;
+			$ok = $this->pdo->exec($SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_INDEX_ENTRY_1) !== false;
 		} catch (Exception $ex) {
 			Minz_Log::error(__method__ . ' error: ' . $ex->getMessage());
 		}
@@ -544,32 +544,57 @@ SQL;
 		return $affected;
 	}
 
-	public function cleanOldEntries($id_feed, $date_min, $keep = 15) {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
-		$sql = 'DELETE FROM `_entry` '
-		     . 'WHERE id_feed=:id_feed1 AND id<=:id_max '
-		     . 'AND is_favorite=0 '	//Do not remove favourites
-		     . 'AND `lastSeen` < (SELECT maxLastSeen FROM (SELECT (MAX(e3.`lastSeen`)-99) AS maxLastSeen FROM `_entry` e3 WHERE e3.id_feed=:id_feed2) recent) '	//Do not remove the most newly seen articles, plus a few seconds of tolerance
-		     . 'AND id NOT IN (SELECT id_entry FROM `_entrytag`) '	//Do not purge tagged entries
-		     . 'AND id NOT IN (SELECT id FROM (SELECT e2.id FROM `_entry` e2 WHERE e2.id_feed=:id_feed3 ORDER BY id DESC LIMIT :keep) keep)';	//Double select: MySQL doesn't support 'LIMIT & IN/ALL/ANY/SOME subquery'
+	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+		$sql = 'DELETE FROM `_entry` WHERE id_feed = :id_feed1';	//No alias for MySQL / MariaDB
+		$params = [];
+		$params[':id_feed1'] = $id_feed;
+
+		//==Exclusions==
+		if (!empty($options['keep_favourites'])) {
+			$sql .= ' AND is_favorite = 0';
+		}
+		if (!empty($options['keep_unreads'])) {
+			$sql .= ' AND is_read = 1';
+		}
+		if (!empty($options['keep_labels'])) {
+			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
+		}
+		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
+			$sql .= ' AND `lastSeen` < (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
+			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min)';
+			$params[':id_feed2'] = $id_feed;
+			$params[':keep_min'] = (int)$options['keep_min'];
+		}
+		//Keep at least the articles seen at the last refresh
+		$sql .= ' AND `lastSeen` < (SELECT MAX(e3.`lastSeen`) FROM `_entry` e3 WHERE e3.id_feed = :id_feed3)';
+		$params[':id_feed3'] = $id_feed;
+
+		//==Inclusions==
+		$sql .= ' AND (1=0';
+		if (!empty($options['keep_period'])) {
+			$sql .= ' OR `lastSeen` < :max_last_seen';
+			$now = new DateTime('now');
+			$now->sub(new DateInterval($options['keep_period']));
+			$params[':max_last_seen'] = $now->format('U');
+		}
+		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
+			$sql .= ' OR `lastSeen` <= (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
+			      . ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max)';
+			$params[':id_feed4'] = $id_feed;
+			$params[':keep_max'] = (int)$options['keep_max'];
+		}
+		$sql .= ')';
+
 		$stm = $this->pdo->prepare($sql);
 
-		if ($stm) {
-			$id_max = intval($date_min) . '000000';
-			$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
-			$stm->bindParam(':id_feed1', $id_feed, PDO::PARAM_INT);
-			$stm->bindParam(':id_feed2', $id_feed, PDO::PARAM_INT);
-			$stm->bindParam(':id_feed3', $id_feed, PDO::PARAM_INT);
-			$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
-		}
-
-		if ($stm && $stm->execute()) {
+		if ($stm && $stm->execute($params)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->cleanOldEntries($id_feed, $date_min, $keep);
+				return $this->cleanOldEntries($id_feed, $options);
 			}
-			Minz_Log::error('SQL error cleanOldEntries: ' . $info[2]);
+			Minz_Log::error(__method__ . ' error:' . json_encode($info));
 			return false;
 		}
 	}

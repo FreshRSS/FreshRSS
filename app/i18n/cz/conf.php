@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivace',
-		'advanced' => 'Pokročilé',
 		'delete_after' => 'Smazat články starší než',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
-		'keep_history_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimalizovat databázi',
 		'optimize_help' => 'Občasná údržba zmenší velikost databáze',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Vyčistit nyní',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivace',
 		'ttl' => 'Neaktualizovat častěji než',
 	),
