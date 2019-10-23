@@ -166,7 +166,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				}
 			}
 			Minz_Log::error(__method__ . ' error: ' . json_encode($info));
-			return false;
+			yield false;
 		}
 	}
 

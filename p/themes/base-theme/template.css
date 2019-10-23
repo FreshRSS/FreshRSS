@@ -101,6 +101,7 @@ label {
 input {
 	width: 180px;
 }
+
 input[type=number] {
 	width: 6em;
 }

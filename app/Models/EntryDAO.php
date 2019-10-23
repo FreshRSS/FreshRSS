@@ -560,13 +560,16 @@ SQL;
 			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
 		}
 		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
-			$sql .= ' AND `lastSeen` < (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
-			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min)';
+			//Double SELECT for MySQL workaround ERROR 1093 (HY000)
+			$sql .= ' AND `lastSeen` < (SELECT `lastSeen`'
+			      . ' FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
+			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)';
 			$params[':id_feed2'] = $id_feed;
 			$params[':keep_min'] = (int)$options['keep_min'];
 		}
 		//Keep at least the articles seen at the last refresh
-		$sql .= ' AND `lastSeen` < (SELECT MAX(e3.`lastSeen`) FROM `_entry` e3 WHERE e3.id_feed = :id_feed3)';
+		$sql .= ' AND `lastSeen` < (SELECT maxlastseen'
+		      . ' FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)';
 		$params[':id_feed3'] = $id_feed;
 
 		//==Inclusions==
@@ -578,8 +581,9 @@ SQL;
 			$params[':max_last_seen'] = $now->format('U');
 		}
 		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
-			$sql .= ' OR `lastSeen` <= (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
-			      . ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max)';
+			$sql .= ' OR `lastSeen` <= (SELECT `lastSeen`'
+			      . ' FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
+			      . ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)';
 			$params[':id_feed4'] = $id_feed;
 			$params[':keep_max'] = (int)$options['keep_max'];
 		}
