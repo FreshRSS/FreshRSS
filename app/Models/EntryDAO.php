@@ -884,7 +884,7 @@ SQL;
 
 	public function listByIds($ids, $order = 'DESC') {
 		if (count($ids) < 1) {
-			return array();
+			yield false;
 		}
 
 		$sql = 'SELECT id, guid, title, author, '
