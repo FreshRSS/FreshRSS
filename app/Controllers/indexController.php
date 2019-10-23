@@ -54,33 +54,33 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforePagination = function ($view) {
+		$this->view->callbackBeforeEntries = function ($view) {
 			try {
 				FreshRSS_Context::$number++;	//+1 for pagination
-				$entries = FreshRSS_index_Controller::listEntriesByContext();
+				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
-
-				$nb_entries = count($entries);
-				if ($nb_entries > FreshRSS_Context::$number) {
-					// We have more elements for pagination
-					$last_entry = array_pop($entries);
-					FreshRSS_Context::$next_id = $last_entry->id();
-				}
-
-				$first_entry = $nb_entries > 0 ? $entries[0] : null;
-				FreshRSS_Context::$id_max = $first_entry === null ? (time() - 1) . '000000' : $first_entry->id();
-				if (FreshRSS_Context::$order === 'ASC') {
-					// In this case we do not know but we guess id_max
-					$id_max = (time() - 1) . '000000';
-					if (strcmp($id_max, FreshRSS_Context::$id_max) > 0) {
-						FreshRSS_Context::$id_max = $id_max;
-					}
-				}
-
-				$view->entries = $entries;
+				ob_start();
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
+			}
+		};
+
+		$this->view->callbackBeforePagination = function ($view, $nbEntries, $firstEntry, $lastEntry) {
+			if ($nbEntries >= FreshRSS_Context::$number) {
+				//We have enough entries: we discard the last one to use it for the next pagination
+				ob_clean();
+				FreshRSS_Context::$next_id = $lastEntry->id();
+			}
+			ob_end_flush();
+
+			FreshRSS_Context::$id_max = $firstEntry === null ? (time() - 1) . '000000' : $firstEntry->id();
+			if (FreshRSS_Context::$order === 'ASC') {
+				// In this case we do not know but we guess id_max
+				$id_max = (time() - 1) . '000000';
+				if (strcmp($id_max, FreshRSS_Context::$id_max) > 0) {
+					FreshRSS_Context::$id_max = $id_max;
+				}
 			}
 		};
 	}
@@ -233,23 +233,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$limit = FreshRSS_Context::$user_conf->max_posts_per_rss;
 		}
 
-		$entries = $entryDAO->listWhere(
-			$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
-			$limit, FreshRSS_Context::$first_id,
-			FreshRSS_Context::$search, $date_min
-		);
-
-		if (FreshRSS_Context::$sinceHours && (count($entries) < FreshRSS_Context::$user_conf->min_posts_per_rss)) {
-			$date_min = 0;
-			$limit = FreshRSS_Context::$user_conf->min_posts_per_rss;
-			$entries = $entryDAO->listWhere(
-				$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
-				$limit, FreshRSS_Context::$first_id,
-				FreshRSS_Context::$search, $date_min
-			);
+		foreach ($entryDAO->listWhere(
+					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
+					$limit, FreshRSS_Context::$first_id,
+					FreshRSS_Context::$search, $date_min)
+				as $entry) {
+			yield $entry;
 		}
-
-		return $entries;
 	}
 
 	/**

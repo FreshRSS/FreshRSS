@@ -3,22 +3,32 @@
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
-if (!empty($this->entries)) {
-	$display_today = true;
-	$display_yesterday = true;
-	$display_others = true;
-	$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
-	$lazyload = FreshRSS_Context::$user_conf->lazyload;
-	$content_width = FreshRSS_Context::$user_conf->content_width;
+call_user_func($this->callbackBeforeEntries, $this);
 
-	$today = @strtotime('today');
+$display_today = true;
+$display_yesterday = true;
+$display_others = true;
+$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
+$lazyload = FreshRSS_Context::$user_conf->lazyload;
+$content_width = FreshRSS_Context::$user_conf->content_width;
+
+$today = @strtotime('today');
 ?>
 
-<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>"><?php
-	?><div id="new-article">
+<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
+	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
-	foreach ($this->entries as $item) {
+	$firstEntry = null;
+	$lastEntry = null;
+	$nbEntries = 0;
+	foreach ($this->entries as $item):
+		if ($nbEntries === 0) {
+			$firstEntry = $item;
+		}
+		$lastEntry = $item;
+		$nbEntries++;
+		ob_flush();
 		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if ($this->entry == null) {
 			continue;
@@ -87,16 +97,19 @@ if (!empty($this->entries)) {
 
 		?></div>
 	</div><?php
-	}
+	endforeach;
 
-	$this->renderHelper('pagination');
-?></div>
-
-<?php if (FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>
-
-<?php } else { ?>
+	if ($nbEntries > 0):
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $firstEntry, $lastEntry);
+		$this->renderHelper('pagination');
+?></div><?php
+	else:
+		ob_end_clean();	//Discard the articles headers, as we have no articles
+?>
 <div id="stream" class="prompt alert alert-warn normal">
 	<h2><?= _t('index.feed.empty') ?></h2>
 	<a href="<?= _url('subscription', 'index') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </div>
-<?php } ?>
+<?php endif; ?>
+
+<?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>

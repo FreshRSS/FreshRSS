@@ -625,8 +625,7 @@ SQL;
 		$stm->bindParam(':guid', $guid);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$entries = self::daoToEntries($res);
-		return isset($entries[0]) ? $entries[0] : null;
+		return isset($res[0]) ? self::daoToEntry($res[0]) : null;
 	}
 
 	public function searchById($id) {
@@ -638,8 +637,7 @@ SQL;
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$entries = self::daoToEntries($res);
-		return isset($entries[0]) ? $entries[0] : null;
+		return isset($res[0]) ? self::daoToEntry($res[0]) : null;
 	}
 
 	public function searchIdByGuid($id_feed, $guid) {
@@ -876,9 +874,11 @@ SQL;
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
-			return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				yield self::daoToEntry($row);
+			}
 		} else {
-			return false;
+			yield false;
 		}
 	}
 
@@ -896,7 +896,9 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($ids);
-		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield self::daoToEntry($row);
+		}
 	}
 
 	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
@@ -1048,21 +1050,5 @@ SQL;
 			$entry->_id($dao['id']);
 		}
 		return $entry;
-	}
-
-	private static function daoToEntries($listDAO) {
-		$list = array();
-
-		if (!is_array($listDAO)) {
-			$listDAO = array($listDAO);
-		}
-
-		foreach ($listDAO as $key => $dao) {
-			$list[] = self::daoToEntry($dao);
-		}
-
-		unset($listDAO);
-
-		return $list;
 	}
 }

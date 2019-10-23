@@ -23,7 +23,6 @@ return array (
 	'feverKey' => '',
 	'posts_per_page' => 20,
 	'since_hours_posts_per_rss' => 168,
-	'min_posts_per_rss' => 2,
 	'max_posts_per_rss' => 400,
 	'view_mode' => 'normal',
 	'default_view' => 'adaptive',
