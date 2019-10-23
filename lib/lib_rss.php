@@ -301,9 +301,9 @@ function invalidateHttpCache($username = '') {
 		$username = Minz_Session::param('currentUser', '_');
 	}
 	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
-	if (!$ok) {
+	//if (!$ok) {
 		//TODO: Display notification error on front-end
-	}
+	//}
 	return $ok;
 }
 
