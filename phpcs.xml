@@ -39,7 +39,9 @@
 	<!-- Do not add a space before a comma -->
 	<!-- Add a space after a comma -->
 	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
-	<rule ref="Generic.PHP.DisallowShortOpenTag" />
+	<rule ref="Generic.PHP.DisallowShortOpenTag">
+		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound"/>
+	</rule>
 	<rule ref="Generic.PHP.DeprecatedFunctions" />
 	<!-- Use UPPERCARE for constants -->
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>

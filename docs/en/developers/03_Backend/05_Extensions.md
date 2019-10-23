@@ -74,7 +74,7 @@ As explained above, the views consist of HTML mixed with PHP. Code example:
 
 ```html
 <p>
-	This is a parameter passed from the controller: <?php echo $this->a_variable; ?>
+	This is a parameter passed from the controller: <?= $this->a_variable ?>
 </p>
 ```
 
@@ -247,8 +247,8 @@ Code example:
 
 ```html
 <p>
-	<a href="<?php echo _url('index', 'index'); ?>">
-		<?php echo _t('gen.action.back_to_rss_feeds'); ?>
+	<a href="<?= _url('index', 'index') ?>">
+		<?= _t('gen.action.back_to_rss_feeds') ?>
 	</a>
 </p>
 ```

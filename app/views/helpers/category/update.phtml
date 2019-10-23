@@ -1,17 +1,17 @@
 <div class="post">
-	<h1><?php echo $this->category->name(); ?></h1>
+	<h1><?= $this->category->name() ?></h1>
 
 	<div>
-		<a href="<?php echo _url('index', 'index', 'get', 'c_' . $this->category->id()); ?>"><?php echo _i('link'); ?> <?php echo _t('gen.action.filter'); ?></a>
+		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?php echo _url('subscription', 'category', 'id', $this->category->id()); ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('sub.category.information'); ?></legend>
+	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id()) ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('sub.category.information') ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="name"><?php echo _t('sub.category.title'); ?></label>
+			<label class="group-name" for="name"><?= _t('sub.category.title') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" class="extend" value="<?php echo $this->category->name() ; ?>" <?php
+				<input type="text" name="name" id="name" class="extend" value="<?= $this->category->name()  ?>" <?php
 					//Disallow changing the name of the default category
 					echo $this->category->id() == FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'disabled="disabled"' : '';
 				?> />
@@ -20,21 +20,21 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button class="btn btn-attention confirm"
-					data-str-confirm="<?php echo _t('gen.js.confirm_action_feed_cat'); ?>"
-					formaction="<?php echo _url('category', 'empty', 'id', $this->category->id()); ?>"
-					formmethod="post"><?php echo _t('gen.action.empty'); ?></button>
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('category', 'empty', 'id', $this->category->id()) ?>"
+					formmethod="post"><?= _t('gen.action.empty') ?></button>
 				<?php if (!$this->category->isDefault()): ?>
 				<button class="btn btn-attention confirm"
-					data-str-confirm="<?php echo _t('gen.js.confirm_action_feed_cat'); ?>"
-					formaction="<?php echo _url('category', 'delete', 'id', $this->category->id()); ?>"
-					formmethod="post"><?php echo _t('gen.action.remove'); ?></button>
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
+					formmethod="post"><?= _t('gen.action.remove') ?></button>
 				<?php endif;?>
 			</div>
 		</div>
 
-		<legend><?php echo _t('sub.category.archiving'); ?></legend>
+		<legend><?= _t('sub.category.archiving') ?></legend>
 		<?php
 			$archiving = $this->category->attributes('archiving');
 			if (empty($archiving)) {
@@ -138,7 +138,7 @@
 		</div>
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
-				<label for="keep_min"><?php echo _t('sub.feed.keep_min'); ?>
+				<label for="keep_min"><?= _t('sub.feed.keep_min') ?>
 					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" data-leave-validation="<?= $archiving['keep_min'] ?>">
 				</label>
 			</div>

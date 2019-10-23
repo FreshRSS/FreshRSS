@@ -1,13 +1,13 @@
 <div class="post content">
 	<?php if ($this->can_register) { ?>
-		<a href="<?php echo _url('auth', 'register'); ?>">
-			<?php echo _t('gen.action.back'); ?>
+		<a href="<?= _url('auth', 'register') ?>">
+			<?= _t('gen.action.back') ?>
 		</a>
 	<?php } else { ?>
-		<a href="<?php echo _url('index', 'index'); ?>">
-			<?php echo _t('gen.action.back'); ?>
+		<a href="<?= _url('index', 'index') ?>">
+			<?= _t('gen.action.back') ?>
 		</a>
 	<?php } ?>
 
-	<?php echo $this->terms_of_service; ?>
+	<?= $this->terms_of_service ?>
 </div>

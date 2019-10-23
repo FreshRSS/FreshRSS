@@ -9,16 +9,16 @@ if (!empty($this->entries)) {
 
 <div id="stream" class="reader">
 	<div id="new-article">
-		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div>
 	<?php foreach ($this->entries as $item) {
 		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if (is_null($item)) {
 			continue;
 		}
-	?><div class="flux<?php echo !$item->isRead() ? ' not_read' : ''; ?><?php echo $item->isFavorite() ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id(); ?>">
+	?><div class="flux<?= !$item->isRead() ? ' not_read' : '' ?><?= $item->isFavorite() ? ' favorite' : '' ?>" id="flux_<?= $item->id() ?>">
 		<div class="flux_content">
-			<div class="content <?php echo $content_width; ?>">
+			<div class="content <?= $content_width ?>">
 				<?php
 					$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $item->feed());	//We most likely already have the feed object in cache
 					if (empty($feed)) $feed = $item->feed(true);
@@ -31,16 +31,16 @@ if (!empty($this->entries)) {
 						$readUrl['params']['is_read'] = 0;
 					}
 				?>
-				<a class="read" href="<?php echo Minz_Url::display($readUrl); ?>">
-					<?php echo _i($item->isRead() ? 'read' : 'unread'); ?>
+				<a class="read" href="<?= Minz_Url::display($readUrl) ?>">
+					<?= _i($item->isRead() ? 'read' : 'unread') ?>
 				</a>
-				<a class="bookmark" href="<?php echo Minz_Url::display($favoriteUrl); ?>">
-					<?php echo _i($item->isFavorite() ? 'starred' : 'non-starred'); ?>
+				<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>">
+					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
 				</a>
-				<a class="website" href="<?php echo _url('index', 'reader', 'get', 'f_' . $feed->id()); ?>">
-					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span>
+				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
+					<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /> <span><?= $feed->name() ?></span>
 				</a>
-				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $item->link(); ?>"><?php echo $item->title(); ?></a></h1>
+				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $item->link() ?>"><?= $item->title() ?></a></h1>
 
 				<div class="author"><?php
 					$authors = $item->authors();
@@ -50,7 +50,7 @@ if (!empty($this->entries)) {
 							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 							$first = false;
 				?>
-<em><a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a></em>
+<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
 				<?php
 						endforeach;
 						echo ' — ';
@@ -58,7 +58,7 @@ if (!empty($this->entries)) {
 					echo $item->date();
 				?></div>
 
-				<?php echo $item->content(); ?>
+				<?= $item->content() ?>
 			</div>
 		</div>
 	</div>
@@ -69,7 +69,7 @@ if (!empty($this->entries)) {
 
 <?php } else { ?>
 <div id="stream" class="prompt alert alert-warn reader">
-	<h2><?php echo _t('index.feed.empty'); ?></h2>
-	<a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.feed.add'); ?></a><br /><br />
+	<h2><?= _t('index.feed.empty') ?></h2>
+	<a href="<?= _url('subscription', 'index') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </div>
 <?php } ?>

@@ -1,16 +1,16 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h1><?php echo _t('admin.update'); ?></h1>
+	<h1><?= _t('admin.update') ?></h1>
 
 	<p>
-		<?php echo _i('help'); ?> <?php echo _t('admin.update.current_version', FRESHRSS_VERSION); ?>
+		<?= _i('help') ?> <?= _t('admin.update.current_version', FRESHRSS_VERSION) ?>
 	</p>
 
 	<p>
-		<?php echo _t('admin.update.last', $this->last_update_time); ?>
+		<?= _t('admin.update.last', $this->last_update_time) ?>
 	</p>
 
 	<?php if (!empty($this->message)) { ?>
@@ -28,9 +28,9 @@
 			break;
 		}
 	?>
-	<p class="alert <?php echo $class; ?>">
-		<span class="alert-head"><?php echo $this->message['title']; ?></span>
-		<?php echo $this->message['body']; ?>
+	<p class="alert <?= $class ?>">
+		<span class="alert-head"><?= $this->message['title'] ?></span>
+		<?= $this->message['body'] ?>
 	</p>
 	<?php } ?>
 
@@ -38,11 +38,11 @@
 		if (empty($this->message) || $this->message['status'] !== 'good') {
 	?>
 	<p>
-		<a href="<?php echo _url('update', 'check'); ?>" class="btn"><?php echo _t('admin.update.check'); ?></a>
+		<a href="<?= _url('update', 'check') ?>" class="btn"><?= _t('admin.update.check') ?></a>
 	</p>
 	<?php } ?>
 
 	<?php if ($this->update_to_apply) { ?>
-	<a class="btn btn-important" href="<?php echo _url('update', 'apply'); ?>"><?php echo _t('admin.update.apply'); ?></a>
+	<a class="btn btn-important" href="<?= _url('update', 'apply') ?>"><?= _t('admin.update.apply') ?></a>
 	<?php } ?>
 </div>

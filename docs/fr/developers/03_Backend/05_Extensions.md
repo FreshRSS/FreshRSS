@@ -75,7 +75,7 @@ Comme expliqué plus haut, les vues sont du code HTML mixé à du PHP. Exemple d
 
 ```html
 <p>
-	Phrase passée en paramètre : <?php echo $this->a_variable; ?>
+	Phrase passée en paramètre : <?= $this->a_variable ?>
 </p>
 ```
 
@@ -246,8 +246,8 @@ Pour accéder à ces traductions, `Minz_Translate` va nous aider à l'aide de sa
 
 ```html
 <p>
-	<a href="<?php echo _url('index', 'index'); ?>">
-		<?php echo _t('gen.action.back_to_rss_feeds'); ?>
+	<a href="<?= _url('index', 'index') ?>">
+		<?= _t('gen.action.back_to_rss_feeds') ?>
 	</a>
 </p>
 ```
