@@ -79,26 +79,26 @@ nothing special to configure:
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
-### Form authentication
+### Authentification par formulaire
 
-If you configure the application to allow anonymous reading, you can also
-allow anonymous users to update feeds (“Allow anonymous refresh of the
-articles”).
+Dans ces cas-là, si vous avez autorisé la lecture anonyme des articles, vous
+pouvez aussi permettre à n’importe qui de rafraîchir vos flux (« Autoriser
+le rafraîchissement anonyme des flux »).
 
-![Anonymous access configuration](../img/users/anonymous_access.1.png)
+![Configuration de l’accès anonymes](../img/users/anonymous_access.1.png)
 
-The URL used in the previous section becomes accessible and therefore, you
-can use the same syntax for the scheduled task.
+L’url précédente devient donc accessible à n’importe qui et vous pouvez
+utiliser la tâche cron de la partie précédente.
 
-You can also configure an authentication token to grant a special right on
-the server.
+Vous pouvez aussi configurer un jeton d’authentification pour accorder un
+droit spécial sur votre serveur.
 
-![Token configuration](../img/users/token.1.png)
+![Configuration du token](../img/users/token.1.png)
 
-The scheduled task syntax to use will be the following:
+La tâche cron à utiliser sera de la forme suivante :
 
 ```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=mon-token'
 ```
 
 You can also target a different user by adding their username to the query
@@ -110,78 +110,83 @@ string, with `&user=insert-username`:
 
 ### Authentification HTTP
 
-In that case, the syntax in the two previous section are unusable. It means
-that you need to provide your credentials to the scheduled task. **Note that
-this method is highly discouraged since it means that your credentials will
-be in plain sight!**
+Dans ce cas-là, le token et les permissions “anonymes” sont inutilisables et
+il vous sera nécessaire d’indiquer vos identifiants dans la tâche
+cron. **Notez que cette solution est grandement déconseillée puisqu’elle
+implique que vos identifiants seront visibles en clair !**
 
 ```cron
 0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
-## Manual update
+## Mise à jour manuelle
 
-If you cannot or do not want to use the automatic methods, you can make it
-manually. There is two ways, the partial or the complete update.
+Si vous ne pouvez pas ou ne voulez pas utiliser la méthode automatique, vous
+pouvez le faire de façon manuelle. Il existe deux méthodes qui permettent de
+mettre à jour tout ou partie des flux.
 
 ### Complete update
 
-This update occurs on all feeds. To trigger it, you need to click on the
-navigation menu update link.
+Cette mise à jour se fait pour l’ensemble des flux de l’instance. Pour
+initier cette mise à jour, il suffit de cliquer sur le lien de mise à jour
+disponible dans le menu de navigation.
 
-![Navigation menu](../img/users/refresh.1.png)
+![Menu de navigation](../img/users/refresh.1.png)
 
-When the update starts, a progress bar appears and changes while feeds are
-processed.
+Lorsque la mise à jour démarre, une barre de progression apparait et
+s’actualise au fur et à mesure de la récupération des articles.
 
-![Progress bar](../img/users/refresh.5.png)
+![Barre de progression](../img/users/refresh.5.png)
 
-### Partial update
+### Mise à jour partielle
 
-This update occurs on the selected feed only. To trigger it, you need to
-click on the feed menu update link.
+Cette mise à jour se fait pour le flux sélectionné uniquement. Pour initier
+cette mise à jour, il suffit de cliquer sur le lien de mise à jour
+disponible dans le menu du flux.
 
-![Feed menu](../img/users/refresh.2.png)
+![Menu du flux](../img/users/refresh.2.png)
 
-# Filtering articles
+# Filtrer les articles
 
-While the number of articles stored by FreshRSS increase, it is important to
-have efficient filters to display only a subset of the articles. There is
-several methods with different criterion. Most of the time, those methods
-can be combined.
+Avec le nombre croissant d’articles stockés par FreshRSS, il devient
+important d’avoir des filtres efficaces pour n’afficher qu’une partie des
+articles. Il existe plusieurs méthodes qui filtrent selon des critères
+différents. Ces méthodes peuvent être combinées dans la plus part des cas.
 
-## By category
+## Par catégorie
 
-This is the easiest method. You only need to click on the category title in
-the side panel. There are two special categories on top of that panel:
+C’est la méthode la plus simple. Il suffit de cliquer sur le titre d’une
+catégorie dans le panneau latéral. Il existe deux catégories spéciales qui
+sont placées en haut dudit panneau :
 
-  * *Main feed* which displays only articles from feeds marked as available
-    in that category
-  * *Favourites* which displays only articles marked as favourites
+  * *Flux principal* qui affiche uniquement les articles des flux marqués
+    comme visible dans cette catégorie
+  * *Favoris* qui affiche uniquement les articles, tous flux confondus,
+    marqués comme favoris
 
-## By feed
+## Par flux
 
-There is several methods to filter articles by feed:
+Il existe plusieurs méthodes pour filtrer les articles par flux :
 
-  * by clicking the feed title in the side panel
-  * by clicking the feed title in the article details
-  * by filtering in the feed options from the side panel
-  * by filtering in the feed configuration
+  * en cliquant sur le titre du flux dans le panneau latéral
+  * en cliquant sur le titre du flux dans le détail de l’article
+  * en filtrant dans les options du flux dans le panneau latéral
+  * en filtrant dans la configuration du flux
 
-![Feed filter](../img/users/feed.filter.1.png)
+![Filtrer par flux](../img/users/feed.filter.1.png)
 
-## By status
+## Par statut
 
-Each article has two attributes, which can be combined. The first attribute
-indicates if the article was read or not. The second attribute indicates if
-the article was marked as favorite or not.
+Chaque article possède deux attributs qui peuvent être combinés. Le premier
+attribut indique si l’article a été lu ou non. Le second attribut indique si
+l’article a été noté comme favori ou non.
 
-With version 0.7, attribute filters are available in the article display
-dropdown list. With this version, it is not possible to combine those
-filters. For instance, it is not possible to display only read and favourite
-articles.
+Dans la version 0.7.x, les filtres sur les attributs sont accessibles depuis
+la liste déroulante qui gère l’affichage des articles. Dans cette version,
+il n’est pas possible de combiner les filtres. Par exemple, on ne peut pas
+afficher les articles lus qui ont été notés comme favori.
 
-![Attribute filters in 0.7](../img/users/status.filter.0.7.png)
+![Filtrer par attribut en version 0.7](../img/users/status.filter.0.7.png)
 
 Starting with version 0.8, all attribute filters are visible as toggle
 icons. They can be combined. As any combination is possible, some have the

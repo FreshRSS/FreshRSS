@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 23:29+0200\n"
-"PO-Revision-Date: 2019-10-24 23:32+0100\n"
+"POT-Creation-Date: 2019-10-24 23:59+0200\n"
+"PO-Revision-Date: 2019-10-25 00:00+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -103,8 +103,7 @@ msgid ""
 "    + Your FreshRSS version (on about page or `constants.php` file)\n"
 "    + Your server configuration: type of hosting, PHP version\n"
 "    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)\n"
-"    + If possible, the related logs (PHP logs and FreshRSS logs under"
-" `data/users/your_user/log.txt`)\n"
+"    + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)\n"
 msgstr ""
 
 #. type: Title ##
@@ -158,10 +157,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:38
 #, no-wrap
-msgid ""
-"**Tip:** if you are searching for easy-to-fix bugs, have a look at the «"
-" [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is"
-"%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.\n"
+msgid "**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.\n"
 msgstr ""
 
 #. type: Title ##
@@ -337,17 +333,13 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:31
 #, no-wrap
-msgid ""
-"**You can now access FreshRSS at [http://localhost:8080](http://localhost:8080"
-").** Just follow the install process and select the SQLite database.\n"
+msgid "**You can now access FreshRSS at [http://localhost:8080](http://localhost:8080).** Just follow the install process and select the SQLite database.\n"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:33
 #, no-wrap
-msgid ""
-"You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or"
-" with the following command, in another terminal:\n"
+msgid "You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with the following command, in another terminal:\n"
 msgstr ""
 
 #. type: Plain text
@@ -583,8 +575,7 @@ msgid ""
 msgstr ""
 "# commande à lancer avant l'ajout des fichiers dans l'index\n"
 "git diff --check\n"
-"# commande à lancer après l'ajout des fichiers dans l'index mais avant le"
-" commit\n"
+"# commande à lancer après l'ajout des fichiers dans l'index mais avant le commit\n"
 "git diff --check --cached\n"
 
 #. type: Title ###
@@ -1247,10 +1238,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:82
 #, no-wrap
-msgid ""
-"The variable `$this->a_variable` is passed by the controller (see previous"
-" example). The difference is that in the controller it is necessary to pass"
-" `$this->view`, while in the view `$this` suffices.\n"
+msgid "The variable `$this->a_variable` is passed by the controller (see previous example). The difference is that in the controller it is necessary to pass `$this->view`, while in the view `$this` suffices.\n"
 msgstr ""
 
 #. type: Title ###
@@ -1339,8 +1327,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "<p>\n"
-"\tGo to page <a href=\"http://example.com?c=hello&amp;a=world\">Hello world<"
-"/a>!\n"
+"\tGo to page <a href=\"http://example.com?c=hello&amp;a=world\">Hello world</a>!\n"
 "</p>\n"
 msgstr ""
 
@@ -1432,8 +1419,7 @@ msgid ""
 "];\n"
 "\n"
 "// Tells Minz to redirect the user to the hello / world page.\n"
-"// Note that this is a redirection in the Minz sense of the term, not a"
-" redirection that the browser will have to manage (HTTP code 301 or 302)\n"
+"// Note that this is a redirection in the Minz sense of the term, not a redirection that the browser will have to manage (HTTP code 301 or 302)\n"
 "// The code that follows forward() will thus be executed!\n"
 "Minz_Request::forward($url_array);\n"
 "\n"
@@ -1867,8 +1853,7 @@ msgid ""
 "class HelloWorldExtension extends Minz_Extension\n"
 "{\n"
 "\tpublic function init() {\n"
-"\t\t$this->registerHook('entry_before_display', array($this,"
-" 'renderEntry'));\n"
+"\t\t$this->registerHook('entry_before_display', array($this, 'renderEntry'));\n"
 "\t}\n"
 "\tpublic function renderEntry($entry) {\n"
 "\t\t$entry->_content('<h1>Hello World</h1>' . $entry->content());\n"
@@ -2759,9 +2744,9 @@ msgid ""
 "To take full advantage of FreshRSS, it needs to retrieve new items from the "
 "feeds you have subscribed to. There are several ways to do this."
 msgstr ""
-"Pour profiter pleinement de FreshRSS, il faut qu’il récupère les nouveaux"
-" articles disponibles des flux auxquels vous avez souscrit. Pour cela, il"
-" existe plusieurs méthodes."
+"Pour profiter pleinement de FreshRSS, il faut qu’il récupère les nouveaux "
+"articles disponibles des flux auxquels vous avez souscrit. Pour cela, il "
+"existe plusieurs méthodes."
 
 #. type: Title ##
 #: en/./users/03_Main_view.md:17
@@ -2775,8 +2760,8 @@ msgid ""
 "This is the recommended method since you can forget about it once it is "
 "configured."
 msgstr ""
-"C’est la méthode recommandée car il n’y a pas besoin d’y penser, elle se fait"
-" toute seule, à la fréquence que vous avez choisi."
+"C’est la méthode recommandée car il n’y a pas besoin d’y penser, elle se "
+"fait toute seule, à la fréquence que vous avez choisi."
 
 #. type: Title ###
 #: en/./users/03_Main_view.md:21
@@ -2790,8 +2775,8 @@ msgid ""
 "This method is only available if you have access to the scheduled tasks of "
 "the machine on which your FreshRSS instance is installed."
 msgstr ""
-"Cette méthode n’est possible que si vous avez accès aux tâches planifiées de"
-" la machine sur laquelle est installée votre instance de FreshRSS."
+"Cette méthode n’est possible que si vous avez accès aux tâches planifiées de "
+"la machine sur laquelle est installée votre instance de FreshRSS."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:26
@@ -2801,19 +2786,18 @@ msgid ""
 "is [a quick introduction to crontab](http://www.adminschoice.com/crontab-"
 "quick-reference/) that might help you."
 msgstr ""
-"Le script qui permet de mettre à jour les articles s’appelle"
-" *actualize_script.php* et se trouve dans le répertoire *app* de votre"
-" instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliqué"
-" ici, cependant voici [une introduction rapide à"
-" crontab](http://www.adminschoice.com/crontab-quick-reference/) qui peut vous"
-" aider."
+"Le script qui permet de mettre à jour les articles s’appelle "
+"*actualize_script.php* et se trouve dans le répertoire *app* de votre "
+"instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliqué "
+"ici, cependant voici [une introduction rapide à crontab](http://www."
+"adminschoice.com/crontab-quick-reference/) qui peut vous aider."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:28
 msgid "Here is an example to trigger article update every hour."
 msgstr ""
-"Ci-dessous vous trouverez un exemple permettant la mise à jour des articles"
-" toutes les heures."
+"Ci-dessous vous trouverez un exemple permettant la mise à jour des articles "
+"toutes les heures."
 
 #. type: Code fence info string
 #: en/./users/03_Main_view.md:29 en/./users/03_Main_view.md:61
@@ -2826,20 +2810,16 @@ msgstr "cron"
 #. type: Plain text
 #: en/./users/03_Main_view.md:29
 #, no-wrap
-msgid ""
-"0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log"
-" 2>&1\n"
-msgstr ""
-"0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php >"
-" /tmp/FreshRSS.log 2>&1\n"
+msgid "0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1\n"
+msgstr "0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1\n"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:34
 msgid ""
 "Special parameters to configure the script - all parameters can be combined:"
 msgstr ""
-"Paramètres spéciaux pour configurer le script - tous les paramètres peuvent"
-" être combinés :"
+"Paramètres spéciaux pour configurer le script - tous les paramètres peuvent "
+"être combinés :"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:38
@@ -2919,7 +2899,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:65
 #, no-wrap
 msgid "Form authentication"
-msgstr ""
+msgstr "Authentification par formulaire"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:68
@@ -2928,43 +2908,49 @@ msgid ""
 "allow anonymous users to update feeds (“Allow anonymous refresh of the "
 "articles”)."
 msgstr ""
+"Dans ces cas-là, si vous avez autorisé la lecture anonyme des articles, vous "
+"pouvez aussi permettre à n’importe qui de rafraîchir vos flux (« Autoriser "
+"le rafraîchissement anonyme des flux »)."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:70
 msgid "![Anonymous access configuration](../img/users/anonymous_access.1.png)"
 msgstr ""
+"![Configuration de l’accès anonymes](../img/users/anonymous_access.1.png)"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:72
 msgid ""
-"The URL used in the previous section becomes accessible and therefore, you "
-"can use the same syntax for the scheduled task."
+"The URL used in the previous section will now become accessible to anyone. "
+"Therefore you can use the same syntax for the scheduled task."
 msgstr ""
+"L’url précédente devient donc accessible à n’importe qui et vous pouvez "
+"utiliser la tâche cron de la partie précédente."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:74
 msgid ""
-"You can also configure an authentication token to grant a special right on "
+"You can also configure an authentication token to grant special access on "
 "the server."
 msgstr ""
+"Vous pouvez aussi configurer un jeton d’authentification pour accorder un "
+"droit spécial sur votre serveur."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:76
 msgid "![Token configuration](../img/users/token.1.png)"
-msgstr ""
+msgstr "![Configuration du token](../img/users/token.1.png)"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:78
-msgid "The scheduled task syntax to use will be the following:"
-msgstr ""
+msgid "The scheduled task syntax should look as follows:"
+msgstr "La tâche cron à utiliser sera de la forme suivante :"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:79
 #, no-wrap
-msgid ""
-"0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-to"
-"ken'\n"
-msgstr ""
+msgid "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'\n"
+msgstr "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=mon-token'\n"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:84
@@ -2976,9 +2962,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:85
 #, no-wrap
-msgid ""
-"0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someon"
-"e&token=my-token'\n"
+msgid "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'\n"
 msgstr ""
 
 #. type: Title ###
@@ -2990,50 +2974,58 @@ msgstr "Authentification HTTP"
 #. type: Plain text
 #: en/./users/03_Main_view.md:92
 msgid ""
-"In that case, the syntax in the two previous section are unusable. It means "
-"that you need to provide your credentials to the scheduled task. **Note that "
-"this method is highly discouraged since it means that your credentials will "
-"be in plain sight!**"
+"When using HTTP authentication, the syntax in the two previous sections is "
+"unusable. You'll need to provide your credentials to the scheduled task. "
+"**Note that this method is highly discouraged since it means that your "
+"credentials will be in plain sight!**"
 msgstr ""
+"Dans ce cas-là, le token et les permissions “anonymes” sont inutilisables et "
+"il vous sera nécessaire d’indiquer vos identifiants dans la tâche cron. "
+"**Notez que cette solution est grandement déconseillée puisqu’elle implique "
+"que vos identifiants seront visibles en clair !**"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:93
 #, no-wrap
-msgid ""
-"0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a="
-"actualize'\n"
+msgid "0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
 msgstr ""
 
 #. type: Title ##
 #: en/./users/03_Main_view.md:97
 #, no-wrap
 msgid "Manual update"
-msgstr ""
+msgstr "Mise à jour manuelle"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:100
 msgid ""
-"If you cannot or do not want to use the automatic methods, you can make it "
-"manually. There is two ways, the partial or the complete update."
+"If you can't or don't want to use the automatic method, you can update "
+"manually. There are two methods for updating all or some of the feeds."
 msgstr ""
+"Si vous ne pouvez pas ou ne voulez pas utiliser la méthode automatique, vous "
+"pouvez le faire de façon manuelle. Il existe deux méthodes qui permettent de "
+"mettre à jour tout ou partie des flux."
 
 #. type: Title ###
 #: en/./users/03_Main_view.md:101
 #, no-wrap
 msgid "Complete update"
-msgstr ""
+msgstr "Complete update"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:104
 msgid ""
-"This update occurs on all feeds. To trigger it, you need to click on the "
-"navigation menu update link."
+"This update occurs on all feeds. To trigger it, simply click on the update "
+"link in the navigation menu."
 msgstr ""
+"Cette mise à jour se fait pour l’ensemble des flux de l’instance. Pour "
+"initier cette mise à jour, il suffit de cliquer sur le lien de mise à jour "
+"disponible dans le menu de navigation."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:106
 msgid "![Navigation menu](../img/users/refresh.1.png)"
-msgstr ""
+msgstr "![Menu de navigation](../img/users/refresh.1.png)"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:108
@@ -3041,133 +3033,156 @@ msgid ""
 "When the update starts, a progress bar appears and changes while feeds are "
 "processed."
 msgstr ""
+"Lorsque la mise à jour démarre, une barre de progression apparait et "
+"s’actualise au fur et à mesure de la récupération des articles."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:110
 msgid "![Progress bar](../img/users/refresh.5.png)"
-msgstr ""
+msgstr "![Barre de progression](../img/users/refresh.5.png)"
 
 #. type: Title ###
 #: en/./users/03_Main_view.md:111
 #, no-wrap
 msgid "Partial update"
-msgstr ""
+msgstr "Mise à jour partielle"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:114
 msgid ""
-"This update occurs on the selected feed only. To trigger it, you need to "
-"click on the feed menu update link."
+"This update occurs on the selected feed only. To trigger it, simply click on "
+"the update link in the feed menu."
 msgstr ""
+"Cette mise à jour se fait pour le flux sélectionné uniquement. Pour initier "
+"cette mise à jour, il suffit de cliquer sur le lien de mise à jour "
+"disponible dans le menu du flux."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:116
 msgid "![Feed menu](../img/users/refresh.2.png)"
-msgstr ""
+msgstr "![Menu du flux](../img/users/refresh.2.png)"
 
 #. type: Title #
 #: en/./users/03_Main_view.md:117
 #, no-wrap
 msgid "Filtering articles"
-msgstr ""
+msgstr "Filtrer les articles"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:120
 msgid ""
-"While the number of articles stored by FreshRSS increase, it is important to "
-"have efficient filters to display only a subset of the articles. There is "
-"several methods with different criterion. Most of the time, those methods "
-"can be combined."
+"When the number of articles stored by FreshRSS inevitably grows larger, it's "
+"important to use efficient filters to display only a subset of the articles. "
+"There are several methods that filter with different criteria. Usually those "
+"methods can be combined."
 msgstr ""
+"Avec le nombre croissant d’articles stockés par FreshRSS, il devient "
+"important d’avoir des filtres efficaces pour n’afficher qu’une partie des "
+"articles. Il existe plusieurs méthodes qui filtrent selon des critères "
+"différents. Ces méthodes peuvent être combinées dans la plus part des cas."
 
 #. type: Title ##
 #: en/./users/03_Main_view.md:121
 #, no-wrap
 msgid "By category"
-msgstr ""
+msgstr "Par catégorie"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:124
 msgid ""
 "This is the easiest method. You only need to click on the category title in "
-"the side panel. There are two special categories on top of that panel:"
+"the side panel. There are two special categories at the top of the panel:"
 msgstr ""
+"C’est la méthode la plus simple. Il suffit de cliquer sur le titre d’une "
+"catégorie dans le panneau latéral. Il existe deux catégories spéciales qui "
+"sont placées en haut dudit panneau :"
 
 #. type: Bullet: '  * '
 #: en/./users/03_Main_view.md:127
 msgid ""
-"*Main feed* which displays only articles from feeds marked as available in "
-"that category"
+"*Main feed* displays only articles from feeds marked as available in that "
+"category"
 msgstr ""
+"*Flux principal* qui affiche uniquement les articles des flux marqués comme "
+"visible dans cette catégorie"
 
 #. type: Bullet: '  * '
 #: en/./users/03_Main_view.md:127
-msgid "*Favourites* which displays only articles marked as favourites"
+msgid "*Favourites* displays only articles marked as favourites"
 msgstr ""
+"*Favoris* qui affiche uniquement les articles, tous flux confondus, marqués "
+"comme favoris"
 
 #. type: Title ##
 #: en/./users/03_Main_view.md:128
 #, no-wrap
 msgid "By feed"
-msgstr ""
+msgstr "Par flux"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:131
-msgid "There is several methods to filter articles by feed:"
-msgstr ""
+msgid "There are several methods to filter articles by feed:"
+msgstr "Il existe plusieurs méthodes pour filtrer les articles par flux :"
 
 #. type: Bullet: '  * '
 #: en/./users/03_Main_view.md:136
 msgid "by clicking the feed title in the side panel"
-msgstr ""
+msgstr "en cliquant sur le titre du flux dans le panneau latéral"
 
 #. type: Bullet: '  * '
 #: en/./users/03_Main_view.md:136
 msgid "by clicking the feed title in the article details"
-msgstr ""
+msgstr "en cliquant sur le titre du flux dans le détail de l’article"
 
 #. type: Bullet: '  * '
 #: en/./users/03_Main_view.md:136
 msgid "by filtering in the feed options from the side panel"
-msgstr ""
+msgstr "en filtrant dans les options du flux dans le panneau latéral"
 
 #. type: Bullet: '  * '
 #: en/./users/03_Main_view.md:136
 msgid "by filtering in the feed configuration"
-msgstr ""
+msgstr "en filtrant dans la configuration du flux"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:138
 msgid "![Feed filter](../img/users/feed.filter.1.png)"
-msgstr ""
+msgstr "![Filtrer par flux](../img/users/feed.filter.1.png)"
 
 #. type: Title ##
 #: en/./users/03_Main_view.md:139
 #, no-wrap
 msgid "By status"
-msgstr ""
+msgstr "Par statut"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:142
 msgid ""
-"Each article has two attributes, which can be combined. The first attribute "
-"indicates if the article was read or not. The second attribute indicates if "
-"the article was marked as favorite or not."
+"Each article has two attributes that can be combined. The first attribute "
+"indicates whether or not the article has been read. The second attribute "
+"indicates if the article was marked as favorite or not."
 msgstr ""
+"Chaque article possède deux attributs qui peuvent être combinés. Le premier "
+"attribut indique si l’article a été lu ou non. Le second attribut indique si "
+"l’article a été noté comme favori ou non."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:144
 msgid ""
-"With version 0.7, attribute filters are available in the article display "
-"dropdown list. With this version, it is not possible to combine those "
-"filters. For instance, it is not possible to display only read and favourite "
-"articles."
+"In version 0.7, attribute filters are available in the article display "
+"dropdown list. With this version, it's not possible to combine filters. For "
+"instance, it's not possible to display only read and favorite articles."
 msgstr ""
+"Dans la version 0.7.x, les filtres sur les attributs sont accessibles depuis "
+"la liste déroulante qui gère l’affichage des articles. Dans cette version, "
+"il n’est pas possible de combiner les filtres. Par exemple, on ne peut pas "
+"afficher les articles lus qui ont été notés comme favori."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:146
 msgid "![Attribute filters in 0.7](../img/users/status.filter.0.7.png)"
 msgstr ""
+"![Filtrer par attribut en version 0.7](../img/users/status.filter.0.7.png)"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:148
@@ -3241,9 +3256,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:199
 #, no-wrap
 msgid ""
-"* by date of discovery, using the [ISO 8601 time interval"
-" format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<"
-"date-interval>`\n"
+"* by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`\n"
 "\t* From a specific day, or month, or year:\n"
 "\t\t* `date:2014-03-30`\n"
 "\t\t* `date:2014-03` or `date:201403`\n"
@@ -3411,21 +3424,11 @@ msgstr ""
 #: en/./users/04_Subscriptions.md:38
 #, no-wrap
 msgid ""
-"  | Preference name                              | Value                     "
-"                                 | Note                                      "
-"                |\n"
-"  | -------------------------------------------- |"
-" ---------------------------------------------------------- |"
-" --------------------------------------------------------- |\n"
-"  | browser.contentHandlers.types.%NUMBER%.title | **FreshRSS**              "
-"                                 | Use any name you would like (ie. \"My"
-" feeds\")              |\n"
-"  | browser.contentHandlers.types.%NUMBER%.type  |"
-" **application/vnd.mozilla.maybe.feed**                     | Do not change"
-" this value!                                 |\n"
-"  | browser.contentHandlers.types.%NUMBER%.uri   |"
-" **http://EXAMPLE.COM/FreshRss/i?c=feed&a=add&url_rss=%s** | Replace base url"
-" with yours and switch to https (if used) |\n"
+"  | Preference name                              | Value                                                      | Note                                                      |\n"
+"  | -------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------- |\n"
+"  | browser.contentHandlers.types.%NUMBER%.title | **FreshRSS**                                               | Use any name you would like (ie. \"My feeds\")              |\n"
+"  | browser.contentHandlers.types.%NUMBER%.type  | **application/vnd.mozilla.maybe.feed**                     | Do not change this value!                                 |\n"
+"  | browser.contentHandlers.types.%NUMBER%.uri   | **http://EXAMPLE.COM/FreshRss/i?c=feed&a=add&url_rss=%s** | Replace base url with yours and switch to https (if used) |\n"
 msgstr ""
 
 #. type: Bullet: '  4. '
@@ -4024,28 +4027,14 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:177
 #, no-wrap
-msgid ""
-"Here we find that the block that encompasses nothing but the content of the"
-" article is ```<div class=\"content clearfix\">```. We'll only use the"
-" `.content` class here. Nevertheless, as said above, it's best to start the"
-" path with an id. If we go back to the parent block, we find ```<div"
-" id=\"article\">``` and that's perfect! The path will be ```#article"
-" .content```.\n"
-msgstr ""
-"On trouve ici que le bloc qui englobe uniquement le contenu de l'article est"
-" ```<div class=\"content clearfix\">```. On ne va garder que la classe"
-" `.content` ici. Néanmoins, comme je le disais plus haut, il est préférable"
-" de commencer le chemin avec un id. Si on remonte au bloc parent, il s'agit"
-" du bloc ```<div id=\"article\">``` et c'est parfait ! Le chemin sera donc"
-" ```#article .content```.\n"
+msgid "Here we find that the block that encompasses nothing but the content of the article is ```<div class=\"content clearfix\">```. We'll only use the `.content` class here. Nevertheless, as said above, it's best to start the path with an id. If we go back to the parent block, we find ```<div id=\"article\">``` and that's perfect! The path will be ```#article .content```.\n"
+msgstr "On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```<div class=\"content clearfix\">```. On ne va garder que la classe `.content` ici. Néanmoins, comme je le disais plus haut, il est préférable de commencer le chemin avec un id. Si on remonte au bloc parent, il s'agit du bloc ```<div id=\"article\">``` et c'est parfait ! Le chemin sera donc ```#article .content```.\n"
 
 #. type: Title ####
 #: en/./users/05_Configuration.md:178
 #, fuzzy, no-wrap
 #| msgid "Add the corresponding classes to the articles CSS path on the feed configuration page. Examples:"
-msgid ""
-"Add the corresponding classes to the article CSS path on the feed"
-" configuration page. Examples:"
+msgid "Add the corresponding classes to the article CSS path on the feed configuration page. Examples:"
 msgstr "Liste de correspondances site → chemin css"
 
 #. type: Bullet: '*  '
@@ -4157,8 +4146,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "- Android\n"
-"  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos"
-".readably) (Closed source)\n"
+"  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)\n"
 msgstr ""
 
 #. type: Plain text
@@ -4166,12 +4154,9 @@ msgstr ""
 #, no-wrap
 msgid ""
 "- iOS\n"
-"  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id11587633"
-"03) (Closed source)\n"
-"  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)"
-" (Commercial)\n"
-"  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader"
-" API / native FreshRSS option when possible)\n"
+"  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)\n"
+"  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)\n"
+"  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)\n"
 msgstr ""
 
 #. type: Plain text
@@ -4285,9 +4270,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:74
 #, no-wrap
-msgid ""
-"curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?ap"
-"i'\n"
+msgid "curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?api'\n"
 msgstr ""
 
 #. type: Plain text
@@ -4357,9 +4340,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:106
 #, no-wrap
-msgid ""
-"file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': '"
-" . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);\n"
+msgid "file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);\n"
 msgstr ""
 
 #. type: Plain text
@@ -4406,12 +4387,9 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:9
 #, no-wrap
 msgid ""
-"2. Under the section “Profile”, fill-in the field “API password (e.g., for"
-" mobile apps)”.\n"
+"2. Under the section “Profile”, fill-in the field “API password (e.g., for mobile apps)”.\n"
 "\t* Every user must define an API password.\n"
-"\t* The reason for an API-specific password is that it may be used in less"
-" safe situations than the main password, and does not grant access to as many"
-" things.\n"
+"\t* The reason for an API-specific password is that it may be used in less safe situations than the main password, and does not grant access to as many things.\n"
 msgstr ""
 
 #. type: Plain text
@@ -4440,10 +4418,8 @@ msgstr ""
 #, no-wrap
 msgid ""
 "4. Click on first link “Check full server configuration”:\n"
-"\t* If you get *PASS* then you are done, all is good: you may proceed to step"
-" 6.\n"
-"\t* If you get *Bad Request!* or *Not Found*, then your server probably does"
-" not accept slashes `/` that are escaped `%2F`. Proceed to step 5.\n"
+"\t* If you get *PASS* then you are done, all is good: you may proceed to step 6.\n"
+"\t* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`. Proceed to step 5.\n"
 "\t* If you get any other error message, proceed to step 5.\n"
 msgstr ""
 
@@ -4457,37 +4433,22 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:42
 #, no-wrap
 msgid ""
-"5. Click on the second link “Check partial server configuration (without `"
-"%2F` support)”:\n"
-"\t* If you get `PASS`, then the problem is indeed that your server does not"
-" accept slashes `/` that are escaped `%2F`.\n"
-"\t\t* With Apache, remember the directive [`AllowEncodedSlashes"
-" On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)\n"
-"\t\t* Or use a client that does not escape slashes (such as EasyRSS), in"
-" which case proceed to step 6.\n"
+"5. Click on the second link “Check partial server configuration (without `%2F` support)”:\n"
+"\t* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.\n"
+"\t\t* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)\n"
+"\t\t* Or use a client that does not escape slashes (such as EasyRSS), in which case proceed to step 6.\n"
 "\t* If you get *Service Unavailable!*, then check from step 1 again.\n"
 "\t* With __Apache__:\n"
-"\t\t* If you get *FAIL getallheaders!*, the combination of your PHP version"
-" and your Web server does not provide access to"
-" [`getallheaders`](http://php.net/getallheaders)\n"
-"\t\t\t* Turn on Apache `mod_setenvif` (often enabled by default), or"
-" `mod_rewrite` with the following procedure:\n"
-"\t\t\t\t* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk"
-"/mod/core.html#allowoverride): see the [server"
-" setup](../admins/02_Installation.md) again.\n"
-"\t\t\t\t* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_re"
-"write.html):\n"
+"\t\t* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)\n"
+"\t\t\t* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:\n"
+"\t\t\t\t* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/02_Installation.md) again.\n"
+"\t\t\t\t* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):\n"
 "\t\t\t\t\t* With Debian / Ubuntu: `sudo a2enmod rewrite`\n"
 "\t* With __nginx__:\n"
-"\t\t* If you get *Bad Request!*, check your server `PATH_INFO`"
-" configuration.\n"
-"\t\t* If you get *File not found!*, check your server"
-" `fastcgi_split_path_info`.\n"
-"\t* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does"
-" not pass the requirement of being 64-bit and/or have PHP"
-" [GMP](http://php.net/gmp) extension.\n"
-"\t\t* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt"
-" install php-gmp`\n"
+"\t\t* If you get *Bad Request!*, check your server `PATH_INFO` configuration.\n"
+"\t\t* If you get *File not found!*, check your server `fastcgi_split_path_info`.\n"
+"\t* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](http://php.net/gmp) extension.\n"
+"\t\t* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt install php-gmp`\n"
 "\t* Update and try again from step 3.\n"
 msgstr ""
 
@@ -4501,10 +4462,8 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:48
 #, no-wrap
 msgid ""
-"6. On the same FreshRSS API page, note the address given under “Your API"
-" address”, like `https://freshrss.example.net/api/greader.php`\n"
-"\t* You will type it in a client, together with your FreshRSS username, and"
-" the corresponding special API password.\n"
+"6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`\n"
+"\t* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.\n"
 msgstr ""
 
 #. type: Plain text
@@ -4513,25 +4472,18 @@ msgstr ""
 msgid ""
 "7. Pick a client supporting a Google Reader-like API. Selection:\n"
 "\t* Android\n"
-"\t\t* [News+](https://play.google.com/store/apps/details?id=com.noinnion.andro"
-"id.newsplus) with [News+ Google Reader extension](https://play.google.com/stor"
-"e/apps/details?id=com.noinnion.android.newsplus.extension.google_reader)"
-" (Closed source)\n"
-"\t\t* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon"
-".feedme) (Closed source)\n"
-"\t\t* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source,"
-" [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))\n"
+"\t\t* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)\n"
+"\t\t* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)\n"
+"\t\t* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))\n"
 "\t* Linux\n"
-"\t\t* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open"
-" source)\n"
+"\t\t* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)\n"
 "\t* MacOS\n"
 "\t\t* [Vienna RSS](http://www.vienna-rss.com/) (Open source)\n"
 "\t\t* [Reeder](https://www.reederapp.com/) (Commercial)\n"
 "\t* iOS\n"
 "\t\t* [Reeder](https://www.reederapp.com/) (Commercial)\n"
 "\t* Firefox\n"
-"\t\t* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-noti"
-"fy-webextension/) (Open source)\n"
+"\t\t* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Open source)\n"
 msgstr ""
 
 #. type: Title #
@@ -4549,40 +4501,29 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:69
 #, no-wrap
 msgid ""
-"# Initial login, using API password (Email and Passwd can be given either as"
-" GET, or POST - better)\n"
-"curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email="
-"alice&Passwd=Abcdef123456'\n"
+"# Initial login, using API password (Email and Passwd can be given either as GET, or POST - better)\n"
+"curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'\n"
 "SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
 "Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
 "\n"
 "# Examples of read-only requests\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list"
-"?output=json'\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list?output=json'\n"
 "\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?outp"
-"ut=json'\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?output=json'\n"
 "\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=j"
-"son'\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=json'\n"
 "\n"
 "# Retrieve a token for requests making modifications\n"
-"curl -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e"
-"b60bdb5f8\" \\\n"
+"curl -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
 "  'https://freshrss.example.net/api/greader.php/reader/api/0/token'\n"
 "8e6845e089457af25303abc6f53356eb60bdb5f8ZZZZZZZZZZZZZZZZZ\n"
 "\n"
 "# Get articles, piped to jq for easier JSON reading\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/r"
-"eading-list' | jq .\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .\n"
 msgstr ""
 
 #. type: Plain text
@@ -4857,12 +4798,10 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:51
 #, no-wrap
 msgid ""
-"semanage fcontext -a -t httpd_sys_rw_content_t"
-" '/usr/share/FreshRSS/data(/.*)?'\n"
+"semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
 "restorecon -Rv /usr/share/FreshRSS/data\n"
 msgstr ""
-"semanage fcontext -a -t httpd_sys_rw_content_t"
-" '/usr/share/FreshRSS/data(/.*)?'\n"
+"semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
 "restorecon -Rv /usr/share/FreshRSS/data\n"
 
 #~ msgid "Préparer la sortie"

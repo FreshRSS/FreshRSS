@@ -68,13 +68,13 @@ If you configure the application to allow anonymous reading, you can also allow 
 
 ![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
-The URL used in the previous section becomes accessible and therefore, you can use the same syntax for the scheduled task.
+The URL used in the previous section will now become accessible to anyone. Therefore you can use the same syntax for the scheduled task.
 
-You can also configure an authentication token to grant a special right on the server.
+You can also configure an authentication token to grant special access on the server.
 
 ![Token configuration](../img/users/token.1.png)
 
-The scheduled task syntax to use will be the following:
+The scheduled task syntax should look as follows:
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
@@ -88,7 +88,7 @@ You can also target a different user by adding their username to the query strin
 
 ### HTTP authentication
 
-In that case, the syntax in the two previous section are unusable. It means that you need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
+When using HTTP authentication, the syntax in the two previous sections is unusable. You'll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
 
 ```cron
 0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
@@ -96,11 +96,11 @@ In that case, the syntax in the two previous section are unusable. It means that
 
 ## Manual update
 
-If you cannot or do not want to use the automatic methods, you can make it manually. There is two ways, the partial or the complete update.
+If you can't or don't want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
 
 ### Complete update
 
-This update occurs on all feeds. To trigger it, you need to click on the navigation menu update link.
+This update occurs on all feeds. To trigger it, simply click on the update link in the navigation menu.
 
 ![Navigation menu](../img/users/refresh.1.png)
 
@@ -110,24 +110,24 @@ When the update starts, a progress bar appears and changes while feeds are proce
 
 ### Partial update
 
-This update occurs on the selected feed only. To trigger it, you need to click on the feed menu update link.
+This update occurs on the selected feed only. To trigger it, simply click on the update link in the feed menu.
 
 ![Feed menu](../img/users/refresh.2.png)
 
 # Filtering articles
 
-While the number of articles stored by FreshRSS increase, it is important to have efficient filters to display only a subset of the articles. There is several methods with different criterion. Most of the time, those methods can be combined.
+When the number of articles stored by FreshRSS inevitably grows larger, it's important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
 ## By category
 
-This is the easiest method. You only need to click on the category title in the side panel. There are two special categories on top of that panel:
+This is the easiest method. You only need to click on the category title in the side panel. There are two special categories at the top of the panel:
 
-  * *Main feed* which displays only articles from feeds marked as available in that category
-  * *Favourites* which displays only articles marked as favourites
+  * *Main feed* displays only articles from feeds marked as available in that category
+  * *Favourites* displays only articles marked as favourites
 
 ## By feed
 
-There is several methods to filter articles by feed:
+There are several methods to filter articles by feed:
 
   * by clicking the feed title in the side panel
   * by clicking the feed title in the article details
@@ -138,9 +138,9 @@ There is several methods to filter articles by feed:
 
 ## By status
 
-Each article has two attributes, which can be combined. The first attribute indicates if the article was read or not. The second attribute indicates if the article was marked as favorite or not.
+Each article has two attributes that can be combined. The first attribute indicates whether or not the article has been read. The second attribute indicates if the article was marked as favorite or not.
 
-With version 0.7, attribute filters are available in the article display dropdown list. With this version, it is not possible to combine those filters. For instance, it is not possible to display only read and favourite articles.
+In version 0.7, attribute filters are available in the article display dropdown list. With this version, it's not possible to combine filters. For instance, it's not possible to display only read and favorite articles.
 
 ![Attribute filters in 0.7](../img/users/status.filter.0.7.png)
 
