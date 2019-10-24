@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 15:29+0200\n"
-"PO-Revision-Date: 2019-10-24 15:30+0100\n"
+"POT-Creation-Date: 2019-10-24 16:06+0200\n"
+"PO-Revision-Date: 2019-10-24 16:06+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -134,15 +134,9 @@ msgid ""
 "| ------------- | ----------------------- | ----------------------- |\n"
 "| Web server    | **Apache 2**            | Nginx                   |\n"
 "| PHP           | **PHP 7+**              | PHP 5.6+                |\n"
-"| PHP modules   | Required: libxml, cURL, JSON, PDO\\_MySQL, PCRE and ctype."
-" <br>Required (32-bit only): GMP <br> Recommanded: Zlib, mbstring, iconv,"
-" ZipArchive <br> *For the whole modules list see"
-" [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfi"
-"le-Alpine#L7-L9)* | |\n"
-"| Database      | **MySQL 5.5.3+**        | SQLite 3.7.4+, PostgreSQL 9.5+   "
-"       |\n"
-"| Browser       | **Firefox**             | Chrome, Opera, Safari, or"
-" IE11/Edge[^1] |\n"
+"| PHP modules   | Required: libxml, cURL, JSON, PDO\\_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfile-Alpine#L7-L9)* | |\n"
+"| Database      | **MySQL 5.5.3+**        | SQLite 3.7.4+, PostgreSQL 9.5+          |\n"
+"| Browser       | **Firefox**             | Chrome, Opera, Safari, or IE11/Edge[^1] |\n"
 msgstr ""
 
 #. type: Title #
@@ -404,18 +398,12 @@ msgstr ""
 #: en/./admins/04_Frequently_Asked_Questions.md:30
 #, no-wrap
 msgid ""
-"Users can register directly on the login screen only if the configuration"
-" allows them.\n"
-"Under *Administration* > *System configuration*, you have access to *Max"
-" number of accounts*.\n"
-"As stated on that page, there is no limitation if you input **0**, thus"
-" allowing any number of user to self-register.\n"
-"If you input any other number, you will create a limitation on"
-" self-registering users.\n"
-"That means that as soon as the limit is reached, users cannot self-register"
-" but they can still be registered by the *admin* user.\n"
-"Using the value **1**, disables the self-registration since the spot is used"
-" by the *admin* user.\n"
+"Users can register directly on the login screen only if the configuration allows them.\n"
+"Under *Administration* > *System configuration*, you have access to *Max number of accounts*.\n"
+"As stated on that page, there is no limitation if you input **0**, thus allowing any number of user to self-register.\n"
+"If you input any other number, you will create a limitation on self-registering users.\n"
+"That means that as soon as the limit is reached, users cannot self-register but they can still be registered by the *admin* user.\n"
+"Using the value **1**, disables the self-registration since the spot is used by the *admin* user.\n"
 msgstr ""
 
 #. type: Title #
@@ -455,13 +443,7 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/04_Updating.md:12
 #, no-wrap
-msgid ""
-"If you enabled web updates from your installation (see footnote 2 in"
-" [installation](03_Installation.md)), you can log into your admin account,"
-" select the update option under Administration in the Settings dropdown found"
-" on the top right of the webpage, and press the \"Check for new updates\""
-" button. Alternatively, this page can be reached directly at `http://<"
-"your_server>/i/?c=update`.\n"
+msgid "If you enabled web updates from your installation (see footnote 2 in [installation](03_Installation.md)), you can log into your admin account, select the update option under Administration in the Settings dropdown found on the top right of the webpage, and press the \"Check for new updates\" button. Alternatively, this page can be reached directly at `http://<your_server>/i/?c=update`.\n"
 msgstr ""
 
 #. type: Plain text
@@ -700,19 +682,14 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/05_Backup.md:53
 #, no-wrap
-msgid ""
-"To save articles, you can use [phpMyAdmin](https://www.phpmyadmin.net/) or"
-" MySQL tools, where `<db_user>` is your database username, `<db_host>` is the"
-" hostname of your web server containing your FreshRSS database, and `<"
-"freshrss_db>` is the database used by FreshRSS:\n"
+msgid "To save articles, you can use [phpMyAdmin](https://www.phpmyadmin.net/) or MySQL tools, where `<db_user>` is your database username, `<db_host>` is the hostname of your web server containing your FreshRSS database, and `<freshrss_db>` is the database used by FreshRSS:\n"
 msgstr ""
 
 #. type: Plain text
 #: en/./admins/05_Backup.md:53
 #, no-wrap
 msgid ""
-"mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <"
-"db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>\n"
+"mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>\n"
 "\n"
 msgstr ""
 
@@ -872,8 +849,7 @@ msgstr ""
 msgid ""
 "$ # For instance, for a user called `alice`\n"
 "\n"
-"$ grep email_validation_token data/users/alice/config.php | cut -d \\' -f 4"
-" -\n"
+"$ grep email_validation_token data/users/alice/config.php | cut -d \\' -f 4 -\n"
 "\n"
 "3d75042a4471994a0346e18ae87602f19220a795\n"
 "\n"
@@ -883,8 +859,7 @@ msgstr ""
 #: en/./admins/05_Configuring_email_validation.md:69
 msgid ""
 "Then, the validation URL should be `http://localhost:8080/i/?"
-"c=user&a=validateEmail&username=alice&token=3d75042a4471994a0346e18ae87602f192"
-"20a795`"
+"c=user&a=validateEmail&username=alice&token=3d75042a4471994a0346e18ae87602f19220a795`"
 msgstr ""
 
 #. type: Plain text
@@ -949,8 +924,7 @@ msgstr ""
 #: en/./admins/06_LinuxInstall.md:16
 #, no-wrap
 msgid ""
-"ln -s /etc/apache2/sites-available/freshrss.conf"
-" /etc/apache2/sites-enabled/freshrss.conf\n"
+"ln -s /etc/apache2/sites-available/freshrss.conf /etc/apache2/sites-enabled/freshrss.conf\n"
 "\n"
 msgstr ""
 
@@ -963,8 +937,7 @@ msgstr ""
 #: en/./admins/06_LinuxInstall.md:21
 #, no-wrap
 msgid ""
-"apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml"
-" php-zip\n"
+"apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip\n"
 "\n"
 msgstr ""
 
@@ -1155,10 +1128,7 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/06_LinuxInstall.md:94
 #, no-wrap
-msgid ""
-"Start a MySQL session. running this command will ask you for the MySQL"
-" password you set earler, and then put you into a prompt that should look"
-" like `MariaDB [(none)]>`\n"
+msgid "Start a MySQL session. running this command will ask you for the MySQL password you set earler, and then put you into a prompt that should look like `MariaDB [(none)]>`\n"
 msgstr ""
 
 #. type: Plain text
@@ -1172,10 +1142,7 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/06_LinuxInstall.md:99
 #, no-wrap
-msgid ""
-"From the MySQL prompt (`MariaDB [(none)]>`), run the following commands,"
-" substituting `<username>`, `<password>`, and `<database_name>` for real"
-" values.\n"
+msgid "From the MySQL prompt (`MariaDB [(none)]>`), run the following commands, substituting `<username>`, `<password>`, and `<database_name>` for real values.\n"
 msgstr ""
 
 #. type: Plain text
@@ -1214,10 +1181,8 @@ msgstr ""
 #: en/./admins/06_LinuxInstall.md:116
 #, no-wrap
 msgid ""
-"You can now finish the installation from a web browser by navigating to to"
-" `http://<your_server>/p` and following the graphical prompts.\n"
-"Alternatively, you can finish the installation using [the"
-" cli](https://github.com/FreshRSS/FreshRSS/tree/master/cli)\n"
+"You can now finish the installation from a web browser by navigating to to `http://<your_server>/p` and following the graphical prompts.\n"
+"Alternatively, you can finish the installation using [the cli](https://github.com/FreshRSS/FreshRSS/tree/master/cli)\n"
 msgstr ""
 
 #. type: Title #
@@ -1243,8 +1208,7 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/07_LinuxUpdate.md:8
 #, no-wrap
-msgid ""
-"**You must have used git to install FreshRSS to use this update method.**\n"
+msgid "**You must have used git to install FreshRSS to use this update method.**\n"
 msgstr ""
 
 #. type: Plain text
@@ -1401,15 +1365,7 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/07_LinuxUpdate.md:66
 #, no-wrap
-msgid ""
-"If you wish to switch to [a specific release of"
-" FreshRSS](https://github.com/FreshRSS/FreshRSS/releases), you would use the"
-" command `git checkout <release_name>`, where <release_name> is the specific"
-" release number you wish to check out (for example, `git checkout 1.12.0`)."
-" Be aware that checking out a specific release will leave you in a state"
-" where you can't automatically update; you'll need to run `git checkout"
-" master` or `git checkout dev` before you'll be able to pull updates from git"
-" automatically.\n"
+msgid "If you wish to switch to [a specific release of FreshRSS](https://github.com/FreshRSS/FreshRSS/releases), you would use the command `git checkout <release_name>`, where <release_name> is the specific release number you wish to check out (for example, `git checkout 1.12.0`). Be aware that checking out a specific release will leave you in a state where you can't automatically update; you'll need to run `git checkout master` or `git checkout dev` before you'll be able to pull updates from git automatically.\n"
 msgstr ""
 
 #. type: Title ##
@@ -1487,10 +1443,7 @@ msgstr ""
 #. type: Plain text
 #: en/./admins/08_FeedUpdates.md:6
 #, no-wrap
-msgid ""
-"**Note:** the update script will not fetch feeds more often than every twenty"
-" minutes, so there's no sense in setting the Cron job to run anymore often"
-" than that.\n"
+msgid "**Note:** the update script will not fetch feeds more often than every twenty minutes, so there's no sense in setting the Cron job to run anymore often than that.\n"
 msgstr ""
 
 #. type: Plain text
@@ -1532,8 +1485,7 @@ msgstr ""
 #: en/./admins/08_FeedUpdates.md:15
 #, no-wrap
 msgid ""
-"10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php >"
-" /tmp/FreshRSS.log 2>&1\n"
+"10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1\n"
 "\n"
 msgstr ""
 
@@ -1840,8 +1792,7 @@ msgid ""
 "\n"
 "\t\t# By default, the variable PATH_INFO is not set under PHP-FPM\n"
 "\n"
-"\t\t# But FreshRSS API greader.php need it. If you have a “Bad Request”"
-" error, double check this var!\n"
+"\t\t# But FreshRSS API greader.php need it. If you have a “Bad Request” error, double check this var!\n"
 "\n"
 "\t\tfastcgi_param PATH_INFO $fastcgi_path_info;\n"
 "\n"
@@ -1943,8 +1894,7 @@ msgid ""
 "    + Your FreshRSS version (on about page or `constants.php` file)\n"
 "    + Your server configuration: type of hosting, PHP version\n"
 "    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)\n"
-"    + If possible, the related logs (PHP logs and FreshRSS logs under"
-" `data/users/your_user/log.txt`)\n"
+"    + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)\n"
 msgstr ""
 
 #. type: Title ##
@@ -1998,10 +1948,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:38
 #, no-wrap
-msgid ""
-"**Tip:** if you are searching for easy-to-fix bugs, have a look at the «"
-" [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is"
-"%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.\n"
+msgid "**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.\n"
 msgstr ""
 
 #. type: Title ##
@@ -2067,15 +2014,19 @@ msgstr ""
 #: en/./developers/01_First_steps.md:1
 #, no-wrap
 msgid "Environment configuration (Docker)"
-msgstr ""
+msgstr "Configurer son environnement (Docker)"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:4
+#, fuzzy
 msgid ""
 "FreshRSS is built with PHP and uses a homemade framework, Minz. The "
 "dependencies are directly included in the source code, so you don't need "
 "Composer."
 msgstr ""
+"FreshRSS est construit en PHP et utilise le framework Minz. Les dépendances "
+"sont directement inclus dans le code source, donc vous n'avez pas besoin de "
+"Composer."
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:6
@@ -2157,17 +2108,13 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:31
 #, no-wrap
-msgid ""
-"**You can now access FreshRSS at [http://localhost:8080](http://localhost:8080"
-").** Just follow the install process and select the SQLite database.\n"
+msgid "**You can now access FreshRSS at [http://localhost:8080](http://localhost:8080).** Just follow the install process and select the SQLite database.\n"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:33
 #, no-wrap
-msgid ""
-"You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or"
-" with the following command, in another terminal:\n"
+msgid "You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with the following command, in another terminal:\n"
 msgstr ""
 
 #. type: Plain text
@@ -2315,26 +2262,29 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/01_First_steps.md:74
 #, no-wrap
-msgid "Indent"
-msgstr ""
+msgid "Indentation"
+msgstr "Indentation"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:76
-msgid "Code indent must use tabs."
+msgid "Code indentation must use tabs."
 msgstr ""
+"L'indentation du code doit être faite impérativement avec des tabulations."
 
 #. type: Title ###
 #: en/./developers/01_First_steps.md:77
 #, no-wrap
 msgid "Alignment"
-msgstr ""
+msgstr "Alignement"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:80
 msgid ""
-"Once the code is indented, it might be useful to align it to ease the "
-"reading. In that case, use spaces."
+"Once the code has been correctly indented, it might be useful to align it "
+"for ease of reading. In that case, please use spaces."
 msgstr ""
+"Une fois l'indentation faite, il peut être nécessaire de faire un alignement "
+"pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces."
 
 #. type: Code fence info string
 #: en/./developers/01_First_steps.md:81 en/./developers/01_First_steps.md:111
@@ -2352,7 +2302,7 @@ msgstr ""
 #: en/./users/06_Fever_API.md:106
 #, no-wrap
 msgid "php"
-msgstr ""
+msgstr "php"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:81
@@ -2363,26 +2313,33 @@ msgid ""
 "                                             $param3, $param4);\n"
 "\n"
 msgstr ""
+"$result = une_fonction_avec_un_nom_long($param1, $param2,\n"
+"                                          $param3, $param4);\n"
 
 #. type: Title ###
 #: en/./developers/01_First_steps.md:86
 #, no-wrap
 msgid "End of line"
-msgstr ""
+msgstr "Fin de ligne"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:89
 msgid ""
-"The end of line character must be a line feed (LF) which is a default end of "
-"line on *NIX systems. This character must not follow other white spaces."
+"The newline character must be a line feed (LF), which is a default line "
+"ending on *NIX systems. This character must not follow other white space."
 msgstr ""
+"Le caractère de fin de ligne doit être un saut de ligne (LF) qui est le "
+"caractère de fin de ligne des systèmes *NIX. Ce caractère ne doit pas être "
+"précédé par des caractères blanc."
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:91
 msgid ""
-"It is possible to verify if there is white spaces before the end of line, "
+"You can verify if there is any unintended white space at the end of line "
 "with the following Git command:"
 msgstr ""
+"Il est possible de vérifier la présence de caractères blancs en fin de ligne "
+"grâce à Git avec la commande suivante :"
 
 #. type: Code fence info string
 #: en/./developers/01_First_steps.md:92
@@ -2461,10 +2418,6 @@ msgstr "Le cas des parenthèses"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:122
-#| msgid ""
-#| "There is no spaces in the brackets. There is no space before the opening "
-#| "bracket except if it is after a keyword. There is no space after the "
-#| "closing bracket except if it is followed by a curly bracket."
 msgid ""
 "There should be no spaces in between brackets. There should be no spaces "
 "before the opening bracket, except if it's after a keyword. There shouldn't "
@@ -2505,12 +2458,17 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:136
 msgid ""
-"It happens most of the time in Javascript files. When there is chained "
-"functions, closures and callback functions, it is hard to understand the "
+"It happens most of the time in Javascript files. When there are chained "
+"functions with closures and callback functions, it's hard to understand the "
 "code if not properly formatted. In those cases, we add a new indent level "
 "for the complete instruction and reset the indent for a new instruction on "
 "the same level."
 msgstr ""
+"Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions "
+"chainées, des fonctions anonymes ainsi que des fonctions de rappels, il est "
+"très facile de se perdre. Dans ce cas là, on ajoute une indentation "
+"supplémentaire pour toute l'instruction et on revient au même niveau pour "
+"une instruction de même niveau."
 
 #. type: Code fence info string
 #: en/./developers/01_First_steps.md:137
@@ -3113,10 +3071,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:82
 #, no-wrap
-msgid ""
-"The variable `$this->a_variable` is passed by the controller (see previous"
-" example). The difference is that in the controller it is necessary to pass"
-" `$this->view`, while in the view `$this` suffices.\n"
+msgid "The variable `$this->a_variable` is passed by the controller (see previous example). The difference is that in the controller it is necessary to pass `$this->view`, while in the view `$this` suffices.\n"
 msgstr ""
 
 #. type: Title ###
@@ -3223,8 +3178,7 @@ msgstr ""
 msgid ""
 "<p>\n"
 "\n"
-"\tGo to page <a href=\"http://example.com?c=hello&amp;a=world\">Hello world<"
-"/a>!\n"
+"\tGo to page <a href=\"http://example.com?c=hello&amp;a=world\">Hello world</a>!\n"
 "\n"
 "</p>\n"
 "\n"
@@ -3346,8 +3300,7 @@ msgid ""
 "\n"
 "// Tells Minz to redirect the user to the hello / world page.\n"
 "\n"
-"// Note that this is a redirection in the Minz sense of the term, not a"
-" redirection that the browser will have to manage (HTTP code 301 or 302)\n"
+"// Note that this is a redirection in the Minz sense of the term, not a redirection that the browser will have to manage (HTTP code 301 or 302)\n"
 "\n"
 "// The code that follows forward() will thus be executed!\n"
 "\n"
@@ -3836,8 +3789,7 @@ msgid ""
 "\n"
 "\tpublic function init() {\n"
 "\n"
-"\t\t$this->registerHook('entry_before_display', array($this,"
-" 'renderEntry'));\n"
+"\t\t$this->registerHook('entry_before_display', array($this, 'renderEntry'));\n"
 "\n"
 "\t}\n"
 "\n"
@@ -4259,8 +4211,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:29
 #, no-wrap
 msgid ""
-"0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log"
-" 2>&1\n"
+"0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1\n"
 "\n"
 msgstr ""
 
@@ -4393,8 +4344,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:79
 #, no-wrap
 msgid ""
-"0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-to"
-"ken'\n"
+"0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'\n"
 "\n"
 msgstr ""
 
@@ -4409,8 +4359,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:85
 #, no-wrap
 msgid ""
-"0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someon"
-"e&token=my-token'\n"
+"0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'\n"
 "\n"
 msgstr ""
 
@@ -4433,8 +4382,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:93
 #, no-wrap
 msgid ""
-"0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a="
-"actualize'\n"
+"0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
 "\n"
 msgstr ""
 
@@ -4675,9 +4623,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:199
 #, no-wrap
 msgid ""
-"* by date of discovery, using the [ISO 8601 time interval"
-" format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<"
-"date-interval>`\n"
+"* by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`\n"
 "\t* From a specific day, or month, or year:\n"
 "\t\t* `date:2014-03-30`\n"
 "\t\t* `date:2014-03` or `date:201403`\n"
@@ -4845,21 +4791,11 @@ msgstr ""
 #: en/./users/04_Subscriptions.md:38
 #, no-wrap
 msgid ""
-"  | Preference name                              | Value                     "
-"                                 | Note                                      "
-"                |\n"
-"  | -------------------------------------------- |"
-" ---------------------------------------------------------- |"
-" --------------------------------------------------------- |\n"
-"  | browser.contentHandlers.types.%NUMBER%.title | **FreshRSS**              "
-"                                 | Use any name you would like (ie. \"My"
-" feeds\")              |\n"
-"  | browser.contentHandlers.types.%NUMBER%.type  |"
-" **application/vnd.mozilla.maybe.feed**                     | Do not change"
-" this value!                                 |\n"
-"  | browser.contentHandlers.types.%NUMBER%.uri   |"
-" **http://EXAMPLE.COM/FreshRss/i?c=feed&a=add&url_rss=%s** | Replace base url"
-" with yours and switch to https (if used) |\n"
+"  | Preference name                              | Value                                                      | Note                                                      |\n"
+"  | -------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------- |\n"
+"  | browser.contentHandlers.types.%NUMBER%.title | **FreshRSS**                                               | Use any name you would like (ie. \"My feeds\")              |\n"
+"  | browser.contentHandlers.types.%NUMBER%.type  | **application/vnd.mozilla.maybe.feed**                     | Do not change this value!                                 |\n"
+"  | browser.contentHandlers.types.%NUMBER%.uri   | **http://EXAMPLE.COM/FreshRss/i?c=feed&a=add&url_rss=%s** | Replace base url with yours and switch to https (if used) |\n"
 msgstr ""
 
 #. type: Bullet: '  4. '
@@ -5406,21 +5342,13 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:177
 #, no-wrap
-msgid ""
-"We find here that the block that encompasses only the content of the article"
-" is ```<div class=\"content clearfix\">```. We will only use the \".content\""
-" class here. Nevertheless, as said above, it is best to start the path with"
-" an id. If we go back to the parent block, this is the block ```<div"
-" id=\"article\">``` and that's perfect! The path will be ```#article"
-" .content```.\n"
+msgid "We find here that the block that encompasses only the content of the article is ```<div class=\"content clearfix\">```. We will only use the \".content\" class here. Nevertheless, as said above, it is best to start the path with an id. If we go back to the parent block, this is the block ```<div id=\"article\">``` and that's perfect! The path will be ```#article .content```.\n"
 msgstr ""
 
 #. type: Title ####
 #: en/./users/05_Configuration.md:178
 #, no-wrap
-msgid ""
-"Add the corresponding classes to the articles CSS path on the feed"
-" configuration page. Examples:"
+msgid "Add the corresponding classes to the articles CSS path on the feed configuration page. Examples:"
 msgstr ""
 
 #. type: Bullet: '*  '
@@ -5530,8 +5458,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "- Android\n"
-"  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos"
-".readably) (Closed source)\n"
+"  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)\n"
 msgstr ""
 
 #. type: Plain text
@@ -5539,12 +5466,9 @@ msgstr ""
 #, no-wrap
 msgid ""
 "- iOS\n"
-"  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id11587633"
-"03) (Closed source)\n"
-"  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)"
-" (Commercial)\n"
-"  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader"
-" API / native FreshRSS option when possible)\n"
+"  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)\n"
+"  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)\n"
+"  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)\n"
 msgstr ""
 
 #. type: Plain text
@@ -5656,8 +5580,7 @@ msgstr ""
 #: en/./users/06_Fever_API.md:74
 #, no-wrap
 msgid ""
-"curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?ap"
-"i'\n"
+"curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?api'\n"
 "\n"
 msgstr ""
 
@@ -5734,8 +5657,7 @@ msgstr ""
 #: en/./users/06_Fever_API.md:106
 #, no-wrap
 msgid ""
-"file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': '"
-" . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);\n"
+"file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);\n"
 "\n"
 msgstr ""
 
@@ -5783,12 +5705,9 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:9
 #, no-wrap
 msgid ""
-"2. Under the section “Profile”, fill-in the field “API password (e.g., for"
-" mobile apps)”.\n"
+"2. Under the section “Profile”, fill-in the field “API password (e.g., for mobile apps)”.\n"
 "\t* Every user must define an API password.\n"
-"\t* The reason for an API-specific password is that it may be used in less"
-" safe situations than the main password, and does not grant access to as many"
-" things.\n"
+"\t* The reason for an API-specific password is that it may be used in less safe situations than the main password, and does not grant access to as many things.\n"
 msgstr ""
 
 #. type: Plain text
@@ -5817,10 +5736,8 @@ msgstr ""
 #, no-wrap
 msgid ""
 "4. Click on first link “Check full server configuration”:\n"
-"\t* If you get *PASS* then you are done, all is good: you may proceed to step"
-" 6.\n"
-"\t* If you get *Bad Request!* or *Not Found*, then your server probably does"
-" not accept slashes `/` that are escaped `%2F`. Proceed to step 5.\n"
+"\t* If you get *PASS* then you are done, all is good: you may proceed to step 6.\n"
+"\t* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`. Proceed to step 5.\n"
 "\t* If you get any other error message, proceed to step 5.\n"
 msgstr ""
 
@@ -5834,37 +5751,22 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:42
 #, no-wrap
 msgid ""
-"5. Click on the second link “Check partial server configuration (without `"
-"%2F` support)”:\n"
-"\t* If you get `PASS`, then the problem is indeed that your server does not"
-" accept slashes `/` that are escaped `%2F`.\n"
-"\t\t* With Apache, remember the directive [`AllowEncodedSlashes"
-" On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)\n"
-"\t\t* Or use a client that does not escape slashes (such as EasyRSS), in"
-" which case proceed to step 6.\n"
+"5. Click on the second link “Check partial server configuration (without `%2F` support)”:\n"
+"\t* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.\n"
+"\t\t* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)\n"
+"\t\t* Or use a client that does not escape slashes (such as EasyRSS), in which case proceed to step 6.\n"
 "\t* If you get *Service Unavailable!*, then check from step 1 again.\n"
 "\t* With __Apache__:\n"
-"\t\t* If you get *FAIL getallheaders!*, the combination of your PHP version"
-" and your Web server does not provide access to"
-" [`getallheaders`](http://php.net/getallheaders)\n"
-"\t\t\t* Turn on Apache `mod_setenvif` (often enabled by default), or"
-" `mod_rewrite` with the following procedure:\n"
-"\t\t\t\t* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk"
-"/mod/core.html#allowoverride): see the [server"
-" setup](../admins/02_Installation.md) again.\n"
-"\t\t\t\t* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_re"
-"write.html):\n"
+"\t\t* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)\n"
+"\t\t\t* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:\n"
+"\t\t\t\t* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/02_Installation.md) again.\n"
+"\t\t\t\t* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):\n"
 "\t\t\t\t\t* With Debian / Ubuntu: `sudo a2enmod rewrite`\n"
 "\t* With __nginx__:\n"
-"\t\t* If you get *Bad Request!*, check your server `PATH_INFO`"
-" configuration.\n"
-"\t\t* If you get *File not found!*, check your server"
-" `fastcgi_split_path_info`.\n"
-"\t* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does"
-" not pass the requirement of being 64-bit and/or have PHP"
-" [GMP](http://php.net/gmp) extension.\n"
-"\t\t* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt"
-" install php-gmp`\n"
+"\t\t* If you get *Bad Request!*, check your server `PATH_INFO` configuration.\n"
+"\t\t* If you get *File not found!*, check your server `fastcgi_split_path_info`.\n"
+"\t* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](http://php.net/gmp) extension.\n"
+"\t\t* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt install php-gmp`\n"
 "\t* Update and try again from step 3.\n"
 msgstr ""
 
@@ -5878,10 +5780,8 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:48
 #, no-wrap
 msgid ""
-"6. On the same FreshRSS API page, note the address given under “Your API"
-" address”, like `https://freshrss.example.net/api/greader.php`\n"
-"\t* You will type it in a client, together with your FreshRSS username, and"
-" the corresponding special API password.\n"
+"6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`\n"
+"\t* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.\n"
 msgstr ""
 
 #. type: Plain text
@@ -5890,25 +5790,18 @@ msgstr ""
 msgid ""
 "7. Pick a client supporting a Google Reader-like API. Selection:\n"
 "\t* Android\n"
-"\t\t* [News+](https://play.google.com/store/apps/details?id=com.noinnion.andro"
-"id.newsplus) with [News+ Google Reader extension](https://play.google.com/stor"
-"e/apps/details?id=com.noinnion.android.newsplus.extension.google_reader)"
-" (Closed source)\n"
-"\t\t* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon"
-".feedme) (Closed source)\n"
-"\t\t* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source,"
-" [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))\n"
+"\t\t* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)\n"
+"\t\t* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)\n"
+"\t\t* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))\n"
 "\t* Linux\n"
-"\t\t* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open"
-" source)\n"
+"\t\t* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)\n"
 "\t* MacOS\n"
 "\t\t* [Vienna RSS](http://www.vienna-rss.com/) (Open source)\n"
 "\t\t* [Reeder](https://www.reederapp.com/) (Commercial)\n"
 "\t* iOS\n"
 "\t\t* [Reeder](https://www.reederapp.com/) (Commercial)\n"
 "\t* Firefox\n"
-"\t\t* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-noti"
-"fy-webextension/) (Open source)\n"
+"\t\t* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Open source)\n"
 msgstr ""
 
 #. type: Title #
@@ -5926,11 +5819,9 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:69
 #, no-wrap
 msgid ""
-"# Initial login, using API password (Email and Passwd can be given either as"
-" GET, or POST - better)\n"
+"# Initial login, using API password (Email and Passwd can be given either as GET, or POST - better)\n"
 "\n"
-"curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email="
-"alice&Passwd=Abcdef123456'\n"
+"curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'\n"
 "\n"
 "SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
 "\n"
@@ -5940,34 +5831,27 @@ msgid ""
 "\n"
 "# Examples of read-only requests\n"
 "\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
 "\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list"
-"?output=json'\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list?output=json'\n"
 "\n"
 "\n"
 "\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
 "\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?outp"
-"ut=json'\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?output=json'\n"
 "\n"
 "\n"
 "\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
 "\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=j"
-"son'\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=json'\n"
 "\n"
 "\n"
 "\n"
 "# Retrieve a token for requests making modifications\n"
 "\n"
-"curl -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e"
-"b60bdb5f8\" \\\n"
+"curl -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
 "\n"
 "  'https://freshrss.example.net/api/greader.php/reader/api/0/token'\n"
 "\n"
@@ -5977,11 +5861,9 @@ msgid ""
 "\n"
 "# Get articles, piped to jq for easier JSON reading\n"
 "\n"
-"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
-"56eb60bdb5f8\" \\\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
 "\n"
-"  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/r"
-"eading-list' | jq .\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .\n"
 "\n"
 msgstr ""
 
@@ -6181,10 +6063,8 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:51
 #, no-wrap
 msgid ""
-"semanage fcontext -a -t httpd_sys_rw_content_t"
-" '/usr/share/FreshRSS/data(/.*)?'\n"
+"semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
 "\n"
 "restorecon -Rv /usr/share/FreshRSS/data\n"
 "\n"
 msgstr ""
-

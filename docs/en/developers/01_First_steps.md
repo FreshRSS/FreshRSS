@@ -71,12 +71,12 @@ Contributions which do not follow the coding style will be rejected as long as t
 
 ## Spaces, tabs and white spaces
 
-### Indent
-Code indent must use tabs.
+### Indentation
+Code indentation must use tabs.
 
 ### Alignment
 
-Once the code is indented, it might be useful to align it to ease the reading. In that case, use spaces.
+Once the code has been correctly indented, it might be useful to align it for ease of reading. In that case, please use spaces.
 
 ```php
 $result = a_function_with_a_really_long_name($param1, $param2,
@@ -85,9 +85,9 @@ $result = a_function_with_a_really_long_name($param1, $param2,
 
 ### End of line
 
-The end of line character must be a line feed (LF) which is a default end of line on *NIX systems. This character must not follow other white spaces.
+The newline character must be a line feed (LF), which is a default line ending on *NIX systems. This character must not follow other white space.
 
-It is possible to verify if there is white spaces before the end of line, with the following Git command:
+You can verify if there is any unintended white space at the end of line with the following Git command:
 
 ```bash
 # command to check files before adding them in the Git index
@@ -132,7 +132,7 @@ if ((int)$a == 10) {
 
 ### With chained functions
 
-It happens most of the time in Javascript files. When there is chained functions, closures and callback functions, it is hard to understand the code if not properly formatted. In those cases, we add a new indent level for the complete instruction and reset the indent for a new instruction on the same level.
+It happens most of the time in Javascript files. When there are chained functions with closures and callback functions, it's hard to understand the code if not properly formatted. In those cases, we add a new indent level for the complete instruction and reset the indent for a new instruction on the same level.
 
 ```javascript
 // First instruction

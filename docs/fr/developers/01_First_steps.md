@@ -1,4 +1,4 @@
-# Environment configuration (Docker)
+# Configurer son environnement (Docker)
 
 FreshRSS is built with PHP and uses a homemade framework, Minz. The
 dependencies are directly included in the source code, so you don't need
@@ -108,29 +108,28 @@ as the coding style is not fixed.
 
 ## Spaces, tabs and white spaces
 
-### Indent
-Code indent must use tabs.
+### Indentation
+L'indentation du code doit être faite impérativement avec des tabulations.
 
-### Alignment
+### Alignement
 
-Once the code is indented, it might be useful to align it to ease the
-reading. In that case, use spaces.
+Une fois l'indentation faite, il peut être nécessaire de faire un alignement
+pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
 
 ```php
-$result = a_function_with_a_really_long_name($param1, $param2,
-
-                                             $param3, $param4);
-
+$result = une_fonction_avec_un_nom_long($param1, $param2,
+                                          $param3, $param4);
 ```
 
 
-### End of line
+### Fin de ligne
 
-The end of line character must be a line feed (LF) which is a default end of
-line on *NIX systems. This character must not follow other white spaces.
+Le caractère de fin de ligne doit être un saut de ligne (LF) qui est le
+caractère de fin de ligne des systèmes *NIX. Ce caractère ne doit pas être
+précédé par des caractères blanc.
 
-It is possible to verify if there is white spaces before the end of line,
-with the following Git command:
+Il est possible de vérifier la présence de caractères blancs en fin de ligne
+grâce à Git avec la commande suivante :
 
 ```bash
 # command to check files before adding them in the Git index
@@ -172,10 +171,10 @@ echo $a ? 1 : 0;
 
 ### Le cas des parenthèses
 
-There should be no spaces in between brackets. There should be no spaces
-before the opening bracket, except if it's after a keyword. There shouldn't
-be any spaces after the closing bracket, except if it's followed by a curly
-bracket.
+Il n'y a pas d'espaces entre des parenthèses. Il n'y a pas d'espaces avant
+une parenthèse ouvrante sauf si elle est précédée d'un mot-clé. Il n'y a pas
+d'espaces après une parenthèse fermante sauf si elle est suivie d'une
+accolade ouvrante.
 
 ```php
 if ($a == 10) {
@@ -197,11 +196,11 @@ if ((int)$a == 10) {
 
 ### With chained functions
 
-It happens most of the time in Javascript files. When there is chained
-functions, closures and callback functions, it is hard to understand the
-code if not properly formatted. In those cases, we add a new indent level
-for the complete instruction and reset the indent for a new instruction on
-the same level.
+Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions
+chainées, des fonctions anonymes ainsi que des fonctions de rappels, il est
+très facile de se perdre. Dans ce cas là, on ajoute une indentation
+supplémentaire pour toute l'instruction et on revient au même niveau pour
+une instruction de même niveau.
 
 ```javascript
 // First instruction

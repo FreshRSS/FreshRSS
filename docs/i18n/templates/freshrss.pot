@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 15:29+0200\n"
+"POT-Creation-Date: 2019-10-24 16:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2278,12 +2278,12 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/01_First_steps.md:74
 #, no-wrap
-msgid "Indent"
+msgid "Indentation"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:76
-msgid "Code indent must use tabs."
+msgid "Code indentation must use tabs."
 msgstr ""
 
 #. type: Title ###
@@ -2295,8 +2295,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:80
 msgid ""
-"Once the code is indented, it might be useful to align it to ease the "
-"reading. In that case, use spaces."
+"Once the code has been correctly indented, it might be useful to align it "
+"for ease of reading. In that case, please use spaces."
 msgstr ""
 
 #. type: Code fence info string
@@ -2324,14 +2324,14 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:89
 msgid ""
-"The end of line character must be a line feed (LF) which is a default end of "
-"line on *NIX systems. This character must not follow other white spaces."
+"The newline character must be a line feed (LF), which is a default line "
+"ending on *NIX systems. This character must not follow other white space."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:91
 msgid ""
-"It is possible to verify if there is white spaces before the end of line, "
+"You can verify if there is any unintended white space at the end of line "
 "with the following Git command:"
 msgstr ""
 
@@ -2448,8 +2448,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:136
 msgid ""
-"It happens most of the time in Javascript files. When there is chained "
-"functions, closures and callback functions, it is hard to understand the "
+"It happens most of the time in Javascript files. When there are chained "
+"functions with closures and callback functions, it's hard to understand the "
 "code if not properly formatted. In those cases, we add a new indent level "
 "for the complete instruction and reset the indent for a new instruction on "
 "the same level."
