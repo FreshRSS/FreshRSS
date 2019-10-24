@@ -12,7 +12,7 @@
 
 # Refreshing feeds
 
-To use FreshRSS at its full potential, it needs to grab subscribed feeds new articles. To do so, you have several methods available.
+To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this.
 
 ## Automatic update
 
@@ -20,7 +20,7 @@ This is the recommended method since you can forget about it once it is configur
 
 ### With the actualize_script.php script
 
-This method is available only if you have access to the installation server scheduled tasks.
+This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
 The script is named *actualize_script.php* and is located in the *app* folder. The scheduled task syntax will not be explained here. However, here is [a quick introduction to crontab](http://www.adminschoice.com/crontab-quick-reference/) that might help you.
 

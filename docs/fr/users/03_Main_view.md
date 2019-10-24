@@ -1,43 +1,47 @@
-# Normal view
+# La vue normale
 
 **TODO**
 
-# Global view
+# La vue globale
 
 **TODO**
 
-# Reader view
+# La vue lecture
 
 **TODO**
 
-# Refreshing feeds
+# Rafraîchir les flux
 
-To use FreshRSS at its full potential, it needs to grab subscribed feeds new
-articles. To do so, you have several methods available.
+Pour profiter pleinement de FreshRSS, il faut qu’il récupère les nouveaux
+articles disponibles des flux auxquels vous avez souscrit. Pour cela, il
+existe plusieurs méthodes.
 
-## Automatic update
+## Mise à jour automatique
 
-This is the recommended method since you can forget about it once it is
-configured.
+C’est la méthode recommandée car il n’y a pas besoin d’y penser, elle se
+fait toute seule, à la fréquence que vous avez choisi.
 
-### With the actualize_script.php script
+### Par le script actualize_script.php
 
-This method is available only if you have access to the installation server
-scheduled tasks.
+Cette méthode n’est possible que si vous avez accès aux tâches planifiées de
+la machine sur laquelle est installée votre instance de FreshRSS.
 
-The script is named *actualize_script.php* and is located in the *app*
-folder. The scheduled task syntax will not be explained here. However, here
-is [a quick introduction to
-crontab](http://www.adminschoice.com/crontab-quick-reference/) that might
-help you.
+Le script qui permet de mettre à jour les articles s’appelle
+*actualize_script.php* et se trouve dans le répertoire *app* de votre
+instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliqué
+ici, cependant voici [une introduction rapide à
+crontab](http://www.adminschoice.com/crontab-quick-reference/) qui peut vous
+aider.
 
-Here is an example to trigger article update every hour.
+Ci-dessous vous trouverez un exemple permettant la mise à jour des articles
+toutes les heures.
 
 ```cron
-0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-Special parameters to configure the script - all parameters can be combined:
+Paramètres spéciaux pour configurer le script - tous les paramètres peuvent
+être combinés :
 
 - Parameter "force"
 https://freshrss.example.net/i/?c=feed&a=actualize&force=1 If *force* is set

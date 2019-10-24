@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 23:25+0200\n"
+"POT-Creation-Date: 2019-10-24 23:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2498,8 +2498,8 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:16
 msgid ""
-"To use FreshRSS at its full potential, it needs to grab subscribed feeds new "
-"articles. To do so, you have several methods available."
+"To take full advantage of FreshRSS, it needs to retrieve new items from the "
+"feeds you have subscribed to. There are several ways to do this."
 msgstr ""
 
 #. type: Title ##
@@ -2524,8 +2524,8 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:24
 msgid ""
-"This method is available only if you have access to the installation server "
-"scheduled tasks."
+"This method is only available if you have access to the scheduled tasks of "
+"the machine on which your FreshRSS instance is installed."
 msgstr ""
 
 #. type: Plain text
