@@ -7,13 +7,13 @@ Do you want to ask us some questions? Do you want to discuss with us? Don't hesi
 
 ## Report a bug
 
-You found a bug? Don't panic, here are some steps to report it easily:
+Have you found a bug? Don't panic, here are some steps to report it with ease:
 
 1. Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/issues) (don't forget to use the search bar).
 2. If you find a similar bug, don't hesitate to post a comment to add more importance to the related ticket.
 3. If you didn't find it, [open a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
-If you have to create a new ticket, try to apply the following advices:
+If you have to create a new ticket, please try to keep in mind the following advice:
 
 - Give an explicit title to the ticket so it will be easier to find it later.
 - Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?

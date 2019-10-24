@@ -1,4 +1,4 @@
-## Contribuer au code
+## Rejoignez-nous sur les listes de mailing
 
 Do you want to ask us some questions? Do you want to discuss with us? Don't
 hesitate to subscribe to our mailing lists!
@@ -9,9 +9,10 @@ mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).  - The
 second mailing is mainly for developers. [Join
 dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
 
-## Report a bug
+## Signaler un bug
 
-You found a bug? Don't panic, here are some steps to report it easily:
+Have you found a bug? Don't panic, here are some steps to report it with
+ease:
 
 1. Search for it on [the bug
    tracker](https://github.com/FreshRSS/FreshRSS/issues) (don't forget to
@@ -21,7 +22,8 @@ You found a bug? Don't panic, here are some steps to report it easily:
 3. If you didn't find it, [open a new
    ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
-If you have to create a new ticket, try to apply the following advices:
+If you have to create a new ticket, please try to keep in mind the following
+advice:
 
 - Give an explicit title to the ticket so it will be easier to find it
   later.
@@ -74,7 +76,7 @@ Translations are present in the subdirectories of `./app/i18n/`.
 We are working on a better way to handle internationalization but don't
 hesitate to suggest any idea!
 
-## Contribute to documentation
+## Contribuer à la documentation
 
 The documentation needs a lot of improvements in order to be more useful to
 new contributors and we are working on it.  If you want to give some help,

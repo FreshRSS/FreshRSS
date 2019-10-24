@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 18:14+0200\n"
+"POT-Creation-Date: 2019-10-24 18:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1879,7 +1879,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./contributing.md:11
-msgid "You found a bug? Don't panic, here are some steps to report it easily:"
+msgid ""
+"Have you found a bug? Don't panic, here are some steps to report it with "
+"ease:"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -1906,7 +1908,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./contributing.md:17
-msgid "If you have to create a new ticket, try to apply the following advices:"
+msgid ""
+"If you have to create a new ticket, please try to keep in mind the following "
+"advice:"
 msgstr ""
 
 #. type: Bullet: '- '

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 18:14+0200\n"
-"PO-Revision-Date: 2019-10-24 18:15+0100\n"
+"POT-Creation-Date: 2019-10-24 18:26+0200\n"
+"PO-Revision-Date: 2019-10-24 18:26+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -1821,7 +1821,7 @@ msgstr ""
 #: en/./contributing.md:1
 #, no-wrap
 msgid "Join us on the mailing lists"
-msgstr "Contribuer au code"
+msgstr "Rejoignez-nous sur les listes de mailing"
 
 #. type: Plain text
 #: en/./contributing.md:4
@@ -1843,11 +1843,13 @@ msgstr ""
 #: en/./contributing.md:8
 #, no-wrap
 msgid "Report a bug"
-msgstr ""
+msgstr "Signaler un bug"
 
 #. type: Plain text
 #: en/./contributing.md:11
-msgid "You found a bug? Don't panic, here are some steps to report it easily:"
+msgid ""
+"Have you found a bug? Don't panic, here are some steps to report it with "
+"ease:"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -1873,7 +1875,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./contributing.md:17
-msgid "If you have to create a new ticket, try to apply the following advices:"
+msgid ""
+"If you have to create a new ticket, please try to keep in mind the following "
+"advice:"
 msgstr ""
 
 #. type: Bullet: '- '
@@ -2002,16 +2006,21 @@ msgstr ""
 #: en/./contributing.md:53
 #, no-wrap
 msgid "Contribute to documentation"
-msgstr ""
+msgstr "Contribuer à la documentation"
 
 #. type: Plain text
 #: en/./contributing.md:56
+#, fuzzy
 msgid ""
 "The documentation needs a lot of improvements in order to be more useful to "
 "new contributors and we are working on it.  If you want to give some help, "
 "meet us in the main repositories [docs directory](https://github.com/"
 "FreshRSS/FreshRSS/tree/master/docs)!"
 msgstr ""
+"Il ne vous aura pas échappé que la documentation est encore un peu vide… il "
+"y a énormément de choses à faire ! Si vous souhaitez aider à écrire quelques "
+"pages, prenez le temps de lire [les informations données sur Github](https://"
+"github.com/FreshRSS/documentation/blob/master/README.fr.md)."
 
 #. type: Title #
 #: en/./developers/01_First_steps.md:1
@@ -6104,9 +6113,9 @@ msgid ""
 "can be the root of the problem, or FreshRSS can be buggy.  The first step is "
 "to identify what causes the problem.  Here are the steps to follow:"
 msgstr ""
-"Il peut y avoir différentes origines à ce problème.Le flux peut avoir une "
+"Il peut y avoir différentes origines à ce problème. Le flux peut avoir une "
 "syntaxe invalide, il peut ne pas être reconnu par la bibliothèque SimplePie, "
-"l'hébergement peut avoir des problèmes, FreshRSS peut être boggué.Il faut "
+"l'hébergement peut avoir des problèmes, FreshRSS peut être boggué. Il faut "
 "dans un premier temps déterminer la cause du problème.Voici la liste des "
 "étapes à suivre pour la déterminer :"
 

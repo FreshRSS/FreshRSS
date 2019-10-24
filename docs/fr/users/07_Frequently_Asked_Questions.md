@@ -41,9 +41,9 @@ L'explication est la même pour les fichiers ```favicon.ico``` et
 
 ## Pourquoi j'ai des erreurs quand j'essaye d'enregistrer un flux ?
 
-Il peut y avoir différentes origines à ce problème.Le flux peut avoir une
+Il peut y avoir différentes origines à ce problème. Le flux peut avoir une
 syntaxe invalide, il peut ne pas être reconnu par la bibliothèque SimplePie,
-l'hébergement peut avoir des problèmes, FreshRSS peut être boggué.Il faut
+l'hébergement peut avoir des problèmes, FreshRSS peut être boggué. Il faut
 dans un premier temps déterminer la cause du problème.Voici la liste des
 étapes à suivre pour la déterminer :
 
