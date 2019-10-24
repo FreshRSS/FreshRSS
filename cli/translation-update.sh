@@ -25,12 +25,12 @@ echo 'Generating configuration file for po4a...'
 	echo '# WARNING: this file is generated with translation-update.sh'
 	echo '# DO NOT modify this file manually!'
 	echo "[po4a_langs] ${LANGS[*]}"
+	# shellcheck disable=SC2016
 	echo '[po4a_paths] i18n/templates/freshrss.pot $lang:i18n/freshrss.$lang.po'
-} > $CONFIGFILE
+} >$CONFIGFILE
 
-for FILE in $(cd en && tree -f -i | grep ".md")
-do
-	echo [type: text] en/$FILE \$lang:\$lang/$FILE opt:\"-o markdown\" opt:\"-M utf-8\" >> $CONFIGFILE
+for FILE in $(cd en && tree -f -i | grep ".md"); do
+	echo "[type: text] en/$FILE \$lang:\$lang/$FILE opt:\"-o markdown\" opt:\"-M utf-8\"" >>$CONFIGFILE
 done
 
 # Generate POT file, PO files, and pages.XX pages

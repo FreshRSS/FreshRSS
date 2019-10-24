@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 16:06+0200\n"
+"POT-Creation-Date: 2019-10-24 16:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2324,7 +2324,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:89
 msgid ""
-"The newline character must be a line feed (LF), which is a default line "
+"The newline character must be a line feed (LF), which is the default line "
 "ending on *NIX systems. This character must not follow other white space."
 msgstr ""
 

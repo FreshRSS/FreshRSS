@@ -85,7 +85,7 @@ $result = a_function_with_a_really_long_name($param1, $param2,
 
 ### End of line
 
-The newline character must be a line feed (LF), which is a default line ending on *NIX systems. This character must not follow other white space.
+The newline character must be a line feed (LF), which is the default line ending on *NIX systems. This character must not follow other white space.
 
 You can verify if there is any unintended white space at the end of line with the following Git command:
 
