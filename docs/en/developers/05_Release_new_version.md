@@ -108,4 +108,4 @@ $ vim CHANGELOG.md
 $ git add CHANGELOG.md && git commit && git push
 ```
 
-Also remember to update update.freshrss.org so that it takes into account the current development version.
+Also remember to update update.freshrss.org so that it takes the current development version into account.

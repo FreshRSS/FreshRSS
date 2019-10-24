@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 19:29+0200\n"
+"POT-Creation-Date: 2019-10-24 19:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2451,8 +2451,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:111
 msgid ""
-"Also remember to update update.freshrss.org so that it takes into account "
-"the current development version."
+"Also remember to update update.freshrss.org so that it takes the current "
+"development version into account."
 msgstr ""
 
 #. type: Plain text
