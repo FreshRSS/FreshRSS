@@ -43,5 +43,5 @@ sur FreshRSS :
 * [Retrouvez un article](03_Main_view.md#rechercher-des-articles) qui a été
   publié il y a quelques jours ou mois
 * [Accédez à vos flux même sur mobile](06_Mobile_access.md)
-* [Add some extensions](https://github.com/FreshRSS/Extensions)
+* [Ajoutez quelques extensions](https://github.com/FreshRSS/Extensions)
 * [Frequently asked questions](07_Frequently_Asked_Questions.md)

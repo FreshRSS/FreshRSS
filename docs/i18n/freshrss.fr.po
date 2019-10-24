@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
 "POT-Creation-Date: 2019-10-24 20:59+0200\n"
-"PO-Revision-Date: 2019-10-24 21:24+0100\n"
+"PO-Revision-Date: 2019-10-24 21:27+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -2956,7 +2956,7 @@ msgstr "[Accédez à vos flux même sur mobile](06_Mobile_access.md)"
 #. type: Bullet: '* '
 #: en/./users/02_First_steps.md:28
 msgid "[Add some extensions](https://github.com/FreshRSS/Extensions)"
-msgstr ""
+msgstr "[Ajoutez quelques extensions](https://github.com/FreshRSS/Extensions)"
 
 #. type: Bullet: '* '
 #: en/./users/02_First_steps.md:28
