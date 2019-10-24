@@ -13,7 +13,6 @@ plusieurs choix s'offrent à vous :
 1. [Ajouter un flux manuellement](04_Subscriptions.md#ajouter-un-flux)
 2. [Importer un fichier OPML ou JSON](04_Subscriptions.md#import-et-export)
 3. [Utiliser le bookmark dédié](04_Subscriptions.md#utiliser-le-bookmark)
-4. [Firefox integration](04_Subscriptions.md#firefox-subscription-service)
 
 Une fois que vous avez ajouté vos flux à FreshRSS, il est temps de les
 lire. Pour cela, trois modes de lecture s'offrent à vous :

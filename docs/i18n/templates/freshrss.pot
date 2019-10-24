@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 23:13+0200\n"
+"POT-Creation-Date: 2019-10-24 23:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2370,55 +2370,50 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '1. '
-#: en/./users/02_First_steps.md:11
+#: en/./users/02_First_steps.md:10
 msgid "[Add a feed manually](04_Subscriptions.md#adding-a-feed)"
 msgstr ""
 
 #. type: Bullet: '2. '
-#: en/./users/02_First_steps.md:11
+#: en/./users/02_First_steps.md:10
 msgid "[Import an OPML or JSON file](04_Subscriptions.md#import-and-export)"
 msgstr ""
 
 #. type: Bullet: '3. '
-#: en/./users/02_First_steps.md:11
+#: en/./users/02_First_steps.md:10
 msgid "[Use the bookmarklet](04_Subscriptions.md#use-bookmarklet)"
 msgstr ""
 
-#. type: Bullet: '4. '
-#: en/./users/02_First_steps.md:11
-msgid "[Firefox integration](04_Subscriptions.md#firefox-subscription-service)"
-msgstr ""
-
 #. type: Plain text
-#: en/./users/02_First_steps.md:13
+#: en/./users/02_First_steps.md:12
 msgid ""
 "Once you have added your feeds to FreshRSS, it is time to read them. There "
 "are three availalbe reading modes:"
 msgstr ""
 
 #. type: Bullet: '1. '
-#: en/./users/02_First_steps.md:17
+#: en/./users/02_First_steps.md:16
 msgid ""
 "[The normal view](03_Main_view.md#normal-view) enables you to quickly read "
 "new articles"
 msgstr ""
 
 #. type: Bullet: '2. '
-#: en/./users/02_First_steps.md:17
+#: en/./users/02_First_steps.md:16
 msgid ""
 "[The global view](03_Main_view.md#global-view) shows you an overview of the "
 "status of your feeds in one glance"
 msgstr ""
 
 #. type: Bullet: '3. '
-#: en/./users/02_First_steps.md:17
+#: en/./users/02_First_steps.md:16
 msgid ""
 "[The reader view](03_Main_view.md#reader-view) offers you a comfortable "
 "reading experience"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/02_First_steps.md:19
+#: en/./users/02_First_steps.md:18
 msgid ""
 "Now that you've mastered basic use, it's time to configure FreshRSS to "
 "improve your reading experience. It's highly configurable, so it's "
@@ -2428,51 +2423,51 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Organize your feeds in categories](04_Subscriptions.md#feed-management)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Change the home page](05_Configuration.md#changing-the-view)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Choose the reading options](05_Configuration.md#reading-options)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Refresh feeds](03_Main_view.md#refreshing-feeds)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid ""
 "[Filter articles](03_Main_view.md#filtering-articles) for a fast access to a "
 "selection"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid ""
 "[Search an article](03_Main_view.md#searching-articles) published some time "
 "ago"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Access your feeds on a mobile device](06_Mobile_access.md)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Add some extensions](https://github.com/FreshRSS/Extensions)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Frequently asked questions](07_Frequently_Asked_Questions.md)"
 msgstr ""
 

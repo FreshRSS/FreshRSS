@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 23:13+0200\n"
+"POT-Creation-Date: 2019-10-24 23:25+0200\n"
 "PO-Revision-Date: 2019-10-24 23:20+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -2590,28 +2590,23 @@ msgstr ""
 "plusieurs choix s'offrent à vous :"
 
 #. type: Bullet: '1. '
-#: en/./users/02_First_steps.md:11
+#: en/./users/02_First_steps.md:10
 msgid "[Add a feed manually](04_Subscriptions.md#adding-a-feed)"
 msgstr "[Ajouter un flux manuellement](04_Subscriptions.md#ajouter-un-flux)"
 
 #. type: Bullet: '2. '
-#: en/./users/02_First_steps.md:11
+#: en/./users/02_First_steps.md:10
 msgid "[Import an OPML or JSON file](04_Subscriptions.md#import-and-export)"
 msgstr ""
 "[Importer un fichier OPML ou JSON](04_Subscriptions.md#import-et-export)"
 
 #. type: Bullet: '3. '
-#: en/./users/02_First_steps.md:11
+#: en/./users/02_First_steps.md:10
 msgid "[Use the bookmarklet](04_Subscriptions.md#use-bookmarklet)"
 msgstr "[Utiliser le bookmark dédié](04_Subscriptions.md#utiliser-le-bookmark)"
 
-#. type: Bullet: '4. '
-#: en/./users/02_First_steps.md:11
-msgid "[Firefox integration](04_Subscriptions.md#firefox-subscription-service)"
-msgstr ""
-
 #. type: Plain text
-#: en/./users/02_First_steps.md:13
+#: en/./users/02_First_steps.md:12
 msgid ""
 "Once you have added your feeds to FreshRSS, it is time to read them. There "
 "are three availalbe reading modes:"
@@ -2620,7 +2615,7 @@ msgstr ""
 "Pour cela, trois modes de lecture s'offrent à vous :"
 
 #. type: Bullet: '1. '
-#: en/./users/02_First_steps.md:17
+#: en/./users/02_First_steps.md:16
 msgid ""
 "[The normal view](03_Main_view.md#normal-view) enables you to quickly read "
 "new articles"
@@ -2629,7 +2624,7 @@ msgstr ""
 "lire rapidement les nouveaux articles"
 
 #. type: Bullet: '2. '
-#: en/./users/02_First_steps.md:17
+#: en/./users/02_First_steps.md:16
 msgid ""
 "[The global view](03_Main_view.md#global-view) shows you an overview of the "
 "status of your feeds in one glance"
@@ -2638,7 +2633,7 @@ msgstr ""
 "un panorama de l'état de vos flux"
 
 #. type: Bullet: '3. '
-#: en/./users/02_First_steps.md:17
+#: en/./users/02_First_steps.md:16
 msgid ""
 "[The reader view](03_Main_view.md#reader-view) offers you a comfortable "
 "reading experience"
@@ -2647,7 +2642,7 @@ msgstr ""
 "un meilleur confort de lecture"
 
 #. type: Plain text
-#: en/./users/02_First_steps.md:19
+#: en/./users/02_First_steps.md:18
 msgid ""
 "Now that you've mastered basic use, it's time to configure FreshRSS to "
 "improve your reading experience. It's highly configurable, so it's "
@@ -2662,7 +2657,7 @@ msgstr ""
 "sur FreshRSS :"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid ""
 "[Organize your feeds in categories](04_Subscriptions.md#feed-management)"
 msgstr ""
@@ -2670,24 +2665,24 @@ msgstr ""
 "md#organisation_des_flux)"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Change the home page](05_Configuration.md#changing-the-view)"
 msgstr ""
 "[Configurez votre page d'accueil](05_Configuration.md#personnaliser-la-vue)"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Choose the reading options](05_Configuration.md#reading-options)"
 msgstr ""
 "[Configurez vos options de lecture](05_Configuration.md#options-de-lecture)"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Refresh feeds](03_Main_view.md#refreshing-feeds)"
 msgstr "[Mettez à jour vos flux](03_Main_view.md#rafraichir-les-flux)"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid ""
 "[Filter articles](03_Main_view.md#filtering-articles) for a fast access to a "
 "selection"
@@ -2696,7 +2691,7 @@ msgstr ""
 "rapidement à ceux que vous voulez lire en priorité"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid ""
 "[Search an article](03_Main_view.md#searching-articles) published some time "
 "ago"
@@ -2705,17 +2700,17 @@ msgstr ""
 "publié il y a quelques jours ou mois"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Access your feeds on a mobile device](06_Mobile_access.md)"
 msgstr "[Accédez à vos flux même sur mobile](06_Mobile_access.md)"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Add some extensions](https://github.com/FreshRSS/Extensions)"
 msgstr "[Ajoutez quelques extensions](https://github.com/FreshRSS/Extensions)"
 
 #. type: Bullet: '* '
-#: en/./users/02_First_steps.md:28
+#: en/./users/02_First_steps.md:27
 msgid "[Frequently asked questions](07_Frequently_Asked_Questions.md)"
 msgstr ""
 
