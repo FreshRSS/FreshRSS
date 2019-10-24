@@ -6,10 +6,10 @@
 
 **TODO**
 
-# Authentication
+# Gestion de l'authentification
 
 **TODO**
 
-# Logs
+# Gestion des logs
 
 **TODO**

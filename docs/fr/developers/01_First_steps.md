@@ -1,7 +1,7 @@
 # Configurer son environnement (Docker)
 
-FreshRSS is built with PHP and uses a homemade framework, Minz. The
-dependencies are directly included in the source code, so you don't need
+FreshRSS est construit en PHP et utilise le framework Minz. Les dépendances
+sont directement inclus dans le code source, donc vous n'avez pas besoin de
 Composer.
 
 There are various ways to configure your development environment. The

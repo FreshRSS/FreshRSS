@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 16:10+0200\n"
+"POT-Creation-Date: 2019-10-24 16:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3936,19 +3936,63 @@ msgstr ""
 msgid "FreshRSS has a lot of features including:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "RSS and Atom aggregation"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Mark article as favorite if you liked it or if you want to read it later"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Filter and search functionality helps to easily find articles"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Statistics to show you the publishing frequency all the websites you follow"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Import/export of your feeds into OPML format"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Several themes created by the community"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "\"Google Reader\"-like API to connect Android applications"
+msgstr ""
+
+#. type: Bullet: '* '
 #: en/./index.md:18
 msgid ""
-"- RSS and Atom aggregation - Mark article as favorite if you liked it or if "
-"you want to read it later - Filter and search functionality helps to easily "
-"find articles - Statistics to show you the publishing frequency all the "
-"websites you follow - Import/export of your feeds into OPML format - Several "
-"themes created by the community - \"Google Reader\"-like API to connect "
-"Android applications - The application is \"responsive,\" which means it "
-"adapts to small screens so you can bring articles in your pocket - "
+"The application is \"responsive,\" which means it adapts to small screens so "
+"you can bring articles in your pocket"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid ""
 "Self-hosted: the code is free (under AGPL3 licence), so you can host your "
-"own instance of FreshRSS - Multi-user, so you can also host for your friends "
-"and family - And a lot more!"
+"own instance of FreshRSS"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Multi-user, so you can also host for your friends and family"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "And a lot more!"
 msgstr ""
 
 #. type: Plain text
