@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 17:03+0200\n"
+"POT-Creation-Date: 2019-10-24 17:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4942,7 +4942,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:28
 msgid ""
-"If none of these are suitable for you, it is always possible to [create your "
+"If you can't find any themes you like, it's always possible to [create your "
 "own](../developers/04_Frontend/02_Design.md)."
 msgstr ""
 
@@ -4963,30 +4963,30 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:34
 msgid ""
-"There are some who prefer short lines of text while others prefer to "
-"maximize the available screen space. To satisfy the maximum number of people "
-"it is possible to choose the width of the displayed content. There are four "
+"Some people prefer short lines of text, while others prefer to maximize the "
+"available screen space. To satisfy the maximum number of people, it's "
+"possible to customize the width of the displayed content. There are four "
 "settings available:"
 msgstr ""
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**Fine** which displays content up to 550 pixels"
+msgid "**Fine** displays content up to a maximum width of 550 pixels"
 msgstr ""
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**Medium** which displays content up to 800 pixels"
+msgid "**Medium** displays content up to a maximum width of 800 pixels"
 msgstr ""
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**Large** which displays content up to 1000 pixels"
+msgid "**Large** displays content up to a maximum width of 1000 pixels"
 msgstr ""
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**No limit** which displays the content on 100% of the available space"
+msgid "**No limit** displays the content on 100% of the available space"
 msgstr ""
 
 #. type: Title ##
@@ -4997,7 +4997,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:43
-msgid "It worth noting that this section only has effects in normal view."
+msgid "Please note that this section only affects normal view."
 msgstr ""
 
 #. type: Plain text
@@ -5016,8 +5016,8 @@ msgstr ""
 #: en/./users/05_Configuration.md:52
 msgid ""
 "If you disable every item in the top line, you'll still be able to see it "
-"since there is the feed name and the article title. But if you do the same "
-"thing for the bottom line, it will be empty."
+"since it contains the feed name and the article title. But if you do the "
+"same thing for the bottom line, it will be empty."
 msgstr ""
 
 #. type: Title ##

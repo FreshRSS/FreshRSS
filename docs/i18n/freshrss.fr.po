@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 17:03+0200\n"
-"PO-Revision-Date: 2019-10-24 17:03+0100\n"
+"POT-Creation-Date: 2019-10-24 17:16+0200\n"
+"PO-Revision-Date: 2019-10-24 17:17+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -5054,16 +5054,17 @@ msgstr "*Screwdriver* par **Mister aiR**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
-#| msgid "*Swage* par **Patrick Crandol**"
 msgid "*Swage* by **Patrick Crandol**"
 msgstr "*Swage* par **Patrick Crandol**"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:28
 msgid ""
-"If none of these are suitable for you, it is always possible to [create your "
+"If you can't find any themes you like, it's always possible to [create your "
 "own](../developers/04_Frontend/02_Design.md)."
 msgstr ""
+"Si aucun de ceux proposés ne convient, il est toujours possible de [créer "
+"son propre thème](../developers/04_Frontend/02_Design.md)."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:30
@@ -5072,58 +5073,68 @@ msgid ""
 "strikes your fancy. After confirmation, the theme will be applied to the "
 "interface."
 msgstr ""
+"Pour sélectionner un thème, il suffit de faire défiler les thèmes jusqu'à "
+"l'apparition du thème choisi. Après validation, le thème sera appliqué à "
+"l'interface."
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:31
 #, no-wrap
 msgid "Content width"
-msgstr ""
+msgstr "Largeur du contenu"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:34
 msgid ""
-"There are some who prefer short lines of text while others prefer to "
-"maximize the available screen space. To satisfy the maximum number of people "
-"it is possible to choose the width of the displayed content. There are four "
+"Some people prefer short lines of text, while others prefer to maximize the "
+"available screen space. To satisfy the maximum number of people, it's "
+"possible to customize the width of the displayed content. There are four "
 "settings available:"
 msgstr ""
+"Il y en a qui préfère des lignes de texte courtes, d'autres qui préfèrent "
+"maximiser l'espace disponible sur l'écran. Pour satisfaire le maximum de "
+"personne, il est possible de choisir la largeur du contenu affiché. Il y a "
+"quatre réglages disponibles :"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**Fine** which displays content up to 550 pixels"
-msgstr ""
+msgid "**Fine** displays content up to a maximum width of 550 pixels"
+msgstr "**Fine** qui affiche le contenu jusqu'à 550 pixels"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**Medium** which displays content up to 800 pixels"
-msgstr ""
+msgid "**Medium** displays content up to a maximum width of 800 pixels"
+msgstr "**Moyenne** qui affiche le contenu jusqu'à 800 pixels"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**Large** which displays content up to 1000 pixels"
-msgstr ""
+msgid "**Large** displays content up to a maximum width of 1000 pixels"
+msgstr "**Large** qui affiche le contenu jusqu'à 1000 pixels"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:39
-msgid "**No limit** which displays the content on 100% of the available space"
+msgid "**No limit** displays the content on 100% of the available space"
 msgstr ""
+"**Pas de limite** qui affiche le contenu sur 100% de la place disponible"
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:40
 #, no-wrap
 msgid "Article icons"
-msgstr ""
+msgstr "Icônes d'article"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:43
-msgid "It worth noting that this section only has effects in normal view."
-msgstr ""
+msgid "Please note that this section only affects normal view."
+msgstr "Veuillez noter que cette section n'affecte que la vue normale."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:45
 msgid ""
 "![Article icons configuration](../img/users/configuration.article.icons.png)"
 msgstr ""
+"![Configuration des icônes d'article](../img/users/configuration.article."
+"icons.png)"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:48
@@ -5131,14 +5142,21 @@ msgid ""
 "Each article is rendered with a header (top line) and a footer (bottom "
 "line).  In that section, you can choose what will be displayed in those."
 msgstr ""
+"Chaque article est rendu avec un en-tête (ligne supérieure) et un pied de "
+"page (ligne inférieure). Dans cette section, vous pouvez choisir ce qui sera "
+"affiché dans ceux-ci."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:52
 msgid ""
 "If you disable every item in the top line, you'll still be able to see it "
-"since there is the feed name and the article title. But if you do the same "
-"thing for the bottom line, it will be empty."
+"since it contains the feed name and the article title. But if you do the "
+"same thing for the bottom line, it will be empty."
 msgstr ""
+"Si vous désactivez tous les éléments de la ligne supérieure, vous pourrez"
+" toujours les voir, puisqu'il contient le nom du flux et le titre de"
+" l'article. Mais si vous faites le même chose pour la ligne inférieure, elle"
+" sera vide."
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:53

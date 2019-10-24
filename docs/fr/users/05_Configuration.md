@@ -30,39 +30,42 @@ propose huit thèmes officiels :
  * *Origine-compact* par **Kevin Papst**
  * *Pafat* par **Plopoyop**
  * *Screwdriver* par **Mister aiR**
- * *Swage* by **Patrick Crandol**
+ * *Swage* par **Patrick Crandol**
 
-If none of these are suitable for you, it is always possible to [create your
-own](../developers/04_Frontend/02_Design.md).
+Si aucun de ceux proposés ne convient, il est toujours possible de [créer
+son propre thème](../developers/04_Frontend/02_Design.md).
 
-To select a theme, simply scroll through the themes and select one that
-strikes your fancy. After confirmation, the theme will be applied to the
-interface.
+Pour sélectionner un thème, il suffit de faire défiler les thèmes jusqu'à
+l'apparition du thème choisi. Après validation, le thème sera appliqué à
+l'interface.
 
-## Content width
+## Largeur du contenu
 
-There are some who prefer short lines of text while others prefer to
-maximize the available screen space. To satisfy the maximum number of people
-it is possible to choose the width of the displayed content. There are four
-settings available:
+Il y en a qui préfère des lignes de texte courtes, d'autres qui préfèrent
+maximiser l'espace disponible sur l'écran. Pour satisfaire le maximum de
+personne, il est possible de choisir la largeur du contenu affiché. Il y a
+quatre réglages disponibles :
 
- * **Fine** which displays content up to 550 pixels
- * **Medium** which displays content up to 800 pixels
- * **Large** which displays content up to 1000 pixels
- * **No limit** which displays the content on 100% of the available space
+ * **Fine** qui affiche le contenu jusqu'à 550 pixels
+ * **Moyenne** qui affiche le contenu jusqu'à 800 pixels
+ * **Large** qui affiche le contenu jusqu'à 1000 pixels
+ * **Pas de limite** qui affiche le contenu sur 100% de la place disponible
 
-## Article icons
+## Icônes d'article
 
-It worth noting that this section only has effects in normal view.
+Veuillez noter que cette section n'affecte que la vue normale.
 
-![Article icons configuration](../img/users/configuration.article.icons.png)
+![Configuration des icônes
+d'article](../img/users/configuration.article.icons.png)
 
-Each article is rendered with a header (top line) and a footer (bottom
-line).  In that section, you can choose what will be displayed in those.
+Chaque article est rendu avec un en-tête (ligne supérieure) et un pied de
+page (ligne inférieure). Dans cette section, vous pouvez choisir ce qui sera
+affiché dans ceux-ci.
 
-If you disable every item in the top line, you'll still be able to see it
-since there is the feed name and the article title. But if you do the same
-thing for the bottom line, it will be empty.
+Si vous désactivez tous les éléments de la ligne supérieure, vous pourrez
+toujours les voir, puisqu'il contient le nom du flux et le titre de
+l'article. Mais si vous faites le même chose pour la ligne inférieure, elle
+sera vide.
 
 ## HTML5 notification timout
 

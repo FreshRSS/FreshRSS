@@ -24,22 +24,22 @@ There's no accounting for tastes, which is why FreshRSS offers eight official th
  * *Screwdriver* by **Mister aiR**
  * *Swage* by **Patrick Crandol**
 
-If none of these are suitable for you, it is always possible to [create your own](../developers/04_Frontend/02_Design.md).
+If you can't find any themes you like, it's always possible to [create your own](../developers/04_Frontend/02_Design.md).
 
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
 
 ## Content width
 
-There are some who prefer short lines of text while others prefer to maximize the available screen space. To satisfy the maximum number of people it is possible to choose the width of the displayed content. There are four settings available:
+Some people prefer short lines of text, while others prefer to maximize the available screen space. To satisfy the maximum number of people, it's possible to customize the width of the displayed content. There are four settings available:
 
- * **Fine** which displays content up to 550 pixels
- * **Medium** which displays content up to 800 pixels
- * **Large** which displays content up to 1000 pixels
- * **No limit** which displays the content on 100% of the available space
+ * **Fine** displays content up to a maximum width of 550 pixels
+ * **Medium** displays content up to a maximum width of 800 pixels
+ * **Large** displays content up to a maximum width of 1000 pixels
+ * **No limit** displays the content on 100% of the available space
 
 ## Article icons
 
-It worth noting that this section only has effects in normal view.
+Please note that this section only affects normal view.
 
 ![Article icons configuration](../img/users/configuration.article.icons.png)
 
@@ -47,7 +47,7 @@ Each article is rendered with a header (top line) and a footer (bottom line).
 In that section, you can choose what will be displayed in those.
 
 If you disable every item in the top line, you'll still be able to see it since
-there is the feed name and the article title. But if you do the same thing for
+it contains the feed name and the article title. But if you do the same thing for
 the bottom line, it will be empty.
 
 ## HTML5 notification timout
