@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 18:26+0200\n"
+"POT-Creation-Date: 2019-10-24 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2373,7 +2373,7 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/01_First_steps.md:103
 #, no-wrap
-msgid "With commas, dots and semi-columns"
+msgid "Commas, dots and semi-columns"
 msgstr ""
 
 #. type: Plain text
@@ -2382,14 +2382,14 @@ msgid "There is no space before those characters but there is one after."
 msgstr ""
 
 #. type: Title ###
-#: en/./developers/01_First_steps.md:107
+#: en/./developers/01_First_steps.md:107 en/./developers/01_First_steps.md:210
 #, no-wrap
-msgid "With operators"
+msgid "Operators"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:110
-msgid "There is a space before and after every operator."
+msgid "There should be a space before and after every operator."
 msgstr ""
 
 #. type: Plain text
@@ -2411,7 +2411,7 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/01_First_steps.md:119
 #, no-wrap
-msgid "With brackets"
+msgid "Parentheses"
 msgstr ""
 
 #. type: Plain text
@@ -2639,12 +2639,6 @@ msgstr ""
 #: en/./developers/01_First_steps.md:208
 #, no-wrap
 msgid "Miscellaneous"
-msgstr ""
-
-#. type: Title ###
-#: en/./developers/01_First_steps.md:210
-#, no-wrap
-msgid "Operators"
 msgstr ""
 
 #. type: Plain text

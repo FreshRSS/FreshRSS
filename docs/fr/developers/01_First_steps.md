@@ -4,13 +4,13 @@ FreshRSS est construit en PHP et utilise le framework Minz. Les dépendances
 sont directement inclus dans le code source, donc vous n'avez pas besoin de
 Composer.
 
-There are various ways to configure your development environment. The
-easiest and most supported method is based on Docker, which is the solution
-documented below. If you already have a working PHP environment, you
-probably don't need it.
+Il existe plusieurs façons de configurer votre environnement de
+développement. La méthode la plus simple et la plus supportée est basée sur
+Docker, lequel est la solution documentée ci-dessous. Si vous avez déjà un
+environnement PHP fonctionnel, vous n'en avez probablement pas besoin.
 
-We assume here that you use a GNU/Linux distribution, capable of running
-Docker. Otherwise, you'll have to adapt the commands accordingly.
+Nous supposons ici que vous utilisez une distribution GNU/Linux, capable
+d'exécuter Docker. Sinon, vous devrez adapter les commandes en conséquence.
 
 The commands that follow have to be executed in a console. They start by `$`
 when commands need to be executed as normal user, and by `#` when they need
@@ -117,7 +117,7 @@ Une fois l'indentation faite, il peut être nécessaire de faire un alignement
 pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
 
 ```php
-$result = une_fonction_avec_un_nom_long($param1, $param2,
+$resultat = une_fonction_avec_un_nom_long($param1, $param2,
                                           $param3, $param4);
 ```
 
@@ -132,44 +132,36 @@ Il est possible de vérifier la présence de caractères blancs en fin de ligne
 grâce à Git avec la commande suivante :
 
 ```bash
-# command to check files before adding them in the Git index
-
+# commande à lancer avant l'ajout des fichiers dans l'index
 git diff --check
-
-# command to check files after adding them in the Git index
-
+# commande à lancer après l'ajout des fichiers dans l'index mais avant le commit
 git diff --check --cached
-
 ```
 
 
-### End of file
+### Fin de fichier
 
-Every file must end by an empty line.
+Chaque fichier doit se terminer par une ligne vide.
 
-### With commas, dots and semi-columns
+### Le cas de la virgule, du point et du point-virgule
 
 There is no space before those characters but there is one after.
 
-### With operators
+### Operators
 
-There is a space before and after every operator.
+There should be a space before and after every operator.
 
 ```php
 if ($a == 10) {
-
-	// do something
-
+	// faire quelque chose
 }
-
-
 
 echo $a ? 1 : 0;
 
 ```
 
 
-### Le cas des parenthèses
+### Parentheses
 
 Il n'y a pas d'espaces entre des parenthèses. Il n'y a pas d'espaces avant
 une parenthèse ouvrante sauf si elle est précédée d'un mot-clé. Il n'y a pas
@@ -325,7 +317,7 @@ if ($a == 10 ||
 ```
 
 
-### End of file
+### Fin de fichier
 
 If the file contains only PHP code, the PHP closing tag must be omitted.
 

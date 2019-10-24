@@ -100,13 +100,13 @@ git diff --check --cached
 
 Every file must end by an empty line.
 
-### With commas, dots and semi-columns
+### Commas, dots and semi-columns
 
 There is no space before those characters but there is one after.
 
-### With operators
+### Operators
 
-There is a space before and after every operator.
+There should be a space before and after every operator.
 
 ```php
 if ($a == 10) {
@@ -116,7 +116,7 @@ if ($a == 10) {
 echo $a ? 1 : 0;
 ```
 
-### With brackets
+### Parentheses
 
 There should be no spaces in between brackets. There should be no spaces before the opening bracket, except if it's after a keyword. There shouldn't be any spaces after the closing bracket, except if it's followed by a curly bracket.
 
