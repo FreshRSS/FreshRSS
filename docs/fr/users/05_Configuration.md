@@ -90,7 +90,7 @@ you browse with gestures, you can disable them from the interface.
 
 **TODO**
 
-# Archiving
+# Archivage
 
 **TODO**
 
@@ -189,10 +189,10 @@ Require user marie
 ```
 
 
-More information can be found in the [Apache
-documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
+Plus d'informations dans [la documentation
+d'Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
-# Subscription management
+# Gestion des flux
 
 ## Informations
 
@@ -202,30 +202,32 @@ documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworki
 
 **TODO**
 
-## Login
+## Identification
 
 **TODO**
 
-## Advanced
+## Avancé
 
-### Retrieve a truncated stream from within FreshRSS
+### Récupérer un flux tronqué à partir de FreshRSS
 
-The question comes up regularly, so we will try to clarify here how one can
-retrieve a truncated RSS feed with FreshRSS. Please note that the process is
-absolutely not "user friendly", but it works :)
+La question revient régulièrement, je vais essayer de clarifier ici comment
+on peut récupérer un flux RSS tronqué avec FreshRSS. Sachez avant tout que
+la manière de s'y prendre n'est absolument pas "user friendly", mais elle
+fonctionne. :)
 
-Also know that this way you are generating much more traffic to the
-originating sites and that they might block you accordingly. The performance
-of FreshRSS is also negatively affected because you have to fetch the full
-article content one by one. So it's a feature to use sparingly!
+Sachez aussi que par cette manière vous générez beaucoup plus de trafic vers
+les sites d'origines et qu'ils peuvent vous bloquer par conséquent. Les
+performances de FreshRSS sont aussi moins bonnes car vous devez alors aller
+chercher le contenu des articles un par un. C'est donc une fonctionnalité à
+utiliser avec parcimonie !
 
-What is meant by "CSS path of articles on the original site" actually
-corresponds to the "path" consisting of IDs and classes (which in html,
-matches the id and class attributes) to retrieve only the interesting part
-that corresponds to the article. Ideally, this path starts with an id (which
-is unique to the page).
+Ce que j'entends par "Chemin CSS des articles sur le site d’origine"
+correspond en fait au "chemin" constitué par les IDs et les classes (en
+html, correspond aux attributs id et class) pour récupérer uniquement la
+partie intéressante qui correspond à l'article. L'idéal est que ce chemin
+commence par un id (qui est unique pour la page).
 
-#### Exemple 1 : Rue89
+#### Exemple : Rue89
 
 Pour trouver ce chemin, il faut se rendre à l'adresse d'un des articles
 tronqués (par exemple
@@ -235,16 +237,17 @@ Il faut alors chercher le "bloc" HTML correspondant au contenu de l'article
 
 On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```<div class="content clearfix">```. On ne va garder que la classe `.content` ici. Néanmoins, comme je le disais plus haut, il est préférable de commencer le chemin avec un id. Si on remonte au bloc parent, il s'agit du bloc ```<div id="article">``` et c'est parfait ! Le chemin sera donc ```#article .content```.
 
-#### Add the corresponding classes to the articles CSS path on the feed configuration page. Examples:
+#### Add the corresponding classes to the article CSS path on the feed configuration page. Examples:
 
 *  Rue89 : ```#article .content```
 *  PCINpact : ```#actu_content```
 *  Lesnumériques : ```article#body div.text.clearfix```
 *  Phoronix : ```#main .content```
 
-### Retrieve a truncated stream with external tools
+### Récupérer un flux tronqué à l'aide d'outils externes
 
-Complimentary tools can be used to retrieve full article content, such as:
+Des outils complémentaires peuvent être utilisés pour récupérer le contenu
+complet d'un article, comme :
 
 * [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
 * [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)

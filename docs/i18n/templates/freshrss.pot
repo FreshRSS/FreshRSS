@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 17:40+0200\n"
+"POT-Creation-Date: 2019-10-24 17:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5071,10 +5071,10 @@ msgstr ""
 msgid "Reading"
 msgstr ""
 
-#. type: Title #
-#: en/./users/05_Configuration.md:71
+#. type: Title ##
+#: en/./users/05_Configuration.md:71 en/./users/05_Configuration.md:154
 #, no-wrap
-msgid "Archiving"
+msgid "Archival"
 msgstr ""
 
 #. type: Title #
@@ -5311,12 +5311,6 @@ msgid "Information"
 msgstr ""
 
 #. type: Title ##
-#: en/./users/05_Configuration.md:154
-#, no-wrap
-msgid "Archival"
-msgstr ""
-
-#. type: Title ##
 #: en/./users/05_Configuration.md:158
 #, no-wrap
 msgid "Login"
@@ -5337,25 +5331,25 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:167
 msgid ""
-"The question comes up regularly, so we will try to clarify here how one can "
+"This question comes up regularly, so we'll try to clarify how one can "
 "retrieve a truncated RSS feed with FreshRSS. Please note that the process is "
-"absolutely not \"user friendly\", but it works :)"
+"absolutely not user friendly, but it works. :)"
 msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:169
 msgid ""
-"Also know that this way you are generating much more traffic to the "
-"originating sites and that they might block you accordingly. The performance "
-"of FreshRSS is also negatively affected because you have to fetch the full "
-"article content one by one. So it's a feature to use sparingly!"
+"Please be aware that this way you'll generate much more traffic to the "
+"originating sites, and they might block you accordingly. FreshRSS "
+"performance is also negatively affected, because you'll have to fetch the "
+"full article content one by one. So it's a feature to use sparingly!"
 msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:171
 msgid ""
-"What is meant by \"CSS path of articles on the original site\" actually "
-"corresponds to the \"path\" consisting of IDs and classes (which in html, "
+"What's meant by \"CSS path of articles on the original site\" actually "
+"corresponds to the \"path\" consisting of IDs and classes (which in HTML, "
 "matches the id and class attributes) to retrieve only the interesting part "
 "that corresponds to the article. Ideally, this path starts with an id (which "
 "is unique to the page)."
@@ -5393,7 +5387,7 @@ msgstr ""
 #: en/./users/05_Configuration.md:178
 #, no-wrap
 msgid ""
-"Add the corresponding classes to the articles CSS path on the feed "
+"Add the corresponding classes to the article CSS path on the feed "
 "configuration page. Examples:"
 msgstr ""
 
@@ -5414,7 +5408,7 @@ msgstr ""
 
 #. type: Bullet: '*  '
 #: en/./users/05_Configuration.md:184
-msgid "Phoronix : ```#main .content```"
+msgid "Phoronix: ```#main .content```"
 msgstr ""
 
 #. type: Title ###
