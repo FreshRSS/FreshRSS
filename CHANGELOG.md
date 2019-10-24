@@ -5,6 +5,7 @@
 * CLI
 	* Command line to export/import any database to/from SQLite [#2496](https://github.com/FreshRSS/FreshRSS/pull/2496)
 * Features
+	* New archiving method, including maximum number of articles per feed, and settings at feed, category, global levels [#2335](https://github.com/FreshRSS/FreshRSS/pull/2335)
 	* New option to display article authors underneath the article title [#2487](https://github.com/FreshRSS/FreshRSS/pull/2487)
 	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476), [#2481](https://github.com/FreshRSS/FreshRSS/pull/2481)
 	* Ability to define default user settings in `data/config-user.custom.php` [#2490](https://github.com/FreshRSS/FreshRSS/pull/2490)
@@ -17,12 +18,14 @@
 * API
 	* Add support for [Reeder-4](https://www.reederapp.com/) client [#2513](https://github.com/FreshRSS/FreshRSS/issues/2513)
 * Compatibility
-	* Require at least PHP 5.6+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495), [#2527](https://github.com/FreshRSS/FreshRSS/pull/2527)
+	* Require at least PHP 5.6+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495), [#2527](https://github.com/FreshRSS/FreshRSS/pull/2527), [#2585](https://github.com/FreshRSS/FreshRSS/pull/2585)
 	* Require `php-json` and remove remove `JSON.php` fallback [#2528](https://github.com/FreshRSS/FreshRSS/pull/2528)
 	* Require at least PostgreSQL 9.5+ [#2554](https://github.com/FreshRSS/FreshRSS/pull/2554)
 * Deployment
 	* Take advantage of `mod_authz_core` instead of `mod_access_compat` when running on Apache 2.4+ [#2461](https://github.com/FreshRSS/FreshRSS/pull/2461)
+	* Docker: Ubuntu image updated to 19.10 with PHP 7.3.8 and Apache 2.4.41 [#2577](https://github.com/FreshRSS/FreshRSS/pull/2577)
 	* Docker: Alpine image updated to 3.10 with PHP 7.3.10 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Docker: Increase default PHP POST/upload size to ease importing ZIP files [#2563](https://github.com/FreshRSS/FreshRSS/pull/2563)
 	* Git ignore `themes/xTheme-*` [#2511](https://github.com/FreshRSS/FreshRSS/pull/2511)
 	* New environment variable `FRESHRSS_ENV` to control Minz development mode [#2508](https://github.com/FreshRSS/FreshRSS/pull/2508)
 * Bug fixing
@@ -30,6 +33,7 @@
 	* Fix IE11 / Edge keyboard compatibility [#2507](https://github.com/FreshRSS/FreshRSS/pull/2507)
 	* Use `<dc:creator>` instead of `<author>` for RSS 2.0 outputs [#2542](https://github.com/FreshRSS/FreshRSS/pull/2542)
 	* Fix PostgreSQL and SQLite database size estimation [#2562](https://github.com/FreshRSS/FreshRSS/pull/2562)
+	* Fix broken SVG icons in Swage theme [#2568](https://github.com/FreshRSS/FreshRSS/issues/2568), [#2571](https://github.com/FreshRSS/FreshRSS/pull/2571)
 * Security
 	* Fix referrer vulnerability when opening an article original link with a shortcut [#2506](https://github.com/FreshRSS/FreshRSS/pull/2506)
 	* Slight refactoring of access check [#2471](https://github.com/FreshRSS/FreshRSS/pull/2471)
@@ -39,13 +43,15 @@
 * I18n
 	* Add Slovak [#2497](https://github.com/FreshRSS/FreshRSS/pull/2497)
 	* Improve Dutch [#2503](https://github.com/FreshRSS/FreshRSS/pull/2503)
-	* Improve Occitan [#2519](https://github.com/FreshRSS/FreshRSS/pull/2519)
+	* Improve Occitan [#2519](https://github.com/FreshRSS/FreshRSS/pull/2519), [#2583](https://github.com/FreshRSS/FreshRSS/pull/2583)
 * Extensions
 	* Additional hooks [#2482](https://github.com/FreshRSS/FreshRSS/pull/2482)
 	* New call to change the layout [#2467](https://github.com/FreshRSS/FreshRSS/pull/2467)
 * Misc.
+	* Make our JavaScript compatible with LibreJS [#2576](https://github.com/FreshRSS/FreshRSS/pull/2576)
 	* PDO (database) refactoring for code simplification [#2522](https://github.com/FreshRSS/FreshRSS/pull/2522)
 	* Automatic check of CSS syntax in Travis CI [#2477](https://github.com/FreshRSS/FreshRSS/pull/2477)
+	* Make our Travis greener by reducing redundant tests [#2589](https://github.com/FreshRSS/FreshRSS/pull/2589)
 	* Remove support for sharing with Google+ [#2464](https://github.com/FreshRSS/FreshRSS/pull/2464)
 	* Redirect connected users accessing registration page [#2530](https://github.com/FreshRSS/FreshRSS/pull/2530)
 	* Add Makefile [#2481](https://github.com/FreshRSS/FreshRSS/pull/2481)
