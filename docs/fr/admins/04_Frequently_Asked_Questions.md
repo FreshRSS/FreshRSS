@@ -1,7 +1,8 @@
 # Frequently Asked Questions
 
-We may not have answered all of your questions in the previous sections. The
-FAQ contains some questions that have not been answered elsewhere.
+Il est possible que nous n'ayons pas répondu à toutes vos questions dans les
+parties précédentes. La FAQ regroupe certaines interrogations qui n'ont pas
+trouvé leur réponse ailleurs.
 
 ## Promoting a user to admin
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 17:54+0200\n"
+"POT-Creation-Date: 2019-10-24 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5964,12 +5964,12 @@ msgstr ""
 #. type: Title ##
 #: en/./users/07_Frequently_Asked_Questions.md:3
 #, no-wrap
-msgid "What is /i at the end of the application URL?"
+msgid "What is `/i` at the end of the application URL?"
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:6
-msgid "Of course, ```/i``` has a purpose! We used it for performance and usability:"
+msgid "Of course, ```/i``` has a purpose! It's used for performance and usability:"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -5984,7 +5984,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./users/07_Frequently_Asked_Questions.md:11
 msgid ""
-"```./p/``` public root can be served without any HTTP access "
+"The ```./p/``` public root can be served without any HTTP access "
 "restrictions. Whereas it could be implemented in ```./p/i/```."
 msgstr ""
 
@@ -6005,32 +6005,31 @@ msgstr ""
 #. type: Title ##
 #: en/./users/07_Frequently_Asked_Questions.md:12
 #, no-wrap
-msgid "Why robots.txt is located in a sub-folder?"
+msgid "Why is `robots.txt` located in a sub-folder?"
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:15
 msgid ""
 "To increase security, FreshRSS is hosted in two sections. The first section "
-"is public (```./p``` folder) and the second section is private (everything "
-"else). Therefore the ```robots.txt``` file is located in ```./p``` "
-"sub-folder."
+"is public (the `./p` folder) and the second section is private (everything "
+"else). Therefore the `robots.txt` file is located in the `./p` sub-folder."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:17
 msgid ""
 "As explained in the [security "
-"section](/en/User_documentation/Installation/Security), it is highly "
+"section](/en/User_documentation/Installation/Security), it's highly "
 "recommended to make only the public section available at the domain "
-"level. With that configuration, ```./p``` is the root folder for "
-"http://demo.freshrss.org/, thus making ```robots.txt``` available at the "
-"root of the application."
+"level. With that configuration, `./p` is the root folder for "
+"http://demo.freshrss.org/, thus making `robots.txt` available at the root of "
+"the application."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:19
-msgid "The same rule applies for ```favicon.ico``` and ```.htaccess```."
+msgid "The same principle applies to `favicon.ico` and `.htaccess`."
 msgstr ""
 
 #. type: Title ##
@@ -6043,40 +6042,40 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:26
 msgid ""
 "There can be different origins for that problem.  The feed syntax can be "
-"invalid, it can be unrecognized by the SimplePie library. the hosting server "
-"can be the root of the problem, FreshRSS can be buggy.  The first step is to "
-"identify what causes the problem.  Here are the steps to follow:"
+"invalid, it can be unrecognized by the SimplePie library, the hosting server "
+"can be the root of the problem, or FreshRSS can be buggy.  The first step is "
+"to identify what causes the problem.  Here are the steps to follow:"
 msgstr ""
 
 #. type: Bullet: '1. '
 #: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify if the feed syntax is valid__ with the [W3C on-line "
-"tool](http://validator.w3.org/feed/ \"RSS and Atom feed validator\"). If it "
-"is not valid, there is nothing we can do."
+"tool](http://validator.w3.org/feed/ \"RSS and Atom feed validator\"). If "
+"it's not valid, there's nothing we can do."
 msgstr ""
 
 #. type: Bullet: '1. '
 #: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify SimplePie validation__ with the [SimplePie on-line "
-"tool](http://simplepie.org/demo/ \"SimplePie official demo\"). If it is not "
-"recognized, there is nothing we can do."
+"tool](http://simplepie.org/demo/ \"SimplePie official demo\"). If it's not "
+"recognized, there's nothing we can do."
 msgstr ""
 
 #. type: Bullet: '1. '
 #: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify FreshRSS integration__ with the [demo](http://demo.freshrss.org "
-"\"FreshRSS official demo\"). If it is not working, you need to [create an "
+"\"FreshRSS official demo\"). If it's not working, you need to [create an "
 "issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
-"issue for FreshRSS\") so we can have a look at it. If it is working, there "
-"is probably something fishy with the hosting server."
+"issue for FreshRSS\") so we can have a look at it. If it's working, there's "
+"probably something fishy with the hosting server."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:32
-msgid "Here is a list of feeds which don't work:"
+msgid "Here's a list of feeds which don't work:"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -6090,37 +6089,37 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:36
 msgid ""
 "http://eu.battle.net/hearthstone/fr/feed/news: is not a W3C valid feed "
-"(Novembre 2014)"
+"(November 2014)"
 msgstr ""
 
 #. type: Bullet: '* '
 #: en/./users/07_Frequently_Asked_Questions.md:36
 msgid ""
 "http://webseriesmag.blogs.liberation.fr/we/atom.xml: is not working for the "
-"user but succeed on all the described validations (November 2014)"
+"user but passes validation (November 2014)"
 msgstr ""
 
 #. type: Title ##
 #: en/./users/07_Frequently_Asked_Questions.md:37
 #, no-wrap
-msgid "How to change a forgotten password?"
+msgid "How can you change a forgotten password?"
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:41
 msgid ""
-"Since [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0) "
-"release, admins are able to change user passwords directly from the "
-"interface. This interface is available under ```Administration → Manage "
-"users```.  Select a user, enter a password, and validate."
+"Since the [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0) "
+"release, admins can change user passwords directly from the interface. This "
+"interface is available under ```Administration → Manage users```.  Select a "
+"user, enter a password, and validate."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:43
 msgid ""
-"Since [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) "
-"release, admins are able to change user passwords using a terminal. It worth "
-"mentioning that it must have access to PHP CLI. Open a terminal, and type "
+"Since the [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) "
+"release, admins can change user passwords using a terminal. It worth "
+"mentioning that you must have access to PHP CLI. Open a terminal, and type "
 "the following command:"
 msgstr ""
 
@@ -6135,7 +6134,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:47
 msgid ""
-"For more information on that matter, there is a [dedicated "
+"For more information on that matter, please refer to the [dedicated "
 "documentation](../../cli/README.md)."
 msgstr ""
 
@@ -6148,11 +6147,12 @@ msgstr ""
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:51
 msgid ""
-"Some Linux distribution like Fedora or RedHat Enterprise Linux have SELinux "
-"system enabled. This acts like a firewall application, so all applications "
-"cannot write/modify files under certain conditions. While installing "
-"FreshRSS, step 2 can fail if the httpd process cannot write to some data "
-"sub-directories, the following command should be executed as root :"
+"Some Linux distribution, like Fedora or RedHat Enterprise Linux, have "
+"SELinux enabled. This acts similar to a firewall application, so that "
+"applications can't write or modify files under certain conditions. While "
+"installing FreshRSS, step 2 can fail if the httpd process can't write to "
+"some data sub-directories. The following command should be executed as root "
+"to fix this problem:"
 msgstr ""
 
 #. type: Plain text
