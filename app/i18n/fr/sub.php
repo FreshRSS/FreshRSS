@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
 		'new' => 'Nouvelle catégorie',
+		'position' => 'Position',
+		'position_help' => 'Position d’affichage. Quand deux catégories ont la même position, elles sont affichées en ordre alphabétique. Les catégories sans position sont affichées à la suite de celle qui en ont une.',
 		'title' => 'Titre',
 	),
 	'feed' => array(

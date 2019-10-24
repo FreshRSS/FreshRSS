@@ -17,6 +17,13 @@
 				?> />
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
+			<div class="group-controls">
+				<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributes('position') ?>" />
+				<?= _i('help') ?> <?= _t('sub.category.position_help') ?>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

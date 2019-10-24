@@ -201,6 +201,29 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		}
 	}
 
+	public function listSortedCategories($prePopulateFeeds = true, $details = false) {
+		$categories = $this->listCategories($prePopulateFeeds, $details);
+
+		if (!is_array($categories)) {
+			return $categories;
+		}
+
+		usort($categories, function ($a, $b) {
+			$aPosition = $a->attributes('position');
+			$bPosition = $b->attributes('position');
+			if ($aPosition === $bPosition) {
+				return ($a->name() < $b->name()) ? -1 : 1;
+			} elseif (null === $aPosition) {
+				return 1;
+			} elseif (null === $bPosition) {
+				return -1;
+			}
+			return ($aPosition < $bPosition) ? -1 : 1;
+		});
+
+		return $categories;
+	}
+
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.attributes AS c_attributes, '
@@ -343,6 +366,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 					$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id($previousLine['c_id']);
+				$cat->_attributes('', $previousLine['c_attributes']);
 				$list[$previousLine['c_id']] = $cat;
 
 				$feedsDao = array();	//Prepare for next category
@@ -359,6 +383,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id($previousLine['c_id']);
+			$cat->_attributes('', $previousLine['c_attributes']);
 			$list[$previousLine['c_id']] = $cat;
 		}
 

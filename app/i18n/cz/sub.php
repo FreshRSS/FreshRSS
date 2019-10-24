@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
 		'new' => 'Nová kategorie',
+		'position' => 'Position',	//TODO - Translation
+		'position_help' => 'Display position. When two categories have the same position, they are displayed in alphabetical order. Categories with no position are displayed after those with one.',	//TODO - Translation
 		'title' => 'Název',
 	),
 	'feed' => array(

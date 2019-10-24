@@ -17,6 +17,8 @@ return array(
 		'empty' => '空分类',
 		'information' => '信息',
 		'new' => '新分类',
+		'position' => 'Position',	//TODO - Translation
+		'position_help' => 'Display position. When two categories have the same position, they are displayed in alphabetical order. Categories with no position are displayed after those with one.',	//TODO - Translation
 		'title' => '标题',
 	),
 	'feed' => array(
