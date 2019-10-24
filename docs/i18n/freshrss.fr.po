@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 16:24+0200\n"
-"PO-Revision-Date: 2019-10-24 16:28+0100\n"
+"POT-Creation-Date: 2019-10-24 16:41+0200\n"
+"PO-Revision-Date: 2019-10-24 16:42+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -4017,8 +4017,8 @@ msgstr ""
 #: en/./index.md:6
 msgid "FreshRSS has a lot of features including:"
 msgstr ""
-"FreshRSS a été conçu comme un agrégateur puissant et propose des tas de"
-" fonctionnalités :"
+"FreshRSS a été conçu comme un agrégateur puissant et propose des tas de "
+"fonctionnalités :"
 
 #. type: Bullet: '* '
 #: en/./index.md:18
@@ -4030,23 +4030,23 @@ msgstr "Agrégation des flux RSS et Atom."
 msgid ""
 "Mark article as favorite if you liked it or if you want to read it later"
 msgstr ""
-"Utilisez les favoris pour marquer les articles qui vous ont plu ou que vous"
-" souhaitez lire plus tard."
+"Utilisez les favoris pour marquer les articles qui vous ont plu ou que vous "
+"souhaitez lire plus tard."
 
 #. type: Bullet: '* '
 #: en/./index.md:18
 msgid "Filter and search functionality helps to easily find articles"
 msgstr ""
-"Le système de filtrage et de recherche permettent de cibler exactement les"
-" articles que vous souhaitez lire."
+"Le système de filtrage et de recherche permettent de cibler exactement les "
+"articles que vous souhaitez lire."
 
 #. type: Bullet: '* '
 #: en/./index.md:18
 msgid ""
 "Statistics to show you the publishing frequency all the websites you follow"
 msgstr ""
-"Les statistiques permettent de savoir en un coup d’œil quels sont les sites"
-" qui publient le plus, ou à l’inverse, le moins."
+"Les statistiques permettent de savoir en un coup d’œil quels sont les sites "
+"qui publient le plus, ou à l’inverse, le moins."
 
 #. type: Bullet: '* '
 #: en/./index.md:18
@@ -4069,8 +4069,8 @@ msgid ""
 "The application is \"responsive,\" which means it adapts to small screens so "
 "you can bring articles in your pocket"
 msgstr ""
-"« *Responsive design* » : l’application s’adapte aux petits écrans pour"
-" emporter FreshRSS dans votre poche."
+"« *Responsive design* » : l’application s’adapte aux petits écrans pour "
+"emporter FreshRSS dans votre poche."
 
 #. type: Bullet: '* '
 #: en/./index.md:18
@@ -4078,15 +4078,15 @@ msgid ""
 "Self-hosted: the code is free (under AGPL3 licence), so you can host your "
 "own instance of FreshRSS"
 msgstr ""
-"Auto-hébergeable : le code source est libre (AGPL3) et vous pouvez donc"
-" l’héberger sur votre propre serveur."
+"Auto-hébergeable : le code source est libre (AGPL3) et vous pouvez donc "
+"l’héberger sur votre propre serveur."
 
 #. type: Bullet: '* '
 #: en/./index.md:18
 msgid "Multi-user, so you can also host for your friends and family"
 msgstr ""
-"Multi-utilisateurs pour héberger plusieurs personnes sur une même"
-" installation."
+"Multi-utilisateurs pour héberger plusieurs personnes sur une même "
+"installation."
 
 #. type: Bullet: '* '
 #: en/./index.md:18
@@ -4955,32 +4955,43 @@ msgstr ""
 #: en/./users/05_Configuration.md:2
 #, no-wrap
 msgid "Display"
-msgstr ""
+msgstr "Personnaliser la vue"
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:4
 #, no-wrap
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:9
 msgid ""
-"At the moment, FreshRSS is available in 13 languages. After you confirm your "
-"choice, the interface will be displayed in the chosen language.  Depending "
-"on the chosen language, there might be parts of the interface that are still "
-"not translated. If you're willing to help translating the missing bits or "
-"add a new language, please check how you can [contribute to the project](../"
-"contributing.md#contribute-to-internationalization-i18n)."
+"FreshRSS is currently available in 14 languages. After confirming your "
+"choice, the interface will be displayed in your preferred language.  "
+"Depending on the language chosen, parts of the interface may not be not "
+"translated yet. If you're willing to help translate the missing bits or "
+"would like to add a new language, please take a look at how you can "
+"[contribute to the project](../contributing.md#contribute-to-"
+"internationalization-i18n)."
 msgstr ""
+"À l'heure actuelle, FreshRSS est disponible en 13 langues. Après validation "
+"de ce choix, l'interface sera affichée dans la langue choisie, même si "
+"certaines parties de l'interface peuvent ne pas encore avoir été traduites. "
+"Si vous voulez aider à la traduction, regardez comment vous pouvez "
+"[contribuer au projet](../contributing.md#contribute-to-internationalization-"
+"i18n)."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:11
 msgid ""
-"There are parts of FreshRSS that are not translated and are not intended to "
-"be translated. For now, the logs visible in the application as well as the "
-"one generated by automatic update scripts are part of it."
+"Some parts of FreshRSS aren't translated and aren't intended to be "
+"translated either. For now, this includes the logs visible in the "
+"application as well as the log generated by automatic update scripts."
 msgstr ""
+"Il y a des parties de FreshRSS qui ne sont pas traduites et qui n'ont pas "
+"vocation à l'être. Pour le moment, les logs visibles dans l'application "
+"ainsi que celle générées par le script de mise à jour automatique en font "
+"partie."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:13
@@ -4988,54 +4999,61 @@ msgid ""
 "Available languages are: cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, "
 "tr, zh-cn."
 msgstr ""
+"Les langues disponibles sont : cz, de, en, es, fr, he, it, kr, nl, oc, pt-"
+"br, ru, tr, zh-cn."
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:14
 #, no-wrap
 msgid "Theme"
-msgstr ""
+msgstr "Thème"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:17
+#| msgid ""
+#| "There's no accounting for tasts, which is why FreshRSS offers eight "
+#| "official themes:"
 msgid ""
-"In matters of taste and color, there can be no disputes. This is why "
-"FreshRSS offers eight official themes:"
+"There's no accounting for tastes, which is why FreshRSS offers eight "
+"official themes:"
 msgstr ""
+"Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS "
+"propose huit thèmes officiels :"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Blue Lagoon* by **Mister aiR**"
-msgstr ""
+msgstr "*Blue Lagoon* par **Mister aiR**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Dark* by **AD**"
-msgstr ""
+msgstr "*Dark* par **AD**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Flat design* by **Marien Fressinaud**"
-msgstr ""
+msgstr "*Flat design* par **Marien Fressinaud**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Origine* by **Marien Fressinaud**"
-msgstr ""
+msgstr "*Origine* par **Marien Fressinaud**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Origine-compact* by **Kevin Papst**"
-msgstr ""
+msgstr "*Origine-compact* par **Kevin Papst**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Pafat* by **Plopoyop**"
-msgstr ""
+msgstr "*Pafat* par **Plopoyop**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
 msgid "*Screwdriver* by **Mister aiR**"
-msgstr ""
+msgstr "*Screwdriver* par **Mister aiR**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
