@@ -1,6 +1,6 @@
-Learning how to handle a new application is not always easy. We build FreshRSS to be intuitive, but you will need some guidance to get your hand on it.
+Learning how to handle a new application is not always easy. We've tried to make FreshRSS as intuitive as possible, but you might still need a little help to master the program.
 
-This section guides you to the pages you need as a new comer.
+This section will guide you to the pages you need to get started. The order is tailored to newcomers.
 
 [After installing the application](../admins/02_Installation.md), the first step is to add some feeds. You have a few options:
 
@@ -9,13 +9,13 @@ This section guides you to the pages you need as a new comer.
 3. [Use the bookmarklet](04_Subscriptions.md#use-bookmarklet)
 4. [Firefox integration](04_Subscriptions.md#firefox-subscription-service)
 
-Once you have added your feeds to FreshRSS, it is time to read them. You have access to three reading modes:
+Once you have added your feeds to FreshRSS, it is time to read them. There are three availalbe reading modes:
 
-1. [The normal view](03_Main_view.md#normal-view) which allows you to display and read quickly new articles
-2. [The global view](03_Main_view.md#global-view) which allows you to see in one glance the status of your feeds
-3. [The reader view](03_Main_view.md#reader-view) which allows you to have a nice reading experience.
+1. [The normal view](03_Main_view.md#normal-view) enables you to quickly read new articles
+2. [The global view](03_Main_view.md#global-view) shows you an overview of the status of your feeds in one glance
+3. [The reader view](03_Main_view.md#reader-view) offers you a comfortable reading experience
 
-Now that you know the basic usages, it is time to configure FreshRSS to improve your reading experience. It has a lot of options, so play with them to find your perfect configuration. However, here is few resources to help you:
+Now that you've mastered basic use, it's time to configure FreshRSS to improve your reading experience. It's highly configurable, so it's recommended to play around with them to find a configuration that suits you well. Here are a few resources to help you improve your daily FreshRSS experience:
 
 * [Organize your feeds in categories](04_Subscriptions.md#feed-management)
 * [Change the home page](05_Configuration.md#changing-the-view)
