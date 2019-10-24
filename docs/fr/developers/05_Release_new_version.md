@@ -68,20 +68,22 @@ package FreshRSS (`PACKAGE_URL`). L'URL est de la forme
 
 Il existe ensuite 5 fonctions à remplir :
 
-- `apply_update()` qui se charge de sauvegarder le répertoire contenant les
-données, de vérifier sa structure, de télécharger le package FreshRSS, de le
-déployer et de tout nettoyer. Cette fonction est pré-remplie mais des
-ajustements peuvent être faits si besoin est (ex. réorganisation de la
-structure de `./data`). Elle retourne `true` si aucun problème n'est survenu
-ou une chaîne de caractères indiquant un soucis ; - `need_info_update()`
-retourne `true` si l'utilisateur doit intervenir durant la mise à jour ou
-`false` sinon ; - `ask_info_update()` affiche un formulaire à l'utilisateur
-si `need_info_update()` a retourné `true` ; - `save_info_update()` est
-chargée de sauvegarder les informations renseignées par l'utilisateur
-(issues du formulaire de `ask_info_update()`) ; - `do_post_update()` est
-exécutée à la fin de la mise à jour et prend en compte le code de la
-nouvelle version (ex. si la nouvelle version modifie l'objet
-`Minz_Configuration`, vous bénéficierez de ces améliorations).
+* `apply_update()` qui se charge de sauvegarder le répertoire contenant les
+  données, de vérifier sa structure, de télécharger le package FreshRSS, de
+  le déployer et de tout nettoyer. Cette fonction est pré-remplie mais des
+  ajustements peuvent être faits si besoin est (ex. réorganisation de la
+  structure de `./data`). Elle retourne `true` si aucun problème n'est
+  survenu ou une chaîne de caractères indiquant un soucis ;
+* `need_info_update()` retourne `true` si l'utilisateur doit intervenir
+  durant la mise à jour ou `false` sinon ;
+* `ask_info_update()` affiche un formulaire à l'utilisateur si
+  `need_info_update()` a retourné `true` ;
+* `save_info_update()` est chargée de sauvegarder les informations
+  renseignées par l'utilisateur (issues du formulaire de
+  `ask_info_update()`) ;
+* `do_post_update()` est exécutée à la fin de la mise à jour et prend en
+  compte le code de la nouvelle version (ex. si la nouvelle version modifie
+  l'objet `Minz_Configuration`, vous bénéficierez de ces améliorations).
 
 ## Mise à jour du fichier de versions
 
@@ -119,14 +121,15 @@ return array(
 
 Et voici comment fonctionne cette table :
 
-- à gauche se trouve la version N, à droite la version N+1 ; - les versions
-`x.y.z-dev` sont **toutes** mises à jour vers `dev` ; - les versions stables
-sont mises à jour vers des versions stables ; - il est possible de sauter
-plusieurs versions d'un coup à condition que les scripts de mise à jour le
-prennent en charge ; - il est conseillé d'indiquer la correspondance de la
-version courante vers sa potentielle future version en précisant que cette
-version n'existe pas encore. Tant que le script correspondant n'existera
-pas, rien ne se passera.
+* à gauche se trouve la version N, à droite la version N+1 ;
+* les versions `x.y.z-dev` sont **toutes** mises à jour vers `dev` ;
+* les versions stables sont mises à jour vers des versions stables ;
+* il est possible de sauter plusieurs versions d'un coup à condition que les
+  scripts de mise à jour le prennent en charge ;
+* il est conseillé d'indiquer la correspondance de la version courante vers
+  sa potentielle future version en précisant que cette version n'existe pas
+  encore. Tant que le script correspondant n'existera pas, rien ne se
+  passera.
 
 Il est **très fortement** indiqué de garder ce fichier rangé selon les
 numéros de versions en séparant les versions stables et de dev.
@@ -147,19 +150,20 @@ nouveau script et en testant de nouveau puis passez à la suite.
 Deux services sont à mettre à jour immédiatement après la mise à jour de
 update.freshrss.org :
 
-- rss.freshrss.org ; - demo.freshrss.org (identifiants publics : `demo` /
-`demodemo`).
+* rss.freshrss.org ;
+* demo.freshrss.org (identifiants publics : `demo` / `demodemo`).
 
 # Annoncer publiquement la sortie
 
 Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 
-- sur GitHub en créant [une nouvelle
-release](https://github.com/FreshRSS/FreshRSS/releases/new) ; - sur le blog
-de freshrss.org au minimum pour les versions stables (écrire l'article sur
-[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).  - sur
-Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ; - et sur
-mailing@freshrss.org ;
+* sur GitHub en créant [une nouvelle
+  release](https://github.com/FreshRSS/FreshRSS/releases/new) ;
+* sur le blog de freshrss.org au minimum pour les versions stables (écrire
+  l'article sur
+  [FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).
+* sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;
+* et sur mailing@freshrss.org ;
 
 # Lancer la prochaine version de développement
 

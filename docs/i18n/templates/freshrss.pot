@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 19:20+0200\n"
+"POT-Creation-Date: 2019-10-24 19:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2094,49 +2094,49 @@ msgstr ""
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:1
 #, no-wrap
-msgid "Préparer la sortie"
+msgid "Preparing the release"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:4
 msgid ""
-"Afin d'avoir le plus de retour possible avant une sortie, il est préférable "
-"de l'annoncer sur GitHub en créant un ticket dédié ([voir les "
-"exemples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). "
-"Ceci est à faire **au moins une semaine à l'avance**."
+"In order to get as much feedback as possible before a release, it's "
+"preferable to announce it on GitHub by creating a dedicated ticket ([see "
+"examples] "
+"(https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). "
+"This should be done **at least one week in advance**."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:6
-msgid "Il est aussi recommandé de faire l'annonce sur mailing@freshrss.org."
+msgid "It's also recommended to make the announcement on mailing@freshrss.org."
 msgstr ""
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:7
 #, no-wrap
-msgid "S'assurer de l'état de dev"
+msgid "Check the dev status"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:10
 msgid ""
-"Avant de sortir une nouvelle version de FreshRSS, il faut vous assurer que "
-"le code est stable et ne présente pas de bugs majeurs. Idéalement, il "
-"faudrait que nos tests soient automatisés et exécutés avant toute "
-"publication."
+"Before releasing a new version of FreshRSS, you must ensure that the code is "
+"stable and free of major bugs. Ideally, our tests should be automated and "
+"executed before any publication."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:12
 msgid ""
-"Il faut aussi **vous assurer que le fichier CHANGELOG est à jour** dans la "
-"branche de dev avec les mises à jour de la ou les version(s) à sortir."
+"You must also **make sure that the CHANGELOG file is up to date** in the dev "
+"branch with the updates of the version(s) to be released."
 msgstr ""
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:13
 #, no-wrap
-msgid "Processus Git"
+msgid "Git process"
 msgstr ""
 
 #. type: Plain text
@@ -2151,7 +2151,7 @@ msgid ""
 "\n"
 "$ vim constants.php\n"
 "\n"
-"# Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION\n"
+"# Update version number x.y.y.z of FRESHRSS_VERSION\n"
 "\n"
 "$ git commit -a\n"
 "\n"
@@ -2168,91 +2168,111 @@ msgstr ""
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:28
 #, no-wrap
-msgid "Mise à jour de update.freshrss.org"
+msgid "Updating `update.freshrss.org`"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:31
 msgid ""
-"Il est important de mettre à jour update.freshrss.org puisqu'il s'agit du "
-"service par défaut gérant les mises à jour automatiques de FreshRSS."
+"It's important to update update.freshrss.org since this is the default "
+"service for automatic FreshRSS updates."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:33
 msgid ""
-"Le dépot gérant le code se trouve sur GitHub : "
-"[FreshRSS/update.freshrss.org](https://github.com/FreshRSS/update.freshrss.org/)."
+"The repository managing the code is located on GitHub: "
+"[FreshRSS/update.freshrss.org] "
+"(https://github.com/FreshRSS/update.freshrss.org/)."
 msgstr ""
 
 #. type: Title ##
 #: en/./developers/05_Release_new_version.md:34
 #, no-wrap
-msgid "Écriture du script de mise à jour"
+msgid "Writing the update script"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:37
 msgid ""
-"Les scripts se trouvent dans le répertoire `./scripts/` et doivent être de "
-"la forme `update_to_x.y.z.php`. On trouve aussi dans ce répertoire "
-"`update_to_dev.php` destiné aux mises à jour de la branche de dev (ce script "
-"ne doit pas inclure de code spécifique à une version particulière !) et "
-"`update_util.php` contenant une liste de fonctions utiles à tous les "
-"scripts."
+"The scripts are located in the `./scripts/` directory and must take the form "
+"`update_to_x.y.z.z.php`. This directory also contains `update_to_dev.php` "
+"intended for updates of the dev branch (this script must not include code "
+"specific to a particular version!) and `update_util.php`, which contains a "
+"list of functions useful for all scripts."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:39
 msgid ""
-"Afin d'écrire un nouveau script, il est préférable de copier / coller celui "
-"de la dernière version ou de partir de `update_to_dev.php`. La première "
-"chose à faire est de définir l'URL à partir de laquelle sera téléchargée le "
-"package FreshRSS (`PACKAGE_URL`). L'URL est de la forme "
+"In order to write a new script, it's better to copy/paste the last version "
+"or to start from `update_to_dev.php`. The first thing to do is to define the "
+"URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The "
+"URL is in the form of "
 "`https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:41
-msgid "Il existe ensuite 5 fonctions à remplir :"
+msgid "There are then 5 functions that have to be executed:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:47
 msgid ""
-"- `apply_update()` qui se charge de sauvegarder le répertoire contenant les "
-"données, de vérifier sa structure, de télécharger le package FreshRSS, de le "
-"déployer et de tout nettoyer. Cette fonction est pré-remplie mais des "
-"ajustements peuvent être faits si besoin est (ex. réorganisation de la "
-"structure de `./data`). Elle retourne `true` si aucun problème n'est survenu "
-"ou une chaîne de caractères indiquant un soucis ; - `need_info_update()` "
-"retourne `true` si l'utilisateur doit intervenir durant la mise à jour ou "
-"`false` sinon ; - `ask_info_update()` affiche un formulaire à l'utilisateur "
-"si `need_info_update()` a retourné `true` ; - `save_info_update()` est "
-"chargée de sauvegarder les informations renseignées par l'utilisateur "
-"(issues du formulaire de `ask_info_update()`) ; - `do_post_update()` est "
-"exécutée à la fin de la mise à jour et prend en compte le code de la "
-"nouvelle version (ex. si la nouvelle version modifie l'objet "
-"`Minz_Configuration`, vous bénéficierez de ces améliorations)."
+"`apply_update()` takes care of saving the directory containing the data, "
+"checking its structure, downloading the FreshRSS package, deploying it and "
+"cleaning it all up. This function is pre-filled but adjustments can be made "
+"if necessary (e.g., reorganization of the `./data` structure). It returns "
+"`true` if no problem has occurred or a string indicating a problem;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:47
+msgid ""
+"`need_info_update()` returns `true` if the user must intervene during the "
+"update or `false` if not;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:47
+msgid ""
+"`ask_info_update()` displays a form to the user if `need_info_update()` has "
+"returned `true`;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:47
+msgid ""
+"`save_info_update()` is responsible for saving the information filled out by "
+"the user (from the `ask_info_update()` form);"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:47
+msgid ""
+"`do_post_update()` is executed at the end of the update and takes into "
+"account the code of the new version (e.g., if the new version changes the "
+"`Minz_Configuration` object, you will benefit from these improvements)."
 msgstr ""
 
 #. type: Title ##
 #: en/./developers/05_Release_new_version.md:48
 #, no-wrap
-msgid "Mise à jour du fichier de versions"
+msgid "Updating the versions file"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:51
 msgid ""
-"Lorsque le script a été écrit et versionné, il est nécessaire de mettre à "
-"jour le fichier `./versions.php` qui contient une table de correspondances "
-"indiquant quelles versions sont mises à jour vers quelles autres versions."
+"Once the script has been written and versioned, it's necessary to update the "
+"`./versions.php' file which contains a mapping table indicating which "
+"versions are updated to which other versions."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:53
-msgid "Voici un exemple de fichier `versions.php` :"
+msgid "Here's an example of a `versions.php` file:"
 msgstr ""
 
 #. type: Plain text
@@ -2285,98 +2305,129 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:69
-msgid "Et voici comment fonctionne cette table :"
+msgid "And here's how this table works:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:75
+msgid "on the left you can find the N version, on the right the N+1 version;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:75
+msgid "the `x.y.z.z-dev` versions are **all** updated to `dev`;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:75
+msgid "stable versions are updated to stable versions;"
+msgstr ""
+
+#. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:75
 msgid ""
-"- à gauche se trouve la version N, à droite la version N+1 ; - les versions "
-"`x.y.z-dev` sont **toutes** mises à jour vers `dev` ; - les versions stables "
-"sont mises à jour vers des versions stables ; - il est possible de sauter "
-"plusieurs versions d'un coup à condition que les scripts de mise à jour le "
-"prennent en charge ; - il est conseillé d'indiquer la correspondance de la "
-"version courante vers sa potentielle future version en précisant que cette "
-"version n'existe pas encore. Tant que le script correspondant n'existera "
-"pas, rien ne se passera."
+"it's possible to skip several versions at once, provided that the update "
+"scripts support it;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:75
+msgid ""
+"it's advisable to indicate the correspondence of the current version to its "
+"potential future version by specifying that this version does not yet "
+"exist. As long as the corresponding script does not exist, nothing will "
+"happen."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:77
 msgid ""
-"Il est **très fortement** indiqué de garder ce fichier rangé selon les "
-"numéros de versions en séparant les versions stables et de dev."
+"It's **very strongly** recommended to keep this file organized according to "
+"version numbers by separating stable and dev versions."
 msgstr ""
 
 #. type: Title ##
 #: en/./developers/05_Release_new_version.md:78
 #, no-wrap
-msgid "Déploiement"
+msgid "Deployment"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:81
 msgid ""
-"Avant de mettre à jour update.freshrss.org, il est préférable de tester avec "
-"dev.update.freshrss.org qui correspond à la pré-production. Mettez donc à "
-"jour dev.update.freshrss.org et changez l'URL `FRESHRSS_UPDATE_WEBSITE` de "
-"votre instance FreshRSS. Lancez la mise à jour et vérifiez que celle-ci se "
-"déroule correctement."
+"Before updating update.freshrss.org, it's better to test with "
+"dev.update.freshrss.org, which corresponds to pre-production. So update "
+"dev.update.freshrss.org and change the `FRESHRSS_UPDATE_WEBSITE` URL of your "
+"FreshRSS instance. Start the update and check that it's running correctly."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:83
 msgid ""
-"Lorsque vous serez satisfait, mettez à jour update.freshrss.org avec le "
-"nouveau script et en testant de nouveau puis passez à la suite."
+"When you're satisfied, update update.freshrss.org with the new script, test "
+"it again, and then move on."
 msgstr ""
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:84
 #, no-wrap
-msgid "Mise à jour des services FreshRSS"
+msgid "Updating the FreshRSS services"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:87
-msgid ""
-"Deux services sont à mettre à jour immédiatement après la mise à jour de "
-"update.freshrss.org :"
+msgid "Two services need to be updated immediately after the update."
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:90
-msgid ""
-"- rss.freshrss.org ; - demo.freshrss.org (identifiants publics : `demo` / "
-"`demodemo`)."
+msgid "rss.freshrss.org;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:90
+msgid "demo.freshrss.org (public login: `demo` / `demodemo`)."
 msgstr ""
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:91
 #, no-wrap
-msgid "Annoncer publiquement la sortie"
+msgid "Publicly announce the release"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:94
-msgid "Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !"
+msgid "When everything's working, it's time to announce the release to the world!"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:99
 msgid ""
-"- sur GitHub en créant [une nouvelle "
-"release](https://github.com/FreshRSS/FreshRSS/releases/new) ; - sur le blog "
-"de freshrss.org au minimum pour les versions stables (écrire l'article sur "
-"[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).  - sur "
-"Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ; - et sur "
-"mailing@freshrss.org ;"
+"on GitHub by creating[a new "
+"release](https://github.com/FreshRSS/FreshRSS/releases/new)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:99
+msgid ""
+"on the freshrss.org blog, at least for stable versions (write the article "
+"on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:99
+msgid "on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:99
+msgid "and on mailing@freshrss.org"
 msgstr ""
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:100
 #, no-wrap
-msgid "Lancer la prochaine version de développement"
+msgid "Starting the next development version"
 msgstr ""
 
 #. type: Plain text
@@ -2387,11 +2438,11 @@ msgid ""
 "\n"
 "$ vim constants.php\n"
 "\n"
-"# Mettre à jour le numéro de version de FRESHRSS_VERSION\n"
+"# Update the FRESHRSS_VERSION\n"
 "\n"
 "$ vim CHANGELOG.md\n"
 "\n"
-"# Préparer la section pour la prochaine version\n"
+"# Prepare the changelog for the next version\n"
 "\n"
 "$ git add CHANGELOG.md && git commit && git push\n"
 "\n"
@@ -2400,8 +2451,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:111
 msgid ""
-"Pensez aussi à mettre à jour update.freshrss.org pour qu'il prenne en compte "
-"la version de développement actuelle."
+"Also remember to update update.freshrss.org so that it takes into account "
+"the current development version."
 msgstr ""
 
 #. type: Plain text

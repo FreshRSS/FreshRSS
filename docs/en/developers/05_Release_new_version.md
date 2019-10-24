@@ -1,23 +1,23 @@
-# Préparer la sortie
+# Preparing the release
 
-Afin d'avoir le plus de retour possible avant une sortie, il est préférable de l'annoncer sur GitHub en créant un ticket dédié ([voir les exemples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). Ceci est à faire **au moins une semaine à l'avance**.
+In order to get as much feedback as possible before a release, it's preferable to announce it on GitHub by creating a dedicated ticket ([see examples] (https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
 
-Il est aussi recommandé de faire l'annonce sur mailing@freshrss.org.
+It's also recommended to make the announcement on mailing@freshrss.org.
 
-# S'assurer de l'état de dev
+# Check the dev status
 
-Avant de sortir une nouvelle version de FreshRSS, il faut vous assurer que le code est stable et ne présente pas de bugs majeurs. Idéalement, il faudrait que nos tests soient automatisés et exécutés avant toute publication.
+Before releasing a new version of FreshRSS, you must ensure that the code is stable and free of major bugs. Ideally, our tests should be automated and executed before any publication.
 
-Il faut aussi **vous assurer que le fichier CHANGELOG est à jour** dans la branche de dev avec les mises à jour de la ou les version(s) à sortir.
+You must also **make sure that the CHANGELOG file is up to date** in the dev branch with the updates of the version(s) to be released.
 
-# Processus Git
+# Git process
 
 ```bash
 $ git checkout master
 $ git pull
 $ git merge --ff dev
 $ vim constants.php
-# Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION
+# Update version number x.y.y.z of FRESHRSS_VERSION
 $ git commit -a
 Version x.y.z
 $ git tag -a x.y.z
@@ -25,31 +25,31 @@ Version x.y.z
 $ git push && git push --tags
 ```
 
-# Mise à jour de update.freshrss.org
+# Updating `update.freshrss.org`
 
-Il est important de mettre à jour update.freshrss.org puisqu'il s'agit du service par défaut gérant les mises à jour automatiques de FreshRSS.
+It's important to update update.freshrss.org since this is the default service for automatic FreshRSS updates.
 
-Le dépot gérant le code se trouve sur GitHub : [FreshRSS/update.freshrss.org](https://github.com/FreshRSS/update.freshrss.org/).
+The repository managing the code is located on GitHub: [FreshRSS/update.freshrss.org] (https://github.com/FreshRSS/update.freshrss.org/).
 
-## Écriture du script de mise à jour
+## Writing the update script
 
-Les scripts se trouvent dans le répertoire `./scripts/` et doivent être de la forme `update_to_x.y.z.php`. On trouve aussi dans ce répertoire `update_to_dev.php` destiné aux mises à jour de la branche de dev (ce script ne doit pas inclure de code spécifique à une version particulière !) et `update_util.php` contenant une liste de fonctions utiles à tous les scripts.
+The scripts are located in the `./scripts/` directory and must take the form `update_to_x.y.z.z.php`. This directory  also contains `update_to_dev.php` intended for updates of the dev branch (this script must not include code specific to a particular version!) and `update_util.php`, which contains a list of functions useful for all scripts.
 
-Afin d'écrire un nouveau script, il est préférable de copier / coller celui de la dernière version ou de partir de `update_to_dev.php`. La première chose à faire est de définir l'URL à partir de laquelle sera téléchargée le package FreshRSS (`PACKAGE_URL`). L'URL est de la forme `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
+In order to write a new script, it's better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form  of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
 
-Il existe ensuite 5 fonctions à remplir :
+There are then 5 functions that have to be executed:
 
-- `apply_update()` qui se charge de sauvegarder le répertoire contenant les données, de vérifier sa structure, de télécharger le package FreshRSS, de le déployer et de tout nettoyer. Cette fonction est pré-remplie mais des ajustements peuvent être faits si besoin est (ex. réorganisation de la structure de `./data`). Elle retourne `true` si aucun problème n'est survenu ou une chaîne de caractères indiquant un soucis ;
-- `need_info_update()` retourne `true` si l'utilisateur doit intervenir durant la mise à jour ou `false` sinon ;
-- `ask_info_update()` affiche un formulaire à l'utilisateur si `need_info_update()` a retourné `true` ;
-- `save_info_update()` est chargée de sauvegarder les informations renseignées par l'utilisateur (issues du formulaire de `ask_info_update()`) ;
-- `do_post_update()` est exécutée à la fin de la mise à jour et prend en compte le code de la nouvelle version (ex. si la nouvelle version modifie l'objet `Minz_Configuration`, vous bénéficierez de ces améliorations).
+* `apply_update()` takes care of saving the directory containing the data, checking its structure, downloading the FreshRSS package, deploying it and cleaning it all up. This function is pre-filled but adjustments can be made if necessary (e.g., reorganization of the `./data` structure). It returns `true` if no problem has occurred or a string indicating a problem;
+* `need_info_update()` returns `true` if the user must intervene during the update or `false` if not;
+* `ask_info_update()` displays a form to the user if `need_info_update()` has returned `true`;
+* `save_info_update()` is responsible for saving the information filled out by the user (from the `ask_info_update()` form);
+* `do_post_update()` is executed at the end of the update and takes into account the code of the new version (e.g., if the new version changes the `Minz_Configuration` object, you will benefit from these improvements).
 
-## Mise à jour du fichier de versions
+## Updating the versions file
 
-Lorsque le script a été écrit et versionné, il est nécessaire de mettre à jour le fichier `./versions.php` qui contient une table de correspondances indiquant quelles versions sont mises à jour vers quelles autres versions.
+Once the script has been written and versioned, it's necessary to update the `./versions.php' file which contains a mapping table indicating which versions are updated to which other versions.
 
-Voici un exemple de fichier `versions.php` :
+Here's an example of a `versions.php` file:
 
 ```php
 <?php
@@ -65,47 +65,47 @@ return array(
 );
 ```
 
-Et voici comment fonctionne cette table :
+And here's how this table works:
 
-- à gauche se trouve la version N, à droite la version N+1 ;
-- les versions `x.y.z-dev` sont **toutes** mises à jour vers `dev` ;
-- les versions stables sont mises à jour vers des versions stables ;
-- il est possible de sauter plusieurs versions d'un coup à condition que les scripts de mise à jour le prennent en charge ;
-- il est conseillé d'indiquer la correspondance de la version courante vers sa potentielle future version en précisant que cette version n'existe pas encore. Tant que le script correspondant n'existera pas, rien ne se passera.
+* on the left you can find the N version, on the right the N+1 version;
+* the `x.y.z.z-dev` versions are **all** updated to `dev`;
+* stable versions are updated to stable versions;
+* it's possible to skip several versions at once, provided that the update scripts support it;
+* it's advisable to indicate the correspondence of the current version to its potential future version by specifying that this version does not yet exist. As long as the corresponding script does not exist, nothing will happen.
 
-Il est **très fortement** indiqué de garder ce fichier rangé selon les numéros de versions en séparant les versions stables et de dev.
+It's **very strongly** recommended to keep this file organized according to version numbers by separating stable and dev versions.
 
-## Déploiement
+## Deployment
 
-Avant de mettre à jour update.freshrss.org, il est préférable de tester avec dev.update.freshrss.org qui correspond à la pré-production. Mettez donc à jour dev.update.freshrss.org et changez l'URL `FRESHRSS_UPDATE_WEBSITE` de votre instance FreshRSS. Lancez la mise à jour et vérifiez que celle-ci se déroule correctement.
+Before updating update.freshrss.org, it's better to test with dev.update.freshrss.org, which corresponds to pre-production. So update dev.update.freshrss.org and change the `FRESHRSS_UPDATE_WEBSITE` URL of your FreshRSS instance. Start the update and check that it's running correctly.
 
-Lorsque vous serez satisfait, mettez à jour update.freshrss.org avec le nouveau script et en testant de nouveau puis passez à la suite.
+When you're satisfied, update update.freshrss.org with the new script, test it again, and then move on.
 
-# Mise à jour des services FreshRSS
+# Updating the FreshRSS services
 
-Deux services sont à mettre à jour immédiatement après la mise à jour de update.freshrss.org :
+Two services need to be updated immediately after the update.
 
-- rss.freshrss.org ;
-- demo.freshrss.org (identifiants publics : `demo` / `demodemo`).
+* rss.freshrss.org;
+* demo.freshrss.org (public login: `demo` / `demodemo`).
 
-# Annoncer publiquement la sortie
+# Publicly announce the release
 
-Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
+When everything's working, it's time to announce the release to the world!
 
-- sur GitHub en créant [une nouvelle release](https://github.com/FreshRSS/FreshRSS/releases/new) ;
-- sur le blog de freshrss.org au minimum pour les versions stables (écrire l'article sur [FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).
-- sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;
-- et sur mailing@freshrss.org ;
+* on GitHub by creating[a new release](https://github.com/FreshRSS/FreshRSS/releases/new)
+* on the freshrss.org blog, at least for stable versions (write the article on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))
+* on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)
+* and on mailing@freshrss.org
 
-# Lancer la prochaine version de développement
+# Starting the next development version
 
 ```bash
 $ git checkout dev
 $ vim constants.php
-# Mettre à jour le numéro de version de FRESHRSS_VERSION
+# Update the FRESHRSS_VERSION
 $ vim CHANGELOG.md
-# Préparer la section pour la prochaine version
+# Prepare the changelog for the next version
 $ git add CHANGELOG.md && git commit && git push
 ```
 
-Pensez aussi à mettre à jour update.freshrss.org pour qu'il prenne en compte la version de développement actuelle.
+Also remember to update update.freshrss.org so that it takes into account the current development version.
