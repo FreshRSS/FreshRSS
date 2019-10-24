@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 16:41+0200\n"
-"PO-Revision-Date: 2019-10-24 16:42+0100\n"
+"POT-Creation-Date: 2019-10-24 17:03+0200\n"
+"PO-Revision-Date: 2019-10-24 17:03+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -5010,9 +5010,6 @@ msgstr "Thème"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:17
-#| msgid ""
-#| "There's no accounting for tasts, which is why FreshRSS offers eight "
-#| "official themes:"
 msgid ""
 "There's no accounting for tastes, which is why FreshRSS offers eight "
 "official themes:"
@@ -5057,8 +5054,9 @@ msgstr "*Screwdriver* par **Mister aiR**"
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
-msgid "*Swage* par **Patrick Crandol**"
-msgstr ""
+#| msgid "*Swage* par **Patrick Crandol**"
+msgid "*Swage* by **Patrick Crandol**"
+msgstr "*Swage* par **Patrick Crandol**"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:28

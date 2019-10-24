@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 16:41+0200\n"
+"POT-Creation-Date: 2019-10-24 17:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4936,7 +4936,7 @@ msgstr ""
 
 #. type: Bullet: ' * '
 #: en/./users/05_Configuration.md:26
-msgid "*Swage* par **Patrick Crandol**"
+msgid "*Swage* by **Patrick Crandol**"
 msgstr ""
 
 #. type: Plain text

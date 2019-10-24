@@ -20,17 +20,17 @@ pt-br, ru, tr, zh-cn.
 
 ## Thème
 
-There's no accounting for tastes, which is why FreshRSS offers eight
-official themes:
+Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS
+propose huit thèmes officiels :
 
- * *Blue Lagoon* by **Mister aiR**
- * *Dark* by **AD**
- * *Flat design* by **Marien Fressinaud**
- * *Origine* by **Marien Fressinaud**
- * *Origine-compact* by **Kevin Papst**
- * *Pafat* by **Plopoyop**
- * *Screwdriver* by **Mister aiR**
- * *Swage* par **Patrick Crandol**
+ * *Blue Lagoon* par **Mister aiR**
+ * *Dark* par **AD**
+ * *Flat design* par **Marien Fressinaud**
+ * *Origine* par **Marien Fressinaud**
+ * *Origine-compact* par **Kevin Papst**
+ * *Pafat* par **Plopoyop**
+ * *Screwdriver* par **Mister aiR**
+ * *Swage* by **Patrick Crandol**
 
 If none of these are suitable for you, it is always possible to [create your
 own](../developers/04_Frontend/02_Design.md).

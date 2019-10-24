@@ -22,7 +22,7 @@ There's no accounting for tastes, which is why FreshRSS offers eight official th
  * *Origine-compact* by **Kevin Papst**
  * *Pafat* by **Plopoyop**
  * *Screwdriver* by **Mister aiR**
- * *Swage* par **Patrick Crandol**
+ * *Swage* by **Patrick Crandol**
 
 If none of these are suitable for you, it is always possible to [create your own](../developers/04_Frontend/02_Design.md).
 
