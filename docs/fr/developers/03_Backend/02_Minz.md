@@ -1,20 +1,20 @@
-# Modèles
+# Models
 
 **TODO**
 
-# Contrôleurs et actions
+# Controllers and actions
 
 **TODO**
 
-# Vues
+# Views
 
 **TODO**
 
-# Routage
+# Routing
 
 **TODO**
 
-# Écriture des URL
+# Writing URL
 
 **TODO**
 
@@ -22,6 +22,6 @@
 
 **TODO**
 
-# Comprendres les mécanismes internes
+# Understanding internals
 
 **TODO**

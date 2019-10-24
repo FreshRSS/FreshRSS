@@ -1,24 +1,29 @@
-![Logo de FreshRSS](img/logo_freshrss.png)
+![FreshRSS logo](img/logo_freshrss.png)
 
-FreshRSS est un agrégateur et lecteur de flux RSS. Il permet de regrouper l’actualité de plusieurs sites différents dans un endroit unique pour que vous puissiez la lire sans devoir aller de site en site.
+FreshRSS is an RSS aggregator and reader. It allows you to read and follow
+several news websites at a glance without the need to browse from one
+website to another.
 
-FreshRSS a été conçu comme un agrégateur puissant et propose des tas de fonctionnalités :
+FreshRSS has a lot of features including:
 
-- Agrégation des flux RSS et Atom.
-- Utilisez les favoris pour marquer les articles qui vous ont plu ou que vous souhaitez lire plus tard.
-- Le système de filtrage et de recherche permettent de cibler exactement les articles que vous souhaitez lire.
-- Les statistiques permettent de savoir en un coup d’œil quels sont les sites qui publient le plus, ou à l’inverse, le moins.
-- Importation / exportation des flux au format OPML.
-- Multi-thèmes pour changer l’habillage de FreshRSS.
-- « *Responsive design* » : l’application s’adapte aux petits écrans pour emporter FreshRSS dans votre poche.
-- Multi-utilisateurs pour héberger plusieurs personnes sur une même installation.
-- API Google Reader pour pouvoir y brancher des applications Android.
-- Auto-hébergeable : le code source est libre (AGPL3) et vous pouvez donc l’héberger sur votre propre serveur.
-- Et bien d’autres !
+- RSS and Atom aggregation - Mark article as favorite if you liked it or if
+you want to read it later - Filter and search functionality helps to easily
+find articles - Statistics to show you the publishing frequency all the
+websites you follow - Import/export of your feeds into OPML format - Several
+themes created by the community - "Google Reader"-like API to connect
+Android applications - The application is "responsive," which means it
+adapts to small screens so you can bring articles in your pocket -
+Self-hosted: the code is free (under AGPL3 licence), so you can host your
+own instance of FreshRSS - Multi-user, so you can also host for your friends
+and family - And a lot more!
 
-Cette documentation est divisée en plusieurs parties :
+This documentation is split into different sections:
 
-* La [documentation utilisateurs](./users/02_First_steps.md) pour découvrir les fonctionnalités de FreshRSS.
-* La [documentation administrateurs](./users/01_Installation.md) pour l’installation et la maintenance de FreshRSS.
-* La [documentation développeurs](./developers/01_First_steps.md) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
-* Le [guide de contribution](./contributing.md) pour nous aider à développer FreshRSS.
+* [User documentation](./users/02_First_steps.html), where you can discover
+  all the possibilities offered by FreshRSS
+* [Administrator documentation](./admins/01_Index.html) for detailed
+  installation and maintenance related tasks
+* [Developer documentation](./developers/01_First_steps.html) to guide you
+  in the source code of FreshRSS and to help you if you want to contribute
+* [Contributor guidelines](./contributing.md) for those who want to help
+  improve FreshRSS

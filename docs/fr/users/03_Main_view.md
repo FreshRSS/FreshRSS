@@ -1,192 +1,261 @@
-# La vue normale
+# Normal view
 
 **TODO**
 
-# La vue globale
+# Global view
 
 **TODO**
 
-# La vue lecture
+# Reader view
 
 **TODO**
 
-# Rafraîchir les flux
+# Refreshing feeds
 
-Pour profiter pleinement de FreshRSS, il faut qu’il récupère les nouveaux articles disponibles des flux auxquels vous avez souscrit. Pour cela, il existe plusieurs méthodes.
+To use FreshRSS at its full potential, it needs to grab subscribed feeds new
+articles. To do so, you have several methods available.
 
-## Mise à jour automatique
+## Automatic update
 
-C’est la méthode recommandée car il n’y a pas besoin d’y penser, elle se fait toute seule, à la fréquence que vous avez choisi.
+This is the recommended method since you can forget about it once it is
+configured.
 
-### Par le script actualize_script.php
+### With the actualize_script.php script
 
-Cette méthode n’est possible que si vous avez accès aux tâches planifiées de la machine sur laquelle est installée votre instance de FreshRSS.
+This method is available only if you have access to the installation server
+scheduled tasks.
 
-Le script qui permet de mettre à jour les articles s’appelle *actualize_script.php* et se trouve dans le répertoire *app* de votre instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliqué ici, cependant voici [une introduction rapide à crontab](http://www.adminschoice.com/crontab-quick-reference/) qui peut vous aider.
+The script is named *actualize_script.php* and is located in the *app*
+folder. The scheduled task syntax will not be explained here. However, here
+is [a quick introduction to
+crontab](http://www.adminschoice.com/crontab-quick-reference/) that might
+help you.
 
-Ci-dessous vous trouverez un exemple permettant la mise à jour des articles toutes les heures.
+Here is an example to trigger article update every hour.
 
 ```cron
-0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+
 ```
 
 
-### Cron en-ligne
+Special parameters to configure the script - all parameters can be combined:
 
-Il se peut que vous n’ayez pas accès aux tâches planifiées du serveur hébergeant votre instance de FreshRSS. Il reste une possibilité pour mettre les flux à jour automatiquement.
+- Parameter "force"
+https://freshrss.example.net/i/?c=feed&a=actualize&force=1 If *force* is set
+to 1 all feeds will be refreshed at once.
 
-Pour cela vous devez paramétrer une tâche cron qui devra charger régulièrement une url spécifique : https://freshrss.example.net/i/?c=feed&a=actualize (à adapter selon votre installation). Différents cas de figure peuvent se présenter à vous désormais.
+- Parameter "ajax" https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1
+Only a status site is returned and not a complete website. Example: "OK"
 
-##### Aucune authentification
+- Parameter "maxFeeds"
+https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30 If *maxFeeds*
+is set the configured amount of feeds is refreshed at once. The default
+setting is "10".
 
-C’est le cas le plus simple, puisque votre instance est publique, vous n’avez rien de particulier à préciser :
+- Parameter "token"
+https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734
+Security parameter to prevent unauthorized refreshes. For detailed
+Documentation see "Form authentication".
+
+### Online cron
+
+If you do not have access to the installation server scheduled task, you can
+still automate the update process.
+
+To do so, you need to create a scheduled task, which need to call a specific
+URL: https://freshrss.example.net/i/?c=feed&a=actualize (it could be
+different depending on your installation). Depending on your application
+authentication method, you need to adapt the scheduled task.
+
+#### No authentication
+
+This is the most straightforward since you have a public instance; there is
+nothing special to configure:
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
+
 ```
 
-Vous pouvez également choisir un utilisateur différent en ajoutant son nom d'utilisateur à la chaîne de requête, avec `&user=nom-dutilisateur` :
+
+### Form authentication
+
+If you configure the application to allow anonymous reading, you can also
+allow anonymous users to update feeds (“Allow anonymous refresh of the
+articles”).
+
+![Anonymous access configuration](../img/users/anonymous_access.1.png)
+
+The URL used in the previous section becomes accessible and therefore, you
+can use the same syntax for the scheduled task.
+
+You can also configure an authentication token to grant a special right on
+the server.
+
+![Token configuration](../img/users/token.1.png)
+
+The scheduled task syntax to use will be the following:
+
+```cron
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
+
+```
+
+
+You can also target a different user by adding their username to the query
+string, with `&user=insert-username`:
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
-```
 
-##### Authentification par formulaire
-
-Dans ces cas-là, si vous avez autorisé la lecture anonyme des articles, vous pouvez aussi permettre à n’importe qui de rafraîchir vos flux (« Autoriser le rafraîchissement anonyme des flux »).
-
-![Configuration de l’accès anonymes](../img/users/anonymous_access.1.png)
-
-L’url précédente devient donc accessible à n’importe qui et vous pouvez utiliser la tâche cron de la partie précédente.
-
-Vous pouvez aussi configurer un jeton d’authentification pour accorder un droit spécial sur votre serveur.
-
-![Configuration du token](../img/users/token.1.png)
-
-La tâche cron à utiliser sera de la forme suivante :
-
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=mon-token'
 ```
 
 
-##### Authentification HTTP
+### HTTP authentication
 
-Dans ce cas-là, le token et les permissions “anonymes” sont inutilisables et il vous sera nécessaire d’indiquer vos identifiants dans la tâche cron. **Notez que cette solution est grandement déconseillée puisqu’elle implique que vos identifiants seront visibles en clair !**
+In that case, the syntax in the two previous section are unusable. It means
+that you need to provide your credentials to the scheduled task. **Note that
+this method is highly discouraged since it means that your credentials will
+be in plain sight!**
 
 ```cron
 0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
+
 ```
 
-## Mise à jour manuelle
 
-Si vous ne pouvez pas ou ne voulez pas utiliser la méthode automatique, vous pouvez le faire de façon manuelle. Il existe deux méthodes qui permettent de mettre à jour tout ou partie des flux.
+## Manual update
 
-### Mise à jour complète
+If you cannot or do not want to use the automatic methods, you can make it
+manually. There is two ways, the partial or the complete update.
 
-Cette mise à jour se fait pour l’ensemble des flux de l’instance. Pour initier cette mise à jour, il suffit de cliquer sur le lien de mise à jour disponible dans le menu de navigation.
+### Complete update
 
-![Menu de navigation](../img/users/refresh.1.png)
+This update occurs on all feeds. To trigger it, you need to click on the
+navigation menu update link.
 
-Lorsque la mise à jour démarre, une barre de progression apparait et s’actualise au fur et à mesure de la récupération des articles.
+![Navigation menu](../img/users/refresh.1.png)
 
-![Barre de progression](../img/users/refresh.5.png)
+When the update starts, a progress bar appears and changes while feeds are
+processed.
 
-### Mise à jour partielle
+![Progress bar](../img/users/refresh.5.png)
 
-Cette mise à jour se fait pour le flux sélectionné uniquement. Pour initier cette mise à jour, il suffit de cliquer sur le lien de mise à jour disponible dans le menu du flux.
+### Partial update
 
-![Menu du flux](../img/users/refresh.2.png)
+This update occurs on the selected feed only. To trigger it, you need to
+click on the feed menu update link.
 
-# Filtrer les articles
+![Feed menu](../img/users/refresh.2.png)
 
-Avec le nombre croissant d’articles stockés par FreshRSS, il devient important d’avoir des filtres efficaces pour n’afficher qu’une partie des articles. Il existe plusieurs méthodes qui filtrent selon des critères différents. Ces méthodes peuvent être combinées dans la plus part des cas.
+# Filtering articles
 
-##Par catégorie
+While the number of articles stored by FreshRSS increase, it is important to
+have efficient filters to display only a subset of the articles. There is
+several methods with different criterion. Most of the time, those methods
+can be combined.
 
-C’est la méthode la plus simple. Il suffit de cliquer sur le titre d’une catégorie dans le panneau latéral. Il existe deux catégories spéciales qui sont placées en haut dudit panneau :
+## By category
 
-  * *Flux principal* qui affiche uniquement les articles des flux marqués comme visible dans cette catégorie
-  * *Favoris* qui affiche uniquement les articles, tous flux confondus, marqués comme favoris
+This is the easiest method. You only need to click on the category title in
+the side panel. There are two special categories on top of that panel:
 
-##Par flux
+  * *Main feed* which displays only articles from feeds marked as available
+    in that category
+  * *Favourites* which displays only articles marked as favourites
 
-Il existe plusieurs méthodes pour filtrer les articles par flux :
+## By feed
 
-  * en cliquant sur le titre du flux dans le panneau latéral
-  * en cliquant sur le titre du flux dans le détail de l’article
-  * en filtrant dans les options du flux dans le panneau latéral
-  * en filtrant dans la configuration du flux
+There is several methods to filter articles by feed:
 
-![Filtrer par flux](../img/users/feed.filter.1.png)
+  * by clicking the feed title in the side panel
+  * by clicking the feed title in the article details
+  * by filtering in the feed options from the side panel
+  * by filtering in the feed configuration
 
-##Par statut
+![Feed filter](../img/users/feed.filter.1.png)
 
-Chaque article possède deux attributs qui peuvent être combinés. Le premier attribut indique si l’article a été lu ou non. Le second attribut indique si l’article a été noté comme favori ou non.
+## By status
 
-Dans la version 0.7.x, les filtres sur les attributs sont accessibles depuis la liste déroulante qui gère l’affichage des articles. Dans cette version, il n’est pas possible de combiner les filtres. Par exemple, on ne peut pas afficher les articles lus qui ont été notés comme favori.
+Each article has two attributes, which can be combined. The first attribute
+indicates if the article was read or not. The second attribute indicates if
+the article was marked as favorite or not.
 
-![Filtrer par attribut en version 0.7](../img/users/status.filter.0.7.png)
+With version 0.7, attribute filters are available in the article display
+dropdown list. With this version, it is not possible to combine those
+filters. For instance, it is not possible to display only read and favourite
+articles.
 
-À partir de la version 0.8, les filtres sur les attributs sont directement accessibles. Il est maintenant possible de les combiner. Comme il est possible de faire toutes les combinaisons, il y en a certaines qui retournent le même résultat. Par exemple, si les quatre filtres sont activés ou désactivés, le résultat sera le même.
+![Attribute filters in 0.7](../img/users/status.filter.0.7.png)
 
-![Filtrer par attribut en version 0.8](../img/users/status.filter.0.8.png)
+Starting with version 0.8, all attribute filters are visible as toggle
+icons. They can be combined. As any combination is possible, some have the
+same result. For instance, the result for all filters selected is the same
+as no filter selected.
 
-Par défaut, le filtre n’affiche que les articles qui n’ont pas été lus.
+![Attribute filters in 0.8](../img/users/status.filter.0.8.png)
 
-##Par contenu
+By default, this filter displays only unread articles
 
-Il est possible de filtrer les articles par leur contenu en entrant une chaine de caractères dans le champ de recherche prévu à cet effet.
+## By content
 
-##Grâce au champ de recherche
+It is possible to filter articles by their content by inputting a string in
+the search field.
 
-Il est possible d’utiliser le champ de recherche pour raffiner les résultats :
+## With the search field
 
-* par auteur : `author:nom` or `author:'nom composé'`
-* par titre : `intitle:mot` or `intitle:'mot composé'`
-* par URL: `inurl:mot` or `inurl:'mot composé'`
-* par tag: `#tag`
-* par texte libre : `mot` or `'mot composé'`
-* par date de découverte, en utilisant le [format d’intervalle de dates ISO 8601](https://fr.wikipedia.org/wiki/ISO_8601#Les_dur.C3.A9es_et_intervalles) : `date:<intervalle>`
-	* D’un jour, mois, ou année :
+It is possible to use the search field to further refine results:
+
+* by author: `author:name` or `author:'composed name'`
+* by title: `intitle:keyword` or `intitle:'composed keyword'`
+* by URL: `inurl:keyword` or `inurl:'composed keyword'`
+* by tag: `#tag`
+* by free-text: `keyword` or `'composed keyword'`
+* by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
+	* From a specific day, or month, or year:
 		* `date:2014-03-30`
 		* `date:2014-03` or `date:201403`
 		* `date:2014`
-	* D’une heure précise d’un jour donné :
+	* From a specific time of a given day:
 		* `date:2014-05-30T13`
 		* `date:2014-05-30T13:30`
-	* Entre deux dates :
+	* Between two given dates:
 		* `date:2014-02/2014-04`
 		* `date:2014-02--2014-04`
 		* `date:2014-02/04`
 		* `date:2014-02-03/05`
 		* `date:2014-02-03T22:00/22:15`
 		* `date:2014-02-03T22:00/15`
-	* Après une date donnée :
+	* After a given date:
 		* `date:2014-03/`
-	* Avant une date donnée :
+	* Before a given date:
 		* `date:/2014-03`
-	* Pour une certaine durée après une date donnée :
+	* For a specific duration after a given date:
 		* `date:2014-03/P1W`
-	* Pour une certaine durée avant une date donnée :
+	* For a specific duration before a given date:
 		* `date:P1W/2014-05-25T23:59:59`
-	* Pour une certaine durée avant l’instant présent (la barre oblique est optionnelle) :
-		* `date:P1Y/` ou `date:P1Y` (depuis un an)
-		* `date:P2M/` (depuis deux mois)
-		* `date:P3W/` (depuis trois semaines)
-		* `date:P4D/` (depuis quatre jours)
-		* `date:PT5H/` (depuis cinq heures)
-		* `date:PT30M/` (depuis trente minutes)
-		* `date:PT90S/` (depuis 90 seconds)
-		* `date:P1DT1H/` (depuis un jour et une heure)
-* par date de publication, en utilisant le même format : `pubdate:<intervalle>`
+	* For the past duration before now (the trailing slash is optional):
+		* `date:P1Y/` or `date:P1Y` (past year)
+		* `date:P2M/` (past two months)
+		* `date:P3W/` (past three weeks)
+		* `date:P4D/` (past four days)
+		* `date:PT5H/` (past five hours)
+		* `date:PT30M/` (past thirty minutes)
+		* `date:PT90S/` (past ninety seconds)
+		* `date:P1DT1H/` (past one day and one hour)
+* by date of publication, using the same format: `pubdate:<date-interval>`
 
-Attention à ne pas introduire d’espace entre l’opérateur et la valeur recherchée.
+Beware that there is no space between the operator and the value.
 
-Certains opérateurs peuvent être utilisé négativement, pour exclure des articles, avec la même syntaxe que ci-dessus, mais préfixé par `!` ou `-` :
-`-author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`.
+Some operators can be used negatively, to exclude articles, with the same
+syntax as above, but prefixed by a `!` or `-`: `-author:name`,
+`-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`.
 
-Il est également possible de combiner les mots-clefs pour faire un filtrage encore plus précis, et il est autorisé d’avoir plusieurs instances de : `author:`, `intitle:`, `inurl:`, `#`, et texte libre.
+It is also possible to combine operators to have a very sharp filter, and it
+is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`,
+`#`, and free-text.
 
-Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR ` peut être utiliser pour combiner plusieurs critères avec un *ou* logique :
-`author:Dupont OR author:Dupond`
+Combining several search criteria implies a logical *and*, but the keyword `
+OR ` can be used to combine several search criteria with a logical *or*
+instead: `author:Dupont OR author:Dupond`

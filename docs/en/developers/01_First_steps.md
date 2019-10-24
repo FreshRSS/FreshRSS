@@ -118,7 +118,7 @@ echo $a ? 1 : 0;
 
 ### With brackets
 
-There is no spaces in the brackets. There is no space before the opening bracket except if it is after a keyword. There is no space after the closing bracket except if it is followed by a curly bracket.
+There should be no spaces in between brackets. There should be no spaces before the opening bracket, except if it's after a keyword. There shouldn't be any spaces after the closing bracket, except if it's followed by a curly bracket.
 
 ```php
 if ($a == 10) {

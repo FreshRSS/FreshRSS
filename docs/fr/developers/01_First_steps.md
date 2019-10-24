@@ -1,181 +1,350 @@
-# Configurer son environnement
+# Environment configuration (Docker)
+
+FreshRSS is built with PHP and uses a homemade framework, Minz. The
+dependencies are directly included in the source code, so you don't need
+Composer.
+
+There are various ways to configure your development environment. The
+easiest and most supported method is based on Docker, which is the solution
+documented below. If you already have a working PHP environment, you
+probably don't need it.
+
+We assume here that you use a GNU/Linux distribution, capable of running
+Docker. Otherwise, you'll have to adapt the commands accordingly.
+
+The commands that follow have to be executed in a console. They start by `$`
+when commands need to be executed as normal user, and by `#` when they need
+to be executed as root user. You don't have to type these characters. A path
+may be indicated before these characters to help you identify where they
+need to be executed. For instance, `app$ echo 'Hello World'` indicates that
+you have to execute `echo` command in the `app/` directory.
+
+First, you need to install
+[Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+
+Once you're done, clone the repository with:
+
+```console
+$ git clone https://github.com/FreshRSS/FreshRSS.git
+
+$ cd FreshRSS
+
+```
+
+
+Note that, if you want to contribute, you have to fork the repository first
+and clone your fork instead of the "root" one. Adapt the commands in
+consequence.
+
+Then, the only command you need to know is the following:
+
+```console
+$ make start
+
+```
+
+
+This might take some time while Docker downloads the image. If your user
+isn't in the `docker` group, you'll need to prepend the command with `sudo`.
+
+**You can now access FreshRSS at [http://localhost:8080](http://localhost:8080).** Just follow the install process and select the SQLite database.
+
+You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with the following command, in another terminal:
+
+```console
+$ make stop
+
+```
+
+
+If you're interested in the configuration, the `make` commands are defined
+in the [`Makefile`](/Makefile).
+
+If you need to use a different tag image (default is `dev-alpine`), you can
+set the `TAG` environment variable:
+
+```console
+$ TAG=dev-arm make start
+
+```
+
+
+You can find the full list of available tags [on the Docker
+hub](https://hub.docker.com/r/freshrss/freshrss/tags).
+
+You might want to rebuild the Docker image locally. You can do it with:
+
+```console
+$ make build
+
+$ # or
+
+$ TAG=dev-arm make build
+
+```
+
+
+The `TAG` variable can be anything (e.g. `dev-local`). You can target a
+specific architecture by adding `-alpine` or `-arm` at the end of the tag
+(e.g. `dev-local-arm`).
+
+# Project architecture
 
 **TODO**
 
-## Docker
+# Extensions
 
-Le développement et le deploiement de FreshRSS peuvent se faire [via Docker](https://github.com/FreshRSS/FreshRSS/tree/dev/Docker).
+If you want to create your own FreshRSS extension, take a look at the
+[extension documentation](03_Backend/05_Extensions.md).
 
-# Architecture du projet
+# Coding style
 
-**TODO**
+If you want to contribute to the source code, it is important to follow the
+project coding style. The actual code does not follow it throughout the
+project, but every time we have an opportunity, we should fix it.
 
-# Style de codage
+Contributions which do not follow the coding style will be rejected as long
+as the coding style is not fixed.
 
-Si vous désirez contribuer au code, il est important de respecter le style de codage suivant. Le code actuel ne le respecte pas entièrement mais il est de notre devoir à tous de le changer dès que l'occasion se présente.
+## Spaces, tabs and white spaces
 
-Aucune nouvelle contribution ne respectant pas ces règles ne sera acceptée tant que les corrections nécessaires ne sont pas appliquées.
+### Indent
+Code indent must use tabs.
 
-## Espaces, tabulations et autres caractères blancs
+### Alignment
 
-### Indentation
-L'indentation du code doit être faite impérativement avec des tabulations.
-
-### Alignement
-
-Une fois l'indentation faite, il peut être nécessaire de faire un alignement pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
+Once the code is indented, it might be useful to align it to ease the
+reading. In that case, use spaces.
 
 ```php
-$resultat = une_fonction_avec_un_nom_long($param1, $param2,
-                                          $param3, $param4);
+$result = a_function_with_a_really_long_name($param1, $param2,
+
+                                             $param3, $param4);
+
 ```
 
-### Fin de ligne
 
-Le caractère de fin de ligne doit être un saut de ligne (LF) qui est le caractère de fin de ligne des systèmes *NIX. Ce caractère ne doit pas être précédé par des caractères blanc.
+### End of line
 
-Il est possible de vérifier la présence de caractères blancs en fin de ligne grâce à Git avec la commande suivante :
+The end of line character must be a line feed (LF) which is a default end of
+line on *NIX systems. This character must not follow other white spaces.
+
+It is possible to verify if there is white spaces before the end of line,
+with the following Git command:
 
 ```bash
-# commande à lancer avant l'ajout des fichiers dans l'index
+# command to check files before adding them in the Git index
+
 git diff --check
-# commande à lancer après l'ajout des fichiers dans l'index mais avant le commit
+
+# command to check files after adding them in the Git index
+
 git diff --check --cached
+
 ```
 
-### Fin de fichier
 
-Chaque fichier doit se terminer par une ligne vide.
+### End of file
 
-### Le cas de la virgule, du point et du point-virgule
+Every file must end by an empty line.
 
-Il n'y a pas d'espace avant ces caractères, il y en a un après.
+### With commas, dots and semi-columns
 
-### Le cas des opérateurs
+There is no space before those characters but there is one after.
 
-Chaque opérateur est entouré d'espaces.
+### With operators
+
+There is a space before and after every operator.
 
 ```php
 if ($a == 10) {
-	// faire quelque chose
+
+	// do something
+
 }
 
+
+
 echo $a ? 1 : 0;
+
 ```
+
 
 ### Le cas des parenthèses
 
-Il n'y a pas d'espaces entre des parenthèses. Il n'y a pas d'espaces avant une parenthèse ouvrante sauf si elle est précédée d'un mot-clé. Il n'y a pas d'espaces après une parenthèse fermante sauf si elle est suivie d'une accolade ouvrante.
+There should be no spaces in between brackets. There should be no spaces
+before the opening bracket, except if it's after a keyword. There shouldn't
+be any spaces after the closing bracket, except if it's followed by a curly
+bracket.
 
 ```php
 if ($a == 10) {
-	// faire quelque chose
+
+	// do something
+
 }
+
+
 
 if ((int)$a == 10) {
-	// faire quelque chose
+
+	// do something
+
 }
+
 ```
 
-### Le cas des fonctions chainées
 
-Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions chainées, des fonctions anonymes ainsi que des fonctions de rappels, il est très facile de se perdre. Dans ce cas là, on ajoute une indentation supplémentaire pour toute l'instruction et on revient au même niveau pour une instruction de même niveau.
+### With chained functions
+
+It happens most of the time in Javascript files. When there is chained
+functions, closures and callback functions, it is hard to understand the
+code if not properly formatted. In those cases, we add a new indent level
+for the complete instruction and reset the indent for a new instruction on
+the same level.
 
 ```javascript
-// Première instruction
+// First instruction
+
 shortcut.add(shortcuts.mark_read, function () {
+
 		//...
+
 	}, {
+
 		'disable_in_input': true
+
 	});
-// Deuxième instruction
+
+// Second instruction
+
 shortcut.add("shift+" + shortcuts.mark_read, function () {
+
 		//...
+
 	}, {
+
 		'disable_in_input': true
+
 	});
+
 ```
 
-## Longueur des lignes
 
-Les lignes ne doivent pas dépasser 80 caractères. Il est cependant autorisé exceptionnellement de dépasser cette limite s'il n'est pas possible de la respecter mais en aucun cas, les lignes ne doivent dépasser les 100 caractères.
+## Line length
 
-Dans le cas des fonctions, les paramètres peuvent être déclarés sur plusieurs lignes.
+Lines should be shorter than 80 characters. However, in some case, it is
+possible to extend that limit to 100 characters.
+
+With functions, parameters can be declared on different lines.
 
 ```php
-function ma_fonction($param_1, $param_2,
+function my_function($param_1, $param_2,
+
                      $param_3, $param_4) {
-	// faire quelque chose
+
+	// do something
+
 }
+
 ```
 
-## Nommage
 
-L'ensemble des éléments du code (fonctions, classes, méthodes et variables) doivent être nommés de manière à décrire leur usage de façon concise.
+## Naming
 
-### Fonctions et variables
+All the code elements (functions, classes, methods and variables) must
+describe their usage in concise way.
 
-Les fonctions et les variables doivent suivre la convention "snake case".
+### Functions and variables
+
+They must follow the "snake case" convention.
 
 ```php
-// une fontion
-function nom_de_la_fontion() {
-	// faire quelque chose
+// a function
+
+function function_name() {
+
+	// do something
+
 }
-// une variable
-$nom_de_la_variable;
+
+// a variable
+
+$variable_name;
+
 ```
 
-### Méthodes
 
-Les méthodes doivent suivre la convention "lower camel case".
+### Methods
+
+They must follow the "lower camel case" convention.
 
 ```php
-private function nomDeLaMethode() {
-	// faire quelque chose
+private function methodName() {
+
+	// do something
+
 }
+
 ```
+
 
 ### Classes
 
-Les classes doivent suivre la convention "upper camel case".
+They must follow the "upper camel case" convention.
 
 ```php
-abstract class NomDeLaClasse {}
+abstract class ClassName {}
+
 ```
 
-## Encodage
 
-Les fichiers doivent être encodés en UTF-8.
+## Encoding
 
-## Compatibilité PHP
+Files must be encoded with UTF-8 character set.
 
-Assurez-vous que votre code fonctionne avec une version de PHP aussi ancienne que celle que FreshRSS supporte officiellement.
+## PHP compatibility
 
-## Divers
+Ensure that your code is working with a PHP version as old as what FreshRSS
+officially supports.
 
-### Opérateurs
-Les opérateurs doivent être en fin de ligne dans le cas de conditions sur plusieurs lignes.
+## Miscellaneous
+
+### Operators
+They must be at the end of the line if a condition runs on more than one
+line.
 
 ```php
 if ($a == 10 ||
+
     $a == 20) {
-	// faire quelque chose
+
+	// do something
+
 }
+
 ```
 
-### Fin des fichiers
 
-Si le fichier ne contient que du PHP, il ne doit pas comporter de balise fermante
+### End of file
 
-### Tableaux
+If the file contains only PHP code, the PHP closing tag must be omitted.
 
-Lors de l'écriture de tableaux sur plusieurs lignes, tous les éléments doivent être suivis d'une virgule (même le dernier).
+### Arrays
+
+If an array declaration runs on more than one line, each element must be
+followed by a comma even the last one.
 
 ```php
 $variable = [
-	"valeur 1",
-	"valeur 2",
-	"valeur 3",
+
+	"value 1",
+
+	"value 2",
+
+	"value 3",
+
 ];
+
 ```
+

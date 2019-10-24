@@ -1,54 +1,95 @@
-Il est possible que nous n'ayons pas répondu à toutes vos questions dans les parties précédentes. La FAQ regroupe certaines interrogations qui n'ont pas trouvé leur réponse ailleurs.
+We may not have answered all of your questions in the previous sections. The
+FAQ contains some questions that have not been answered elsewhere.
 
-## C'est quoi ce /i à la fin de l'URL ?
+## What is /i at the end of the application URL?
 
-Bien entendu, le ```/i``` n'est pas là pour faire joli ! Il s'agit d'une question de performances et de praticité :
+Of course, ```/i``` has a purpose! We used it for performance and usability:
 
-* Cela permet de servir les icônes, images, styles, scripts sans cookie. Sans cela, ces fichiers seraient souvent re-téléchargés, en particulier lorsque le formulaire de connexion est utilisé. De plus, les requêtes vers ces ressources seraient plus lourdes.
-* La racine publique ```./p/``` peut être servie sans restriction d'accès HTTP (qui peut avantageusement être mise en place dans ```./p/i/```).
-* Cela permet d'éviter des problèmes pour des fichiers qui doivent être publics pour bien fonctionner, comme ```favicon.ico```, ```robots.txt```, etc.
-* Cela permet aussi d'avoir un logo FreshRSS plutôt qu'une page blanche pour accueillir l'utilisateur par exemple dans le cas de la restriction d'accès HTTP ou lors de l'attente du chargement plus lourd du reste de l'interface.
+* It allows for serving icons, images, styles and scripts without
+  cookies. Without that trick, those files would be downloaded more often,
+  especially when form authentication is used. Also, HTTP requests would be
+  heavier.
+* ```./p/``` public root can be served without any HTTP access
+  restrictions. Whereas it could be implemented in ```./p/i/```.
+* It avoids problems while serving public resources like ```favicon.ico```,
+  ```robots.txt```, etc.
+* It allows the logo to be displayed instead of a white page while hitting a
+  restriction or a delay during the loading process.
 
-## Pourquoi le ```robots.txt``` se trouve dans un sous-répertoire ?
+## Why robots.txt is located in a sub-folder?
 
-Afin d'améliorer la sécurité, FreshRSS est découpé en deux parties : une partie publique (le répertoire ```./p```) et une partie privée (tout le reste !). Le ```robots.txt``` se trouve donc dans le sous-répertoire ```./p```.
+To increase security, FreshRSS is hosted in two sections. The first section
+is public (```./p``` folder) and the second section is private (everything
+else). Therefore the ```robots.txt``` file is located in ```./p```
+sub-folder.
 
-Comme expliqué dans les [conseils de sécurité](01_Installation.md#conseils-de-securite), il est recommandé de faire pointer un nom de domaine vers ce sous-répertoire afin que seule la partie publique ne soit accessible par un navigateur web. De cette manière http://demo.freshrss.org/ pointe vers le répertoire ```./p``` et le ```robots.txt``` se trouve bien à la racine du site : http://demo.freshrss.org/robots.txt.
+As explained in the [security
+section](/en/User_documentation/Installation/Security), it is highly
+recommended to make only the public section available at the domain
+level. With that configuration, ```./p``` is the root folder for
+http://demo.freshrss.org/, thus making ```robots.txt``` available at the
+root of the application.
 
-L'explication est la même pour les fichiers ```favicon.ico``` et ```.htaccess```.
+The same rule applies for ```favicon.ico``` and ```.htaccess```.
 
-## Pourquoi j'ai des erreurs quand j'essaye d'enregistrer un flux ?
+## Why do I have errors while registering a feed?
 
-Il peut y avoir différentes origines à ce problème.
-Le flux peut avoir une syntaxe invalide, il peut ne pas être reconnu par la bibliothèque SimplePie, l'hébergement peut avoir des problèmes, FreshRSS peut être boggué.
-Il faut dans un premier temps déterminer la cause du problème.
-Voici la liste des étapes à suivre pour la déterminer :
+There can be different origins for that problem.  The feed syntax can be
+invalid, it can be unrecognized by the SimplePie library. the hosting server
+can be the root of the problem, FreshRSS can be buggy.  The first step is to
+identify what causes the problem.  Here are the steps to follow:
 
-1. __Vérifier la validité du flux__ grâce à l'[outil en ligne du W3C](http://validator.w3.org/feed/ "Validateur en ligne de flux RSS et Atom"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
-1. __Vérifier la reconnaissance par SimplePie__ grâce à l'[outil en ligne de SimplePie](http://simplepie.org/demo/ "Démo officielle de SimplePie"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
-1. __Vérifier l'intégration dans FreshRSS__ grâce à la [démo](http://demo.freshrss.org "Démo officielle de FreshRSS"). Si ça ne fonctionne pas, il faut [créer un ticket sur Github](https://github.com/FreshRSS/FreshRSS/issues/new "Créer un ticket pour FreshRSS") pour que l'on puisse regarder ce qui se passe. Si ça fonctionne, il y a probablement un problème avec l'hébergement.
+1. __Verify if the feed syntax is valid__ with the [W3C on-line
+   tool](http://validator.w3.org/feed/ "RSS and Atom feed validator"). If it
+   is not valid, there is nothing we can do.
+1. __Verify SimplePie validation__ with the [SimplePie on-line
+   tool](http://simplepie.org/demo/ "SimplePie official demo"). If it is not
+   recognized, there is nothing we can do.
+1. __Verify FreshRSS integration__ with the [demo](http://demo.freshrss.org
+   "FreshRSS official demo"). If it is not working, you need to [create an
+   issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create
+   an issue for FreshRSS") so we can have a look at it. If it is working,
+   there is probably something fishy with the hosting server.
 
-Voici une liste des flux qui ne fonctionnent pas :
+Here is a list of feeds which don't work:
 
-* http://foulab.org/fr/rss/Foulab_News : ne passe pas la validation W3C (novembre 2014)
-* http://eu.battle.net/hearthstone/fr/feed/news : ne passe pas la validation W3C (novembre 2014)
-* http://webseriesmag.blogs.liberation.fr/we/atom.xml : ne fonctionne pas chez l'utilisateur mais passe l'ensemble des validations ci-dessus (novembre 2014)
+* http://foulab.org/fr/rss/Foulab_News: is not a W3C valid feed (November
+  2014)
+* http://eu.battle.net/hearthstone/fr/feed/news: is not a W3C valid feed
+  (Novembre 2014)
+* http://webseriesmag.blogs.liberation.fr/we/atom.xml: is not working for
+  the user but succeed on all the described validations (November 2014)
 
-## Comment changer un mot de passe oublié ?
+## How to change a forgotten password?
 
-Depuis la version [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0), l'administrateur peut modifier le mot de passe d'un utilisateur depuis l'interface. Cette interface est disponible dans le menu ```Administration → Gestion des utilisateurs```.
-Il suffit de sélectionner l'utilisateur, de saisir un mot de passe et de valider.
+Since [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0)
+release, admins are able to change user passwords directly from the
+interface. This interface is available under ```Administration → Manage
+users```.  Select a user, enter a password, and validate.
 
-Depuis la version [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0), l'administrateur peut modifier le mot de passe d'un utilisateur depuis un terminal. Il est bon de noter que celui-ci doit avoir un accès à PHP en ligne de commande. Pour cela, il suffit d'ouvrir son terminal et de saisir la commande suivante :
+Since [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0)
+release, admins are able to change user passwords using a terminal. It worth
+mentioning that it must have access to PHP CLI. Open a terminal, and type
+the following command:
 ```sh
 ./cli/update_user.php --user <username> --password <password>
+
 ```
-Pour plus d'information à ce sujet, il existe la [documentation dédiée](../../cli/README.md).
 
-## Gérer les permissions sous SELinux
+For more information on that matter, there is a [dedicated
+documentation](../../cli/README.md).
 
-Certaines distributions Linux comme Fedora ou RedHat Enterprise Linux (RHEL) activent par défaut le système SELinux. Celui-ci permet de gérer des permissions au niveau des processus. Lors de l'installation de FreshRSS, l'étape 2 procède à la vérification des droits sur certains répertoires, il faut donc exécuter la commande suivante en tant que root:
+## Permissions under SELinux
+
+Some Linux distribution like Fedora or RedHat Enterprise Linux have SELinux
+system enabled. This acts like a firewall application, so all applications
+cannot write/modify files under certain conditions. While installing
+FreshRSS, step 2 can fail if the httpd process cannot write to some data
+sub-directories, the following command should be executed as root :
 ```sh
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
+
 restorecon -Rv /usr/share/FreshRSS/data
+
 ```
+

@@ -1,15 +1,15 @@
-# Accès à la base de données
+# Accessing the database
 
 **TODO**
 
-# Écrire une action et sa vue associée
+# Writing an action and its related view
 
 **TODO**
 
-# Gestion de l'authentification
+# Authentication
 
 **TODO**
 
-# Gestion des logs
+# Logs
 
 **TODO**

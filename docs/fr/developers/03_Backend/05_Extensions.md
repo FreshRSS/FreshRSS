@@ -1,336 +1,669 @@
-# Fiche technique 0001 — Écriture d'extensions pour FreshRSS
+# Writing extensions for FreshRSS
 
-## Présentation de FreshRSS
+## About FreshRSS
 
-FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre 2012. Le site officiel est situé à l'adresse [freshrss.org](https://freshrss.org) et son dépot Git est hébergé par Github : [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
+FreshRSS is an RSS / Atom feeds aggregator written in PHP since October
+2012. The official site is located at [freshrss.org](https://freshrss.org)
+and its repository is hosted by Github:
+[github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
-## Problème à résoudre
+## Problem to solve
 
-FreshRSS est limité dans ses possibilités techniques par différents facteurs :
+FreshRSS is limited in its technical possibilities by various factors:
 
-- La disponibilité des développeurs principaux ;
-- La volonté d'intégrer certains changements ;
-- Le niveau de « hack » nécessaire pour intégrer des fonctionnalités à la marge.
+* The number of developers
+* The will to integrate certain changes
+* The level of "hacking" required to integrate marginal features
 
-Si la première limitation peut, en théorie, être levée par la participation de nouveaux contributeurs au projet, elle est en réalité conditionnée par la volonté des contributeurs à s'intéresser au code source du projet en entier. Afin de lever les deux autres limitations quant à elles, il faudra la plupart du temps passer par un « à-coté » souvent synonyme de « fork ».
+While the first limitation can, in theory, be lifted by the participation of
+new contributors to the project, it depends on the willingness of
+contributors to take an interest in the source code of the entire
+project. In order to remove the other two limitations, most of the time it
+will be necessary to create a "fork".
 
-Une autre solution consiste à passer par un système d'extensions. En permettant à des utilisateurs d'écrire leur propre extension sans avoir à s'intéresser au cœur même du logiciel de base, on permet :
+Another solution consists of an extension system. By allowing users to write
+their own extension without taking an interest in the core of the basic
+software, we allow for:
 
-1. De réduire la quantité de code source à assimiler pour un nouveau contributeur ;
-2. De permettre d'intégrer des nouveautés de façon non-officielles ;
-3. De se passer des développeurs principaux pour d'éventuelles améliorations sans passer par la case « fork ».
+1. Reducing the amount of source code a new contributor has to take in
+2. Unofficial integration of novelties
+3. No necessity of forking or main developer approvement.
 
-Note : il est tout à fait imaginable que les fonctionnalités d'une extension puissent par la suite être intégrées dans le code initial de FreshRSS de façon officielle. Cela permet de proposer un « proof of concept » assez facilement.
+Note: it is quite conceivable that the functionalities of an extension can
+later be officially integrated into the FreshRSS code. Extensions make it
+easy to propose a proof of concept.
 
+## Understanding basic mechanics (Minz and MVC)
 
-## Comprendre les mécaniques de base (Minz et MVC)
+**TODO** : move to 02_Minz.md
 
-**TODO** : bouger dans 02_Minz.md
+This data sheet should refer to the official FreshRSS and Minz documentation
+(the PHP framework on which FreshRSS is based). Unfortunately, this
+documentation does not yet exist. In a few words, here are the main things
+you should know. It is not necessary to read all the chapters in this
+section if you don't need to use a feature in your extension (if you don't
+need to translate your extension, no need to know more about the
+`Minz_Translate` module for example).
 
-Cette fiche technique devrait renvoyer vers la documentation officielle de FreshRSS et de Minz (le framework PHP sur lequel repose FreshRSS). Malheureusement cette documentation n'existe pas encore. Voici donc en quelques mots les principaux éléments à connaître. Il n'est pas nécessaire de lire l'ensemble des chapitres de cette section si vous n'avez pas à utiliser une fonctionnalité dans votre extension (si vous n'avez pas besoin de traduire votre extension, pas besoin d'en savoir plus sur le module `Minz_Translate` par exemple).
+### MVC Architecture
 
-### Architecture MVC
+Minz relies on and imposes an MVC architecture for projects using it. This
+architecture consists of three main components:
 
-Minz repose et impose une architecture MVC pour les projets l'utilisant. On distingue dans cette architecture trois composants principaux :
+* The model: this is the base object that we will manipulate. In FreshRSS,
+  categories, flows and articles are templates. The part of the code that
+  makes it possible to manipulate them in a database is also part of the
+  model but is separated from the base model: we speak of DAO (for "Data
+  Access Object"). The templates are stored in a `Models` folder.
+* The view: this is what the user sees. The view is therefore simply HTML
+  code mixed with PHP to display dynamic information. The views are stored
+  in an `views` folder.
+* The controller: this is what makes it possible to link models and
+  views. Typically, a controller will load templates from the database (like
+  a list of items) to "pass" them to a view for display. Controllers are
+  stored in a `Controllers` directory.
 
-- Le Modèle : c'est l'objet de base que l'on va manipuler. Dans FreshRSS, les catégories, les flux et les articles sont des modèles. La partie du code qui permet de les manipuler en base de données fait aussi partie du modèle mais est séparée du modèle de base : on parle de DAO (pour « Data Access Object »). Les modèles sont stockés dans un répertoire `Models`.
-- La Vue : c'est ce qui représente ce que verra l'utilisateur. La vue est donc simplement du code HTML que l'on mixe avec du PHP pour afficher les informations dynamiques. Les vues sont stockées dans un répertoire `views`.
-- Le Contrôleur : c'est ce qui permet de lier modèles et vues entre eux. Typiquement, un contrôleur va charger des modèles à partir de la base de données (une liste d'articles par exemple) pour les « passer » à une vue afin qu'elle les affiche. Les contrôleurs sont stockés dans un répertoire `Controllers`.
+### Routing
 
-### Le routage
+In order to link a URL to a controller, first you have to go through a
+"routing" phase. In FreshRSS, this is particularly simple because it
+suffices to specify the name of the controller to load into the URL using a
+`c` parameter. For example, the address http://exemple.com?c=hello will
+execute the code contained in the `hello` controller.
 
-Afin de lier une URL à un contrôleur, on doit passer par une phase dite de « routage ». Dans FreshRSS, cela est particulièrement simple car il suffit d'indiquer le nom du contrôleur à charger dans l'URL à l'aide d'un paramètre `c`. Par exemple, l'adresse http://exemple.com?c=hello va exécuter le code contenu dans le contrôleur `hello`.
+One concept that has not yet been discussed is the "actions" system. An
+action is executed *on* a controller. Concretely, a controller is
+represented by a class and its actions by methods. To execute an action, it
+is necessary to specify an `a` parameter in the URL.
 
-Une notion qui n'a pas encore été évoquée est le système d'« actions ». Une action est exécutée *sur* un contrôleur. Concrètement, un contrôleur va être représenté par une classe et ses actions par des méthodes. Pour exécuter une action, il est nécessaire d'indiquer un paramètre `a` dans l'URL.
-
-Exemple de code :
+Code example:
 
 ```php
 <?php
+
+
 
 class FreshRSS_hello_Controller extends Minz_ActionController {
+
 	public function indexAction() {
+
 		$this->view->a_variable = 'FooBar';
+
 	}
+
+
 
 	public function worldAction() {
+
 		$this->view->a_variable = 'Hello World!';
+
 	}
+
 }
 
+
+
 ?>
+
 ```
 
-Si l'on charge l'adresse http://exemple.com?c=hello&a=world, l'action `world` va donc être exécutée sur le contrôleur `hello`.
 
-Note : si `c` ou `a` n'est pas précisée, la valeur par défaut de chacune de ces variables est `index`. Ainsi l'adresse http://exemple.com?c=hello va exécuter l'action `index` du contrôleur `hello`.
+When loading the address http://exemple.com?c=hello&a=world, the `world`
+action is executed on the `hello` controller.
 
-Plus loin, sera utilisée la convention `hello/world` pour évoquer un couple contrôleur/action.
+Note: if `c` or `a` is not specified, the default value for each of these
+variables is `index`. So the address http://exemple.com?c=hello will execute
+the `index` action of the `hello` controller.
 
-### Gestion des vues
+Later, the `hello/world` convention will be used to refer to a
+controller/action pair.
 
-Chaque vue est associée à un contrôleur et à une action. La vue associée à `hello/world` va être stockée dans un fichier bien spécifique : `views/hello/world.phtml`. Cette convention est imposée par Minz.
+### Views
 
-Comme expliqué plus haut, les vues sont du code HTML mixé à du PHP. Exemple de code :
+Each view is associated with a controller and an action. The view associated
+with `hello/world` will be stored in a very specific file:
+`views/hello/world. phtml`. This convention is imposed by Minz.
+
+As explained above, the views consist of HTML mixed with PHP. Code example:
 
 ```html
 <p>
-	Phrase passée en paramètre : <?= $this->a_variable ?>
+
+	This is a parameter passed from the controller: <?= $this->a_variable ?>
+
 </p>
+
 ```
 
-La variable `$this->a_variable` a été passée précédemment par le contrôleur (voir exemple précédent). La différence est que dans le contrôleur il est nécessaire de passer par `$this->view` et que dans la vue `$this` suffit.
 
-### Accéder aux paramètres GET / POST
+The variable `$this->a_variable` is passed by the controller (see previous example). The difference is that in the controller it is necessary to pass `$this->view`, while in the view `$this` suffices.
 
-Il est souvent nécessaire de profiter des paramètres passés par GET ou par POST. Dans Minz, ces paramètres sont accessibles de façon indistincts à l'aide de la classe `Minz_Request`. Exemple de code :
+### Working with GET / POST
+
+It is often necessary to take advantage of parameters passed by GET or
+POST. In Minz, these parameters are accessible using the `Minz_Request`
+class.  Code example:
 
 ```php
 <?php
+
+
 
 $default_value = 'foo';
+
 $param = Minz_Request::param('bar', $default_value);
 
-// Affichera la valeur du paramètre `bar` (passé via GET ou POST)
-// ou "foo" si le paramètre n'existe pas.
+
+
+// Display the value of the parameter `bar` (passed via GET or POST)
+
+// or "foo" if the parameter does not exist.
+
 echo $param;
 
-// Force la valeur du paramètre `bar`
+
+
+// Sets the value of the `bar` parameter
+
 Minz_Request::_param('bar', 'baz');
 
-// Affichera forcément "baz" puisque nous venons de forcer sa valeur.
-// Notez que le second paramètre (valeur par défaut) est facultatif.
+
+
+// Will necessarily display "baz" since we have just forced its value.
+
+// Note that the second parameter (default) is optional.
+
 echo Minz_Request::param('bar');
 
+
+
 ?>
+
 ```
 
-La méthode `Minz_Request::isPost()` peut être utile pour n'exécuter un morceau de code que s'il s'agit d'une requête POST.
 
-Note : il est préférable de n'utiliser `Minz_Request` que dans les contrôleurs. Il est probable que vous rencontriez cette méthode dans les vues de FreshRSS, voire dans les modèles, mais sachez qu'il ne s'agit **pas** d'une bonne pratique.
+The `Minz_Request::isPost()` method can be used to execute a piece of code
+only if it is a POST request.
 
-### Accéder aux paramètres de session
+Note: it is preferable to use `Minz_Request` only in controllers. It is
+likely that you will encounter this method in FreshRSS views, or even in
+templates, but be aware that this is **not** good practice.
 
-L'accès aux paramètres de session est étrangement similaire aux paramètres GET / POST mais passe par la classe `Minz_Session` cette fois-ci ! Il n'y a pas d'exemple ici car vous pouvez reprendre le précédent en changeant tous les `Minz_Request` par des `Minz_Session`.
+### Access session settings
 
-### Gestion des URL
+The access to session parameters is strangely similar to the GET / POST
+parameters but passes through the `Minz_Session` class this time! There is
+no example here because you can repeat the previous example by changing all
+`Minz_Request` to `Minz_Session`.
 
-Pour profiter pleinement du système de routage de Minz, il est fortement déconseillé d'écrire les URL en dur dans votre code. Par exemple, la vue suivante doit être évitée :
+### Working with URLs
+
+To take full advantage of the Minz routing system, it is strongly
+discouraged to write hard URLs in your code. For example, the following view
+should be avoided:
 
 ```html
 <p>
-	Accéder à la page <a href="http://exemple.com?c=hello&amp;a=world">Hello world</a>!
+
+	Go to page <a href="http://example.com?c=hello&amp;a=world">Hello world</a>!
+
 </p>
+
 ```
 
-Si un jour il est décidé d'utiliser un système d'« url rewriting » pour avoir des adresses au format http://exemple.com/controller/action, toutes les adresses précédentes deviendraient ineffectives !
 
-Préférez donc l'utilisation de la classe `Minz_Url` et de sa méthode `display()`. `Minz_Url::display()` prend en paramètre un tableau de la forme suivante :
+Should it be decided one day to use a "url rewriting" system to have
+addresses in a http://exemple.com/controller/action format, all previous
+addresses would become ineffective!
+
+So use the `Minz_Url` class and its `display()` method
+instead. `Minz_Url::display()` takes an array of the following form as its
+argument:
 
 ```php
 <?php
+
+
 
 $url_array = [
+
 	'c' => 'hello',
+
 	'a' => 'world',
+
 	'params' => [
+
 		'foo' => 'bar',
+
 	],
+
 ];
 
-// Affichera quelque chose comme .?c=hello&amp;a=world&amp;foo=bar
+
+
+// Show something like .?c=hello&amp;a=world&amp;foo=bar
+
 echo Minz_Url::display($url_array);
 
+
+
 ?>
+
 ```
 
-Comme cela peut devenir un peu pénible à utiliser à la longue, surtout dans les vues, il est préférable d'utiliser le raccourci `_url()` :
+
+Since this can become a bit tedious to use in the long run, especially in
+views, it is preferable to use the `_url()' shortcut:
 
 ```php
 <?php
 
-// Affichera la même chose que précédemment
+
+
+// Displays the same as above
+
 echo _url('hello', 'world', 'foo', 'bar');
 
+
+
 ?>
+
 ```
 
-Note : en règle générale, la forme raccourcie (`_url()`) doit être utilisée dans les vues tandis que la forme longue (`Minz_Url::display()`) doit être utilisée dans les contrôleurs.
+
+Note: as a general rule, the shortened form (`_url()`) should be used in
+views, while the long form (`Minz_Url::display()`) should be used in
+controllers.
 
 ### Redirections
 
-Il est souvent nécessaire de rediriger un utilisateur vers une autre page. Pour cela, la classe `Minz_Request` dispose d'une autre méthode utile : `forward()`. Cette méthode prend en argument le même format d'URL que celui vu juste avant.
+It is often necessary to redirect a user to another page. To do so, the
+`Minz_Request` class offers another useful method: `forward()`. This method
+takes the same URL format as the one seen just before as its argument.
 
-Exemple de code :
+Code example:
 
 ```php
 <?php
 
+
+
 $url_array = [
+
 	'c' => 'hello',
+
 	'a' => 'world',
+
 ];
 
-// Indique à Minz de rediriger l'utilisateur vers la page hello/world.
-// Notez qu'il s'agit d'une redirection au sens Minz du terme, pas d'une redirection que le navigateur va avoir à gérer (code HTTP 301 ou 302)
-// Le code qui suit forward() va ainsi être exécuté !
+
+
+// Tells Minz to redirect the user to the hello / world page.
+
+// Note that this is a redirection in the Minz sense of the term, not a redirection that the browser will have to manage (HTTP code 301 or 302)
+
+// The code that follows forward() will thus be executed!
+
 Minz_Request::forward($url_array);
 
-// Pour effectuer une redirection type 302, ajoutez "true".
-// Le code qui suivra ne sera alors jamais exécuté.
+
+
+// To perform a type 302 redirect, add "true".
+
+// The code that follows will never be executed.
+
 Minz_Request::forward($url_array, true);
 
+
+
 ?>
+
 ```
 
-Il est très fréquent de vouloir effectuer une redirection tout en affichant un message à l'utilisateur pour lui indiquer comment s'est déroulée l'action effectuée juste avant (validation d'un formulaire par exemple). Un tel message est passé par une variable de session `notification` (note : nous parlerons plutôt de « feedback » désormais pour éviter la confusion avec une notification qui peut survenir à tout moment). Pour faciliter ce genre d'action très fréquente, il existe deux raccourcis qui effectuent tout deux une redirection type 302 en affectant un message de feedback :
+
+It is very common to want display a message to the user while performing a
+redirect, to tell the user how the action was carried out (validation of a
+form for example). Such a message is passed through a `notification` session
+variable (note: we will talk about feedback from now on to avoid confusion
+with a notification that can occur at any time). To facilitate this kind of
+very frequent action, there are two shortcuts that both perform a 302
+redirect by assigning a feedback message:
 
 ```php
 <?php
 
+
+
 $url_array = [
+
 	'c' => 'hello',
+
 	'a' => 'world',
+
 ];
+
 $feedback_good = 'Tout s\'est bien passé !';
+
 $feedback_bad = 'Oups, quelque chose n\'a pas marché.';
+
+
 
 Minz_Request::good($feedback_good, $url_array);
 
-// ou
+
+
+// or
+
+
 
 Minz_Request::bad($feedback_bad, $url_array);
 
+
+
 ?>
+
 ```
 
-### Gestion de la traduction
 
-Il est fréquent (et c'est un euphémisme) de vouloir afficher des phrases à l'utilisateur. Dans l'exemple précédent par exemple, nous affichions un feedback à l'utilisateur en fonction du résultat d'une validation de formulaire. Le problème est que FreshRSS possède des utilisateurs de différentes nationalités. Il est donc nécessaire de pouvoir gérer différentes langues pour ne pas rester cantonné à l'Anglais ou au Français.
+### Translation Management
 
-La solution consiste à utiliser la classe `Minz_Translate` qui permet de traduire dynamiquement FreshRSS (ou toute application basée sur Minz). Avant d'utiliser ce module, il est nécessaire de savoir où trouver les chaînes de caractères à traduire. Chaque langue possède son propre sous-répertoire dans un répertoire parent nommé `i18n`. Par exemple, les fichiers de langue en Français sont situés dans `i18n/fr/`. Il existe sept fichiers différents :
+It is common (and that's an understatement) to want to show some text to the
+user. In the previous example, for example, we display feedback to the user
+based on the result of form validation. The problem is that FreshRSS has
+users of different nationalities. It is therefore necessary to be able to
+manage different languages in order not to remain confined to English or
+French.
 
-- `admin.php` pour tout ce qui est relatif à l'administration de FreshRSS ;
-- `conf.php` pour l'aspect configuration ;
-- `feedback.php` contient les traductions des messages de feedback ;
-- `gen.php` stocke ce qui est global à FreshRSS (gen pour « general ») ;
-- `index.php` pour la page principale qui liste les flux et la page « À propos » ;
-- `install.php` contient les phrases relatives à l'installation de FreshRSS ;
-- `sub.php` pour l'aspect gestion des abonnements (sub pour « subscription »).
+The solution is to use the `Minz_Translate` class, which allows dynamic
+translation of FreshRSS (or any Minz-based application). Before using this
+module, it is necessary to know where to find the strings to be
+translated. Each language has its own subdirectory in a parent directory
+named `i18n`. For example, English language files are located in
+`i18n/fr/`. There are seven different files:
 
-Cette organisation permet de ne pas avoir un unique énorme fichier de traduction.
+- `admin.php` for anything related to FreshRSS administration - `conf.php`
+for configuration - `feedback.php` contains translations of feedback
+messages - `gen.php` stores what is global to FreshRSS (gen for "general")
+- `index.php` for the main page that lists feeds and the About page -
+`install.php` contains strings related FreshRSS installation - `sub.php` for
+subscription management (sub for "subscription")
 
-Les fichiers de traduction sont assez simples : il s'agit seulement de retourner un tableau PHP contenant les traductions. Extrait du fichier `app/i18n/fr/gen.php` :
+This organization makes it possible to avoid a single huge translation file.
+
+The translation files are quite simple: it is only a matter of returning a
+PHP table containing the translations. Extract from `app/i18n/en/gen.php`:
 
 ```php
 <?php
 
-return [
+
+
+return array(
+
 	'action' => [
+
 		'actualize' => 'Actualiser',
+
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
+
 		'cancel' => 'Annuler',
+
 		'create' => 'Créer',
+
 		'disable' => 'Désactiver',
-	],
-	'freshrss' => [
+
+	),
+
+	'freshrss' => array(
+
 		'_' => 'FreshRSS',
+
 		'about' => 'À propos de FreshRSS',
-	],
+
+	),
+
 ];
 
+
+
 ?>
+
 ```
 
-Pour accéder à ces traductions, `Minz_Translate` va nous aider à l'aide de sa méthode `Minz_Translate::t()`. Comme cela peut être un peu long à taper, il a été introduit un raccourci qui **doit** être utilisé en toutes circonstances : `_t()`. Exemple de code :
+
+To access these translations, `Minz_Translate` will help us with its
+`Minz_Translate::t()` method. As this can be a bit long to type, a shortcut
+has been introduced that **must** be used in all circumstances: `_t()`.
+Code example:
 
 ```html
 <p>
+
 	<a href="<?= _url('index', 'index') ?>">
+
 		<?= _t('gen.action.back_to_rss_feeds') ?>
+
 	</a>
+
 </p>
+
 ```
 
-La chaîne à passer à la fonction `_t()` consiste en une série d'identifiants séparés par des points. Le premier identifiant indique de quel fichier on veut extraire la traduction (dans notre cas présent, de `gen.php`), tandis que les suivantes indiquent des entrées de tableaux. Ainsi `action` est une entrée du tableau principal et `back_to_rss_feeds` est une entrée du tableau `action`. Cela permet d'organiser encore un peu plus nos fichiers de traduction.
 
-Il existe un petit cas particulier qui permet parfois de se simplifier la vie : le cas de l'identifiant `_`. Celui-ci doit nécessairement être présent en bout de chaîne et permet de donner une valeur à l'identifiant de niveau supérieur. C'est assez dur à expliquer mais très simple à comprendre. Dans l'exemple donné plus haut, un `_` est associé à la valeur `FreshRSS` : cela signifie qu'il n'y a pas besoin d'écrire `_t('gen.freshrss._')` mais `_t('gen.freshrss')` suffit.
+The string to pass to the `_t()` function consists of a series of
+identifiers separated by dots. The first identifier indicates from which
+file to extract the translation (in this case, `gen.php`), while the
+following ones indicate table entries. Thus `action` is an entry of the main
+array and `back_to_rss_feeds` is an entry of the `action` array. This allows
+us to further organize our translation files.
 
-### Gestion de la configuration
+There is a small special case that sometimes makes life easier: the `_`
+identifier. This must necessarily be present at the end of the chain and
+gives a value to the higher-level identifier. It's pretty hard to explain
+but very simple to understand. In the example given above, a `_` is
+associated with the value `FreshRSS`: this means that there is no need to
+write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
 
-## Écrire une extension pour FreshRSS
+### Configuration management
 
-Nous y voilà ! Nous avons abordé les fonctionnalités les plus utiles de Minz et qui permettent de faire tourner FreshRSS correctement et il est plus que temps d'aborder les extensions en elles-même.
+## Write an extension for FreshRSS
 
-Une extension permet donc d'ajouter des fonctionnalités facilement à FreshRSS sans avoir à toucher au cœur du projet directement.
+Here we are! We've talked about the most useful features of Minz and how to
+run FreshRSS correctly and it's about time to address the extensions
+themselves.
 
-### Les fichiers et répertoires de base
+An extension allows you to add functionality easily to FreshRSS without
+having to touch the core of the project directly.
 
-La première chose à noter est que **toutes** les extensions **doivent** se situer dans le répertoire `extensions`, à la base de l'arborescence de FreshRSS. Une extension est un répertoire contenant un ensemble de fichiers et sous-répertoires obligatoires ou facultatifs. La convention veut que l'on précède le nom du répertoire principal par un « x » pour indiquer qu'il ne s'agit pas d'une extension incluse par défaut dans FreshRSS.
+### Basic files and folders
 
-Le répertoire principal d'une extension doit comporter au moins deux fichiers **obligatoire** :
+The first thing to note is that **all** extensions **must** be located in
+the `extensions` directory, at the base of the FreshRSS tree.  An extension
+is a directory containing a set of mandatory (and optional) files and
+subdirectories.  The convention requires that the main directory name be
+preceded by an "x" to indicate that it is not an extension included by
+default in FreshRSS.
 
-- Un fichier `metadata.json` qui contient une description de l'extension. Ce fichier est écrit en JSON ;
-- Un fichier `extension.php` contenant le point d'entrée de l'extension.
+The main directory of an extension must contain at least two **mandatory**
+files:
 
-Il est possible aussi que vous ayez besoin de fichiers ou sous-répertoires additionnels selon vos besoins :
+- A `metadata.json` file that contains a description of the extension. This
+file is written in JSON.  - An `extension.php` file containing the entry
+point of the extension (which is a class that inherits Minz_Extension).
 
-- `configure.phtml` est le fichier contenant le formulaire permettant de paramétrer votre extension ;
-- Un répertoire `static/` contenant fichiers CSS et JavaScript dont vous aurez besoin pour votre extension. Notez que si vous devez écrire beaucoup de CSS il est peut-être plus intéressant d'écrire un thème complet (mais ce n'est pas le sujet de cette fiche technique) ;
-- Un répertoire `Controllers` contenant des contrôleurs additionnels ;
-- Un répertoire `i18n` contenant des traductions supplémentaires ;
-- Des répertoires `layout` et `views` permettant de définir de nouvelles vues ou d'écraser les vues actuelles.
+Please note that there is a not a required link between the directory name
+of the extension and the name of the class inside `extension.php`, but you
+should follow our best practice: If you want to write a `HelloWorld`
+extension, the directory name should be `xExtension-HelloWorld` and the base
+class name `HelloWorldExtension`.
 
-De plus, il est de bon ton d'avoir un fichier `LICENSE` indiquant la licence sous laquelle est distribuée votre extension et un fichier `README` donnant une description détaillée de celle-ci.
+In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you
+need the structure:
+```html
+class HelloWorldExtension extends Minz_Extension {
 
-### Écrire le fichier metadata.json
+	public function init() {
 
-Le fichier `metadata.json` définit votre extension à travers un certain nombre d'éléments importants. Il doit contenir un tableau JSON valide contenant les entrées suivantes :
+		// your code here
 
-- `name` : le nom de votre extension ;
-- `author` : votre nom, éventuellement votre adresse mail mais il n'y a pas de format spécifique à adopter ;
-- `description` : une description de votre extension ;
-- `version` : le numéro de version actuel de l'extension ;
-- `entrypoint` : indique le point d'entrée de votre extension. Il doit correspondre au nom de la classe contenue dans le fichier `extension.php` sans le suffixe `Extension` (donc si le point d'entrée est `HelloWorld`, votre classe s'appellera `HelloWorldExtension`) ;
-- `type` : définit le type de votre extension. Il existe deux types : `system` et `user`. Nous étudierons cette différence juste après.
+	}
 
-Seuls les champs `name` et `entrypoint` sont requis.
+}
 
-### Choisir entre extension « system » ou « user »
+```
 
-### Écrire le fichier extension.php
+There is an example HelloWorld extension that you can download from [our
+GitHub repo](https://github.com/FreshRSS/xExtension-HelloWorld).
 
-Ce fichier est le point d'entrée de votre extension. Il doit contenir une classe bien spécifique pour fonctionner. Comme évoqué plus haut, le nom de la classe doit être votre `entrypoint` suffixé par `Extension` (`HelloWorldExtension` par exemple). De plus, cette classe doit héritée de la classe `Minz_Extension` pour bénéficier des méthodes propres aux extensions.
+You may also need additional files or subdirectories depending on your
+needs:
 
-Votre classe va bénéficier de quatre méthodes à redéfinir :
+- `configure.phtml` is the file containing the form to parameterize your
+extension - A `static/` directory containing CSS and JavaScript files that
+you will need for your extension (note that if you need to write a lot of
+CSS it may be more interesting to write a complete theme)  - A `Controllers`
+directory containing additional controllers - An `i18n` directory containing
+additional translations - `layout` and` views` directories to define new
+views or to overwrite the current views
 
-- `install()` est appelée lorsqu'un utilisateur va cliquer sur le bouton pour activer votre extension. Elle permet par exemple de mettre à jour la base de données d'un utilisateur afin de la rendre compatible avec l'extension. Elle retourne `true` si tout s'est bien passé ou, dans le cas contraire, une chaîne de caractères expliquant le problème ;
-- `uninstall()` est appelée lorsqu'un utilisateur va cliquer sur le bouton pour désactiver votre extension. Ainsi, vous pourrez annuler les changements en base de données que vous avez potentiellement faits dans `install()`. Elle retourne `true` si tout s'est bien passé ou, dans le cas contraire, une chaîne de caractères expliquant le problème ;
-- `init()` est appelée à chaque chargement de page *si l'extension est activée*. Elle va donc initialiser le comportement de l'extension. C'est la méthode la plus importante ;
-- `handleConfigureAction()` est appelée lorsqu'un utilisateur charge le panneau de gestion de l'extension. Plus précisément, elle est appelée lorsque l'URL `?c=extension&a=configure&e=le-nom-de-votre-extension` est chargée. Vous devriez aussi écrire ici le comportement voulu lors de la validation du formulaire contenu dans votre fichier `configure.phtml`.
+In addition, it is good to have a `LICENSE` file indicating the license
+under which your extension is distributed and a` README` file giving a
+detailed description of it.
 
-De plus, vous disposerez d'un certain nombre de méthodes directement héritées de `Minz_Extension` que vous ne devriez pas redéfinir :
+### The metadata.json file
 
-- Les « getters » tout d'abord. La plupart sont suffisamment explicites pour ne pas les détailler : `getName()`, `getEntrypoint()`, `getPath()` (permet de récupérer le chemin vers votre extension), `getAuthor()`, `getDescription()`, `getVersion()`, `getType()` ;
-- `getFileUrl($filename, $type)` va vous retourner l'URL vers un fichier du répertoire `static`. Le premier paramètre est le nom du fichier (sans `static/`), le deuxième est le type de fichier à servir (`css` ou `js`) ;
-- `registerController($base_name)` va indiquer à Minz de prendre en compte le contrôleur donné dans le système de routage. Le contrôleur doit se situer dans votre répertoire `Controllers`, le nom du fichier doit être `<base_name>Controller.php` et le nom de la classe `FreshExtension_<base_name>_Controller`.
+The `metadata.json` file defines your extension through a number of
+important elements. It must contain a valid JSON array containing the
+following entries:
 
-TODO :
+- `name` : the name of your extension - `author` : your name, your e-mail
+address ... but there is no specific format to adopt - `description` : a
+description of your extension - `version` : the current version number of
+the extension - `entrypoint` : Indicates the entry point of your
+extension. It must match the name of the class contained in the file
+`extension.php` without the suffix` Extension` (so if the entry point is
+`HelloWorld`, your class will be called` HelloWorldExtension`)  - `type` :
+Defines the type of your extension. There are two types: `system` and`
+user`. We will study this difference right after.
 
-- `registerViews()`
-- `registerTranslates()`
-- `registerHook($hook_name, $hook_function)`
+Only the `name` and` entrypoint` fields are required.
 
-### Système de « hooks »
+### Choose between « system » or « user »
 
-TODO :
+A __user__ extension can be enabled by some users and not by others
+(typically for user preferences).
 
-- `entry_before_display` (`function($entry) -> Entry | null`)
-- `entry_before_insert` (`function($entry) -> Entry | null`)
-- `feed_before_insert` (`function($feed) -> Feed | null`)
-- `post_update` (`function(none) -> none`)
-- `simplepie_before_init` (`function($simplePie, $feed) -> none`)
+A __system__ extension in comparison is enabled for every account.
 
-### Écrire le fichier configure.phtml
+### Writing your own extension.php
 
-Lorsque vous voulez ajouter de la configuration à votre extension ou afficher ses informations, vous devez créer le fichier `configure.phtml`.
+This file is the entry point of your extension. It must contain a specific
+class to function.  As mentioned above, the name of the class must be your
+`entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example).
+In addition, this class must be inherited from the `Minz_Extension` class to
+benefit from extensions-specific methods.
+
+Your class will benefit from four methods to redefine:
+
+- `install()` is called when a user clicks the button to activate your
+extension. It allows, for example, to update the database of a user in order
+to make it compatible with the extension. It returns `true` if everything
+went well or, if not, a string explaining the problem.  - `uninstall()` is
+called when a user clicks the button to disable your extension. This will
+allow you to undo the database changes you potentially made in `install
+()`. It returns `true` if everything went well or, if not, a string
+explaining the problem.  - `init()` is called for every page load *if the
+extension is enabled*. It will therefore initialize the behavior of the
+extension. This is the most important method.  - `handleConfigureAction()`
+is called when a user loads the extension management panel. Specifically, it
+is called when the `?c=extension&a=configured&e=name-of-your-extension` URL
+is loaded. You should also write here the behavior you want when validating
+the form in your `configure.phtml` file.
+
+In addition, you will have a number of methods directly inherited from
+`Minz_Extension` that you should not redefine:
+
+- The "getters" first: most are explicit enough not to detail them here -
+  `getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the
+  path to your extension), `getAuthor()`, `getDescription()`,
+  `getVersion()`, `getType()`.
+- `getFileUrl($filename, $type)` will return the URL to a file in the
+  `static` directory. The first parameter is the name of the file (without
+  `static /`), the second is the type of file to be used (`css` or` js`).
+- `registerController($base_name)` will tell Minz to take into account the
+  given controller in the routing system. The controller must be located in
+  your `Controllers` directory, the name of the file must be`
+  <base_name>Controller.php` and the name of the
+  `FreshExtension_<base_name>_Controller` class.
+
+**TODO**
+
+- `registerViews()` - `registerTranslates()` - `registerHook($hook_name,
+$hook_function)`
+
+### The « hooks » system
+
+You can register at the FreshRSS event system in an extensions `init()`
+method, to manipulate data when some of the core functions are executed.
+
+```html
+class HelloWorldExtension extends Minz_Extension
+
+{
+
+	public function init() {
+
+		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
+
+	}
+
+	public function renderEntry($entry) {
+
+		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+
+		return $entry;
+
+	}
+
+}
+
+```
+
+
+The following events are available:
+
+- `entry_before_display` (`function($entry) -> Entry | null`): will be
+  executed every time an entry is rendered. The entry itself (instance of
+  FreshRSS\_Entry) will be passed as parameter.
+- `entry_before_insert` (`function($entry) -> Entry | null`): will be
+  executed when a feed is refreshed and new entries will be imported into
+  the database. The new entry (instance of FreshRSS\_Entry) will be passed
+  as parameter.
+- `feed_before_insert` (`function($feed) -> Feed | null`): will be executed
+  when a new feed is imported into the database. The new feed (instance of
+  FreshRSS\_Feed) will be passed as parameter.
+- `freshrss_init` (`function() -> none`): will be executed at the end of the
+  initialization of FreshRSS, useful to initialize components or to do
+  additional access checks
+- `menu_admin_entry` (`function() -> string`): add an entry at the end of
+  the "Administration" menu, the returned string must be valid HTML
+  (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `menu_configuration_entry` (`function() -> string`): add an entry at the
+  end of the "Configuration" menu, the returned string must be valid HTML
+  (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `menu_other_entry` (`function() -> string`): add an entry at the end of
+  the header dropdown menu (i.e. after the "About" entry), the returned
+  string must be valid HTML (e.g. `<li class="item active"><a href="url">New
+  entry</a></li>`)
+- `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO**
+  add documentation
+- `post_update` (`function(none) -> none`): **TODO** add documentation
+- `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO**
+  add documentation
+
+### Writing your own configure.phtml
+
+When you want to support user configurations for your extension or simply
+display some information, you have to create the `configure.phtml` file.
+
+**TODO**
