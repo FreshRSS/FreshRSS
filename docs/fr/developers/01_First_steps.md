@@ -104,8 +104,8 @@ Une fois l'indentation faite, il peut être nécessaire de faire un alignement
 pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
 
 ```php
-$result = a_function_with_a_really_long_name($param1, $param2,
-                                             $param3, $param4);
+$resultat = une_fonction_avec_un_nom_long($param1, $param2,
+                                          $param3, $param4);
 ```
 
 ### Fin de ligne
@@ -118,9 +118,9 @@ Il est possible de vérifier la présence de caractères blancs en fin de ligne
 grâce à Git avec la commande suivante :
 
 ```bash
-# command to check files before adding them in the Git index
+# commande à lancer avant l'ajout des fichiers dans l'index
 git diff --check
-# command to check files after adding them in the Git index
+# commande à lancer après l'ajout des fichiers dans l'index mais avant le commit
 git diff --check --cached
 ```
 
@@ -138,7 +138,7 @@ There should be a space before and after every operator.
 
 ```php
 if ($a == 10) {
-	// do something
+	// faire quelque chose
 }
 
 echo $a ? 1 : 0;
@@ -153,11 +153,11 @@ accolade ouvrante.
 
 ```php
 if ($a == 10) {
-	// do something
+	// faire quelque chose
 }
 
 if ((int)$a == 10) {
-	// do something
+	// faire quelque chose
 }
 ```
 
@@ -192,9 +192,9 @@ possible to extend that limit to 100 characters.
 With functions, parameters can be declared on different lines.
 
 ```php
-function my_function($param_1, $param_2,
+function ma_fonction($param_1, $param_2,
                      $param_3, $param_4) {
-	// do something
+	// faire quelque chose
 }
 ```
 
@@ -252,7 +252,7 @@ line.
 ```php
 if ($a == 10 ||
     $a == 20) {
-	// do something
+	// faire quelque chose
 }
 ```
 

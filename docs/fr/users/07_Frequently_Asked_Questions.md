@@ -87,6 +87,7 @@ ligne de commande. Pour cela, il suffit d'ouvrir son terminal et de saisir
 la commande suivante :
 ```sh
 ./cli/update_user.php --user <username> --password <password>
+
 ```
 Pour plus d'information à ce sujet, il existe la [documentation
 dédiée](../../cli/README.md).

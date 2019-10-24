@@ -24,7 +24,7 @@ $ git checkout master
 $ git pull
 $ git merge --ff dev
 $ vim constants.php
-# Update version number x.y.y.z of FRESHRSS_VERSION
+# Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION
 $ git commit -a
 Version x.y.z
 $ git tag -a x.y.z
@@ -147,9 +147,9 @@ Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 ```bash
 $ git checkout dev
 $ vim constants.php
-# Update the FRESHRSS_VERSION
+# Mettre à jour le numéro de version de FRESHRSS_VERSION
 $ vim CHANGELOG.md
-# Prepare the changelog for the next version
+# Préparer la section pour la prochaine version
 $ git add CHANGELOG.md && git commit && git push
 ```
 

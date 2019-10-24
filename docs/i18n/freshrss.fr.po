@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
 "POT-Creation-Date: 2019-10-24 23:13+0200\n"
-"PO-Revision-Date: 2019-10-24 21:27+0100\n"
+"PO-Revision-Date: 2019-10-24 23:20+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -296,12 +296,13 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:15
-#, fuzzy, no-wrap
-#| msgid "on GitHub by creating[a new release](https://github.com/FreshRSS/FreshRSS/releases/new)"
+#, no-wrap
 msgid ""
 "$ git clone https://github.com/FreshRSS/FreshRSS.git\n"
 "$ cd FreshRSS\n"
-msgstr "sur GitHub en créant [une nouvelle release](https://github.com/FreshRSS/FreshRSS/releases/new) ;"
+msgstr ""
+"$ git clone https://github.com/FreshRSS/FreshRSS.git\n"
+"$ cd FreshRSS\n"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:21
@@ -522,12 +523,7 @@ msgstr "php"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:81
-#, fuzzy, no-wrap
-#| msgid ""
-#| "$result = a_function_with_a_really_long_name($param1, $param2,\n"
-#| "\n"
-#| "                                             $param3, $param4);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "$result = a_function_with_a_really_long_name($param1, $param2,\n"
 "                                             $param3, $param4);\n"
@@ -570,16 +566,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:92
-#, fuzzy, no-wrap
-#| msgid ""
-#| "# command to check files before adding them in the Git index\n"
-#| "\n"
-#| "git diff --check\n"
-#| "\n"
-#| "# command to check files after adding them in the Git index\n"
-#| "\n"
-#| "git diff --check --cached\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "# command to check files before adding them in the Git index\n"
 "git diff --check\n"
@@ -626,18 +613,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:111
-#, fuzzy, no-wrap
-#| msgid ""
-#| "if ($a == 10) {\n"
-#| "\n"
-#| "\t// do something\n"
-#| "\n"
-#| "}\n"
-#| "\n"
-#| "\n"
-#| "\n"
-#| "echo $a ? 1 : 0;\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "if ($a == 10) {\n"
 "\t// do something\n"
@@ -650,7 +626,6 @@ msgstr ""
 "}\n"
 "\n"
 "echo $a ? 1 : 0;\n"
-"\n"
 
 #. type: Title ###
 #: en/./developers/01_First_steps.md:119
@@ -673,18 +648,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:123
-#, fuzzy, no-wrap
-#| msgid ""
-#| "if ($a == 10) {\n"
-#| "\n"
-#| "\t// do something\n"
-#| "\n"
-#| "}\n"
-#| "\n"
-#| "\n"
-#| "\n"
-#| "echo $a ? 1 : 0;\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "if ($a == 10) {\n"
 "\t// do something\n"
@@ -698,8 +662,9 @@ msgstr ""
 "\t// faire quelque chose\n"
 "}\n"
 "\n"
-"echo $a ? 1 : 0;\n"
-"\n"
+"if ((int)$a == 10) {\n"
+"\t// faire quelque chose\n"
+"}\n"
 
 #. type: Title ###
 #: en/./developers/01_First_steps.md:133
@@ -766,20 +731,17 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:158
-#, fuzzy, no-wrap
-#| msgid ""
-#| "$result = a_function_with_a_really_long_name($param1, $param2,\n"
-#| "\n"
-#| "                                             $param3, $param4);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "function my_function($param_1, $param_2,\n"
 "                     $param_3, $param_4) {\n"
 "\t// do something\n"
 "}\n"
 msgstr ""
-"$resultat = une_fonction_avec_un_nom_long($param1, $param2,\n"
-"                                          $param3, $param4);\n"
+"function ma_fonction($param_1, $param_2,\n"
+"                     $param_3, $param_4) {\n"
+"\t// faire quelque chose\n"
+"}\n"
 
 #. type: Title ##
 #: en/./developers/01_First_steps.md:165
@@ -893,30 +855,17 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:213
-#, fuzzy, no-wrap
-#| msgid ""
-#| "if ($a == 10) {\n"
-#| "\n"
-#| "\t// do something\n"
-#| "\n"
-#| "}\n"
-#| "\n"
-#| "\n"
-#| "\n"
-#| "echo $a ? 1 : 0;\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "if ($a == 10 ||\n"
 "    $a == 20) {\n"
 "\t// do something\n"
 "}\n"
 msgstr ""
-"if ($a == 10) {\n"
+"if ($a == 10 ||\n"
+"    $a == 20) {\n"
 "\t// faire quelque chose\n"
 "}\n"
-"\n"
-"echo $a ? 1 : 0;\n"
-"\n"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:223
@@ -2103,28 +2052,7 @@ msgstr "Processus Git"
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:15
-#, fuzzy, no-wrap
-#| msgid ""
-#| "$ git checkout master\n"
-#| "\n"
-#| "$ git pull\n"
-#| "\n"
-#| "$ git merge --ff dev\n"
-#| "\n"
-#| "$ vim constants.php\n"
-#| "\n"
-#| "# Update version number x.y.y.z of FRESHRSS_VERSION\n"
-#| "\n"
-#| "$ git commit -a\n"
-#| "\n"
-#| "Version x.y.z\n"
-#| "\n"
-#| "$ git tag -a x.y.z\n"
-#| "\n"
-#| "Version x.y.z\n"
-#| "\n"
-#| "$ git push && git push --tags\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "$ git checkout master\n"
 "$ git pull\n"
@@ -2138,25 +2066,15 @@ msgid ""
 "$ git push && git push --tags\n"
 msgstr ""
 "$ git checkout master\n"
-"\n"
 "$ git pull\n"
-"\n"
 "$ git merge --ff dev\n"
-"\n"
 "$ vim constants.php\n"
-"\n"
 "# Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION\n"
-"\n"
 "$ git commit -a\n"
-"\n"
 "Version x.y.z\n"
-"\n"
 "$ git tag -a x.y.z\n"
-"\n"
 "Version x.y.z\n"
-"\n"
 "$ git push && git push --tags\n"
-"\n"
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:28
@@ -2301,30 +2219,7 @@ msgstr "Voici un exemple de fichier `versions.php` :"
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:54
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<?php\n"
-#| "\n"
-#| "return array(\n"
-#| "\n"
-#| "\t// STABLE\n"
-#| "\n"
-#| "\t'0.8.0' => '1.0.0',\n"
-#| "\n"
-#| "\t'0.8.1' => '1.0.0',\n"
-#| "\n"
-#| "\t'1.0.0' => '1.0.1',  // doesn't exist (yet)\n"
-#| "\n"
-#| "\t// DEV\n"
-#| "\n"
-#| "\t'1.1.2-dev' => 'dev',\n"
-#| "\n"
-#| "\t'1.1.3-dev' => 'dev',\n"
-#| "\n"
-#| "\t'1.1.4-dev' => 'dev',\n"
-#| "\n"
-#| ");\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "<?php\n"
 "return array(\n"
@@ -2339,27 +2234,16 @@ msgid ""
 ");\n"
 msgstr ""
 "<?php\n"
-"\n"
 "return array(\n"
-"\n"
 "\t// STABLE\n"
-"\n"
 "\t'0.8.0' => '1.0.0',\n"
-"\n"
 "\t'0.8.1' => '1.0.0',\n"
-"\n"
 "\t'1.0.0' => '1.0.1',  // doesn't exist (yet)\n"
-"\n"
 "\t// DEV\n"
-"\n"
 "\t'1.1.2-dev' => 'dev',\n"
-"\n"
 "\t'1.1.3-dev' => 'dev',\n"
-"\n"
 "\t'1.1.4-dev' => 'dev',\n"
-"\n"
 ");\n"
-"\n"
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:69
@@ -2512,20 +2396,7 @@ msgstr "Lancer la prochaine version de développement"
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:102
-#, fuzzy, no-wrap
-#| msgid ""
-#| "$ git checkout dev\n"
-#| "\n"
-#| "$ vim constants.php\n"
-#| "\n"
-#| "# Update the FRESHRSS_VERSION\n"
-#| "\n"
-#| "$ vim CHANGELOG.md\n"
-#| "\n"
-#| "# Prepare the changelog for the next version\n"
-#| "\n"
-#| "$ git add CHANGELOG.md && git commit && git push\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "$ git checkout dev\n"
 "$ vim constants.php\n"
@@ -2535,17 +2406,11 @@ msgid ""
 "$ git add CHANGELOG.md && git commit && git push\n"
 msgstr ""
 "$ git checkout dev\n"
-"\n"
 "$ vim constants.php\n"
-"\n"
 "# Mettre à jour le numéro de version de FRESHRSS_VERSION\n"
-"\n"
 "$ vim CHANGELOG.md\n"
-"\n"
 "# Préparer la section pour la prochaine version\n"
-"\n"
 "$ git add CHANGELOG.md && git commit && git push\n"
-"\n"
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:111
@@ -4840,10 +4705,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:43
-#, fuzzy, no-wrap
-#| msgid ""
-#| "./cli/update_user.php --user <username> --password <password>\n"
-#| "\n"
+#, no-wrap
 msgid "./cli/update_user.php --user <username> --password <password>\n"
 msgstr ""
 "./cli/update_user.php --user <username> --password <password>\n"
@@ -4882,20 +4744,13 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:51
-#, fuzzy, no-wrap
-#| msgid ""
-#| "semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
-#| "\n"
-#| "restorecon -Rv /usr/share/FreshRSS/data\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
 "restorecon -Rv /usr/share/FreshRSS/data\n"
 msgstr ""
 "semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
-"\n"
 "restorecon -Rv /usr/share/FreshRSS/data\n"
-"\n"
 
 #~ msgid "Préparer la sortie"
 #~ msgstr "Préparer la sortie"
