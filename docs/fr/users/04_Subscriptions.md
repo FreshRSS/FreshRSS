@@ -1,22 +1,24 @@
-# Adding a feed
+# Ajouter un flux
 
 **TODO**
 
-# Import and export
+# Import et export
 
 **TODO**
 
-# Use bookmarklet
+# Utiliser le « bookmarklet »
 
-Bookmarklets are little scripts that you can execute to perform useful or
-frivolous tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds.
+Les « bookmarklets » sont de petits scripts que vous pouvez exécuter pour
+effectuer des tâches utiles ou frivoles. FreshRSS offre un signet ( «
+bookmark » ) pour s'abonner aux fils de nouvelles.
 
- 1. Open "Subscriptions management".
- 2. Click on "Subscription tools".
- 3. Drag the "Subscribe" button to your bookmark toolbar or right click and
-    choose your browser's "Bookmark link" action.
+ 1. Ouvrez "Gestion des abonnements".
+ 2. Cliquez sur "Outils d'abonnement".
+ 3. Glissez le bouton "S'abonner" dans la barre d'outils des signets ou
+    cliquez droit et choisissez l'action "Lien vers les signets" de votre
+    navigateur.
 
-# Feed management
+# Organisation des flux
 
 **TODO**
 

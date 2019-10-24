@@ -125,7 +125,7 @@ Si vous ne pouvez pas ou ne voulez pas utiliser la méthode automatique, vous
 pouvez le faire de façon manuelle. Il existe deux méthodes qui permettent de
 mettre à jour tout ou partie des flux.
 
-### Complete update
+### Mise à jour complète
 
 Cette mise à jour se fait pour l’ensemble des flux de l’instance. Pour
 initier cette mise à jour, il suffit de cliquer sur le lien de mise à jour
