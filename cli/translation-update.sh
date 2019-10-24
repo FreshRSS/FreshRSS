@@ -29,7 +29,7 @@ echo 'Generating configuration file for po4a...'
 	echo '[po4a_paths] i18n/templates/freshrss.pot $lang:i18n/freshrss.$lang.po'
 } >$CONFIGFILE
 
-for FILE in $(cd en && tree -f -i | grep ".md"); do
+for FILE in $(cd en && tree -f -i | grep ".md" | grep -v "admins"); do
 	echo "[type: text] en/$FILE \$lang:\$lang/$FILE opt:\"-o markdown\" opt:\"-M utf-8\"" >>$CONFIGFILE
 done
 
