@@ -35,9 +35,7 @@ Here is an example to trigger article update every hour.
 
 ```cron
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
-
 ```
-
 
 Special parameters to configure the script - all parameters can be combined:
 
@@ -75,9 +73,7 @@ nothing special to configure:
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
-
 ```
-
 
 ### Form authentication
 
@@ -99,18 +95,14 @@ The scheduled task syntax to use will be the following:
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
-
 ```
-
 
 You can also target a different user by adding their username to the query
 string, with `&user=insert-username`:
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
-
 ```
-
 
 ### Authentification HTTP
 
@@ -121,9 +113,7 @@ be in plain sight!**
 
 ```cron
 0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
-
 ```
-
 
 ## Manual update
 

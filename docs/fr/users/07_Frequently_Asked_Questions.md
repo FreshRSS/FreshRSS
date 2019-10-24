@@ -87,9 +87,7 @@ ligne de commande. Pour cela, il suffit d'ouvrir son terminal et de saisir
 la commande suivante :
 ```sh
 ./cli/update_user.php --user <username> --password <password>
-
 ```
-
 Pour plus d'information à ce sujet, il existe la [documentation
 dédiée](../../cli/README.md).
 
@@ -102,8 +100,5 @@ l'étape 2 procède à la vérification des droits sur certains répertoires, il
 faut donc exécuter la commande suivante en tant que root:
 ```sh
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
-
 restorecon -Rv /usr/share/FreshRSS/data
-
 ```
-

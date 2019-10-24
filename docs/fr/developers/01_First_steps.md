@@ -26,11 +26,8 @@ Once you're done, clone the repository with:
 
 ```console
 $ git clone https://github.com/FreshRSS/FreshRSS.git
-
 $ cd FreshRSS
-
 ```
-
 
 Note that, if you want to contribute, you have to fork the repository first
 and clone your fork instead of the "root" one. Adapt the commands in
@@ -40,9 +37,7 @@ Then, the only command you need to know is the following:
 
 ```console
 $ make start
-
 ```
-
 
 This might take some time while Docker downloads the image. If your user
 isn't in the `docker` group, you'll need to prepend the command with `sudo`.
@@ -53,9 +48,7 @@ You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with 
 
 ```console
 $ make stop
-
 ```
-
 
 If you're interested in the configuration, the `make` commands are defined
 in the [`Makefile`](/Makefile).
@@ -65,9 +58,7 @@ set the `TAG` environment variable:
 
 ```console
 $ TAG=dev-arm make start
-
 ```
-
 
 You can find the full list of available tags [on the Docker
 hub](https://hub.docker.com/r/freshrss/freshrss/tags).
@@ -76,13 +67,9 @@ You might want to rebuild the Docker image locally. You can do it with:
 
 ```console
 $ make build
-
 $ # or
-
 $ TAG=dev-arm make build
-
 ```
-
 
 The `TAG` variable can be anything (e.g. `dev-local`). You can target a
 specific architecture by adding `-alpine` or `-arm` at the end of the tag
@@ -117,10 +104,9 @@ Une fois l'indentation faite, il peut être nécessaire de faire un alignement
 pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
 
 ```php
-$resultat = une_fonction_avec_un_nom_long($param1, $param2,
-                                          $param3, $param4);
+$result = a_function_with_a_really_long_name($param1, $param2,
+                                             $param3, $param4);
 ```
-
 
 ### Fin de ligne
 
@@ -132,12 +118,11 @@ Il est possible de vérifier la présence de caractères blancs en fin de ligne
 grâce à Git avec la commande suivante :
 
 ```bash
-# commande à lancer avant l'ajout des fichiers dans l'index
+# command to check files before adding them in the Git index
 git diff --check
-# commande à lancer après l'ajout des fichiers dans l'index mais avant le commit
+# command to check files after adding them in the Git index
 git diff --check --cached
 ```
-
 
 ### Fin de fichier
 
@@ -153,13 +138,11 @@ There should be a space before and after every operator.
 
 ```php
 if ($a == 10) {
-	// faire quelque chose
+	// do something
 }
 
 echo $a ? 1 : 0;
-
 ```
-
 
 ### Parentheses
 
@@ -170,21 +153,13 @@ accolade ouvrante.
 
 ```php
 if ($a == 10) {
-
 	// do something
-
 }
-
-
 
 if ((int)$a == 10) {
-
 	// do something
-
 }
-
 ```
-
 
 ### With chained functions
 
@@ -196,31 +171,18 @@ une instruction de même niveau.
 
 ```javascript
 // First instruction
-
 shortcut.add(shortcuts.mark_read, function () {
-
 		//...
-
 	}, {
-
 		'disable_in_input': true
-
 	});
-
 // Second instruction
-
 shortcut.add("shift+" + shortcuts.mark_read, function () {
-
 		//...
-
 	}, {
-
 		'disable_in_input': true
-
 	});
-
 ```
-
 
 ## Line length
 
@@ -231,15 +193,10 @@ With functions, parameters can be declared on different lines.
 
 ```php
 function my_function($param_1, $param_2,
-
                      $param_3, $param_4) {
-
 	// do something
-
 }
-
 ```
-
 
 ## Naming
 
@@ -252,19 +209,12 @@ They must follow the "snake case" convention.
 
 ```php
 // a function
-
 function function_name() {
-
 	// do something
-
 }
-
 // a variable
-
 $variable_name;
-
 ```
-
 
 ### Methods
 
@@ -272,13 +222,9 @@ They must follow the "lower camel case" convention.
 
 ```php
 private function methodName() {
-
 	// do something
-
 }
-
 ```
-
 
 ### Classes
 
@@ -286,9 +232,7 @@ They must follow the "upper camel case" convention.
 
 ```php
 abstract class ClassName {}
-
 ```
-
 
 ## Encoding
 
@@ -307,15 +251,10 @@ line.
 
 ```php
 if ($a == 10 ||
-
     $a == 20) {
-
 	// do something
-
 }
-
 ```
-
 
 ### Fin de fichier
 
@@ -328,14 +267,8 @@ followed by a comma even the last one.
 
 ```php
 $variable = [
-
 	"value 1",
-
 	"value 2",
-
 	"value 3",
-
 ];
-
 ```
-

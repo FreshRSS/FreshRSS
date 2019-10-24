@@ -81,32 +81,18 @@ Code example:
 ```php
 <?php
 
-
-
 class FreshRSS_hello_Controller extends Minz_ActionController {
-
 	public function indexAction() {
-
 		$this->view->a_variable = 'FooBar';
-
 	}
-
-
 
 	public function worldAction() {
-
 		$this->view->a_variable = 'Hello World!';
-
 	}
-
 }
 
-
-
 ?>
-
 ```
-
 
 When loading the address http://exemple.com?c=hello&a=world, the `world`
 action is executed on the `hello` controller.
@@ -128,13 +114,9 @@ As explained above, the views consist of HTML mixed with PHP. Code example:
 
 ```html
 <p>
-
 	This is a parameter passed from the controller: <?= $this->a_variable ?>
-
 </p>
-
 ```
-
 
 The variable `$this->a_variable` is passed by the controller (see previous example). The difference is that in the controller it is necessary to pass `$this->view`, while in the view `$this` suffices.
 
@@ -147,40 +129,22 @@ class.  Code example:
 ```php
 <?php
 
-
-
 $default_value = 'foo';
-
 $param = Minz_Request::param('bar', $default_value);
 
-
-
 // Display the value of the parameter `bar` (passed via GET or POST)
-
 // or "foo" if the parameter does not exist.
-
 echo $param;
 
-
-
 // Sets the value of the `bar` parameter
-
 Minz_Request::_param('bar', 'baz');
 
-
-
 // Will necessarily display "baz" since we have just forced its value.
-
 // Note that the second parameter (default) is optional.
-
 echo Minz_Request::param('bar');
 
-
-
 ?>
-
 ```
-
 
 The `Minz_Request::isPost()` method can be used to execute a piece of code
 only if it is a POST request.
@@ -204,13 +168,9 @@ should be avoided:
 
 ```html
 <p>
-
 	Go to page <a href="http://example.com?c=hello&amp;a=world">Hello world</a>!
-
 </p>
-
 ```
-
 
 Should it be decided one day to use a "url rewriting" system to have
 addresses in a http://exemple.com/controller/action format, all previous
@@ -223,34 +183,19 @@ argument:
 ```php
 <?php
 
-
-
 $url_array = [
-
 	'c' => 'hello',
-
 	'a' => 'world',
-
 	'params' => [
-
 		'foo' => 'bar',
-
 	],
-
 ];
 
-
-
 // Show something like .?c=hello&amp;a=world&amp;foo=bar
-
 echo Minz_Url::display($url_array);
 
-
-
 ?>
-
 ```
-
 
 Since this can become a bit tedious to use in the long run, especially in
 views, it is preferable to use the `_url()' shortcut:
@@ -258,18 +203,11 @@ views, it is preferable to use the `_url()' shortcut:
 ```php
 <?php
 
-
-
 // Displays the same as above
-
 echo _url('hello', 'world', 'foo', 'bar');
 
-
-
 ?>
-
 ```
-
 
 Note: as a general rule, the shortened form (`_url()`) should be used in
 views, while the long form (`Minz_Url::display()`) should be used in
@@ -286,40 +224,22 @@ Code example:
 ```php
 <?php
 
-
-
 $url_array = [
-
 	'c' => 'hello',
-
 	'a' => 'world',
-
 ];
 
-
-
 // Tells Minz to redirect the user to the hello / world page.
-
 // Note that this is a redirection in the Minz sense of the term, not a redirection that the browser will have to manage (HTTP code 301 or 302)
-
 // The code that follows forward() will thus be executed!
-
 Minz_Request::forward($url_array);
 
-
-
 // To perform a type 302 redirect, add "true".
-
 // The code that follows will never be executed.
-
 Minz_Request::forward($url_array, true);
 
-
-
 ?>
-
 ```
-
 
 It is very common to want display a message to the user while performing a
 redirect, to tell the user how the action was carried out (validation of a
@@ -332,38 +252,21 @@ redirect by assigning a feedback message:
 ```php
 <?php
 
-
-
 $url_array = [
-
 	'c' => 'hello',
-
 	'a' => 'world',
-
 ];
-
 $feedback_good = 'Tout s\'est bien passé !';
-
 $feedback_bad = 'Oups, quelque chose n\'a pas marché.';
-
-
 
 Minz_Request::good($feedback_good, $url_array);
 
-
-
 // or
-
-
 
 Minz_Request::bad($feedback_bad, $url_array);
 
-
-
 ?>
-
 ```
-
 
 ### Translation Management
 
@@ -396,40 +299,22 @@ PHP table containing the translations. Extract from `app/i18n/en/gen.php`:
 ```php
 <?php
 
-
-
 return array(
-
 	'action' => [
-
 		'actualize' => 'Actualiser',
-
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
-
 		'cancel' => 'Annuler',
-
 		'create' => 'Créer',
-
 		'disable' => 'Désactiver',
-
 	),
-
 	'freshrss' => array(
-
 		'_' => 'FreshRSS',
-
 		'about' => 'À propos de FreshRSS',
-
 	),
-
 ];
 
-
-
 ?>
-
 ```
-
 
 To access these translations, `Minz_Translate` will help us with its
 `Minz_Translate::t()` method. As this can be a bit long to type, a shortcut
@@ -438,17 +323,11 @@ Code example:
 
 ```html
 <p>
-
 	<a href="<?= _url('index', 'index') ?>">
-
 		<?= _t('gen.action.back_to_rss_feeds') ?>
-
 	</a>
-
 </p>
-
 ```
-
 
 The string to pass to the `_t()` function consists of a series of
 identifiers separated by dots. The first identifier indicates from which
@@ -501,17 +380,11 @@ In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you
 need the structure:
 ```html
 class HelloWorldExtension extends Minz_Extension {
-
 	public function init() {
-
 		// your code here
-
 	}
-
 }
-
 ```
-
 There is an example HelloWorld extension that you can download from [our
 GitHub repo](https://github.com/FreshRSS/xExtension-HelloWorld).
 
@@ -608,27 +481,16 @@ method, to manipulate data when some of the core functions are executed.
 
 ```html
 class HelloWorldExtension extends Minz_Extension
-
 {
-
 	public function init() {
-
 		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
-
 	}
-
 	public function renderEntry($entry) {
-
 		$entry->_content('<h1>Hello World</h1>' . $entry->content());
-
 		return $entry;
-
 	}
-
 }
-
 ```
-
 
 The following events are available:
 

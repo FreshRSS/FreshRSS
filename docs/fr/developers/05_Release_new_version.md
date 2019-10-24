@@ -21,27 +21,16 @@ branche de dev avec les mises à jour de la ou les version(s) à sortir.
 
 ```bash
 $ git checkout master
-
 $ git pull
-
 $ git merge --ff dev
-
 $ vim constants.php
-
-# Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION
-
+# Update version number x.y.y.z of FRESHRSS_VERSION
 $ git commit -a
-
 Version x.y.z
-
 $ git tag -a x.y.z
-
 Version x.y.z
-
 $ git push && git push --tags
-
 ```
-
 
 # Mise à jour de update.freshrss.org
 
@@ -95,29 +84,17 @@ Voici un exemple de fichier `versions.php` :
 
 ```php
 <?php
-
 return array(
-
 	// STABLE
-
 	'0.8.0' => '1.0.0',
-
 	'0.8.1' => '1.0.0',
-
 	'1.0.0' => '1.0.1',  // doesn't exist (yet)
-
 	// DEV
-
 	'1.1.2-dev' => 'dev',
-
 	'1.1.3-dev' => 'dev',
-
 	'1.1.4-dev' => 'dev',
-
 );
-
 ```
-
 
 Et voici comment fonctionne cette table :
 
@@ -169,19 +146,12 @@ Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 
 ```bash
 $ git checkout dev
-
 $ vim constants.php
-
-# Mettre à jour le numéro de version de FRESHRSS_VERSION
-
+# Update the FRESHRSS_VERSION
 $ vim CHANGELOG.md
-
-# Préparer la section pour la prochaine version
-
+# Prepare the changelog for the next version
 $ git add CHANGELOG.md && git commit && git push
-
 ```
-
 
 Pensez aussi à mettre à jour update.freshrss.org pour qu'il prenne en compte
 la version de développement actuelle.

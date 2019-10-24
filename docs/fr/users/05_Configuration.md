@@ -177,17 +177,11 @@ At the moment, there is no helper to build a user query from here.
 
 ```
 AuthUserFile /home/marie/repertoire/.htpasswd
-
 AuthGroupFile /dev/null
-
 AuthName "Chez Marie"
-
 AuthType Basic
-
 Require user marie
-
 ```
-
 
 Plus d'informations dans [la documentation
 d'Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)

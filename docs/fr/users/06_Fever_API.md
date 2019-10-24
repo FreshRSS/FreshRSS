@@ -59,15 +59,10 @@ https://freshrss.example.net/api/fever.php?api which should give you the
 result:
 ```json
 {
-
 	"api_version": 3,
-
 	"auth": 0
-
 }
-
 ```
-
 Great, the base setup seems to work!
 
 Now lets try an authenticated call. Fever uses an `api_key`, which is the
@@ -77,33 +72,23 @@ resulting `api_key`
 
 ```sh
 api_key=`echo -n "kevin:freshrss" | md5sum | cut -d' ' -f1`
-
 ```
-
 
 Add a body to your POST request encoded as `form-data` and one key named
 `api_key` with the value `your-password-hash`:
 
 ```sh
 curl -s -F "api_key=$api_key" 'https://freshrss.example.net/api/fever.php?api'
-
 ```
-
 
 This should give:
 ```json
 {
-
 	"api_version": 3,
-
 	"auth": 1,
-
 	"last_refreshed_on_time": "1520013061"
-
 }
-
 ```
-
 Perfect, you are authenticated and can now start testing the more advanced
 features. Therefor change the URL and append the possible API actions to
 your request parameters. Check the [original Fever
@@ -132,9 +117,7 @@ start of `fever.api`:
 
 ```php
 file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);
-
 ```
-
 
 Then use your RSS client to query the API and afterwards check the file
 `fever.log`.
