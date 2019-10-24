@@ -70,10 +70,10 @@ URL: https://freshrss.example.net/i/?c=feed&a=actualize (it could be
 different depending on your installation). Depending on your application
 authentication method, you need to adapt the scheduled task.
 
-#### No authentication
+#### Aucune authentification
 
-This is the most straightforward since you have a public instance; there is
-nothing special to configure:
+C’est le cas le plus simple, puisque votre instance est publique, vous
+n’avez rien de particulier à préciser :
 
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
@@ -202,15 +202,16 @@ By default, this filter displays only unread articles
 It is possible to filter articles by their content by inputting a string in
 the search field.
 
-## With the search field
+## Grâce au champ de recherche
 
-It is possible to use the search field to further refine results:
+Il est possible d’utiliser le champ de recherche pour raffiner les résultats
+:
 
-* by author: `author:name` or `author:'composed name'`
-* by title: `intitle:keyword` or `intitle:'composed keyword'`
-* by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag`
-* by free-text: `keyword` or `'composed keyword'`
+* par auteur : `author:nom` or `author:'nom composé'`
+* par titre : `intitle:mot` or `intitle:'mot composé'`
+* par URL: `inurl:mot` or `inurl:'mot composé'`
+* par tag: `#tag`
+* par texte libre : `mot` or `'mot composé'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
 		* `date:2014-03-30`
@@ -245,16 +246,17 @@ It is possible to use the search field to further refine results:
 		* `date:P1DT1H/` (past one day and one hour)
 * by date of publication, using the same format: `pubdate:<date-interval>`
 
-Beware that there is no space between the operator and the value.
+Attention à ne pas introduire d’espace entre l’opérateur et la valeur
+recherchée.
 
-Some operators can be used negatively, to exclude articles, with the same
-syntax as above, but prefixed by a `!` or `-`: `-author:name`,
-`-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`.
+Certains opérateurs peuvent être utilisé négativement, pour exclure des
+articles, avec la même syntaxe que ci-dessus, mais préfixé par `!` ou `-`
+:`-author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`.
 
-It is also possible to combine operators to have a very sharp filter, and it
-is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`,
-`#`, and free-text.
+Il est également possible de combiner les mots-clefs pour faire un filtrage
+encore plus précis, et il est autorisé d’avoir plusieurs instances de :
+`author:`, `intitle:`, `inurl:`, `#`, et texte libre.
 
-Combining several search criteria implies a logical *and*, but the keyword `
-OR ` can be used to combine several search criteria with a logical *or*
-instead: `author:Dupont OR author:Dupond`
+Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR
+` peut être utiliser pour combiner plusieurs critères avec un *ou* logique
+:`author:Dupont OR author:Dupond`

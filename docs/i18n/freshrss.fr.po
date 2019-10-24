@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 23:59+0200\n"
-"PO-Revision-Date: 2019-10-25 00:00+0100\n"
+"POT-Creation-Date: 2019-10-25 00:08+0200\n"
+"PO-Revision-Date: 2019-10-25 00:08+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -2880,7 +2880,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:57
 #, no-wrap
 msgid "No authentication"
-msgstr ""
+msgstr "Aucune authentification"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:60
@@ -2888,12 +2888,14 @@ msgid ""
 "This is the most straightforward since you have a public instance; there is "
 "nothing special to configure:"
 msgstr ""
+"C’est le cas le plus simple, puisque votre instance est publique, vous "
+"n’avez rien de particulier à préciser :"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:61
 #, no-wrap
 msgid "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
-msgstr ""
+msgstr "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
 
 #. type: Title ###
 #: en/./users/03_Main_view.md:65
@@ -3220,37 +3222,39 @@ msgstr ""
 #: en/./users/03_Main_view.md:157
 #, no-wrap
 msgid "With the search field"
-msgstr ""
+msgstr "Grâce au champ de recherche"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:160
-msgid "It is possible to use the search field to further refine results:"
+msgid "You can use the search field to further refine results:"
 msgstr ""
+"Il est possible d’utiliser le champ de recherche pour raffiner les "
+"résultats :"
 
 #. type: Bullet: '* '
 #: en/./users/03_Main_view.md:199
 msgid "by author: `author:name` or `author:'composed name'`"
-msgstr ""
+msgstr "par auteur : `author:nom` or `author:'nom composé'`"
 
 #. type: Bullet: '* '
 #: en/./users/03_Main_view.md:199
 msgid "by title: `intitle:keyword` or `intitle:'composed keyword'`"
-msgstr ""
+msgstr "par titre : `intitle:mot` or `intitle:'mot composé'`"
 
 #. type: Bullet: '* '
 #: en/./users/03_Main_view.md:199
 msgid "by URL: `inurl:keyword` or `inurl:'composed keyword'`"
-msgstr ""
+msgstr "par URL: `inurl:mot` or `inurl:'mot composé'`"
 
 #. type: Bullet: '* '
 #: en/./users/03_Main_view.md:199
 msgid "by tag: `#tag`"
-msgstr ""
+msgstr "par tag: `#tag`"
 
 #. type: Bullet: '* '
 #: en/./users/03_Main_view.md:199
 msgid "by free-text: `keyword` or `'composed keyword'`"
-msgstr ""
+msgstr "par texte libre : `mot` or `'mot composé'`"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:199
@@ -3293,8 +3297,11 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:201
-msgid "Beware that there is no space between the operator and the value."
+msgid ""
+"Be careful not to enter a space between the operator and the search value."
 msgstr ""
+"Attention à ne pas introduire d’espace entre l’opérateur et la valeur "
+"recherchée."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:204
@@ -3303,14 +3310,20 @@ msgid ""
 "syntax as above, but prefixed by a `!` or `-`: `-author:name`, `-intitle:"
 "keyword`, `-inurl:keyword`, `-#tag`, `!keyword`."
 msgstr ""
+"Certains opérateurs peuvent être utilisé négativement, pour exclure des "
+"articles, avec la même syntaxe que ci-dessus, mais préfixé par `!` ou `-` :`-"
+"author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:206
 msgid ""
-"It is also possible to combine operators to have a very sharp filter, and it "
-"is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`, "
-"`#`, and free-text."
+"It is also possible to combine keywords to create a more precise filter. For "
+"example, you can enter multiple instances of `author:`, `intitle:`, `inurl:"
+"`, `#`, and free-text."
 msgstr ""
+"Il est également possible de combiner les mots-clefs pour faire un filtrage "
+"encore plus précis, et il est autorisé d’avoir plusieurs instances de : "
+"`author:`, `intitle:`, `inurl:`, `#`, et texte libre."
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:208
@@ -3319,6 +3332,9 @@ msgid ""
 "OR ` can be used to combine several search criteria with a logical *or* "
 "instead: `author:Dupont OR author:Dupond`"
 msgstr ""
+"Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR "
+"` peut être utiliser pour combiner plusieurs critères avec un *ou* logique :"
+"`author:Dupont OR author:Dupond`"
 
 #. type: Title #
 #: en/./users/04_Subscriptions.md:1

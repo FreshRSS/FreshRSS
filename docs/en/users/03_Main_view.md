@@ -156,7 +156,7 @@ It is possible to filter articles by their content by inputting a string in the 
 
 ## With the search field
 
-It is possible to use the search field to further refine results:
+You can use the search field to further refine results:
 
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
@@ -197,12 +197,12 @@ It is possible to use the search field to further refine results:
 		* `date:P1DT1H/` (past one day and one hour)
 * by date of publication, using the same format: `pubdate:<date-interval>`
 
-Beware that there is no space between the operator and the value.
+Be careful not to enter a space between the operator and the search value.
 
 Some operators can be used negatively, to exclude articles, with the same syntax as above, but prefixed by a `!` or `-`:
 `-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`.
 
-It is also possible to combine operators to have a very sharp filter, and it is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`, `#`, and free-text.
+It is also possible to combine keywords to create a more precise filter. For example, you can enter multiple instances of `author:`, `intitle:`, `inurl:`, `#`, and free-text.
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR ` can be used to combine several search criteria with a logical *or* instead:
 `author:Dupont OR author:Dupond`

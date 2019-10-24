@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 23:59+0200\n"
+"POT-Creation-Date: 2019-10-25 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2930,7 +2930,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:160
-msgid "It is possible to use the search field to further refine results:"
+msgid "You can use the search field to further refine results:"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -3001,7 +3001,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:201
-msgid "Beware that there is no space between the operator and the value."
+msgid "Be careful not to enter a space between the operator and the search value."
 msgstr ""
 
 #. type: Plain text
@@ -3015,9 +3015,9 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:206
 msgid ""
-"It is also possible to combine operators to have a very sharp filter, and it "
-"is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`, "
-"`#`, and free-text."
+"It is also possible to combine keywords to create a more precise filter. For "
+"example, you can enter multiple instances of `author:`, `intitle:`, "
+"`inurl:`, `#`, and free-text."
 msgstr ""
 
 #. type: Plain text
