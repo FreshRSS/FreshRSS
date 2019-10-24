@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 17:16+0200\n"
-"PO-Revision-Date: 2019-10-24 17:17+0100\n"
+"POT-Creation-Date: 2019-10-24 17:40+0200\n"
+"PO-Revision-Date: 2019-10-24 17:41+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -4497,7 +4497,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:89
 #, no-wrap
 msgid "HTTP authentication"
-msgstr ""
+msgstr "Authentification HTTP"
 
 #. type: Plain text
 #: en/./users/03_Main_view.md:92
@@ -5153,29 +5153,33 @@ msgid ""
 "since it contains the feed name and the article title. But if you do the "
 "same thing for the bottom line, it will be empty."
 msgstr ""
-"Si vous désactivez tous les éléments de la ligne supérieure, vous pourrez"
-" toujours les voir, puisqu'il contient le nom du flux et le titre de"
-" l'article. Mais si vous faites le même chose pour la ligne inférieure, elle"
-" sera vide."
+"Si vous désactivez tous les éléments de la ligne supérieure, vous pourrez "
+"toujours les voir, puisqu'il contient le nom du flux et le titre de "
+"l'article. Mais si vous faites le même chose pour la ligne inférieure, elle "
+"sera vide."
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:53
 #, no-wrap
 msgid "HTML5 notification timout"
-msgstr ""
+msgstr "Temps d'affichage de la notification HTML5"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:56
 msgid ""
-"After the automatic updates of the feeds, FreshRSS uses the HTML5 "
-"notification API to notify of the arrival of new articles."
+"After automatically updating the feeds, FreshRSS can pop up a notification "
+"using the HTML5 notification API."
 msgstr ""
+"Après la mise à jour automatique des flux, FreshRSS utilise l'API de "
+"notification de HTML5 pour avertir de l'arrivée de nouveaux articles."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:58
 msgid ""
 "The duration of this notification can be set. By default, the value is 0."
 msgstr ""
+"Il est possible de régler la durée d'affichage de cette notification. Par "
+"défaut, la valeur est 0."
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:59
@@ -5220,19 +5224,21 @@ msgstr ""
 #: en/./users/05_Configuration.md:75
 #, no-wrap
 msgid "Sharing"
-msgstr ""
+msgstr "Partage"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:78
 msgid ""
-"To make your life easier, you can share directly an article within FreshRSS."
+"To make your life easier, you can share articles straight from FreshRSS."
 msgstr ""
+"Pour vous faciliter la vie, vous pouvez partager des articles directement "
+"via FreshRSS."
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:80
 msgid ""
-"At the moment, FreshRSS supports 15 sharing methods ranging from self-hosted "
-"services (Shaarli, etc.) to proprietary services (Facebook, etc.)."
+"At the moment, FreshRSS supports 18 sharing methods, ranging from self-"
+"hosted services (Shaarli, etc.) to proprietary services (Facebook, etc.)."
 msgstr ""
 
 #. type: Plain text
@@ -5244,25 +5250,27 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:85
-msgid "To add a new item in the list, follow those simple steps:"
+msgid ""
+"To add a new item to the list, please follow the following simple steps:"
+msgstr ""
+"Pour ajouter un nouvel élément à la liste, veuillez suivre les étapes "
+"simples ci-dessous :"
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:90
+msgid "Select the desired sharing method in the drop-down list."
 msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:90
-msgid "Select the share method in the drop-down."
-msgstr ""
-
-#. type: Bullet: ' 1. '
-#: en/./users/05_Configuration.md:90
-msgid "Press the ```✚``` sign to add it to the list."
+msgid "Press the ```✚``` button to add it to the list."
 msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:90
 msgid ""
-"Configure the method in the list. All method names can be modified in the "
-"display. Some methods need the sharing URL to be able to work properly (ex: "
-"Shaarli)."
+"Configure the method in the list. All names can be modified in the display. "
+"Some methods need the sharing URL to be able to work properly (ex: Shaarli)."
 msgstr ""
 
 #. type: Bullet: ' 1. '
@@ -5277,7 +5285,7 @@ msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:95
-msgid "Press the ```❌``` sign next to the share method you want to remove."
+msgid "Press the ```❌``` button next to the share method you want to remove."
 msgstr ""
 
 #. type: Title #
@@ -5448,13 +5456,13 @@ msgstr ""
 #: en/./users/05_Configuration.md:150
 #, no-wrap
 msgid "Information"
-msgstr ""
+msgstr "Informations"
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:154
 #, no-wrap
-msgid "Archivage"
-msgstr ""
+msgid "Archival"
+msgstr "Archivage"
 
 #. type: Title ##
 #: en/./users/05_Configuration.md:158
@@ -5505,28 +5513,39 @@ msgstr ""
 #: en/./users/05_Configuration.md:172
 #, no-wrap
 msgid "Example: Rue89"
-msgstr ""
+msgstr "Exemple 1 : Rue89"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:175
 msgid ""
-"To find this path, you must go to the address of one of the truncated "
-"articles (for example http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-"
-"lextase-dihn-pedagogie-inversee-246635). You must then look for the \"block"
-"\" of HTML corresponding to the content of the article (in the source code!)."
+"To find this path, you have to go to the address of one of the truncated "
+"articles (for example, http://www.rue89.com/2013/10/15/prof-maths-jai-"
+"atteint-lextase-dihn-pedagogie-inversee-246635). You look have to look for "
+"the \"block\" of HTML that corresponds to article content (in the source "
+"code!)."
 msgstr ""
+"Pour trouver ce chemin, il faut se rendre à l'adresse d'un des articles"
+" tronqués (par exemple http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-"
+"lextase-dihn-pedagogie-inversee-246635). Il faut alors chercher le \"bloc\""
+" HTML correspondant au contenu de l'article (dans le code source !)"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:177
 #, no-wrap
 msgid ""
-"We find here that the block that encompasses only the content of the article"
-" is ```<div class=\"content clearfix\">```. We will only use the \".content\""
-" class here. Nevertheless, as said above, it is best to start the path with"
-" an id. If we go back to the parent block, this is the block ```<div"
+"Here we find that the block that encompasses nothing but the content of the"
+" article is ```<div class=\"content clearfix\">```. We'll only use the"
+" `.content` class here. Nevertheless, as said above, it's best to start the"
+" path with an id. If we go back to the parent block, we find ```<div"
 " id=\"article\">``` and that's perfect! The path will be ```#article"
 " .content```.\n"
 msgstr ""
+"On trouve ici que le bloc qui englobe uniquement le contenu de l'article est"
+" ```<div class=\"content clearfix\">```. On ne va garder que la classe"
+" `.content` ici. Néanmoins, comme je le disais plus haut, il est préférable"
+" de commencer le chemin avec un id. Si on remonte au bloc parent, il s'agit"
+" du bloc ```<div id=\"article\">``` et c'est parfait ! Le chemin sera donc"
+" ```#article .content```.\n"
 
 #. type: Title ####
 #: en/./users/05_Configuration.md:178
@@ -5539,17 +5558,17 @@ msgstr ""
 #. type: Bullet: '*  '
 #: en/./users/05_Configuration.md:184
 msgid "Rue89: ```#article .content```"
-msgstr ""
+msgstr "Rue89 : ```#article .content```"
 
 #. type: Bullet: '*  '
 #: en/./users/05_Configuration.md:184
 msgid "PCINpact: ```#actu_content```"
-msgstr ""
+msgstr "PCINpact : ```#actu_content```"
 
 #. type: Bullet: '*  '
 #: en/./users/05_Configuration.md:184
 msgid "Lesnumériques: ```article#body div.text.clearfix```"
-msgstr ""
+msgstr "Lesnumériques : ```article#body div.text.clearfix```"
 
 #. type: Bullet: '*  '
 #: en/./users/05_Configuration.md:184

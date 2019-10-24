@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-24 17:16+0200\n"
+"POT-Creation-Date: 2019-10-24 17:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5029,8 +5029,8 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:56
 msgid ""
-"After the automatic updates of the feeds, FreshRSS uses the HTML5 "
-"notification API to notify of the arrival of new articles."
+"After automatically updating the feeds, FreshRSS can pop up a notification "
+"using the HTML5 notification API."
 msgstr ""
 
 #. type: Plain text
@@ -5085,14 +5085,15 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:78
-msgid "To make your life easier, you can share directly an article within FreshRSS."
+msgid "To make your life easier, you can share articles straight from FreshRSS."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:80
 msgid ""
-"At the moment, FreshRSS supports 15 sharing methods ranging from self-hosted "
-"services (Shaarli, etc.) to proprietary services (Facebook, etc.)."
+"At the moment, FreshRSS supports 18 sharing methods, ranging from "
+"self-hosted services (Shaarli, etc.) to proprietary services (Facebook, "
+"etc.)."
 msgstr ""
 
 #. type: Plain text
@@ -5104,23 +5105,23 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:85
-msgid "To add a new item in the list, follow those simple steps:"
+msgid "To add a new item to the list, please follow the following simple steps:"
 msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:90
-msgid "Select the share method in the drop-down."
+msgid "Select the desired sharing method in the drop-down list."
 msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:90
-msgid "Press the ```✚``` sign to add it to the list."
+msgid "Press the ```✚``` button to add it to the list."
 msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:90
 msgid ""
-"Configure the method in the list. All method names can be modified in the "
+"Configure the method in the list. All names can be modified in the "
 "display. Some methods need the sharing URL to be able to work properly (ex: "
 "Shaarli)."
 msgstr ""
@@ -5137,7 +5138,7 @@ msgstr ""
 
 #. type: Bullet: ' 1. '
 #: en/./users/05_Configuration.md:95
-msgid "Press the ```❌``` sign next to the share method you want to remove."
+msgid "Press the ```❌``` button next to the share method you want to remove."
 msgstr ""
 
 #. type: Title #
@@ -5312,7 +5313,7 @@ msgstr ""
 #. type: Title ##
 #: en/./users/05_Configuration.md:154
 #, no-wrap
-msgid "Archivage"
+msgid "Archival"
 msgstr ""
 
 #. type: Title ##
@@ -5369,21 +5370,21 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:175
 msgid ""
-"To find this path, you must go to the address of one of the truncated "
-"articles (for example "
+"To find this path, you have to go to the address of one of the truncated "
+"articles (for example, "
 "http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). "
-"You must then look for the \"block\" of HTML corresponding to the content of "
-"the article (in the source code!)."
+"You look have to look for the \"block\" of HTML that corresponds to article "
+"content (in the source code!)."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:177
 #, no-wrap
 msgid ""
-"We find here that the block that encompasses only the content of the article "
-"is ```<div class=\"content clearfix\">```. We will only use the \".content\" "
-"class here. Nevertheless, as said above, it is best to start the path with "
-"an id. If we go back to the parent block, this is the block ```<div "
+"Here we find that the block that encompasses nothing but the content of the "
+"article is ```<div class=\"content clearfix\">```. We'll only use the "
+"`.content` class here. Nevertheless, as said above, it's best to start the "
+"path with an id. If we go back to the parent block, we find ```<div "
 "id=\"article\">``` and that's perfect! The path will be ```#article "
 ".content```.\n"
 msgstr ""

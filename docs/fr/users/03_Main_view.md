@@ -112,7 +112,7 @@ string, with `&user=insert-username`:
 ```
 
 
-### HTTP authentication
+### Authentification HTTP
 
 In that case, the syntax in the two previous section are unusable. It means
 that you need to provide your credentials to the scheduled task. **Note that

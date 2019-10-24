@@ -52,7 +52,7 @@ the bottom line, it will be empty.
 
 ## HTML5 notification timout
 
-After the automatic updates of the feeds, FreshRSS uses the HTML5 notification API to notify of the arrival of new articles.
+After automatically updating the feeds, FreshRSS can pop up a notification using the HTML5 notification API.
 
 The duration of this notification can be set. By default, the value is 0.
 
@@ -74,23 +74,23 @@ If you don't use those buttons because you never browse on mobile or because you
 
 # Sharing
 
-To make your life easier, you can share directly an article within FreshRSS.
+To make your life easier, you can share articles straight from FreshRSS.
 
-At the moment, FreshRSS supports 15 sharing methods ranging from self-hosted services (Shaarli, etc.) to proprietary services (Facebook, etc.).
+At the moment, FreshRSS supports 18 sharing methods, ranging from self-hosted services (Shaarli, etc.) to proprietary services (Facebook, etc.).
 
 By default, the sharing list is empty.
 ![Sharing configuration](../img/users/configuration.sharing.png)
 
-To add a new item in the list, follow those simple steps:
+To add a new item to the list, please follow the following simple steps:
 
- 1. Select the share method in the drop-down.
- 1. Press the ```✚``` sign to add it to the list.
- 1. Configure the method in the list. All method names can be modified in the display. Some methods need the sharing URL to be able to work properly (ex: Shaarli).
+ 1. Select the desired sharing method in the drop-down list.
+ 1. Press the ```✚``` button to add it to the list.
+ 1. Configure the method in the list. All  names can be modified in the display. Some methods need the sharing URL to be able to work properly (ex: Shaarli).
  1. Submit your changes.
 
 To remove an item from the list, follow those simple steps:
 
- 1. Press the ```❌``` sign next to the share method you want to remove.
+ 1. Press the ```❌``` button next to the share method you want to remove.
  1. Submit your changes.
 
 # Shortcuts
@@ -151,7 +151,7 @@ More information can be found in the [Apache documentation](http://httpd.apache.
 
 **TODO**
 
-## Archivage
+## Archival
 
 **TODO**
 
@@ -171,9 +171,9 @@ What is meant by "CSS path of articles on the original site" actually correspond
 
 #### Example: Rue89
 
-To find this path, you must go to the address of one of the truncated articles (for example http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). You must then look for the "block" of HTML corresponding to the content of the article (in the source code!).
+To find this path, you have to go to the address of one of the truncated articles (for example, http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
 
-We find here that the block that encompasses only the content of the article is ```<div class="content clearfix">```. We will only use the ".content" class here. Nevertheless, as said above, it is best to start the path with an id. If we go back to the parent block, this is the block ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
+Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We'll only use the `.content` class here. Nevertheless, as said above, it's best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
 
 #### Add the corresponding classes to the articles CSS path on the feed configuration page. Examples:
 

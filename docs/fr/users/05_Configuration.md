@@ -67,12 +67,13 @@ toujours les voir, puisqu'il contient le nom du flux et le titre de
 l'article. Mais si vous faites le même chose pour la ligne inférieure, elle
 sera vide.
 
-## HTML5 notification timout
+## Temps d'affichage de la notification HTML5
 
-After the automatic updates of the feeds, FreshRSS uses the HTML5
-notification API to notify of the arrival of new articles.
+Après la mise à jour automatique des flux, FreshRSS utilise l'API de
+notification de HTML5 pour avertir de l'arrivée de nouveaux articles.
 
-The duration of this notification can be set. By default, the value is 0.
+Il est possible de régler la durée d'affichage de cette notification. Par
+défaut, la valeur est 0.
 
 ## Show the navigation button
 
@@ -93,28 +94,31 @@ you browse with gestures, you can disable them from the interface.
 
 **TODO**
 
-# Sharing
+# Partage
 
-To make your life easier, you can share directly an article within FreshRSS.
+Pour vous faciliter la vie, vous pouvez partager des articles directement
+via FreshRSS.
 
-At the moment, FreshRSS supports 15 sharing methods ranging from self-hosted
-services (Shaarli, etc.) to proprietary services (Facebook, etc.).
+At the moment, FreshRSS supports 18 sharing methods, ranging from
+self-hosted services (Shaarli, etc.) to proprietary services (Facebook,
+etc.).
 
 By default, the sharing list is empty.  ![Sharing
 configuration](../img/users/configuration.sharing.png)
 
-To add a new item in the list, follow those simple steps:
+Pour ajouter un nouvel élément à la liste, veuillez suivre les étapes
+simples ci-dessous :
 
- 1. Select the share method in the drop-down.
- 1. Press the ```✚``` sign to add it to the list.
- 1. Configure the method in the list. All method names can be modified in
-    the display. Some methods need the sharing URL to be able to work
-    properly (ex: Shaarli).
+ 1. Select the desired sharing method in the drop-down list.
+ 1. Press the ```✚``` button to add it to the list.
+ 1. Configure the method in the list. All names can be modified in the
+    display. Some methods need the sharing URL to be able to work properly
+    (ex: Shaarli).
  1. Submit your changes.
 
 To remove an item from the list, follow those simple steps:
 
- 1. Press the ```❌``` sign next to the share method you want to remove.
+ 1. Press the ```❌``` button next to the share method you want to remove.
  1. Submit your changes.
 
 # Shortcuts
@@ -190,7 +194,7 @@ documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworki
 
 # Subscription management
 
-## Information
+## Informations
 
 **TODO**
 
@@ -221,21 +225,21 @@ matches the id and class attributes) to retrieve only the interesting part
 that corresponds to the article. Ideally, this path starts with an id (which
 is unique to the page).
 
-#### Example: Rue89
+#### Exemple 1 : Rue89
 
-To find this path, you must go to the address of one of the truncated
-articles (for example
+Pour trouver ce chemin, il faut se rendre à l'adresse d'un des articles
+tronqués (par exemple
 http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635).
-You must then look for the "block" of HTML corresponding to the content of
-the article (in the source code!).
+Il faut alors chercher le "bloc" HTML correspondant au contenu de l'article
+(dans le code source !)
 
-We find here that the block that encompasses only the content of the article is ```<div class="content clearfix">```. We will only use the ".content" class here. Nevertheless, as said above, it is best to start the path with an id. If we go back to the parent block, this is the block ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
+On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```<div class="content clearfix">```. On ne va garder que la classe `.content` ici. Néanmoins, comme je le disais plus haut, il est préférable de commencer le chemin avec un id. Si on remonte au bloc parent, il s'agit du bloc ```<div id="article">``` et c'est parfait ! Le chemin sera donc ```#article .content```.
 
 #### Add the corresponding classes to the articles CSS path on the feed configuration page. Examples:
 
-*  Rue89: ```#article .content```
-*  PCINpact: ```#actu_content```
-*  Lesnumériques: ```article#body div.text.clearfix```
+*  Rue89 : ```#article .content```
+*  PCINpact : ```#actu_content```
+*  Lesnumériques : ```article#body div.text.clearfix```
 *  Phoronix : ```#main .content```
 
 ### Retrieve a truncated stream with external tools
