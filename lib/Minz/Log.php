@@ -15,10 +15,10 @@ class Minz_Log {
 	 * NOTICE erreurs mineures ou messages d'informations
 	 * DEBUG Informations affichées pour le déboggage
 	 */
-	const ERROR = 2;
-	const WARNING = 4;
-	const NOTICE = 8;
-	const DEBUG = 16;
+	const ERROR = LOG_ERR;
+	const WARNING = LOG_WARNING;
+	const NOTICE = LOG_NOTICE;
+	const DEBUG = LOG_DEBUG;
 
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
@@ -70,6 +70,10 @@ class Minz_Log {
 			$log = '[' . date('r') . ']'
 			     . ' [' . $level_label . ']'
 			     . ' --- ' . $information . "\n";
+
+			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
+				syslog($level, '[' . $username . '] ' . $log);
+			}
 
 			self::ensureMaxLogSize($file_name);
 
