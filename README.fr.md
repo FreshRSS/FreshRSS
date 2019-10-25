@@ -203,9 +203,9 @@ Tout client supportant une API de type Fever ; Sélection :
 	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 * iOS
 	* [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
-	* [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
+	* [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
 * MacOS
-	* [Readkit](https://apps.apple.com/app/readkit/id588726889) (Propriétaire)
+	* [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 # Bibliothèques incluses
