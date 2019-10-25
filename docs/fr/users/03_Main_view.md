@@ -40,8 +40,8 @@ toutes les heures.
 0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-Paramètres spéciaux pour configurer le script - tous les paramètres peuvent
-être combinés :
+« Paramètres de configuration du script; Ils sont utilisables simultanément
+: »
 
 - Parameter "force"
 https://freshrss.example.net/i/?c=feed&a=actualize&force=1 If *force* is set

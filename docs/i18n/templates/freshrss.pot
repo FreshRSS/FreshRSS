@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-25 10:52+0200\n"
+"POT-Creation-Date: 2019-10-25 11:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -398,7 +398,7 @@ msgid "Project architecture"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/01_First_steps.md:61 en/./developers/02_Github.md:4 en/./developers/02_Github.md:8 en/./developers/02_Github.md:11 en/./developers/03_Backend/02_Minz.md:4 en/./developers/03_Backend/02_Minz.md:8 en/./developers/03_Backend/02_Minz.md:12 en/./developers/03_Backend/02_Minz.md:16 en/./developers/03_Backend/02_Minz.md:20 en/./developers/03_Backend/02_Minz.md:24 en/./developers/03_Backend/02_Minz.md:27 en/./developers/03_Backend/04_Changing_source_code.md:4 en/./developers/03_Backend/04_Changing_source_code.md:8 en/./developers/03_Backend/04_Changing_source_code.md:12 en/./developers/03_Backend/04_Changing_source_code.md:15 en/./developers/03_Backend/05_Extensions.md:342 en/./developers/03_Backend/05_Extensions.md:381 en/./developers/04_Frontend/01_View_files.md:4 en/./developers/04_Frontend/01_View_files.md:8 en/./developers/04_Frontend/01_View_files.md:12 en/./developers/04_Frontend/01_View_files.md:15 en/./developers/04_Frontend/02_Design.md:4 en/./developers/04_Frontend/02_Design.md:8 en/./developers/04_Frontend/02_Design.md:11 en/./users/03_Main_view.md:4 en/./users/03_Main_view.md:8 en/./users/03_Main_view.md:12 en/./users/04_Subscriptions.md:4 en/./users/04_Subscriptions.md:8 en/./users/04_Subscriptions.md:20 en/./users/05_Configuration.md:70 en/./users/05_Configuration.md:74 en/./users/05_Configuration.md:128 en/./users/05_Configuration.md:153 en/./users/05_Configuration.md:157 en/./users/05_Configuration.md:161
+#: en/./developers/01_First_steps.md:61 en/./developers/02_Github.md:28 en/./developers/02_Github.md:32 en/./developers/02_Github.md:35 en/./developers/03_Backend/02_Minz.md:4 en/./developers/03_Backend/02_Minz.md:8 en/./developers/03_Backend/02_Minz.md:12 en/./developers/03_Backend/02_Minz.md:16 en/./developers/03_Backend/02_Minz.md:20 en/./developers/03_Backend/02_Minz.md:24 en/./developers/03_Backend/02_Minz.md:27 en/./developers/03_Backend/04_Changing_source_code.md:4 en/./developers/03_Backend/04_Changing_source_code.md:8 en/./developers/03_Backend/04_Changing_source_code.md:12 en/./developers/03_Backend/04_Changing_source_code.md:15 en/./developers/03_Backend/05_Extensions.md:342 en/./developers/03_Backend/05_Extensions.md:381 en/./developers/04_Frontend/01_View_files.md:4 en/./developers/04_Frontend/01_View_files.md:8 en/./developers/04_Frontend/01_View_files.md:12 en/./developers/04_Frontend/01_View_files.md:15 en/./developers/04_Frontend/02_Design.md:4 en/./developers/04_Frontend/02_Design.md:8 en/./developers/04_Frontend/02_Design.md:11 en/./users/03_Main_view.md:4 en/./users/03_Main_view.md:8 en/./users/03_Main_view.md:12 en/./users/04_Subscriptions.md:4 en/./users/04_Subscriptions.md:8 en/./users/04_Subscriptions.md:20 en/./users/05_Configuration.md:70 en/./users/05_Configuration.md:74 en/./users/05_Configuration.md:128 en/./users/05_Configuration.md:153 en/./users/05_Configuration.md:157 en/./users/05_Configuration.md:161
 #, no-wrap
 msgid "**TODO**\n"
 msgstr ""
@@ -814,14 +814,120 @@ msgstr ""
 msgid "Reporting a bug or a suggestion"
 msgstr ""
 
+#. type: Plain text
+#: en/./developers/02_Github.md:4
+msgid ""
+"Despite the care given to FreshRSS, it's still possible that bugs occur. The "
+"project is young and development is dynamic, so it can be corrected "
+"quickly. You might also have a feature in mind that doesn't yet "
+"exist. Regardless whether your idea seems silly, far-fetched, useless or too "
+"specific, please don't hesitate to propose it to us! \"Ideas in the air\" "
+"often find an attentive ear. It's new external perspectives that make the "
+"project evolve the most."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:6
+msgid ""
+"If you're convinced that you should be heard, here's how you can go about "
+"it."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:7
+#, no-wrap
+msgid "On GitHub"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:10
+msgid ""
+"GitHub is the ideal platform to submit your requests. It allows us to "
+"discuss a problem or suggestion with others and it often generates new "
+"ideas. Let's not neglect this \"social\" aspect!"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./developers/02_Github.md:16
+msgid "[Go to the bug ticket manager](https://github.com/FreshRSS/FreshRSS/issues)"
+msgstr ""
+
+#. type: Bullet: ' 2. '
+#: en/./developers/02_Github.md:16
+msgid ""
+"Start by checking if a similar request hasn't already been made. If so, "
+"please feel free to add your voice to the request."
+msgstr ""
+
+#. type: Bullet: ' 3. '
+#: en/./developers/02_Github.md:16
+msgid ""
+"If your request is new, [open a new bug "
+"ticket](https://github.com/FreshRSS/FreshRSS/issues/new)"
+msgstr ""
+
+#. type: Bullet: ' 4. '
+#: en/./developers/02_Github.md:16
+msgid ""
+"Finally, write your request. If you're fluent in English, it's the preferred "
+"language because it allows for discussion with the largest number of people."
+msgstr ""
+
+#. type: Bullet: ' 5. '
+#: en/./developers/02_Github.md:16
+msgid "Please follow the tips below to make it easier to let your ticket be heard."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:17
+#, no-wrap
+msgid "Informal"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:20
+msgid ""
+"Not everyone likes or uses GitHub for a variety of legitimate reasons. That "
+"is why you can also contact us in a more informal way."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid ""
+"On [our Mattermost "
+"chat](https://framateam.org/signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid ""
+"On[the mailing lists] "
+"(https://freshrss.org/announce-of-the-mailing-lists.html)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid "At events / meetings around Free Software"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid "Over a beer in a bar"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid "Etc."
+msgstr ""
+
 #. type: Title #
-#: en/./developers/02_Github.md:5
+#: en/./developers/02_Github.md:29
 #, no-wrap
 msgid "Branching"
 msgstr ""
 
 #. type: Title #
-#: en/./developers/02_Github.md:9
+#: en/./developers/02_Github.md:33
 #, no-wrap
 msgid "Sending a patch"
 msgstr ""
