@@ -102,7 +102,7 @@ Every file must end by an empty line.
 
 ### Commas, dots and semi-columns
 
-There is no space before those characters but there is one after.
+There should no space before those characters, but there should be one after.
 
 ### Operators
 
@@ -151,9 +151,9 @@ shortcut.add("shift+" + shortcuts.mark_read, function () {
 
 ## Line length
 
-Lines should be shorter than 80 characters. However, in some case, it is possible to extend that limit to 100 characters.
+Lines should strive to be shorter than 80 characters. However, this limit may be extended to 100 characters when strictly necessary.
 
-With functions, parameters can be declared on different lines.
+With functions, parameters can be declared on multiple lines.
 
 ```php
 function my_function($param_1, $param_2,
@@ -164,11 +164,11 @@ function my_function($param_1, $param_2,
 
 ## Naming
 
-All the code elements (functions, classes, methods and variables) must describe their usage in concise way.
+All code elements (functions, classes, methods and variables) must describe their usage succinctly.
 
 ### Functions and variables
 
-They must follow the "snake case" convention.
+Functions and variables must follow the "snake case" naming convention.
 
 ```php
 // a function
@@ -181,7 +181,7 @@ $variable_name;
 
 ### Methods
 
-They must follow the "lower camel case" convention.
+Methods must follow the "lower camel case" naming convention.
 
 ```php
 private function methodName() {
@@ -191,7 +191,7 @@ private function methodName() {
 
 ### Classes
 
-They must follow the "upper camel case" convention.
+Classes must follow the "upper camel case" naming convention.
 
 ```php
 abstract class ClassName {}
@@ -199,16 +199,16 @@ abstract class ClassName {}
 
 ## Encoding
 
-Files must be encoded with UTF-8 character set.
+Files must be encoded with the UTF-8 character set.
 
 ## PHP compatibility
 
-Ensure that your code is working with a PHP version as old as what FreshRSS officially supports.
+Please ensure that your code works with the oldest PHP version officially supported by FreshRSS.
 
 ## Miscellaneous
 
 ### Operators
-They must be at the end of the line if a condition runs on more than one line.
+Operators must be at the end of the line if a condition is split over more than one line.
 
 ```php
 if ($a == 10 ||
@@ -223,7 +223,7 @@ If the file contains only PHP code, the PHP closing tag must be omitted.
 
 ### Arrays
 
-If an array declaration runs on more than one line, each element must be followed by a comma even the last one.
+If an array declaration runs on more than one line, each element must be followed by a comma, including the last one.
 
 ```php
 $variable = [

@@ -78,7 +78,7 @@ hesitate to suggest any idea!
 
 ## Contribuer à la documentation
 
-The documentation needs a lot of improvements in order to be more useful to
-new contributors and we are working on it.  If you want to give some help,
-meet us in the main repositories [docs
-directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!
+Il ne vous aura pas échappé que la documentation est encore un peu vide… il
+y a énormément de choses à faire ! Si vous souhaitez aider à écrire quelques
+pages, rendez-vous dans les principaux dépôts[fichier
+docs](https://github.com/FreshRSS/FreshRSS/tree/master/docs) !

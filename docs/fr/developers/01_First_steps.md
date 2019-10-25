@@ -75,7 +75,7 @@ The `TAG` variable can be anything (e.g. `dev-local`). You can target a
 specific architecture by adding `-alpine` or `-arm` at the end of the tag
 (e.g. `dev-local-arm`).
 
-# Project architecture
+# Architecture du projet
 
 **TODO**
 
@@ -84,7 +84,7 @@ specific architecture by adding `-alpine` or `-arm` at the end of the tag
 If you want to create your own FreshRSS extension, take a look at the
 [extension documentation](03_Backend/05_Extensions.md).
 
-# Coding style
+# Style de codage
 
 If you want to contribute to the source code, it is important to follow the
 project coding style. The actual code does not follow it throughout the
@@ -130,11 +130,11 @@ Chaque fichier doit se terminer par une ligne vide.
 
 ### Le cas de la virgule, du point et du point-virgule
 
-There is no space before those characters but there is one after.
+Il n'y a pas d'espace avant ces caractères, il y en a un après.
 
-### Operators
+### Le cas des opérateurs
 
-There should be a space before and after every operator.
+Chaque opérateur est entouré d'espaces.
 
 ```php
 if ($a == 10) {
@@ -144,7 +144,7 @@ if ($a == 10) {
 echo $a ? 1 : 0;
 ```
 
-### Parentheses
+### Le cas des parenthèses
 
 Il n'y a pas d'espaces entre des parenthèses. Il n'y a pas d'espaces avant
 une parenthèse ouvrante sauf si elle est précédée d'un mot-clé. Il n'y a pas
@@ -161,7 +161,7 @@ if ((int)$a == 10) {
 }
 ```
 
-### With chained functions
+### Le cas des fonctions chainées
 
 Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions
 chainées, des fonctions anonymes ainsi que des fonctions de rappels, il est
@@ -170,13 +170,13 @@ supplémentaire pour toute l'instruction et on revient au même niveau pour
 une instruction de même niveau.
 
 ```javascript
-// First instruction
+// Première instruction
 shortcut.add(shortcuts.mark_read, function () {
 		//...
 	}, {
 		'disable_in_input': true
 	});
-// Second instruction
+// Deuxième instruction
 shortcut.add("shift+" + shortcuts.mark_read, function () {
 		//...
 	}, {
@@ -184,12 +184,15 @@ shortcut.add("shift+" + shortcuts.mark_read, function () {
 	});
 ```
 
-## Line length
+## Longueur des lignes
 
-Lines should be shorter than 80 characters. However, in some case, it is
-possible to extend that limit to 100 characters.
+Les lignes ne doivent pas dépasser 80 caractères. Il est cependant autorisé
+exceptionnellement de dépasser cette limite s'il n'est pas possible de la
+respecter mais en aucun cas, les lignes ne doivent dépasser les 100
+caractères.
 
-With functions, parameters can be declared on different lines.
+Dans le cas des fonctions, les paramètres peuvent être déclarés sur
+plusieurs lignes.
 
 ```php
 function ma_fonction($param_1, $param_2,
@@ -198,56 +201,56 @@ function ma_fonction($param_1, $param_2,
 }
 ```
 
-## Naming
+## Nommage
 
-All the code elements (functions, classes, methods and variables) must
-describe their usage in concise way.
+L'ensemble des éléments du code (fonctions, classes, méthodes et variables)
+doivent être nommés de manière à décrire leur usage de façon concise.
 
-### Functions and variables
+### Fonctions et variables
 
-They must follow the "snake case" convention.
+Les fonctions et les variables doivent suivre la convention "snake case".
 
 ```php
-// a function
-function function_name() {
-	// do something
+// une fontion
+function nom_de_la_fontion() {
+	// faire quelque chose
 }
-// a variable
-$variable_name;
+// une variable
+$nom_de_la_variable;
 ```
 
-### Methods
+### Méthodes
 
-They must follow the "lower camel case" convention.
+Les méthodes doivent suivre la convention "lower camel case".
 
 ```php
-private function methodName() {
-	// do something
+private function nomDeLaMethode() {
+	// faire quelque chose
 }
 ```
 
 ### Classes
 
-They must follow the "upper camel case" convention.
+Les classes doivent suivre la convention "upper camel case".
 
 ```php
-abstract class ClassName {}
+abstract class NomDeLaClasse {}
 ```
 
-## Encoding
+## Encodage
 
-Files must be encoded with UTF-8 character set.
+Les fichiers doivent être encodés en UTF-8.
 
-## PHP compatibility
+## Compatibilité PHP
 
-Ensure that your code is working with a PHP version as old as what FreshRSS
-officially supports.
+Assurez-vous que votre code fonctionne avec une version de PHP aussi
+ancienne que celle que FreshRSS supporte officiellement.
 
-## Miscellaneous
+## Divers
 
-### Operators
-They must be at the end of the line if a condition runs on more than one
-line.
+### Le cas des opérateurs
+Les opérateurs doivent être en fin de ligne dans le cas de conditions sur
+plusieurs lignes.
 
 ```php
 if ($a == 10 ||
@@ -258,12 +261,13 @@ if ($a == 10 ||
 
 ### Fin de fichier
 
-If the file contains only PHP code, the PHP closing tag must be omitted.
+Si le fichier ne contient que du PHP, il ne doit pas comporter de balise
+fermante.
 
-### Arrays
+### Tableaux
 
-If an array declaration runs on more than one line, each element must be
-followed by a comma even the last one.
+Lors de l'écriture de tableaux sur plusieurs lignes, tous les éléments
+doivent être suivis d'une virgule (même le dernier).
 
 ```php
 $variable = [

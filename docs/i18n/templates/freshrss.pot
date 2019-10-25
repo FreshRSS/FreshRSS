@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-25 00:08+0200\n"
+"POT-Creation-Date: 2019-10-25 10:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -536,7 +536,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:106
-msgid "There is no space before those characters but there is one after."
+msgid ""
+"There should no space before those characters, but there should be one "
+"after."
 msgstr ""
 
 #. type: Title ###
@@ -638,13 +640,13 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:155
 msgid ""
-"Lines should be shorter than 80 characters. However, in some case, it is "
-"possible to extend that limit to 100 characters."
+"Lines should strive to be shorter than 80 characters. However, this limit "
+"may be extended to 100 characters when strictly necessary."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:157
-msgid "With functions, parameters can be declared on different lines."
+msgid "With functions, parameters can be declared on multiple lines."
 msgstr ""
 
 #. type: Plain text
@@ -666,8 +668,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:168
 msgid ""
-"All the code elements (functions, classes, methods and variables) must "
-"describe their usage in concise way."
+"All code elements (functions, classes, methods and variables) must describe "
+"their usage succinctly."
 msgstr ""
 
 #. type: Title ###
@@ -678,7 +680,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:172
-msgid "They must follow the \"snake case\" convention."
+msgid "Functions and variables must follow the \"snake case\" naming convention."
 msgstr ""
 
 #. type: Plain text
@@ -701,7 +703,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:185
-msgid "They must follow the \"lower camel case\" convention."
+msgid "Methods must follow the \"lower camel case\" naming convention."
 msgstr ""
 
 #. type: Plain text
@@ -721,7 +723,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:195
-msgid "They must follow the \"upper camel case\" convention."
+msgid "Classes must follow the \"upper camel case\" naming convention."
 msgstr ""
 
 #. type: Plain text
@@ -738,7 +740,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:203
-msgid "Files must be encoded with UTF-8 character set."
+msgid "Files must be encoded with the UTF-8 character set."
 msgstr ""
 
 #. type: Title ##
@@ -750,8 +752,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:207
 msgid ""
-"Ensure that your code is working with a PHP version as old as what FreshRSS "
-"officially supports."
+"Please ensure that your code works with the oldest PHP version officially "
+"supported by FreshRSS."
 msgstr ""
 
 #. type: Title ##
@@ -763,8 +765,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:212
 msgid ""
-"They must be at the end of the line if a condition runs on more than one "
-"line."
+"Operators must be at the end of the line if a condition is split over more "
+"than one line."
 msgstr ""
 
 #. type: Plain text
@@ -792,7 +794,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:227
 msgid ""
 "If an array declaration runs on more than one line, each element must be "
-"followed by a comma even the last one."
+"followed by a comma, including the last one."
 msgstr ""
 
 #. type: Plain text
