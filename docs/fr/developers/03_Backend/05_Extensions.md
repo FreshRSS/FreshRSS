@@ -84,7 +84,7 @@ action est exécutée *sur* un contrôleur. Concrètement, un contrôleur va êt
 représenté par une classe et ses actions par des méthodes. Pour exécuter une
 action, il est nécessaire d'indiquer un paramètre `a` dans l'URL.
 
-Exemple de code :
+Exemple de code :
 
 ```php
 <?php
@@ -143,6 +143,7 @@ $param = Minz_Request::param('bar', $default_value);
 
 // Affichera la valeur du paramètre `bar` (passé via GET ou POST)
 // ou "foo" si le paramètre n'existe pas.
+echo $param;
 
 // Force la valeur du paramètre `bar`
 Minz_Request::_param('bar', 'baz');
@@ -229,7 +230,7 @@ page. Pour cela, la classe `Minz_Request` dispose d'une autre méthode utile
 : `forward()`. Cette méthode prend en argument le même format d'URL que
 celui vu juste avant.
 
-Exemple de code :
+Exemple de code :
 
 ```php
 <?php
