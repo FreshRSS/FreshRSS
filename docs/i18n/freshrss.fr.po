@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
 "POT-Creation-Date: 2019-10-25 16:34+0200\n"
-"PO-Revision-Date: 2019-10-25 17:39+0100\n"
+"PO-Revision-Date: 2019-10-25 23:41+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -5370,12 +5370,14 @@ msgid ""
 "This page assumes you have completed the [server setup](../"
 "admins/02_Installation.md)."
 msgstr ""
+"Cette page suppose que vous avez fini [l’installation du"
+" serveur](01_Installation.md)."
 
 #. type: Title #
 #: en/./users/06_Mobile_access.md:3
 #, no-wrap
 msgid "Enable the API in FreshRSS"
-msgstr ""
+msgstr "Activer l’API dans FreshRSS"
 
 #. type: Bullet: '1. '
 #: en/./users/06_Mobile_access.md:9
@@ -5383,6 +5385,8 @@ msgid ""
 "Under the section “Authentication”, enable the option “Allow API access "
 "(required for mobile apps)”."
 msgstr ""
+"Dans la section “Authentification”, cocher l’option “Autoriser l’accès par"
+" API (nécessaire pour les applis mobiles)”."
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:9
@@ -5395,6 +5399,12 @@ msgid ""
 " safe situations than the main password, and does not grant access to as many"
 " things.\n"
 msgstr ""
+"2. Dans la section “Profil”, remplir le champ “Mot de passe API (ex. : pour"
+" applis mobiles)”.\n"
+"\t* Chaque utilisateur doit choisir son mot de passe API.\n"
+"\t* La raison d’être d’un mot de passe API\n différent du mot de passe"
+" principal est que le mot de passe API est potentiellement utilisé de manière"
+" moins sûre, mais il permet aussi moins de choses.\n"
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:12
@@ -5403,12 +5413,15 @@ msgid ""
 "[page about the Fever compatible API](06_Fever_API.md) for another "
 "possibility."
 msgstr ""
+"Le reste de cette page concerne l’API compatible Google Reader."
+"Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre"
+" possibilité."
 
 #. type: Title #
 #: en/./users/06_Mobile_access.md:14
 #, no-wrap
 msgid "Testing"
-msgstr ""
+msgstr "Tester"
 
 #. type: Bullet: '3. '
 #: en/./users/06_Mobile_access.md:21
@@ -5416,6 +5429,8 @@ msgid ""
 "Under the section “Profile”, click on the link like `https://rss.example.net/"
 "api/` next to the field “API password”."
 msgstr ""
+"Dans la section “Profil”, cliquer sur le lien de la forme"
+" `https://rss.example.net/api/` à côté du champ “Mot de passe API”."
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:21
@@ -5428,12 +5443,18 @@ msgid ""
 " not accept slashes `/` that are escaped `%2F`. Proceed to step 5.\n"
 "\t* If you get any other error message, proceed to step 5.\n"
 msgstr ""
+"4. Cliquer sur le premier lien “Check full server configuration”:\n"
+"\t* Si vous obtenez `PASS`, tout est bon : passer à l’étape 6.\n"
+"\t* Si vous obtenez *Bad Request!* ou *Not Found*, alors votre serveur ne"
+" semble pas accepter les slashs `/` qui sont encodés `%2F`. Passer à l’étape"
+" 5.\n"
+"\t* Si vous obtenez un autre message d’erreur, passer à l’étape 5.\n"
 
 #. type: Title #
 #: en/./users/06_Mobile_access.md:23
 #, no-wrap
 msgid "Fix server configuration"
-msgstr ""
+msgstr "Déboguer la configuration du serveur"
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:42
@@ -5477,7 +5498,7 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:44
 #, no-wrap
 msgid "Compatible clients"
-msgstr ""
+msgstr "Clients compatibles"
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:48
@@ -5520,12 +5541,12 @@ msgstr ""
 #: en/./users/06_Mobile_access.md:65
 #, no-wrap
 msgid "Google Reader compatible API"
-msgstr ""
+msgstr "API compatible Google Reader"
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:68
 msgid "Examples of basic queries:"
-msgstr ""
+msgstr "Exemples de requêtes simples :"
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:69
@@ -5566,6 +5587,40 @@ msgid ""
 "  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/r"
 "eading-list' | jq .\n"
 msgstr ""
+"# Authentification utilisant le mot de passe API (Email et Passwd peuvent"
+" être passés en GET, ou POST - mieux)\n"
+"curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email="
+"alice&Passwd=Abcdef123456'\n"
+"SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
+"Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
+"\n"
+"# Exemples de requêtes en lecture\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
+"56eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list"
+"?output=json'\n"
+"\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
+"56eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?outp"
+"ut=json'\n"
+"\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
+"56eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=j"
+"son'\n"
+"\n"
+"# Demande de jeton pour faire de requêtes de modification\n"
+"curl -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e"
+"b60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/token'\n"
+"8e6845e089457af25303abc6f53356eb60bdb5f8ZZZZZZZZZZZZZZZZZ\n"
+"\n"
+"# Récupère les articles, envoyés à jq pour une lecture JSON plus facile\n"
+"curl -s -H \"Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f533"
+"56eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/r"
+"eading-list' | jq .\n"
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:2

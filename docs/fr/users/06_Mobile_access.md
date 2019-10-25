@@ -1,30 +1,30 @@
-This page assumes you have completed the [server
-setup](../admins/02_Installation.md).
+Cette page suppose que vous avez fini [l’installation du
+serveur](01_Installation.md).
 
-# Enable the API in FreshRSS
+# Activer l’API dans FreshRSS
 
-1. Under the section “Authentication”, enable the option “Allow API access
-   (required for mobile apps)”.
-2. Under the section “Profile”, fill-in the field “API password (e.g., for mobile apps)”.
-	* Every user must define an API password.
-	* The reason for an API-specific password is that it may be used in less safe situations than the main password, and does not grant access to as many things.
+1. Dans la section “Authentification”, cocher l’option “Autoriser l’accès
+   par API (nécessaire pour les applis mobiles)”.
+2. Dans la section “Profil”, remplir le champ “Mot de passe API (ex. : pour applis mobiles)”.
+	* Chaque utilisateur doit choisir son mot de passe API.
+	* La raison d’être d’un mot de passe API
+ différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
 
-The rest of this page is about the Google Reader compatible API.  See the
-[page about the Fever compatible API](06_Fever_API.md) for another
-possibility.
-
-
-# Testing
-
-3. Under the section “Profile”, click on the link like
-   `https://rss.example.net/api/` next to the field “API password”.
-4. Click on first link “Check full server configuration”:
-	* If you get *PASS* then you are done, all is good: you may proceed to step 6.
-	* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`. Proceed to step 5.
-	* If you get any other error message, proceed to step 5.
+Le reste de cette page concerne l’API compatible Google Reader.Voir la [page
+sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
 
 
-# Fix server configuration
+# Tester
+
+3. Dans la section “Profil”, cliquer sur le lien de la forme
+   `https://rss.example.net/api/` à côté du champ “Mot de passe API”.
+4. Cliquer sur le premier lien “Check full server configuration”:
+	* Si vous obtenez `PASS`, tout est bon : passer à l’étape 6.
+	* Si vous obtenez *Bad Request!* ou *Not Found*, alors votre serveur ne semble pas accepter les slashs `/` qui sont encodés `%2F`. Passer à l’étape 5.
+	* Si vous obtenez un autre message d’erreur, passer à l’étape 5.
+
+
+# Déboguer la configuration du serveur
 
 5. Click on the second link “Check partial server configuration (without `%2F` support)”:
 	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
@@ -45,7 +45,7 @@ possibility.
 	* Update and try again from step 3.
 
 
-# Compatible clients
+# Clients compatibles
 
 6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
 	* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.
@@ -66,17 +66,17 @@ possibility.
 		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Open source)
 
 
-# Google Reader compatible API
+# API compatible Google Reader
 
-Examples of basic queries:
+Exemples de requêtes simples :
 
 ```sh
-# Initial login, using API password (Email and Passwd can be given either as GET, or POST - better)
+# Authentification utilisant le mot de passe API (Email et Passwd peuvent être passés en GET, ou POST - mieux)
 curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'
 SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 
-# Examples of read-only requests
+# Exemples de requêtes en lecture
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list?output=json'
 
@@ -86,12 +86,12 @@ curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=json'
 
-# Retrieve a token for requests making modifications
+# Demande de jeton pour faire de requêtes de modification
 curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/token'
 8e6845e089457af25303abc6f53356eb60bdb5f8ZZZZZZZZZZZZZZZZZ
 
-# Get articles, piped to jq for easier JSON reading
+# Récupère les articles, envoyés à jq pour une lecture JSON plus facile
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .
 ```
