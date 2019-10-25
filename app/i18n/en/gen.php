@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualize',
+		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
@@ -22,6 +23,7 @@ return array(
 		'update' => 'Update',
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',
 		'email' => 'Email address',
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',
 		'login' => 'Login',
@@ -127,6 +129,7 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -160,15 +163,22 @@ return array(
 		'nothing_to_load' => 'There are no more articles',
 		'previous' => 'Previous',
 	),
+	'period' => array(
+		'days' => 'days',
+		'hours' => 'hours',
+		'months' => 'months',
+		'weeks' => 'weeks',
+		'years' => 'years',
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Known based sites',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

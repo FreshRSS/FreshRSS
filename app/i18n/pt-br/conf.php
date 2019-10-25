@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'Arquivar',
-		'advanced' => 'Avançado',
 		'delete_after' => 'Remover artigos depois',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Mais opções estão disponíveis nas configurações individuais do feed',
-		'keep_history_by_feed' => 'Número mínimo de artigos para deixar no feed',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Número mínimo de artigos para deixar no feed',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Otimizar banco de dados',
 		'optimize_help' => 'Faça ocasionalmente para reduzir o tamanho do banco de dados',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Purge agora',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Arquivar',
 		'ttl' => 'Não atualize automaticamente mais frequente que',
 	),
@@ -21,6 +29,7 @@ return array(
 			'publication_date' => 'Data da publicação',
 			'related_tags' => 'Tags relacionadas',	//TODO - Translation
 			'sharing' => 'Compartilhar',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Linha superior',
 		),
 		'language' => 'Ídioma',
@@ -45,6 +54,7 @@ return array(
 			'_' => 'Remover conta',
 			'warn' => 'Sua conta e todos os dados relacionados serão removidos.',
 		),
+		'email' => 'Endereço de e-mail',
 		'password_api' => 'Senha da API<br /><small>(p.s., para aplicativos móveis)</small>',
 		'password_form' => 'Senha<br /><small>(para o método de formulário web)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
@@ -133,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Mais informação',
 		'print' => 'Imprimir',
 		'remove' => 'Remove sharing method',	//TODO - Translation

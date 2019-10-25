@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivace',
-		'advanced' => 'Pokročilé',
 		'delete_after' => 'Smazat články starší než',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
-		'keep_history_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimalizovat databázi',
 		'optimize_help' => 'Občasná údržba zmenší velikost databáze',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Vyčistit nyní',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivace',
 		'ttl' => 'Neaktualizovat častěji než',
 	),
@@ -21,6 +29,7 @@ return array(
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Související tagy',	//TODO - Translation
 			'sharing' => 'Sdílení',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Horní řádek',
 		),
 		'language' => 'Jazyk',
@@ -45,6 +54,7 @@ return array(
 			'_' => 'Smazání účtu',
 			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
 		),
+		'email' => 'Email',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
@@ -133,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
 		'remove' => 'Remove sharing method',	//TODO - Translation

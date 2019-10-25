@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
+		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
@@ -22,6 +23,7 @@ return array(
 		'update' => 'Actualizar',
 	),
 	'auth' => array(
+		'accept_tos' => 'Accepti las <a href="%s">condicions d’utilizacion</a>.',
 		'email' => 'Adreça de corrièl',
 		'keep_logged_in' => 'Demorar connectat <small>(%s jorns) </small>',
 		'login' => 'Connexion',
@@ -49,7 +51,7 @@ return array(
 		'Aug' => '\\a\\g\\o\\s\\t',
 		'aug' => 'agost',
 		'august' => 'agost',
-		'before_yesterday' => 'Abans ièr',
+		'before_yesterday' => 'Anterior a ièr',
 		'Dec' => '\\d\\e\\c\\e\\m\\b\\r\\e',
 		'dec' => 'dec.',
 		'december' => 'decembre',
@@ -160,15 +162,22 @@ return array(
 		'nothing_to_load' => 'I a pas mai d’articles',
 		'previous' => 'Precedent',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

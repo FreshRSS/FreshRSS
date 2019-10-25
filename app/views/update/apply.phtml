@@ -1,9 +1,9 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h1><?php echo _t('admin.update'); ?></h1>
+	<h1><?= _t('admin.update') ?></h1>
 
 	<?php ask_info_update(); ?>
 </div>

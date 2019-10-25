@@ -1,48 +1,48 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<form method="post" action="<?php echo _url('configure', 'sharing'); ?>"
-		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick"><input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="##label##" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" />
-			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?php echo _t('gen.short.not_applicable'); ?>" size="64" disabled /><a href="#" class="remove btn btn-attention" data-remove="group-share-##key##"><?php echo _i('close'); ?></a></div>
+	<form method="post" action="<?= _url('configure', 'sharing') ?>"
+		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick"><input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="##label##" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
+			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled /><a href="#" class="remove btn btn-attention" data-remove="group-share-##key##"><?= _i('close') ?></a></div>
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" /></div></div>'
 		data-advanced='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls">
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
 			<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
 			<input type="hidden" id="share_##key##_field" name="share[##key##][field]" value="##field##" />
 			<div class="stick">
-			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" />
-			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?php echo _t('conf.sharing.share_url'); ?>" size="64" />
-			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##" title="<?php echo _t('conf.sharing.remove'); ?>"><?php echo _i('close'); ?></a></div>
-			<a target="_blank" rel="noreferrer" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="##help##"><?php echo _i('help'); ?></a>
+			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
+			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('conf.sharing.share_url') ?>" size="64" />
+			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##" title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a></div>
+			<a target="_blank" rel="noreferrer" class="btn" title="<?= _t('conf.sharing.more_information') ?>" href="##help##"><?= _i('help') ?></a>
 			</div></div>'>
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('conf.sharing'); ?></legend>
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('conf.sharing') ?></legend>
 		<?php
 			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
 				$share = FreshRSS_Share::get($share_options['type']);
 				$share->update($share_options);
 		?>
-			<div class="form-group group-share" id="group-share-<?php echo $key; ?>">
+			<div class="form-group group-share" id="group-share-<?= $key ?>">
 				<label class="group-name">
-					<?php echo $share->name(true); ?>
+					<?= $share->name(true) ?>
 				</label>
 				<div class="group-controls">
-					<input type='hidden' id='share_<?php echo $key; ?>_type' name="share[<?php echo $key; ?>][type]" value='<?php echo $share->type(); ?>' />
-					<input type='hidden' id='share_<?php echo $key; ?>_method' name="share[<?php echo $key; ?>][method]" value='<?php echo $share->method(); ?>' />
-					<input type='hidden' id='share_<?php echo $key; ?>_field' name="share[<?php echo $key; ?>][field]" value='<?php echo $share->field(); ?>' />
+					<input type='hidden' id='share_<?= $key ?>_type' name="share[<?= $key ?>][type]" value='<?= $share->type() ?>' />
+					<input type='hidden' id='share_<?= $key ?>_method' name="share[<?= $key ?>][method]" value='<?= $share->method() ?>' />
+					<input type='hidden' id='share_<?= $key ?>_field' name="share[<?= $key ?>][field]" value='<?= $share->field() ?>' />
 					<div class="stick">
-						<input type="text" id="share_<?php echo $key; ?>_name" name="share[<?php echo $key; ?>][name]" class="extend" value="<?php echo $share->name(); ?>" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" data-leave-validation="<?php echo $share->name(); ?>"/>
+						<input type="text" id="share_<?= $key ?>_name" name="share[<?= $key ?>][name]" class="extend" value="<?= $share->name() ?>" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" data-leave-validation="<?= $share->name() ?>"/>
 					<?php if ($share->formType() === 'advanced') { ?>
-						<input type="url" id="share_<?php echo $key; ?>_url" name="share[<?php echo $key; ?>][url]" class="extend" value="<?php echo $share->baseUrl(); ?>" placeholder="<?php echo _t('conf.sharing.share_url'); ?>" size="64" data-leave-validation="<?php echo $share->baseUrl(); ?>"/>
+						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>" placeholder="<?= _t('conf.sharing.share_url') ?>" size="64" data-leave-validation="<?= $share->baseUrl() ?>"/>
 					<?php } else { ?>
-						<input type="url" id="share_<?php echo $key; ?>_url" name="share[<?php echo $key; ?>][url]" class="extend" value="<?php echo $share->baseUrl(); ?>" placeholder="<?php echo _t('gen.short.not_applicable'); ?>" size="64" disabled/>
+						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled/>
 					<?php } ?>
-						<a href='#' class='remove btn btn-attention' data-remove="group-share-<?php echo $key; ?>" title="<?php echo _t('conf.sharing.remove'); ?>"><?php echo _i('close'); ?></a>
+						<a href='#' class='remove btn btn-attention' data-remove="group-share-<?= $key ?>" title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a>
 					</div>
 					<?php if ($share->formType() === 'advanced') { ?>
-						<a target="_blank" rel="noreferrer" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="<?php echo $share->help(); ?>"><?php echo _i('help'); ?></a>
+						<a target="_blank" rel="noreferrer" class="btn" title="<?= _t('conf.sharing.more_information') ?>" href="<?= $share->help() ?>"><?= _i('help') ?></a>
 					<?php } ?>
 				</div>
 			</div>
@@ -52,19 +52,19 @@
 			<div class="group-controls">
 				<select>
 					<?php foreach (FreshRSS_Share::enum() as $share) { ?>
-					<option value='<?php echo $share->type(); ?>' data-form='<?php echo $share->formType(); ?>' data-help='<?php echo $share->help(); ?>' data-method='<?php echo $share->method(); ?>' data-field='<?php echo $share->field(); ?>'>
-						<?php echo $share->name(true); ?>
+					<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>' data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
+						<?= $share->name(true) ?>
 					</option>
 					<?php } ?>
 				</select>
-				<a href='#' class='share add btn' title="<?php echo _t('conf.sharing.add'); ?>"><?php echo _i('add'); ?></a>
+				<a href='#' class='share add btn' title="<?= _t('conf.sharing.add') ?>"><?= _i('add') ?></a>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>

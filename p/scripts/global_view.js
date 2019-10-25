@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
 /* globals context, init_load_more, init_posts, init_stream */
 /* jshint esversion:6, strict:global */
@@ -110,3 +111,4 @@ if (document.readyState && document.readyState !== 'loading') {
 		init_all_global_view();
 	}, false);
 }
+// @license-end

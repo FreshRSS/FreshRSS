@@ -1,0 +1,22 @@
+<div class="post">
+	<p>
+		<?= _t('user.email.validation.need_to', FreshRSS_Context::$system_conf->title) ?>
+	</p>
+
+	<p>
+		<?= _t('user.email.validation.email_sent_to', FreshRSS_Context::$user_conf->mail_login) ?>
+	</p>
+
+	<form action="<?= _url('user', 'sendValidationEmail') ?>" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<button type="submit" class="btn">
+			<?= _t('user.email.validation.resend_email') ?>
+		</button>
+	</form>
+
+	<p>
+		<small>
+			<?= _t('user.email.validation.change_email', _url('user', 'profile')) ?>
+		</small>
+	</p>
+</div>

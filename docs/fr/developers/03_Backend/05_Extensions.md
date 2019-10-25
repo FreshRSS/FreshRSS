@@ -49,13 +49,13 @@ Exemple de code :
 <?php
 
 class FreshRSS_hello_Controller extends Minz_ActionController {
-    public function indexAction() {
-        $this->view->a_variable = 'FooBar';
-    }
+	public function indexAction() {
+		$this->view->a_variable = 'FooBar';
+	}
 
-    public function worldAction() {
-        $this->view->a_variable = 'Hello World!';
-    }
+	public function worldAction() {
+		$this->view->a_variable = 'Hello World!';
+	}
 }
 
 ?>
@@ -75,7 +75,7 @@ Comme expliqué plus haut, les vues sont du code HTML mixé à du PHP. Exemple d
 
 ```html
 <p>
-    Phrase passée en paramètre : <?php echo $this->a_variable; ?>
+	Phrase passée en paramètre : <?= $this->a_variable ?>
 </p>
 ```
 
@@ -119,7 +119,7 @@ Pour profiter pleinement du système de routage de Minz, il est fortement décon
 
 ```html
 <p>
-    Accéder à la page <a href="http://exemple.com?c=hello&amp;a=world">Hello world</a>!
+	Accéder à la page <a href="http://exemple.com?c=hello&amp;a=world">Hello world</a>!
 </p>
 ```
 
@@ -130,13 +130,13 @@ Préférez donc l'utilisation de la classe `Minz_Url` et de sa méthode `display
 ```php
 <?php
 
-$url_array = array(
-    'c' => 'hello',
-    'a' => 'world',
-    'params' => array(
-        'foo' => 'bar',
-    )
-);
+$url_array = [
+	'c' => 'hello',
+	'a' => 'world',
+	'params' => [
+		'foo' => 'bar',
+	],
+];
 
 // Affichera quelque chose comme .?c=hello&amp;a=world&amp;foo=bar
 echo Minz_Url::display($url_array);
@@ -166,10 +166,10 @@ Exemple de code :
 ```php
 <?php
 
-$url_array = array(
-    'c' => 'hello',
-    'a' => 'world'
-);
+$url_array = [
+	'c' => 'hello',
+	'a' => 'world',
+];
 
 // Indique à Minz de rediriger l'utilisateur vers la page hello/world.
 // Notez qu'il s'agit d'une redirection au sens Minz du terme, pas d'une redirection que le navigateur va avoir à gérer (code HTTP 301 ou 302)
@@ -188,10 +188,10 @@ Il est très fréquent de vouloir effectuer une redirection tout en affichant un
 ```php
 <?php
 
-$url_array = array(
-    'c' => 'hello',
-    'a' => 'world'
-);
+$url_array = [
+	'c' => 'hello',
+	'a' => 'world',
+];
 $feedback_good = 'Tout s\'est bien passé !';
 $feedback_bad = 'Oups, quelque chose n\'a pas marché.';
 
@@ -225,19 +225,19 @@ Les fichiers de traduction sont assez simples : il s'agit seulement de retourne
 ```php
 <?php
 
-return array(
-    'action' => array(
-        'actualize' => 'Actualiser',
-        'back_to_rss_feeds' => '← Retour à vos flux RSS',
-        'cancel' => 'Annuler',
-        'create' => 'Créer',
-        'disable' => 'Désactiver',
-    ),
-    'freshrss' => array(
-        '_' => 'FreshRSS',
-        'about' => 'À propos de FreshRSS',
-    ),
-);
+return [
+	'action' => [
+		'actualize' => 'Actualiser',
+		'back_to_rss_feeds' => '← Retour à vos flux RSS',
+		'cancel' => 'Annuler',
+		'create' => 'Créer',
+		'disable' => 'Désactiver',
+	],
+	'freshrss' => [
+		'_' => 'FreshRSS',
+		'about' => 'À propos de FreshRSS',
+	],
+];
 
 ?>
 ```
@@ -246,9 +246,9 @@ Pour accéder à ces traductions, `Minz_Translate` va nous aider à l'aide de sa
 
 ```html
 <p>
-    <a href="<?php echo _url('index', 'index'); ?>">
-        <?php echo _t('gen.action.back_to_rss_feeds'); ?>
-    </a>
+	<a href="<?= _url('index', 'index') ?>">
+		<?= _t('gen.action.back_to_rss_feeds') ?>
+	</a>
 </p>
 ```
 

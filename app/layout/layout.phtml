@@ -1,25 +1,25 @@
 <?php FreshRSS::preLayout(); ?>
 <!DOCTYPE html>
-<html lang="<?php echo FreshRSS_Context::$user_conf->language; ?>" xml:lang="<?php echo FreshRSS_Context::$user_conf->language; ?>">
+<html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
-		<?php echo self::headStyle(); ?>
+		<?= self::headStyle() ?>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
-		<?php echo self::headScript(); ?>
-		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
-		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
-		<link rel="apple-touch-icon" href="<?php echo Minz_Url::display('/themes/icons/apple-touch-icon.png'); ?>" />
+		<?= self::headScript() ?>
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
+		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta name="apple-mobile-web-app-title" content="<?php echo FreshRSS_Context::$system_conf->title; ?>">
+		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
 <?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
 <?php } ?>
-		<?php echo self::headTitle(); ?>
+		<?= self::headTitle() ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
 	if (isset($this->rss_title)) {
@@ -29,14 +29,14 @@
 			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
 		}
 ?>
-		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display($url_rss); ?>" />
+		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
 <?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
-		<meta name="description" content="<?php echo htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8'); ?>" />
+		<meta name="description" content="<?= htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
 <?php } else { ?>
 		<meta name="robots" content="noindex,nofollow" />
 <?php } ?>
 	</head>
-	<body class="<?php echo Minz_Request::actionName(); ?>">
+	<body class="<?= Minz_Request::actionName() ?>">
 <?php
 	flush();
 	$this->partial('header');
@@ -62,9 +62,9 @@
 		invalidateHttpCache();
 	}
 ?>
-<div id="notification" class="notification <?php echo $status; ?>">
-	<span class="msg"><?php echo $msg; ?></span>
-	<a class="close" href=""><?php echo _i('close'); ?></a>
+<div id="notification" class="notification <?= $status ?>">
+	<span class="msg"><?= $msg ?></span>
+	<a class="close" href=""><?= _i('close') ?></a>
 </div>
 	</body>
 </html>

@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Category',
 		'add' => 'Add a category',
+		'archiving' => 'Archiving',
 		'empty' => 'Empty category',
 		'information' => 'Information',
 		'new' => 'New category',
@@ -40,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',
 		),
 		'information' => 'Information',
-		'keep_history' => 'Minimum number of articles to keep',
+		'keep_min' => 'Minimum number of articles to keep',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',

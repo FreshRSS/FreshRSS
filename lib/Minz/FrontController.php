@@ -115,21 +115,26 @@ class Minz_FrontController {
 	}
 
 	private function setReporting() {
-		$conf = Minz_Configuration::get('system');
-		switch($conf->environment) {
-		case 'production':
-			error_reporting(E_ALL);
-			ini_set('display_errors', 'Off');
-			ini_set('log_errors', 'On');
-			break;
-		case 'development':
-			error_reporting(E_ALL);
-			ini_set('display_errors', 'On');
-			ini_set('log_errors', 'On');
-			break;
-		case 'silent':
-			error_reporting(0);
-			break;
+		$envType = getenv('FRESHRSS_ENV');
+		if ($envType == '') {
+			$conf = Minz_Configuration::get('system');
+			$envType = $conf->environment;
+		}
+		switch ($envType) {
+			case 'development':
+				error_reporting(E_ALL);
+				ini_set('display_errors', 'On');
+				ini_set('log_errors', 'On');
+				break;
+			case 'silent':
+				error_reporting(0);
+				break;
+			case 'production':
+			default:
+				error_reporting(E_ALL);
+				ini_set('display_errors', 'Off');
+				ini_set('log_errors', 'On');
+				break;
 		}
 	}
 }

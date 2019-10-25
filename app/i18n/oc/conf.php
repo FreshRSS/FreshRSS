@@ -2,15 +2,24 @@
 
 return array(
 	'archiving' => array(
-		'_' => 'Archivar',
+		'_' => 'Archius',
 		'advanced' => 'Avançat',
 		'delete_after' => 'Levar los articles aprèp',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
-		'keep_history_by_feed' => 'Nombre minimum d’articles de servar per flux',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Nombre minimum d’articles de servar per flux',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimizar la basa de donada',
 		'optimize_help' => 'De far de temps en temps per redusir la talha de la basa de donadas',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Purgar ara',
-		'title' => 'Archivar',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
+		'title' => 'Archius',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 	),
 	'display' => array(
@@ -21,6 +30,7 @@ return array(
 			'publication_date' => 'Data de publicacion',
 			'related_tags' => 'Etiquetas ligadas',
 			'sharing' => 'Partatge',
+			'display_authors' => 'Autors',
 			'top_line' => 'Linha amont',
 		),
 		'language' => 'Lenga',
@@ -45,6 +55,7 @@ return array(
 			'_' => 'Supression del compte',
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
 		),
+		'email' => 'Adreça de corrièl',
 		'password_api' => 'Senhal API<br /><small>(ex. : per las aplicacions mobil)</small>',
 		'password_form' => 'Senhal API<br /><small>(ex. : per la connexion via formulari)</small>',
 		'password_format' => 'Almens 7 caractèrs',
@@ -133,7 +144,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Mai d’informacions',
 		'print' => 'Imprimir',
 		'remove' => 'Suprimir lo metòde de partatge',

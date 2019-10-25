@@ -12,6 +12,7 @@ return array(
 	'category' => array(
 		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
+		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
 		'new' => 'Nòva categoria',
@@ -39,7 +40,7 @@ return array(
 			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'information' => 'Informacions',
-		'keep_history' => 'Nombre minimum d’articles de servar',
+		'keep_min' => 'Nombre minimum d’articles de servar',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',

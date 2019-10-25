@@ -7,8 +7,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	const TTL_DEFAULT = 0;
 
-	const KEEP_HISTORY_DEFAULT = -2;
-	const KEEP_HISTORY_INFINITE = -1;
+	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
+	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
 	private $id = 0;
 	private $url;
@@ -24,9 +24,8 @@ class FreshRSS_Feed extends Minz_Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
-	private $attributes = array();
+	private $attributes = [];
 	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';
@@ -110,9 +109,6 @@ class FreshRSS_Feed extends Minz_Model {
 	public function inError() {
 		return $this->error;
 	}
-	public function keepHistory() {
-		return $this->keep_history;
-	}
 	public function ttl() {
 		return $this->ttl;
 	}
@@ -153,18 +149,17 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		global $favicons_dir;
 		require_once(LIB_PATH . '/favicons.php');
 		$url = $this->website;
 		if ($url == '') {
 			$url = $this->url;
 		}
-		$txt = $favicons_dir . $this->hash() . '.txt';
+		$txt = FAVICONS_DIR . $this->hash() . '.txt';
 		if (!file_exists($txt)) {
 			file_put_contents($txt, $url);
 		}
 		if (FreshRSS_Context::$isCli) {
-			$ico = $favicons_dir . $this->hash() . '.ico';
+			$ico = FAVICONS_DIR . $this->hash() . '.ico';
 			$ico_mtime = @filemtime($ico);
 			$txt_mtime = @filemtime($txt);
 			if ($txt_mtime != false &&
@@ -230,12 +225,6 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _error($value) {
 		$this->error = (bool)$value;
-	}
-	public function _keepHistory($value) {
-		$value = intval($value);
-		$value = min($value, 1000000);
-		$value = max($value, self::KEEP_HISTORY_DEFAULT);
-		$this->keep_history = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);
@@ -470,6 +459,28 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->entries = $entries;
 	}
 
+	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+		$archiving = $this->attributes('archiving');
+		if ($archiving == null) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$category = $catDAO->searchById($this->category());
+			$archiving = $category == null ? null : $category->attributes('archiving');
+			if ($archiving == null) {
+				$archiving = FreshRSS_Context::$user_conf->archiving;
+			}
+		}
+		if (is_array($archiving)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$nb = $entryDAO->cleanOldEntries($this->id(), $archiving);
+			if ($nb > 0) {
+				$needFeedCacheRefresh = true;
+				Minz_Log::debug($nb . ' entries cleaned in feed [' . $this->url(false) . '] with: ' . json_encode($archiving));
+			}
+			return $nb;
+		}
+		return false;
+	}
+
 	protected function cacheFilename() {
 		return CACHE_PATH . '/' . md5($this->url) . '.spc';
 	}
@@ -701,7 +712,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$ch = curl_init();
-			curl_setopt_array($ch, array(
+			curl_setopt_array($ch, [
 					CURLOPT_URL => $hubJson['hub'],
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_POSTFIELDS => http_build_query(array(
@@ -712,13 +723,9 @@ class FreshRSS_Feed extends Minz_Model {
 						)),
 					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 					CURLOPT_MAXREDIRS => 10,
-				));
-			if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
-			}
-			if (defined('CURLOPT_ENCODING')) {
-				curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-			}
+					CURLOPT_FOLLOWLOCATION => true,
+					CURLOPT_ENCODING => '',	//Enable all encodings
+				]);
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 

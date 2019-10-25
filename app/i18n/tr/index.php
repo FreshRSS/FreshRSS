@@ -15,6 +15,9 @@ return array(
 		'version' => 'Versiyon',
 		'website' => 'Website',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',

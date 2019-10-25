@@ -48,6 +48,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->topline_favorite = Minz_Request::param('topline_favorite', false);
 			FreshRSS_Context::$user_conf->topline_date = Minz_Request::param('topline_date', false);
 			FreshRSS_Context::$user_conf->topline_link = Minz_Request::param('topline_link', false);
+			FreshRSS_Context::$user_conf->topline_display_authors = Minz_Request::param('topline_display_authors', false);
 			FreshRSS_Context::$user_conf->bottomline_read = Minz_Request::param('bottomline_read', false);
 			FreshRSS_Context::$user_conf->bottomline_favorite = Minz_Request::param('bottomline_favorite', false);
 			FreshRSS_Context::$user_conf->bottomline_sharing = Minz_Request::param('bottomline_sharing', false);
@@ -166,8 +167,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * tab and up.
 	 */
 	public function shortcutAction() {
-		global $SHORTCUT_KEYS;
-		$this->view->list_keys = $SHORTCUT_KEYS;
+		$this->view->list_keys = SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(Minz_Request::param('shortcuts'));
@@ -196,9 +196,31 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::$user_conf->old_entries = Minz_Request::param('old_entries', 3);
-			FreshRSS_Context::$user_conf->keep_history_default = Minz_Request::param('keep_history_default', 0);
+			if (!Minz_Request::paramBoolean('enable_keep_max')) {
+				$keepMax = false;
+			} elseif (!$keepMax = Minz_Request::param('keep_max')) {
+				$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+			}
+			if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
+				$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
+				if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
+					$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+				}
+			} else {
+				$keepPeriod = false;
+			}
+
 			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::param('ttl_default', FreshRSS_Feed::TTL_DEFAULT);
+			FreshRSS_Context::$user_conf->archiving = [
+				'keep_period' => $keepPeriod,
+				'keep_max' => $keepMax,
+				'keep_min' => Minz_Request::param('keep_min_default', 0),
+				'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
+				'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
+				'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
+			];
+			FreshRSS_Context::$user_conf->keep_history_default = null;	//Legacy < FreshRSS 1.15
+			FreshRSS_Context::$user_conf->old_entries = null;	//Legacy < FreshRSS 1.15
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
@@ -206,7 +228,20 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			                   array('c' => 'configure', 'a' => 'archiving'));
 		}
 
-		Minz_View::prependTitle(_t('conf.archiving.title') . ' · ');
+		$volatile = [
+				'enable_keep_period' => false,
+				'keep_period_count' => '3',
+				'keep_period_unit' => 'P1M',
+			];
+		$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
+		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
+			$volatile = [
+				'enable_keep_period' => true,
+				'keep_period_count' => $matches['count'],
+				'keep_period_unit' => str_replace($matches['count'], 1, $keepPeriod),
+			];
+		}
+		FreshRSS_Context::$user_conf->volatile = $volatile;
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
@@ -217,6 +252,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (FreshRSS_Auth::hasAccess('admin')) {
 			$this->view->size_total = $databaseDAO->size(true);
 		}
+
+		Minz_View::prependTitle(_t('conf.archiving.title') . ' · ');
 	}
 
 	/**
@@ -292,15 +329,24 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * configuration values then sends a notification to the user.
 	 *
 	 * The options available on the page are:
+	 *   - instance name (default: FreshRSS)
+	 *   - auto update URL (default: false)
+	 *   - force emails validation (default: false)
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
 	 *   - user login duration for form auth (default: 2592000)
+	 *
+	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
 	public function systemAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
+
+		$can_enable_email_validation = version_compare(PHP_VERSION, '5.5') >= 0;
+		$this->view->can_enable_email_validation = $can_enable_email_validation;
+
 		if (Minz_Request::isPost()) {
 			$limits = FreshRSS_Context::$system_conf->limits;
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
@@ -310,6 +356,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
+			if ($can_enable_email_validation) {
+				FreshRSS_Context::$system_conf->force_email_validation = Minz_Request::param('force-email-validation', false);
+			}
 			FreshRSS_Context::$system_conf->save();
 
 			invalidateHttpCache();

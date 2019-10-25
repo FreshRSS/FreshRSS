@@ -79,11 +79,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
 	}
 
-	private function _keep_history_default(&$data, $value) {
-		$value = intval($value);
-		$data['keep_history_default'] = $value >= FreshRSS_Feed::KEEP_HISTORY_INFINITE ? $value : 0;
-	}
-
 	// It works for system config too!
 	private function _language(&$data, $value) {
 		$value = strtolower($value);
@@ -92,11 +87,6 @@ class FreshRSS_ConfigurationSetter {
 			$value = 'en';
 		}
 		$data['language'] = $value;
-	}
-
-	private function _old_entries(&$data, $value) {
-		$value = intval($value);
-		$data['old_entries'] = $value > 0 ? $value : 3;
 	}
 
 	private function _passwordHash(&$data, $value) {
@@ -257,6 +247,9 @@ class FreshRSS_ConfigurationSetter {
 	private function _topline_read(&$data, $value) {
 		$data['topline_read'] = $this->handleBool($value);
 	}
+	private function _topline_display_authors(&$data, $value) {
+		$data['topline_display_authors'] = $this->handleBool($value);
+	}
 
 	/**
 	 * The (not so long) list of setters for system configuration.
@@ -385,5 +378,9 @@ class FreshRSS_ConfigurationSetter {
 		}
 
 		$data['auto_update_url'] = $value;
+	}
+
+	private function _force_email_validation(&$data, $value) {
+		$data['force_email_validation'] = $this->handleBool($value);
 	}
 }

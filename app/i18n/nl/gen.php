@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualiseren',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
@@ -22,6 +23,7 @@ return array(
 		'update' => 'Updaten',
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => 'Email adres',
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
 		'login' => 'Log in',
@@ -160,25 +162,16 @@ return array(
 		'nothing_to_load' => 'Er zijn geen artikelen meer',
 		'previous' => 'Vorige',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'g+' => 'Google+',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'Known' => 'Known-gebaseerde sites',
 	),
 	'short' => array(
 		'attention' => 'Attentie!',

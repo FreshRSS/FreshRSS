@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
+		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
 		'new' => 'Yeni kategori',
@@ -40,7 +41,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Bilgi',
-		'keep_history' => 'En az tutulacak makale sayısı',
+		'keep_min' => 'En az tutulacak makale sayısı',
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'Hiçbir akış seçilmedi.',

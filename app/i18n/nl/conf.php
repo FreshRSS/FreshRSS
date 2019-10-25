@@ -1,15 +1,23 @@
 <?php
-/* Dutch translation by Wanabo. http://www.nieuwskop.be */
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivering',
-		'advanced' => 'Geavanceerd',
 		'delete_after' => 'Verwijder artikelen na',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
-		'keep_history_by_feed' => 'Minimum aantal te behouden artikelen in de feed',
-		'optimize' => 'Optimaliseer database',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Minimum aantal te behouden artikelen in de feed',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
+		'optimize' => 'Optimaliseer database',	//TODO - Translation
 		'optimize_help' => 'Doe dit zo af en toe om de omvang van de database te verkleinen',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Schoon nu op',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivering',
 		'ttl' => 'Vernieuw niet automatisch meer dan',
 	),
@@ -21,6 +29,7 @@ return array(
 			'publication_date' => 'Publicatie datum',
 			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',
+			'display_authors' => 'Auteurs',
 			'top_line' => 'Bovenaan',
 		),
 		'language' => 'Taal',
@@ -45,6 +54,7 @@ return array(
 			'_' => 'Account verwijderen',
 			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
 		),
+		'email' => 'Email adres',
 		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
@@ -133,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Meer informatie',
 		'print' => 'Afdrukken',
 		'remove' => 'Deelmethode verwijderen',
