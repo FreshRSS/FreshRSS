@@ -189,6 +189,7 @@ Tout client supportant une API de type Google Reader ; Sélection :
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
+	* [Reeder-4](https://itunes.apple.com/us/app/reeder-4/id1449412482?ls=1&mt=12) (Propriétaire)
 
 ## Via l’API compatible Fever
 
@@ -201,9 +202,10 @@ Tout client supportant une API de type Fever ; Sélection :
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
-	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Propriétaire)
+	* [Reeder-4](https://itunes.apple.com/us/app/reeder-4/id1449412357?ls=1&mt=8) (Propriétaire)
 * MacOS
 	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Propriétaire)
+	* [Reeder-4](https://itunes.apple.com/us/app/reeder-4/id1449412482?ls=1&mt=12) (Propriétaire)
 
 
 # Bibliothèques incluses
