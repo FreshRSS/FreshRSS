@@ -189,6 +189,7 @@ Supported clients are:
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
+	* [Reeder-4](https://itunes.apple.com/us/app/reeder-4/id1449412482?ls=1&mt=12) (Closed source)
 
 ## Fever API
 
@@ -201,9 +202,10 @@ Supported clients are:
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)
-	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Closed source)
+	* [Reeder-4](https://itunes.apple.com/us/app/reeder-4/id1449412357?ls=1&mt=8) (Closed source)
 * MacOS
 	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Closed source)
+	* [Reeder-4](https://itunes.apple.com/us/app/reeder-4/id1449412482?ls=1&mt=12) (Closed source)
 
 
 # Included libraries
