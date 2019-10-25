@@ -24,12 +24,100 @@ Not everyone likes or uses GitHub for a variety of legitimate reasons. That is w
 * Over a beer in a bar
 * Etc.
 
-**TODO**
+## Tips
+
+Here are some tips to help you present your bug report or suggestion:
+
+
+* **Pay attention to spelling**. Even if it's not always easy, try your best!
+* **Give an explicit title to your request**, even if it's a bit long. This not only helps us understand your request, but also to find your ticket later.
+* **One request = one ticket.** You may have lots of ideas while being afraid to spam the bug manager: it doesn't matter. It's better to have a few too many tickets than too many requests in one. We'll close and consolidate requests when possible.
+* If you report a bug, think about **providing us with the FreshRSS logs** (accessible in the FreshRSS `data/log/` folder) and the **PHP logs** (the location may vary by distribution, but consider searching in `/var/log/httpd` or `/var/log/apache`).
+* If you can't find the log files, specify it in your ticket so we know you've already searched.
+* Not all bugs require logs, but if you have any doubts, it is better to provide them to us. Logs are important and very useful for debugging!
+* The logs may reveal confidential information, so **be careful not to disclose anything sensitive.**
+
+In addition, when facing a bug, you're encouraged to follow this message format (from the [Sam & Max website](http://sametmax.com/template-de-demande-daide-en-informatique/):
+
+### What's my goal?
+
+Give the general context of what you were trying to do.
+
+### What have I been trying to do?
+
+Explain step by step what you have done so that we can reproduce the bug.
+
+### What results have I achieved?
+
+The bug: what you see that shouldn't have happened. Here you can provide the logs.
+
+### What was the expected result?
+
+So that we understand what you consider to be the problem.
+
+### What are my circumstances?
+
+Remember to give the following information if you know it:
+
+ 1. Which browser? Which version?
+ 2. Which server: Apache, Nginx? Which version?
+ 3. Which version of PHP?
+ 4. Which database: SQLite, MySQL, MariaDB, PostgreSQL? Which version?
+ 5. Which distribution runs on the server? And... which version?
 
 # Branching
 
-**TODO**
+## Basic
+If you are new to Git, here are some of the resources you might find useful:
+
+* [GitHub's blog post](https://github.com/blog/120-new-to-git)
+* <http://try.github.com/>
+* <http://sixrevisions.com/resources/git-tutorials-beginners/>
+* <http://rogerdudler.github.io/git-guide/>
+
+## Getting the latest code from the FreshRSS repository
+First you need to add the official repo to your remote repo list:
+```bash
+git remote add upstream git@github.com:FreshRSS/FreshRSS.git
+```
+
+You can verify the remote repo is successfully added by using:
+```bash
+git remote -v show
+```
+
+Now you can pull the latest development code:
+```bash
+git checkout dev
+git pull upstream dev
+```
+
+## Starting a new development branch
+```bash
+git checkout -b my-development-branch
+```
 
 # Sending a patch
 
-**TODO**
+```bash
+# Add the changed file, here actualize_script.php
+git add app/actualize_script.php
+# Commit the change and write a proper commit message
+git commit
+# Double check all looks well
+git show
+# Push it to your fork
+git push
+```
+
+Now you can create a PR based on your branch. Please make sure to file it against the `dev` branch!
+
+## How to write a commit message
+
+A commit message should succintly describe the changes on the first line. For example:
+
+> Fix broken icon
+
+If necessary, this can be followed by a blank line and a longer explanation.
+
+For further tips, see [here](https://chris.beams.io/posts/git-commit/).

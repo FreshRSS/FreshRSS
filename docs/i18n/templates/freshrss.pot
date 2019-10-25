@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-25 11:09+0200\n"
+"POT-Creation-Date: 2019-10-25 15:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -398,7 +398,7 @@ msgid "Project architecture"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/01_First_steps.md:61 en/./developers/02_Github.md:28 en/./developers/02_Github.md:32 en/./developers/02_Github.md:35 en/./developers/03_Backend/02_Minz.md:4 en/./developers/03_Backend/02_Minz.md:8 en/./developers/03_Backend/02_Minz.md:12 en/./developers/03_Backend/02_Minz.md:16 en/./developers/03_Backend/02_Minz.md:20 en/./developers/03_Backend/02_Minz.md:24 en/./developers/03_Backend/02_Minz.md:27 en/./developers/03_Backend/04_Changing_source_code.md:4 en/./developers/03_Backend/04_Changing_source_code.md:8 en/./developers/03_Backend/04_Changing_source_code.md:12 en/./developers/03_Backend/04_Changing_source_code.md:15 en/./developers/03_Backend/05_Extensions.md:342 en/./developers/03_Backend/05_Extensions.md:381 en/./developers/04_Frontend/01_View_files.md:4 en/./developers/04_Frontend/01_View_files.md:8 en/./developers/04_Frontend/01_View_files.md:12 en/./developers/04_Frontend/01_View_files.md:15 en/./developers/04_Frontend/02_Design.md:4 en/./developers/04_Frontend/02_Design.md:8 en/./developers/04_Frontend/02_Design.md:11 en/./users/03_Main_view.md:4 en/./users/03_Main_view.md:8 en/./users/03_Main_view.md:12 en/./users/04_Subscriptions.md:4 en/./users/04_Subscriptions.md:8 en/./users/04_Subscriptions.md:20 en/./users/05_Configuration.md:70 en/./users/05_Configuration.md:74 en/./users/05_Configuration.md:128 en/./users/05_Configuration.md:153 en/./users/05_Configuration.md:157 en/./users/05_Configuration.md:161
+#: en/./developers/01_First_steps.md:61 en/./developers/03_Backend/02_Minz.md:4 en/./developers/03_Backend/02_Minz.md:8 en/./developers/03_Backend/02_Minz.md:12 en/./developers/03_Backend/02_Minz.md:16 en/./developers/03_Backend/02_Minz.md:20 en/./developers/03_Backend/02_Minz.md:24 en/./developers/03_Backend/02_Minz.md:27 en/./developers/03_Backend/04_Changing_source_code.md:4 en/./developers/03_Backend/04_Changing_source_code.md:8 en/./developers/03_Backend/04_Changing_source_code.md:12 en/./developers/03_Backend/04_Changing_source_code.md:15 en/./developers/03_Backend/05_Extensions.md:342 en/./developers/03_Backend/05_Extensions.md:381 en/./developers/04_Frontend/01_View_files.md:4 en/./developers/04_Frontend/01_View_files.md:8 en/./developers/04_Frontend/01_View_files.md:12 en/./developers/04_Frontend/01_View_files.md:15 en/./developers/04_Frontend/02_Design.md:4 en/./developers/04_Frontend/02_Design.md:8 en/./developers/04_Frontend/02_Design.md:11 en/./users/03_Main_view.md:4 en/./users/03_Main_view.md:8 en/./users/03_Main_view.md:12 en/./users/04_Subscriptions.md:4 en/./users/04_Subscriptions.md:8 en/./users/04_Subscriptions.md:20 en/./users/05_Configuration.md:70 en/./users/05_Configuration.md:74 en/./users/05_Configuration.md:128 en/./users/05_Configuration.md:153 en/./users/05_Configuration.md:157 en/./users/05_Configuration.md:161
 #, no-wrap
 msgid "**TODO**\n"
 msgstr ""
@@ -502,7 +502,7 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./developers/01_First_steps.md:92 en/./developers/05_Release_new_version.md:15 en/./developers/05_Release_new_version.md:102
+#: en/./developers/01_First_steps.md:92 en/./developers/02_Github.md:80 en/./developers/02_Github.md:85 en/./developers/02_Github.md:90 en/./developers/02_Github.md:96 en/./developers/02_Github.md:102 en/./developers/05_Release_new_version.md:15 en/./developers/05_Release_new_version.md:102
 #, no-wrap
 msgid "bash"
 msgstr ""
@@ -901,8 +901,8 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/02_Github.md:26
 msgid ""
-"On[the mailing lists] "
-"(https://freshrss.org/announce-of-the-mailing-lists.html)"
+"On [the mailing "
+"lists](https://freshrss.org/announce-of-the-mailing-lists.html)"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -920,16 +920,303 @@ msgstr ""
 msgid "Etc."
 msgstr ""
 
+#. type: Title ##
+#: en/./developers/02_Github.md:27
+#, no-wrap
+msgid "Tips"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:30
+msgid "Here are some tips to help you present your bug report or suggestion:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid "**Pay attention to spelling**. Even if it's not always easy, try your best!"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"**Give an explicit title to your request**, even if it's a bit long. This "
+"not only helps us understand your request, but also to find your ticket "
+"later."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"**One request = one ticket.** You may have lots of ideas while being afraid "
+"to spam the bug manager: it doesn't matter. It's better to have a few too "
+"many tickets than too many requests in one. We'll close and consolidate "
+"requests when possible."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"If you report a bug, think about **providing us with the FreshRSS logs** "
+"(accessible in the FreshRSS `data/log/` folder) and the **PHP logs** (the "
+"location may vary by distribution, but consider searching in "
+"`/var/log/httpd` or `/var/log/apache`)."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"If you can't find the log files, specify it in your ticket so we know you've "
+"already searched."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"Not all bugs require logs, but if you have any doubts, it is better to "
+"provide them to us. Logs are important and very useful for debugging!"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"The logs may reveal confidential information, so **be careful not to "
+"disclose anything sensitive.**"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:41
+msgid ""
+"In addition, when facing a bug, you're encouraged to follow this message "
+"format (from the [Sam & Max "
+"website](http://sametmax.com/template-de-demande-daide-en-informatique/):"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:42
+#, no-wrap
+msgid "What's my goal?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:45
+msgid "Give the general context of what you were trying to do."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:46
+#, no-wrap
+msgid "What have I been trying to do?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:49
+msgid "Explain step by step what you have done so that we can reproduce the bug."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:50
+#, no-wrap
+msgid "What results have I achieved?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:53
+msgid ""
+"The bug: what you see that shouldn't have happened. Here you can provide the "
+"logs."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:54
+#, no-wrap
+msgid "What was the expected result?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:57
+msgid "So that we understand what you consider to be the problem."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:58
+#, no-wrap
+msgid "What are my circumstances?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:61
+msgid "Remember to give the following information if you know it:"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./developers/02_Github.md:67
+msgid "Which browser? Which version?"
+msgstr ""
+
+#. type: Bullet: ' 2. '
+#: en/./developers/02_Github.md:67
+msgid "Which server: Apache, Nginx? Which version?"
+msgstr ""
+
+#. type: Bullet: ' 3. '
+#: en/./developers/02_Github.md:67
+msgid "Which version of PHP?"
+msgstr ""
+
+#. type: Bullet: ' 4. '
+#: en/./developers/02_Github.md:67
+msgid "Which database: SQLite, MySQL, MariaDB, PostgreSQL? Which version?"
+msgstr ""
+
+#. type: Bullet: ' 5. '
+#: en/./developers/02_Github.md:67
+msgid "Which distribution runs on the server? And... which version?"
+msgstr ""
+
 #. type: Title #
-#: en/./developers/02_Github.md:29
+#: en/./developers/02_Github.md:68
 #, no-wrap
 msgid "Branching"
 msgstr ""
 
+#. type: Title ##
+#: en/./developers/02_Github.md:70
+#, no-wrap
+msgid "Basic"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:72
+msgid "If you are new to Git, here are some of the resources you might find useful:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "[GitHub's blog post](https://github.com/blog/120-new-to-git)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "<http://try.github.com/>"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "<http://sixrevisions.com/resources/git-tutorials-beginners/>"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "<http://rogerdudler.github.io/git-guide/>"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:78
+#, no-wrap
+msgid "Getting the latest code from the FreshRSS repository"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:80
+msgid "First you need to add the official repo to your remote repo list:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:80
+#, no-wrap
+msgid "git remote add upstream git@github.com:FreshRSS/FreshRSS.git\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:85
+msgid "You can verify the remote repo is successfully added by using:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:85
+#, no-wrap
+msgid "git remote -v show\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:90
+msgid "Now you can pull the latest development code:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:90
+#, no-wrap
+msgid ""
+"git checkout dev\n"
+"git pull upstream dev\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:95
+#, no-wrap
+msgid "Starting a new development branch"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:96
+#, no-wrap
+msgid "git checkout -b my-development-branch\n"
+msgstr ""
+
 #. type: Title #
-#: en/./developers/02_Github.md:33
+#: en/./developers/02_Github.md:100
 #, no-wrap
 msgid "Sending a patch"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:102
+#, no-wrap
+msgid ""
+"# Add the changed file, here actualize_script.php\n"
+"git add app/actualize_script.php\n"
+"# Commit the change and write a proper commit message\n"
+"git commit\n"
+"# Double check all looks well\n"
+"git show\n"
+"# Push it to your fork\n"
+"git push\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:114
+msgid ""
+"Now you can create a PR based on your branch. Please make sure to file it "
+"against the `dev` branch!"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:115
+#, no-wrap
+msgid "How to write a commit message"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:118
+msgid ""
+"A commit message should succintly describe the changes on the first "
+"line. For example:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:120
+#, no-wrap
+msgid "> Fix broken icon\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:122
+msgid "If necessary, this can be followed by a blank line and a longer explanation."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:123
+msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
 msgstr ""
 
 #. type: Title #
