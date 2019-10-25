@@ -65,11 +65,11 @@ If you want to create your own FreshRSS extension, take a look at the [extension
 
 # Coding style
 
-If you want to contribute to the source code, it is important to follow the project coding style. The actual code does not follow it throughout the project, but every time we have an opportunity, we should fix it.
+If you want to contribute to the source code, it's important to follow the project's coding style. The actual code doesn't always follow it throughout the project, but we should fix it every time an opportunity presents itself.
 
-Contributions which do not follow the coding style will be rejected as long as the coding style is not fixed.
+Contributions which don't follow the coding style will be rejected as long as the coding style is not fixed.
 
-## Spaces, tabs and white spaces
+## Spaces, tabs and other whitespace characters
 
 ### Indentation
 Code indentation must use tabs.

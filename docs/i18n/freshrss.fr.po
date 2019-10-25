@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-25 10:46+0200\n"
-"PO-Revision-Date: 2019-10-25 10:47+0100\n"
+"POT-Creation-Date: 2019-10-25 10:52+0200\n"
+"PO-Revision-Date: 2019-10-25 10:55+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -457,23 +457,28 @@ msgstr "Style de codage"
 #. type: Plain text
 #: en/./developers/01_First_steps.md:69
 msgid ""
-"If you want to contribute to the source code, it is important to follow the "
-"project coding style. The actual code does not follow it throughout the "
-"project, but every time we have an opportunity, we should fix it."
+"If you want to contribute to the source code, it's important to follow the "
+"project's coding style. The actual code doesn't always follow it throughout "
+"the project, but we should fix it every time an opportunity presents itself."
 msgstr ""
+"Si vous désirez contribuer au code, il est important de respecter le style "
+"de codage suivant. Le code actuel ne le respecte pas entièrement mais il est "
+"de notre devoir à tous de le changer dès que l'occasion se présente."
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:71
 msgid ""
-"Contributions which do not follow the coding style will be rejected as long "
+"Contributions which don't follow the coding style will be rejected as long "
 "as the coding style is not fixed."
 msgstr ""
+"Aucune nouvelle contribution ne respectant pas ces règles ne sera acceptée "
+"tant que les corrections nécessaires ne sont pas appliquées."
 
 #. type: Title ##
 #: en/./developers/01_First_steps.md:72
 #, no-wrap
-msgid "Spaces, tabs and white spaces"
-msgstr ""
+msgid "Spaces, tabs and other whitespace characters"
+msgstr "Espaces, tabulations et autres caractères blancs"
 
 #. type: Title ###
 #: en/./developers/01_First_steps.md:74
@@ -935,24 +940,29 @@ msgid ""
 "\t\"value 3\",\n"
 "];\n"
 msgstr ""
+"$variable = [\n"
+"\t\"valuer 1\",\n"
+"\t\"valuer 2\",\n"
+"\t\"valuer 3\",\n"
+"];\n"
 
 #. type: Title #
 #: en/./developers/02_Github.md:1
 #, no-wrap
 msgid "Reporting a bug or a suggestion"
-msgstr ""
+msgstr "Remonter un problème ou une suggestion"
 
 #. type: Title #
 #: en/./developers/02_Github.md:5
 #, no-wrap
 msgid "Branching"
-msgstr ""
+msgstr "Système de branches"
 
 #. type: Title #
 #: en/./developers/02_Github.md:9
 #, no-wrap
 msgid "Sending a patch"
-msgstr ""
+msgstr "Proposer un patch"
 
 #. type: Title #
 #: en/./developers/03_Backend/02_Minz.md:1

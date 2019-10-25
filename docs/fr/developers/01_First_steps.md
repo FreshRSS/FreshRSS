@@ -86,14 +86,14 @@ If you want to create your own FreshRSS extension, take a look at the
 
 # Style de codage
 
-If you want to contribute to the source code, it is important to follow the
-project coding style. The actual code does not follow it throughout the
-project, but every time we have an opportunity, we should fix it.
+Si vous désirez contribuer au code, il est important de respecter le style
+de codage suivant. Le code actuel ne le respecte pas entièrement mais il est
+de notre devoir à tous de le changer dès que l'occasion se présente.
 
-Contributions which do not follow the coding style will be rejected as long
-as the coding style is not fixed.
+Aucune nouvelle contribution ne respectant pas ces règles ne sera acceptée
+tant que les corrections nécessaires ne sont pas appliquées.
 
-## Spaces, tabs and white spaces
+## Espaces, tabulations et autres caractères blancs
 
 ### Indentation
 L'indentation du code doit être faite impérativement avec des tabulations.
@@ -271,8 +271,8 @@ doivent être suivis d'une virgule (même le dernier).
 
 ```php
 $variable = [
-	"value 1",
-	"value 2",
-	"value 3",
+	"valuer 1",
+	"valuer 2",
+	"valuer 3",
 ];
 ```

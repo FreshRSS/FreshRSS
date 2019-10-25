@@ -1,11 +1,11 @@
-# Reporting a bug or a suggestion
+# Remonter un problème ou une suggestion
 
 **TODO**
 
-# Branching
+# Système de branches
 
 **TODO**
 
-# Sending a patch
+# Proposer un patch
 
 **TODO**
