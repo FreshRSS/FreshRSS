@@ -1,8 +1,8 @@
-# Accessing the database
+# Accès à la base de données
 
 **TODO**
 
-# Writing an action and its related view
+# Écrire une action et sa vue associée
 
 **TODO**
 

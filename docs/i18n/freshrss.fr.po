@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-25 15:33+0200\n"
-"PO-Revision-Date: 2019-10-25 15:43+0100\n"
+"POT-Creation-Date: 2019-10-25 16:34+0200\n"
+"PO-Revision-Date: 2019-10-25 16:33+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -1450,58 +1450,58 @@ msgstr ""
 #: en/./developers/03_Backend/02_Minz.md:1
 #, no-wrap
 msgid "Models"
-msgstr ""
+msgstr "Modèles"
 
 #. type: Title #
 #: en/./developers/03_Backend/02_Minz.md:5
 #, no-wrap
 msgid "Controllers and actions"
-msgstr ""
+msgstr "Contrôleurs et actions"
 
 #. type: Title ###
 #: en/./developers/03_Backend/02_Minz.md:9
 #: en/./developers/03_Backend/05_Extensions.md:69
 #, no-wrap
 msgid "Views"
-msgstr ""
+msgstr "Vues"
 
 #. type: Title ###
 #: en/./developers/03_Backend/02_Minz.md:13
 #: en/./developers/03_Backend/05_Extensions.md:39
 #, no-wrap
 msgid "Routing"
-msgstr ""
+msgstr "Routage"
 
 #. type: Title #
 #: en/./developers/03_Backend/02_Minz.md:17
 #, no-wrap
 msgid "Writing URL"
-msgstr ""
+msgstr "Écriture des URL"
 
 #. type: Title #
 #: en/./developers/03_Backend/02_Minz.md:21
 #: en/./developers/04_Frontend/01_View_files.md:13
 #, no-wrap
 msgid "Internationalisation"
-msgstr ""
+msgstr "Internationalisation"
 
 #. type: Title #
 #: en/./developers/03_Backend/02_Minz.md:25
 #, no-wrap
 msgid "Understanding internals"
-msgstr ""
+msgstr "Comprendres les mécanismes internes"
 
 #. type: Title #
 #: en/./developers/03_Backend/04_Changing_source_code.md:1
 #, no-wrap
 msgid "Accessing the database"
-msgstr ""
+msgstr "Accès à la base de données"
 
 #. type: Title #
 #: en/./developers/03_Backend/04_Changing_source_code.md:5
 #, no-wrap
 msgid "Writing an action and its related view"
-msgstr "Writing an action and its related view"
+msgstr "Écrire une action et sa vue associée"
 
 #. type: Title #
 #: en/./developers/03_Backend/04_Changing_source_code.md:9
@@ -1519,48 +1519,56 @@ msgstr "Gestion des logs"
 #: en/./developers/03_Backend/05_Extensions.md:1
 #, no-wrap
 msgid "Writing extensions for FreshRSS"
-msgstr ""
+msgstr "Écriture d'extensions pour FreshRSS"
 
 #. type: Title ##
 #: en/./developers/03_Backend/05_Extensions.md:3
 #, no-wrap
 msgid "About FreshRSS"
-msgstr ""
+msgstr "Présentation de FreshRSS"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:6
 msgid ""
-"FreshRSS is an RSS / Atom feeds aggregator written in PHP since October "
-"2012. The official site is located at [freshrss.org](https://freshrss.org) "
-"and its repository is hosted by Github: [github.com/FreshRSS/FreshRSS]"
-"(https://github.com/FreshRSS/FreshRSS)."
+"FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to "
+"October 2012. The official site is located at [freshrss.org](https://"
+"freshrss.org) and the official repository is hosted on Github: [github.com/"
+"FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS)."
 msgstr ""
+"FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre "
+"2012. Le site officiel est situé à l'adresse [freshrss.org](https://freshrss."
+"org) et son dépot Git est hébergé par Github : [github.com/FreshRSS/FreshRSS]"
+"(https://github.com/FreshRSS/FreshRSS)."
 
 #. type: Title ##
 #: en/./developers/03_Backend/05_Extensions.md:7
 #, no-wrap
-msgid "Problem to solve"
-msgstr ""
+msgid "The problem"
+msgstr "Problème à résoudre"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:10
 msgid "FreshRSS is limited in its technical possibilities by various factors:"
 msgstr ""
+"FreshRSS est limité dans ses possibilités techniques par différents "
+"facteurs :"
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:14
 msgid "The number of developers"
-msgstr ""
+msgstr "La disponibilité des développeurs principaux ;"
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:14
 msgid "The will to integrate certain changes"
-msgstr ""
+msgstr "La volonté d'intégrer certains changements ;"
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:14
 msgid "The level of \"hacking\" required to integrate marginal features"
 msgstr ""
+"Le niveau de « hack » nécessaire pour intégrer des fonctionnalités à la "
+"marge."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:16
@@ -1571,6 +1579,11 @@ msgid ""
 "In order to remove the other two limitations, most of the time it will be "
 "necessary to create a \"fork\"."
 msgstr ""
+"Si la première limitation peut, en théorie, être levée par la participation "
+"de nouveaux contributeurs au projet, elle est en réalité conditionnée par la "
+"volonté des contributeurs à s'intéresser au code source du projet en entier. "
+"Afin de lever les deux autres limitations quant à elles, il faudra la "
+"plupart du temps passer par un « à-coté » souvent synonyme de « fork »."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:18
@@ -1579,21 +1592,28 @@ msgid ""
 "their own extension without taking an interest in the core of the basic "
 "software, we allow for:"
 msgstr ""
+"Une autre solution consiste à passer par un système d'extensions. En "
+"permettant à des utilisateurs d'écrire leur propre extension sans avoir à "
+"s'intéresser au cœur même du logiciel de base, on permet :"
 
 #. type: Bullet: '1. '
 #: en/./developers/03_Backend/05_Extensions.md:22
 msgid "Reducing the amount of source code a new contributor has to take in"
 msgstr ""
+"De réduire la quantité de code source à assimiler pour un nouveau "
+"contributeur ;"
 
 #. type: Bullet: '2. '
 #: en/./developers/03_Backend/05_Extensions.md:22
 msgid "Unofficial integration of novelties"
-msgstr ""
+msgstr "De permettre d'intégrer des nouveautés de façon non-officielles ;"
 
 #. type: Bullet: '3. '
 #: en/./developers/03_Backend/05_Extensions.md:22
-msgid "No necessity of forking or main developer approvement."
+msgid "No forking or main developer approval required."
 msgstr ""
+"De se passer des développeurs principaux pour d'éventuelles améliorations "
+"sans passer par la case « fork »."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:24
@@ -1602,18 +1622,22 @@ msgid ""
 "later be officially integrated into the FreshRSS code. Extensions make it "
 "easy to propose a proof of concept."
 msgstr ""
+"Note : il est tout à fait imaginable que les fonctionnalités d'une extension "
+"puissent par la suite être intégrées dans le code initial de FreshRSS de "
+"façon officielle. Cela permet de proposer un « proof of concept » assez "
+"facilement."
 
 #. type: Title ##
 #: en/./developers/03_Backend/05_Extensions.md:25
 #, no-wrap
 msgid "Understanding basic mechanics (Minz and MVC)"
-msgstr ""
+msgstr "Comprendre les mécaniques de base (Minz et MVC)"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:28
 #, no-wrap
 msgid "**TODO** : move to 02_Minz.md\n"
-msgstr ""
+msgstr "**TODO** : bouger dans 02_Minz.md\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:30
@@ -1626,19 +1650,29 @@ msgid ""
 "need to translate your extension, no need to know more about the "
 "`Minz_Translate` module for example)."
 msgstr ""
+"Cette fiche technique devrait renvoyer vers la documentation officielle de "
+"FreshRSS et de Minz (le framework PHP sur lequel repose FreshRSS). "
+"Malheureusement cette documentation n'existe pas encore. Voici donc en "
+"quelques mots les principaux éléments à connaître. Il n'est pas nécessaire "
+"de lire l'ensemble des chapitres de cette section si vous n'avez pas à "
+"utiliser une fonctionnalité dans votre extension (si vous n'avez pas besoin "
+"de traduire votre extension, pas besoin d'en savoir plus sur le module "
+"`Minz_Translate` par exemple)."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:31
 #, no-wrap
 msgid "MVC Architecture"
-msgstr ""
+msgstr "Architecture MVC"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:34
 msgid ""
-"Minz relies on and imposes an MVC architecture for projects using it. This "
+"Minz relies on and imposes an MVC architecture on projects using it. This "
 "architecture consists of three main components:"
 msgstr ""
+"Minz repose et impose une architecture MVC pour les projets l'utilisant. On "
+"distingue dans cette architecture trois composants principaux :"
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:38
@@ -1649,14 +1683,22 @@ msgid ""
 "but is separated from the base model: we speak of DAO (for \"Data Access "
 "Object\"). The templates are stored in a `Models` folder."
 msgstr ""
+"Le Modèle : c'est l'objet de base que l'on va manipuler. Dans FreshRSS, les "
+"catégories, les flux et les articles sont des modèles. La partie du code qui "
+"permet de les manipuler en base de données fait aussi partie du modèle mais "
+"est séparée du modèle de base : on parle de DAO (pour « Data Access Object "
+"»). Les modèles sont stockés dans un répertoire `Models`."
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:38
 msgid ""
 "The view: this is what the user sees. The view is therefore simply HTML code "
-"mixed with PHP to display dynamic information. The views are stored in an "
+"mixed with PHP to display dynamic information. The views are stored in a "
 "`views` folder."
 msgstr ""
+"La Vue : c'est ce qui représente ce que verra l'utilisateur. La vue est donc "
+"simplement du code HTML que l'on mixe avec du PHP pour afficher les "
+"informations dynamiques. Les vues sont stockées dans un répertoire `views`."
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:38
@@ -1666,6 +1708,11 @@ msgid ""
 "of items) to \"pass\" them to a view for display. Controllers are stored in "
 "a `Controllers` directory."
 msgstr ""
+"Le Contrôleur : c'est ce qui permet de lier modèles et vues entre eux. "
+"Typiquement, un contrôleur va charger des modèles à partir de la base de "
+"données (une liste d'articles par exemple) pour les « passer » à une vue "
+"afin qu'elle les affiche. Les contrôleurs sont stockés dans un répertoire "
+"`Controllers`."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:42
@@ -1676,6 +1723,11 @@ msgid ""
 "`c` parameter. For example, the address http://exemple.com?c=hello will "
 "execute the code contained in the `hello` controller."
 msgstr ""
+"Afin de lier une URL à un contrôleur, on doit passer par une phase dite de « "
+"routage ». Dans FreshRSS, cela est particulièrement simple car il suffit "
+"d'indiquer le nom du contrôleur à charger dans l'URL à l'aide d'un paramètre "
+"`c`. Par exemple, l'adresse http://exemple.com?c=hello va exécuter le code "
+"contenu dans le contrôleur `hello`."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:44
@@ -1685,12 +1737,16 @@ msgid ""
 "represented by a class and its actions by methods. To execute an action, it "
 "is necessary to specify an `a` parameter in the URL."
 msgstr ""
+"Une notion qui n'a pas encore été évoquée est le système d'« actions ». Une "
+"action est exécutée *sur* un contrôleur. Concrètement, un contrôleur va être "
+"représenté par une classe et ses actions par des méthodes. Pour exécuter une "
+"action, il est nécessaire d'indiquer un paramètre `a` dans l'URL."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:46
 #: en/./developers/03_Backend/05_Extensions.md:165
 msgid "Code example:"
-msgstr ""
+msgstr "Exemple de code :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:47
@@ -1710,6 +1766,19 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"class FreshRSS_hello_Controller extends Minz_ActionController {\n"
+"\tpublic function indexAction() {\n"
+"\t\t$this->view->a_variable = 'FooBar';\n"
+"\t}\n"
+"\n"
+"\tpublic function worldAction() {\n"
+"\t\t$this->view->a_variable = 'Hello World!';\n"
+"\t}\n"
+"}\n"
+"\n"
+"?>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:64
@@ -1717,6 +1786,8 @@ msgid ""
 "When loading the address http://exemple.com?c=hello&a=world, the `world` "
 "action is executed on the `hello` controller."
 msgstr ""
+"Si l'on charge l'adresse http://exemple.com?c=hello&a=world, l'action "
+"`world` va donc être exécutée sur le contrôleur `hello`."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:66
@@ -1725,13 +1796,18 @@ msgid ""
 "variables is `index`. So the address http://exemple.com?c=hello will execute "
 "the `index` action of the `hello` controller."
 msgstr ""
+"Note : si `c` ou `a` n'est pas précisée, la valeur par défaut de chacune de "
+"ces variables est `index`. Ainsi l'adresse http://exemple.com?c=hello va "
+"exécuter l'action `index` du contrôleur `hello`."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:68
 msgid ""
-"Later, the `hello/world` convention will be used to refer to a controller/"
-"action pair."
+"From now on, the `hello/world` naming convention will be used to refer to a "
+"controller/action pair."
 msgstr ""
+"Plus loin, sera utilisée la convention `hello/world` pour évoquer un couple "
+"contrôleur/action."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:72
@@ -1740,12 +1816,17 @@ msgid ""
 "with `hello/world` will be stored in a very specific file: `views/hello/"
 "world. phtml`. This convention is imposed by Minz."
 msgstr ""
+"Chaque vue est associée à un contrôleur et à une action. La vue associée à "
+"`hello/world` va être stockée dans un fichier bien spécifique : `views/hello/"
+"world.phtml`. Cette convention est imposée par Minz."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:74
 msgid ""
 "As explained above, the views consist of HTML mixed with PHP. Code example:"
 msgstr ""
+"Comme expliqué plus haut, les vues sont du code HTML mixé à du PHP. Exemple "
+"de code :"
 
 #. type: Code fence info string
 #: en/./developers/03_Backend/05_Extensions.md:75
@@ -1755,7 +1836,7 @@ msgstr ""
 #: en/./developers/03_Backend/05_Extensions.md:351
 #, no-wrap
 msgid "html"
-msgstr ""
+msgstr "html"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:75
@@ -1765,18 +1846,21 @@ msgid ""
 "\tThis is a parameter passed from the controller: <?= $this->a_variable ?>\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"\tPhrase passée en paramètre : <?= $this->a_variable ?>\n"
+"</p>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:82
 #, no-wrap
 msgid "The variable `$this->a_variable` is passed by the controller (see previous example). The difference is that in the controller it is necessary to pass `$this->view`, while in the view `$this` suffices.\n"
-msgstr ""
+msgstr "La variable `$this->a_variable` a été passée précédemment par le contrôleur (voir exemple précédent). La différence est que dans le contrôleur il est nécessaire de passer par `$this->view` et que dans la vue `$this` suffit.\n"
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:83
 #, no-wrap
 msgid "Working with GET / POST"
-msgstr ""
+msgstr "Accéder aux paramètres GET / POST"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:87
@@ -1785,6 +1869,9 @@ msgid ""
 "In Minz, these parameters are accessible using the `Minz_Request` class.  "
 "Code example:"
 msgstr ""
+"Il est souvent nécessaire de profiter des paramètres passés par GET ou par "
+"POST. Dans Minz, ces paramètres sont accessibles de façon indistincts à "
+"l'aide de la classe `Minz_Request`. Exemple de code :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:88
@@ -1808,6 +1895,22 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"$default_value = 'foo';\n"
+"$param = Minz_Request::param('bar', $default_value);\n"
+"\n"
+"// Affichera la valeur du paramètre `bar` (passé via GET ou POST)\n"
+"// ou \"foo\" si le paramètre n'existe pas.\n"
+"\n"
+"// Force la valeur du paramètre `bar`\n"
+"Minz_Request::_param('bar', 'baz');\n"
+"\n"
+"// Affichera forcément \"baz\" puisque nous venons de forcer sa valeur.\n"
+"// Notez que le second paramètre (valeur par défaut) est facultatif.\n"
+"echo Minz_Request::param('bar');\n"
+"\n"
+"?>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:109
@@ -1815,6 +1918,8 @@ msgid ""
 "The `Minz_Request::isPost()` method can be used to execute a piece of code "
 "only if it is a POST request."
 msgstr ""
+"La méthode `Minz_Request::isPost()` peut être utile pour n'exécuter un "
+"morceau de code que s'il s'agit d'une requête POST."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:111
@@ -1823,12 +1928,16 @@ msgid ""
 "likely that you will encounter this method in FreshRSS views, or even in "
 "templates, but be aware that this is **not** good practice."
 msgstr ""
+"Note : il est préférable de n'utiliser `Minz_Request` que dans les "
+"contrôleurs. Il est probable que vous rencontriez cette méthode dans les "
+"vues de FreshRSS, voire dans les modèles, mais sachez qu'il ne s'agit "
+"**pas** d'une bonne pratique."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:112
 #, no-wrap
 msgid "Access session settings"
-msgstr ""
+msgstr "Accéder aux paramètres de session"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:115
@@ -1838,12 +1947,16 @@ msgid ""
 "no example here because you can repeat the previous example by changing all "
 "`Minz_Request` to `Minz_Session`."
 msgstr ""
+"L'accès aux paramètres de session est étrangement similaire aux paramètres "
+"GET / POST mais passe par la classe `Minz_Session` cette fois-ci ! Il n'y a "
+"pas d'exemple ici car vous pouvez reprendre le précédent en changeant tous "
+"les `Minz_Request` par des `Minz_Session`."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:116
 #, no-wrap
 msgid "Working with URLs"
-msgstr ""
+msgstr "Gestion des URL"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:119
@@ -1852,6 +1965,9 @@ msgid ""
 "discouraged to write hard URLs in your code. For example, the following view "
 "should be avoided:"
 msgstr ""
+"Pour profiter pleinement du système de routage de Minz, il est fortement "
+"déconseillé d'écrire les URL en dur dans votre code. Par exemple, la vue "
+"suivante doit être évitée :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:120
@@ -1861,14 +1977,20 @@ msgid ""
 "\tGo to page <a href=\"http://example.com?c=hello&amp;a=world\">Hello world</a>!\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"\tAccéder à la page <a href=\"http://exemple.com?c=hello&amp;a=world\">Hello world</a>!\n"
+"</p>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:127
 msgid ""
-"Should it be decided one day to use a \"url rewriting\" system to have "
+"If one day it was decided to use a \"url rewriting\" system to have "
 "addresses in a http://exemple.com/controller/action format, all previous "
 "addresses would become ineffective!"
 msgstr ""
+"Si un jour il est décidé d'utiliser un système d'« url rewriting » pour "
+"avoir des adresses au format http://exemple.com/controller/action, toutes "
+"les adresses précédentes deviendraient ineffectives !"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:129
@@ -1876,6 +1998,9 @@ msgid ""
 "So use the `Minz_Url` class and its `display()` method instead. `Minz_Url::"
 "display()` takes an array of the following form as its argument:"
 msgstr ""
+"Préférez donc l'utilisation de la classe `Minz_Url` et de sa méthode "
+"`display()`. `Minz_Url::display()` prend en paramètre un tableau de la forme "
+"suivante :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:130
@@ -1896,13 +2021,29 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"$url_array = [\n"
+"\t'c' => 'hello',\n"
+"\t'a' => 'world',\n"
+"\t'params' => [\n"
+"\t\t'foo' => 'bar',\n"
+"\t],\n"
+"];\n"
+"\n"
+"// Affichera quelque chose comme .?c=hello&amp;a=world&amp;foo=bar\n"
+"echo Minz_Url::display($url_array);\n"
+"\n"
+"?>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:148
 msgid ""
 "Since this can become a bit tedious to use in the long run, especially in "
-"views, it is preferable to use the `_url()' shortcut:"
+"views, it is preferable to use the `_url()` shortcut:"
 msgstr ""
+"Comme cela peut devenir un peu pénible à utiliser à la longue, surtout dans "
+"les vues, il est préférable d'utiliser le raccourci `_url()` :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:149
@@ -1915,6 +2056,12 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"// Affichera la même chose que précédemment\n"
+"echo _url('hello', 'world', 'foo', 'bar');\n"
+"\n"
+"?>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:159
@@ -1923,12 +2070,15 @@ msgid ""
 "views, while the long form (`Minz_Url::display()`) should be used in "
 "controllers."
 msgstr ""
+"Note : en règle générale, la forme raccourcie (`_url()`) doit être utilisée "
+"dans les vues tandis que la forme longue (`Minz_Url::display()`) doit être "
+"utilisée dans les contrôleurs."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:160
 #, no-wrap
 msgid "Redirections"
-msgstr ""
+msgstr "Redirections"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:163
@@ -1937,6 +2087,10 @@ msgid ""
 "`Minz_Request` class offers another useful method: `forward()`. This method "
 "takes the same URL format as the one seen just before as its argument."
 msgstr ""
+"Il est souvent nécessaire de rediriger un utilisateur vers une autre page. "
+"Pour cela, la classe `Minz_Request` dispose d'une autre méthode utile : "
+"`forward()`. Cette méthode prend en argument le même format d'URL que celui "
+"vu juste avant."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:166
@@ -1960,6 +2114,23 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"$url_array = [\n"
+"\t'c' => 'hello',\n"
+"\t'a' => 'world',\n"
+"];\n"
+"\n"
+"// Indique à Minz de rediriger l'utilisateur vers la page hello/world.\n"
+"// Notez qu'il s'agit d'une redirection au sens Minz du terme, pas d'une redirection que le navigateur va avoir à gérer (code HTTP 301 ou 302)\n"
+"// Le code qui suit forward() va ainsi être exécuté !\n"
+"Minz_Request::forward($url_array);\n"
+"\n"
+"// Pour effectuer une redirection type 302, ajoutez \"true\".\n"
+"// Le code qui suivra ne sera alors jamais exécuté.\n"
+"Minz_Request::forward($url_array, true);\n"
+"\n"
+"?>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:187
@@ -1972,6 +2143,14 @@ msgid ""
 "very frequent action, there are two shortcuts that both perform a 302 "
 "redirect by assigning a feedback message:"
 msgstr ""
+"Il est très fréquent de vouloir effectuer une redirection tout en affichant "
+"un message à l'utilisateur pour lui indiquer comment s'est déroulée l'action "
+"effectuée juste avant (validation d'un formulaire par exemple). Un tel "
+"message est passé par une variable de session `notification` (note : nous "
+"parlerons plutôt de « feedback » désormais pour éviter la confusion avec une "
+"notification qui peut survenir à tout moment). Pour faciliter ce genre "
+"d'action très fréquente, il existe deux raccourcis qui effectuent tout deux "
+"une redirection type 302 en affectant un message de feedback :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:188
@@ -1983,8 +2162,8 @@ msgid ""
 "\t'c' => 'hello',\n"
 "\t'a' => 'world',\n"
 "];\n"
-"$feedback_good = 'Tout s\\'est bien passé !';\n"
-"$feedback_bad = 'Oups, quelque chose n\\'a pas marché.';\n"
+"$feedback_good = 'All went well!';\n"
+"$feedback_bad = 'Oops, something went wrong.';\n"
 "\n"
 "Minz_Request::good($feedback_good, $url_array);\n"
 "\n"
@@ -1994,12 +2173,28 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"$url_array = [\n"
+"\t'c' => 'hello',\n"
+"\t'a' => 'world',\n"
+"];\n"
+"$feedback_good = 'Tout s\\'est bien passé !';\n"
+"$feedback_bad = 'Oups, quelque chose n\\'a pas marché.';\n"
+"\n"
+"Minz_Request::good($feedback_good, $url_array);\n"
+"\n"
+"// ou\n"
+"\n"
+"Minz_Request::bad($feedback_bad, $url_array);\n"
+"\n"
+"?>\n"
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:207
 #, no-wrap
 msgid "Translation Management"
-msgstr ""
+msgstr "Gestion de la traduction"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:210
@@ -2011,6 +2206,12 @@ msgid ""
 "manage different languages in order not to remain confined to English or "
 "French."
 msgstr ""
+"Il est fréquent (et c'est un euphémisme) de vouloir afficher des phrases à "
+"l'utilisateur. Dans l'exemple précédent par exemple, nous affichions un "
+"feedback à l'utilisateur en fonction du résultat d'une validation de "
+"formulaire. Le problème est que FreshRSS possède des utilisateurs de "
+"différentes nationalités. Il est donc nécessaire de pouvoir gérer "
+"différentes langues pour ne pas rester cantonné à l'Anglais ou au Français."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:212
@@ -2022,30 +2223,71 @@ msgid ""
 "For example, English language files are located in `i18n/fr/`. There are "
 "seven different files:"
 msgstr ""
+"La solution consiste à utiliser la classe `Minz_Translate` qui permet de "
+"traduire dynamiquement FreshRSS (ou toute application basée sur Minz). Avant "
+"d'utiliser ce module, il est nécessaire de savoir où trouver les chaînes de "
+"caractères à traduire. Chaque langue possède son propre sous-répertoire dans "
+"un répertoire parent nommé `i18n`. Par exemple, les fichiers de langue en "
+"Français sont situés dans `i18n/fr/`. Il existe sept fichiers différents :"
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:220
-msgid ""
-"- `admin.php` for anything related to FreshRSS administration - `conf.php` "
-"for configuration - `feedback.php` contains translations of feedback "
-"messages - `gen.php` stores what is global to FreshRSS (gen for \"general"
-"\")  - `index.php` for the main page that lists feeds and the About page - "
-"`install.php` contains strings related FreshRSS installation - `sub.php` for "
-"subscription management (sub for \"subscription\")"
+msgid "`admin.php` for anything related to FreshRSS administration"
 msgstr ""
+"`admin.php` pour tout ce qui est relatif à l'administration de FreshRSS ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`conf.php` for configuration"
+msgstr "`conf.php` pour l'aspect configuration ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`feedback.php` contains translations of feedback messages"
+msgstr "`feedback.php` contient les traductions des messages de feedback ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`gen.php` stores what is global to FreshRSS (gen for \"general\")"
+msgstr "`gen.php` stocke ce qui est global à FreshRSS (gen pour « general ») ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`index.php` for the main page that lists feeds and the About page"
+msgstr ""
+"`index.php` pour la page principale qui liste les flux et la page « À propos "
+"» ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`install.php` contains strings related FreshRSS installation"
+msgstr ""
+"`install.php` contient les phrases relatives à l'installation de FreshRSS ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`sub.php` for subscription management (sub for \"subscription\")"
+msgstr ""
+"`sub.php` pour l'aspect gestion des abonnements (sub pour « subscription »)."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:222
 msgid ""
 "This organization makes it possible to avoid a single huge translation file."
 msgstr ""
+"Cette organisation permet de ne pas avoir un unique énorme fichier de "
+"traduction."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:224
 msgid ""
-"The translation files are quite simple: it is only a matter of returning a "
-"PHP table containing the translations. Extract from `app/i18n/en/gen.php`:"
+"The translation files are quite simple: it's only a matter of returning a "
+"PHP table containing the translations. As an example, here's an extract from "
+"`app/i18n/fr/gen.php`:"
 msgstr ""
+"Les fichiers de traduction sont assez simples : il s'agit seulement de "
+"retourner un tableau PHP contenant les traductions. Extrait du fichier `app/"
+"i18n/fr/gen.php` :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:225
@@ -2069,6 +2311,23 @@ msgid ""
 "\n"
 "?>\n"
 msgstr ""
+"<?php\n"
+"\n"
+"return array(\n"
+"\t'action' => [\n"
+"\t\t'actualize' => 'Actualiser',\n"
+"\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
+"\t\t'cancel' => 'Annuler',\n"
+"\t\t'create' => 'Créer',\n"
+"\t\t'disable' => 'Désactiver',\n"
+"\t),\n"
+"\t'freshrss' => array(\n"
+"\t\t'_' => 'FreshRSS',\n"
+"\t\t'about' => 'À propos de FreshRSS',\n"
+"\t),\n"
+"];\n"
+"\n"
+"?>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:247
@@ -2078,6 +2337,10 @@ msgid ""
 "has been introduced that **must** be used in all circumstances: `_t()`.  "
 "Code example:"
 msgstr ""
+"Pour accéder à ces traductions, `Minz_Translate` va nous aider à l'aide de "
+"sa méthode `Minz_Translate::t()`. Comme cela peut être un peu long à taper, "
+"il a été introduit un raccourci qui **doit** être utilisé en toutes "
+"circonstances : `_t()`. Exemple de code :"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:248
@@ -2089,6 +2352,11 @@ msgid ""
 "\t</a>\n"
 "</p>\n"
 msgstr ""
+"<p>\n"
+"\t<a href=\"<?= _url('index', 'index') ?>\">\n"
+"\t\t<?= _t('gen.action.back_to_rss_feeds') ?>\n"
+"\t</a>\n"
+"</p>\n"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:257
@@ -2100,6 +2368,13 @@ msgid ""
 "array and `back_to_rss_feeds` is an entry of the `action` array. This allows "
 "us to further organize our translation files."
 msgstr ""
+"La chaîne à passer à la fonction `_t()` consiste en une série d'identifiants "
+"séparés par des points. Le premier identifiant indique de quel fichier on "
+"veut extraire la traduction (dans notre cas présent, de `gen.php`), tandis "
+"que les suivantes indiquent des entrées de tableaux. Ainsi `action` est une "
+"entrée du tableau principal et `back_to_rss_feeds` est une entrée du tableau "
+"`action`. Cela permet d'organiser encore un peu plus nos fichiers de "
+"traduction."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:259
@@ -2111,18 +2386,25 @@ msgid ""
 "associated with the value `FreshRSS`: this means that there is no need to "
 "write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices."
 msgstr ""
+"Il existe un petit cas particulier qui permet parfois de se simplifier la "
+"vie : le cas de l'identifiant `_`. Celui-ci doit nécessairement être présent "
+"en bout de chaîne et permet de donner une valeur à l'identifiant de niveau "
+"supérieur. C'est assez dur à expliquer mais très simple à comprendre. Dans "
+"l'exemple donné plus haut, un `_` est associé à la valeur `FreshRSS` : cela "
+"signifie qu'il n'y a pas besoin d'écrire `_t('gen.freshrss._')` mais "
+"`_t('gen.freshrss')` suffit."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:260
 #, no-wrap
 msgid "Configuration management"
-msgstr ""
+msgstr "Gestion de la configuration"
 
 #. type: Title ##
 #: en/./developers/03_Backend/05_Extensions.md:262
 #, no-wrap
 msgid "Write an extension for FreshRSS"
-msgstr ""
+msgstr "Écrire une extension pour FreshRSS"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:265
@@ -2131,19 +2413,24 @@ msgid ""
 "run FreshRSS correctly and it's about time to address the extensions "
 "themselves."
 msgstr ""
+"Nous y voilà ! Nous avons abordé les fonctionnalités les plus utiles de Minz "
+"et qui permettent de faire tourner FreshRSS correctement et il est plus que "
+"temps d'aborder les extensions en elles-même."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:267
 msgid ""
-"An extension allows you to add functionality easily to FreshRSS without "
+"An extension allows you to easily add functionality to FreshRSS without "
 "having to touch the core of the project directly."
 msgstr ""
+"Une extension permet donc d'ajouter des fonctionnalités facilement à "
+"FreshRSS sans avoir à toucher au cœur du projet directement."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:268
 #, no-wrap
 msgid "Basic files and folders"
-msgstr ""
+msgstr "Les fichiers et répertoires de base"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:273
@@ -2155,6 +2442,12 @@ msgid ""
 "preceded by an \"x\" to indicate that it is not an extension included by "
 "default in FreshRSS."
 msgstr ""
+"La première chose à noter est que **toutes** les extensions **doivent** se "
+"situer dans le répertoire `extensions`, à la base de l'arborescence de "
+"FreshRSS. Une extension est un répertoire contenant un ensemble de fichiers "
+"et sous-répertoires obligatoires ou facultatifs. La convention veut que l'on "
+"précède le nom du répertoire principal par un « x » pour indiquer qu'il ne "
+"s'agit pas d'une extension incluse par défaut dans FreshRSS."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:275
@@ -2162,14 +2455,24 @@ msgid ""
 "The main directory of an extension must contain at least two **mandatory** "
 "files:"
 msgstr ""
+"Le répertoire principal d'une extension doit comporter au moins deux "
+"fichiers **obligatoire** :"
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:278
 msgid ""
-"- A `metadata.json` file that contains a description of the extension. This "
-"file is written in JSON.  - An `extension.php` file containing the entry "
-"point of the extension (which is a class that inherits Minz_Extension)."
+"A `metadata.json` file that contains a description of the extension. This "
+"file is written in JSON."
 msgstr ""
+"Un fichier `metadata.json` qui contient une description de l'extension. Ce "
+"fichier est écrit en JSON ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:278
+msgid ""
+"An `extension.php` file containing the entry point of the extension (which "
+"is a class that inherits Minz_Extension)."
+msgstr "Un fichier `extension.php` contenant le point d'entrée de l'extension."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:282
@@ -2212,16 +2515,36 @@ msgid ""
 "You may also need additional files or subdirectories depending on your needs:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:300
 msgid ""
-"- `configure.phtml` is the file containing the form to parameterize your "
-"extension - A `static/` directory containing CSS and JavaScript files that "
-"you will need for your extension (note that if you need to write a lot of "
-"CSS it may be more interesting to write a complete theme)  - A `Controllers` "
-"directory containing additional controllers - An `i18n` directory containing "
-"additional translations - `layout` and` views` directories to define new "
-"views or to overwrite the current views"
+"`configure.phtml` is the file containing the form to parameterize your "
+"extension"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid ""
+"A `static/` directory containing CSS and JavaScript files that you will need "
+"for your extension (note that if you need to write a lot of CSS it may be "
+"more interesting to write a complete theme)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid "A `Controllers` directory containing additional controllers"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid "An `i18n` directory containing additional translations"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid ""
+"`layout` and` views` directories to define new views or to overwrite the "
+"current views"
 msgstr ""
 
 #. type: Plain text
@@ -2246,30 +2569,63 @@ msgid ""
 "following entries:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid "`name`: the name of your extension"
+msgstr "`name` : le nom de votre extension ;"
+
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:313
 msgid ""
-"- `name` : the name of your extension - `author` : your name, your e-mail "
-"address ... but there is no specific format to adopt - `description` : a "
-"description of your extension - `version` : the current version number of "
-"the extension - `entrypoint` : Indicates the entry point of your extension. "
-"It must match the name of the class contained in the file `extension.php` "
-"without the suffix` Extension` (so if the entry point is `HelloWorld`, your "
-"class will be called` HelloWorldExtension`)  - `type` : Defines the type of "
-"your extension. There are two types: `system` and` user`. We will study this "
-"difference right after."
+"`author`: your name, your e-mail address ... but there is no specific format "
+"to adopt"
 msgstr ""
+"`author` : votre nom, éventuellement votre adresse mail mais il n'y a pas de "
+"format spécifique à adopter ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid "`description`: a description of your extension"
+msgstr "`description` : une description de votre extension ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid "`version`: the current version number of the extension"
+msgstr "`version` : le numéro de version actuel de l'extension ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid ""
+"`entrypoint`: Indicates the entry point of your extension. It must match the "
+"name of the class contained in the file `extension.php` without the suffix` "
+"Extension` (so if the entry point is `HelloWorld`, your class will be "
+"called` HelloWorldExtension`)"
+msgstr ""
+"`entrypoint` : indique le point d'entrée de votre extension. Il doit "
+"correspondre au nom de la classe contenue dans le fichier `extension.php` "
+"sans le suffixe `Extension` (donc si le point d'entrée est `HelloWorld`, "
+"votre classe s'appellera `HelloWorldExtension`) ;"
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid ""
+"`type`: Defines the type of your extension. There are two types: `system` "
+"and` user`. We will study this difference right after."
+msgstr ""
+"`type` : définit le type de votre extension. Il existe deux types : `system` "
+"et `user`. Nous étudierons cette différence juste après."
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:315
 msgid "Only the `name` and` entrypoint` fields are required."
-msgstr ""
+msgstr "Seuls les champs `name` et `entrypoint` sont requis."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:316
-#, no-wrap
-msgid "Choose between « system » or « user »"
-msgstr ""
+#, fuzzy, no-wrap
+#| msgid "Choose between « system » or « user »"
+msgid "Chosing between « system » and « user »"
+msgstr "Choisir entre extension « system » ou « user »"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:319
@@ -2304,23 +2660,40 @@ msgstr ""
 msgid "Your class will benefit from four methods to redefine:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:334
 msgid ""
-"- `install()` is called when a user clicks the button to activate your "
+"`install()` is called when a user clicks the button to activate your "
 "extension. It allows, for example, to update the database of a user in order "
 "to make it compatible with the extension. It returns `true` if everything "
-"went well or, if not, a string explaining the problem.  - `uninstall()` is "
-"called when a user clicks the button to disable your extension. This will "
-"allow you to undo the database changes you potentially made in `install ()`. "
-"It returns `true` if everything went well or, if not, a string explaining "
-"the problem.  - `init()` is called for every page load *if the extension is "
-"enabled*. It will therefore initialize the behavior of the extension. This "
-"is the most important method.  - `handleConfigureAction()` is called when a "
-"user loads the extension management panel. Specifically, it is called when "
-"the `?c=extension&a=configured&e=name-of-your-extension` URL is loaded. You "
-"should also write here the behavior you want when validating the form in "
-"your `configure.phtml` file."
+"went well or, if not, a string explaining the problem."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`uninstall()` is called when a user clicks the button to disable your "
+"extension. This will allow you to undo the database changes you potentially "
+"made in `install ()`. It returns `true` if everything went well or, if not, "
+"a string explaining the problem."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`init()` is called for every page load *if the extension is enabled*. It "
+"will therefore initialize the behavior of the extension. This is the most "
+"important method."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`handleConfigureAction()` is called when a user loads the extension "
+"management panel. Specifically, it is called when the `?"
+"c=extension&a=configured&e=name-of-your-extension` URL is loaded. You should "
+"also write here the behavior you want when validating the form in your "
+"`configure.phtml` file."
 msgstr ""
 
 #. type: Plain text
@@ -2330,7 +2703,7 @@ msgid ""
 "`Minz_Extension` that you should not redefine:"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:340
 msgid ""
 "The \"getters\" first: most are explicit enough not to detail them here - "
@@ -2339,7 +2712,7 @@ msgid ""
 "`getType()`."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:340
 msgid ""
 "`getFileUrl($filename, $type)` will return the URL to a file in the `static` "
@@ -2347,7 +2720,7 @@ msgid ""
 "the second is the type of file to be used (`css` or` js`)."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:340
 msgid ""
 "`registerController($base_name)` will tell Minz to take into account the "
@@ -2357,11 +2730,19 @@ msgid ""
 "`FreshExtension_<base_name>_Controller` class."
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:346
-msgid ""
-"- `registerViews()` - `registerTranslates()` - `registerHook($hook_name, "
-"$hook_function)`"
+msgid "`registerViews()`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:346
+msgid "`registerTranslates()`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:346
+msgid "`registerHook($hook_name, $hook_function)`"
 msgstr ""
 
 #. type: Title ###
@@ -2398,7 +2779,7 @@ msgstr ""
 msgid "The following events are available:"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`entry_before_display` (`function($entry) -> Entry | null`): will be "
@@ -2406,7 +2787,7 @@ msgid ""
 "FreshRSS\\_Entry) will be passed as parameter."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`entry_before_insert` (`function($entry) -> Entry | null`): will be executed "
@@ -2414,7 +2795,7 @@ msgid ""
 "The new entry (instance of FreshRSS\\_Entry) will be passed as parameter."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`feed_before_insert` (`function($feed) -> Feed | null`): will be executed "
@@ -2422,7 +2803,7 @@ msgid ""
 "FreshRSS\\_Feed) will be passed as parameter."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`freshrss_init` (`function() -> none`): will be executed at the end of the "
@@ -2430,7 +2811,7 @@ msgid ""
 "additional access checks"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`menu_admin_entry` (`function() -> string`): add an entry at the end of the "
@@ -2438,7 +2819,7 @@ msgid ""
 "class=\"item active\"><a href=\"url\">New entry</a></li>`)"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`menu_configuration_entry` (`function() -> string`): add an entry at the end "
@@ -2446,7 +2827,7 @@ msgid ""
 "`<li class=\"item active\"><a href=\"url\">New entry</a></li>`)"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`menu_other_entry` (`function() -> string`): add an entry at the end of the "
@@ -2455,19 +2836,19 @@ msgid ""
 "entry</a></li>`)"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** "
 "add documentation"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid "`post_update` (`function(none) -> none`): **TODO** add documentation"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:376
 msgid ""
 "`simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** "
@@ -5356,6 +5737,9 @@ msgid ""
 msgstr ""
 "semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'\n"
 "restorecon -Rv /usr/share/FreshRSS/data\n"
+
+#~ msgid "Problem to solve"
+#~ msgstr "Problème à résoudre"
 
 #~ msgid "Préparer la sortie"
 #~ msgstr "Préparer la sortie"
