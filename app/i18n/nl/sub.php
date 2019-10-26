@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
 		'new' => 'Nieuwe categorie',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Titel',
 	),
 	'feed' => array(

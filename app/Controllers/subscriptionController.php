@@ -19,7 +19,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 		$catDAO->checkDefault();
 		$feedDAO->updateTTL();
-		$this->view->categories = $catDAO->listCategories(false);
+		$this->view->categories = $catDAO->listSortedCategories(false);
 		$this->view->default_category = $catDAO->getDefault();
 	}
 
@@ -215,6 +215,9 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
 				]);
 			}
+
+			$position = Minz_Request::param('position');
+			$category->_attributes('position', '' === $position ? null : (int) $position);
 
 			$values = [
 				'name' => Minz_Request::param('name', ''),

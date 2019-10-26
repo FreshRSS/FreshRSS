@@ -17,6 +17,8 @@ return array(
 		'empty' => '空分类',
 		'information' => '信息',
 		'new' => '新分类',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => '标题',
 	),
 	'feed' => array(
