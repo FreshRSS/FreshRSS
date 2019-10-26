@@ -6,6 +6,7 @@
 	* Command line to export/import any database to/from SQLite [#2496](https://github.com/FreshRSS/FreshRSS/pull/2496)
 * Features
 	* New archiving method, including maximum number of articles per feed, and settings at feed, category, global levels [#2335](https://github.com/FreshRSS/FreshRSS/pull/2335)
+	* New option to control category sort order [#2592](https://github.com/FreshRSS/FreshRSS/pull/2592)
 	* New option to display article authors underneath the article title [#2487](https://github.com/FreshRSS/FreshRSS/pull/2487)
 	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476), [#2481](https://github.com/FreshRSS/FreshRSS/pull/2481)
 	* Ability to define default user settings in `data/config-user.custom.php` [#2490](https://github.com/FreshRSS/FreshRSS/pull/2490)
@@ -26,8 +27,9 @@
 	* Docker: Ubuntu image updated to 19.10 with PHP 7.3.8 and Apache 2.4.41 [#2577](https://github.com/FreshRSS/FreshRSS/pull/2577)
 	* Docker: Alpine image updated to 3.10 with PHP 7.3.10 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
 	* Docker: Increase default PHP POST/upload size to ease importing ZIP files [#2563](https://github.com/FreshRSS/FreshRSS/pull/2563)
-	* Git ignore `themes/xTheme-*` [#2511](https://github.com/FreshRSS/FreshRSS/pull/2511)
+	* New environment variable `COPY_LOG_TO_SYSLOG` to see all logs at once in e.g. `docker logs -f` [#2591](https://github.com/FreshRSS/FreshRSS/pull/2591)
 	* New environment variable `FRESHRSS_ENV` to control Minz development mode [#2508](https://github.com/FreshRSS/FreshRSS/pull/2508)
+	* Git ignore `themes/xTheme-*` [#2511](https://github.com/FreshRSS/FreshRSS/pull/2511)
 * Bug fixing
 	* Fix missing PHP `opcache` package in Docker Alpine [#2498](https://github.com/FreshRSS/FreshRSS/pull/2498)
 	* Fix IE11 / Edge keyboard compatibility [#2507](https://github.com/FreshRSS/FreshRSS/pull/2507)
