@@ -17,8 +17,8 @@ return array(
 		'empty' => '빈 카테고리',
 		'information' => '정보',
 		'new' => '새 카테고리',
-		'position' => 'Position',	//TODO - Translation
-		'position_help' => 'Display position. When two categories have the same position, they are displayed in alphabetical order. Categories with no position are displayed after those with one.',	//TODO - Translation
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => '제목',
 	),
 	'feed' => array(

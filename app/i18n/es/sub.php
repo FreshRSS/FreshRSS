@@ -17,8 +17,8 @@ return array(
 		'empty' => 'Vaciar categoría',
 		'information' => 'Información',
 		'new' => 'Nueva categoría',
-		'position' => 'Position',	//TODO - Translation
-		'position_help' => 'Display position. When two categories have the same position, they are displayed in alphabetical order. Categories with no position are displayed after those with one.',	//TODO - Translation
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Título',
 	),
 	'feed' => array(
