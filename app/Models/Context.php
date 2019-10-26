@@ -59,13 +59,13 @@ class FreshRSS_Context {
 		}
 
 		$keepMin = (int)FreshRSS_Context::$user_conf->param('keep_history_default', -5);
-		if ($keepMin != 0 && $keepMin > -5) {	//Freshrss < 1.15
+		if ($keepMin > -5) {	//Freshrss < 1.15
 			$archiving = FreshRSS_Context::$user_conf->archiving;
+			$archiving['keep_max'] = false;
 			if ($keepMin > 0) {
 				$archiving['keep_min'] = $keepMin;
 			} elseif ($keepMin == -1) {	//Infinite
 				$archiving['keep_period'] = false;
-				$archiving['keep_max'] = false;
 				$archiving['keep_min'] = false;
 			}
 			FreshRSS_Context::$user_conf->archiving = $archiving;
