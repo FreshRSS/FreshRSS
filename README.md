@@ -111,9 +111,10 @@ Supported clients are:
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 * iOS
-	* [Reeder-4](https://www.reederapp.com/) (Commercial)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 
 ## Fever API
 

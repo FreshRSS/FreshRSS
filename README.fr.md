@@ -188,9 +188,10 @@ Tout client supportant une API de type Google Reader ; Sélection :
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 * iOS
-	* [Reeder-4](https://www.reederapp.com/) (Commercial)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 
 ## Via l’API compatible Fever
 
