@@ -59,6 +59,7 @@ RUN update-ca-certificates -f
 # Useful with the `--squash` build option
 RUN rm /usr/bin/qemu-* /var/www/FreshRSS/Docker/qemu-*
 
+ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
 ENV FRESHRSS_ENV ''
