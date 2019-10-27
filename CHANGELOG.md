@@ -25,7 +25,7 @@
 * Deployment
 	* Take advantage of `mod_authz_core` instead of `mod_access_compat` when running on Apache 2.4+ [#2461](https://github.com/FreshRSS/FreshRSS/pull/2461)
 	* Docker: Ubuntu image updated to 19.10 with PHP 7.3.8 and Apache 2.4.41 [#2577](https://github.com/FreshRSS/FreshRSS/pull/2577)
-	* Docker: Alpine image updated to 3.10 with PHP 7.3.10 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.11 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
 	* Docker: Increase default PHP POST/upload size to ease importing ZIP files [#2563](https://github.com/FreshRSS/FreshRSS/pull/2563)
 	* New environment variable `COPY_LOG_TO_SYSLOG` to see all logs at once in e.g. `docker logs -f` [#2591](https://github.com/FreshRSS/FreshRSS/pull/2591)
 	* New environment variable `FRESHRSS_ENV` to control Minz development mode [#2508](https://github.com/FreshRSS/FreshRSS/pull/2508)
@@ -45,7 +45,7 @@
 * I18n
 	* Add Slovak [#2497](https://github.com/FreshRSS/FreshRSS/pull/2497)
 	* Improve Dutch [#2503](https://github.com/FreshRSS/FreshRSS/pull/2503)
-	* Improve Occitan [#2519](https://github.com/FreshRSS/FreshRSS/pull/2519), [#2583](https://github.com/FreshRSS/FreshRSS/pull/2583)
+	* Improve Occitan [#2519](https://github.com/FreshRSS/FreshRSS/pull/2519), [#2583](https://github.com/FreshRSS/FreshRSS/pull/2583), [#2603](https://github.com/FreshRSS/FreshRSS/pull/2603)
 * Extensions
 	* Additional hooks [#2482](https://github.com/FreshRSS/FreshRSS/pull/2482)
 	* New call to change the layout [#2467](https://github.com/FreshRSS/FreshRSS/pull/2467)
