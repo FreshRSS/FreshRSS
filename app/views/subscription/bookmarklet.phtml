@@ -8,6 +8,9 @@
 	<?= _t('sub.bookmarklet.documentation') ?>
 
 	<legend><?= _t('sub.firefox.title') ?></legend>
+	<p class="alert alert-warn">
+		<?= _t('sub.firefox.obsolete_63', $this->default_category->name()) ?>
+	</p>
 	<p><?= _t('sub.firefox.documentation') ?></p>
 	<pre>browser.contentHandlers.types.number.uri → <?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</pre>
 
