@@ -445,7 +445,7 @@ following entries:
 
 Seuls les champs `name` et `entrypoint` sont requis.
 
-### Chosing between « system » and « user »
+### Choosing between `system` and `user`
 
 A __user__ extension can be enabled by some users and not by others
 (typically for user preferences).

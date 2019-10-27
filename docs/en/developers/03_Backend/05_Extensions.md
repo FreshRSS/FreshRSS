@@ -313,7 +313,7 @@ The `metadata.json` file defines your extension through a number of important el
 
 Only the `name` and` entrypoint` fields are required.
 
-### Chosing between « system » and « user »
+### Choosing between `system` and `user`
 
 A __user__ extension can be enabled by some users and not by others (typically for user preferences).
 

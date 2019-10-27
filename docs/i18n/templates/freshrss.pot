@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-27 11:32+0100\n"
+"POT-Creation-Date: 2019-10-27 20:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2114,7 +2114,7 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:316
 #, no-wrap
-msgid "Chosing between « system » and « user »"
+msgid "Choosing between `system` and `user`"
 msgstr ""
 
 #. type: Plain text
