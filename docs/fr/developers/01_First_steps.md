@@ -271,8 +271,8 @@ doivent être suivis d'une virgule (même le dernier).
 
 ```php
 $variable = [
-	"valuer 1",
-	"valuer 2",
-	"valuer 3",
+	"valeur 1",
+	"valeur 2",
+	"valeur 3",
 ];
 ```
