@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualiseren',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Terug',
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
@@ -23,7 +23,7 @@ return array(
 		'update' => 'Updaten',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'Ik accepteer de <a href="%s">gebruiksvoorwaarden</a>.',
 		'email' => 'Email adres',
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
 		'login' => 'Log in',
@@ -163,11 +163,11 @@ return array(
 		'previous' => 'Vorige',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'dagen',
+		'hours' => 'uren',
+		'months' => 'maanden',
+		'weeks' => 'weken',
+		'years' => 'jaren',
 	),
 	'share' => array(
 		'email' => 'Email',
