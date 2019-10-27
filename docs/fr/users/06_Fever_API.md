@@ -122,7 +122,7 @@ file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . j
 Then use your RSS client to query the API and afterwards check the file
 `fever.log`.
 
-## Credits
+## Remerciements
 
-This plugin was inspired by the
+Ce plugin a été inspiré par le
 [tinytinyrss-fever-plugin](https://github.com/dasmurphy/tinytinyrss-fever-plugin).

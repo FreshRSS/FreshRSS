@@ -26,23 +26,23 @@ sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
 
 # Déboguer la configuration du serveur
 
-5. Click on the second link “Check partial server configuration (without `%2F` support)”:
-	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
-		* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
-		* Or use a client that does not escape slashes (such as EasyRSS), in which case proceed to step 6.
-	* If you get *Service Unavailable!*, then check from step 1 again.
-	* With __Apache__:
-		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
-			* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:
-				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/02_Installation.md) again.
-				* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):
-					* With Debian / Ubuntu: `sudo a2enmod rewrite`
-	* With __nginx__:
-		* If you get *Bad Request!*, check your server `PATH_INFO` configuration.
-		* If you get *File not found!*, check your server `fastcgi_split_path_info`.
-	* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](http://php.net/gmp) extension.
-		* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt install php-gmp`
-	* Update and try again from step 3.
+5. Cliquer sur le second lien “Check partial server configuration (without `%2F` support)”:
+	* Si vous obtenez `PASS`, alors le problème est bien que votre serveur n’accepte pas les slashs `/` qui sont encodés `%2F`.
+		* Avec Apache, vérifiez la directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
+		* Ou utilisez un client qui n’encode pas les slashs (comme EasyRSS), auquel cas passer à l’étape 6.
+	* Si vous obtenez *Service Unavailable!*, retourner à l’étape 6.
+	* Avec __Apache__:
+		* Si vous obtenez *FAIL getallheaders!*, alors la combinaison de votre version de PHP et de votre serveur Web ne permet pas l’accès à [`getallheaders`](http://php.net/getallheaders)
+			* Activer Apache `mod_setenvif` (souvent activé par défault), ou `mod_rewrite` avec la procédure suivante :
+				* Autoriser [`FileInfo` dans `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride) : revoir [l’installation du serveur](01_Installation.md).
+				* Activer [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html) :
+					* Sur Debian / Ubuntu : `sudo a2enmod rewrite`
+	* Avec __nginx__:
+		* Si vous obtenez *Bad Request!*, vérifier la configuration `PATH_INFO` de votre serveur.
+		* Si vous obtenez *File not found!*, vérifier la configuration `fastcgi_split_path_info` de votre serveur.
+	* Si vous obtenez *FAIL 64-bit or GMP extension!*, alors votre installation PHP soit n’est pas en 64 bit, soit n’a pas l’extension PHP [GMP](http://php.net/gmp) activée.
+		* Le plus simple est d’activer l’extension GMP. Sur Debian / Ubuntu : `sudo apt install php-gmp`
+	* Mettre à jour et retourner à l’étape 3.
 
 
 # Clients compatibles
@@ -50,7 +50,7 @@ sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
 6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
 	* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.
 
-7. Pick a client supporting a Google Reader-like API. Selection:
+7. Vous pouvez maintenant tester sur une application mobile:
 	* Android
 		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
