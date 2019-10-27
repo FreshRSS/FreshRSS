@@ -5,51 +5,52 @@ and general aspects of API access.
 
 ## RSS clients
 
-There are many RSS clients existing supporting Fever APIs but they seem to understand the Fever API a bit differently.
-If your favourite client does not work properly with this API, create an issue and we will have a look.
+There are many RSS clients that support the Fever API, but they seem to understand the Fever API a bit differently.
+If your favourite client doesn't work properly with this API, please create an issue and we'll have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
 
-Before you can start to use this API, you have to enable and setup API access, which is [documented here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html),
-and then re-set the user’s API password.
+Before you can start using this API, you have to enable and setup API access, which is [documented here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html),
+and then reset the user’s API password.
 
-Then point your mobile application to the URL of `fever.php` (e.g. `https://freshrss.example.net/api/fever.php`).
+Then point your mobile application to the `fever.php` address (e.g. `https://freshrss.example.net/api/fever.php`).
 
-## Compatibility
+## Compatible clients
 
 Tested with:
 
-- Android
-  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
+* Android
+  * [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 
-- iOS
-  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
-  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
-  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)
+* iOS
+  * [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
+  * [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
+  * [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)
 
-- MacOS
-  - [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
+* MacOS
+  * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 ## Features
 
-Following features are implemented:
+The following features are implemented:
 
-- fetching categories
-- fetching feeds
-- fetching RSS items (new, favorites, unread, by_id, by_feed, by_category, since)
-- fetching favicons
-- setting read marker for item(s)
-- setting starred marker for item(s)
-- setting read marker for feed
-- setting read marker for category
-- supports FreshRSS extensions, which use the `entry_before_display` hook
+* fetching categories
+* fetching feeds
+* fetching RSS items (new, favorites, unread, by_id, by_feed, by_category, since)
+* fetching favicons
+* setting read marker for item(s)
+* setting starred marker for item(s)
+* setting read marker for feed
+* setting read marker for category
+* supports FreshRSS extensions, which use the `entry_before_display` hook
 
-Following features are not supported:
-- **Hot Links** aka **hot** as there is nothing in FreshRSS yet that is similar or could be used to simulate it
+The following features are not supported:
 
-## Testing and error search
+* **Hot Links** aka **hot** as there is nothing in FreshRSS yet that is similar or could be used to simulate it.
+
+## Testing and debugging
 
 If this API does not work as expected in your RSS reader, you can test it manually with a tool like [Postman](https://www.getpostman.com/).
 
@@ -83,19 +84,19 @@ This should give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you are authenticated and can now start testing the more advanced features. Therefor change the URL and append the possible API actions to your request parameters. Check the [original Fever documentation](https://feedafever.com/api) for more information.
+Perfect, you're now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
 
 Some basic calls are:
 
-- https://freshrss.example.net/api/fever.php?api&items
-- https://freshrss.example.net/api/fever.php?api&feeds
-- https://freshrss.example.net/api/fever.php?api&groups
-- https://freshrss.example.net/api/fever.php?api&unread_item_ids
-- https://freshrss.example.net/api/fever.php?api&saved_item_ids
-- https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
-- https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
-- https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
-- https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
+* https://freshrss.example.net/api/fever.php?api&items
+* https://freshrss.example.net/api/fever.php?api&feeds
+* https://freshrss.example.net/api/fever.php?api&groups
+* https://freshrss.example.net/api/fever.php?api&unread_item_ids
+* https://freshrss.example.net/api/fever.php?api&saved_item_ids
+* https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
+* https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
+* https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
+* https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
 
 Replace `some_id` with a real ID from your `freshrss_username_entry` database.
 

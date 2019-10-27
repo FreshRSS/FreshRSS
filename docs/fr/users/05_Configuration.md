@@ -231,7 +231,7 @@ Il faut alors chercher le "bloc" HTML correspondant au contenu de l'article
 
 On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```<div class="content clearfix">```. On ne va garder que la classe `.content` ici. Néanmoins, comme je le disais plus haut, il est préférable de commencer le chemin avec un id. Si on remonte au bloc parent, il s'agit du bloc ```<div id="article">``` et c'est parfait ! Le chemin sera donc ```#article .content```.
 
-#### Add the corresponding classes to the article CSS path on the feed configuration page. Examples:
+#### Liste de correspondances site → chemin css
 
 *  Rue89 : ```#article .content```
 *  PCINpact : ```#actu_content```

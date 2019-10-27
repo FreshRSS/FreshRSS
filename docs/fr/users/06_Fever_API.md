@@ -1,55 +1,63 @@
-# FreshRSS - Fever API implementation
+# FreshRSS - API compatible Fever
 
-See the [page about our Google Reader compatible API](06_Mobile_access.md)
-for another possibility and general aspects of API access.
+Voir la page [sur notre API compatible Google Reader](06_Mobile_access.md)
+pour une autre possibilitéet des généralités sur l’accès par API.
 
-## RSS clients
+## Clients compatibles
 
-There are many RSS clients existing supporting Fever APIs but they seem to
-understand the Fever API a bit differently.  If your favourite client does
-not work properly with this API, create an issue and we will have a look.
-But we can **only** do that for free clients.
+De nombreux clients RSS prennent en charge l'API Fever, mais ils semblent
+comprendre l'API Fever un peu différemment.Si votre client préféré ne
+fonctionne pas correctement avec cette API, veuillez créer un problème et
+nous y jetterons un oeil.Mais nous ne pouvons le faire que pour les clients
+gratuits.
 
-### Usage & Authentication
+### Utilisation et authentification
 
-Before you can start to use this API, you have to enable and setup API
-access, which is [documented
-here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html),
-and then re-set the user’s API password.
+Avant de pouvoir commencer à utiliser cette API, vous devez activer et
+configurer l'API accès, qui est [documenté
+ici](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html), et
+réinitialisez ensuite le mot de passe API de l'utilisateur.
 
-Then point your mobile application to the URL of `fever.php`
+Dirigez ensuite votre application mobile vers l'adresse du fichier
 (e.g. `https://freshrss.example.net/api/fever.php`).
 
-## Compatibility
+## Clients compatibles
 
-Tested with:
+Testé avec :
 
-- Android
-  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
+* Android
+  * [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 
-- iOS
-  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
-  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
-  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)
+* iOS
+  * [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
+  * [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
+  * [Reeder](https://www.reederapp.com/) (Commercial) (Connectez-vous plutôt par son option Google Reader API)
 
-- MacOS
-  - [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
+* MacOS
+  * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
-## Features
+## Fonctionnalités
 
-Following features are implemented:
+Les fonctionnalités suivantes sont implémentées :
 
-- fetching categories - fetching feeds - fetching RSS items (new, favorites,
-unread, by_id, by_feed, by_category, since)  - fetching favicons - setting
-read marker for item(s)  - setting starred marker for item(s)  - setting
-read marker for feed - setting read marker for category - supports FreshRSS
-extensions, which use the `entry_before_display` hook
+* fetching categories
+* fetching feeds
+* fetching RSS items (new, favorites, unread, by_id, by_feed, by_category,
+  since)
+* fetching favicons
+* setting read marker for item(s)
+* setting starred marker for item(s)
+* setting read marker for feed
+* setting read marker for category
+* supports FreshRSS extensions, which use the `entry_before_display` hook
 
-Following features are not supported: - **Hot Links** aka **hot** as there
-is nothing in FreshRSS yet that is similar or could be used to simulate it
+Les fonctionnalités suivantes ne sont pas implémentées :
 
-## Testing and error search
+* « Hot Links » car il n'y a encore rien dans FreshRSS qui soit similaire ou
+  qui puisse être utilisé pour le simuler.
+
+## Tester et déboguer
 
 If this API does not work as expected in your RSS reader, you can test it
 manually with a tool like [Postman](https://www.getpostman.com/).
@@ -89,38 +97,37 @@ This should give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you are authenticated and can now start testing the more advanced
-features. Therefor change the URL and append the possible API actions to
-your request parameters. Check the [original Fever
+Perfect, you're now authenticated and you can start testing the more
+advanced features. To do so, change the URL and append the possible API
+actions to your request parameters. Please refer to the [original Fever
 documentation](https://feedafever.com/api) for more information.
 
 Some basic calls are:
 
-- https://freshrss.example.net/api/fever.php?api&items -
-https://freshrss.example.net/api/fever.php?api&feeds -
-https://freshrss.example.net/api/fever.php?api&groups -
-https://freshrss.example.net/api/fever.php?api&unread_item_ids -
-https://freshrss.example.net/api/fever.php?api&saved_item_ids -
-https://freshrss.example.net/api/fever.php?api&items&since_id=some_id -
-https://freshrss.example.net/api/fever.php?api&items&max_id=some_id -
-https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
--
-https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
+* https://freshrss.example.net/api/fever.php?api&items
+* https://freshrss.example.net/api/fever.php?api&feeds
+* https://freshrss.example.net/api/fever.php?api&groups
+* https://freshrss.example.net/api/fever.php?api&unread_item_ids
+* https://freshrss.example.net/api/fever.php?api&saved_item_ids
+* https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
+* https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
+* https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
+* https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
 
 Replace `some_id` with a real ID from your `freshrss_username_entry`
 database.
 
-### Debugging
+### Déboguer
 
-If nothing helps and your clients still misbehaves, add these lines to the
-start of `fever.api`:
+Si rien n'aide et que vos clients se conduisent toujours mal, ajoutez ces
+lignes à la début de `fever.api` :
 
 ```php
 file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);
 ```
 
-Then use your RSS client to query the API and afterwards check the file
-`fever.log`.
+Utilisez ensuite votre client RSS pour interroger l'API et ensuite vérifier
+le fichier `fever.log`.
 
 ## Remerciements
 

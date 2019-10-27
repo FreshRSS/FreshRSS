@@ -44,7 +44,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 # Compatible clients
 
 6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
-	* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.
+	* Type the API address in a client, together with your FreshRSS username, and the corresponding special API password.
 
 7. Pick a client supporting a Google Reader-like API. Selection:
 	* Android

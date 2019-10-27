@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-27 11:06+0100\n"
+"POT-Creation-Date: 2019-10-27 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -468,7 +468,7 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./developers/01_First_steps.md:81 en/./developers/01_First_steps.md:111 en/./developers/01_First_steps.md:123 en/./developers/01_First_steps.md:158 en/./developers/01_First_steps.md:173 en/./developers/01_First_steps.md:186 en/./developers/01_First_steps.md:196 en/./developers/01_First_steps.md:213 en/./developers/01_First_steps.md:228 en/./developers/03_Backend/05_Extensions.md:47 en/./developers/03_Backend/05_Extensions.md:88 en/./developers/03_Backend/05_Extensions.md:130 en/./developers/03_Backend/05_Extensions.md:149 en/./developers/03_Backend/05_Extensions.md:166 en/./developers/03_Backend/05_Extensions.md:188 en/./developers/03_Backend/05_Extensions.md:225 en/./developers/05_Release_new_version.md:54 en/./users/06_Fever_API.md:106
+#: en/./developers/01_First_steps.md:81 en/./developers/01_First_steps.md:111 en/./developers/01_First_steps.md:123 en/./developers/01_First_steps.md:158 en/./developers/01_First_steps.md:173 en/./developers/01_First_steps.md:186 en/./developers/01_First_steps.md:196 en/./developers/01_First_steps.md:213 en/./developers/01_First_steps.md:228 en/./developers/03_Backend/05_Extensions.md:47 en/./developers/03_Backend/05_Extensions.md:88 en/./developers/03_Backend/05_Extensions.md:130 en/./developers/03_Backend/05_Extensions.md:149 en/./developers/03_Backend/05_Extensions.md:166 en/./developers/03_Backend/05_Extensions.md:188 en/./developers/03_Backend/05_Extensions.md:225 en/./developers/05_Release_new_version.md:54 en/./users/06_Fever_API.md:107
 #, no-wrap
 msgid "php"
 msgstr ""
@@ -4255,10 +4255,10 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:11
 msgid ""
-"There are many RSS clients existing supporting Fever APIs but they seem to "
-"understand the Fever API a bit differently.  If your favourite client does "
-"not work properly with this API, create an issue and we will have a look.  "
-"But we can **only** do that for free clients."
+"There are many RSS clients that support the Fever API, but they seem to "
+"understand the Fever API a bit differently.  If your favourite client "
+"doesn't work properly with this API, please create an issue and we'll have a "
+"look.  But we can **only** do that for free clients."
 msgstr ""
 
 #. type: Title ###
@@ -4270,23 +4270,23 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:16
 msgid ""
-"Before you can start to use this API, you have to enable and setup API "
+"Before you can start using this API, you have to enable and setup API "
 "access, which is [documented "
 "here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html), "
-"and then re-set the user’s API password."
+"and then reset the user’s API password."
 msgstr ""
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:18
 msgid ""
-"Then point your mobile application to the URL of `fever.php` "
+"Then point your mobile application to the `fever.php` address "
 "(e.g. `https://freshrss.example.net/api/fever.php`)."
 msgstr ""
 
-#. type: Title ##
-#: en/./users/06_Fever_API.md:19
+#. type: Title #
+#: en/./users/06_Fever_API.md:19 en/./users/06_Mobile_access.md:44
 #, no-wrap
-msgid "Compatibility"
+msgid "Compatible clients"
 msgstr ""
 
 #. type: Plain text
@@ -4298,8 +4298,8 @@ msgstr ""
 #: en/./users/06_Fever_API.md:25
 #, no-wrap
 msgid ""
-"- Android\n"
-"  - "
+"* Android\n"
+"  * "
 "[Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) "
 "(Closed source)\n"
 msgstr ""
@@ -4308,13 +4308,13 @@ msgstr ""
 #: en/./users/06_Fever_API.md:30
 #, no-wrap
 msgid ""
-"- iOS\n"
-"  - [Fiery "
+"* iOS\n"
+"  * [Fiery "
 "Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) "
 "(Closed source)\n"
-"  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) "
+"  * [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) "
 "(Commercial)\n"
-"  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader "
+"  * [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader "
 "API / native FreshRSS option when possible)\n"
 msgstr ""
 
@@ -4322,8 +4322,8 @@ msgstr ""
 #: en/./users/06_Fever_API.md:33
 #, no-wrap
 msgid ""
-"- MacOS\n"
-"  - [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)\n"
+"* MacOS\n"
+"  * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)\n"
 msgstr ""
 
 #. type: Title ##
@@ -4334,41 +4334,83 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:38
-msgid "Following features are implemented:"
+msgid "The following features are implemented:"
 msgstr ""
 
-#. type: Plain text
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "fetching categories"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "fetching feeds"
+msgstr ""
+
+#. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid ""
-"- fetching categories - fetching feeds - fetching RSS items (new, favorites, "
-"unread, by_id, by_feed, by_category, since)  - fetching favicons - setting "
-"read marker for item(s)  - setting starred marker for item(s)  - setting "
-"read marker for feed - setting read marker for category - supports FreshRSS "
-"extensions, which use the `entry_before_display` hook"
+"fetching RSS items (new, favorites, unread, by_id, by_feed, by_category, "
+"since)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "fetching favicons"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting read marker for item(s)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting starred marker for item(s)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting read marker for feed"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting read marker for category"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "supports FreshRSS extensions, which use the `entry_before_display` hook"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:51
+#: en/./users/06_Fever_API.md:50
+msgid "The following features are not supported:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:52
 msgid ""
-"Following features are not supported: - **Hot Links** aka **hot** as there "
-"is nothing in FreshRSS yet that is similar or could be used to simulate it"
+"**Hot Links** aka **hot** as there is nothing in FreshRSS yet that is "
+"similar or could be used to simulate it."
 msgstr ""
 
 #. type: Title ##
-#: en/./users/06_Fever_API.md:52
+#: en/./users/06_Fever_API.md:53
 #, no-wrap
-msgid "Testing and error search"
+msgid "Testing and debugging"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:55
+#: en/./users/06_Fever_API.md:56
 msgid ""
 "If this API does not work as expected in your RSS reader, you can test it "
 "manually with a tool like [Postman](https://www.getpostman.com/)."
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:57
+#: en/./users/06_Fever_API.md:58
 msgid ""
 "Configure a POST request to the URL "
 "https://freshrss.example.net/api/fever.php?api which should give you the "
@@ -4376,13 +4418,13 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./users/06_Fever_API.md:57 en/./users/06_Fever_API.md:79
+#: en/./users/06_Fever_API.md:58 en/./users/06_Fever_API.md:80
 #, no-wrap
 msgid "json"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:57
+#: en/./users/06_Fever_API.md:58
 #, no-wrap
 msgid ""
 "{\n"
@@ -4392,12 +4434,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:64
+#: en/./users/06_Fever_API.md:65
 msgid "Great, the base setup seems to work!"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:67
+#: en/./users/06_Fever_API.md:68
 msgid ""
 "Now lets try an authenticated call. Fever uses an `api_key`, which is the "
 "MD5 hash of `\"$username:$apiPassword\"`.  Assuming the user is `kevin` and "
@@ -4406,26 +4448,26 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./users/06_Fever_API.md:68 en/./users/06_Fever_API.md:74 en/./users/06_Mobile_access.md:69 en/./users/07_Frequently_Asked_Questions.md:43 en/./users/07_Frequently_Asked_Questions.md:51
+#: en/./users/06_Fever_API.md:69 en/./users/06_Fever_API.md:75 en/./users/06_Mobile_access.md:69 en/./users/07_Frequently_Asked_Questions.md:43 en/./users/07_Frequently_Asked_Questions.md:51
 #, no-wrap
 msgid "sh"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:68
+#: en/./users/06_Fever_API.md:69
 #, no-wrap
 msgid "api_key=`echo -n \"kevin:freshrss\" | md5sum | cut -d' ' -f1`\n"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:73
+#: en/./users/06_Fever_API.md:74
 msgid ""
 "Add a body to your POST request encoded as `form-data` and one key named "
 "`api_key` with the value `your-password-hash`:"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:74
+#: en/./users/06_Fever_API.md:75
 #, no-wrap
 msgid ""
 "curl -s -F \"api_key=$api_key\" "
@@ -4433,12 +4475,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:79
+#: en/./users/06_Fever_API.md:80
 msgid "This should give:"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:79
+#: en/./users/06_Fever_API.md:80
 #, no-wrap
 msgid ""
 "{\n"
@@ -4449,56 +4491,86 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:87
+#: en/./users/06_Fever_API.md:88
 msgid ""
-"Perfect, you are authenticated and can now start testing the more advanced "
-"features. Therefor change the URL and append the possible API actions to "
-"your request parameters. Check the [original Fever "
+"Perfect, you're now authenticated and you can start testing the more "
+"advanced features. To do so, change the URL and append the possible API "
+"actions to your request parameters. Please refer to the [original Fever "
 "documentation](https://feedafever.com/api) for more information."
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:89
+#: en/./users/06_Fever_API.md:90
 msgid "Some basic calls are:"
 msgstr ""
 
-#. type: Plain text
-#: en/./users/06_Fever_API.md:99
-msgid ""
-"- https://freshrss.example.net/api/fever.php?api&items - "
-"https://freshrss.example.net/api/fever.php?api&feeds - "
-"https://freshrss.example.net/api/fever.php?api&groups - "
-"https://freshrss.example.net/api/fever.php?api&unread_item_ids - "
-"https://freshrss.example.net/api/fever.php?api&saved_item_ids - "
-"https://freshrss.example.net/api/fever.php?api&items&since_id=some_id - "
-"https://freshrss.example.net/api/fever.php?api&items&max_id=some_id - "
-"https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id "
-"- "
-"https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id"
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&items"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&feeds"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&groups"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&unread_item_ids"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&saved_item_ids"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&items&since_id=some_id"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&items&max_id=some_id"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:101
+#: en/./users/06_Fever_API.md:102
 msgid ""
 "Replace `some_id` with a real ID from your `freshrss_username_entry` "
 "database."
 msgstr ""
 
 #. type: Title ###
-#: en/./users/06_Fever_API.md:102
+#: en/./users/06_Fever_API.md:103
 #, no-wrap
 msgid "Debugging"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:105
+#: en/./users/06_Fever_API.md:106
 msgid ""
 "If nothing helps and your clients still misbehaves, add these lines to the "
 "start of `fever.api`:"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:106
+#: en/./users/06_Fever_API.md:107
 #, no-wrap
 msgid ""
 "file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' "
@@ -4506,20 +4578,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:111
+#: en/./users/06_Fever_API.md:112
 msgid ""
 "Then use your RSS client to query the API and afterwards check the file "
 "`fever.log`."
 msgstr ""
 
 #. type: Title ##
-#: en/./users/06_Fever_API.md:112
+#: en/./users/06_Fever_API.md:113
 #, no-wrap
 msgid "Credits"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/06_Fever_API.md:114
+#: en/./users/06_Fever_API.md:115
 msgid ""
 "This plugin was inspired by the "
 "[tinytinyrss-fever-plugin](https://github.com/dasmurphy/tinytinyrss-fever-plugin)."
@@ -4634,20 +4706,14 @@ msgid ""
 "\t* Update and try again from step 3.\n"
 msgstr ""
 
-#. type: Title #
-#: en/./users/06_Mobile_access.md:44
-#, no-wrap
-msgid "Compatible clients"
-msgstr ""
-
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:48
 #, no-wrap
 msgid ""
 "6. On the same FreshRSS API page, note the address given under “Your API "
 "address”, like `https://freshrss.example.net/api/greader.php`\n"
-"\t* You will type it in a client, together with your FreshRSS username, and "
-"the corresponding special API password.\n"
+"\t* Type the API address in a client, together with your FreshRSS username, "
+"and the corresponding special API password.\n"
 msgstr ""
 
 #. type: Plain text

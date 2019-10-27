@@ -47,23 +47,23 @@ sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
 
 # Clients compatibles
 
-6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
-	* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.
+6. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
+	* Tapez l'adresse API dans un client, ainsi que votre nom d'utilisateur FreshRSS et le mot de passe API spécial correspondant.
 
 7. Vous pouvez maintenant tester sur une application mobile:
 	* Android
-		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
-		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
-		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
+		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
+		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 	* Linux
-		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 	* MacOS
-		* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
+		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
 	* iOS
 		* [Reeder](https://www.reederapp.com/) (Commercial)
 	* Firefox
-		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Open source)
+		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Libre)
 
 
 # API compatible Google Reader
