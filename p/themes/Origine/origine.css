@@ -782,12 +782,15 @@ a.btn {
 }
 
 .flux.not_read {
-	background: #fff3ed;
 	border-left: 2px solid #ff5300;
 }
 
-.flux.not_read:not(.current):hover .item.title {
+.flux.not_read:not(.current) {
 	background: #fff3ed;
+}
+
+.flux.not_read:not(.current):hover .item.title {
+	background: inherit;
 }
 
 .flux.favorite {
