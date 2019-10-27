@@ -63,11 +63,12 @@
 		<?php
 			foreach ($this->categories as $cat) {
 				$feeds = $cat->feeds();
+				$position = $cat->attributes('position');
 				if (!empty($feeds)) {
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
 					$c_show = $c_active || FreshRSS_Context::$user_conf->display_categories;
 		?>
-		<li class="tree-folder category<?= $c_active ? ' active' : '' ?>" data-unread="<?= $cat->nbNotRead() ?>">
+		<li class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?= format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) ?>"><?= $cat->name() ?></a>

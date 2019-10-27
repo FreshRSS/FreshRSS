@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
 		'new' => 'Yeni kategori',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Başlık',
 	),
 	'feed' => array(

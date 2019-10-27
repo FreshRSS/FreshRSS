@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Vaciar categoría',
 		'information' => 'Información',
 		'new' => 'Nueva categoría',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Título',
 	),
 	'feed' => array(

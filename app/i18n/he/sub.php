@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Empty category',	//TODO - Translation
 		'information' => 'מידע',
 		'new' => 'קטגוריה חדשה',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'כותרת',
 	),
 	'feed' => array(

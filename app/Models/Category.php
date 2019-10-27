@@ -98,14 +98,14 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _attributes($key, $value) {
-		if ($key == '') {
+		if ('' == $key) {
 			if (is_string($value)) {
 				$value = json_decode($value, true);
 			}
 			if (is_array($value)) {
 				$this->attributes = $value;
 			}
-		} elseif ($value === null) {
+		} elseif (null === $value) {
 			unset($this->attributes[$key]);
 		} else {
 			$this->attributes[$key] = $value;

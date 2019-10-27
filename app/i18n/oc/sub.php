@@ -16,6 +16,8 @@ return array(
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
 		'new' => 'Nòva categoria',
+		'position' => 'Mostrar la posicion',
+		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
 	),
 	'feed' => array(

@@ -163,11 +163,11 @@ return array(
 		'previous' => 'Precedent',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'jorns',
+		'hours' => 'oras',
+		'months' => 'meses',
+		'weeks' => 'setmanas',
+		'years' => 'ans',
 	),
 	'share' => array(
 		'blogotext' => 'Blogotext',

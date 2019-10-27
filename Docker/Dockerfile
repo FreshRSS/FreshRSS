@@ -43,10 +43,11 @@ RUN a2dismod -f alias autoindex negotiation status && \
 RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
-	echo "17,47 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+	echo "7,37 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
 		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
 
+ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
 ENV FRESHRSS_ENV ''

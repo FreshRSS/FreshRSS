@@ -17,6 +17,8 @@ return array(
 		'empty' => 'Empty category',
 		'information' => 'Information',
 		'new' => 'New category',
+		'position' => 'Display position',
+		'position_help' => 'To control category sort order',
 		'title' => 'Title',
 	),
 	'feed' => array(

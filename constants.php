@@ -32,6 +32,7 @@ safe_define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS
 // PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
 safe_define('PHP_COMPRESSION', false);
 
+safe_define('COPY_LOG_TO_STDERR', filter_var(getenv('COPY_LOG_TO_STDERR'), FILTER_VALIDATE_BOOLEAN));
 // For cases when syslog is not available
 safe_define('COPY_SYSLOG_TO_STDERR', filter_var(getenv('COPY_SYSLOG_TO_STDERR'), FILTER_VALIDATE_BOOLEAN));
 

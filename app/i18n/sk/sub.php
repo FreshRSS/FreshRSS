@@ -16,6 +16,8 @@ return array(
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
 		'new' => 'Nová kategória',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Názov',
 	),
 	'feed' => array(
