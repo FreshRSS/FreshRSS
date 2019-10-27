@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
 "POT-Creation-Date: 2019-10-27 11:32+0100\n"
-"PO-Revision-Date: 2019-10-27 11:37+0100\n"
+"PO-Revision-Date: 2019-10-27 11:38+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -2893,37 +2893,37 @@ msgstr ""
 #: en/./developers/04_Frontend/01_View_files.md:1
 #, no-wrap
 msgid "The .phtml files"
-msgstr ""
+msgstr "Les fichiers .phtml"
 
 #. type: Title #
 #: en/./developers/04_Frontend/01_View_files.md:5
 #, no-wrap
 msgid "Writing a URL"
-msgstr ""
+msgstr "Écrire une URL"
 
 #. type: Title #
 #: en/./developers/04_Frontend/01_View_files.md:9
 #, no-wrap
 msgid "Displaying an icon"
-msgstr ""
+msgstr "Afficher une icône"
 
 #. type: Title #
 #: en/./developers/04_Frontend/02_Design.md:1
 #, no-wrap
 msgid "Template file"
-msgstr ""
+msgstr "Fichier modèle"
 
 #. type: Title #
 #: en/./developers/04_Frontend/02_Design.md:5
 #, no-wrap
 msgid "Writing a new theme"
-msgstr ""
+msgstr "Écrire un nouveau thème"
 
 #. type: Title #
 #: en/./developers/04_Frontend/02_Design.md:9
 #, no-wrap
 msgid "Overriding icons"
-msgstr ""
+msgstr "Surcharger les icônes"
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:1

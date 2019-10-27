@@ -1,11 +1,11 @@
-# Template file
+# Fichier modèle
 
 **TODO**
 
-# Writing a new theme
+# Écrire un nouveau thème
 
 **TODO**
 
-# Overriding icons
+# Surcharger les icônes
 
 **TODO**

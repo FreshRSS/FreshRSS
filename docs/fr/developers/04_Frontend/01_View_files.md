@@ -1,12 +1,12 @@
-# The .phtml files
+# Les fichiers .phtml
 
 **TODO**
 
-# Writing a URL
+# Écrire une URL
 
 **TODO**
 
-# Displaying an icon
+# Afficher une icône
 
 **TODO**
 
