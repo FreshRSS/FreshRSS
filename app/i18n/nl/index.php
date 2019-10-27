@@ -16,7 +16,7 @@ return array(
 		'website' => 'Website',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'title' => 'Gebruiksvoorwaarden',
 	),
 	'feed' => array(
 		'add' => 'U kunt wat feeds toevoegen.',

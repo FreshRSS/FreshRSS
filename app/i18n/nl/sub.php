@@ -17,8 +17,8 @@ return array(
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
 		'new' => 'Nieuwe categorie',
-		'position' => 'Display position',	//TODO - Translation
-		'position_help' => 'To control category sort order',	//TODO - Translation
+		'position' => 'Weergavepositie',
+		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
 	),
 	'feed' => array(
@@ -75,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Volg de stappen die <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschreven worden om FreshRSS aan de Firefox-nieuwslezerlijst toe te voegen.',
+		'obsolete_63' => 'Vanaf versie 63 en nieuwer, heeft Firefox de mogelijkheid om zelf niewslezers toe te voegen verwijderd voor online diensten.',
 		'title' => 'Firefox-nieuwslezer',
 	),
 	'import_export' => array(

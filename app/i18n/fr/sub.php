@@ -75,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Suivre les étapes décrites <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">ici</a> pour ajouter FreshRSS à la liste des lecteurs de flux dans Firefox.',
+		'obsolete_63' => 'À partir de la version 63, Firefox ne supporte plus l’ajout de services d’abonnements.',
 		'title' => 'Lecteur de flux dans Firefox',
 	),
 	'import_export' => array(

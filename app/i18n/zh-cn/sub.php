@@ -75,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到 Firefox 阅读器列表',
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
 		'title' => 'Firefox RSS 阅读器',
 	),
 	'import_export' => array(
