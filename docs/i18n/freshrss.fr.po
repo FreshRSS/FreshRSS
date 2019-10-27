@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
 "POT-Creation-Date: 2019-10-27 20:59+0100\n"
-"PO-Revision-Date: 2019-10-27 20:58+0100\n"
+"PO-Revision-Date: 2019-10-27 21:00+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -2623,8 +2623,7 @@ msgstr "Seuls les champs `name` et `entrypoint` sont requis."
 
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:316
-#, fuzzy, no-wrap
-#| msgid "Chosing between « system » and « user »"
+#, no-wrap
 msgid "Choosing between `system` and `user`"
 msgstr "Choisir entre extension « system » ou « user »"
 
