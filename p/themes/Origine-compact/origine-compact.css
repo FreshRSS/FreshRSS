@@ -825,12 +825,15 @@ a.btn,
 }
 
 .flux.not_read {
+	border-left-color: #ff5300;
+}
+
+.flux.not_read:not(.current) {
 	background: #fff3ed;
-	border-left: 2px solid #ff5300;
 }
 
 .flux.not_read:not(.current):hover .item.title {
-	background: #fff3ed;
+	background: inherit;
 }
 
 .flux.favorite {
