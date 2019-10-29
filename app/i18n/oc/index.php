@@ -7,7 +7,7 @@ return array(
 		'bugs_reports' => 'Senhalament de problèmas',
 		'credits' => 'Crèdits',
 		'credits_content' => 'Unes elements de l’estil venon del <a href="http://twitter.github.io/bootstrap/">projècte Bootstrap</a> encara que FreshRSS utilize pas aqueste framework. Las <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icònas</a> venon del <a href="https://www.gnome.org/">projècte GNOME</a>. La polissa <em>Open Sans</em> utilizada foguèt creada per en <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS es basat sus <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
-		'freshrss_description' => 'FreshRSS es un agregador de fluxes RSS per l’auto-albergar tal coma <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> o <a href="http://projet.idleman.fr/leed/">Leed</a>. Sa tòca es d’èsser leugièr e de bon utilizar de prima abòrd mas tanben d’èsser potent e parametrable.',
+		'freshrss_description' => 'FreshRSS es un agregador de fluxes RSS per l’auto-albergar tal coma <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> o <a href="https://github.com/LeedRSS/Leed">Leed</a>. Sa tòca es d’èsser leugièr e de bon utilizar de prima abòrd mas tanben d’èsser potent e parametrable.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',
 		'license' => 'Licéncia',
 		'project_website' => 'Site del projècte',
