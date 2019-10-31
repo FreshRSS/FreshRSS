@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-1X-XX FreshRSS 1.14.4-dev
+## 2019-10-31 FreshRSS 1.15.0
 
 * CLI
 	* Command line to export/import any database to/from SQLite [#2496](https://github.com/FreshRSS/FreshRSS/pull/2496)
