@@ -12,9 +12,12 @@ return array(
 	'category' => array(
 		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
+		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
 		'new' => 'Nòva categoria',
+		'position' => 'Mostrar la posicion',
+		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
 	),
 	'feed' => array(
@@ -39,7 +42,7 @@ return array(
 			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'information' => 'Informacions',
-		'keep_history' => 'Nombre minimum d’articles de servar',
+		'keep_min' => 'Nombre minimum d’articles de servar',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',
@@ -71,6 +74,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Seguissètz las etapas descrichas <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">aquí</a> per ajustar FreshRSS a la lista dels lectors de flux de Firefox.',
+		'obsolete_63' => 'A partir de la version 63 e las seguentas, Firefox permet pas mai d’ajustar vòstres pròpris servicis d’abonament.',
 		'title' => 'Lector de flux de Firefox',
 	),
 	'import_export' => array(

@@ -75,12 +75,6 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
-	'g+' => array(
-		'url' => 'https://plus.google.com/share?url=~LINK~',
-		'transform' => array('rawurlencode'),
-		'form' => 'simple',
-		'method' => 'GET',
-	),
 	'facebook' => array(
 		'url' => 'https://www.facebook.com/sharer.php?u=~LINK~&amp;t=~TITLE~',
 		'transform' => array('rawurlencode'),
@@ -142,6 +136,12 @@ return array(
 		'transform' => array('urlencode'),
 		'help' => 'https://pinboard.in/api/',
 		'form' => 'simple',
+		'method' => 'GET',
+	),
+	'lemmy' => array(
+		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'form' => 'advanced',
 		'method' => 'GET',
 	),
 );

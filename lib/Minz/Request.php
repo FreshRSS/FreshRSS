@@ -52,6 +52,12 @@ class Minz_Request {
 		}
 		return null;
 	}
+	public static function paramBoolean($key) {
+		if (null === $value = self::paramTernary($key)) {
+			return false;
+		}
+		return $value;
+	}
 	public static function defaultControllerName() {
 		return self::$default_controller_name;
 	}
@@ -96,6 +102,13 @@ class Minz_Request {
 	public static function init() {
 		self::magicQuotesOff();
 		self::initJSON();
+	}
+
+	public static function is($controller_name, $action_name) {
+		return (
+			self::$controller_name === $controller_name &&
+			self::$action_name === $action_name
+		);
 	}
 
 	/**

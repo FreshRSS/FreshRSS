@@ -20,7 +20,7 @@ If you have to create a new ticket, try to apply the following advices:
 - We also need some information:
     + Your FreshRSS version (on about page or `constants.php` file)
     + Your server configuration: type of hosting, PHP version
-    + Your storage system (MySQL / MariaDB / PostgreSQL or SQLite)
+    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
     + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
 ## Fix a bug
@@ -52,5 +52,5 @@ We are working on a better way to handle internationalization but don't hesitate
 
 ## Contribute to documentation
 
-The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. 
+The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it.
 If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!

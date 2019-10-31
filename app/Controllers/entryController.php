@@ -17,7 +17,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		// If ajax request, we do not print layout
 		$this->ajax = Minz_Request::param('ajax');
 		if ($this->ajax) {
-			$this->view->_useLayout(false);
+			$this->view->_layout(false);
 			Minz_Request::_param('ajax');
 		}
 	}
@@ -181,32 +181,20 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function purgeAction() {
 		@set_time_limit(300);
 
-		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
-		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
-
-		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
 		$nb_total = 0;
 
 		invalidateHttpCache();
 
-		foreach ($feeds as $feed) {
-			$feed_history = $feed->keepHistory();
-			if (FreshRSS_Feed::KEEP_HISTORY_DEFAULT === $feed_history) {
-				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
-			}
+		$feedDAO->beginTransaction();
 
-			if ($feed_history >= 0) {
-				$nb = $entryDAO->cleanOldEntries($feed->id(), $date_min, $feed_history);
-				if ($nb > 0) {
-					$nb_total += $nb;
-					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');
-				}
-			}
+		foreach ($feeds as $feed) {
+			$nb_total += $feed->cleanOldEntries();
 		}
 
 		$feedDAO->updateCachedValues();
+		$feedDAO->commit();
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->minorDbMaintenance();

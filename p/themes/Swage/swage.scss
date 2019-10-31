@@ -2,15 +2,15 @@
 //colors
 
 $color_text:	#181621;
-$color_light:	#FCFCFC;
+$color_light:	#fcfcfc;
 $color_nav:		#0062be;
 $color_aside:	#22303d;
-$color_alert:	#FA8052;
-$color_good:	#5EAABF;
-$color_bad:		#B0425B;
-$color_stared:	#FFF6DA;
-$color_unread:	#FFF3ED;
-$color_hover:	#FFFFFF;
+$color_alert:	#fa8052;
+$color_good:	#5eaabf;
+$color_bad:		#b0425b;
+$color_stared:	#fff6da;
+$color_unread:	#fff3ed;
+$color_hover:	#fff;
 
 
 // @extend-elements
@@ -38,9 +38,9 @@ $color_hover:	#FFFFFF;
 
 %dropdown {
 	padding: 0 22px;
-	line-height: 2.5em;
-	font-size: 0.8rem;
 	color: $color_light;
+	font-size: 0.8rem;
+	line-height: 2.5em;
 }
 
 %after {
@@ -63,19 +63,23 @@ body {
 a {
 	color: darken( $color_nav, 10%);
 	outline: none;
+
 	&.btn {
 		min-height: 25px;
 		line-height: 25px;
 		text-decoration: none;
+
 		&:hover {
 			background: darken( $color_nav, 10%);
 		}
 	}
+
 	&#btn-subscription {
 		width: 76%;
 	}
+
 	&#btn-importExport {
-    	width: 5%;
+		width: 5%;
 	}
 }
 
@@ -94,13 +98,13 @@ sup {
 }
 
 legend {
-	display: inline-block;
-	width: auto;
 	margin: 20px 0 5px;
 	padding: 5px 20px;
+	background: darken( $color_light, 10%);
+	display: inline-block;
+	width: auto;
 	font-size: 1.4em;
 	clear: both;
-	background: darken( $color_light, 10%);
 }
 
 label {
@@ -108,10 +112,12 @@ label {
 }
 
 textarea {
+	background: darken( $color_light, 10% );
 	width: 360px;
 	height: 100px;
+
 	@extend %input;
-	background: darken( $color_light, 10% );
+
 	&:focus {
 		border-color: darken( $color_nav, 10%);
 	}
@@ -119,13 +125,18 @@ textarea {
 
 input,
 select {
+
 	@extend %input;
+
 	&:focus {
 		border-color: darken( $color_nav, 10%);
 	}
+
 	&:invalid {
+
 		@extend %invalid;
 	}
+
 	&:disabled {
 		background: $color_light;
 	}
@@ -167,6 +178,7 @@ form {
 		text-align: center;
 	}
 }
+
 .category {
 	.title.error::before {
 		display: inline-block;
@@ -180,60 +192,71 @@ form {
 .form-group {
 	padding: 5px;
 	border: 1px solid transparent;
+
 	&:hover {
 		background: $color_light;
 		border: 1px solid $color_light;
 	}
+
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
 		background: darken( $color_light, 10%);
 		border-top: 3px solid darken( $color_light, 10%);
+
 		.btn {
 			margin: 0 10px;
 		}
 	}
+
 	.group-name {
 		padding: 10px 0;
 		text-align: right;
 	}
+
 	.group-controls {
 		min-height: 25px;
 		padding: 5px 0;
+
 		.control {
 			line-height: 2.0em;
 		}
 	}
+
 	table {
 		margin: 10px 0 0 220px;
 	}
 }
 
 .form-group::after {
+
 	@extend %after;
 }
 
 .stick {
 	vertical-align: middle;
 	font-size: 0;
+
 	&.configure-feeds {
+
 		@extend %aside-width;
 	}
 }
 
 .btn {
-	display: inline-block;
-	min-height: 35px;
-	min-width: 15px;
 	margin: 0;
 	padding: 5px 10px;
+	background: $color_nav;
+	display: inline-block;
+	color: $color_light;
 	font-size: 0.9rem;
+	border: none;
+	min-height: 35px;
+	min-width: 15px;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-	background: $color_nav;
-	border: none;
-	color: $color_light;
+
 	&.active,
 	:active,
 	:hover {
@@ -246,6 +269,7 @@ form {
 	font-weight: normal;
 	background: $color_alert;
 	color: $color_light;
+
 	&:hover,
 	:active {
 		background: darken( $color_alert, 10%) !important;
@@ -254,6 +278,7 @@ form {
 
 .nav-list {
 	.nav-header {
+
 		@extend %nav-list;
 		padding: 0 10px;
 		font-weight: bold;
@@ -261,45 +286,58 @@ form {
 		color: $color_light;
 		cursor: default;
 	}
+
 	.item {
+
 		@extend %nav-list;
+
 		&:hover,
 		&.active {
 			background: darken( $color_nav, 10%);
 			color: $color_light;
+
 			a {
 				color: $color_light;
 			}
+
 			&.empty a,
 			.error a {
 				color: $color_light;
 			}
+
 			&.empty a {
 				background: $color_alert;
 			}
+
 			&.error a {
 				background: lighten( $color_bad, 10%);
 			}
 		}
+
 		> a {
 			padding: 0 10px;
 		}
+
 		&.empty a {
 			color: $color_alert;
 		}
+
 		&.error a {
 			color: lighten( $color_bad, 10%);
 		}
 	}
+
 	.disable {
 		text-align: center;
 		background: $color_light;
 		color: darken( $color_light, 40% );
 	}
+
 	.nav-form {
 		padding: 3px;
 		text-align: center;
 	}
+
 	a:hover {
 		text-decoration: none;
 	}
@@ -310,9 +348,11 @@ form {
 	text-align: right;
 	background: $color_aside;
 	color: $color_light;
+
 	a {
 		color: $color_light;
 	}
+
 	.item {
 		padding: 5px 10px;
 		font-size: 0.9rem;
@@ -323,6 +363,7 @@ form {
 .horizontal-list {
 	margin: 0;
 	padding: 0;
+
 	.item {
 		vertical-align: middle;
 	}
@@ -334,38 +375,48 @@ form {
 	text-align: left;
 	border: none;
 	background-color: darken( $color_nav, 10%);
+
 	.dropdown-header {
 		cursor: default;
 	}
+
 	> {
 		.item {
+
 			@extend %dropdown;
 			padding: 0;
 			margin-left: 10px;
+
 			> a,
 			> span,
-			> as-link,
+			> .as-link,
 			button {
+
 				@extend %dropdown;
 			}
+
 			> a {
 				min-width: initial;
 				white-space: nowrap;
 			}
+
 			&:hover {
 				background: $color_nav;
 				color: $color_light;
+
 				> a {
 					text-decoration: none;
 					color: $color_light;
 				}
 			}
 		}
+
 		.item[aria-checked="true"] > a::before {
 			font-weight: bold;
 			margin: 0 0 0 -14px;
 		}
 	}
+
 	.input {
 		select,
 		input {
@@ -391,14 +442,15 @@ form {
 .alert {
 	margin: 5px auto;
 	padding: 10px 15px;
-	font-size: 0.9em;
 	background: $color_light;
-	border: none;
 	color: darken( $color_light, 40% );
+	font-size: 0.9em;
+	border: none;
 	text-shadow: 0 0 1px $color_light;
+
 	> a {
-		text-decoration: underline;
 		color: inherit;
+		text-decoration: underline;
 	}
 }
 
@@ -428,49 +480,56 @@ form {
 }
 
 .pagination {
-	text-align: center;
-	font-size: 0.8em;
 	background: darken( $color_light, 10%);
 	color: $color_text;
+	font-size: 0.8em;
+	text-align: center;
+
 	.item {
 		&.pager-current {
-			font-weight: bold;
-			font-size: 1.5em;
 			background: $color_aside;
 			color: darken( $color_light, 10%);
+			font-size: 1.5em;
+			font-weight: bold;
 		}
+
 		a {
 			display: block;
+			color: $color_text;
 			font-style: italic;
 			line-height: 3em;
 			text-decoration: none;
-			color: $color_text;
+
 			&:hover {
 				background: $color_aside;
 				color: darken( $color_light, 10%);
 			}
 		}
 	}
+
 	.loading,
 	a:hover.loading {
-		font-size: 0;
 		background: url(loader.gif) center center no-repeat $color_aside;
+		font-size: 0;
 	}
 }
 
 .content {
 	padding: 20px 10px;
+
 	.pagination {
 		margin: 0;
 		padding: 0;
 	}
+
 	hr {
 		margin: 30px 10px;
-		height: 1px;
 		background: darken( $color_light, 10%);
+		height: 1px;
 		border: 0;
 		box-shadow: 0 2px 5px darken( $color_light, 10%);
 	}
+
 	pre {
 		margin: 10px auto;
 		padding: 10px 20px;
@@ -478,30 +537,35 @@ form {
 		background: $color_text;
 		color: $color_light;
 		font-size: 0.9rem;
+
 		code {
 			background: transparent;
 			color: $color_light;
 			border: none;
 		}
 	}
+
 	code {
 		padding: 2px 5px;
-		color: $color_bad;
 		background: $color_light;
+		color: $color_bad;
 		border: 1px solid $color_light;
 	}
+
 	blockquote {
-		display: block;
 		margin: 0;
 		padding: 5px 20px;
+		background: $color_light;
+		display: block;
+		color: darken( $color_light, 40% );
 		border-top: 1px solid darken( $color_light, 10%);
 		border-bottom: 1px solid darken( $color_light, 10%);
-		background: $color_light;
-		color: darken( $color_light, 40% );
+
 		p {
 			margin: 0;
 		}
 	}
+
 	> h1.title > a {
 		color: $color_text;
 	}
@@ -509,6 +573,7 @@ form {
 
 .box {
 	border: 1px solid darken( $color_light, 10%);
+
 	.box-title {
 		margin: 0;
 		padding: 5px 10px;
@@ -516,50 +581,61 @@ form {
 		color: darken( $color_light, 40% );
 		border-bottom: 1px solid darken( $color_light, 10%);
 	}
+
 	.box-content {
 		max-height: 260px;
+
 		.item {
 			padding: 0 10px;
 			font-size: 0.9rem;
 			line-height: 2.5em;
+
 			.configure {
 				visibility: hidden;
+
 				.icon {
 					vertical-align: middle;
 					background-color: darken( $color_light, 10%);
 				}
 			}
+
 			&:hover .configure {
 				visibility: visible;
 			}
 		}
 	}
+
 	&.category {
 		.box-title .title {
 			font-weight: normal;
 			text-decoration: none;
 			text-align: left;
 		}
+
 		&:not([data-unread="0"]) .box-title {
 			background: $color_nav;
+
 			&:active {
 				background: darken( $color_nav, 10%);
 			}
+
 			.title {
 				font-weight: bold;
 				color: $color_light;
 			}
 		}
+
 		.title:not([data-unread="0"])::after {
+			background: none;
+			border: 0;
+			box-shadow: none;
 			position: absolute;
 			top: 5px;
 			right: 10px;
-			border: 0;
-			background: none;
 			font-weight: bold;
-			box-shadow: none;
 			text-shadow: none;
 		}
+
 		.item.feed {
 			padding: 2px 10px;
 			font-size: 0.8rem;
@@ -572,15 +648,17 @@ form {
 }
 
 .tree-folder-title {
-	position: relative;
 	padding: 0 10px;
 	background: $color_aside;
-	line-height: 2.3rem;
-	font-size: 1rem;
 	height: 35px;
+	font-size: 1rem;
+	position: relative;
+	line-height: 2.3rem;
+
 	.title {
 		background: inherit;
 		color: $color_light;
+
 		&:hover {
 			text-decoration: none;
 		}
@@ -589,13 +667,16 @@ form {
 
 .tree-folder-items {
 	background: $color_aside;
+
 	> .item {
 		padding: 0 10px;
 		line-height: 2.5rem;
 		font-size: 0.8rem;
+
 		&.active {
 			background: darken( $color_nav, 10%);
 		}
+
 		> a {
 			text-decoration: none;
 			color: $color_light;
@@ -607,6 +688,7 @@ form {
 	#sidebar {
 		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
 	}
+
 	#sidebar:hover {
 		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
 	}
@@ -616,6 +698,7 @@ form {
 	#sidebar::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.1);
 	}
+
 	#sidebar:hover::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.3);
 	}
@@ -624,17 +707,22 @@ form {
 .header {
 	> .item {
 		vertical-align: middle;
+
 		&.title {
+
 			@extend %aside-width;
 			position: absolute;
+
 			h1 {
 				margin: 0;
 				display: block;
+
 				a {
 					text-decoration: none;
 					color: $color_light;
 				}
 			}
+
 			.logo {
 				display: inline-block;
 				height: 26px;
@@ -643,22 +731,27 @@ form {
 				top: 5px;
 			}
 		}
+
 		&.search input {
 			width: 230px;
 		}
 	}
+
 	.item.search input:focus {
 		width: 350px;
 	}
+
 	.item.search {
 		display: none;
 	}
+
 	.item.configure {
 		position: fixed;
 		right: 0px;
 		z-index: 1000;
 		width: 35px;
 	}
+
 	h1 {
 		text-align: center;
 		font-size: 1.5em;
@@ -666,22 +759,27 @@ form {
 }
 
 .aside {
-	background: $color_aside;
 	padding: 35px 0;
+	background: $color_aside;
+
 	@extend %aside-width;
+
 	&.aside_feed {
 		.tree {
 			margin: 0 0 50px;
 		}
+
 		.nav-form {
 			input,
 			select {
 				width: 140px;
 			}
+
 			.dropdown {
 				.dropdown-menu {
 					right: -20px;
 				}
+
 				.dropdown-menu::after {
 					right: 33px;
 				}
@@ -692,14 +790,15 @@ form {
 
 .aside_feed {
 	.tree-folder-title > .title:not([data-unread="0"])::after {
-		position: absolute;
-		right: 0;
 		margin: 6px 0;
 		padding: 0 10px;
-		font-size: 0.9rem;
-		line-height: 1.5rem;
 		background: inherit;
+		font-size: 0.9rem;
+		position: absolute;
+		right: 0;
+		line-height: 1.5rem;
 	}
+
 	.tree-folder-items .dropdown-menu::after {
 		left: 2px;
 	}
@@ -708,16 +807,20 @@ form {
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
+
 	input {
 		background: darken( $color_light, 10% );
-		&.long{
+
+		&.long {
 			height: 33px;
-    		margin-top: 0px;
+			margin-top: 0px;
 		}
 	}
+
 	form {
 		margin: 10px 0;
 	}
+
 	&.content {
 		max-width: 550px;
 	}
@@ -725,39 +828,47 @@ form {
 
 .prompt {
 	text-align: center;
+
 	label {
 		text-align: left;
 	}
+
 	form {
 		margin: 10px auto 20px auto;
 		width: 200px;
 	}
+
 	input {
 		margin: 5px auto;
 		width: 100%;
 	}
+
 	p {
 		margin: 20px 0;
 	}
 }
 
 #new-article {
-	text-align: center;
-	font-size: 1em;
 	background: $color_nav;
+	font-size: 1em;
+	text-align: center;
 	position: fixed;
 	bottom: 48px;
 	z-index: 900;
 	left: 0;
-	@extend %aside-width;
 	line-height: 1.5em;
+
+	@extend %aside-width;
+
 	&:hover {
 		background: darken( $color_nav, 10%);
 	}
+
 	> a {
 		line-height: 1.5em;
 		font-weight: bold;
 		color: $color_light;
+
 		&:hover {
 			text-decoration: none;
 		}
@@ -769,6 +880,7 @@ form {
 	font-weight: bold;
 	line-height: 3em;
 	text-align: center;
+
 	.name {
 		display: none;
 	}
@@ -782,11 +894,12 @@ form {
 
 
 .nav_menu {
+	width: 100%;
 	font-size: 0;
 	background-color: $color_nav;
 	position: fixed;
-	width: 100%;
 	z-index: 900;
+
 	.item.search {
 		display: inline-block;
 		position: fixed;
@@ -797,42 +910,56 @@ form {
 .flux {
 	padding-right: 10px;
 	background: $color_light;
+
 	&::after {
+
 		@extend %after;
 		margin: 0 auto;
 		width: 90%;
 		border-top: 1px solid darken( $color_light, 10%);
 	}
+
 	&:hover,
 	.current {
 		background: $color_hover;
+
 		&:not(.current):hover .item.title {
 			background: $color_hover;
 		}
 	}
+
 	&.not_read {
-		background: $color_unread;
+		&:not(.current) {
+			background: $color_unread;
+		}
+
 		&:not(.current):hover .item.title {
 			background: $color_unread;
 		}
 	}
-	&.favorite,{
+
+	&.favorite, {
 		background: $color_stared;
+
 		&:not(.current):hover .item.title {
 			background: $color_stared;
 		}
 	}
+
 	.date {
-		font-size: 0.7rem;
 		color: darken( $color_light, 40% );
+		font-size: 0.7rem;
 	}
+
 	.bottom {
 		font-size: 0.8rem;
 		text-align: center;
 	}
+
 	.website .favicon {
 		padding: 5px;
 	}
+
 	label {
 		color: $color_light;
 		cursor: pointer;
@@ -842,46 +969,55 @@ form {
 .flux_header {
 	font-size: 0.8rem;
 	cursor: pointer;
+
 	.title {
 		font-size: 0.9rem;
 	}
 }
 
 .notification {
+	padding: 10px 0;
+	background: darken( $color_light, 10%);
+	height: auto;
+	color: darken( $color_light, 40% );
+	font-size: 1em;
+	border: none;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1em;
-	padding: 10px 0;
 	z-index: 10;
 	vertical-align: middle;
-	background: darken( $color_light, 10%);
-	color: darken( $color_light, 40% );
-	border: none;
 	position: fixed;
 	bottom: 48px;
 	left: 0;
 	top: auto;
+
 	@extend %aside-width;
-	height: auto;
+
 	&.good,
 	.bad {
 		color: $color_light;
 	}
+
 	&.good {
 		background: $color_good;
+
 		a.close:hover {
 			background: $color_good;
 		}
 	}
+
 	&.bad {
 		background: lighten( $color_bad, 10%);
+
 		a.close:hover {
 			background: lighten( $color_bad, 10%);
 		}
 	}
+
 	&#actualizeProgress {
 		line-height: 2em;
 	}
+
 	a.close {
 		display: none;
 	}
@@ -891,6 +1027,7 @@ form {
 	text-align: center;
 	text-decoration: none;
 	background: darken( $color_light, 10%);
+
 	&:hover {
 		background: $color_aside;
 		color: $color_light;
@@ -902,29 +1039,35 @@ form {
 	text-align: center;
 	line-height: 3em;
 	table-layout: fixed;
+
 	@extend %aside-width;
 	background: $color_aside;
 }
 
 .stat {
 	margin: 10px 0 20px;
+
 	th,
 	td,
 	tr {
 		border: none;
 	}
+
 	> table {
 		td,
 		th {
 			border-bottom: 1px solid darken( $color_light, 10%);
 		}
 	}
+
 	> .horizontal-list {
 		margin: 0 0 5px;
+
 		.item {
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
+
 			&:first-child {
 				width: 270px;
 			}
@@ -938,28 +1081,31 @@ form {
 	}
 
 	.header {
-		height: 55px;
 		background: $color_aside;
+		height: 55px;
+
 		> .item {
 			&.configure {
 				width: 200px;
 				position: unset;
 			}
+
 			&.title h1 {
 				display: unset;
 			}
 		}
 	}
+
 	a.signin {
 		color: $color_light;
 		padding-left: 5px;
 	}
 
 	input {
-		border-left: 5px solid;
-		border-right: 1px darken( $color_light, 10%);
 		border-top: 1px darken( $color_light, 10%);
+		border-right: 1px darken( $color_light, 10%);
 		border-bottom: 1px darken( $color_light, 10%);
+		border-left: 5px solid;
 	}
 }
 
@@ -970,49 +1116,59 @@ form {
 
 .log {
 	padding: 5px 2%;
-	overflow: auto;
-	font-size: 0.8rem;
 	background: $color_light;
+	font-size: 0.8rem;
+	overflow: auto;
+
 	> .date {
 		margin: 0 10px 0 0;
 		padding: 5px 10px;
 	}
+
 	&.error > .date {
 		background: lighten( $color_bad, 10%);
 		color: $color_light;
 	}
+
 	&.warning > .date {
 		background: $color_alert;
 		color: $color_light;
 	}
+
 	&.notice > .date {
 		background: darken( $color_light, 10%);
 		color: $color_light;
 	}
+
 	&.debug > .date {
 		background: $color_text;
 		color: $color_light;
 	}
 }
 
-@media(max-width: 840px) {
+@media (max-width: 840px) {
 	.formLogin .header {
 		display: none;
 	}
+
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
+
 	#new-article {
 		width: 100%;
 		position: sticky;
 		top: 0;
 	}
+
 	.header {
 		display: table;
+
 		.item.title .logo {
 			display: none;
 		}
 	}
+
 	.header > .item.title h1 a {
 		display: block;
 		position: absolute;
@@ -1020,93 +1176,116 @@ form {
 		left: 10px;
 		font-size: 0.6em;
 	}
+
 	.header .item.configure,
 	button.read_all.btn {
 		display: none;
 	}
+
 	.flux .item.manage,
 	.flux_header .item.website {
 		width: 35px;
 		text-align: center;
 	}
+
 	.aside {
 		width: 0;
 		transition: width 200ms linear;
+
 		.toggle_aside {
+			background: $color_aside;
 			display: block;
 			height: 50px;
 			line-height: 50px;
 			text-align: right;
 			padding-right: 10px;
-			background: $color_aside;
 		}
+
 		&.aside_feed {
 			padding: 0;
 		}
+
 		&:target {
 			width: 78%;
 			z-index: 1000;
 		}
 	}
+
 	.nav_menu {
 		position: initial;
 		height: 71px;
+
 		.btn {
 			margin: 5px 10px;
 		}
+
 		.stick {
 			margin: 0 10px;
+
 			.btn {
 				margin: 5px 0;
 			}
 		}
+
 		.search {
 			position: absolute !important;
 			top: 35px;
 			left: 55px;
+
 			input {
 				width: 85%;
 			}
 		}
 	}
+
 	.pagination {
 		margin: 0 0 3.5em;
 	}
+
 	#panel .close {
+		background: $color_aside;
 		display: block;
 		height: 50px;
 		line-height: 50px;
 		text-align: right;
 		padding-right: 10px;
-		background: $color_aside;
 	}
+
 	.day .name {
 		font-size: 1.1rem;
 	}
+
 	.notification {
 		width: 100%;
+
 		a.close {
+			background: transparent;
 			display: block;
 			left: 0;
-			background: transparent;
+
 			&:hover {
 				opacity: 0.5;
 			}
+
 			.icon {
 				display: none;
 			}
 		}
 	}
+
 	#nav_entries {
 		width: 100% !important;
 	}
+
 	div#stream {
 		margin-top: 0px;
 	}
+
 	a.btn.toggle_aside {
 		position: absolute;
 		top: 29px;
 	}
+
 	form#mark-read-menu,
 	a#actualize,
 	a#toggle-order,
@@ -1114,38 +1293,44 @@ form {
 	div#nav_menu_views {
 		position: absolute;
 	}
+
 	form#mark-read-menu {
 		right: 46px;
 		top: 30px;
 		z-index: 1100;
 	}
+
 	a#actualize,
 	a#toggle-order {
 		right: 0px;
 	}
+
 	a#actualize {
 		top: 29px;
 	}
+
 	a#toggle-order,
 	div#nav_menu_actions,
 	div#nav_menu_views {
 		top: 65px;
 	}
+
 	div#nav_menu_actions {
 		left: 0px;
 	}
+
 	div#nav_menu_views {
 		right: 50px;
 	}
 }
 
-@media(max-width: 410px) {
+@media (max-width: 410px) {
 	.nav_menu .stick {
 		margin: 0;
 	}
 }
 
-@media(max-width: 374px) {
+@media (max-width: 374px) {
 	#nav_menu_views {
 		display: none;
 	}
@@ -1168,26 +1353,33 @@ button.as-link {
 .feed.item {
 	&.empty {
 		color: $color_alert;
+
 		&.active {
 			background: $color_alert;
 			color: $color_light;
+
 			> a {
 				color: $color_light;
 			}
 		}
+
 		> a {
 			color: $color_alert;
 		}
 	}
+
 	&.error {
 		color: lighten( $color_bad, 10%);
+
 		&.active {
 			background: lighten( $color_bad, 10%);
 			color: $color_light;
+
 			> a {
 				color: $color_light;
 			}
 		}
+
 		> a {
 			color: lighten( $color_bad, 10%);
 		}
@@ -1204,16 +1396,17 @@ button.as-link {
 	background: $color_light;
 	color: $color_aside;
 	border: none;
+
 	.author {
 		margin: 0 0 10px;
-		font-size: 90%;
 		color: darken( $color_light, 40% );
+		font-size: 90%;
 	}
 }
 
 #nav_menu_actions, #nav_menu_read_all {
 	ul.dropdown-menu {
-    	left: 0px;
+		left: 0px;
 	}
 }
 
@@ -1221,6 +1414,7 @@ button.as-link {
 	label {
 		min-height: initial;
 	}
+
 	.form-group {
 		&:hover {
 			background: inital;

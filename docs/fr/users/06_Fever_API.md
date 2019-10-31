@@ -8,15 +8,15 @@ et des généralités sur l’accès par API.
 Testé avec:
 
 - Android
-  [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)
+  [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 
 - iOS
-  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
-  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-  - [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300)
+  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
+  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
+  - [Reeder](https://www.reederapp.com/) (Commercial) (Connectez-vous plutôt par son option Google Reader API)
 
 - MacOS
-  - [Readkit](https://itunes.apple.com/app/readkit/id588726889)
+  - [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 ## TODO
 

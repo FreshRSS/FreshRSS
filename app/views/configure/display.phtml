@@ -1,47 +1,47 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<form method="post" action="<?php echo _url('configure', 'display'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('conf.display'); ?></legend>
+	<form method="post" action="<?= _url('configure', 'display') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('conf.display') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="language"><?php echo _t('conf.display.language'); ?></label>
+			<label class="group-name" for="language"><?= _t('conf.display.language') ?></label>
 			<div class="group-controls">
-				<select name="language" id="language" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->language; ?>">
+				<select name="language" id="language" data-leave-validation="<?= FreshRSS_Context::$user_conf->language ?>">
 				<?php $languages = Minz_Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $lang) { ?>
-				<option value="<?php echo $lang; ?>"<?php echo FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : ''; ?>><?php echo _t('gen.lang.' . $lang); ?></option>
+				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="theme"><?php echo _t('conf.display.theme'); ?></label>
+			<label class="group-name" for="theme"><?= _t('conf.display.theme') ?></label>
 			<div class="group-controls">
 				<ul class="slides">
 					<?php $slides = count($this->themes); $i = 1; ?>
 					<?php foreach($this->themes as $theme) { ?>
-						<input type="radio" name="theme" id="img-<?php echo $i ?>" <?php if (FreshRSS_Context::$user_conf->theme === $theme['id']) {echo "checked";}?> value="<?php echo $theme['id'] ?>" data-leave-validation="<?php echo (FreshRSS_Context::$user_conf->theme === $theme['id']) ? 1 : 0; ?>"/>
+						<input type="radio" name="theme" id="img-<?= $i ?>" <?php if (FreshRSS_Context::$user_conf->theme === $theme['id']) {echo "checked";}?> value="<?= $theme['id'] ?>" data-leave-validation="<?= (FreshRSS_Context::$user_conf->theme === $theme['id']) ? 1 : 0 ?>"/>
 						<li class="slide-container">
 							<div class="slide">
-								<img src="<?php echo Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png')?>"/>
+								<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>"/>
 							</div>
 							<div class="nav">
 								<?php if ($i !== 1) {?>
-									<label for="img-<?php echo $i - 1 ?>" class="prev">&#x2039;</label>
+									<label for="img-<?= $i - 1 ?>" class="prev">&#x2039;</label>
 								<?php } ?>
 								<?php if ($i !== $slides) {?>
-									<label for="img-<?php echo $i + 1 ?>" class="next">&#x203a;</label>
+									<label for="img-<?= $i + 1 ?>" class="next">&#x203a;</label>
 								<?php } ?>
 							</div>
 							<div class="properties">
-								<div><?php echo sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']); ?></div>
-								<div><?php echo $theme['description'] ?></div>
-								<div class="page-number"><?php echo sprintf('%d/%d', $i, $slides) ?></div>
+								<div><?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?></div>
+								<div><?= $theme['description'] ?></div>
+								<div class="page-number"><?= sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
 						</li>
 						<?php $i++ ?>
@@ -52,81 +52,84 @@
 
 		<?php $width = FreshRSS_Context::$user_conf->content_width; ?>
 		<div class="form-group">
-			<label class="group-name" for="content_width"><?php echo _t('conf.display.width.content'); ?></label>
+			<label class="group-name" for="content_width"><?= _t('conf.display.width.content') ?></label>
 			<div class="group-controls">
-				<select name="content_width" id="content_width" required="" data-leave-validation="<?php echo $width; ?>">
-					<option value="thin" <?php echo $width === 'thin'? 'selected="selected"' : ''; ?>>
-						<?php echo _t('conf.display.width.thin'); ?>
+				<select name="content_width" id="content_width" required="" data-leave-validation="<?= $width ?>">
+					<option value="thin" <?= $width === 'thin'? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.width.thin') ?>
 					</option>
-					<option value="medium" <?php echo $width === 'medium'? 'selected="selected"' : ''; ?>>
-						<?php echo _t('conf.display.width.medium'); ?>
+					<option value="medium" <?= $width === 'medium'? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.width.medium') ?>
 					</option>
-					<option value="large" <?php echo $width === 'large'? 'selected="selected"' : ''; ?>>
-						<?php echo _t('conf.display.width.large'); ?>
+					<option value="large" <?= $width === 'large'? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.width.large') ?>
 					</option>
-					<option value="no_limit" <?php echo $width === 'no_limit'? 'selected="selected"' : ''; ?>>
-						<?php echo _t('conf.display.width.no_limit'); ?>
+					<option value="no_limit" <?= $width === 'no_limit'? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.width.no_limit') ?>
 					</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('conf.display.icon.entry'); ?></label>
+			<label class="group-name"><?= _t('conf.display.icon.entry') ?></label>
 			<table>
 				<thead>
 					<tr>
 						<th> </th>
-						<th title="<?php echo _t('gen.action.mark_read'); ?>"><?php echo _i('read'); ?></th>
-						<th title="<?php echo _t('gen.action.mark_favorite'); ?>"><?php echo _i('bookmark'); ?></th>
-						<th><?php echo _t('conf.display.icon.related_tags'); ?></th>
-						<th><?php echo _t('conf.display.icon.sharing'); ?></th>
-						<th><?php echo _t('conf.display.icon.publication_date'); ?></th>
-						<th><?php echo _i('link'); ?></th>
+						<th title="<?= _t('gen.action.mark_read') ?>"><?= _i('read') ?></th>
+						<th title="<?= _t('gen.action.mark_favorite') ?>"><?= _i('bookmark') ?></th>
+						<th><?= _t('conf.display.icon.related_tags') ?></th>
+						<th><?= _t('conf.display.icon.sharing') ?></th>
+						<th><?= _t('conf.display.icon.display_authors') ?></th>
+						<th><?= _t('conf.display.icon.publication_date') ?></th>
+						<th><?= _i('link') ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<th><?php echo _t('conf.display.icon.top_line'); ?></th>
-						<td><input type="checkbox" name="topline_read" value="1"<?php echo FreshRSS_Context::$user_conf->topline_read ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->topline_read; ?>"/></td>
-						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo FreshRSS_Context::$user_conf->topline_favorite ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->topline_favorite; ?>"/></td>
+						<th><?= _t('conf.display.icon.top_line') ?></th>
+						<td><input type="checkbox" name="topline_read" value="1"<?= FreshRSS_Context::$user_conf->topline_read ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->topline_read ?>"/></td>
+						<td><input type="checkbox" name="topline_favorite" value="1"<?= FreshRSS_Context::$user_conf->topline_favorite ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->topline_favorite ?>"/></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
-						<td><input type="checkbox" name="topline_date" value="1"<?php echo FreshRSS_Context::$user_conf->topline_date ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->topline_date; ?>"/></td>
-						<td><input type="checkbox" name="topline_link" value="1"<?php echo FreshRSS_Context::$user_conf->topline_link ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->topline_link; ?>"/></td>
+						<td><input type="checkbox" name="topline_display_authors" value="1"<?= FreshRSS_Context::$user_conf->topline_display_authors ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->topline_display_authors ?>"/></td>
+						<td><input type="checkbox" name="topline_date" value="1"<?= FreshRSS_Context::$user_conf->topline_date ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->topline_date ?>"/></td>
+						<td><input type="checkbox" name="topline_link" value="1"<?= FreshRSS_Context::$user_conf->topline_link ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->topline_link ?>"/></td>
 					</tr><tr>
-						<th><?php echo _t('conf.display.icon.bottom_line'); ?></th>
-						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_read ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_read; ?>"/></td>
-						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_favorite ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_favorite; ?>"/></td>
-						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_tags ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_tags; ?>"/></td>
-						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_sharing ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_sharing; ?>"/></td>
-						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_date ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_date; ?>"/></td>
-						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_link ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_link; ?>"/></td>
+						<th><?= _t('conf.display.icon.bottom_line') ?></th>
+						<td><input type="checkbox" name="bottomline_read" value="1"<?= FreshRSS_Context::$user_conf->bottomline_read ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_read ?>"/></td>
+						<td><input type="checkbox" name="bottomline_favorite" value="1"<?= FreshRSS_Context::$user_conf->bottomline_favorite ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_favorite ?>"/></td>
+						<td><input type="checkbox" name="bottomline_tags" value="1"<?= FreshRSS_Context::$user_conf->bottomline_tags ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_tags ?>"/></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="1"<?= FreshRSS_Context::$user_conf->bottomline_sharing ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_sharing ?>"/></td>
+						<td><input type="checkbox" disabled="disabled" /></td>
+						<td><input type="checkbox" name="bottomline_date" value="1"<?= FreshRSS_Context::$user_conf->bottomline_date ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_date ?>"/></td>
+						<td><input type="checkbox" name="bottomline_link" value="1"<?= FreshRSS_Context::$user_conf->bottomline_link ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_link ?>"/></td>
 					</tr>
 				</tbody>
 			</table><br />
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="html5_notif_timeout"><?php echo _t('conf.display.notif_html5.timeout'); ?></label>
+			<label class="group-name" for="html5_notif_timeout"><?= _t('conf.display.notif_html5.timeout') ?></label>
 			<div class="group-controls">
-				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo FreshRSS_Context::$user_conf->html5_notif_timeout; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->html5_notif_timeout; ?>"/> <?php echo _t('conf.display.notif_html5.seconds'); ?>
+				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?= FreshRSS_Context::$user_conf->html5_notif_timeout ?>" data-leave-validation="<?= FreshRSS_Context::$user_conf->html5_notif_timeout ?>"/> <?= _t('conf.display.notif_html5.seconds') ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="show_nav_buttons">
-					<input type="checkbox" name="show_nav_buttons" id="show_nav_buttons" value="1"<?php echo FreshRSS_Context::$user_conf->show_nav_buttons ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->show_nav_buttons; ?>"/>
-					<?php echo _t('conf.display.show_nav_buttons'); ?>
+					<input type="checkbox" name="show_nav_buttons" id="show_nav_buttons" value="1"<?= FreshRSS_Context::$user_conf->show_nav_buttons ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->show_nav_buttons ?>"/>
+					<?= _t('conf.display.show_nav_buttons') ?>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>

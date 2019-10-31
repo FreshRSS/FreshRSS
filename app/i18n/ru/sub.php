@@ -13,9 +13,12 @@ return array(
 	'category' => array(
 		'_' => 'Category',	//TODO - Translation
 		'add' => 'Add a category',	//TODO - Translation
+		'archiving' => 'Archivage',	//TODO - Translation
 		'empty' => 'Empty category',	//TODO - Translation
 		'information' => 'Information',	//TODO - Translation
 		'new' => 'New category',	//TODO - Translation
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Title',	//TODO - Translation
 	),
 	'feed' => array(
@@ -40,7 +43,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Information',	//TODO - Translation
-		'keep_history' => 'Minimum number of articles to keep',	//TODO - Translation
+		'keep_min' => 'Minimum number of articles to keep',	//TODO - Translation
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	//TODO - Translation
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'No feed selected.',	//TODO - Translation
@@ -72,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	//TODO - Translation
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
 		'title' => 'Firefox feed reader',	//TODO - Translation
 	),
 	'import_export' => array(

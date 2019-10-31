@@ -21,15 +21,15 @@ Then point your mobile application to the URL of `fever.php` (e.g. `https://fres
 Tested with:
 
 - Android
-  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)
+  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 
 - iOS
-  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
-  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-  - [Reeder-4](https://itunes.apple.com/app/reeder-4/id1449412357)
+  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
+  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
+  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)
 
 - MacOS
-  - [Readkit](https://itunes.apple.com/app/readkit/id588726889)
+  - [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 ## Features
@@ -75,7 +75,7 @@ Add a body to your POST request encoded as `form-data` and one key named `api_ke
 curl -s -F "api_key=$api_key" 'https://freshrss.example.net/api/fever.php?api'
 ```
 
-This shoud give:
+This should give:
 ```json
 {
 	"api_version": 3,
@@ -83,7 +83,7 @@ This shoud give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you are authenticated and can now start testing the more advanced features. Therefor change the URL and append the possible API actions to your request parameters. Check the [original Fever documentation](https://feedafever.com/api) for more infos.
+Perfect, you are authenticated and can now start testing the more advanced features. Therefor change the URL and append the possible API actions to your request parameters. Check the [original Fever documentation](https://feedafever.com/api) for more information.
 
 Some basic calls are:
 

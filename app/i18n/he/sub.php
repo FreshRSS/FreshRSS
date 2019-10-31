@@ -13,9 +13,12 @@ return array(
 	'category' => array(
 		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
+		'archiving' => 'ארכוב',
 		'empty' => 'Empty category',	//TODO - Translation
 		'information' => 'מידע',
 		'new' => 'קטגוריה חדשה',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'כותרת',
 	),
 	'feed' => array(
@@ -40,7 +43,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'מידע',
-		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
+		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'אף הזנה לא נבחרה.',
@@ -72,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	//TODO - Translation
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
 		'title' => 'Firefox feed reader',	//TODO - Translation
 	),
 	'import_export' => array(

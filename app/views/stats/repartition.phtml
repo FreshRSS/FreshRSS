@@ -1,12 +1,12 @@
 <?php $this->partial('aside_stats'); ?>
 
 <div class="post ">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h1><?php echo _t('admin.stats.repartition'); ?></h1>
+	<h1><?= _t('admin.stats.repartition') ?></h1>
 
 	<select id="feed_select" class="select-change">
-		<option data-url="<?php echo _url('stats', 'repartition')?>"><?php echo _t('admin.stats.all_feeds')?></option>
+		<option data-url="<?= _url('stats', 'repartition') ?>"><?= _t('admin.stats.all_feeds') ?></option>
 	<?php foreach ($this->categories as $category) {
 		$feeds = $category->feeds();
 		if (!empty($feeds)) {
@@ -24,40 +24,40 @@
 	</select>
 
 	<?php if ($this->feed) {?>
-		<a class="btn" href="<?php echo _url('subscription', 'index', 'id', $this->feed->id()); ?>">
-			<?php echo _i('configure'); ?> <?php echo _t('gen.action.manage'); ?>
+		<a class="btn" href="<?= _url('subscription', 'index', 'id', $this->feed->id()) ?>">
+			<?= _i('configure') ?> <?= _t('gen.action.manage') ?>
 		</a>
 	<?php }?>
 
 	<div class="stat">
 		<table>
 		<tr>
-			<th><?php echo _t('admin.stats.status_total'); ?></th>
-			<th><?php echo _t('admin.stats.status_read'); ?></th>
-			<th><?php echo _t('admin.stats.status_unread'); ?></th>
-			<th><?php echo _t('admin.stats.status_favorites'); ?></th>
+			<th><?= _t('admin.stats.status_total') ?></th>
+			<th><?= _t('admin.stats.status_read') ?></th>
+			<th><?= _t('admin.stats.status_unread') ?></th>
+			<th><?= _t('admin.stats.status_favorites') ?></th>
 		</tr>
 		<tr>
-			<td class="numeric"><?php echo $this->repartition['total']; ?></td>
-			<td class="numeric"><?php echo $this->repartition['count_reads']; ?></td>
-			<td class="numeric"><?php echo $this->repartition['count_unreads']; ?></td>
-			<td class="numeric"><?php echo $this->repartition['count_favorites']; ?></td>
+			<td class="numeric"><?= $this->repartition['total'] ?></td>
+			<td class="numeric"><?= $this->repartition['count_reads'] ?></td>
+			<td class="numeric"><?= $this->repartition['count_unreads'] ?></td>
+			<td class="numeric"><?= $this->repartition['count_favorites'] ?></td>
 		</tr>
 		</table>
 	</div>
 
 	<div class="stat">
-		<h2><?php echo _t('admin.stats.entry_per_hour', $this->averageHour); ?></h2>
+		<h2><?= _t('admin.stats.entry_per_hour', $this->averageHour) ?></h2>
 		<div id="statsEntryPerHour" class="statGraph"></div>
 	</div>
 
 	<div class="stat half">
-		<h2><?php echo _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek); ?></h2>
+		<h2><?= _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek) ?></h2>
 		<div id="statsEntryPerDayOfWeek" class="statGraph"></div>
 	</div>
 
 	<div class="stat half">
-		<h2><?php echo _t('admin.stats.entry_per_month', $this->averageMonth); ?></h2>
+		<h2><?= _t('admin.stats.entry_per_month', $this->averageMonth) ?></h2>
 		<div id="statsEntryPerMonth" class="statGraph"></div>
 	</div>
 </div>
@@ -71,4 +71,4 @@ echo htmlspecialchars(json_encode(array(
 	'months' => $this->months,
 ), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
 ?></script>
-<script src="../scripts/repartition.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/repartition.js'); ?>"></script>
+<script src="../scripts/repartition.js?<?= @filemtime(PUBLIC_PATH . '/scripts/repartition.js') ?>"></script>

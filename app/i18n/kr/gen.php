@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '새 글 가져오기',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
@@ -22,6 +23,7 @@ return array(
 		'update' => '변경',
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => '메일 주소',
 		'keep_logged_in' => '로그인 유지 <small>(%s 일)</small>',
 		'login' => '로그인',
@@ -160,15 +162,22 @@ return array(
 		'nothing_to_load' => '더 이상 글이 없습니다',
 		'previous' => '이전',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Known based sites',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

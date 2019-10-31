@@ -155,7 +155,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		// No layout for RSS output.
 		$this->view->url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
-		$this->view->_useLayout(false);
+		$this->view->_layout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
@@ -173,7 +173,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private function updateContext() {
 		if (empty(FreshRSS_Context::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			FreshRSS_Context::$categories = $catDAO->listCategories();
+			FreshRSS_Context::$categories = $catDAO->listSortedCategories();
 		}
 
 		// Update number of read / unread variables.
@@ -257,6 +257,23 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 */
 	public function aboutAction() {
 		Minz_View::prependTitle(_t('index.about.title') . ' · ');
+	}
+
+	/**
+	 * This action displays the EULA page of FreshRSS.
+	 * This page is enabled only if admin created a data/tos.html file.
+	 * The content of the page is the content of data/tos.html.
+	 * It returns 404 if there is no EULA.
+	 */
+	public function tosAction() {
+		$terms_of_service = file_get_contents(join_path(DATA_PATH, 'tos.html'));
+		if (!$terms_of_service) {
+			Minz_Error::error(404);
+		}
+
+		$this->view->terms_of_service = $terms_of_service;
+		$this->view->can_register = !max_registrations_reached();
+		Minz_View::prependTitle(_t('index.tos.title') . ' · ');
 	}
 
 	/**

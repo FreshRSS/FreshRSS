@@ -13,9 +13,12 @@ return array(
 	'category' => array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
+		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
 		'new' => 'Yeni kategori',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => 'Başlık',
 	),
 	'feed' => array(
@@ -40,7 +43,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => 'Bilgi',
-		'keep_history' => 'En az tutulacak makale sayısı',
+		'keep_min' => 'En az tutulacak makale sayısı',
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'Hiçbir akış seçilmedi.',
@@ -72,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	//TODO - Translation
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
 		'title' => 'Firefox feed reader',	//TODO - Translation
 	),
 	'import_export' => array(

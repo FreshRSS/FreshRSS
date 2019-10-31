@@ -13,9 +13,12 @@ return array(
 	'category' => array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
+		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
 		'new' => '새 카테고리',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => '제목',
 	),
 	'feed' => array(
@@ -40,7 +43,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => '정보',
-		'keep_history' => '최소 유지 글 개수',
+		'keep_min' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
@@ -72,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'FreshRSS를 Firefox 피드 리더에 추가하기 위해서는 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">여기</a>의 설명을 따르세요.',
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
 		'title' => 'Firefox 피드 리더',
 	),
 	'import_export' => array(

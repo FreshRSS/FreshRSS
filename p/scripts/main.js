@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
 /* jshint esversion:6, strict:global */
 
@@ -720,8 +721,14 @@ function init_shortcuts() {
 				return true;
 			}
 
-			const s = context.shortcuts,
-				k = (ev.key.trim() || ev.code).toUpperCase();
+			const s = context.shortcuts;
+			let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+
+			//IE11
+			if (k === 'SPACEBAR') k = 'SPACE';
+			else if (k === 'DEL') k = 'DELETE';
+			else if (k === 'ESC') k = 'ESCAPE';
+
 			if (location.hash.match(/^#dropdown-/)) {
 				const n = parseInt(k);
 				if (n) {
@@ -803,7 +810,11 @@ function init_shortcuts() {
 				if (context.auto_mark_site) {
 					mark_read(document.querySelector('.flux.current'), true, false);
 				}
-				window.open(document.querySelector('.flux.current a.go_website').href);
+				const newWindow = window.open();
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				}
 				return false;
 			}
 			if (k === s.skip_next_entry) { next_entry(true); return false; }
@@ -1387,9 +1398,10 @@ function faviconNbUnread(n) {
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	const canvas = document.createElement('canvas'),
-		link = document.getElementById('favicon').cloneNode(true);
+		link = document.getElementById('favicon').cloneNode(true),
+		ratio = window.devicePixelRatio;
 	if (canvas.getContext && link) {
-		canvas.height = canvas.width = 16;
+		canvas.height = canvas.width = 16 * ratio;
 		const img = document.createElement('img');
 		img.onload = function () {
 			const ctx = canvas.getContext('2d');
@@ -1403,9 +1415,9 @@ function faviconNbUnread(n) {
 				} else {
 					text = 'E' + Math.floor(Math.log10(n));
 				}
-				ctx.font = 'bold 9px "Arial", sans-serif';
+				ctx.font = 'bold ' + 9 * ratio + 'px "Arial", sans-serif';
 				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-				ctx.fillRect(0, 7, ctx.measureText(text).width, 9);
+				ctx.fillRect(0, 7 * ratio, ctx.measureText(text).width, 9 * ratio);
 				ctx.fillStyle = '#F00';
 				ctx.fillText(text, 0, canvas.height - 1);
 			}
@@ -1454,6 +1466,7 @@ function init_afterDOM() {
 		init_posts();
 		init_nav_entries();
 		init_notifs_html5();
+		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);
 	}
 
@@ -1474,3 +1487,4 @@ if (document.readyState && document.readyState !== 'loading') {
 			init_afterDOM();
 		}, false);
 }
+// @license-end

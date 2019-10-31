@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => '存档',
-		'advanced' => '高级',
 		'delete_after' => '文章保留',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => '详细选项位于单独的 RSS 源设置',
-		'keep_history_by_feed' => '至少保存的文章数',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => '至少保存的文章数',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => '优化数据库',
 		'optimize_help' => '偶尔执行优化可以减少数据库大小',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => '立即清除',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => '存档',
 		'ttl' => '最小自动更新时间',
 	),
@@ -21,6 +29,7 @@ return array(
 			'publication_date' => '更新日期',
 			'related_tags' => '相关标签',
 			'sharing' => '分享',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => '顶栏',
 		),
 		'language' => '语言',
@@ -45,6 +54,7 @@ return array(
 			'_' => '账户删除',
 			'warn' => '你的帐户和所有相关数据都将被删除。',
 		),
+		'email' => 'Email 地址',
 		'password_api' => 'API 密码<br /><small>(例如,用于手机 APP)</small>',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
@@ -133,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => '更多信息',
 		'print' => '打印',
 		'remove' => '删除分享方式',

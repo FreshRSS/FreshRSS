@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
 /* globals context, openNotification, xmlHttpRequestJson */
 /* jshint esversion:6, strict:global */
@@ -183,10 +184,30 @@ function init_slider_observers() {
 		};
 
 	closer.onclick = function (ev) {
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return false;
+			if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
+				slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+				closer.classList.remove('active');
+				slider.classList.remove('active');
+				return true;
+			} else {
+				return false;
+			}
 		};
+}
+
+function data_leave_validation() {
+	const ds = document.querySelectorAll('[data-leave-validation]');
+	for (let i = ds.length - 1; i >= 0; i--) {
+		const input = ds[i];
+		if (input.type === 'checkbox' || input.type === 'radio') {
+			if (input.checked != input.getAttribute('data-leave-validation')) {
+				return false;
+			}
+		} else if (input.value != input.getAttribute('data-leave-validation')) {
+			return false;
+		}
+	}
+	return true;
 }
 
 function init_configuration_alert() {
@@ -197,16 +218,8 @@ function init_configuration_alert() {
 			if (window.hasSubmit) {
 				return;
 			}
-			const ds = document.querySelectorAll('[data-leave-validation]');
-			for (let i = ds.length - 1; i >= 0; i--) {
-				const input = ds[i];
-				if (input.type === 'checkbox' || input.type === 'radio') {
-					if (input.checked != input.getAttribute('data-leave-validation')) {
-						return false;
-					}
-				} else if (input.value != input.getAttribute('data-leave-validation')) {
-					return false;
-				}
+			if (!data_leave_validation()) {
+				return false;
 			}
 		};
 }
@@ -239,3 +252,4 @@ if (document.readyState && document.readyState !== 'loading') {
 			init_extra();
 		}, false);
 }
+// @license-end

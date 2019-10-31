@@ -19,9 +19,9 @@ L'explication est la même pour les fichiers ```favicon.ico``` et ```.htaccess``
 
 ## Pourquoi j'ai des erreurs quand j'essaye d'enregistrer un flux ?
 
-Il peut y avoir différentes origines à ce problème.  
+Il peut y avoir différentes origines à ce problème.
 Le flux peut avoir une syntaxe invalide, il peut ne pas être reconnu par la bibliothèque SimplePie, l'hébergement peut avoir des problèmes, FreshRSS peut être boggué.
-Il faut dans un premier temps déterminer la cause du problème.  
+Il faut dans un premier temps déterminer la cause du problème.
 Voici la liste des étapes à suivre pour la déterminer :
 
 1. __Vérifier la validité du flux__ grâce à l'[outil en ligne du W3C](http://validator.w3.org/feed/ "Validateur en ligne de flux RSS et Atom"). Si ça ne fonctionne pas, nous ne pouvons rien faire.

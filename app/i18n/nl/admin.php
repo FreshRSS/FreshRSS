@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
+		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',

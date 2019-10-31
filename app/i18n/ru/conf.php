@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'Архивация',
-		'advanced' => 'Продвинутые настройки',
 		'delete_after' => 'Удалять статьи после',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Каждую подписку можно настроить более гибко',
-		'keep_history_by_feed' => 'Minimum number of articles to keep by feed', 	//TODO - Translation
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Minimum number of articles to keep by feed',	//TODO - Translation
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Оптимизировать базу данных',
-		'optimize_help' => 'To do occasionally to reduce the size of the database', 	//TODO - Translation
+		'optimize_help' => 'To do occasionally to reduce the size of the database',	//TODO - Translation
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Очистить сейчас',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Архивация',
 		'ttl' => 'Не обновлять чаще чем',
 	),
@@ -21,6 +29,7 @@ return array(
 			'publication_date' => 'Date of publication',	//TODO - Translation
 			'related_tags' => 'Related tags',	//TODO - Translation
 			'sharing' => 'Sharing',	//TODO - Translation
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Top line',	//TODO - Translation
 		),
 		'language' => 'Язык',
@@ -45,6 +54,7 @@ return array(
 			'_' => 'Account deletion',	//TODO - Translation
 			'warn' => 'Your account and all the related data will be deleted.',	//TODO - Translation
 		),
+		'email' => 'Email address',	//TODO - Translation
 		'password_api' => 'Password API<br /><small>(e.g., for mobile apps)</small>',	//TODO - Translation
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	//TODO - Translation
 		'password_format' => 'At least 7 characters',	//TODO - Translation
@@ -133,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',	//TODO - Translation
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'More information',	//TODO - Translation
 		'print' => 'Print',	//TODO - Translation
 		'remove' => 'Remove sharing method',	//TODO - Translation

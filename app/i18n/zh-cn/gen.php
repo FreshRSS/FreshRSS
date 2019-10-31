@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '获取',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← 返回',
 		'cancel' => '取消',
 		'create' => '创建',
@@ -22,6 +23,7 @@ return array(
 		'update' => '更新',	//TODO - Translation
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => 'Email 地址',
 		'keep_logged_in' => '自动登录<small>(%s 天)</small>',
 		'login' => '登录',
@@ -160,15 +162,22 @@ return array(
 		'nothing_to_load' => '没有更多文章了',
 		'previous' => '上一页',
 	),
+	'period' => array(
+		'days' => 'days',	//TODO - Translation
+		'hours' => 'hours',	//TODO - Translation
+		'months' => 'months',	//TODO - Translation
+		'weeks' => 'weeks',	//TODO - Translation
+		'years' => 'years',	//TODO - Translation
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => '基于 Known 的站点',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

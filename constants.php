@@ -2,7 +2,7 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-define('FRESHRSS_VERSION', '1.14.3');
+define('FRESHRSS_VERSION', '1.15.0');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
 
@@ -32,6 +32,7 @@ safe_define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS
 // PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
 safe_define('PHP_COMPRESSION', false);
 
+safe_define('COPY_LOG_TO_STDERR', filter_var(getenv('COPY_LOG_TO_STDERR'), FILTER_VALIDATE_BOOLEAN));
 // For cases when syslog is not available
 safe_define('COPY_SYSLOG_TO_STDERR', filter_var(getenv('COPY_SYSLOG_TO_STDERR'), FILTER_VALIDATE_BOOLEAN));
 

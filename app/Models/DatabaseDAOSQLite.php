@@ -6,17 +6,16 @@
 class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	public function tablesAreCorrect() {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table"';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		$tables = array(
-			'category' => false,
-			'feed' => false,
-			'entry' => false,
-			'entrytmp' => false,
-			'tag' => false,
-			'entrytag' => false,
+			$this->pdo->prefix() . 'category' => false,
+			$this->pdo->prefix() . 'feed' => false,
+			$this->pdo->prefix() . 'entry' => false,
+			$this->pdo->prefix() . 'entrytmp' => false,
+			$this->pdo->prefix() . 'tag' => false,
+			$this->pdo->prefix() . 'entrytag' => false,
 		);
 		foreach ($res as $value) {
 			$tables[$value['name']] = true;
@@ -27,9 +26,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
 	public function getSchema($table) {
 		$sql = 'PRAGMA table_info(' . $table . ')';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-
+		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
@@ -57,15 +54,18 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	}
 
 	public function size($all = false) {
-		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
+		$sum = 0;
+		if ($all) {
+			foreach (glob(DATA_PATH . '/users/*/db.sqlite') as $filename) {
+				$sum += @filesize($filename);
+			}
+		} else {
+			$sum = @filesize(DATA_PATH . '/users/' . $this->current_user . '/db.sqlite');
+		}
+		return $sum;
 	}
 
 	public function optimize() {
-		$sql = 'VACUUM';
-		$stm = $this->bd->prepare($sql);
-		if ($stm) {
-			return $stm->execute();
-		}
-		return false;
+		return $this->pdo->exec('VACUUM') !== false;
 	}
 }

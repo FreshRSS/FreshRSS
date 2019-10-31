@@ -2,8 +2,18 @@
 
 class FreshRSS_Factory {
 
+	public static function createUserDao($username = null) {
+		return new FreshRSS_UserDAO($username);
+	}
+
 	public static function createCategoryDao($username = null) {
-		return new FreshRSS_CategoryDAO($username);
+		$conf = Minz_Configuration::get('system');
+		switch ($conf->db['type']) {
+			case 'sqlite':
+				return new FreshRSS_CategoryDAOSQLite($username);
+			default:
+				return new FreshRSS_CategoryDAO($username);
+		}
 	}
 
 	public static function createFeedDao($username = null) {

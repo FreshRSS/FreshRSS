@@ -7,13 +7,16 @@ return array(
 		'bugs_reports' => 'Bug 报告',
 		'credits' => '致谢',
 		'credits_content' => '某些设计元素来自于 <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> ，尽管 FreshRSS 并没有使用此框架。<a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">图标</a> 来自于 <a href="https://www.gnome.org/">GNOME 项目</a>。<em>Open Sans</em> 字体出自 <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> 之手。FreshRSS 基于 PHP 框架 <a href="https://github.com/marienfressinaud/MINZ">Minz</a>。',
-		'freshrss_description' => 'FreshRSS 是一个自托管的 RSS 聚合服务，类似于 <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> 或 <a href="http://leed.idleman.fr/">Leed</a>。 它不仅轻快又易用，而且强大又易于配置。',
+		'freshrss_description' => 'FreshRSS 是一个自托管的 RSS 聚合服务，类似于 <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> 或 <a href="https://github.com/LeedRSS/Leed">Leed</a>。 它不仅轻快又易用，而且强大又易于配置。',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Github Issues</a>',
 		'license' => '授权',
 		'project_website' => '项目网站',
 		'title' => '关于',
 		'version' => '版本',
 		'website' => '网站',
+	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
 	),
 	'feed' => array(
 		'add' => '你可以添加一些 RSS 源。',

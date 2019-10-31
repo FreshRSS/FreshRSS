@@ -48,13 +48,13 @@ Code example:
 <?php
 
 class FreshRSS_hello_Controller extends Minz_ActionController {
-    public function indexAction() {
-        $this->view->a_variable = 'FooBar';
-    }
+	public function indexAction() {
+		$this->view->a_variable = 'FooBar';
+	}
 
-    public function worldAction() {
-        $this->view->a_variable = 'Hello World!';
-    }
+	public function worldAction() {
+		$this->view->a_variable = 'Hello World!';
+	}
 }
 
 ?>
@@ -74,7 +74,7 @@ As explained above, the views consist of HTML mixed with PHP. Code example:
 
 ```html
 <p>
-    This is a parameter passed from the controller: <?php echo $this->a_variable; ?>
+	This is a parameter passed from the controller: <?= $this->a_variable ?>
 </p>
 ```
 
@@ -119,7 +119,7 @@ To take full advantage of the Minz routing system, it is strongly discouraged to
 
 ```html
 <p>
-    Go to page <a href="http://example.com?c=hello&amp;a=world">Hello world</a>!
+	Go to page <a href="http://example.com?c=hello&amp;a=world">Hello world</a>!
 </p>
 ```
 
@@ -130,13 +130,13 @@ So use the `Minz_Url` class and its `display()` method instead. `Minz_Url::displ
 ```php
 <?php
 
-$url_array = array(
-    'c' => 'hello',
-    'a' => 'world',
-    'params' => array(
-        'foo' => 'bar',
-    )
-);
+$url_array = [
+	'c' => 'hello',
+	'a' => 'world',
+	'params' => [
+		'foo' => 'bar',
+	],
+];
 
 // Show something like .?c=hello&amp;a=world&amp;foo=bar
 echo Minz_Url::display($url_array);
@@ -166,10 +166,10 @@ Code example:
 ```php
 <?php
 
-$url_array = array(
-    'c' => 'hello',
-    'a' => 'world'
-);
+$url_array = [
+	'c' => 'hello',
+	'a' => 'world',
+];
 
 // Tells Minz to redirect the user to the hello / world page.
 // Note that this is a redirection in the Minz sense of the term, not a redirection that the browser will have to manage (HTTP code 301 or 302)
@@ -188,10 +188,10 @@ It is very common to want display a message to the user while performing a redir
 ```php
 <?php
 
-$url_array = array(
-    'c' => 'hello',
-    'a' => 'world'
-);
+$url_array = [
+	'c' => 'hello',
+	'a' => 'world',
+];
 $feedback_good = 'Tout s\'est bien passé !';
 $feedback_bad = 'Oups, quelque chose n\'a pas marché.';
 
@@ -226,18 +226,18 @@ The translation files are quite simple: it is only a matter of returning a PHP t
 <?php
 
 return array(
-    'action' => array(
-        'actualize' => 'Actualiser',
-        'back_to_rss_feeds' => '← Retour à vos flux RSS',
-        'cancel' => 'Annuler',
-        'create' => 'Créer',
-        'disable' => 'Désactiver',
-    ),
-    'freshrss' => array(
-        '_' => 'FreshRSS',
-        'about' => 'À propos de FreshRSS',
-    ),
-);
+	'action' => [
+		'actualize' => 'Actualiser',
+		'back_to_rss_feeds' => '← Retour à vos flux RSS',
+		'cancel' => 'Annuler',
+		'create' => 'Créer',
+		'disable' => 'Désactiver',
+	),
+	'freshrss' => array(
+		'_' => 'FreshRSS',
+		'about' => 'À propos de FreshRSS',
+	),
+];
 
 ?>
 ```
@@ -247,9 +247,9 @@ Code example:
 
 ```html
 <p>
-    <a href="<?php echo _url('index', 'index'); ?>">
-        <?php echo _t('gen.action.back_to_rss_feeds'); ?>
-    </a>
+	<a href="<?= _url('index', 'index') ?>">
+		<?= _t('gen.action.back_to_rss_feeds') ?>
+	</a>
 </p>
 ```
 
@@ -267,8 +267,8 @@ An extension allows you to add functionality easily to FreshRSS without having t
 
 ### Basic files and folders
 
-The first thing to note is that **all** extensions **must** be located in the `extensions` directory, at the base of the FreshRSS tree. 
-An extension is a directory containing a set of mandatory (and optional) files and subdirectories. 
+The first thing to note is that **all** extensions **must** be located in the `extensions` directory, at the base of the FreshRSS tree.
+An extension is a directory containing a set of mandatory (and optional) files and subdirectories.
 The convention requires that the main directory name be preceded by an "x" to indicate that it is not an extension included by default in FreshRSS.
 
 The main directory of an extension must contain at least two **mandatory** files:
@@ -276,16 +276,16 @@ The main directory of an extension must contain at least two **mandatory** files
 - A `metadata.json` file that contains a description of the extension. This file is written in JSON.
 - An `extension.php` file containing the entry point of the extension (which is a class that inherits Minz_Extension).
 
-Please note that there is a not a required link between the directory name of the extension and the name of the class inside `extension.php`, 
-but you should follow our best practice:  
+Please note that there is a not a required link between the directory name of the extension and the name of the class inside `extension.php`,
+but you should follow our best practice:
 If you want to write a `HelloWorld` extension, the directory name should be `xExtension-HelloWorld` and the base class name `HelloWorldExtension`.
 
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you need the structure:
 ```html
 class HelloWorldExtension extends Minz_Extension {
-    public function init() {
-        // your code here
-    }
+	public function init() {
+		// your code here
+	}
 }
 ```
 There is an example HelloWorld extension that you can download from [our GitHub repo](https://github.com/FreshRSS/xExtension-HelloWorld).
@@ -315,14 +315,14 @@ Only the `name` and` entrypoint` fields are required.
 
 ### Choose between « system » or « user »
 
-A __user__ extension can be enabled by some users and not by others (typically for user preferences). 
+A __user__ extension can be enabled by some users and not by others (typically for user preferences).
 
 A __system__ extension in comparison is enabled for every account.
 
 ### Writing your own extension.php
 
-This file is the entry point of your extension. It must contain a specific class to function. 
-As mentioned above, the name of the class must be your `entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example). 
+This file is the entry point of your extension. It must contain a specific class to function.
+As mentioned above, the name of the class must be your `entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example).
 In addition, this class must be inherited from the `Minz_Extension` class to benefit from extensions-specific methods.
 
 Your class will benefit from four methods to redefine:
@@ -351,25 +351,31 @@ You can register at the FreshRSS event system in an extensions `init()` method, 
 ```html
 class HelloWorldExtension extends Minz_Extension
 {
-    public function init() {
-        $this->registerHook('entry_before_display', array($this, 'renderEntry'));
-    }
-    public function renderEntry($entry) {
-        $entry->_content('<h1>Hello World</h1>' . $entry->content());
-        return $entry;
-    }
-}    
+	public function init() {
+		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
+	}
+	public function renderEntry($entry) {
+		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+		return $entry;
+	}
+}
 ```
+
 The following events are available:
 
-- `entry_before_display` (`function($entry) -> Entry | null`) : will be executed every time an entry is rendered. The entry itself (instance of FreshRSS_Entry) will be passed as parameter. 
-- `entry_before_insert` (`function($entry) -> Entry | null`) : will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS_Entry) will be passed as parameter. 
-- `feed_before_insert` (`function($feed) -> Feed | null`) : will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS_Feed) will be passed as parameter. 
-- `post_update` (`function(none) -> none`) : **TODO** add documentation
-- `simplepie_before_init` (`function($simplePie, $feed) -> none`) : **TODO** add documentation
+- `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
+- `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+- `feed_before_insert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
+- `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks
+- `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation
+- `post_update` (`function(none) -> none`): **TODO** add documentation
+- `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation
 
 ### Writing your own configure.phtml
 
-When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file. 
+When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file.
 
 **TODO**

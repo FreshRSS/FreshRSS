@@ -2,7 +2,7 @@
 
 class FreshRSS_javascript_Controller extends Minz_ActionController {
 	public function firstAction() {
-		$this->view->_useLayout(false);
+		$this->view->_layout(false);
 	}
 
 	public function actualizeAction() {

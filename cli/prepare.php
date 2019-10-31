@@ -28,9 +28,17 @@ if (!is_file(DATA_PATH . '/config.php')) {
 }
 
 file_put_contents(DATA_PATH . '/.htaccess',
-"Order	Allow,Deny\n" .
-"Deny	from all\n" .
-"Satisfy	all\n"
+"# Apache 2.2\n" .
+"<IfModule !mod_authz_core.c>\n" .
+"	Order	Allow,Deny\n" .
+"	Deny	from all\n" .
+"	Satisfy	all\n" .
+"</IfModule>\n" .
+"\n" .
+"# Apache 2.4\n" .
+"<IfModule mod_authz_core.c>\n" .
+"	Require all denied\n" .
+"</IfModule>\n"
 );
 
 accessRights();

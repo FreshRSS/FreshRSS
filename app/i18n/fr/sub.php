@@ -13,9 +13,12 @@ return array(
 	'category' => array(
 		'_' => 'Catégorie',
 		'add' => 'Ajouter une catégorie',
+		'archiving' => 'Archivage',
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
 		'new' => 'Nouvelle catégorie',
+		'position' => 'Position d’affichage',
+		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
 	),
 	'feed' => array(
@@ -40,7 +43,7 @@ return array(
 			'help' => 'Écrivez une recherche par ligne.',
 		),
 		'information' => 'Informations',
-		'keep_history' => 'Nombre minimum d’articles à conserver',
+		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',
 		'no_selected' => 'Aucun flux sélectionné.',
@@ -72,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => 'Suivre les étapes décrites <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">ici</a> pour ajouter FreshRSS à la liste des lecteurs de flux dans Firefox.',
+		'obsolete_63' => 'À partir de la version 63, Firefox ne supporte plus l’ajout de services d’abonnements.',
 		'title' => 'Lecteur de flux dans Firefox',
 	),
 	'import_export' => array(

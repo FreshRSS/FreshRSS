@@ -8,6 +8,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $feeds = null;
 	private $hasFeedsWithError = false;
 	private $isDefault = false;
+	private $attributes = [];
 
 	public function __construct($name = '', $feeds = null) {
 		$this->_name($name);
@@ -68,8 +69,19 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->hasFeedsWithError;
 	}
 
-	public function _id($value) {
-		$this->id = $value;
+	public function attributes($key = '') {
+		if ($key == '') {
+			return $this->attributes;
+		} else {
+			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+		}
+	}
+
+	public function _id($id) {
+		$this->id = $id;
+		if ($id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+			$this->_name(_t('gen.short.default_category'));
+		}
 	}
 	public function _name($value) {
 		$this->name = trim($value);
@@ -83,5 +95,20 @@ class FreshRSS_Category extends Minz_Model {
 		}
 
 		$this->feeds = $values;
+	}
+
+	public function _attributes($key, $value) {
+		if ('' == $key) {
+			if (is_string($value)) {
+				$value = json_decode($value, true);
+			}
+			if (is_array($value)) {
+				$this->attributes = $value;
+			}
+		} elseif (null === $value) {
+			unset($this->attributes[$key]);
+		} else {
+			$this->attributes[$key] = $value;
+		}
 	}
 }

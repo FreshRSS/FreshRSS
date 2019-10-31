@@ -13,9 +13,12 @@ return array(
 	'category' => array(
 		'_' => '分类',
 		'add' => '添加分类',
+		'archiving' => '存档',
 		'empty' => '空分类',
 		'information' => '信息',
 		'new' => '新分类',
+		'position' => 'Display position',	//TODO - Translation
+		'position_help' => 'To control category sort order',	//TODO - Translation
 		'title' => '标题',
 	),
 	'feed' => array(
@@ -40,7 +43,7 @@ return array(
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
 		'information' => '信息',
-		'keep_history' => '至少保存的文章数',
+		'keep_min' => '至少保存的文章数',
 		'moved_category_deleted' => '删除分类时，其中的 RSS 源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择 RSS 源。',
@@ -72,6 +75,7 @@ return array(
 	),
 	'firefox' => array(
 		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到 Firefox 阅读器列表',
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
 		'title' => 'Firefox RSS 阅读器',
 	),
 	'import_export' => array(

@@ -51,6 +51,24 @@ class FreshRSS_Context {
 		// Init configuration.
 		self::$system_conf = Minz_Configuration::get('system');
 		self::$user_conf = Minz_Configuration::get('user');
+
+		//Legacy
+		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
+		$keepMin = (int)FreshRSS_Context::$user_conf->param('keep_history_default', -5);
+		if ($oldEntries > 0 || $keepMin > -5) {	//Freshrss < 1.15
+			$archiving = FreshRSS_Context::$user_conf->archiving;
+			$archiving['keep_max'] = false;
+			if ($oldEntries > 0) {
+				$archiving['keep_period'] = 'P' . $oldEntries . 'M';
+			}
+			if ($keepMin > 0) {
+				$archiving['keep_min'] = $keepMin;
+			} elseif ($keepMin == -1) {	//Infinite
+				$archiving['keep_period'] = false;
+				$archiving['keep_min'] = false;
+			}
+			FreshRSS_Context::$user_conf->archiving = $archiving;
+		}
 	}
 
 	/**

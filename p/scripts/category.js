@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
 /* globals context */
 /* jshint esversion:6, strict:global */
@@ -136,10 +137,34 @@ function init_draggable() {
 		};
 }
 
+function archiving() {
+	const slider = document.getElementById('slider');
+	slider.addEventListener('change', function (e) {
+		if (e.target.id === 'use_default_purge_options') {
+			slider.querySelectorAll('.archiving').forEach(function (element) {
+				element.hidden = e.target.checked;
+			});
+		}
+	});
+	slider.addEventListener('click', function (e) {
+		if (e.target.closest('button[type=reset]')) {
+			const archiving = document.getElementById('use_default_purge_options');
+			if (archiving) {
+				slider.querySelectorAll('.archiving').forEach(function (element) {
+					element.hidden = archiving.getAttribute('data-leave-validation') == 1;
+				});
+			}
+		}
+	});
+}
+
 if (document.readyState && document.readyState !== 'loading') {
 	init_draggable();
+	archiving();
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
 		init_draggable();
+		archiving();
 	}, false);
 }
+// @license-end

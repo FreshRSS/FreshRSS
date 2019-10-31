@@ -3,13 +3,10 @@
 	<description>Created with the PHP Coding Standard Generator. https://edorian.github.com/php-coding-standard-generator/</description>
 	<!-- to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
 	<arg name="tab-width" value="40"/>
-	<exclude-pattern>./static</exclude-pattern>
-	<exclude-pattern>./vendor</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
+	<exclude-pattern>./lib/PHPMailer/</exclude-pattern>
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
-	<exclude-pattern>./lib/JSON.php</exclude-pattern>
 	<exclude-pattern>./lib/lib_phpQuery.php</exclude-pattern>
-	<exclude-pattern>./lib/password_compat.php</exclude-pattern>
 	<!-- Duplicate class names are not allowed -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>
 	<!-- Statements must not be empty -->
@@ -29,9 +26,6 @@
 		<exclude-pattern>./app/install.php</exclude-pattern>
 		<!-- @todo remove test exclusion -->
 		<exclude-pattern>./tests/app/</exclude-pattern>
-		<!-- @todo remove SQL exclusion -->
-		<exclude-pattern>./app/SQL/install.sql.mysql.php</exclude-pattern>
-		<exclude-pattern>./app/SQL/install.sql.pgsql.php</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="100"/>
 			<!-- needs to be large to accomodate extra large tab width to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
@@ -45,7 +39,9 @@
 	<!-- Do not add a space before a comma -->
 	<!-- Add a space after a comma -->
 	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
-	<rule ref="Generic.PHP.DisallowShortOpenTag" />
+	<rule ref="Generic.PHP.DisallowShortOpenTag">
+		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound"/>
+	</rule>
 	<rule ref="Generic.PHP.DeprecatedFunctions" />
 	<!-- Use UPPERCARE for constants -->
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>

@@ -169,10 +169,6 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
-			if (!function_exists('password_verify')) {
-				include_once(LIB_PATH . '/password_compat.php');
-			}
-
 			$s = $conf->passwordHash;
 			$ok = password_verify($password, $s);
 			unset($password);
@@ -203,12 +199,22 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 	/**
 	 * This action gives possibility to a user to create an account.
+	 *
+	 * The user is redirected to the home if he's connected.
+	 *
+	 * A 403 is sent if max number of registrations is reached.
 	 */
 	public function registerAction() {
+		if (FreshRSS_Auth::hasAccess()) {
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		}
+
 		if (max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
 
+		$this->view->show_tos_checkbox = file_exists(join_path(DATA_PATH, 'tos.html'));
+		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

@@ -1,9 +1,9 @@
 <div class="post">
 	<div class="alert alert-error">
-		<h1 class="alert-head"><?php echo $this->code; ?></h1>
+		<h1 class="alert-head"><?= $this->code ?></h1>
 		<p>
-			<?php echo htmlspecialchars($this->errorMessage, ENT_NOQUOTES, 'UTF-8'); ?><br />
-			<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+			<?= htmlspecialchars($this->errorMessage, ENT_NOQUOTES, 'UTF-8') ?><br />
+			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 		</p>
 	</div>
 </div>

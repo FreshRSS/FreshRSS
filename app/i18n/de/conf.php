@@ -3,13 +3,21 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivierung',
-		'advanced' => 'Erweitert',
 		'delete_after' => 'Entferne Artikel nach',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
-		'keep_history_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_min_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Datenbank optimieren',
 		'optimize_help' => 'Sollte gelegentlich durchgeführt werden, um die Größe der Datenbank zu reduzieren.',
+		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Jetzt bereinigen',
+		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivierung',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 	),
@@ -21,6 +29,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
@@ -45,6 +54,7 @@ return array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
 		),
+		'email' => 'E-Mail-Adresse',
 		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
@@ -133,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Weitere Informationen',
 		'print' => 'Drucken',
 		'remove' => 'Entferne Teilen-Dienst',

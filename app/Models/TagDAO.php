@@ -8,37 +8,24 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function createTagTable() {
 		$ok = false;
-		$hadTransaction = $this->bd->inTransaction();
+		$hadTransaction = $this->pdo->inTransaction();
 		if ($hadTransaction) {
-			$this->bd->commit();
+			$this->pdo->commit();
 		}
 		try {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 			Minz_Log::warning('SQL ALTER GUID case sensitivity...');
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->ensureCaseInsensitiveGuids();
 
 			Minz_Log::warning('SQL CREATE TABLE tag...');
-			if (defined('SQL_CREATE_TABLE_TAGS')) {
-				$sql = sprintf(SQL_CREATE_TABLE_TAGS, $this->prefix);
-				$stm = $this->bd->prepare($sql);
-				$ok = $stm && $stm->execute();
-			} else {
-				global $SQL_CREATE_TABLE_TAGS;
-				$ok = !empty($SQL_CREATE_TABLE_TAGS);
-				foreach ($SQL_CREATE_TABLE_TAGS as $instruction) {
-					$sql = sprintf($instruction, $this->prefix);
-					$stm = $this->bd->prepare($sql);
-					$ok &= $stm && $stm->execute();
-				}
-			}
+			$ok = $this->pdo->exec($SQL_CREATE_TABLE_TAGS) !== false;
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
 		}
 		if ($hadTransaction) {
-			$this->bd->beginTransaction();
+			$this->pdo->beginTransaction();
 		}
 		return $ok;
 	}
@@ -55,22 +42,25 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function addTag($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'tag`(name, attributes) '
-		     . 'SELECT * FROM (SELECT TRIM(?), TRIM(?)) t2 '	//TRIM() to provide a type hint as text for PostgreSQL
-		     . 'WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'category` WHERE name = TRIM(?))';	//No category of the same name
-		$stm = $this->bd->prepare($sql);
+		$sql = 'INSERT INTO `_tag`(name, attributes) '
+		     . 'SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2 '	//TRIM() gives a text type hint to PostgreSQL
+		     . 'WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))';	//No category of the same name
+		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 		$values = array(
 			$valuesTmp['name'],
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$valuesTmp['name'],
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->bd->lastInsertId('"' . $this->prefix . 'tag_id_seq"');
+			return $this->pdo->lastInsertId('`_tag_id_seq`');
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error addTag: ' . $info[2]);
 			return false;
 		}
@@ -89,14 +79,17 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateTag($id, $valuesTmp) {
-		$sql = 'UPDATE `' . $this->prefix . 'tag` SET name=?, attributes=? WHERE id=? '
-		     . 'AND NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'category` WHERE name = ?)';	//No category of the same name
-		$stm = $this->bd->prepare($sql);
+		$sql = 'UPDATE `_tag` SET name=?, attributes=? WHERE id=? '
+		     . 'AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)';	//No category of the same name
+		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 		$values = array(
 			$valuesTmp['name'],
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$id,
 			$valuesTmp['name'],
 		);
@@ -104,7 +97,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error updateTag: ' . $info[2]);
 			return false;
 		}
@@ -125,23 +118,39 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($id <= 0) {
 			return false;
 		}
-		$sql = 'DELETE FROM `' . $this->prefix . 'tag` WHERE id=?';
-		$stm = $this->bd->prepare($sql);
+		$sql = 'DELETE FROM `_tag` WHERE id=?';
+		$stm = $this->pdo->prepare($sql);
 
 		$values = array($id);
 
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error deleteTag: ' . $info[2]);
 			return false;
 		}
 	}
 
+	public function selectAll() {
+		$sql = 'SELECT id, name, attributes FROM `_tag`';
+		$stm = $this->pdo->query($sql);
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
+	public function selectEntryTag() {
+		$sql = 'SELECT id_tag, id_entry FROM `_entrytag`';
+		$stm = $this->pdo->query($sql);
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
 	public function searchById($id) {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'tag` WHERE id=?';
-		$stm = $this->bd->prepare($sql);
+		$sql = 'SELECT * FROM `_tag` WHERE id=?';
+		$stm = $this->pdo->prepare($sql);
 		$values = array($id);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -150,8 +159,8 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function searchByName($name) {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'tag` WHERE name=?';
-		$stm = $this->bd->prepare($sql);
+		$sql = 'SELECT * FROM `_tag` WHERE name=?';
+		$stm = $this->pdo->prepare($sql);
 		$values = array($name);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -162,20 +171,20 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function listTags($precounts = false) {
 		if ($precounts) {
 			$sql = 'SELECT t.id, t.name, count(e.id) AS unreads '
-				 . 'FROM `' . $this->prefix . 'tag` t '
-				 . 'LEFT OUTER JOIN `' . $this->prefix . 'entrytag` et ON et.id_tag = t.id '
-				 . 'LEFT OUTER JOIN `' . $this->prefix . 'entry` e ON et.id_entry = e.id AND e.is_read = 0 '
+				 . 'FROM `_tag` t '
+				 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id '
+				 . 'LEFT OUTER JOIN `_entry` e ON et.id_entry = e.id AND e.is_read = 0 '
 				 . 'GROUP BY t.id '
 				 . 'ORDER BY t.name';
 		} else {
-			$sql = 'SELECT * FROM `' . $this->prefix . 'tag` ORDER BY name';
+			$sql = 'SELECT * FROM `_tag` ORDER BY name';
 		}
 
-		$stm = $this->bd->prepare($sql);
-		if ($stm && $stm->execute()) {
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
 			return self::daoToTag($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listTags($precounts);
 			}
@@ -185,13 +194,13 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function count() {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'tag`';
-		$stm = $this->bd->prepare($sql);
-		if ($stm && $stm->execute()) {
+		$sql = 'SELECT COUNT(*) AS count FROM `_tag`';
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 			return $res[0]['count'];
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->count();
 			}
@@ -201,8 +210,8 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function countEntries($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entrytag` WHERE id_tag=?';
-		$stm = $this->bd->prepare($sql);
+		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` WHERE id_tag=?';
+		$stm = $this->pdo->prepare($sql);
 		$values = array($id);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -210,10 +219,10 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function countNotRead($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entrytag` et '
-			 . 'INNER JOIN `' . $this->prefix . 'entry` e ON et.id_entry=e.id '
+		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` et '
+			 . 'INNER JOIN `_entry` e ON et.id_entry=e.id '
 			 . 'WHERE et.id_tag=? AND e.is_read=0';
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$values = array($id);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -222,17 +231,17 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function tagEntry($id_tag, $id_entry, $checked = true) {
 		if ($checked) {
-			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `' . $this->prefix . 'entrytag`(id_tag, id_entry) VALUES(?, ?)';
+			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(?, ?)';
 		} else {
-			$sql = 'DELETE FROM `' . $this->prefix . 'entrytag` WHERE id_tag=? AND id_entry=?';
+			$sql = 'DELETE FROM `_entrytag` WHERE id_tag=? AND id_entry=?';
 		}
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$values = array($id_tag, $id_entry);
 
 		if ($stm && $stm->execute($values)) {
 			return true;
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error tagEntry: ' . $info[2]);
 			return false;
 		}
@@ -240,11 +249,11 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function getTagsForEntry($id_entry) {
 		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
-			 . 'FROM `' . $this->prefix . 'tag` t '
-			 . 'LEFT OUTER JOIN `' . $this->prefix . 'entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
+			 . 'FROM `_tag` t '
+			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
 			 . 'ORDER BY t.name';
 
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$values = array($id_entry);
 
 		if ($stm && $stm->execute($values)) {
@@ -255,7 +264,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			}
 			return $lines;
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->getTagsForEntry($id_entry);
 			}
@@ -266,8 +275,8 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function getTagsForEntries($entries) {
 		$sql = 'SELECT et.id_entry, et.id_tag, t.name '
-			 . 'FROM `' . $this->prefix . 'tag` t '
-			 . 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_tag = t.id';
+			 . 'FROM `_tag` t '
+			 . 'INNER JOIN `_entrytag` et ON et.id_tag = t.id';
 
 		$values = array();
 		if (is_array($entries) && count($entries) > 0) {
@@ -286,12 +295,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				}
 			}
 		}
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 
 		if ($stm && $stm->execute($values)) {
 			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->getTagsForEntries($entries);
 			}
