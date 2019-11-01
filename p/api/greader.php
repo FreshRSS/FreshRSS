@@ -696,7 +696,7 @@ function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $ord
 	$itemRefs = array();
 	foreach ($ids as $id) {
 		$itemRefs[] = array(
-			'id' => $id,	//64-bit decimal
+			'id' => '' . $id,	//64-bit decimal
 		);
 	}
 
