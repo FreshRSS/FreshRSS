@@ -15,13 +15,13 @@ Have you found a bug? Don't panic, here are some steps to report it with ease:
 
 If you have to create a new ticket, please try to keep in mind the following advice:
 
-- Give an explicit title to the ticket so it will be easier to find it later.
-- Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?
-- We also need some information:
-    + Your FreshRSS version (on about page or `constants.php` file)
-    + Your server configuration: type of hosting, PHP version
-    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
-    + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
+* Give an explicit title to the ticket so it will be easier to find it later.
+* Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?
+* We also need some information:
+    * Your FreshRSS version (on about page or `constants.php` file)
+    * Your server configuration: type of hosting, PHP version
+    * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
+    * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
 ## Fix a bug
 
@@ -34,7 +34,7 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 
 If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
 
-**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.
+**Tip:** if you're searching for easy-to-fix bugs, please have a look at the "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)" ticket label.
 
 ## Submit an idea
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-10-27 20:59+0100\n"
-"PO-Revision-Date: 2019-10-27 21:00+0100\n"
+"POT-Creation-Date: 2019-11-01 21:43+0100\n"
+"PO-Revision-Date: 2019-11-01 21:42+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -82,13 +82,13 @@ msgid ""
 "advice:"
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./contributing.md:25
 msgid ""
 "Give an explicit title to the ticket so it will be easier to find it later."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Bullet: '* '
 #: en/./contributing.md:25
 msgid ""
 "Be as exhaustive as possible in the description: what did you do? What is "
@@ -99,11 +99,11 @@ msgstr ""
 #: en/./contributing.md:25
 #, no-wrap
 msgid ""
-"- We also need some information:\n"
-"    + Your FreshRSS version (on about page or `constants.php` file)\n"
-"    + Your server configuration: type of hosting, PHP version\n"
-"    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)\n"
-"    + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)\n"
+"* We also need some information:\n"
+"    * Your FreshRSS version (on about page or `constants.php` file)\n"
+"    * Your server configuration: type of hosting, PHP version\n"
+"    * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)\n"
+"    * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)\n"
 msgstr ""
 
 #. type: Title ##
@@ -157,8 +157,8 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:38
 #, no-wrap
-msgid "**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.\n"
-msgstr ""
+msgid "**Tip:** if you're searching for easy-to-fix bugs, please have a look at the \"[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\" ticket label.\n"
+msgstr "**Conseil : **si vous cherchez des bugs faciles à corriger, jetez un coup d'oeil à la vignette \"[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\".\n"
 
 #. type: Title ##
 #: en/./contributing.md:39
@@ -345,7 +345,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:34
 #, no-wrap
 msgid "$ make stop\n"
-msgstr ""
+msgstr "$ make stop\n"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:39
@@ -365,7 +365,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:42
 #, no-wrap
 msgid "$ TAG=dev-arm make start\n"
-msgstr ""
+msgstr "$ TAG=dev-arm make start\n"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:47
@@ -425,7 +425,7 @@ msgstr "Architecture du projet"
 #: en/./developers/04_Frontend/02_Design.md:11 en/./users/03_Main_view.md:4
 #: en/./users/03_Main_view.md:8 en/./users/03_Main_view.md:12
 #: en/./users/04_Subscriptions.md:4 en/./users/04_Subscriptions.md:8
-#: en/./users/04_Subscriptions.md:20 en/./users/05_Configuration.md:70
+#: en/./users/04_Subscriptions.md:19 en/./users/05_Configuration.md:70
 #: en/./users/05_Configuration.md:74 en/./users/05_Configuration.md:128
 #: en/./users/05_Configuration.md:153 en/./users/05_Configuration.md:157
 #: en/./users/05_Configuration.md:161
@@ -4301,79 +4301,6 @@ msgstr ""
 #, no-wrap
 msgid "Feed management"
 msgstr "Organisation des flux"
-
-#. type: Title #
-#: en/./users/04_Subscriptions.md:21
-#, no-wrap
-msgid "Firefox subscription service"
-msgstr ""
-
-#. type: Plain text
-#: en/./users/04_Subscriptions.md:24
-msgid ""
-"NB: From version 63 and onwards Firefox has removed the ability to add your "
-"own subscription services that aren't standalone programs. This makes it "
-"impossible to add FreshRSS to the feed preview/subscription page, though "
-"this page is set to be removed from version 64 anyway (see [bugzilla]"
-"(https://bugzilla.mozilla.org/show_bug.cgi?id=1477667)). You can use the "
-"bookmarklet mentioned above for an easy way to subscribe to feeds."
-msgstr ""
-
-#. type: Plain text
-#: en/./users/04_Subscriptions.md:26
-msgid ""
-"If you're using a version pre-63 you can manually add your FreshRSS app to "
-"the list of Firefox subscription services, which enables you to subscribe to "
-"sites which provide a feed link using the Firefox built-in \"Subscribe\" "
-"button. An in-depth process is described in the [official documentation]"
-"(https://developer.mozilla.org/en-US/Firefox/Releases/2/"
-"Adding_feed_readers_to_Firefox) but you can use the following steps:"
-msgstr ""
-
-#. type: Bullet: '  1. '
-#: en/./users/04_Subscriptions.md:28
-msgid "Open about:config in Firefox"
-msgstr ""
-
-#. type: Bullet: '  2. '
-#: en/./users/04_Subscriptions.md:30
-msgid ""
-"Search for \"browser.contentHandlers.types.\" and note the highest number "
-"following the returned strings (ie if yo see browser.contentHandlers.types.1."
-"something up to browser.contentHandlers.types.5.somethingelse etc. the "
-"highest number is 5). Your contentHandler will have to have a free number so "
-"just pick one higher than currently registered (you would chose six in above "
-"example)."
-msgstr ""
-
-#. type: Bullet: '  3. '
-#: en/./users/04_Subscriptions.md:32
-msgid ""
-"You will have to add three new strings to your about config (replace %NUMBER"
-"% with the number from previous step and example.com with your installation "
-"address):"
-msgstr ""
-
-#. type: Plain text
-#: en/./users/04_Subscriptions.md:38
-#, no-wrap
-msgid ""
-"  | Preference name                              | Value                                                      | Note                                                      |\n"
-"  | -------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------- |\n"
-"  | browser.contentHandlers.types.%NUMBER%.title | **FreshRSS**                                               | Use any name you would like (ie. \"My feeds\")              |\n"
-"  | browser.contentHandlers.types.%NUMBER%.type  | **application/vnd.mozilla.maybe.feed**                     | Do not change this value!                                 |\n"
-"  | browser.contentHandlers.types.%NUMBER%.uri   | **http://EXAMPLE.COM/FreshRss/i?c=feed&a=add&url_rss=%s** | Replace base url with yours and switch to https (if used) |\n"
-msgstr ""
-
-#. type: Bullet: '  4. '
-#: en/./users/04_Subscriptions.md:39
-msgid ""
-"Restart Firefox and you can subscribe to sites with the Firefox built-in "
-"\"Subscribe\" button. Just select the name you set under the first "
-"Preference name from the dropdown (you can also make it default with the "
-"checbox) and you will be redirected to FreshRSS subscription settings (you "
-"must be logged in)."
-msgstr ""
 
 #. type: Title #
 #: en/./users/05_Configuration.md:2
