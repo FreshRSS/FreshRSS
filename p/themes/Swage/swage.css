@@ -585,10 +585,10 @@ form th {
     .flux:hover:not(.current):hover .item.title,
     .flux .current:not(.current):hover .item.title {
       background: #fff; }
-  .flux.not_read {
+  .flux.not_read:not(.current) {
     background: #fff3ed; }
-    .flux.not_read:not(.current):hover .item.title {
-      background: #fff3ed; }
+  .flux.not_read:not(.current):hover .item.title {
+    background: #fff3ed; }
   .flux.favorite {
     background: #fff6da; }
     .flux.favorite:not(.current):hover .item.title {

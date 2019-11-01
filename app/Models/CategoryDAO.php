@@ -208,7 +208,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			return $categories;
 		}
 
-		usort($categories, function ($a, $b) {
+		uasort($categories, function ($a, $b) {
 			$aPosition = $a->attributes('position');
 			$bPosition = $b->attributes('position');
 			if ($aPosition === $bPosition) {
