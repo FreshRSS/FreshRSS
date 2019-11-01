@@ -1,5 +1,9 @@
 ﻿# FreshRSS changelog
 
+## 20XX-XX-XX FreshRSS 1.15.1-dev
+
+
+
 ## 2019-10-31 FreshRSS 1.15.0
 
 * CLI
