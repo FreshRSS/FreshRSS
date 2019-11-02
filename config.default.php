@@ -156,16 +156,6 @@ return array(
 
 	],
 
-	# Configure the default feeds to which users will automatically be subscribed.
-	'default_feeds' => array(
-		array(
-			'url' => 'https://github.com/FreshRSS/FreshRSS/releases.atom',
-			'name' => 'FreshRSS releases',
-			'website' => 'https://github.com/FreshRSS/FreshRSS/',
-			'description' => 'FreshRSS releases @ GitHub',
-		),
-	),
-
 	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
