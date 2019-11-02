@@ -29,20 +29,22 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public static function gitPull() {
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
-		$output = array();
+		$output = '';
 		$return = 1;
 		try {
-			exec('git clean -f -d -f', $output, $return);
+			exec('git fetch', $output, $return);
 			if ($return == 0) {
-				exec('git pull --ff-only', $output, $return);
-			} else {
-				$line = is_array($output) ? implode('; ', $output) : '' . $output;
-				Minz_Log::warning('git clean warning:' . $line);
+				exec('git reset --hard FETCH_HEAD', $output, $return);
 			}
 		} catch (Exception $e) {
-			Minz_Log::warning('git pull error:' . $e->getMessage());
+			Minz_Log::warning('Git error:' . $e->getMessage());
+			if ($output == '') {
+				$output = $e->getMessage();
+			}
+			$return = 1;
 		}
 		chdir($cwd);
+		deleteInstall();
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
@@ -51,6 +53,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
+
+		include_once(LIB_PATH . '/lib_install.php');
 
 		invalidateHttpCache();
 
