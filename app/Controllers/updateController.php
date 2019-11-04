@@ -23,7 +23,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		}
 		chdir($cwd);
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
-		return strpos($line, '[behind') !== false;
+		return strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false;
 	}
 
 	public static function gitPull() {
