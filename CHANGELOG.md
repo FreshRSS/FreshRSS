@@ -1,7 +1,15 @@
 ﻿# FreshRSS changelog
 
-## 20XX-XX-XX FreshRSS 1.15.1-dev
+## 2019-11-XX FreshRSS 1.15.1-dev
 
+* Features
+	* New approch based on OPML to definite default feeds for new users [#2627](https://github.com/FreshRSS/FreshRSS/pull/2627)
+* API
+	* Always send articles IDs as string, to fix compatibility with Reeder [#2621](https://github.com/FreshRSS/FreshRSS/pull/2621)
+* Bug fixing
+	* Fix bug in database size estimation with PostgreSQL for users with uppercase names [#2631](https://github.com/FreshRSS/FreshRSS/pull/2631)
+* Misc.
+	* Perform automatic git updates with safer fetch+reset instead of clean+fetch+merge [#2625](https://github.com/FreshRSS/FreshRSS/pull/2625)
 
 
 ## 2019-10-31 FreshRSS 1.15.0
