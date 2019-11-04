@@ -1,7 +1,7 @@
 <?php
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
-	public function createUser($insertDefaultFeeds = false) {
+	public function createUser() {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
@@ -9,19 +9,6 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 		} catch (Exception $e) {
 			Minz_Log::error('Error while creating database for user ' . $this->current_user . ': ' . $e->getMessage());
-		}
-
-		if ($ok && $insertDefaultFeeds) {
-			$opmlPath = DATA_PATH . '/opml.xml';
-			if (!file_exists($opmlPath)) {
-				$opmlPath = FRESHRSS_PATH . '/opml.default.xml';
-			}
-			$importController = new FreshRSS_importExport_Controller();
-			try {
-				$importController->importFile($opmlPath, $opmlPath, $this->current_user);
-			} catch (Exception $e) {
-				Minz_Log::error('Error while importing default OPML for user ' . $this->current_user . ': ' . $e->getMessage());
-			}
 		}
 
 		if ($ok) {
