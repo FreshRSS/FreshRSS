@@ -58,13 +58,16 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 			$stm->execute();
 		} else {
 			$sql = "SELECT "
-			     . "pg_total_relation_size('{$this->pdo->prefix()}category') + "
-			     . "pg_total_relation_size('{$this->pdo->prefix()}feed') + "
-			     . "pg_total_relation_size('{$this->pdo->prefix()}entry') + "
-			     . "pg_total_relation_size('{$this->pdo->prefix()}entrytmp') + "
-			     . "pg_total_relation_size('{$this->pdo->prefix()}tag') + "
-			     . "pg_total_relation_size('{$this->pdo->prefix()}entrytag')";
+			     . "pg_total_relation_size('`{$this->pdo->prefix()}category`') + "
+			     . "pg_total_relation_size('`{$this->pdo->prefix()}feed`') + "
+			     . "pg_total_relation_size('`{$this->pdo->prefix()}entry`') + "
+			     . "pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`') + "
+			     . "pg_total_relation_size('`{$this->pdo->prefix()}tag`') + "
+			     . "pg_total_relation_size('`{$this->pdo->prefix()}entrytag`')";
 			$stm = $this->pdo->query($sql);
+		}
+		if ($stm == false) {
+			return 0;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];
