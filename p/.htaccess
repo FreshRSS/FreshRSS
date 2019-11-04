@@ -37,5 +37,5 @@ AddDefaultCharset	UTF-8
 	<FilesMatch "\.(css|gif|html|ico|js|png|svg|woff|woff2)$">
 		Header	merge Cache-Control "public"
 	</FilesMatch>
-	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Strict"
+	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Lax"
 </IfModule>
