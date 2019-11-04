@@ -102,11 +102,6 @@ CREATE TABLE IF NOT EXISTS `entrytag` (
 CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
 SQL;
 
-$SQL_INSERT_FEED = <<<'SQL'
-INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
-	VALUES(:url, 1, :name, :website, :description, 86400);
-SQL;
-
 $SQL_DROP_TABLES = <<<'SQL'
 DROP TABLE IF EXISTS `entrytag`;
 DROP TABLE IF EXISTS `tag`;
