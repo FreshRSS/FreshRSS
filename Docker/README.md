@@ -320,7 +320,7 @@ server {
 	# Other SSL stuff goes here
 
 	# Needed for Freshrss cookie/session :
-	proxy_cookie_path / "/; HTTPOnly; Secure; SameSite=Lax";
+	proxy_cookie_path / "/; HTTPOnly; Secure; SameSite=Strict";
 
 	location / {
 		try_files $uri $uri/ =404;
