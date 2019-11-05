@@ -6,10 +6,10 @@
 	* New approach based on OPML to definite default feeds for new users [#2627](https://github.com/FreshRSS/FreshRSS/pull/2627)
 * API
 	* Always send articles IDs as string, to fix compatibility with Reeder [#2621](https://github.com/FreshRSS/FreshRSS/pull/2621)
-* Bug fixing
-	* Fix database auto-creation at install (regression from 1.15.0) [#2635](https://github.com/FreshRSS/FreshRSS/pull/2635)
+* Bug fixing (regressions from 1.15.0)
+	* Fix database auto-creation at install [#2635](https://github.com/FreshRSS/FreshRSS/pull/2635)
 	* Fix bug in database size estimation with PostgreSQL for users with uppercase names [#2631](https://github.com/FreshRSS/FreshRSS/pull/2631)
-	* Fix UI style regressions [#2634](https://github.com/FreshRSS/FreshRSS/pull/2634)
+	* Fix UI style details [#2634](https://github.com/FreshRSS/FreshRSS/pull/2634)
 * Security
 	* Improve cookie security with policy `SameSite=Lax` [#2630](https://github.com/FreshRSS/FreshRSS/pull/2630)
 * Misc.
