@@ -162,10 +162,11 @@ docker build --pull --tag freshrss/freshrss -f Docker/Dockerfile .
 ## Command line
 
 ```sh
-docker exec --user apache -it freshrss php ./cli/list-users.php
+docker exec --user www-data -it freshrss php ./cli/list-users.php
 ```
 
 See the [CLI documentation](../cli/) for all the other commands.
+You might have to replace `--user www-data` by `--user apache` when using our images based on Linux Alpine.
 
 
 ## Debugging
@@ -210,7 +211,7 @@ Remember not pass the `CRON_MIN` environment variable to your Docker run, to avo
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
 ```
-7,37 * * * * root docker exec --user apache -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+7,37 * * * * root docker exec --user www-data -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 ### Option 3) Cron as another instance of the same FreshRSS Docker image
