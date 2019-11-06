@@ -9,7 +9,7 @@
 * Bug fixing (regressions from 1.15.0)
 	* Fix database auto-creation at install [#2635](https://github.com/FreshRSS/FreshRSS/pull/2635)
 	* Fix bug in database size estimation with PostgreSQL for users with uppercase names [#2631](https://github.com/FreshRSS/FreshRSS/pull/2631)
-	* Reset name of default category (which cannot be customised anymore) [#2638](https://github.com/FreshRSS/FreshRSS/pull/2638)
+	* Reset name of default category (which cannot be customised anymore) [#2639](https://github.com/FreshRSS/FreshRSS/pull/2639)
 	* Fix UI style details [#2634](https://github.com/FreshRSS/FreshRSS/pull/2634)
 * Security
 	* Improve cookie security with policy `SameSite=Lax` [#2630](https://github.com/FreshRSS/FreshRSS/pull/2630)

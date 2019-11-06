@@ -178,6 +178,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function minorDbMaintenance() {
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO->resetDefaultCategoryName();
+
 		$this->ensureCaseInsensitiveGuids();
 	}
 
