@@ -45,6 +45,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				} else {
 					$this->pdo->exec('DROP INDEX IF EXISTS feed_keep_history_index');	//SQLite at least drop index
 				}
+
+				$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
+				$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
+				$stm->bindValue(':name', 'Uncategorized');
+				$stm->execute();
+
 				return $ok;
 			}
 		} catch (Exception $e) {
