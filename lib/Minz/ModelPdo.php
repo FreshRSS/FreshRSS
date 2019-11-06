@@ -28,6 +28,9 @@ class Minz_ModelPdo {
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser');
 		}
+		if ($currentUser == '') {
+			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
+		}
 		if ($currentPdo != null) {
 			$this->pdo = $currentPdo;
 			return;
@@ -84,7 +87,6 @@ class Minz_ModelPdo {
 						'Invalid database type!',
 						$db['user'], Minz_Exception::ERROR
 					);
-					break;
 			}
 			self::$sharedPdo = $this->pdo;
 		} catch (Exception $e) {

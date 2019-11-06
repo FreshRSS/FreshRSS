@@ -82,7 +82,24 @@ if (file_put_contents(join_path(DATA_PATH, 'config.php'),
 	fail('FreshRSS could not write configuration file!: ' . join_path(DATA_PATH, 'config.php'));
 }
 
-if (!checkDb()) {
+if (function_exists('opcache_reset')) {
+	opcache_reset();
+}
+
+Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+
+Minz_Session::_param('currentUser', $config['default_user']);
+
+$ok = false;
+try {
+	$ok = initDb();
+} catch (Exception $ex) {
+	$_SESSION['bd_error'] = $ex->getMessage();
+	$ok = false;
+}
+
+if (!$ok) {
 	@unlink(join_path(DATA_PATH, 'config.php'));
 	fail('FreshRSS database error: ' . (empty($_SESSION['bd_error']) ? 'Unknown error' : $_SESSION['bd_error']));
 }

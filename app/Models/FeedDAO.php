@@ -102,7 +102,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'httpAuth' => $feed->httpAuth(),
 				'attributes' => $feed->attributes(),
 			);
-			if ($feed->mute() || $feed->ttl() != FreshRSS_Context::$user_conf->ttl_default) {
+			if ($feed->mute() || (
+				FreshRSS_Context::$user_conf != null &&	//When creating a new user
+				$feed->ttl() != FreshRSS_Context::$user_conf->ttl_default)) {
 				$values['ttl'] = $feed->ttl() * ($feed->mute() ? -1 : 1);
 			}
 
