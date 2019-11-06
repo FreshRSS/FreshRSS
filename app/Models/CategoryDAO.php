@@ -4,6 +4,16 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	const DEFAULTCATEGORYID = 1;
 
+	public function resetDefaultCategoryName() {
+		//FreshRSS 1.15.1
+		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
+		if ($stm) {
+			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
+			$stm->bindValue(':name', 'Uncategorized');
+		}
+		return $stm && $stm->execute();
+	}
+
 	protected function addColumn($name) {
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
@@ -45,6 +55,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				} else {
 					$this->pdo->exec('DROP INDEX IF EXISTS feed_keep_history_index');	//SQLite at least drop index
 				}
+
+				$this->resetDefaultCategoryName();
+
 				return $ok;
 			}
 		} catch (Exception $e) {

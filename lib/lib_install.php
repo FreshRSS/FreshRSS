@@ -78,21 +78,28 @@ function generateSalt() {
 	return sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
 }
 
-function checkDb() {
+function initDb() {
 	$conf = FreshRSS_Context::$system_conf;
 	$db = $conf->db;
 	if (empty($db['pdo_options'])) {
 		$db['pdo_options'] = [];
 	}
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-	$dbBase = isset($db['base']) ? $db['base'] : '';
+	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
-	$db['base'] = '';	//First connection without database name to create the database
-	Minz_ModelPdo::$usesSharedPdo = false;
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-	$databaseDAO->create();
+	if ($db['type'] !== 'sqlite') {
+		Minz_ModelPdo::$usesSharedPdo = false;
+		$dbBase = isset($db['base']) ? $db['base'] : '';
+		$db['base'] = '';
+		$conf->db = $db;
+		//First connection without database name to create the database
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$db['base'] = $dbBase;
+		$conf->db = $db;
+		$databaseDAO->create();
+	}
 
-	$db['base'] = $dbBase;	//New connection with the database name
+	//New connection with the database name
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 	Minz_ModelPdo::$usesSharedPdo = true;
 	return $databaseDAO->testConnection();

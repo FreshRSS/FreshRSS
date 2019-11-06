@@ -803,8 +803,11 @@ a.btn {
 }
 
 .flux.favorite {
-	background: #fff6da;
 	border-left-color: #ffc300;
+}
+
+.flux.favorite:not(.current) {
+	background: #fff6da;
 }
 
 .flux.favorite:not(.current):hover .item.title {

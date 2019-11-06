@@ -35,7 +35,7 @@ If there's not an update, you're done! If there is, continue the following steps
 
 5. Discard manual changes and delete manual additions
 ```
-get reset --hard
+git reset --hard
 git clean -f -d
 ```
 

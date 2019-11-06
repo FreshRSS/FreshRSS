@@ -248,7 +248,21 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 		if ($ok) {
 			$newUserDAO = FreshRSS_Factory::createUserDao($new_user_name);
-			$ok &= $newUserDAO->createUser($insertDefaultFeeds);
+			$ok &= $newUserDAO->createUser();
+
+			if ($ok && $insertDefaultFeeds) {
+				$opmlPath = DATA_PATH . '/opml.xml';
+				if (!file_exists($opmlPath)) {
+					$opmlPath = FRESHRSS_PATH . '/opml.default.xml';
+				}
+				$importController = new FreshRSS_importExport_Controller();
+				try {
+					$importController->importFile($opmlPath, $opmlPath, $new_user_name);
+				} catch (Exception $e) {
+					Minz_Log::error('Error while importing default OPML for user ' . $new_user_name . ': ' . $e->getMessage());
+				}
+			}
+
 			$ok &= self::updateUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;

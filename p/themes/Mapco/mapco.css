@@ -970,26 +970,25 @@ form th {
   .flux.current {
     background: #f9fafb;
     border-left-color: #36c; }
-  .flux.not_read {
+  .flux.not_read:not(.current) {
     background: #f2f6f8; }
-    .flux.not_read:hover {
-      background: #fdfdfe; }
     .flux.not_read:not(.current):hover .item.title {
-      background: #fdfdfe; }
-    .flux.not_read .item.title a {
-      color: #36c; }
-    .flux.not_read .item.website a {
-      color: #36c; }
-    .flux.not_read .item.date {
-      color: #36c99; }
+      background: #f2f6f8; }
+  .flux.not_read .item.title a {
+    color: #36c; }
+  .flux.not_read .item.website a {
+    color: #36c; }
+  .flux.not_read .item.date {
+    color: #36c99; }
   .flux.favorite {
-    background: #fff6da;
     border-left-color: #ffc300;
     -webkit-transition: all 0.15s ease-in-out;
     -moz-transition: all 0.15s ease-in-out;
     -o-transition: all 0.15s ease-in-out;
     -ms-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out; }
+  .flux.favorite:not(.current) {
+    background: #fff6da; }
     .flux.favorite:not(.current):hover .item.title {
       background: #fff6da; }
   .flux .website a {
