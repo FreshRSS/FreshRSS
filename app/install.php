@@ -164,7 +164,7 @@ function saveStep2() {
 		$ok = false;
 		try {
 			Minz_Session::_param('currentUser', $config_array['default_user']);
-			$ok = checkDb();
+			$ok = initDb();
 			Minz_Session::_param('currentUser');
 		} catch (Exception $ex) {
 			$_SESSION['bd_error'] = $ex->getMessage();
