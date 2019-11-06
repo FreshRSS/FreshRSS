@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-11-0X FreshRSS 1.15.1-dev
+## 2019-11-06 FreshRSS 1.15.1
 
 * Features
 	* New approach based on OPML to definite default feeds for new users [#2627](https://github.com/FreshRSS/FreshRSS/pull/2627)
@@ -9,6 +9,7 @@
 * Bug fixing (regressions from 1.15.0)
 	* Fix database auto-creation at install [#2635](https://github.com/FreshRSS/FreshRSS/pull/2635)
 	* Fix bug in database size estimation with PostgreSQL for users with uppercase names [#2631](https://github.com/FreshRSS/FreshRSS/pull/2631)
+	* Reset name of default category (which cannot be customised anymore) [#2638](https://github.com/FreshRSS/FreshRSS/pull/2638)
 	* Fix UI style details [#2634](https://github.com/FreshRSS/FreshRSS/pull/2634)
 * Security
 	* Improve cookie security with policy `SameSite=Lax` [#2630](https://github.com/FreshRSS/FreshRSS/pull/2630)
