@@ -28,12 +28,12 @@ class Minz_ModelPdo {
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser');
 		}
-		if ($currentUser == '') {
-			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
-		}
 		if ($currentPdo != null) {
 			$this->pdo = $currentPdo;
 			return;
+		}
+		if ($currentUser == '') {
+			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
 		}
 		if (self::$usesSharedPdo && self::$sharedPdo != null &&
 			($currentUser == '' || $currentUser === self::$sharedCurrentUser)) {
