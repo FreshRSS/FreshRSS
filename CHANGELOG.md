@@ -1,5 +1,17 @@
 ﻿# FreshRSS changelog
 
+## 2019-11-XX FreshRSS 1.15.2
+
+* Bug fixing (regressions from 1.15.x)
+	* Fix CLI failing due to new test against empty usernames [#2644](https://github.com/FreshRSS/FreshRSS/issues/2644)
+	* Fix CLI install for SQLite [#2648](https://github.com/FreshRSS/FreshRSS/pull/2648)
+	* Fix database optimize action for MySQL/MariaDB [#2647](https://github.com/FreshRSS/FreshRSS/pull/2647)
+* Bug fixing (misc.)
+	* Sanitize Unicode UTF-8 before insertion of entries, especially needed for PostgreSQL [#2645](https://github.com/FreshRSS/FreshRSS/issues/2645)
+* Misc.
+	* Rename *sharing* action to avoid erroneous blocking by some ad-blockers [#2509](https://github.com/FreshRSS/FreshRSS/issues/2509)
+
+
 ## 2019-11-06 FreshRSS 1.15.1
 
 * Features
