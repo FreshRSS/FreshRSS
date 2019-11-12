@@ -814,7 +814,14 @@ html.rtl .aside_feed .tree-folder-items .dropdown-menu::after {
 /*=== Feed articles */
 .flux {
 	background: #fafafa;
+}
+
+html:not(.rtl) .flux {
 	border-left: 2px solid #aaa;
+}
+
+html.rtl .flux {
+	border-right: 2px solid #aaa;
 }
 
 .flux:hover {
@@ -826,8 +833,12 @@ html.rtl .aside_feed .tree-folder-items .dropdown-menu::after {
 	border-left: 2px solid #0062be;
 }
 
-.flux.not_read {
+html:not(.rtl) .flux.not_read {
 	border-left: 2px solid #ff5300;
+}
+
+html.rtl .flux.not_read {
+	border-right: 2px solid #ff5300;
 }
 
 .flux.not_read:not(.current) {
@@ -838,8 +849,12 @@ html.rtl .aside_feed .tree-folder-items .dropdown-menu::after {
 	background: inherit;
 }
 
-.flux.favorite {
+html:not(.rtl) .flux.favorite {
 	border-left: 2px solid #ffc300;
+}
+
+html.rtl .flux.favorite {
+	border-right: 2px solid #ffc300;
 }
 
 .flux.favorite:not(.current) {
