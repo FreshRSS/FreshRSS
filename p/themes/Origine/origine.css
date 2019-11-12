@@ -624,6 +624,11 @@ html.rtl .dropdown-menu::after {
 	border-right: 1px solid #aaa;
 }
 
+html.rtl .aside {
+	border-left: 1px solid #aaa;
+	border-right: none;
+}
+
 .aside.aside_feed {
 	padding: 10px 0;
 	text-align: center;
