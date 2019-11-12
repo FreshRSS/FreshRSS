@@ -28,7 +28,7 @@
 		}
 	}
 	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>"><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" /> <span><?= $this->feed->name() ?></span></a></li>
-	<li class="item title"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a><?php
+	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a><?php
 		if ($topline_display_authors):
 			?><div class="item author"><?php
 			$authors = $this->entry->authors();
