@@ -1,5 +1,9 @@
 ﻿# FreshRSS changelog
 
+## 20XX-XX-XX FreshRSS 1.15.3-dev
+
+
+
 ## 2019-11-12 FreshRSS 1.15.2
 
 * Bug fixing (regressions from 1.15.x)
