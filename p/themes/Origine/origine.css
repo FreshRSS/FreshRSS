@@ -140,6 +140,11 @@ html.rtl .stick input:first-child {
 	border-right: 1px solid #06f;
 }
 
+html.rtl .stick .btn-important:first-child {
+	border-left: 1px solid #06f;
+	border-right: none;
+}
+
 .stick .btn:last-child,
 .stick input:last-child {
 	border-radius: 0 3px 3px 0;
