@@ -156,7 +156,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		foreach ($tables as $table) {
 			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
-			$ok &= ($this->pdo->exec($sql) !== false);
+			$stm = $this->pdo->query($sql);
+			if ($stm == false || $stm->fetchAll(PDO::FETCH_ASSOC) === false) {
+				$ok = false;
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+			}
 		}
 		return $ok;
 	}
@@ -178,6 +183,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function minorDbMaintenance() {
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO->resetDefaultCategoryName();
+
 		$this->ensureCaseInsensitiveGuids();
 	}
 

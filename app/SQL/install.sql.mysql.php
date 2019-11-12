@@ -112,11 +112,6 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (	-- v1.12
 ENGINE = INNODB;
 SQL;
 
-$SQL_INSERT_FEED = <<<'SQL'
-INSERT IGNORE INTO `_feed` (url, category, name, website, description, ttl)
-	VALUES(:url, 1, :name, :website, :description, 86400);
-SQL;
-
 $SQL_DROP_TABLES = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;

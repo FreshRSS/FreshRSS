@@ -1,7 +1,32 @@
 ﻿# FreshRSS changelog
 
-## 20XX-XX-XX FreshRSS 1.15.1-dev
+## 2019-11-12 FreshRSS 1.15.2
 
+* Bug fixing (regressions from 1.15.x)
+	* Fix CLI failing due to new test against empty usernames [#2644](https://github.com/FreshRSS/FreshRSS/issues/2644)
+	* Fix CLI install for SQLite [#2648](https://github.com/FreshRSS/FreshRSS/pull/2648)
+	* Fix database optimize action for MySQL/MariaDB [#2647](https://github.com/FreshRSS/FreshRSS/pull/2647)
+* Bug fixing (misc.)
+	* Sanitize Unicode UTF-8 before insertion of entries, especially needed for PostgreSQL [#2645](https://github.com/FreshRSS/FreshRSS/issues/2645)
+* Misc.
+	* Rename *sharing* action to avoid erroneous blocking by some ad-blockers [#2509](https://github.com/FreshRSS/FreshRSS/issues/2509)
+
+
+## 2019-11-06 FreshRSS 1.15.1
+
+* Features
+	* New approach based on OPML to definite default feeds for new users [#2627](https://github.com/FreshRSS/FreshRSS/pull/2627)
+* API
+	* Always send articles IDs as string, to fix compatibility with Reeder [#2621](https://github.com/FreshRSS/FreshRSS/pull/2621)
+* Bug fixing (regressions from 1.15.0)
+	* Fix database auto-creation at install [#2635](https://github.com/FreshRSS/FreshRSS/pull/2635)
+	* Fix bug in database size estimation with PostgreSQL for users with uppercase names [#2631](https://github.com/FreshRSS/FreshRSS/pull/2631)
+	* Reset name of default category (which cannot be customised anymore) [#2639](https://github.com/FreshRSS/FreshRSS/pull/2639)
+	* Fix UI style details [#2634](https://github.com/FreshRSS/FreshRSS/pull/2634)
+* Security
+	* Improve cookie security with policy `SameSite=Lax` [#2630](https://github.com/FreshRSS/FreshRSS/pull/2630)
+* Misc.
+	* Perform automatic git updates with safer fetch+reset instead of clean+fetch+merge [#2625](https://github.com/FreshRSS/FreshRSS/pull/2625)
 
 
 ## 2019-10-31 FreshRSS 1.15.0

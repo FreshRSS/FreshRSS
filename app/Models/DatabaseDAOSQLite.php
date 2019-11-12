@@ -66,6 +66,11 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	}
 
 	public function optimize() {
-		return $this->pdo->exec('VACUUM') !== false;
+		$ok = $this->pdo->exec('VACUUM') !== false;
+		if (!$ok) {
+			$info = $this->pdo->errorInfo();
+			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+		}
+		return $ok;
 	}
 }

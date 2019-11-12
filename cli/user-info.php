@@ -43,7 +43,7 @@ if (array_key_exists('header', $options)) {
 foreach ($users as $username) {
 	$username = cliInitUser($username);
 
-	$catDAO = FreshRSS_Factory::createCategoryDao();
+	$catDAO = FreshRSS_Factory::createCategoryDao($username);
 	$feedDAO = FreshRSS_Factory::createFeedDao($username);
 	$entryDAO = FreshRSS_Factory::createEntryDao($username);
 	$tagDAO = FreshRSS_Factory::createTagDao($username);

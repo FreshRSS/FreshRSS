@@ -52,3 +52,14 @@ Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux en
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
 ```
+
+## Why do I have a blank page while trying to configure the sharing options?
+
+The `sharing` word in the URL is a trigger word for some an-blocker rules. Starting at version 1.16, `sharing` has been replaced by `integration` in the faulty URL while keeping the exact same wording through out the application.
+
+If you are using a version prior to 1.16, you can disable your ad-blocker for FreshRSS or you can add a rule to allow the `sharing` page to be accessed.
+
+Examples with _uBlock_:
+
+- Whitelist your FreshRSS instance by adding it in _uBlock > Open the dashboard > Whitelist_.
+- Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the dashboard > My filters_

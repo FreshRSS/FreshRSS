@@ -20,24 +20,19 @@
 		border-left-color: $main-first;
 	}
 
-	&.not_read {
+	&.not_read:not(.current) {
 		background: $unread-bg; //--------------------
-		// border-left-color: #FF5300;
-		&:hover {
-			background: $unread-bg-light; //--------------------
+
+		&:hover .item.title {
+			background: $unread-bg;
 		}
+	}
 
-		&:not(.current):hover .item.title {
-			background: $unread-bg-light;
-
-
-		}
-
+	&.not_read {
 		.item.title {
 			a {
 				color: $unread-font-color; //--------------------
 			}
-
 		}
 
 		.item.website {
@@ -52,12 +47,15 @@
 	}
 
 	&.favorite {
-		background: $fav-light;
 		border-left-color: $fav-bg;
 
 		@include transition(all, 0.15s, ease-in-out);
+	}
 
-		&:not(.current):hover .item.title {
+	&.favorite:not(.current) {
+		background: $fav-light;
+
+		&:hover .item.title {
 			background: $fav-light;
 		}
 	}
