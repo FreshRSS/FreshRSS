@@ -79,7 +79,11 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 
 		foreach ($tables as $table) {
 			$sql = 'VACUUM `_' . $table . '`';
-			$ok &= ($this->pdo->exec($sql) !== false);
+			if ($this->pdo->exec($sql) === false) {
+				$ok = false;
+				$info = $this->pdo->errorInfo();
+				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+			}
 		}
 		return $ok;
 	}

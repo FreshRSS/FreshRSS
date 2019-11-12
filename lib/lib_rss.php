@@ -81,6 +81,14 @@ function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
+if (function_exists('mb_convert_encoding')) {
+	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+} elseif (function_exists('iconv')) {
+	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+} else {
+	function safe_utf8($text) { return $text; }
+}
+
 function escapeToUnicodeAlternative($text, $extended = true) {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
