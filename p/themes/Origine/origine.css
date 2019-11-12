@@ -187,8 +187,8 @@ html:not(.rtl) .stick .btn + .dropdown > .btn {
 }
 
 html.rtl .stick .btn + .dropdown > .btn {
-	border-radius: 3px 0 0 3px;
 	border-right: none;
+	border-radius: 3px 0 0 3px;
 }
 
 .btn {

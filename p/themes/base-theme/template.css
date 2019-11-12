@@ -1012,7 +1012,7 @@ html.rtl #nav_entries {
 	position: absolute;
 }
 
-.properties .page-number {
+html.rtl .properties .page-number {
 	left: 5px;
 	right: auto;
 }
