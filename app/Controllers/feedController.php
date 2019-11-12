@@ -415,7 +415,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 
-			if ($feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
+			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	//https://code.google.com/p/pubsubhubbub/wiki/MovingFeedsOrChangingHubs
 					$selfUrl = checkUrl($feed->selfUrl());
 					if ($selfUrl) {
