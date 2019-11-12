@@ -55,7 +55,7 @@ restorecon -Rv /usr/share/FreshRSS/data
 
 ## Why do I have a blank page while trying to configure the sharing options?
 
-The `sharing` word in the URL is a trigger word for some an-blocker rules. Starting at version 1.16, `sharing` has been replaced by `integration` in the faulty URL while keeping the exact same wording through out the application.
+The `sharing` word in the URL is a trigger word for some ad-blocker rules. Starting with version 1.16, `sharing` has been replaced by `integration` in the faulty URL while keeping the exact same wording throughout the application.
 
 If you are using a version prior to 1.16, you can disable your ad-blocker for FreshRSS or you can add a rule to allow the `sharing` page to be accessed.
 
