@@ -1012,6 +1012,11 @@ html.rtl #nav_entries {
 	position: absolute;
 }
 
+.properties .page-number {
+	left: 5px;
+	right: auto;
+}
+
 .slide:hover + .nav label {
 	opacity: 0.5;
 }
