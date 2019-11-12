@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Wed',
 		'yesterday' => 'Yesterday',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'About FreshRSS',
 		'_' => 'FreshRSS',
