@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-11-XX FreshRSS 1.15.2
+## 2019-11-12 FreshRSS 1.15.2
 
 * Bug fixing (regressions from 1.15.x)
 	* Fix CLI failing due to new test against empty usernames [#2644](https://github.com/FreshRSS/FreshRSS/issues/2644)
