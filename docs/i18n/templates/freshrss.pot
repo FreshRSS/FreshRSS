@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-12 21:45+0100\n"
+"POT-Creation-Date: 2019-11-12 22:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,8 +207,8 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:52
 msgid ""
-"We are working on a better way to handle internationalization but don't "
-"hesitate to suggest any idea!"
+"We're working on a better way to handle internationalization, but don't "
+"hesitate to suggest any ideas!"
 msgstr ""
 
 #. type: Title ##
@@ -2238,7 +2238,7 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:347
 #, no-wrap
-msgid "The « hooks » system"
+msgid "The \"hooks\" system"
 msgstr ""
 
 #. type: Plain text

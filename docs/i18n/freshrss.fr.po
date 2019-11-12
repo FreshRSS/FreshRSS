@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-12 21:45+0100\n"
-"PO-Revision-Date: 2019-11-12 21:45+0100\n"
+"POT-Creation-Date: 2019-11-12 22:01+0100\n"
+"PO-Revision-Date: 2019-11-12 22:01+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -110,7 +110,7 @@ msgstr ""
 #: en/./contributing.md:26
 #, no-wrap
 msgid "Fix a bug"
-msgstr ""
+msgstr "Corriger un bogue"
 
 #. type: Plain text
 #: en/./contributing.md:29
@@ -118,6 +118,8 @@ msgid ""
 "Did you want to fix a bug? To keep a great coordination between "
 "collaborators, you will have to follow these indications:"
 msgstr ""
+"Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre "
+"les collaborateurs, vous devrez suivre ces indications :"
 
 #. type: Bullet: '1. '
 #: en/./contributing.md:34
@@ -196,13 +198,16 @@ msgstr ""
 #: en/./contributing.md:50
 msgid "Translations are present in the subdirectories of `./app/i18n/`."
 msgstr ""
+"Les traductions sont disponibles dans les sous-répertoires de `./app/i18n/`."
 
 #. type: Plain text
 #: en/./contributing.md:52
 msgid ""
-"We are working on a better way to handle internationalization but don't "
-"hesitate to suggest any idea!"
+"We're working on a better way to handle internationalization, but don't "
+"hesitate to suggest any ideas!"
 msgstr ""
+"Nous travaillons sur une meilleure façon de gérer l'internationalisation "
+"mais n'hésitez pas à nous suggérer des idées !"
 
 #. type: Title ##
 #: en/./contributing.md:53
@@ -320,7 +325,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:24
 #, no-wrap
 msgid "$ make start\n"
-msgstr ""
+msgstr "$ make start\n"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:29
@@ -387,6 +392,9 @@ msgid ""
 "$ # or\n"
 "$ TAG=dev-arm make build\n"
 msgstr ""
+"$ make build\n"
+"$ # ou\n"
+"$ TAG=dev-arm make build\n"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:57
@@ -437,7 +445,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:62
 #, no-wrap
 msgid "Extensions"
-msgstr ""
+msgstr "Extensions"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:65
@@ -445,6 +453,8 @@ msgid ""
 "If you want to create your own FreshRSS extension, take a look at the "
 "[extension documentation](03_Backend/05_Extensions.md)."
 msgstr ""
+"Si vous souhaitez créer votre propre extension FreshRSS, consultez la "
+"[documentation de l'extension](03_Backend/05_Extensions.md)."
 
 #. type: Title #
 #: en/./developers/01_First_steps.md:66
@@ -2522,6 +2532,8 @@ msgid ""
 "`configure.phtml` is the file containing the form to parameterize your "
 "extension"
 msgstr ""
+"`configure.phtml` est le fichier contenant le formulaire pour paramétrer "
+"votre extension"
 
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:300
@@ -2748,8 +2760,8 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/03_Backend/05_Extensions.md:347
 #, no-wrap
-msgid "The « hooks » system"
-msgstr ""
+msgid "The \"hooks\" system"
+msgstr "Le système « hooks »"
 
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:350
@@ -5283,6 +5295,8 @@ msgid ""
 "Replace `some_id` with a real ID from your `freshrss_username_entry` "
 "database."
 msgstr ""
+"Remplacez `some_id` par un identifiant réel de votre base de données "
+"`freshrss_username_entry`."
 
 #. type: Title ###
 #: en/./users/06_Fever_API.md:103

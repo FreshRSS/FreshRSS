@@ -411,8 +411,8 @@ GitHub repo](https://github.com/FreshRSS/xExtension-HelloWorld).
 You may also need additional files or subdirectories depending on your
 needs:
 
-* `configure.phtml` is the file containing the form to parameterize your
-  extension
+* `configure.phtml` est le fichier contenant le formulaire pour paramétrer
+  votre extension
 * A `static/` directory containing CSS and JavaScript files that you will
   need for your extension (note that if you need to write a lot of CSS it
   may be more interesting to write a complete theme)
@@ -501,7 +501,7 @@ In addition, you will have a number of methods directly inherited from
 * `registerTranslates()`
 * `registerHook($hook_name, $hook_function)`
 
-### The « hooks » system
+### Le système « hooks »
 
 You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.

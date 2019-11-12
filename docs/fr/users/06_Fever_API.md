@@ -114,8 +114,8 @@ Some basic calls are:
 * https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
 * https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
 
-Replace `some_id` with a real ID from your `freshrss_username_entry`
-database.
+Remplacez `some_id` par un identifiant réel de votre base de données
+`freshrss_username_entry`.
 
 ### Déboguer
 

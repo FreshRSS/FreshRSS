@@ -48,7 +48,7 @@ If you want to improve internationalization, please open a new ticket first and 
 
 Translations are present in the subdirectories of `./app/i18n/`.
 
-We are working on a better way to handle internationalization but don't hesitate to suggest any idea!
+We're working on a better way to handle internationalization, but don't hesitate to suggest any ideas!
 
 ## Contribute to documentation
 

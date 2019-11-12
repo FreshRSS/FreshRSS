@@ -35,10 +35,10 @@ advice:
     * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
     * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
-## Fix a bug
+## Corriger un bogue
 
-Did you want to fix a bug? To keep a great coordination between
-collaborators, you will have to follow these indications:
+Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre
+les collaborateurs, vous devrez suivre ces indications :
 
 1. Be sure the bug is associated to a ticket and say you work on it.
 2. [Fork this project
@@ -71,10 +71,10 @@ If your idea is nice, we'll have a look at it.
 If you want to improve internationalization, please open a new ticket first
 and follow indications from « Fix a bug » section.
 
-Translations are present in the subdirectories of `./app/i18n/`.
+Les traductions sont disponibles dans les sous-répertoires de `./app/i18n/`.
 
-We are working on a better way to handle internationalization but don't
-hesitate to suggest any idea!
+Nous travaillons sur une meilleure façon de gérer l'internationalisation
+mais n'hésitez pas à nous suggérer des idées !
 
 ## Contribuer à la documentation
 

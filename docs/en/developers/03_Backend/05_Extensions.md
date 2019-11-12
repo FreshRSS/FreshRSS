@@ -344,7 +344,7 @@ In addition, you will have a number of methods directly inherited from `Minz_Ext
 * `registerTranslates()`
 * `registerHook($hook_name, $hook_function)`
 
-### The « hooks » system
+### The "hooks" system
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
 

@@ -67,7 +67,7 @@ You might want to rebuild the Docker image locally. You can do it with:
 
 ```console
 $ make build
-$ # or
+$ # ou
 $ TAG=dev-arm make build
 ```
 
@@ -81,8 +81,8 @@ specific architecture by adding `-alpine` or `-arm` at the end of the tag
 
 # Extensions
 
-If you want to create your own FreshRSS extension, take a look at the
-[extension documentation](03_Backend/05_Extensions.md).
+Si vous souhaitez créer votre propre extension FreshRSS, consultez la
+[documentation de l'extension](03_Backend/05_Extensions.md).
 
 # Style de codage
 
