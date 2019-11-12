@@ -592,6 +592,11 @@ html.rtl .dropdown-menu {
 	left: 0;
 }
 
+html.rtl .aside_feed .tree-folder-items .dropdown-menu {
+	left: auto;
+	right: 0;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-toggle > .icon {
 	visibility: hidden;
 	cursor: pointer;

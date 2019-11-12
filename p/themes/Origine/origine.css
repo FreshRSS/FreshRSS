@@ -710,6 +710,11 @@ html.rtl .aside {
 	left: 2px;
 }
 
+html.rtl .aside_feed .tree-folder-items .dropdown-menu::after {
+	left: auto;
+	right: 2px;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	background-color: #fff;
