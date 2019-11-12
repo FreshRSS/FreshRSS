@@ -182,15 +182,12 @@ html.rtl .stick .dropdown + .dropdown > .btn {
 	border-radius: 0 3px 3px 0;
 }
 
-html.rtl .stick .btn + .dropdown > .btn {
-	border-radius: 3px 0 0 3px;
-}
-
 html:not(.rtl) .stick .btn + .dropdown > .btn {
 	border-left: none;
 }
 
 html.rtl .stick .btn + .dropdown > .btn {
+	border-radius: 3px 0 0 3px;
 	border-right: none;
 }
 
