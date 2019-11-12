@@ -100,6 +100,7 @@ return array(
 		'wed' => '수',
 		'yesterday' => '어제',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'_' => 'FreshRSS',
 		'about' => '정보',

@@ -100,6 +100,7 @@ return array(
 		'wed' => '周三',
 		'yesterday' => '昨天',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'_' => 'FreshRSS',
 		'about' => '关于 FreshRSS',
