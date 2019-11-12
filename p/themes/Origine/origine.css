@@ -141,8 +141,8 @@ html.rtl .stick input:first-child {
 }
 
 html.rtl .stick .btn-important:first-child {
-	border-left: 1px solid #06f;
 	border-right: none;
+	border-left: 1px solid #06f;
 }
 
 .stick .btn:last-child,
