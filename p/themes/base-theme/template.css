@@ -622,6 +622,12 @@ html.rtl .dropdown-menu {
 	text-overflow: ellipsis;
 }
 
+html.rtl .day .name {
+	left: 0;
+	right: auto;
+	width: auto;
+}
+
 /*=== Feed article header and footer */
 .flux_header {
 	position: relative;
