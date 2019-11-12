@@ -625,8 +625,8 @@ html.rtl .dropdown-menu::after {
 }
 
 html.rtl .aside {
-	border-left: 1px solid #aaa;
 	border-right: none;
+	border-left: 1px solid #aaa;
 }
 
 .aside.aside_feed {
