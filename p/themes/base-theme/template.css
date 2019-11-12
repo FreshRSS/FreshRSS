@@ -768,6 +768,10 @@ br {
 	table-layout: fixed;
 }
 
+html.rtl #nav_entries {
+	left: auto; right: 0;
+}
+
 #nav_entries .item {
 	display: table-cell;
 	width: 30%;
