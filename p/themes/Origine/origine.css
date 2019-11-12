@@ -355,6 +355,11 @@ a.btn {
 	transform: rotate(45deg);
 }
 
+html.rtl .dropdown-menu::after {
+	left: 13px;
+	right: auto;
+}
+
 .dropdown-header {
 	padding: 0 5px 5px;
 	color: #888;

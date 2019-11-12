@@ -270,6 +270,11 @@ a.btn {
 	right: 0;
 }
 
+html.rtl .dropdown-menu {
+	left: 0;
+	right: auto;
+}
+
 .dropdown-menu-scrollable {
 	max-height: 75vh;
 	overflow-x: hidden;
