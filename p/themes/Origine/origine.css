@@ -130,6 +130,7 @@ form th {
 .stick input:first-child {
 	border-radius: 3px 0 0 3px;
 }
+
 html.rtl .stick .btn:first-child,
 html.rtl .stick input:first-child {
 	border-radius: 0 3px 3px 0;
@@ -143,6 +144,7 @@ html.rtl .stick input:first-child {
 .stick input:last-child {
 	border-radius: 0 3px 3px 0;
 }
+
 html.rtl .stick .btn:last-child,
 html.rtl .stick input:last-child {
 	border-radius: 3px 0 0 3px;
@@ -159,6 +161,7 @@ html:not(.rtl) .stick .dropdown + input,
 html:not(.rtl) .stick .dropdown + .dropdown > .btn {
 	border-left: none;
 }
+
 html.rtl .stick .btn + .btn,
 html.rtl .stick .btn + input,
 html.rtl .stick .btn + .dropdown > .btn,
@@ -178,6 +181,7 @@ html.rtl .stick .dropdown + .dropdown > .btn {
 .stick .btn + .dropdown > .btn {
 	border-radius: 0 3px 3px 0;
 }
+
 html.rtl .stick .btn + .dropdown > .btn {
 	border-radius: 3px 0 0 3px;
 }
@@ -185,6 +189,7 @@ html.rtl .stick .btn + .dropdown > .btn {
 html:not(.rtl) .stick .btn + .dropdown > .btn {
 	border-left: none;
 }
+
 html.rtl .stick .btn + .dropdown > .btn {
 	border-right: none;
 }
