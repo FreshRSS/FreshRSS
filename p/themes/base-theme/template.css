@@ -477,6 +477,10 @@ html.rtl .dropdown-menu {
 	overflow-x: hidden;
 }
 
+html.rtl .tree {
+	text-align: right;
+}
+
 .tree-folder-items {
 	padding: 0;
 	max-height: 200em;

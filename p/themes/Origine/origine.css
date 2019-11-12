@@ -680,6 +680,13 @@ html.rtl .aside {
 	line-height: 1.5rem;
 }
 
+html.rtl .aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 0 10px;
+	padding: 10px 0;
+	left: 0;
+	right: auto;
+}
+
 /*=== Aside main page (feeds) */
 .feed.item.empty.active {
 	background: #e67e22;
