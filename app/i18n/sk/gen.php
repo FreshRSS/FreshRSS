@@ -99,6 +99,7 @@ return array(
 		'wed' => 'St',
 		'yesterday' => 'Včera',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'_' => 'FreshRSS',
 		'about' => 'O FreshRSS',

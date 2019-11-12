@@ -100,6 +100,7 @@ return array(
 		'wed' => 'Dc',
 		'yesterday' => 'Ièr',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'_' => 'FreshRSS',
 		'about' => 'A prepaus de FreshRSS',
