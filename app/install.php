@@ -681,7 +681,7 @@ case 5:
 ?>
 <!DOCTYPE html>
 <html<?php
-if(_t('gen.dir') === 'rtl') {
+if (_t('gen.dir') === 'rtl') {
 	echo ' dir="rtl" class="rtl"';
 }
 ?>>
