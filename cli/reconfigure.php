@@ -37,7 +37,7 @@ if (!validateOptions($argv, array_merge($params, $dBparams))) {
 
 fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 
-$config = Minz_Configuration::get('system');
+$config = Configuration::get('system');
 foreach ($params as $param) {
 	$param = rtrim($param, ':');
 	if (isset($options[$param])) {
@@ -54,7 +54,7 @@ foreach ($dBparams as $dBparam) {
 }
 $config->db = $db;
 
-if (!FreshRSS_user_Controller::checkUsername($config->default_user)) {
+if (!user_Controller::checkUsername($config->default_user)) {
 	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $config->default_user);
 }
 

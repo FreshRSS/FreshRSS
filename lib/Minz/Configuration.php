@@ -1,9 +1,11 @@
 <?php
 
+namespace Minz;
+
 /**
  * Manage configuration for the application.
  */
-class Minz_Configuration {
+class Configuration {
 	/**
 	 * The list of configurations.
 	 */
@@ -19,7 +21,7 @@ class Minz_Configuration {
 	 */
 	public static function register($namespace, $config_filename, $default_filename = null,
 	                                $configuration_setter = null) {
-		self::$config_list[$namespace] = new Minz_Configuration(
+		self::$config_list[$namespace] = new Configuration(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
 	}
@@ -29,14 +31,14 @@ class Minz_Configuration {
 	 *
 	 * @param $filename the name of the file to parse.
 	 * @return an array of values
-	 * @throws Minz_FileNotExistException if the file does not exist or is invalid.
+	 * @throws FileNotExistException if the file does not exist or is invalid.
 	 */
 	public static function load($filename) {
 		$data = @include($filename);
 		if (is_array($data)) {
 			return $data;
 		} else {
-			throw new Minz_FileNotExistException($filename);
+			throw new FileNotExistException($filename);
 		}
 	}
 
@@ -44,12 +46,12 @@ class Minz_Configuration {
 	 * Return the configuration related to a given namespace.
 	 *
 	 * @param $namespace the name of the configuration to get.
-	 * @return a Minz_Configuration object
-	 * @throws Minz_ConfigurationNamespaceException if the namespace does not exist.
+	 * @return a Configuration object
+	 * @throws ConfigurationNamespaceException if the namespace does not exist.
 	 */
 	public static function get($namespace) {
 		if (!isset(self::$config_list[$namespace])) {
-			throw new Minz_ConfigurationNamespaceException(
+			throw new ConfigurationNamespaceException(
 				$namespace . ' namespace does not exist'
 			);
 		}
@@ -96,7 +98,7 @@ class Minz_Configuration {
 	}
 
 	/**
-	 * Create a new Minz_Configuration object.
+	 * Create a new Configuration object.
 	 *
 	 * @param $namespace the name of the current configuration.
 	 * @param $config_filename the file containing configuration values.
@@ -118,7 +120,7 @@ class Minz_Configuration {
 			$this->data = array_replace_recursive(
 				$this->data, self::load($this->config_filename)
 			);
-		} catch (Minz_FileNotExistException $e) {
+		} catch (FileNotExistException $e) {
 			if ($this->default_filename == null) {
 				throw $e;
 			}
@@ -142,7 +144,7 @@ class Minz_Configuration {
 	 * @param $key the name of the param.
 	 * @param $default default value to return if key does not exist.
 	 * @return the value corresponding to the key.
-	 * @throws Minz_ConfigurationParamException if the param does not exist
+	 * @throws ConfigurationParamException if the param does not exist
 	 */
 	public function param($key, $default = null) {
 		if (isset($this->data[$key])) {
@@ -150,7 +152,7 @@ class Minz_Configuration {
 		} elseif (!is_null($default)) {
 			return $default;
 		} else {
-			Minz_Log::warning($key . ' does not exist in configuration');
+			Log::warning($key . ' does not exist in configuration');
 			return null;
 		}
 	}

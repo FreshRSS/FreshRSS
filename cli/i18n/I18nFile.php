@@ -1,5 +1,7 @@
 <?php
 
+namespace Freshrss\Cli\I18n;
+
 require_once __DIR__ . '/I18nData.php';
 require_once __DIR__ . '/I18nFileInterface.php';
 

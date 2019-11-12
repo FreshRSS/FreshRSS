@@ -9,7 +9,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string|null $input
 	 */
 	public function test__construct_whenInputIsEmpty_getsOnlyNullValues($input) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals('', $search->getRawInput());
 		$this->assertNull($search->getIntitle());
 		$this->assertNull($search->getMinDate());
@@ -40,7 +40,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string|null $search_value
 	 */
 	public function test__construct_whenInputContainsIntitle_setsIntitlePropery($input, $intitle_value, $search_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($intitle_value, $search->getIntitle());
 		$this->assertEquals($search_value, $search->getSearch());
 	}
@@ -76,7 +76,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string|null $search_value
 	 */
 	public function test__construct_whenInputContainsAuthor_setsAuthorValue($input, $author_value, $search_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($author_value, $search->getAuthor());
 		$this->assertEquals($search_value, $search->getSearch());
 	}
@@ -112,7 +112,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string|null $search_value
 	 */
 	public function test__construct_whenInputContainsInurl_setsInurlValue($input, $inurl_value, $search_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($inurl_value, $search->getInurl());
 		$this->assertEquals($search_value, $search->getSearch());
 	}
@@ -139,7 +139,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string $max_date_value
 	 */
 	public function test__construct_whenInputContainsDate_setsDateValues($input, $min_date_value, $max_date_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($min_date_value, $search->getMinDate());
 		$this->assertEquals($max_date_value, $search->getMaxDate());
 	}
@@ -165,7 +165,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string $max_pubdate_value
 	 */
 	public function test__construct_whenInputContainsPubdate_setsPubdateValues($input, $min_pubdate_value, $max_pubdate_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($min_pubdate_value, $search->getMinPubdate());
 		$this->assertEquals($max_pubdate_value, $search->getMaxPubdate());
 	}
@@ -191,7 +191,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string|null $search_value
 	 */
 	public function test__construct_whenInputContainsTags_setsTagsValue($input, $tags_value, $search_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($tags_value, $search->getTags());
 		$this->assertEquals($search_value, $search->getSearch());
 	}
@@ -225,7 +225,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string|null $search_value
 	 */
 	public function test__construct_whenInputContainsMultipleKeywords_setsValues($input, $author_value, $min_date_value, $max_date_value, $intitle_value, $inurl_value, $min_pubdate_value, $max_pubdate_value, $tags_value, $search_value) {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$this->assertEquals($author_value, $search->getAuthor());
 		$this->assertEquals($min_date_value, $search->getMinDate());
 		$this->assertEquals($max_date_value, $search->getMaxDate());

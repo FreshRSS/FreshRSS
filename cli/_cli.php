@@ -10,13 +10,13 @@ require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
-Minz_Configuration::register('system',
+Configuration::register('system',
 	DATA_PATH . '/config.php',
 	FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-Minz_Translate::init('en');
+Context::$system_conf = Configuration::get('system');
+Translate::init('en');
 
-FreshRSS_Context::$isCli = true;
+Context::$isCli = true;
 
 function fail($message) {
 	fwrite(STDERR, $message . "\n");
@@ -24,7 +24,7 @@ function fail($message) {
 }
 
 function cliInitUser($username) {
-	if (!FreshRSS_user_Controller::checkUsername($username)) {
+	if (!user_Controller::checkUsername($username)) {
 		fail('FreshRSS error: invalid username: ' . $username . "\n");
 	}
 
@@ -33,11 +33,11 @@ function cliInitUser($username) {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	FreshRSS_Context::$user_conf = get_user_configuration($username);
-	if (FreshRSS_Context::$user_conf == null) {
+	Context::$user_conf = get_user_configuration($username);
+	if (Context::$user_conf == null) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
-	Minz_Session::_param('currentUser', $username);
+	Session::_param('currentUser', $username);
 
 	return $username;
 }

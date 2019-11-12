@@ -1,4 +1,6 @@
 <?php
 
-class Minz_ConfigurationNamespaceException extends Minz_ConfigurationException {
+namespace Minz;
+
+class ConfigurationNamespaceException extends ConfigurationException {
 }

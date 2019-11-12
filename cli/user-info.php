@@ -43,19 +43,19 @@ if (array_key_exists('header', $options)) {
 foreach ($users as $username) {
 	$username = cliInitUser($username);
 
-	$catDAO = FreshRSS_Factory::createCategoryDao($username);
-	$feedDAO = FreshRSS_Factory::createFeedDao($username);
-	$entryDAO = FreshRSS_Factory::createEntryDao($username);
-	$tagDAO = FreshRSS_Factory::createTagDao($username);
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
+	$catDAO = Factory::createCategoryDao($username);
+	$feedDAO = Factory::createFeedDao($username);
+	$entryDAO = Factory::createEntryDao($username);
+	$tagDAO = Factory::createTagDao($username);
+	$databaseDAO = Factory::createDatabaseDAO($username);
 
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 
 	$data = array(
-		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
+		'default' => $username === Context::$system_conf->default_user ? '*' : '',
 		'user' => $username,
-		'lastUpdate' => FreshRSS_UserDAO::mtime($username),
+		'lastUpdate' => UserDAO::mtime($username),
 		'spaceUsed' => $databaseDAO->size(),
 		'categories' => $catDAO->count(),
 		'feeds' => count($feedDAO->listFeedsIds()),

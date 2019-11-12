@@ -1,4 +1,7 @@
 <?php
+
+use Freshrss\FreshRSS;
+
 if (version_compare(PHP_VERSION, '5.6.0', '<')) {
 	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
 }
@@ -22,21 +25,25 @@ function join_path() {
 
 //<Auto-loading>
 function classAutoloader($class) {
-	if (strpos($class, 'FreshRSS') === 0) {
-		$components = explode('_', $class);
-		switch (count($components)) {
-			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
-				return;
-			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
-				return;
-			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
-				return;
-		}
+	var_dump($class);
+	if (0 === strpos($class, 'Freshrss')) {
+		$class = str_replace('Freshrss\\', '', $class);
+		var_dump($class);
+		include(APP_PATH . '/' . str_replace('\\', '/', $class) . '.php');
+		// $components = explode('_', str_replace('Freshrss\\', '', $class));
+		// switch (count($components)) {
+		// 	case 1:
+		// 		include(APP_PATH . '/' . $components[0] . '.php');
+		// 		return;
+		// 	case 2:
+		// 		include(APP_PATH . '/Models/' . $components[1] . '.php');
+		// 		return;
+		// 	case 3:	//Controllers, Exceptions
+		// 		include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+		// 		return;
+		// }
 	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'PHPMailer') === 0) {
@@ -187,7 +194,7 @@ function prepareSyslog() {
 }
 
 function customSimplePie($attributes = array()) {
-	$system_conf = Minz_Configuration::get('system');
+	$system_conf = Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
@@ -293,7 +300,7 @@ function validateEmailAddress($email) {
 function lazyimg($content) {
 	return preg_replace(
 		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+		'<$1src="' . Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
 }
@@ -305,8 +312,8 @@ function uTimeString() {
 
 function invalidateHttpCache($username = '') {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
-		Minz_Session::_param('touch', uTimeString());
-		$username = Minz_Session::param('currentUser', '_');
+		Session::_param('touch', uTimeString());
+		$username = Session::param('currentUser', '_');
 	}
 	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
 	//if (!$ok) {
@@ -339,7 +346,7 @@ function listUsers() {
  * @return true if number of users >= max registrations, false else.
  */
 function max_registrations_reached() {
-	$system_conf = Minz_Configuration::get('system');
+	$system_conf = Configuration::get('system');
 	$limit_registrations = $system_conf->limits['max_registrations'];
 	$number_accounts = count(listUsers());
 
@@ -354,7 +361,7 @@ function max_registrations_reached() {
  * objects. If you need a long-time configuration, please don't use this function.
  *
  * @param $username the name of the user of which we want the configuration.
- * @return a Minz_Configuration object, null if the configuration cannot be loaded.
+ * @return a Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -362,18 +369,18 @@ function get_user_configuration($username) {
 	}
 	$namespace = 'user_' . $username;
 	try {
-		Minz_Configuration::register($namespace,
+		Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-	} catch (Minz_ConfigurationNamespaceException $e) {
+	} catch (ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
-	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
+		Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
+	} catch (FileNotExistException $e) {
+		Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 		return null;
 	}
 
-	return Minz_Configuration::get($namespace);
+	return Configuration::get($namespace);
 }
 
 
@@ -393,7 +400,7 @@ function cryptAvailable() {
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
 		return $hash === @crypt('password', $hash);
 	} catch (Exception $e) {
-		Minz_Log::warning($e->getMessage());
+		Log::warning($e->getMessage());
 	}
 	return false;
 }
@@ -484,7 +491,7 @@ function check_install_database() {
 		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
 		$status['tag'] = $dbDAO->tagIsCorrect();
 		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
-	} catch(Minz_PDOConnectionException $e) {
+	} catch(PDOConnectionException $e) {
 		$status['connection'] = false;
 	}
 

@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe View représente la vue de l'application
  */
-class Minz_View {
+class View {
 	const VIEWS_PATH_NAME = '/views';
 	const LAYOUT_PATH_NAME = '/layout/';
 	const LAYOUT_DEFAULT = 'layout';
@@ -28,7 +31,7 @@ class Minz_View {
 	 */
 	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		self::$title = $conf->title;
 	}
 
@@ -36,7 +39,7 @@ class Minz_View {
 	 * [deprecated] Change the view file based on controller and action.
 	 */
 	public function change_view($controller_name, $action_name) {
-		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
+		Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
 		$this->_path($controller_name. '/' . $action_name . '.phtml');
 	}
 
@@ -99,7 +102,7 @@ class Minz_View {
 	public function buildLayout () {
 		header('Content-Type: text/html; charset=UTF-8');
 		if (!$this->includeFile($this->layout_filename)) {
-			Minz_Log::notice('File not found: `' . $this->layout_filename . '`');
+			Log::notice('File not found: `' . $this->layout_filename . '`');
 		}
 	}
 
@@ -108,7 +111,7 @@ class Minz_View {
 	 */
 	public function render () {
 		if (!$this->includeFile($this->view_filename)) {
-			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
+			Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}
 
@@ -119,7 +122,7 @@ class Minz_View {
 	public function partial ($part) {
 		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
 		if (!$this->includeFile($fic_partial)) {
-			Minz_Log::warning('File not found: `' . $fic_partial . '`');
+			Log::warning('File not found: `' . $fic_partial . '`');
 		}
 	}
 
@@ -130,7 +133,7 @@ class Minz_View {
 	public function renderHelper ($helper) {
 		$fic_helper = '/views/helpers/' . $helper . '.phtml';
 		if (!$this->includeFile($fic_helper)) {
-			Minz_Log::warning('File not found: `' . $fic_helper . '`');
+			Log::warning('File not found: `' . $fic_helper . '`');
 		}
 	}
 
@@ -162,7 +165,7 @@ class Minz_View {
 	 * @param $use true if we want to use the layout, false else
 	 */
 	public function _useLayout ($use) {
-		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
+		Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
 		if ($use) {
 			$this->_layout(self::LAYOUT_DEFAULT);
 		} else {
@@ -283,7 +286,7 @@ class Minz_View {
 		self::$params[$key] = $value;
 	}
 	public function attributeParams () {
-		foreach (Minz_View::$params as $key => $value) {
+		foreach (View::$params as $key => $value) {
 			$this->$key = $value;
 		}
 	}

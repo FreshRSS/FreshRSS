@@ -43,7 +43,7 @@ fwrite(STDERR, 'FreshRSS install…' . "\n");
 
 $config = array(
 		'salt' => generateSalt(),
-		'db' => FreshRSS_Context::$system_conf->db,
+		'db' => Context::$system_conf->db,
 	);
 
 foreach ($params as $param) {
@@ -67,9 +67,9 @@ foreach ($dBparams as $dBparam) {
 
 performRequirementCheck($config['db']['type']);
 
-if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
+if (!user_Controller::checkUsername($options['default_user'])) {
 	fail('FreshRSS error: invalid default username “' . $options['default_user']
-		. '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
+		. '”! Must be matching ' . user_Controller::USERNAME_PATTERN);
 }
 
 if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
@@ -86,10 +86,10 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+Context::$system_conf = Configuration::get('system');
 
-Minz_Session::_param('currentUser', '_');	//Default user
+Session::_param('currentUser', '_');	//Default user
 
 $ok = false;
 try {

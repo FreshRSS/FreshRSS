@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe Error permet de lancer des erreurs HTTP
  */
-class Minz_Error {
+class Error {
 	public function __construct () { }
 
 	/**
@@ -24,10 +27,10 @@ class Minz_Error {
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
 		if (file_exists ($error_filename)) {
-			Minz_Session::_param('error_code', $code);
-			Minz_Session::_param('error_logs', $logs);
+			Session::_param('error_code', $code);
+			Session::_param('error_logs', $logs);
 
-			Minz_Request::forward (array (
+			Request::forward (array (
 				'c' => 'error'
 			), $redirect);
 		} else {
@@ -53,7 +56,7 @@ class Minz_Error {
 	 *       > en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$env = $conf->environment;
 		$logs_ok = array ();
 		$error = array ();

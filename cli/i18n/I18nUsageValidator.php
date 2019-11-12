@@ -1,5 +1,7 @@
 <?php
 
+namespace Freshrss\Cli\I18n;
+
 require_once __DIR__ . '/I18nValidatorInterface.php';
 
 class I18nUsageValidator implements I18nValidatorInterface {

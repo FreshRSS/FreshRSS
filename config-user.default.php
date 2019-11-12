@@ -27,7 +27,7 @@ return array (
 	'max_posts_per_rss' => 400,
 	'view_mode' => 'normal',
 	'default_view' => 'adaptive',
-	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
+	'default_state' => Entry::STATE_NOT_READ,
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => false,

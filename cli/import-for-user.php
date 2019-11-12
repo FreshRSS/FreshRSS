@@ -22,14 +22,14 @@ if (!is_readable($filename)) {
 
 echo 'FreshRSS importing ZIP/OPML/JSON for user “', $username, "”…\n";
 
-$importController = new FreshRSS_importExport_Controller();
+$importController = new importExport_Controller();
 
 $ok = false;
 try {
 	$ok = $importController->importFile($filename, $filename, $username);
-} catch (FreshRSS_ZipMissing_Exception $zme) {
+} catch (ZipMissing_Exception $zme) {
 	fail('FreshRSS error: Lacking php-zip extension!');
-} catch (FreshRSS_Zip_Exception $ze) {
+} catch (Zip_Exception $ze) {
 	fail('FreshRSS error: ZIP archive cannot be imported! Error code: ' . $ze->zipErrorCode());
 }
 invalidateHttpCache($username);

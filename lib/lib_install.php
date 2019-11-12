@@ -2,8 +2,8 @@
 
 define('BCRYPT_COST', 9);
 
-Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
+Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 function checkRequirements($dbType = '') {
 	$php = version_compare(PHP_VERSION, '5.6.0') >= 0;
@@ -79,7 +79,7 @@ function generateSalt() {
 }
 
 function initDb() {
-	$conf = FreshRSS_Context::$system_conf;
+	$conf = Context::$system_conf;
 	$db = $conf->db;
 	if (empty($db['pdo_options'])) {
 		$db['pdo_options'] = [];
@@ -88,20 +88,20 @@ function initDb() {
 	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
 	if ($db['type'] !== 'sqlite') {
-		Minz_ModelPdo::$usesSharedPdo = false;
+		ModelPdo::$usesSharedPdo = false;
 		$dbBase = isset($db['base']) ? $db['base'] : '';
 		$db['base'] = '';
 		$conf->db = $db;
 		//First connection without database name to create the database
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO = Factory::createDatabaseDAO();
 		$db['base'] = $dbBase;
 		$conf->db = $db;
 		$databaseDAO->create();
 	}
 
 	//New connection with the database name
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-	Minz_ModelPdo::$usesSharedPdo = true;
+	$databaseDAO = Factory::createDatabaseDAO();
+	ModelPdo::$usesSharedPdo = true;
 	return $databaseDAO->testConnection();
 }
 

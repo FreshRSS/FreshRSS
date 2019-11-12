@@ -14,12 +14,12 @@
 // BOOTSTRAP FreshRSS
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');    //Includes class autoloader
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 
 // check if API is enabled globally
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-if (!FreshRSS_Context::$system_conf->api_enabled) {
-	Minz_Log::warning('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
+Context::$system_conf = Configuration::get('system');
+if (!Context::$system_conf->api_enabled) {
+	Log::warning('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
@@ -27,7 +27,7 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 
 ini_set('session.use_cookies', '0');
 register_shutdown_function('session_destroy');
-Minz_Session::init('FreshRSS');
+Session::init('FreshRSS');
 // ================================================================================================
 
 // <Debug>
@@ -57,11 +57,11 @@ function debugInfo() {
 		), true);
 }
 
-//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
-//Minz_Log::debug(debugInfo(), API_LOG);
+//Log::debug('----------------------------------------------------------------', API_LOG);
+//Log::debug(debugInfo(), API_LOG);
 // </Debug>
 
-class FeverDAO extends Minz_ModelPdo
+class FeverDAO extends ModelPdo
 {
 	/**
 	 * @param string $prefix
@@ -84,13 +84,13 @@ class FeverDAO extends Minz_ModelPdo
 	 * @param array $entry_ids
 	 * @param int|null $max_id
 	 * @param int|null $since_id
-	 * @return FreshRSS_Entry[]
+	 * @return Entry[]
 	 */
 	public function findEntries(array $feed_ids, array $entry_ids, $max_id, $since_id)
 	{
 		$values = array();
 		$order = '';
-		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entryDAO = Factory::createEntryDao();
 
 		$sql = 'SELECT id, guid, title, author, '
 			. ($entryDAO->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -126,7 +126,7 @@ class FeverDAO extends Minz_ModelPdo
 
 		$entries = array();
 		foreach ($result as $dao) {
-			$entries[] = FreshRSS_EntryDAO::daoToEntry($dao);
+			$entries[] = EntryDAO::daoToEntry($dao);
 		}
 
 		return $entries;
@@ -153,30 +153,30 @@ class FeverAPI
 	 */
 	private function authenticate()
 	{
-		FreshRSS_Context::$user_conf = null;
-		Minz_Session::_param('currentUser');
+		Context::$user_conf = null;
+		Session::_param('currentUser');
 		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
-			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
+			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
 			if ($username != false) {
 				$username = trim($username);
-				Minz_Session::_param('currentUser', $username);
+				Session::_param('currentUser', $username);
 				$user_conf = get_user_configuration($username);
 				if ($user_conf != null && $feverKey === $user_conf->feverKey) {
-					FreshRSS_Context::$user_conf = $user_conf;
-					Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-					$this->entryDAO = FreshRSS_Factory::createEntryDao();
-					$this->feedDAO = FreshRSS_Factory::createFeedDao();
+					Context::$user_conf = $user_conf;
+					Translate::init(Context::$user_conf->language);
+					$this->entryDAO = Factory::createEntryDao();
+					$this->feedDAO = Factory::createFeedDao();
 					return true;
 				} else {
-					Minz_Translate::init();
+					Translate::init();
 				}
-				Minz_Log::error('Fever API: Reset API password for user: ' . $username, API_LOG);
-				Minz_Log::error('Fever API: Please reset your API password!');
-				Minz_Session::_param('currentUser');
+				Log::error('Fever API: Reset API password for user: ' . $username, API_LOG);
+				Log::error('Fever API: Please reset your API password!');
+				Session::_param('currentUser');
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
+			Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
 		}
 		return false;
 	}
@@ -188,7 +188,7 @@ class FeverAPI
 	{
 		$this->authenticate();
 
-		if (FreshRSS_Context::$user_conf !== null) {
+		if (Context::$user_conf !== null) {
 			return true;
 		}
 
@@ -322,7 +322,7 @@ class FeverAPI
 		$feeds = array();
 		$myFeeds = $this->feedDAO->listFeeds();
 
-		/** @var FreshRSS_Feed $feed */
+		/** @var Feed $feed */
 		foreach ($myFeeds as $feed) {
 			$feeds[] = array(
 				'id' => $feed->id(),
@@ -345,10 +345,10 @@ class FeverAPI
 	{
 		$groups = array();
 
-		$categoryDAO = FreshRSS_Factory::createCategoryDao();
+		$categoryDAO = Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(false, false);
 
-		/** @var FreshRSS_Category $category */
+		/** @var Category $category */
 		foreach ($categories as $category) {
 			$groups[] = array(
 				'id' => $category->id(),
@@ -365,10 +365,10 @@ class FeverAPI
 	protected function getFavicons()
 	{
 		$favicons = array();
-		$salt = FreshRSS_Context::$system_conf->salt;
+		$salt = Context::$system_conf->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
 
-		/** @var FreshRSS_Feed $feed */
+		/** @var Feed $feed */
 		foreach ($myFeeds as $feed) {
 
 			$id = hash('crc32b', $salt . $feed->url());
@@ -403,7 +403,7 @@ class FeverAPI
 		$ids = array();
 		$myFeeds = $this->feedDAO->listFeeds();
 
-		/** @var FreshRSS_Feed $feed */
+		/** @var Feed $feed */
 		foreach ($myFeeds as $feed) {
 			$ids[$feed->category()][] = $feed->id();
 		}
@@ -441,7 +441,7 @@ class FeverAPI
 	 */
 	protected function getUnreadItemIds()
 	{
-		$entries = $this->entryDAO->listIdsWhere('a', '', FreshRSS_Entry::STATE_NOT_READ, 'ASC', 0);
+		$entries = $this->entryDAO->listIdsWhere('a', '', Entry::STATE_NOT_READ, 'ASC', 0);
 		return $this->entriesToIdList($entries);
 	}
 
@@ -450,7 +450,7 @@ class FeverAPI
 	 */
 	protected function getSavedItemIds()
 	{
-		$entries = $this->entryDAO->listIdsWhere('a', '', FreshRSS_Entry::STATE_FAVORITE, 'ASC', 0);
+		$entries = $this->entryDAO->listIdsWhere('a', '', Entry::STATE_FAVORITE, 'ASC', 0);
 		return $this->entriesToIdList($entries);
 	}
 
@@ -490,12 +490,12 @@ class FeverAPI
 			}
 
 			if (isset($_REQUEST['group_ids'])) {
-				$categoryDAO = FreshRSS_Factory::createCategoryDao();
+				$categoryDAO = Factory::createCategoryDao();
 				$group_ids = explode(',', $_REQUEST['group_ids']);
 				foreach ($group_ids as $id) {
-					/** @var FreshRSS_Category $category */
-					$category = $categoryDAO->searchById($id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
-					/** @var FreshRSS_Feed $feed */
+					/** @var Category $category */
+					$category = $categoryDAO->searchById($id);	//TODO: Transform to SQL query without loop! Consider CategoryDAO::listCategories(true)
+					/** @var Feed $feed */
 					foreach ($category->feeds() as $feed) {
 						$feeds[] = $feed->id();
 					}
@@ -527,11 +527,11 @@ class FeverAPI
 		$entries = $feverDAO->findEntries($feed_ids, $entry_ids, $max_id, $since_id);
 
 		// Load list of extensions and enable the "system" ones.
-		Minz_ExtensionManager::init();
+		ExtensionManager::init();
 
 		foreach ($entries as $item) {
-			/** @var FreshRSS_Entry $entry */
-			$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+			/** @var Entry $entry */
+			$entry = ExtensionManager::callHook('entry_before_display', $item);
 			if ($entry == null) {
 				continue;
 			}
@@ -584,7 +584,7 @@ class FeverAPI
 // ================================================================================================
 // refresh is not allowed yet, probably we find a way to support it later
 if (isset($_REQUEST['refresh'])) {
-	Minz_Log::warning('Fever API: Refresh items - notImplemented()', API_LOG);
+	Log::warning('Fever API: Refresh items - notImplemented()', API_LOG);
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');

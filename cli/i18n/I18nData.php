@@ -1,5 +1,7 @@
 <?php
 
+namespace Freshrss\Cli\I18n;
+
 class I18nData {
 
 	const REFERENCE_LANGUAGE = 'en';

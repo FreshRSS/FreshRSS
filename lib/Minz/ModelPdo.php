@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe Model_sql représente le modèle interragissant avec les bases de données
  */
-class Minz_ModelPdo {
+class ModelPdo {
 
 	/**
 	 * Partage la connexion à la base de données entre toutes les instances.
@@ -26,14 +29,14 @@ class Minz_ModelPdo {
 	 */
 	public function __construct($currentUser = null, $currentPdo = null) {
 		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser');
+			$currentUser = Session::param('currentUser');
 		}
 		if ($currentPdo != null) {
 			$this->pdo = $currentPdo;
 			return;
 		}
 		if ($currentUser == '') {
-			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
+			throw new PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
 		}
 		if (self::$usesSharedPdo && self::$sharedPdo != null &&
 			($currentUser == '' || $currentUser === self::$sharedCurrentUser)) {
@@ -44,7 +47,7 @@ class Minz_ModelPdo {
 		$this->current_user = $currentUser;
 		self::$sharedCurrentUser = $currentUser;
 
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$db = $conf->db;
 
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
@@ -83,16 +86,16 @@ class Minz_ModelPdo {
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				default:
-					throw new Minz_PDOConnectionException(
+					throw new PDOConnectionException(
 						'Invalid database type!',
-						$db['user'], Minz_Exception::ERROR
+						$db['user'], Exception::ERROR
 					);
 			}
 			self::$sharedPdo = $this->pdo;
 		} catch (Exception $e) {
-			throw new Minz_PDOConnectionException(
+			throw new PDOConnectionException(
 				$dsn . $dsnParams,
-				$db['user'], Minz_Exception::ERROR
+				$db['user'], Exception::ERROR
 			);
 		}
 	}

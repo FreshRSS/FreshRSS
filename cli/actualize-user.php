@@ -16,7 +16,7 @@ $username = cliInitUser($options['user']);
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
-list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
+list($nbUpdatedFeeds, $feed, $nbNewArticles) = feed_Controller::actualizeFeed(0, '', true);
 
 echo "FreshRSS actualized $nbUpdatedFeeds feeds for $username ($nbNewArticles new articles)\n";
 

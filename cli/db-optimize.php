@@ -16,7 +16,7 @@ $username = cliInitUser($options['user']);
 
 echo 'FreshRSS optimizing database for user “', $username, "”…\n";
 
-$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
+$databaseDAO = Factory::createDatabaseDAO($username);
 $ok = $databaseDAO->optimize();
 
 done($ok);

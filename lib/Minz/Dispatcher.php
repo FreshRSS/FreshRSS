@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -9,7 +12,7 @@
  * déterminée dans la Request
  * C'est un singleton
  */
-class Minz_Dispatcher {
+class Dispatcher {
 
 	/* singleton */
 	private static $instance = null;
@@ -23,7 +26,7 @@ class Minz_Dispatcher {
 	 */
 	public static function getInstance () {
 		if (self::$instance === null) {
-			self::$instance = new Minz_Dispatcher ();
+			self::$instance = new Dispatcher ();
 		}
 		return self::$instance;
 	}
@@ -31,19 +34,19 @@ class Minz_Dispatcher {
 	/**
 	 * Lance le controller indiqué dans Request
 	 * Remplit le body de Response à partir de la Vue
-	 * @exception Minz_Exception
+	 * @exception Exception
 	 */
 	public function run () {
 		do {
 			self::$needsReset = false;
 
 			try {
-				$this->createController (Minz_Request::controllerName ());
+				$this->createController (Request::controllerName ());
 				$this->controller->init ();
 				$this->controller->firstAction ();
 				if (!self::$needsReset) {
 					$this->launchAction (
-						Minz_Request::actionName ()
+						Request::actionName ()
 						. 'Action'
 					);
 				}
@@ -52,7 +55,7 @@ class Minz_Dispatcher {
 				if (!self::$needsReset) {
 					$this->controller->view ()->build ();
 				}
-			} catch (Minz_Exception $e) {
+			} catch (Exception $e) {
 				throw $e;
 			}
 		} while (self::$needsReset);
@@ -77,21 +80,21 @@ class Minz_Dispatcher {
 			self::loadController($base_name);
 			$controller_name = 'FreshExtension_' . $base_name . '_Controller';
 		} else {
-			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
+			$controller_name = '' . $base_name . '_Controller';
 		}
 
 		if (!class_exists ($controller_name)) {
-			throw new Minz_ControllerNotExistException (
+			throw new ControllerNotExistException (
 				$controller_name,
-				Minz_Exception::ERROR
+				Exception::ERROR
 			);
 		}
 		$this->controller = new $controller_name ();
 
-		if (! ($this->controller instanceof Minz_ActionController)) {
-			throw new Minz_ControllerNotActionControllerException (
+		if (! ($this->controller instanceof ActionController)) {
+			throw new ControllerNotActionControllerException (
 				$controller_name,
-				Minz_Exception::ERROR
+				Exception::ERROR
 			);
 		}
 	}
@@ -107,10 +110,10 @@ class Minz_Dispatcher {
 			$this->controller,
 			$action_name
 		))) {
-			throw new Minz_ActionException (
+			throw new ActionException (
 				get_class ($this->controller),
 				$action_name,
-				Minz_Exception::ERROR
+				Exception::ERROR
 			);
 		}
 		call_user_func (array (

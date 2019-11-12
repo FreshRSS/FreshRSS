@@ -12,7 +12,7 @@ define('PUBLIC_TO_INDEX_PATH', '/i');
 define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 define('PUBLIC_RELATIVE', '..');
 define('LIB_PATH', FRESHRSS_PATH . '/lib');
-define('APP_PATH', FRESHRSS_PATH . '/app');
+define('APP_PATH', FRESHRSS_PATH . '/App');
 define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extensions');
 //</Not customisable>
 

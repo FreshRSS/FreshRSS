@@ -1,9 +1,9 @@
 <?php
 
-class FreshRSS_CategoryTest extends PHPUnit\Framework\TestCase {
+class CategoryTest extends PHPUnit\Framework\TestCase {
 
 	public function test__construct_whenNoParameters_createsObjectWithDefaultValues() {
-		$category = new FreshRSS_Category();
+		$category = new Category();
 		$this->assertEquals(0, $category->id());
 		$this->assertEquals('', $category->name());
 	}
@@ -14,7 +14,7 @@ class FreshRSS_CategoryTest extends PHPUnit\Framework\TestCase {
 	 * @dataProvider provideValidNames
 	 */
 	public function test_name_whenValidValue_storesModifiedValue($input, $expected) {
-		$category = new FreshRSS_Category($input);
+		$category = new Category($input);
 		$this->assertEquals($expected, $category->name());
 	}
 

@@ -22,7 +22,7 @@ if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 
 echo 'FreshRSS exporting database to SQLite for user “', $username, "”…\n";
 
-$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-$ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_EXPORT);
+$databaseDAO = Factory::createDatabaseDAO($username);
+$ok = $databaseDAO->dbCopy($filename, DatabaseDAO::SQLITE_EXPORT);
 
 done($ok);

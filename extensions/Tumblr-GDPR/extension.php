@@ -1,6 +1,8 @@
 <?php
 
-class TumblrGdprExtension extends Minz_Extension {
+use Minz\Extension;
+
+class TumblrGdprExtension extends Extension {
 	public function init() {
 		$this->registerHook('simplepie_before_init', array('TumblrGdprExtension', 'curlHook'));
 	}

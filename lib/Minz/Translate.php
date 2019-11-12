@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -8,7 +11,7 @@
  * This class is used for the internationalization.
  * It uses files in `./app/i18n/`
  */
-class Minz_Translate {
+class Translate {
 	/**
 	 * $path_list is the list of registered base path to search translations.
 	 */
@@ -126,7 +129,7 @@ class Minz_Translate {
 	private static function loadKey($key) {
 		// The top level key is not in $lang_files, it means it does not exist!
 		if (!isset(self::$lang_files[$key])) {
-			Minz_Log::debug($key . ' is not a valid top level key');
+			Log::debug($key . ' is not a valid top level key');
 			return false;
 		}
 
@@ -135,7 +138,7 @@ class Minz_Translate {
 		foreach (self::$lang_files[$key] as $lang_pathname) {
 			$i18n_array = include($lang_pathname);
 			if (!is_array($i18n_array)) {
-				Minz_Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
+				Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
 				continue;
 			}
 
@@ -160,7 +163,7 @@ class Minz_Translate {
 		$group = explode('.', $key);
 
 		if (count($group) < 2) {
-			Minz_Log::debug($key . ' is not in a valid format');
+			Log::debug($key . ' is not in a valid format');
 			$top_level = 'gen';
 		} else {
 			$top_level = array_shift($group);
@@ -184,7 +187,7 @@ class Minz_Translate {
 		foreach ($group as $i18n_level) {
 			$level_processed++;
 			if (!isset($translates[$i18n_level])) {
-				Minz_Log::debug($key . ' is not a valid key');
+				Log::debug($key . ' is not a valid key');
 				return $key;
 			}
 
@@ -199,7 +202,7 @@ class Minz_Translate {
 			if (isset($translation_value['_'])) {
 				$translation_value = $translation_value['_'];
 			} else {
-				Minz_Log::debug($key . ' is not a valid key');
+				Log::debug($key . ' is not a valid key');
 				return $key;
 			}
 		}
@@ -221,12 +224,12 @@ class Minz_Translate {
 
 
 /**
- * Alias for Minz_Translate::t()
+ * Alias for Translate::t()
  */
 function _t($key) {
 	$args = func_get_args();
 	unset($args[0]);
 	array_unshift($args, $key);
 
-	return call_user_func_array('Minz_Translate::t', $args);
+	return call_user_func_array('Translate::t', $args);
 }

@@ -1,5 +1,8 @@
 <?php
-class Minz_FileNotExistException extends Minz_Exception {
+
+namespace Minz;
+
+class FileNotExistException extends Exception {
 	public function __construct ($file_name, $code = self::ERROR) {
 		$message = 'File not found: `' . $file_name.'`';
 

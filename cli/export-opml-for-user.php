@@ -16,7 +16,7 @@ $username = cliInitUser($options['user']);
 
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
-$importController = new FreshRSS_importExport_Controller();
+$importController = new importExport_Controller();
 
 $ok = false;
 $ok = $importController->exportFile(true, false, false, array(), 0, $username);

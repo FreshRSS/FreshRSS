@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe Paginator permet de gérer la pagination de l'application facilement
  */
-class Minz_Paginator {
+class Paginator {
 	/**
 	 * $items tableau des éléments à afficher/gérer
 	 */

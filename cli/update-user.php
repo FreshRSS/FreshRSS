@@ -7,7 +7,7 @@ $username = cliInitUser($options['user']);
 
 echo 'FreshRSS updating user “', $username, "”…\n";
 
-$ok = FreshRSS_user_Controller::updateUser(
+$ok = user_Controller::updateUser(
 	$username,
 	empty($options['mail_login']) ? null : $options['mail_login'],
 	empty($options['password']) ? '' : $options['password'],

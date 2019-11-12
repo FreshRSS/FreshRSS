@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe Log permet de logger des erreurs
  */
-class Minz_Log {
+class Log {
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
@@ -17,13 +20,13 @@ class Minz_Log {
 	 * @param $information message d'erreur / information à enregistrer
 	 * @param $level niveau d'erreur https://php.net/function.syslog
 	 * @param $file_name fichier de log
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
 		try {
-			$conf = Minz_Configuration::get('system');
+			$conf = Configuration::get('system');
 			$env = $conf->environment;
-		} catch (Minz_ConfigurationException $e) {
+		} catch (ConfigurationException $e) {
 			$env = 'production';
 		}
 
@@ -31,7 +34,7 @@ class Minz_Log {
 		       || ($env === 'production'
 		       && ($level >= LOG_NOTICE)))) {
 			if ($file_name === null) {
-				$username = Minz_Session::param('currentUser', '');
+				$username = Session::param('currentUser', '');
 				if ($username == '') {
 					$username = '_';
 				}
@@ -66,7 +69,7 @@ class Minz_Log {
 			self::ensureMaxLogSize($file_name);
 
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
-				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+				throw new PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 		}
 	}
@@ -78,7 +81,7 @@ class Minz_Log {
 	 * you call clearstatcache() in between. We won't due do that for performance reasons.
 	 *
 	 * @param $file_name
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize($file_name) {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
@@ -94,7 +97,7 @@ class Minz_Log {
 				fflush($fp);
 				flock($fp, LOCK_UN);
 			} else {
-				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+				throw new PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 			if ($fp) {
 				fclose($fp);
@@ -117,7 +120,7 @@ class Minz_Log {
 	}
 
 	/**
-	 * Some helpers to Minz_Log::record() method
+	 * Some helpers to Log::record() method
 	 * Parameters are the same of those of the record() method.
 	 */
 	public static function debug($msg, $file_name = null) {
