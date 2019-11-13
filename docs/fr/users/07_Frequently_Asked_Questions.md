@@ -28,11 +28,13 @@ partie publique (le répertoire ```./p```) et une partie privée (tout le
 reste !). Le ```robots.txt``` se trouve donc dans le sous-répertoire
 ```./p```.
 
-<<<<<<< HEAD
-As explained in the [security section](/en/User_documentation/Installation/Security), it's highly recommended to make only the public section available at the domain level. With that configuration, `./p` is the root folder for http://demo.freshrss.org/, thus making `robots.txt` available at the root of the application.
-=======
-As explained in the [security section](/en/User_documentation/Installation/Security), it is highly recommended to make only the public section available at the domain level. With that configuration, ```./p``` is the root folder for https://demo.freshrss.org/, thus making ```robots.txt``` available at the root of the application.
->>>>>>> 8bdf7b09f208346481cba5e08edc55dfab8c8d63
+Comme expliqué dans les [conseils de
+sécurité](01_Installation.md#conseils-de-securite), il est recommandé de
+faire pointer un nom de domaine vers ce sous-répertoire afin que seule la
+partie publique ne soit accessible par un navigateur web. De cette manière
+https://demo.freshrss.org/ pointe vers le répertoire ```./p``` et le
+```robots.txt``` se trouve bien à la racine du site :
+https://demo.freshrss.org/robots.txt.
 
 L'explication est la même pour les fichiers ```favicon.ico``` et
 ```.htaccess```.
@@ -45,17 +47,18 @@ l'hébergement peut avoir des problèmes, FreshRSS peut être boggué. Il faut
 dans un premier temps déterminer la cause du problème.Voici la liste des
 étapes à suivre pour la déterminer :
 
-1. __Verify if the feed syntax is valid__ with the [W3C on-line
-   tool](https://validator.w3.org/feed/ "RSS and Atom feed validator"). If
-   it's not valid, there's nothing we can do.
-1. __Verify SimplePie validation__ with the [SimplePie on-line
-   tool](https://simplepie.org/demo/ "SimplePie official demo"). If it's not
-   recognized, there's nothing we can do.
-1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org
-   "FreshRSS official demo"). If it's not working, you need to [create an
-   issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create
-   an issue for FreshRSS") so we can have a look at it. If it's working,
-   there's probably something fishy with the hosting server.
+1. __Vérifier la validité du flux__ grâce à l'[outil en ligne du
+   W3C](https://validator.w3.org/feed/ "Validateur en ligne de flux RSS et
+   Atom"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
+1. __Vérifier la reconnaissance par SimplePie__ grâce à l'[outil en ligne de
+   SimplePie](https://simplepie.org/demo/ "Démo officielle de
+   SimplePie"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
+1. __Vérifier l'intégration dans FreshRSS__ grâce à la
+   [démo](https://demo.freshrss.org "Démo officielle de FreshRSS"). Si ça ne
+   fonctionne pas, il faut [créer un ticket sur
+   Github](https://github.com/FreshRSS/FreshRSS/issues/new "Créer un ticket
+   pour FreshRSS") pour que l'on puisse regarder ce qui se passe. Si ça
+   fonctionne, il y a probablement un problème avec l'hébergement.
 
 ## Comment changer un mot de passe oublié ?
 

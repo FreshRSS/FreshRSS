@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-13 20:54+0100\n"
+"POT-Creation-Date: 2019-11-13 20:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4389,7 +4389,7 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./users/06_Fever_API.md:69 en/./users/06_Fever_API.md:75 en/./users/06_Mobile_access.md:69 en/./users/07_Frequently_Asked_Questions.md:41 en/./users/07_Frequently_Asked_Questions.md:49
+#: en/./users/06_Fever_API.md:69 en/./users/06_Fever_API.md:75 en/./users/06_Mobile_access.md:69 en/./users/07_Frequently_Asked_Questions.md:37 en/./users/07_Frequently_Asked_Questions.md:45
 #, no-wrap
 msgid "sh"
 msgstr ""
@@ -4802,45 +4802,29 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:18
-#, no-wrap
+#: en/./users/07_Frequently_Asked_Questions.md:17
 msgid ""
-"<<<<<<< HEAD\n"
 "As explained in the [security "
 "section](/en/User_documentation/Installation/Security), it's highly "
 "recommended to make only the public section available at the domain "
 "level. With that configuration, `./p` is the root folder for "
 "http://demo.freshrss.org/, thus making `robots.txt` available at the root of "
-"the application.\n"
-"=======\n"
+"the application."
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:21
-#, no-wrap
-msgid ""
-"As explained in the [security "
-"section](/en/User_documentation/Installation/Security), it is highly "
-"recommended to make only the public section available at the domain "
-"level. With that configuration, ```./p``` is the root folder for "
-"https://demo.freshrss.org/, thus making ```robots.txt``` available at the "
-"root of the application.\n"
-">>>>>>> 8bdf7b09f208346481cba5e08edc55dfab8c8d63\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:23
+#: en/./users/07_Frequently_Asked_Questions.md:19
 msgid "The same principle applies to `favicon.ico` and `.htaccess`."
 msgstr ""
 
 #. type: Title ##
-#: en/./users/07_Frequently_Asked_Questions.md:24
+#: en/./users/07_Frequently_Asked_Questions.md:20
 #, no-wrap
 msgid "Why do I have errors while registering a feed?"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:30
+#: en/./users/07_Frequently_Asked_Questions.md:26
 msgid ""
 "There can be different origins for that problem.  The feed syntax can be "
 "invalid, it can be unrecognized by the SimplePie library, the hosting server "
@@ -4849,7 +4833,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '1. '
-#: en/./users/07_Frequently_Asked_Questions.md:34
+#: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify if the feed syntax is valid__ with the [W3C on-line "
 "tool](https://validator.w3.org/feed/ \"RSS and Atom feed validator\"). If "
@@ -4857,7 +4841,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '1. '
-#: en/./users/07_Frequently_Asked_Questions.md:34
+#: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify SimplePie validation__ with the [SimplePie on-line "
 "tool](https://simplepie.org/demo/ \"SimplePie official demo\"). If it's not "
@@ -4865,7 +4849,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '1. '
-#: en/./users/07_Frequently_Asked_Questions.md:34
+#: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "
 "\"FreshRSS official demo\"). If it's not working, you need to [create an "
@@ -4875,13 +4859,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: en/./users/07_Frequently_Asked_Questions.md:35
+#: en/./users/07_Frequently_Asked_Questions.md:31
 #, no-wrap
 msgid "How can you change a forgotten password?"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:39
+#: en/./users/07_Frequently_Asked_Questions.md:35
 msgid ""
 "Since the [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0) "
 "release, admins can change user passwords directly from the interface. This "
@@ -4890,7 +4874,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:41
+#: en/./users/07_Frequently_Asked_Questions.md:37
 msgid ""
 "Since the [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) "
 "release, admins can change user passwords using a terminal. It worth "
@@ -4899,26 +4883,26 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:41
+#: en/./users/07_Frequently_Asked_Questions.md:37
 #, no-wrap
 msgid "./cli/update_user.php --user <username> --password <password>\n"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:45
+#: en/./users/07_Frequently_Asked_Questions.md:41
 msgid ""
 "For more information on that matter, please refer to the [dedicated "
 "documentation](../../cli/README.md)."
 msgstr ""
 
 #. type: Title ##
-#: en/./users/07_Frequently_Asked_Questions.md:46
+#: en/./users/07_Frequently_Asked_Questions.md:42
 #, no-wrap
 msgid "Permissions under SELinux"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:49
+#: en/./users/07_Frequently_Asked_Questions.md:45
 msgid ""
 "Some Linux distribution, like Fedora or RedHat Enterprise Linux, have "
 "SELinux enabled. This acts similar to a firewall application, so that "
@@ -4929,7 +4913,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:49
+#: en/./users/07_Frequently_Asked_Questions.md:45
 #, no-wrap
 msgid ""
 "semanage fcontext -a -t httpd_sys_rw_content_t "
@@ -4938,13 +4922,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: en/./users/07_Frequently_Asked_Questions.md:54
+#: en/./users/07_Frequently_Asked_Questions.md:50
 #, no-wrap
 msgid "Why do I have a blank page while trying to configure the sharing options?"
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:57
+#: en/./users/07_Frequently_Asked_Questions.md:53
 msgid ""
 "The `sharing` word in the URL is a trigger word for some ad-blocker "
 "rules. Starting with version 1.16, `sharing` has been replaced by "
@@ -4953,7 +4937,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:59
+#: en/./users/07_Frequently_Asked_Questions.md:55
 msgid ""
 "If you are using a version prior to 1.16, you can disable your ad-blocker "
 "for FreshRSS or you can add a rule to allow the `sharing` page to be "
@@ -4961,19 +4945,19 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./users/07_Frequently_Asked_Questions.md:61
+#: en/./users/07_Frequently_Asked_Questions.md:57
 msgid "Examples with _uBlock_:"
 msgstr ""
 
 #. type: Bullet: '- '
-#: en/./users/07_Frequently_Asked_Questions.md:63
+#: en/./users/07_Frequently_Asked_Questions.md:59
 msgid ""
 "Whitelist your FreshRSS instance by adding it in _uBlock > Open the "
 "dashboard > Whitelist_."
 msgstr ""
 
 #. type: Bullet: '- '
-#: en/./users/07_Frequently_Asked_Questions.md:63
+#: en/./users/07_Frequently_Asked_Questions.md:59
 msgid ""
 "Authorize your FreshRSS instance to call `sharing` configuration page by "
 "adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the "
