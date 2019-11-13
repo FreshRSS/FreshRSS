@@ -106,19 +106,19 @@ restorecon -Rv /usr/share/FreshRSS/data
 
 ## Pourquoi y a-t-il une page blanche lorsque je configure les options de partage ?
 
-Le mot `sharing` dans l'URL est un mot déclencheur pour certaines règles
-ad-blocker. A partir de la version 1.16, `sharing' a été remplacé par
-`integration' dans l'URL défectueuse tout en conservant exactement le même
-libellé tout au long de l'URL d'application.
+Le mot `sharing` dans l'URL est un mot déclencheur pour certaines règles des
+bloqueurs de publicités. À partir de la version 1.16, `sharing` a été
+remplacé par `integration` dans l'URL posant problème tout en conservant
+exactement la même dénomination à travers l'application.
 
 Si vous utilisez une version antérieure à 1.16, vous pouvez désactiver votre
-adblocker pour FreshRSS ou vous pouvez ajouter une règle pour permettre la
-page « partage » d'être consulté.
+bloqueur de publicité pour FreshRSS ou vous pouvez ajouter une règle pour
+permettre la consultation de la page de configuration « partage ».
 
 Exemples avec _uBlock_ :
 
-- Liste blanche de votre instance FreshRSS en l'ajoutant dans _uBlock >
-  Ouvrir le tableau de bord > Liste blanche_.
+- Ajoutez votre instance FreshRSS à la liste blanche de en l'ajoutant dans
+  _uBlock > Ouvrir le tableau de bord > Liste blanche_.
 - Autorisez votre instance FreshRSS à appeler la page de configuration
-  `sharing` par ajouter la règle `*sharing,domain=~votredomaine.com` dans
+  `sharing` en ajoutant la règle `*sharing,domain=~votredomaine.com` dans
   _uBlock > Ouvrir le fichier tableau de bord > Mes filtres_
