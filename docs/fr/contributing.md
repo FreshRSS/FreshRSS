@@ -1,75 +1,82 @@
 ## Rejoignez-nous sur les listes de mailing
 
-Do you want to ask us some questions? Do you want to discuss with us? Don't
-hesitate to subscribe to our mailing lists!
+S'il vous manque des informations, n'hésitez pas à fouiller un peu la
+documentation ou venir nous poser directement vos questions sur [la mailing
+list des développeurs](https://freshrss.org/mailman/listinfo/dev).
 
-- The first mailing is destined to generic information, it should be adapted
-to users. [Join
-mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).  - The
-second mailing is mainly for developers. [Join
-dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
+* Le premier mailing est destiné à l'information générique, il doit être
+  adapté aux utilisateurs. [Rejoignez
+  mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
+* Le deuxième mailing s'adresse principalement aux développeurs. [Rejoignez
+  dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
 
 ## Signaler un bug
 
-Have you found a bug? Don't panic, here are some steps to report it with
-ease:
+Avez-vous trouvé un bogue ? Ne paniquez pas, voici quelques étapes pour le
+signaler facilement :
 
-1. Search for it on [the bug
-   tracker](https://github.com/FreshRSS/FreshRSS/issues) (don't forget to
-   use the search bar).
-2. If you find a similar bug, don't hesitate to post a comment to add more
-   importance to the related ticket.
-3. If you didn't find it, [open a new
+1. Cherche sur [le bug tracker](https://github.com/FreshRSS/FreshRSS/issues)
+   (n'oubliez pas d'utiliser la barre de recherche).
+2. Si vous constatez un bogue similaire, n'hésitez pas à poster un
+   commentaire pour ajouter de l'importance au ticket correspondant.
+3. Si vous ne l'avez pas trouvé, [ouvrez un nouveau
    ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
-If you have to create a new ticket, please try to keep in mind the following
-advice:
+Si vous devez créer un nouveau ticket, essayez de garder les conseils
+suivants :
 
-* Give an explicit title to the ticket so it will be easier to find it
-  later.
-* Be as exhaustive as possible in the description: what did you do? What is
-  the bug? What are the steps to reproduce the bug?
-* We also need some information:
-    * Your FreshRSS version (on about page or `constants.php` file)
-    * Your server configuration: type of hosting, PHP version
-    * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
-    * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
+* Donnez un titre explicite au ticket pour le retrouver plus facilement plus
+  tard.
+* Soyez aussi exhaustif que possible dans la description : qu'avez-vous fait
+  ? Quel est le bogue ? Quelles sont les étapes pour reproduire le bogue ?
+
+Nous avons aussi besoin de quelques informations :
+
+* Votre version de FreshRSS (sur la page A propos) ou le fichier
+  `constants.php`)
+* Votre configuration de serveur : type d'hébergement, version PHP
+* Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle
+  version ?
+* Si possible, les logs associés (logs PHP et logs FreshRSS sous
+  `data/users/your_user/log.txt`)
 
 ## Corriger un bogue
 
 Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre
 les collaborateurs, vous devrez suivre ces indications :
 
-1. Be sure the bug is associated to a ticket and say you work on it.
-2. [Fork this project
-   repository](https://help.github.com/articles/fork-a-repo/).
-3. [Create a new
-   branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
-   The name of the branch must be explicit and being prefixed by the related
-   ticket id. For instance, `783-contributing-file` to fix [ticket
+1. Assurez-vous que le bogue est associé à un ticket et indiquez que vous
+   allez travailler sur le bogue.
+2. [Fork du répertoire de
+   projet](https://help.github.com/articles/fork-a-repo/).
+3. [Créez une nouvelle
+   branche](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
+   Le nom de la branche doit être clair, et idéalement préfixé par
+   l'identifiant du ticket correspondant. Par exemple,
+   `783-contributing-file` pour réparer [ticket
    #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull
-   request](https://help.github.com/articles/using-pull-requests/) on the
-   **dev branch**.
+4. Apportez vos modifications à votre fork et [envoyez une demande de
+   pull](https://help.github.com/articles/using-pull-requests/) sur la
+   branche **dev**.
 
-If you have to write code, please follow [our coding style
-recommendations](developers/01_First_steps.md).
+Si vous devez écrire du code, veuillez suivre [nos recommandations de style
+de codage](developers/01_First_steps.md).
 
 **Conseil : **si vous cherchez des bugs faciles à corriger, jetez un coup d'oeil à la vignette "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)".
 
-## Submit an idea
+## Soumettre une idée
 
-You have great ideas, yes! Don't be shy and open [a new
-ticket](https://github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker
-to ask if we can implement it. The greatest ideas often come from the shyest
-suggestions!
+Vous avez de bonnes idées, oui ! Ne soyez pas timide et ouvrez [un nouveau
+ticket](https://github.com/FreshRSS/FreshRSS/issues/new) sur notre tracker
+bogue pour nous demander si nous pouvons le mettre en œuvre. Les plus
+grandes idées viennent souvent des suggestions les plus timides !
 
-If your idea is nice, we'll have a look at it.
+Si votre idée est bonne, nous y jetterons un coup d'oeil.
 
-## Contribute to internationalization (i18n)
+## Contribuer à l'internationalisation (i18n)
 
-If you want to improve internationalization, please open a new ticket first
-and follow indications from « Fix a bug » section.
+Si vous voulez améliorer l'internationalisation, ouvrez d'abord un nouveau
+ticket et suivez les conseils de la section *Fixer un bogue*.
 
 Les traductions sont disponibles dans les sous-répertoires de `./app/i18n/`.
 

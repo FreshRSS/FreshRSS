@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-12 22:01+0100\n"
-"PO-Revision-Date: 2019-11-13 13:02+0100\n"
+"POT-Creation-Date: 2019-11-13 20:46+0100\n"
+"PO-Revision-Date: 2019-11-13 20:51+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -31,15 +31,29 @@ msgid ""
 "Do you want to ask us some questions? Do you want to discuss with us? Don't "
 "hesitate to subscribe to our mailing lists!"
 msgstr ""
+"S'il vous manque des informations, n'hésitez pas à fouiller un peu la "
+"documentation ou venir nous poser directement vos questions sur [la mailing "
+"list des développeurs](https://freshrss.org/mailman/listinfo/dev)."
 
-#. type: Plain text
+#. type: Bullet: '* '
 #: en/./contributing.md:7
 msgid ""
-"- The first mailing is destined to generic information, it should be adapted "
+"The first mailing is destined to generic information, it should be adapted "
 "to users. [Join mailing@freshrss.org](https://freshrss.org/mailman/listinfo/"
-"mailing).  - The second mailing is mainly for developers. [Join dev@freshrss."
-"org](https://freshrss.org/mailman/listinfo/dev)"
+"mailing)."
 msgstr ""
+"Le premier mailing est destiné à l'information générique, il doit être "
+"adapté aux utilisateurs. [Rejoignez mailing@freshrss.org](https://freshrss."
+"org/mailman/listinfo/mailing)."
+
+#. type: Bullet: '* '
+#: en/./contributing.md:7
+msgid ""
+"The second mailing is mainly for developers. [Join dev@freshrss.org](https://"
+"freshrss.org/mailman/listinfo/dev)"
+msgstr ""
+"Le deuxième mailing s'adresse principalement aux développeurs. [Rejoignez "
+"dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)"
 
 #. type: Title ##
 #: en/./contributing.md:8
@@ -53,6 +67,8 @@ msgid ""
 "Have you found a bug? Don't panic, here are some steps to report it with "
 "ease:"
 msgstr ""
+"Avez-vous trouvé un bogue ? Ne paniquez pas, voici quelques étapes pour le "
+"signaler facilement :"
 
 #. type: Bullet: '1. '
 #: en/./contributing.md:15
@@ -60,6 +76,8 @@ msgid ""
 "Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/"
 "issues) (don't forget to use the search bar)."
 msgstr ""
+"Cherche sur [le bug tracker](https://github.com/FreshRSS/FreshRSS/issues) "
+"(n'oubliez pas d'utiliser la barre de recherche)."
 
 #. type: Bullet: '2. '
 #: en/./contributing.md:15
@@ -67,6 +85,8 @@ msgid ""
 "If you find a similar bug, don't hesitate to post a comment to add more "
 "importance to the related ticket."
 msgstr ""
+"Si vous constatez un bogue similaire, n'hésitez pas à poster un commentaire "
+"pour ajouter de l'importance au ticket correspondant."
 
 #. type: Bullet: '3. '
 #: en/./contributing.md:15
@@ -74,6 +94,8 @@ msgid ""
 "If you didn't find it, [open a new ticket](https://github.com/FreshRSS/"
 "FreshRSS/issues/new)."
 msgstr ""
+"Si vous ne l'avez pas trouvé, [ouvrez un nouveau ticket](https://github.com/"
+"FreshRSS/FreshRSS/issues/new)."
 
 #. type: Plain text
 #: en/./contributing.md:17
@@ -81,84 +103,128 @@ msgid ""
 "If you have to create a new ticket, please try to keep in mind the following "
 "advice:"
 msgstr ""
+"Si vous devez créer un nouveau ticket, essayez de garder les conseils "
+"suivants :"
 
 #. type: Bullet: '* '
-#: en/./contributing.md:25
+#: en/./contributing.md:20
 msgid ""
 "Give an explicit title to the ticket so it will be easier to find it later."
 msgstr ""
+"Donnez un titre explicite au ticket pour le retrouver plus facilement plus "
+"tard."
 
 #. type: Bullet: '* '
-#: en/./contributing.md:25
+#: en/./contributing.md:20
 msgid ""
 "Be as exhaustive as possible in the description: what did you do? What is "
 "the bug? What are the steps to reproduce the bug?"
 msgstr ""
+"Soyez aussi exhaustif que possible dans la description : qu'avez-vous fait ? "
+"Quel est le bogue ? Quelles sont les étapes pour reproduire le bogue ?"
 
 #. type: Plain text
-#: en/./contributing.md:25
-#, no-wrap
+#: en/./contributing.md:22
+msgid "We also need some information:"
+msgstr "Nous avons aussi besoin de quelques informations :"
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
 msgid ""
-"* We also need some information:\n"
-"    * Your FreshRSS version (on about page or `constants.php` file)\n"
-"    * Your server configuration: type of hosting, PHP version\n"
-"    * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)\n"
-"    * If possible, the related logs (PHP logs and FreshRSS logs under"
-" `data/users/your_user/log.txt`)\n"
+"Your FreshRSS version (on the about page or in the `constants.php` file)"
 msgstr ""
+"Votre version de FreshRSS (sur la page A propos) ou le fichier `constants."
+"php`)"
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid "Your server configuration: the type of hosting and the PHP version"
+msgstr "Votre configuration de serveur : type d'hébergement, version PHP"
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid "Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)"
+msgstr ""
+"Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle "
+"version ?"
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid ""
+"If possible, the related logs (PHP logs and FreshRSS logs under `data/users/"
+"your_user/log.txt`)"
+msgstr ""
+"Si possible, les logs associés (logs PHP et logs FreshRSS sous `data/users/"
+"your_user/log.txt`)"
 
 #. type: Title ##
-#: en/./contributing.md:26
+#: en/./contributing.md:28
 #, no-wrap
 msgid "Fix a bug"
 msgstr "Corriger un bogue"
 
 #. type: Plain text
-#: en/./contributing.md:29
+#: en/./contributing.md:31
 msgid ""
-"Did you want to fix a bug? To keep a great coordination between "
-"collaborators, you will have to follow these indications:"
+"Would you like to fix a bug? For optimum coordination between collaborators, "
+"you should follow these indications:"
 msgstr ""
 "Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre "
 "les collaborateurs, vous devrez suivre ces indications :"
 
 #. type: Bullet: '1. '
-#: en/./contributing.md:34
-msgid "Be sure the bug is associated to a ticket and say you work on it."
+#: en/./contributing.md:36
+msgid ""
+"Be sure the bug is associated with a ticket and indicate that you'll work on "
+"it."
 msgstr ""
+"Assurez-vous que le bogue est associé à un ticket et indiquez que vous allez"
+" travailler sur le bogue."
 
 #. type: Bullet: '2. '
-#: en/./contributing.md:34
+#: en/./contributing.md:36
 msgid ""
-"[Fork this project repository](https://help.github.com/articles/fork-a-"
-"repo/)."
+"[Fork the project repository](https://help.github.com/articles/fork-a-repo/)."
 msgstr ""
+"[Fork du répertoire de projet](https://help.github.com/articles/fork-a-repo/)."
 
 #. type: Bullet: '3. '
-#: en/./contributing.md:34
+#: en/./contributing.md:36
 msgid ""
 "[Create a new branch](https://help.github.com/articles/creating-and-deleting-"
-"branches-within-your-repository/). The name of the branch must be explicit "
-"and being prefixed by the related ticket id. For instance, `783-contributing-"
-"file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783)."
+"branches-within-your-repository/). The name of the branch should be clear, "
+"and ideally prefixed by the related ticket id. For instance, `783-"
+"contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/"
+"issues/783)."
 msgstr ""
+"[Créez une nouvelle branche](https://help.github.com/articles/creating-and-del"
+"eting-branches-within-your-repository/). Le nom de la branche doit être"
+" clair, et idéalement préfixé par l'identifiant du ticket correspondant. Par"
+" exemple, `783-contributing-file` pour réparer [ticket"
+" #783](https://github.com/FreshRSS/FreshRSS/issues/783)."
 
 #. type: Bullet: '4. '
-#: en/./contributing.md:34
+#: en/./contributing.md:36
 msgid ""
 "Make your changes to your fork and [send a pull request](https://help.github."
 "com/articles/using-pull-requests/) on the **dev branch**."
 msgstr ""
+"Apportez vos modifications à votre fork et [envoyez une demande de"
+" pull](https://help.github.com/articles/using-pull-requests/) sur la branche"
+" **dev**."
 
 #. type: Plain text
-#: en/./contributing.md:36
+#: en/./contributing.md:38
 msgid ""
 "If you have to write code, please follow [our coding style recommendations]"
 "(developers/01_First_steps.md)."
 msgstr ""
+"Si vous devez écrire du code, veuillez suivre [nos recommandations de style"
+" de codage]"
+"(developers/01_First_steps.md)."
 
 #. type: Plain text
-#: en/./contributing.md:38
+#: en/./contributing.md:40
 #, no-wrap
 msgid ""
 "**Tip:** if you're searching for easy-to-fix bugs, please have a look at the"
@@ -170,45 +236,51 @@ msgstr ""
 "S/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\".\n"
 
 #. type: Title ##
-#: en/./contributing.md:39
+#: en/./contributing.md:41
 #, no-wrap
 msgid "Submit an idea"
-msgstr ""
+msgstr "Soumettre une idée"
 
 #. type: Plain text
-#: en/./contributing.md:42
+#: en/./contributing.md:44
 msgid ""
 "You have great ideas, yes! Don't be shy and open [a new ticket](https://"
 "github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker to ask if we can "
 "implement it. The greatest ideas often come from the shyest suggestions!"
 msgstr ""
+"Vous avez de bonnes idées, oui ! Ne soyez pas timide et ouvrez [un nouveau"
+" ticket](https://github.com/FreshRSS/FreshRSS/issues/new) sur notre tracker"
+" bogue pour nous demander si nous pouvons le mettre en œuvre. Les plus"
+" grandes idées viennent souvent des suggestions les plus timides !"
 
 #. type: Plain text
-#: en/./contributing.md:44
+#: en/./contributing.md:46
 msgid "If your idea is nice, we'll have a look at it."
-msgstr ""
+msgstr "Si votre idée est bonne, nous y jetterons un coup d'oeil."
 
 #. type: Title ##
-#: en/./contributing.md:45
+#: en/./contributing.md:47
 #, no-wrap
 msgid "Contribute to internationalization (i18n)"
-msgstr ""
-
-#. type: Plain text
-#: en/./contributing.md:48
-msgid ""
-"If you want to improve internationalization, please open a new ticket first "
-"and follow indications from « Fix a bug » section."
-msgstr ""
+msgstr "Contribuer à l'internationalisation (i18n)"
 
 #. type: Plain text
 #: en/./contributing.md:50
+msgid ""
+"If you want to improve internationalization, please open a new ticket first "
+"and follow the advice from the *Fix a bug* section."
+msgstr ""
+"Si vous voulez améliorer l'internationalisation, ouvrez d'abord un nouveau"
+" ticket et suivez les conseils de la section *Fixer un bogue*."
+
+#. type: Plain text
+#: en/./contributing.md:52
 msgid "Translations are present in the subdirectories of `./app/i18n/`."
 msgstr ""
 "Les traductions sont disponibles dans les sous-répertoires de `./app/i18n/`."
 
 #. type: Plain text
-#: en/./contributing.md:52
+#: en/./contributing.md:54
 msgid ""
 "We're working on a better way to handle internationalization, but don't "
 "hesitate to suggest any ideas!"
@@ -217,13 +289,13 @@ msgstr ""
 "mais n'hésitez pas à nous suggérer des idées !"
 
 #. type: Title ##
-#: en/./contributing.md:53
+#: en/./contributing.md:55
 #, no-wrap
 msgid "Contribute to documentation"
 msgstr "Contribuer à la documentation"
 
 #. type: Plain text
-#: en/./contributing.md:56
+#: en/./contributing.md:58
 msgid ""
 "The documentation needs a lot of improvements in order to be more useful to "
 "new contributors and we are working on it.  If you want to give some help, "
@@ -6028,10 +6100,10 @@ msgid ""
 "the faulty URL while keeping the exact same wording throughout the "
 "application."
 msgstr ""
-"Le mot `sharing` dans l'URL est un mot déclencheur pour certaines règles des"
-" bloqueurs de publicités. À partir de la version 1.16, `sharing` a été"
-" remplacé par `integration` dans l'URL posant problème tout en conservant"
-" exactement la même dénomination à travers l'application."
+"Le mot `sharing` dans l'URL est un mot déclencheur pour certaines règles des "
+"bloqueurs de publicités. À partir de la version 1.16, `sharing` a été "
+"remplacé par `integration` dans l'URL posant problème tout en conservant "
+"exactement la même dénomination à travers l'application."
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:61
@@ -6040,9 +6112,9 @@ msgid ""
 "for FreshRSS or you can add a rule to allow the `sharing` page to be "
 "accessed."
 msgstr ""
-"Si vous utilisez une version antérieure à 1.16, vous pouvez désactiver votre"
-" bloqueur de publicité pour FreshRSS ou vous pouvez ajouter une règle pour"
-" permettre la consultation de la page de configuration « partage »."
+"Si vous utilisez une version antérieure à 1.16, vous pouvez désactiver votre "
+"bloqueur de publicité pour FreshRSS ou vous pouvez ajouter une règle pour "
+"permettre la consultation de la page de configuration « partage »."
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:63
@@ -6055,8 +6127,8 @@ msgid ""
 "Whitelist your FreshRSS instance by adding it in _uBlock > Open the "
 "dashboard > Whitelist_."
 msgstr ""
-"Ajoutez votre instance FreshRSS à la liste blanche de en l'ajoutant dans"
-" _uBlock > Ouvrir le tableau de bord > Liste blanche_."
+"Ajoutez votre instance FreshRSS à la liste blanche de en l'ajoutant dans "
+"_uBlock > Ouvrir le tableau de bord > Liste blanche_."
 
 #. type: Bullet: '- '
 #: en/./users/07_Frequently_Asked_Questions.md:65
@@ -6065,9 +6137,9 @@ msgid ""
 "adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the "
 "dashboard > My filters_"
 msgstr ""
-"Autorisez votre instance FreshRSS à appeler la page de configuration"
-" `sharing` en ajoutant la règle `*sharing,domain=~votredomaine.com` dans"
-" _uBlock > Ouvrir le fichier tableau de bord > Mes filtres_"
+"Autorisez votre instance FreshRSS à appeler la page de configuration "
+"`sharing` en ajoutant la règle `*sharing,domain=~votredomaine.com` dans "
+"_uBlock > Ouvrir le fichier tableau de bord > Mes filtres_"
 
 #~ msgid "Problem to solve"
 #~ msgstr "Problème à résoudre"
