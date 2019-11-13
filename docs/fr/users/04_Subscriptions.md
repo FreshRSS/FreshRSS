@@ -1,10 +1,10 @@
 # Ajouter un flux
 
-**TODO**
+**À FAIRE**
 
 # Import et export
 
-**TODO**
+**À FAIRE**
 
 # Utiliser le « bookmarklet »
 
@@ -20,4 +20,4 @@ bookmark » ) pour s'abonner aux fils de nouvelles.
 
 # Organisation des flux
 
-**TODO**
+**À FAIRE**

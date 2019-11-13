@@ -1,15 +1,15 @@
 # Accès à la base de données
 
-**TODO**
+**À FAIRE**
 
 # Écrire une action et sa vue associée
 
-**TODO**
+**À FAIRE**
 
 # Gestion de l'authentification
 
-**TODO**
+**À FAIRE**
 
 # Gestion des logs
 
-**TODO**
+**À FAIRE**

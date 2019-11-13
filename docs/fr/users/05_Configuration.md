@@ -88,11 +88,11 @@ you browse with gestures, you can disable them from the interface.
 
 # Reading
 
-**TODO**
+**À FAIRE**
 
 # Archivage
 
-**TODO**
+**À FAIRE**
 
 # Partage
 
@@ -121,7 +121,7 @@ To remove an item from the list, follow those simple steps:
  1. Press the ```❌``` button next to the share method you want to remove.
  1. Submit your changes.
 
-# Shortcuts
+# Raccourcis
 
 To ease the use of the application, FreshRSS comes with a lot of predefined
 keyboard shortcuts.  They allow actions to improve the user experience with
@@ -161,7 +161,7 @@ At the moment, there is no helper to build a user query from here.
 
 # Users
 
-**TODO**
+**À FAIRE**
 
 ## Authentication methods
 
@@ -190,15 +190,15 @@ d'Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
 ## Informations
 
-**TODO**
+**À FAIRE**
 
 ## Archivage
 
-**TODO**
+**À FAIRE**
 
 ## Identification
 
-**TODO**
+**À FAIRE**
 
 ## Avancé
 

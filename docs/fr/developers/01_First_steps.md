@@ -77,7 +77,7 @@ specific architecture by adding `-alpine` or `-arm` at the end of the tag
 
 # Architecture du projet
 
-**TODO**
+**À FAIRE**
 
 # Extensions
 

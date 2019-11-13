@@ -1,15 +1,15 @@
 # Les fichiers .phtml
 
-**TODO**
+**À FAIRE**
 
 # Écrire une URL
 
-**TODO**
+**À FAIRE**
 
 # Afficher une icône
 
-**TODO**
+**À FAIRE**
 
 # Internationalisation
 
-**TODO**
+**À FAIRE**

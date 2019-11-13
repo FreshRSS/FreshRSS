@@ -495,7 +495,7 @@ In addition, you will have a number of methods directly inherited from
   <base_name>Controller.php` and the name of the
   `FreshExtension_<base_name>_Controller` class.
 
-**TODO**
+**À FAIRE**
 
 * `registerViews()`
 * `registerTranslates()`
@@ -555,4 +555,4 @@ The following events are available:
 When you want to support user configurations for your extension or simply
 display some information, you have to create the `configure.phtml` file.
 
-**TODO**
+**À FAIRE**

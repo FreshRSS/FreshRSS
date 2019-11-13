@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
 "POT-Creation-Date: 2019-11-12 22:01+0100\n"
-"PO-Revision-Date: 2019-11-13 12:50+0100\n"
+"PO-Revision-Date: 2019-11-13 13:02+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -303,7 +303,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:50
 #, no-wrap
 msgid "console"
-msgstr ""
+msgstr "console"
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:15
@@ -450,7 +450,7 @@ msgstr "Architecture du projet"
 #: en/./users/05_Configuration.md:161
 #, no-wrap
 msgid "**TODO**\n"
-msgstr ""
+msgstr "**À FAIRE**\n"
 
 #. type: Title #
 #: en/./developers/01_First_steps.md:62
@@ -3923,6 +3923,8 @@ msgid ""
 "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someon"
 "e&token=my-token'\n"
 msgstr ""
+"0 * * * * curl 'https://freshrss.exemple.net/i/?c=feed&a=actualize&user=quelqu"
+"un&token=mon-token'\n"
 
 #. type: Title ###
 #: en/./users/03_Main_view.md:89
@@ -3950,6 +3952,8 @@ msgid ""
 "0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a="
 "actualize'\n"
 msgstr ""
+"0 * * * * curl -u alice:motdepasse123 'https://freshrss.exemple.net/i/?c=feed&"
+"a=actualize'\n"
 
 #. type: Title ##
 #: en/./users/03_Main_view.md:97
@@ -4692,7 +4696,7 @@ msgstr ""
 #: en/./users/05_Configuration.md:96
 #, no-wrap
 msgid "Shortcuts"
-msgstr ""
+msgstr "Raccourcis"
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:100
@@ -5226,6 +5230,10 @@ msgid ""
 "\t\"auth\": 0\n"
 "}\n"
 msgstr ""
+"{\n"
+"\t\"api_version\": 3,\n"
+"\t\"auth\": 0\n"
+"}\n"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:65
@@ -5248,13 +5256,13 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:51
 #, no-wrap
 msgid "sh"
-msgstr ""
+msgstr "sh"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:69
 #, no-wrap
 msgid "api_key=`echo -n \"kevin:freshrss\" | md5sum | cut -d' ' -f1`\n"
-msgstr ""
+msgstr "api_key=`echo -n \"kevin:freshrss\" | md5sum | cut -d' ' -f1`\n"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:74
@@ -5270,6 +5278,8 @@ msgid ""
 "curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?ap"
 "i'\n"
 msgstr ""
+"curl -s -F \"api_key=$api_key\" 'https://freshrss.exemple.net/api/fever.php?ap"
+"i'\n"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:80
@@ -5286,6 +5296,11 @@ msgid ""
 "\t\"last_refreshed_on_time\": \"1520013061\"\n"
 "}\n"
 msgstr ""
+"{\n"
+"\t\"api_version\": 3,\n"
+"\t\"auth\": 1,\n"
+"\t\"last_refreshed_on_time\": \"1520013061\"\n"
+"}\n"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:88

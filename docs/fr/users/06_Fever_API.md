@@ -86,7 +86,7 @@ Add a body to your POST request encoded as `form-data` and one key named
 `api_key` with the value `your-password-hash`:
 
 ```sh
-curl -s -F "api_key=$api_key" 'https://freshrss.example.net/api/fever.php?api'
+curl -s -F "api_key=$api_key" 'https://freshrss.exemple.net/api/fever.php?api'
 ```
 
 This should give:

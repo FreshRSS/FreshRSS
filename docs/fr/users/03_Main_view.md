@@ -1,14 +1,14 @@
 # La vue normale
 
-**TODO**
+**À FAIRE**
 
 # La vue globale
 
-**TODO**
+**À FAIRE**
 
 # La vue lecture
 
-**TODO**
+**À FAIRE**
 
 # Rafraîchir les flux
 
@@ -105,7 +105,7 @@ You can also target a different user by adding their username to the query
 string, with `&user=insert-username`:
 
 ```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
+0 * * * * curl 'https://freshrss.exemple.net/i/?c=feed&a=actualize&user=quelquun&token=mon-token'
 ```
 
 ### Authentification HTTP
@@ -116,7 +116,7 @@ cron. **Notez que cette solution est grandement déconseillée puisqu’elle
 implique que vos identifiants seront visibles en clair !**
 
 ```cron
-0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:motdepasse123 'https://freshrss.exemple.net/i/?c=feed&a=actualize'
 ```
 
 ## Mise à jour manuelle
