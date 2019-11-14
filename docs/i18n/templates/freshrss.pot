@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-13 20:56+0100\n"
+"POT-Creation-Date: 2019-11-14 17:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2883,7 +2883,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/02_First_steps.md:6
 msgid ""
-"[After installing the application](../admins/02_Installation.md), the first "
+"[After installing the application](../admins/03_Installation.md), the first "
 "step is to add some feeds. You have a few options:"
 msgstr ""
 

@@ -6,7 +6,7 @@ Cette section se propose de vous aider dans la prise en main de l'outil. Il
 ne s'agit que de liens menant vers les autres pages de la documentation mais
 ordonnées dans un ordre spécifique aux nouveaux arrivants.
 
-[Après l'installation](../../en/admins/02_Installation.md), la première
+[Après l'installation](../../en/admins/03_Installation.md), la première
 chose à faire est d'ajouter un ou plusieurs sites à suivre. Pour cela
 plusieurs choix s'offrent à vous :
 
