@@ -4,6 +4,8 @@ ifndef TAG
 	TAG=dev-alpine
 endif
 
+PORT ?= 8080
+
 ifeq ($(findstring alpine,$(TAG)),alpine)
 	DOCKERFILE=Dockerfile-Alpine
 else ifeq ($(findstring arm,$(TAG)),arm)
@@ -24,7 +26,7 @@ start: ## Start the development environment (use Docker)
 	docker run \
 		--rm \
 		-v $(shell pwd):/var/www/FreshRSS:z \
-		-p 8080:80 \
+		-p $(PORT):80 \
 		-e FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		freshrss/freshrss:$(TAG)
