@@ -2,7 +2,7 @@ Learning how to handle a new application is not always easy. We've tried to make
 
 This section will guide you to the pages you need to get started. The order is tailored to newcomers.
 
-[After installing the application](../admins/02_Installation.md), the first step is to add some feeds. You have a few options:
+[After installing the application](../admins/03_Installation.md), the first step is to add some feeds. You have a few options:
 
 1. [Add a feed manually](04_Subscriptions.md#adding-a-feed)
 2. [Import an OPML or JSON file](04_Subscriptions.md#import-and-export)
