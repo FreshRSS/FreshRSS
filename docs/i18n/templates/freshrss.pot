@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-14 17:20+0100\n"
+"POT-Creation-Date: 2019-11-14 21:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4506,8 +4506,9 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:106
 msgid ""
-"If nothing helps and your clients still misbehaves, add these lines to the "
-"start of `fever.api`:"
+"If nothing helps and your client is still misbehaving, you can add the "
+"following lines to the beginning of the `fever.api` file to determine the "
+"cause of the problems:"
 msgstr ""
 
 #. type: Plain text

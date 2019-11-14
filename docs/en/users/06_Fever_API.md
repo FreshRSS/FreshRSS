@@ -102,7 +102,7 @@ Replace `some_id` with a real ID from your `freshrss_username_entry` database.
 
 ### Debugging
 
-If nothing helps and your clients still misbehaves, add these lines to the start of `fever.api`:
+If nothing helps and your client is still misbehaving, you can add the following lines to the beginning of the `fever.api` file to determine the cause of the problems:
 
 ```php
 file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);

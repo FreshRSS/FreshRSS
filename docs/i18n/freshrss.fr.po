@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-14 17:20+0100\n"
-"PO-Revision-Date: 2019-11-14 17:21+0100\n"
+"POT-Creation-Date: 2019-11-14 21:24+0100\n"
+"PO-Revision-Date: 2019-11-14 21:25+0100\n"
 "Last-Translator: Frans de Jonge <fransdejonge@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -5066,7 +5066,7 @@ msgid ""
 "for another possibility and general aspects of API access."
 msgstr ""
 "Voir la page [sur notre API compatible Google Reader](06_Mobile_access.md) "
-"pour une autre possibilitéet des généralités sur l’accès par API."
+"pour une autre possibilité et des généralités sur l’accès par API."
 
 #. type: Title ##
 #: en/./users/06_Fever_API.md:6
@@ -5083,7 +5083,7 @@ msgid ""
 "look.  But we can **only** do that for free clients."
 msgstr ""
 "De nombreux clients RSS prennent en charge l'API Fever, mais ils semblent "
-"comprendre l'API Fever un peu différemment.Si votre client préféré ne "
+"comprendre l'API Fever un peu différemment. Si votre client préféré ne "
 "fonctionne pas correctement avec cette API, veuillez créer un problème et "
 "nous y jetterons un oeil.Mais nous ne pouvons le faire que pour les clients "
 "gratuits."
@@ -5101,10 +5101,10 @@ msgid ""
 "access, which is [documented here](https://freshrss.github.io/FreshRSS/en/"
 "users/06_Mobile_access.html), and then reset the user’s API password."
 msgstr ""
-"Avant de pouvoir commencer à utiliser cette API, vous devez activer et "
-"configurer l'API accès, qui est [documenté ici](https://freshrss.github.io/"
-"FreshRSS/en/users/06_Mobile_access.html), et réinitialisez ensuite le mot de "
-"passe API de l'utilisateur."
+"Avant de pouvoir commencer à utiliser cette API, vvous devez activer et "
+"configurer l'accès à l'API, qui est [documenté ici](https://freshrss.github."
+"io/FreshRSS/en/users/06_Mobile_access.html), et réinitialisez ensuite le mot "
+"de passe API de l'utilisateur."
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:18
@@ -5112,8 +5112,8 @@ msgid ""
 "Then point your mobile application to the `fever.php` address (e.g. `https://"
 "freshrss.example.net/api/fever.php`)."
 msgstr ""
-"Dirigez ensuite votre application mobile vers l'adresse du fichier (e.g. "
-"`https://freshrss.example.net/api/fever.php`)."
+"Connectez ensuite votre application mobile en utilisant l'adresse de l'API "
+"(e.g. `https://freshrss.example.net/api/fever.php`)."
 
 #. type: Title #
 #: en/./users/06_Fever_API.md:19 en/./users/06_Mobile_access.md:44
@@ -5174,12 +5174,12 @@ msgstr "Les fonctionnalités suivantes sont implémentées :"
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "fetching categories"
-msgstr ""
+msgstr "récupération des catégories"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "fetching feeds"
-msgstr ""
+msgstr "récupération des flux"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
@@ -5187,36 +5187,38 @@ msgid ""
 "fetching RSS items (new, favorites, unread, by_id, by_feed, by_category, "
 "since)"
 msgstr ""
+"récupération des entrées (new, favorites, unread, by_id, by_feed, "
+"by_category,since)"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "fetching favicons"
-msgstr ""
+msgstr "récupération des favicons"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "setting read marker for item(s)"
-msgstr ""
+msgstr "marquage des entrées comme lues"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "setting starred marker for item(s)"
-msgstr ""
+msgstr "marquage des entrées comme favoris"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "setting read marker for feed"
-msgstr ""
+msgstr "marquage d'un flux comme lu"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "setting read marker for category"
-msgstr ""
+msgstr "marquage d'une catégorie comme lue"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:48
 msgid "supports FreshRSS extensions, which use the `entry_before_display` hook"
-msgstr ""
+msgstr "support des extensions grace au hook `entry_before_display`"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:50
@@ -5244,6 +5246,9 @@ msgid ""
 "If this API does not work as expected in your RSS reader, you can test it "
 "manually with a tool like [Postman](https://www.getpostman.com/)."
 msgstr ""
+"Si l'API ne fonctionne pas comme attendu dans votre lecteur, il est possible "
+"de la tester manuellement avec un outil tel que [Postman](https://www."
+"getpostman.com/)."
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:58
@@ -5251,6 +5256,8 @@ msgid ""
 "Configure a POST request to the URL https://freshrss.example.net/api/fever."
 "php?api which should give you the result:"
 msgstr ""
+"Envoyer une requête POST à l'adresse https://freshrss.example.net/api/fever."
+"php?api devrait vous renvoyer le résultat suivant :"
 
 #. type: Code fence info string
 #: en/./users/06_Fever_API.md:58 en/./users/06_Fever_API.md:80
@@ -5275,7 +5282,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:65
 msgid "Great, the base setup seems to work!"
-msgstr ""
+msgstr "Super, la configuration de base fonctionne !"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:68
@@ -5285,6 +5292,11 @@ msgid ""
 "the password `freshrss`, here is a command-line example to compute the "
 "resulting `api_key`"
 msgstr ""
+"Maintenant essayons de faire un appel authentifié. Fever utilise un "
+"paramètre `api_key` qui contient le résultat de la fonction de hachage MD5 "
+"de la valeur `\"$username:$apiPassword\"`. En considérant que l'utilisateur "
+"est `kevin` et que son mot de passe est `freshrss`, voici la commande à "
+"lancer pour calculer la valeur du paramètre `api_key` :"
 
 #. type: Code fence info string
 #: en/./users/06_Fever_API.md:69 en/./users/06_Fever_API.md:75
@@ -5307,6 +5319,8 @@ msgid ""
 "Add a body to your POST request encoded as `form-data` and one key named "
 "`api_key` with the value `your-password-hash`:"
 msgstr ""
+"Ajoutez un contenu sous forme de `form-data`à votre requête POST ainsi que "
+"le paramètre `api_key` contenant la valeur calculée à l'étape précédente :"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:75
@@ -5317,7 +5331,7 @@ msgstr "curl -s -F \"api_key=$api_key\" 'https://freshrss.exemple.net/api/fever.
 #. type: Plain text
 #: en/./users/06_Fever_API.md:80
 msgid "This should give:"
-msgstr ""
+msgstr "Vous devriez obtenir le résultat suivant :"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:80
@@ -5343,11 +5357,16 @@ msgid ""
 "actions to your request parameters. Please refer to the [original Fever "
 "documentation](https://feedafever.com/api) for more information."
 msgstr ""
+"Parfait, maintenant vous êtes autentifié et vous pouvez commencer à tester "
+"les fonctions avancées. Pour cela, il suffit de changer l'adresse en lui "
+"ajoutant les paramètres nécessaires à la réalisation des actions supportées. "
+"Pour plus d'information, veuillez vous référer à la [documentation "
+"officielle de Fever](https://feedafever.com/api)."
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:90
 msgid "Some basic calls are:"
-msgstr ""
+msgstr "Voici quelques exemples simples d'appels réalisables :"
 
 #. type: Bullet: '* '
 #: en/./users/06_Fever_API.md:100
@@ -5416,11 +5435,13 @@ msgstr "Déboguer"
 #. type: Plain text
 #: en/./users/06_Fever_API.md:106
 msgid ""
-"If nothing helps and your clients still misbehaves, add these lines to the "
-"start of `fever.api`:"
+"If nothing helps and your client is still misbehaving, you can add the "
+"following lines to the beginning of the `fever.api` file to determine the "
+"cause of the problems:"
 msgstr ""
-"Si rien n'aide et que vos clients se conduisent toujours mal, ajoutez ces "
-"lignes à la début de `fever.api` :"
+"Si rien ne fonctionne correctement et que votre client se comporte "
+"étrangement, vous pouvez ajouter les quelques lignes suivantes au début du "
+"fichier `fever.api` pour déterminer la cause des problèmes rencontrés :"
 
 #. type: Plain text
 #: en/./users/06_Fever_API.md:107
@@ -5434,8 +5455,8 @@ msgid ""
 "Then use your RSS client to query the API and afterwards check the file "
 "`fever.log`."
 msgstr ""
-"Utilisez ensuite votre client RSS pour interroger l'API et ensuite vérifier "
-"le fichier `fever.log`."
+"Utilisez ensuite votre client RSS pour interroger l'API et vérifier le "
+"fichier `fever.log`."
 
 #. type: Title ##
 #: en/./users/06_Fever_API.md:113
@@ -5458,7 +5479,7 @@ msgid ""
 "This page assumes you have completed the [server setup](../"
 "admins/02_Installation.md)."
 msgstr ""
-"Cette page suppose que vous avez fini [l’installation du serveur]"
+"Cette page suppose que vous ayez fini [l’installation du serveur]"
 "(01_Installation.md)."
 
 #. type: Title #
@@ -5496,8 +5517,9 @@ msgid ""
 "[page about the Fever compatible API](06_Fever_API.md) for another "
 "possibility."
 msgstr ""
-"Le reste de cette page concerne l’API compatible Google Reader.Voir la [page "
-"sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité."
+"Le reste de cette page concerne l’API compatible Google Reader. Voir la "
+"[page sur l’API compatible Fever](06_Fever_API.md) pour une autre "
+"possibilité."
 
 #. type: Title #
 #: en/./users/06_Mobile_access.md:14
@@ -5582,7 +5604,7 @@ msgid ""
 "\t* Type the API address in a client, together with your FreshRSS username, and the corresponding special API password.\n"
 msgstr ""
 "6. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous \"Votre adresse API\", comme `https://freshrss.example.net/api/greader.php`\n"
-"\t* Tapez l'adresse API dans un client, ainsi que votre nom d'utilisateur FreshRSS et le mot de passe API spécial correspondant.\n"
+"\t* Saisissez l'adresse de l'API dans le client sélectionné puis votre nom d'utilisateur et votre mot de passe spécialement créé pour l'API.\n"
 
 #. type: Plain text
 #: en/./users/06_Mobile_access.md:63

@@ -1,4 +1,4 @@
-Cette page suppose que vous avez fini [l’installation du
+Cette page suppose que vous ayez fini [l’installation du
 serveur](01_Installation.md).
 
 # Activer l’API dans FreshRSS
@@ -10,8 +10,9 @@ serveur](01_Installation.md).
 	* La raison d’être d’un mot de passe API
  différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
 
-Le reste de cette page concerne l’API compatible Google Reader.Voir la [page
-sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
+Le reste de cette page concerne l’API compatible Google Reader. Voir la
+[page sur l’API compatible Fever](06_Fever_API.md) pour une autre
+possibilité.
 
 
 # Tester
@@ -48,7 +49,7 @@ sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
 # Clients compatibles
 
 6. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
-	* Tapez l'adresse API dans un client, ainsi que votre nom d'utilisateur FreshRSS et le mot de passe API spécial correspondant.
+	* Saisissez l'adresse de l'API dans le client sélectionné puis votre nom d'utilisateur et votre mot de passe spécialement créé pour l'API.
 
 7. Vous pouvez maintenant tester sur une application mobile:
 	* Android
