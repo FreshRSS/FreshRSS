@@ -7,8 +7,8 @@ pour une autre possibilité et des généralités sur l’accès par API.
 
 De nombreux clients RSS prennent en charge l'API Fever, mais ils semblent
 comprendre l'API Fever un peu différemment. Si votre client préféré ne
-fonctionne pas correctement avec cette API, veuillez créer un problème et
-nous y jetterons un oeil.Mais nous ne pouvons le faire que pour les clients
+fonctionne pas correctement avec cette API, veuiller créer un ticket et nous
+y jetterons un oeil. Mais nous ne pouvons le faire que pour les clients
 gratuits.
 
 ### Utilisation et authentification
