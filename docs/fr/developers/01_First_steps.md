@@ -1,13 +1,14 @@
 # Configurer son environnement (Docker)
 
-FreshRSS est construit en PHP et utilise le framework Minz. Les dépendances
-sont directement inclus dans le code source, donc vous n'avez pas besoin de
-Composer.
+FreshRSS est construit en PHP et utilise le framework Minz. Les
+dépendancessont directement incluses dans le code source, donc vous n'avez
+pas besoin d'utiliser Composer.
 
-Il existe plusieurs façons de configurer votre environnement de
-développement. La méthode la plus simple et la plus supportée est basée sur
-Docker, lequel est la solution documentée ci-dessous. Si vous avez déjà un
-environnement PHP fonctionnel, vous n'en avez probablement pas besoin.
+Il existe plusieurs façons de configurer votre environnement
+dedéveloppement. La méthode la plus simple et la plus supportée est basée
+surDocker. C'est la solution qui est documentée ci-dessous. Si vous avez
+déjà unenvironnement PHP fonctionnel, vous n'en avez probablement pas
+besoin.
 
 Nous supposons ici que vous utilisez une distribution GNU/Linux, capable
 d'exécuter Docker. Sinon, vous devrez adapter les commandes en conséquence.
@@ -24,26 +25,27 @@ répertoire `app/`.
 Tout d'abord, vous devez installer
 [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-Lorsque vous avez terminé, clonez le référentiel avec :
+Une fois que c'est fait, clonez le dépôt de code de la manière suivante :
 
 ```console
 $ git clone https://github.com/FreshRSS/FreshRSS.git
 $ cd FreshRSS
 ```
 
-Notez que, si vous voulez contribuer, vous devez d'abord forker le
-référentiel et cloner votre fork au lieu de la « root ». Adaptez les
-commandes en conséquence.
+Notez que, pour contribuer, vous devrez d'abord « forker » ce dépôt de code
+(ou dépôt de code référent) et cloner votre « fork » à la place de ce
+dépôt. Adaptez les commandes en conséquence.
 
-Ensuite, la seule commande que vous devez savoir est la suivante :
+Ensuite, la seule commande que vous devez connaître est la suivante :
 
 ```console
 $ make start
 ```
 
-Cela peut prendre un certain temps pendant que Docker télécharge l'image. Si
-votre utilisateur n'est pas dans le groupe `docker', vous devrez ajouter
-`sudo` à la commande.
+Cela peut prendre un certain temps pour que Docker télécharge l'image
+utilisée. Dans le cas où la commande échoue pour un problème de droit, il
+faudra soit ajouter votre utilisateur au groupe `docker`, soit relancer la
+commande en la préfixant par `sudo`.
 
 **Vous pouvez maintenant accéder à FreshRSS à [http://localhost:8080](http://localhost:8080).** Suivez simplement le processus d'installation et sélectionnez la base de données SQLite.
 
@@ -56,8 +58,10 @@ $ make stop
 Si la configuration vous intéresse, les commandes `make' sont définies dans
 le fichier [`Makefile`](/Makefile).
 
-Si vous avez besoin d'utiliser une autre image de tag (par défaut
-`dev-alpine'), vous pouvez définir la variable d'environnement `TAG` :
+Si vous avez besoin d'utiliser une image Docker identifiée par un tag
+différent (par défaut `dev-alpine`), vous pouvez surcharger de la manière
+suivante la variable d'environnement `TAG` au moment de l'exécution de la
+commande :
 
 ```console
 $ TAG=dev-arm make start
@@ -66,8 +70,8 @@ $ TAG=dev-arm make start
 Vous pouvez trouver la liste complète des tags disponibles [sur le hub
 Docker](https://hub.docker.com/r/freshrss/freshrss/tags).
 
-Vous voudrez peut-être reconstruire l'image du Docker localement. Tu peux le
-faire avec :
+Si vous voulez construire l'image Docker, vous pouvez lancer la commande
+suivante :
 
 ```console
 $ make build
@@ -75,9 +79,9 @@ $ # ou
 $ TAG=dev-arm make build
 ```
 
-La variable `TAG` peut être n'importe quoi (par exemple `dev-local`). Vous
-pouvez cibler une architecture spécifique en ajoutant `-alpine` ou `-arm` à
-la fin de la tag (par exemple `dev-local-arm`).
+La valeur de la variable `TAG` peut contenir n'importe quelle valeur (par
+exemple `dev-local`). Vous pouvez cibler une architecture spécifique en
+ajoutant `-alpine` ou `-arm` à la fin du tag (par exemple `dev-local-arm`).
 
 # Architecture du projet
 

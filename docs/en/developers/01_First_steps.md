@@ -45,7 +45,7 @@ $ TAG=dev-arm make start
 
 You can find the full list of available tags [on the Docker hub](https://hub.docker.com/r/freshrss/freshrss/tags).
 
-You might want to rebuild the Docker image locally. You can do it with:
+If you want to build the Docker image yourself, you can use the following command:
 
 ```console
 $ make build

@@ -8,7 +8,7 @@
 
 # Use bookmarklet
 
-Bookmarklets are little scripts that you can execute to perform useful or frivolous tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds.
+Bookmarklets are little scripts that you can execute to perform various tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds.
 
  1. Open "Subscriptions management".
  2. Click on "Subscription tools".

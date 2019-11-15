@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-14 21:24+0100\n"
+"POT-Creation-Date: 2019-11-15 10:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -393,7 +393,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:49
-msgid "You might want to rebuild the Docker image locally. You can do it with:"
+msgid ""
+"If you want to build the Docker image yourself, you can use the following "
+"command:"
 msgstr ""
 
 #. type: Plain text
@@ -3567,8 +3569,8 @@ msgstr ""
 #. type: Plain text
 #: en/./users/04_Subscriptions.md:12
 msgid ""
-"Bookmarklets are little scripts that you can execute to perform useful or "
-"frivolous tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds."
+"Bookmarklets are little scripts that you can execute to perform various "
+"tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds."
 msgstr ""
 
 #. type: Bullet: ' 1. '
