@@ -14,14 +14,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
-	public static function deleteFeverKey($username) {
-		$userConfig = get_user_configuration($username);
-		if ($userConfig !== null && ctype_xdigit($userConfig->feverKey)) {
-			return @unlink(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $userConfig->feverKey . '.txt');
-		}
-		return false;
-	}
-
 	public static function updateUser($user, $email, $passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
 		$userConfig = get_user_configuration($user);
 		if ($userConfig === null) {
@@ -48,20 +40,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
 			$userConfig->apiPasswordHash = $apiPasswordHash;
 
-			$feverPath = DATA_PATH . '/fever/';
-
-			if (!file_exists($feverPath)) {
-				@mkdir($feverPath, 0770, true);
-			}
-
-			if (!is_writable($feverPath)) {
+			if (!FreshRSS_fever_Util::checkFeverPath()) {
 				Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
 			} else {
-				self::deleteFeverKey($user);
-				$userConfig->feverKey = strtolower(md5("{$user}:{$apiPasswordPlain}"));
-				$ok = file_put_contents($feverPath . '.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $userConfig->feverKey . '.txt', $user) !== false;
-
-				if (!$ok) {
+				$feverKey = FreshRSS_fever_Util::updateKey($user, $apiPasswordPlain);
+				if ($feverKey) {
+					$userConfig->feverKey = $feverKey;
+				} else {
 					Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
 				}
 			}
@@ -355,7 +340,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$user_data = join_path(DATA_PATH, 'users', $username);
 		$ok &= is_dir($user_data);
 		if ($ok) {
-			self::deleteFeverKey($username);
+			FreshRSS_fever_Util::deleteKey($username);
 			$oldUserDAO = FreshRSS_Factory::createUserDao($username);
 			$ok &= $oldUserDAO->deleteUser();
 			$ok &= recursive_unlink($user_data);
