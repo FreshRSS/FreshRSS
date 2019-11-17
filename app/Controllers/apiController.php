@@ -32,14 +32,8 @@ class FreshRSS_api_Controller extends Minz_ActionController {
 		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
 		$userConfig->apiPasswordHash = $apiPasswordHash;
 
-		if (!FreshRSS_fever_Util::checkFeverPath()) {
-			Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
-			Minz_Request::bad(_t('feedback.api.password.failed'), $return_url);
-		}
-
 		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
 		if (!$feverKey) {
-			Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
 			Minz_Request::bad(_t('feedback.api.password.failed'), $return_url);
 		}
 

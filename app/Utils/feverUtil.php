@@ -13,7 +13,11 @@ class FreshRSS_fever_Util {
 			@mkdir(self::FEVER_PATH, 0770, true);
 		}
 
-		return is_writable(self::FEVER_PATH);
+		$ok = is_writable(self::FEVER_PATH);
+		if (!$ok) {
+			Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
+		}
+		return $ok;
 	}
 
 	/**
@@ -35,6 +39,11 @@ class FreshRSS_fever_Util {
 	 * @return string the Fever key, or false if the update failed
 	 */
 	public static function updateKey($username, $passwordPlain) {
+		$ok = self::checkFeverPath();
+		if (!$ok) {
+			return false;
+		}
+
 		self::deleteKey($username);
 
 		$feverKey = strtolower(md5("{$username}:{$passwordPlain}"));
@@ -43,6 +52,7 @@ class FreshRSS_fever_Util {
 		if ($res !== false) {
 			return $feverKey;
 		} else {
+			Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
 			return false;
 		}
 	}
