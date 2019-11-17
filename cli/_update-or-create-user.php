@@ -4,7 +4,6 @@ require(__DIR__ . '/_cli.php');
 $params = array(
 		'user:',
 		'password:',
-		'api_password:',
 		'language:',
 		'email:',
 		'token:',
@@ -24,7 +23,7 @@ $options = getopt('', $params);
 
 if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename($_SERVER['SCRIPT_FILENAME']) .
-		" --user username ( --password 'password' --api_password 'api_password'" .
+		" --user username ( --password 'password'" .
 		" --language en --email user@example.net --token 'longRandomString'" .
 		($isUpdate ? '' : '--no_default_feeds') .
 		" --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600" .
