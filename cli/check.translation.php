@@ -1,11 +1,14 @@
 <?php
 
-require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
+require_once __DIR__ . '/i18n/I18nData.php';
+require_once __DIR__ . '/i18n/I18nFile.php';
+require_once __DIR__ . '/i18n/I18nIgnoreFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 
 $i18nFile = new I18nFile();
-$i18nData = $i18nFile->load();
+$i18nIgnoreFile = new I18nIgnoreFile();
+$i18nData = new I18nData($i18nFile->load(), $i18nIgnoreFile->load());
 
 $options = getopt("dhl:r");
 
