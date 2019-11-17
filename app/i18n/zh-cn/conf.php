@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => '帐户管理',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => '账户删除',
 			'warn' => '你的帐户和所有相关数据都将被删除。',

@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Borrar cuenta',
 			'warn' => 'Tu cuenta y todos los datos asociados serán eliminados.',

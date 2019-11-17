@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve tüm verileriniz silinecek.',

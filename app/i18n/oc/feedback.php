@@ -8,6 +8,12 @@ return array(
 		'denied' => 'Avètz pas l’autorizacion d’accedir a aquesta pagina',
 		'not_found' => 'La pagina que cercatz existís pas',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Un problèma es aparegut pendent la configuracion del sistèma d’autentificacion. Tonatz ensajar ai tard.',

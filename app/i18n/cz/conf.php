@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Správa profilu',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Smazání účtu',
 			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',

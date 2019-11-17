@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => '프로필 관리',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => '계정 삭제',
 			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',

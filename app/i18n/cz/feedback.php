@@ -8,6 +8,12 @@ return array(
 		'denied' => 'Nemáte oprávnění přistupovat na tuto stránku',
 		'not_found' => 'Tato stránka neexistuje',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Nastal problém s konfigurací přihlašovacího systému. Zkuste to prosím později.',

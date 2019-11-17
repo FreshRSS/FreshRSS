@@ -8,6 +8,12 @@ return array(
 		'denied' => '你无权访问此页面',
 		'not_found' => '你寻找的页面不存在',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => '配置认证方式时出错。请稍后重试。',

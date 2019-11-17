@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Profil-Verwaltung',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
