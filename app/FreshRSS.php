@@ -98,13 +98,30 @@ class FreshRSS extends Minz_FrontController {
 			foreach(array_reverse($theme['files']) as $file) {
 				if ($file[0] === '_') {
 					$theme_id = 'base-theme';
-					$filename = substr($file, 1);
+					$filename_ltr = substr($file, 1);
 				} else {
 					$theme_id = $theme['id'];
-					$filename = $file;
+					$filename_ltr = $file;
 				}
-				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
-				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
+				$filename_rtl = $filename_ltr . '.rtl.css';
+				$path_rtl = PUBLIC_PATH . '/themes/rtl/'. $theme_id . '.' . $filename_rtl;
+
+				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename_ltr);
+				$url = '/themes/' . $theme_id . '/' . $filename_ltr . '?' . $filetime;
+
+				if (_t('gen.dir') === 'rtl') {
+					if (!file_exists($path_rtl) || filemtime($path_rtl) < $filetime) {
+						// generate RTL CSS
+						if (!class_exists('CSSJanus')) {
+							require_once LIB_PATH . '/lib_CSSJanus.php';
+						}
+						$content = file_get_contents(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename_ltr);
+						$rtl_content = CSSJanus::transform($content);
+						file_put_contents($path_rtl, $rtl_content);
+					}
+					$url = '/themes/rtl/'. $theme_id . '.' . $filename_rtl . '?' . $filetime;
+				}
+
 				Minz_View::prependStyle(Minz_Url::display($url));
 			}
 		}
