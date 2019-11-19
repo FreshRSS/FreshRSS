@@ -165,7 +165,7 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background: #fff;
-	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+	background-image: linear-gradient(to bottom, #fff 0%, #eee 100%);
 	display: inline-block;
 	color: #666;
 	font-size: 0.9rem;
