@@ -23,15 +23,15 @@ build: ## Build a Docker image
 	docker build \
 		--pull \
 		--tag freshrss/freshrss:$(TAG) \
-		-f Docker/$(DOCKERFILE) .
+		--file Docker/$(DOCKERFILE) .
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
 	docker run \
 		--rm \
-		-v $(shell pwd):/var/www/FreshRSS:z \
-		-p $(PORT):80 \
-		-e FRESHRSS_ENV=development \
+		--volume $(shell pwd):/var/www/FreshRSS:z \
+		--publish $(PORT):80 \
+		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		freshrss/freshrss:$(TAG)
 
@@ -96,4 +96,4 @@ endif
 ##########
 .PHONY: help
 help:
-	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep --extended-regexp '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
