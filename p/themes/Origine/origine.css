@@ -346,6 +346,7 @@ a.btn {
 	width: 10px;
 	height: 10px;
 	border-top: 1px solid #ddd;
+	/* @noflip */
 	border-left: 1px solid #ddd;
 	content: "";
 	position: absolute;
