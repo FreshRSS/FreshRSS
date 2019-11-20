@@ -52,6 +52,7 @@ function idn_to_puny($url) {
 		$parts = parse_url($url);
 		if (!empty($parts['host'])) {
 			$idn = $parts['host'];
+			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
 			if (defined('INTL_IDNA_VARIANT_UTS46')) {
 				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
 			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
