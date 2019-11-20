@@ -52,7 +52,13 @@ function idn_to_puny($url) {
 		$parts = parse_url($url);
 		if (!empty($parts['host'])) {
 			$idn = $parts['host'];
-			$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
+			if (defined('INTL_IDNA_VARIANT_UTS46')) {
+				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
+			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
+				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_2003);
+			} else {
+				$puny = idn_to_ascii($idn);
+			}
 			$pos = strpos($url, $idn);
 			if ($pos !== false) {
 				return substr_replace($url, $puny, $pos, strlen($idn));
