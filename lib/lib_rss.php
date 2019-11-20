@@ -49,9 +49,8 @@ spl_autoload_register('classAutoloader');
 
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
-		$parts = parse_url($url);
-		if (!empty($parts['host'])) {
-			$idn = $parts['host'];
+		$idn = parse_url($url, PHP_URL_HOST);
+		if ($idn != '') {
 			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
 			if (defined('INTL_IDNA_VARIANT_UTS46')) {
 				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
