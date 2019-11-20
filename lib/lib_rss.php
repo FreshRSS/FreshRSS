@@ -54,15 +54,15 @@ function idn_to_puny($url) {
 			$idn = $parts['host'];
 			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
 			if (defined('INTL_IDNA_VARIANT_UTS46')) {
-				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
+				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
-				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_2003);
+				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
 			} else {
 				$puny = idn_to_ascii($idn);
 			}
 			$pos = strpos($url, $idn);
-			if ($pos !== false) {
-				return substr_replace($url, $puny, $pos, strlen($idn));
+			if ($puny != '' && $pos !== false) {
+				$url = substr_replace($url, $puny, $pos, strlen($idn));
 			}
 		}
 	}
