@@ -1,6 +1,7 @@
 <?php
 if (!isset($_GET['f']) ||
-		!isset($_GET['t'])) {
+		!isset($_GET['t']) ||
+		!isset($_GET['c'])) {
 	header('HTTP/1.1 400 Bad Request');
 	die();
 }
@@ -17,35 +18,47 @@ require(__DIR__ . '/../constants.php');
  * @return true if it can be served, false else.
  *
  */
-function is_valid_path($path) {
-	// It must be under the extension path.
-	$real_ext_path = realpath(EXTENSIONS_PATH);
+function is_valid_path($path, $category) {
+	$allowed_paths = [realpath(EXTENSIONS_PATH), realpath(RTL_PATH)];
 
-	//Windows compatibility
-	$real_ext_path = str_replace('\\', '/', $real_ext_path);
-	$path = str_replace('\\', '/', $path);
+	$allowed = false;
+	foreach ($allowed_paths as $real_ext_path) {
+		//Windows compatibility
+		$real_ext_path = str_replace('\\', '/', $real_ext_path);
+		$path = str_replace('\\', '/', $path);
+		$in_ext_path = (substr($path, 0, strlen($real_ext_path)) === $real_ext_path);
+		if (!$in_ext_path) {
+			continue;
+		}
 
-	$in_ext_path = (substr($path, 0, strlen($real_ext_path)) === $real_ext_path);
-	if (!$in_ext_path) {
-		return false;
+		if ($category === 'ext') {
+			// File to serve must be under a `ext_dir/static/` directory.
+			$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
+			$path_split = explode('/', $path_relative_to_ext);
+			if (count($path_split) < 3 || $path_split[1] !== 'static') {
+				continue;
+			}
+		}
+		$allowed = true;
 	}
 
-	// File to serve must be under a `ext_dir/static/` directory.
-	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
-	$path_splitted = explode('/', $path_relative_to_ext);
-	if (count($path_splitted) < 3 || $path_splitted[1] !== 'static') {
-		return false;
-	}
-
-	return true;
+	return $allowed;
 }
 
 $file_name = urldecode($_GET['f']);
 $file_type = $_GET['t'];
+$file_category = $_GET['c'];
 
-$absolute_filename = realpath(EXTENSIONS_PATH . '/' . $file_name);
+$path_prefix = "";
+if ($file_category === 'ext') {
+	$path_prefix = EXTENSIONS_PATH;
+} elseif ($file_category === 'rtl') {
+	$path_prefix = RTL_PATH;
+}
 
-if (!is_valid_path($absolute_filename)) {
+$absolute_filename = realpath($path_prefix . '/' . $file_name);
+
+if (!is_valid_path($absolute_filename, $file_category)) {
 	header('HTTP/1.1 400 Bad Request');
 	die();
 }

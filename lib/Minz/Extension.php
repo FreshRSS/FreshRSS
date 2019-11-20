@@ -167,6 +167,7 @@ class Minz_Extension {
 
 		$url = '/ext.php?f=' . $file_name_url .
 		       '&amp;t=' . $type .
+		       '&amp;c=ext' .
 		       '&amp;' . $mtime;
 		return Minz_Url::display($url, 'php');
 	}

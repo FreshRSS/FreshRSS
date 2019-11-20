@@ -104,9 +104,10 @@ class FreshRSS extends Minz_FrontController {
 					$filename_ltr = $file;
 				}
 				$filename_rtl = $filename_ltr . '.rtl.css';
-				$path_rtl = PUBLIC_PATH . '/themes/rtl/'. $theme_id . '.' . $filename_rtl;
+				$path_ltr = PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename_ltr;
+				$path_rtl = DATA_PATH . '/rtl/'. $theme_id . '.' . $filename_rtl;
 
-				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename_ltr);
+				$filetime = @filemtime($path_ltr);
 				$url = '/themes/' . $theme_id . '/' . $filename_ltr . '?' . $filetime;
 
 				if (_t('gen.dir') === 'rtl') {
@@ -115,11 +116,11 @@ class FreshRSS extends Minz_FrontController {
 						if (!class_exists('CSSJanus')) {
 							require_once LIB_PATH . '/lib_CSSJanus.php';
 						}
-						$content = file_get_contents(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename_ltr);
+						$content = file_get_contents($path_ltr);
 						$rtl_content = CSSJanus::transform($content);
 						file_put_contents($path_rtl, $rtl_content);
 					}
-					$url = '/themes/rtl/'. $theme_id . '.' . $filename_rtl . '?' . $filetime;
+					$url = '/ext.php?f='. $theme_id . '.' . $filename_rtl . '&t=css&c=rtl&' . $filetime;
 				}
 
 				Minz_View::prependStyle(Minz_Url::display($url));
