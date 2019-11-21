@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-11-XX FreshRSS 1.15.3-dev
+## 2019-11-22 FreshRSS 1.15.3
 
 * Bix fixing (regression from 1.15.x)
 	* Fix adding categories in MySQL 5.5 [#2670](https://github.com/FreshRSS/FreshRSS/issues/2670)
