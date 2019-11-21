@@ -106,9 +106,9 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function updateTagAttribute($tag, $key, $value) {
 		if ($tag instanceof FreshRSS_Tag) {
 			$tag->_attributes($key, $value);
-			return $this->updateFeed(
+			return $this->updateTag(
 					$tag->id(),
-					array('attributes' => $feed->attributes())
+					[ 'attributes' => $tag->attributes() ]
 				);
 		}
 		return false;
