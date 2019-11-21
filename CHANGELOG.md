@@ -1,7 +1,22 @@
 ﻿# FreshRSS changelog
 
-## 20XX-XX-XX FreshRSS 1.15.3-dev
+## 2019-11-XX FreshRSS 1.15.3-dev
 
+* Bix fixing (regression from 1.15.x)
+	* Fix adding categories in MySQL 5.5 [#2670](https://github.com/FreshRSS/FreshRSS/issues/2670)
+	* Fix saving sharing integrations [#2669](https://github.com/FreshRSS/FreshRSS/pull/2669)
+* Compatibility
+	* Add fallback for systems with old ICU < 4.6 (*International Components for Unicode*) [#2680](https://github.com/FreshRSS/FreshRSS/pull/2680)
+* API
+	* Do not obbey `rel=self` feed redirections when WebSub is disabled [#2659](https://github.com/FreshRSS/FreshRSS/pull/2659)
+* UI
+	* Start adding support for RTL (*right-to-left*) languages [#2656](https://github.com/FreshRSS/FreshRSS/pull/2656)
+* Deployment
+	* Docker: Ubuntu image updated to PHP 7.3.11
+* Misc.
+	* Add more log when errors occur when saving a profile [#2663](https://github.com/FreshRSS/FreshRSS/issues/2663)
+	* Improve Makefile with port override [#2660](https://github.com/FreshRSS/FreshRSS/pull/2660)
+	* Update a few external links to HTTPS [#2662](https://github.com/FreshRSS/FreshRSS/pull/2662)
 
 
 ## 2019-11-12 FreshRSS 1.15.2
