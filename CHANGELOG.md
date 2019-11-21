@@ -2,7 +2,7 @@
 
 ## 2019-11-22 FreshRSS 1.15.3
 
-* Bug fixing (regression from 1.15.x)
+* Bug fixing (regressions from 1.15.x)
 	* Fix adding categories in MySQL 5.5 [#2670](https://github.com/FreshRSS/FreshRSS/issues/2670)
 	* Fix saving sharing integrations [#2669](https://github.com/FreshRSS/FreshRSS/pull/2669)
 * Compatibility
