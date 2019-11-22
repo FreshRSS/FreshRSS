@@ -59,14 +59,22 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$apiPasswordHash = self::hashPassword($apiPasswordPlain);
 			$userConfig->apiPasswordHash = $apiPasswordHash;
 
-			@mkdir(DATA_PATH . '/fever/', 0770, true);
-			self::deleteFeverKey($user);
-			$userConfig->feverKey = strtolower(md5($user . ':' . $apiPasswordPlain));
-			$ok = file_put_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $userConfig->feverKey . '.txt', $user) !== false;
+			$feverPath = DATA_PATH . '/fever/';
 
-			if (!$ok) {
-				Minz_Log::warning('Could not save API credentials for fever API', ADMIN_LOG);
-				return $ok;
+			if (!file_exists($feverPath)) {
+				@mkdir($feverPath, 0770, true);
+			}
+
+			if (!is_writable($feverPath)) {
+				Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
+			} else {
+				self::deleteFeverKey($user);
+				$userConfig->feverKey = strtolower(md5("{$user}:{$apiPasswordPlain}"));
+				$ok = file_put_contents($feverPath . '.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $userConfig->feverKey . '.txt', $user) !== false;
+
+				if (!$ok) {
+					Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
+				}
 			}
 		}
 

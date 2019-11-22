@@ -24,7 +24,7 @@ Le flux peut avoir une syntaxe invalide, il peut ne pas être reconnu par la bib
 Il faut dans un premier temps déterminer la cause du problème.
 Voici la liste des étapes à suivre pour la déterminer :
 
-1. __Vérifier la validité du flux__ grâce à l'[outil en ligne du W3C](http://validator.w3.org/feed/ "Validateur en ligne de flux RSS et Atom"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
+1. __Vérifier la validité du flux__ grâce à l'[outil en ligne du W3C](https://validator.w3.org/feed/ "Validateur en ligne de flux RSS et Atom"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
 1. __Vérifier la reconnaissance par SimplePie__ grâce à l'[outil en ligne de SimplePie](http://simplepie.org/demo/ "Démo officielle de SimplePie"). Si ça ne fonctionne pas, nous ne pouvons rien faire.
 1. __Vérifier l'intégration dans FreshRSS__ grâce à la [démo](http://demo.freshrss.org "Démo officielle de FreshRSS"). Si ça ne fonctionne pas, il faut [créer un ticket sur Github](https://github.com/FreshRSS/FreshRSS/issues/new "Créer un ticket pour FreshRSS") pour que l'on puisse regarder ce qui se passe. Si ça fonctionne, il y a probablement un problème avec l'hébergement.
 

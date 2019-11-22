@@ -81,7 +81,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	public function addCategory($valuesTmp) {
 		$sql = 'INSERT INTO `_category`(name, attributes) '
-		     . 'SELECT * FROM (SELECT TRIM(?), ?) c2 '	//TRIM() to provide a type hint as text for PostgreSQL
+		     . 'SELECT * FROM (SELECT TRIM(?) AS name, TRIM(?) AS attributes) c2 '	//TRIM() to provide a type hint as text
 		     . 'WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))';	//No tag of the same name
 		$stm = $this->pdo->prepare($sql);
 
