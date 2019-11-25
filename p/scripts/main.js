@@ -461,34 +461,58 @@ function next_entry(skipping) {
 
 function prev_feed() {
 	let found = false;
+	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
 	for (let i = feeds.length - 1; i >= 0; i--) {
 		const feed = feeds[i];
-		if (found && getComputedStyle(feed).display !== 'none') {
-			delayedClick(feed.querySelector('a.item-title'));
-			break;
-		} else if (feed.classList.contains('active')) {
+		if (feed.classList.contains('active')) {
 			found = true;
+			continue;
+		}
+		if (!found) {
+			continue;
+		}
+		if (getComputedStyle(feed).display === 'none') {
+			continue;
+		}
+		if (feed.dataset.unread != 0) {
+			return delayedClick(feed.querySelector('a.item-title'));
+		} else if (adjacent === null) {
+			adjacent = feed;
 		}
 	}
-	if (!found) {
+	if (found) {
+		delayedClick(adjacent.querySelector('a.item-title'));
+	} else {
 		last_feed();
 	}
 }
 
 function next_feed() {
 	let found = false;
+	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
 	for (let i = 0; i < feeds.length; i++) {
 		const feed = feeds[i];
-		if (found && getComputedStyle(feed).display !== 'none') {
-			delayedClick(feed.querySelector('a.item-title'));
-			break;
-		} else if (feed.classList.contains('active')) {
+		if (feed.classList.contains('active')) {
 			found = true;
+			continue;
+		}
+		if (!found) {
+			continue;
+		}
+		if (getComputedStyle(feed).display === 'none') {
+			continue;
+		}
+		if (feed.dataset.unread != 0) {
+			return delayedClick(feed.querySelector('a.item-title'));
+		} else if (adjacent === null) {
+			adjacent = feed;
 		}
 	}
-	if (!found) {
+	if (found) {
+		delayedClick(adjacent.querySelector('a.item-title'));
+	} else {
 		first_feed();
 	}
 }
