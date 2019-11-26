@@ -159,13 +159,13 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-update URL',
-		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
+		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
 		'instance-name' => 'Dein Reader Name',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
-			'number' => 'Duration to keep logged in', // @todo translate
+			'number' => 'Eingeloggt bleiben für',
 		),
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',

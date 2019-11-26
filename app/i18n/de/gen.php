@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aktualisieren',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Zurück',
 		'back_to_rss_feeds' => '← Zurück zu Ihren RSS-Feeds gehen',
 		'cancel' => 'Abbrechen',
 		'create' => 'Erstellen',
@@ -23,7 +23,7 @@ return array(
 		'update' => 'Aktualisieren',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'Ich akzeptiere die <a href="%s">Nutzungsbedingungen</a>.',
 		'email' => 'E-Mail-Adresse',
 		'keep_logged_in' => 'Eingeloggt bleiben <small>(%s Tage)</small>',
 		'login' => 'Anmelden',
@@ -163,11 +163,11 @@ return array(
 		'previous' => 'Vorherige',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'Tage',
+		'hours' => 'Stunden',
+		'months' => 'Monate',
+		'weeks' => 'Wochen',
+		'years' => 'Jahre',
 	),
 	'share' => array(
 		'blogotext' => 'Blogotext',

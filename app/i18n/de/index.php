@@ -16,7 +16,7 @@ return array(
 		'website' => 'Webseite',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'title' => 'Nutzungsbedingungen',
 	),
 	'feed' => array(
 		'add' => 'Sie können Feeds hinzufügen.',
@@ -56,7 +56,7 @@ return array(
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'tags' => 'My labels',	//TODO - Translation
+		'tags' => 'Meine Tags',
 		'unread' => 'Nur ungelesene zeigen',
 	),
 	'share' => 'Teilen',
