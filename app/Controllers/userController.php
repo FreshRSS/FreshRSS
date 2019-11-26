@@ -130,7 +130,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$email_not_verified = FreshRSS_Context::$user_conf->email_validation_token !== '';
+		$email_not_verified = FreshRSS_Context::$user_conf->email_validation_token != '';
 		$this->view->disable_aside = false;
 		if ($email_not_verified) {
 			$this->view->_layout('simple');
