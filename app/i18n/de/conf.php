@@ -4,20 +4,20 @@ return array(
 	'archiving' => array(
 		'_' => 'Archivierung',
 		'delete_after' => 'Entferne Artikel nach',
-		'exception' => 'Purge exception',	//TODO - Translation
+		'exception' => 'Archivierungsausnahmen',
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
-		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_favourites' => 'Lieblingsartikel behalten',
 		'keep_min_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
-		'keep_labels' => 'Never delete labels',	//TODO - Translation
-		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
-		'maintenance' => 'Maintenance',	//TODO - Translation
+		'keep_labels' => 'Artikel mit Label behalten',
+		'keep_unreads' => 'Ungelesene Artikel behalten',
+		'maintenance' => 'Wartung',
 		'optimize' => 'Datenbank optimieren',
 		'optimize_help' => 'Sollte gelegentlich durchgeführt werden, um die Größe der Datenbank zu reduzieren.',
-		'policy' => 'Purge policy',	//TODO - Translation
-		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
+		'policy' => 'Archivierungsrichtlinien',
+		'policy_warning' => 'Ohne Archivierungsrichtlinien werden alle Artikel behalten',
 		'purge_now' => 'Jetzt bereinigen',
-		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
-		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
+		'keep_max' => 'Maximale Anzahl an Artikeln die behalten werden',
+		'keep_period' => 'Maximales Alter der zu behaltenden Artikel',
 		'title' => 'Archivierung',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 	),
@@ -29,7 +29,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
-			'display_authors' => 'Authors',  //TODO - Translation
+			'display_authors' => 'Autoren',
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
@@ -155,7 +155,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Tastenkombination',
-		'article_action' => 'Artikelaktionen',
+		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
 		'close_dropdown' => 'Menüs schließen',
@@ -171,7 +171,7 @@ return array(
 		'mark_read' => 'Als gelesen markieren',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Mit der "Umschalttaste" finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der "Alt-Taste" finden die Tastenkombination auf Kategorien Anwendung.',
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
+		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
@@ -180,8 +180,8 @@ return array(
 		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <code>Umschalttaste</code>, um alle Artikel als gelesen zu markieren.',
-		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
-		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
+		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',
+		'skip_previous_article' => 'Vorherigen markieren ohne zu öffnen',
 		'title' => 'Tastenkombination',
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
