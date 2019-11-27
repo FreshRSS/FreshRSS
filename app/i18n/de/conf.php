@@ -155,7 +155,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Tastenkombination',
-		'article_action' => 'Artikelaktionen',
+		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
 		'close_dropdown' => 'Menüs schließen',
