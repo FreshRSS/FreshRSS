@@ -100,7 +100,6 @@ class Minz_Request {
 	 * Initialise la Request
 	 */
 	public static function init() {
-		self::magicQuotesOff();
 		self::initJSON();
 	}
 
@@ -290,20 +289,6 @@ class Minz_Request {
 			return $_POST[$param];
 		} else {
 			return $default;
-		}
-	}
-
-	/**
-	 * Méthode désactivant les magic_quotes pour les variables
-	 *   $_GET
-	 *   $_POST
-	 *   $_COOKIE
-	 */
-	private static function magicQuotesOff() {
-		if (get_magic_quotes_gpc()) {
-			$_GET = Minz_Helper::stripslashes_r($_GET);
-			$_POST = Minz_Helper::stripslashes_r($_POST);
-			$_COOKIE = Minz_Helper::stripslashes_r($_COOKIE);
 		}
 	}
 
