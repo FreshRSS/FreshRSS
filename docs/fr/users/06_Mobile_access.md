@@ -1,19 +1,24 @@
-Cette page suppose que vous avez fini [l’installation du serveur](01_Installation.md).
+Cette page suppose que vous ayez fini [l’installation du
+serveur](01_Installation.md).
 
 # Activer l’API dans FreshRSS
 
-1. Dans la section “Authentification”, cocher l’option “Autoriser l’accès par API (nécessaire pour les applis mobiles)”.
+1. Dans la section “Authentification”, cocher l’option “Autoriser l’accès
+   par API (nécessaire pour les applis mobiles)”.
 2. Dans la section “Profil”, remplir le champ “Mot de passe API (ex. : pour applis mobiles)”.
 	* Chaque utilisateur doit choisir son mot de passe API.
-	* La raison d’être d’un mot de passe API différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
+	* La raison d’être d’un mot de passe API
+ différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
 
-Le reste de cette page concerne l’API compatible Google Reader.
-Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
+Le reste de cette page concerne l’API compatible Google Reader. Voir la
+[page sur l’API compatible Fever](06_Fever_API.md) pour une autre
+possibilité.
 
 
 # Tester
 
-3. Dans la section “Profil”, cliquer sur le lien de la forme `https://rss.example.net/api/` à côté du champ “Mot de passe API”.
+3. Dans la section “Profil”, cliquer sur le lien de la forme
+   `https://rss.example.net/api/` à côté du champ “Mot de passe API”.
 4. Cliquer sur le premier lien “Check full server configuration”:
 	* Si vous obtenez `PASS`, tout est bon : passer à l’étape 6.
 	* Si vous obtenez *Bad Request!* ou *Not Found*, alors votre serveur ne semble pas accepter les slashs `/` qui sont encodés `%2F`. Passer à l’étape 5.
@@ -41,38 +46,25 @@ Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre poss
 	* Mettre à jour et retourner à l’étape 3.
 
 
-# Tests sur mobile
-
-6. Vous pouvez maintenant tester sur une application mobile (News+, FeedMe, ou EasyRSS sur Android)
-	* en utilisant comme adresse https://rss.example.net/api/greader.php ou http://example.net/FreshRSS/p/api/greader.php selon la configuration de votre site Web.
-	* ⚠️ attention aux majuscules et aux espaces en tapant l’adresse avec le clavier du mobile ⚠️
-	* avec votre nom d’utilisateur et le mot de passe enregistré au point 2 (mot de passe API).
-
-
-# En cas de problèmes
-
- * Vous pouvez voir les logs API dans `./FreshRSS/data/users/_/log_api.txt`
- * Si vous avez une erreur 404 (fichier non trouvé) lors de l’étape de test, et que vous êtes sous Apache,
- voir http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes pour utiliser News+
-(facultatif pour EasyRSS et FeedMe qui devraient fonctionner dès lors que vous obtenez un PASS au test *Check partial server configuration*).
-
-
 # Clients compatibles
 
-Tout client supportant une API de type Google Reader. Sélection :
+6. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
+	* Saisissez l'adresse de l'API dans le client sélectionné puis votre nom d'utilisateur et votre mot de passe spécialement créé pour l'API.
 
-* Android
-	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
-	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
-	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, F-Droid)
-* Linux
-	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
-* iOS
-	* [Reeder-4](https://apps.apple.com/app/reeder-4/id1449412357) (Commercial)
-* MacOS
-	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
-* Firefox
-	* [FreshRSS-Notify](https://addons.mozilla.org/fr/firefox/addon/freshrss-notify-webextension/) (Libre)
+7. Vous pouvez maintenant tester sur une application mobile:
+	* Android
+		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
+		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
+	* Linux
+		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+	* MacOS
+		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
+		* [Reeder](https://www.reederapp.com/) (Commercial)
+	* iOS
+		* [Reeder](https://www.reederapp.com/) (Commercial)
+	* Firefox
+		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Libre)
 
 
 # API compatible Google Reader
