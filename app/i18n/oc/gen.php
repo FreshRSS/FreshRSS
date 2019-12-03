@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Gerir',
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Levar',
 		'see_website' => 'Veire lo site',
 		'submit' => 'Mandar',

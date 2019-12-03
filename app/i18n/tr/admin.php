@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'database_size' => 'Database size',	// TODO - Translation
 		'create' => 'Yeni kullanıcı oluştur',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Dil',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',

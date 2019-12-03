@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Administrar',
 		'mark_favorite' => 'Marcar como favorita',
 		'mark_read' => 'Marcar como leído',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Borrar',
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',

@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s artigos (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Criar novo usuário',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	//TODO - Translation
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Idioma',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Há %d conta criada',
 		'numbers' => 'Há %d contas criadas',
 		'password_form' => 'Senha<br /><small>(para o login pelo método do formulário)</small>',

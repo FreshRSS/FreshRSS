@@ -118,7 +118,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.user.updated.error', $username),
 				                  array('c' => 'user', 'a' => 'manage'));
 			}
-
 		}
 	}
 
@@ -194,6 +193,23 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 	}
 
+	public function purgeAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
+		if (Minz_Request::isPost()) {
+			$username = Minz_Request::param('username');
+
+			if (!FreshRSS_UserDAO::exists($username)) {
+				Minz_Error::error(404);
+			}
+
+			$feedDAO = FreshRSS_Factory::createFeedDao($username);
+			$feedDAO->purge();
+		}
+	}
+
 	/**
 	 * This action displays the user management page.
 	 */
@@ -204,18 +220,22 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		Minz_View::prependTitle(_t('admin.user.title') . ' · ');
 
+		if (Minz_Request::isPost()) {
+			$action = Minz_Request::param('action');
+			if ('delete' === $action) {
+				$this->deleteAction();
+			} elseif ('update' === $action) {
+				$this->updateAction();
+			} elseif ('purge' === $action) {
+				$this->purgeAction();
+			}
+		}
+
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		$this->view->current_user = Minz_Request::param('u');
 
-		$this->view->nb_articles = 0;
-		$this->view->size_user = 0;
-		if ($this->view->current_user) {
-			// Get information about the current user.
-			$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
-			$this->view->nb_articles = $entryDAO->count();
-
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO($this->view->current_user);
-			$this->view->size_user = $databaseDAO->size();
+		foreach (listUsers() as $user) {
+			$this->view->users[$user] = $this->retrieveUserDetails($user);
 		}
 	}
 
@@ -541,5 +561,31 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 
 		Minz_Request::forward($redirect_url, true);
+	}
+
+	public function detailsAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
+		$username = Minz_Request::param('username');
+		if (!FreshRSS_UserDAO::exists($username)) {
+			Minz_Error::error(404);
+		}
+
+		$this->view->username = $username;
+		$this->view->details = $this->retrieveUserDetails($username);
+	}
+
+	private function retrieveUserDetails($username) {
+		$feedDAO = FreshRSS_Factory::createFeedDao($username);
+		$entryDAO = FreshRSS_Factory::createEntryDao($username);
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
+
+		return array(
+			'feed_count' => $feedDAO->count(),
+			'article_count' => $entryDAO->count(),
+			'database_size' => $databaseDAO->size(),
+		);
 	}
 }

@@ -16,6 +16,7 @@ return array(
 		'manage' => '관리',
 		'mark_favorite' => '즐겨찾기에 등록',
 		'mark_read' => '읽음으로 표시',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => '삭제',
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',

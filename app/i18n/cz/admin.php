@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvořit nového uživatele',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	//TODO - Translation
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Jazyk',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',

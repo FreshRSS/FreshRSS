@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s 개의 글 (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => '새 사용자 생성',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => '사용자 삭제',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => '언어',
+		'list' => 'User list',	// TODO - Translation
 		'number' => '%d 개의 계정이 생성되었습니다',
 		'numbers' => '%d 개의 계정이 생성되었습니다',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',

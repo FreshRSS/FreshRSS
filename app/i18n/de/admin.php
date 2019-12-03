@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Neuen Benutzer erstellen',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Lösche Benutzer',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Sprache',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Es wurde bis jetzt %d Account erstellt',
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',

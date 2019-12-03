@@ -16,6 +16,7 @@ return array(
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
 		'mark_favorite' => 'סימון כמועדף',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Remove',	//TODO - Translation
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',

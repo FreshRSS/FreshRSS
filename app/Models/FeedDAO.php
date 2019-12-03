@@ -421,6 +421,29 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $affected;
 	}
 
+	public function purge() {
+		$sql = 'DELETE FROM `_entry`';
+		$stm = $this->pdo->prepare($sql);
+		$this->pdo->beginTransaction();
+		if (!($stm && $stm->execute())) {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error truncate: ' . $info[2]);
+			$this->pdo->rollBack();
+			return false;
+		}
+
+		$sql = 'UPDATE `_feed` SET `cache_nbEntries` = 0, `cache_nbUnreads` = 0';
+		$stm = $this->pdo->prepare($sql);
+		if (!($stm && $stm->execute())) {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error truncate: ' . $info[2]);
+			$this->pdo->rollBack();
+			return false;
+		}
+
+		$this->pdo->commit();
+	}
+
 	public static function daoToFeed($listDAO, $catID = null) {
 		$list = array();
 
@@ -480,5 +503,15 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		} else {
 			$stm->execute(array(':new_value' => -3600, ':old_value' => -1));
 		}
+	}
+
+	public function count() {
+		$sql = 'SELECT COUNT(e.id) AS count FROM `_feed` e';
+		$stm = $this->pdo->query($sql);
+		if ($stm == false) {
+			return false;
+		}
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return isset($res[0]) ? $res[0] : 0;
 	}
 }

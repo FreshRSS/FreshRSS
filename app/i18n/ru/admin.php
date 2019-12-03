@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s статей (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Создать нового пользователя',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	//TODO - Translation
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Язык',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'На данный момент создан %d аккаунт',
 		'numbers' => 'На данный момент аккаунтов создано:  %d',
 		'password_form' => 'Пароль<br /><small>(для входа через Веб-форму)</small>',

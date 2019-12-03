@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Crear un nòu utilizaire',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Suprimir un utilizaire',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Lenga',
+		'list' => 'User list',	// TODO - Translation
 		'number' => '%d compte ja creat',
 		'numbers' => '%d comptes ja creats',
 		'password_form' => 'Senhal <br /><small>(ex. : per la connexion via formulari)</small>',

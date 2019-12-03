@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Gérer',
 		'mark_favorite' => 'Mettre en favori',
 		'mark_read' => 'Marquer comme lu',
+		'purge' => 'Purger',
 		'remove' => 'Supprimer',
 		'see_website' => 'Voir le site',
 		'submit' => 'Valider',

@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',	//TODO - Translation
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',
 		'create' => 'יצירת משתמש חדש',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	//TODO - Translation
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'שפה',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'There is %d account created',	//TODO - Translation
 		'numbers' => 'There are %d accounts created',	//TODO - Translation
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',

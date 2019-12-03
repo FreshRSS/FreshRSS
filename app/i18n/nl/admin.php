@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Creëer nieuwe gebruiker',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Verwijder gebruiker',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Taal',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier loginmethode)</small>',

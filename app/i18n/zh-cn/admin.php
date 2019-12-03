@@ -183,9 +183,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => '创建新用户',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => '删除用户',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => '语言',
+		'list' => 'User list',	// TODO - Translation
 		'number' => '已有 %d 个用户',
 		'numbers' => '已有 %d 个用户',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',

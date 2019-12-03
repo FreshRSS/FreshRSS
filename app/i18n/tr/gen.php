@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Yönet',
 		'mark_favorite' => 'Favoriye ekle',
 		'mark_read' => 'Okundu olarak işaretle',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Sil',
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
