@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
+		'api' => 'Gestion de l’API',
 		'delete' => array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',

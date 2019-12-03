@@ -8,6 +8,12 @@ return array(
 		'denied' => 'You don’t have permission to access this page',
 		'not_found' => 'You are looking for a page which doesn’t exist',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',
+			'updated' => 'Your password has been modified',
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'A problem occured during authentication system configuration. Please retry later.',

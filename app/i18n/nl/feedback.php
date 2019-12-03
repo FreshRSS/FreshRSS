@@ -8,6 +8,12 @@ return array(
 		'denied' => 'U hebt geen rechten om deze pagina te bekijken.',
 		'not_found' => 'Deze pagina bestaat niet',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Er is een probleem opgetreden tijdens de controle van de systeemconfiguratie. Probeer het later nog eens.',

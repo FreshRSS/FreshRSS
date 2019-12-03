@@ -8,6 +8,12 @@ return array(
 		'denied' => 'Non hai i permessi per accedere a questa pagina',
 		'not_found' => 'Pagina non disponibile',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Si è verificato un problema alla configurazione del sistema di autenticazione. Per favore riprova più tardi.',

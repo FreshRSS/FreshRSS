@@ -42,6 +42,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Správca profilu',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Vymazanie účtu',
 			'warn' => 'Váš účet a všetky údaje v ňom budú vymazané.',

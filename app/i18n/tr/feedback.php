@@ -8,6 +8,12 @@ return array(
 		'denied' => 'Bu sayfaya erişim yetkiniz yok',
 		'not_found' => 'Varolmayan bir sayfa arıyorsunuz',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Sistem yapılandırma kimlik doğrulaması sırasında hata oldu. Lütfen daha sonra tekrar deneyin.',

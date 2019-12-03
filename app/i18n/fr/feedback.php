@@ -8,6 +8,12 @@ return array(
 		'denied' => 'Vous n’avez pas le droit d’accéder à cette page !',
 		'not_found' => 'La page que vous cherchez n’existe pas !',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Votre mot de passe n’a pas pu être mis à jour',
+			'updated' => 'Votre mot de passe a été mis à jour',
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Un problème est survenu lors de la configuration de votre système d’authentification. Veuillez réessayer plus tard.',

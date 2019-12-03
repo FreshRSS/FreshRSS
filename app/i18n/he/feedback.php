@@ -8,6 +8,12 @@ return array(
 		'denied' => 'אין לך הרשאות לצפות בדף זה',
 		'not_found' => 'הדף הזה לא נמצא',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'אירעה שגיאה במהלך הגדרת מערכת האימיות. אנא נסו שוב מאוחר יותר.',

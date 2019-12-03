@@ -50,6 +50,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Gestione profili',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',

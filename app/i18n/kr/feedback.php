@@ -8,6 +8,12 @@ return array(
 		'denied' => '이 페이지에 접근할 수 있는 권한이 없습니다',
 		'not_found' => '이 페이지는 존재하지 않습니다',
 	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified', // TODO - Translation
+			'updated' => 'Your password has been modified', // TODO - Translation
+		),
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => '인증 시스템을 설정하는 동안 문제가 발생했습니다. 잠시 후 다시 시도하세요.',

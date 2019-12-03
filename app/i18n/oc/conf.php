@@ -51,6 +51,7 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Gestion del perfil',
+		'api' => 'API management', // TODO - Translation
 		'delete' => array(
 			'_' => 'Supression del compte',
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
