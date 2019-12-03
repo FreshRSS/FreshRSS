@@ -32,10 +32,10 @@ FreshRSS n’est fourni avec aucune garantie.
 ![Capture d’écran de FreshRSS](docs/img/FreshRSS-screenshot.png)
 
 # [Documentation](https://freshrss.github.io/FreshRSS/fr/)
-* La [documentation utilisateurs](https://freshrss.github.io/FreshRSS/fr/users/02_First_steps.md) pour découvrir les fonctionnalités de FreshRSS.
-* La [documentation administrateurs](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md) pour l’installation et la maintenance de FreshRSS.
-* La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.md) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
-* Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.md) pour nous aider à développer FreshRSS.
+* La [documentation utilisateurs](https://freshrss.github.io/FreshRSS/fr/users/02_First_steps.html) pour découvrir les fonctionnalités de FreshRSS.
+* La [documentation administrateurs](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html) pour l’installation et la maintenance de FreshRSS.
+* La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.html) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
+* Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.html) pour nous aider à développer FreshRSS.
 
 # Prérequis
 * Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge (sauf certains détails), Chromium / Chrome, Opera, Safari.
@@ -74,7 +74,7 @@ Voir la [liste des versions](../../releases).
 6. Des paramètres de configuration avancés peuvent être vus dans [config.default.php](config.default.php) et modifiés dans `data/config.php`.
 7. Avec Apache, activer [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
-Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md).
+Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html).
 
 ### Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh
