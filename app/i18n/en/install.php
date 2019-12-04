@@ -17,20 +17,19 @@ return array(
 		'type' => 'Authentication method',
 	),
 	'bdd' => array(
-		'_' => 'Database',
 		'conf' => array(
-			'_' => 'Database configuration',
 			'ko' => 'Verify your database information.',
 			'ok' => 'Database configuration has been saved.',
+			'_' => 'Database configuration',
 		),
 		'host' => 'Host',
 		'password' => 'Database password',
 		'prefix' => 'Table prefix',
 		'type' => 'Type of database',
 		'username' => 'Database username',
+		'_' => 'Database',
 	),
 	'check' => array(
-		'_' => 'Checks',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',
 		'cache' => array(
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',
@@ -96,10 +95,11 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',
 		),
+		'_' => 'Checks',
 	),
 	'conf' => array(
-		'_' => 'General configuration',
 		'ok' => 'General configuration has been saved.',
+		'_' => 'General configuration',
 	),
 	'congratulations' => 'Congratulations!',
 	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
@@ -110,14 +110,14 @@ return array(
 		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',
 	),
 	'language' => array(
-		'_' => 'Language',
 		'choose' => 'Choose a language for FreshRSS',
 		'defined' => 'Language has been defined.',
+		'_' => 'Language',
 	),
 	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',
 	'ok' => 'The installation process was successful.',
 	'step' => 'step %d',
 	'steps' => 'Steps',
-	'title' => 'Installation · FreshRSS',
 	'this_is_the_end' => 'This is the end',
+	'title' => 'Installation · FreshRSS',
 );

@@ -11,15 +11,15 @@ return array(
 		'title' => '북마클릿',
 	),
 	'category' => array(
-		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
 		'new' => '새 카테고리',
-		'position' => 'Display position',	//TODO - Translation
-		'position_help' => 'To control category sort order',	//TODO - Translation
+		'position' => 'Display position',	// TODO - Translation
+		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => '제목',
+		'_' => '카테고리',
 	),
 	'feed' => array(
 		'add' => 'RSS 피드 추가',
@@ -39,8 +39,8 @@ return array(
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
 		'filteractions' => array(
-			'_' => 'Filter actions',	//TODO - Translation
-			'help' => 'Write one search filter per line.',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
+			'_' => 'Filter actions',	// TODO - Translation
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
@@ -49,12 +49,11 @@ return array(
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
 		'priority' => array(
-			'_' => '표시',
 			'archived' => '표시하지 않음 (보관됨)',
 			'main_stream' => '메인 스트림에 표시하기',
 			'normal' => '피드가 속한 카테고리에만 표시하기',
+			'_' => '표시',
 		),
-		'websub' => 'WebSub을 사용한 즉시 알림',
 		'show' => array(
 			'all' => '모든 피드 보기',
 			'error' => '오류가 발생한 피드만 보기',
@@ -72,17 +71,18 @@ return array(
 		'url' => '피드 URL',
 		'validator' => '피드 유효성 검사',
 		'website' => '웹사이트 URL',
+		'websub' => 'WebSub을 사용한 즉시 알림',
 	),
 	'firefox' => array(
 		'documentation' => 'FreshRSS를 Firefox 피드 리더에 추가하기 위해서는 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">여기</a>의 설명을 따르세요.',
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
 		'title' => 'Firefox 피드 리더',
 	),
 	'import_export' => array(
 		'export' => '내보내기',
+		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
 		'export_starred' => '즐겨찾기 내보내기',
-		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'feed_list' => '%s 개의 글 목록',
 		'file_to_import' => '불러올 파일<br />(OPML, JSON 또는 ZIP)',
 		'file_to_import_no_zip' => '불러올 파일<br />(OPML 또는 JSON)',
@@ -97,8 +97,8 @@ return array(
 		'subscription_tools' => '구독 도구',
 	),
 	'title' => array(
-		'_' => '구독 관리',
 		'feed_management' => 'RSS 피드 관리',
 		'subscription_tools' => '구독 도구',
+		'_' => '구독 관리',
 	),
 );

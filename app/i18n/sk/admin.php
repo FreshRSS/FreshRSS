@@ -83,9 +83,9 @@ return array(
 			'ok' => 'Našiel sa PDO a aspoň jeden z podporovaných ovládačov (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'Inštalácia PHP',
 			'nok' => 'Vaša verzia PHP je %s, ale FreshRSS vyžaduje minimálne verziu %s.',
 			'ok' => 'Vaša verzia PHP %s je kompatibilná s FreshRSS.',
+			'_' => 'Inštalácia PHP',
 		),
 		'tables' => array(
 			'nok' => 'V databáze chýba jedna alebo viacero tabuliek.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Názov',
 		'no_configure_view' => 'Toto rozšírenie nemá nastavenia.',
 		'system' => array(
-			'_' => 'Systémové rozšírenia',
 			'no_rights' => 'Systémové rozšírenie (nemáte oprávnenia)',
+			'_' => 'Systémové rozšírenia',
 		),
 		'title' => 'Rozšírenia',
 		'update' => 'Sú dostupné aktualizácie',
@@ -125,7 +125,6 @@ return array(
 		'version' => 'Verzia',
 	),
 	'stats' => array(
-		'_' => 'Štatistiky',
 		'all_feeds' => 'Všetky kanály',
 		'category' => 'Kategória',
 		'entry_count' => 'Počet položiek',
@@ -155,30 +154,32 @@ return array(
 		'status_unread' => 'Neprečítané',
 		'title' => 'Štatistiky',
 		'top_feed' => 'Top 10 kanálov',
+		'_' => 'Štatistiky',
 	),
 	'system' => array(
-		'_' => 'Nastavenia systému',
 		'auto-update-url' => 'Odkaz na aktualizačný server',
-		'instance-name' => 'Názov inštancie',
-		'max-categories' => 'Limit počtu kategórií pre používateľa',
-		'max-feeds' => 'Limit počtu kanálov pre používateľov',
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
 		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'instance-name' => 'Názov inštancie',
+		'max-categories' => 'Limit počtu kategórií pre používateľa',
+		'max-feeds' => 'Limit počtu kanálov pre používateľov',
 		'registration' => array(
 			'help' => '0 znamená žiadny limit počtu účtov',
 			'number' => 'Maximálny počt účtov',
 		),
+		'_' => 'Nastavenia systému',
 	),
 	'update' => array(
-		'_' => 'Aktualizácia systému',
 		'apply' => 'Použiť',
 		'check' => 'Skontrolovať aktualizácie',
 		'current_version' => 'Vaša aktuálna verzia FreshRSS: %s',
 		'last' => 'Posledná kontrola: %s',
 		'none' => 'Žiadna nová aktualizácia',
 		'title' => 'Aktualizácia systému',
+		'_' => 'Aktualizácia systému',
 	),
 	'user' => array(
 		'articles_and_size' => '%s článkov (%s)',
@@ -187,7 +188,7 @@ return array(
 		'create' => 'Vytvoriť nového používateľa',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Zmazať používateľa',
-		'feed_count' => 'Feeds',	//TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Jazyk',
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Je vytvorený používateľ: %d',
@@ -197,8 +198,8 @@ return array(
 		'selected' => 'Označený používateľ',
 		'title' => 'Správa používateľov',
 		'update_users' => 'Sktualizovať používateľov',
-		'user_list' => 'Zoznam používateľov',
 		'username' => 'Používateľské meno',
 		'users' => 'Používatelia',
+		'user_list' => 'Zoznam používateľov',
 	),
 );

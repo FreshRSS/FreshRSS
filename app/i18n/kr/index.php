@@ -2,7 +2,6 @@
 
 return array(
 	'about' => array(
-		'_' => '정보',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => '버그 제보하기',
 		'credits' => '크레딧',
@@ -14,23 +13,21 @@ return array(
 		'title' => '정보',
 		'version' => '버전',
 		'website' => '웹사이트',
-	),
-	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'_' => '정보',
 	),
 	'feed' => array(
 		'add' => '피드를 추가하세요.',
 		'empty' => '글이 없습니다.',
 		'rss_of' => '%s의 피드',
 		'title' => 'RSS 피드',
-		'title_global' => '전체 모드',
 		'title_fav' => '즐겨찾기',
+		'title_global' => '전체 모드',
 	),
 	'log' => array(
-		'_' => '로그',
 		'clear' => '로그 모두 지우기',
 		'empty' => '로그 파일이 비어있습니다',
 		'title' => '로그',
+		'_' => '로그',
 	),
 	'menu' => array(
 		'about' => 'FreshRSS 정보',
@@ -62,5 +59,8 @@ return array(
 	'share' => '공유',
 	'tag' => array(
 		'related' => '관련 태그',
+	),
+	'tos' => array(
+		'title' => 'Terms of Service',	// TODO - Translation
 	),
 );

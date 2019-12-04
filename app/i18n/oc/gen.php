@@ -30,19 +30,19 @@ return array(
 		'login' => 'Connexion',
 		'logout' => 'Se desconnectar',
 		'password' => array(
-			'_' => 'Senhal',
 			'format' => '<small>Almens 7 caractèrs</small>',
+			'_' => 'Senhal',
 		),
 		'registration' => array(
-			'_' => 'Compte nòu',
 			'ask' => 'Crear un compte?',
 			'title' => 'Creacion de compte',
+			'_' => 'Compte nòu',
 		),
 		'reset' => 'Reïnicializacion de l’autentificacion',
 		'username' => array(
-			'_' => 'Nom d’utilizaire',
 			'admin' => 'Nom d’utilizaire administrator',
 			'format' => '<small>16 caractèrs alfanumerics maximum)</small>',
+			'_' => 'Nom d’utilizaire',
 		),
 	),
 	'date' => array(
@@ -60,13 +60,13 @@ return array(
 		'feb' => 'feb.',
 		'february' => 'febrièr',
 		'format_date' => 'j \\d\\e %s \\d\\e Y',
-		'format_date_hour' => 'j \\d\\e %s \\d\\e Y \\a H\:i',
+		'format_date_hour' => 'j \\d\\e %s \\d\\e Y \\a H\\:i',
 		'fri' => 'dv',
 		'Jan' => '\\g\\e\\n\\i\\è\\r',
 		'jan' => 'gen.',
 		'january' => 'genièr',
-		'Jul' => '\\j\\u\\l\\h\\e\\t',
 		'jul' => 'julh',
+		'Jul' => '\\j\\u\\l\\h\\e\\t',
 		'july' => 'julhet',
 		'Jun' => '\\j\\u\\n\\h',
 		'jun' => 'junh',
@@ -76,8 +76,8 @@ return array(
 		'last_month' => 'Dempuèi lo mes passat',
 		'last_week' => 'Dempuèi la setmana passada',
 		'last_year' => 'Dempuèi l’annada passada',
-		'Mar' => '\\m\\a\\r\\ç',
 		'mar' => 'març',
+		'Mar' => '\\m\\a\\r\\ç',
 		'march' => 'març',
 		'May' => '\\m\\a\\i',
 		'may' => 'mai',
@@ -102,8 +102,8 @@ return array(
 		'yesterday' => 'Ièr',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => 'A prepaus de FreshRSS',
+		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Categoria voida',
@@ -123,13 +123,14 @@ return array(
 		'en' => 'English',
 		'es' => 'Español',
 		'fr' => 'Français',
-		'he' => 'עברית',
+		'he' => 'עברית',	// TODO - Translation
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',	// TODO - Translation
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -179,11 +180,11 @@ return array(
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
 		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
+		'linkedin' => 'LinkedIn',	// TODO - Translation
+		'mastodon' => 'Mastodon',	// TODO - Translation
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pocket' => 'Pocket',	// TODO - Translation
 		'print' => 'Imprimir',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',

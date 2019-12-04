@@ -1,17 +1,17 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimalizácia dokončená',
-	),
 	'access' => array(
 		'denied' => 'Na prístup k tejto stránke nemáte oprávnenie',
 		'not_found' => 'Hľadáte stránku, ktorá neexistuje',
 	),
+	'admin' => array(
+		'optimization_complete' => 'Optimalizácia dokončená',
+	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified', // TODO - Translation
-			'updated' => 'Your password has been modified', // TODO - Translation
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
 		),
 	),
 	'auth' => array(
@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s sa nepodarilo povoliť. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz povolený',
 		),
-		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
+		'no_access' => 'Nemáte prístup k %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Kategória bola vyprázdnená',
 			'error' => 'Nepodarilo sa aktualizovať kategóriu',
 			'name_exists' => 'Názov kategórie už existuje.',
-			'no_id' => 'Musíte zadať ID kategórie.',
-			'no_name' => 'Názov kategórie nemôže byť prázdny.',
 			'not_delete_default' => 'Nemôžete odstrániť prednastavenú kategóriu!',
 			'not_exist' => 'Kategória neexistuje!',
+			'no_id' => 'Musíte zadať ID kategórie.',
+			'no_name' => 'Názov kategórie nemôže byť prázdny.',
 			'over_max' => 'Dosiahli ste limit počtu kategórií (%d)',
 			'updated' => 'Kategória bola aktualizovaná.',
 		),
@@ -88,10 +88,10 @@ return array(
 			'error' => 'Kanál sa nepodarilo aktualizovať',
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
 			'invalid_url' => 'Odkaz <em>%s</em> je neplatný',
+			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
+			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
 			'n_actualized' => 'Počet aktualizovaných kanálov: %d',
 			'n_entries_deleted' => 'Počet vymazaných článkov: %d',
-			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
-			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
 			'over_max' => 'Dosiahli ste limit počtu kanálov (%d)',
 			'updated' => 'Kanál bol aktualizovaný',
 		),
@@ -107,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Používateľ %s bol vytvorený',
 			'error' => 'Používateľ %s nebol vytvorený',
+			'_' => 'Používateľ %s bol vytvorený',
 		),
 		'deleted' => array(
-			'_' => 'Používateľ %s bol vymazaný',
 			'error' => 'Používateľ %s nebol vymazaný',
+			'_' => 'Používateľ %s bol vymazaný',
 		),
 		'updated' => array(
-			'_' => 'Používateľ %s bol aktualizovaný',
 			'error' => 'Používateľ %s nebol aktualizovaný',
+			'_' => 'Používateľ %s bol aktualizovaný',
 		),
 	),
 );

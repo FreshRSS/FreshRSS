@@ -2,19 +2,26 @@
 
 return array(
 	'archiving' => array(
-		'_' => 'Archivovanie',
-		'advanced' => 'Pokročilé',
 		'delete_after' => 'Vymazať články po',
+		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Viac možností nájdete v nastaveniach kanála',
+		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
+		'keep_labels' => 'Never delete labels',	// TODO - Translation
+		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
 		'keep_min_by_feed' => 'Minimálny počet článkov kanála na zachovanie',
+		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	// TODO - Translation
+		'maintenance' => 'Maintenance',	// TODO - Translation
 		'optimize' => 'Optimalizovať databázu',
 		'optimize_help' => 'Občas vykonajte na zmenšenie veľkosti databázy',
+		'policy' => 'Purge policy',	// TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	// TODO - Translation
 		'purge_now' => 'Vyčistiť teraz',
 		'title' => 'Archivovanie',
 		'ttl' => 'Neaktualizovať častejšie ako',
+		'_' => 'Archivovanie',
 	),
 	'display' => array(
-		'_' => 'Zobrazenie',
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
 			'display_authors' => 'Autori',
@@ -39,21 +46,22 @@ return array(
 			'no_limit' => 'Bez obmedzenia',
 			'thin' => 'Úzka',
 		),
+		'_' => 'Zobrazenie',
 	),
 	'profile' => array(
-		'_' => 'Správca profilu',
-		'api' => 'API management', // TODO - Translation
+		'api' => 'API management',	// TODO - Translation
 		'delete' => array(
-			'_' => 'Vymazanie účtu',
 			'warn' => 'Váš účet a všetky údaje v ňom budú vymazané.',
+			'_' => 'Vymazanie účtu',
 		),
+		'email' => 'Email address',	// TODO - Translation
 		'password_api' => 'Heslo API<br /><small>(pre mobilné aplikácie)</small>',
 		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',
 		'password_format' => 'Najmenej 7 znakov',
 		'title' => 'Profil',
+		'_' => 'Správca profilu',
 	),
 	'query' => array(
-		'_' => 'Dopyty používateľa',
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
 		'display' => 'Zobraziť výsledky dopytu používateľa',
 		'filter' => 'Použitý filter:',
@@ -61,8 +69,8 @@ return array(
 		'get_category' => 'Zobraziť kategóriu "%s"',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál "%s"',
-		'no_filter' => 'Žiadny filter',
 		'none' => 'Zatiaľ ste nevytvorili používateľský dopyt.',
+		'no_filter' => 'Žiadny filter',
 		'number' => 'Dopyt číslo %d',
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
@@ -85,9 +93,9 @@ return array(
 		'state_14' => 'Zobraziť neprečítané články',
 		'state_15' => 'Zobraziť všetky články',
 		'title' => 'Používateľské dopyty',
+		'_' => 'Dopyty používateľa',
 	),
 	'reading' => array(
-		'_' => 'Čítanie',
 		'after_onread' => 'Po “Označiť všetko ako prečítané”,',
 		'articles_per_page' => 'Počet článkov na jednu stranu',
 		'auto_load_more' => 'Načítať ďalšie články dolu na stránke',
@@ -108,16 +116,16 @@ return array(
 			'when' => 'Označiť článok ako prečítaný…',
 		),
 		'show' => array(
-			'_' => 'Článkov na zobrazenie',
 			'adaptive' => 'Vyberte zobrazenie',
 			'all_articles' => 'Zobraziť všetky články',
 			'unread' => 'Zobraziť iba neprečítané',
+			'_' => 'Článkov na zobrazenie',
 		),
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
 		'sort' => array(
-			'_' => 'Poradie',
 			'newer_first' => 'Novšie hore',
 			'older_first' => 'Staršie hore',
+			'_' => 'Poradie',
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
@@ -127,15 +135,14 @@ return array(
 			'normal' => 'Základné zobrazenie',
 			'reader' => 'Zobrazenie na čítanie',
 		),
+		'_' => 'Čítanie',
 	),
 	'sharing' => array(
-		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Viac informácií',
 		'print' => 'Tlač',
 		'remove' => 'Odstrániť spôsob zdieľania',
@@ -145,9 +152,9 @@ return array(
 		'title' => 'Zdieľanie',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
+		'_' => 'Zdieľanie',
 	),
 	'shortcut' => array(
-		'_' => 'Skratky',
 		'article_action' => 'Akcie článku',
 		'auto_share' => 'Zdieľať',
 		'auto_share_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',
@@ -179,6 +186,7 @@ return array(
 		'user_filter' => 'Použiť používateľské filtre',
 		'user_filter_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',
 		'views' => 'Zobrazenia',
+		'_' => 'Skratky',
 	),
 	'user' => array(
 		'articles_and_size' => '%s článkov (%s)',
