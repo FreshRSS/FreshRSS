@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovať',
+		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
 		'create' => 'Vytvoriť',
@@ -23,25 +24,25 @@ return array(
 		'update' => 'Aktualizovať',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
 		'email' => 'E-mailová adresa',
 		'keep_logged_in' => 'Zostať prihlásený <small>(počet dní: %s)</small>',
 		'login' => 'Prihlásiť',
 		'logout' => 'Odhlásiť',
 		'password' => array(
-			'_' => 'Heslo',
 			'format' => '<small>Najmenej 7 znakov</small>',
+			'_' => 'Heslo',
 		),
 		'registration' => array(
-			'_' => 'Nový účet',
 			'ask' => 'Vytvoriť účet?',
 			'title' => 'Vytvorenie účtu',
+			'_' => 'Nový účet',
 		),
 		'reset' => 'Reset prihlásenia',
 		'username' => array(
-			'_' => 'Používateľské meno',
 			'admin' => 'Administrátorské používateľské meno',
 			'format' => '<small>maximálne 16 alfanumerických znakov</small>',
+			'_' => 'Používateľské meno',
 		),
 	),
 	'date' => array(
@@ -64,8 +65,8 @@ return array(
 		'Jan' => '\\J\\a\\n\\u\\á\\r',
 		'jan' => 'Jan.',
 		'january' => 'Január',
-		'Jul' => '\\J\\ú\\l',
 		'jul' => 'Júl',
+		'Jul' => '\\J\\ú\\l',
 		'july' => 'Júl',
 		'Jun' => '\\J\\ú\\n',
 		'jun' => 'Jún',
@@ -75,8 +76,8 @@ return array(
 		'last_month' => 'Posledný mesiac',
 		'last_week' => 'Posledný týždeň',
 		'last_year' => 'Posledný rok',
-		'Mar' => '\\M\\a\\r\\e\\c',
 		'mar' => 'Mar.',
+		'Mar' => '\\M\\a\\r\\e\\c',
 		'march' => 'Marec',
 		'May' => '\\M\\á\\j',
 		'may' => 'Máj',
@@ -89,8 +90,8 @@ return array(
 		'Oct' => '\\O\\k\\t\\ó\\b\\e\\r',
 		'oct' => 'Okt.',
 		'october' => 'Október',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
 		'sat' => 'So',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
 		'sep' => 'Sept.',
 		'september' => 'September',
 		'sun' => 'Ne',
@@ -101,8 +102,8 @@ return array(
 		'yesterday' => 'Včera',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => 'O FreshRSS',
+		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Prázdna kategória',
@@ -115,6 +116,23 @@ return array(
 		),
 		'new_article' => 'Našli sa nové články. Kliknite na obnovenie stránky.',
 		'should_be_activated' => 'Musíte povoliť JavaScript',
+	),
+	'lang' => array(
+		'cz' => 'Čeština',
+		'de' => 'Deutsch',
+		'en' => 'English',
+		'es' => 'Español',
+		'fr' => 'Français',
+		'he' => 'עברית',
+		'it' => 'Italiano',
+		'kr' => '한국어',
+		'nl' => 'Nederlands',
+		'oc' => 'Occitan',
+		'pt-br' => 'Português (Brasil)',
+		'ru' => 'Русский',
+		'sk' => 'Slovenčina',
+		'tr' => 'Türkçe',
+		'zh-cn' => '简体中文',
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
@@ -146,15 +164,22 @@ return array(
 		'nothing_to_load' => 'Žiadne nové články',
 		'previous' => 'Predošlý',
 	),
+	'period' => array(
+		'days' => 'days',	// TODO - Translation
+		'hours' => 'hours',	// TODO - Translation
+		'months' => 'months',	// TODO - Translation
+		'weeks' => 'weeks',	// TODO - Translation
+		'years' => 'years',	// TODO - Translation
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Stránky založené na Known',
+		'lemmy' => 'Lemmy',	// TODO - Translation
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

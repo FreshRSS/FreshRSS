@@ -1,12 +1,12 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimization complete',
-	),
 	'access' => array(
 		'denied' => 'You don’t have permission to access this page',
 		'not_found' => 'You are looking for a page which doesn’t exist',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Optimization complete',
 	),
 	'api' => array(
 		'password' => array(
@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now enabled',
 		),
-		'no_access' => 'You have no access on %s',
 		'not_enabled' => '%s is not enabled',
 		'not_found' => '%s does not exist',
+		'no_access' => 'You have no access on %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Category has been emptied',
 			'error' => 'Category cannot be updated',
 			'name_exists' => 'Category name already exists.',
-			'no_id' => 'You must specify the id of the category.',
-			'no_name' => 'Category name cannot be empty.',
 			'not_delete_default' => 'You cannot delete the default category!',
 			'not_exist' => 'The category does not exist!',
+			'no_id' => 'You must specify the id of the category.',
+			'no_name' => 'Category name cannot be empty.',
 			'over_max' => 'You have reached your limit of categories (%d)',
 			'updated' => 'Category has been updated.',
 		),
@@ -88,10 +88,10 @@ return array(
 			'error' => 'Feed cannot be updated',
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
+			'not_added' => '<em>%s</em> could not be added',
+			'no_refresh' => 'There is no feed to refresh…',
 			'n_actualized' => '%d feeds have been updated',
 			'n_entries_deleted' => '%d articles have been deleted',
-			'no_refresh' => 'There is no feed to refresh…',
-			'not_added' => '<em>%s</em> could not be added',
 			'over_max' => 'You have reached your limit of feeds (%d)',
 			'updated' => 'Feed has been updated',
 		),
@@ -107,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'User %s has been created',
 			'error' => 'User %s cannot be created',
+			'_' => 'User %s has been created',
 		),
 		'deleted' => array(
-			'_' => 'User %s has been deleted',
 			'error' => 'User %s cannot be deleted',
+			'_' => 'User %s has been deleted',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',
 			'error' => 'User %s has not been updated',
+			'_' => 'User %s has been updated',
 		),
 	),
 );

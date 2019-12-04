@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '새 글 가져오기',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
@@ -24,25 +24,25 @@ return array(
 		'update' => '변경',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
 		'email' => '메일 주소',
 		'keep_logged_in' => '로그인 유지 <small>(%s 일)</small>',
 		'login' => '로그인',
 		'logout' => '로그아웃',
 		'password' => array(
-			'_' => '암호',
 			'format' => '<small>7 글자 이상이어야 합니다</small>',
+			'_' => '암호',
 		),
 		'registration' => array(
-			'_' => '새 계정',
 			'ask' => '새 계정을 만들까요?',
 			'title' => '계정 생성',
+			'_' => '새 계정',
 		),
 		'reset' => '인증 초기화',
 		'username' => array(
-			'_' => '사용자 이름',
 			'admin' => '관리자 이름',
 			'format' => '<small>알파벳과 숫자를 포함할 수 있고 최대 16 글자</small>',
+			'_' => '사용자 이름',
 		),
 	),
 	'date' => array(
@@ -65,8 +65,8 @@ return array(
 		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',
 		'jan' => '1월',
 		'january' => '1월',
-		'Jul' => '\\J\\u\\l\\y',
 		'jul' => '7월',
+		'Jul' => '\\J\\u\\l\\y',
 		'july' => '7월',
 		'Jun' => '\\J\\u\\n\\e',
 		'jun' => '6월',
@@ -76,15 +76,15 @@ return array(
 		'last_month' => '최근 한 달',
 		'last_week' => '최근 한 주',
 		'last_year' => '최근 일 년',
-		'Mar' => '\\M\\a\\r\\c\\h',
 		'mar' => '3월',
+		'Mar' => '\\M\\a\\r\\c\\h',
 		'march' => '3월',
 		'May' => '\\M\\a\\y',
 		'may' => '5월',
 		'may_' => '5월',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
 		'mon' => '월',
 		'month' => '개월',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
 		'nov' => '11월',
 		'november' => '11월',
 		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',
@@ -102,8 +102,8 @@ return array(
 		'yesterday' => '어제',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => '정보',
+		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',
@@ -130,6 +130,7 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',	// TODO - Translation
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -164,11 +165,11 @@ return array(
 		'previous' => '이전',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'days',	// TODO - Translation
+		'hours' => 'hours',	// TODO - Translation
+		'months' => 'months',	// TODO - Translation
+		'weeks' => 'weeks',	// TODO - Translation
+		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
 		'blogotext' => 'Blogotext',

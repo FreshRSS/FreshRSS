@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '获取',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← 返回',
 		'cancel' => '取消',
 		'create' => '创建',
@@ -21,28 +21,28 @@ return array(
 		'see_website' => '查看网站',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
-		'update' => '更新',	//TODO - Translation
+		'update' => '更新',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
 		'email' => 'Email 地址',
 		'keep_logged_in' => '自动登录<small>(%s 天)</small>',
 		'login' => '登录',
 		'logout' => '登出',
 		'password' => array(
-			'_' => '密码',
 			'format' => '<small>至少 7 个字符</small>',
+			'_' => '密码',
 		),
 		'registration' => array(
-			'_' => '新账户',
 			'ask' => '创建新账户？',
 			'title' => '账户创建',
+			'_' => '新账户',
 		),
 		'reset' => '密码重置',
 		'username' => array(
-			'_' => '用户名',
 			'admin' => '管理员用户名',
 			'format' => '<small>最大 16 个数字或字母</small>',
+			'_' => '用户名',
 		),
 	),
 	'date' => array(
@@ -60,13 +60,13 @@ return array(
 		'feb' => '二月',
 		'february' => '二月',
 		'format_date' => 'Y\\年n\\月j\\日',
-		'format_date_hour' => 'Y\\年n\\月j\\日  H\\:i',
+		'format_date_hour' => 'Y\\年n\\月j\\日	H\\:i',
 		'fri' => '周五',
 		'Jan' => '\\一\\月',
 		'jan' => '一月',
 		'january' => '一月',
-		'Jul' => '\\七\\月',
 		'jul' => '七月',
+		'Jul' => '\\七\\月',
 		'july' => '七月',
 		'Jun' => '\\六\\月',
 		'jun' => '六月',
@@ -76,8 +76,8 @@ return array(
 		'last_month' => '上月',
 		'last_week' => '上周',
 		'last_year' => '去年',
-		'Mar' => '\\三\\月',
 		'mar' => '三月',
+		'Mar' => '\\三\\月',
 		'march' => '三月',
 		'May' => '\\五\\月',
 		'may' => '五月',
@@ -102,8 +102,8 @@ return array(
 		'yesterday' => '昨天',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => '关于 FreshRSS',
+		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => '清空分类',
@@ -130,6 +130,7 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',	// TODO - Translation
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -164,11 +165,11 @@ return array(
 		'previous' => '上一页',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'days',	// TODO - Translation
+		'hours' => 'hours',	// TODO - Translation
+		'months' => 'months',	// TODO - Translation
+		'weeks' => 'weeks',	// TODO - Translation
+		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
 		'blogotext' => 'Blogotext',

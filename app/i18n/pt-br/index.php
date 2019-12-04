@@ -2,8 +2,7 @@
 
 return array(
 	'about' => array(
-		'_' => 'Sobre',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Reportar Bugs',
 		'credits' => 'Créditos',
 		'credits_content' => 'Alguns elementos de design vieram do <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> Embora FreshRRS não utiliza este framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ícones</a> vieram do <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police foi criada por <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS é baseado no <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, um framework PHP.',
@@ -14,23 +13,21 @@ return array(
 		'title' => 'Sobre',
 		'version' => 'Versão',
 		'website' => 'Site',
-	),
-	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'_' => 'Sobre',
 	),
 	'feed' => array(
 		'add' => 'Você pode adicionar alguns feeds.',
 		'empty' => 'Não há nenhum artigo para mostrar.',
 		'rss_of' => 'RSS feed do %s',
 		'title' => 'Seus RSS feeds',
-		'title_global' => 'Visualização Global',
 		'title_fav' => 'Seus favoritos',
+		'title_global' => 'Visualização Global',
 	),
 	'log' => array(
-		'_' => 'Logs',
 		'clear' => 'Limpar logs',
 		'empty' => 'Arquivo de log está vazio',
-		'title' => 'Logs',
+		'title' => 'Logs',	// TODO - Translation
+		'_' => 'Logs',	// TODO - Translation
 	),
 	'menu' => array(
 		'about' => 'Sobre o FreshRSS',
@@ -43,7 +40,7 @@ return array(
 		'mark_all_read' => 'Marcar todos como lidos',
 		'mark_cat_read' => 'Marcar categoria como lida',
 		'mark_feed_read' => 'Marcar feed com lido',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
+		'mark_selection_unread' => 'Mark selection as unread',	// TODO - Translation
 		'newer_first' => 'Novos primeiro',
 		'non-starred' => 'Mostrar todos, exceto favoritos',
 		'normal_view' => 'visualização normal',
@@ -51,16 +48,19 @@ return array(
 		'queries' => 'Queries do usuário',
 		'read' => 'Mostrar apenas lidos',
 		'reader_view' => 'Visualização de leitura',
-		'rss_view' => 'RSS feed',
+		'rss_view' => 'RSS feed',	// TODO - Translation
 		'search_short' => 'Buscar',
 		'starred' => 'Mostrar apenas os favoritos',
 		'stats' => 'Estatísticas',
 		'subscription' => 'Gerenciamento de inscrições',
-		'tags' => 'My labels',	//TODO - Translation
+		'tags' => 'My labels',	// TODO - Translation
 		'unread' => 'Mostrar apenas os não lidos',
 	),
 	'share' => 'Compartilhar',
 	'tag' => array(
-		'related' => 'Tags relacionadas',	//TODO - Translation
+		'related' => 'Tags relacionadas',
+	),
+	'tos' => array(
+		'title' => 'Terms of Service',	// TODO - Translation
 	),
 );

@@ -2,34 +2,33 @@
 
 return array(
 	'archiving' => array(
-		'_' => '存档',
 		'delete_after' => '文章保留',
-		'exception' => 'Purge exception',	//TODO - Translation
+		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => '详细选项位于单独的 RSS 源设置',
-		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
+		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
+		'keep_labels' => 'Never delete labels',	// TODO - Translation
+		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
 		'keep_min_by_feed' => '至少保存的文章数',
-		'keep_labels' => 'Never delete labels',	//TODO - Translation
-		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
-		'maintenance' => 'Maintenance',	//TODO - Translation
+		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	// TODO - Translation
+		'maintenance' => 'Maintenance',	// TODO - Translation
 		'optimize' => '优化数据库',
 		'optimize_help' => '偶尔执行优化可以减少数据库大小',
-		'policy' => 'Purge policy',	//TODO - Translation
-		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
+		'policy' => 'Purge policy',	// TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	// TODO - Translation
 		'purge_now' => '立即清除',
-		'keep_max' => 'Maximum number of articles to keep',	//TODO - Translation
-		'keep_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => '存档',
 		'ttl' => '最小自动更新时间',
+		'_' => '存档',
 	),
 	'display' => array(
-		'_' => '显示',
 		'icon' => array(
 			'bottom_line' => '底栏',
+			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => '文章图标',
 			'publication_date' => '更新日期',
 			'related_tags' => '相关标签',
 			'sharing' => '分享',
-			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => '顶栏',
 		),
 		'language' => '语言',
@@ -47,22 +46,22 @@ return array(
 			'no_limit' => '无限制',
 			'thin' => '小',
 		),
+		'_' => '显示',
 	),
 	'profile' => array(
-		'_' => '帐户管理',
-		'api' => 'API management', // TODO - Translation
+		'api' => 'API management',	// TODO - Translation
 		'delete' => array(
-			'_' => '账户删除',
 			'warn' => '你的帐户和所有相关数据都将被删除。',
+			'_' => '账户删除',
 		),
 		'email' => 'Email 地址',
 		'password_api' => 'API 密码<br /><small>(例如,用于手机 APP)</small>',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
 		'title' => '用户帐户',
+		'_' => '帐户管理',
 	),
 	'query' => array(
-		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或 RSS 源已被删除。',
 		'display' => '显示查询结果',
 		'filter' => '生效的过滤器：',
@@ -70,8 +69,8 @@ return array(
 		'get_category' => '显示分类 "%s"',
 		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示RSS 源 "%s"',
-		'no_filter' => '无过滤器',
 		'none' => '你未创建任何自定义查询。',
+		'no_filter' => '无过滤器',
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧到新显示文章',
 		'order_desc' => '由新到旧显示文章',
@@ -94,9 +93,9 @@ return array(
 		'state_14' => '显示未读文章',
 		'state_15' => '显示所有文章',
 		'title' => '自定义查询',
+		'_' => '自定义查询',
 	),
 	'reading' => array(
-		'_' => '阅读',
 		'after_onread' => '“全部设为已读”后,',
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入下一篇文章',
@@ -117,16 +116,16 @@ return array(
 			'when' => '将文章设为已读…',
 		),
 		'show' => array(
-			'_' => '文章显示',
 			'adaptive' => '智能显示',
 			'all_articles' => '显示所有文章',
 			'unread' => '只显示未读',
+			'_' => '文章显示',
 		),
 		'sides_close_article' => '点击文章外区域以关闭文章',
 		'sort' => array(
-			'_' => '排列顺序',
 			'newer_first' => '由新到旧',
 			'older_first' => '由旧到新',
+			'_' => '排列顺序',
 		),
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',
@@ -136,9 +135,9 @@ return array(
 			'normal' => '普通视图',
 			'reader' => '阅读视图',
 		),
+		'_' => '阅读',
 	),
 	'sharing' => array(
-		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
@@ -153,9 +152,9 @@ return array(
 		'title' => '分享',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
+		'_' => '分享',
 	),
 	'shortcut' => array(
-		'_' => '快捷键',
 		'article_action' => '文章操作',
 		'auto_share' => '分享',
 		'auto_share_help' => '如果有多种分享方式，则会按照它们的编号依次访问。',
@@ -187,6 +186,7 @@ return array(
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的编号依次访问。',
 		'views' => '视图',
+		'_' => '快捷键',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',

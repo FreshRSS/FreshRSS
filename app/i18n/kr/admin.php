@@ -64,7 +64,7 @@ return array(
 		'files' => '파일 시스템 설치 요구사항',
 		'json' => array(
 			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
-			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
+			'ok' => 'JSON 확장 기능이 설치되어 있습니다.',
 		),
 		'mbstring' => array(
 			'nok' => '유니코드 지원을 위한 mbstring 라이브러리를 찾을 수 없습니다.',
@@ -83,9 +83,9 @@ return array(
 			'ok' => '최소 하나의 지원가능한 드라이버와 PDO가 설치되어 있습니다 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP 설치 요구사항',
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
 			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
+			'_' => 'PHP 설치 요구사항',
 		),
 		'tables' => array(
 			'nok' => '하나 이상의 테이블을 데이터베이스에서 찾을 수 없습니다.',
@@ -116,8 +116,8 @@ return array(
 		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',
 		'system' => array(
-			'_' => '시스템 확장 기능',
 			'no_rights' => '시스템 확장 기능 (이 확장 기능에 대한 권한이 없습니다)',
+			'_' => '시스템 확장 기능',
 		),
 		'title' => '확장 기능',
 		'update' => '업데이트 있음',
@@ -125,7 +125,6 @@ return array(
 		'version' => '버전',
 	),
 	'stats' => array(
-		'_' => '통계',
 		'all_feeds' => '모든 피드',
 		'category' => '카테고리',
 		'entry_count' => '글 개수',
@@ -155,31 +154,32 @@ return array(
 		'status_unread' => '읽지 않음',
 		'title' => '통계',
 		'top_feed' => '상위 10 개 피드',
+		'_' => '통계',
 	),
 	'system' => array(
-		'_' => '시스템 설정',
 		'auto-update-url' => '자동 업데이트 서버 URL',
-		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
-		'instance-name' => '인스턴스 이름',
-		'max-categories' => '사용자별 카테고리 개수 제한',
-		'max-feeds' => '사용자별 피드 개수 제한',
 		'cookie-duration' => array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
 		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'instance-name' => '인스턴스 이름',
+		'max-categories' => '사용자별 카테고리 개수 제한',
+		'max-feeds' => '사용자별 피드 개수 제한',
 		'registration' => array(
 			'help' => '0: 제한 없음',
 			'number' => '계정 최대 개수',
 		),
+		'_' => '시스템 설정',
 	),
 	'update' => array(
-		'_' => '업데이트',
 		'apply' => '업데이트 적용하기',
 		'check' => '새 업데이트 확인하기',
 		'current_version' => '현재 FreshRSS 버전은 %s 입니다.',
 		'last' => '마지막 확인: %s',
 		'none' => '적용 가능한 업데이트가 없습니다',
 		'title' => '업데이트',
+		'_' => '업데이트',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 개의 글 (%s)',
@@ -188,7 +188,7 @@ return array(
 		'create' => '새 사용자 생성',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => '사용자 삭제',
-		'feed_count' => 'Feeds',	//TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => '언어',
 		'list' => 'User list',	// TODO - Translation
 		'number' => '%d 개의 계정이 생성되었습니다',
@@ -198,8 +198,8 @@ return array(
 		'selected' => '선택된 사용자',
 		'title' => '사용자 관리',
 		'update_users' => '사용자 정보 변경',
-		'user_list' => '사용자 목록',
 		'username' => '사용자 이름',
 		'users' => '전체 사용자',
+		'user_list' => '사용자 목록',
 	),
 );

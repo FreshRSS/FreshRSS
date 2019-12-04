@@ -3,16 +3,16 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovat',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Zpět na seznam RSS kanálů',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
 		'enable' => 'Povolit',
-		'export' => 'Export',
+		'export' => 'Export',	// TODO - Translation
 		'filter' => 'Filtrovat',
-		'import' => 'Import',
+		'import' => 'Import',	// TODO - Translation
 		'manage' => 'Spravovat',
 		'mark_favorite' => 'Označit jako oblíbené',
 		'mark_read' => 'Označit jako přečtené',
@@ -21,28 +21,28 @@ return array(
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Smazat všechny články',
-		'update' => 'Update',	//TODO - Translation
+		'update' => 'Update',	// TODO - Translation
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
 		'email' => 'Email',
 		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dny)</small>',
-		'login' => 'Login',
+		'login' => 'Login',	// TODO - Translation
 		'logout' => 'Odhlášení',
 		'password' => array(
-			'_' => 'Heslo',
 			'format' => '<small>Alespoň 7 znaků</small>',
+			'_' => 'Heslo',
 		),
 		'registration' => array(
-			'_' => 'Nový účet',
 			'ask' => 'Vytvořit účet?',
 			'title' => 'Vytvoření účtu',
+			'_' => 'Nový účet',
 		),
 		'reset' => 'Reset přihlášení',
 		'username' => array(
-			'_' => 'Uživatel',
 			'admin' => 'Název administrátorského účtu',
 			'format' => '<small>maximálně 16 alfanumerických znaků</small>',
+			'_' => 'Uživatel',
 		),
 	),
 	'date' => array(
@@ -65,8 +65,8 @@ return array(
 		'Jan' => '\\L\\e\\d\\e\\n',
 		'jan' => 'led',
 		'january' => 'Led',
-		'Jul' => '\\Č\\e\\r\\v\\e\\n\\e\\c',
 		'jul' => 'čvn',
+		'Jul' => '\\Č\\e\\r\\v\\e\\n\\e\\c',
 		'july' => 'Čvn',
 		'Jun' => '\\Č\\e\\r\\v\\e\\n',
 		'jun' => 'čer',
@@ -76,8 +76,8 @@ return array(
 		'last_month' => 'Minulý měsíc',
 		'last_week' => 'Minulý týden',
 		'last_year' => 'Minulý rok',
-		'Mar' => '\\B\\ř\\e\\z\\e\\n',
 		'mar' => 'bře',
+		'Mar' => '\\B\\ř\\e\\z\\e\\n',
 		'march' => 'Bře',
 		'May' => '\\K\\v\\ě\\t\\e\\n',
 		'may' => 'Květen',
@@ -102,8 +102,8 @@ return array(
 		'yesterday' => 'Včera',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => 'O FreshRSS',
+		'_' => 'FreshRSS',	// TODO - Translation
 	),
 	'js' => array(
 		'category_empty' => 'Prázdná kategorie',
@@ -118,20 +118,21 @@ return array(
 		'should_be_activated' => 'JavaScript musí být povolen',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// TODO - Translation
+		'de' => 'Deutsch',	// TODO - Translation
+		'en' => 'English',	// TODO - Translation
+		'es' => 'Español',	// TODO - Translation
+		'fr' => 'Français',	// TODO - Translation
+		'he' => 'עברית',	// TODO - Translation
+		'it' => 'Italiano',	// TODO - Translation
+		'kr' => '한국어',	// TODO - Translation
+		'nl' => 'Nederlands',	// TODO - Translation
+		'oc' => 'Occitan',	// TODO - Translation
+		'pt-br' => 'Português (Brasil)',	// TODO - Translation
+		'ru' => 'Русский',	// TODO - Translation
+		'sk' => 'Slovenčina',	// TODO - Translation
+		'tr' => 'Türkçe',	// TODO - Translation
+		'zh-cn' => '简体中文',	// TODO - Translation
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
@@ -149,7 +150,7 @@ return array(
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
-		'system' => 'System configuration',	//TODO - Translation
+		'system' => 'System configuration',	// TODO - Translation
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
@@ -164,31 +165,31 @@ return array(
 		'previous' => 'Předchozí',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'days',	// TODO - Translation
+		'hours' => 'hours',	// TODO - Translation
+		'months' => 'months',	// TODO - Translation
+		'weeks' => 'weeks',	// TODO - Translation
+		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'blogotext' => 'Blogotext',	// TODO - Translation
+		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'email' => 'Email',	// TODO - Translation
+		'facebook' => 'Facebook',	// TODO - Translation
+		'gnusocial' => 'GNU social',	// TODO - Translation
+		'jdh' => 'Journal du hacker',	// TODO - Translation
+		'Known' => 'Known based sites',	// TODO - Translation
+		'lemmy' => 'Lemmy',	// TODO - Translation
+		'linkedin' => 'LinkedIn',	// TODO - Translation
+		'mastodon' => 'Mastodon',	// TODO - Translation
+		'movim' => 'Movim',	// TODO - Translation
+		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pocket' => 'Pocket',	// TODO - Translation
 		'print' => 'Tisk',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'shaarli' => 'Shaarli',	// TODO - Translation
+		'twitter' => 'Twitter',	// TODO - Translation
+		'wallabag' => 'wallabag v1',	// TODO - Translation
+		'wallabagv2' => 'wallabag v2',	// TODO - Translation
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
@@ -198,8 +199,8 @@ return array(
 		'damn' => 'Sakra!',
 		'default_category' => 'Nezařazeno',
 		'no' => 'Ne',
-		'not_applicable' => 'Not available',	//TODO - Translation
-		'ok' => 'Ok!',
+		'not_applicable' => 'Not available',	// TODO - Translation
+		'ok' => 'Ok!',	// TODO - Translation
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),

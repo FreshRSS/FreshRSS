@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Un email a été envoyé à votre adresse.',
 				'error' => 'L’adresse email n’a pas pu être validée.',
 				'ok' => 'L’adresse email a été validée.',
-				'unnecessary' => 'L’adresse email a déjà été validée.',
+				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
 				'wrong_token' => 'L’adresse email n’a pas pu être validée à cause d’un mauvais token.',
 			),
 			'need_to' => 'Vous devez valider votre adresse email avant de pouvoir utiliser %s.',
@@ -22,16 +22,16 @@ return array(
 			'title' => 'Validation de l’adresse email',
 		),
 	),
+	'mailer' => array(
+		'email_need_validation' => array(
+			'body' => 'Vous venez de vous inscrire sur %s mais vous devez encore valider votre adresse email. Pour cela, veuillez cliquer sur ce lien :',
+			'title' => 'Vous devez valider votre compte',
+			'welcome' => 'Bienvenue %s,',
+		),
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Vous devez accepter les conditions générales d’utilisation pour pouvoir vous inscrire.',
-		),
-	),
-	'mailer' => array(
-		'email_need_validation' => array(
-			'title' => 'Vous devez valider votre compte',
-			'welcome' => 'Bienvenue %s,',
-			'body' => 'Vous venez de vous inscrire sur %s mais vous devez encore valider votre adresse email. Pour cela, veuillez cliquer sur ce lien :',
 		),
 	),
 );

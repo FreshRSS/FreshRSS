@@ -1,17 +1,17 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimimización completada',
-	),
 	'access' => array(
 		'denied' => 'No dispones de permiso para acceder a esta página',
 		'not_found' => 'La página que buscas no existe',
 	),
+	'admin' => array(
+		'optimization_complete' => 'Optimimización completada',
+	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified', // TODO - Translation
-			'updated' => 'Your password has been modified', // TODO - Translation
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
 		),
 	),
 	'auth' => array(
@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
 		),
-		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
+		'no_access' => 'No tienes acceso a %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor. Por favor, exporta estos archivos uno a uno.',
@@ -63,8 +63,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Actualización',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
 		),
 		'category' => array(
 			'created' => 'Se ha creado la categoría %s.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Se ha vaciado la categoría',
 			'error' => 'No es posible actualizar la categoría',
 			'name_exists' => 'Ya existe una categoría con ese nombre.',
-			'no_id' => 'Debes especificar la id de la categoría.',
-			'no_name' => '¡El nombre de la categoría no puede dejarse en blanco!.',
 			'not_delete_default' => '¡No puedes borrar la categoría por defecto!',
 			'not_exist' => 'La categoría no existe',
+			'no_id' => 'Debes especificar la id de la categoría.',
+			'no_name' => '¡El nombre de la categoría no puede dejarse en blanco!.',
 			'over_max' => 'Has alcanzado el límite de categorías (%d)',
 			'updated' => 'La categoría se ha actualizado.',
 		),
@@ -86,12 +86,12 @@ return array(
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',	//TODO - Translation
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
+			'not_added' => '<em>%s</em> no ha podido se añadida',
+			'no_refresh' => 'No hay fuente a actualizar…',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
-			'no_refresh' => 'No hay fuente a actualizar…',
-			'not_added' => '<em>%s</em> no ha podido se añadida',
 			'over_max' => 'Has alcanzado tu límite de fuentes (%d)',
 			'updated' => 'Fuente actualizada',
 		),
@@ -107,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Se ha creado el usuario %s',
 			'error' => 'No se ha podido crear al usuario %s',
+			'_' => 'Se ha creado el usuario %s',
 		),
 		'deleted' => array(
-			'_' => 'El usuario %s ha sido eliminado',
 			'error' => 'El usuario %s no ha podido ser eliminado',
+			'_' => 'El usuario %s ha sido eliminado',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	//TODO - Translation
-			'error' => 'User %s has not been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'User %s has been updated',	// TODO - Translation
 		),
 	),
 );

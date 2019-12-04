@@ -83,9 +83,9 @@ return array(
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP installation',
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version is %s, which is compatible with FreshRSS.',
+			'_' => 'PHP installation',
 		),
 		'tables' => array(
 			'nok' => 'There are one or more missing tables in the database.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
 		'system' => array(
-			'_' => 'System extensions',
 			'no_rights' => 'System extension (you have no rights on it)',
+			'_' => 'System extensions',
 		),
 		'title' => 'Extensions',
 		'update' => 'Update available',
@@ -125,7 +125,6 @@ return array(
 		'version' => 'Version',
 	),
 	'stats' => array(
-		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',
 		'category' => 'Category',
 		'entry_count' => 'Entry count',
@@ -155,31 +154,32 @@ return array(
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
+		'_' => 'Statistics',
 	),
 	'system' => array(
-		'_' => 'System configuration',
 		'auto-update-url' => 'Auto-update server URL',
-		'force_email_validation' => 'Force email addresses validation',
-		'instance-name' => 'Instance name',
-		'max-categories' => 'Categories per user limit',
-		'max-feeds' => 'Feeds per user limit',
 		'cookie-duration' => array(
 			'help' => 'in seconds',
 			'number' => 'Duration to keep logged in',
 		),
+		'force_email_validation' => 'Force email addresses validation',
+		'instance-name' => 'Instance name',
+		'max-categories' => 'Categories per user limit',
+		'max-feeds' => 'Feeds per user limit',
 		'registration' => array(
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
 		),
+		'_' => 'System configuration',
 	),
 	'update' => array(
-		'_' => 'Update system',
 		'apply' => 'Apply',
 		'check' => 'Check for new updates',
 		'current_version' => 'Your current version of FreshRSS is %s.',
 		'last' => 'Last verification: %s',
 		'none' => 'No update to apply',
 		'title' => 'Update system',
+		'_' => 'Update system',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
@@ -198,8 +198,8 @@ return array(
 		'selected' => 'Selected user',
 		'title' => 'Manage users',
 		'update_users' => 'Update user',
-		'user_list' => 'List of users',
 		'username' => 'Username',
 		'users' => 'Users',
+		'user_list' => 'List of users',
 	),
 );

@@ -22,16 +22,16 @@ return array(
 			'title' => 'Emailadresvalidatie',
 		),
 	),
+	'mailer' => array(
+		'email_need_validation' => array(
+			'body' => 'Je hebt je net geregistreerd op %s, maar je moet je email nog valideren. Volg daarvoor de link:',
+			'title' => 'Je account moet worden gevalideerd',
+			'welcome' => 'Welkom %s,',
+		),
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'De gebruiksvoorwaarden moeten worden geaccepteerd om te kunnen registeren.',
-		),
-	),
-	'mailer' => array(
-		'email_need_validation' => array(
-			'title' => 'Je account moet worden gevalideerd',
-			'welcome' => 'Welkom %s,',
-			'body' => 'Je hebt je net geregistreerd op %s, maar je moet je email nog valideren. Volg daarvoor de link:',
 		),
 	),
 );

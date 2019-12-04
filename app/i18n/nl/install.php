@@ -1,5 +1,5 @@
 <?php
-/* Dutch translation by Wanabo. http://www.nieuwskop.be */
+
 return array(
 	'action' => array(
 		'finish' => 'Completeer installatie',
@@ -17,20 +17,19 @@ return array(
 		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
-		'_' => 'Database',
 		'conf' => array(
-			'_' => 'Database configuratie',
 			'ko' => 'Controleer uw database informatie.',
 			'ok' => 'Database configuratie is opgeslagen.',
+			'_' => 'Database configuratie',
 		),
 		'host' => 'Host',
 		'password' => 'Database wachtwoord',
 		'prefix' => 'Tabel voorvoegsel',
 		'type' => 'Type database',
 		'username' => 'Database gebruikersnaam',
+		'_' => 'Database',
 	),
 	'check' => array(
-		'_' => 'Controles',
 		'already_installed' => 'We hebben geconstateerd dat FreshRSS al is geïnstallerd!',
 		'cache' => array(
 			'nok' => 'Controleer permissies van de <em>./data/cache</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
@@ -96,10 +95,11 @@ return array(
 			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
 		),
+		'_' => 'Controles',
 	),
 	'conf' => array(
-		'_' => 'Algemene configuratie',
 		'ok' => 'Algemene configuratie is opgeslagen.',
+		'_' => 'Algemene configuratie',
 	),
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
@@ -110,14 +110,14 @@ return array(
 		'confirm_reinstall' => 'U zal uw vorige configuratie kwijtraken door FreshRSS opnieuw te installeren. Weet u zeker dat u verder wilt gaan?',
 	),
 	'language' => array(
-		'_' => 'Taal',
 		'choose' => 'Kies een taal voor FreshRSS',
 		'defined' => 'Taal is bepaald.',
+		'_' => 'Taal',
 	),
 	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
 	'ok' => 'De installatieprocedure is geslaagd.',
 	'step' => 'stap %d',
 	'steps' => 'Stappen',
-	'title' => 'Installatie · FreshRSS',
 	'this_is_the_end' => 'Dit is het einde',
+	'title' => 'Installatie · FreshRSS',
 );
