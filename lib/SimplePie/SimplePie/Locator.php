@@ -402,7 +402,7 @@ class SimplePie_Locator
 			{
 				break;
 			}
-			if (preg_match('/(rss|rdf|atom|xml)/i', $value))
+			if (preg_match('/(feed|rss|rdf|atom|xml)/i', $value))
 			{
 				$this->checked_feeds++;
 				$headers = array(
