@@ -8,14 +8,13 @@ It's also recommended to make the announcement on mailing@freshrss.org.
 
 Before releasing a new version of FreshRSS, you must ensure that the code is stable and free of major bugs. Ideally, our tests should be automated and executed before any publication.
 
-You must also **make sure that the CHANGELOG file is up to date** in the dev branch with the updates of the version(s) to be released.
+You must also **make sure that the CHANGELOG file is up to date** with the updates of the version to be released.
 
 # Git process
 
 ```bash
 $ git checkout master
 $ git pull
-$ git merge --ff dev
 $ vim constants.php
 # Update version number x.y.y.z of FRESHRSS_VERSION
 $ git commit -a
@@ -33,7 +32,7 @@ The repository managing the code is located on GitHub: [FreshRSS/update.freshrss
 
 ## Writing the update script
 
-The scripts are located in the `./scripts/` directory and must take the form `update_to_x.y.z.z.php`. This directory  also contains `update_to_dev.php` intended for updates of the dev branch (this script must not include code specific to a particular version!) and `update_util.php`, which contains a list of functions useful for all scripts.
+The scripts are located in the `./scripts/` directory and must take the form `update_to_x.y.z.z.php`. This directory  also contains `update_to_dev.php` intended for updates of the `master` branch (this script must not include code specific to a particular version!) and `update_util.php`, which contains a list of functions useful for all scripts.
 
 In order to write a new script, it's better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form  of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
 
@@ -68,7 +67,7 @@ return array(
 And here's how this table works:
 
 * on the left you can find the N version, on the right the N+1 version;
-* the `x.y.z.z-dev` versions are **all** updated to `dev`;
+* the `x.y.z.z-dev` versions are **all** updated to `master`;
 * stable versions are updated to stable versions;
 * it's possible to skip several versions at once, provided that the update scripts support it;
 * it's advisable to indicate the correspondence of the current version to its potential future version by specifying that this version does not yet exist. As long as the corresponding script does not exist, nothing will happen.
@@ -100,7 +99,7 @@ When everything's working, it's time to announce the release to the world!
 # Starting the next development version
 
 ```bash
-$ git checkout dev
+$ git checkout master
 $ vim constants.php
 # Update the FRESHRSS_VERSION
 $ vim CHANGELOG.md

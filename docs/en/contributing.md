@@ -32,7 +32,7 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 1. Be sure the bug is associated with a ticket and indicate that you'll work on it.
 2. [Fork the project repository](https://help.github.com/articles/fork-a-repo/).
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **dev branch**.
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/).
 
 If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
 
