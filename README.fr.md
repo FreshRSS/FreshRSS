@@ -50,11 +50,10 @@ FreshRSS n’est fourni avec aucune garantie.
 
 
 # Téléchargement
-Voir la [liste des versions](../../releases).
 
-## À propos des branches
-* Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous souhaitez des versions moins fréquentes et stables.
-* Utilisez [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) si vous vouler une publication continue (rolling release) avec les dernières nouveautés, ou bien aider à tester ou développer la future version stable.
+Si vous préférez que votre FreshRSS soit stable, vous devriez télécharger la dernière version. De nouvelles versions sont publiées tous les 2 ou 3 mois. Voir la [liste des versions](https://github.com/FreshRSS/FreshRSS/releases).
+
+Si vous voulez une publication continue (rolling release) avec les dernières nouveautés, ou bien aider à tester ou développer la future version stable, vous pouvez utiliser [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/).
 
 
 # [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
@@ -97,8 +96,8 @@ sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
 cd FreshRSS
 
-# Si vous souhaitez utiliser la branche développement de FreshRSS
-sudo git checkout -b dev origin/dev
+# Si vous souhaitez utiliser la dernière version stable de FreshRSS
+sudo git checkout $(git describe --tags --abbrev=0)
 
 # Mettre les droits d’accès pour le serveur Web
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/

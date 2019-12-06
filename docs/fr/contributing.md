@@ -55,9 +55,8 @@ les collaborateurs, vous devrez suivre ces indications :
    l'identifiant du ticket correspondant. Par exemple,
    `783-contributing-file` pour réparer [ticket
    #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Apportez vos modifications à votre fork et [envoyez une demande de
-   pull](https://help.github.com/articles/using-pull-requests/) sur la
-   branche **dev**.
+4. Ajoutez vos modifications à votre fork et [ouvrez une demande de pull
+   request](https://help.github.com/articles/using-pull-requests/).
 
 Si vous devez écrire du code, veuillez suivre [nos recommandations de style
 de codage](developers/01_First_steps.md).

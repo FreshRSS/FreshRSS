@@ -59,12 +59,12 @@ Si la configuration vous intéresse, les commandes `make' sont définies dans
 le fichier [`Makefile`](/Makefile).
 
 Si vous avez besoin d'utiliser une image Docker identifiée par un tag
-différent (par défaut `dev-alpine`), vous pouvez surcharger de la manière
+différent (par défaut `alpine`), vous pouvez surcharger de la manière
 suivante la variable d'environnement `TAG` au moment de l'exécution de la
 commande :
 
 ```console
-$ TAG=dev-arm make start
+$ TAG=arm make start
 ```
 
 Vous pouvez trouver la liste complète des tags disponibles [sur le hub
@@ -76,12 +76,12 @@ suivante :
 ```console
 $ make build
 $ # ou
-$ TAG=dev-arm make build
+$ TAG=arm make build
 ```
 
 La valeur de la variable `TAG` peut contenir n'importe quelle valeur (par
-exemple `dev-local`). Vous pouvez cibler une architecture spécifique en
-ajoutant `-alpine` ou `-arm` à la fin du tag (par exemple `dev-local-arm`).
+exemple `local`). Vous pouvez cibler une architecture spécifique en ajoutant
+`-alpine` ou `-arm` à la fin du tag (par exemple `local-arm`).
 
 # Architecture du projet
 

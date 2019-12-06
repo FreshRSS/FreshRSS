@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-11-15 10:34+0100\n"
+"POT-Creation-Date: 2019-12-07 10:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -167,8 +167,7 @@ msgstr ""
 #: en/./contributing.md:36
 msgid ""
 "Make your changes to your fork and [send a pull "
-"request](https://help.github.com/articles/using-pull-requests/) on the **dev "
-"branch**."
+"request](https://help.github.com/articles/using-pull-requests/)."
 msgstr ""
 
 #. type: Plain text
@@ -374,14 +373,14 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:41
 msgid ""
-"If you need to use a different tag image (default is `dev-alpine`), you can "
-"set the `TAG` environment variable:"
+"If you need to use a different tag image (default is `alpine`), you can set "
+"the `TAG` environment variable:"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:42
 #, no-wrap
-msgid "$ TAG=dev-arm make start\n"
+msgid "$ TAG=arm make start\n"
 msgstr ""
 
 #. type: Plain text
@@ -404,15 +403,15 @@ msgstr ""
 msgid ""
 "$ make build\n"
 "$ # or\n"
-"$ TAG=dev-arm make build\n"
+"$ TAG=arm make build\n"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:57
 msgid ""
-"The `TAG` variable can be anything (e.g. `dev-local`). You can target a "
-"specific architecture by adding `-alpine` or `-arm` at the end of the tag "
-"(e.g. `dev-local-arm`)."
+"The `TAG` variable can be anything (e.g. `local`). You can target a specific "
+"architecture by adding `-alpine` or `-arm` at the end of the tag "
+"(e.g. `local-arm`)."
 msgstr ""
 
 #. type: Title #
@@ -492,7 +491,7 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./developers/01_First_steps.md:81 en/./developers/01_First_steps.md:111 en/./developers/01_First_steps.md:123 en/./developers/01_First_steps.md:158 en/./developers/01_First_steps.md:173 en/./developers/01_First_steps.md:186 en/./developers/01_First_steps.md:196 en/./developers/01_First_steps.md:213 en/./developers/01_First_steps.md:228 en/./developers/03_Backend/05_Extensions.md:47 en/./developers/03_Backend/05_Extensions.md:88 en/./developers/03_Backend/05_Extensions.md:130 en/./developers/03_Backend/05_Extensions.md:149 en/./developers/03_Backend/05_Extensions.md:166 en/./developers/03_Backend/05_Extensions.md:188 en/./developers/03_Backend/05_Extensions.md:225 en/./developers/05_Release_new_version.md:54 en/./users/06_Fever_API.md:107
+#: en/./developers/01_First_steps.md:81 en/./developers/01_First_steps.md:111 en/./developers/01_First_steps.md:123 en/./developers/01_First_steps.md:158 en/./developers/01_First_steps.md:173 en/./developers/01_First_steps.md:186 en/./developers/01_First_steps.md:196 en/./developers/01_First_steps.md:213 en/./developers/01_First_steps.md:228 en/./developers/03_Backend/05_Extensions.md:47 en/./developers/03_Backend/05_Extensions.md:88 en/./developers/03_Backend/05_Extensions.md:130 en/./developers/03_Backend/05_Extensions.md:149 en/./developers/03_Backend/05_Extensions.md:166 en/./developers/03_Backend/05_Extensions.md:188 en/./developers/03_Backend/05_Extensions.md:225 en/./developers/05_Release_new_version.md:53 en/./users/06_Fever_API.md:107
 #, no-wrap
 msgid "php"
 msgstr ""
@@ -526,7 +525,7 @@ msgid ""
 msgstr ""
 
 #. type: Code fence info string
-#: en/./developers/01_First_steps.md:92 en/./developers/02_Github.md:80 en/./developers/02_Github.md:85 en/./developers/02_Github.md:90 en/./developers/02_Github.md:96 en/./developers/02_Github.md:102 en/./developers/05_Release_new_version.md:15 en/./developers/05_Release_new_version.md:102
+#: en/./developers/01_First_steps.md:92 en/./developers/02_Github.md:80 en/./developers/02_Github.md:85 en/./developers/02_Github.md:90 en/./developers/02_Github.md:96 en/./developers/02_Github.md:102 en/./developers/05_Release_new_version.md:15 en/./developers/05_Release_new_version.md:101
 #, no-wrap
 msgid "bash"
 msgstr ""
@@ -1171,8 +1170,8 @@ msgstr ""
 #: en/./developers/02_Github.md:90
 #, no-wrap
 msgid ""
-"git checkout dev\n"
-"git pull upstream dev\n"
+"git checkout master\n"
+"git pull upstream master\n"
 msgstr ""
 
 #. type: Title ##
@@ -1209,9 +1208,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/02_Github.md:114
-msgid ""
-"Now you can create a PR based on your branch. Please make sure to file it "
-"against the `dev` branch!"
+msgid "Now you can create a PR based on your branch."
 msgstr ""
 
 #. type: Title ##
@@ -2458,8 +2455,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:12
 msgid ""
-"You must also **make sure that the CHANGELOG file is up to date** in the dev "
-"branch with the updates of the version(s) to be released."
+"You must also **make sure that the CHANGELOG file is up to date** with the "
+"updates of the version to be released."
 msgstr ""
 
 #. type: Title #
@@ -2474,7 +2471,6 @@ msgstr ""
 msgid ""
 "$ git checkout master\n"
 "$ git pull\n"
-"$ git merge --ff dev\n"
 "$ vim constants.php\n"
 "# Update version number x.y.y.z of FRESHRSS_VERSION\n"
 "$ git commit -a\n"
@@ -2485,20 +2481,20 @@ msgid ""
 msgstr ""
 
 #. type: Title #
-#: en/./developers/05_Release_new_version.md:28
+#: en/./developers/05_Release_new_version.md:27
 #, no-wrap
 msgid "Updating `update.freshrss.org`"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:31
+#: en/./developers/05_Release_new_version.md:30
 msgid ""
 "It's important to update update.freshrss.org since this is the default "
 "service for automatic FreshRSS updates."
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:33
+#: en/./developers/05_Release_new_version.md:32
 msgid ""
 "The repository managing the code is located on GitHub: "
 "[FreshRSS/update.freshrss.org] "
@@ -2506,23 +2502,23 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/05_Release_new_version.md:34
+#: en/./developers/05_Release_new_version.md:33
 #, no-wrap
 msgid "Writing the update script"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:37
+#: en/./developers/05_Release_new_version.md:36
 msgid ""
 "The scripts are located in the `./scripts/` directory and must take the form "
 "`update_to_x.y.z.z.php`. This directory also contains `update_to_dev.php` "
-"intended for updates of the dev branch (this script must not include code "
-"specific to a particular version!) and `update_util.php`, which contains a "
-"list of functions useful for all scripts."
+"intended for updates of the `master` branch (this script must not include "
+"code specific to a particular version!) and `update_util.php`, which "
+"contains a list of functions useful for all scripts."
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:39
+#: en/./developers/05_Release_new_version.md:38
 msgid ""
 "In order to write a new script, it's better to copy/paste the last version "
 "or to start from `update_to_dev.php`. The first thing to do is to define the "
@@ -2532,12 +2528,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:41
+#: en/./developers/05_Release_new_version.md:40
 msgid "There are then 5 functions that have to be executed:"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:47
+#: en/./developers/05_Release_new_version.md:46
 msgid ""
 "`apply_update()` takes care of saving the directory containing the data, "
 "checking its structure, downloading the FreshRSS package, deploying it and "
@@ -2547,28 +2543,28 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:47
+#: en/./developers/05_Release_new_version.md:46
 msgid ""
 "`need_info_update()` returns `true` if the user must intervene during the "
 "update or `false` if not;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:47
+#: en/./developers/05_Release_new_version.md:46
 msgid ""
 "`ask_info_update()` displays a form to the user if `need_info_update()` has "
 "returned `true`;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:47
+#: en/./developers/05_Release_new_version.md:46
 msgid ""
 "`save_info_update()` is responsible for saving the information filled out by "
 "the user (from the `ask_info_update()` form);"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:47
+#: en/./developers/05_Release_new_version.md:46
 msgid ""
 "`do_post_update()` is executed at the end of the update and takes into "
 "account the code of the new version (e.g., if the new version changes the "
@@ -2576,13 +2572,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/05_Release_new_version.md:48
+#: en/./developers/05_Release_new_version.md:47
 #, no-wrap
 msgid "Updating the versions file"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:51
+#: en/./developers/05_Release_new_version.md:50
 msgid ""
 "Once the script has been written and versioned, it's necessary to update the "
 "`./versions.php' file which contains a mapping table indicating which "
@@ -2590,12 +2586,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:53
+#: en/./developers/05_Release_new_version.md:52
 msgid "Here's an example of a `versions.php` file:"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:54
+#: en/./developers/05_Release_new_version.md:53
 #, no-wrap
 msgid ""
 "<?php\n"
@@ -2612,34 +2608,34 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:69
+#: en/./developers/05_Release_new_version.md:68
 msgid "And here's how this table works:"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:75
+#: en/./developers/05_Release_new_version.md:74
 msgid "on the left you can find the N version, on the right the N+1 version;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:75
-msgid "the `x.y.z.z-dev` versions are **all** updated to `dev`;"
+#: en/./developers/05_Release_new_version.md:74
+msgid "the `x.y.z.z-dev` versions are **all** updated to `master`;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:75
+#: en/./developers/05_Release_new_version.md:74
 msgid "stable versions are updated to stable versions;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:75
+#: en/./developers/05_Release_new_version.md:74
 msgid ""
 "it's possible to skip several versions at once, provided that the update "
 "scripts support it;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:75
+#: en/./developers/05_Release_new_version.md:74
 msgid ""
 "it's advisable to indicate the correspondence of the current version to its "
 "potential future version by specifying that this version does not yet "
@@ -2648,20 +2644,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:77
+#: en/./developers/05_Release_new_version.md:76
 msgid ""
 "It's **very strongly** recommended to keep this file organized according to "
 "version numbers by separating stable and dev versions."
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/05_Release_new_version.md:78
+#: en/./developers/05_Release_new_version.md:77
 #, no-wrap
 msgid "Deployment"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:81
+#: en/./developers/05_Release_new_version.md:80
 msgid ""
 "Before updating update.freshrss.org, it's better to test with "
 "dev.update.freshrss.org, which corresponds to pre-production. So update "
@@ -2670,79 +2666,79 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:83
+#: en/./developers/05_Release_new_version.md:82
 msgid ""
 "When you're satisfied, update update.freshrss.org with the new script, test "
 "it again, and then move on."
 msgstr ""
 
 #. type: Title #
-#: en/./developers/05_Release_new_version.md:84
+#: en/./developers/05_Release_new_version.md:83
 #, no-wrap
 msgid "Updating the FreshRSS services"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:87
+#: en/./developers/05_Release_new_version.md:86
 msgid "Two services need to be updated immediately after the update."
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:90
+#: en/./developers/05_Release_new_version.md:89
 msgid "rss.freshrss.org;"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:90
+#: en/./developers/05_Release_new_version.md:89
 msgid "demo.freshrss.org (public login: `demo` / `demodemo`)."
 msgstr ""
 
 #. type: Title #
-#: en/./developers/05_Release_new_version.md:91
+#: en/./developers/05_Release_new_version.md:90
 #, no-wrap
 msgid "Publicly announce the release"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:94
+#: en/./developers/05_Release_new_version.md:93
 msgid "When everything's working, it's time to announce the release to the world!"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:99
+#: en/./developers/05_Release_new_version.md:98
 msgid ""
 "on GitHub by creating[a new "
 "release](https://github.com/FreshRSS/FreshRSS/releases/new)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:99
+#: en/./developers/05_Release_new_version.md:98
 msgid ""
 "on the freshrss.org blog, at least for stable versions (write the article "
 "on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:99
+#: en/./developers/05_Release_new_version.md:98
 msgid "on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:99
+#: en/./developers/05_Release_new_version.md:98
 msgid "and on mailing@freshrss.org"
 msgstr ""
 
 #. type: Title #
-#: en/./developers/05_Release_new_version.md:100
+#: en/./developers/05_Release_new_version.md:99
 #, no-wrap
 msgid "Starting the next development version"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:102
+#: en/./developers/05_Release_new_version.md:101
 #, no-wrap
 msgid ""
-"$ git checkout dev\n"
+"$ git checkout master\n"
 "$ vim constants.php\n"
 "# Update the FRESHRSS_VERSION\n"
 "$ vim CHANGELOG.md\n"
@@ -2751,7 +2747,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/05_Release_new_version.md:111
+#: en/./developers/05_Release_new_version.md:110
 msgid ""
 "Also remember to update update.freshrss.org so that it takes the current "
 "development version into account."
