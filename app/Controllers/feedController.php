@@ -47,6 +47,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$url = trim($url);
 
+		/** @var $url */
+		$url = Minz_ExtensionManager::callHook('check_url_before_add', $url);
+		if ($url === null) {
+			throw new FreshRSS_FeedNotAdded_Exception($url, $title);
+		}
+
 		$cat = null;
 		if ($new_cat_name != '') {
 			$new_cat_id = $catDAO->addCategory(array('name' => $new_cat_name));
@@ -274,6 +280,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$updated_feeds = 0;
 		$nb_new_articles = 0;
 		foreach ($feeds as $feed) {
+			/** @var FreshRSS_Feed $feed */
+			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
+			if ($feed === null) {
+				continue;
+			}
+
 			$url = $feed->url();	//For detection of HTTP 301
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();

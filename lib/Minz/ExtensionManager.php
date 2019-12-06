@@ -23,7 +23,15 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
+		'check_url_before_add' => array(  // function($url) -> Url | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
 		'feed_before_insert' => array(  // function($feed) -> Feed | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'feed_before_actualize' => array(  // function($feed) -> Feed | null
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
