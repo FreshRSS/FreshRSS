@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => '비활성화',
 		'empty' => '비우기',
 		'enable' => '활성화',
@@ -16,6 +17,7 @@ return array(
 		'manage' => '관리',
 		'mark_favorite' => '즐겨찾기에 등록',
 		'mark_read' => '읽음으로 표시',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => '삭제',
 		'see_website' => '웹사이트 열기',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',
 		'apr' => '4월',
+		'Apr' => '\\A\\p\\r\\i\\l',
 		'april' => '4월',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',
 		'aug' => '8월',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => '최근 한 달',
 		'last_week' => '최근 한 주',
 		'last_year' => '최근 일 년',
-		'mar' => '3월',
 		'Mar' => '\\M\\a\\r\\c\\h',
+		'mar' => '3월',
 		'march' => '3월',
-		'May' => '\\M\\a\\y',
 		'may' => '5월',
+		'May' => '\\M\\a\\y',
 		'may_' => '5월',
 		'mon' => '월',
 		'month' => '개월',

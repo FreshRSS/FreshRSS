@@ -182,6 +182,7 @@ return array(
 		'_' => 'Update system',
 	),
 	'user' => array(
+		'admin' => 'Administrator',
 		'articles_and_size' => '%s articles (%s)',
 		'article_count' => 'Articles',
 		'back_to_manage' => '← Return to user list',
@@ -190,6 +191,7 @@ return array(
 		'delete_users' => 'Delete user',
 		'email' => 'Email address',
 		'feed_count' => 'Feeds',
+		'is_admin' => 'Is admin',
 		'language' => 'Language',
 		'list' => 'User list',
 		'number' => 'There is %d account created',

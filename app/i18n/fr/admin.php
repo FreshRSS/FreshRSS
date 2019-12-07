@@ -182,6 +182,7 @@ return array(
 		'_' => 'Système de mise à jour',
 	),
 	'user' => array(
+		'admin' => 'Administrateur',
 		'articles_and_size' => '%s articles (%s)',
 		'article_count' => 'Articles',
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
@@ -190,6 +191,7 @@ return array(
 		'delete_users' => 'Supprimer un utilisateur',
 		'email' => 'Adresse email',
 		'feed_count' => 'Flux',
+		'is_admin' => 'Admin ?',
 		'language' => 'Langue',
 		'list' => 'Liste des utilisateurs',
 		'number' => '%d compte a déjà été créé',

@@ -182,6 +182,7 @@ return array(
 		'_' => '업데이트',
 	),
 	'user' => array(
+		'admin' => 'Administrator',	// TODO - Translation
 		'articles_and_size' => '%s 개의 글 (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
@@ -190,6 +191,7 @@ return array(
 		'delete_users' => '사용자 삭제',
 		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
+		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => '언어',
 		'list' => 'User list',	// TODO - Translation
 		'number' => '%d 개의 계정이 생성되었습니다',

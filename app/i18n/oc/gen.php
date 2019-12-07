@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Desactivar',
 		'empty' => 'Voidar',
 		'enable' => 'Activar',
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Gerir',
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Levar',
 		'see_website' => 'Veire lo site',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\a\\b\\r\\i\\a\\l',
 		'apr' => 'abr.',
+		'Apr' => '\\a\\b\\r\\i\\a\\l',
 		'april' => 'abrial',
 		'Aug' => '\\a\\g\\o\\s\\t',
 		'aug' => 'agost',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Dempuèi lo mes passat',
 		'last_week' => 'Dempuèi la setmana passada',
 		'last_year' => 'Dempuèi l’annada passada',
-		'mar' => 'març',
 		'Mar' => '\\m\\a\\r\\ç',
+		'mar' => 'març',
 		'march' => 'març',
-		'May' => '\\m\\a\\i',
 		'may' => 'mai',
+		'May' => '\\m\\a\\i',
 		'may_' => 'mai',
 		'mon' => 'dl',
 		'month' => 'meses',

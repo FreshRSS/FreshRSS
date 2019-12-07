@@ -26,6 +26,15 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<div class="group-controls">
+				<label for="new_user_is_admin" class="checkbox">
+					<input type="checkbox" name="new_user_is_admin" id="new_user_is_admin">
+					<?= _t('admin.user.is_admin') ?>
+				</label>
+			</div>
+		</div>
+
 		<?php if ($this->show_email_field) { ?>
 			<div class="form-group">
 				<label class="group-name" for="new_user_email">
@@ -62,6 +71,7 @@
 		<thead>
 			<tr>
 				<th><?= _t('admin.user.username') ?></th>
+				<th><?= _t('admin.user.is_admin') ?></th>
 				<th><?= _t('admin.user.email') ?></th>
 				<th><?= _t('admin.user.language') ?></th>
 				<th><?= _t('admin.user.feed_count') ?></th>
@@ -74,6 +84,7 @@
 			<?php foreach ($this->users as $username => $values) : ?>
 				<tr>
 					<td><?= $username ?></td>
+					<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 					<td><?= $values['mail_login'] ?></td>
 					<td><?= _t("gen.lang.{$values['language']}") ?></td>
 					<td><?= format_number($values['feed_count']) ?></td>

@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Uitzetten',
 		'empty' => 'Leeg',
 		'enable' => 'Aanzetten',
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Beheren',
 		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Verwijder',
 		'see_website' => 'Bekijk website',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',
 		'apr' => 'apr',
+		'Apr' => '\\A\\p\\r\\i\\l',
 		'april' => 'Apr',
 		'Aug' => '\\A\\u\\g\\u\\s\\t\\u\\s',
 		'aug' => 'aug',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Vorige maand',
 		'last_week' => 'Vorige week',
 		'last_year' => 'Vorig jaar',
-		'mar' => 'mrt',
 		'Mar' => '\\M\\a\\a\\r\\t',
+		'mar' => 'mrt',
 		'march' => 'Mrt',
-		'May' => '\\M\\e\\i',
 		'may' => 'Mei',
+		'May' => '\\M\\e\\i',
 		'may_' => 'Mei',
 		'mon' => 'Ma',
 		'month' => 'maanden',

@@ -182,6 +182,7 @@ return array(
 		'_' => 'Aktualizácia systému',
 	),
 	'user' => array(
+		'admin' => 'Administrator',	// TODO - Translation
 		'articles_and_size' => '%s článkov (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
@@ -190,6 +191,7 @@ return array(
 		'delete_users' => 'Zmazať používateľa',
 		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
+		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Jazyk',
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Je vytvorený používateľ: %d',
