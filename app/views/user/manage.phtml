@@ -62,6 +62,8 @@
 		<thead>
 			<tr>
 				<th><?= _t('admin.user.username') ?></th>
+				<th><?= _t('admin.user.email') ?></th>
+				<th><?= _t('admin.user.language') ?></th>
 				<th><?= _t('admin.user.feed_count') ?></th>
 				<th><?= _t('admin.user.article_count') ?></th>
 				<th><?= _t('admin.user.database_size') ?></th>
@@ -72,6 +74,8 @@
 			<?php foreach ($this->users as $username => $values) : ?>
 				<tr>
 					<td><?= $username ?></td>
+					<td><?= $values['mail_login'] ?></td>
+					<td><?= _t("gen.lang.{$values['language']}") ?></td>
 					<td><?= format_number($values['feed_count']) ?></td>
 					<td><?= format_number($values['article_count']) ?></td>
 					<td><?= format_bytes($values['database_size']) ?></td>

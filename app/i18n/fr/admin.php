@@ -183,11 +183,12 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
+		'article_count' => 'Articles',
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
 		'create' => 'Créer un nouvel utilisateur',
 		'database_size' => 'Volumétrie',
 		'delete_users' => 'Supprimer un utilisateur',
+		'email' => 'Adresse email',
 		'feed_count' => 'Flux',
 		'language' => 'Langue',
 		'list' => 'Liste des utilisateurs',

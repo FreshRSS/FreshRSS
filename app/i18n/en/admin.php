@@ -188,6 +188,7 @@ return array(
 		'create' => 'Create new user',
 		'database_size' => 'Database size',
 		'delete_users' => 'Delete user',
+		'email' => 'Email address',
 		'feed_count' => 'Feeds',
 		'language' => 'Language',
 		'list' => 'User list',

@@ -8,6 +8,20 @@
         <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
 
         <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.email') ?></label>
+            <div class="group-controls">
+                <?= $this->details['mail_login'] ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.language') ?></label>
+            <div class="group-controls">
+                <?= _t("gen.lang.{$this->details['language']}") ?>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="group-name"><?= _t('admin.user.feed_count') ?></label>
             <div class="group-controls">
                 <?= format_number($this->details['feed_count']) ?>

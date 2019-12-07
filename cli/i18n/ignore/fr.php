@@ -3,6 +3,7 @@
 return array(
 	'admin.extensions.title',
 	'admin.stats.number_entries',
+	'admin.user.article_count',
 	'admin.user.articles_and_size',
 	'conf.display.width.large',
 	'conf.sharing.blogotext',

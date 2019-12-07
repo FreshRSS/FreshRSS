@@ -188,6 +188,7 @@ return array(
 		'create' => '새 사용자 생성',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => '사용자 삭제',
+		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => '언어',
 		'list' => 'User list',	// TODO - Translation
