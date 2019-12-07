@@ -188,6 +188,7 @@ return array(
 		'create' => 'Vytvoriť nového používateľa',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Zmazať používateľa',
+		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Jazyk',
 		'list' => 'User list',	// TODO - Translation

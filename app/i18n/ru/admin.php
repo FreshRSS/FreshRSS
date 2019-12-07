@@ -188,6 +188,7 @@ return array(
 		'create' => 'Создать нового пользователя',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	// TODO - Translation
+		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Язык',
 		'list' => 'User list',	// TODO - Translation

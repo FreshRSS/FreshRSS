@@ -188,6 +188,7 @@ return array(
 		'create' => '创建新用户',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => '删除用户',
+		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => '语言',
 		'list' => 'User list',	// TODO - Translation

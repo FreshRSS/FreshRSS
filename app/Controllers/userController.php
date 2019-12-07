@@ -535,10 +535,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 
+		$userConfiguration = get_user_configuration($username);
+
 		return array(
 			'feed_count' => $feedDAO->count(),
 			'article_count' => $entryDAO->count(),
 			'database_size' => $databaseDAO->size(),
+			'language' => $userConfiguration->language,
+			'mail_login' => $userConfiguration->mail_login,
 		);
 	}
 }

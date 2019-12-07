@@ -188,6 +188,7 @@ return array(
 		'create' => 'Creëer nieuwe gebruiker',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Verwijder gebruiker',
+		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Taal',
 		'list' => 'User list',	// TODO - Translation

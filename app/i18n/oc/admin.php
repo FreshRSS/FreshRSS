@@ -188,6 +188,7 @@ return array(
 		'create' => 'Crear un nòu utilizaire',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Suprimir un utilizaire',
+		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Lenga',
 		'list' => 'User list',	// TODO - Translation
