@@ -83,6 +83,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				Minz_Error::error(404);
 			}
 		};
+
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-src' => '*',
+			'img-src' => '* data:',
+			'media-src' => '*',
+		]);
 	}
 
 	/**
@@ -121,6 +128,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		Minz_View::prependTitle($title . ' · ');
+
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-src' => '*',
+			'img-src' => '* data:',
+			'media-src' => '*',
+		]);
 	}
 
 	/**
