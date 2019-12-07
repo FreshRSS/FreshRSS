@@ -66,7 +66,7 @@ ifndef value
 	@echo To add a key, you need to provide its value in the "value" variable.
 	@exit 10
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v $(value)
+	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
 	@echo Key added.
 
 .PHONY: i18n-remove-key
