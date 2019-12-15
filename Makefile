@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 
 ifndef TAG
-	TAG=dev-alpine
+	TAG=alpine
 endif
 
 PORT ?= 8080

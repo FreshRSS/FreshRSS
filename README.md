@@ -50,11 +50,10 @@ FreshRSS comes with absolutely no warranty.
 
 
 # Releases
-See the [list of releases](../../releases).
 
-## About branches
-* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need less frequent stable versions.
-* Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the newest features, or help testing or developing the next stable version.
+The latest stable release can be found [here](https://github.com/FreshRSS/FreshRSS/releases/latest). New versions are released every two to three months.
+
+If you want a rolling release with the newest features, or want to help testing or developing the next stable version, you can use [the `master` branch](https://github.com/FreshRSS/FreshRSS/tree/master/).
 
 
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)

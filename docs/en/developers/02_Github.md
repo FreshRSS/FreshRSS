@@ -88,8 +88,8 @@ git remote -v show
 
 Now you can pull the latest development code:
 ```bash
-git checkout dev
-git pull upstream dev
+git checkout master
+git pull upstream master
 ```
 
 ## Starting a new development branch
@@ -110,7 +110,7 @@ git show
 git push
 ```
 
-Now you can create a PR based on your branch. Please make sure to file it against the `dev` branch!
+Now you can create a PR based on your branch.
 
 ## How to write a commit message
 

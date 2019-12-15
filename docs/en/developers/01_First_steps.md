@@ -37,10 +37,10 @@ $ make stop
 
 If you're interested in the configuration, the `make` commands are defined in the [`Makefile`](/Makefile).
 
-If you need to use a different tag image (default is `dev-alpine`), you can set the `TAG` environment variable:
+If you need to use a different tag image (default is `alpine`), you can set the `TAG` environment variable:
 
 ```console
-$ TAG=dev-arm make start
+$ TAG=arm make start
 ```
 
 You can find the full list of available tags [on the Docker hub](https://hub.docker.com/r/freshrss/freshrss/tags).
@@ -50,10 +50,10 @@ If you want to build the Docker image yourself, you can use the following comman
 ```console
 $ make build
 $ # or
-$ TAG=dev-arm make build
+$ TAG=arm make build
 ```
 
-The `TAG` variable can be anything (e.g. `dev-local`). You can target a specific architecture by adding `-alpine` or `-arm` at the end of the tag (e.g. `dev-local-arm`).
+The `TAG` variable can be anything (e.g. `local`). You can target a specific architecture by adding `-alpine` or `-arm` at the end of the tag (e.g. `local-arm`).
 
 # Project architecture
 

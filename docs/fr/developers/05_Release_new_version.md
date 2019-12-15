@@ -14,15 +14,14 @@ le code est stable et ne présente pas de bugs majeurs. Idéalement, il
 faudrait que nos tests soient automatisés et exécutés avant toute
 publication.
 
-Il faut aussi **vous assurer que le fichier CHANGELOG est à jour** dans la
-branche de dev avec les mises à jour de la ou les version(s) à sortir.
+Il faut aussi **vous assurer que le fichier CHANGELOG est à jour** avec les
+mises à jour de la version à sortir.
 
 # Processus Git
 
 ```bash
 $ git checkout master
 $ git pull
-$ git merge --ff dev
 $ vim constants.php
 # Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION
 $ git commit -a
@@ -44,9 +43,9 @@ Le dépot gérant le code se trouve sur GitHub :
 
 Les scripts se trouvent dans le répertoire `./scripts/` et doivent être de
 la forme `update_to_x.y.z.php`. On trouve aussi dans ce répertoire
-`update_to_dev.php` destiné aux mises à jour de la branche de dev (ce script
-ne doit pas inclure de code spécifique à une version particulière !) et
-`update_util.php` contenant une liste de fonctions utiles à tous les
+`update_to_dev.php` destiné aux mises à jour de la branche `master` (ce
+script ne doit pas inclure de code spécifique à une version particulière !)
+et `update_util.php` contenant une liste de fonctions utiles à tous les
 scripts.
 
 Afin d'écrire un nouveau script, il est préférable de copier / coller celui
@@ -99,7 +98,7 @@ return array(
 Et voici comment fonctionne cette table :
 
 * à gauche se trouve la version N, à droite la version N+1 ;
-* les versions `x.y.z-dev` sont **toutes** mises à jour vers `dev` ;
+* les versions `x.y.z-dev` sont **toutes** mises à jour vers `master` ;
 * les versions stables sont mises à jour vers des versions stables ;
 * il est possible de sauter plusieurs versions d'un coup à condition que les
   scripts de mise à jour le prennent en charge ;
@@ -145,7 +144,7 @@ Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 # Lancer la prochaine version de développement
 
 ```bash
-$ git checkout dev
+$ git checkout master
 $ vim constants.php
 # Mettre à jour le numéro de version de FRESHRSS_VERSION
 $ vim CHANGELOG.md
