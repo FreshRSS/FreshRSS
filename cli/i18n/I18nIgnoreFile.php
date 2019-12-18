@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/I18nData.php';
 require_once __DIR__ . '/I18nFileInterface.php';
 
 class I18nIgnoreFile implements I18nFileInterface {
@@ -11,8 +10,8 @@ class I18nIgnoreFile implements I18nFileInterface {
 		$this->i18nPath = __DIR__ . '/ignore';
 	}
 
-	public function dump(I18nData $i18n) {
-		foreach ($i18n->getData() as $language => $content) {
+	public function dump(array $i18n) {
+		foreach ($i18n as $language => $content) {
 			$filename = $this->i18nPath . DIRECTORY_SEPARATOR . $language . '.php';
 			file_put_contents($filename, $this->format($content));
 		}
@@ -28,7 +27,7 @@ class I18nIgnoreFile implements I18nFileInterface {
 			$i18n[$file->getBasename('.php')] = (include $file->getPathname());
 		}
 
-		return new I18nData($i18n);
+		return $i18n;
 	}
 
 	/**

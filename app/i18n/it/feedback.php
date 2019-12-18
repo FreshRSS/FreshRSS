@@ -1,12 +1,18 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Ottimizzazione completata',
-	),
 	'access' => array(
 		'denied' => 'Non hai i permessi per accedere a questa pagina',
 		'not_found' => 'Pagina non disponibile',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Ottimizzazione completata',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -38,9 +44,9 @@ return array(
 			'ko' => '%s non può essere abilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è ora abilitata',
 		),
-		'no_access' => 'Accesso negato a %s',
 		'not_enabled' => '%s non abilitato',
 		'not_found' => '%s non disponibile',
+		'no_access' => 'Accesso negato a %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',
@@ -57,8 +63,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Aggiorna',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
 		),
 		'category' => array(
 			'created' => 'Categoria %s creata.',
@@ -66,10 +72,10 @@ return array(
 			'emptied' => 'Categoria svuotata',
 			'error' => 'Categoria non aggiornata',
 			'name_exists' => 'Categoria già esistente.',
-			'no_id' => 'Categoria senza ID.',
-			'no_name' => 'Il nome della categoria non può essere lasciato vuoto.',
 			'not_delete_default' => 'Non puoi cancellare la categoria predefinita!',
 			'not_exist' => 'La categoria non esite!',
+			'no_id' => 'Categoria senza ID.',
+			'no_name' => 'Il nome della categoria non può essere lasciato vuoto.',
 			'over_max' => 'Hai raggiunto il numero limite di categorie (%d)',
 			'updated' => 'Categoria aggiornata.',
 		),
@@ -80,12 +86,12 @@ return array(
 			'already_subscribed' => 'Hai già sottoscritto <em>%s</em>',
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
-			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli.',	//TODO - Translation
+			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
+			'not_added' => '<em>%s</em> non può essere aggiunto',
+			'no_refresh' => 'Nessun aggiornamento disponibile…',
 			'n_actualized' => '%d feeds aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
-			'no_refresh' => 'Nessun aggiornamento disponibile…',
-			'not_added' => '<em>%s</em> non può essere aggiunto',
 			'over_max' => 'Hai raggiunto il numero limite di feed (%d)',
 			'updated' => 'Feed aggiornato',
 		),
@@ -101,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Utente %s creato',
 			'error' => 'Errore nella creazione utente %s ',
+			'_' => 'Utente %s creato',
 		),
 		'deleted' => array(
-			'_' => 'Utente %s cancellato',
 			'error' => 'Utente %s non cancellato',
+			'_' => 'Utente %s cancellato',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	//TODO - Translation
-			'error' => 'User %s has not been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'User %s has been updated',	// TODO - Translation
 		),
 	),
 );

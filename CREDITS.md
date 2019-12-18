@@ -68,6 +68,7 @@ People are sorted by name so please keep this order.
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
 * [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/commits?author=Quenty31)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
+* [Rezad](https://github.com/rezad1393): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rezad1393)
 * [Robert Kaussow](https://github.com/xoxys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xoxys), [Web](https://geeklabor.de/)
 * [rocka](https://github.com/rocka): [contributions](https://github.com/FreshRSS/FreshRss/commits/dev?author=rocka)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=romibi)

@@ -221,7 +221,6 @@ function saveStep3() {
 				$_SESSION['default_user'],
 				'',	//TODO: Add e-mail
 				$password_plain,
-				'',
 				[
 					'language' => $_SESSION['language'],
 				]

@@ -2,8 +2,7 @@
 
 return array(
 	'about' => array(
-		'_' => 'Acerca de',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Informe de fallos',
 		'credits' => 'Créditos',
 		'credits_content' => 'Aunque FreshRSS no usa ese entorno, algunos elementos del diseño están obtenidos de <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>. Los <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Iconos</a> han sido obtenidos del <a href="https://www.gnome.org/">proyecto GNOME</a>. La fuente <em>Open Sans</em> es una creación de <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS usa el entorno PHP <a href="https://github.com/marienfressinaud/MINZ">Minz</a>.',
@@ -14,23 +13,21 @@ return array(
 		'title' => 'Acerca de',
 		'version' => 'Versión',
 		'website' => 'Web',
-	),
-	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'_' => 'Acerca de',
 	),
 	'feed' => array(
 		'add' => 'Puedes añadir fuentes.',
 		'empty' => 'No hay artículos a mostrar.',
 		'rss_of' => 'Fuente RSS de %s',
 		'title' => 'Tus fuentes RSS',
-		'title_global' => 'Vista global',
 		'title_fav' => 'Tus favoritos',
+		'title_global' => 'Vista global',
 	),
 	'log' => array(
-		'_' => 'Registros',
 		'clear' => 'Limpiar registros',
 		'empty' => 'El archivo de registro está vacío',
 		'title' => 'Registros',
+		'_' => 'Registros',
 	),
 	'menu' => array(
 		'about' => 'Acerca de FreshRSS',
@@ -43,7 +40,7 @@ return array(
 		'mark_all_read' => 'Marcar todo como leído',
 		'mark_cat_read' => 'Marcar categoría como leída',
 		'mark_feed_read' => 'Marcar fuente como leída',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
+		'mark_selection_unread' => 'Mark selection as unread',	// TODO - Translation
 		'newer_first' => 'Nuevos primero',
 		'non-starred' => 'Mostrar todos menos los favoritos',
 		'normal_view' => 'Vista normal',
@@ -56,11 +53,14 @@ return array(
 		'starred' => 'Mostrar solo los favoritos',
 		'stats' => 'Estadísticas',
 		'subscription' => 'Administración de suscripciones',
-		'tags' => 'My labels',	//TODO - Translation
+		'tags' => 'My labels',	// TODO - Translation
 		'unread' => 'Mostar solo no leídos',
 	),
 	'share' => 'Compartir',
 	'tag' => array(
-		'related' => 'Etiquetas relacionadas',	//TODO - Translation
+		'related' => 'Etiquetas relacionadas',
+	),
+	'tos' => array(
+		'title' => 'Terms of Service',	// TODO - Translation
 	),
 );

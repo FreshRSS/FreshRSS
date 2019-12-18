@@ -76,6 +76,7 @@ class FreshRSS_Share {
 	private $help_url = '';
 	private $custom_name = null;
 	private $base_url = null;
+	private $id = null;
 	private $title = null;
 	private $link = null;
 	private $method = 'GET';
@@ -118,12 +119,13 @@ class FreshRSS_Share {
 	/**
 	 * Update a FreshRSS_Share object with information from an array.
 	 * @param $options is a list of informations to update where keys should be
-	 *        in this list: name, url, title, link.
+	 *        in this list: name, url, id, title, link.
 	 */
 	public function update($options) {
 		$available_options = array(
 			'name' => 'custom_name',
 			'url' => 'base_url',
+			'id' => 'id',
 			'title' => 'title',
 			'link' => 'link',
 			'method' => 'method',
@@ -196,16 +198,30 @@ class FreshRSS_Share {
 	 */
 	public function url() {
 		$matches = array(
+			'~ID~',
 			'~URL~',
 			'~TITLE~',
 			'~LINK~',
 		);
 		$replaces = array(
+			$this->id(),
 			$this->base_url,
 			$this->title(),
 			$this->link(),
 		);
 		return str_replace($matches, $replaces, $this->url_transform);
+	}
+
+	/**
+	 * Return the id.
+	 * @param $raw true if we should get the id without transformations.
+	 */
+	public function id($raw = false) {
+		if ($raw) {
+			return $this->id;
+		}
+
+		return $this->transform($this->id, $this->getTransform('id'));
 	}
 
 	/**

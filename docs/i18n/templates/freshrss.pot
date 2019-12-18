@@ -1,0 +1,4964 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
+"POT-Creation-Date: 2019-12-07 10:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Title ##
+#: en/./contributing.md:1
+#, no-wrap
+msgid "Join us on the mailing lists"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:4
+msgid ""
+"Do you want to ask us some questions? Do you want to discuss with us? Don't "
+"hesitate to subscribe to our mailing lists!"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:7
+msgid ""
+"The first mailing is destined to generic information, it should be adapted "
+"to users. [Join "
+"mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing)."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:7
+msgid ""
+"The second mailing is mainly for developers. [Join "
+"dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)"
+msgstr ""
+
+#. type: Title ##
+#: en/./contributing.md:8
+#, no-wrap
+msgid "Report a bug"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:11
+msgid ""
+"Have you found a bug? Don't panic, here are some steps to report it with "
+"ease:"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./contributing.md:15
+msgid ""
+"Search for it on [the bug "
+"tracker](https://github.com/FreshRSS/FreshRSS/issues) (don't forget to use "
+"the search bar)."
+msgstr ""
+
+#. type: Bullet: '2. '
+#: en/./contributing.md:15
+msgid ""
+"If you find a similar bug, don't hesitate to post a comment to add more "
+"importance to the related ticket."
+msgstr ""
+
+#. type: Bullet: '3. '
+#: en/./contributing.md:15
+msgid ""
+"If you didn't find it, [open a new "
+"ticket](https://github.com/FreshRSS/FreshRSS/issues/new)."
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:17
+msgid ""
+"If you have to create a new ticket, please try to keep in mind the following "
+"advice:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:20
+msgid "Give an explicit title to the ticket so it will be easier to find it later."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:20
+msgid ""
+"Be as exhaustive as possible in the description: what did you do? What is "
+"the bug? What are the steps to reproduce the bug?"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:22
+msgid "We also need some information:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid "Your FreshRSS version (on the about page or in the `constants.php` file)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid "Your server configuration: the type of hosting and the PHP version"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid "Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./contributing.md:27
+msgid ""
+"If possible, the related logs (PHP logs and FreshRSS logs under "
+"`data/users/your_user/log.txt`)"
+msgstr ""
+
+#. type: Title ##
+#: en/./contributing.md:28
+#, no-wrap
+msgid "Fix a bug"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:31
+msgid ""
+"Would you like to fix a bug? For optimum coordination between collaborators, "
+"you should follow these indications:"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./contributing.md:36
+msgid ""
+"Be sure the bug is associated with a ticket and indicate that you'll work on "
+"it."
+msgstr ""
+
+#. type: Bullet: '2. '
+#: en/./contributing.md:36
+msgid ""
+"[Fork the project "
+"repository](https://help.github.com/articles/fork-a-repo/)."
+msgstr ""
+
+#. type: Bullet: '3. '
+#: en/./contributing.md:36
+msgid ""
+"[Create a new "
+"branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). "
+"The name of the branch should be clear, and ideally prefixed by the related "
+"ticket id. For instance, `783-contributing-file` to fix [ticket "
+"#783](https://github.com/FreshRSS/FreshRSS/issues/783)."
+msgstr ""
+
+#. type: Bullet: '4. '
+#: en/./contributing.md:36
+msgid ""
+"Make your changes to your fork and [send a pull "
+"request](https://help.github.com/articles/using-pull-requests/)."
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:38
+msgid ""
+"If you have to write code, please follow [our coding style "
+"recommendations](developers/01_First_steps.md)."
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:40
+#, no-wrap
+msgid ""
+"**Tip:** if you're searching for easy-to-fix bugs, please have a look at the "
+"\"[good first "
+"issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\" "
+"ticket label.\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./contributing.md:41
+#, no-wrap
+msgid "Submit an idea"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:44
+msgid ""
+"You have great ideas, yes! Don't be shy and open [a new "
+"ticket](https://github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker "
+"to ask if we can implement it. The greatest ideas often come from the shyest "
+"suggestions!"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:46
+msgid "If your idea is nice, we'll have a look at it."
+msgstr ""
+
+#. type: Title ##
+#: en/./contributing.md:47
+#, no-wrap
+msgid "Contribute to internationalization (i18n)"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:50
+msgid ""
+"If you want to improve internationalization, please open a new ticket first "
+"and follow the advice from the *Fix a bug* section."
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:52
+msgid "Translations are present in the subdirectories of `./app/i18n/`."
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:54
+msgid ""
+"We're working on a better way to handle internationalization, but don't "
+"hesitate to suggest any ideas!"
+msgstr ""
+
+#. type: Title ##
+#: en/./contributing.md:55
+#, no-wrap
+msgid "Contribute to documentation"
+msgstr ""
+
+#. type: Plain text
+#: en/./contributing.md:58
+msgid ""
+"The documentation needs a lot of improvements in order to be more useful to "
+"new contributors and we are working on it.  If you want to give some help, "
+"meet us in the main repositories [docs "
+"directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/01_First_steps.md:1
+#, no-wrap
+msgid "Environment configuration (Docker)"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:4
+msgid ""
+"FreshRSS is built with PHP and uses a homemade framework, Minz. The "
+"dependencies are directly included in the source code, so you don't need "
+"Composer."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:6
+msgid ""
+"There are various ways to configure your development environment. The "
+"easiest and most supported method is based on Docker, which is the solution "
+"documented below. If you already have a working PHP environment, you "
+"probably don't need it."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:8
+msgid ""
+"We assume here that you use a GNU/Linux distribution, capable of running "
+"Docker. Otherwise, you'll have to adapt the commands accordingly."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:10
+msgid ""
+"The commands that follow have to be executed in a console. They start by `$` "
+"when commands need to be executed as normal user, and by `#` when they need "
+"to be executed as root user. You don't have to type these characters. A path "
+"may be indicated before these characters to help you identify where they "
+"need to be executed. For instance, `app$ echo 'Hello World'` indicates that "
+"you have to execute `echo` command in the `app/` directory."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:12
+msgid ""
+"First, you need to install "
+"[Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:14
+msgid "Once you're done, clone the repository with:"
+msgstr ""
+
+#. type: Code fence info string
+#: en/./developers/01_First_steps.md:15 en/./developers/01_First_steps.md:24 en/./developers/01_First_steps.md:34 en/./developers/01_First_steps.md:42 en/./developers/01_First_steps.md:50
+#, no-wrap
+msgid "console"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:15
+#, no-wrap
+msgid ""
+"$ git clone https://github.com/FreshRSS/FreshRSS.git\n"
+"$ cd FreshRSS\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:21
+msgid ""
+"Note that, if you want to contribute, you have to fork the repository first "
+"and clone your fork instead of the \"root\" one. Adapt the commands in "
+"consequence."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:23
+msgid "Then, the only command you need to know is the following:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:24
+#, no-wrap
+msgid "$ make start\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:29
+msgid ""
+"This might take some time while Docker downloads the image. If your user "
+"isn't in the `docker` group, you'll need to prepend the command with `sudo`."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:31
+#, no-wrap
+msgid ""
+"**You can now access FreshRSS at "
+"[http://localhost:8080](http://localhost:8080).** Just follow the install "
+"process and select the SQLite database.\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:33
+#, no-wrap
+msgid ""
+"You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or "
+"with the following command, in another terminal:\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:34
+#, no-wrap
+msgid "$ make stop\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:39
+msgid ""
+"If you're interested in the configuration, the `make` commands are defined "
+"in the [`Makefile`](/Makefile)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:41
+msgid ""
+"If you need to use a different tag image (default is `alpine`), you can set "
+"the `TAG` environment variable:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:42
+#, no-wrap
+msgid "$ TAG=arm make start\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:47
+msgid ""
+"You can find the full list of available tags [on the Docker "
+"hub](https://hub.docker.com/r/freshrss/freshrss/tags)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:49
+msgid ""
+"If you want to build the Docker image yourself, you can use the following "
+"command:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:50
+#, no-wrap
+msgid ""
+"$ make build\n"
+"$ # or\n"
+"$ TAG=arm make build\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:57
+msgid ""
+"The `TAG` variable can be anything (e.g. `local`). You can target a specific "
+"architecture by adding `-alpine` or `-arm` at the end of the tag "
+"(e.g. `local-arm`)."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/01_First_steps.md:58
+#, no-wrap
+msgid "Project architecture"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:61 en/./developers/03_Backend/02_Minz.md:4 en/./developers/03_Backend/02_Minz.md:8 en/./developers/03_Backend/02_Minz.md:12 en/./developers/03_Backend/02_Minz.md:16 en/./developers/03_Backend/02_Minz.md:20 en/./developers/03_Backend/02_Minz.md:24 en/./developers/03_Backend/02_Minz.md:27 en/./developers/03_Backend/04_Changing_source_code.md:4 en/./developers/03_Backend/04_Changing_source_code.md:8 en/./developers/03_Backend/04_Changing_source_code.md:12 en/./developers/03_Backend/04_Changing_source_code.md:15 en/./developers/03_Backend/05_Extensions.md:342 en/./developers/03_Backend/05_Extensions.md:381 en/./developers/04_Frontend/01_View_files.md:4 en/./developers/04_Frontend/01_View_files.md:8 en/./developers/04_Frontend/01_View_files.md:12 en/./developers/04_Frontend/01_View_files.md:15 en/./developers/04_Frontend/02_Design.md:4 en/./developers/04_Frontend/02_Design.md:8 en/./developers/04_Frontend/02_Design.md:11 en/./users/03_Main_view.md:4 en/./users/03_Main_view.md:8 en/./users/03_Main_view.md:12 en/./users/04_Subscriptions.md:4 en/./users/04_Subscriptions.md:8 en/./users/04_Subscriptions.md:19 en/./users/05_Configuration.md:70 en/./users/05_Configuration.md:74 en/./users/05_Configuration.md:128 en/./users/05_Configuration.md:153 en/./users/05_Configuration.md:157 en/./users/05_Configuration.md:161
+#, no-wrap
+msgid "**TODO**\n"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/01_First_steps.md:62
+#, no-wrap
+msgid "Extensions"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:65
+msgid ""
+"If you want to create your own FreshRSS extension, take a look at the "
+"[extension documentation](03_Backend/05_Extensions.md)."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/01_First_steps.md:66
+#, no-wrap
+msgid "Coding style"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:69
+msgid ""
+"If you want to contribute to the source code, it's important to follow the "
+"project's coding style. The actual code doesn't always follow it throughout "
+"the project, but we should fix it every time an opportunity presents itself."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:71
+msgid ""
+"Contributions which don't follow the coding style will be rejected as long "
+"as the coding style is not fixed."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/01_First_steps.md:72
+#, no-wrap
+msgid "Spaces, tabs and other whitespace characters"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:74
+#, no-wrap
+msgid "Indentation"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:76
+msgid "Code indentation must use tabs."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:77
+#, no-wrap
+msgid "Alignment"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:80
+msgid ""
+"Once the code has been correctly indented, it might be useful to align it "
+"for ease of reading. In that case, please use spaces."
+msgstr ""
+
+#. type: Code fence info string
+#: en/./developers/01_First_steps.md:81 en/./developers/01_First_steps.md:111 en/./developers/01_First_steps.md:123 en/./developers/01_First_steps.md:158 en/./developers/01_First_steps.md:173 en/./developers/01_First_steps.md:186 en/./developers/01_First_steps.md:196 en/./developers/01_First_steps.md:213 en/./developers/01_First_steps.md:228 en/./developers/03_Backend/05_Extensions.md:47 en/./developers/03_Backend/05_Extensions.md:88 en/./developers/03_Backend/05_Extensions.md:130 en/./developers/03_Backend/05_Extensions.md:149 en/./developers/03_Backend/05_Extensions.md:166 en/./developers/03_Backend/05_Extensions.md:188 en/./developers/03_Backend/05_Extensions.md:225 en/./developers/05_Release_new_version.md:53 en/./users/06_Fever_API.md:107
+#, no-wrap
+msgid "php"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:81
+#, no-wrap
+msgid ""
+"$result = a_function_with_a_really_long_name($param1, $param2,\n"
+"                                             $param3, $param4);\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:86
+#, no-wrap
+msgid "End of line"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:89
+msgid ""
+"The newline character must be a line feed (LF), which is the default line "
+"ending on *NIX systems. This character must not follow other white space."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:91
+msgid ""
+"You can verify if there is any unintended white space at the end of line "
+"with the following Git command:"
+msgstr ""
+
+#. type: Code fence info string
+#: en/./developers/01_First_steps.md:92 en/./developers/02_Github.md:80 en/./developers/02_Github.md:85 en/./developers/02_Github.md:90 en/./developers/02_Github.md:96 en/./developers/02_Github.md:102 en/./developers/05_Release_new_version.md:15 en/./developers/05_Release_new_version.md:101
+#, no-wrap
+msgid "bash"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:92
+#, no-wrap
+msgid ""
+"# command to check files before adding them in the Git index\n"
+"git diff --check\n"
+"# command to check files after adding them in the Git index\n"
+"git diff --check --cached\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:99 en/./developers/01_First_steps.md:220
+#, no-wrap
+msgid "End of file"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:102
+msgid "Every file must end by an empty line."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:103
+#, no-wrap
+msgid "Commas, dots and semi-columns"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:106
+msgid ""
+"There should no space before those characters, but there should be one "
+"after."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:107 en/./developers/01_First_steps.md:210
+#, no-wrap
+msgid "Operators"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:110
+msgid "There should be a space before and after every operator."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:111
+#, no-wrap
+msgid ""
+"if ($a == 10) {\n"
+"\t// do something\n"
+"}\n"
+"\n"
+"echo $a ? 1 : 0;\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:119
+#, no-wrap
+msgid "Parentheses"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:122
+msgid ""
+"There should be no spaces in between brackets. There should be no spaces "
+"before the opening bracket, except if it's after a keyword. There shouldn't "
+"be any spaces after the closing bracket, except if it's followed by a curly "
+"bracket."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:123
+#, no-wrap
+msgid ""
+"if ($a == 10) {\n"
+"\t// do something\n"
+"}\n"
+"\n"
+"if ((int)$a == 10) {\n"
+"\t// do something\n"
+"}\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:133
+#, no-wrap
+msgid "With chained functions"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:136
+msgid ""
+"It happens most of the time in Javascript files. When there are chained "
+"functions with closures and callback functions, it's hard to understand the "
+"code if not properly formatted. In those cases, we add a new indent level "
+"for the complete instruction and reset the indent for a new instruction on "
+"the same level."
+msgstr ""
+
+#. type: Code fence info string
+#: en/./developers/01_First_steps.md:137
+#, no-wrap
+msgid "javascript"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:137
+#, no-wrap
+msgid ""
+"// First instruction\n"
+"shortcut.add(shortcuts.mark_read, function () {\n"
+"\t\t//...\n"
+"\t}, {\n"
+"\t\t'disable_in_input': true\n"
+"\t});\n"
+"// Second instruction\n"
+"shortcut.add(\"shift+\" + shortcuts.mark_read, function () {\n"
+"\t\t//...\n"
+"\t}, {\n"
+"\t\t'disable_in_input': true\n"
+"\t});\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/01_First_steps.md:152
+#, no-wrap
+msgid "Line length"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:155
+msgid ""
+"Lines should strive to be shorter than 80 characters. However, this limit "
+"may be extended to 100 characters when strictly necessary."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:157
+msgid "With functions, parameters can be declared on multiple lines."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:158
+#, no-wrap
+msgid ""
+"function my_function($param_1, $param_2,\n"
+"                     $param_3, $param_4) {\n"
+"\t// do something\n"
+"}\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/01_First_steps.md:165
+#, no-wrap
+msgid "Naming"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:168
+msgid ""
+"All code elements (functions, classes, methods and variables) must describe "
+"their usage succinctly."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:169
+#, no-wrap
+msgid "Functions and variables"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:172
+msgid "Functions and variables must follow the \"snake case\" naming convention."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:173
+#, no-wrap
+msgid ""
+"// a function\n"
+"function function_name() {\n"
+"\t// do something\n"
+"}\n"
+"// a variable\n"
+"$variable_name;\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:182
+#, no-wrap
+msgid "Methods"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:185
+msgid "Methods must follow the \"lower camel case\" naming convention."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:186
+#, no-wrap
+msgid ""
+"private function methodName() {\n"
+"\t// do something\n"
+"}\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:192
+#, no-wrap
+msgid "Classes"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:195
+msgid "Classes must follow the \"upper camel case\" naming convention."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:196
+#, no-wrap
+msgid "abstract class ClassName {}\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/01_First_steps.md:200
+#, no-wrap
+msgid "Encoding"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:203
+msgid "Files must be encoded with the UTF-8 character set."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/01_First_steps.md:204
+#, no-wrap
+msgid "PHP compatibility"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:207
+msgid ""
+"Please ensure that your code works with the oldest PHP version officially "
+"supported by FreshRSS."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/01_First_steps.md:208
+#, no-wrap
+msgid "Miscellaneous"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:212
+msgid ""
+"Operators must be at the end of the line if a condition is split over more "
+"than one line."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:213
+#, no-wrap
+msgid ""
+"if ($a == 10 ||\n"
+"    $a == 20) {\n"
+"\t// do something\n"
+"}\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:223
+msgid "If the file contains only PHP code, the PHP closing tag must be omitted."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/01_First_steps.md:224
+#, no-wrap
+msgid "Arrays"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:227
+msgid ""
+"If an array declaration runs on more than one line, each element must be "
+"followed by a comma, including the last one."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/01_First_steps.md:228
+#, no-wrap
+msgid ""
+"$variable = [\n"
+"\t\"value 1\",\n"
+"\t\"value 2\",\n"
+"\t\"value 3\",\n"
+"];\n"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/02_Github.md:1
+#, no-wrap
+msgid "Reporting a bug or a suggestion"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:4
+msgid ""
+"Despite the care given to FreshRSS, it's still possible that bugs occur. The "
+"project is young and development is dynamic, so it can be corrected "
+"quickly. You might also have a feature in mind that doesn't yet "
+"exist. Regardless whether your idea seems silly, far-fetched, useless or too "
+"specific, please don't hesitate to propose it to us! \"Ideas in the air\" "
+"often find an attentive ear. It's new external perspectives that make the "
+"project evolve the most."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:6
+msgid ""
+"If you're convinced that you should be heard, here's how you can go about "
+"it."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:7
+#, no-wrap
+msgid "On GitHub"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:10
+msgid ""
+"GitHub is the ideal platform to submit your requests. It allows us to "
+"discuss a problem or suggestion with others and it often generates new "
+"ideas. Let's not neglect this \"social\" aspect!"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./developers/02_Github.md:16
+msgid "[Go to the bug ticket manager](https://github.com/FreshRSS/FreshRSS/issues)"
+msgstr ""
+
+#. type: Bullet: ' 2. '
+#: en/./developers/02_Github.md:16
+msgid ""
+"Start by checking if a similar request hasn't already been made. If so, "
+"please feel free to add your voice to the request."
+msgstr ""
+
+#. type: Bullet: ' 3. '
+#: en/./developers/02_Github.md:16
+msgid ""
+"If your request is new, [open a new bug "
+"ticket](https://github.com/FreshRSS/FreshRSS/issues/new)"
+msgstr ""
+
+#. type: Bullet: ' 4. '
+#: en/./developers/02_Github.md:16
+msgid ""
+"Finally, write your request. If you're fluent in English, it's the preferred "
+"language because it allows for discussion with the largest number of people."
+msgstr ""
+
+#. type: Bullet: ' 5. '
+#: en/./developers/02_Github.md:16
+msgid "Please follow the tips below to make it easier to let your ticket be heard."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:17
+#, no-wrap
+msgid "Informal"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:20
+msgid ""
+"Not everyone likes or uses GitHub for a variety of legitimate reasons. That "
+"is why you can also contact us in a more informal way."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid ""
+"On [our Mattermost "
+"chat](https://framateam.org/signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid ""
+"On [the mailing "
+"lists](https://freshrss.org/announce-of-the-mailing-lists.html)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid "At events / meetings around Free Software"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid "Over a beer in a bar"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:26
+msgid "Etc."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:27
+#, no-wrap
+msgid "Tips"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:30
+msgid "Here are some tips to help you present your bug report or suggestion:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid "**Pay attention to spelling**. Even if it's not always easy, try your best!"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"**Give an explicit title to your request**, even if it's a bit long. This "
+"not only helps us understand your request, but also to find your ticket "
+"later."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"**One request = one ticket.** You may have lots of ideas while being afraid "
+"to spam the bug manager: it doesn't matter. It's better to have a few too "
+"many tickets than too many requests in one. We'll close and consolidate "
+"requests when possible."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"If you report a bug, think about **providing us with the FreshRSS logs** "
+"(accessible in the FreshRSS `data/log/` folder) and the **PHP logs** (the "
+"location may vary by distribution, but consider searching in "
+"`/var/log/httpd` or `/var/log/apache`)."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"If you can't find the log files, specify it in your ticket so we know you've "
+"already searched."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"Not all bugs require logs, but if you have any doubts, it is better to "
+"provide them to us. Logs are important and very useful for debugging!"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:39
+msgid ""
+"The logs may reveal confidential information, so **be careful not to "
+"disclose anything sensitive.**"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:41
+msgid ""
+"In addition, when facing a bug, you're encouraged to follow this message "
+"format (from the [Sam & Max "
+"website](http://sametmax.com/template-de-demande-daide-en-informatique/):"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:42
+#, no-wrap
+msgid "What's my goal?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:45
+msgid "Give the general context of what you were trying to do."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:46
+#, no-wrap
+msgid "What have I been trying to do?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:49
+msgid "Explain step by step what you have done so that we can reproduce the bug."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:50
+#, no-wrap
+msgid "What results have I achieved?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:53
+msgid ""
+"The bug: what you see that shouldn't have happened. Here you can provide the "
+"logs."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:54
+#, no-wrap
+msgid "What was the expected result?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:57
+msgid "So that we understand what you consider to be the problem."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/02_Github.md:58
+#, no-wrap
+msgid "What are my circumstances?"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:61
+msgid "Remember to give the following information if you know it:"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./developers/02_Github.md:67
+msgid "Which browser? Which version?"
+msgstr ""
+
+#. type: Bullet: ' 2. '
+#: en/./developers/02_Github.md:67
+msgid "Which server: Apache, Nginx? Which version?"
+msgstr ""
+
+#. type: Bullet: ' 3. '
+#: en/./developers/02_Github.md:67
+msgid "Which version of PHP?"
+msgstr ""
+
+#. type: Bullet: ' 4. '
+#: en/./developers/02_Github.md:67
+msgid "Which database: SQLite, MySQL, MariaDB, PostgreSQL? Which version?"
+msgstr ""
+
+#. type: Bullet: ' 5. '
+#: en/./developers/02_Github.md:67
+msgid "Which distribution runs on the server? And... which version?"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/02_Github.md:68
+#, no-wrap
+msgid "Branching"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:70
+#, no-wrap
+msgid "Basic"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:72
+msgid "If you are new to Git, here are some of the resources you might find useful:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "[GitHub's blog post](https://github.com/blog/120-new-to-git)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "<http://try.github.com/>"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "<http://sixrevisions.com/resources/git-tutorials-beginners/>"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/02_Github.md:77
+msgid "<http://rogerdudler.github.io/git-guide/>"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:78
+#, no-wrap
+msgid "Getting the latest code from the FreshRSS repository"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:80
+msgid "First you need to add the official repo to your remote repo list:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:80
+#, no-wrap
+msgid "git remote add upstream git@github.com:FreshRSS/FreshRSS.git\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:85
+msgid "You can verify the remote repo is successfully added by using:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:85
+#, no-wrap
+msgid "git remote -v show\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:90
+msgid "Now you can pull the latest development code:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:90
+#, no-wrap
+msgid ""
+"git checkout master\n"
+"git pull upstream master\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:95
+#, no-wrap
+msgid "Starting a new development branch"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:96
+#, no-wrap
+msgid "git checkout -b my-development-branch\n"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/02_Github.md:100
+#, no-wrap
+msgid "Sending a patch"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:102
+#, no-wrap
+msgid ""
+"# Add the changed file, here actualize_script.php\n"
+"git add app/actualize_script.php\n"
+"# Commit the change and write a proper commit message\n"
+"git commit\n"
+"# Double check all looks well\n"
+"git show\n"
+"# Push it to your fork\n"
+"git push\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:114
+msgid "Now you can create a PR based on your branch."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/02_Github.md:115
+#, no-wrap
+msgid "How to write a commit message"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:118
+msgid ""
+"A commit message should succintly describe the changes on the first "
+"line. For example:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:120
+#, no-wrap
+msgid "> Fix broken icon\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:122
+msgid "If necessary, this can be followed by a blank line and a longer explanation."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/02_Github.md:123
+msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/02_Minz.md:1
+#, no-wrap
+msgid "Models"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/02_Minz.md:5
+#, no-wrap
+msgid "Controllers and actions"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/02_Minz.md:9 en/./developers/03_Backend/05_Extensions.md:69
+#, no-wrap
+msgid "Views"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/02_Minz.md:13 en/./developers/03_Backend/05_Extensions.md:39
+#, no-wrap
+msgid "Routing"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/02_Minz.md:17
+#, no-wrap
+msgid "Writing URL"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/02_Minz.md:21 en/./developers/04_Frontend/01_View_files.md:13
+#, no-wrap
+msgid "Internationalisation"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/02_Minz.md:25
+#, no-wrap
+msgid "Understanding internals"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/04_Changing_source_code.md:1
+#, no-wrap
+msgid "Accessing the database"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/04_Changing_source_code.md:5
+#, no-wrap
+msgid "Writing an action and its related view"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/04_Changing_source_code.md:9
+#, no-wrap
+msgid "Authentication"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/04_Changing_source_code.md:13
+#, no-wrap
+msgid "Logs"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Backend/05_Extensions.md:1
+#, no-wrap
+msgid "Writing extensions for FreshRSS"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Backend/05_Extensions.md:3
+#, no-wrap
+msgid "About FreshRSS"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:6
+msgid ""
+"FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to "
+"October 2012. The official site is located at "
+"[freshrss.org](https://freshrss.org) and the official repository is hosted "
+"on Github: "
+"[github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS)."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Backend/05_Extensions.md:7
+#, no-wrap
+msgid "The problem"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:10
+msgid "FreshRSS is limited in its technical possibilities by various factors:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:14
+msgid "The number of developers"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:14
+msgid "The will to integrate certain changes"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:14
+msgid "The level of \"hacking\" required to integrate marginal features"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:16
+msgid ""
+"While the first limitation can, in theory, be lifted by the participation of "
+"new contributors to the project, it depends on the willingness of "
+"contributors to take an interest in the source code of the entire "
+"project. In order to remove the other two limitations, most of the time it "
+"will be necessary to create a \"fork\"."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:18
+msgid ""
+"Another solution consists of an extension system. By allowing users to write "
+"their own extension without taking an interest in the core of the basic "
+"software, we allow for:"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./developers/03_Backend/05_Extensions.md:22
+msgid "Reducing the amount of source code a new contributor has to take in"
+msgstr ""
+
+#. type: Bullet: '2. '
+#: en/./developers/03_Backend/05_Extensions.md:22
+msgid "Unofficial integration of novelties"
+msgstr ""
+
+#. type: Bullet: '3. '
+#: en/./developers/03_Backend/05_Extensions.md:22
+msgid "No forking or main developer approval required."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:24
+msgid ""
+"Note: it is quite conceivable that the functionalities of an extension can "
+"later be officially integrated into the FreshRSS code. Extensions make it "
+"easy to propose a proof of concept."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Backend/05_Extensions.md:25
+#, no-wrap
+msgid "Understanding basic mechanics (Minz and MVC)"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:28
+#, no-wrap
+msgid "**TODO** : move to 02_Minz.md\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:30
+msgid ""
+"This data sheet should refer to the official FreshRSS and Minz documentation "
+"(the PHP framework on which FreshRSS is based). Unfortunately, this "
+"documentation does not yet exist. In a few words, here are the main things "
+"you should know. It is not necessary to read all the chapters in this "
+"section if you don't need to use a feature in your extension (if you don't "
+"need to translate your extension, no need to know more about the "
+"`Minz_Translate` module for example)."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:31
+#, no-wrap
+msgid "MVC Architecture"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:34
+msgid ""
+"Minz relies on and imposes an MVC architecture on projects using it. This "
+"architecture consists of three main components:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:38
+msgid ""
+"The model: this is the base object that we will manipulate. In FreshRSS, "
+"categories, flows and articles are templates. The part of the code that "
+"makes it possible to manipulate them in a database is also part of the model "
+"but is separated from the base model: we speak of DAO (for \"Data Access "
+"Object\"). The templates are stored in a `Models` folder."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:38
+msgid ""
+"The view: this is what the user sees. The view is therefore simply HTML code "
+"mixed with PHP to display dynamic information. The views are stored in a "
+"`views` folder."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:38
+msgid ""
+"The controller: this is what makes it possible to link models and "
+"views. Typically, a controller will load templates from the database (like a "
+"list of items) to \"pass\" them to a view for display. Controllers are "
+"stored in a `Controllers` directory."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:42
+msgid ""
+"In order to link a URL to a controller, first you have to go through a "
+"\"routing\" phase. In FreshRSS, this is particularly simple because it "
+"suffices to specify the name of the controller to load into the URL using a "
+"`c` parameter. For example, the address http://exemple.com?c=hello will "
+"execute the code contained in the `hello` controller."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:44
+msgid ""
+"One concept that has not yet been discussed is the \"actions\" system. An "
+"action is executed *on* a controller. Concretely, a controller is "
+"represented by a class and its actions by methods. To execute an action, it "
+"is necessary to specify an `a` parameter in the URL."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:46 en/./developers/03_Backend/05_Extensions.md:165
+msgid "Code example:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:47
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"class FreshRSS_hello_Controller extends Minz_ActionController {\n"
+"\tpublic function indexAction() {\n"
+"\t\t$this->view->a_variable = 'FooBar';\n"
+"\t}\n"
+"\n"
+"\tpublic function worldAction() {\n"
+"\t\t$this->view->a_variable = 'Hello World!';\n"
+"\t}\n"
+"}\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:64
+msgid ""
+"When loading the address http://exemple.com?c=hello&a=world, the `world` "
+"action is executed on the `hello` controller."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:66
+msgid ""
+"Note: if `c` or `a` is not specified, the default value for each of these "
+"variables is `index`. So the address http://exemple.com?c=hello will execute "
+"the `index` action of the `hello` controller."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:68
+msgid ""
+"From now on, the `hello/world` naming convention will be used to refer to a "
+"controller/action pair."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:72
+msgid ""
+"Each view is associated with a controller and an action. The view associated "
+"with `hello/world` will be stored in a very specific file: "
+"`views/hello/world. phtml`. This convention is imposed by Minz."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:74
+msgid "As explained above, the views consist of HTML mixed with PHP. Code example:"
+msgstr ""
+
+#. type: Code fence info string
+#: en/./developers/03_Backend/05_Extensions.md:75 en/./developers/03_Backend/05_Extensions.md:120 en/./developers/03_Backend/05_Extensions.md:248 en/./developers/03_Backend/05_Extensions.md:284 en/./developers/03_Backend/05_Extensions.md:351
+#, no-wrap
+msgid "html"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:75
+#, no-wrap
+msgid ""
+"<p>\n"
+"\tThis is a parameter passed from the controller: <?= $this->a_variable ?>\n"
+"</p>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:82
+#, no-wrap
+msgid ""
+"The variable `$this->a_variable` is passed by the controller (see previous "
+"example). The difference is that in the controller it is necessary to pass "
+"`$this->view`, while in the view `$this` suffices.\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:83
+#, no-wrap
+msgid "Working with GET / POST"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:87
+msgid ""
+"It is often necessary to take advantage of parameters passed by GET or "
+"POST. In Minz, these parameters are accessible using the `Minz_Request` "
+"class.  Code example:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:88
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"$default_value = 'foo';\n"
+"$param = Minz_Request::param('bar', $default_value);\n"
+"\n"
+"// Display the value of the parameter `bar` (passed via GET or POST)\n"
+"// or \"foo\" if the parameter does not exist.\n"
+"echo $param;\n"
+"\n"
+"// Sets the value of the `bar` parameter\n"
+"Minz_Request::_param('bar', 'baz');\n"
+"\n"
+"// Will necessarily display \"baz\" since we have just forced its value.\n"
+"// Note that the second parameter (default) is optional.\n"
+"echo Minz_Request::param('bar');\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:109
+msgid ""
+"The `Minz_Request::isPost()` method can be used to execute a piece of code "
+"only if it is a POST request."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:111
+msgid ""
+"Note: it is preferable to use `Minz_Request` only in controllers. It is "
+"likely that you will encounter this method in FreshRSS views, or even in "
+"templates, but be aware that this is **not** good practice."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:112
+#, no-wrap
+msgid "Access session settings"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:115
+msgid ""
+"The access to session parameters is strangely similar to the GET / POST "
+"parameters but passes through the `Minz_Session` class this time! There is "
+"no example here because you can repeat the previous example by changing all "
+"`Minz_Request` to `Minz_Session`."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:116
+#, no-wrap
+msgid "Working with URLs"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:119
+msgid ""
+"To take full advantage of the Minz routing system, it is strongly "
+"discouraged to write hard URLs in your code. For example, the following view "
+"should be avoided:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:120
+#, no-wrap
+msgid ""
+"<p>\n"
+"\tGo to page <a href=\"http://example.com?c=hello&amp;a=world\">Hello "
+"world</a>!\n"
+"</p>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:127
+msgid ""
+"If one day it was decided to use a \"url rewriting\" system to have "
+"addresses in a http://exemple.com/controller/action format, all previous "
+"addresses would become ineffective!"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:129
+msgid ""
+"So use the `Minz_Url` class and its `display()` method "
+"instead. `Minz_Url::display()` takes an array of the following form as its "
+"argument:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:130
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"$url_array = [\n"
+"\t'c' => 'hello',\n"
+"\t'a' => 'world',\n"
+"\t'params' => [\n"
+"\t\t'foo' => 'bar',\n"
+"\t],\n"
+"];\n"
+"\n"
+"// Show something like .?c=hello&amp;a=world&amp;foo=bar\n"
+"echo Minz_Url::display($url_array);\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:148
+msgid ""
+"Since this can become a bit tedious to use in the long run, especially in "
+"views, it is preferable to use the `_url()` shortcut:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:149
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"// Displays the same as above\n"
+"echo _url('hello', 'world', 'foo', 'bar');\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:159
+msgid ""
+"Note: as a general rule, the shortened form (`_url()`) should be used in "
+"views, while the long form (`Minz_Url::display()`) should be used in "
+"controllers."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:160
+#, no-wrap
+msgid "Redirections"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:163
+msgid ""
+"It is often necessary to redirect a user to another page. To do so, the "
+"`Minz_Request` class offers another useful method: `forward()`. This method "
+"takes the same URL format as the one seen just before as its argument."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:166
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"$url_array = [\n"
+"\t'c' => 'hello',\n"
+"\t'a' => 'world',\n"
+"];\n"
+"\n"
+"// Tells Minz to redirect the user to the hello / world page.\n"
+"// Note that this is a redirection in the Minz sense of the term, not a "
+"redirection that the browser will have to manage (HTTP code 301 or 302)\n"
+"// The code that follows forward() will thus be executed!\n"
+"Minz_Request::forward($url_array);\n"
+"\n"
+"// To perform a type 302 redirect, add \"true\".\n"
+"// The code that follows will never be executed.\n"
+"Minz_Request::forward($url_array, true);\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:187
+msgid ""
+"It is very common to want display a message to the user while performing a "
+"redirect, to tell the user how the action was carried out (validation of a "
+"form for example). Such a message is passed through a `notification` session "
+"variable (note: we will talk about feedback from now on to avoid confusion "
+"with a notification that can occur at any time). To facilitate this kind of "
+"very frequent action, there are two shortcuts that both perform a 302 "
+"redirect by assigning a feedback message:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:188
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"$url_array = [\n"
+"\t'c' => 'hello',\n"
+"\t'a' => 'world',\n"
+"];\n"
+"$feedback_good = 'All went well!';\n"
+"$feedback_bad = 'Oops, something went wrong.';\n"
+"\n"
+"Minz_Request::good($feedback_good, $url_array);\n"
+"\n"
+"// or\n"
+"\n"
+"Minz_Request::bad($feedback_bad, $url_array);\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:207
+#, no-wrap
+msgid "Translation Management"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:210
+msgid ""
+"It is common (and that's an understatement) to want to show some text to the "
+"user. In the previous example, for example, we display feedback to the user "
+"based on the result of form validation. The problem is that FreshRSS has "
+"users of different nationalities. It is therefore necessary to be able to "
+"manage different languages in order not to remain confined to English or "
+"French."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:212
+msgid ""
+"The solution is to use the `Minz_Translate` class, which allows dynamic "
+"translation of FreshRSS (or any Minz-based application). Before using this "
+"module, it is necessary to know where to find the strings to be "
+"translated. Each language has its own subdirectory in a parent directory "
+"named `i18n`. For example, English language files are located in "
+"`i18n/fr/`. There are seven different files:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`admin.php` for anything related to FreshRSS administration"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`conf.php` for configuration"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`feedback.php` contains translations of feedback messages"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`gen.php` stores what is global to FreshRSS (gen for \"general\")"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`index.php` for the main page that lists feeds and the About page"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`install.php` contains strings related FreshRSS installation"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:220
+msgid "`sub.php` for subscription management (sub for \"subscription\")"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:222
+msgid "This organization makes it possible to avoid a single huge translation file."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:224
+msgid ""
+"The translation files are quite simple: it's only a matter of returning a "
+"PHP table containing the translations. As an example, here's an extract from "
+"`app/i18n/fr/gen.php`:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:225
+#, no-wrap
+msgid ""
+"<?php\n"
+"\n"
+"return array(\n"
+"\t'action' => [\n"
+"\t\t'actualize' => 'Actualiser',\n"
+"\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
+"\t\t'cancel' => 'Annuler',\n"
+"\t\t'create' => 'Créer',\n"
+"\t\t'disable' => 'Désactiver',\n"
+"\t),\n"
+"\t'freshrss' => array(\n"
+"\t\t'_' => 'FreshRSS',\n"
+"\t\t'about' => 'À propos de FreshRSS',\n"
+"\t),\n"
+"];\n"
+"\n"
+"?>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:247
+msgid ""
+"To access these translations, `Minz_Translate` will help us with its "
+"`Minz_Translate::t()` method. As this can be a bit long to type, a shortcut "
+"has been introduced that **must** be used in all circumstances: `_t()`.  "
+"Code example:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:248
+#, no-wrap
+msgid ""
+"<p>\n"
+"\t<a href=\"<?= _url('index', 'index') ?>\">\n"
+"\t\t<?= _t('gen.action.back_to_rss_feeds') ?>\n"
+"\t</a>\n"
+"</p>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:257
+msgid ""
+"The string to pass to the `_t()` function consists of a series of "
+"identifiers separated by dots. The first identifier indicates from which "
+"file to extract the translation (in this case, `gen.php`), while the "
+"following ones indicate table entries. Thus `action` is an entry of the main "
+"array and `back_to_rss_feeds` is an entry of the `action` array. This allows "
+"us to further organize our translation files."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:259
+msgid ""
+"There is a small special case that sometimes makes life easier: the `_` "
+"identifier. This must necessarily be present at the end of the chain and "
+"gives a value to the higher-level identifier. It's pretty hard to explain "
+"but very simple to understand. In the example given above, a `_` is "
+"associated with the value `FreshRSS`: this means that there is no need to "
+"write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:260
+#, no-wrap
+msgid "Configuration management"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Backend/05_Extensions.md:262
+#, no-wrap
+msgid "Write an extension for FreshRSS"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:265
+msgid ""
+"Here we are! We've talked about the most useful features of Minz and how to "
+"run FreshRSS correctly and it's about time to address the extensions "
+"themselves."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:267
+msgid ""
+"An extension allows you to easily add functionality to FreshRSS without "
+"having to touch the core of the project directly."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:268
+#, no-wrap
+msgid "Basic files and folders"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:273
+msgid ""
+"The first thing to note is that **all** extensions **must** be located in "
+"the `extensions` directory, at the base of the FreshRSS tree.  An extension "
+"is a directory containing a set of mandatory (and optional) files and "
+"subdirectories.  The convention requires that the main directory name be "
+"preceded by an \"x\" to indicate that it is not an extension included by "
+"default in FreshRSS."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:275
+msgid ""
+"The main directory of an extension must contain at least two **mandatory** "
+"files:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:278
+msgid ""
+"A `metadata.json` file that contains a description of the extension. This "
+"file is written in JSON."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:278
+msgid ""
+"An `extension.php` file containing the entry point of the extension (which "
+"is a class that inherits Minz_Extension)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:282
+msgid ""
+"Please note that there is a not a required link between the directory name "
+"of the extension and the name of the class inside `extension.php`, but you "
+"should follow our best practice: If you want to write a `HelloWorld` "
+"extension, the directory name should be `xExtension-HelloWorld` and the base "
+"class name `HelloWorldExtension`."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:284
+msgid ""
+"In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you "
+"need the structure:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:284
+#, no-wrap
+msgid ""
+"class HelloWorldExtension extends Minz_Extension {\n"
+"\tpublic function init() {\n"
+"\t\t// your code here\n"
+"\t}\n"
+"}\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:292
+msgid ""
+"There is an example HelloWorld extension that you can download from [our "
+"GitHub repo](https://github.com/FreshRSS/xExtension-HelloWorld)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:294
+msgid ""
+"You may also need additional files or subdirectories depending on your "
+"needs:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid ""
+"`configure.phtml` is the file containing the form to parameterize your "
+"extension"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid ""
+"A `static/` directory containing CSS and JavaScript files that you will need "
+"for your extension (note that if you need to write a lot of CSS it may be "
+"more interesting to write a complete theme)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid "A `Controllers` directory containing additional controllers"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid "An `i18n` directory containing additional translations"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:300
+msgid ""
+"`layout` and` views` directories to define new views or to overwrite the "
+"current views"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:302
+msgid ""
+"In addition, it is good to have a `LICENSE` file indicating the license "
+"under which your extension is distributed and a` README` file giving a "
+"detailed description of it."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:303
+#, no-wrap
+msgid "The metadata.json file"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:306
+msgid ""
+"The `metadata.json` file defines your extension through a number of "
+"important elements. It must contain a valid JSON array containing the "
+"following entries:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid "`name`: the name of your extension"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid ""
+"`author`: your name, your e-mail address ... but there is no specific format "
+"to adopt"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid "`description`: a description of your extension"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid "`version`: the current version number of the extension"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid ""
+"`entrypoint`: Indicates the entry point of your extension. It must match the "
+"name of the class contained in the file `extension.php` without the suffix` "
+"Extension` (so if the entry point is `HelloWorld`, your class will be "
+"called` HelloWorldExtension`)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:313
+msgid ""
+"`type`: Defines the type of your extension. There are two types: `system` "
+"and` user`. We will study this difference right after."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:315
+msgid "Only the `name` and` entrypoint` fields are required."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:316
+#, no-wrap
+msgid "Choosing between `system` and `user`"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:319
+msgid ""
+"A __user__ extension can be enabled by some users and not by others "
+"(typically for user preferences)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:321
+msgid "A __system__ extension in comparison is enabled for every account."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:322
+#, no-wrap
+msgid "Writing your own extension.php"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:327
+msgid ""
+"This file is the entry point of your extension. It must contain a specific "
+"class to function.  As mentioned above, the name of the class must be your "
+"`entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example).  "
+"In addition, this class must be inherited from the `Minz_Extension` class to "
+"benefit from extensions-specific methods."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:329
+msgid "Your class will benefit from four methods to redefine:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`install()` is called when a user clicks the button to activate your "
+"extension. It allows, for example, to update the database of a user in order "
+"to make it compatible with the extension. It returns `true` if everything "
+"went well or, if not, a string explaining the problem."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`uninstall()` is called when a user clicks the button to disable your "
+"extension. This will allow you to undo the database changes you potentially "
+"made in `install ()`. It returns `true` if everything went well or, if not, "
+"a string explaining the problem."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`init()` is called for every page load *if the extension is enabled*. It "
+"will therefore initialize the behavior of the extension. This is the most "
+"important method."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:334
+msgid ""
+"`handleConfigureAction()` is called when a user loads the extension "
+"management panel. Specifically, it is called when the "
+"`?c=extension&a=configured&e=name-of-your-extension` URL is loaded. You "
+"should also write here the behavior you want when validating the form in "
+"your `configure.phtml` file."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:336
+msgid ""
+"In addition, you will have a number of methods directly inherited from "
+"`Minz_Extension` that you should not redefine:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:340
+msgid ""
+"The \"getters\" first: most are explicit enough not to detail them here - "
+"`getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the path "
+"to your extension), `getAuthor()`, `getDescription()`, `getVersion()`, "
+"`getType()`."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:340
+msgid ""
+"`getFileUrl($filename, $type)` will return the URL to a file in the `static` "
+"directory. The first parameter is the name of the file (without `static /`), "
+"the second is the type of file to be used (`css` or` js`)."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:340
+msgid ""
+"`registerController($base_name)` will tell Minz to take into account the "
+"given controller in the routing system. The controller must be located in "
+"your `Controllers` directory, the name of the file must be` "
+"<base_name>Controller.php` and the name of the "
+"`FreshExtension_<base_name>_Controller` class."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:346
+msgid "`registerViews()`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:346
+msgid "`registerTranslates()`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:346
+msgid "`registerHook($hook_name, $hook_function)`"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:347
+#, no-wrap
+msgid "The \"hooks\" system"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:350
+msgid ""
+"You can register at the FreshRSS event system in an extensions `init()` "
+"method, to manipulate data when some of the core functions are executed."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:351
+#, no-wrap
+msgid ""
+"class HelloWorldExtension extends Minz_Extension\n"
+"{\n"
+"\tpublic function init() {\n"
+"\t\t$this->registerHook('entry_before_display', array($this, "
+"'renderEntry'));\n"
+"\t}\n"
+"\tpublic function renderEntry($entry) {\n"
+"\t\t$entry->_content('<h1>Hello World</h1>' . $entry->content());\n"
+"\t\treturn $entry;\n"
+"\t}\n"
+"}\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:365
+msgid "The following events are available:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`entry_before_display` (`function($entry) -> Entry | null`): will be "
+"executed every time an entry is rendered. The entry itself (instance of "
+"FreshRSS\\_Entry) will be passed as parameter."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`entry_before_insert` (`function($entry) -> Entry | null`): will be executed "
+"when a feed is refreshed and new entries will be imported into the "
+"database. The new entry (instance of FreshRSS\\_Entry) will be passed as "
+"parameter."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`feed_before_insert` (`function($feed) -> Feed | null`): will be executed "
+"when a new feed is imported into the database. The new feed (instance of "
+"FreshRSS\\_Feed) will be passed as parameter."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`freshrss_init` (`function() -> none`): will be executed at the end of the "
+"initialization of FreshRSS, useful to initialize components or to do "
+"additional access checks"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`menu_admin_entry` (`function() -> string`): add an entry at the end of the "
+"\"Administration\" menu, the returned string must be valid HTML (e.g. `<li "
+"class=\"item active\"><a href=\"url\">New entry</a></li>`)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`menu_configuration_entry` (`function() -> string`): add an entry at the end "
+"of the \"Configuration\" menu, the returned string must be valid HTML "
+"(e.g. `<li class=\"item active\"><a href=\"url\">New entry</a></li>`)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`menu_other_entry` (`function() -> string`): add an entry at the end of the "
+"header dropdown menu (i.e. after the \"About\" entry), the returned string "
+"must be valid HTML (e.g. `<li class=\"item active\"><a href=\"url\">New "
+"entry</a></li>`)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** "
+"add documentation"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid "`post_update` (`function(none) -> none`): **TODO** add documentation"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:376
+msgid ""
+"`simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** "
+"add documentation"
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/03_Backend/05_Extensions.md:377
+#, no-wrap
+msgid "Writing your own configure.phtml"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Backend/05_Extensions.md:380
+msgid ""
+"When you want to support user configurations for your extension or simply "
+"display some information, you have to create the `configure.phtml` file."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/04_Frontend/01_View_files.md:1
+#, no-wrap
+msgid "The .phtml files"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/04_Frontend/01_View_files.md:5
+#, no-wrap
+msgid "Writing a URL"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/04_Frontend/01_View_files.md:9
+#, no-wrap
+msgid "Displaying an icon"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/04_Frontend/02_Design.md:1
+#, no-wrap
+msgid "Template file"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/04_Frontend/02_Design.md:5
+#, no-wrap
+msgid "Writing a new theme"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/04_Frontend/02_Design.md:9
+#, no-wrap
+msgid "Overriding icons"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:1
+#, no-wrap
+msgid "Preparing the release"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:4
+msgid ""
+"In order to get as much feedback as possible before a release, it's "
+"preferable to announce it on GitHub by creating a dedicated ticket ([see "
+"examples] "
+"(https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). "
+"This should be done **at least one week in advance**."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:6
+msgid "It's also recommended to make the announcement on mailing@freshrss.org."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:7
+#, no-wrap
+msgid "Check the dev status"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:10
+msgid ""
+"Before releasing a new version of FreshRSS, you must ensure that the code is "
+"stable and free of major bugs. Ideally, our tests should be automated and "
+"executed before any publication."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:12
+msgid ""
+"You must also **make sure that the CHANGELOG file is up to date** with the "
+"updates of the version to be released."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:13
+#, no-wrap
+msgid "Git process"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:15
+#, no-wrap
+msgid ""
+"$ git checkout master\n"
+"$ git pull\n"
+"$ vim constants.php\n"
+"# Update version number x.y.y.z of FRESHRSS_VERSION\n"
+"$ git commit -a\n"
+"Version x.y.z\n"
+"$ git tag -a x.y.z\n"
+"Version x.y.z\n"
+"$ git push && git push --tags\n"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:27
+#, no-wrap
+msgid "Updating `update.freshrss.org`"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:30
+msgid ""
+"It's important to update update.freshrss.org since this is the default "
+"service for automatic FreshRSS updates."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:32
+msgid ""
+"The repository managing the code is located on GitHub: "
+"[FreshRSS/update.freshrss.org] "
+"(https://github.com/FreshRSS/update.freshrss.org/)."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/05_Release_new_version.md:33
+#, no-wrap
+msgid "Writing the update script"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:36
+msgid ""
+"The scripts are located in the `./scripts/` directory and must take the form "
+"`update_to_x.y.z.z.php`. This directory also contains `update_to_dev.php` "
+"intended for updates of the `master` branch (this script must not include "
+"code specific to a particular version!) and `update_util.php`, which "
+"contains a list of functions useful for all scripts."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:38
+msgid ""
+"In order to write a new script, it's better to copy/paste the last version "
+"or to start from `update_to_dev.php`. The first thing to do is to define the "
+"URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The "
+"URL is in the form of "
+"`https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:40
+msgid "There are then 5 functions that have to be executed:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:46
+msgid ""
+"`apply_update()` takes care of saving the directory containing the data, "
+"checking its structure, downloading the FreshRSS package, deploying it and "
+"cleaning it all up. This function is pre-filled but adjustments can be made "
+"if necessary (e.g., reorganization of the `./data` structure). It returns "
+"`true` if no problem has occurred or a string indicating a problem;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:46
+msgid ""
+"`need_info_update()` returns `true` if the user must intervene during the "
+"update or `false` if not;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:46
+msgid ""
+"`ask_info_update()` displays a form to the user if `need_info_update()` has "
+"returned `true`;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:46
+msgid ""
+"`save_info_update()` is responsible for saving the information filled out by "
+"the user (from the `ask_info_update()` form);"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:46
+msgid ""
+"`do_post_update()` is executed at the end of the update and takes into "
+"account the code of the new version (e.g., if the new version changes the "
+"`Minz_Configuration` object, you will benefit from these improvements)."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/05_Release_new_version.md:47
+#, no-wrap
+msgid "Updating the versions file"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:50
+msgid ""
+"Once the script has been written and versioned, it's necessary to update the "
+"`./versions.php' file which contains a mapping table indicating which "
+"versions are updated to which other versions."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:52
+msgid "Here's an example of a `versions.php` file:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:53
+#, no-wrap
+msgid ""
+"<?php\n"
+"return array(\n"
+"\t// STABLE\n"
+"\t'0.8.0' => '1.0.0',\n"
+"\t'0.8.1' => '1.0.0',\n"
+"\t'1.0.0' => '1.0.1',  // doesn't exist (yet)\n"
+"\t// DEV\n"
+"\t'1.1.2-dev' => 'dev',\n"
+"\t'1.1.3-dev' => 'dev',\n"
+"\t'1.1.4-dev' => 'dev',\n"
+");\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:68
+msgid "And here's how this table works:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:74
+msgid "on the left you can find the N version, on the right the N+1 version;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:74
+msgid "the `x.y.z.z-dev` versions are **all** updated to `master`;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:74
+msgid "stable versions are updated to stable versions;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:74
+msgid ""
+"it's possible to skip several versions at once, provided that the update "
+"scripts support it;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:74
+msgid ""
+"it's advisable to indicate the correspondence of the current version to its "
+"potential future version by specifying that this version does not yet "
+"exist. As long as the corresponding script does not exist, nothing will "
+"happen."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:76
+msgid ""
+"It's **very strongly** recommended to keep this file organized according to "
+"version numbers by separating stable and dev versions."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/05_Release_new_version.md:77
+#, no-wrap
+msgid "Deployment"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:80
+msgid ""
+"Before updating update.freshrss.org, it's better to test with "
+"dev.update.freshrss.org, which corresponds to pre-production. So update "
+"dev.update.freshrss.org and change the `FRESHRSS_UPDATE_WEBSITE` URL of your "
+"FreshRSS instance. Start the update and check that it's running correctly."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:82
+msgid ""
+"When you're satisfied, update update.freshrss.org with the new script, test "
+"it again, and then move on."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:83
+#, no-wrap
+msgid "Updating the FreshRSS services"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:86
+msgid "Two services need to be updated immediately after the update."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:89
+msgid "rss.freshrss.org;"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:89
+msgid "demo.freshrss.org (public login: `demo` / `demodemo`)."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:90
+#, no-wrap
+msgid "Publicly announce the release"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:93
+msgid "When everything's working, it's time to announce the release to the world!"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:98
+msgid ""
+"on GitHub by creating[a new "
+"release](https://github.com/FreshRSS/FreshRSS/releases/new)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:98
+msgid ""
+"on the freshrss.org blog, at least for stable versions (write the article "
+"on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:98
+msgid "on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/05_Release_new_version.md:98
+msgid "and on mailing@freshrss.org"
+msgstr ""
+
+#. type: Title #
+#: en/./developers/05_Release_new_version.md:99
+#, no-wrap
+msgid "Starting the next development version"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:101
+#, no-wrap
+msgid ""
+"$ git checkout master\n"
+"$ vim constants.php\n"
+"# Update the FRESHRSS_VERSION\n"
+"$ vim CHANGELOG.md\n"
+"# Prepare the changelog for the next version\n"
+"$ git add CHANGELOG.md && git commit && git push\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/05_Release_new_version.md:110
+msgid ""
+"Also remember to update update.freshrss.org so that it takes the current "
+"development version into account."
+msgstr ""
+
+#. type: Plain text
+#: en/./index.md:2
+msgid "![FreshRSS logo](img/logo_freshrss.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./index.md:4
+msgid ""
+"FreshRSS is an RSS aggregator and reader. It allows you to read and follow "
+"several news websites at a glance without the need to browse from one "
+"website to another."
+msgstr ""
+
+#. type: Plain text
+#: en/./index.md:6
+msgid "FreshRSS has a lot of features including:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "RSS and Atom aggregation"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Mark article as favorite if you liked it or if you want to read it later"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Filter and search functionality helps to easily find articles"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Statistics to show you the publishing frequency all the websites you follow"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Import/export of your feeds into OPML format"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Several themes created by the community"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "\"Google Reader\"-like API to connect Android applications"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid ""
+"The application is \"responsive,\" which means it adapts to small screens so "
+"you can bring articles in your pocket"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid ""
+"Self-hosted: the code is free (under AGPL3 licence), so you can host your "
+"own instance of FreshRSS"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "Multi-user, so you can also host for your friends and family"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:18
+msgid "And a lot more!"
+msgstr ""
+
+#. type: Plain text
+#: en/./index.md:20
+msgid "This documentation is split into different sections:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:24
+msgid ""
+"[User documentation](./users/02_First_steps.html), where you can discover "
+"all the possibilities offered by FreshRSS"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:24
+msgid ""
+"[Administrator documentation](./admins/01_Index.html) for detailed "
+"installation and maintenance related tasks"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:24
+msgid ""
+"[Developer documentation](./developers/01_First_steps.html) to guide you in "
+"the source code of FreshRSS and to help you if you want to contribute"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./index.md:24
+msgid ""
+"[Contributor guidelines](./contributing.md) for those who want to help "
+"improve FreshRSS"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/02_First_steps.md:2
+msgid ""
+"Learning how to handle a new application is not always easy. We've tried to "
+"make FreshRSS as intuitive as possible, but you might still need a little "
+"help to master the program."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/02_First_steps.md:4
+msgid ""
+"This section will guide you to the pages you need to get started. The order "
+"is tailored to newcomers."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/02_First_steps.md:6
+msgid ""
+"[After installing the application](../admins/03_Installation.md), the first "
+"step is to add some feeds. You have a few options:"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./users/02_First_steps.md:10
+msgid "[Add a feed manually](04_Subscriptions.md#adding-a-feed)"
+msgstr ""
+
+#. type: Bullet: '2. '
+#: en/./users/02_First_steps.md:10
+msgid "[Import an OPML or JSON file](04_Subscriptions.md#import-and-export)"
+msgstr ""
+
+#. type: Bullet: '3. '
+#: en/./users/02_First_steps.md:10
+msgid "[Use the bookmarklet](04_Subscriptions.md#use-bookmarklet)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/02_First_steps.md:12
+msgid ""
+"Once you have added your feeds to FreshRSS, it is time to read them. There "
+"are three availalbe reading modes:"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./users/02_First_steps.md:16
+msgid ""
+"[The normal view](03_Main_view.md#normal-view) enables you to quickly read "
+"new articles"
+msgstr ""
+
+#. type: Bullet: '2. '
+#: en/./users/02_First_steps.md:16
+msgid ""
+"[The global view](03_Main_view.md#global-view) shows you an overview of the "
+"status of your feeds in one glance"
+msgstr ""
+
+#. type: Bullet: '3. '
+#: en/./users/02_First_steps.md:16
+msgid ""
+"[The reader view](03_Main_view.md#reader-view) offers you a comfortable "
+"reading experience"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/02_First_steps.md:18
+msgid ""
+"Now that you've mastered basic use, it's time to configure FreshRSS to "
+"improve your reading experience. It's highly configurable, so it's "
+"recommended to play around with them to find a configuration that suits you "
+"well. Here are a few resources to help you improve your daily FreshRSS "
+"experience:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Organize your feeds in categories](04_Subscriptions.md#feed-management)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Change the home page](05_Configuration.md#changing-the-view)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Choose the reading options](05_Configuration.md#reading-options)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Refresh feeds](03_Main_view.md#refreshing-feeds)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid ""
+"[Filter articles](03_Main_view.md#filtering-articles) for a fast access to a "
+"selection"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid ""
+"[Search an article](03_Main_view.md#searching-articles) published some time "
+"ago"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Access your feeds on a mobile device](06_Mobile_access.md)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Add some extensions](https://github.com/FreshRSS/Extensions)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/02_First_steps.md:27
+msgid "[Frequently asked questions](07_Frequently_Asked_Questions.md)"
+msgstr ""
+
+#. type: Title #
+#: en/./users/03_Main_view.md:1
+#, no-wrap
+msgid "Normal view"
+msgstr ""
+
+#. type: Title #
+#: en/./users/03_Main_view.md:5
+#, no-wrap
+msgid "Global view"
+msgstr ""
+
+#. type: Title #
+#: en/./users/03_Main_view.md:9
+#, no-wrap
+msgid "Reader view"
+msgstr ""
+
+#. type: Title #
+#: en/./users/03_Main_view.md:13
+#, no-wrap
+msgid "Refreshing feeds"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:16
+msgid ""
+"To take full advantage of FreshRSS, it needs to retrieve new items from the "
+"feeds you have subscribed to. There are several ways to do this."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:17
+#, no-wrap
+msgid "Automatic update"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:20
+msgid ""
+"This is the recommended method since you can forget about it once it is "
+"configured."
+msgstr ""
+
+#. type: Title ###
+#: en/./users/03_Main_view.md:21
+#, no-wrap
+msgid "With the actualize_script.php script"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:24
+msgid ""
+"This method is only available if you have access to the scheduled tasks of "
+"the machine on which your FreshRSS instance is installed."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:26
+msgid ""
+"The script is named *actualize_script.php* and is located in the *app* "
+"folder. The scheduled task syntax will not be explained here. However, here "
+"is [a quick introduction to "
+"crontab](http://www.adminschoice.com/crontab-quick-reference/) that might "
+"help you."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:28
+msgid "Here is an example to trigger article update every hour."
+msgstr ""
+
+#. type: Code fence info string
+#: en/./users/03_Main_view.md:29 en/./users/03_Main_view.md:61 en/./users/03_Main_view.md:79 en/./users/03_Main_view.md:85 en/./users/03_Main_view.md:93
+#, no-wrap
+msgid "cron"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:29
+#, no-wrap
+msgid ""
+"0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log "
+"2>&1\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:34
+msgid "Special parameters to configure the script - all parameters can be combined:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:38
+msgid ""
+"- Parameter \"force\" "
+"https://freshrss.example.net/i/?c=feed&a=actualize&force=1 If *force* is set "
+"to 1 all feeds will be refreshed at once."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:42
+msgid ""
+"- Parameter \"ajax\" "
+"https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1 Only a status site "
+"is returned and not a complete website. Example: \"OK\""
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:46
+msgid ""
+"- Parameter \"maxFeeds\" "
+"https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30 If *maxFeeds* "
+"is set the configured amount of feeds is refreshed at once. The default "
+"setting is \"10\"."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:50
+msgid ""
+"- Parameter \"token\" "
+"https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734 "
+"Security parameter to prevent unauthorized refreshes. For detailed "
+"Documentation see \"Form authentication\"."
+msgstr ""
+
+#. type: Title ###
+#: en/./users/03_Main_view.md:51
+#, no-wrap
+msgid "Online cron"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:54
+msgid ""
+"If you do not have access to the installation server scheduled task, you can "
+"still automate the update process."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:56
+msgid ""
+"To do so, you need to create a scheduled task, which need to call a specific "
+"URL: https://freshrss.example.net/i/?c=feed&a=actualize (it could be "
+"different depending on your installation). Depending on your application "
+"authentication method, you need to adapt the scheduled task."
+msgstr ""
+
+#. type: Title ####
+#: en/./users/03_Main_view.md:57
+#, no-wrap
+msgid "No authentication"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:60
+msgid ""
+"This is the most straightforward since you have a public instance; there is "
+"nothing special to configure:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:61
+#, no-wrap
+msgid "0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./users/03_Main_view.md:65
+#, no-wrap
+msgid "Form authentication"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:68
+msgid ""
+"If you configure the application to allow anonymous reading, you can also "
+"allow anonymous users to update feeds (“Allow anonymous refresh of the "
+"articles”)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:70
+msgid "![Anonymous access configuration](../img/users/anonymous_access.1.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:72
+msgid ""
+"The URL used in the previous section will now become accessible to "
+"anyone. Therefore you can use the same syntax for the scheduled task."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:74
+msgid ""
+"You can also configure an authentication token to grant special access on "
+"the server."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:76
+msgid "![Token configuration](../img/users/token.1.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:78
+msgid "The scheduled task syntax should look as follows:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:79
+#, no-wrap
+msgid ""
+"0 * * * * curl "
+"'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:84
+msgid ""
+"You can also target a different user by adding their username to the query "
+"string, with `&user=insert-username`:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:85
+#, no-wrap
+msgid ""
+"0 * * * * curl "
+"'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'\n"
+msgstr ""
+
+#. type: Title ###
+#: en/./users/03_Main_view.md:89
+#, no-wrap
+msgid "HTTP authentication"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:92
+msgid ""
+"When using HTTP authentication, the syntax in the two previous sections is "
+"unusable. You'll need to provide your credentials to the scheduled "
+"task. **Note that this method is highly discouraged since it means that your "
+"credentials will be in plain sight!**"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:93
+#, no-wrap
+msgid ""
+"0 * * * * curl -u alice:password123 "
+"'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:97
+#, no-wrap
+msgid "Manual update"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:100
+msgid ""
+"If you can't or don't want to use the automatic method, you can update "
+"manually. There are two methods for updating all or some of the feeds."
+msgstr ""
+
+#. type: Title ###
+#: en/./users/03_Main_view.md:101
+#, no-wrap
+msgid "Complete update"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:104
+msgid ""
+"This update occurs on all feeds. To trigger it, simply click on the update "
+"link in the navigation menu."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:106
+msgid "![Navigation menu](../img/users/refresh.1.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:108
+msgid ""
+"When the update starts, a progress bar appears and changes while feeds are "
+"processed."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:110
+msgid "![Progress bar](../img/users/refresh.5.png)"
+msgstr ""
+
+#. type: Title ###
+#: en/./users/03_Main_view.md:111
+#, no-wrap
+msgid "Partial update"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:114
+msgid ""
+"This update occurs on the selected feed only. To trigger it, simply click on "
+"the update link in the feed menu."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:116
+msgid "![Feed menu](../img/users/refresh.2.png)"
+msgstr ""
+
+#. type: Title #
+#: en/./users/03_Main_view.md:117
+#, no-wrap
+msgid "Filtering articles"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:120
+msgid ""
+"When the number of articles stored by FreshRSS inevitably grows larger, it's "
+"important to use efficient filters to display only a subset of the "
+"articles. There are several methods that filter with different "
+"criteria. Usually those methods can be combined."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:121
+#, no-wrap
+msgid "By category"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:124
+msgid ""
+"This is the easiest method. You only need to click on the category title in "
+"the side panel. There are two special categories at the top of the panel:"
+msgstr ""
+
+#. type: Bullet: '  * '
+#: en/./users/03_Main_view.md:127
+msgid ""
+"*Main feed* displays only articles from feeds marked as available in that "
+"category"
+msgstr ""
+
+#. type: Bullet: '  * '
+#: en/./users/03_Main_view.md:127
+msgid "*Favourites* displays only articles marked as favourites"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:128
+#, no-wrap
+msgid "By feed"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:131
+msgid "There are several methods to filter articles by feed:"
+msgstr ""
+
+#. type: Bullet: '  * '
+#: en/./users/03_Main_view.md:136
+msgid "by clicking the feed title in the side panel"
+msgstr ""
+
+#. type: Bullet: '  * '
+#: en/./users/03_Main_view.md:136
+msgid "by clicking the feed title in the article details"
+msgstr ""
+
+#. type: Bullet: '  * '
+#: en/./users/03_Main_view.md:136
+msgid "by filtering in the feed options from the side panel"
+msgstr ""
+
+#. type: Bullet: '  * '
+#: en/./users/03_Main_view.md:136
+msgid "by filtering in the feed configuration"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:138
+msgid "![Feed filter](../img/users/feed.filter.1.png)"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:139
+#, no-wrap
+msgid "By status"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:142
+msgid ""
+"Each article has two attributes that can be combined. The first attribute "
+"indicates whether or not the article has been read. The second attribute "
+"indicates if the article was marked as favorite or not."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:144
+msgid ""
+"In version 0.7, attribute filters are available in the article display "
+"dropdown list. With this version, it's not possible to combine filters. For "
+"instance, it's not possible to display only read and favorite articles."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:146
+msgid "![Attribute filters in 0.7](../img/users/status.filter.0.7.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:148
+msgid ""
+"Starting with version 0.8, all attribute filters are visible as toggle "
+"icons. They can be combined. As any combination is possible, some have the "
+"same result. For instance, the result for all filters selected is the same "
+"as no filter selected."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:150
+msgid "![Attribute filters in 0.8](../img/users/status.filter.0.8.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:152
+msgid "By default, this filter displays only unread articles"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:153
+#, no-wrap
+msgid "By content"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:156
+msgid ""
+"It is possible to filter articles by their content by inputting a string in "
+"the search field."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/03_Main_view.md:157
+#, no-wrap
+msgid "With the search field"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:160
+msgid "You can use the search field to further refine results:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/03_Main_view.md:199
+msgid "by author: `author:name` or `author:'composed name'`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/03_Main_view.md:199
+msgid "by title: `intitle:keyword` or `intitle:'composed keyword'`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/03_Main_view.md:199
+msgid "by URL: `inurl:keyword` or `inurl:'composed keyword'`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/03_Main_view.md:199
+msgid "by tag: `#tag`"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/03_Main_view.md:199
+msgid "by free-text: `keyword` or `'composed keyword'`"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:199
+#, no-wrap
+msgid ""
+"* by date of discovery, using the [ISO 8601 time interval "
+"format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): "
+"`date:<date-interval>`\n"
+"\t* From a specific day, or month, or year:\n"
+"\t\t* `date:2014-03-30`\n"
+"\t\t* `date:2014-03` or `date:201403`\n"
+"\t\t* `date:2014`\n"
+"\t* From a specific time of a given day:\n"
+"\t\t* `date:2014-05-30T13`\n"
+"\t\t* `date:2014-05-30T13:30`\n"
+"\t* Between two given dates:\n"
+"\t\t* `date:2014-02/2014-04`\n"
+"\t\t* `date:2014-02--2014-04`\n"
+"\t\t* `date:2014-02/04`\n"
+"\t\t* `date:2014-02-03/05`\n"
+"\t\t* `date:2014-02-03T22:00/22:15`\n"
+"\t\t* `date:2014-02-03T22:00/15`\n"
+"\t* After a given date:\n"
+"\t\t* `date:2014-03/`\n"
+"\t* Before a given date:\n"
+"\t\t* `date:/2014-03`\n"
+"\t* For a specific duration after a given date:\n"
+"\t\t* `date:2014-03/P1W`\n"
+"\t* For a specific duration before a given date:\n"
+"\t\t* `date:P1W/2014-05-25T23:59:59`\n"
+"\t* For the past duration before now (the trailing slash is optional):\n"
+"\t\t* `date:P1Y/` or `date:P1Y` (past year)\n"
+"\t\t* `date:P2M/` (past two months)\n"
+"\t\t* `date:P3W/` (past three weeks)\n"
+"\t\t* `date:P4D/` (past four days)\n"
+"\t\t* `date:PT5H/` (past five hours)\n"
+"\t\t* `date:PT30M/` (past thirty minutes)\n"
+"\t\t* `date:PT90S/` (past ninety seconds)\n"
+"\t\t* `date:P1DT1H/` (past one day and one hour)\n"
+"* by date of publication, using the same format: `pubdate:<date-interval>`\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:201
+msgid "Be careful not to enter a space between the operator and the search value."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:204
+msgid ""
+"Some operators can be used negatively, to exclude articles, with the same "
+"syntax as above, but prefixed by a `!` or `-`: `-author:name`, "
+"`-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:206
+msgid ""
+"It is also possible to combine keywords to create a more precise filter. For "
+"example, you can enter multiple instances of `author:`, `intitle:`, "
+"`inurl:`, `#`, and free-text."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/03_Main_view.md:208
+msgid ""
+"Combining several search criteria implies a logical *and*, but the keyword ` "
+"OR ` can be used to combine several search criteria with a logical *or* "
+"instead: `author:Dupont OR author:Dupond`"
+msgstr ""
+
+#. type: Title #
+#: en/./users/04_Subscriptions.md:1
+#, no-wrap
+msgid "Adding a feed"
+msgstr ""
+
+#. type: Title #
+#: en/./users/04_Subscriptions.md:5
+#, no-wrap
+msgid "Import and export"
+msgstr ""
+
+#. type: Title #
+#: en/./users/04_Subscriptions.md:9
+#, no-wrap
+msgid "Use bookmarklet"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/04_Subscriptions.md:12
+msgid ""
+"Bookmarklets are little scripts that you can execute to perform various "
+"tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/04_Subscriptions.md:16
+msgid "Open \"Subscriptions management\"."
+msgstr ""
+
+#. type: Bullet: ' 2. '
+#: en/./users/04_Subscriptions.md:16
+msgid "Click on \"Subscription tools\"."
+msgstr ""
+
+#. type: Bullet: ' 3. '
+#: en/./users/04_Subscriptions.md:16
+msgid ""
+"Drag the \"Subscribe\" button to your bookmark toolbar or right click and "
+"choose your browser's \"Bookmark link\" action."
+msgstr ""
+
+#. type: Title #
+#: en/./users/04_Subscriptions.md:17
+#, no-wrap
+msgid "Feed management"
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:2
+#, no-wrap
+msgid "Display"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:4
+#, no-wrap
+msgid "Language"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:9
+msgid ""
+"FreshRSS is currently available in 14 languages. After confirming your "
+"choice, the interface will be displayed in your preferred language.  "
+"Depending on the language chosen, parts of the interface may not be not "
+"translated yet. If you're willing to help translate the missing bits or "
+"would like to add a new language, please take a look at how you can "
+"[contribute to the "
+"project](../contributing.md#contribute-to-internationalization-i18n)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:11
+msgid ""
+"Some parts of FreshRSS aren't translated and aren't intended to be "
+"translated either. For now, this includes the logs visible in the "
+"application as well as the log generated by automatic update scripts."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:13
+msgid ""
+"Available languages are: cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, "
+"tr, zh-cn."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:14
+#, no-wrap
+msgid "Theme"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:17
+msgid ""
+"There's no accounting for tastes, which is why FreshRSS offers eight "
+"official themes:"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Blue Lagoon* by **Mister aiR**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Dark* by **AD**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Flat design* by **Marien Fressinaud**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Origine* by **Marien Fressinaud**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Origine-compact* by **Kevin Papst**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Pafat* by **Plopoyop**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Screwdriver* by **Mister aiR**"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:26
+msgid "*Swage* by **Patrick Crandol**"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:28
+msgid ""
+"If you can't find any themes you like, it's always possible to [create your "
+"own](../developers/04_Frontend/02_Design.md)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:30
+msgid ""
+"To select a theme, simply scroll through the themes and select one that "
+"strikes your fancy. After confirmation, the theme will be applied to the "
+"interface."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:31
+#, no-wrap
+msgid "Content width"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:34
+msgid ""
+"Some people prefer short lines of text, while others prefer to maximize the "
+"available screen space. To satisfy the maximum number of people, it's "
+"possible to customize the width of the displayed content. There are four "
+"settings available:"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:39
+msgid "**Fine** displays content up to a maximum width of 550 pixels"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:39
+msgid "**Medium** displays content up to a maximum width of 800 pixels"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:39
+msgid "**Large** displays content up to a maximum width of 1000 pixels"
+msgstr ""
+
+#. type: Bullet: ' * '
+#: en/./users/05_Configuration.md:39
+msgid "**No limit** displays the content on 100% of the available space"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:40
+#, no-wrap
+msgid "Article icons"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:43
+msgid "Please note that this section only affects normal view."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:45
+msgid "![Article icons configuration](../img/users/configuration.article.icons.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:48
+msgid ""
+"Each article is rendered with a header (top line) and a footer (bottom "
+"line).  In that section, you can choose what will be displayed in those."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:52
+msgid ""
+"If you disable every item in the top line, you'll still be able to see it "
+"since it contains the feed name and the article title. But if you do the "
+"same thing for the bottom line, it will be empty."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:53
+#, no-wrap
+msgid "HTML5 notification timout"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:56
+msgid ""
+"After automatically updating the feeds, FreshRSS can pop up a notification "
+"using the HTML5 notification API."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:58
+msgid "The duration of this notification can be set. By default, the value is 0."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:59
+#, no-wrap
+msgid "Show the navigation button"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:62
+msgid ""
+"By default, FreshRSS displays buttons to ease the article navigation when "
+"browsing on mobile. The drawback is that they eat up some precious space."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:64
+msgid ""
+"![navigation button "
+"configuration](../img/users/configuration.navigation.button.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:66
+msgid ""
+"If you don't use those buttons because you never browse on mobile or because "
+"you browse with gestures, you can disable them from the interface."
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:67
+#, no-wrap
+msgid "Reading"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:71 en/./users/05_Configuration.md:154
+#, no-wrap
+msgid "Archival"
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:75
+#, no-wrap
+msgid "Sharing"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:78
+msgid "To make your life easier, you can share articles straight from FreshRSS."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:80
+msgid ""
+"At the moment, FreshRSS supports 18 sharing methods, ranging from "
+"self-hosted services (Shaarli, etc.) to proprietary services (Facebook, "
+"etc.)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:83
+msgid ""
+"By default, the sharing list is empty.  ![Sharing "
+"configuration](../img/users/configuration.sharing.png)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:85
+msgid "To add a new item to the list, please follow the following simple steps:"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:90
+msgid "Select the desired sharing method in the drop-down list."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:90
+msgid "Press the ```✚``` button to add it to the list."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:90
+msgid ""
+"Configure the method in the list. All names can be modified in the "
+"display. Some methods need the sharing URL to be able to work properly (ex: "
+"Shaarli)."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:90 en/./users/05_Configuration.md:95
+msgid "Submit your changes."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:92
+msgid "To remove an item from the list, follow those simple steps:"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:95
+msgid "Press the ```❌``` button next to the share method you want to remove."
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:96
+#, no-wrap
+msgid "Shortcuts"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:100
+msgid ""
+"To ease the use of the application, FreshRSS comes with a lot of predefined "
+"keyboard shortcuts.  They allow actions to improve the user experience with "
+"a keyboard."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:102
+msgid ""
+"Of course, if you're not satisfied with the key mapping, you can change you "
+"configuration to fit your needs."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:104
+msgid "There are 4 types of shortcuts:"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:109
+msgid "Views: they allow switching views with ease."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:109
+msgid "Navigation: they allow navigation through articles, feeds, and categories."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:109
+msgid ""
+"Article actions: they allow interactions with an article, like sharing or "
+"opening it on the original web-site."
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:109
+msgid ""
+"Other actions: they allow other interactions with the application, like "
+"opening the user queries menu or accessing the documentation."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:112
+msgid ""
+"It's worth noting that the share article action has two levels. Once you "
+"press the shortcut, a menu containing all the share options opens.  To "
+"choose one share option, you need to select it by its number. When there is "
+"only one option, it's selected automatically though."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:114
+msgid "The same process applies to the user queries."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:117
+msgid ""
+"Be aware that there is no validation on the selected shortcuts.  This means "
+"that if you assign a shortcut to more than one action, you'll end up with "
+"some unexpected behavior."
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:118
+#, no-wrap
+msgid "User queries"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:122
+msgid ""
+"You can configure your [user queries](./03_Main_view.md) in that "
+"section. There is not much to say here as it is pretty straightforward.  You "
+"can only change user query titles or drop them."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:124
+msgid "At the moment, there is no helper to build a user query from here."
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:125
+#, no-wrap
+msgid "Users"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:129
+#, no-wrap
+msgid "Authentication methods"
+msgstr ""
+
+#. type: Title ###
+#: en/./users/05_Configuration.md:131
+#, no-wrap
+msgid "HTTP Authentication (Apache)"
+msgstr ""
+
+#. type: Bullet: ' 1. '
+#: en/./users/05_Configuration.md:137
+msgid "User control is based on the `.htaccess` file."
+msgstr ""
+
+#. type: Bullet: ' 2. '
+#: en/./users/05_Configuration.md:137
+msgid ""
+"It is best practice to place the `.htaccess` file in the `./i/` subdirectory "
+"so the API and other third party services can work."
+msgstr ""
+
+#. type: Bullet: ' 3. '
+#: en/./users/05_Configuration.md:137
+msgid ""
+"If you want to limit all access to registered users only, place the file in "
+"the FreshRSS directory itself or in a parent directory. Note that WebSub and "
+"API will not work!"
+msgstr ""
+
+#. type: Bullet: ' 4. '
+#: en/./users/05_Configuration.md:137
+msgid "Example `.htaccess` file for a user \"marie\":"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:138
+#, no-wrap
+msgid ""
+"AuthUserFile /home/marie/repertoire/.htpasswd\n"
+"AuthGroupFile /dev/null\n"
+"AuthName \"Chez Marie\"\n"
+"AuthType Basic\n"
+"Require user marie\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:147
+msgid ""
+"More information can be found in the [Apache "
+"documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)."
+msgstr ""
+
+#. type: Title #
+#: en/./users/05_Configuration.md:148
+#, no-wrap
+msgid "Subscription management"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:150
+#, no-wrap
+msgid "Information"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:158
+#, no-wrap
+msgid "Login"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/05_Configuration.md:162
+#, no-wrap
+msgid "Advanced"
+msgstr ""
+
+#. type: Title ###
+#: en/./users/05_Configuration.md:164
+#, no-wrap
+msgid "Retrieve a truncated stream from within FreshRSS"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:167
+msgid ""
+"This question comes up regularly, so we'll try to clarify how one can "
+"retrieve a truncated RSS feed with FreshRSS. Please note that the process is "
+"absolutely not user friendly, but it works. :)"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:169
+msgid ""
+"Please be aware that this way you'll generate much more traffic to the "
+"originating sites, and they might block you accordingly. FreshRSS "
+"performance is also negatively affected, because you'll have to fetch the "
+"full article content one by one. So it's a feature to use sparingly!"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:171
+msgid ""
+"What's meant by \"CSS path of articles on the original site\" actually "
+"corresponds to the \"path\" consisting of IDs and classes (which in HTML, "
+"matches the id and class attributes) to retrieve only the interesting part "
+"that corresponds to the article. Ideally, this path starts with an id (which "
+"is unique to the page)."
+msgstr ""
+
+#. type: Title ####
+#: en/./users/05_Configuration.md:172
+#, no-wrap
+msgid "Example: Rue89"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:175
+msgid ""
+"To find this path, you have to go to the address of one of the truncated "
+"articles (for example, "
+"http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). "
+"You look have to look for the \"block\" of HTML that corresponds to article "
+"content (in the source code!)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:177
+#, no-wrap
+msgid ""
+"Here we find that the block that encompasses nothing but the content of the "
+"article is ```<div class=\"content clearfix\">```. We'll only use the "
+"`.content` class here. Nevertheless, as said above, it's best to start the "
+"path with an id. If we go back to the parent block, we find ```<div "
+"id=\"article\">``` and that's perfect! The path will be ```#article "
+".content```.\n"
+msgstr ""
+
+#. type: Title ####
+#: en/./users/05_Configuration.md:178
+#, no-wrap
+msgid ""
+"Add the corresponding classes to the article CSS path on the feed "
+"configuration page. Examples:"
+msgstr ""
+
+#. type: Bullet: '*  '
+#: en/./users/05_Configuration.md:184
+msgid "Rue89: ```#article .content```"
+msgstr ""
+
+#. type: Bullet: '*  '
+#: en/./users/05_Configuration.md:184
+msgid "PCINpact: ```#actu_content```"
+msgstr ""
+
+#. type: Bullet: '*  '
+#: en/./users/05_Configuration.md:184
+msgid "Lesnumériques: ```article#body div.text.clearfix```"
+msgstr ""
+
+#. type: Bullet: '*  '
+#: en/./users/05_Configuration.md:184
+msgid "Phoronix: ```#main .content```"
+msgstr ""
+
+#. type: Title ###
+#: en/./users/05_Configuration.md:185
+#, no-wrap
+msgid "Retrieve a truncated stream with external tools"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/05_Configuration.md:188
+msgid "Complimentary tools can be used to retrieve full article content, such as:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/05_Configuration.md:190
+msgid "[RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/05_Configuration.md:190
+msgid "[Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)"
+msgstr ""
+
+#. type: Title #
+#: en/./users/06_Fever_API.md:1
+#, no-wrap
+msgid "FreshRSS - Fever API implementation"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:5
+msgid ""
+"See the [page about our Google Reader compatible API](06_Mobile_access.md) "
+"for another possibility and general aspects of API access."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/06_Fever_API.md:6
+#, no-wrap
+msgid "RSS clients"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:11
+msgid ""
+"There are many RSS clients that support the Fever API, but they seem to "
+"understand the Fever API a bit differently.  If your favourite client "
+"doesn't work properly with this API, please create an issue and we'll have a "
+"look.  But we can **only** do that for free clients."
+msgstr ""
+
+#. type: Title ###
+#: en/./users/06_Fever_API.md:12
+#, no-wrap
+msgid "Usage & Authentication"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:16
+msgid ""
+"Before you can start using this API, you have to enable and setup API "
+"access, which is [documented "
+"here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html), "
+"and then reset the user’s API password."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:18
+msgid ""
+"Then point your mobile application to the `fever.php` address "
+"(e.g. `https://freshrss.example.net/api/fever.php`)."
+msgstr ""
+
+#. type: Title #
+#: en/./users/06_Fever_API.md:19 en/./users/06_Mobile_access.md:44
+#, no-wrap
+msgid "Compatible clients"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:22
+msgid "Tested with:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:25
+#, no-wrap
+msgid ""
+"* Android\n"
+"  * "
+"[Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) "
+"(Closed source)\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:30
+#, no-wrap
+msgid ""
+"* iOS\n"
+"  * [Fiery "
+"Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) "
+"(Closed source)\n"
+"  * [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) "
+"(Commercial)\n"
+"  * [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader "
+"API / native FreshRSS option when possible)\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:33
+#, no-wrap
+msgid ""
+"* MacOS\n"
+"  * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/06_Fever_API.md:35
+#, no-wrap
+msgid "Features"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:38
+msgid "The following features are implemented:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "fetching categories"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "fetching feeds"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid ""
+"fetching RSS items (new, favorites, unread, by_id, by_feed, by_category, "
+"since)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "fetching favicons"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting read marker for item(s)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting starred marker for item(s)"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting read marker for feed"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "setting read marker for category"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:48
+msgid "supports FreshRSS extensions, which use the `entry_before_display` hook"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:50
+msgid "The following features are not supported:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:52
+msgid ""
+"**Hot Links** aka **hot** as there is nothing in FreshRSS yet that is "
+"similar or could be used to simulate it."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/06_Fever_API.md:53
+#, no-wrap
+msgid "Testing and debugging"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:56
+msgid ""
+"If this API does not work as expected in your RSS reader, you can test it "
+"manually with a tool like [Postman](https://www.getpostman.com/)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:58
+msgid ""
+"Configure a POST request to the URL "
+"https://freshrss.example.net/api/fever.php?api which should give you the "
+"result:"
+msgstr ""
+
+#. type: Code fence info string
+#: en/./users/06_Fever_API.md:58 en/./users/06_Fever_API.md:80
+#, no-wrap
+msgid "json"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:58
+#, no-wrap
+msgid ""
+"{\n"
+"\t\"api_version\": 3,\n"
+"\t\"auth\": 0\n"
+"}\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:65
+msgid "Great, the base setup seems to work!"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:68
+msgid ""
+"Now lets try an authenticated call. Fever uses an `api_key`, which is the "
+"MD5 hash of `\"$username:$apiPassword\"`.  Assuming the user is `kevin` and "
+"the password `freshrss`, here is a command-line example to compute the "
+"resulting `api_key`"
+msgstr ""
+
+#. type: Code fence info string
+#: en/./users/06_Fever_API.md:69 en/./users/06_Fever_API.md:75 en/./users/06_Mobile_access.md:69 en/./users/07_Frequently_Asked_Questions.md:37 en/./users/07_Frequently_Asked_Questions.md:45
+#, no-wrap
+msgid "sh"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:69
+#, no-wrap
+msgid "api_key=`echo -n \"kevin:freshrss\" | md5sum | cut -d' ' -f1`\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:74
+msgid ""
+"Add a body to your POST request encoded as `form-data` and one key named "
+"`api_key` with the value `your-password-hash`:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:75
+#, no-wrap
+msgid ""
+"curl -s -F \"api_key=$api_key\" "
+"'https://freshrss.example.net/api/fever.php?api'\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:80
+msgid "This should give:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:80
+#, no-wrap
+msgid ""
+"{\n"
+"\t\"api_version\": 3,\n"
+"\t\"auth\": 1,\n"
+"\t\"last_refreshed_on_time\": \"1520013061\"\n"
+"}\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:88
+msgid ""
+"Perfect, you're now authenticated and you can start testing the more "
+"advanced features. To do so, change the URL and append the possible API "
+"actions to your request parameters. Please refer to the [original Fever "
+"documentation](https://feedafever.com/api) for more information."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:90
+msgid "Some basic calls are:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&items"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&feeds"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&groups"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&unread_item_ids"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&saved_item_ids"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&items&since_id=some_id"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&items&max_id=some_id"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/06_Fever_API.md:100
+msgid "https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:102
+msgid ""
+"Replace `some_id` with a real ID from your `freshrss_username_entry` "
+"database."
+msgstr ""
+
+#. type: Title ###
+#: en/./users/06_Fever_API.md:103
+#, no-wrap
+msgid "Debugging"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:106
+msgid ""
+"If nothing helps and your client is still misbehaving, you can add the "
+"following lines to the beginning of the `fever.api` file to determine the "
+"cause of the problems:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:107
+#, no-wrap
+msgid ""
+"file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' "
+". json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:112
+msgid ""
+"Then use your RSS client to query the API and afterwards check the file "
+"`fever.log`."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/06_Fever_API.md:113
+#, no-wrap
+msgid "Credits"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Fever_API.md:115
+msgid ""
+"This plugin was inspired by the "
+"[tinytinyrss-fever-plugin](https://github.com/dasmurphy/tinytinyrss-fever-plugin)."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:2
+msgid ""
+"This page assumes you have completed the [server "
+"setup](../admins/02_Installation.md)."
+msgstr ""
+
+#. type: Title #
+#: en/./users/06_Mobile_access.md:3
+#, no-wrap
+msgid "Enable the API in FreshRSS"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./users/06_Mobile_access.md:9
+msgid ""
+"Under the section “Authentication”, enable the option “Allow API access "
+"(required for mobile apps)”."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:9
+#, no-wrap
+msgid ""
+"2. Under the section “Profile”, fill-in the field “API password (e.g., for "
+"mobile apps)”.\n"
+"\t* Every user must define an API password.\n"
+"\t* The reason for an API-specific password is that it may be used in less "
+"safe situations than the main password, and does not grant access to as many "
+"things.\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:12
+msgid ""
+"The rest of this page is about the Google Reader compatible API.  See the "
+"[page about the Fever compatible API](06_Fever_API.md) for another "
+"possibility."
+msgstr ""
+
+#. type: Title #
+#: en/./users/06_Mobile_access.md:14
+#, no-wrap
+msgid "Testing"
+msgstr ""
+
+#. type: Bullet: '3. '
+#: en/./users/06_Mobile_access.md:21
+msgid ""
+"Under the section “Profile”, click on the link like "
+"`https://rss.example.net/api/` next to the field “API password”."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:21
+#, no-wrap
+msgid ""
+"4. Click on first link “Check full server configuration”:\n"
+"\t* If you get *PASS* then you are done, all is good: you may proceed to "
+"step 6.\n"
+"\t* If you get *Bad Request!* or *Not Found*, then your server probably does "
+"not accept slashes `/` that are escaped `%2F`. Proceed to step 5.\n"
+"\t* If you get any other error message, proceed to step 5.\n"
+msgstr ""
+
+#. type: Title #
+#: en/./users/06_Mobile_access.md:23
+#, no-wrap
+msgid "Fix server configuration"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:42
+#, no-wrap
+msgid ""
+"5. Click on the second link “Check partial server configuration (without "
+"`%2F` support)”:\n"
+"\t* If you get `PASS`, then the problem is indeed that your server does not "
+"accept slashes `/` that are escaped `%2F`.\n"
+"\t\t* With Apache, remember the directive [`AllowEncodedSlashes "
+"On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)\n"
+"\t\t* Or use a client that does not escape slashes (such as EasyRSS), in "
+"which case proceed to step 6.\n"
+"\t* If you get *Service Unavailable!*, then check from step 1 again.\n"
+"\t* With __Apache__:\n"
+"\t\t* If you get *FAIL getallheaders!*, the combination of your PHP version "
+"and your Web server does not provide access to "
+"[`getallheaders`](http://php.net/getallheaders)\n"
+"\t\t\t* Turn on Apache `mod_setenvif` (often enabled by default), or "
+"`mod_rewrite` with the following procedure:\n"
+"\t\t\t\t* Allow [`FileInfo` in "
+"`.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): "
+"see the [server setup](../admins/02_Installation.md) again.\n"
+"\t\t\t\t* Enable "
+"[`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):\n"
+"\t\t\t\t\t* With Debian / Ubuntu: `sudo a2enmod rewrite`\n"
+"\t* With __nginx__:\n"
+"\t\t* If you get *Bad Request!*, check your server `PATH_INFO` "
+"configuration.\n"
+"\t\t* If you get *File not found!*, check your server "
+"`fastcgi_split_path_info`.\n"
+"\t* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does "
+"not pass the requirement of being 64-bit and/or have PHP "
+"[GMP](http://php.net/gmp) extension.\n"
+"\t\t* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt "
+"install php-gmp`\n"
+"\t* Update and try again from step 3.\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:48
+#, no-wrap
+msgid ""
+"6. On the same FreshRSS API page, note the address given under “Your API "
+"address”, like `https://freshrss.example.net/api/greader.php`\n"
+"\t* Type the API address in a client, together with your FreshRSS username, "
+"and the corresponding special API password.\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:63
+#, no-wrap
+msgid ""
+"7. Pick a client supporting a Google Reader-like API. Selection:\n"
+"\t* Android\n"
+"\t\t* "
+"[News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) "
+"with [News+ Google Reader "
+"extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) "
+"(Closed source)\n"
+"\t\t* [FeedMe "
+"3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) "
+"(Closed source)\n"
+"\t\t* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, "
+"[F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))\n"
+"\t* Linux\n"
+"\t\t* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open "
+"source)\n"
+"\t* MacOS\n"
+"\t\t* [Vienna RSS](http://www.vienna-rss.com/) (Open source)\n"
+"\t\t* [Reeder](https://www.reederapp.com/) (Commercial)\n"
+"\t* iOS\n"
+"\t\t* [Reeder](https://www.reederapp.com/) (Commercial)\n"
+"\t* Firefox\n"
+"\t\t* "
+"[FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) "
+"(Open source)\n"
+msgstr ""
+
+#. type: Title #
+#: en/./users/06_Mobile_access.md:65
+#, no-wrap
+msgid "Google Reader compatible API"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:68
+msgid "Examples of basic queries:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/06_Mobile_access.md:69
+#, no-wrap
+msgid ""
+"# Initial login, using API password (Email and Passwd can be given either as "
+"GET, or POST - better)\n"
+"curl "
+"'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'\n"
+"SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
+"Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\n"
+"\n"
+"# Examples of read-only requests\n"
+"curl -s -H \"Authorization:GoogleLogin "
+"auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  "
+"'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list?output=json'\n"
+"\n"
+"curl -s -H \"Authorization:GoogleLogin "
+"auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  "
+"'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?output=json'\n"
+"\n"
+"curl -s -H \"Authorization:GoogleLogin "
+"auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  "
+"'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=json'\n"
+"\n"
+"# Retrieve a token for requests making modifications\n"
+"curl -H \"Authorization:GoogleLogin "
+"auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  'https://freshrss.example.net/api/greader.php/reader/api/0/token'\n"
+"8e6845e089457af25303abc6f53356eb60bdb5f8ZZZZZZZZZZZZZZZZZ\n"
+"\n"
+"# Get articles, piped to jq for easier JSON reading\n"
+"curl -s -H \"Authorization:GoogleLogin "
+"auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8\" \\\n"
+"  "
+"'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' "
+"| jq .\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:2
+msgid ""
+"We may not have answered all of your questions in the previous sections. The "
+"FAQ contains some questions that have not been answered elsewhere."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/07_Frequently_Asked_Questions.md:3
+#, no-wrap
+msgid "What is `/i` at the end of the application URL?"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:6
+msgid "Of course, ```/i``` has a purpose! It's used for performance and usability:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/07_Frequently_Asked_Questions.md:11
+msgid ""
+"It allows for serving icons, images, styles and scripts without "
+"cookies. Without that trick, those files would be downloaded more often, "
+"especially when form authentication is used. Also, HTTP requests would be "
+"heavier."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/07_Frequently_Asked_Questions.md:11
+msgid ""
+"The ```./p/``` public root can be served without any HTTP access "
+"restrictions. Whereas it could be implemented in ```./p/i/```."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/07_Frequently_Asked_Questions.md:11
+msgid ""
+"It avoids problems while serving public resources like ```favicon.ico```, "
+"```robots.txt```, etc."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./users/07_Frequently_Asked_Questions.md:11
+msgid ""
+"It allows the logo to be displayed instead of a white page while hitting a "
+"restriction or a delay during the loading process."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/07_Frequently_Asked_Questions.md:12
+#, no-wrap
+msgid "Why is `robots.txt` located in a sub-folder?"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:15
+msgid ""
+"To increase security, FreshRSS is hosted in two sections. The first section "
+"is public (the `./p` folder) and the second section is private (everything "
+"else). Therefore the `robots.txt` file is located in the `./p` sub-folder."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:17
+msgid ""
+"As explained in the [security "
+"section](/en/User_documentation/Installation/Security), it's highly "
+"recommended to make only the public section available at the domain "
+"level. With that configuration, `./p` is the root folder for "
+"http://demo.freshrss.org/, thus making `robots.txt` available at the root of "
+"the application."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:19
+msgid "The same principle applies to `favicon.ico` and `.htaccess`."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/07_Frequently_Asked_Questions.md:20
+#, no-wrap
+msgid "Why do I have errors while registering a feed?"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:26
+msgid ""
+"There can be different origins for that problem.  The feed syntax can be "
+"invalid, it can be unrecognized by the SimplePie library, the hosting server "
+"can be the root of the problem, or FreshRSS can be buggy.  The first step is "
+"to identify what causes the problem.  Here are the steps to follow:"
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./users/07_Frequently_Asked_Questions.md:30
+msgid ""
+"__Verify if the feed syntax is valid__ with the [W3C on-line "
+"tool](https://validator.w3.org/feed/ \"RSS and Atom feed validator\"). If "
+"it's not valid, there's nothing we can do."
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./users/07_Frequently_Asked_Questions.md:30
+msgid ""
+"__Verify SimplePie validation__ with the [SimplePie on-line "
+"tool](https://simplepie.org/demo/ \"SimplePie official demo\"). If it's not "
+"recognized, there's nothing we can do."
+msgstr ""
+
+#. type: Bullet: '1. '
+#: en/./users/07_Frequently_Asked_Questions.md:30
+msgid ""
+"__Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "
+"\"FreshRSS official demo\"). If it's not working, you need to [create an "
+"issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
+"issue for FreshRSS\") so we can have a look at it. If it's working, there's "
+"probably something fishy with the hosting server."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/07_Frequently_Asked_Questions.md:31
+#, no-wrap
+msgid "How can you change a forgotten password?"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:35
+msgid ""
+"Since the [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0) "
+"release, admins can change user passwords directly from the interface. This "
+"interface is available under ```Administration → Manage users```.  Select a "
+"user, enter a password, and validate."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:37
+msgid ""
+"Since the [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) "
+"release, admins can change user passwords using a terminal. It worth "
+"mentioning that you must have access to PHP CLI. Open a terminal, and type "
+"the following command:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:37
+#, no-wrap
+msgid "./cli/update_user.php --user <username> --password <password>\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:41
+msgid ""
+"For more information on that matter, please refer to the [dedicated "
+"documentation](../../cli/README.md)."
+msgstr ""
+
+#. type: Title ##
+#: en/./users/07_Frequently_Asked_Questions.md:42
+#, no-wrap
+msgid "Permissions under SELinux"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:45
+msgid ""
+"Some Linux distribution, like Fedora or RedHat Enterprise Linux, have "
+"SELinux enabled. This acts similar to a firewall application, so that "
+"applications can't write or modify files under certain conditions. While "
+"installing FreshRSS, step 2 can fail if the httpd process can't write to "
+"some data sub-directories. The following command should be executed as root "
+"to fix this problem:"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:45
+#, no-wrap
+msgid ""
+"semanage fcontext -a -t httpd_sys_rw_content_t "
+"'/usr/share/FreshRSS/data(/.*)?'\n"
+"restorecon -Rv /usr/share/FreshRSS/data\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./users/07_Frequently_Asked_Questions.md:50
+#, no-wrap
+msgid "Why do I have a blank page while trying to configure the sharing options?"
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:53
+msgid ""
+"The `sharing` word in the URL is a trigger word for some ad-blocker "
+"rules. Starting with version 1.16, `sharing` has been replaced by "
+"`integration` in the faulty URL while keeping the exact same wording "
+"throughout the application."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:55
+msgid ""
+"If you are using a version prior to 1.16, you can disable your ad-blocker "
+"for FreshRSS or you can add a rule to allow the `sharing` page to be "
+"accessed."
+msgstr ""
+
+#. type: Plain text
+#: en/./users/07_Frequently_Asked_Questions.md:57
+msgid "Examples with _uBlock_:"
+msgstr ""
+
+#. type: Bullet: '- '
+#: en/./users/07_Frequently_Asked_Questions.md:59
+msgid ""
+"Whitelist your FreshRSS instance by adding it in _uBlock > Open the "
+"dashboard > Whitelist_."
+msgstr ""
+
+#. type: Bullet: '- '
+#: en/./users/07_Frequently_Asked_Questions.md:59
+msgid ""
+"Authorize your FreshRSS instance to call `sharing` configuration page by "
+"adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the "
+"dashboard > My filters_"
+msgstr ""

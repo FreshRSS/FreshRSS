@@ -1,12 +1,18 @@
 <?php
-/* Dutch translation by Wanabo. http://www.nieuwskop.be */
+
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimalisatie compleet',
-	),
 	'access' => array(
 		'denied' => 'U hebt geen rechten om deze pagina te bekijken.',
 		'not_found' => 'Deze pagina bestaat niet',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Optimalisatie compleet',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -38,9 +44,9 @@ return array(
 			'ko' => '%s kan niet worden ingeschakeld. <a href="%s">Controleer FreshRSS log bestanden</a> voor details.',
 			'ok' => '%s is nn ingeschakeld',
 		),
-		'no_access' => 'U hebt geen toegang voor %s',
 		'not_enabled' => '%s is nog niet ingeschakeld',
 		'not_found' => '%s bestaat niet',
+		'no_access' => 'U hebt geen toegang voor %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server. Exporteer a.u.b. uw bestanden één voor één.',
@@ -66,10 +72,10 @@ return array(
 			'emptied' => 'Categorie is leeg gemaakt',
 			'error' => 'Categorie kan niet worden vernieuwd',
 			'name_exists' => 'Categorie naam bestaat al.',
-			'no_id' => 'U moet de id specificeren of de categorie.',
-			'no_name' => 'Categorie naam mag niet leeg zijn.',
 			'not_delete_default' => 'U kunt de standaard categorie niet verwijderen!',
 			'not_exist' => 'De categorie bestaat niet!',
+			'no_id' => 'U moet de id specificeren of de categorie.',
+			'no_name' => 'Categorie naam mag niet leeg zijn.',
 			'over_max' => 'Maximum aantal categorieën bereikt (%d)',
 			'updated' => 'Categorie vernieuwd.',
 		),
@@ -82,10 +88,10 @@ return array(
 			'error' => 'Feed kan niet worden vernieuwd',
 			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FreshRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
 			'invalid_url' => 'URL <em>%s</em> is ongeldig',
+			'not_added' => '<em>%s</em> kon niet worden toegevoegd',
+			'no_refresh' => 'Er is geen feed om te vernieuwen…',
 			'n_actualized' => '%d feeds zijn vernieuwd',
 			'n_entries_deleted' => '%d artikelen zijn verwijderd',
-			'no_refresh' => 'Er is geen feed om te vernieuwen…',
-			'not_added' => '<em>%s</em> kon niet worden toegevoegd',
 			'over_max' => 'Maximum aantal feeds bereikt (%d)',
 			'updated' => 'Feed is vernieuwd',
 		),
@@ -101,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Gebruiker %s is aangemaakt',
 			'error' => 'Gebruiker %s kan niet worden aangemaakt',
+			'_' => 'Gebruiker %s is aangemaakt',
 		),
 		'deleted' => array(
-			'_' => 'Gebruiker %s is verwijderd',
 			'error' => 'Gebruiker %s kan niet worden verwijderd',
+			'_' => 'Gebruiker %s is verwijderd',
 		),
 		'updated' => array(
-			'_' => 'Gebruiker %s is bijgewerkt',
 			'error' => 'Gebruiker %s kan niet worden bijgewerkt',
+			'_' => 'Gebruiker %s is bijgewerkt',
 		),
 	),
 );

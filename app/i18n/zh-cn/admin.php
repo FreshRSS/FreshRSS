@@ -83,9 +83,9 @@ return array(
 			'ok' => '已找到 PDO 和支持的至少一种驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
 		),
 		'php' => array(
-			'_' => 'PHP 相关',
 			'nok' => '你的 PHP 版本为 %s，但 FreshRSS 最低需要 %s。',
 			'ok' => '你的 PHP 版本为 %s，与 FreshRSS 兼容。',
+			'_' => 'PHP 相关',
 		),
 		'tables' => array(
 			'nok' => '数据库中缺少一个或多个表。',
@@ -116,8 +116,8 @@ return array(
 		'name' => '名称',
 		'no_configure_view' => '此扩展不能配置。',
 		'system' => array(
-			'_' => '系统扩展',
 			'no_rights' => '系统扩展 (你不能修改它)',
+			'_' => '系统扩展',
 		),
 		'title' => '扩展',
 		'update' => '更新可用',
@@ -125,7 +125,6 @@ return array(
 		'version' => '版本',
 	),
 	'stats' => array(
-		'_' => '统计',
 		'all_feeds' => '所有 RSS 源',
 		'category' => '分类',
 		'entry_count' => '条目数',
@@ -155,37 +154,44 @@ return array(
 		'status_unread' => '未读',
 		'title' => '统计',
 		'top_feed' => '前十 RSS 源',
+		'_' => '统计',
 	),
 	'system' => array(
-		'_' => '系统配置',
 		'auto-update-url' => '自动升级服务器 URL',
-		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
-		'instance-name' => '实例名称',
-		'max-categories' => '每用户分类限制',
-		'max-feeds' => '每用户 RSS 源限制',
 		'cookie-duration' => array(
 			'help' => '单位（秒）',
 			'number' => '保持登录的时长',
 		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'instance-name' => '实例名称',
+		'max-categories' => '每用户分类限制',
+		'max-feeds' => '每用户 RSS 源限制',
 		'registration' => array(
 			'help' => '0 表示无账户数限制',
 			'number' => '最大账户数',
 		),
+		'_' => '系统配置',
 	),
 	'update' => array(
-		'_' => '更新系统',
 		'apply' => '应用',
 		'check' => '检查更新',
 		'current_version' => '当前 FreshRSS 版本为 %s.',
 		'last' => '上一次检查: %s',
 		'none' => '没有可用更新',
 		'title' => '更新系统',
+		'_' => '更新系统',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => '创建新用户',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => '删除用户',
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => '语言',
+		'list' => 'User list',	// TODO - Translation
 		'number' => '已有 %d 个用户',
 		'numbers' => '已有 %d 个用户',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
@@ -193,8 +199,8 @@ return array(
 		'selected' => '已选中用户',
 		'title' => '用户管理',
 		'update_users' => '更新用户',
-		'user_list' => '用户列表',
 		'username' => '用户名',
 		'users' => '用户',
+		'user_list' => '用户列表',
 	),
 );

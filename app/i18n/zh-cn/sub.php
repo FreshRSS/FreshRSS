@@ -11,15 +11,15 @@ return array(
 		'title' => '书签应用',
 	),
 	'category' => array(
-		'_' => '分类',
 		'add' => '添加分类',
 		'archiving' => '存档',
 		'empty' => '空分类',
 		'information' => '信息',
 		'new' => '新分类',
-		'position' => 'Display position',	//TODO - Translation
-		'position_help' => 'To control category sort order',	//TODO - Translation
+		'position' => 'Display position',	// TODO - Translation
+		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => '标题',
+		'_' => '分类',
 	),
 	'feed' => array(
 		'add' => '添加 RSS 源',
@@ -39,8 +39,8 @@ return array(
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
 		'filteractions' => array(
-			'_' => 'Filter actions',	//TODO - Translation
-			'help' => 'Write one search filter per line.',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
+			'_' => 'Filter actions',	// TODO - Translation
 		),
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
@@ -49,12 +49,11 @@ return array(
 		'no_selected' => '未选择 RSS 源。',
 		'number_entries' => '%d 篇文章',
 		'priority' => array(
-			'_' => '可见性',
 			'archived' => '不显示 (存档)',
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
+			'_' => '可见性',
 		),
-		'websub' => 'WebSub 即时通知',
 		'show' => array(
 			'all' => '显示所有 RSS 源',
 			'error' => '仅显示有错误的 RSS 源',
@@ -72,17 +71,18 @@ return array(
 		'url' => '源 URL',
 		'validator' => '检查 RSS 源有效性',
 		'website' => '网站 URL',
+		'websub' => 'WebSub 即时通知',
 	),
 	'firefox' => array(
 		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到 Firefox 阅读器列表',
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	//TODO - Translation
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
 		'title' => 'Firefox RSS 阅读器',
 	),
 	'import_export' => array(
 		'export' => '导出',
+		'export_labelled' => '导出有标签的文章',
 		'export_opml' => '导出 RSS 源列表 (OPML)',
 		'export_starred' => '导出你的收藏',
-		'export_labelled' => '导出有标签的文章',
 		'feed_list' => '%s 文章列表',
 		'file_to_import' => '需要导入的文件<br />(OPML, JSON 或 ZIP)',
 		'file_to_import_no_zip' => '需要导入的文件<br />(OPML 或 JSON)',
@@ -97,8 +97,8 @@ return array(
 		'subscription_tools' => '订阅工具',
 	),
 	'title' => array(
-		'_' => '订阅管理',
 		'feed_management' => 'RSS 源管理',
 		'subscription_tools' => '订阅工具',
+		'_' => '订阅管理',
 	),
 );

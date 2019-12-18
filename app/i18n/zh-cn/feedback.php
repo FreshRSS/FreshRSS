@@ -1,12 +1,18 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => '优化完成',
-	),
 	'access' => array(
 		'denied' => '你无权访问此页面',
 		'not_found' => '你寻找的页面不存在',
+	),
+	'admin' => array(
+		'optimization_complete' => '优化完成',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -38,9 +44,9 @@ return array(
 			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
-		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
+		'no_access' => '你无权访问 %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
@@ -66,10 +72,10 @@ return array(
 			'emptied' => '分类已清空。',
 			'error' => '分类更新失败。',
 			'name_exists' => '分类名已存在。',
-			'no_id' => '你必须明确分类 ID',
-			'no_name' => '分类名不能为空。',
 			'not_delete_default' => '你不能删除默认分类！',
 			'not_exist' => '分类不存在！',
+			'no_id' => '你必须明确分类 ID',
+			'no_name' => '分类名不能为空。',
 			'over_max' => '你已达到分类数限制 (%d)',
 			'updated' => '分类已更新。',
 		),
@@ -82,10 +88,10 @@ return array(
 			'error' => 'RSS 源更新失败',
 			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在URL后附加 <code>#force_feed</code> 从而尝试强制添加。',
 			'invalid_url' => 'URL <em>%s</em> 无效',
+			'not_added' => '<em>%s</em> 添加失败',
+			'no_refresh' => '没有可刷新的 RSS 源…',
 			'n_actualized' => '%d 个 RSS 源已更新',
 			'n_entries_deleted' => '%d 篇文章已删除',
-			'no_refresh' => '没有可刷新的 RSS 源…',
-			'not_added' => '<em>%s</em> 添加失败',
 			'over_max' => '你已达到 RSS 源数限制 (%d)',
 			'updated' => 'RSS 源已更新',
 		),
@@ -101,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => '用户 %s 已创建',
 			'error' => '用户 %s 创建失败',
+			'_' => '用户 %s 已创建',
 		),
 		'deleted' => array(
-			'_' => '用户 %s 已删除',
 			'error' => '用户 %s 删除失败',
+			'_' => '用户 %s 已删除',
 		),
 		'updated' => array(
-			'_' => '用户 %s 已更新',
 			'error' => '用户 %s 更新失败',
+			'_' => '用户 %s 已更新',
 		),
 	),
 );

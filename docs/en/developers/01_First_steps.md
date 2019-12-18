@@ -37,23 +37,23 @@ $ make stop
 
 If you're interested in the configuration, the `make` commands are defined in the [`Makefile`](/Makefile).
 
-If you need to use a different tag image (default is `dev-alpine`), you can set the `TAG` environment variable:
+If you need to use a different tag image (default is `alpine`), you can set the `TAG` environment variable:
 
 ```console
-$ TAG=dev-arm make start
+$ TAG=arm make start
 ```
 
 You can find the full list of available tags [on the Docker hub](https://hub.docker.com/r/freshrss/freshrss/tags).
 
-You might want to rebuild the Docker image locally. You can do it with:
+If you want to build the Docker image yourself, you can use the following command:
 
 ```console
 $ make build
 $ # or
-$ TAG=dev-arm make build
+$ TAG=arm make build
 ```
 
-The `TAG` variable can be anything (e.g. `dev-local`). You can target a specific architecture by adding `-alpine` or `-arm` at the end of the tag (e.g. `dev-local-arm`).
+The `TAG` variable can be anything (e.g. `local`). You can target a specific architecture by adding `-alpine` or `-arm` at the end of the tag (e.g. `local-arm`).
 
 # Project architecture
 
@@ -65,18 +65,18 @@ If you want to create your own FreshRSS extension, take a look at the [extension
 
 # Coding style
 
-If you want to contribute to the source code, it is important to follow the project coding style. The actual code does not follow it throughout the project, but every time we have an opportunity, we should fix it.
+If you want to contribute to the source code, it's important to follow the project's coding style. The actual code doesn't always follow it throughout the project, but we should fix it every time an opportunity presents itself.
 
-Contributions which do not follow the coding style will be rejected as long as the coding style is not fixed.
+Contributions which don't follow the coding style will be rejected as long as the coding style is not fixed.
 
-## Spaces, tabs and white spaces
+## Spaces, tabs and other whitespace characters
 
-### Indent
-Code indent must use tabs.
+### Indentation
+Code indentation must use tabs.
 
 ### Alignment
 
-Once the code is indented, it might be useful to align it to ease the reading. In that case, use spaces.
+Once the code has been correctly indented, it might be useful to align it for ease of reading. In that case, please use spaces.
 
 ```php
 $result = a_function_with_a_really_long_name($param1, $param2,
@@ -85,9 +85,9 @@ $result = a_function_with_a_really_long_name($param1, $param2,
 
 ### End of line
 
-The end of line character must be a line feed (LF) which is a default end of line on *NIX systems. This character must not follow other white spaces.
+The newline character must be a line feed (LF), which is the default line ending on *NIX systems. This character must not follow other white space.
 
-It is possible to verify if there is white spaces before the end of line, with the following Git command:
+You can verify if there is any unintended white space at the end of line with the following Git command:
 
 ```bash
 # command to check files before adding them in the Git index
@@ -100,13 +100,13 @@ git diff --check --cached
 
 Every file must end by an empty line.
 
-### With commas, dots and semi-columns
+### Commas, dots and semi-columns
 
-There is no space before those characters but there is one after.
+There should no space before those characters, but there should be one after.
 
-### With operators
+### Operators
 
-There is a space before and after every operator.
+There should be a space before and after every operator.
 
 ```php
 if ($a == 10) {
@@ -116,9 +116,9 @@ if ($a == 10) {
 echo $a ? 1 : 0;
 ```
 
-### With brackets
+### Parentheses
 
-There is no spaces in the brackets. There is no space before the opening bracket except if it is after a keyword. There is no space after the closing bracket except if it is followed by a curly bracket.
+There should be no spaces in between brackets. There should be no spaces before the opening bracket, except if it's after a keyword. There shouldn't be any spaces after the closing bracket, except if it's followed by a curly bracket.
 
 ```php
 if ($a == 10) {
@@ -132,7 +132,7 @@ if ((int)$a == 10) {
 
 ### With chained functions
 
-It happens most of the time in Javascript files. When there is chained functions, closures and callback functions, it is hard to understand the code if not properly formatted. In those cases, we add a new indent level for the complete instruction and reset the indent for a new instruction on the same level.
+It happens most of the time in Javascript files. When there are chained functions with closures and callback functions, it's hard to understand the code if not properly formatted. In those cases, we add a new indent level for the complete instruction and reset the indent for a new instruction on the same level.
 
 ```javascript
 // First instruction
@@ -151,9 +151,9 @@ shortcut.add("shift+" + shortcuts.mark_read, function () {
 
 ## Line length
 
-Lines should be shorter than 80 characters. However, in some case, it is possible to extend that limit to 100 characters.
+Lines should strive to be shorter than 80 characters. However, this limit may be extended to 100 characters when strictly necessary.
 
-With functions, parameters can be declared on different lines.
+With functions, parameters can be declared on multiple lines.
 
 ```php
 function my_function($param_1, $param_2,
@@ -164,11 +164,11 @@ function my_function($param_1, $param_2,
 
 ## Naming
 
-All the code elements (functions, classes, methods and variables) must describe their usage in concise way.
+All code elements (functions, classes, methods and variables) must describe their usage succinctly.
 
 ### Functions and variables
 
-They must follow the "snake case" convention.
+Functions and variables must follow the "snake case" naming convention.
 
 ```php
 // a function
@@ -181,7 +181,7 @@ $variable_name;
 
 ### Methods
 
-They must follow the "lower camel case" convention.
+Methods must follow the "lower camel case" naming convention.
 
 ```php
 private function methodName() {
@@ -191,7 +191,7 @@ private function methodName() {
 
 ### Classes
 
-They must follow the "upper camel case" convention.
+Classes must follow the "upper camel case" naming convention.
 
 ```php
 abstract class ClassName {}
@@ -199,16 +199,16 @@ abstract class ClassName {}
 
 ## Encoding
 
-Files must be encoded with UTF-8 character set.
+Files must be encoded with the UTF-8 character set.
 
 ## PHP compatibility
 
-Ensure that your code is working with a PHP version as old as what FreshRSS officially supports.
+Please ensure that your code works with the oldest PHP version officially supported by FreshRSS.
 
 ## Miscellaneous
 
 ### Operators
-They must be at the end of the line if a condition runs on more than one line.
+Operators must be at the end of the line if a condition is split over more than one line.
 
 ```php
 if ($a == 10 ||
@@ -223,7 +223,7 @@ If the file contains only PHP code, the PHP closing tag must be omitted.
 
 ### Arrays
 
-If an array declaration runs on more than one line, each element must be followed by a comma even the last one.
+If an array declaration runs on more than one line, each element must be followed by a comma, including the last one.
 
 ```php
 $variable = [

@@ -17,20 +17,19 @@ return array(
 		'type' => '认证方式',
 	),
 	'bdd' => array(
-		'_' => '数据库',
 		'conf' => array(
-			'_' => '数据库配置',
 			'ko' => '请验证你的数据库信息。',
 			'ok' => '数据库配置已保存。',
+			'_' => '数据库配置',
 		),
 		'host' => '主机',
 		'password' => '密码',
 		'prefix' => '表前缀',
 		'type' => '数据库类型',
 		'username' => '用户名',
+		'_' => '数据库',
 	),
 	'check' => array(
-		'_' => '检查',
 		'already_installed' => '我们检测到 FreshRSS 已经安装！',
 		'cache' => array(
 			'nok' => '请检查 <em>./data/cache</em> 目录权限。HTTP 服务器必须有其写入权限。',
@@ -96,10 +95,11 @@ return array(
 			'nok' => '找不到用于 XML 解析库。',
 			'ok' => '已找到 XML 解析库。',
 		),
+		'_' => '检查',
 	),
 	'conf' => array(
-		'_' => '常规配置',
 		'ok' => '常规配置已保存。',
+		'_' => '常规配置',
 	),
 	'congratulations' => '恭喜！',
 	'default_user' => '默认用户名 <small>(最大 16 个数字或字母)</small>',
@@ -110,14 +110,14 @@ return array(
 		'confirm_reinstall' => '重新安装 FreshRSS 将会重置之前的配置。你确定要继续吗？',
 	),
 	'language' => array(
-		'_' => '语言',
 		'choose' => '为 FreshRSS 选择语言',
 		'defined' => '语言已指定。',
+		'_' => '语言',
 	),
 	'not_deleted' => '出错！你必须手动删除文件 <em>%s</em>。',
 	'ok' => '安装成功。',
 	'step' => '步骤 %d',
 	'steps' => '步骤',
-	'title' => '安装 FreshRSS',
 	'this_is_the_end' => '最后一步',
+	'title' => '安装 FreshRSS',
 );

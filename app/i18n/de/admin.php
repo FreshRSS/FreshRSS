@@ -83,9 +83,9 @@ return array(
 			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP-Installation',
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
+			'_' => 'PHP-Installation',
 		),
 		'tables' => array(
 			'nok' => 'Es fehlen eine oder mehrere Tabellen in der Datenbank.',
@@ -113,19 +113,18 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'enabled' => 'Aktiviert',
 		'latest' => 'Installiert',
-		'name' => 'Name',
+		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
 		'system' => array(
-			'_' => 'System-Erweiterungen',
 			'no_rights' => 'System-Erweiterung (Sie haben keine Berechtigung dafür)',
+			'_' => 'System-Erweiterungen',
 		),
 		'title' => 'Erweiterungen',
 		'update' => 'Update verfügbar',
 		'user' => 'Benutzer-Erweiterungen',
-		'version' => 'Version',
+		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
-		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
 		'entry_count' => 'Anzahl der Einträge',
@@ -135,7 +134,7 @@ return array(
 		'entry_per_hour' => 'Pro Stunde (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_month' => 'Pro Monat (Durchschnitt: %.2f Nachrichten)',
 		'entry_repartition' => 'Einträge-Verteilung',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// TODO - Translation
 		'feed_per_category' => 'Feeds pro Kategorie',
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
@@ -155,37 +154,44 @@ return array(
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
+		'_' => 'Statistiken',
 	),
 	'system' => array(
-		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-update URL',
-		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'in Sekunden',
+			'number' => 'Eingeloggt bleiben für',
+		),
+		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
 		'instance-name' => 'Dein Reader Name',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
-		'cookie-duration' => array(
-			'help' => 'in Sekunden',
-			'number' => 'Duration to keep logged in', // @todo translate
-		),
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
 		),
+		'_' => 'Systemeinstellungen',
 	),
 	'update' => array(
-		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
 		'check' => 'Auf neue Aktualisierungen prüfen',
 		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
 		'last' => 'Letzte Überprüfung: %s',
 		'none' => 'Keine ausstehende Aktualisierung',
 		'title' => 'System aktualisieren',
+		'_' => 'System aktualisieren',
 	),
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Neuen Benutzer erstellen',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Lösche Benutzer',
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Sprache',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Es wurde bis jetzt %d Account erstellt',
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
@@ -193,8 +199,8 @@ return array(
 		'selected' => 'Ausgewählter Benutzer',
 		'title' => 'Benutzer verwalten',
 		'update_users' => 'Aktualisiere Benutzer',
-		'user_list' => 'Liste der Benutzer',
 		'username' => 'Nutzername',
 		'users' => 'Benutzer',
+		'user_list' => 'Liste der Benutzer',
 	),
 );

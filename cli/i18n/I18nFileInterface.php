@@ -6,5 +6,5 @@ interface I18nFileInterface {
 
 	public function load();
 
-	public function dump(I18nData $i18n);
+	public function dump(array $i18n);
 }

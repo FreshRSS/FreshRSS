@@ -2,7 +2,6 @@
 
 return array(
 	'about' => array(
-		'_' => 'About',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Bugs reports',
 		'credits' => 'Credits',
@@ -14,23 +13,21 @@ return array(
 		'title' => 'About',
 		'version' => 'Version',
 		'website' => 'Website',
-	),
-	'tos' => array(
-		'title' => 'Terms of Service',
+		'_' => 'About',
 	),
 	'feed' => array(
 		'add' => 'You may add some feeds.',
 		'empty' => 'There is no article to show.',
 		'rss_of' => 'RSS feed of %s',
 		'title' => 'Your RSS feeds',
-		'title_global' => 'Global view',
 		'title_fav' => 'Your favourites',
+		'title_global' => 'Global view',
 	),
 	'log' => array(
-		'_' => 'Logs',
 		'clear' => 'Clear the logs',
 		'empty' => 'Log file is empty',
 		'title' => 'Logs',
+		'_' => 'Logs',
 	),
 	'menu' => array(
 		'about' => 'About FreshRSS',
@@ -62,5 +59,8 @@ return array(
 	'share' => 'Share',
 	'tag' => array(
 		'related' => 'Article tags',
+	),
+	'tos' => array(
+		'title' => 'Terms of Service',
 	),
 );

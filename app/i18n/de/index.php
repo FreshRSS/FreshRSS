@@ -2,35 +2,32 @@
 
 return array(
 	'about' => array(
-		'_' => 'Über',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Fehlerberichte',
-		'credits' => 'Credits',
+		'credits' => 'Credits',	// TODO - Translation
 		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
 		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten wie zum Beispiel <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> oder <a href="https://github.com/LeedRSS/Leed">Leed</a>. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',	// TODO - Translation
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Webseite',
 		'title' => 'Über',
-		'version' => 'Version',
+		'version' => 'Version',	// TODO - Translation
 		'website' => 'Webseite',
-	),
-	'tos' => array(
-		'title' => 'Terms of Service', // TODO - Translation
+		'_' => 'Über',
 	),
 	'feed' => array(
 		'add' => 'Sie können Feeds hinzufügen.',
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'rss_of' => 'RSS-Feed von %s',
 		'title' => 'Ihre RSS-Feeds',
-		'title_global' => 'Globale Ansicht',
 		'title_fav' => 'Ihre Favoriten',
+		'title_global' => 'Globale Ansicht',
 	),
 	'log' => array(
-		'_' => 'Protokolle',
 		'clear' => 'Protokolle leeren',
 		'empty' => 'Protokolldatei ist leer.',
 		'title' => 'Protokolle',
+		'_' => 'Protokolle',
 	),
 	'menu' => array(
 		'about' => 'Über FreshRSS',
@@ -56,11 +53,14 @@ return array(
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'tags' => 'My labels',	//TODO - Translation
+		'tags' => 'Meine Tags',
 		'unread' => 'Nur ungelesene zeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(
 		'related' => 'Verwandte Tags',
+	),
+	'tos' => array(
+		'title' => 'Nutzungsbedingungen',
 	),
 );

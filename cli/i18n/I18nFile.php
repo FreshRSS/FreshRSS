@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/I18nData.php';
 require_once __DIR__ . '/I18nFileInterface.php';
 
 class I18nFile implements I18nFileInterface{
@@ -27,11 +26,11 @@ class I18nFile implements I18nFileInterface{
 			}
 		}
 
-		return new I18nData($i18n);
+		return $i18n;
 	}
 
-	public function dump(I18nData $i18n) {
-		foreach ($i18n->getData() as $language => $file) {
+	public function dump(array $i18n) {
+		foreach ($i18n as $language => $file) {
 			$dir = $this->i18nPath . DIRECTORY_SEPARATOR . $language;
 			if (!file_exists($dir)) {
 				mkdir($dir);
@@ -80,7 +79,7 @@ class I18nFile implements I18nFileInterface{
 	private function unflatten($translation) {
 		$a = array();
 
-		ksort($translation);
+		ksort($translation, SORT_NATURAL | SORT_FLAG_CASE);
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
@@ -105,17 +104,20 @@ class I18nFile implements I18nFileInterface{
 		$patterns = array(
 			'/array \(/',
 			'/=>\s*array/',
+			'/(\w) {2}/',
 			'/ {2}/',
+			'/ -> todo\',/',
 		);
 		$replacements = array(
 			'array(',
 			'=> array',
+			'$1 ',
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
+			"',\t// TODO - Translation", // Double quoting is mandatory to have a tab instead of the \t string
 		);
 		$translation = preg_replace($patterns, $replacements, $translation);
 
 		// Double quoting is mandatory to have new lines instead of \n strings
 		return sprintf("<?php\n\nreturn %s;\n", $translation);
 	}
-
 }

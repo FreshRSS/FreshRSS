@@ -11,6 +11,7 @@ class Minz_Request {
 	private static $controller_name = '';
 	private static $action_name = '';
 	private static $params = array();
+	private static $headers = array();
 
 	private static $default_controller_name = 'index';
 	private static $default_action_name = 'index';
@@ -100,7 +101,7 @@ class Minz_Request {
 	 * Initialise la Request
 	 */
 	public static function init() {
-		self::magicQuotesOff();
+		static::$headers = $_SERVER;
 		self::initJSON();
 	}
 
@@ -113,13 +114,15 @@ class Minz_Request {
 
 	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
+	 *
+	 * @return boolean
 	 */
 	public static function isHttps() {
-		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-			return strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https';
-		} else {
-			return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+		$header = static::getHeader('HTTP_X_FORWARDED_PROTO');
+		if (null !== $header) {
+			return 'https' === strtolower($header);
 		}
+		return 'on' === static::getHeader('HTTPS');
 	}
 
 	/**
@@ -128,45 +131,89 @@ class Minz_Request {
 	 * @return the base url (e.g. http://example.com/)
 	 */
 	public static function guessBaseUrl() {
-		$url = 'http';
+		$protocol = static::extractProtocol();
+		$host = static::extractHost();
+		$port = static::extractPortForUrl();
+		$prefix = static::extractPrefix();
+		$path = static::extractPath();
 
-		$https = self::isHttps();
+		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL);
+	}
 
-		if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
-			$host = parse_url('http://' . $_SERVER['HTTP_X_FORWARDED_HOST'], PHP_URL_HOST);
-		} elseif (!empty($_SERVER['HTTP_HOST'])) {
-			//Might contain a port number, and mind IPv6 addresses
-			$host = parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST);
-		} elseif (!empty($_SERVER['SERVER_NAME'])) {
-			$host = $_SERVER['SERVER_NAME'];
-		} else {
-			$host = 'localhost';
+	/**
+	 * @return string
+	 */
+	private static function extractProtocol() {
+		if (static::isHttps()) {
+			return 'https';
 		}
+		return 'http';
+	}
 
-		if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
-			$port = intval($_SERVER['HTTP_X_FORWARDED_PORT']);
-		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-			$port = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https' ? 443 : 80;
-		} elseif (!empty($_SERVER['SERVER_PORT'])) {
-			$port = intval($_SERVER['SERVER_PORT']);
-		} else {
-			$port = $https ? 443 : 80;
+	/**
+	 * @return string
+	 */
+	private static function extractHost() {
+		if (null !== $host = static::getHeader('HTTP_X_FORWARDED_HOST')) {
+			return parse_url("http://{$host}", PHP_URL_HOST);
 		}
+		if (null !== $host = static::getHeader('HTTP_HOST')) {
+			// Might contain a port number, and mind IPv6 addresses
+			return parse_url("http://{$host}", PHP_URL_HOST);
+		}
+		if (null !== $host = static::getHeader('SERVER_NAME')) {
+			return $host;
+		}
+		return 'localhost';
+	}
 
-		if ($https) {
-			$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
-		} else {
-			$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
+	/**
+	 * @return integer
+	 */
+	private static function extractPort() {
+		if (null !== $port = static::getHeader('HTTP_X_FORWARDED_PORT')) {
+			return intval($port);
 		}
-		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
-			$url .= rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
+		if (null !== $proto = static::getHeader('HTTP_X_FORWARDED_PROTO')) {
+			return 'https' === strtolower($proto) ? 443 : 80;
 		}
-		if (isset($_SERVER['REQUEST_URI'])) {
-			$path = $_SERVER['REQUEST_URI'];
-			$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
+		if (null !== $port = static::getHeader('SERVER_PORT')) {
+			return intval($port);
 		}
+		return static::isHttps() ? 443 : 80;
+	}
 
-		return filter_var($url, FILTER_SANITIZE_URL);
+	/**
+	 * @return string
+	 */
+	private static function extractPortForUrl() {
+		if (static::isHttps() && 443 !== $port = static::extractPort()) {
+			return ":{$port}";
+		}
+		if (!static::isHttps() && 80 !== $port = static::extractPort()) {
+			return ":{$port}";
+		}
+		return '';
+	}
+
+	/**
+	 * @return string
+	 */
+	private static function extractPrefix() {
+		if (null !== $prefix = static::getHeader('HTTP_X_FORWARDED_PREFIX')) {
+			return rtrim($prefix, '/ ');
+		}
+		return '';
+	}
+
+	/**
+	 * @return string
+	 */
+	private static function extractPath() {
+		if (null !== $path = static::getHeader('REQUEST_URI')) {
+			return '/' === substr($path, -1) ? substr($path, 0, -1) : dirname($path);
+		}
+		return '';
 	}
 
 	/**
@@ -242,37 +289,41 @@ class Minz_Request {
 	 *         $default si $_GET[$param] n'existe pas
 	 */
 	public static function fetchGET($param = false, $default = false) {
-		if ($param === false) {
+		if (false === $param) {
 			return $_GET;
-		} elseif (isset($_GET[$param])) {
-			return $_GET[$param];
-		} else {
-			return $default;
 		}
+		if (isset($_GET[$param])) {
+			return $_GET[$param];
+		}
+		return $default;
 	}
 
 	/**
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON() {
-		$contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
-		if ($contentType == '') {	//PHP < 5.3.16
-			$contentType = isset($_SERVER['HTTP_CONTENT_TYPE']) ? $_SERVER['HTTP_CONTENT_TYPE'] : '';
+		if ('application/json' !== static::extractContentType()) {
+			return;
 		}
-		$contentType = strtolower(trim($contentType));
-		if ($contentType === 'application/json') {
-			$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
-			if ($ORIGINAL_INPUT != '') {
-				$json = json_decode($ORIGINAL_INPUT, true);
-				if ($json != null) {
-					foreach ($json as $k => $v) {
-						if (!isset($_POST[$k])) {
-							$_POST[$k] = $v;
-						}
-					}
-				}
+		if ('' === $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576)) {
+			return;
+		}
+		if (null === $json = json_decode($ORIGINAL_INPUT, true)) {
+			return;
+		}
+
+		foreach ($json as $k => $v) {
+			if (!isset($_POST[$k])) {
+				$_POST[$k] = $v;
 			}
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	private static function extractContentType() {
+		return strtolower(trim(static::getHeader('CONTENT_TYPE')));
 	}
 
 	/**
@@ -284,31 +335,39 @@ class Minz_Request {
 	 *         $default si $_POST[$param] n'existe pas
 	 */
 	public static function fetchPOST($param = false, $default = false) {
-		if ($param === false) {
+		if (false === $param) {
 			return $_POST;
-		} elseif (isset($_POST[$param])) {
-			return $_POST[$param];
-		} else {
-			return $default;
 		}
+		if (isset($_POST[$param])) {
+			return $_POST[$param];
+		}
+		return $default;
 	}
 
 	/**
-	 * Méthode désactivant les magic_quotes pour les variables
-	 *   $_GET
-	 *   $_POST
-	 *   $_COOKIE
+	 * @return mixed
 	 */
-	private static function magicQuotesOff() {
-		if (get_magic_quotes_gpc()) {
-			$_GET = Minz_Helper::stripslashes_r($_GET);
-			$_POST = Minz_Helper::stripslashes_r($_POST);
-			$_COOKIE = Minz_Helper::stripslashes_r($_COOKIE);
+	public static function getHeader($header, $default = null) {
+		if (isset(static::$headers[$header])) {
+			return static::$headers[$header];
 		}
+		return $default;
 	}
 
+	/**
+	 * @return boolean
+	 */
 	public static function isPost() {
-		return isset($_SERVER['REQUEST_METHOD']) &&
-			$_SERVER['REQUEST_METHOD'] === 'POST';
+		return 'POST' === static::getHeader('REQUEST_METHOD');
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getPreferredLanguage() {
+		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', static::getHeader('HTTP_ACCEPT_LANGUAGE'), $matches)) {
+			return $matches['lang'];
+		}
+		return array('en');
 	}
 }

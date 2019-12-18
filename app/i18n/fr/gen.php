@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Gérer',
 		'mark_favorite' => 'Mettre en favori',
 		'mark_read' => 'Marquer comme lu',
+		'purge' => 'Purger',
 		'remove' => 'Supprimer',
 		'see_website' => 'Voir le site',
 		'submit' => 'Valider',
@@ -29,19 +30,19 @@ return array(
 		'login' => 'Connexion',
 		'logout' => 'Déconnexion',
 		'password' => array(
-			'_' => 'Mot de passe',
 			'format' => '<small>7 caractères minimum</small>',
+			'_' => 'Mot de passe',
 		),
 		'registration' => array(
-			'_' => 'Nouveau compte',
 			'ask' => 'Créer un compte ?',
 			'title' => 'Création de compte',
+			'_' => 'Nouveau compte',
 		),
 		'reset' => 'Réinitialisation de l’authentification',
 		'username' => array(
-			'_' => 'Nom d’utilisateur',
 			'admin' => 'Nom d’utilisateur administrateur',
 			'format' => '<small>16 caractères alphanumériques maximum</small>',
+			'_' => 'Nom d’utilisateur',
 		),
 	),
 	'date' => array(
@@ -64,8 +65,8 @@ return array(
 		'Jan' => '\\j\\a\\n\\v\\i\\e\\r',
 		'jan' => 'jan.',
 		'january' => 'janvier',
-		'Jul' => '\\j\\u\\i\\l\\l\\e\\t',
 		'jul' => 'jui.',
+		'Jul' => '\\j\\u\\i\\l\\l\\e\\t',
 		'july' => 'juillet',
 		'Jun' => '\\j\\u\\i\\n',
 		'jun' => 'juin',
@@ -75,8 +76,8 @@ return array(
 		'last_month' => 'Depuis le mois dernier',
 		'last_week' => 'Depuis la semaine dernière',
 		'last_year' => 'Depuis l’année dernière',
-		'Mar' => '\\m\\a\\r\\s',
 		'mar' => 'mars',
+		'Mar' => '\\m\\a\\r\\s',
 		'march' => 'mars',
 		'May' => '\\m\\a\\i',
 		'may' => 'mai',
@@ -101,8 +102,8 @@ return array(
 		'yesterday' => 'Hier',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => 'À propos de FreshRSS',
+		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Catégorie vide',
@@ -122,13 +123,14 @@ return array(
 		'en' => 'English',
 		'es' => 'Español',
 		'fr' => 'Français',
-		'he' => 'עברית',
+		'he' => 'עברית',	// TODO - Translation
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
+		'oc' => 'Occitan',	// TODO - Translation
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',	// TODO - Translation
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -178,11 +180,11 @@ return array(
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basés sur Known',
 		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
+		'linkedin' => 'LinkedIn',	// TODO - Translation
+		'mastodon' => 'Mastodon',	// TODO - Translation
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pocket' => 'Pocket',	// TODO - Translation
 		'print' => 'Imprimer',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
