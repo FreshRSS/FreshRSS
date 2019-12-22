@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FreshRSS\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-12-07 10:49+0100\n"
+"POT-Creation-Date: 2019-12-24 16:18+0100\n"
 "PO-Revision-Date: 2019-12-07 10:50+0100\n"
 "Last-Translator: Marien Fressinaud <dev@marienfressinaud.fr>\n"
 "Language-Team: French <>\n"
@@ -378,7 +378,9 @@ msgstr ""
 #. type: Code fence info string
 #: en/./developers/01_First_steps.md:15 en/./developers/01_First_steps.md:24
 #: en/./developers/01_First_steps.md:34 en/./developers/01_First_steps.md:42
-#: en/./developers/01_First_steps.md:50
+#: en/./developers/01_First_steps.md:50 en/./developers/03_Running_tests.md:9
+#: en/./developers/03_Running_tests.md:17
+#: en/./developers/03_Running_tests.md:23
 #, no-wrap
 msgid "console"
 msgstr "console"
@@ -2982,6 +2984,107 @@ msgid ""
 "When you want to support user configurations for your extension or simply "
 "display some information, you have to create the `configure.phtml` file."
 msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Running_tests.md:1
+#, no-wrap
+msgid "Running tests"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:4
+msgid ""
+"FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be "
+"merged in `master` if the tests don't pass."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Running_tests.md:5
+#, no-wrap
+msgid "Locally"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:8
+msgid ""
+"As a developer, you can run the test suite on your PC easily with `make` "
+"commands. First, you should install PHPUnit with:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:9
+#, no-wrap
+msgid "$ make bin/phpunit\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:14
+msgid ""
+"This commands download the binary and verify its checksum. If the "
+"verification fails, the file is deleted. In this case, you should [open an "
+"issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let "
+"maintainers know about the problem."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:16
+msgid "Then, you can run the test suite with:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:17
+#, fuzzy, no-wrap
+#| msgid "$ make stop\n"
+msgid "$ make tests\n"
+msgstr "$ make stop\n"
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:22
+msgid ""
+"It executes PHPUnit in a Docker container. If you don't use Docker, you can "
+"run the command directly with:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:23
+#, no-wrap
+msgid "$ php ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:28
+msgid ""
+"If the command fails, you can take a look at the Makefile to verify if the "
+"command had changed."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Running_tests.md:29
+#, no-wrap
+msgid "Travis"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:32
+msgid ""
+"Tests are automatically run when you open a pull request on GitHub. It is "
+"done with [Travis CI](https://travis-ci.org/FreshRSS/FreshRSS/). This is "
+"done to ensure there is no regressions in your code. We cannot merge a PR if "
+"the tests fail so we'll ask you to fix bugs before to review your code."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:33
+#, fuzzy
+#| msgid ""
+#| "If your request is new, [open a new bug ticket](https://github.com/"
+#| "FreshRSS/FreshRSS/issues/new)"
+msgid ""
+"If you're interested in, you can take a look at [the configuration file]"
+"(https://github.com/FreshRSS/FreshRSS/blob/master/.travis.yml)."
+msgstr ""
+"Si votre demande est nouvelle, [ouvrez un nouveau ticket de bug](https://"
+"github.com/FreshRSS/FreshRSS/issues/new)"
 
 #. type: Title #
 #: en/./developers/04_Frontend/01_View_files.md:1

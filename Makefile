@@ -39,6 +39,24 @@ start: ## Start the development environment (use Docker)
 stop: ## Stop FreshRSS container if any
 	docker stop freshrss-dev
 
+###########
+## Tests ##
+###########
+bin/phpunit: ## Install PHPUnit for test purposes
+	mkdir -p bin/
+	wget -O bin/phpunit https://phar.phpunit.de/phpunit-7.5.9.phar
+	echo '5404288061420c3921e53dd3a756bf044be546c825c5e3556dea4c51aa330f69 bin/phpunit' | sha256sum -c - || rm bin/phpunit
+
+.PHONY: test
+test: ## Run the test suite
+	docker run \
+		--rm \
+		--volume $(shell pwd):/var/www/FreshRSS:z \
+		--env FRESHRSS_ENV=development \
+		--name freshrss-test \
+		freshrss/freshrss:$(TAG) \
+		php ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
+
 ##########
 ## I18N ##
 ##########
