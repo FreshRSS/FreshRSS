@@ -124,23 +124,6 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	public static function preLayout() {
-		switch (Minz_Request::controllerName()) {
-			case 'index':
-				$urlToAuthorize = array_filter(array_map(function ($a) {
-					if (isset($a['method']) && $a['method'] === 'POST') {
-						return $a['url'];
-					}
-				}, FreshRSS_Context::$user_conf->sharing));
-				$connectSrc = count($urlToAuthorize) ? sprintf("; connect-src 'self' %s", implode(' ', $urlToAuthorize)) : '';
-				header(sprintf("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *%s", $connectSrc));
-				break;
-			case 'stats':
-				header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");
-				break;
-			default:
-				header("Content-Security-Policy: default-src 'self'");
-				break;
-		}
 		header("X-Content-Type-Options: nosniff");
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
