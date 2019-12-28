@@ -3,30 +3,30 @@
 return array(
 	'action' => array(
 		'actualize' => '获取',
-		'back' => '← Go back',	// TODO - Translation
-		'back_to_rss_feeds' => '← 返回',
+		'back' => '← 返回',
+		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
 		'create' => '创建',
 		'disable' => '禁用',
 		'empty' => '清空',
 		'enable' => '启用',
 		'export' => '导出',
-		'filter' => '过滤器',
+		'filter' => '过滤',
 		'import' => '导入',
 		'manage' => '管理',
-		'mark_favorite' => '加入收藏',
-		'mark_read' => '设为已读',
-		'purge' => 'Purge',	// TODO - Translation
+		'mark_favorite' => '标记收藏',
+		'mark_read' => '标记已读',
+		'purge' => '清理',
 		'remove' => '删除',
-		'see_website' => '查看网站',
+		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
-		'update' => '更新',
+		'update' => '刷新',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => '我接受 <a href="%s">服务条款</a>',
 		'email' => 'Email 地址',
-		'keep_logged_in' => '自动登录<small>(%s 天)</small>',
+		'keep_logged_in' => '<small>%s</small> 天内保持登录',
 		'login' => '登录',
 		'logout' => '登出',
 		'password' => array(
@@ -34,14 +34,14 @@ return array(
 			'_' => '密码',
 		),
 		'registration' => array(
-			'ask' => '创建新账户？',
-			'title' => '账户创建',
-			'_' => '新账户',
+			'ask' => '创建新用户？',
+			'title' => '用户创建',
+			'_' => '新用户',
 		),
 		'reset' => '密码重置',
 		'username' => array(
 			'admin' => '管理员用户名',
-			'format' => '<small>最大 16 个数字或字母</small>',
+			'format' => '<small>最多 16 个数字或字母</small>',
 			'_' => '用户名',
 		),
 	),
@@ -115,7 +115,7 @@ return array(
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
 		'new_article' => '发现新文章，点击刷新页面。',
-		'should_be_activated' => 'JavaScript 必须启用',
+		'should_be_activated' => '必须启用 JavaScript',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',
@@ -130,14 +130,14 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
-		'sk' => 'Slovenčina',	// TODO - Translation
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
 	'menu' => array(
 		'about' => '关于',
 		'admin' => '管理',
-		'archiving' => '存档',
+		'archiving' => '归档',
 		'authentication' => '认证',
 		'check_install' => '环境检查',
 		'configuration' => '配置',
@@ -156,26 +156,26 @@ return array(
 		'user_profile' => '用户帐户',
 	),
 	'pagination' => array(
-		'first' => '第一页',
-		'last' => '最后一页',
+		'first' => '首页',
+		'last' => '末页',
 		'load_more' => '载入更多文章',
 		'mark_all_read' => '全部设为已读',
 		'next' => '下一页',
-		'nothing_to_load' => '没有更多文章了',
+		'nothing_to_load' => '没有更多文章',
 		'previous' => '上一页',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => '天',
+		'hours' => '时',
+		'months' => '月',
+		'weeks' => '周',
+		'years' => '年',
 	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
+		'email' => '邮箱',
+		'facebook' => '脸书',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => '基于 Known 的站点',
@@ -187,9 +187,9 @@ return array(
 		'pocket' => 'Pocket',
 		'print' => '打印',
 		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'twitter' => '推特',
+		'wallabag' => 'Wallabag v1',
+		'wallabagv2' => 'Wallabag v2',
 	),
 	'short' => array(
 		'attention' => '警告!',
