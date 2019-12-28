@@ -90,7 +90,8 @@ function initDb() {
 	if ($db['type'] !== 'sqlite') {
 		Minz_ModelPdo::$usesSharedPdo = false;
 		$dbBase = isset($db['base']) ? $db['base'] : '';
-		$db['base'] = '';
+		//Use default database for PostgreSQL, empty database for MySQL / MariaDB:
+		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
 		$conf->db = $db;
 		//First connection without database name to create the database
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
