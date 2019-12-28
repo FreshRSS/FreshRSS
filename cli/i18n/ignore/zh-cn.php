@@ -21,6 +21,7 @@ return array(
 	'gen.lang.oc',
 	'gen.lang.pt-br',
 	'gen.lang.ru',
+	'gen.lang.sk',
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
 	'gen.share.blogotext',

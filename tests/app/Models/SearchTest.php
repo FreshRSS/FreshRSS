@@ -150,8 +150,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideDateSearch() {
 		return array(
 			array('date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', '1172754000', '1210519800'),
-			array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210516199'),
-			array('date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172757601', '1210519800'),
+			array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210519799'),
+			array('date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172754001', '1210519800'),
 			array('date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
 			array('date:2007-03-01/', strtotime('2007-03-01'), ''),
 			array('date:/2008-05-11', '', strtotime('2008-05-12') - 1),
@@ -176,8 +176,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function providePubdateSearch() {
 		return array(
 			array('pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', '1172754000', '1210519800'),
-			array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210516199'),
-			array('pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172757601', '1210519800'),
+			array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210519799'),
+			array('pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172754001', '1210519800'),
 			array('pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
 			array('pubdate:2007-03-01/', strtotime('2007-03-01'), ''),
 			array('pubdate:/2008-05-11', '', strtotime('2008-05-12') - 1),

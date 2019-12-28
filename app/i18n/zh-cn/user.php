@@ -3,35 +3,35 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'The email address is invalid.',	// TODO - Translation
-			'required' => 'The email address is required.',	// TODO - Translation
+			'invalid' => '电子邮箱地址无效',
+			'required' => '必须填写邮箱地址',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.',	// TODO - Translation
+			'change_email' => '您可以在 <a href="%s">用户管理</a> 中变更您的邮箱地址',
+			'email_sent_to' => '我们已通过 <strong>%s</strong> 发送验证邮件给您，请按其中指示来验证邮箱地址。',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a misconfiguration of the server.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'The email address failed to be validated.',	// TODO - Translation
-				'ok' => 'The email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'The email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => '由于服务器配置错误，我们无法向您发送邮箱。',
+				'email_sent' => '邮件已发送到您的邮箱中',
+				'error' => '邮箱地址无法通过验证',
+				'ok' => '邮箱地址已成功通过验证',
+				'unneccessary' => '该邮箱地址已被验证',
+				'wrong_token' => '由于令牌错误，邮箱地址无法通过验证。',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => '您需要先验证邮箱地址才能使用 %s',
+			'resend_email' => '重发邮件',
+			'title' => '验证邮箱地址',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s but you still need to validate your email. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => '您刚刚在 ％s 中注册，但仍然需要验证邮箱地址。为此，只需点击链接：',
+			'title' => '您需要验证您的帐户',
+			'welcome' => '欢迎来到 %s,',
 		),
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => '您必须接受服务条款才能注册',
 		),
 	),
 );
