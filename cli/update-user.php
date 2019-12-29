@@ -11,7 +11,6 @@ $ok = FreshRSS_user_Controller::updateUser(
 	$username,
 	empty($options['mail_login']) ? null : $options['mail_login'],
 	empty($options['password']) ? '' : $options['password'],
-	empty($options['api_password']) ? '' : $options['api_password'],
 	$values);
 
 if (!$ok) {

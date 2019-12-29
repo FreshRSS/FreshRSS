@@ -48,19 +48,6 @@
 			</div>
 		</div>
 
-		<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
-		<div class="form-group">
-			<label class="group-name" for="apiPasswordPlain"><?= _t('conf.profile.password_api') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
-					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?= _i('key') ?></a>
-				</div>
-				<?= _i('help') ?> <kbd><a href="../api/"><?= Minz_Url::display('/api/', 'html', true) ?></a></kbd>
-			</div>
-		</div>
-		<?php } ?>
-
 		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
 		<div class="form-group">
 			<label class="group-name" for="token"><?= _t('admin.auth.token') ?></label>
@@ -81,6 +68,30 @@
 			</div>
 		</div>
 	</form>
+
+	<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
+		<form method="post" action="<?= _url('api', 'updatePassword') ?>">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<legend><?= _t('conf.profile.api') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name" for="apiPasswordPlain"><?= _t('conf.profile.password_api') ?></label>
+				<div class="group-controls">
+					<div class="stick">
+						<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+						<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?= _i('key') ?></a>
+					</div>
+					<?= _i('help') ?> <kbd><a href="../api/"><?= Minz_Url::display('/api/', 'html', true) ?></a></kbd>
+				</div>
+			</div>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				</div>
+			</div>
+		</form>
+	<?php } ?>
 
 	<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
 	<form id="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">

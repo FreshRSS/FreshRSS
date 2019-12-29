@@ -1,11 +1,11 @@
 # Fichier modèle
 
-**TODO**
+**À FAIRE**
 
 # Écrire un nouveau thème
 
-**TODO**
+**À FAIRE**
 
 # Surcharger les icônes
 
-**TODO**
+**À FAIRE**

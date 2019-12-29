@@ -4,6 +4,16 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	const DEFAULTCATEGORYID = 1;
 
+	public function resetDefaultCategoryName() {
+		//FreshRSS 1.15.1
+		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
+		if ($stm) {
+			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
+			$stm->bindValue(':name', 'Uncategorized');
+		}
+		return $stm && $stm->execute();
+	}
+
 	protected function addColumn($name) {
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
@@ -45,6 +55,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				} else {
 					$this->pdo->exec('DROP INDEX IF EXISTS feed_keep_history_index');	//SQLite at least drop index
 				}
+
+				$this->resetDefaultCategoryName();
+
 				return $ok;
 			}
 		} catch (Exception $e) {
@@ -68,7 +81,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	public function addCategory($valuesTmp) {
 		$sql = 'INSERT INTO `_category`(name, attributes) '
-		     . 'SELECT * FROM (SELECT TRIM(?), ?) c2 '	//TRIM() to provide a type hint as text for PostgreSQL
+		     . 'SELECT * FROM (SELECT TRIM(?) AS name, TRIM(?) AS attributes) c2 '	//TRIM() to provide a type hint as text
 		     . 'WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))';	//No tag of the same name
 		$stm = $this->pdo->prepare($sql);
 
@@ -199,6 +212,29 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		} else {
 			return null;
 		}
+	}
+
+	public function listSortedCategories($prePopulateFeeds = true, $details = false) {
+		$categories = $this->listCategories($prePopulateFeeds, $details);
+
+		if (!is_array($categories)) {
+			return $categories;
+		}
+
+		uasort($categories, function ($a, $b) {
+			$aPosition = $a->attributes('position');
+			$bPosition = $b->attributes('position');
+			if ($aPosition === $bPosition) {
+				return ($a->name() < $b->name()) ? -1 : 1;
+			} elseif (null === $aPosition) {
+				return 1;
+			} elseif (null === $bPosition) {
+				return -1;
+			}
+			return ($aPosition < $bPosition) ? -1 : 1;
+		});
+
+		return $categories;
 	}
 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
@@ -343,6 +379,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 					$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id($previousLine['c_id']);
+				$cat->_attributes('', $previousLine['c_attributes']);
 				$list[$previousLine['c_id']] = $cat;
 
 				$feedsDao = array();	//Prepare for next category
@@ -359,6 +396,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id($previousLine['c_id']);
+			$cat->_attributes('', $previousLine['c_attributes']);
 			$list[$previousLine['c_id']] = $cat;
 		}
 

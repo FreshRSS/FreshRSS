@@ -5,15 +5,95 @@ class I18nData {
 	const REFERENCE_LANGUAGE = 'en';
 
 	private $data = array();
-	private $originalData = array();
+	private $ignore = array();
 
-	public function __construct($data) {
+	public function __construct($data, $ignore) {
 		$this->data = $data;
-		$this->originalData = $data;
+		$this->ignore = $ignore;
+
+		$this->synchonizeKeys();
 	}
 
 	public function getData() {
-		return $this->data;
+		$output = array();
+		$reference = $this->getReferenceLanguage();
+		$languages = $this->getNonReferenceLanguages();
+
+		foreach ($reference as $file => $values) {
+			foreach ($values as $key => $value) {
+				$output[static::REFERENCE_LANGUAGE][$file][$key] = $value;
+				foreach ($languages as $language) {
+					if ($this->data[$language][$file][$key] !== $value) {
+						// This value is translated, there is no need to flag it.
+						$output[$language][$file][$key] = $this->data[$language][$file][$key];
+					} elseif (array_key_exists($language, $this->ignore) && in_array($key, $this->ignore[$language])) {
+						// This value is ignored, there is no need to flag it.
+						$output[$language][$file][$key] = $this->data[$language][$file][$key];
+					} else {
+						// This value is not translated nor ignored, it must be flagged.
+						$output[$language][$file][$key] = "{$value} -> todo";
+					}
+				}
+			}
+		}
+
+		return $output;
+	}
+
+	public function getIgnore() {
+		$ignore = array();
+
+		foreach ($this->ignore as $language => $keys) {
+			sort($keys);
+			$ignore[$language] = $keys;
+		}
+
+		return $ignore;
+	}
+
+	private function synchonizeKeys() {
+		$this->addMissingKeysFromReference();
+		$this->removeExtraKeysFromOtherLanguages();
+		$this->removeUnknownIgnoreKeys();
+	}
+
+	private function addMissingKeysFromReference() {
+		$reference = $this->getReferenceLanguage();
+		$languages = $this->getNonReferenceLanguages();
+
+		foreach ($reference as $file => $values) {
+			foreach ($values as $key => $value) {
+				foreach ($languages as $language) {
+					if (!array_key_exists($key, $this->data[$language][$file])) {
+						$this->data[$language][$file][$key] = $value;
+					}
+				}
+			}
+		}
+	}
+
+	private function removeExtraKeysFromOtherLanguages() {
+		$reference = $this->getReferenceLanguage();
+		foreach ($this->getNonReferenceLanguages() as $language) {
+			foreach ($this->getLanguage($language) as $file => $values) {
+				foreach ($values as $key => $value) {
+					if (!array_key_exists($key, $reference[$file])) {
+						unset($this->data[$language][$file][$key]);
+					}
+				}
+			}
+		}
+	}
+
+	private function removeUnknownIgnoreKeys() {
+		$reference = $this->getReferenceLanguage();
+		foreach ($this->ignore as $language => $keys) {
+			foreach ($keys as $index => $key) {
+				if (!array_key_exists($this->getFilenamePrefix($key), $reference) || !array_key_exists($key, $reference[$this->getFilenamePrefix($key)])) {
+					unset($this->ignore[$language][$index]);
+				}
+			}
+		}
 	}
 
 	/**
@@ -26,6 +106,17 @@ class I18nData {
 		sort($languages);
 
 		return $languages;
+	}
+
+	/**
+	 * Return all available languages without the reference language
+	 *
+	 * @return array
+	 */
+	public function getNonReferenceLanguages() {
+		return array_filter(array_keys($this->data), function ($value) {
+			return static::REFERENCE_LANGUAGE !== $value;
+		});
 	}
 
 	/**
@@ -42,7 +133,7 @@ class I18nData {
 	}
 
 	/**
-	 * Add a key in the reference language
+	 * Add a new key to all languages.
 	 *
 	 * @param string $key
 	 * @param string $value
@@ -53,7 +144,12 @@ class I18nData {
 		    array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key already exist.');
 		}
-		$this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key] = $value;
+
+		foreach ($this->getAvailableLanguages() as $language) {
+			if (!array_key_exists($key, $this->data[$language][$this->getFilenamePrefix($key)])) {
+				$this->data[$language][$this->getFilenamePrefix($key)][$key] = $value;
+			}
+		}
 	}
 
 	/**
@@ -76,29 +172,6 @@ class I18nData {
 	}
 
 	/**
-	 * Duplicate a key from the reference language to all other languages
-	 *
-	 * @param string $key
-	 * @throws Exception
-	 */
-	public function duplicateKey($key) {
-		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
-		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
-			throw new Exception('The selected key does not exist.');
-		}
-		$value = $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
-		foreach ($this->getAvailableLanguages() as $language) {
-			if (static::REFERENCE_LANGUAGE === $language) {
-				continue;
-			}
-			if (array_key_exists($key, $this->data[$language][$this->getFilenamePrefix($key)])) {
-				continue;
-			}
-			$this->data[$language][$this->getFilenamePrefix($key)][$key] = $value;
-		}
-	}
-
-	/**
 	 * Remove a key in all languages
 	 *
 	 * @param string $key
@@ -113,14 +186,13 @@ class I18nData {
 			if (array_key_exists($key, $this->data[$language][$this->getFilenamePrefix($key)])) {
 				unset($this->data[$language][$this->getFilenamePrefix($key)][$key]);
 			}
+			if (array_key_exists($language, $this->ignore) && $position = array_search($key, $this->ignore[$language])) {
+				unset($this->ignore[$language][$position]);
+			}
 		}
 	}
 
 	/**
-	 * WARNING! This is valid only for ignore files. It's not the best way to
-	 * handle that but as it's meant to be used only for the cli tool, there
-	 * is no point of spending time on making it better than that.
-	 *
 	 * Ignore a key from a language, or reverse it.
 	 *
 	 * @param string $key
@@ -128,25 +200,20 @@ class I18nData {
 	 * @param boolean $reverse
 	 */
 	public function ignore($key, $language, $reverse = false) {
-		$index = array_search($key, $this->data[$language]);
+		if (!array_key_exists($language, $this->ignore)) {
+			$this->ignore[$language] = array();
+		}
 
-		if ($index && $reverse) {
-			unset($this->data[$language][$index]);
+		$index = array_search($key, $this->ignore[$language]);
+		if (false !== $index && $reverse) {
+			unset($this->ignore[$language][$index]);
 			return;
 		}
-		if ($index && !$reverse) {
+		if (false !== $index && !$reverse) {
 			return;
 		}
-		$this->data[$language][] = $key;
-	}
 
-	/**
-	 * Check if the data has changed
-	 *
-	 * @return bool
-	 */
-	public function hasChanged() {
-		return $this->data !== $this->originalData;
+		$this->ignore[$language][] = $key;
 	}
 
 	public function getLanguage($language) {

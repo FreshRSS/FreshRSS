@@ -132,7 +132,7 @@ function saveStep2() {
 		$config_array = [
 			'salt' => generateSalt(),
 			'base_url' => $base_url,
-			'default_user' => 'admin',
+			'default_user' => '_',
 			'db' => [
 				'type' => $_SESSION['bd_type'],
 				'host' => $_SESSION['bd_host'],
@@ -154,12 +154,18 @@ function saveStep2() {
 		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
 		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($config_array, true) . ";\n");
 
+		if (function_exists('opcache_reset')) {
+			opcache_reset();
+		}
+
 		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
 		$ok = false;
 		try {
-			$ok = checkDb();
+			Minz_Session::_param('currentUser', $config_array['default_user']);
+			$ok = initDb();
+			Minz_Session::_param('currentUser');
 		} catch (Exception $ex) {
 			$_SESSION['bd_error'] = $ex->getMessage();
 			$ok = false;
@@ -215,7 +221,6 @@ function saveStep3() {
 				$_SESSION['default_user'],
 				'',	//TODO: Add e-mail
 				$password_plain,
-				'',
 				[
 					'language' => $_SESSION['language'],
 				]

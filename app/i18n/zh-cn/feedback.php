@@ -1,17 +1,23 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => '优化完成',
-	),
 	'access' => array(
 		'denied' => '你无权访问此页面',
 		'not_found' => '你寻找的页面不存在',
 	),
+	'admin' => array(
+		'optimization_complete' => '优化完成',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => '您的密码无法修改',
+			'updated' => '您的密码已修改完成',
+		),
+	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => '配置认证方式时出错。请稍后重试。',
-			'set' => 'Form 是你当前默认的认证方式。',
+			'not_set' => '配置认证方式时出错，请稍后重试。',
+			'set' => '网页表单是你当前默认的认证方式。',
 		),
 		'login' => array(
 			'invalid' => '用户名或密码无效',
@@ -31,65 +37,65 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
 		'disable' => array(
-			'ko' => '%s 禁用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
+			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
 		'enable' => array(
 			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
-		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
+		'no_access' => '你无权访问 %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
-		'feeds_imported' => '你的 RSS 源已导入，即将更新',
-		'feeds_imported_with_errors' => '你的 RSS 源已导入，但发生错误',
+		'feeds_imported' => '你的订阅已导入，即将刷新',
+		'feeds_imported_with_errors' => '你的订阅源已导入，但发生错误',
 		'file_cannot_be_uploaded' => '文件未能上传！',
 		'no_zip_extension' => '服务器未启用 ZIP 扩展。',
 		'zip_error' => '导入 ZIP 文件时出错',
 	),
 	'profile' => array(
 		'error' => '你的帐户修改失败',
-		'updated' => '你的帐户已修改',
+		'updated' => '你的帐户已修改成功',
 	),
 	'sub' => array(
 		'actualize' => '获取',
 		'articles' => array(
-			'marked_read' => '选中文章已标记为已读',
+			'marked_read' => '文章已标记为已读',
 			'marked_unread' => '文章已标记为未读',
 		),
 		'category' => array(
-			'created' => '分类 %s 已创建。',
-			'deleted' => '分类已删除。',
-			'emptied' => '分类已清空。',
-			'error' => '分类更新失败。',
-			'name_exists' => '分类名已存在。',
-			'no_id' => '你必须明确分类 ID',
-			'no_name' => '分类名不能为空。',
+			'created' => '已创建分类 %s',
+			'deleted' => '已删除分类',
+			'emptied' => '已清空分类',
+			'error' => '更新分类失败',
+			'name_exists' => '分类名已存在',
 			'not_delete_default' => '你不能删除默认分类！',
 			'not_exist' => '分类不存在！',
-			'over_max' => '你已达到分类数限制 (%d)',
-			'updated' => '分类已更新。',
+			'no_id' => '你必须明确分类编号',
+			'no_name' => '分类名不能为空',
+			'over_max' => '你已达到分类数上限（%d）',
+			'updated' => '已更新分类',
 		),
 		'feed' => array(
-			'actualized' => '<em>%s</em> 已更新',
-			'actualizeds' => 'RSS 源已更新',
-			'added' => 'RSS 源 <em>%s</em> 已添加',
+			'actualized' => '已更新 <em>%s</em>',
+			'actualizeds' => '已更新订阅源',
+			'added' => '订阅源 <em>%s</em> 已添加',
 			'already_subscribed' => '你已订阅 <em>%s</em>',
-			'deleted' => 'RSS 源已删除',
-			'error' => 'RSS 源更新失败',
-			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在URL后附加 <code>#force_feed</code> 从而尝试强制添加。',
-			'invalid_url' => 'URL <em>%s</em> 无效',
-			'n_actualized' => '%d 个 RSS 源已更新',
-			'n_entries_deleted' => '%d 篇文章已删除',
-			'no_refresh' => '没有可刷新的 RSS 源…',
+			'deleted' => '已删除订阅源',
+			'error' => '订阅源更新失败',
+			'internal_problem' => '订阅源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在地址链接后附加 <code>#force_feed</code> 从而尝试强制添加。',
+			'invalid_url' => '地址链接 <em>%s</em> 无效',
 			'not_added' => '<em>%s</em> 添加失败',
-			'over_max' => '你已达到 RSS 源数限制 (%d)',
-			'updated' => 'RSS 源已更新',
+			'no_refresh' => '没有可刷新的订阅源…',
+			'n_actualized' => '已更新 %d 个订阅源',
+			'n_entries_deleted' => '已删除 %d 篇文章',
+			'over_max' => '你已达到订阅源数上限（%d）',
+			'updated' => '已更新订阅源',
 		),
-		'purge_completed' => '清除完成 (%d 篇文章已删除)',
+		'purge_completed' => '清除完成（已删除 %d 篇文章）',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>.',
@@ -101,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => '用户 %s 已创建',
-			'error' => '用户 %s 创建失败',
+			'error' => '创建用户 %s 失败',
+			'_' => '已创建用户 %s',
 		),
 		'deleted' => array(
-			'_' => '用户 %s 已删除',
-			'error' => '用户 %s 删除失败',
+			'error' => '删除用户 %s 失败',
+			'_' => '已删除用户 %s',
 		),
 		'updated' => array(
-			'_' => '用户 %s 已更新',
-			'error' => '用户 %s 更新失败',
+			'error' => '更新用户 %s 失败',
+			'_' => '已更新用户 %s',
 		),
 	),
 );

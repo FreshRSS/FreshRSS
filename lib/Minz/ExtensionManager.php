@@ -15,11 +15,19 @@ class Minz_ExtensionManager {
 
 	// List of available hooks. Please keep this list sorted.
 	private static $hook_list = array(
+		'check_url_before_add' => array(  // function($url) -> Url | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
 		'entry_before_display' => array(  // function($entry) -> Entry | null
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
 		'entry_before_insert' => array(  // function($entry) -> Entry | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'feed_before_actualize' => array(  // function($feed) -> Feed | null
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),

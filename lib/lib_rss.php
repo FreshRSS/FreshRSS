@@ -49,13 +49,19 @@ spl_autoload_register('classAutoloader');
 
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
-		$parts = parse_url($url);
-		if (!empty($parts['host'])) {
-			$idn = $parts['host'];
-			$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
+		$idn = parse_url($url, PHP_URL_HOST);
+		if ($idn != '') {
+			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
+			if (defined('INTL_IDNA_VARIANT_UTS46')) {
+				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
+				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+			} else {
+				$puny = idn_to_ascii($idn);
+			}
 			$pos = strpos($url, $idn);
-			if ($pos !== false) {
-				return substr_replace($url, $puny, $pos, strlen($idn));
+			if ($puny != '' && $pos !== false) {
+				$url = substr_replace($url, $puny, $pos, strlen($idn));
 			}
 		}
 	}
@@ -79,6 +85,14 @@ function checkUrl($url) {
 
 function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+}
+
+if (function_exists('mb_convert_encoding')) {
+	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+} elseif (function_exists('iconv')) {
+	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+} else {
+	function safe_utf8($text) { return $text; }
 }
 
 function escapeToUnicodeAlternative($text, $extended = true) {

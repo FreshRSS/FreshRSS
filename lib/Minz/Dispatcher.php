@@ -50,6 +50,7 @@ class Minz_Dispatcher {
 				$this->controller->lastAction ();
 
 				if (!self::$needsReset) {
+					$this->controller->declareCspHeader();
 					$this->controller->view ()->build ();
 				}
 			} catch (Minz_Exception $e) {

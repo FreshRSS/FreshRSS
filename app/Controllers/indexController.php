@@ -32,6 +32,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-src' => '*',
+			'img-src' => '* data:',
+			'media-src' => '*',
+		]);
+
 		$this->view->categories = FreshRSS_Context::$categories;
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
@@ -121,6 +128,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		Minz_View::prependTitle($title . ' · ');
+
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-src' => '*',
+			'img-src' => '* data:',
+			'media-src' => '*',
+		]);
 	}
 
 	/**
@@ -173,7 +187,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private function updateContext() {
 		if (empty(FreshRSS_Context::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			FreshRSS_Context::$categories = $catDAO->listCategories();
+			FreshRSS_Context::$categories = $catDAO->listSortedCategories();
 		}
 
 		// Update number of read / unread variables.

@@ -1,12 +1,18 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => '최적화가 완료되었습니다',
-	),
 	'access' => array(
 		'denied' => '이 페이지에 접근할 수 있는 권한이 없습니다',
 		'not_found' => '이 페이지는 존재하지 않습니다',
+	),
+	'admin' => array(
+		'optimization_complete' => '최적화가 완료되었습니다',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -38,9 +44,9 @@ return array(
 			'ko' => '%s 확장 기능을 활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'ok' => '%s 확장 기능이 활성화되었습니다',
 		),
-		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
 		'not_enabled' => '%s 확장 기능이 활성화되지 않았습니다',
 		'not_found' => '%s 확장 기능이 존재하지 않습니다',
+		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',
@@ -66,10 +72,10 @@ return array(
 			'emptied' => '카테고리를 비웠습니다',
 			'error' => '카테고리를 변경할 수 없습니다',
 			'name_exists' => '같은 카테고리 이름이 이미 존재합니다.',
-			'no_id' => '카테고리 id를 명시해야 합니다.',
-			'no_name' => '카테고리 이름을 명시해야 합니다.',
 			'not_delete_default' => '기본 카테고리는 삭제할 수 없습니다!',
 			'not_exist' => '카테고리가 존재하지 않습니다!',
+			'no_id' => '카테고리 id를 명시해야 합니다.',
+			'no_name' => '카테고리 이름을 명시해야 합니다.',
 			'over_max' => '카테고리 개수 제한에 다다랐습니다 (%d)',
 			'updated' => '카테고리가 변경되었습니다.',
 		),
@@ -82,10 +88,10 @@ return array(
 			'error' => '피드를 변경할 수 없습니다',
 			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
+			'not_added' => '<em>%s</em> 피드를 추가할 수 없습니다',
+			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',
-			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
-			'not_added' => '<em>%s</em> 피드를 추가할 수 없습니다',
 			'over_max' => '피드 개수 제한에 다다랐습니다 (%d)',
 			'updated' => '피드가 변경되었습니다',
 		),
@@ -101,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => '%s 사용자가 생성되었습니다',
 			'error' => '%s 사용자를 생성할 수 없습니다',
+			'_' => '%s 사용자가 생성되었습니다',
 		),
 		'deleted' => array(
-			'_' => '%s 사용자를 삭제했습니다',
 			'error' => '%s 사용자를 삭제할 수 없습니다',
+			'_' => '%s 사용자를 삭제했습니다',
 		),
 		'updated' => array(
-			'_' => '사용자 %s의 정보가 변경되었습니다',
 			'error' => '사용자 %s의 정보가 변경되지 않았습니다',
+			'_' => '사용자 %s의 정보가 변경되었습니다',
 		),
 	),
 );

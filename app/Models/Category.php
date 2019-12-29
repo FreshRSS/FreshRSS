@@ -84,7 +84,7 @@ class FreshRSS_Category extends Minz_Model {
 		}
 	}
 	public function _name($value) {
-		$this->name = trim($value);
+		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
 	}
 	public function _isDefault($value) {
 		$this->isDefault = $value;
@@ -98,14 +98,14 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _attributes($key, $value) {
-		if ($key == '') {
+		if ('' == $key) {
 			if (is_string($value)) {
 				$value = json_decode($value, true);
 			}
 			if (is_array($value)) {
 				$this->attributes = $value;
 			}
-		} elseif ($value === null) {
+		} elseif (null === $value) {
 			unset($this->attributes[$key]);
 		} else {
 			$this->attributes[$key] = $value;

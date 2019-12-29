@@ -585,14 +585,14 @@ form th {
     .flux:hover:not(.current):hover .item.title,
     .flux .current:not(.current):hover .item.title {
       background: #fff; }
-  .flux.not_read {
-    background: #fff3ed; }
-    .flux.not_read:not(.current):hover .item.title {
-      background: #fff3ed; }
-  .flux.favorite {
+  .flux.favorite:not(.current) {
     background: #fff6da; }
     .flux.favorite:not(.current):hover .item.title {
       background: #fff6da; }
+  .flux.not_read:not(.current) {
+    background: #fff3ed; }
+    .flux.not_read:not(.current):hover .item.title {
+      background: #fff3ed; }
   .flux .date {
     color: #969696;
     font-size: 0.7rem; }

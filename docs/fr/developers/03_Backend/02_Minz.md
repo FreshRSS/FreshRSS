@@ -1,27 +1,27 @@
 # Modèles
 
-**TODO**
+**À FAIRE**
 
 # Contrôleurs et actions
 
-**TODO**
+**À FAIRE**
 
 # Vues
 
-**TODO**
+**À FAIRE**
 
 # Routage
 
-**TODO**
+**À FAIRE**
 
 # Écriture des URL
 
-**TODO**
+**À FAIRE**
 
 # Internationalisation
 
-**TODO**
+**À FAIRE**
 
 # Comprendres les mécanismes internes
 
-**TODO**
+**À FAIRE**

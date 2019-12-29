@@ -2,35 +2,32 @@
 
 return array(
 	'about' => array(
-		'_' => 'A prepaus',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Senhalament de problèmas',
 		'credits' => 'Crèdits',
 		'credits_content' => 'Unes elements de l’estil venon del <a href="http://twitter.github.io/bootstrap/">projècte Bootstrap</a> encara que FreshRSS utilize pas aqueste framework. Las <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icònas</a> venon del <a href="https://www.gnome.org/">projècte GNOME</a>. La polissa <em>Open Sans</em> utilizada foguèt creada per en <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS es basat sus <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
-		'freshrss_description' => 'FreshRSS es un agregador de fluxes RSS per l’auto-albergar tal coma <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> o <a href="http://projet.idleman.fr/leed/">Leed</a>. Sa tòca es d’èsser leugièr e de bon utilizar de prima abòrd mas tanben d’èsser potent e parametrable.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',
+		'freshrss_description' => 'FreshRSS es un agregador de fluxes RSS per l’auto-albergar tal coma <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> o <a href="https://github.com/LeedRSS/Leed">Leed</a>. Sa tòca es d’èsser leugièr e de bon utilizar de prima abòrd mas tanben d’èsser potent e parametrable.',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',	// TODO - Translation
 		'license' => 'Licéncia',
 		'project_website' => 'Site del projècte',
 		'title' => 'A prepaus',
-		'website' => 'Site internet',
 		'version' => 'Version',
-	),
-	'tos' => array(
-		'title' => 'Condicions d’utilizacion',
+		'website' => 'Site internet',
+		'_' => 'A prepaus',
 	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',
 		'empty' => 'I a pas cap de flux de mostrar.',
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Vòstres fluxes RSS',
-		'title_global' => 'Vista generala',
 		'title_fav' => 'Vòstres favorits',
+		'title_global' => 'Vista generala',
 	),
 	'log' => array(
-		'_' => 'Jornals d’audit',
 		'clear' => 'Escafar los jornals',
 		'empty' => 'Los jornals son voids',
 		'title' => 'Jornals d’audit',
+		'_' => 'Jornals d’audit',
 	),
 	'menu' => array(
 		'about' => 'A prepaus de FreshRSS',
@@ -62,5 +59,8 @@ return array(
 	'share' => 'Partejar',
 	'tag' => array(
 		'related' => 'Etiquetas ligadas',
+	),
+	'tos' => array(
+		'title' => 'Condicions d’utilizacion',
 	),
 );

@@ -74,7 +74,7 @@ $today = @strtotime('today');
 
 			$this->renderHelper('index/normal/entry_header');
 
-		?><div class="flux_content">
+		?><div class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
 				<div class="author"><?php

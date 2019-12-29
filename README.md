@@ -5,7 +5,7 @@
 * [Version française](README.fr.md)
 
 # FreshRSS
-FreshRSS is a self-hosted RSS feed aggregator like [Leed](http://leed.idleman.fr/) or [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS is a self-hosted RSS feed aggregator like [Leed](https://github.com/LeedRSS/Leed) or [Kriss Feed](https://tontof.net/kriss/feed/).
 
 It is lightweight, easy to work with, powerful, and customizable.
 
@@ -35,7 +35,7 @@ FreshRSS comes with absolutely no warranty.
 * [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html), where you can discover all the possibilities offered by FreshRSS
 * [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
 * [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
-* [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.md) for those who want to help improve FreshRSS
+* [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.html) for those who want to help improve FreshRSS
 
 # Requirements
 * A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
@@ -50,14 +50,13 @@ FreshRSS comes with absolutely no warranty.
 
 
 # Releases
-See the [list of releases](../../releases).
 
-## About branches
-* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need less frequent stable versions.
-* Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the newest features, or help testing or developing the next stable version.
+The latest stable release can be found [here](https://github.com/FreshRSS/FreshRSS/releases/latest). New versions are released every two to three months.
+
+If you want a rolling release with the newest features, or want to help testing or developing the next stable version, you can use [the `master` branch](https://github.com/FreshRSS/FreshRSS/tree/master/).
 
 
-# [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
+# [Installation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)
 
 ## Automated install
 * [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
@@ -74,7 +73,7 @@ See the [list of releases](../../releases).
 6. Advanced configuration settings can be found in [config.default.php](config.default.php) and modified in `data/config.php`.
 7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
-More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
+More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html).
 
 ## Advice
 * For better security, expose only the `./p/` folder to the Web.
@@ -111,9 +110,10 @@ Supported clients are:
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 * iOS
-	* [Reeder-4](https://www.reederapp.com/) (Commercial)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 
 ## Fever API
 

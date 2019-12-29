@@ -46,6 +46,7 @@
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<!-- Ajax -->
 			</ul>
+			<div class="dropdown-close"><a href="#close">❌</a></div>
 		</div>
 	</li><?php
 	}
@@ -78,6 +79,7 @@
 
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li><?php
+					$id = $this->entry->id();
 					$link = $this->entry->link();
 					$title = $this->entry->title() . ' · ' . $this->feed->name();
 					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
@@ -85,6 +87,7 @@
 						if ($share === null) {
 							continue;
 						}
+						$share_options['id'] = $id;
 						$share_options['link'] = $link;
 						$share_options['title'] = $title;
 						$share->update($share_options);

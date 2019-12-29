@@ -321,8 +321,22 @@ a.btn {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	z-index: -10;
+	z-index: -11;
 	cursor: default;
+}
+
+.dropdown div.dropdown-close {
+	display: none;
+}
+
+.dropdown-target:target ~ div.dropdown-close {
+	display: block;
+	z-index: 999;
+	position: relative;
+}
+
+.dropdown-menu-scrollable .dropdown-close {
+	display: none;
 }
 
 .separator {

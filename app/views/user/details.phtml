@@ -1,0 +1,65 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+    <a href="<?= _url('user', 'manage'); ?>"><?= _t('admin.user.back_to_manage'); ?></a>
+
+    <legend><?= $this->username; ?></legend>
+    <form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>">
+        <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
+
+        <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.email') ?></label>
+            <div class="group-controls">
+                <?= $this->details['mail_login'] ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.language') ?></label>
+            <div class="group-controls">
+                <?= _t("gen.lang.{$this->details['language']}") ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.feed_count') ?></label>
+            <div class="group-controls">
+                <?= format_number($this->details['feed_count']) ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.article_count') ?></label>
+            <div class="group-controls">
+                <?= format_number($this->details['article_count']) ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.database_size') ?></label>
+            <div class="group-controls">
+                <?= format_bytes($this->details['database_size']) ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="group-name" for="newPasswordPlain"><?= _t('admin.user.password_form') ?></label>
+            <div class="group-controls">
+                <div class="stick">
+                    <input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+                    <a class="btn toggle-password" data-toggle="password-<?= $this->username; ?>"><?= _i('key') ?></a>
+                </div>
+                <?= _i('help'); ?> <?= _t('admin.user.password_format') ?>
+            </div>
+        </div>
+
+        <div class="form-group form-actions">
+            <noscript><b><?= _t('gen.js.should_be_activated'); ?></b></noscript>
+            <div class="group-controls">
+                <button type="submit" class="btn btn-important" name="action" value="update"><?= _t('gen.action.update') ?></button>
+                <button type="submit" class="btn btn-attention confirm" name="action" value="purge"><?= _t('gen.action.purge') ?></button>
+                <button type="submit" class="btn btn-attention confirm" name="action" value="delete"><?= _t('gen.action.remove') ?></button>
+            <div>
+        </div>
+    </form>
+</div>

@@ -37,7 +37,7 @@ function cliInitUser($username) {
 	if (FreshRSS_Context::$user_conf == null) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
-	new Minz_ModelPdo($username);
+	Minz_Session::_param('currentUser', $username);
 
 	return $username;
 }

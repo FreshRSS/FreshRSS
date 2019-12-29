@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aggiorna',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',
@@ -16,32 +16,33 @@ return array(
 		'manage' => 'Gestisci',
 		'mark_favorite' => 'Segna come preferito',
 		'mark_read' => 'Segna come letto',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Rimuovi',
 		'see_website' => 'Vai al sito',
 		'submit' => 'Conferma',
 		'truncate' => 'Cancella tutti gli articoli',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	// TODO - Translation
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
 		'email' => 'Indirizzo email',
 		'keep_logged_in' => 'Ricorda i dati <small>(%s giorni)</small>',
 		'login' => 'Accedi',
 		'logout' => 'Esci',
 		'password' => array(
-			'_' => 'Password',
 			'format' => '<small>almeno 7 caratteri</small>',
+			'_' => 'Password',	// TODO - Translation
 		),
 		'registration' => array(
-			'_' => 'Nuovo profilo',
 			'ask' => 'Vuoi creare un nuovo profilo?',
 			'title' => 'Creazione profilo',
+			'_' => 'Nuovo profilo',
 		),
 		'reset' => 'Reset autenticazione',
 		'username' => array(
-			'_' => 'Username',
 			'admin' => 'Username amministratore',
 			'format' => '<small>massimo 16 caratteri alfanumerici</small>',
+			'_' => 'Username',	// TODO - Translation
 		),
 	),
 	'date' => array(
@@ -60,12 +61,12 @@ return array(
 		'february' => 'febbraio',
 		'format_date' => 'j\\ %s Y',
 		'format_date_hour' => 'j\\ %s Y \\o\\r\\e H\\:i',
-		'fri' => 'Fri',
+		'fri' => 'Fri',	// TODO - Translation
 		'Jan' => '\\G\\e\\n\\u\\a\\i\\o',
 		'jan' => 'genn.',
 		'january' => 'gennaio',
-		'Jul' => '\\L\\u\\g\\l\\i\\o',
 		'jul' => 'jul',
+		'Jul' => '\\L\\u\\g\\l\\i\\o',
 		'july' => 'luglio',
 		'Jun' => '\\G\\i\\u\\g\\n\\o',
 		'jun' => 'jun',
@@ -75,13 +76,13 @@ return array(
 		'last_month' => 'Ultimo mese',
 		'last_week' => 'Ultima settimana',
 		'last_year' => 'Ultimo anno',
-		'Mar' => '\\M\\a\\r\\z\\o',
 		'mar' => 'mar.',
+		'Mar' => '\\M\\a\\r\\z\\o',
 		'march' => 'marzo',
 		'May' => '\\M\\a\\g\\g\\i\\o',
 		'may' => 'maggio',
-		'may_' => 'May',
-		'mon' => 'Mon',
+		'may_' => 'May',	// TODO - Translation
+		'mon' => 'Mon',	// TODO - Translation
 		'month' => 'mesi',
 		'Nov' => '\\N\\o\\v\\e\\m\\b\\r\\e',
 		'nov' => 'nov.',
@@ -89,20 +90,20 @@ return array(
 		'Oct' => '\\O\\t\\t\\o\\b\\r\\e',
 		'oct' => 'ott.',
 		'october' => 'ottobre',
-		'sat' => 'Sat',
+		'sat' => 'Sat',	// TODO - Translation
 		'Sep' => '\\S\\e\\t\\t\\e\\m\\b\\r\\e',
 		'sep' => 'sett.',
 		'september' => 'settembre',
-		'sun' => 'Sun',
-		'thu' => 'Thu',
+		'sun' => 'Sun',	// TODO - Translation
+		'thu' => 'Thu',	// TODO - Translation
 		'today' => 'Oggi',
-		'tue' => 'Tue',
-		'wed' => 'Wed',
+		'tue' => 'Tue',	// TODO - Translation
+		'wed' => 'Wed',	// TODO - Translation
 		'yesterday' => 'Ieri',
 	),
 	'freshrss' => array(
-		'_' => 'Feed RSS Reader',
 		'about' => 'Informazioni',
+		'_' => 'Feed RSS Reader',
 	),
 	'js' => array(
 		'category_empty' => 'Categoria vuota',
@@ -117,20 +118,21 @@ return array(
 		'should_be_activated' => 'JavaScript deve essere abilitato',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// TODO - Translation
+		'de' => 'Deutsch',	// TODO - Translation
+		'en' => 'English',	// TODO - Translation
+		'es' => 'Español',	// TODO - Translation
+		'fr' => 'Français',	// TODO - Translation
+		'he' => 'עברית',	// TODO - Translation
+		'it' => 'Italiano',	// TODO - Translation
+		'kr' => '한국어',	// TODO - Translation
+		'nl' => 'Nederlands',	// TODO - Translation
+		'oc' => 'Occitan',	// TODO - Translation
+		'pt-br' => 'Português (Brasil)',	// TODO - Translation
+		'ru' => 'Русский',	// TODO - Translation
+		'sk' => 'Slovenčina',	// TODO - Translation
+		'tr' => 'Türkçe',	// TODO - Translation
+		'zh-cn' => '简体中文',	// TODO - Translation
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
@@ -141,7 +143,7 @@ return array(
 		'configuration' => 'Configurazione',
 		'display' => 'Visualizzazione',
 		'extensions' => 'Estensioni',
-		'logs' => 'Logs',
+		'logs' => 'Logs',	// TODO - Translation
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',
@@ -163,31 +165,31 @@ return array(
 		'previous' => 'Precedente',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'days',	// TODO - Translation
+		'hours' => 'hours',	// TODO - Translation
+		'months' => 'months',	// TODO - Translation
+		'weeks' => 'weeks',	// TODO - Translation
+		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
+		'blogotext' => 'Blogotext',	// TODO - Translation
+		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'email' => 'Email',	// TODO - Translation
+		'facebook' => 'Facebook',	// TODO - Translation
+		'gnusocial' => 'GNU social',	// TODO - Translation
+		'jdh' => 'Journal du hacker',	// TODO - Translation
 		'Known' => 'Siti basati su Known',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'lemmy' => 'Lemmy',	// TODO - Translation
+		'linkedin' => 'LinkedIn',	// TODO - Translation
+		'mastodon' => 'Mastodon',	// TODO - Translation
+		'movim' => 'Movim',	// TODO - Translation
+		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pocket' => 'Pocket',	// TODO - Translation
 		'print' => 'Stampa',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'shaarli' => 'Shaarli',	// TODO - Translation
+		'twitter' => 'Twitter',	// TODO - Translation
+		'wallabag' => 'wallabag v1',	// TODO - Translation
+		'wallabagv2' => 'wallabag v2',	// TODO - Translation
 	),
 	'short' => array(
 		'attention' => 'Attenzione!',
@@ -196,7 +198,7 @@ return array(
 		'by_default' => 'predefinito',
 		'damn' => 'Ops!',
 		'default_category' => 'Senza categoria',
-		'no' => 'No',
+		'no' => 'No',	// TODO - Translation
 		'not_applicable' => 'Non disponibile',
 		'ok' => 'OK!',
 		'or' => 'o',

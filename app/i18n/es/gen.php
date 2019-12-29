@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Crear',
@@ -16,32 +16,33 @@ return array(
 		'manage' => 'Administrar',
 		'mark_favorite' => 'Marcar como favorita',
 		'mark_read' => 'Marcar como leído',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Borrar',
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',
 		'truncate' => 'Borrar todos los artículos',
-		'update' => 'Update',	//TODO - Translation
+		'update' => 'Update',	// TODO - Translation
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
 		'email' => 'Correo electrónico',
 		'keep_logged_in' => 'Mantenerme identificado <small>(%s días)</small>',
 		'login' => 'Conectar',
 		'logout' => 'Desconectar',
 		'password' => array(
-			'_' => 'Contraseña',
 			'format' => '<small>Mínimo de 7 caracteres</small>',
+			'_' => 'Contraseña',
 		),
 		'registration' => array(
-			'_' => 'Nueva cuenta',
 			'ask' => '¿Crear una cuenta?',
 			'title' => 'Creación de cuenta',
+			'_' => 'Nueva cuenta',
 		),
 		'reset' => 'Reinicar identificación',
 		'username' => array(
-			'_' => 'Nombre de usuario',
 			'admin' => 'Nombre de usuario del Administrador',
 			'format' => '<small>máximo 16 caracteres alfanuméricos</small>',
+			'_' => 'Nombre de usuario',
 		),
 	),
 	'date' => array(
@@ -58,14 +59,14 @@ return array(
 		'Feb' => '\\F\\e\\b\\r\\e\\r\\o',
 		'feb' => 'feb',
 		'february' => 'febrero',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
+		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// TODO - Translation
+		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// TODO - Translation
 		'fri' => 'Vie',
 		'Jan' => '\\E\\n\\e\\r\\o',
 		'jan' => 'ene',
 		'january' => 'ene',
-		'Jul' => '\\J\\u\\l\\i\\o',
 		'jul' => 'jul',
+		'Jul' => '\\J\\u\\l\\i\\o',
 		'july' => 'julio',
 		'Jun' => '\\J\\u\\n\\i\\o',
 		'jun' => 'jun',
@@ -75,8 +76,8 @@ return array(
 		'last_month' => 'Mes pasado',
 		'last_week' => 'Semana pasada',
 		'last_year' => 'Año pasado',
-		'Mar' => '\\M\\a\\r\\z\\o',
 		'mar' => 'mar',
+		'Mar' => '\\M\\a\\r\\z\\o',
 		'march' => 'marzo',
 		'May' => '\\M\\a\\y\\o',
 		'may' => 'mayo',
@@ -101,8 +102,8 @@ return array(
 		'yesterday' => 'Ayer',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => 'Acerca de FreshRSS',
+		'_' => 'FreshRSS',	// TODO - Translation
 	),
 	'js' => array(
 		'category_empty' => 'Vaciar categoría',
@@ -117,20 +118,21 @@ return array(
 		'should_be_activated' => 'JavaScript debe estar activado',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// TODO - Translation
+		'de' => 'Deutsch',	// TODO - Translation
+		'en' => 'English',	// TODO - Translation
+		'es' => 'Español',	// TODO - Translation
+		'fr' => 'Français',	// TODO - Translation
+		'he' => 'עברית',	// TODO - Translation
+		'it' => 'Italiano',	// TODO - Translation
+		'kr' => '한국어',	// TODO - Translation
+		'nl' => 'Nederlands',	// TODO - Translation
+		'oc' => 'Occitan',	// TODO - Translation
+		'pt-br' => 'Português (Brasil)',	// TODO - Translation
+		'ru' => 'Русский',	// TODO - Translation
+		'sk' => 'Slovenčina',	// TODO - Translation
+		'tr' => 'Türkçe',	// TODO - Translation
+		'zh-cn' => '简体中文',	// TODO - Translation
 	),
 	'menu' => array(
 		'about' => 'Acerca de',
@@ -163,31 +165,31 @@ return array(
 		'previous' => 'Anterior',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'days',	// TODO - Translation
+		'hours' => 'hours',	// TODO - Translation
+		'months' => 'months',	// TODO - Translation
+		'weeks' => 'weeks',	// TODO - Translation
+		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'blogotext' => 'Blogotext',	// TODO - Translation
+		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'email' => 'Email',	// TODO - Translation
+		'facebook' => 'Facebook',	// TODO - Translation
+		'gnusocial' => 'GNU social',	// TODO - Translation
+		'jdh' => 'Journal du hacker',	// TODO - Translation
+		'Known' => 'Known based sites',	// TODO - Translation
+		'lemmy' => 'Lemmy',	// TODO - Translation
+		'linkedin' => 'LinkedIn',	// TODO - Translation
+		'mastodon' => 'Mastodon',	// TODO - Translation
+		'movim' => 'Movim',	// TODO - Translation
+		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pocket' => 'Pocket',	// TODO - Translation
+		'print' => 'Print',	// TODO - Translation
+		'shaarli' => 'Shaarli',	// TODO - Translation
+		'twitter' => 'Twitter',	// TODO - Translation
+		'wallabag' => 'wallabag v1',	// TODO - Translation
+		'wallabagv2' => 'wallabag v2',	// TODO - Translation
 	),
 	'short' => array(
 		'attention' => '¡Aviso!',
@@ -196,7 +198,7 @@ return array(
 		'by_default' => 'Por defecto',
 		'damn' => '¡Córcholis!',
 		'default_category' => 'Sin categorizar',
-		'no' => 'No',
+		'no' => 'No',	// TODO - Translation
 		'not_applicable' => 'No disponible',
 		'ok' => '¡Vale!',
 		'or' => 'o',

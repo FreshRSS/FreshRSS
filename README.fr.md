@@ -5,7 +5,7 @@
 * [English version](README.md)
 
 # FreshRSS
-FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://leed.idleman.fr/) ou de [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](https://github.com/LeedRSS/Leed) ou de [Kriss Feed](https://tontof.net/kriss/feed/).
 
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
@@ -32,10 +32,10 @@ FreshRSS n’est fourni avec aucune garantie.
 ![Capture d’écran de FreshRSS](docs/img/FreshRSS-screenshot.png)
 
 # [Documentation](https://freshrss.github.io/FreshRSS/fr/)
-* La [documentation utilisateurs](https://freshrss.github.io/FreshRSS/fr/users/02_First_steps.md) pour découvrir les fonctionnalités de FreshRSS.
-* La [documentation administrateurs](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md) pour l’installation et la maintenance de FreshRSS.
-* La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.md) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
-* Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.md) pour nous aider à développer FreshRSS.
+* La [documentation utilisateurs](https://freshrss.github.io/FreshRSS/fr/users/02_First_steps.html) pour découvrir les fonctionnalités de FreshRSS.
+* La [documentation administrateurs](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html) pour l’installation et la maintenance de FreshRSS.
+* La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.html) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
+* Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.html) pour nous aider à développer FreshRSS.
 
 # Prérequis
 * Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge (sauf certains détails), Chromium / Chrome, Opera, Safari.
@@ -50,11 +50,10 @@ FreshRSS n’est fourni avec aucune garantie.
 
 
 # Téléchargement
-Voir la [liste des versions](../../releases).
 
-## À propos des branches
-* Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous souhaitez des versions moins fréquentes et stables.
-* Utilisez [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) si vous vouler une publication continue (rolling release) avec les dernières nouveautés, ou bien aider à tester ou développer la future version stable.
+Si vous préférez que votre FreshRSS soit stable, vous devriez télécharger la dernière version. De nouvelles versions sont publiées tous les 2 ou 3 mois. Voir la [liste des versions](https://github.com/FreshRSS/FreshRSS/releases).
+
+Si vous voulez une publication continue (rolling release) avec les dernières nouveautés, ou bien aider à tester ou développer la future version stable, vous pouvez utiliser [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/).
 
 
 # [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
@@ -74,7 +73,7 @@ Voir la [liste des versions](../../releases).
 6. Des paramètres de configuration avancés peuvent être vus dans [config.default.php](config.default.php) et modifiés dans `data/config.php`.
 7. Avec Apache, activer [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
-Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md).
+Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html).
 
 ### Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh
@@ -97,8 +96,8 @@ sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
 cd FreshRSS
 
-# Si vous souhaitez utiliser la branche développement de FreshRSS
-sudo git checkout -b dev origin/dev
+# Si vous souhaitez utiliser la dernière version stable de FreshRSS
+sudo git checkout $(git describe --tags --abbrev=0)
 
 # Mettre les droits d’accès pour le serveur Web
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
@@ -188,9 +187,10 @@ Tout client supportant une API de type Google Reader ; Sélection :
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 * iOS
-	* [Reeder-4](https://www.reederapp.com/) (Commercial)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
+	* [Reeder](https://www.reederapp.com/) (Commercial)
 
 ## Via l’API compatible Fever
 

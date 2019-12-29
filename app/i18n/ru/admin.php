@@ -67,8 +67,8 @@ return array(
 			'ok' => 'У вас установлена библиотека для работы с JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',
@@ -83,9 +83,9 @@ return array(
 			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP installation',
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
+			'_' => 'PHP installation',	// TODO - Translation
 		),
 		'tables' => array(
 			'nok' => 'В базе данных отсуствует одна или больше таблица.',
@@ -94,38 +94,37 @@ return array(
 		'title' => 'Проверка установки и настройки',
 		'tokens' => array(
 			'nok' => 'Проверьте права доступа к папке <em>./data/tokens</em> . Сервер HTTP должен иметь права на запись в эту папку.',
-			'ok' => 'Права на папку tokens  в порядке.',
+			'ok' => 'Права на папку tokens в порядке.',
 		),
 		'users' => array(
 			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Сервер HTTP должен иметь права на запись в эту папку.',
-			'ok' => 'Права на папку users  в порядке.',
+			'ok' => 'Права на папку users в порядке.',
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php-zip package).',
-			'ok' => 'You have ZIP extension.',
+			'ok' => 'You have ZIP extension.',	// TODO - Translation
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	//TODO - Translation
-		'community' => 'Available community extensions',	//TODO - Translation
-		'description' => 'Description',	//TODO - Translation
+		'author' => 'Author',	// TODO - Translation
+		'community' => 'Available community extensions',	// TODO - Translation
+		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Отключены',
 		'empty_list' => 'Расширения не установлены',
 		'enabled' => 'Включены',
-		'latest' => 'Installed',	//TODO - Translation
-		'name' => 'Name',	//TODO - Translation
+		'latest' => 'Installed',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Это расширение нельзя настроить.',
 		'system' => array(
-			'_' => 'Системные расширения',
 			'no_rights' => 'Системные расширения (у вас нет к ним доступа)',
+			'_' => 'Системные расширения',
 		),
 		'title' => 'Расширения',
-		'update' => 'Update available',	//TODO - Translation
+		'update' => 'Update available',	// TODO - Translation
 		'user' => 'Расширения пользователя',
-		'version' => 'Version',	//TODO - Translation
+		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
-		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
 		'entry_count' => 'Количество статей',
@@ -155,46 +154,53 @@ return array(
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших подписок',
+		'_' => 'Статистика',
 	),
 	'system' => array(
-		'_' => 'Системные настройки',
 		'auto-update-url' => 'Адрес сервера для автоматического обновления',
-		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'in seconds',	// TODO - Translation
+			'number' => 'Duration to keep logged in',	// TODO - Translation
+		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
 		'instance-name' => 'Название этого сервера',
 		'max-categories' => 'Количество категорий на пользователя',
 		'max-feeds' => 'Количество статей на пользователя',
-		'cookie-duration' => array(
-			'help' => 'in seconds', // @todo translate
-			'number' => 'Duration to keep logged in', // @todo translate
-		),
 		'registration' => array(
 			'help' => '0 означает неограниченное количество пользователей',
 			'number' => 'Максимальное количество пользователей',
 		),
+		'_' => 'Системные настройки',
 	),
 	'update' => array(
-		'_' => 'Обновление системы',
 		'apply' => 'Применить',
 		'check' => 'Проверить обновления',
 		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
 		'last' => 'Последняя проверка: %s',
 		'none' => 'Нечего обновлять',
 		'title' => 'Обновить систему',
+		'_' => 'Обновление системы',
 	),
 	'user' => array(
 		'articles_and_size' => '%s статей (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Создать нового пользователя',
-		'delete_users' => 'Delete user',	//TODO - Translation
+		'database_size' => 'Database size',	// TODO - Translation
+		'delete_users' => 'Delete user',	// TODO - Translation
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Язык',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'На данный момент создан %d аккаунт',
-		'numbers' => 'На данный момент аккаунтов создано:  %d',
+		'numbers' => 'На данный момент аккаунтов создано:	%d',
 		'password_form' => 'Пароль<br /><small>(для входа через Веб-форму)</small>',
 		'password_format' => 'Минимум 7 символов',
-		'selected' => 'Selected user',	//TODO - Translation
+		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Управление пользователями',
-		'update_users' => 'Update user',	//TODO - Translation
-		'user_list' => 'Список пользователей',
+		'update_users' => 'Update user',	// TODO - Translation
 		'username' => 'Имя пользователя',
 		'users' => 'Пользователи',
+		'user_list' => 'Список пользователей',
 	),
 );

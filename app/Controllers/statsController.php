@@ -15,6 +15,11 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
+		$this->_csp([
+			'default-src' => "'self'",
+			'style-src' => "'self' 'unsafe-inline'",
+		]);
+
 		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 

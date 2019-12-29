@@ -57,66 +57,31 @@
 		</div>
 	</form>
 
-	<form method="post" action="<?= _url('user', 'update') ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('admin.user.update_users') ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="current_user"><?= _t('admin.user.selected') ?></label>
-			<div class="group-controls">
-				<select id="current_user" name="username">
-					<option selected="selected"> </option>
-					<?php foreach (listUsers() as $username) { ?>
-					<option value="<?= $username ?>"><?= $username ?></option>
-					<?php } ?>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="newPasswordPlain"><?= _t('admin.user.password_form') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
-					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></a>
-				</div>
-				<?= _i('help') ?> <?= _t('conf.profile.password_format') ?>
-				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.update') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-			</div>
-		</div>
-	</form>
-
-	<form method="post" action="<?= _url('user', 'delete') ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('admin.user.delete_users') ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="user-list"><?= _t('admin.user.selected') ?></label>
-			<div class="group-controls">
-				<select id="user-list" class="select-change" name="username">
-					<option selected="selected"> </option>
-					<?php foreach (listUsers() as $username) { ?>
-					<option data-url="<?= _url('user', 'manage', 'u', $username) ?>" <?= $this->current_user === $username ? 'selected="selected"' : '' ?> value="<?= $username ?>"><?= $username ?></option>
-					<?php } ?>
-				</select>
-
-				<p><?php echo _t('admin.user.articles_and_size',
-				                 format_number($this->nb_articles),
-				                 format_bytes($this->size_user)); ?></p>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
-			</div>
-		</div>
-	</form>
+	<legend><?= _t('admin.user.list'); ?></legend>
+	<table id="user-list">
+		<thead>
+			<tr>
+				<th><?= _t('admin.user.username') ?></th>
+				<th><?= _t('admin.user.email') ?></th>
+				<th><?= _t('admin.user.language') ?></th>
+				<th><?= _t('admin.user.feed_count') ?></th>
+				<th><?= _t('admin.user.article_count') ?></th>
+				<th><?= _t('admin.user.database_size') ?></th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->users as $username => $values) : ?>
+				<tr>
+					<td><?= $username ?></td>
+					<td><?= $values['mail_login'] ?></td>
+					<td><?= _t("gen.lang.{$values['language']}") ?></td>
+					<td><?= format_number($values['feed_count']) ?></td>
+					<td><?= format_number($values['article_count']) ?></td>
+					<td><?= format_bytes($values['database_size']) ?></td>
+					<td><a href="<?= _url('user', 'details', 'username', $username) ?>">Details</a></td>
+				</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
 </div>

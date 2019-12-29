@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualiseren',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Terug',
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Beheren',
 		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Verwijder',
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
@@ -23,25 +24,25 @@ return array(
 		'update' => 'Updaten',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
+		'accept_tos' => 'Ik accepteer de <a href="%s">gebruiksvoorwaarden</a>.',
 		'email' => 'Email adres',
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
 		'login' => 'Log in',
 		'logout' => 'Log uit',
 		'password' => array(
-			'_' => 'Wachtwoord',
 			'format' => '<small>Ten minste 7 tekens</small>',
+			'_' => 'Wachtwoord',
 		),
 		'registration' => array(
-			'_' => 'Nieuw account',
 			'ask' => 'Maak een account?',
 			'title' => 'Account maken',
+			'_' => 'Nieuw account',
 		),
 		'reset' => 'Authenticatie reset',
 		'username' => array(
-			'_' => 'Gebruikersnaam',
 			'admin' => 'Beheerdersgebruikersnaam',
 			'format' => '<small>maximaal 16 alfanumerieke tekens</small>',
+			'_' => 'Gebruikersnaam',
 		),
 	),
 	'date' => array(
@@ -64,8 +65,8 @@ return array(
 		'Jan' => '\\J\\a\\n\\u\\a\\r\\i',
 		'jan' => 'jan',
 		'january' => 'Jan',
-		'Jul' => '\\J\\u\\l\\i',
 		'jul' => 'jul',
+		'Jul' => '\\J\\u\\l\\i',
 		'july' => 'Jul',
 		'Jun' => '\\J\\u\\n\\i',
 		'jun' => 'jun',
@@ -75,8 +76,8 @@ return array(
 		'last_month' => 'Vorige maand',
 		'last_week' => 'Vorige week',
 		'last_year' => 'Vorig jaar',
-		'Mar' => '\\M\\a\\a\\r\\t',
 		'mar' => 'mrt',
+		'Mar' => '\\M\\a\\a\\r\\t',
 		'march' => 'Mrt',
 		'May' => '\\M\\e\\i',
 		'may' => 'Mei',
@@ -101,8 +102,8 @@ return array(
 		'yesterday' => 'Gisteren',
 	),
 	'freshrss' => array(
-		'_' => 'FreshRSS',
 		'about' => 'Over FreshRSS',
+		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
@@ -129,6 +130,7 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -163,15 +165,31 @@ return array(
 		'previous' => 'Vorige',
 	),
 	'period' => array(
-		'days' => 'days',	//TODO - Translation
-		'hours' => 'hours',	//TODO - Translation
-		'months' => 'months',	//TODO - Translation
-		'weeks' => 'weeks',	//TODO - Translation
-		'years' => 'years',	//TODO - Translation
+		'days' => 'dagen',
+		'hours' => 'uren',
+		'months' => 'maanden',
+		'weeks' => 'weken',
+		'years' => 'jaren',
 	),
 	'share' => array(
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
+		'facebook' => 'Facebook',
+		'gnusocial' => 'GNU social',
+		'jdh' => 'Journal du hacker',
 		'Known' => 'Known-gebaseerde sites',
+		'lemmy' => 'Lemmy',
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
+		'movim' => 'Movim',
+		'pinboard' => 'Pinboard',
+		'pocket' => 'Pocket',
+		'print' => 'Print',
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 	),
 	'short' => array(
 		'attention' => 'Attentie!',

@@ -1,12 +1,18 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Otimização Completa',
-	),
 	'access' => array(
 		'denied' => 'Você não tem permissão para acessar esta página',
 		'not_found' => 'VocÊ está buscando por uma página que não existe',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Otimização Completa',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -38,9 +44,9 @@ return array(
 			'ko' => '%s não pode ser habilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está habilitado',
 		),
-		'no_access' => 'Você não tem acesso ao %s',
 		'not_enabled' => '%s não está habilitado',
 		'not_found' => '%s não existe',
+		'no_access' => 'Você não tem acesso ao %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'extensão ZIP não está presente em seu servidor. Por favor tente exportar os arquivos um por vez.',
@@ -51,14 +57,14 @@ return array(
 		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',
 	),
 	'profile' => array(
-		'error' => 'Your profile cannot be modified',
-		'updated' => 'Your profile has been modified',
+		'error' => 'Your profile cannot be modified',	// TODO - Translation
+		'updated' => 'Your profile has been modified',	// TODO - Translation
 	),
 	'sub' => array(
 		'actualize' => 'Atualizando',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
 		),
 		'category' => array(
 			'created' => 'Categoria %s foi criada.',
@@ -66,10 +72,10 @@ return array(
 			'emptied' => 'Categoria foi esvaziada',
 			'error' => 'Categoria não pode ser atualizada',
 			'name_exists' => 'Este nome de categoria já existe.',
-			'no_id' => 'Você precisa especificar um id para a categoria.',
-			'no_name' => 'Nome da categoria não pode ser vazio.',
 			'not_delete_default' => 'Você não pode deletar uma categoria vazia!',
 			'not_exist' => 'A categoria não existe!',
+			'no_id' => 'Você precisa especificar um id para a categoria.',
+			'no_name' => 'Nome da categoria não pode ser vazio.',
 			'over_max' => 'Você atingiu seu limite de categorias (%d)',
 			'updated' => 'Categoria foi atualizada.',
 		),
@@ -80,12 +86,12 @@ return array(
 			'already_subscribed' => 'Você já está inscrito no <em>%s</em>',
 			'deleted' => 'o Feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
-			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FreshRSS logs</a> para detalhes.',	//TODO - Translation
+			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FreshRSS logs</a> para detalhes.',
 			'invalid_url' => 'URL <em>%s</em> é inválida',
+			'not_added' => '<em>%s</em> não pode ser atualizado',
+			'no_refresh' => 'Não há feed para atualizar…',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',
-			'no_refresh' => 'Não há feed para atualizar…',
-			'not_added' => '<em>%s</em> não pode ser atualizado',
 			'over_max' => 'Você atingiu seu limite de feeds (%d)',
 			'updated' => 'Feed foram atualizados',
 		),
@@ -101,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Usuário %s foi criado',
 			'error' => 'Usuário %s não pode ser criado',
+			'_' => 'Usuário %s foi criado',
 		),
 		'deleted' => array(
-			'_' => 'Usuário %s foi deletado',
 			'error' => 'Usuário %s não pode ser deletado',
+			'_' => 'Usuário %s foi deletado',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	//TODO - Translation
-			'error' => 'User %s has not been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'User %s has been updated',	// TODO - Translation
 		),
 	),
 );

@@ -928,19 +928,19 @@ form {
 		}
 	}
 
-	&.not_read {
-		background: $color_unread;
+	&.favorite:not(.current) {
+		background: $color_stared;
 
-		&:not(.current):hover .item.title {
-			background: $color_unread;
+		&:hover .item.title {
+			background: $color_stared;
 		}
 	}
 
-	&.favorite, {
-		background: $color_stared;
+	&.not_read:not(.current) {
+		background: $color_unread;
 
-		&:not(.current):hover .item.title {
-			background: $color_stared;
+		&:hover .item.title {
+			background: $color_unread;
 		}
 	}
 
