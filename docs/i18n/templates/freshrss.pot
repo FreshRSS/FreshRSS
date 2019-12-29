@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-12-07 10:49+0100\n"
+"POT-Creation-Date: 2019-12-29 11:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -301,7 +301,7 @@ msgid "Once you're done, clone the repository with:"
 msgstr ""
 
 #. type: Code fence info string
-#: en/./developers/01_First_steps.md:15 en/./developers/01_First_steps.md:24 en/./developers/01_First_steps.md:34 en/./developers/01_First_steps.md:42 en/./developers/01_First_steps.md:50
+#: en/./developers/01_First_steps.md:15 en/./developers/01_First_steps.md:24 en/./developers/01_First_steps.md:34 en/./developers/01_First_steps.md:42 en/./developers/01_First_steps.md:50 en/./developers/03_Running_tests.md:9 en/./developers/03_Running_tests.md:17
 #, no-wrap
 msgid "console"
 msgstr ""
@@ -2379,6 +2379,82 @@ msgstr ""
 msgid ""
 "When you want to support user configurations for your extension or simply "
 "display some information, you have to create the `configure.phtml` file."
+msgstr ""
+
+#. type: Title #
+#: en/./developers/03_Running_tests.md:1
+#, no-wrap
+msgid "Running tests"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:4
+msgid ""
+"FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be "
+"merged in `master` if the tests don't pass."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Running_tests.md:5
+#, no-wrap
+msgid "Locally"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:8
+msgid ""
+"As a developer, you can run the test suite on your PC easily with `make` "
+"commands. You can run the test suite with:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:9
+#, no-wrap
+msgid "$ make test\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:14
+msgid ""
+"This command downloads the PHPUnit binary and verifies its checksum. If the "
+"verification fails, the file is deleted. In this case, you should [open an "
+"issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let "
+"maintainers know about the problem."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:16
+msgid ""
+"Then, it executes PHPUnit in a Docker container. If you don't use Docker, "
+"you can run the command directly with:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:17
+#, no-wrap
+msgid "$ NO_DOCKER=true make test\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/03_Running_tests.md:21
+#, no-wrap
+msgid "Travis"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:24
+msgid ""
+"Tests are automatically run when you open a pull request on GitHub. It is "
+"done with [Travis CI](https://travis-ci.org/FreshRSS/FreshRSS/). This is "
+"done to ensure there is no regressions in your code. We cannot merge a PR if "
+"the tests fail so we'll ask you to fix bugs before to review your code."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/03_Running_tests.md:25
+msgid ""
+"If you're interested in, you can take a look at [the configuration "
+"file](https://github.com/FreshRSS/FreshRSS/blob/master/.travis.yml)."
 msgstr ""
 
 #. type: Title #
