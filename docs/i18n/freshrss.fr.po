@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FreshRSS\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-12-24 16:18+0100\n"
+"POT-Creation-Date: 2019-12-29 11:00+0100\n"
 "PO-Revision-Date: 2019-12-07 10:50+0100\n"
 "Last-Translator: Marien Fressinaud <dev@marienfressinaud.fr>\n"
 "Language-Team: French <>\n"
@@ -380,7 +380,6 @@ msgstr ""
 #: en/./developers/01_First_steps.md:34 en/./developers/01_First_steps.md:42
 #: en/./developers/01_First_steps.md:50 en/./developers/03_Running_tests.md:9
 #: en/./developers/03_Running_tests.md:17
-#: en/./developers/03_Running_tests.md:23
 #, no-wrap
 msgid "console"
 msgstr "console"
@@ -3008,19 +3007,20 @@ msgstr ""
 #: en/./developers/03_Running_tests.md:8
 msgid ""
 "As a developer, you can run the test suite on your PC easily with `make` "
-"commands. First, you should install PHPUnit with:"
+"commands. You can run the test suite with:"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:9
-#, no-wrap
-msgid "$ make bin/phpunit\n"
-msgstr ""
+#, fuzzy, no-wrap
+#| msgid "$ make stop\n"
+msgid "$ make test\n"
+msgstr "$ make stop\n"
 
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:14
 msgid ""
-"This commands download the binary and verify its checksum. If the "
+"This command downloads the PHPUnit binary and verifies its checksum. If the "
 "verification fails, the file is deleted. In this case, you should [open an "
 "issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let "
 "maintainers know about the problem."
@@ -3028,44 +3028,26 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:16
-msgid "Then, you can run the test suite with:"
+msgid ""
+"Then, it executes PHPUnit in a Docker container. If you don't use Docker, "
+"you can run the command directly with:"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:17
 #, fuzzy, no-wrap
 #| msgid "$ make stop\n"
-msgid "$ make tests\n"
+msgid "$ NO_DOCKER=true make test\n"
 msgstr "$ make stop\n"
 
-#. type: Plain text
-#: en/./developers/03_Running_tests.md:22
-msgid ""
-"It executes PHPUnit in a Docker container. If you don't use Docker, you can "
-"run the command directly with:"
-msgstr ""
-
-#. type: Plain text
-#: en/./developers/03_Running_tests.md:23
-#, no-wrap
-msgid "$ php ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./developers/03_Running_tests.md:28
-msgid ""
-"If the command fails, you can take a look at the Makefile to verify if the "
-"command had changed."
-msgstr ""
-
 #. type: Title ##
-#: en/./developers/03_Running_tests.md:29
+#: en/./developers/03_Running_tests.md:21
 #, no-wrap
 msgid "Travis"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/03_Running_tests.md:32
+#: en/./developers/03_Running_tests.md:24
 msgid ""
 "Tests are automatically run when you open a pull request on GitHub. It is "
 "done with [Travis CI](https://travis-ci.org/FreshRSS/FreshRSS/). This is "
@@ -3074,7 +3056,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/03_Running_tests.md:33
+#: en/./developers/03_Running_tests.md:25
 #, fuzzy
 #| msgid ""
 #| "If your request is new, [open a new bug ticket](https://github.com/"

@@ -4,27 +4,19 @@ FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be merged
 
 ## Locally
 
-As a developer, you can run the test suite on your PC easily with `make` commands. First, you should install PHPUnit with:
+As a developer, you can run the test suite on your PC easily with `make` commands. You can run the test suite with:
 
 ```console
-$ make bin/phpunit
+$ make test
 ```
 
-This commands download the binary and verify its checksum. If the verification fails, the file is deleted. In this case, you should [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let maintainers know about the problem.
+This command downloads the PHPUnit binary and verifies its checksum. If the verification fails, the file is deleted. In this case, you should [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let maintainers know about the problem.
 
-Then, you can run the test suite with:
+Then, it executes PHPUnit in a Docker container. If you don't use Docker, you can run the command directly with:
 
 ```console
-$ make tests
+$ NO_DOCKER=true make test
 ```
-
-It executes PHPUnit in a Docker container. If you don't use Docker, you can run the command directly with:
-
-```console
-$ php ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
-```
-
-If the command fails, you can take a look at the Makefile to verify if the command had changed.
 
 ## Travis
 

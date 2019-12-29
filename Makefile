@@ -7,6 +7,18 @@ endif
 PORT ?= 8080
 PHP := $(shell sh -c 'which php')
 
+ifdef NO_DOCKER
+	PHP = php
+else
+	PHP = docker run \
+		--rm \
+		--volume $(shell pwd):/var/www/FreshRSS:z \
+		--env FRESHRSS_ENV=development \
+		--name freshrss-php-cli \
+		freshrss/freshrss:$(TAG) \
+		php
+endif
+
 ifeq ($(findstring alpine,$(TAG)),alpine)
 	DOCKERFILE=Dockerfile-Alpine
 else ifeq ($(findstring arm,$(TAG)),arm)
@@ -48,14 +60,8 @@ bin/phpunit: ## Install PHPUnit for test purposes
 	echo '5404288061420c3921e53dd3a756bf044be546c825c5e3556dea4c51aa330f69 bin/phpunit' | sha256sum -c - || rm bin/phpunit
 
 .PHONY: test
-test: ## Run the test suite
-	docker run \
-		--rm \
-		--volume $(shell pwd):/var/www/FreshRSS:z \
-		--env FRESHRSS_ENV=development \
-		--name freshrss-test \
-		freshrss/freshrss:$(TAG) \
-		php ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
+test: bin/phpunit ## Run the test suite
+	$(PHP) ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 ##########
 ## I18N ##
