@@ -117,6 +117,7 @@ if ($self !== base64url_decode($canonical64)) {
 }
 
 Minz_ExtensionManager::init();
+Minz_Translate::init();
 
 $nb = 0;
 foreach ($users as $userFilename) {
@@ -136,6 +137,7 @@ foreach ($users as $userFilename) {
 		FreshRSS_Context::init();
 		if (FreshRSS_Context::$user_conf != null) {
 			Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);
 		}
 
 		list($updated_feeds, $feed, $nb_new_articles) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
