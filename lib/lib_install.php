@@ -87,16 +87,19 @@ function initDb() {
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
+	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
 		Minz_ModelPdo::$usesSharedPdo = false;
 		$dbBase = isset($db['base']) ? $db['base'] : '';
-		//Use default database for PostgreSQL, empty database for MySQL / MariaDB:
+		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
 		$conf->db = $db;
 		//First connection without database name to create the database
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		//Restore final database parameters for auto-creation and for future connections
 		$db['base'] = $dbBase;
 		$conf->db = $db;
+		//Perfom database auto-creation
 		$databaseDAO->create();
 	}
 
