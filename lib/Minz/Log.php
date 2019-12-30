@@ -20,11 +20,14 @@ class Minz_Log {
 	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
-		try {
-			$conf = Minz_Configuration::get('system');
-			$env = $conf->environment;
-		} catch (Minz_ConfigurationException $e) {
-			$env = 'production';
+		$env = getenv('FRESHRSS_ENV');
+		if ($env == '') {
+			try {
+				$conf = Minz_Configuration::get('system');
+				$env = $conf->environment;
+			} catch (Minz_ConfigurationException $e) {
+				$env = 'production';
+			}
 		}
 
 		if (! ($env === 'silent'

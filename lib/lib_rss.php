@@ -189,7 +189,14 @@ function html_only_entity_decode($text) {
 }
 
 function prepareSyslog() {
-	return COPY_SYSLOG_TO_STDERR ? openlog("FreshRSS", LOG_PERROR | LOG_PID, LOG_USER) : false;
+	if (defined('SYSLOG_PREPARED')) {
+		return null;
+	}
+	define('SYSLOG_PREPARED', true);
+	return COPY_SYSLOG_TO_STDERR ? openlog('FreshRSS', LOG_PERROR | LOG_PID, LOG_USER) : false;
+}
+if (COPY_LOG_TO_SYSLOG) {
+	prepareSyslog();
 }
 
 function customSimplePie($attributes = array()) {
