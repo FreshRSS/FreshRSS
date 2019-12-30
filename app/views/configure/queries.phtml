@@ -1,70 +1,70 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<form method="post" action="<?php echo _url('configure', 'queries'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('conf.query'); ?></legend>
+	<form method="post" action="<?= _url('configure', 'queries') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<legend><?= _t('conf.query') ?></legend>
 
 		<?php foreach ($this->queries as $key => $query) { ?>
-		<div class="form-group" id="query-group-<?php echo $key; ?>">
-			<label class="group-name" for="queries_<?php echo $key; ?>_name">
-				<?php echo _t('conf.query.number', $key + 1); ?>
+		<div class="form-group" id="query-group-<?= $key ?>">
+			<label class="group-name" for="queries_<?= $key ?>_name">
+				<?= _t('conf.query.number', $key + 1) ?>
 			</label>
 
 			<div class="group-controls">
-				<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][url]" value="<?php echo $query->getUrl(); ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo $query->getSearch(); ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo $query->getState(); ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo $query->getOrder(); ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo $query->getGet(); ?>"/>
+				<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
+				<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= $query->getSearch() ?>"/>
+				<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
+				<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
+				<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
 
 				<div class="stick">
 					<input class="extend"
 					       type="text"
-					       id="queries_<?php echo $key; ?>_name"
-					       name="queries[<?php echo $key; ?>][name]"
-					       value="<?php echo $query->getName(); ?>"
-					       data-leave-validation="<?php echo $query->getName(); ?>"
+					       id="queries_<?= $key ?>_name"
+					       name="queries[<?= $key ?>][name]"
+					       value="<?= $query->getName() ?>"
+					       data-leave-validation="<?= $query->getName() ?>"
 					/>
 
-					<a class="btn" href="<?php echo $query->getUrl(); ?>">
-						<?php echo _i('link'); ?>
+					<a class="btn" href="<?= $query->getUrl() ?>" title="<?= _t('conf.query.display') ?>">
+						<?= _i('link') ?>
 					</a>
 
-					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?php echo $key; ?>">
-						<?php echo _i('close'); ?>
+					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?= $key ?>" title="<?= _t('conf.query.remove') ?>">
+						<?= _i('close') ?>
 					</a>
 				</div>
 
 				<?php if (!$query->hasParameters()) { ?>
 				<div class="alert alert-warn">
-					<div class="alert-head"><?php echo _t('conf.query.no_filter'); ?></div>
+					<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
 				</div>
 				<?php } elseif ($query->isDeprecated()) { ?>
 				<div class="alert alert-error">
-					<div class="alert-head"><?php echo _t('conf.query.deprecated'); ?></div>
+					<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
 				</div>
 				<?php } else { ?>
 				<div class="alert alert-success">
-					<div class="alert-head"><?php echo _t('conf.query.filter'); ?></div>
+					<div class="alert-head"><?= _t('conf.query.filter') ?></div>
 
 					<ul>
 						<?php if ($query->hasSearch()) { ?>
-						<li class="item"><?php echo _t('conf.query.search', $query->getSearch()->getRawInput()); ?></li>
+						<li class="item"><?= _t('conf.query.search', $query->getSearch()->getRawInput()) ?></li>
 						<?php } ?>
 
 						<?php if ($query->getState()) { ?>
-						<li class="item"><?php echo _t('conf.query.state_' . $query->getState()); ?></li>
+						<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
 						<?php } ?>
 
 						<?php if ($query->getOrder()) { ?>
-						<li class="item"><?php echo _t('conf.query.order_' . strtolower($query->getOrder())); ?></li>
+						<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
 						<?php } ?>
 
 						<?php if ($query->getGet()) { ?>
-						<li class="item"><?php echo _t('conf.query.get_' . $query->getGetType(), $query->getGetName()); ?></li>
+						<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
 						<?php } ?>
 					</ul>
 				</div>
@@ -76,12 +76,12 @@
 		<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 		<?php } else { ?>
-		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('conf.query.none'); ?></p>
+		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('conf.query.none') ?></p>
 		<?php } ?>
 	</form>
 

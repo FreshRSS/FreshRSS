@@ -25,8 +25,7 @@ class Minz_ModelArray {
 	protected function loadArray() {
 		if (!file_exists($this->filename)) {
 			throw new Minz_FileNotExistException($this->filename, Minz_Exception::WARNING);
-		}
-		elseif (($handle = $this->getLock()) === false) {
+		} elseif (($handle = $this->getLock()) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		} else {
 			$data = include($this->filename);
@@ -49,7 +48,7 @@ class Minz_ModelArray {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
 		if (function_exists('opcache_invalidate')) {
-			opcache_invalidate($this->filename);	//Clear PHP 5.5+ cache for include
+			opcache_invalidate($this->filename);	//Clear PHP cache for include
 		}
 		return true;
 	}

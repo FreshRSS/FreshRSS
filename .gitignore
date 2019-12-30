@@ -1,0 +1,18 @@
+/bin
+constants.local.php
+
+# Temp files
+*~
+*.bak
+*.backup
+\#*
+.\#*
+*\#
+*.swp
+*.swap
+*.sav
+*.save
+*.autosav
+*.autosave
+*.sass-cache
+sass.sh

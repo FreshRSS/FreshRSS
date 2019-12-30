@@ -1,14 +1,26 @@
 <?php
 
+# Do not modify this file, which defines default values, but create a
+# `./data/config-user.custom.php` file instead, containing the keys you want to
+# override.
 return array (
 	'language' => 'en',
-	'old_entries' => 3,
-	'keep_history_default' => 50,
+	'archiving' => [
+		'keep_period' => 'P3M',
+		'keep_max' => 200,
+		'keep_min' => 50,
+		'keep_favourites' => true,
+		'keep_labels' => true,
+		'keep_unreads' => false,
+	],
 	'ttl_default' => 3600,
 	'mail_login' => '',
+	'email_validation_token' => '',
 	'token' => '',
 	'passwordHash' => '',
 	'apiPasswordHash' => '',
+	//feverKey is md5($user . ':' . $apiPasswordPlain)
+	'feverKey' => '',
 	'posts_per_page' => 20,
 	'since_hours_posts_per_rss' => 168,
 	'min_posts_per_rss' => 2,
@@ -47,6 +59,8 @@ return array (
 		'go_website' => 'space',
 		'next_entry' => 'j',
 		'prev_entry' => 'k',
+		'skip_next_entry' => 'n',
+		'skip_prev_entry' => 'p',
 		'first_entry' => 'home',
 		'last_entry' => 'end',
 		'collapse_entry' => 'c',
@@ -56,9 +70,14 @@ return array (
 		'user_filter' => 'u',
 		'help' => 'f1',
 		'close_dropdown' => 'escape',
+		'normal_view' => '1',
+		'global_view' => '2',
+		'reading_view' => '3',
+		'rss_view' => '4',
 	),
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_display_authors' => false,
 	'topline_date' => true,
 	'topline_link' => true,
 	'bottomline_read' => true,
@@ -72,5 +91,6 @@ return array (
 	'queries' => array (
 	),
 	'html5_notif_timeout' => 0,
+	'show_nav_buttons' => true,
 	'extensions_enabled' => array(),
 );

@@ -17,20 +17,19 @@ return array(
 		'type' => 'Authentifizierungsmethode',
 	),
 	'bdd' => array(
-		'_' => 'Datenbank',
 		'conf' => array(
-			'_' => 'Datenbank-Konfiguration',
 			'ko' => 'Überprüfen Sie Ihre Datenbank-Information.',
 			'ok' => 'Datenbank-Konfiguration ist gespeichert worden.',
+			'_' => 'Datenbank-Konfiguration',
 		),
-		'host' => 'Host',
-		'prefix' => 'Tabellen-Präfix',
+		'host' => 'Host',	// TODO - Translation
 		'password' => 'SQL-Password',
+		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
 		'username' => 'SQL-Nutzername',
+		'_' => 'Datenbank',
 	),
 	'check' => array(
-		'_' => 'Überprüfungen',
 		'already_installed' => 'Wir haben festgestellt, dass FreshRSS bereits installiert wurde!',
 		'cache' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/cache</em>. Der HTTP-Server muss Schreibrechte besitzen.',
@@ -68,6 +67,10 @@ return array(
 			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
 			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
 		),
+		'mbstring' => array(
+			'nok' => 'Es fehlt die empfohlene mbstring-Bibliothek für Unicode.',
+			'ok' => 'Sie haben die empfohlene mbstring-Bibliothek für Unicode.',
+		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',
 			'ok' => 'Sie haben das Minz-Framework.',
@@ -92,10 +95,11 @@ return array(
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
 			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
 		),
+		'_' => 'Überprüfungen',
 	),
 	'conf' => array(
-		'_' => 'Allgemeine Konfiguration',
 		'ok' => 'Die allgemeine Konfiguration ist gespeichert worden.',
+		'_' => 'Allgemeine Konfiguration',
 	),
 	'congratulations' => 'Glückwunsch!',
 	'default_user' => 'Nutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
@@ -106,14 +110,14 @@ return array(
 		'confirm_reinstall' => 'Du wirst deine vorherige Konfiguration (Daten) verlieren FreshRSS. Bist du sicher, dass du fortfahren willst?',
 	),
 	'language' => array(
-		'_' => 'Sprache',
 		'choose' => 'Wählen Sie eine Sprache für FreshRSS',
 		'defined' => 'Die Sprache ist festgelegt worden.',
+		'_' => 'Sprache',
 	),
 	'not_deleted' => 'Etwas ist schiefgelaufen; Sie müssen die Datei <em>%s</em> manuell löschen.',
 	'ok' => 'Der Installationsvorgang war erfolgreich.',
 	'step' => 'Schritt %d',
 	'steps' => 'Schritte',
-	'title' => 'Installation · FreshRSS',
 	'this_is_the_end' => 'Das ist das Ende',
+	'title' => 'Installation · FreshRSS',	// TODO - Translation
 );

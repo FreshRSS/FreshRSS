@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Installazione files',
 		'json' => array(
-			'nok' => 'Manca il supoorto a JSON (pacchetto php5-json).',
+			'nok' => 'Manca il supoorto a JSON (pacchetto php-json).',
 			'ok' => 'Estensione JSON presente.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Manca il framework Minz.',
@@ -79,9 +83,9 @@ return array(
 			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'Installazione PHP',
 			'nok' => 'Versione PHP %s FreshRSS richiede almeno la versione %s.',
 			'ok' => 'Versione PHP %s, compatibile con FreshRSS.',
+			'_' => 'Installazione PHP',
 		),
 		'tables' => array(
 			'nok' => 'Rilevate tabelle mancanti nel database.',
@@ -102,19 +106,25 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',	// TODO - Translation
+		'community' => 'Available community extensions',	// TODO - Translation
+		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Disabilitata',
 		'empty_list' => 'Non ci sono estensioni installate',
 		'enabled' => 'Abilitata',
+		'latest' => 'Installed',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
 		'system' => array(
-			'_' => 'Estensioni di sistema',
 			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
+			'_' => 'Estensioni di sistema',
 		),
 		'title' => 'Estensioni',
+		'update' => 'Update available',	// TODO - Translation
 		'user' => 'Estensioni utente',
+		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
-		'_' => 'Statistiche',
 		'all_feeds' => 'Tutti i feeds',
 		'category' => 'Categoria',
 		'entry_count' => 'Articoli',
@@ -124,7 +134,7 @@ return array(
 		'entry_per_hour' => 'Per ora (media: %.2f articoli)',
 		'entry_per_month' => 'Per mese (media: %.2f articoli)',
 		'entry_repartition' => 'Ripartizione contenuti',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// TODO - Translation
 		'feed_per_category' => 'Feeds per categoria',
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
@@ -144,10 +154,15 @@ return array(
 		'status_unread' => 'Non letti',
 		'title' => 'Statistiche',
 		'top_feed' => 'I migliori 10 feeds',
+		'_' => 'Statistiche',
 	),
 	'system' => array(
-		'_' => 'Configurazione di sistema',
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
+		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'in seconds',	// TODO - Translation
+			'number' => 'Duration to keep logged in',	// TODO - Translation
+		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
 		'instance-name' => 'Nome istanza',
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
@@ -155,27 +170,37 @@ return array(
 			'help' => '0 significa che non esiste limite sui profili',
 			'number' => 'Numero massimo di profili',
 		),
+		'_' => 'Configurazione di sistema',
 	),
 	'update' => array(
-		'_' => 'Aggiornamento sistema',
 		'apply' => 'Applica',
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
 		'current_version' => 'FreshRSS versione %s.',
 		'last' => 'Ultima verifica: %s',
 		'none' => 'Nessun aggiornamento da applicare',
 		'title' => 'Aggiorna sistema',
+		'_' => 'Aggiornamento sistema',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articoli (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Crea nuovo utente',
+		'database_size' => 'Database size',	// TODO - Translation
+		'delete_users' => 'Delete user',	// TODO - Translation
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Lingua',
+		'list' => 'User list',	// TODO - Translation
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
+		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Gestione utenti',
-		'user_list' => 'Lista utenti',
+		'update_users' => 'Update user',	// TODO - Translation
 		'username' => 'Nome utente',
 		'users' => 'Utenti',
+		'user_list' => 'Lista utenti',
 	),
 );

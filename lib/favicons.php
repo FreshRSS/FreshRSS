@@ -1,6 +1,6 @@
 <?php
-$favicons_dir = DATA_PATH . '/favicons/';
-$default_favicon = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
+const FAVICONS_DIR = DATA_PATH . '/favicons/';
+const DEFAULT_FAVICON = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
 function isImgMime($content) {
 	//Based on https://github.com/ArthurHoaro/favicon/blob/3a4f93da9bb24915b21771eb7873a21bde26f5d1/src/Favicon/Favicon.php#L311-L319
@@ -16,29 +16,29 @@ function isImgMime($content) {
 		$isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
 		finfo_close($fInfo);
 	} catch (Exception $e) {
+		echo 'Caught exception: ',  $e->getMessage(), "\n";
 	}
 	return $isImage;
 }
 
 function downloadHttp(&$url, $curlOptions = array()) {
+	prepareSyslog();
 	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
 	if (substr($url, 0, 2) === '//') {
-		$url = 'https:' . $favicon;
+		$url = 'https:' . $url;
 	}
 	if ($url == '' || filter_var($url, FILTER_VALIDATE_URL) === false) {
 		return '';
 	}
 	$ch = curl_init($url);
-	curl_setopt_array($ch, array(
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_MAXREDIRS => 10,
+	curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 15,
-			CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
-		));
-	if (defined('CURLOPT_ENCODING')) {
-		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-	}
+			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_ENCODING => '',	//Enable all encodings
+		]);
 	curl_setopt_array($ch, $curlOptions);
 	$response = curl_exec($ch);
 	$info = curl_getinfo($ch);
@@ -85,7 +85,6 @@ function searchFavicon(&$url) {
 }
 
 function download_favicon($url, $dest) {
-	global $default_favicon;
 	$url = trim($url);
 	$favicon = searchFavicon($url);
 	if ($favicon == '') {
@@ -105,5 +104,5 @@ function download_favicon($url, $dest) {
 		}
 	}
 	return ($favicon != '' && file_put_contents($dest, $favicon)) ||
-		@copy($default_favicon, $dest);
+		@copy(DEFAULT_FAVICON, $dest);
 }

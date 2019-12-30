@@ -12,7 +12,7 @@
 
 # Refreshing feeds
 
-To use FreshRSS at its full potential, it needs to grab subscribed feeds new articles. To do so, you have several methods available.
+To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this.
 
 ## Automatic update
 
@@ -20,7 +20,7 @@ This is the recommended method since you can forget about it once it is configur
 
 ### With the actualize_script.php script
 
-This method is available only if you have access to the installation server scheduled tasks.
+This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
 The script is named *actualize_script.php* and is located in the *app* folder. The scheduled task syntax will not be explained here. However, here is [a quick introduction to crontab](http://www.adminschoice.com/crontab-quick-reference/) that might help you.
 
@@ -30,55 +30,77 @@ Here is an example to trigger article update every hour.
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
+Special parameters to configure the script - all parameters can be combined:
+
+- Parameter "force"
+https://freshrss.example.net/i/?c=feed&a=actualize&force=1
+If *force* is set to 1 all feeds will be refreshed at once.
+
+- Parameter "ajax"
+https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1
+Only a status site is returned and not a complete website. Example: "OK"
+
+- Parameter "maxFeeds"
+https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30
+If *maxFeeds* is set the configured amount of feeds is refreshed at once. The default setting is "10".
+
+- Parameter "token"
+https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734
+Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
 ### Online cron
 
 If you do not have access to the installation server scheduled task, you can still automate the update process.
 
-To do so, you need to create a scheduled task, which need to call a specific URL: https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
+To do so, you need to create a scheduled task, which need to call a specific URL: https://freshrss.example.net/i/?c=feed&a=actualize (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
 
 #### No authentication
 
 This is the most straightforward since you have a public instance; there is nothing special to configure:
 
 ```cron
-0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
-### Form or Persona authentication
+### Form authentication
 
-In those cases, if you configure the application to allow anonymous reading, you can also allow anonymous user to update feeds (“Allow anonymous refresh of the articles”).
+If you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”).
 
 ![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
-The URL used in the previous section becomes accessible and therefore, you can use the same syntax for the scheduled task.
+The URL used in the previous section will now become accessible to anyone. Therefore you can use the same syntax for the scheduled task.
 
-You can also configure an authentication token to grant a special right on the server.
+You can also configure an authentication token to grant special access on the server.
 
 ![Token configuration](../img/users/token.1.png)
 
-The scheduled task syntax to use will be the following:
+The scheduled task syntax should look as follows:
 
 ```cron
-0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize&token=my-token'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
 ```
 
+You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+
+```cron
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
+```
 
 ### HTTP authentication
 
-In that case, the syntax in the two previous section are unusable. It means that you need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
+When using HTTP authentication, the syntax in the two previous sections is unusable. You'll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
 
 ```cron
-0 * * * * curl -u alice:password123 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
 ## Manual update
 
-If you cannot or do not want to use the automatic methods, you can make it manually. There is two ways, the partial or the complete update.
+If you can't or don't want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
 
 ### Complete update
 
-This update occurs on all feeds. To trigger it, you need to click on the navigation menu update link.
+This update occurs on all feeds. To trigger it, simply click on the update link in the navigation menu.
 
 ![Navigation menu](../img/users/refresh.1.png)
 
@@ -88,24 +110,24 @@ When the update starts, a progress bar appears and changes while feeds are proce
 
 ### Partial update
 
-This update occurs on the selected feed only. To trigger it, you need to click on the feed menu update link.
+This update occurs on the selected feed only. To trigger it, simply click on the update link in the feed menu.
 
 ![Feed menu](../img/users/refresh.2.png)
 
 # Filtering articles
 
-While the number of articles stored by FreshRSS increase, it is important to have efficient filters to display only a subset of the articles. There is several methods with different criterion. Most of the time, those methods can be combined.
+When the number of articles stored by FreshRSS inevitably grows larger, it's important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
-##By category
+## By category
 
-It is the easiest method. The only thing to do is clicking on the category title in the side panel. There is two special categories on top of that panel:
+This is the easiest method. You only need to click on the category title in the side panel. There are two special categories at the top of the panel:
 
-  * *Main feed* which displays only articles from feeds marked as available in that category
-  * *Favourites* which displays only articles marked as favourites
+  * *Main feed* displays only articles from feeds marked as available in that category
+  * *Favourites* displays only articles marked as favourites
 
-##By feed
+## By feed
 
-There is several methods to filter articles by feed:
+There are several methods to filter articles by feed:
 
   * by clicking the feed title in the side panel
   * by clicking the feed title in the article details
@@ -114,11 +136,11 @@ There is several methods to filter articles by feed:
 
 ![Feed filter](../img/users/feed.filter.1.png)
 
-##By status
+## By status
 
-Each article has two attributes, which can be combined. The first attribute indicates if the article was read or not. The second attribute indicates if the article was marked as favorite or not.
+Each article has two attributes that can be combined. The first attribute indicates whether or not the article has been read. The second attribute indicates if the article was marked as favorite or not.
 
-With version 0.7, attribute filters are available in the article display dropdown list. With this version, it is not possible to combine those filters. For instance, it is not possible to display only read and favourite articles.
+In version 0.7, attribute filters are available in the article display dropdown list. With this version, it's not possible to combine filters. For instance, it's not possible to display only read and favorite articles.
 
 ![Attribute filters in 0.7](../img/users/status.filter.0.7.png)
 
@@ -128,13 +150,13 @@ Starting with version 0.8, all attribute filters are visible as toggle icons. Th
 
 By default, this filter displays only unread articles
 
-##By content
+## By content
 
 It is possible to filter articles by their content by inputting a string in the search field.
 
-##With the search field
+## With the search field
 
-It is possible to use the search field to further refine results:
+You can use the search field to further refine results:
 
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
@@ -175,9 +197,12 @@ It is possible to use the search field to further refine results:
 		* `date:P1DT1H/` (past one day and one hour)
 * by date of publication, using the same format: `pubdate:<date-interval>`
 
-Beware that there is no space between the operator and the value.
+Be careful not to enter a space between the operator and the search value.
 
 Some operators can be used negatively, to exclude articles, with the same syntax as above, but prefixed by a `!` or `-`:
 `-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`.
 
-It is also possible to combine operators to have a very sharp filter, and it is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`, `#`, and free-text.
+It is also possible to combine keywords to create a more precise filter. For example, you can enter multiple instances of `author:`, `intitle:`, `inurl:`, `#`, and free-text.
+
+Combining several search criteria implies a logical *and*, but the keyword ` OR ` can be used to combine several search criteria with a logical *or* instead:
+`author:Dupont OR author:Dupond`

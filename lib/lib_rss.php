@@ -1,21 +1,13 @@
 <?php
-if (!function_exists('json_decode')) {
-	require_once('JSON.php');
-	function json_decode($var, $assoc = false) {
-		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
-		return $JSON->decode($var);
-	}
+if (version_compare(PHP_VERSION, '5.6.0', '<')) {
+	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
 }
 
-if (!function_exists('json_encode')) {
-	require_once('JSON.php');
-	function json_encode($var) {
-		$JSON = new Services_JSON();
-		return $JSON->encodeUnsafe($var);
+if (!function_exists('mb_strcut')) {
+	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
+		return substr($str, $start, $length);
 	}
 }
-
-defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
 /**
  * Build a directory path by concatenating a list of directory names.
@@ -47,6 +39,8 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'PHPMailer') === 0) {
+		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	}
 }
 
@@ -55,13 +49,19 @@ spl_autoload_register('classAutoloader');
 
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
-		$parts = parse_url($url);
-		if (!empty($parts['host'])) {
-			$idn = $parts['host'];
-			$puny = idn_to_ascii($idn);
+		$idn = parse_url($url, PHP_URL_HOST);
+		if ($idn != '') {
+			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
+			if (defined('INTL_IDNA_VARIANT_UTS46')) {
+				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
+				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+			} else {
+				$puny = idn_to_ascii($idn);
+			}
 			$pos = strpos($url, $idn);
-			if ($pos !== false) {
-				return substr_replace($url, $puny, $pos, strlen($idn));
+			if ($puny != '' && $pos !== false) {
+				$url = substr_replace($url, $puny, $pos, strlen($idn));
 			}
 		}
 	}
@@ -87,6 +87,31 @@ function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
+if (function_exists('mb_convert_encoding')) {
+	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+} elseif (function_exists('iconv')) {
+	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+} else {
+	function safe_utf8($text) { return $text; }
+}
+
+function escapeToUnicodeAlternative($text, $extended = true) {
+	$text = htmlspecialchars_decode($text, ENT_QUOTES);
+
+	//Problematic characters
+	$problem = array('&', '<', '>');
+	//Use their fullwidth Unicode form instead:
+	$replace = array('＆', '＜', '＞');
+
+	// https://raw.githubusercontent.com/mihaip/google-reader-api/master/wiki/StreamId.wiki
+	if ($extended) {
+		$problem += array("'", '"', '^', '?', '\\', '/', ',', ';');
+		$replace += array("’", '＂', '＾', '？', '＼', '／', '，', '；');
+	}
+
+	return trim(str_replace($problem, $replace, $text));
+}
+
 /**
  * Test if a given server address is publicly accessible.
  *
@@ -94,24 +119,28 @@ function safe_ascii($text) {
  * localhost address.
  *
  * @param $address the address to test, can be an IP or a URL.
- * @return true if server is accessible, false else.
+ * @return true if server is accessible, false otherwise.
  * @todo improve test with a more valid technique (e.g. test with an external server?)
  */
 function server_is_public($address) {
 	$host = parse_url($address, PHP_URL_HOST);
 
 	$is_public = !in_array($host, array(
-		'127.0.0.1',
 		'localhost',
 		'localhost.localdomain',
 		'[::1]',
+		'ip6-localhost',
 		'localhost6',
 		'localhost6.localdomain6',
 	));
 
-	return $is_public;
-}
+	if ($is_public) {
+		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
+		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
+	}
 
+	return (bool)$is_public;
+}
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
@@ -134,7 +163,7 @@ function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return format_number($bytes, $precision) . ' ' . $units[$pow];
+	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
@@ -151,45 +180,55 @@ function timestamptodate ($t, $hour = true) {
 function html_only_entity_decode($text) {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
-		if (version_compare(PHP_VERSION, '5.3.4') >= 0) {
-			$htmlEntitiesOnly = array_flip(array_diff(
-				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
-				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
-			));
-		} else {
-			$htmlEntitiesOnly = array_map('utf8_encode', array_flip(array_diff(
-				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES),	//Decode HTML entities
-				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES)	//Preserve XML entities
-			)));
-		}
+		$htmlEntitiesOnly = array_flip(array_diff(
+			get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+		));
 	}
 	return strtr($text, $htmlEntitiesOnly);
 }
 
-function customSimplePie() {
+function prepareSyslog() {
+	return COPY_SYSLOG_TO_STDERR ? openlog("FreshRSS", LOG_PERROR | LOG_PID, LOG_USER) : false;
+}
+
+function customSimplePie($attributes = array()) {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent('FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
+	if ($system_conf->simplepie_syslog_enabled) {
+		prepareSyslog();
+	}
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
-	$simplePie->set_timeout($limits['timeout']);
-	$simplePie->set_curl_options($system_conf->curl_options);
+
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
+
+	$curl_options = $system_conf->curl_options;
+	if (isset($attributes['ssl_verify'])) {
+		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
+		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+	}
+	$simplePie->set_curl_options($curl_options);
+
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
+		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
-		'audio' => array('preload' => 'none'),
+		'audio' => array('controls' => 'controls', 'preload' => 'none'),
 		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('preload' => 'none'),
+		'video' => array('controls' => 'controls', 'preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
@@ -227,6 +266,9 @@ function customSimplePie() {
 }
 
 function sanitizeHTML($data, $base = '') {
+	if (!is_string($data)) {
+		return '';
+	}
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = customSimplePie();
@@ -235,30 +277,18 @@ function sanitizeHTML($data, $base = '') {
 	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
 }
 
-/* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
-function get_content_by_parsing ($url, $path) {
-	require_once(LIB_PATH . '/lib_phpQuery.php');
-
-	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-	$html = file_get_contents($url);
-
-	if ($html) {
-		$doc = phpQuery::newDocument($html);
-		$content = $doc->find($path);
-
-		foreach (pq('img[data-src]') as $img) {
-			$imgP = pq($img);
-			$dataSrc = $imgP->attr('data-src');
-			if (strlen($dataSrc) > 4) {
-				$imgP->attr('src', $dataSrc);
-				$imgP->removeAttr('data-src');
-			}
-		}
-
-		return sanitizeHTML($content->__toString(), $url);
-	} else {
-		throw new Exception();
-	}
+/**
+ * Validate an email address, supports internationalized addresses.
+ *
+ * @param string $email The address to validate
+ *
+ * @return bool true if email is valid, else false
+ */
+function validateEmailAddress($email) {
+	$mailer = new PHPMailer\PHPMailer\PHPMailer();
+	$mailer->Charset = 'utf-8';
+	$punyemail = $mailer->punyencodeAddress($email);
+	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
 }
 
 /**
@@ -276,12 +306,7 @@ function lazyimg($content) {
 
 function uTimeString() {
 	$t = @gettimeofday();
-	return $t['sec'] . str_pad($t['usec'], 6, '0');
-}
-
-function uSecString() {
-	$t = @gettimeofday();
-	return str_pad($t['usec'], 6, '0');
+	return $t['sec'] . str_pad($t['usec'], 6, '0', STR_PAD_LEFT);
 }
 
 function invalidateHttpCache($username = '') {
@@ -289,7 +314,11 @@ function invalidateHttpCache($username = '') {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_Session::param('currentUser', '_');
 	}
-	return touch(join_path(DATA_PATH, 'users', $username, 'log.txt'));
+	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
+	//if (!$ok) {
+		//TODO: Display notification error on front-end
+	//}
+	return $ok;
 }
 
 function listUsers() {
@@ -344,8 +373,9 @@ function get_user_configuration($username) {
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
+		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage());
+		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 		return null;
 	}
 
@@ -354,7 +384,14 @@ function get_user_configuration($username) {
 
 
 function httpAuthUser() {
-	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
+	if (!empty($_SERVER['REMOTE_USER'])) {
+		return $_SERVER['REMOTE_USER'];
+	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
+		return $_SERVER['REDIRECT_REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+		return $_SERVER['HTTP_X_WEBAUTH_USER'];
+	}
+	return '';
 }
 
 function cryptAvailable() {
@@ -362,6 +399,7 @@ function cryptAvailable() {
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
 		return $hash === @crypt('password', $hash);
 	} catch (Exception $e) {
+		Minz_Log::warning($e->getMessage());
 	}
 	return false;
 }
@@ -391,17 +429,19 @@ function is_referer_from_same_domain() {
  */
 function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.3.3') >= 0,
+		'php' => version_compare(PHP_VERSION, '5.5.0') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
-		'pdo' => $pdo_mysql || $pdo_sqlite,
+		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
 		'pcre' => extension_loaded('pcre'),
 		'ctype' => extension_loaded('ctype'),
 		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
+		'mbstring' => extension_loaded('mbstring'),
 		'zip' => extension_loaded('zip'),
 	);
 }
@@ -435,6 +475,9 @@ function check_install_database() {
 		'categories' => false,
 		'feeds' => false,
 		'entries' => false,
+		'entrytmp' => false,
+		'tag' => false,
+		'entrytag' => false,
 	);
 
 	try {
@@ -444,6 +487,9 @@ function check_install_database() {
 		$status['categories'] = $dbDAO->categoryIsCorrect();
 		$status['feeds'] = $dbDAO->feedIsCorrect();
 		$status['entries'] = $dbDAO->entryIsCorrect();
+		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+		$status['tag'] = $dbDAO->tagIsCorrect();
+		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
 	} catch(Minz_PDOConnectionException $e) {
 		$status['connection'] = false;
 	}
@@ -477,7 +523,6 @@ function recursive_unlink($dir) {
 	return rmdir($dir);
 }
 
-
 /**
  * Remove queries where $get is appearing.
  * @param $get the get attribute which should be removed.
@@ -494,29 +539,6 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-
-/**
- * Add a value in an array and take care it is unique.
- * @param $array the array in which we add the value.
- * @param $value the value to add.
- */
-function array_push_unique(&$array, $value) {
-	$found = array_search($value, $array) !== false;
-	if (!$found) {
-		$array[] = $value;
-	}
-}
-
-
-/**
- * Remove a value from an array.
- * @param $array the array from wich value is removed.
- * @param $value the value to remove.
- */
-function array_remove(&$array, $value) {
-	$array = array_diff($array, array($value));
-}
-
 //RFC 4648
 function base64url_encode($data) {
 	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
@@ -528,4 +550,40 @@ function base64url_decode($data) {
 
 function _i($icon, $url_only = false) {
 	return FreshRSS_Themes::icon($icon, $url_only);
+}
+
+
+const SHORTCUT_KEYS = [
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+			'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
+			'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Backspace', 'Delete',
+			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
+		];
+
+function validateShortcutList($shortcuts) {
+	$legacy = array(
+			'down' => 'ArrowDown', 'left' => 'ArrowLeft', 'page_down' => 'PageDown', 'page_up' => 'PageUp',
+			'right' => 'ArrowRight', 'up' => 'ArrowUp',
+		);
+	$upper = null;
+	$shortcuts_ok = array();
+
+	foreach ($shortcuts as $key => $value) {
+		if (in_array($value, SHORTCUT_KEYS)) {
+			$shortcuts_ok[$key] = $value;
+		} elseif (isset($legacy[$value])) {
+			$shortcuts_ok[$key] = $legacy[$value];
+		} else {	//Case-insensitive search
+			if ($upper === null) {
+				$upper = array_map('strtoupper', SHORTCUT_KEYS);
+			}
+			$i = array_search(strtoupper($value), $upper);
+			if ($i !== false) {
+				$shortcuts_ok[$key] = SHORTCUT_KEYS[$i];
+			}
+		}
+	}
+	return $shortcuts_ok;
 }

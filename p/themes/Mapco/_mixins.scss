@@ -1,0 +1,71 @@
+/* stylelint-disable property-no-vendor-prefix */
+
+/* FUNCTIONS */
+
+//animation
+
+@mixin transition($target, $duration, $ease) {
+	-webkit-transition: $target $duration $ease;
+	-moz-transition: $target $duration $ease;
+	-o-transition: $target $duration $ease;
+	-ms-transition: $target $duration $ease;
+	transition: $target $duration $ease;
+}
+
+//animation
+
+@mixin animation-delay($delay) {
+	-webkit-animation-delay: $delay;
+	/* Safari 4.0 - 8.0 */
+	animation-delay: $delay;
+}
+
+//animation
+
+@mixin animation($animate...) {
+	$max: length($animate);
+	$animations: '';
+
+	@for $i from 1 through $max {
+		$animations: #{$animations + nth($animate, $i)};
+
+		@if $i < $max {
+			$animations: #{$animations + ", "};
+		}
+	}
+	-webkit-animation: $animations;
+	-moz-animation: $animations;
+	-o-animation: $animations;
+	-ms-transition: $animations;
+	animation: $animations;
+}
+
+//keyframes
+
+@mixin keyframes($animationName) {
+
+	@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+
+	@keyframes #{$animationName} {
+		@content;
+	}
+}
+
+@mixin border-radius($radius: 4px) {
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-ms-border-radius: $radius;
+	-o-border-radius: $radius;
+	-khtml-border-radius: $radius;
+	border-radius: $radius;
+}

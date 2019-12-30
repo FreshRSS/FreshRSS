@@ -1,6 +1,7 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
-/* globals init_load_more, init_posts, init_stream */
-/* jshint globalstrict: true */
+/* globals context, init_load_more, init_posts, init_stream */
+/* jshint esversion:6, strict:global */
 
 var panel_loading = false;
 
@@ -11,65 +12,88 @@ function load_panel(link) {
 
 	panel_loading = true;
 
-	$.get(link, function (data) {
-		$("#panel").append($(".nav_menu, #stream .day, #stream .flux, #stream .pagination, #stream.prompt", data));
+	const req = new XMLHttpRequest();
+	req.open('GET', link, true);
+	req.responseType = 'document';
+	req.onload = function (e) {
+			if (this.status != 200) {
+				return;
+			}
+			const html = this.response,
+				foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #stream .pagination, #stream.prompt'),
+				panel = document.getElementById('panel');
+			foreign.forEach(function (el) {
+					panel.appendChild(document.adoptNode(el));
+				});
+			panel.querySelectorAll('.nav_menu > :not([id="nav_menu_read_all"])').forEach(function (el) {
+					el.remove();
+				});
 
-		$("#panel .nav_menu").children().not("#nav_menu_read_all").remove();
+			init_load_more(panel);
+			init_posts();
 
-		init_load_more($("#panel"));
-		init_posts();
+			document.getElementById('overlay').classList.add('visible');
+			panel.classList.add('visible');
 
-		$("#overlay").fadeIn();
-		$("#panel").slideToggle();
+			// force le démarrage du scroll en haut.
+			// Sans ça, si l'on scroll en lisant une catégorie par exemple,
+			// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
+			panel.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
 
-		// force le démarrage du scroll en haut.
-		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
-		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
-		$("#panel").scrollTop(0);
-		$(window).scrollTop(0);
+			//We already have a click listener in main.js
+			panel.addEventListener('click', function (ev) {
+					const b = ev.target.closest('#nav_menu_read_all button, #bigMarkAsRead');
+					if (b) {
+						console.log(b.formAction);
 
-		$('#panel').on('click', '#nav_menu_read_all button, #bigMarkAsRead', function () {
-			console.log($(this).attr("formaction"));
-			$.ajax({
-				type: "POST",
-				url: $(this).attr("formaction"),
-				async: false
-			});
-			window.location.reload(false);
-			return false;
-		});
+						const req2 = new XMLHttpRequest();
+						req2.open('POST', b.formAction, false);
+						req2.setRequestHeader('Content-Type', 'application/json');
+						req2.send(JSON.stringify({
+								_csrf: context.csrf,
+							}));
+						if (req2.status == 200) {
+							location.reload(false);
+							return false;
+						}
+					}
+				});
 
-		panel_loading = false;
-	});
+			panel_loading = false;
+		};
+	req.send();
 }
 
 function init_close_panel() {
-	$("#overlay .close").click(function () {
-		$("#panel").html('');
-		$("#panel").slideToggle();
-		$("#overlay").fadeOut();
-
-		return false;
-	});
+	const panel = document.getElementById('panel');
+	document.querySelector('#overlay .close').onclick = function (ev) {
+			panel.innerHTML = '';
+			panel.classList.remove('visible');
+			document.getElementById('overlay').classList.remove('visible');
+			return false;
+		};
 }
 
 function init_global_view() {
-	// TODO: should be based on generic classes.
-	$(".box a").click(function () {
-		var link = $(this).attr("href");
+	// TODO: should be based on generic classes
+	document.querySelectorAll('.box a').forEach(function (a) {
+			a.onclick = function (ev) {
+					load_panel(a.href);
+					return false;
+				};
+		});
 
-		load_panel(link);
+	document.querySelectorAll('.nav_menu #nav_menu_read_all, .nav_menu .toggle_aside').forEach(function (el) {
+			el.remove();
+		});
 
-		return false;
-	});
-
-	$(".nav_menu #nav_menu_read_all, .nav_menu .toggle_aside").remove();
-
-	init_stream($("#panel"));
+	const panel = document.getElementById('panel');
+	init_stream(panel);
 }
 
 function init_all_global_view() {
-	if (!(window.$ && window.init_stream)) {
+	if (!window.context) {
 		if (window.console) {
 			console.log('FreshRSS Global view waiting for JS…');
 		}
@@ -82,8 +106,9 @@ function init_all_global_view() {
 
 if (document.readyState && document.readyState !== 'loading') {
 	init_all_global_view();
-} else if (document.addEventListener) {
+} else {
 	document.addEventListener('DOMContentLoaded', function () {
 		init_all_global_view();
 	}, false);
 }
+// @license-end

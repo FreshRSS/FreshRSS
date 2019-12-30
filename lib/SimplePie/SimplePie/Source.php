@@ -79,10 +79,8 @@ class SimplePie_Source
 		{
 			return $this->data['child'][$namespace][$tag];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_base($element = array())
@@ -130,10 +128,8 @@ class SimplePie_Source
 		{
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_category($key = 0)
@@ -143,10 +139,8 @@ class SimplePie_Source
 		{
 			return $categories[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_categories()
@@ -200,10 +194,8 @@ class SimplePie_Source
 		{
 			return array_unique($categories);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_author($key = 0)
@@ -213,10 +205,8 @@ class SimplePie_Source
 		{
 			return $authors[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_authors()
@@ -283,10 +273,8 @@ class SimplePie_Source
 		{
 			return array_unique($authors);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_contributor($key = 0)
@@ -296,10 +284,8 @@ class SimplePie_Source
 		{
 			return $contributors[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_contributors()
@@ -354,10 +340,8 @@ class SimplePie_Source
 		{
 			return array_unique($contributors);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_link($key = 0, $rel = 'alternate')
@@ -367,10 +351,8 @@ class SimplePie_Source
 		{
 			return $links[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -449,10 +431,8 @@ class SimplePie_Source
 		{
 			return $this->data['links'][$rel];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_description()
@@ -493,10 +473,8 @@ class SimplePie_Source
 		{
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_copyright()
@@ -521,10 +499,8 @@ class SimplePie_Source
 		{
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_language()
@@ -545,10 +521,8 @@ class SimplePie_Source
 		{
 			return $this->sanitize($this->data['xml_lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_latitude()
@@ -561,10 +535,8 @@ class SimplePie_Source
 		{
 			return (float) $match[1];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_longitude()
@@ -581,10 +553,8 @@ class SimplePie_Source
 		{
 			return (float) $match[2];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	public function get_image_url()
@@ -601,10 +571,7 @@ class SimplePie_Source
 		{
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 }
-

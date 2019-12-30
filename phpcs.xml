@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="FreshRSS Ruleset">
+	<description>Created with the PHP Coding Standard Generator. https://edorian.github.com/php-coding-standard-generator/</description>
+	<!-- to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
+	<arg name="tab-width" value="40"/>
+	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
+	<exclude-pattern>./lib/PHPMailer/</exclude-pattern>
+	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
+	<exclude-pattern>./lib/lib_phpQuery.php</exclude-pattern>
+	<!-- Duplicate class names are not allowed -->
+	<rule ref="Generic.Classes.DuplicateClassName"/>
+	<!-- Statements must not be empty -->
+	<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+	<!-- Unconditional if-statements are not allowed -->
+	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+	<!-- Do not use final statements inside final classes -->
+	<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+	<!-- Do not override methods to call their parent -->
+	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+	<!-- One line should not have more than 80 characters -->
+	<!-- One line must never exceed 120 characters -->
+	<rule ref="Generic.Files.LineLength">
+		<!-- For language strings maximum line lengths make little sense. -->
+		<exclude-pattern>./app/i18n/</exclude-pattern>
+		<!-- Don't enforce line length on the HTML; the point is to improve legibility, not reduce it -->
+		<exclude-pattern>./app/install.php</exclude-pattern>
+		<!-- @todo remove test exclusion -->
+		<exclude-pattern>./tests/app/</exclude-pattern>
+		<properties>
+			<property name="lineLimit" value="100"/>
+			<!-- needs to be large to accomodate extra large tab width to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
+			<property name="absoluteLineLimit" value="500"/>
+		</properties>
+	</rule>
+	<!-- When calling a function: -->
+	<!-- Do not add a space before the opening parenthesis -->
+	<!-- Do not add a space after the opening parenthesis -->
+	<!-- Do not add a space before the closing parenthesis -->
+	<!-- Do not add a space before a comma -->
+	<!-- Add a space after a comma -->
+	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+	<rule ref="Generic.PHP.DisallowShortOpenTag">
+		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound"/>
+	</rule>
+	<rule ref="Generic.PHP.DeprecatedFunctions" />
+	<!-- Use UPPERCARE for constants -->
+	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+	<!-- Use lowercase for 'true', 'false' and 'null' -->
+	<rule ref="Generic.PHP.LowerCaseConstant"/>
+	<!-- Use a single string instead of concatenating -->
+	<rule ref="Generic.Strings.UnnecessaryStringConcat">
+		<properties>
+			<!-- Allow string concatenating across multiple lines -->
+			<property name="allowMultiline" value="true"/>
+		</properties>
+	</rule>
+	<!-- Use tabs for indentation -->
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<!-- Parameters with default values must appear last in functions -->
+	<rule ref="PEAR.Functions.ValidDefaultValue"/>
+	<!-- Use 'elseif' instead of 'else if' -->
+	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
+	<!-- Do not add spaces after opening or before closing bracket -->
+	<rule ref="PSR2.ControlStructures.ControlStructureSpacing"/>
+	<!-- Add a new line at the end of a file -->
+	<rule ref="PSR2.Files.EndFileNewline"/>
+	<!-- Use Unix newlines -->
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\n" />
+		</properties>
+	</rule>
+	<!-- Add space after closing parenthesis -->
+	<!-- Add body into new line -->
+	<!-- Close body in new line -->
+	<rule ref="Squiz.ControlStructures.ControlSignature">
+		<!-- No space after keyword (before opening parenthesis) -->
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword"/>
+	</rule>
+	<!-- When declaring a function: -->
+	<!-- Do not add a space before a comma -->
+	<!-- Add a space after a comma -->
+	<!-- Add a space before and after an equal sign -->
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="equalsSpacing" value="1"/>
+		</properties>
+	</rule>
+	<!-- Do not add spaces when casting -->
+	<rule ref="Squiz.WhiteSpace.CastSpacing"/>
+	<!-- Operators must have a space around them -->
+	<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+	<!-- Do not add a whitespace before a semicolon -->
+	<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
+	<!-- Do not add whitespace at start or end of a file or end of a line -->
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+</ruleset>

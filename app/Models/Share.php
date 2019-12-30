@@ -21,9 +21,11 @@ class FreshRSS_Share {
 		}
 
 		$help_url = isset($share_options['help']) ? $share_options['help'] : '';
+		$field = isset($share_options['field']) ? $share_options['field'] : null;
 		self::$list_sharing[$type] = new FreshRSS_Share(
 			$type, $share_options['url'], $share_options['transform'],
-			$share_options['form'], $help_url
+			$share_options['form'], $help_url, $share_options['method'],
+			$field
 		);
 	}
 
@@ -74,8 +76,11 @@ class FreshRSS_Share {
 	private $help_url = '';
 	private $custom_name = null;
 	private $base_url = null;
+	private $id = null;
 	private $title = null;
 	private $link = null;
+	private $method = 'GET';
+	private $field;
 
 	/**
 	 * Create a FreshRSS_Share object.
@@ -86,9 +91,10 @@ class FreshRSS_Share {
 	 *        is typically for a centralized service while "advanced" is for
 	 *        decentralized ones.
 	 * @param $help_url is an optional url to give help on this option.
+	 * @param $method defines the sharing method (GET or POST)
 	 */
-	private function __construct($type, $url_transform, $transform = array(),
-	                             $form_type, $help_url = '') {
+	private function __construct($type, $url_transform, $transform,
+	                             $form_type, $help_url, $method, $field) {
 		$this->type = $type;
 		$this->name = _t('gen.share.' . $type);
 		$this->url_transform = $url_transform;
@@ -103,19 +109,27 @@ class FreshRSS_Share {
 			$form_type = 'simple';
 		}
 		$this->form_type = $form_type;
+		if (!in_array($method, array('GET', 'POST'))) {
+			$method = 'GET';
+		}
+		$this->method = $method;
+		$this->field = $field;
 	}
 
 	/**
 	 * Update a FreshRSS_Share object with information from an array.
 	 * @param $options is a list of informations to update where keys should be
-	 *        in this list: name, url, title, link.
+	 *        in this list: name, url, id, title, link.
 	 */
 	public function update($options) {
 		$available_options = array(
 			'name' => 'custom_name',
 			'url' => 'base_url',
+			'id' => 'id',
 			'title' => 'title',
 			'link' => 'link',
+			'method' => 'method',
+			'field' => 'field',
 		);
 
 		foreach ($options as $key => $value) {
@@ -130,6 +144,21 @@ class FreshRSS_Share {
 	 */
 	public function type() {
 		return $this->type;
+	}
+
+	/**
+	 * Return the current method of the share option.
+	 */
+	public function method() {
+		return $this->method;
+	}
+
+	/**
+	 * Return the current field of the share option. It's null for shares
+	 * using the GET method.
+	 */
+	public function field() {
+		return $this->field;
 	}
 
 	/**
@@ -169,16 +198,30 @@ class FreshRSS_Share {
 	 */
 	public function url() {
 		$matches = array(
+			'~ID~',
 			'~URL~',
 			'~TITLE~',
 			'~LINK~',
 		);
 		$replaces = array(
+			$this->id(),
 			$this->base_url,
 			$this->title(),
 			$this->link(),
 		);
 		return str_replace($matches, $replaces, $this->url_transform);
+	}
+
+	/**
+	 * Return the id.
+	 * @param $raw true if we should get the id without transformations.
+	 */
+	public function id($raw = false) {
+		if ($raw) {
+			return $this->id;
+		}
+
+		return $this->transform($this->id, $this->getTransform('id'));
 	}
 
 	/**

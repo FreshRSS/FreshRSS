@@ -28,8 +28,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function provideEmptyInput() {
 		return array(
-		    array(''),
-		    array(null),
+			array(''),
+			array(null),
 		);
 	}
 
@@ -50,22 +50,22 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function provideIntitleSearch() {
 		return array(
-		    array('intitle:word1', array('word1'), null),
-		    array('intitle:word1 word2', array('word1'), array('word2')),
-		    array('intitle:"word1 word2"', array('word1 word2'), null),
-		    array("intitle:'word1 word2'", array('word1 word2'), null),
-		    array('word1 intitle:word2', array('word2'), array('word1')),
-		    array('word1 intitle:word2 word3', array('word2'), array('word1', 'word3')),
-		    array('word1 intitle:"word2 word3"', array('word2 word3'), array('word1')),
-		    array("word1 intitle:'word2 word3'", array('word2 word3'), array('word1')),
-		    array('intitle:word1 intitle:word2', array('word1', 'word2'), null),
-		    array('intitle: word1 word2', array(), array('word1', 'word2')),
-		    array('intitle:123', array('123'), null),
-		    array('intitle:"word1 word2" word3"', array('word1 word2'), array('word3"')),
-		    array("intitle:'word1 word2' word3'", array('word1 word2'), array("word3'")),
-		    array('intitle:"word1 word2\' word3"', array("word1 word2' word3"), null),
-		    array("intitle:'word1 word2\" word3'", array('word1 word2" word3'), null),
-		    array("intitle:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			array('intitle:word1', array('word1'), null),
+			array('intitle:word1 word2', array('word1'), array('word2')),
+			array('intitle:"word1 word2"', array('word1 word2'), null),
+			array("intitle:'word1 word2'", array('word1 word2'), null),
+			array('word1 intitle:word2', array('word2'), array('word1')),
+			array('word1 intitle:word2 word3', array('word2'), array('word1', 'word3')),
+			array('word1 intitle:"word2 word3"', array('word2 word3'), array('word1')),
+			array("word1 intitle:'word2 word3'", array('word2 word3'), array('word1')),
+			array('intitle:word1 intitle:word2', array('word1', 'word2'), null),
+			array('intitle: word1 word2', array(), array('word1', 'word2')),
+			array('intitle:123', array('123'), null),
+			array('intitle:"word1 word2" word3"', array('word1 word2'), array('word3"')),
+			array("intitle:'word1 word2' word3'", array('word1 word2'), array("word3'")),
+			array('intitle:"word1 word2\' word3"', array("word1 word2' word3"), null),
+			array("intitle:'word1 word2\" word3'", array('word1 word2" word3'), null),
+			array("intitle:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
 		);
 	}
 
@@ -86,22 +86,22 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function provideAuthorSearch() {
 		return array(
-		    array('author:word1', array('word1'), null),
-		    array('author:word1 word2', array('word1'), array('word2')),
-		    array('author:"word1 word2"', array('word1 word2'), null),
-		    array("author:'word1 word2'", array('word1 word2'), null),
-		    array('word1 author:word2', array('word2'), array('word1')),
-		    array('word1 author:word2 word3', array('word2'), array('word1', 'word3')),
-		    array('word1 author:"word2 word3"', array('word2 word3'), array('word1')),
-		    array("word1 author:'word2 word3'", array('word2 word3'), array('word1')),
-		    array('author:word1 author:word2', array('word1', 'word2'), null),
-		    array('author: word1 word2', array(), array('word1', 'word2')),
-		    array('author:123', array('123'), null),
-		    array('author:"word1 word2" word3"', array('word1 word2'), array('word3"')),
-		    array("author:'word1 word2' word3'", array('word1 word2'), array("word3'")),
-		    array('author:"word1 word2\' word3"', array("word1 word2' word3"), null),
-		    array("author:'word1 word2\" word3'", array('word1 word2" word3'), null),
-		    array("author:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			array('author:word1', array('word1'), null),
+			array('author:word1 word2', array('word1'), array('word2')),
+			array('author:"word1 word2"', array('word1 word2'), null),
+			array("author:'word1 word2'", array('word1 word2'), null),
+			array('word1 author:word2', array('word2'), array('word1')),
+			array('word1 author:word2 word3', array('word2'), array('word1', 'word3')),
+			array('word1 author:"word2 word3"', array('word2 word3'), array('word1')),
+			array("word1 author:'word2 word3'", array('word2 word3'), array('word1')),
+			array('author:word1 author:word2', array('word1', 'word2'), null),
+			array('author: word1 word2', array(), array('word1', 'word2')),
+			array('author:123', array('123'), null),
+			array('author:"word1 word2" word3"', array('word1 word2'), array('word3"')),
+			array("author:'word1 word2' word3'", array('word1 word2'), array("word3'")),
+			array('author:"word1 word2\' word3"', array("word1 word2' word3"), null),
+			array("author:'word1 word2\" word3'", array('word1 word2" word3'), null),
+			array("author:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
 		);
 	}
 
@@ -122,13 +122,13 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function provideInurlSearch() {
 		return array(
-		    array('inurl:word1', array('word1'), null),
-		    array('inurl: word1', array(), array('word1')),
-		    array('inurl:123', array('123'), null),
-		    array('inurl:word1 word2', array('word1'), array('word2')),
-		    array('inurl:"word1 word2"', array('"word1'), array('word2"')),
-		    array('inurl:word1 word2 inurl:word3', array('word1', 'word3'), array('word2')),
-		    array("inurl:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			array('inurl:word1', array('word1'), null),
+			array('inurl: word1', array(), array('word1')),
+			array('inurl:123', array('123'), null),
+			array('inurl:word1 word2', array('word1'), array('word2')),
+			array('inurl:"word1 word2"', array('"word1'), array('word2"')),
+			array('inurl:word1 word2 inurl:word3', array('word1', 'word3'), array('word2')),
+			array("inurl:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
 		);
 	}
 
@@ -149,12 +149,12 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function provideDateSearch() {
 		return array(
-		    array('date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', '1172754000', '1210519800'),
-		    array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210516199'),
-		    array('date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172757601', '1210519800'),
-		    array('date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
-		    array('date:2007-03-01/', strtotime('2007-03-01'), ''),
-		    array('date:/2008-05-11', '', strtotime('2008-05-12') - 1),
+			array('date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', '1172754000', '1210519800'),
+			array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210519799'),
+			array('date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172754001', '1210519800'),
+			array('date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
+			array('date:2007-03-01/', strtotime('2007-03-01'), ''),
+			array('date:/2008-05-11', '', strtotime('2008-05-12') - 1),
 		);
 	}
 
@@ -175,12 +175,12 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function providePubdateSearch() {
 		return array(
-		    array('pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', '1172754000', '1210519800'),
-		    array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210516199'),
-		    array('pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172757601', '1210519800'),
-		    array('pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
-		    array('pubdate:2007-03-01/', strtotime('2007-03-01'), ''),
-		    array('pubdate:/2008-05-11', '', strtotime('2008-05-12') - 1),
+			array('pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', '1172754000', '1210519800'),
+			array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', '1172754000', '1210519799'),
+			array('pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', '1172754001', '1210519800'),
+			array('pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
+			array('pubdate:2007-03-01/', strtotime('2007-03-01'), ''),
+			array('pubdate:/2008-05-11', '', strtotime('2008-05-12') - 1),
 		);
 	}
 
@@ -201,13 +201,13 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function provideTagsSearch() {
 		return array(
-		    array('#word1', array('word1'), null),
-		    array('# word1', array(), array('#', 'word1')),
-		    array('#123', array('123'), null),
-		    array('#word1 word2', array('word1'), array('word2')),
-		    array('#"word1 word2"', array('"word1'), array('word2"')),
-		    array('#word1 #word2', array('word1', 'word2'), null),
-		    array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			array('#word1', array('word1'), null),
+			array('# word1', array(), array('#', 'word1')),
+			array('#123', array('123'), null),
+			array('#word1 word2', array('word1'), array('word2')),
+			array('#"word1 word2"', array('"word1'), array('word2"')),
+			array('#word1 #word2', array('word1', 'word2'), null),
+			array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
 		);
 	}
 
@@ -240,54 +240,54 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 
 	public function provideMultipleSearch() {
 		return array(
-		    array(
-			'author:word1 date:2007-03-01/2008-05-11 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 #word5',
-			array('word1'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word2'),
-			array('word3'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word4', 'word5'),
-			null,
-		    ),
-		    array(
-			'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 date:2007-03-01/2008-05-11',
-			array('word1'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word2'),
-			array('word3'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word4', 'word5'),
-			array('word6'),
-		    ),
-		    array(
-			'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 word7 date:2007-03-01/2008-05-11',
-			array('word1'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word2'),
-			array('word3'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word4', 'word5'),
-			array('word6', 'word7'),
-		    ),
-		    array(
-			'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 "word7 word8" date:2007-03-01/2008-05-11',
-			array('word1'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word2'),
-			array('word3'),
-			strtotime('2007-03-01'),
-			strtotime('2008-05-12') - 1,
-			array('word4', 'word5'),
-			array('word7 word8', 'word6'),
-		    ),
+			array(
+				'author:word1 date:2007-03-01/2008-05-11 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 #word5',
+				array('word1'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word2'),
+				array('word3'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word4', 'word5'),
+				null,
+			),
+			array(
+				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 date:2007-03-01/2008-05-11',
+				array('word1'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word2'),
+				array('word3'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word4', 'word5'),
+				array('word6'),
+			),
+			array(
+				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 word7 date:2007-03-01/2008-05-11',
+				array('word1'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word2'),
+				array('word3'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word4', 'word5'),
+				array('word6', 'word7'),
+			),
+			array(
+				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 "word7 word8" date:2007-03-01/2008-05-11',
+				array('word1'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word2'),
+				array('word3'),
+				strtotime('2007-03-01'),
+				strtotime('2008-05-12') - 1,
+				array('word4', 'word5'),
+				array('word7 word8', 'word6'),
+			),
 		);
 	}
 

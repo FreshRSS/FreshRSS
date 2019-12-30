@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -10,7 +10,6 @@
  * C'est un singleton
  */
 class Minz_Dispatcher {
-	const CONTROLLERS_PATH_NAME = '/Controllers';
 
 	/* singleton */
 	private static $instance = null;
@@ -51,6 +50,7 @@ class Minz_Dispatcher {
 				$this->controller->lastAction ();
 
 				if (!self::$needsReset) {
+					$this->controller->declareCspHeader();
 					$this->controller->view ()->build ();
 				}
 			} catch (Minz_Exception $e) {
@@ -149,7 +149,7 @@ class Minz_Dispatcher {
 	 */
 	private static function loadController($base_name) {
 		$base_path = self::$registrations[$base_name];
-		$controller_filename = $base_path . '/controllers/' . $base_name . 'Controller.php';
+		$controller_filename = $base_path . '/Controllers/' . $base_name . 'Controller.php';
 		include_once $controller_filename;
 	}
 

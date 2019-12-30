@@ -1,5 +1,5 @@
 <?php
-/* Dutch translation by Wanabo. http://www.nieuwskop.be */
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Sta bezoekers toe om artikelen te lezen van de standaard gebruiker (%s)',
@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Bestanden installatie',
 		'json' => array(
-			'nok' => 'U mist JSON (php5-json package).',
+			'nok' => 'U mist JSON (php-json package).',
 			'ok' => 'U hebt JSON uitbreiding.',
+		),
+		'mbstring' => array(
+			'nok' => 'De voor Unicode aanbevolen bibliotheek mbstring kan niet worden gevonden.',
+			'ok' => 'De voor Unicode aanbevolen bibliotheek mbstring is gevonden.',
 		),
 		'minz' => array(
 			'nok' => 'U mist Minz framework.',
@@ -79,9 +83,9 @@ return array(
 			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP installatie',
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
+			'_' => 'PHP installatie',
 		),
 		'tables' => array(
 			'nok' => 'Er zijn één of meer ontbrekende tabellen in de database.',
@@ -102,19 +106,25 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Auteur',
+		'community' => 'Gebruikersuitbreidingen beschikbaar',
+		'description' => 'Beschrijving',
 		'disabled' => 'Uitgeschakeld',
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
 		'enabled' => 'Ingeschakeld',
+		'latest' => 'Geïnstalleerd',
+		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
 		'system' => array(
-			'_' => 'Systeemuitbreidingen',
 			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
+			'_' => 'Systeemuitbreidingen',
 		),
 		'title' => 'Uitbreidingen',
+		'update' => 'Update beschikbaar',
 		'user' => 'Gebruikersuitbreidingen',
+		'version' => 'Versie',
 	),
 	'stats' => array(
-		'_' => 'Statistieken',
 		'all_feeds' => 'Alle feeds',
 		'category' => 'Categorie',
 		'entry_count' => 'Invoer aantallen',
@@ -144,43 +154,53 @@ return array(
 		'status_unread' => 'Ongelezen',
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
+		'_' => 'Statistieken',
 	),
 	'system' => array(
-		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
+		'cookie-duration' => array(
+			'help' => 'in seconden',
+			'number' => 'Tijdsduur om ingelogd te blijven',
+		),
+		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
-		'max-categories' => 'Categoriën limiet per gebruiker',
-		'max-feeds' => 'Feed limiet per gebruiker',
+		'max-categories' => 'Categorielimiet per gebruiker',
+		'max-feeds' => 'Feedlimiet per gebruiker',
 		'registration' => array(
 			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',
 		),
+		'_' => 'Systeem configuratie',
 	),
 	'update' => array(
-		'_' => 'Versie controle',
 		'apply' => 'Toepassen',
 		'check' => 'Controleer op nieuwe versies',
 		'current_version' => 'Uw huidige versie van FreshRSS is %s.',
 		'last' => 'Laatste controle: %s',
 		'none' => 'Geen nieuwe versie om toe te passen',
 		'title' => 'Vernieuw systeem',
+		'_' => 'Versie controle',
 	),
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Creëer nieuwe gebruiker',
+		'database_size' => 'Database size',	// TODO - Translation
+		'delete_users' => 'Verwijder gebruiker',
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Taal',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier loginmethode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
-		'registration' => array(
-			'allow' => 'Sta het maken van nieuwe accounts toe',
-			'help' => '0 betekent dat er geen accountlimiet is',
-			'number' => 'Max aantal accounts',
-		),
+		'selected' => 'Geselecteerde gebruiker',
 		'title' => 'Beheer gebruikers',
-		'user_list' => 'Lijst van gebruikers ',
+		'update_users' => 'Gebruiker bijwerken',
 		'username' => 'Gebruikersnaam',
 		'users' => 'Gebruikers',
+		'user_list' => 'Lijst van gebruikers ',
 	),
 );

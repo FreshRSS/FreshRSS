@@ -1,0 +1,14 @@
+/*=== READER VIEW */
+/*================*/
+#stream.reader .flux {
+	padding: 0 0 50px;
+	background: $grey-light;
+	color: $main-font-color;
+	border: none;
+}
+
+#stream.reader .flux .author {
+	margin: 0 0 10px;
+	color: $grey-medium-dark;
+	font-size: 90%;
+}

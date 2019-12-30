@@ -1,6 +1,7 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
 /* globals Flotr, numberFormat */
-/* jshint globalstrict: true */
+/* jshint esversion:6, strict:global */
 
 function initStats() {
 	if (!window.Flotr) {
@@ -10,7 +11,7 @@ function initStats() {
 		window.setTimeout(initStats, 50);
 		return;
 	}
-	var jsonRepartition = document.getElementById('jsonRepartition'),
+	const jsonRepartition = document.getElementById('jsonRepartition'),
 		stats = JSON.parse(jsonRepartition.innerHTML);
 	jsonRepartition.outerHTML = '';
 	// Entry per hour
@@ -70,3 +71,4 @@ function initStats() {
 
 }
 initStats();
+// @license-end

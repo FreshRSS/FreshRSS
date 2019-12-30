@@ -1,0 +1,206 @@
+<?php
+
+return array(
+	'auth' => array(
+		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
+		'allow_anonymous_refresh' => 'Autorizar l’actualizacion anonime dels fluxes',
+		'api_enabled' => 'Autorizar l’accès per <abbr>API</abbr><small>(necessari per las aplicacions mobil)</small>',
+		'form' => 'Formulari (tradicional, demanda JavaScript)',
+		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
+		'none' => 'Cap (perilhós)',
+		'title' => 'Autentificacion',
+		'title_reset' => 'Reïnicializacion de l’autentificacion',
+		'token' => 'Geton d’autentificacion',
+		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
+		'type' => 'Mòde d’autentification',
+		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
+	),
+	'check_install' => array(
+		'cache' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/cache</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul cache son bons.',
+		),
+		'categories' => array(
+			'nok' => 'La tabla “category” es mala configurada.',
+			'ok' => 'La tabla category es corrèctament configurada.',
+		),
+		'connection' => array(
+			'nok' => 'Connexion impossibla a la basa de donadas.',
+			'ok' => 'La connexion a la basa de donadas es bona.',
+		),
+		'ctype' => array(
+			'nok' => 'Impossible de trobar una bibliotèca per la verificacion del tipe de caractèrs (php-ctype).',
+			'ok' => 'Avètz la bibliotèca per la verificacion del tipe de caractèrs (ctype).',
+		),
+		'curl' => array(
+			'nok' => 'Impossible de trobar la bibliotèca cURL( paquet php-curl).',
+			'ok' => 'Avètz la bibliotèca cURL.',
+		),
+		'data' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul repertòri data son bons.',
+		),
+		'database' => 'Installacion de la basa de donadas',
+		'dom' => array(
+			'nok' => 'Impossible de trobar una bibliotèca per percórrer lo DOM (paquet php-xml).',
+			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
+		),
+		'entries' => array(
+			'nok' => 'La tabla entry es pas configurada coma cal.',
+			'ok' => 'La tabla entry es corrèctament configurada.',
+		),
+		'favicons' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/favicons</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul repertòri dels favicons son bons.',
+		),
+		'feeds' => array(
+			'nok' => 'La tabla feed es pas configurada coma cal.',
+			'ok' => 'La tabla feed es corrèctament configurada.',
+		),
+		'fileinfo' => array(
+			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
+			'ok' => 'Avètz la bibliotèca fileinfo.',
+		),
+		'files' => 'Installacion dels fichièrs',
+		'json' => array(
+			'nok' => 'Avètz pas l’extension recomandada JSON (paquet php-json).',
+			'ok' => 'Avètz l’exension recomandada JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
+			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
+		),
+		'minz' => array(
+			'nok' => 'Avètz pas la bibliotèca Minz.',
+			'ok' => 'Avètz la bibliotèca Minz.',
+		),
+		'pcre' => array(
+			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
+			'ok' => 'Avètz la bibliotèca per las expressions regularas (PCRE).',
+		),
+		'pdo' => array(
+			'nok' => 'Impossible de trobar PDO o un dels drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+		),
+		'php' => array(
+			'nok' => 'Vòstra version PHP es la %s más FreshRSS demanda almens la versión %s.',
+			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
+			'_' => 'Installacion PHP',
+		),
+		'tables' => array(
+			'nok' => 'Manca una o mai tabla dins la basa de donadas.',
+			'ok' => 'Las tablas que cal existisson ben dins la basa de donadas.',
+		),
+		'title' => 'Verificacion de l’installacion',
+		'tokens' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/tokens</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul repertòri dels getons son bons.',
+		),
+		'users' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/users</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
+		),
+		'zip' => array(
+			'nok' => 'Avètz pas l’extension ZIP (paquet php-zip).',
+			'ok' => 'Avètz l’exension ZIP.',
+		),
+	),
+	'extensions' => array(
+		'author' => 'Autor',
+		'community' => 'Extensions utilizaires disponiblas',
+		'description' => 'Descripcion',
+		'disabled' => 'Desactivada',
+		'empty_list' => 'Cap d’extensions pas installadas',
+		'enabled' => 'Activada',
+		'latest' => 'Installada',
+		'name' => 'Nom',
+		'no_configure_view' => 'Aquesta extension se pòt pas configurar.',
+		'system' => array(
+			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
+			'_' => 'Extensions sistèma',
+		),
+		'title' => 'Extensions',
+		'update' => 'Mesa a jorn disponibla',
+		'user' => 'Extensions utilizaire',
+		'version' => 'Version',	// TODO - Translation
+	),
+	'stats' => array(
+		'all_feeds' => 'Totes los fluxes',
+		'category' => 'Categoria',
+		'entry_count' => 'Nombre d’articles',
+		'entry_per_category' => 'Articles per categoria',
+		'entry_per_day' => 'Nombre d’articles per jorn (darrièrs 30 jorns)',
+		'entry_per_day_of_week' => 'Per jorn de la setmana (mejana : %.2f messatges)',
+		'entry_per_hour' => 'Per ora (mejana : %.2f messatges)',
+		'entry_per_month' => 'Per mes (mejana : %.2f messatges)',
+		'entry_repartition' => 'Reparticion dels articles',
+		'feed' => 'Flux',
+		'feed_per_category' => 'Fluxes per categoria',
+		'idle' => 'Fluxes inactius',
+		'main' => 'Estatisticas principalas',
+		'main_stream' => 'Flux màger',
+		'menu' => array(
+			'idle' => 'Fluxes inactius',
+			'main' => 'Estatisticas principalas',
+			'repartition' => 'Reparticion dels articles',
+		),
+		'no_idle' => 'I a pas cap d’article inactiu !',
+		'number_entries' => '%d articles',
+		'percent_of_total' => '%% del total',
+		'repartition' => 'Reparticion dels articles',
+		'status_favorites' => 'Favorits',
+		'status_read' => 'Legit',
+		'status_total' => 'Total',	// TODO - Translation
+		'status_unread' => 'Pas legits',
+		'title' => 'Estatisticas',
+		'top_feed' => 'Los dètz fluxes mai gròsses',
+		'_' => 'Estatisticas',
+	),
+	'system' => array(
+		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'cookie-duration' => array(
+			'help' => 'en segondas',
+			'number' => 'Durada de téner d’ésser connectat',
+		),
+		'force_email_validation' => 'Forçar la validacion de las adreças electronicas',
+		'instance-name' => 'Nom de l’instància',
+		'max-categories' => 'Limita de categoria per utilizaire',
+		'max-feeds' => 'Limita de fluxes per utilizaire',
+		'registration' => array(
+			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
+			'number' => 'Nombre max de comptes',
+		),
+		'_' => 'Configuracion sistèma',
+	),
+	'update' => array(
+		'apply' => 'Aplicar',
+		'check' => 'Verificar las mesas a jorn',
+		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
+		'last' => 'Darrièra verificacion : %s',
+		'none' => 'Cap d’actualizacion d’aplicar',
+		'title' => 'Sistèma de mesa a jorn',
+		'_' => 'Sistèma de mesa a jorn',
+	),
+	'user' => array(
+		'articles_and_size' => '%s articles (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'create' => 'Crear un nòu utilizaire',
+		'database_size' => 'Database size',	// TODO - Translation
+		'delete_users' => 'Suprimir un utilizaire',
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
+		'language' => 'Lenga',
+		'list' => 'User list',	// TODO - Translation
+		'number' => '%d compte ja creat',
+		'numbers' => '%d comptes ja creats',
+		'password_form' => 'Senhal <br /><small>(ex. : per la connexion via formulari)</small>',
+		'password_format' => 'Almens 7 caractèrs',
+		'selected' => 'Utilizaire seleccionat',
+		'title' => 'Gestion dels utilizaires',
+		'update_users' => 'Actualizar un utilizaire',
+		'username' => 'Nom d’utilizaire',
+		'users' => 'Utilizaires',
+		'user_list' => 'Lista dels utilizaires',
+	),
+);

@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Dosya kurulumu',
 		'json' => array(
-			'nok' => 'JSON eklentisi eksik (php5-json package).',
+			'nok' => 'JSON eklentisi eksik (php-json package).',
 			'ok' => 'JSON eklentisi sorunsuz.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',
@@ -79,9 +83,9 @@ return array(
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP kurulumu',
 			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
+			'_' => 'PHP kurulumu',
 		),
 		'tables' => array(
 			'nok' => 'Veritabanında bir veya daha fazla tablo eksik.',
@@ -102,19 +106,25 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',	// TODO - Translation
+		'community' => 'Available community extensions',	// TODO - Translation
+		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
 		'enabled' => 'Aktif',
+		'latest' => 'Installed',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
-			'_' => 'Sistem eklentileri',
 			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
+			'_' => 'Sistem eklentileri',
 		),
 		'title' => 'Eklentiler',
+		'update' => 'Update available',	// TODO - Translation
 		'user' => 'Kullanıcı eklentileri',
+		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
-		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm akış',
 		'category' => 'Kategori',
 		'entry_count' => 'Makale sayısı',
@@ -144,10 +154,15 @@ return array(
 		'status_unread' => 'Okunmamış',
 		'title' => 'İstatistikler',
 		'top_feed' => 'İlk 10 akış',
+		'_' => 'İstatistikler',
 	),
 	'system' => array(
-		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
+		'cookie-duration' => array(
+			'help' => 'in seconds',	// TODO - Translation
+			'number' => 'Duration to keep logged in',	// TODO - Translation
+		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
 		'instance-name' => 'Örnek isim',
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
@@ -155,27 +170,37 @@ return array(
 			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',
 		),
+		'_' => 'Sistem yapılandırması',
 	),
 	'update' => array(
-		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
 		'check' => 'Güncelleme kontrolü',
 		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
 		'last' => 'Son kontrol: %s',
 		'none' => 'Yeni güncelleme yok',
 		'title' => 'Sistem güncelleme',
+		'_' => 'Sistem güncelleme',
 	),
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Yeni kullanıcı oluştur',
+		'database_size' => 'Database size',	// TODO - Translation
+		'delete_users' => 'Delete user',	// TODO - Translation
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Dil',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
+		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Kullanıcıları yönet',
-		'user_list' => 'Kullanıcı listesi',
+		'update_users' => 'Update user',	// TODO - Translation
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',
+		'user_list' => 'Kullanıcı listesi',
 	),
 );

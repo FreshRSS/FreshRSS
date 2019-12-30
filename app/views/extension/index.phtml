@@ -1,14 +1,14 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h1><?php echo _t('admin.extensions.title'); ?></h1>
+	<h1><?= _t('admin.extensions.title') ?></h1>
 
 	<form id="form-extension" method="post">
-	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<?php if (!empty($this->extension_list['system'])) { ?>
-	<h2><?php echo _t('admin.extensions.system'); ?></h2>
+	<h2><?= _t('admin.extensions.system') ?></h2>
 	<?php
 		foreach ($this->extension_list['system'] as $ext) {
 			$this->ext_details = $ext;
@@ -18,7 +18,7 @@
 	<?php } ?>
 
 	<?php if (!empty($this->extension_list['user'])) { ?>
-	<h2><?php echo _t('admin.extensions.user'); ?></h2>
+	<h2><?= _t('admin.extensions.user') ?></h2>
 	<?php
 		foreach ($this->extension_list['user'] as $ext) {
 			$this->ext_details = $ext;
@@ -26,18 +26,51 @@
 		}
 	?>
 	<?php
-		}
+	}
 
-		if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
+	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
 	?>
-	<p class="alert alert-warn"><?php echo _t('admin.extensions.empty_list'); ?></p>
+	<p class="alert alert-warn"><?= _t('admin.extensions.empty_list') ?></p>
 	<?php } ?>
 	</form>
+
+	<?php if (!empty($this->available_extensions)) { ?>
+		<h2><?= _t('admin.extensions.community') ?></h2>
+		<table>
+			<tr>
+				<th><?= _t('admin.extensions.name') ?></th>
+				<th><?= _t('admin.extensions.version') ?></th>
+				<th><?= _t('admin.extensions.author') ?></th>
+				<th><?= _t('admin.extensions.description') ?></th>
+			</tr>
+			<?php foreach ($this->available_extensions as $ext) { ?>
+				<tr>
+					<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
+					<td><?= $ext['version'] ?></td>
+					<td><?= $ext['author'] ?></td>
+					<td>
+						<?= $ext['description'] ?>
+						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+								<span class="alert alert-success">
+									<?= _t('admin.extensions.latest') ?>
+								</span>
+							<?php } else  if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+								<span class="alert alert-warn">
+									<?= _t('admin.extensions.update') ?>
+								</span>
+							<?php } ?>
+						<?php } ?>
+					</td>
+				</tr>
+			<?php } ?>
+		</table>
+	<?php } ?>
 </div>
 
 <?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?php echo $class; ?>></a>
-<div id="slider"<?php echo $class; ?>>
+<a href="#" id="close-slider"<?= $class ?>></a>
+<div id="slider"<?= $class ?>>
 <?php
 	if (isset($this->extension)) {
 		$this->renderHelper('extension/configure');

@@ -1,63 +1,63 @@
 <?php $this->partial('aside_stats'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h1><?php echo _t('admin.stats.main'); ?></h1>
+	<h1><?= _t('admin.stats.main') ?></h1>
 
 	<div class="stat half">
-		<h2><?php echo _t('admin.stats.entry_repartition'); ?></h2>
+		<h2><?= _t('admin.stats.entry_repartition') ?></h2>
 		<table>
 			<thead>
 				<tr>
 					<th> </th>
-					<th><?php echo _t('admin.stats.main_stream'); ?></th>
-					<th><?php echo _t('admin.stats.all_feeds'); ?></th>
+					<th><?= _t('admin.stats.main_stream') ?></th>
+					<th><?= _t('admin.stats.all_feeds') ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<th><?php echo _t('admin.stats.status_total'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['total']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['total']); ?></td>
+					<th><?= _t('admin.stats.status_total') ?></th>
+					<td class="numeric"><?= format_number($this->repartition['main_stream']['total']) ?></td>
+					<td class="numeric"><?= format_number($this->repartition['all_feeds']['total']) ?></td>
 				</tr>
 				<tr>
-					<th><?php echo _t('admin.stats.status_read'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['count_reads']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['count_reads']); ?></td>
+					<th><?= _t('admin.stats.status_read') ?></th>
+					<td class="numeric"><?= format_number($this->repartition['main_stream']['count_reads']) ?></td>
+					<td class="numeric"><?= format_number($this->repartition['all_feeds']['count_reads']) ?></td>
 				</tr>
 				<tr>
-					<th><?php echo _t('admin.stats.status_unread'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['count_unreads']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['count_unreads']); ?></td>
+					<th><?= _t('admin.stats.status_unread') ?></th>
+					<td class="numeric"><?= format_number($this->repartition['main_stream']['count_unreads']) ?></td>
+					<td class="numeric"><?= format_number($this->repartition['all_feeds']['count_unreads']) ?></td>
 				</tr>
 				<tr>
-					<th><?php echo _t('admin.stats.status_favorites'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['count_favorites']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['count_favorites']); ?></td>
+					<th><?= _t('admin.stats.status_favorites') ?></th>
+					<td class="numeric"><?= format_number($this->repartition['main_stream']['count_favorites']) ?></td>
+					<td class="numeric"><?= format_number($this->repartition['all_feeds']['count_favorites']) ?></td>
 				</tr>
 			</tbody>
 		</table>
 	</div><!--
 
 	--><div class="stat half">
-		<h2><?php echo _t('admin.stats.top_feed'); ?></h2>
+		<h2><?= _t('admin.stats.top_feed') ?></h2>
 		<table>
 			<thead>
 				<tr>
-					<th><?php echo _t('admin.stats.feed'); ?></th>
-					<th><?php echo _t('admin.stats.category'); ?></th>
-					<th><?php echo _t('admin.stats.entry_count'); ?></th>
-					<th><?php echo _t('admin.stats.percent_of_total'); ?></th>
+					<th><?= _t('admin.stats.feed') ?></th>
+					<th><?= _t('admin.stats.category') ?></th>
+					<th><?= _t('admin.stats.entry_count') ?></th>
+					<th><?= _t('admin.stats.percent_of_total') ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($this->topFeed as $feed) { ?>
 					<tr>
-						<td><a href="<?php echo _url('stats', 'repartition', 'id', $feed['id']); ?>"><?php echo $feed['name']; ?></a></td>
-						<td><?php echo $feed['category']; ?></td>
-						<td class="numeric"><?php echo format_number($feed['count']); ?></td>
-						<td class="numeric"><?php echo format_number($feed['count'] / $this->repartition['all_feeds']['total'] * 100, 1);?></td>
+						<td><a href="<?= _url('stats', 'repartition', 'id', $feed['id']) ?>"><?= $feed['name'] ?></a></td>
+						<td><?= $feed['category'] ?></td>
+						<td class="numeric"><?= format_number($feed['count']) ?></td>
+						<td class="numeric"><?= format_number($feed['count'] / $this->repartition['all_feeds']['total'] * 100, 1) ?></td>
 					</tr>
 				<?php } ?>
 			</tbody>
@@ -65,18 +65,18 @@
 	</div>
 
 	<div class="stat">
-		<h2><?php echo _t('admin.stats.entry_per_day'); ?></h2>
+		<h2><?= _t('admin.stats.entry_per_day') ?></h2>
 		<div id="statsEntryPerDay" class="statGraph"></div>
 	</div>
 
 	<div class="stat half">
-		<h2><?php echo _t('admin.stats.feed_per_category'); ?></h2>
+		<h2><?= _t('admin.stats.feed_per_category') ?></h2>
 		<div id="statsFeedPerCategory" class="statGraph"></div>
 		<div id="statsFeedPerCategoryLegend"></div>
 	</div>
 
 	<div class="stat half">
-		<h2><?php echo _t('admin.stats.entry_per_category'); ?></h2>
+		<h2><?= _t('admin.stats.entry_per_category') ?></h2>
 		<div id="statsEntryPerCategory" class="statGraph"></div>
 		<div id="statsEntryPerCategoryLegend"></div>
 	</div>
@@ -88,6 +88,6 @@ echo htmlspecialchars(json_encode(array(
 	'dataCount' => $this->count,
 	'feedByCategory' => $this->feedByCategory,
 	'entryByCategory' => $this->entryByCategory,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES);
+), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
 ?></script>
-<script src="../scripts/stats.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/stats.js'); ?>"></script>
+<script src="../scripts/stats.js?<?= @filemtime(PUBLIC_PATH . '/scripts/stats.js') ?>"></script>

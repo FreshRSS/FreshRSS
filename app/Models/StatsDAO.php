@@ -45,13 +45,11 @@ SELECT COUNT(1) AS total,
 COUNT(1) - SUM(e.is_read) AS count_unreads,
 SUM(e.is_read) AS count_reads,
 SUM(e.is_favorite) AS count_favorites
-FROM `{$this->prefix}entry` AS e
-, `{$this->prefix}feed` AS f
+FROM `_entry` AS e, `_feed` AS f
 WHERE e.id_feed = f.id
 {$filter}
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		return $res[0];
@@ -73,13 +71,12 @@ SQL;
 		$sql = <<<SQL
 SELECT {$sqlDay} AS day,
 COUNT(*) as count
-FROM `{$this->prefix}entry`
+FROM `_entry`
 WHERE date >= {$oldest} AND date < {$midnight}
 GROUP BY day
 ORDER BY day ASC
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach ($res as $value) {
@@ -143,14 +140,13 @@ SQL;
 		$sql = <<<SQL
 SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
 , COUNT(1) AS count
-FROM `{$this->prefix}entry` AS e
+FROM `_entry` AS e
 {$restrict}
 GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
 		$repartition = array();
@@ -207,11 +203,10 @@ SQL;
 SELECT COUNT(1) AS count
 , MIN(date) AS date_min
 , MAX(date) AS date_max
-FROM `{$this->prefix}entry` AS e
+FROM `_entry` AS e
 {$restrict}
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetch(PDO::FETCH_NAMED);
 		$date_min = new \DateTime();
 		$date_min->setTimestamp($res['date_min']);
@@ -251,14 +246,12 @@ SQL;
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(f.id) AS data
-FROM `{$this->prefix}category` AS c,
-`{$this->prefix}feed` AS f
+FROM `_category` AS c, `_feed` AS f
 WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		return $res;
@@ -274,16 +267,13 @@ SQL;
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(e.id) AS data
-FROM `{$this->prefix}category` AS c,
-`{$this->prefix}feed` AS f,
-`{$this->prefix}entry` AS e
+FROM `_category` AS c, `_feed` AS f, `_entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		return $res;
@@ -300,17 +290,14 @@ SELECT f.id AS id
 , MAX(f.name) AS name
 , MAX(c.name) AS category
 , COUNT(e.id) AS count
-FROM `{$this->prefix}category` AS c,
-`{$this->prefix}feed` AS f,
-`{$this->prefix}entry` AS e
+FROM `_category` AS c, `_feed` AS f, `_entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY f.id
 ORDER BY count DESC
 LIMIT 10
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -325,14 +312,12 @@ SELECT MAX(f.id) as id
 , MAX(f.name) AS name
 , MAX(date) AS last_date
 , COUNT(*) AS nb_articles
-FROM `{$this->prefix}feed` AS f,
-`{$this->prefix}entry` AS e
+FROM `_feed` AS f, `_entry` AS e
 WHERE f.id = e.id_feed
 GROUP BY f.id
 ORDER BY name
 SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -364,7 +349,7 @@ SQL;
 			'feb',
 			'mar',
 			'apr',
-			'may',
+			'may_',
 			'jun',
 			'jul',
 			'aug',

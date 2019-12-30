@@ -25,10 +25,47 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			'user' => array(),
 		);
 
+		$this->view->extensions_installed = array();
+
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
+			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
 		}
+
+		$availableExtensions = $this->getAvailableExtensionList();
+		$this->view->available_extensions = $availableExtensions;
+	}
+
+	/**
+	 * fetch extension list from GitHub
+	 */
+	protected function getAvailableExtensionList() {
+		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
+		$json = file_get_contents($extensionListUrl);
+
+		// we ran into problems, simply ignore them
+		if ($json === false) {
+			Minz_Log::error('Could not fetch available extension from GitHub');
+			return array();
+		}
+
+		// fetch the list as an array
+		$list = json_decode($json, true);
+		if (empty($list)) {
+			Minz_Log::warning('Failed to convert extension file list');
+			return array();
+		}
+
+		// we could use that for comparing and caching later
+		$version = $list['version'];
+
+		// By now, all the needed data is kept in the main extension file.
+		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
+		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
+		$extensions = $list['extensions'];
+
+		return $extensions;
 	}
 
 	/**
@@ -43,10 +80,10 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 */
 	public function configureAction() {
 		if (Minz_Request::param('ajax')) {
-			$this->view->_useLayout(false);
+			$this->view->_layout(false);
 		} else {
 			$this->indexAction();
-			$this->view->change_view('extension', 'index');
+			$this->view->_path('extension/index.phtml');
 		}
 
 		$ext_name = urldecode(Minz_Request::param('e'));
@@ -103,7 +140,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
-				array_push_unique($ext_list, $ext_name);
+				$ext_list[$ext_name] = true;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
@@ -159,7 +196,11 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
-				array_remove($ext_list, $ext_name);
+				$legacyKey = array_search($ext_name, $ext_list, true);
+				if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
+					unset($ext_list[$legacyKey]);
+				}
+				$ext_list[$ext_name] = false;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
@@ -203,7 +244,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			$res = recursive_unlink($ext->getPath());
 			if ($res) {
 				Minz_Request::good(_t('feedback.extensions.removed', $ext_name),
-				                  $url_redirect);
+				                   $url_redirect);
 			} else {
 				Minz_Request::bad(_t('feedback.extensions.cannot_delete', $ext_name),
 				                  $url_redirect);

@@ -71,7 +71,7 @@ class SimplePie_File
 		{
 			$idn = new idna_convert();
 			$parsed = SimplePie_Misc::parse_url($url);
-			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
+			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], NULL);
 		}
 		$this->url = $url;
 		$this->permanent_url = $url;
@@ -110,7 +110,7 @@ class SimplePie_File
 				curl_setopt($fp, CURLOPT_FAILONERROR, 1);
 				curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
 				curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
-				curl_setopt($fp, CURLOPT_REFERER, $url);
+				curl_setopt($fp, CURLOPT_REFERER, SimplePie_Misc::url_remove_credentials($url));
 				curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
 				curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
 				if (!ini_get('open_basedir') && !ini_get('safe_mode') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>='))

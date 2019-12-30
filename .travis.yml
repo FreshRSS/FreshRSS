@@ -1,0 +1,61 @@
+language: php
+
+jobs:
+  fast_finish: true
+  allow_failures:
+    - name: "Translations"
+
+  include:
+    - name: "PHP 7.3 Syntax, linter and tests"
+      php: "7.3"
+      install:
+        - composer global require squizlabs/php_codesniffer
+        - composer global require phpunit/phpunit ^7
+      script:
+        - phpenv rehash
+        - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
+        - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
+        - COMPOSER_BIN=$(composer global config --absolute bin-dir)
+        - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
+        - $COMPOSER_BIN/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+
+    - name: "PHP 7.1 Syntax and tests"
+      php: "7.1"
+      install:
+        - composer global require phpunit/phpunit ^7
+      script:
+        - phpenv rehash
+        - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
+        - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
+        - COMPOSER_BIN=$(composer global config --absolute bin-dir)
+        - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
+
+    - name: "PHP 5.6 Syntax"
+      php: "5.6"
+      script:
+        - phpenv rehash
+        - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
+        - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
+
+    - name: "Translations"
+      php: "7.3"
+      script:
+        - phpenv rehash
+        - php cli/check.translation.php -r
+
+    - name: "Linter JS, CSS, SCSS, Shell and Docker"
+      language: node_js
+      node_js:
+        - "node"
+      env:
+        - HADOLINT="$HOME/hadolint"
+      install:
+        - npm install --save-dev jshint stylelint stylelint-order stylelint-scss stylelint-config-recommended-scss
+        - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
+      script:
+        - node_modules/jshint/bin/jshint .
+        # check SCSS separately
+        - stylelint --syntax scss "**/*.scss"
+        - stylelint "**/*.css"
+        - bash tests/shellchecks.sh
+        - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"

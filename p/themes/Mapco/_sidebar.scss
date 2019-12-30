@@ -1,0 +1,313 @@
+/*=== Tree */
+.tree {
+	margin: 10px 0;
+
+	&#sidebar {
+		scrollbar-color: rgba(255,255, 0, 0.1) rgba(0, 0, 0, 0.05);
+		scrollbar-color: unquote($sid-font-color+"33") unquote($sid-font-color+"22");
+	}
+
+
+	.tree-folder {
+		border-bottom: 1px solid $sid-sep;
+
+		.tree-folder-title {
+			padding: 12px 16px;
+			background: $sid-bg;
+			position: relative;
+			font-size: 0.85rem;
+			letter-spacing: 1px;
+			font-weight: 700;
+			text-transform: uppercase;
+
+			.title {
+				background: inherit;
+				color: $sid-font-color;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+
+		&.active {
+			.tree-folder-title {
+				background: $sid-bg;
+				font-weight: bold;
+			}
+		}
+
+		.tree-folder-items {
+			background: $sid-bg-alt;
+
+			.item {
+				padding: 0 1rem;
+				line-height: 2.5rem;
+				font-size: 1rem;
+				font-weight: 400;
+
+				@include transition(all, 0.15s, ease-in-out);
+
+				&.active {
+					background: $sid-active;
+
+					.dropdown li a {
+						color: $main-font-color;
+
+						&:hover {
+							color: $sid-font-color;
+						}
+					}
+
+					a {
+						color: $sid-active-font;
+					}
+				}
+
+				&:hover {
+					background: $sid-bg-dark;
+				}
+
+				a {
+					text-decoration: none;
+					color: $sid-font-color;
+				}
+			}
+
+			.feed .item-title:not([data-unread="0"])::before {
+				margin: 11px 6px 0 4px;
+				padding: 3px 4px;
+				background: $sid-pills;
+				display: block;
+				float: left;
+				font-size: 0.75rem;
+				border-radius: 12px;
+				content: attr(data-unread);
+				text-align: center;
+				line-height: 0.75rem;
+			}
+		}
+	}
+}
+
+/*=== Buttons */
+.stick {
+	vertical-align: middle;
+	font-size: 0;
+
+	input, .btn {
+		border-radius: 0;
+	}
+
+	.btn:first-child,
+	input:first-child {
+		border-radius: 5px 0 0 5px;
+	}
+
+	.btn:last-child, input:last-child, .btn + .dropdown > .btn {
+		border-radius: 0 5px 5px 0;
+	}
+
+	.btn + .btn,
+	.btn + input,
+	.btn + .dropdown > .btn,
+	input + .btn,
+	input + input,
+	input + .dropdown > .btn,
+	.dropdown + .btn,
+	.dropdown + input,
+	.dropdown + .dropdown > .btn {
+		border-left: 1px solid $grey-medium-light;
+	}
+
+}
+
+.aside {
+	background: $sid-bg;
+
+	&.aside_feed {
+		padding: 10px 0;
+		text-align: center;
+		background: $sid-bg;
+	}
+
+	&.aside_feed .tree {
+		margin: 10px 0 50px;
+	}
+
+}
+
+
+/* Sidebar des pages de configuration */
+
+
+
+/*=== Navigation */
+.nav-list {
+	.nav-header,
+	.item {
+		height: 2.5em;
+		line-height: 2.5em;
+		font-size: 1rem;
+	}
+
+	.item {
+		background: $sid-bg;
+
+		@include transition(all, 0.15s, ease-in-out);
+
+		a {
+			padding: 0 1rem;
+			color: $sid-font-color;
+		}
+
+		.error {
+			a {
+				color: $alert-bg;
+			}
+		}
+
+		&:hover {
+			background: $sid-bg-dark;
+			color: $sid-font-color;
+
+			.error {
+				a {
+					background: $main-first;
+					color: $sid-font-color;
+				}
+			}
+
+			.empty {
+				a {
+					background: $warning-bg;
+					color: $sid-font-color;
+				}
+			}
+
+			a {
+				color: $sid-font-color;
+				text-decoration: none;
+			}
+		}
+
+		&.active {
+			background: $main-first;
+			color: $white;
+
+			.error {
+				a {
+					background: $main-first;
+					color: $white;
+				}
+			}
+
+			.empty {
+				a {
+					background: $warning-bg;
+					color: $white;
+				}
+			}
+
+			a {
+				color: $white;
+				text-decoration: none;
+			}
+		}
+
+	}
+
+	&.empty {
+		a {
+			color: $warning-bg;
+		}
+	}
+
+	.disable {
+		text-align: center;
+		background: $grey-lighter;
+		color: $grey-medium-dark;
+	}
+
+	.nav-header {
+		padding: 0 10px;
+		font-weight: bold;
+		color: $grey-dark;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-top: 1rem;
+	}
+
+	.nav-form {
+		padding: 3px;
+		text-align: center;
+	}
+
+	.nav-head {
+		margin: 0;
+		text-align: right;
+		// background: #34495e;
+		color: $white;
+
+		a {
+			color: $white;
+		}
+
+		.item {
+			padding: 5px 10px;
+			font-size: 0.9rem;
+			line-height: 1.5rem;
+		}
+	}
+}
+
+/*=== Aside main page (categories) */
+.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
+	margin: -0.5rem 1rem 0 0;
+	padding: 0 0.75rem;
+	background: $sid-pills;
+	border-radius: 12px;
+	position: absolute;
+	right: 0;
+	line-height: 1.5rem;
+	text-align: center;
+}
+
+.feed.item.empty.active {
+	background: $grey-dark;
+}
+
+.feed.item.error.active {
+	background: $grey-dark;
+}
+
+.feed.item.empty,
+.feed.item.empty > a {
+	color: $grey-dark;
+}
+
+.feed.item.error,
+.feed.item.error > a {
+	color: $grey-dark;
+}
+
+.feed.item.empty.active,
+.feed.item.error.active,
+.feed.item.empty.active > a,
+.feed.item.error.active > a {
+	color: $white;
+}
+
+.aside_feed .tree-folder-items .dropdown-menu::after {
+	left: 2px;
+}
+
+.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
+	border-radius: 3px;
+}
+
+.aside_feed .stick #btn-importExport {
+	border-left-color: $sid-bg;
+}

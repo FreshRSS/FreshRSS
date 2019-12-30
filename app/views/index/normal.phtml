@@ -14,13 +14,13 @@ if (!empty($this->entries)) {
 	$today = @strtotime('today');
 ?>
 
-<div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
+<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>"><?php
 	?><div id="new-article">
-		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
 	foreach ($this->entries as $item) {
 		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if (is_null($this->entry)) {
+		if ($this->entry == null) {
 			continue;
 		}
 
@@ -36,23 +36,23 @@ if (!empty($this->entries)) {
 		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
 			?><div class="day" id="day_today"><?php
 				echo _t('gen.date.today');
-				?><span class="date"> — <?php echo timestamptodate(time(), false); ?></span><?php
-				?><span class="name"><?php echo FreshRSS_Context::$name; ?></span><?php
+				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
+				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
 			?></div><?php
 			$display_today = false;
 		}
 		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
 			?><div class="day" id="day_yesterday"><?php
 				echo _t('gen.date.yesterday');
-				?><span class="date"> — <?php echo timestamptodate(time() - 86400, false); ?></span><?php
-				?><span class="name"><?php echo FreshRSS_Context::$name; ?></span><?php
+				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
+				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
 			?></div><?php
 			$display_yesterday = false;
 		}
 		if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
 			?><div class="day" id="day_before_yesterday"><?php
 				echo _t('gen.date.before_yesterday');
-				?><span class="name"><?php echo FreshRSS_Context::$name; ?></span><?php
+				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
 			?></div><?php
 			$display_others = false;
 		}
@@ -64,13 +64,22 @@ if (!empty($this->entries)) {
 
 			$this->renderHelper('index/normal/entry_header');
 
-		?><div class="flux_content">
-			<div class="content <?php echo $content_width; ?>">
-				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></h1>
-				<?php
-					$author = $this->entry->author();
-					echo $author != '' ? '<div class="author">' . _t('gen.short.by_author', $author) . '</div>' : '',
-						$lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
+		?><div class="flux_content" dir="auto">
+			<div class="content <?= $content_width ?>">
+				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
+				<div class="author"><?php
+					$authors = $this->entry->authors();
+					if (is_array($authors)):
+						$first = true;
+						foreach ($authors as $author):
+							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+							$first = false;
+				?>
+<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
+				<?php	endforeach; ?>
+				</div><?php
+					endif;
+					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?>
 			</div><?php
 
@@ -83,11 +92,11 @@ if (!empty($this->entries)) {
 	$this->renderHelper('pagination');
 ?></div>
 
-<?php $this->partial('nav_entries'); ?>
+<?php if (FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>
 
 <?php } else { ?>
 <div id="stream" class="prompt alert alert-warn normal">
-	<h2><?php echo _t('index.feed.empty'); ?></h2>
-	<a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.feed.add'); ?></a><br /><br />
+	<h2><?= _t('index.feed.empty') ?></h2>
+	<a href="<?= _url('subscription', 'index') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </div>
 <?php } ?>

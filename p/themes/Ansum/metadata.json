@@ -1,0 +1,7 @@
+{
+  "name": "Ansum",
+  "author": "Thomas Guesnon",
+  "description": "Thème sablonneux",
+  "version": 0.1,
+  "files": ["_template.css", "ansum.css"]
+}

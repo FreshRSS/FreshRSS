@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Instalace souborů',
 		'json' => array(
-			'nok' => 'Nemáte JSON (balíček php5-json).',
+			'nok' => 'Nemáte JSON (balíček php-json).',
 			'ok' => 'Máte rozšíření JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
@@ -79,9 +83,9 @@ return array(
 			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP instalace',
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
 			'ok' => 'Vaše verze PHP je %s a je kompatibilní s FreshRSS.',
+			'_' => 'PHP instalace',
 		),
 		'tables' => array(
 			'nok' => 'V databázi chybí jedna nevo více tabulek.',
@@ -102,19 +106,25 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',	// TODO - Translation
+		'community' => 'Available community extensions',	// TODO - Translation
+		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Vypnuto',
 		'empty_list' => 'Není naistalováno žádné rozšíření',
 		'enabled' => 'Zapnuto',
+		'latest' => 'Installed',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Toto rozšíření nemá žádné možnosti nastavení.',
 		'system' => array(
-			'_' => 'Systémová rozšíření',
 			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
+			'_' => 'Systémová rozšíření',
 		),
 		'title' => 'Rozšíření',
+		'update' => 'Update available',	// TODO - Translation
 		'user' => 'Uživatelská rozšíření',
+		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
-		'_' => 'Statistika',
 		'all_feeds' => 'Všechny kanály',
 		'category' => 'Kategorie',
 		'entry_count' => 'Počet článků',
@@ -144,38 +154,53 @@ return array(
 		'status_unread' => 'Nepřečtené',
 		'title' => 'Statistika',
 		'top_feed' => 'Top ten kanálů',
+		'_' => 'Statistika',
 	),
 	'system' => array(
-		'_' => 'System configuration', // @todo translate
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
-		'instance-name' => 'Instance name', // @todo translate
-		'max-categories' => 'Categories per user limit', // @todo translate
-		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'in seconds',	// TODO - Translation
+			'number' => 'Duration to keep logged in',	// TODO - Translation
+		),
+		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'instance-name' => 'Instance name',	// TODO - Translation
+		'max-categories' => 'Categories per user limit',	// TODO - Translation
+		'max-feeds' => 'Feeds per user limit',	// TODO - Translation
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
 		),
+		'_' => 'System configuration',	// TODO - Translation
 	),
 	'update' => array(
-		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
 		'check' => 'Zkontrolovat aktualizace',
 		'current_version' => 'Vaše instalace FreshRSS je verze %s.',
 		'last' => 'Poslední kontrola: %s',
 		'none' => 'Žádné nové aktualizace',
 		'title' => 'Aktualizovat systém',
+		'_' => 'Aktualizace systému',
 	),
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvořit nového uživatele',
+		'database_size' => 'Database size',	// TODO - Translation
+		'delete_users' => 'Delete user',	// TODO - Translation
+		'email' => 'Email address',	// TODO - Translation
+		'feed_count' => 'Feeds',	// TODO - Translation
 		'language' => 'Jazyk',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
+		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Správa uživatelů',
-		'user_list' => 'Seznam uživatelů',
+		'update_users' => 'Update user',	// TODO - Translation
 		'username' => 'Přihlašovací jméno',
 		'users' => 'Uživatelé',
+		'user_list' => 'Seznam uživatelů',
 	),
 );

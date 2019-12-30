@@ -1,6 +1,7 @@
 <?php
 	$topline_read = FreshRSS_Context::$user_conf->topline_read;
 	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
 ?><ul class="horizontal-list flux_header"><?php
@@ -11,7 +12,7 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = 0;
 				}
-				?><a class="read" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
+				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>"><?php
 					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -21,13 +22,26 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = 0;
 				}
-				?><a class="bookmark" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
+				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>"><?php
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
 	}
-	?><li class="item website"><a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id()); ?>"><img class="favicon" src="<?php echo $this->feed->favicon(); ?>" alt="✇" /> <span><?php echo $this->feed->name(); ?></span></a></li>
-	<li class="item title"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></li>
-	<?php if ($topline_date) { ?><li class="item date"><?php echo $this->entry->date(); ?> </li><?php } ?>
-	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php } ?>
+	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>"><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" /> <span><?= $this->feed->name() ?></span></a></li>
+	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a><?php
+		if ($topline_display_authors):
+			?><div class="item author"><?php
+			$authors = $this->entry->authors();
+			if (is_array($authors)) {
+				$first = true;
+				foreach ($authors as $author) {
+					echo $first ? $author : ', ' . $author;
+					$first = false;
+				}
+			}
+			?></div><?php
+		endif;
+	?></li>
+	<?php if ($topline_date) { ?><li class="item date"><?= $this->entry->date() ?> </li><?php } ?>
+	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>

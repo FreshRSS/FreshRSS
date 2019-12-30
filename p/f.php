@@ -1,17 +1,15 @@
 <?php
-require('../constants.php');
+require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/favicons.php');
 require(LIB_PATH . '/http-conditional.php');
 
 function show_default_favicon($cacheSeconds = 3600) {
-	global $default_favicon;
-
 	header('Content-Disposition: inline; filename="default_favicon.ico"');
 
-	$default_mtime = @filemtime($default_favicon);
+	$default_mtime = @filemtime(DEFAULT_FAVICON);
 	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
-		readfile($default_favicon);
+		readfile(DEFAULT_FAVICON);
 	}
 }
 
@@ -20,15 +18,15 @@ if (!ctype_xdigit($id)) {
 	$id = '0';
 }
 
-$txt = $favicons_dir . $id . '.txt';
-$ico = $favicons_dir . $id . '.ico';
+$txt = FAVICONS_DIR . $id . '.txt';
+$ico = FAVICONS_DIR . $id . '.ico';
 
 $ico_mtime = @filemtime($ico);
 $txt_mtime = @filemtime($txt);
 
 header('Content-Type: image/x-icon');
 
-if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (rand(15, 20) * 86400))) {
+if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
 		exit();
@@ -49,6 +47,6 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (ra
 
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
-if (!httpConditional($ico_mtime, rand(14, 21) * 86400, 2)) {
+if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
 	readfile($ico);
 }

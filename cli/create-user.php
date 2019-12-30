@@ -1,24 +1,12 @@
 #!/usr/bin/php
 <?php
-require('_cli.php');
+$isUpdate = false;
+require(__DIR__ . '/_update-or-create-user.php');
 
-$options = getopt('', array(
-		'user:',
-		'password:',
-		'api-password:',
-		'language:',
-		'email:',
-		'token:',
-		'no-default-feeds',
-	));
-
-if (empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username ( --password 'password' --api-password 'api_password'" .
-		" --language en --email user@example.net --token 'longRandomString --no-default-feeds' )");
-}
 $username = $options['user'];
 if (!FreshRSS_user_Controller::checkUsername($username)) {
-	fail('FreshRSS error: invalid username “' . $username . '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
+	fail('FreshRSS error: invalid username “' . $username .
+		'”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
 }
 
 $usernames = listUsers();
@@ -28,14 +16,13 @@ if (preg_grep("/^$username$/i", $usernames)) {
 
 echo 'FreshRSS creating user “', $username, "”…\n";
 
-$ok = FreshRSS_user_Controller::createUser($username,
+$ok = FreshRSS_user_Controller::createUser(
+	$username,
+	empty($options['mail_login']) ? '' : $options['mail_login'],
 	empty($options['password']) ? '' : $options['password'],
-	empty($options['api-password']) ? '' : $options['api-password'],
-	array(
-		'language' => empty($options['language']) ? '' : $options['language'],
-		'token' => empty($options['token']) ? '' : $options['token'],
-	),
-	!isset($options['no-default-feeds']));
+	$values,
+	!isset($options['no_default_feeds'])
+);
 
 if (!$ok) {
 	fail('FreshRSS could not create user!');

@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  freshrss_postgresql:
+    image: postgres
+    restart: unless-stopped
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=freshrss
+      - POSTGRES_PASSWORD=freshrss
+      - POSTGRES_DB=freshrss
+
+  freshrss:
+    image: freshrss/freshrss
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - freshrss_postgresql
+    volumes:
+      - freshrss_data:/var/www/FreshRSS/data
+    environment:
+      - CRON_MIN=*/20
+      - TZ=Europe/Copenhagen
+    labels:
+      - "traefik.port=80"
+
+volumes:
+  pgsql_data:
+  freshrss_data:

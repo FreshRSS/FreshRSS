@@ -1,12 +1,18 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimierung abgeschlossen',
-	),
 	'access' => array(
 		'denied' => 'Sie haben nicht die Berechtigung, diese Seite aufzurufen',
 		'not_found' => 'Sie suchen nach einer Seite, die nicht existiert',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Optimierung abgeschlossen',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -31,16 +37,16 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s ist bereits aktiviert',
 		'disable' => array(
-			'ko' => '%s kann nicht deaktiviert werden. Für Details <a href="%s">prüfen Sie die FressRSS-Protokolle</a>.',
+			'ko' => '%s kann nicht deaktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt deaktiviert',
 		),
 		'enable' => array(
-			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FressRSS-Protokolle</a>.',
+			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt aktiviert',
 		),
-		'no_access' => 'Sie haben keinen Zugang zu %s',
 		'not_enabled' => '%s ist noch nicht aktiviert',
 		'not_found' => '%s existiert nicht',
+		'no_access' => 'Sie haben keinen Zugang zu %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Die ZIP-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',
@@ -50,18 +56,26 @@ return array(
 		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
 		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',
 	),
+	'profile' => array(
+		'error' => 'Ihr Profil kann nicht geändert werden',
+		'updated' => 'Ihr Profil ist geändert worden',
+	),
 	'sub' => array(
 		'actualize' => 'Aktualisieren',
+		'articles' => array(
+			'marked_read' => 'Die ausgewählten Artikel wurden als gelesen markiert.',
+			'marked_unread' => 'Die ausgewählten Artikel wurden als ungelesen markiert.',
+		),
 		'category' => array(
 			'created' => 'Die Kategorie %s ist erstellt worden.',
 			'deleted' => 'Die Kategorie ist gelöscht worden.',
 			'emptied' => 'Die Kategorie ist geleert worden.',
 			'error' => 'Die Kategorie kann nicht aktualisiert werden',
 			'name_exists' => 'Der Kategorie-Name existiert bereits.',
-			'no_id' => 'Sie müssen die ID der Kategorie präzisieren.',
-			'no_name' => 'Der Kategorie-Name kann nicht leer sein.',
 			'not_delete_default' => 'Sie können die Vorgabe-Kategorie nicht löschen!',
 			'not_exist' => 'Die Kategorie existiert nicht!',
+			'no_id' => 'Sie müssen die ID der Kategorie präzisieren.',
+			'no_name' => 'Der Kategorie-Name kann nicht leer sein.',
 			'over_max' => 'Sie haben Ihre Kategorien-Limite erreicht (%d)',
 			'updated' => 'Die Kategorie ist aktualisiert worden.',
 		),
@@ -72,13 +86,12 @@ return array(
 			'already_subscribed' => 'Sie haben <em>%s</em> bereits abonniert',
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
-			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FressRSS-Protokolle</a>.',
+			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
-			'marked_read' => 'Die Feeds sind als gelesen markiert worden',
+			'not_added' => '<em>%s</em> konnte nicht hinzugefügt werden',
+			'no_refresh' => 'Es gibt keinen Feed zum Aktualisieren…',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
 			'n_entries_deleted' => 'Die %d Artikel sind gelöscht worden',
-			'no_refresh' => 'Es gibt keinen Feed zum Aktualisieren…',
-			'not_added' => '<em>%s</em> konnte nicht hinzugefügt werden',
 			'over_max' => 'Sie haben Ihre Feeds-Limite erreicht (%d)',
 			'updated' => 'Der Feed ist aktualisiert worden',
 		),
@@ -94,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Der Benutzer %s ist erstellt worden',
 			'error' => 'Der Benutzer %s kann nicht erstellt werden',
+			'_' => 'Der Benutzer %s ist erstellt worden',
 		),
 		'deleted' => array(
-			'_' => 'Der Benutzer %s ist gelöscht worden',
 			'error' => 'Der Benutzer %s kann nicht gelöscht werden',
+			'_' => 'Der Benutzer %s ist gelöscht worden',
 		),
-	),
-	'profile' => array(
-		'error' => 'Ihr Profil kann nicht geändert werden',
-		'updated' => 'Ihr Profil ist geändert worden',
+		'updated' => array(
+			'error' => 'Benutzer %s wurde nicht aktualisiert',
+			'_' => 'Benutzer %s wurde aktualisiert',
+		),
 	),
 );

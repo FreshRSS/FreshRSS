@@ -1,16 +1,25 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
+		'title' => 'API',
+	),
 	'bookmarklet' => array(
 		'documentation' => '이 버튼을 즐겨찾기 막대로 끌어다 놓거나 마우스 오른쪽 클릭으로 나타나는 메뉴에서 "이 링크를 즐겨찾기에 추가"를 선택하세요. 그리고 피드를 구독하길 원하는 페이지에서 "구독하기" 버튼을 클릭하세요.',
 		'label' => '구독하기',
 		'title' => '북마클릿',
 	),
 	'category' => array(
-		'_' => '카테고리',
 		'add' => '카테고리 추가',
+		'archiving' => '보관',
 		'empty' => '빈 카테고리',
+		'information' => '정보',
 		'new' => '새 카테고리',
+		'position' => 'Display position',	// TODO - Translation
+		'position_help' => 'To control category sort order',	// TODO - Translation
+		'title' => '제목',
+		'_' => '카테고리',
 	),
 	'feed' => array(
 		'add' => 'RSS 피드 추가',
@@ -23,33 +32,55 @@ return array(
 			'password' => 'HTTP 암호',
 			'username' => 'HTTP 사용자 이름',
 		),
+		'clear_cache' => '항상 캐시 지우기',
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
 		'css_path' => '웹사이트 상의 글 본문에 해당하는 CSS 경로',
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
-		'in_main_stream' => '메인 스트림에 표시하기',
-		'informations' => '정보',
-		'keep_history' => '최소 유지 글 개수',
+		'filteractions' => array(
+			'help' => 'Write one search filter per line.',	// TODO - Translation
+			'_' => 'Filter actions',	// TODO - Translation
+		),
+		'information' => '정보',
+		'keep_min' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
+		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
+		'priority' => array(
+			'archived' => '표시하지 않음 (보관됨)',
+			'main_stream' => '메인 스트림에 표시하기',
+			'normal' => '피드가 속한 카테고리에만 표시하기',
+			'_' => '표시',
+		),
+		'show' => array(
+			'all' => '모든 피드 보기',
+			'error' => '오류가 발생한 피드만 보기',
+		),
+		'showing' => array(
+			'error' => '오류가 발생한 피드만 보여주고 있습니다',
+		),
+		'ssl_verify' => 'SSL 유효성 검사',
 		'stats' => '통계',
 		'think_to_add' => '피드를 추가할 수 있습니다.',
+		'timeout' => '타임아웃 (초)',
 		'title' => '제목',
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'url' => '피드 URL',
 		'validator' => '피드 유효성 검사',
 		'website' => '웹사이트 URL',
-		'pubsubhubbub' => 'PubSubHubbub을 사용한 즉시 알림',
+		'websub' => 'WebSub을 사용한 즉시 알림',
 	),
 	'firefox' => array(
 		'documentation' => 'FreshRSS를 Firefox 피드 리더에 추가하기 위해서는 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">여기</a>의 설명을 따르세요.',
+		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
 		'title' => 'Firefox 피드 리더',
 	),
 	'import_export' => array(
 		'export' => '내보내기',
+		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
 		'export_starred' => '즐겨찾기 내보내기',
 		'feed_list' => '%s 개의 글 목록',
@@ -66,8 +97,8 @@ return array(
 		'subscription_tools' => '구독 도구',
 	),
 	'title' => array(
-		'_' => '구독 관리',
 		'feed_management' => 'RSS 피드 관리',
 		'subscription_tools' => '구독 도구',
+		'_' => '구독 관리',
 	),
 );

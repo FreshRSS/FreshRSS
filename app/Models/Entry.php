@@ -10,27 +10,28 @@ class FreshRSS_Entry extends Minz_Model {
 	private $id = 0;
 	private $guid;
 	private $title;
-	private $author;
+	private $authors;
 	private $content;
 	private $link;
 	private $date;
 	private $hash = null;
 	private $is_read;	//Nullable boolean
 	private $is_favorite;
+	private $feedId;
 	private $feed;
 	private $tags;
 
-	public function __construct($feed = '', $guid = '', $title = '', $author = '', $content = '',
+	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
 	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
-		$this->_author($author);
+		$this->_authors($authors);
 		$this->_content($content);
 		$this->_link($link);
 		$this->_date($pubdate);
 		$this->_isRead($is_read);
 		$this->_isFavorite($is_favorite);
-		$this->_feed($feed);
-		$this->_tags(preg_split('/[\s#]/', $tags));
+		$this->_feedId($feedId);
+		$this->_tags($tags);
 		$this->_guid($guid);
 	}
 
@@ -44,7 +45,15 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->title;
 	}
 	public function author() {
-		return $this->author === null ? '' : $this->author;
+		//Deprecated
+		return $this->authors(true);
+	}
+	public function authors($asString = false) {
+		if ($asString) {
+			return $this->authors == null ? '' : ';' . implode('; ', $this->authors);
+		} else {
+			return $this->authors;
+		}
 	}
 	public function content() {
 		return $this->content;
@@ -75,15 +84,18 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function feed($object = false) {
 		if ($object) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			return $feedDAO->searchById($this->feed);
-		} else {
+			if ($this->feed == null) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$this->feed = $feedDAO->searchById($this->feedId);
+			}
 			return $this->feed;
+		} else {
+			return $this->feedId;
 		}
 	}
-	public function tags($inString = false) {
-		if ($inString) {
-			return empty($this->tags) ? '' : '#' . implode(' #', $this->tags);
+	public function tags($asString = false) {
+		if ($asString) {
+			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
 		} else {
 			return $this->tags;
 		}
@@ -92,7 +104,15 @@ class FreshRSS_Entry extends Minz_Model {
 	public function hash() {
 		if ($this->hash === null) {
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->author . $this->content . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
+		}
+		return $this->hash;
+	}
+
+	public function _hash($value) {
+		$value = trim($value);
+		if (ctype_xdigit($value)) {
+			$this->hash = substr($value, 0, 32);
 		}
 		return $this->hash;
 	}
@@ -114,8 +134,19 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->title = $value;
 	}
 	public function _author($value) {
+		//Deprecated
+		$this->_authors($value);
+	}
+	public function _authors($value) {
 		$this->hash = null;
-		$this->author = $value;
+		if (!is_array($value)) {
+			if (strpos($value, ';') !== false) {
+				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+			} else {
+				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+			}
+		}
+		$this->authors = $value;
 	}
 	public function _content($value) {
 		$this->hash = null;
@@ -137,21 +168,134 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->is_favorite = $value;
 	}
 	public function _feed($value) {
-		$this->feed = $value;
+		if ($value != null) {
+			$this->feed = $value;
+			$this->feedId = $this->feed->id();
+		}
+	}
+	private function _feedId($value) {
+		$this->feed = null;
+		$this->feedId = $value;
 	}
 	public function _tags($value) {
 		$this->hash = null;
 		if (!is_array($value)) {
-			$value = array($value);
+			$value = preg_split('/\s*[#,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
 		}
+		$this->tags = $value;
+	}
 
-		foreach ($value as $key => $t) {
-			if (!$t) {
-				unset($value[$key]);
+	public function matches($booleanSearch) {
+		if (!$booleanSearch || count($booleanSearch->searches()) <= 0) {
+			return true;
+		}
+		foreach ($booleanSearch->searches() as $filter) {
+			$ok = true;
+			if ($ok && $filter->getMinPubdate()) {
+				$ok &= $this->date >= $filter->getMinPubdate();
+			}
+			if ($ok && $filter->getMaxPubdate()) {
+				$ok &= $this->date <= $filter->getMaxPubdate();
+			}
+			if ($ok && $filter->getMinDate()) {
+				$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
+			}
+			if ($ok && $filter->getMaxDate()) {
+				$ok &= strnatcmp($this->id, $filter->getMaxDate() . '000000') <= 0;
+			}
+			if ($ok && $filter->getInurl()) {
+				foreach ($filter->getInurl() as $url) {
+					$ok &= stripos($this->link, $url) !== false;
+				}
+			}
+			if ($ok && $filter->getNotInurl()) {
+				foreach ($filter->getNotInurl() as $url) {
+					$ok &= stripos($this->link, $url) === false;
+				}
+			}
+			if ($ok && $filter->getAuthor()) {
+				foreach ($filter->getAuthor() as $author) {
+					$ok &= stripos($this->authors, $author) !== false;
+				}
+			}
+			if ($ok && $filter->getNotAuthor()) {
+				foreach ($filter->getNotAuthor() as $author) {
+					$ok &= stripos($this->authors, $author) === false;
+				}
+			}
+			if ($ok && $filter->getIntitle()) {
+				foreach ($filter->getIntitle() as $title) {
+					$ok &= stripos($this->title, $title) !== false;
+				}
+			}
+			if ($ok && $filter->getNotIntitle()) {
+				foreach ($filter->getNotIntitle() as $title) {
+					$ok &= stripos($this->title, $title) === false;
+				}
+			}
+			if ($ok && $filter->getTags()) {
+				foreach ($filter->getTags() as $tag2) {
+					$found = false;
+					foreach ($this->tags as $tag1) {
+						if (strcasecmp($tag1, $tag2) === 0) {
+							$found = true;
+						}
+					}
+					$ok &= $found;
+				}
+			}
+			if ($ok && $filter->getNotTags()) {
+				foreach ($filter->getNotTags() as $tag2) {
+					$found = false;
+					foreach ($this->tags as $tag1) {
+						if (strcasecmp($tag1, $tag2) === 0) {
+							$found = true;
+						}
+					}
+					$ok &= !$found;
+				}
+			}
+			if ($ok && $filter->getSearch()) {
+				foreach ($filter->getSearch() as $needle) {
+					$ok &= (stripos($this->title, $needle) !== false || stripos($this->content, $needle) !== false);
+				}
+			}
+			if ($ok && $filter->getNotSearch()) {
+				foreach ($filter->getNotSearch() as $needle) {
+					$ok &= (stripos($this->title, $needle) === false && stripos($this->content, $needle) === false);
+				}
+			}
+			if ($ok) {
+				return true;
 			}
 		}
+		return false;
+	}
 
-		$this->tags = $value;
+	public function applyFilterActions() {
+		if ($this->feed != null) {
+			if ($this->feed->attributes('read_upon_reception') ||
+				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
+				$this->_isRead(true);
+			}
+			foreach ($this->feed->filterActions() as $filterAction) {
+				if ($this->matches($filterAction->booleanSearch())) {
+					foreach ($filterAction->actions() as $action => $params) {
+						switch ($action) {
+							case 'read':
+								$this->_isRead(true);
+								break;
+							case 'star':
+								$this->_is_favorite(true);
+								break;
+							case 'label':
+								//TODO: Implement more actions
+								break;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public function isDay($day, $today) {
@@ -171,12 +315,71 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent($pathEntries) {
+	private static function get_content_by_parsing($url, $path, $attributes = array()) {
+		require_once(LIB_PATH . '/lib_phpQuery.php');
+		$system_conf = Minz_Configuration::get('system');
+		$limits = $system_conf->limits;
+		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+
+		if ($system_conf->simplepie_syslog_enabled) {
+			prepareSyslog();
+			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+		}
+
+		$ch = curl_init();
+		curl_setopt_array($ch, [
+			CURLOPT_URL => $url,
+			CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
+			CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+			CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+			CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+			//CURLOPT_FAILONERROR => true;
+			CURLOPT_MAXREDIRS => 4,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_ENCODING => '',	//Enable all encodings
+		]);
+		curl_setopt_array($ch, $system_conf->curl_options);
+		if (isset($attributes['ssl_verify'])) {
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		}
+		$html = curl_exec($ch);
+		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$c_error = curl_error($ch);
+		curl_close($ch);
+
+		if ($c_status != 200 || $c_error != '') {
+			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		}
+
+		if ($html) {
+			$doc = phpQuery::newDocument($html);
+			$content = $doc->find($path);
+
+			foreach (pq('img[data-src]') as $img) {
+				$imgP = pq($img);
+				$dataSrc = $imgP->attr('data-src');
+				if (strlen($dataSrc) > 4) {
+					$imgP->attr('src', $dataSrc);
+					$imgP->removeAttr('data-src');
+				}
+			}
+
+			return trim(sanitizeHTML($content->__toString(), $url));
+		} else {
+			throw new Exception();
+		}
+	}
+
+	public function loadCompleteContent() {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
-		if ($pathEntries) {
+		$feed = $this->feed(true);
+		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$entry = $entryDAO->searchByGuid($this->feed, $this->guid);
+			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
 
 			if ($entry) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
@@ -184,11 +387,17 @@ class FreshRSS_Entry extends Minz_Model {
 			} else {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
-					$this->content = get_content_by_parsing(
-						htmlspecialchars_decode($this->link(), ENT_QUOTES), $pathEntries
+					$fullContent = self::get_content_by_parsing(
+						htmlspecialchars_decode($this->link(), ENT_QUOTES),
+						$feed->pathEntries(),
+						$feed->attributes()
 					);
+					if ($fullContent != '') {
+						$this->content = $fullContent;
+					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu(requête a échoué)
+					Minz_Log::warning($e->getMessage());
 				}
 			}
 		}
@@ -199,7 +408,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'id' => $this->id(),
 			'guid' => $this->guid(),
 			'title' => $this->title(),
-			'author' => $this->author(),
+			'author' => $this->authors(true),
 			'content' => $this->content(),
 			'link' => $this->link(),
 			'date' => $this->date(true),

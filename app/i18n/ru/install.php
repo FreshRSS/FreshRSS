@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'finish' => 'Завершить установку',
-		'fix_errors_before' => 'Пожалуйста, исправьте ошибки прежде чем переходить  к следующему этапу.',
+		'fix_errors_before' => 'Пожалуйста, исправьте ошибки прежде чем переходить	к следующему этапу.',
 		'keep_install' => 'Сохранить предыдущую установку',
 		'next_step' => 'Перейти к следующему этапу',
 		'reinstall' => 'Переустановить FreshRSS',
@@ -17,20 +17,19 @@ return array(
 		'type' => 'Метод аутентификации',
 	),
 	'bdd' => array(
-		'_' => 'База данных',
 		'conf' => array(
-			'_' => 'Конфигурация базы данныхDatabase configuration',
 			'ko' => 'Проверьте конфигурацию базы данных.',
 			'ok' => 'Конфигурация базы данных сохранена.',
+			'_' => 'Конфигурация базы данныхDatabase configuration',
 		),
 		'host' => 'Хост',
-		'prefix' => 'Префикс таблицы',
 		'password' => 'Пароль базы данных',
+		'prefix' => 'Префикс таблицы',
 		'type' => 'Тип базы данных',
 		'username' => 'Имя пользователя базы данных',
+		'_' => 'База данных',
 	),
 	'check' => array(
-		'_' => 'Проверки',
 		'already_installed' => 'Обнаружена предыдущая установка FreshRSS!',
 		'cache' => array(
 			'nok' => 'Проверьте права доступа к папке <em>./data/cache</em> . Сервер HTTP должен иметь права на запись в эту папку.',
@@ -64,6 +63,14 @@ return array(
 			'nok' => 'Убедитесь, что вы не изменяете ваш HTTP REFERER.',
 			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
 		),
+		'json' => array(
+			'nok' => 'Cannot find a recommended library to parse JSON.',	// TODO - Translation
+			'ok' => 'You have a recommended library to parse JSON.',	// TODO - Translation
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',
 			'ok' => 'У вас установлен фрейворк Minz.',
@@ -82,30 +89,35 @@ return array(
 		),
 		'users' => array(
 			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Сервер HTTP должен иметь права на запись в эту папку.',
-			'ok' => 'Права на папку users  в порядке.',
+			'ok' => 'Права на папку users в порядке.',
 		),
+		'xml' => array(
+			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
+			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
+		),
+		'_' => 'Проверки',
 	),
 	'conf' => array(
-		'_' => 'Общие настройки',
 		'ok' => 'Общие настройки были сохранены.',
+		'_' => 'Общие настройки',
 	),
 	'congratulations' => 'Поздравляем!',
 	'default_user' => 'Имя пользователя по умолчанию <small>(максимум 16 латинских букв и/или цифр)</small>',
 	'delete_articles_after' => 'Удалять статьи после',
-	'fix_errors_before' => 'Пожалуйста, исправьте ошибки прежде чем переходить  к следующему этапу..',
+	'fix_errors_before' => 'Пожалуйста, исправьте ошибки прежде чем переходить	к следующему этапу..',
 	'javascript_is_better' => 'FreshRSS принесёт больше удовольствия, если включить JavaScript',
 	'js' => array(
 		'confirm_reinstall' => 'Переустанавливая FreshRSS, вы потеряете предыдущую конфигурацию. Вы хотите продолжить?',
 	),
 	'language' => array(
-		'_' => 'Язык',
 		'choose' => 'Выберите язык для FreshRSS',
 		'defined' => 'Язык выбран.',
+		'_' => 'Язык',
 	),
 	'not_deleted' => 'Что-то пошло не так; удалите файл <em>%s</em> вручную.',
 	'ok' => 'Установка успешна.',
 	'step' => '%d этап',
 	'steps' => 'Этапы',
-	'title' => 'Установка · FreshRSS',
 	'this_is_the_end' => 'Это конец',
+	'title' => 'Установка · FreshRSS',
 );

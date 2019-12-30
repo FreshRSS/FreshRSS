@@ -1,6 +1,6 @@
 <?php
 /**
- * Author: Alexandre Alapetite http://alexandre.alapetite.fr
+ * Author: Alexandre Alapetite https://alexandre.alapetite.fr
  * 2014-06-01
  * License: GNU AGPLv3 http://www.gnu.org/licenses/agpl-3.0.html
  *
@@ -63,8 +63,7 @@ function _dateCeiling($isoDate) {
 }
 
 function _noDelimit($isoDate) {
-	return $isoDate === null || $isoDate === '' ? null :
-		str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
+	return $isoDate === null || $isoDate === '' ? null : str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
 }
 
 function _dateRelative($d1, $d2) {

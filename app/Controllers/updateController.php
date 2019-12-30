@@ -23,20 +23,28 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		}
 		chdir($cwd);
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
-		return strpos($line, '[behind') !== false;
+		return strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false;
 	}
 
 	public static function gitPull() {
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
-		$output = array();
+		$output = '';
 		$return = 1;
 		try {
-			exec('git pull --ff-only', $output, $return);
+			exec('git fetch', $output, $return);
+			if ($return == 0) {
+				exec('git reset --hard FETCH_HEAD', $output, $return);
+			}
 		} catch (Exception $e) {
-			Minz_Log::warning('git pull error:' . $e->getMessage());
+			Minz_Log::warning('Git error:' . $e->getMessage());
+			if ($output == '') {
+				$output = $e->getMessage();
+			}
+			$return = 1;
 		}
 		chdir($cwd);
+		deleteInstall();
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
@@ -45,6 +53,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
+
+		include_once(LIB_PATH . '/lib_install.php');
 
 		invalidateHttpCache();
 
@@ -83,7 +93,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function checkAction() {
-		$this->view->change_view('update', 'index');
+		$this->view->_path('update/index.phtml');
 
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is already an update file to apply: we don't need to check
@@ -102,7 +112,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				$version = 'git';
 			} else {
 				$this->view->message = array(
-					'status' => 'bad',
+					'status' => 'latest',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
@@ -138,7 +148,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$status = $res_array[0];
 			if (strpos($status, 'UPDATE') !== 0) {
 				$this->view->message = array(
-					'status' => 'bad',
+					'status' => 'latest',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);

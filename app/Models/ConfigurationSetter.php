@@ -56,8 +56,7 @@ class FreshRSS_ConfigurationSetter {
 		switch ($value) {
 		case 'all':
 			$data['default_view'] = $value;
-			$data['default_state'] = (FreshRSS_Entry::STATE_READ +
-			                          FreshRSS_Entry::STATE_NOT_READ);
+			$data['default_state'] = (FreshRSS_Entry::STATE_READ + FreshRSS_Entry::STATE_NOT_READ);
 			break;
 		case 'adaptive':
 		case 'unread':
@@ -80,11 +79,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
 	}
 
-	private function _keep_history_default(&$data, $value) {
-		$value = intval($value);
-		$data['keep_history_default'] = $value >= -1 ? $value : 0;
-	}
-
 	// It works for system config too!
 	private function _language(&$data, $value) {
 		$value = strtolower($value);
@@ -93,11 +87,6 @@ class FreshRSS_ConfigurationSetter {
 			$value = 'en';
 		}
 		$data['language'] = $value;
-	}
-
-	private function _old_entries(&$data, $value) {
-		$value = intval($value);
-		$data['old_entries'] = $value > 0 ? $value : 3;
 	}
 
 	private function _passwordHash(&$data, $value) {
@@ -155,7 +144,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _ttl_default(&$data, $value) {
 		$value = intval($value);
-		$data['ttl_default'] = $value >= -1 ? $value : 3600;
+		$data['ttl_default'] = $value > FreshRSS_Feed::TTL_DEFAULT ? $value : 3600;
 	}
 
 	private function _view_mode(&$data, $value) {
@@ -163,7 +152,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('global', 'normal', 'reader'))) {
 			$value = 'normal';
 		}
-		$data['view_mode'] =  $value;
+		$data['view_mode'] = $value;
 	}
 
 	/**
@@ -183,6 +172,10 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _mark_updated_article_unread(&$data, $value) {
 		$data['mark_updated_article_unread'] = $this->handleBool($value);
+	}
+
+	private function _show_nav_buttons(&$data, $value) {
+		$data['show_nav_buttons'] = $this->handleBool($value);
 	}
 
 	private function _display_categories(&$data, $value) {
@@ -253,6 +246,9 @@ class FreshRSS_ConfigurationSetter {
 	}
 	private function _topline_read(&$data, $value) {
 		$data['topline_read'] = $this->handleBool($value);
+	}
+	private function _topline_display_authors(&$data, $value) {
+		$data['topline_display_authors'] = $this->handleBool($value);
 	}
 
 	/**
@@ -326,12 +322,15 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('silent', 'development', 'production'))) {
 			$value = 'production';
 		}
-		$data['environment'] =  $value;
+		$data['environment'] = $value;
 	}
 
 	private function _limits(&$data, $values) {
 		$max_small_int = 16384;
 		$limits_keys = array(
+			'cookie_duration' => array(
+				'min' => 0,
+			),
 			'cache_duration' => array(
 				'min' => 0,
 			),
@@ -361,8 +360,7 @@ class FreshRSS_ConfigurationSetter {
 
 			$value = intval($value);
 			$limits = $limits_keys[$key];
-			if (
-				(!isset($limits['min']) || $value >= $limits['min']) &&
+			if ((!isset($limits['min']) || $value >= $limits['min']) &&
 				(!isset($limits['max']) || $value <= $limits['max'])
 			) {
 				$data['limits'][$key] = $value;
@@ -380,5 +378,9 @@ class FreshRSS_ConfigurationSetter {
 		}
 
 		$data['auto_update_url'] = $value;
+	}
+
+	private function _force_email_validation(&$data, $value) {
+		$data['force_email_validation'] = $this->handleBool($value);
 	}
 }

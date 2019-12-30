@@ -1,12 +1,18 @@
 <?php
 
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimizasyon tamamlandı',
-	),
 	'access' => array(
 		'denied' => 'Bu sayfaya erişim yetkiniz yok',
 		'not_found' => 'Varolmayan bir sayfa arıyorsunuz',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Optimizasyon tamamlandı',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Your password cannot be modified',	// TODO - Translation
+			'updated' => 'Your password has been modified',	// TODO - Translation
+		),
 	),
 	'auth' => array(
 		'form' => array(
@@ -31,16 +37,16 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s zaten aktif',
 		'disable' => array(
-			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.',
+			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'ok' => '%s pasif',
 		),
 		'enable' => array(
-			'ko' => '%s aktifleştirilemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.',
+			'ko' => '%s aktifleştirilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'ok' => '%s aktif',
 		),
-		'no_access' => '%s de yetkiniz yok',
 		'not_enabled' => '%s henüz aktif değil',
 		'not_found' => '%s bulunmamaktadır',
+		'no_access' => '%s de yetkiniz yok',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
@@ -50,18 +56,26 @@ return array(
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
 		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
 	),
+	'profile' => array(
+		'error' => 'Profiliniz düzenlenemedi',
+		'updated' => 'Profiliniz düzenlendi',
+	),
 	'sub' => array(
 		'actualize' => 'Güncelleme',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
+		),
 		'category' => array(
 			'created' => 'Kategori %s oluşturuldu.',
 			'deleted' => 'Kategori silindi.',
 			'emptied' => 'Kategori boşaltıldı',
 			'error' => 'Kategori güncellenemedi',
 			'name_exists' => 'Kategori ismi zaten bulunmakta.',
-			'no_id' => 'Kategori id sinden emin olmalısınız.',
-			'no_name' => 'Kategori ismi boş olamaz.',
 			'not_delete_default' => 'Öntanımlı kategoriyi silemezsiniz!',
 			'not_exist' => 'Kategori bulunmamakta!',
+			'no_id' => 'Kategori id sinden emin olmalısınız.',
+			'no_name' => 'Kategori ismi boş olamaz.',
 			'over_max' => 'Kategori limitini aştınız (%d)',
 			'updated' => 'Karegori güncellendi.',
 		),
@@ -72,13 +86,12 @@ return array(
 			'already_subscribed' => '<em>%s</em> için zaten aboneliğiniz bulunmakta',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.',
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
-			'marked_read' => 'Akışlar okundu olarak işaretlendi',
+			'not_added' => '<em>%s</em> eklenemedi',
+			'no_refresh' => 'Yenilenecek akış yok…',
 			'n_actualized' => '%d akışları güncellendi',
 			'n_entries_deleted' => '%d makaleleri silindi',
-			'no_refresh' => 'Yenilenecek akış yok…',
-			'not_added' => '<em>%s</em> eklenemedi',
 			'over_max' => 'Akış limitini aştınız (%d)',
 			'updated' => 'Akış güncellendi',
 		),
@@ -94,16 +107,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => '%s kullanıcısı oluşturuldu',
 			'error' => '%s kullanıcısı oluşturulamadı',
+			'_' => '%s kullanıcısı oluşturuldu',
 		),
 		'deleted' => array(
-			'_' => '%s kullanıcısı silindi',
 			'error' => '%s kullanıcısı silinemedi',
+			'_' => '%s kullanıcısı silindi',
 		),
-	),
-	'profile' => array(
-		'error' => 'Profiliniz düzenlenemedi',
-		'updated' => 'Profiliniz düzenlendi',
+		'updated' => array(
+			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'User %s has been updated',	// TODO - Translation
+		),
 	),
 );

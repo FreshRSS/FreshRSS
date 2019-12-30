@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
  */
@@ -64,12 +64,16 @@ class Minz_Translate {
 		$list_langs = array();
 
 		foreach (self::$path_list as $path) {
-			$path_langs = array_values(array_diff(
-				scandir($path),
-				array('..', '.')
-			));
-
-			$list_langs = array_merge($list_langs, $path_langs);
+			$scan = scandir($path);
+			if (is_array($scan)) {
+				$path_langs = array_values(array_diff(
+					$scan,
+					array('..', '.')
+				));
+				if (is_array($path_langs)) {
+					$list_langs = array_merge($list_langs, $path_langs);
+				}
+			}
 		}
 
 		return array_unique($list_langs);
@@ -80,12 +84,10 @@ class Minz_Translate {
 	 * @param $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath($path) {
-		if (in_array($path, self::$path_list)) {
-			return;
+		if (!in_array($path, self::$path_list) && is_dir($path)) {
+			self::$path_list[] = $path;
+			self::loadLang($path);
 		}
-
-		self::$path_list[] = $path;
-		self::loadLang($path);
 	}
 
 	/**
@@ -94,7 +96,7 @@ class Minz_Translate {
 	 */
 	private static function loadLang($path) {
 		$lang_path = $path . '/' . self::$lang_name;
-		if (!file_exists($lang_path) || is_null(self::$lang_name)) {
+		if (!file_exists($lang_path) || self::$lang_name == '') {
 			// The lang path does not exist, nothing more to do.
 			return;
 		}
@@ -153,7 +155,7 @@ class Minz_Translate {
 	 * @param additional parameters for variable keys.
 	 * @return the value corresponding to the key.
 	 *         If no value is found, return the key itself.
-	 */ 
+	 */
 	public static function t($key) {
 		$group = explode('.', $key);
 

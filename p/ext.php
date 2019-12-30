@@ -5,7 +5,7 @@ if (!isset($_GET['f']) ||
 	die();
 }
 
-require('../constants.php');
+require(__DIR__ . '/../constants.php');
 
 /**
  * Check if a file can be served by ext.php. A valid file is under a
@@ -19,13 +19,19 @@ require('../constants.php');
  */
 function is_valid_path($path) {
 	// It must be under the extension path.
-	$in_ext_path = (substr($path, 0, strlen(EXTENSIONS_PATH)) === EXTENSIONS_PATH);
+	$real_ext_path = realpath(EXTENSIONS_PATH);
+
+	//Windows compatibility
+	$real_ext_path = str_replace('\\', '/', $real_ext_path);
+	$path = str_replace('\\', '/', $path);
+
+	$in_ext_path = (substr($path, 0, strlen($real_ext_path)) === $real_ext_path);
 	if (!$in_ext_path) {
 		return false;
 	}
 
 	// File to serve must be under a `ext_dir/static/` directory.
-	$path_relative_to_ext = substr($path, strlen(EXTENSIONS_PATH) + 1);
+	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
 	$path_splitted = explode('/', $path_relative_to_ext);
 	if (count($path_splitted) < 3 || $path_splitted[1] !== 'static') {
 		return false;
@@ -51,6 +57,23 @@ case 'css':
 	break;
 case 'js':
 	header('Content-Type: application/javascript; charset=UTF-8');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'png':
+	header('Content-Type: image/png');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'jpeg':
+case 'jpg':
+	header('Content-Type: image/jpeg');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'gif':
+	header('Content-Type: image/gif');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'svg':
+	header('Content-Type: image/svg+xml');
 	header('Content-Disposition: inline; filename="' . $file_name . '"');
 	break;
 default:

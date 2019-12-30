@@ -1,0 +1,83 @@
+/*=== GLOBAL VIEW */
+/*================*/
+#stream {
+	.box.category {
+		&:not([data-unread="0"]) .box-title {
+			// background: #3498db;
+		}
+
+		&:not([data-unread="0"]) .box-title:active {
+			// background: #2980b9;
+		}
+
+		&:not([data-unread="0"]) .box-title .title {
+			font-weight: bold;
+			// color: #fff;
+		}
+
+		.box-title {
+			padding: 1.5rem;
+			background: none;
+
+			a.title {
+				color: $grey-dark;
+				font-size: 1rem;
+				font-weight: normal;
+				text-decoration: none;
+				text-align: left;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+
+				&:not([data-unread="0"])::after {
+					margin: -0.5rem 1rem 0 0;
+					padding: 0 0.75rem;
+					background: $grey-light;
+					border-radius: 12px;
+					position: absolute;
+					top: 1.75rem;
+					right: 0;
+					line-height: 1.5rem;
+					text-align: center;
+				}
+
+				&:hover {
+					color: $main-first;
+				}
+			}
+		}
+
+		.box-content {
+			padding-bottom: 0.5rem;
+
+			.item.feed {
+				padding: 0.5rem 1.5rem;
+				// padding: 2px 10px;
+				font-size: 1rem;
+
+				a {
+					color: $main-font-color;
+					font-weight: 400;
+
+					&:hover {
+						color: $main-first;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+// le panel qui apparait en overlay pour afficher les flux
+#overlay {
+	background: rgba(0, 0, 0, 0.65);
+}
+
+#panel {
+	top: 3rem;
+	right: 3rem;
+	bottom: 3rem;
+	left: 3rem;
+	border-radius: 3px;
+}
