@@ -25,6 +25,9 @@ class FreshAPI_TTRSS {
 	public function __construct($params) {
 		$this->seq = isset($params['seq']) ? $params['seq'] : 0;
 		$this->user = Minz_Session::param('currentUser', '');
+		if (!FreshRSS_user_Controller::checkUsername($this->user)) {
+			$this->user = '';
+		}
 		$this->method = $params['op'];
 		$this->params = $params;
 		$this->system_conf = Minz_Configuration::get('system');
@@ -63,24 +66,45 @@ class FreshAPI_TTRSS {
 	}
 
 	public function handle() {
-		if (!$this->system_conf->api_enabled) {
-			$this->bad(array(
-				'error' => 'API_DISABLED'
-			));
-		}
-
-		if ($this->user === '' &&
-				!in_array($this->method, array('login', 'isloggedin'))) {
-			$this->bad(array(
-				'error' => 'NOT_LOGGED_IN'
-			));
-		}
-
-		if (is_callable(array($this, $this->method))) {
-			//Minz_Log::debug('TTRSS API: ' . $this->method . '()');
-			call_user_func(array($this, $this->method));
+		if (!FreshRSS_Context::$system_conf->api_enabled) {
+			$this->bad([ 'error' => 'API_DISABLED' ]);
+		} elseif ($this->user == '' && !in_array($this->method, [ 'login', 'isloggedin' ])) {
+			$this->bad(['error' => 'NOT_LOGGED_IN']);
 		} else {
-			Minz_Log::warning('TTRSS API: ' . $this->method . '() method does not exist');
+			switch ($this->method) {
+				case 'isloggedin': $this->isloggedin(); break;
+				case 'login': $this->login(); break;
+
+				case 'catchupFeed': $this->catchupFeed(); break;
+				case 'getApiLevel': $this->getApiLevel(); break;
+				case 'getCategories': $this->getCategories(); break;
+				case 'getCounters': $this->getCounters(); break;
+				case 'getFeedTree': $this->getFeedTree(); break;
+				case 'getFeeds': $this->getFeeds(); break;
+				case 'getHeadlines': $this->getHeadlines(); break;
+				case 'getUnread': $this->getUnread(); break;
+				case 'getVersion': $this->getVersion(); break;
+				case 'logout': $this->logout(); break;
+				case 'updateArticle': $this->updateArticle(); break;
+
+				case 'getArticle':
+				case 'getConfig':
+				case 'getLabels':
+				case 'getPref':
+				case 'setArticleLabel':
+				case 'shareToPublish':
+				case 'subscribeToFeed':
+				case 'unsubscribeFeed':
+				case 'updateFeed':
+					Minz_Log::warning('TTRSS API: getArticle() not implemented');
+					$this->bad(['error' => 'NOT_IMPLEMENTED']);
+					break;
+
+				default:
+					Minz_Log::warning('TTRSS API: ' . $this->method . '() method does not exist');
+					$this->bad(['error' => 'INVALID_METHOD']);
+					break;
+			}
 		}
 	}
 
@@ -487,36 +511,7 @@ class FreshAPI_TTRSS {
 
 	public function getUnread() {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$this->good(array(
-				'unread' => $entryDAO->countNotRead(),
-			));
-	}
-	public function getArticle() {
-		Minz_Log::warning('TTRSS API: getArticle() not implemented');
-	}
-	public function getConfig() {
-		Minz_Log::warning('TTRSS API: getConfig() not implemented');
-	}
-	public function updateFeed() {
-		Minz_Log::warning('TTRSS API: updateFeed() not implemented');
-	}
-	public function getPref() {
-		Minz_Log::warning('TTRSS API: getPref() not implemented');
-	}
-	public function getLabels() {
-		Minz_Log::warning('TTRSS API: getLabels() not implemented');
-	}
-	public function setArticleLabel() {
-		Minz_Log::warning('TTRSS API: setArticleLabel() not implemented');
-	}
-	public function shareToPublish() {
-		Minz_Log::warning('TTRSS API: shareToPublish() not implemented');
-	}
-	public function subscribeToFeed() {
-		Minz_Log::warning('TTRSS API: subscribeToFeed() not implemented');
-	}
-	public function unsubscribeFeed() {
-		Minz_Log::warning('TTRSS API: unsubscribeFeed() not implemented');
+		$this->good([ 'unread' => $entryDAO->countNotRead() ]);
 	}
 }
 
@@ -525,7 +520,7 @@ Minz_Configuration::register('system',
                              DATA_PATH . '/config.php',
                              FRESHRSS_PATH . '/config.default.php');
 
-$input = file_get_contents("php://input");
+$input = file_get_contents('php://input', false, null, 0, 1048576);
 // Minz_Log::debug($input);
 $input = json_decode($input, true);
 
