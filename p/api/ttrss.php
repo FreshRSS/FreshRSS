@@ -19,8 +19,6 @@ class FreshAPI_TTRSS {
 	private $user = '';
 	private $method = 'index';
 	private $params = array();
-	private $system_conf = null;
-	private $user_conf = null;
 
 	public function __construct($params) {
 		$this->seq = isset($params['seq']) ? $params['seq'] : 0;
@@ -30,9 +28,15 @@ class FreshAPI_TTRSS {
 		}
 		$this->method = $params['op'];
 		$this->params = $params;
-		$this->system_conf = Minz_Configuration::get('system');
+
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+
 		if ($this->user != '') {
-			$this->user_conf = get_user_configuration($this->user);
+			FreshRSS_Context::$user_conf = get_user_configuration($this->user);
+			Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+		} else {
+			FreshRSS_Context::$user_conf = null;
+			Minz_Translate::init();
 		}
 	}
 
