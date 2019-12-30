@@ -5,11 +5,7 @@ require(LIB_PATH . '/lib_rss.php');  // Includes class autoloader
 
 
 class MyPDO extends Minz_ModelPdo {
-	function prepare($sql) {
-		$sql = str_replace('%_', $this->prefix, $sql);
-		// Minz_Log::debug($sql);
-		return $this->bd->prepare($sql);
-	}
+	public $pdo;
 }
 
 
@@ -198,12 +194,12 @@ class FreshAPI_TTRSS {
 			$sql_values[] = $offset;
 		}
 
-		$pdo = new MyPDO();
+		$model = new MyPDO();
 		$sql = 'SELECT f.id, f.name, f.url, f.category, f.cache_nbUnreads AS unread, f.lastUpdate'
-		     . ' FROM `%_feed` f'
+		     . ' FROM `_feed` f'
 		     . $sql_where
 		     . $sql_limit;
-		$stm = $pdo->prepare($sql);
+		$stm = $model->pdo->prepare($sql);
 		$stm->execute($sql_values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
