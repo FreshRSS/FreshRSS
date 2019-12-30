@@ -1,4 +1,9 @@
 <?php
+/**
+ * == Documentation ==
+ * https://tt-rss.org/wiki/ApiReference
+ * https://git.tt-rss.org/fox/tt-rss/src/master/classes/api.php
+ */
 
 require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');  // Includes class autoloader
@@ -72,12 +77,13 @@ class FreshAPI_TTRSS {
 	public function handle() {
 		if (!FreshRSS_Context::$system_conf->api_enabled) {
 			$this->bad([ 'error' => 'API_DISABLED' ]);
-		} elseif ($this->user == '' && !in_array($this->method, [ 'login', 'isloggedin' ])) {
+		} elseif ($this->user == '' && !in_array($this->method, [ 'isloggedin', 'login', 'logout' ])) {
 			$this->bad(['error' => 'NOT_LOGGED_IN']);
 		} else {
 			switch ($this->method) {
 				case 'isloggedin': $this->isloggedin(); break;
 				case 'login': $this->login(); break;
+				case 'logout': $this->logout(); break;
 
 				case 'catchupFeed': $this->catchupFeed(); break;
 				case 'getApiLevel': $this->getApiLevel(); break;
@@ -88,7 +94,6 @@ class FreshAPI_TTRSS {
 				case 'getHeadlines': $this->getHeadlines(); break;
 				case 'getUnread': $this->getUnread(); break;
 				case 'getVersion': $this->getVersion(); break;
-				case 'logout': $this->logout(); break;
 				case 'updateArticle': $this->updateArticle(); break;
 
 				case 'getArticle':
@@ -114,11 +119,8 @@ class FreshAPI_TTRSS {
 
 	private function auth_user($username, $password) {
 		$user_conf = get_user_configuration($username);
-		if ($user_conf == null) {
-			return false;
-		}
 
-		if ($user_conf->apiPasswordHash != '' &&
+		if ($user_conf != null && $user_conf->apiPasswordHash != '' &&
 				password_verify($password, $user_conf->apiPasswordHash)) {
 			Minz_Session::_param('currentUser', $username);
 			return true;
