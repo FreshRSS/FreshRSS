@@ -118,7 +118,7 @@ class FreshAPI_TTRSS {
 		}
 
 		$user_conf = get_user_configuration($username);
-		if (is_null($user_conf)) {
+		if ($user_conf == null) {
 			return false;
 		}
 
@@ -132,15 +132,11 @@ class FreshAPI_TTRSS {
 	}
 
 	public function getApiLevel() {
-		$this->good(array(
-			'level' => self::API_LEVEL
-		));
+		$this->good([ 'level' => self::API_LEVEL ]);
 	}
 
 	public function getVersion() {
-		$this->good(array(
-			'version' => FRESHRSS_VERSION
-		));
+		$this->good([ 'version' => FRESHRSS_VERSION ]);
 	}
 
 	public function login() {
@@ -156,23 +152,17 @@ class FreshAPI_TTRSS {
 			));
 		} else {
 			Minz_Log::warning('TTRSS API: invalid user login: ' . $username);
-			$this->bad(array(
-				'error' => 'LOGIN_ERROR'
-			));
+			$this->bad([ 'error' => 'LOGIN_ERROR' ]);
 		}
 	}
 
 	public function logout() {
 		Minz_Session::_param('currentUser');
-		$this->good(array(
-			'status' => 'OK'
-		));
+		$this->good([ 'status' => 'OK' ]);
 	}
 
 	public function isLoggedIn() {
-		$this->good(array(
-			'status' => $this->user !== ''
-		));
+		$this->good([ 'status' => $this->user !== '' ]);
 	}
 
 	public function getCategories() {
@@ -237,15 +227,15 @@ class FreshAPI_TTRSS {
 				continue;
 			}
 
-			$feeds[] = array(
+			$feeds[] = [
 				'id' => $feed['id'],
 				'title' => $feed['name'],
 				'feed_url' => $feed['url'],
 				'unread' => $feed['unread'],
 				'has_icon' => true,
 				'cat_id' => $feed['category'],
-				'last_updated' => $feed['lastUpdate']
-			);
+				'last_updated' => $feed['lastUpdate'],
+			];
 		}
 
 		$this->good($feeds);
@@ -254,9 +244,7 @@ class FreshAPI_TTRSS {
 	public function getHeadlines() {
 		$feed_id = $this->param('feed_id');
 		if ($feed_id === false) {
-			$this->bad(array(
-				'error' => 'INCORRECT_USAGE'
-			));
+			$this->bad([ 'error' => 'INCORRECT_USAGE' ]);
 		}
 
 		$limit = min(200, (int)$this->param('limit', 200));
@@ -431,9 +419,7 @@ class FreshAPI_TTRSS {
 			$entryDAO->markReadFeed($id);
 		}
 
-		$this->good(array(
-			'status' => 'OK'
-		));
+		$this->good([ 'status' => 'OK' ]);
 	}
 
 	public function getCounters() {
@@ -508,9 +494,7 @@ class FreshAPI_TTRSS {
 			}
 		}
 
-		$this->good(array(
-			'categories' => $tree
-		));
+		$this->good([ 'categories' => $tree ]);
 	}
 
 	public function getUnread() {
@@ -528,8 +512,8 @@ $input = file_get_contents('php://input', false, null, 0, 1048576);
 // Minz_Log::debug($input);
 $input = json_decode($input, true);
 
-if (isset($input["sid"])) {
-	session_id($input["sid"]);
+if (isset($input['sid'])) {
+	session_id($input['sid']);
 }
 
 Minz_Session::init('FreshRSS');
