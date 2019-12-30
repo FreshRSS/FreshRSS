@@ -64,7 +64,7 @@ class FreshAPI_TTRSS {
 			'content' => $reply,
 		));
 
-		// Minz_Log::debug($result);
+		// Minz_Log::debug($result, API_LOG);
 		print($result);
 		exit();
 	}
@@ -100,12 +100,12 @@ class FreshAPI_TTRSS {
 				case 'subscribeToFeed':
 				case 'unsubscribeFeed':
 				case 'updateFeed':
-					Minz_Log::warning('TTRSS API: getArticle() not implemented');
+					Minz_Log::warning('TTRSS API: ' . $this->method . ' not implemented', API_LOG);
 					$this->bad(['error' => 'NOT_IMPLEMENTED']);
 					break;
 
 				default:
-					Minz_Log::warning('TTRSS API: ' . $this->method . '() method does not exist');
+					Minz_Log::warning('TTRSS API: ' . $this->method . '() method does not exist', API_LOG);
 					$this->bad(['error' => 'INVALID_METHOD']);
 					break;
 			}
@@ -151,7 +151,7 @@ class FreshAPI_TTRSS {
 				'api_level' => self::API_LEVEL,
 			));
 		} else {
-			Minz_Log::warning('TTRSS API: invalid user login: ' . $username);
+			Minz_Log::warning('TTRSS API: invalid user login: ' . $username, API_LOG);
 			$this->bad([ 'error' => 'LOGIN_ERROR' ]);
 		}
 	}
@@ -509,7 +509,7 @@ Minz_Configuration::register('system',
                              FRESHRSS_PATH . '/config.default.php');
 
 $input = file_get_contents('php://input', false, null, 0, 1048576);
-// Minz_Log::debug($input);
+// Minz_Log::debug($input, API_LOG);
 $input = json_decode($input, true);
 
 if (isset($input['sid'])) {
