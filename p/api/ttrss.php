@@ -113,10 +113,6 @@ class FreshAPI_TTRSS {
 	}
 
 	private function auth_user($username, $password) {
-		if (!function_exists('password_verify')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
-
 		$user_conf = get_user_configuration($username);
 		if ($user_conf == null) {
 			return false;
