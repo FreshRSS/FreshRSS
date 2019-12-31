@@ -11,7 +11,6 @@ class Minz_Request {
 	private static $controller_name = '';
 	private static $action_name = '';
 	private static $params = array();
-	private static $headers = array();
 
 	private static $default_controller_name = 'index';
 	private static $default_action_name = 'index';
@@ -101,7 +100,6 @@ class Minz_Request {
 	 * Initialise la Request
 	 */
 	public static function init() {
-		static::$headers = $_SERVER;
 		self::initJSON();
 	}
 
@@ -348,10 +346,7 @@ class Minz_Request {
 	 * @return mixed
 	 */
 	public static function getHeader($header, $default = null) {
-		if (isset(static::$headers[$header])) {
-			return static::$headers[$header];
-		}
-		return $default;
+		return isset($_SERVER[$header]) ? $_SERVER[$header] : $default;
 	}
 
 	/**
