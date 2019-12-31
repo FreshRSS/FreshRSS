@@ -226,6 +226,42 @@ class Minz_Request {
 	}
 
 	/**
+	 * Test if a given server address is publicly accessible.
+	 *
+	 * Note: for the moment it tests only if address is corresponding to a
+	 * localhost address.
+	 *
+	 * @param $address the address to test, can be an IP or a URL.
+	 * @return true if server is accessible, false otherwise.
+	 * @todo improve test with a more valid technique (e.g. test with an external server?)
+	 */
+	public static function serverIsPublic($address) {
+		if (strlen($address) < strlen('http://a.bc')) {
+			return false;
+		}
+		$host = parse_url($address, PHP_URL_HOST);
+		if (!$host) {
+			return false;
+		}
+
+		$is_public = !in_array($host, array(
+			'localhost',
+			'localhost.localdomain',
+			'[::1]',
+			'ip6-localhost',
+			'localhost6',
+			'localhost6.localdomain6',
+		));
+
+		if ($is_public) {
+			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
+			$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
+		}
+
+		return (bool)$is_public;
+	}
+
+	/**
 	 * Relance une requête
 	 * @param $url l'url vers laquelle est relancée la requête
 	 * @param $redirect si vrai, force la redirection http

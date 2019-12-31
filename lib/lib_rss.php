@@ -112,36 +112,6 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 	return trim(str_replace($problem, $replace, $text));
 }
 
-/**
- * Test if a given server address is publicly accessible.
- *
- * Note: for the moment it tests only if address is corresponding to a
- * localhost address.
- *
- * @param $address the address to test, can be an IP or a URL.
- * @return true if server is accessible, false otherwise.
- * @todo improve test with a more valid technique (e.g. test with an external server?)
- */
-function server_is_public($address) {
-	$host = parse_url($address, PHP_URL_HOST);
-
-	$is_public = !in_array($host, array(
-		'localhost',
-		'localhost.localdomain',
-		'[::1]',
-		'ip6-localhost',
-		'localhost6',
-		'localhost6.localdomain6',
-	));
-
-	if ($is_public) {
-		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
-		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
-	}
-
-	return (bool)$is_public;
-}
-
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',  //Espace fine insécable
