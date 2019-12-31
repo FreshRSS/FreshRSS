@@ -50,7 +50,6 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::error($e->getMessage());
 		echo 'See logs files.';
-		prepareSyslog();
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $e->getMessage());
 	}
 }

@@ -12,7 +12,6 @@ if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Starting feed actualization at ' . $begin_date->format('c') . "\n");	//Unbuffered
 }
 
-prepareSyslog();
 syslog(LOG_INFO, 'FreshRSS Start feeds actualization...');
 
 // Set the header params ($_GET) to call the FRSS application.
