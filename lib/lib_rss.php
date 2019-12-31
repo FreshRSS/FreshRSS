@@ -10,7 +10,9 @@ if (!function_exists('mb_strcut')) {
 }
 
 if (COPY_SYSLOG_TO_STDERR) {
-	openlog('FreshRSS', LOG_PERROR | LOG_PID, LOG_USER);
+	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
+} else {
+	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
 }
 
 /**
