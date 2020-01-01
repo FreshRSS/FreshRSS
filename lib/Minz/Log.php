@@ -33,11 +33,11 @@ class Minz_Log {
 		if (! ($env === 'silent'
 		       || ($env === 'production'
 		       && ($level >= LOG_NOTICE)))) {
+			$username = Minz_Session::param('currentUser', '');
+			if ($username == '') {
+				$username = '_';
+			}
 			if ($file_name === null) {
-				$username = Minz_Session::param('currentUser', '');
-				if ($username == '') {
-					$username = '_';
-				}
 				$file_name = join_path(USERS_PATH, $username, 'log.txt');
 			}
 
