@@ -63,7 +63,7 @@ class Minz_Log {
 			     . ' --- ' . $information . "\n";
 
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
-				syslog($level, '[' . $username . '] ' . $log);
+				syslog($level, '[' . $username . '] ' . trim($log));
 			}
 
 			self::ensureMaxLogSize($file_name);
