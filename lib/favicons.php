@@ -22,7 +22,6 @@ function isImgMime($content) {
 }
 
 function downloadHttp(&$url, $curlOptions = array()) {
-	prepareSyslog();
 	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
 	if (substr($url, 0, 2) === '//') {
 		$url = 'https:' . $url;
