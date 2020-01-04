@@ -9,6 +9,12 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+if (COPY_SYSLOG_TO_STDERR) {
+	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
+} else {
+	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
+}
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -158,19 +164,12 @@ function html_only_entity_decode($text) {
 	return strtr($text, $htmlEntitiesOnly);
 }
 
-function prepareSyslog() {
-	return COPY_SYSLOG_TO_STDERR ? openlog("FreshRSS", LOG_PERROR | LOG_PID, LOG_USER) : false;
-}
-
 function customSimplePie($attributes = array()) {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
-	if ($system_conf->simplepie_syslog_enabled) {
-		prepareSyslog();
-	}
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 
