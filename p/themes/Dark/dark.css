@@ -470,6 +470,7 @@ a.btn {
 
 .pagination .loading,
 .pagination a:hover.loading {
+	background: url("loader.gif") center center no-repeat;
 	font-size: 0;
 }
 
