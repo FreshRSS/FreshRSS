@@ -175,12 +175,22 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$action = Minz_Request::param('action');
-			if ('delete' === $action) {
-				$this->deleteAction();
-			} elseif ('update' === $action) {
-				$this->updateAction();
-			} elseif ('purge' === $action) {
-				$this->purgeAction();
+			switch ($action) {
+				case 'delete':
+					$this->deleteAction();
+					break;
+				case 'update':
+					$this->updateAction();
+					break;
+				case 'purge':
+					$this->purgeAction();
+					break;
+				case 'promote':
+					$this->promoteAction();
+					break;
+				case 'demote':
+					$this->demoteAction();
+					break;
 			}
 		}
 
@@ -273,7 +283,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$new_user_name = Minz_Request::param('new_user_name');
 			$email = Minz_Request::param('new_user_email', '');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
-			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
 
 			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
 			$accept_tos = Minz_Request::param('accept_tos', false);
@@ -299,7 +308,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				);
 			}
 
-			$ok = self::createUser($new_user_name, $email, $passwordPlain, array('language' => $new_user_language));
+			$ok = self::createUser($new_user_name, $email, $passwordPlain, array(
+				'language' => Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language),
+				'is_admin' => Minz_Request::paramBoolean('new_user_is_admin'),
+			));
 			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
 			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
@@ -516,6 +528,44 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		Minz_Request::forward($redirect_url, true);
 	}
 
+	public function promoteAction() {
+		$this->switchAdminAction(true);
+	}
+
+	public function demoteAction() {
+		$this->switchAdminAction(false);
+	}
+
+	private function switchAdminAction($isAdmin) {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+		}
+
+		$username = Minz_Request::param('username');
+		if (!FreshRSS_UserDAO::exists($username)) {
+			Minz_Error::error(404);
+		}
+
+		if (null === $userConfig = get_user_configuration($username)) {
+			Minz_Error::error(500);
+		}
+
+		$userConfig->_param('is_admin', $isAdmin);
+
+		$ok = $userConfig->save();
+
+		if ($ok) {
+			Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
+		} else {
+			Minz_Request::bad(_t('feedback.user.updated.error', $username),
+							  array('c' => 'user', 'a' => 'manage'));
+		}
+	}
+
 	public function detailsAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
@@ -526,6 +576,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
+		$this->view->isDefaultUser = $username === FreshRSS_Context::$system_conf->default_user;
 		$this->view->username = $username;
 		$this->view->details = $this->retrieveUserDetails($username);
 	}
@@ -543,6 +594,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			'database_size' => $databaseDAO->size(),
 			'language' => $userConfiguration->language,
 			'mail_login' => $userConfiguration->mail_login,
+			'is_admin' => $userConfiguration->is_admin,
 		);
 	}
 }

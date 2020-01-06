@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
 		'create' => 'Vytvoriť',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Zakázať',
 		'empty' => 'Vyprázdniť',
 		'enable' => 'Povoliť',
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Spravovať',
 		'mark_favorite' => 'Označiť ako obľúbené',
 		'mark_read' => 'Označiť ako prečítané',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Odstrániť',
 		'see_website' => 'Zobraziť webovú stránku',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\í\\l',
 		'apr' => 'Apr.',
+		'Apr' => '\\A\\p\\r\\í\\l',
 		'april' => 'Apríl',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',
 		'aug' => 'Aug.',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Posledný mesiac',
 		'last_week' => 'Posledný týždeň',
 		'last_year' => 'Posledný rok',
-		'mar' => 'Mar.',
 		'Mar' => '\\M\\a\\r\\e\\c',
+		'mar' => 'Mar.',
 		'march' => 'Marec',
-		'May' => '\\M\\á\\j',
 		'may' => 'Máj',
+		'May' => '\\M\\á\\j',
 		'may_' => 'Máj',
 		'mon' => 'Po',
 		'month' => 'mesiace',

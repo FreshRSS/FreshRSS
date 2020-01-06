@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
 		'create' => 'יצירה',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Disable',	// TODO - Translation
 		'empty' => 'Empty',	// TODO - Translation
 		'enable' => 'Enable',	// TODO - Translation
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'ניהול',
 		'mark_favorite' => 'סימון כמועדף',
 		'mark_read' => 'סימון כנקרא',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Remove',	// TODO - Translation
 		'see_website' => 'ראו אתר',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',	// TODO - Translation
 		'apr' => 'apr',
+		'Apr' => '\\A\\p\\r\\i\\l',	// TODO - Translation
 		'april' => 'Apr',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO - Translation
 		'aug' => 'aug',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'בחודש שעבר',
 		'last_week' => 'בשבוע שעבר',
 		'last_year' => 'בשנה האחרונה',
-		'mar' => 'mar',
 		'Mar' => '\\M\\a\\r\\c\\h',	// TODO - Translation
+		'mar' => 'mar',
 		'march' => 'Mar',
-		'May' => '\\M\\a\\y',	// TODO - Translation
 		'may' => 'May',	// TODO - Translation
+		'May' => '\\M\\a\\y',	// TODO - Translation
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Mon',	// TODO - Translation
 		'month' => 'חודשים',

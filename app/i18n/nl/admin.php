@@ -182,6 +182,7 @@ return array(
 		'_' => 'Versie controle',
 	),
 	'user' => array(
+		'admin' => 'Administrator',	// TODO - Translation
 		'articles_and_size' => '%s artikelen (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
@@ -190,6 +191,7 @@ return array(
 		'delete_users' => 'Verwijder gebruiker',
 		'email' => 'Email address',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
+		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Taal',
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Er is %d accounts gemaakt',

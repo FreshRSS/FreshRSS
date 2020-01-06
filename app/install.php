@@ -223,6 +223,7 @@ function saveStep3() {
 				$password_plain,
 				[
 					'language' => $_SESSION['language'],
+					'is_admin' => true,
 				]
 			);
 		} catch (Exception $e) {

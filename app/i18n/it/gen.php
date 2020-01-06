@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Disabilita',
 		'empty' => 'Vuoto',
 		'enable' => 'Abilita',
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Gestisci',
 		'mark_favorite' => 'Segna come preferito',
 		'mark_read' => 'Segna come letto',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Rimuovi',
 		'see_website' => 'Vai al sito',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l\\e',
 		'apr' => 'apr.',
+		'Apr' => '\\A\\p\\r\\i\\l\\e',
 		'april' => 'aprile',
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
 		'aug' => 'ag.',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Ultimo mese',
 		'last_week' => 'Ultima settimana',
 		'last_year' => 'Ultimo anno',
-		'mar' => 'mar.',
 		'Mar' => '\\M\\a\\r\\z\\o',
+		'mar' => 'mar.',
 		'march' => 'marzo',
-		'May' => '\\M\\a\\g\\g\\i\\o',
 		'may' => 'maggio',
+		'May' => '\\M\\a\\g\\g\\i\\o',
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Mon',	// TODO - Translation
 		'month' => 'mesi',

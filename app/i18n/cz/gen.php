@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Zpět na seznam RSS kanálů',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
 		'enable' => 'Povolit',
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Spravovat',
 		'mark_favorite' => 'Označit jako oblíbené',
 		'mark_read' => 'Označit jako přečtené',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Odstranit',
 		'see_website' => 'Navštívit WWW stránku',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\D\\u\\b\\e\\n',
 		'apr' => 'dub',
+		'Apr' => '\\D\\u\\b\\e\\n',
 		'april' => 'Dub',
 		'Aug' => '\\S\\r\\p\\e\\n',
 		'aug' => 'srp',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Minulý měsíc',
 		'last_week' => 'Minulý týden',
 		'last_year' => 'Minulý rok',
-		'mar' => 'bře',
 		'Mar' => '\\B\\ř\\e\\z\\e\\n',
+		'mar' => 'bře',
 		'march' => 'Bře',
-		'May' => '\\K\\v\\ě\\t\\e\\n',
 		'may' => 'Květen',
+		'May' => '\\K\\v\\ě\\t\\e\\n',
 		'may_' => 'Kvě',
 		'mon' => 'Po',
 		'month' => 'měsíce',
