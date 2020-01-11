@@ -269,4 +269,50 @@ class Minz_MigratorTest extends TestCase
 
 		$this->assertSame($expected_names, array_keys($migrations));
 	}
+
+	public function testExecute() {
+		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
+		$migrations_version_path = tempnam('/tmp', 'migrations_version.txt');
+
+		$result = Minz_Migrator::execute($migrations_path, $migrations_version_path);
+
+		$this->assertTrue($result);
+		$version = file_get_contents($migrations_version_path);
+		$this->assertSame('20191222_225428_Baz', $version);
+	}
+
+	public function testExecuteWithAlreadyAppliedMigration() {
+		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
+		$migrations_version_path = tempnam('/tmp', 'migrations_version.txt');
+		file_put_contents($migrations_version_path, '20191222_225420_FooBar');
+
+		$result = Minz_Migrator::execute($migrations_path, $migrations_version_path);
+
+		$this->assertTrue($result);
+		$version = file_get_contents($migrations_version_path);
+		$this->assertSame('20191222_225428_Baz', $version);
+	}
+
+	public function testExecuteFailsIfVersionPathDoesNotExist() {
+		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
+		$migrations_version_path = tempnam('/tmp', 'migrations_version.txt');
+		$expected_result = $migrations_version_path . ' file does not exist';
+		unlink($migrations_version_path);
+
+		$result = Minz_Migrator::execute($migrations_path, $migrations_version_path);
+
+		$this->assertSame($expected_result, $result);
+	}
+
+	public function testExecuteFailsIfAMigrationIsFailing() {
+		$migrations_path = TESTS_PATH . '/fixtures/migrations_with_failing/';
+		$migrations_version_path = tempnam('/tmp', 'migrations_version.txt');
+		$expected_result = 'A migration failed to be applied, please see previous logs';
+
+		$result = Minz_Migrator::execute($migrations_path, $migrations_version_path);
+
+		$this->assertSame($expected_result, $result);
+		$version = file_get_contents($migrations_version_path);
+		$this->assertSame('20200111_225420_FooBar', $version);
+	}
 }

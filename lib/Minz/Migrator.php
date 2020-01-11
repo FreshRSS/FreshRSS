@@ -16,6 +16,94 @@ class Minz_Migrator
 	private $migrations = [];
 
 	/**
+	 * Execute a list of migrations, starting from version indicated in a file
+	 *
+	 * @param string $migrations_path
+	 * @param string $migrations_version_path
+	 *
+	 * @throws BadFunctionCallException if a callback isn't callable.
+	 * @throws DomainException if there is no migrations corresponding to the
+	 *                         given version (can happen if version file has
+	 *                         been modified, or migrations path cannot be
+	 *                         read).
+	 *
+	 * @return boolean|string Returns true if execute succeeds to apply
+	 *                        migrations, or a string if it fails.
+	 */
+	public static function execute($migrations_path, $migrations_version_path) {
+		if (!file_exists($migrations_version_path)) {
+			return "{$migrations_version_path} file does not exist";
+		}
+
+		$migrations_version_file = fopen($migrations_version_path, 'r+');
+
+		// we need a to acquire a lock to avoid multiple migrations at the same
+		// time if several users try to access the application.
+		if (!flock($migrations_version_file, LOCK_EX)) {
+			return "Cannot get a lock on {$migrations_version_path} file";
+		}
+
+		$migrations_version_size = filesize($migrations_version_path);
+		if ($migrations_version_size > 0) {
+			$current_migration_version = fread(
+				$migrations_version_file,
+				$migrations_version_size
+			);
+
+			if ($current_migration_version === false) {
+				flock($migrations_version_file, LOCK_UN);
+				fclose($migrations_version_file);
+				return "Cannot open the {$migrations_version_path} file";
+			}
+		} else {
+			$current_migration_version = null;
+		}
+
+		$migrator = new self($migrations_path);
+		if ($current_migration_version) {
+			$migrator->setVersion($current_migration_version);
+		}
+
+		if ($migrator->upToDate()) {
+			// already at the latest version, so there is nothing more to do
+			flock($migrations_version_file, LOCK_UN);
+			fclose($migrations_version_file);
+			return true;
+		}
+
+		$results = $migrator->migrate();
+
+		foreach ($results as $migration => $result) {
+			if ($result === true) {
+				$result = 'OK';
+			} elseif ($result === false) {
+				$result = 'KO';
+			}
+
+			Minz_Log::notice("Migration {$migration}: {$result}");
+		}
+
+		$new_version = $migrator->version();
+		ftruncate($migrations_version_file, 0);
+		rewind($migrations_version_file);
+		$saved = fwrite($migrations_version_file, $new_version);
+
+		flock($migrations_version_file, LOCK_UN);
+		fclose($migrations_version_file);
+
+		if ($saved === false) {
+			return "Cannot save the {$migrations_version_path} file ({$new_version})";
+		}
+
+		if (!$migrator->upToDate()) {
+			// still not up to date? It means last migration failed.
+			return 'A migration failed to be applied, please see previous logs';
+		}
+
+		return true;
+	}
+
+	/**
 	 * Create a Minz_Migrator instance. If directory is given, it'll load the
 	 * migrations from it.
 	 *

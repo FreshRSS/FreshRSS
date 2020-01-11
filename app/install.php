@@ -673,7 +673,7 @@ case 3:
 case 4:
 	break;
 case 5:
-	if (deleteInstall()) {
+	if (setupMigrationVersion() && deleteInstall()) {
 		header('Location: index.php');
 	}
 	break;

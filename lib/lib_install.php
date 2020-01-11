@@ -114,3 +114,12 @@ function deleteInstall() {
 	@unlink($path);
 	return !file_exists($path);
 }
+
+function setupMigrationVersion() {
+	$migrations_path = APP_PATH . '/migrations';
+	$migrations_version_path = DATA_PATH . '/migrations_version.txt';
+
+	$migrator = new Minz_Migrator($migrations_path);
+	$version = $migrator->lastVersion();
+	return @file_put_contents($migrations_version_path, $version);
+}

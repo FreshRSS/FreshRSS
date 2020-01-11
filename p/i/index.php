@@ -42,14 +42,43 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		}
 	}
 
+	$migrations_path = APP_PATH . '/migrations';
+	$migrations_version_path = DATA_PATH . '/migrations_version.txt';
+
+	// The next line is temporary: the migrate method expects the migrations_version.txt
+	// file to exist. This is because the install script creates this file, so
+	// if it is missing, it means the application is not installed. But we
+	// should also take care of applications installed before the new
+	// migrations system (<1.16). Indeed, they are installed but the migrations
+	// version file doesn't exist. So for now, we continue to check if the
+	// application is installed with the do-install.txt file: if yes, we create
+	// the version file. Starting from version 1.17, all the installed systems
+	// will have the file and so we will be able to remove this temporary line
+	// and stop using the do-install.txt file to check if FRSS is already
+	// installed.
+	touch($migrations_version_path);
+
+	$error = false;
 	try {
-		$front_controller = new FreshRSS();
-		$front_controller->init();
-		$front_controller->run();
+		// Apply the migrations if any
+		$result = Minz_Migrator::execute($migrations_path, $migrations_version_path);
+		if ($result === true) {
+			$front_controller = new FreshRSS();
+			$front_controller->init();
+			$front_controller->run();
+		} else {
+			$error = $result;
+		}
 	} catch (Exception $e) {
+		$error = $e->getMessage();
+	}
+
+	if ($error) {
+		// TODO this should be definitely improved to display a nicer error
+		// page to the users (especially non administrators).
 		echo '### Fatal error! ###<br />', "\n";
-		Minz_Log::error($e->getMessage());
+		Minz_Log::error($error);
 		echo 'See logs files.';
-		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $e->getMessage());
+		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 	}
 }
