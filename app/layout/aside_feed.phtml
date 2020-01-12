@@ -31,7 +31,7 @@
 
 		<li class="tree-folder category favorites<?php echo FreshRSS_Context::isCurrentGet('s') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
-				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', $actual_view, 'get', 's'); ?>"><?php echo _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
+				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', $actual_view, 'get', 's'); if (FreshRSS_Context::$user_conf->show_fav_unread) echo("&state=3"); ?>"><?php echo _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
 			</div>
 		</li>
 
