@@ -481,7 +481,11 @@ function entriesToArray($entries) {
 	}
 
 	$items = array();
-	foreach ($entries as $entry) {
+	foreach ($entries as $item) {
+		$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if ($entry == null) {
+			continue;
+		}
 		$f_id = $entry->feed();
 		if (isset($arrayFeedCategoryNames[$f_id])) {
 			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
@@ -917,6 +921,12 @@ FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
 	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+
+	Minz_ExtensionManager::init();
+
+	if (FreshRSS_Context::$user_conf != null) {
+		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+	}
 } else {
 	Minz_Translate::init();
 }
