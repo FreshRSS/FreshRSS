@@ -37,6 +37,7 @@ return array(
 			'timeout' => 'HTML5 notification timeout',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
+		'show_fav_unread' => 'Show Favorites as "Unread"',
 		'theme' => 'Theme',
 		'title' => 'Display',
 		'width' => array(
