@@ -57,7 +57,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->bottomline_link = Minz_Request::param('bottomline_link', false);
 			FreshRSS_Context::$user_conf->html5_notif_timeout = Minz_Request::param('html5_notif_timeout', 0);
 			FreshRSS_Context::$user_conf->show_nav_buttons = Minz_Request::param('show_nav_buttons', false);
-			FreshRSS_Context::$user_conf->show_fav_unread = Minz_Request::param('show_fav_unread', false);
 			FreshRSS_Context::$user_conf->save();
 
 			Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
@@ -106,6 +105,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->posts_per_page = Minz_Request::param('posts_per_page', 10);
 			FreshRSS_Context::$user_conf->view_mode = Minz_Request::param('view_mode', 'normal');
 			FreshRSS_Context::$user_conf->default_view = Minz_Request::param('default_view', 'adaptive');
+			FreshRSS_Context::$user_conf->show_fav_unread = Minz_Request::param('show_fav_unread', false);
 			FreshRSS_Context::$user_conf->auto_load_more = Minz_Request::param('auto_load_more', false);
 			FreshRSS_Context::$user_conf->display_posts = Minz_Request::param('display_posts', false);
 			FreshRSS_Context::$user_conf->display_categories = Minz_Request::param('display_categories', false);
