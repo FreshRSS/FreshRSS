@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
+		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO - Translation

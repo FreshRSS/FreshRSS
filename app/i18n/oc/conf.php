@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Aprèp « marcar coma legit »,',
+		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',

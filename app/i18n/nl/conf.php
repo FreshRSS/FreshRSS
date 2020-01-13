@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Na “markeer alles als gelezen”,',
+		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',

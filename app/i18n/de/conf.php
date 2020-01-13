@@ -37,7 +37,6 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
-		'show_fav_unread' => 'Immer Favoriten zeigen',
 		'theme' => 'Erscheinungsbild',
 		'title' => 'Anzeige',
 		'width' => array(
@@ -98,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
+		'always_show_favorites' => 'Immer Favoriten zeigen',
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',

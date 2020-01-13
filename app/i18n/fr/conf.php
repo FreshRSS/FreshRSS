@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Après “marquer tout comme lu”,',
+		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
