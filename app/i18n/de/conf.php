@@ -37,6 +37,7 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
+		'show_fav_unread' => 'Zeige Favoriten als "Ungelesen"',
 		'theme' => 'Erscheinungsbild',
 		'title' => 'Anzeige',
 		'width' => array(
