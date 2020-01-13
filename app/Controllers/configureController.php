@@ -57,6 +57,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->bottomline_link = Minz_Request::param('bottomline_link', false);
 			FreshRSS_Context::$user_conf->html5_notif_timeout = Minz_Request::param('html5_notif_timeout', 0);
 			FreshRSS_Context::$user_conf->show_nav_buttons = Minz_Request::param('show_nav_buttons', false);
+			FreshRSS_Context::$user_conf->show_fav_unread = Minz_Request::param('show_fav_unread', false);
 			FreshRSS_Context::$user_conf->save();
 
 			Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
