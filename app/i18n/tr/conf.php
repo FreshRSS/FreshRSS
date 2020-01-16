@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => '"Hepsini okundu say" dedinten sonra,',
+		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Sayfa başına makale sayısı',
 		'auto_load_more' => 'Sayfa sonunda yeni makaleleri yükle',
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',

@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'After “mark all as read”,',
+		'always_show_favorites' => 'Show all articles in favorites by default',
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load more articles at the page bottom',
 		'auto_remove_article' => 'Hide articles after reading',
