@@ -97,6 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Po “označit vše jako přečtené”,',
+		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Počet článků na stranu',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články schovat',

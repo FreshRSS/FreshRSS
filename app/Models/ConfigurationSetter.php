@@ -178,6 +178,10 @@ class FreshRSS_ConfigurationSetter {
 		$data['show_nav_buttons'] = $this->handleBool($value);
 	}
 
+	private function _show_fav_unread(&$data, $value) {
+		$data['show_fav_unread'] = $this->handleBool($value);
+	}
+
 	private function _display_categories(&$data, $value) {
 		$data['display_categories'] = $this->handleBool($value);
 	}
