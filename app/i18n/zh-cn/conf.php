@@ -97,7 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => '「全部标记为已读」后',
-		'always_show_favorites' => 'Show by default all articles in favorites',	// TODO - Translation
+		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入下一篇文章',
 		'auto_remove_article' => '阅读后隐藏文章',
