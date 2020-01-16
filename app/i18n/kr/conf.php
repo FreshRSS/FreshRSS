@@ -97,7 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => '“모두 읽음으로 표시” 후,',
-		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
+		'always_show_favorites' => 'Show by default all articles in favorites',	// TODO - Translation
 		'articles_per_page' => '페이지당 글 수',
 		'auto_load_more' => '페이지 하단에 다다르면 글 더 불러오기',
 		'auto_remove_article' => '글을 읽은 후 숨기기',

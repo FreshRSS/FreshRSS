@@ -97,7 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Dopo “segna tutto come letto”,',
-		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
+		'always_show_favorites' => 'Show by default all articles in favorites',	// TODO - Translation
 		'articles_per_page' => 'Numero di articoli per pagina',
 		'auto_load_more' => 'Carica articoli successivi a fondo pagina',
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',

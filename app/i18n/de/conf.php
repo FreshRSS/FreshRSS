@@ -97,7 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
-		'always_show_favorites' => 'Immer Favoriten zeigen',
+		'always_show_favorites' => 'Show by default all articles in favorites',	// TODO - Translation
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',

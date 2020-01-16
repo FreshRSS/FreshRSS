@@ -97,7 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'After “mark all as read”,',	// TODO - Translation
-		'always_show_favorites' => 'Always show favorites',	// TODO - Translation
+		'always_show_favorites' => 'Show by default all articles in favorites',	// TODO - Translation
 		'articles_per_page' => 'Number of articles per page',	// TODO - Translation
 		'auto_load_more' => 'Load next articles at the page bottom',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO - Translation
