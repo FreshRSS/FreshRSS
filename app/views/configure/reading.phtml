@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="view_mode"><?= _t('conf.reading.show') ?></label>
+			<label class="group-name" for="default_view"><?= _t('conf.reading.show') ?></label>
 			<div class="group-controls">
 				<select name="default_view" id="default_view" data-leave-validation="<?= FreshRSS_Context::$user_conf->default_view ?>">
 					<option value="adaptive"<?= FreshRSS_Context::$user_conf->default_view === 'adaptive' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.adaptive') ?></option>
