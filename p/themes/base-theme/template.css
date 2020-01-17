@@ -667,11 +667,11 @@ a.btn {
 	text-decoration: none;
 }
 
-.flux .item.author {
+.flux .item.title .author {
+	padding-left: 1rem;
 	color: #555;
-	font-size: .7rem;
+	font-size: .9rem;
 	font-weight: normal;
-	white-space: normal;
 }
 
 .flux .item.date {

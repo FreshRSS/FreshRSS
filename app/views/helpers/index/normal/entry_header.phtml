@@ -28,9 +28,9 @@
 		}
 	}
 	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>"><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" /> <span><?= $this->feed->name() ?></span></a></li>
-	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a><?php
+	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
-			?><div class="item author"><?php
+			?><span class="author"><?php
 			$authors = $this->entry->authors();
 			if (is_array($authors)) {
 				$first = true;
@@ -39,9 +39,9 @@
 					$first = false;
 				}
 			}
-			?></div><?php
+			?></span><?php
 		endif;
-	?></li>
+	?></a></li>
 	<?php if ($topline_date) { ?><li class="item date"><?= $this->entry->date() ?> </li><?php } ?>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>
