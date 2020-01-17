@@ -496,8 +496,8 @@ function entriesToArray($entries) {
 		}
 		$item = array(
 			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
-			'crawlTimeMsec' => substr($entry->id(), 0, -3),
-			'timestampUsec' => '' . $entry->id(),	//EasyRSS
+			'crawlTimeMsec' => substr($entry->dateAdded(true, true), 0, -3),
+			'timestampUsec' => '' . $entry->dateAdded(true, true), //EasyRSS & Reeder
 			'published' => $entry->date(true),
 			'title' => escapeToUnicodeAlternative($entry->title(), false),
 			'summary' => array('content' => $entry->content()),
