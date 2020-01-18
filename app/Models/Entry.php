@@ -14,6 +14,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $content;
 	private $link;
 	private $date;
+	private $date_added = 0; //In microseconds
 	private $hash = null;
 	private $is_read;	//Nullable boolean
 	private $is_favorite;
@@ -68,11 +69,15 @@ class FreshRSS_Entry extends Minz_Model {
 			return timestamptodate($this->date);
 		}
 	}
-	public function dateAdded($raw = false) {
-		$date = intval(substr($this->id, 0, -6));
+	public function dateAdded($raw = false, $microsecond = false) {
 		if ($raw) {
-			return $date;
+			if ($microsecond) {
+				return $this->date_added;
+			} else {
+				return intval(substr($this->id, 0, -6));
+			}
 		} else {
+			$date = intval(substr($this->id, 0, -6));
 			return timestamptodate($date);
 		}
 	}
@@ -119,6 +124,9 @@ class FreshRSS_Entry extends Minz_Model {
 
 	public function _id($value) {
 		$this->id = $value;
+		if ($this->date_added == 0) {
+			$this->date_added = $value;
+		}
 	}
 	public function _guid($value) {
 		if ($value == '') {
@@ -160,6 +168,13 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->hash = null;
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
+	}
+	public function _dateAdded($value, $microsecond = false) {
+		if ($microsecond) {
+			$this->date_added = $value;
+		} else {
+			$this->date_added = $value * 1000000;
+		}
 	}
 	public function _isRead($value) {
 		$this->is_read = $value === null ? null : (bool)$value;
