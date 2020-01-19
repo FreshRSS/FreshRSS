@@ -742,7 +742,7 @@ SQL;
 				}
 				if ($filter->getInurl()) {
 					foreach ($filter->getInurl() as $url) {
-						$sub_search .= 'AND CONCAT(' . $alias . 'link, ' . $alias . 'guid) LIKE ? ';
+						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ? ';
 						$values[] = "%{$url}%";
 					}
 				}
@@ -767,20 +767,20 @@ SQL;
 				}
 				if ($filter->getNotInurl()) {
 					foreach ($filter->getNotInurl() as $url) {
-						$sub_search .= 'AND (NOT CONCAT(' . $alias . 'link, ' . $alias . 'guid) LIKE ?) ';
+						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ?) ';
 						$values[] = "%{$url}%";
 					}
 				}
 
 				if ($filter->getSearch()) {
 					foreach ($filter->getSearch() as $search_value) {
-						$sub_search .= 'AND ' . $this->sqlconcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
+						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
 						$values[] = "%{$search_value}%";
 					}
 				}
 				if ($filter->getNotSearch()) {
 					foreach ($filter->getNotSearch() as $search_value) {
-						$sub_search .= 'AND (NOT ' . $this->sqlconcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
 						$values[] = "%{$search_value}%";
 					}
 				}
