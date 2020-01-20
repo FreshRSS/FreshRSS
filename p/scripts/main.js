@@ -1244,7 +1244,7 @@ function openPopupWithSource(source) {
 	popup_iframe.src = source;
 	popup_iframe.removeAttribute('hidden');
 
-	popup.style.display = "block";
+	popup.style.display = 'block';
 }
 
 function closePopup() {
