@@ -1264,7 +1264,7 @@ function init_popup() {
 	popup_iframe = document.getElementById('popup-iframe');
 	popup_p = document.getElementById('popup-p');
 
-	//Configure clode-button.
+	//Configure close button.
 	document.getElementsByClassName("popup-close")[0].onclick = function() {
   		closePopup();
   	};
