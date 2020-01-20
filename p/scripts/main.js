@@ -1267,14 +1267,14 @@ function init_popup() {
 	//Configure clode-button.
 	document.getElementsByClassName("popup-close")[0].onclick = function() {
   		closePopup();
-  	}
+  	};
 
   	//Configure close-on-click.
 	window.onclick = function(event) {
 		if (event.target == popup) {
 			closePopup();
 		}
-	}
+	};
 
 	//Configure iframe size.
 	popup_iframe.onload = function(event) {
@@ -1289,7 +1289,7 @@ function init_popup() {
 		}
 
 		popup_iframe.style.height = size + 'px';
-	}
+	};
 }
 // </popup>
 
