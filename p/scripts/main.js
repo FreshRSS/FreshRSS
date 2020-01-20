@@ -1220,7 +1220,7 @@ var popup = null,
 	popup_iframe = null,
 	popup_p = null,
 	popup_working = false;
-	
+
 function openPopupWithMessage(msg) {
 	if (popup_working === true) {
 		return false;
@@ -1268,7 +1268,7 @@ function init_popup() {
 	document.getElementsByClassName("popup-close")[0].onclick = function() {
   		closePopup();
   	}
-  
+
   	//Configure close-on-click.
 	window.onclick = function(event) {
 		if (event.target == popup) {
@@ -1279,7 +1279,7 @@ function init_popup() {
 	//Configure iframe size.
 	popup_iframe.onload = function(event) {
 		var size = document.documentElement.clientHeight - 250;
-	
+
 		if (size > popup_iframe.contentDocument.body.scrollHeight) {
 			size = popup_iframe.contentDocument.body.scrollHeight;
 		}

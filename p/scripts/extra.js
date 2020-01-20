@@ -6,7 +6,7 @@
 function fix_popup_preview_path() {
 	var links = document.getElementsByClassName('popup-preview-path');
 
-	for (var i = 0; i < links.length; i++) {	
+	for (var i = 0; i < links.length; i++) {
 		var link = links[i];
 
 		link.onclick = function (event) {
