@@ -10,6 +10,7 @@
 class Minz_Request {
 	private static $controller_name = '';
 	private static $action_name = '';
+	private static $content_name = '';
 	private static $params = array();
 
 	private static $default_controller_name = 'index';
@@ -23,6 +24,9 @@ class Minz_Request {
 	}
 	public static function actionName() {
 		return self::$action_name;
+	}
+	public static function contentName() {
+		return self::$content_name;
 	}
 	public static function params() {
 		return self::$params;
@@ -65,11 +69,19 @@ class Minz_Request {
 		return self::$default_action_name;
 	}
 	public static function currentRequest() {
-		return array(
-			'c' => self::$controller_name,
-			'a' => self::$action_name,
-			'params' => self::$params,
-		);
+		$result = array();
+
+		$result['c'] = self::$controller_name;
+
+		if (self::$action_name != '') {
+			$result['a'] = self::$action_name;
+		} else if (self::$content_name != '') {
+			$result['cont'] = self::$content_name;
+		}
+
+		$result['params'] = self::$params;
+
+		return $result;
 	}
 
 	/**
@@ -80,6 +92,9 @@ class Minz_Request {
 	}
 	public static function _actionName($action_name) {
 		self::$action_name = $action_name;
+	}
+	public static function _contentName($content_name) {
+		self::$content_name = $content_name;
 	}
 	public static function _params($params) {
 		if (!is_array($params)) {
@@ -103,10 +118,10 @@ class Minz_Request {
 		self::initJSON();
 	}
 
-	public static function is($controller_name, $action_name) {
+	public static function is($controller_name, $dispatch_name) {
 		return (
 			self::$controller_name === $controller_name &&
-			self::$action_name === $action_name
+			((self::$action_name === $dispatch_name) || (self::$content_name === $dispatch_name))
 		);
 	}
 
@@ -280,7 +295,12 @@ class Minz_Request {
 			exit();
 		} else {
 			self::_controllerName($url['c']);
-			self::_actionName($url['a']);
+			if (isset($url['a'])) {
+				self::_actionName($url['a']);
+			}
+			if (isset($url['cont'])) {
+				self::_contentName($url['cont']);
+			}
 			self::_params(array_merge(
 				self::$params,
 				$url['params']

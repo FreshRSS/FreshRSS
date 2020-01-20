@@ -9,6 +9,7 @@ class Minz_Url {
 	 * @param $url l'url à formater définie comme un tableau :
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
+	 *                    $url['cont'] = content
 	 *                    $url['params'] = tableau des paramètres supplémentaires
 	 *             ou comme une chaîne de caractère
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
@@ -81,9 +82,15 @@ class Minz_Url {
 			$separator = $and;
 		}
 
+		if (isset($url['cont'])) {
+			$uri .= $separator . 'cont=' . $url['cont'];
+			$separator = $and;
+		}
+
 		if (isset($url['params'])) {
 			unset($url['params']['c']);
 			unset($url['params']['a']);
+			unset($url['params']['cont']);
 			foreach ($url['params'] as $key => $param) {
 				$uri .= $separator . urlencode($key) . '=' . urlencode($param);
 				$separator = $and;
@@ -131,4 +138,20 @@ function _url ($controller, $action) {
 	}
 
 	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));
+}
+
+function _urlcont ($controller, $content) {
+	$nb_args = func_num_args ();
+
+	if($nb_args < 2 || $nb_args % 2 != 0) {
+		return false;
+	}
+
+	$args = func_get_args ();
+	$params = array ();
+	for($i = 2; $i < $nb_args; $i = $i + 2) {
+		$params[$args[$i]] = $args[$i + 1];
+	}
+
+	return Minz_Url::display (array ('c' => $controller, 'cont' => $content, 'params' => $params));
 }
