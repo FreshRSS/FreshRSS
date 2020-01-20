@@ -74,10 +74,10 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($microsecond) {
 				return $this->date_added;
 			} else {
-				return intval(substr($this->id, 0, -6));
+				return intval(substr($this->date_added, 0, -6));
 			}
 		} else {
-			$date = intval(substr($this->id, 0, -6));
+			$date = intval(substr($this->date_added, 0, -6));
 			return timestamptodate($date);
 		}
 	}
