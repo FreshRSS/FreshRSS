@@ -1265,9 +1265,9 @@ function init_popup() {
 	popup_p = document.getElementById('popup-p');
 
 	//Configure close button.
-	document.getElementsByClassName("popup-close")[0].onclick = function() {
+	document.querySelector('.popup-close').addEventListener('click', function (ev) {
   		closePopup();
-  	};
+  	});
 
   	//Configure close-on-click.
 	window.onclick = function(event) {
