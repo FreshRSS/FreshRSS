@@ -4,14 +4,14 @@
 /* jshint esversion:6, strict:global */
 
 function fix_popup_preview_path() {
-	var links = document.getElementsByClassName('popup-preview-path');
+	const links = document.getElementsByClassName('popup-preview-path');
 
-	for (var i = 0; i < links.length; i++) {
-		var link = links[i];
+	for (let i = 0; i < links.length; i++) {
+		const link = links[i];
 
 		link.addEventListener('click', function (ev) {
 			const path_entries = document.getElementById('path_entries').value;
-			var href = link.href.replace('path-token', encodeURIComponent(path_entries));
+			const href = link.href.replace('path-token', encodeURIComponent(path_entries));
 
 			openPopupWithSource(href);
 

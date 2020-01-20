@@ -1216,7 +1216,7 @@ function init_notifications() {
 // </notification>
 
 // <popup>
-var popup = null,
+let popup = null,
 	popup_iframe = null,
 	popup_p = null,
 	popup_working = false;
