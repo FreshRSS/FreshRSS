@@ -1231,7 +1231,7 @@ function openPopupWithMessage(msg) {
 	popup_p.innerHTML = msg;
 	popup_p.removeAttribute('hidden');
 
-	popup.style.display = "block";
+	popup.style.display = 'block';
 }
 
 function openPopupWithSource(source) {
