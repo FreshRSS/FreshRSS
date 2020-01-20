@@ -946,13 +946,13 @@ a.btn {
 	background-color: #fefefe;
 	margin: auto;
 	padding: 20px;
-	border: 1px solid #888;
 	width: 80%;
+	border: 1px solid #888;
 }
 
 .popup-close {
-	color: #aaaaaa;
 	float: right;
+	color: #aaa;
 	font-size: 28px;
 	font-weight: bold;
 }
