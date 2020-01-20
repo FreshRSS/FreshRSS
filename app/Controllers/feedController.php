@@ -716,7 +716,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action forge a preview of a content path.
+	 * This action creates a preview of a content path.
 	 *
 	 * Parameters are:
 	 *   - id (mandatory - no default): Feed ID
