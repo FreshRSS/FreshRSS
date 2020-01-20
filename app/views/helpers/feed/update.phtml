@@ -275,6 +275,8 @@
 			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_path') ?></label>
 			<div class="group-controls">
 				<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				<a class="popup-preview-path" href="<?= _url('feed', 'previewContentPath', 'id', $this->feed->id(), 'path', 'path-token') ?>"><?= _i('look') ?></a>
+				<br/>
 				<?= _i('help') ?> <?= _t('sub.feed.css_help') ?>
 			</div>
 		</div>
@@ -352,6 +354,28 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+		
+		<legend><?= _t('sub.feed.maintenance.title') ?></legend>
+		<div class="form-group">
+			<div class="group-controls">
+				<div class="stick">
+					<a class="btn" href="<?= _url('feed', 'clearcache', 'id', $this->feed->id()) ?>">
+						<?= _i('screwdriver') ?> <?= _t('sub.feed.maintenance.clear_cache') ?>
+					</a>
+				</div>
+				<br/>
+				<?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?>
+				<br/>
+				<br/>
+				<div class="stick">
+					<a class="btn" href="<?= _url('feed', 'reload', 'id', $this->feed->id()) ?>">
+						<?= _i('screwdriver') ?> <?= _t('sub.feed.maintenance.reload_articles') ?>
+					</a>
+				</div>
+				<br/>
+				<?= _i('help') ?> <?= _t('sub.feed.maintenance.reload_articles_help') ?>
 			</div>
 		</div>
 	</form>

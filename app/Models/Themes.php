@@ -86,6 +86,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'key' => '⚿',
 			'label' => '🏷️',
 			'link' => '↗',
+			'look' => '👁',
 			'login' => '🔒',
 			'logout' => '🔓',
 			'next' => '⏩',
@@ -95,6 +96,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'rss' => '☄',
 			'unread' => '☐',
 			'refresh' => '🔃',	//↻
+			'screwdriver' => '🔩',
 			'search' => '🔍',
 			'share' => '♺',
 			'starred' => '★',

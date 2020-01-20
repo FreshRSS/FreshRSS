@@ -72,6 +72,13 @@ return array(
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
 		'websub' => 'Instant notification with WebSub',
+		'maintenance' => array(
+			'title' => 'Maintenance',
+			'clear_cache' => 'Clear Cache',
+			'clear_cache_help' => 'Clear the cache of this feed on disk',
+			'reload_articles' => 'Reload Articles',
+			'reload_articles_help' => 'Reload articles and fetch complete content',
+		),
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',

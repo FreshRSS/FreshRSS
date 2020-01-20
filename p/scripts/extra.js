@@ -3,6 +3,23 @@
 /* globals context, openNotification, xmlHttpRequestJson */
 /* jshint esversion:6, strict:global */
 
+function fix_popup_preview_path() {
+	var links = document.getElementsByClassName('popup-preview-path');
+
+	for (var i = 0; i < links.length; i++) {	
+		var link = links[i];
+
+		link.onclick = function (event) {
+			const path_entries = document.getElementById('path_entries').value;
+			var href = link.href.replace('path-token', encodeURIComponent(path_entries));
+
+			openPopupWithSource(href);
+
+			return false;
+		}
+	}
+}
+
 //<crypto form (Web login)>
 function poormanSalt() {	//If crypto.getRandomValues is not available
 	const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
@@ -176,6 +193,7 @@ function init_slider_observers() {
 							slider.classList.add('active');
 							closer.classList.add('active');
 							context.ajax_loading = false;
+							fix_popup_preview_path();
 						};
 					req.send();
 					return false;

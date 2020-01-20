@@ -387,7 +387,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent() {
+	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 		$feed = $this->feed(true);
@@ -395,7 +395,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
 
-			if ($entry) {
+			if ($entry && !$force) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {

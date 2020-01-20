@@ -648,6 +648,126 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * This action force to clear cache of a feed.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *
+	 */
+	public function clearcacheAction() {
+		//Get Feed.
+		$id = Minz_Request::param('id');
+		
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feed = $feedDAO->searchById($id);
+		
+		if (!$feed) {
+			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
+			return;
+		}
+		
+		$feed->clearCache();
+		
+		Minz_Request::good(_t('feedback.sub.feed.cache_cleared', $feed->name()), array(
+			'params' => array('get' => 'f_' . $feed->id())
+		));	
+	}
+
+	/**
+	 * This action force to reload articles of a feed.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *
+	 */
+	public function reloadAction() {
+		//Get Feed ID.
+		$feed_id = Minz_Request::param('id');
+		
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		
+		$feed = $feedDAO->searchById($feed_id);
+		
+		if (!$feed) {
+			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
+			return;
+		}
+		
+		//Re-fetch articles as if the feed was new.
+		self::actualizeFeed($feed_id, null, false, null, true);
+		
+		//Extract all feed entries from database, load complete content and store them back in database.
+		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
+
+		$entryDAO->beginTransaction();
+		
+		foreach ($entries as $entry) {
+			$entry->loadCompleteContent(true);
+			$entryDAO->updateEntry($entry->toArray());
+		}
+				
+		$entryDAO->commit();
+		
+		//Give feedback to user.
+		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), array(
+			'params' => array('get' => 'f_' . $feed->id())
+		));
+	}
+
+	/**
+	 * This action forge a preview of a content path.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *   - path (mandatory - no default): Path to preview
+	 *
+	 */
+	public function previewContentPathAction() {
+		//XXX: A preview is not really the job of an action controller. Check with the core-team for a better solution:
+		//- Perhaps by addding dedicated php file somewhere for this kind of work? 
+		//- Add a new type of Minz Controller (helper controller)? So the request & dispatcher would be able to formward to it.
+		
+		//We want the direct output of this action. Disable the assosiated view.
+		$this->view = new Minz_View();
+		$this->view->_path('/dev/null'); //XXX this work only for Unix... Hacking into ActionController is probably not the right way anyway.
+		$this->view->_layout('');
+		
+		//Get parameters.
+		$feed_id = Minz_Request::param('id');
+		$content_path = Minz_Request::param('path');
+		
+		if (!$content_path) {
+			echo 'path-not-set'; // FIXME: translate.
+			return;
+		}
+		
+		//Check Feed ID validity.
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entries = $entryDAO->listWhere('f', $feed_id);
+
+		if (count($entries) == 0) {
+			echo 'no-entries-found'; // FIXME: translate.
+			return;
+		}
+		
+		$entry = $entries[0];
+		$feed = $entry->feed(true);
+		
+		if (!$feed) {
+			echo 'no-feed-for-entry'; // FIXME: translate.
+			return;
+		}
+		
+		$feed->_pathEntries($content_path);
+		$entry->loadCompleteContent(true);
+		
+		echo '<html><body>';
+		echo $entry->content();
+		echo '</body></html>';
+	}
+
+	/**
 	 * This method update TTL values for feeds if needed.
 	 * It changes the old default value (-2) to the new default value (0).
 	 * It changes the old disabled value (-1) to the default disabled value.

@@ -1215,6 +1215,80 @@ function init_notifications() {
 }
 // </notification>
 
+// <popup>
+var popup = null,
+	popup_working = false;
+	
+function openPopupWithMessag(msg) {
+	if (popup_working === true) {
+		return false;
+	}
+
+	popup_working = true;
+
+	document.getElementById('popup-p').innerHTML = msg;
+	document.getElementById('popup-p').removeAttribute('hidden');
+
+	popup.style.display = "block";
+}
+
+function openPopupWithSource(source) {
+	if (popup_working === true) {
+		return false;
+	}
+
+	popup_working = true;
+
+	document.getElementById('popup-iframe').src = source;
+	document.getElementById('popup-iframe').removeAttribute('hidden');
+
+	popup.style.display = "block";
+}
+
+function closePopup() {
+	popup.style.display = "none";
+
+	document.getElementById('popup-iframe').src = 'about:blank';
+	document.getElementById('popup-iframe').setAttribute('hidden', true);
+	document.getElementById('popup-p').setAttribute('hidden', true);
+
+	popup_working = false;
+}
+
+function init_popup() {
+	popup = document.getElementById('popup');
+
+	//Configure clode-button.
+	document.getElementsByClassName("popup-close")[0].onclick = function() {
+  		closePopup();
+  	}
+  
+  	//Configure close-on-click.
+	window.onclick = function(event) {
+		if (event.target == popup) {
+			closePopup();
+		}
+	}
+
+	//Configure iframe size.
+	var popupIFrame = document.getElementById("popup-iframe");
+
+	popupIFrame.onload = function(event) {
+		var size = document.documentElement.clientHeight - 250;
+	
+		if (size > popupIFrame.contentDocument.body.scrollHeight) {
+			size = popupIFrame.contentDocument.body.scrollHeight;
+		}
+
+		if (size < 0) {
+			size = 100;
+		}
+
+		popupIFrame.style.height = size + 'px';
+	}
+}
+// </popup>
+
 // <notifs html5>
 var notifs_html5_permission = 'denied';
 
@@ -1483,6 +1557,7 @@ function init_beforeDOM() {
 
 function init_afterDOM() {
 	init_notifications();
+	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
 	if (stream) {

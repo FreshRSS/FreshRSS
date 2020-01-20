@@ -82,9 +82,12 @@ return array(
 		'feed' => array(
 			'actualized' => '<em>%s</em> has been updated',
 			'actualizeds' => 'RSS feeds have been updated',
+			'reloaded' => '<em>%s</em> has been reloaded',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',
 			'added' => 'RSS feed <em>%s</em> has been added',
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
 			'deleted' => 'Feed has been deleted',
+			'not_found' => 'Feed cannot be found',
 			'error' => 'Feed cannot be updated',
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
