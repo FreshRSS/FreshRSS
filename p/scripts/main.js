@@ -1219,7 +1219,7 @@ function init_notifications() {
 var popup = null,
 	popup_working = false;
 	
-function openPopupWithMessag(msg) {
+function openPopupWithMessage(msg) {
 	if (popup_working === true) {
 		return false;
 	}
