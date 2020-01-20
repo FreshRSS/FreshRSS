@@ -1217,6 +1217,8 @@ function init_notifications() {
 
 // <popup>
 var popup = null,
+	popup_iframe = null,
+	popup_p = null,
 	popup_working = false;
 	
 function openPopupWithMessage(msg) {
@@ -1226,8 +1228,8 @@ function openPopupWithMessage(msg) {
 
 	popup_working = true;
 
-	document.getElementById('popup-p').innerHTML = msg;
-	document.getElementById('popup-p').removeAttribute('hidden');
+	popup_p.innerHTML = msg;
+	popup_p.removeAttribute('hidden');
 
 	popup.style.display = "block";
 }
@@ -1239,8 +1241,8 @@ function openPopupWithSource(source) {
 
 	popup_working = true;
 
-	document.getElementById('popup-iframe').src = source;
-	document.getElementById('popup-iframe').removeAttribute('hidden');
+	popup_iframe.src = source;
+	popup_iframe.removeAttribute('hidden');
 
 	popup.style.display = "block";
 }
@@ -1248,15 +1250,19 @@ function openPopupWithSource(source) {
 function closePopup() {
 	popup.style.display = "none";
 
-	document.getElementById('popup-iframe').src = 'about:blank';
-	document.getElementById('popup-iframe').setAttribute('hidden', true);
-	document.getElementById('popup-p').setAttribute('hidden', true);
+	popup_iframe.src = 'about:blank';
+	popup_iframe.setAttribute('hidden', true);
+
+	popup_p.setAttribute('hidden', true);
 
 	popup_working = false;
 }
 
 function init_popup() {
+	// Fetch elements.
 	popup = document.getElementById('popup');
+	popup_iframe = document.getElementById('popup-iframe');
+	popup_p = document.getElementById('popup-p');
 
 	//Configure clode-button.
 	document.getElementsByClassName("popup-close")[0].onclick = function() {
@@ -1271,20 +1277,18 @@ function init_popup() {
 	}
 
 	//Configure iframe size.
-	var popupIFrame = document.getElementById("popup-iframe");
-
-	popupIFrame.onload = function(event) {
+	popup_iframe.onload = function(event) {
 		var size = document.documentElement.clientHeight - 250;
 	
-		if (size > popupIFrame.contentDocument.body.scrollHeight) {
-			size = popupIFrame.contentDocument.body.scrollHeight;
+		if (size > popup_iframe.contentDocument.body.scrollHeight) {
+			size = popup_iframe.contentDocument.body.scrollHeight;
 		}
 
 		if (size < 0) {
 			size = 100;
 		}
 
-		popupIFrame.style.height = size + 'px';
+		popup_iframe.style.height = size + 'px';
 	}
 }
 // </popup>
