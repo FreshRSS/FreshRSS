@@ -76,7 +76,7 @@ return array(
 			'title' => 'Maintenance',
 			'clear_cache' => 'Clear Cache',
 			'clear_cache_help' => 'Clear the cache of this feed on disk',
-			'reload_articles' => 'Reload Articles',
+			'reload_articles' => 'Reload articles',
 			'reload_articles_help' => 'Reload articles and fetch complete content',
 		),
 	),
