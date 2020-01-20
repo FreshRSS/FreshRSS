@@ -74,7 +74,7 @@ return array(
 		'websub' => 'Instant notification with WebSub',
 		'maintenance' => array(
 			'title' => 'Maintenance',
-			'clear_cache' => 'Clear Cache',
+			'clear_cache' => 'Clear cache',
 			'clear_cache_help' => 'Clear the cache of this feed on disk',
 			'reload_articles' => 'Reload articles',
 			'reload_articles_help' => 'Reload articles and fetch complete content',
