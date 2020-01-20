@@ -9,14 +9,14 @@ function fix_popup_preview_path() {
 	for (let i = 0; i < links.length; i++) {
 		const link = links[i];
 
-		link.onclick = function (ev) {
+		link.addEventListener('click', function (ev) {
 			const path_entries = document.getElementById('path_entries').value;
 			const href = link.href.replace('path-token', encodeURIComponent(path_entries));
 
 			openPopupWithSource(href);
 
-			return false;
-		};
+			ev.preventDefault();
+		});
 	}
 }
 
@@ -258,6 +258,7 @@ function init_extra() {
 	init_select_observers();
 	init_slider_observers();
 	init_configuration_alert();
+	fix_popup_preview_path();
 }
 
 if (document.readyState && document.readyState !== 'loading') {
