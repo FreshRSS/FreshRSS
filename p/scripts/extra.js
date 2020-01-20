@@ -9,14 +9,14 @@ function fix_popup_preview_path() {
 	for (var i = 0; i < links.length; i++) {
 		var link = links[i];
 
-		link.onclick = function (event) {
+		link.addEventListener('click', function (ev) {
 			const path_entries = document.getElementById('path_entries').value;
 			var href = link.href.replace('path-token', encodeURIComponent(path_entries));
 
 			openPopupWithSource(href);
 
 			return false;
-		};
+		});
 	}
 }
 
