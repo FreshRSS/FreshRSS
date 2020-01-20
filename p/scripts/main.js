@@ -1259,7 +1259,7 @@ function closePopup() {
 }
 
 function init_popup() {
-	// Fetch elements.
+	//Fetch elements.
 	popup = document.getElementById('popup');
 	popup_iframe = document.getElementById('popup-iframe');
 	popup_p = document.getElementById('popup-p');
