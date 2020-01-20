@@ -1248,7 +1248,7 @@ function openPopupWithSource(source) {
 }
 
 function closePopup() {
-	popup.style.display = "none";
+	popup.style.display = 'none';
 
 	popup_iframe.src = 'about:blank';
 	popup_iframe.setAttribute('hidden', true);
