@@ -674,7 +674,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action force to reload articles of a feed.
+	 * This action forces reloading the articles of a feed.
 	 *
 	 * Parameters are:
 	 *   - id (mandatory - no default): Feed ID
