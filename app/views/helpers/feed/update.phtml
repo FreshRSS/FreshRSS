@@ -274,8 +274,10 @@
 		<div class="form-group">
 			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_path') ?></label>
 			<div class="group-controls">
-				<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
-				<a class="popup-preview-path" href="<?= _url('feed', 'previewContentPath', 'id', $this->feed->id(), 'path', 'path-token') ?>"><?= _i('look') ?></a>
+				<div class="stick">
+					<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<a class="btn popup-preview-path" href="<?= _url('feed', 'previewContentPath', 'id', $this->feed->id(), 'path', 'path-token') ?>"><?= _i('look') ?></a>
+				</div>
 				<br/>
 				<?= _i('help') ?> <?= _t('sub.feed.css_help') ?>
 			</div>
