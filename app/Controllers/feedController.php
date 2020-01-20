@@ -681,6 +681,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 *
 	 */
 	public function reloadAction() {
+		@set_time_limit(300);
+
 		//Get Feed ID.
 		$feed_id = Minz_Request::param('id');
 
