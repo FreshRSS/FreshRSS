@@ -1244,11 +1244,11 @@ function openPopupWithSource(source) {
 	popup_iframe.src = source;
 	popup_iframe.removeAttribute('hidden');
 
-	popup.style.display = "block";
+	popup.style.display = 'block';
 }
 
 function closePopup() {
-	popup.style.display = "none";
+	popup.style.display = 'none';
 
 	popup_iframe.src = 'about:blank';
 	popup_iframe.setAttribute('hidden', true);
@@ -1264,7 +1264,7 @@ function init_popup() {
 	popup_iframe = document.getElementById('popup-iframe');
 	popup_p = document.getElementById('popup-p');
 
-	//Configure clode-button.
+	//Configure close button.
 	document.getElementsByClassName("popup-close")[0].onclick = function() {
   		closePopup();
   	};

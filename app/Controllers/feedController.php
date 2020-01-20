@@ -648,7 +648,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action force to clear cache of a feed.
+	 * This action force clears the cache of a feed.
 	 *
 	 * Parameters are:
 	 *   - id (mandatory - no default): Feed ID
@@ -674,7 +674,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action force to reload articles of a feed.
+	 * This action forces reloading the articles of a feed.
 	 *
 	 * Parameters are:
 	 *   - id (mandatory - no default): Feed ID
@@ -716,7 +716,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action forge a preview of a content path.
+	 * This action creates a preview of a content path.
 	 *
 	 * Parameters are:
 	 *   - id (mandatory - no default): Feed ID
