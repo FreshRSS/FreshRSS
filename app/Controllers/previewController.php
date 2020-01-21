@@ -52,7 +52,7 @@ class FreshRSS_preview_Controller extends Minz_ContentController {
 		$feed->_pathEntries($content_path);
 		$entry->loadCompleteContent(true);
 
-		echo '<!DOCTYPE html><html><body>';
+		echo '<html><body>';
 		echo $entry->content();
 		echo '</body></html>';
 	}
