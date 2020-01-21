@@ -97,6 +97,9 @@ return array(
 			'n_entries_deleted' => '%d articles have been deleted',
 			'over_max' => 'You have reached your limit of feeds (%d)',
 			'updated' => 'Feed has been updated',
+			'path_preview' => array(
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',
+			),
 		),
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),

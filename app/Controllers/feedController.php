@@ -755,7 +755,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		//Generate content by applying the path.
 		$feed->_pathEntries($content_path);
-		$entry->loadCompleteContent(true);
+		$this->view->success = $entry->loadCompleteContent(true);
 
 		//Show the result.
 		$this->view->_layout(false);

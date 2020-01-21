@@ -398,6 +398,7 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($entry && !$force) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
+				return true;
 			} else {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
@@ -408,13 +409,18 @@ class FreshRSS_Entry extends Minz_Model {
 					);
 					if ($fullContent != '') {
 						$this->content = $fullContent;
+						return true;
+					} else {
+						return false;
 					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu(requête a échoué)
 					Minz_Log::warning($e->getMessage());
+					return false;
 				}
 			}
 		}
+		return true;
 	}
 
 	public function toArray() {
