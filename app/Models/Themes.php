@@ -96,7 +96,6 @@ class FreshRSS_Themes extends Minz_Model {
 			'rss' => '☄',
 			'unread' => '☐',
 			'refresh' => '🔃',	//↻
-			'screwdriver' => '🔩',
 			'search' => '🔍',
 			'share' => '♺',
 			'starred' => '★',
