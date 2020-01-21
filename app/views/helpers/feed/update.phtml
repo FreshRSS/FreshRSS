@@ -276,7 +276,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
-					<a class="btn popup-preview-path" href="<?= _url('feed', 'previewContentPath', 'id', $this->feed->id(), 'path', 'path-token') ?>"><?= _i('look') ?></a>
+					<a class="btn popup-preview-path" href="<?= _url('feed', 'contentPathPreview', 'id', $this->feed->id(), 'path', 'path-token') ?>"><?= _i('look') ?></a>
 				</div>
 				<br/>
 				<?= _i('help') ?> <?= _t('sub.feed.css_help') ?>
