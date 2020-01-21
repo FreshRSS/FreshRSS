@@ -727,12 +727,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 */
 	public function contentPathPreviewAction() {
 
+		//Configure.
+		$this->view->fatalError = '';
+		$this->view->pathSuccess = false;
+		$this->view->htmlContent = '';
+
+		$this->view->_layout(false);
+
 		//Get parameters.
 		$feed_id = Minz_Request::param('id');
 		$content_path = Minz_Request::param('path');
 
 		if (!$content_path) {
-			$this->view->htmlContent = 'path-not-set'; // FIXME: translate.
+			$this->view->fatalError = _t('feedback.sub.feed.path_preview.path_empty');
 			return;
 		}
 
@@ -741,7 +748,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$entries = $entryDAO->listWhere('f', $feed_id);
 
 		if (count($entries) == 0) {
-			$this->view->htmlContent = 'no-entries-found'; // FIXME: translate.
+			$this->view->fatalError = _t('feedback.sub.feed.path_preview.no_entries');
 			return;
 		}
 
@@ -749,16 +756,15 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$feed = $entry->feed(true);
 
 		if (!$feed) {
-			$this->view->htmlContent = 'no-feed-for-entry'; // FIXME: translate.
+			$this->view->fatalError = _t('feedback.sub.feed.path_preview.no_feed');
 			return;
 		}
 
 		//Generate content by applying the path.
 		$feed->_pathEntries($content_path);
-		$this->view->success = $entry->loadCompleteContent(true);
+		$this->view->pathSuccess = $entry->loadCompleteContent(true);
 
 		//Show the result.
-		$this->view->_layout(false);
 		$this->view->htmlContent = $entry->content();
 	}
 

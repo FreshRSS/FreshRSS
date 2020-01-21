@@ -98,7 +98,10 @@ return array(
 			'over_max' => 'You have reached your limit of feeds (%d)',
 			'updated' => 'Feed has been updated',
 			'path_preview' => array(
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',
+				'no_result' => 'The path didn\'t match anything. As a fallback the original feed text will be displayed instead.',
+				'path_empty' => 'The path is empty. You need to define one to create a preview.',
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',
+				'no_feed' => 'Internal error (no feed to entry).',
 			),
 		),
 		'purge_completed' => 'Purge completed (%d articles deleted)',
