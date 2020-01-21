@@ -718,6 +718,58 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * This action creates a preview of a content path.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *   - path (mandatory - no default): Path to preview
+	 *
+	 */
+	public function previewContentPathAction() {
+		//XXX: A preview is not really the job of an action controller. Check with the core-team for a better solution:
+		//- Perhaps by addding dedicated php file somewhere for this kind of work?
+		//- Add a new type of Minz Controller (helper controller)? So the request & dispatcher would be able to formward to it.
+
+		//We want the direct output of this action. Disable the assosiated view.
+		$this->view = new Minz_View();
+		$this->view->_path('/dev/null'); //XXX this work only for Unix... Hacking into ActionController is probably not the right way anyway.
+		$this->view->_layout('');
+
+		//Get parameters.
+		$feed_id = Minz_Request::param('id');
+		$content_path = Minz_Request::param('path');
+
+		if (!$content_path) {
+			echo 'path-not-set'; // FIXME: translate.
+			return;
+		}
+
+		//Check Feed ID validity.
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entries = $entryDAO->listWhere('f', $feed_id);
+
+		if (count($entries) == 0) {
+			echo 'no-entries-found'; // FIXME: translate.
+			return;
+		}
+
+		$entry = $entries[0];
+		$feed = $entry->feed(true);
+
+		if (!$feed) {
+			echo 'no-feed-for-entry'; // FIXME: translate.
+			return;
+		}
+
+		$feed->_pathEntries($content_path);
+		$entry->loadCompleteContent(true);
+
+		echo '<html><body>';
+		echo $entry->content();
+		echo '</body></html>';
+	}
+
+	/**
 	 * This method update TTL values for feeds if needed.
 	 * It changes the old default value (-2) to the new default value (0).
 	 * It changes the old disabled value (-1) to the default disabled value.

@@ -67,15 +67,11 @@ class Minz_FrontController {
 			'a',
 			Minz_Request::defaultActionName ()
 		);
-		if (Minz_Request::fetchGET('cont') !== false) {
-			$url['cont'] = Minz_Request::fetchGET ('cont');
-		}
 		$url['params'] = Minz_Request::fetchGET ();
 
 		// post-traitement
 		unset ($url['params']['c']);
 		unset ($url['params']['a']);
-		unset ($url['params']['cont']);
 
 		return $url;
 	}
@@ -96,8 +92,7 @@ class Minz_FrontController {
 			if ($e instanceof Minz_FileNotExistException ||
 					$e instanceof Minz_ControllerNotExistException ||
 					$e instanceof Minz_ControllerNotActionControllerException ||
-					$e instanceof Minz_ActionException ||
-					$e instanceof Minz_ContentException) {
+					$e instanceof Minz_ActionException) {
 				Minz_Error::error (
 					404,
 					array ('error' => array ($e->getMessage ())),

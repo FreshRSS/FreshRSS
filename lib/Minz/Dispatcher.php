@@ -40,30 +40,18 @@ class Minz_Dispatcher {
 			try {
 				$this->createController (Minz_Request::controllerName ());
 				$this->controller->init ();
-
-				if ($this->controller instanceof Minz_ActionController) {
-					$this->controller->firstAction ();
+				$this->controller->firstAction ();
+				if (!self::$needsReset) {
+					$this->launchAction (
+						Minz_Request::actionName ()
+						. 'Action'
+					);
 				}
+				$this->controller->lastAction ();
 
 				if (!self::$needsReset) {
-					if ($this->controller instanceof Minz_ActionController) {
-						$this->launchFunction(Minz_Request::actionName() . 'Action');
-					} else if ($this->controller instanceof Minz_ContentController) {
-						$this->launchFunction(Minz_Request::contentName() . 'Content');
-					}
-				}
-
-				if ($this->controller instanceof Minz_ActionController) {
-					$this->controller->lastAction();
-				}
-
-				if (!self::$needsReset) {
-					if ($this->controller instanceof Minz_ActionController) {
-						$this->controller->declareCspHeader();
-						$this->controller->view()->build();
-					} else if ($this->controller instanceof Minz_ContentController) {
-						$this->controller->declareHeader();
-					}
+					$this->controller->declareCspHeader();
+					$this->controller->view ()->build ();
 				}
 			} catch (Minz_Exception $e) {
 				throw $e;
@@ -83,7 +71,7 @@ class Minz_Dispatcher {
 	 * @param $base_name le nom du controller à instancier
 	 * @exception ControllerNotExistException le controller n'existe pas
 	 * @exception ControllerNotActionControllerException controller n'est
-	 *          > pas une instance de ActionController ou ContentController.
+	 *          > pas une instance de ActionController
 	 */
 	private function createController ($base_name) {
 		if (self::isRegistered($base_name)) {
@@ -101,8 +89,7 @@ class Minz_Dispatcher {
 		}
 		$this->controller = new $controller_name ();
 
-		if (! ($this->controller instanceof Minz_ActionController) &&
-			! ($this->controller instanceof Minz_ContentController)) {
+		if (! ($this->controller instanceof Minz_ActionController)) {
 			throw new Minz_ControllerNotActionControllerException (
 				$controller_name,
 				Minz_Exception::ERROR
@@ -116,30 +103,20 @@ class Minz_Dispatcher {
 	 * @exception ActionException si on ne peut pas exécuter l'action sur
 	 *  le controller
 	 */
-	private function launchFunction ($function_name) {
+	private function launchAction ($action_name) {
 		if (!is_callable (array (
 			$this->controller,
-			$function_name
+			$action_name
 		))) {
-			if ($this->controller instanceof Minz_ActionController) {
-				throw new Minz_ActionException (
-					get_class ($this->controller),
-					$function_name,
-					Minz_Exception::ERROR
-				);
-			} else if ($this->controller instanceof Minz_ContentController) {
-				throw new Minz_ContentException (
-					get_class ($this->controller),
-					$function_name,
-					Minz_Exception::ERROR
-				);
-			} else {
-				throw new Minz_Exception('Unknown function ' . $function_name);
-			}
+			throw new Minz_ActionException (
+				get_class ($this->controller),
+				$action_name,
+				Minz_Exception::ERROR
+			);
 		}
 		call_user_func (array (
 			$this->controller,
-			$function_name
+			$action_name
 		));
 	}
 
