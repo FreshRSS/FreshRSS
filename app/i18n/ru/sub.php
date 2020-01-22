@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Always clear cache',	// TODO - Translation
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',	// TODO - Translation
-		'css_path' => 'Articles CSS path on original website',	// TODO - Translation
+		'css_path' => 'Articles CSS selector on original website',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO - Translation
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
