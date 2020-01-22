@@ -61,6 +61,10 @@ return array(
 			'normal' => '在分类中显示',
 			'_' => '可见性',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => '显示所有订阅源',
 			'error' => '仅显示有错误的订阅源',

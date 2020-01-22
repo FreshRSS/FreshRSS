@@ -61,6 +61,10 @@ return array(
 			'normal' => '피드가 속한 카테고리에만 표시하기',
 			'_' => '표시',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => '모든 피드 보기',
 			'error' => '오류가 발생한 피드만 보기',

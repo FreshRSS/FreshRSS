@@ -61,6 +61,10 @@ return array(
 			'normal' => 'Show in its category',
 			'_' => 'Visibility',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',
+			'show_rendered' => 'Show content',
+		),
 		'show' => array(
 			'all' => 'Show all feeds',
 			'error' => 'Show only feeds with error',

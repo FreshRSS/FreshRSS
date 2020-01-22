@@ -97,6 +97,7 @@ return array(
 			'over_max' => 'Akış limitini aştınız (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
+				'http_error' => 'Failed to load website content.',	// TODO - Translation
 				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
 				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation

@@ -61,6 +61,10 @@ return array(
 			'normal' => 'Show in its category',	// TODO - Translation
 			'_' => 'Visibility',	// TODO - Translation
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => 'Show all feeds',	// TODO - Translation
 			'error' => 'Show only feeds with error',	// TODO - Translation

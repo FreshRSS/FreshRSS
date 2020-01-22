@@ -734,9 +734,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$this->view->_layout(false);
 
+		//XXX 'script-src' allow possible script inlined in the previewed page to be executed.
+		//If we want to allow only our script, perhaps we should create a file, and reference it, instead of having it in-line.
+		//This view will be in an iframe, without any context, is it that dangerous? What a script can do?
+		$this->_csp([
+			'default-src' => "'self'",
+			'script-src' => "'unsafe-inline'",
+			'img-src' => '*',
+			'media-src' => '*',
+		]);
+
 		//Get parameters.
 		$feed_id = Minz_Request::param('id');
-		$content_selector = Minz_Request::param('selector');
+		$content_selector = trim(Minz_Request::param('selector'));
 
 		if (!$content_selector) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.selector_empty');
@@ -752,6 +762,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			return;
 		}
 
+		//Get feed & entry.
 		$entry = $entries[0];
 		$feed = $entry->feed(true);
 
@@ -760,12 +771,24 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			return;
 		}
 
-		//Generate content by applying the selector.
-		$feed->_pathEntries($content_selector);
-		$this->view->selectorSuccess = $entry->loadCompleteContent(true);
+		//Fetch & select content.
+		try {
+			$fullContent = FreshRSS_Entry::getContentByParsing(
+				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				$content_selector,
+				$feed->attributes()
+			);
 
-		//Show the result.
-		$this->view->htmlContent = $entry->content();
+			if ($fullContent != '') {
+				$this->view->selectorSuccess = true;
+				$this->view->htmlContent = $fullContent;
+			} else {
+				$this->view->selectorSuccess = false;
+				$this->view->htmlContent = $entry->content();
+			}
+		} catch (Exception $e) {
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');
+		}
 	}
 
 	/**

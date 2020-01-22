@@ -97,6 +97,7 @@ return array(
 			'over_max' => 'You have reached your limit of feeds (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',
 			'selector_preview' => array(
+				'http_error' => 'Failed to load website content.',
 				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',
 				'no_feed' => 'Internal error (no feed to entry).',
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',

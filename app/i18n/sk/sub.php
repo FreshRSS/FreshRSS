@@ -61,6 +61,10 @@ return array(
 			'normal' => 'Zobraziť vo svojej kategórii',
 			'_' => 'Viditeľnosť',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => 'Zobraziť všetky kanály',
 			'error' => 'Zobraziť iba kanály s chybou',

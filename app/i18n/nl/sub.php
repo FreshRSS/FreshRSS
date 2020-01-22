@@ -61,6 +61,10 @@ return array(
 			'normal' => 'Toon in categorie',
 			'_' => 'Zichtbaarheid',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => 'Alle feeds tonen',
 			'error' => 'Alleen feeds met een foutmelding tonen',

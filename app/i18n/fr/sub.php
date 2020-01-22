@@ -61,6 +61,10 @@ return array(
 			'normal' => 'Afficher dans sa catégorie',
 			'_' => 'Visibilité',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => 'Montrer tous les flux',
 			'error' => 'Montrer seulement les flux en erreur',

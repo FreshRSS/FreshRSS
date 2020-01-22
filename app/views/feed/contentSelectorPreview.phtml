@@ -5,8 +5,6 @@
 			if ($this->fatalError != '') {
 		?>
 		<p class="warning"><?= $this->fatalError ?></p>
-		<br/>
-		<br/>
 		<?php
 			} else {
 				if ($this->selectorSuccess === false) {
@@ -15,8 +13,59 @@
 		<hr>
 		<?php
 				}
-				echo $this->htmlContent;
+		?>
+		<center>
+			<div>
+				<input type="checkbox" id="freshrss_rendered" name="freshrss_rendered" checked>
+				<label for="freshrss_rendered"><?= _t('sub.feed.selector_preview.show_rendered') ?></label>
+
+				<input type="checkbox" id="freshrss_raw" name="freshrss_raw">
+				<label for="freshrss_raw"><?= _t('sub.feed.selector_preview.show_raw') ?></label>
+			</div>
+		</center>
+
+		<hr>
+
+		<div id="freshrss_rendered_view"> <?= $this->htmlContent ?></div>
+		<hr id="freshrss_separator_view" hidden>
+		<pre id="freshrss_raw_view" hidden> <?= htmlspecialchars($this->htmlContent) ?></pre>
+		<?php
 			}
 		?>
+
+	<script>
+		var rendered_node = document.getElementById("freshrss_rendered");
+		var raw_node = document.getElementById("freshrss_raw");
+
+		var rendered_view = document.getElementById("freshrss_rendered_view");
+		var separator_view = document.getElementById("freshrss_separator_view");
+		var raw_view = document.getElementById("freshrss_raw_view");
+
+		rendered_node.addEventListener("click", function(ev){
+			update_ui();
+		});
+
+		raw_node.addEventListener("click", function(ev){
+			update_ui();
+		});
+
+		function update_ui() {
+			if (rendered_node.checked) {
+				rendered_view.removeAttribute('hidden');
+			} else {
+				rendered_view.setAttribute('hidden', true);
+			}
+			if (rendered_node.checked && raw_node.checked) {
+				separator_view.removeAttribute('hidden');
+			} else {
+				separator_view.setAttribute('hidden', true);
+			}
+			if (raw_node.checked) {
+				raw_view.removeAttribute('hidden');
+			} else {
+				raw_view.setAttribute('hidden', true);
+			}
+		}
+    </script>
 	</body>
 </html>

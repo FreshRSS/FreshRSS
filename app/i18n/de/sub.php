@@ -61,6 +61,10 @@ return array(
 			'normal' => 'Zeige in eigener Kategorie',
 			'_' => 'Sichtbarkeit',
 		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
+		),
 		'show' => array(
 			'all' => 'Alle Feeds zeigen',
 			'error' => 'Nur Feeds mit Fehlern zeigen',
