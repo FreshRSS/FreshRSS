@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'reload_articles' => 'Reload articles',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'title' => 'Maintenance',	// TODO - Translation
+		),
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',
 		'no_selected' => 'Aucun flux sélectionné.',

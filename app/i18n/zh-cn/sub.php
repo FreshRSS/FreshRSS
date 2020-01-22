@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'reload_articles' => 'Reload articles',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'title' => 'Maintenance',	// TODO - Translation
+		),
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',

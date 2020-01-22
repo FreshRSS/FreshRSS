@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'reload_articles' => 'Reload articles',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'title' => 'Maintenance',	// TODO - Translation
+		),
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',

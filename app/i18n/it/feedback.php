@@ -84,15 +84,24 @@ return array(
 			'actualizeds' => 'RSS feeds aggiornati',
 			'added' => 'RSS feed <em>%s</em> aggiunti',
 			'already_subscribed' => 'Hai già sottoscritto <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
 			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
 			'not_added' => '<em>%s</em> non può essere aggiunto',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'Nessun aggiornamento disponibile…',
 			'n_actualized' => '%d feeds aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
 			'over_max' => 'Hai raggiunto il numero limite di feed (%d)',
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'Feed aggiornato',
 		),
 		'purge_completed' => 'Svecchiamento completato (%d articoli cancellati)',

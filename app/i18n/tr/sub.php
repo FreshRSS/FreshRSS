@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'reload_articles' => 'Reload articles',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'title' => 'Maintenance',	// TODO - Translation
+		),
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'mute',	// TODO - Translation
 		'no_selected' => 'Hiçbir akış seçilmedi.',

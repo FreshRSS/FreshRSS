@@ -84,15 +84,24 @@ return array(
 			'actualizeds' => 'RSS-feeds vernieuwd',
 			'added' => 'RSS feed <em>%s</em> toegevoegd',
 			'already_subscribed' => 'Al geabonneerd op <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Feed verwijderd',
 			'error' => 'Feed kan niet worden vernieuwd',
 			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FreshRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
 			'invalid_url' => 'URL <em>%s</em> is ongeldig',
 			'not_added' => '<em>%s</em> kon niet worden toegevoegd',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'Er is geen feed om te vernieuwen…',
 			'n_actualized' => '%d feeds zijn vernieuwd',
 			'n_entries_deleted' => '%d artikelen zijn verwijderd',
 			'over_max' => 'Maximum aantal feeds bereikt (%d)',
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'Feed is vernieuwd',
 		),
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',

@@ -84,15 +84,24 @@ return array(
 			'actualizeds' => 'Las fuentes RSS se han actualizado',
 			'added' => 'Fuente RSS agregada <em>%s</em>',
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
 			'not_added' => '<em>%s</em> no ha podido se añadida',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'No hay fuente a actualizar…',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
 			'over_max' => 'Has alcanzado tu límite de fuentes (%d)',
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'Fuente actualizada',
 		),
 		'purge_completed' => 'Limpieza completada (se han eliminado %d artículos)',

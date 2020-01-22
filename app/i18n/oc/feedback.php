@@ -84,15 +84,24 @@ return array(
 			'actualizeds' => 'Los fluxes son estats actualizats',
 			'added' => 'Lo flux RSS <em>%s</em> es ajustat',
 			'already_subscribed' => 'Seguissètz ja <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Lo flux es suprimit',
 			'error' => 'Error en actualizar',
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L\'URL <em>%s</em> es invalida',
 			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'I a pas cap de flux d’actualizar…',
 			'n_actualized' => '%s fluxes son estats actualizats',
 			'n_entries_deleted' => '%d articles son estats suprimits',
 			'over_max' => 'Avètz atengut vòstra limita de fluxes (%d)',
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'Lo flux es actualizat',
 		),
 		'purge_completed' => 'Purga realizada (%s articles suprimits)',

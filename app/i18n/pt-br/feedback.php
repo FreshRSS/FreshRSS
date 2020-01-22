@@ -84,15 +84,24 @@ return array(
 			'actualizeds' => 'RSS feeds foi atualizado',
 			'added' => 'RSS feed <em>%s</em> foi adicionado',
 			'already_subscribed' => 'Você já está inscrito no <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'o Feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
 			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FreshRSS logs</a> para detalhes.',
 			'invalid_url' => 'URL <em>%s</em> é inválida',
 			'not_added' => '<em>%s</em> não pode ser atualizado',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'Não há feed para atualizar…',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',
 			'over_max' => 'Você atingiu seu limite de feeds (%d)',
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'Feed foram atualizados',
 		),
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
