@@ -68,11 +68,15 @@
 </div>
 
 <!-- Popup-->
-<div id="popup" class="popup">
-	<div class="popup-content">
-		<span class="popup-close">&times;</span>
-		<p id="popup-p" hidden="true"></p>
-		<iframe id="popup-iframe" frameborder="0" width="100%" height="100%" hidden="true"></iframe>
+<div id="popup">
+	<div id="popup-content">
+		<div id="popup-close" class="popup-row">&times;</div>
+		<div id="popup-txt" class="popup-row"></div>
+		<div id="popup-iframe-container" class="popup-row">
+			<div id="popup-iframe-sub">
+				<iframe id="popup-iframe" frameborder="0"></iframe>
+			</div>
+		</div>
 	</div>
 </div>
 	</body>

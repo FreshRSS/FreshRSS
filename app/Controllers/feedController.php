@@ -718,28 +718,28 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action creates a preview of a content-path.
+	 * This action creates a preview of a content-selector.
 	 *
 	 * Parameters are:
 	 *   - id (mandatory - no default): Feed ID
-	 *   - path (mandatory - no default): Path to preview
+	 *   - selector (mandatory - no default): Selector to preview
 	 *
 	 */
-	public function contentPathPreviewAction() {
+	public function contentSelectorPreviewAction() {
 
 		//Configure.
 		$this->view->fatalError = '';
-		$this->view->pathSuccess = false;
+		$this->view->selectorSuccess = false;
 		$this->view->htmlContent = '';
 
 		$this->view->_layout(false);
 
 		//Get parameters.
 		$feed_id = Minz_Request::param('id');
-		$content_path = Minz_Request::param('path');
+		$content_selector = Minz_Request::param('selector');
 
-		if (!$content_path) {
-			$this->view->fatalError = _t('feedback.sub.feed.path_preview.path_empty');
+		if (!$content_selector) {
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.selector_empty');
 			return;
 		}
 
@@ -748,7 +748,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$entries = $entryDAO->listWhere('f', $feed_id);
 
 		if (count($entries) == 0) {
-			$this->view->fatalError = _t('feedback.sub.feed.path_preview.no_entries');
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_entries');
 			return;
 		}
 
@@ -756,13 +756,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$feed = $entry->feed(true);
 
 		if (!$feed) {
-			$this->view->fatalError = _t('feedback.sub.feed.path_preview.no_feed');
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
 			return;
 		}
 
-		//Generate content by applying the path.
-		$feed->_pathEntries($content_path);
-		$this->view->pathSuccess = $entry->loadCompleteContent(true);
+		//Generate content by applying the selector.
+		$feed->_pathEntries($content_selector);
+		$this->view->selectorSuccess = $entry->loadCompleteContent(true);
 
 		//Show the result.
 		$this->view->htmlContent = $entry->content();

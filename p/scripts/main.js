@@ -1217,8 +1217,9 @@ function init_notifications() {
 
 // <popup>
 let popup = null,
+	popup_iframe_container = null,
 	popup_iframe = null,
-	popup_p = null,
+	popup_txt = null,
 	popup_working = false;
 
 function openPopupWithMessage(msg) {
@@ -1228,9 +1229,9 @@ function openPopupWithMessage(msg) {
 
 	popup_working = true;
 
-	popup_p.innerHTML = msg;
-	popup_p.removeAttribute('hidden');
+	popup_txt.innerHTML = msg;
 
+	popup_txt.style.display = 'table-row';
 	popup.style.display = 'block';
 }
 
@@ -1242,18 +1243,17 @@ function openPopupWithSource(source) {
 	popup_working = true;
 
 	popup_iframe.src = source;
-	popup_iframe.removeAttribute('hidden');
 
+	popup_iframe_container.style.display = 'table-row';
 	popup.style.display = 'block';
 }
 
 function closePopup() {
 	popup.style.display = 'none';
+	popup_iframe_container.style.display = 'none';
+	popup_txt.style.display = 'none';
 
 	popup_iframe.src = 'about:blank';
-	popup_iframe.setAttribute('hidden', true);
-
-	popup_p.setAttribute('hidden', true);
 
 	popup_working = false;
 }
@@ -1261,11 +1261,14 @@ function closePopup() {
 function init_popup() {
 	//Fetch elements.
 	popup = document.getElementById('popup');
+
+	popup_iframe_container = document.getElementById('popup-iframe-container');
 	popup_iframe = document.getElementById('popup-iframe');
-	popup_p = document.getElementById('popup-p');
+
+	popup_txt = document.getElementById('popup-txt');
 
 	//Configure close button.
-	document.querySelector('.popup-close').addEventListener('click', function (ev) {
+	document.getElementById('popup-close').addEventListener('click', function (ev) {
   		closePopup();
   	});
 
@@ -1274,21 +1277,6 @@ function init_popup() {
 		if (event.target == popup) {
 			closePopup();
 		}
-	};
-
-	//Configure iframe size.
-	popup_iframe.onload = function(event) {
-		var size = document.documentElement.clientHeight - 250;
-
-		if (size > popup_iframe.contentDocument.body.scrollHeight) {
-			size = popup_iframe.contentDocument.body.scrollHeight;
-		}
-
-		if (size < 0) {
-			size = 100;
-		}
-
-		popup_iframe.style.height = size + 'px';
 	};
 }
 // </popup>
