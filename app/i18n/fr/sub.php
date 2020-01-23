@@ -45,11 +45,11 @@ return array(
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Vider le cache',
+			'clear_cache_help' => 'Supprime le cache de ce flux sur l\'espace de stockage.',
+			'reload_articles' => 'Recharger les articles',
+			'reload_articles_help' => 'Recharge les articles et récupère le contenu complet si un sélecteur est défini.',
+			'title' => 'Maintenance',
 		),
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',
@@ -62,8 +62,8 @@ return array(
 			'_' => 'Visibilité',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Afficher le code source',
+			'show_rendered' => 'Afficher le contenu',
 		),
 		'show' => array(
 			'all' => 'Montrer tous les flux',
