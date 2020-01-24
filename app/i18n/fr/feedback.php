@@ -98,8 +98,8 @@ return array(
 			'reloaded' => '<em>%s</em> a été rechargé.',
 			'selector_preview' => array(
 				'http_error' => 'Échec lors du chargement du contenu du site web.',
-				'no_entries' => 'Il n\'y a pas d\'articles dans votre flux. Vous devez avoir au moins un article pour générer une prévisualisation.',
-				'no_feed' => 'Erreur interne (pas de flux associé).',
+				'no_entries' => 'Il n\'y a pas d\'articles dans ce flux. Vous devez avoir au moins un article pour générer une prévisualisation.',
+				'no_feed' => 'Erreur interne (pas de flux associé au premier article).',
 				'no_result' => 'Le sélecteur n\'a produit aucune concordance. Dans ces circonstances, le texte original du flux sera affiché.',
 				'selector_empty' => 'Le sélecteur est vide. Vous devez en définir un pour générer une prévisualisation.',
 			),

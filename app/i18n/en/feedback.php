@@ -98,8 +98,8 @@ return array(
 			'reloaded' => '<em>%s</em> has been reloaded',
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',
-				'no_entries' => 'There is no articles in your feed. You need at least one article to create a preview.',
-				'no_feed' => 'Internal error (no feed associated).',
+				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',
+				'no_feed' => 'Internal error (no feed associated with the first article).',
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',
 			),

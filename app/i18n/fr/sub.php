@@ -46,7 +46,7 @@ return array(
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
-			'clear_cache_help' => 'Supprime le cache de ce flux sur l\'espace de stockage.',
+			'clear_cache_help' => 'Supprime le cache de ce flux.',
 			'reload_articles' => 'Recharger les articles',
 			'reload_articles_help' => 'Recharge les articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',

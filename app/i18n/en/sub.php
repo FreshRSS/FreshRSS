@@ -46,7 +46,7 @@ return array(
 		'keep_min' => 'Minimum number of articles to keep',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',
-			'clear_cache_help' => 'Clear the cache of this feed on storage.',
+			'clear_cache_help' => 'Clear the cache for this feed.',
 			'reload_articles' => 'Reload articles',
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',
 			'title' => 'Maintenance',
