@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Always clear cache',
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
-		'css_path' => 'Articles CSS selector on original website',
+		'css_path' => 'Article CSS selector on original website',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
