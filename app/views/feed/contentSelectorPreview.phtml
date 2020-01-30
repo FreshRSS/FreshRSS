@@ -10,10 +10,10 @@
 			<?php } ?>
 			<center>
 				<div>
-					<input type="checkbox" id="freshrss_rendered" name="freshrss_rendered" checked>
+					<input type="radio" id="freshrss_rendered" name="freshrss_type" checked>
 					<label for="freshrss_rendered"><?= _t('sub.feed.selector_preview.show_rendered') ?></label>
 
-					<input type="checkbox" id="freshrss_raw" name="freshrss_raw">
+					<input type="radio" id="freshrss_raw" name="freshrss_type">
 					<label for="freshrss_raw"><?= _t('sub.feed.selector_preview.show_raw') ?></label>
 				</div>
 			</center>
@@ -21,7 +21,6 @@
 			<hr>
 
 			<div id="freshrss_rendered_view"> <?= $this->htmlContent ?></div>
-			<hr id="freshrss_separator_view" hidden>
 			<pre id="freshrss_raw_view" hidden> <?= htmlspecialchars($this->htmlContent) ?></pre>
 		<?php } ?>
 
@@ -42,20 +41,13 @@
 		});
 
 		function update_ui() {
-			if (rendered_node.checked) {
+			if (rendered_node.checked && !raw_node.checked) {
 				rendered_view.removeAttribute('hidden');
-			} else {
-				rendered_view.setAttribute('hidden', true);
-			}
-			if (rendered_node.checked && raw_node.checked) {
-				separator_view.removeAttribute('hidden');
-			} else {
-				separator_view.setAttribute('hidden', true);
-			}
-			if (raw_node.checked) {
-				raw_view.removeAttribute('hidden');
-			} else {
 				raw_view.setAttribute('hidden', true);
+
+			} else if (!rendered_node.checked && raw_node.checked) {
+				rendered_view.setAttribute('hidden', true);
+				raw_view.removeAttribute('hidden');
 			}
 		}
     </script>
