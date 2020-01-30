@@ -1273,11 +1273,11 @@ function init_popup() {
   	});
 
   	//Configure close-on-click.
-	window.onclick = function(event) {
-		if (event.target == popup) {
+	window.addEventListener('click', function (ev) {
+		if (ev.target == popup) {
 			closePopup();
 		}
-	};
+	});
 }
 // </popup>
 
