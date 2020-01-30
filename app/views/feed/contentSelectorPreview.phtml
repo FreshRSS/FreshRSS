@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<?php
-			if ($this->fatalError != '') {
-		?>
-		<p class="warning"><?= $this->fatalError ?></p>
-		<?php
-			} else {
-				if ($this->selectorSuccess === false) {
-		?>
-		<p class="warning"><?= _t('feedback.sub.feed.selector_preview.no_result') ?></p>
-		<hr>
-		<?php
-				}
-		?>
-		<center>
-			<div>
-				<input type="checkbox" id="freshrss_rendered" name="freshrss_rendered" checked>
-				<label for="freshrss_rendered"><?= _t('sub.feed.selector_preview.show_rendered') ?></label>
+		<?php if ($this->fatalError != '') { ?>
+			<p class="warning"><?= $this->fatalError ?></p>
+		<?php } else { ?>
+			<?php if ($this->selectorSuccess === false) { ?>
+				<p class="warning"><?= _t('feedback.sub.feed.selector_preview.no_result') ?></p>
+				<hr>
+			<?php } ?>
+			<center>
+				<div>
+					<input type="checkbox" id="freshrss_rendered" name="freshrss_rendered" checked>
+					<label for="freshrss_rendered"><?= _t('sub.feed.selector_preview.show_rendered') ?></label>
 
-				<input type="checkbox" id="freshrss_raw" name="freshrss_raw">
-				<label for="freshrss_raw"><?= _t('sub.feed.selector_preview.show_raw') ?></label>
-			</div>
-		</center>
+					<input type="checkbox" id="freshrss_raw" name="freshrss_raw">
+					<label for="freshrss_raw"><?= _t('sub.feed.selector_preview.show_raw') ?></label>
+				</div>
+			</center>
 
-		<hr>
+			<hr>
 
-		<div id="freshrss_rendered_view"> <?= $this->htmlContent ?></div>
-		<hr id="freshrss_separator_view" hidden>
-		<pre id="freshrss_raw_view" hidden> <?= htmlspecialchars($this->htmlContent) ?></pre>
-		<?php
-			}
-		?>
+			<div id="freshrss_rendered_view"> <?= $this->htmlContent ?></div>
+			<hr id="freshrss_separator_view" hidden>
+			<pre id="freshrss_raw_view" hidden> <?= htmlspecialchars($this->htmlContent) ?></pre>
+		<?php } ?>
 
 	<script>
 		var rendered_node = document.getElementById("freshrss_rendered");
