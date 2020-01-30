@@ -278,7 +278,6 @@
 					<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?= _url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
 				</div>
-				<br/>
 				<?= _i('help') ?> <?= _t('sub.feed.css_help') ?>
 			</div>
 		</div>
@@ -362,21 +361,15 @@
 		<legend><?= _t('sub.feed.maintenance.title') ?></legend>
 		<div class="form-group">
 			<div class="group-controls">
-				<div class="stick">
-					<a class="btn btn-important" href="<?= _url('feed', 'clearcache', 'id', $this->feed->id()) ?>">
-						<?= _t('sub.feed.maintenance.clear_cache') ?>
-					</a>
-				</div>
-				<br/>
+				<a class="btn btn-important" href="<?= _url('feed', 'clearcache', 'id', $this->feed->id()) ?>">
+					<?= _t('sub.feed.maintenance.clear_cache') ?>
+				</a>
 				<?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?>
-				<br/>
-				<br/>
-				<div class="stick">
-					<a class="btn btn-important" href="<?= _url('feed', 'reload', 'id', $this->feed->id()) ?>">
-						<?= _t('sub.feed.maintenance.reload_articles') ?>
-					</a>
-				</div>
-				<br/>
+			</div>
+			<div class="group-controls">
+				<a class="btn btn-important" href="<?= _url('feed', 'reload', 'id', $this->feed->id()) ?>">
+					<?= _t('sub.feed.maintenance.reload_articles') ?>
+				</a>
 				<?= _i('help') ?> <?= _t('sub.feed.maintenance.reload_articles_help') ?>
 			</div>
 		</div>
