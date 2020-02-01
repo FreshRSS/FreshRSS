@@ -734,13 +734,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$this->view->_layout(false);
 
-		//XXX 'script-src' allow possible script inlined in the previewed page to be executed.
-		//If we want to allow only our script, perhaps we should create a file, and reference it, instead of having it in-line.
-		//This view will be in an iframe, without any context, is it that dangerous? What a script can do?
 		$this->_csp([
 			'default-src' => "'self'",
-			'script-src' => "'unsafe-inline'",
-			'img-src' => '*',
+			'frame-src' => '*',
+			'img-src' => '* data:',
 			'media-src' => '*',
 		]);
 

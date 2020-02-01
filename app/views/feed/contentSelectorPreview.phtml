@@ -1,6 +1,11 @@
+<?php FreshRSS::preLayout(); ?>
 <!DOCTYPE html>
-<html>
-	<body>
+<html class="preview_background">
+	<head>
+		<?= self::headStyle() ?>
+		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')) ?>"></script>
+	</head>
+	<body class="preview_background">
 		<?php if ($this->fatalError != '') { ?>
 			<p class="warning"><?= $this->fatalError ?></p>
 		<?php } else { ?>
@@ -8,48 +13,18 @@
 				<p class="warning"><?= _t('feedback.sub.feed.selector_preview.no_result') ?></p>
 				<hr />
 			<?php } ?>
-			<center>
-				<div>
-					<input type="radio" id="freshrss_rendered" name="freshrss_type" checked>
-					<label for="freshrss_rendered"><?= _t('sub.feed.selector_preview.show_rendered') ?></label>
+			<div class="preview_center">
+				<input type="radio" id="freshrss_rendered" name="freshrss_type" checked />
+				<label class="preview_label" for="freshrss_rendered"><?= _t('sub.feed.selector_preview.show_rendered') ?></label>
 
-					<input type="radio" id="freshrss_raw" name="freshrss_type" />
-					<label for="freshrss_raw"><?= _t('sub.feed.selector_preview.show_raw') ?></label>
-				</div>
-			</center>
+				<input type="radio" id="freshrss_raw" name="freshrss_type" />
+				<label class="preview_label" for="freshrss_raw"><?= _t('sub.feed.selector_preview.show_raw') ?></label>
+			</div>
 
 			<hr />
 
-			<div id="freshrss_rendered_view"> <?= $this->htmlContent ?></div>
+			<div class="flux_content content" id="freshrss_rendered_view"> <?= $this->htmlContent ?></div>
 			<pre id="freshrss_raw_view" hidden> <?= htmlspecialchars($this->htmlContent) ?></pre>
 		<?php } ?>
-
-	<script>
-		const rendered_node = document.getElementById('freshrss_rendered');
-		var raw_node = document.getElementById("freshrss_raw");
-
-		var rendered_view = document.getElementById("freshrss_rendered_view");
-		var separator_view = document.getElementById("freshrss_separator_view");
-		var raw_view = document.getElementById("freshrss_raw_view");
-
-		rendered_node.addEventListener('click', function (ev) {
-			update_ui();
-		});
-
-		raw_node.addEventListener("click", function(ev){
-			update_ui();
-		});
-
-		function update_ui() {
-			if (rendered_node.checked && !raw_node.checked) {
-				rendered_view.removeAttribute('hidden');
-				raw_view.setAttribute('hidden', true);
-
-			} else if (!rendered_node.checked && raw_node.checked) {
-				rendered_view.setAttribute('hidden', true);
-				raw_view.removeAttribute('hidden');
-			}
-		}
-    </script>
 	</body>
 </html>

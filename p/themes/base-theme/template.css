@@ -1281,3 +1281,19 @@ pre.enclosure-description {
 		font-style: italic;
 	}
 }
+
+/*=== PREVIEW */
+/*===========*/
+
+.preview_center {
+	width: 100%;
+	text-align: center;
+}
+
+.preview_label {
+	display: inline;
+}
+
+.preview_background {
+	background-color: #fff;
+}
