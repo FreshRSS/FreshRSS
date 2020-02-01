@@ -654,7 +654,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 *   - id (mandatory - no default): Feed ID
 	 *
 	 */
-	public function clearcacheAction() {
+	public function clearCacheAction() {
 		//Get Feed.
 		$id = Minz_Request::param('id');
 
