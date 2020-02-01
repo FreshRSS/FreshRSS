@@ -757,7 +757,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listWhere('f', $feed_id);
 
-		if (count($entries) == 0) {
+		if (empty($entries)) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_entries');
 			return;
 		}
