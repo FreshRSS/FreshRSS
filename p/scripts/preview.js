@@ -20,16 +20,16 @@ function update_ui() {
 
 function init_afterDOM() {
 	rendered_node = document.getElementById('freshrss_rendered');
-	rendered_view = document.getElementById("freshrss_rendered_view");
+	rendered_view = document.getElementById('freshrss_rendered_view');
 
-	raw_node = document.getElementById("freshrss_raw");
-	raw_view = document.getElementById("freshrss_raw_view");
+	raw_node = document.getElementById('freshrss_raw');
+	raw_view = document.getElementById('freshrss_raw_view');
 
 	rendered_node.addEventListener('click', function (ev) {
 		update_ui();
 	});
 
-	raw_node.addEventListener("click", function (ev) {
+	raw_node.addEventListener('click', function (ev) {
 		update_ui();
 	});
 }
