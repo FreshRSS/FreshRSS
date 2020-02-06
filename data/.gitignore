@@ -8,4 +8,4 @@ no-cache.txt
 update.php
 tos.html
 opml.xml
-migrations_version.txt
+applied_migrations.txt

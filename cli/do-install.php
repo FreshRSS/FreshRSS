@@ -109,7 +109,7 @@ echo '• Remember to create the default user: ', $config['default_user'] , "\n"
 
 accessRights();
 
-if (!setupMigrationVersion()) {
+if (!setupMigrations()) {
 	fail('FreshRSS access right problem while creating migrations version file!');
 }
 

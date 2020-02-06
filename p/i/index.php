@@ -43,9 +43,9 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 	}
 
 	$migrations_path = APP_PATH . '/migrations';
-	$migrations_version_path = DATA_PATH . '/migrations_version.txt';
+	$applied_migrations_path = DATA_PATH . '/applied_migrations.txt';
 
-	// The next line is temporary: the migrate method expects the migrations_version.txt
+	// The next line is temporary: the migrate method expects the applied_migrations.txt
 	// file to exist. This is because the install script creates this file, so
 	// if it is missing, it means the application is not installed. But we
 	// should also take care of applications installed before the new
@@ -56,12 +56,12 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 	// will have the file and so we will be able to remove this temporary line
 	// and stop using the do-install.txt file to check if FRSS is already
 	// installed.
-	touch($migrations_version_path);
+	touch($applied_migrations_path);
 
 	$error = false;
 	try {
 		// Apply the migrations if any
-		$result = Minz_Migrator::execute($migrations_path, $migrations_version_path);
+		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 		if ($result === true) {
 			$front_controller = new FreshRSS();
 			$front_controller->init();

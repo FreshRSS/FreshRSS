@@ -9,17 +9,17 @@
  */
 class Minz_Migrator
 {
-	/** @var string|null */
-	private $version;
+	/** @var string[] */
+	private $applied_versions;
 
 	/** @var array */
 	private $migrations = [];
 
 	/**
-	 * Execute a list of migrations, starting from version indicated in a file
+	 * Execute a list of migrations, skipping versions indicated in a file
 	 *
 	 * @param string $migrations_path
-	 * @param string $migrations_version_path
+	 * @param string $applied_migrations_path
 	 *
 	 * @throws BadFunctionCallException if a callback isn't callable.
 	 * @throws DomainException if there is no migrations corresponding to the
@@ -30,44 +30,46 @@ class Minz_Migrator
 	 * @return boolean|string Returns true if execute succeeds to apply
 	 *                        migrations, or a string if it fails.
 	 */
-	public static function execute($migrations_path, $migrations_version_path) {
-		if (!file_exists($migrations_version_path)) {
-			return "{$migrations_version_path} file does not exist";
+	public static function execute($migrations_path, $applied_migrations_path) {
+		if (!file_exists($applied_migrations_path)) {
+			return "{$applied_migrations_path} file does not exist";
 		}
 
-		$migrations_version_file = fopen($migrations_version_path, 'r+');
+		$applied_migrations_file = fopen($applied_migrations_path, 'r+');
 
-		// we need a to acquire a lock to avoid multiple migrations at the same
+		// we need to acquire a lock to avoid multiple migrations at the same
 		// time if several users try to access the application.
-		if (!flock($migrations_version_file, LOCK_EX)) {
-			return "Cannot get a lock on {$migrations_version_path} file";
+		if (!flock($applied_migrations_file, LOCK_EX)) {
+			return "Cannot get a lock on {$applied_migrations_path} file";
 		}
 
-		$migrations_version_size = filesize($migrations_version_path);
-		if ($migrations_version_size > 0) {
-			$current_migration_version = fread(
-				$migrations_version_file,
-				$migrations_version_size
+		$applied_migrations_filesize = filesize($applied_migrations_path);
+		if ($applied_migrations_filesize > 0) {
+			$applied_migrations = fread(
+				$applied_migrations_file,
+				$applied_migrations_filesize
 			);
 
-			if ($current_migration_version === false) {
-				flock($migrations_version_file, LOCK_UN);
-				fclose($migrations_version_file);
-				return "Cannot open the {$migrations_version_path} file";
+			if ($applied_migrations === false) {
+				flock($applied_migrations_file, LOCK_UN);
+				fclose($applied_migrations_file);
+				return "Cannot open the {$applied_migrations_path} file";
 			}
+
+			$applied_migrations = explode("\n", $applied_migrations);
 		} else {
-			$current_migration_version = null;
+			$applied_migrations = [];
 		}
 
 		$migrator = new self($migrations_path);
-		if ($current_migration_version) {
-			$migrator->setVersion($current_migration_version);
+		if ($applied_migrations) {
+			$migrator->setAppliedVersions($applied_migrations);
 		}
 
 		if ($migrator->upToDate()) {
 			// already at the latest version, so there is nothing more to do
-			flock($migrations_version_file, LOCK_UN);
-			fclose($migrations_version_file);
+			flock($applied_migrations_file, LOCK_UN);
+			fclose($applied_migrations_file);
 			return true;
 		}
 
@@ -83,16 +85,16 @@ class Minz_Migrator
 			Minz_Log::notice("Migration {$migration}: {$result}");
 		}
 
-		$new_version = $migrator->version();
-		ftruncate($migrations_version_file, 0);
-		rewind($migrations_version_file);
-		$saved = fwrite($migrations_version_file, $new_version);
+		$applied_versions = implode("\n", $migrator->appliedVersions());
+		ftruncate($applied_migrations_file, 0);
+		rewind($applied_migrations_file);
+		$saved = fwrite($applied_migrations_file, $applied_versions);
 
-		flock($migrations_version_file, LOCK_UN);
-		fclose($migrations_version_file);
+		flock($applied_migrations_file, LOCK_UN);
+		fclose($applied_migrations_file);
 
 		if ($saved === false) {
-			return "Cannot save the {$migrations_version_path} file ({$new_version})";
+			return "Cannot save the {$applied_migrations_path} file";
 		}
 
 		if (!$migrator->upToDate()) {
@@ -122,6 +124,8 @@ class Minz_Migrator
 	 */
 	public function __construct($directory = null)
 	{
+		$this->applied_versions = [];
+
 		if (!is_dir($directory)) {
 			return;
 		}
@@ -132,8 +136,8 @@ class Minz_Migrator
 			}
 
 			$filepath = $directory . '/' . $filename;
-			$migration_name = basename($filename, '.php');
-			$migration_class = APP_NAME . "_Migration_" . $migration_name;
+			$migration_version = basename($filename, '.php');
+			$migration_class = APP_NAME . "_Migration_" . $migration_version;
 			$migration_callback = $migration_class . '::migrate';
 
 			$include_result = @include_once($filepath);
@@ -143,28 +147,28 @@ class Minz_Migrator
 					ADMIN_LOG
 				);
 			}
-			$this->addMigration($migration_name, $migration_callback);
+			$this->addMigration($migration_version, $migration_callback);
 		}
 	}
 
 	/**
 	 * Register a migration into the migration system.
 	 *
-	 * @param string $name The name of the migration (be careful, migrations
-	 *                     are sorted with the `strnatcmp` function)
+	 * @param string $version The version of the migration (be careful, migrations
+	 *                        are sorted with the `strnatcmp` function)
 	 * @param callback $callback The migration function to execute, it should
 	 *                           return true on success and must return false
 	 *                           on error
 	 *
 	 * @throws BadFunctionCallException if the callback isn't callable.
 	 */
-	public function addMigration($name, $callback)
+	public function addMigration($version, $callback)
 	{
 		if (!is_callable($callback)) {
-			throw new BadFunctionCallException("{$name} migration cannot be called.");
+			throw new BadFunctionCallException("{$version} migration cannot be called.");
 		}
 
-		$this->migrations[$name] = $callback;
+		$this->migrations[$version] = $callback;
 	}
 
 	/**
@@ -182,42 +186,44 @@ class Minz_Migrator
 	}
 
 	/**
-	 * Set the actual version of the application.
+	 * Set the applied versions of the application.
 	 *
-	 * @param string $version
+	 * @param string[] $applied_versions
 	 *
-	 * @throws DomainException if there is no migrations corresponding to the
-	 *                         given version.
+	 * @throws DomainException if there is no migrations corresponding to a version
 	 */
-	public function setVersion($version)
+	public function setAppliedVersions($versions)
 	{
-		$version = trim($version);
-		if (!isset($this->migrations[$version])) {
-			throw new DomainException("{$version} migration does not exist.");
+		foreach ($versions as $version) {
+			$version = trim($version);
+			if (!isset($this->migrations[$version])) {
+				throw new DomainException("{$version} migration does not exist.");
+			}
+			$this->applied_versions[] = $version;
 		}
-
-		$this->version = $version;
 	}
 
 	/**
-	 * @return string|null
+	 * @return string[]
 	 */
-	public function version()
+	public function appliedVersions()
 	{
-		return $this->version;
+		$versions = $this->applied_versions;
+		usort($versions, 'strnatcmp');
+		return $versions;
 	}
 
 	/**
-	 * @return string|null
+	 * Return the list of available versions, sorted with `strnatcmp`
+	 *
+	 * @see https://www.php.net/manual/en/function.strnatcmp.php
+	 *
+	 * @return string[]
 	 */
-	public function lastVersion()
+	public function versions()
 	{
-		$migrations = array_keys($this->migrations());
-		if (!$migrations) {
-			return null;
-		}
-
-		return end($migrations);
+		$migrations = $this->migrations();
+		return array_keys($migrations);
 	}
 
 	/**
@@ -227,7 +233,9 @@ class Minz_Migrator
 	 */
 	public function upToDate()
 	{
-		return $this->version === $this->lastVersion();
+		// Counting versions is enough since we cannot apply a version which
+		// doesn't exist (see setAppliedVersions method).
+		return count($this->versions()) === count($this->applied_versions);
 	}
 
 	/**
@@ -247,15 +255,14 @@ class Minz_Migrator
 	public function migrate()
 	{
 		$result = [];
-		$apply_migrations = $this->version === null;
-		foreach ($this->migrations() as $version => $migration) {
-			if (!$apply_migrations) {
-				$apply_migrations = $this->version === $version;
+		foreach ($this->migrations() as $version => $callback) {
+			if (in_array($version, $this->applied_versions)) {
+				// the version is already applied so we skip this migration
 				continue;
 			}
 
 			try {
-				$migration_result = $migration();
+				$migration_result = $callback();
 				$result[$version] = $migration_result;
 			} catch (Exception $e) {
 				$migration_result = false;
@@ -266,7 +273,7 @@ class Minz_Migrator
 				break;
 			}
 
-			$this->version = $version;
+			$this->applied_versions[] = $version;
 		}
 
 		return $result;
