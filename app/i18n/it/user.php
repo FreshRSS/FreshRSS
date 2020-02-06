@@ -38,4 +38,7 @@ return array(
 			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
 		),
 	),
+	'username' => array(
+		'invalid' => 'The username is invalid.',	// TODO - Translation
+	),
 );

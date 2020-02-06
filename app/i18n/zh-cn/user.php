@@ -38,4 +38,7 @@ return array(
 			'invalid' => '您必须接受服务条款才能注册',
 		),
 	),
+	'username' => array(
+		'invalid' => 'The username is invalid.',	// TODO - Translation
+	),
 );

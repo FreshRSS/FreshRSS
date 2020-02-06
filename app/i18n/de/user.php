@@ -38,4 +38,7 @@ return array(
 			'invalid' => 'Sie müssen die Nutzungsbedingungen akzeptieren um sich zu registrieren.',
 		),
 	),
+	'username' => array(
+		'invalid' => 'The username is invalid.',	// TODO - Translation
+	),
 );

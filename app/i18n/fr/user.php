@@ -38,4 +38,7 @@ return array(
 			'invalid' => 'Vous devez accepter les conditions générales d’utilisation pour pouvoir vous inscrire.',
 		),
 	),
+	'username' => array(
+		'invalid' => 'Le nom d’utilisateur est invalide.',
+	),
 );

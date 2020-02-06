@@ -38,4 +38,7 @@ return array(
 			'invalid' => 'Vos cal acceptar las condicions d’utilizacion per poder vos inscriure.',
 		),
 	),
+	'username' => array(
+		'invalid' => 'The username is invalid.',	// TODO - Translation
+	),
 );
