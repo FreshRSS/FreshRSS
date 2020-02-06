@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'already_exists' => 'The user %s already exists.',	// TODO - Translation
 	'email' => array(
 		'feedback' => array(
 			'invalid' => '电子邮箱地址无效',

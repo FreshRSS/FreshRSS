@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'already_exists' => 'The user %s already exists.',
 	'email' => array(
 		'feedback' => array(
 			'invalid' => 'The email address is invalid.',

@@ -284,6 +284,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$email = Minz_Request::param('new_user_email', '');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 
+			if (FreshRSS_UserDAO::exists($new_user_name)) {
+				Minz_Request::bad(
+					_t('user.already_exists', $new_user_name),
+					array('c' => 'auth', 'a' => 'register')
+				);
+			}
+
 			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
 			$accept_tos = Minz_Request::param('accept_tos', false);
 
