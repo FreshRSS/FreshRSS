@@ -109,6 +109,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function formLoginAction() {
 		invalidateHttpCache();
 
+		Minz_View::prependTitle(_t('gen.auth.login') . ' · ');
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		$conf = Minz_Configuration::get('system');
