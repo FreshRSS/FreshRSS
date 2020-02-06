@@ -30,6 +30,9 @@ return array(
 			'welcome' => 'Welcome %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'The password is invalid.',
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'You must accept the Terms of Service to be able to register.',

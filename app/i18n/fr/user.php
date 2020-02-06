@@ -30,6 +30,9 @@ return array(
 			'welcome' => 'Bienvenue %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'Le mot de passe est invalide.',
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Vous devez accepter les conditions générales d’utilisation pour pouvoir vous inscrire.',

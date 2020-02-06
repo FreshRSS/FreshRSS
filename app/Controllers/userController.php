@@ -291,6 +291,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				);
 			}
 
+			if (!FreshRSS_password_Util::check($passwordPlain)) {
+				Minz_Request::bad(
+					_t('user.password.invalid'),
+					array('c' => 'auth', 'a' => 'register')
+				);
+			}
+
 			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
 			$accept_tos = Minz_Request::param('accept_tos', false);
 

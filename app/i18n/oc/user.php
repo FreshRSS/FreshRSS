@@ -30,6 +30,9 @@ return array(
 			'welcome' => 'La benvenguda %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'The password is invalid.',	// TODO - Translation
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Vos cal acceptar las condicions d’utilizacion per poder vos inscriure.',
