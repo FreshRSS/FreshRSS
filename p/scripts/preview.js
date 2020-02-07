@@ -25,13 +25,8 @@ function init_afterDOM() {
 	raw_node = document.getElementById('freshrss_raw');
 	raw_view = document.getElementById('freshrss_raw_view');
 
-	rendered_node.addEventListener('click', function (ev) {
-		update_ui();
-	});
-
-	raw_node.addEventListener('click', function (ev) {
-		update_ui();
-	});
+	rendered_node.addEventListener('click', update_ui);
+	raw_node.addEventListener('click', update_ui);
 }
 
 
