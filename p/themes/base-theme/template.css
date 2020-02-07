@@ -787,14 +787,14 @@ br {
 }
 
 #popup-content {
-	margin: auto;
 	display: table;
-	overflow: hidden;
-	background-color: #fefefe;
-	margin-top: 5%;
+	margin: 5rem auto;
 	width: 80%;
 	height: 80%;
-	border: 1px solid #888;
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: .25rem;
+	box-shadow: 0 0 1px #737373, 1px 2px 3px #4a4a4f;
 }
 
 .popup-row {
@@ -1284,15 +1284,28 @@ pre.enclosure-description {
 
 /*=== PREVIEW */
 /*===========*/
-.preview_center {
-	width: 100%;
+.preview_controls {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1rem;
 	text-align: center;
+	background-color: #eee;
+	border: 1px solid #e0e0e0;
+	border-radius: .25rem;
 }
 
-.preview_label {
+.preview_controls label {
 	display: inline;
+}
+.preview_controls label input[type="radio"] {
+	margin-top: -4px;
+}
+
+.preview_controls label + label {
+	margin-left: 1rem;
 }
 
 .preview_background {
-	background-color: #fff;
+	background-color: transparent;
 }
