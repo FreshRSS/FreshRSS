@@ -34,10 +34,10 @@ if (document.readyState && document.readyState !== 'loading') {
 	init_afterDOM();
 } else {
 	document.addEventListener('DOMContentLoaded', function () {
-			if (window.console) {
-				console.log('FreshRSS waiting for DOMContentLoaded…');
-			}
-			init_afterDOM();
-		}, false);
+		if (window.console) {
+			console.log('FreshRSS waiting for DOMContentLoaded…');
+		}
+		init_afterDOM();
+	}, false);
 }
 // @license-end
