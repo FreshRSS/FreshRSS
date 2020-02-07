@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Authenticatie reset',
 		'username' => array(
 			'admin' => 'Beheerdersgebruikersnaam',
-			'format' => '<small>maximaal 16 alfanumerieke tekens</small>',
+			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
 			'_' => 'Gebruikersnaam',
 		),
 	),
