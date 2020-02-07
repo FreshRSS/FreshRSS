@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'already_exists' => 'The user %s already exists.',	// TODO - Translation
 	'email' => array(
 		'feedback' => array(
 			'invalid' => 'The email address is invalid.',	// TODO - Translation
@@ -40,5 +39,6 @@ return array(
 	),
 	'username' => array(
 		'invalid' => 'The username is invalid.',	// TODO - Translation
+		'taken' => 'The username %s is taken.',	// TODO - Translation
 	),
 );
