@@ -1199,7 +1199,6 @@ input:checked + .slide-container .properties {
 
 @media (max-width: 840px) {
 	.header,
-	.aside .btn-important,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
@@ -1240,6 +1239,10 @@ input:checked + .slide-container .properties {
 
 	.aside:target {
 		width: 90%;
+	}
+
+	.aside_feed .configure-feeds {
+		margin-top: 10px;
 	}
 
 	.flux_header .item.website {
