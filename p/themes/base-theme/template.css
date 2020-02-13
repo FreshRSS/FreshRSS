@@ -787,8 +787,8 @@ br {
 }
 
 #popup-content {
-	display: table;
 	margin: 5rem auto;
+	display: table;
 	width: 80%;
 	height: 80%;
 	overflow: hidden;
@@ -1285,10 +1285,10 @@ pre.enclosure-description {
 /*=== PREVIEW */
 /*===========*/
 .preview_controls {
-	max-width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 1rem;
+	max-width: 1000px;
 	text-align: center;
 	background-color: #eee;
 	border: 1px solid #e0e0e0;
@@ -1298,6 +1298,7 @@ pre.enclosure-description {
 .preview_controls label {
 	display: inline;
 }
+
 .preview_controls label input[type="radio"] {
 	margin-top: -4px;
 }
