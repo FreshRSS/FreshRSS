@@ -84,15 +84,25 @@ return array(
 			'actualizeds' => 'RSS 피드에서 새 글을 가져왔습니다',
 			'added' => '<em>%s</em> 피드가 추가되었습니다',
 			'already_subscribed' => '이미 <em>%s</em> 피드를 구독 중입니다',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => '피드가 삭제되었습니다',
 			'error' => '피드를 변경할 수 없습니다',
 			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
 			'not_added' => '<em>%s</em> 피드를 추가할 수 없습니다',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',
 			'over_max' => '피드 개수 제한에 다다랐습니다 (%d)',
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'http_error' => 'Failed to load website content.',	// TODO - Translation
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => '피드가 변경되었습니다',
 		),
 		'purge_completed' => '삭제 완료 (%d 개의 글을 삭제했습니다)',

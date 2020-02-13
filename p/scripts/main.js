@@ -1215,6 +1215,72 @@ function init_notifications() {
 }
 // </notification>
 
+// <popup>
+let popup = null,
+	popup_iframe_container = null,
+	popup_iframe = null,
+	popup_txt = null,
+	popup_working = false;
+
+function openPopupWithMessage(msg) {
+	if (popup_working === true) {
+		return false;
+	}
+
+	popup_working = true;
+
+	popup_txt.innerHTML = msg;
+
+	popup_txt.style.display = 'table-row';
+	popup.style.display = 'block';
+}
+
+function openPopupWithSource(source) {
+	if (popup_working === true) {
+		return false;
+	}
+
+	popup_working = true;
+
+	popup_iframe.src = source;
+
+	popup_iframe_container.style.display = 'table-row';
+	popup.style.display = 'block';
+}
+
+function closePopup() {
+	popup.style.display = 'none';
+	popup_iframe_container.style.display = 'none';
+	popup_txt.style.display = 'none';
+
+	popup_iframe.src = 'about:blank';
+
+	popup_working = false;
+}
+
+function init_popup() {
+	//Fetch elements.
+	popup = document.getElementById('popup');
+
+	popup_iframe_container = document.getElementById('popup-iframe-container');
+	popup_iframe = document.getElementById('popup-iframe');
+
+	popup_txt = document.getElementById('popup-txt');
+
+	//Configure close button.
+	document.getElementById('popup-close').addEventListener('click', function (ev) {
+  		closePopup();
+  	});
+
+  	//Configure close-on-click.
+	window.addEventListener('click', function (ev) {
+		if (ev.target == popup) {
+			closePopup();
+		}
+	});
+}
+// </popup>
+
 // <notifs html5>
 var notifs_html5_permission = 'denied';
 
@@ -1483,6 +1549,7 @@ function init_beforeDOM() {
 
 function init_afterDOM() {
 	init_notifications();
+	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
 	if (stream) {

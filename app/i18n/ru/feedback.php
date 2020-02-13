@@ -84,15 +84,25 @@ return array(
 			'actualizeds' => 'RSS feeds have been updated',	// TODO - Translation
 			'added' => 'RSS feed <em>%s</em> has been added',	// TODO - Translation
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Feed has been deleted',	// TODO - Translation
 			'error' => 'Feed cannot be updated',	// TODO - Translation
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO - Translation
 			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'There is no feed to refresh…',	// TODO - Translation
 			'n_actualized' => '%d feeds have been updated',	// TODO - Translation
 			'n_entries_deleted' => '%d articles have been deleted',	// TODO - Translation
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'http_error' => 'Failed to load website content.',	// TODO - Translation
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'Feed has been updated',	// TODO - Translation
 		),
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// TODO - Translation

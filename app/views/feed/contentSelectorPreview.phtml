@@ -1,0 +1,36 @@
+<?php FreshRSS::preLayout(); ?>
+<!DOCTYPE html>
+<html class="preview_background" lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
+	<head>
+		<?= self::headStyle() ?>
+		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>
+	</head>
+	<body class="preview_background">
+		<?php if ($this->fatalError != '') { ?>
+			<p class="alert alert-warn"><?= $this->fatalError ?></p>
+		<?php } else { ?>
+			<?php if ($this->selectorSuccess === false) { ?>
+				<p class="alert alert-warn">
+					<?= _t('feedback.sub.feed.selector_preview.no_result') ?>
+				</p>
+			<?php } ?>
+
+			<div class="preview_controls">
+				<label for="freshrss_rendered">
+					<input type="radio" id="freshrss_rendered" name="freshrss_type" checked="checked" />
+					<?= _t('sub.feed.selector_preview.show_rendered') ?>
+				</label>
+
+				<label for="freshrss_raw">
+					<input type="radio" id="freshrss_raw" name="freshrss_type" />
+					<?= _t('sub.feed.selector_preview.show_raw') ?>
+				</label>
+			</div>
+
+			<div class="content large">
+				<div dir="auto" id="freshrss_rendered_view"><?= $this->htmlContent ?></div>
+				<pre id="freshrss_raw_view" hidden="hidden"> <?= htmlspecialchars($this->htmlContent) ?></pre>
+			</div>
+		<?php } ?>
+	</body>
+</html>
