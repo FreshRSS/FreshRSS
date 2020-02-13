@@ -1174,6 +1174,10 @@ pre.enclosure-description {
 		width: 30px;
 		height: 30px;
 	}
+	
+	.configure-feeds {
+		padding-top: 10px;
+	}
 }
 
 /*=== PRINTER */
