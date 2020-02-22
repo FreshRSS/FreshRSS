@@ -2,3 +2,5 @@
 p/themes/Ansum/*.css
 p/themes/Mapco/*.css
 p/themes/Swage/*.css
+# Ignore RTLCSS auto-generated CSS
+*.rtl.css
