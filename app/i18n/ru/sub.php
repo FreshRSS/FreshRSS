@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Always clear cache',	// TODO - Translation
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',	// TODO - Translation
-		'css_path' => 'Articles CSS path on original website',	// TODO - Translation
+		'css_path' => 'Article CSS selector on original website',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO - Translation
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Information',	// TODO - Translation
 		'keep_min' => 'Minimum number of articles to keep',	// TODO - Translation
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'reload_articles' => 'Reload articles',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'title' => 'Maintenance',	// TODO - Translation
+		),
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// TODO - Translation
 		'mute' => 'mute',	// TODO - Translation
 		'no_selected' => 'No feed selected.',	// TODO - Translation
@@ -53,6 +60,10 @@ return array(
 			'main_stream' => 'Show in main stream',	// TODO - Translation
 			'normal' => 'Show in its category',	// TODO - Translation
 			'_' => 'Visibility',	// TODO - Translation
+		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source',	// TODO - Translation
+			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
 			'all' => 'Show all feeds',	// TODO - Translation

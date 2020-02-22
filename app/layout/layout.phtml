@@ -70,5 +70,18 @@ if (_t('gen.dir') === 'rtl') {
 	<span class="msg"><?= $msg ?></span>
 	<a class="close" href=""><?= _i('close') ?></a>
 </div>
+
+<!-- Popup-->
+<div id="popup">
+	<div id="popup-content">
+		<div id="popup-close" class="popup-row">&times;</div>
+		<div id="popup-txt" class="popup-row"></div>
+		<div id="popup-iframe-container" class="popup-row">
+			<div id="popup-iframe-sub">
+				<iframe id="popup-iframe" frameborder="0"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
 	</body>
 </html>

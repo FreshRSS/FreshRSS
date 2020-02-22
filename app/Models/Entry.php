@@ -74,10 +74,10 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($microsecond) {
 				return $this->date_added;
 			} else {
-				return intval(substr($this->id, 0, -6));
+				return intval(substr($this->date_added, 0, -6));
 			}
 		} else {
-			$date = intval(substr($this->id, 0, -6));
+			$date = intval(substr($this->date_added, 0, -6));
 			return timestamptodate($date);
 		}
 	}
@@ -330,7 +330,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	private static function get_content_by_parsing($url, $path, $attributes = array()) {
+	public static function getContentByParsing($url, $path, $attributes = array()) {
 		require_once(LIB_PATH . '/lib_phpQuery.php');
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
@@ -387,7 +387,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent() {
+	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 		$feed = $this->feed(true);
@@ -395,13 +395,13 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
 
-			if ($entry) {
+			if ($entry && !$force) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
-					$fullContent = self::get_content_by_parsing(
+					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
 						$feed->pathEntries(),
 						$feed->attributes()
