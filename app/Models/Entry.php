@@ -295,7 +295,7 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {
 				if ($this->matches($filterAction->booleanSearch())) {
-					foreach ($filterAction->actions() as $action => $params) {
+					foreach ($filterAction->actions() as $action) {
 						switch ($action) {
 							case 'read':
 								$this->_isRead(true);
