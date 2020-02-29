@@ -43,7 +43,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->guid;
 	}
 	public function title() {
-		return $this->title;
+		return $this->title == '' ? $this->guid() : $this->title;
 	}
 	public function author() {
 		//Deprecated
@@ -139,7 +139,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _title($value) {
 		$this->hash = null;
-		$this->title = $value;
+		$this->title = trim($value);
 	}
 	public function _author($value) {
 		//Deprecated
