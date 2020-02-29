@@ -6,9 +6,11 @@
 	* Allow multiple users to have administration rights [#2096](https://github.com/FreshRSS/FreshRSS/issues/2096)
 	* Preview the CSS rule to retrieve full article content [#2778](https://github.com/FreshRSS/FreshRSS/pull/2778)
 	* New option to show all articles in the favourites view [#2434](https://github.com/FreshRSS/FreshRSS/issues/2434)
+	* Fallback to showing a GUID when an article title is empty [#2813](https://github.com/FreshRSS/FreshRSS/pull/2813)
 * API
 	* Supported by [Readrops](https://github.com/readrops/Readrops) (Android, open source) [#2798](https://github.com/FreshRSS/FreshRSS/pull/2798)
 	* Add ability to customise dates shown in API [#2773](https://github.com/FreshRSS/FreshRSS/pull/2773)
+	* Minor clearing of unused parameters [#2816](https://github.com/FreshRSS/FreshRSS/pull/2816)
 * Compatibility
 	* Support PHP 7.4
 * Bug fixing
@@ -20,17 +22,19 @@
 	* Fix environment variables `COPY_LOG_TO_SYSLOG` and `FRESHRSS_ENV` controlling logging [#2745](https://github.com/FreshRSS/FreshRSS/pull/2745)
 	* Fix UI flickering when hovering over articles when authors are displayed [#2701](https://github.com/FreshRSS/FreshRSS/issues/2701)
 	* Fix array error with PHP 7.4 [#2780](https://github.com/FreshRSS/FreshRSS/pull/2780)
+	* Fix wrong `foreach` in `applyFilterActions` [#2809](https://github.com/FreshRSS/FreshRSS/pull/2809)
 	* Fix minor bug in “articles to display” configuration UI [#2767](https://github.com/FreshRSS/FreshRSS/pull/2767)
 * UI
 	* Fix scrolling of labels dropdown [#2727](https://github.com/FreshRSS/FreshRSS/pull/2727)
+	* Use `<p>` instead of `<pre>` to display `<media:description>` information [#2807](https://github.com/FreshRSS/FreshRSS/issues/2807)
 	* Show language and e-mail address in the list of users [#2703](https://github.com/FreshRSS/FreshRSS/pull/2703)
 	* Change logic when using shortcuts to navigate between feeds, in the case some are empty [#2687](https://github.com/FreshRSS/FreshRSS/pull/2687)
 	* Improve loader animation colour in the Dark theme [#2753](https://github.com/FreshRSS/FreshRSS/pull/2753)
 * SimplePie
-	* Update to SimplePie 1.5.3 [#2702](https://github.com/FreshRSS/FreshRSS/pull/2702)
-		* Requires PHP 5.6+
-		* Add PHP 7.4+ compatibility
-		* Add Russian week days / months
+	* Update to SimplePie 1.5.4 [#2702](https://github.com/FreshRSS/FreshRSS/pull/2702), [#2814](https://github.com/FreshRSS/FreshRSS/pull/2814)
+		* Require PHP 5.6+, and add PHP 7.4+ compatibility
+		* Add Russian and German dates
+		* Etc.
 * Extensions
 	* New hooks `check_url_before_add` and `feed_before_actualize` [#2704](https://github.com/FreshRSS/FreshRSS/pull/2704)
 	* Execute the `entry_before_display` hook also through the API [#2762](https://github.com/FreshRSS/FreshRSS/issues/2762)
