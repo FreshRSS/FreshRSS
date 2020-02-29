@@ -449,16 +449,15 @@ a.btn {
 
 /*=== Boxes */
 .box {
-	background: #fff;
-	border-radius: 5px;
-	box-shadow: 0 0 3px #bbb;
+	background: #1f1f1f;
+	border-radius: 3px;
 }
 
 .box .box-title {
 	margin: 0;
 	padding: 5px 10px;
 	background: #f6f6f6;
-	border-bottom: 1px solid #ddd;
+	border: 1px solid #292929;
 	border-radius: 5px 5px 0 0;
 }
 
@@ -749,6 +748,9 @@ a.btn {
 	border-left: 2px solid #0062be;
 }
 
+.flux.current.active{
+	background: #333;
+}
 
 .flux.not_read {
 	border-left: 2px solid #e74c3c;
@@ -837,12 +839,10 @@ a.btn {
 
 .content blockquote {
 	margin: 0;
-	padding: 5px 20px;
-	background: #fafafa;
+	padding: 25px;
+	background: #262626;
 	display: block;
-	color: #333;
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	color: #999;
 }
 
 .content blockquote p {
@@ -908,9 +908,12 @@ a.btn {
 /*================*/
 #stream.reader .flux {
 	padding: 0 0 50px;
-	background: #f0f0f0;
 	color: #333;
-	border: none;
+	border-bottom: 10px solid #171717;
+}
+
+#stream.reader .flux.current.active {
+	background: #333;
 }
 
 #stream.reader .flux .author {
@@ -928,15 +931,15 @@ a.btn {
 }
 
 .box.category:not([data-unread="0"]) .box-title {
-	background: #0084cc;
+	background: #262626;
 }
 
 .box.category:not([data-unread="0"]) .box-title:active {
-	background: #3498db;
+	background: #171717;
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {
-	color: #fff;
+	color: #999;
 	font-weight: bold;
 }
 
