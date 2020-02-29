@@ -638,6 +638,7 @@ function streamContents($path, $include_target, $start_time, $stop_time, $count,
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+	$entries = iterator_to_array($entries);	//TODO: Improve
 
 	$items = entriesToArray($entries);
 
@@ -730,6 +731,7 @@ function streamContentsItems($e_ids, $order) {
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
+	$entries = iterator_to_array($entries);	//TODO: Improve
 
 	$items = entriesToArray($entries);
 
