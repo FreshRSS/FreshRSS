@@ -1,7 +1,52 @@
 ﻿# FreshRSS changelog
 
-## 20XX-XX-XX FreshRSS 1.15.4-dev
+## 2020-0X-XX FreshRSS 1.15.4-dev
 
+* Features
+	* Allow multiple users to have administration rights [#2096](https://github.com/FreshRSS/FreshRSS/issues/2096)
+	* Preview the CSS rule to retrieve full article content [#2778](https://github.com/FreshRSS/FreshRSS/pull/2778)
+	* New option to show all articles in the favourites view [#2434](https://github.com/FreshRSS/FreshRSS/issues/2434)
+* API
+	* Supported by [Readrops](https://github.com/readrops/Readrops) (Android, open source) [#2798](https://github.com/FreshRSS/FreshRSS/pull/2798)
+	* Add ability to customise dates shown in API [#2773](https://github.com/FreshRSS/FreshRSS/pull/2773)
+* Compatibility
+	* Support PHP 7.4
+* Bug fixing
+	* Fix regression causing a login bug in some situations related to e-mail login [#2686](https://github.com/FreshRSS/FreshRSS/pull/2686)
+	* Fix regression in feed refresh when there are users whose e-mail is not verified [#2694](https://github.com/FreshRSS/FreshRSS/pull/2694)
+	* Fix PostgreSQL install when using a username different than database name [#2732](https://github.com/FreshRSS/FreshRSS/issues/2732)
+	* Fix error with advanced searches using SQLite [#2777](https://github.com/FreshRSS/FreshRSS/pull/2777)
+	* Fix warning in WebSub [#2743](https://github.com/FreshRSS/FreshRSS/pull/2743)
+	* Fix environment variables `COPY_LOG_TO_SYSLOG` and `FRESHRSS_ENV` controlling logging [#2745](https://github.com/FreshRSS/FreshRSS/pull/2745)
+	* Fix UI flickering when hovering over articles when authors are displayed [#2701](https://github.com/FreshRSS/FreshRSS/issues/2701)
+	* Fix array error with PHP 7.4 [#2780](https://github.com/FreshRSS/FreshRSS/pull/2780)
+	* Fix minor bug in “articles to display” configuration UI [#2767](https://github.com/FreshRSS/FreshRSS/pull/2767)
+* UI
+	* Fix scrolling of labels dropdown [#2727](https://github.com/FreshRSS/FreshRSS/pull/2727)
+	* Show language and e-mail address in the list of users [#2703](https://github.com/FreshRSS/FreshRSS/pull/2703)
+	* Change logic when using shortcuts to navigate between feeds, in the case some are empty [#2687](https://github.com/FreshRSS/FreshRSS/pull/2687)
+	* Improve loader animation colour in the Dark theme [#2753](https://github.com/FreshRSS/FreshRSS/pull/2753)
+* SimplePie
+	* Update to SimplePie 1.5.3 [#2702](https://github.com/FreshRSS/FreshRSS/pull/2702)
+		* Requires PHP 5.6+
+		* Add PHP 7.4+ compatibility
+		* Add Russian week days / months
+* Extensions
+	* New hooks `check_url_before_add` and `feed_before_actualize` [#2704](https://github.com/FreshRSS/FreshRSS/pull/2704)
+	* Execute the `entry_before_display` hook also through the API [#2762](https://github.com/FreshRSS/FreshRSS/issues/2762)
+	* Allow extensions to change CSP (security) rules [#2708](https://github.com/FreshRSS/FreshRSS/pull/2708)
+	* Expose the article ID in the share system (for a new e-mail sharing extension) [#2707](https://github.com/FreshRSS/FreshRSS/pull/2707)
+* i18n
+	* Improve Simplified Chinese [#2730](https://github.com/FreshRSS/FreshRSS/pull/2730)
+	* Improve German [#2690](https://github.com/FreshRSS/FreshRSS/pull/2690)
+* Deployment
+	* Docker: Alpine image updated to 3.11 with PHP 7.3.15 [#2729](https://github.com/FreshRSS/FreshRSS/pull/2729)
+* Misc.
+	* Improve logging of database errors [#2734](https://github.com/FreshRSS/FreshRSS/pull/2734)
+	* Add a test target to Makefile [#2725](https://github.com/FreshRSS/FreshRSS/pull/2725)
+	* Fix test suite [#2721](https://github.com/FreshRSS/FreshRSS/pull/2721)
+	* Refactor request class [#2373](https://github.com/FreshRSS/FreshRSS/pull/2373)
+	* Remove deprecated *magic quotes* logic [#2698](https://github.com/FreshRSS/FreshRSS/pull/2698)
 
 
 ## 2019-11-22 FreshRSS 1.15.3
