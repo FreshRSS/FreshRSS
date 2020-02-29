@@ -1014,7 +1014,7 @@ if ($pathInfos[1] === 'accounts') {
 			if (isset($pathInfos[5]) && $pathInfos[5] === 'list') {
 				$output = isset($_GET['output']) ? $_GET['output'] : '';
 				if ($output !== 'json') notImplemented();
-				tagList($output);
+				tagList();
 			}
 			break;
 		case 'subscription':
@@ -1023,7 +1023,7 @@ if ($pathInfos[1] === 'accounts') {
 					case 'list':
 						$output = isset($_GET['output']) ? $_GET['output'] : '';
 						if ($output !== 'json') notImplemented();
-						subscriptionList($_GET['output']);
+						subscriptionList();
 						break;
 					case 'edit':
 						if (isset($_REQUEST['s']) && isset($_REQUEST['ac'])) {
