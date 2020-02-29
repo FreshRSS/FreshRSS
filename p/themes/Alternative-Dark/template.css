@@ -663,7 +663,7 @@ a.btn {
 }
 
 .flux .item.title a {
-	color: #ABABAB;
+	color: #ababab;
 	text-decoration: none;
 }
 
@@ -1216,7 +1216,7 @@ pre.enclosure-description {
 	}
 
 	.flux:not(.current):hover .item.title {
-        background: #333333;
+        background: #333;
 		position: relative;
 		width: auto;
 		white-space: nowrap;
@@ -1312,4 +1312,3 @@ pre.enclosure-description {
 .preview_background {
 	background-color: transparent;
 }
- 
