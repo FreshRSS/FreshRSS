@@ -4,6 +4,7 @@
 # `./data/config-user.custom.php` file instead, containing the keys you want to
 # override.
 return array (
+	'is_admin' => false,
 	'language' => 'en',
 	'archiving' => [
 		'keep_period' => 'P3M',
@@ -27,6 +28,7 @@ return array (
 	'view_mode' => 'normal',
 	'default_view' => 'adaptive',
 	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
+	'show_fav_unread' => false,
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => false,

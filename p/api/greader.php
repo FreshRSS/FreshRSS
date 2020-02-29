@@ -481,7 +481,11 @@ function entriesToArray($entries) {
 	}
 
 	$items = array();
-	foreach ($entries as $entry) {
+	foreach ($entries as $item) {
+		$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if ($entry == null) {
+			continue;
+		}
 		$f_id = $entry->feed();
 		if (isset($arrayFeedCategoryNames[$f_id])) {
 			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
@@ -492,8 +496,8 @@ function entriesToArray($entries) {
 		}
 		$item = array(
 			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
-			'crawlTimeMsec' => substr($entry->id(), 0, -3),
-			'timestampUsec' => '' . $entry->id(),	//EasyRSS
+			'crawlTimeMsec' => substr($entry->dateAdded(true, true), 0, -3),
+			'timestampUsec' => '' . $entry->dateAdded(true, true), //EasyRSS & Reeder
 			'published' => $entry->date(true),
 			'title' => escapeToUnicodeAlternative($entry->title(), false),
 			'summary' => array('content' => $entry->content()),
@@ -918,7 +922,12 @@ $user = authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
+	Minz_ExtensionManager::init();
 	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+
+	if (FreshRSS_Context::$user_conf != null) {
+		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+	}
 } else {
 	Minz_Translate::init();
 }

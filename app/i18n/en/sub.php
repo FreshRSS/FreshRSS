@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Always clear cache',
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
-		'css_path' => 'Articles CSS path on original website',
+		'css_path' => 'Article CSS selector on original website',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',
+			'clear_cache_help' => 'Clear the cache for this feed.',
+			'reload_articles' => 'Reload articles',
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',
+			'title' => 'Maintenance',
+		),
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',
@@ -53,6 +60,10 @@ return array(
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
 			'_' => 'Visibility',
+		),
+		'selector_preview' => array(
+			'show_raw' => 'Show source code',
+			'show_rendered' => 'Show content',
 		),
 		'show' => array(
 			'all' => 'Show all feeds',

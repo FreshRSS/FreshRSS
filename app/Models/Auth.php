@@ -115,14 +115,17 @@ class FreshRSS_Auth {
 	 * @return boolean true if user has corresponding access, false else.
 	 */
 	public static function hasAccess($scope = 'general') {
-		$conf = Minz_Configuration::get('system');
-		$default_user = $conf->default_user;
+		$systemConfiguration = Minz_Configuration::get('system');
+		$currentUser = Minz_Session::param('currentUser');
+		$userConfiguration = get_user_configuration($currentUser);
+		$isAdmin = $userConfiguration && $userConfiguration->is_admin;
+		$default_user = $systemConfiguration->default_user;
 		$ok = self::$login_ok;
 		switch ($scope) {
 		case 'general':
 			break;
 		case 'admin':
-			$ok &= Minz_Session::param('currentUser') === $default_user;
+			$ok &= $default_user === $currentUser || $isAdmin;
 			break;
 		default:
 			$ok = false;

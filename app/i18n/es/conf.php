@@ -97,11 +97,12 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Tras “marcar todo como leído”,',
+		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Número de artículos por página',
 		'auto_load_more' => 'Cargar más artículos al final de la página',
 		'auto_remove_article' => 'Ocultar artículos tras la lectura',
 		'confirm_enabled' => 'Mostrar ventana de confirmación al usar la función “marcar todos como leídos”',
-		'display_articles_unfolded' => 'Mostrar los artículos sin expandir por defecto',
+		'display_articles_unfolded' => 'Mostrar los artículos expandidos por defecto',
 		'display_categories_unfolded' => 'Mostrar categorías expandidas por defecto',
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración "Mostrar todos los artículos")',
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',

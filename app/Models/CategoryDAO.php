@@ -372,7 +372,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		$feedsDao = array();
 		$feedDao = FreshRSS_Factory::createFeedDAO();
 		foreach ($listDAO as $line) {
-			if ($previousLine['c_id'] != null && $line['c_id'] !== $previousLine['c_id']) {
+			if (!empty($previousLine['c_id']) && $line['c_id'] !== $previousLine['c_id']) {
 				// End of the current category, we add it to the $list
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],

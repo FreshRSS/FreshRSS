@@ -25,7 +25,7 @@ class Minz_Url {
 
 		if ($absolute) {
 			$url_string = Minz_Request::getBaseUrl();
-			if ($url_string == '') {
+			if (strlen($url_string) < strlen('http://a.bc')) {
 				$url_string = Minz_Request::guessBaseUrl();
 				if (PUBLIC_RELATIVE === '..') {
 					//TODO: Implement proper resolver of relative parts such as /test/./../

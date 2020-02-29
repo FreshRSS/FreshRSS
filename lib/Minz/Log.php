@@ -20,21 +20,24 @@ class Minz_Log {
 	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
-		try {
-			$conf = Minz_Configuration::get('system');
-			$env = $conf->environment;
-		} catch (Minz_ConfigurationException $e) {
-			$env = 'production';
+		$env = getenv('FRESHRSS_ENV');
+		if ($env == '') {
+			try {
+				$conf = Minz_Configuration::get('system');
+				$env = $conf->environment;
+			} catch (Minz_ConfigurationException $e) {
+				$env = 'production';
+			}
 		}
 
 		if (! ($env === 'silent'
 		       || ($env === 'production'
 		       && ($level >= LOG_NOTICE)))) {
+			$username = Minz_Session::param('currentUser', '');
+			if ($username == '') {
+				$username = '_';
+			}
 			if ($file_name === null) {
-				$username = Minz_Session::param('currentUser', '');
-				if ($username == '') {
-					$username = '_';
-				}
 				$file_name = join_path(USERS_PATH, $username, 'log.txt');
 			}
 
@@ -60,7 +63,7 @@ class Minz_Log {
 			     . ' --- ' . $information . "\n";
 
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
-				syslog($level, '[' . $username . '] ' . $log);
+				syslog($level, '[' . $username . '] ' . trim($log));
 			}
 
 			self::ensureMaxLogSize($file_name);

@@ -667,11 +667,11 @@ a.btn {
 	text-decoration: none;
 }
 
-.flux .item.author {
+.flux .item.title .author {
+	padding-left: 1rem;
 	color: #555;
-	font-size: .7rem;
+	font-size: .9rem;
 	font-weight: normal;
-	white-space: normal;
 }
 
 .flux .item.date {
@@ -770,6 +770,73 @@ br {
 
 #actualizeProgress .progress {
 	vertical-align: middle;
+}
+
+/*=== Popup */
+#popup {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: #eee;
+	background-color: rgba(0,0,0,0.4);
+}
+
+#popup-content {
+	margin: 5rem auto;
+	display: table;
+	width: 80%;
+	height: 80%;
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: .25rem;
+	box-shadow: 0 0 1px #737373, 1px 2px 3px #4a4a4f;
+}
+
+.popup-row {
+	display: table-row;
+	width: 100%;
+}
+
+#popup-close {
+	float: right;
+	width: 27px;
+	height: 27px;
+	padding-bottom: 5px;
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#popup-close:hover,
+#popup-close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#popup-txt {
+	display: none;
+	height: 100%;
+}
+
+#popup-iframe-container {
+	display: none;
+	height: 100%;
+}
+
+#popup-iframe-sub {
+	padding: 10px;
+	height: 100%;
+}
+
+#popup-iframe {
+	width: 100%;
+	height: 100%;
 }
 
 /*=== Navigation menu (for articles) */
@@ -1068,7 +1135,7 @@ input:checked + .slide-container .properties {
 	margin-left: .8em;
 }
 
-pre.enclosure-description {
+.enclosure-description {
 	white-space: pre-line;
 }
 
@@ -1213,4 +1280,33 @@ pre.enclosure-description {
 		content: " [" attr(href) "] ";
 		font-style: italic;
 	}
+}
+
+/*=== PREVIEW */
+/*===========*/
+.preview_controls {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1rem;
+	max-width: 1000px;
+	text-align: center;
+	background-color: #eee;
+	border: 1px solid #e0e0e0;
+	border-radius: .25rem;
+}
+
+.preview_controls label {
+	display: inline;
+}
+
+.preview_controls label input[type="radio"] {
+	margin-top: -4px;
+}
+
+.preview_controls label + label {
+	margin-left: 1rem;
+}
+
+.preview_background {
+	background-color: transparent;
 }

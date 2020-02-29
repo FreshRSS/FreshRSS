@@ -14,6 +14,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $content;
 	private $link;
 	private $date;
+	private $date_added = 0; //In microseconds
 	private $hash = null;
 	private $is_read;	//Nullable boolean
 	private $is_favorite;
@@ -68,11 +69,15 @@ class FreshRSS_Entry extends Minz_Model {
 			return timestamptodate($this->date);
 		}
 	}
-	public function dateAdded($raw = false) {
-		$date = intval(substr($this->id, 0, -6));
+	public function dateAdded($raw = false, $microsecond = false) {
 		if ($raw) {
-			return $date;
+			if ($microsecond) {
+				return $this->date_added;
+			} else {
+				return intval(substr($this->date_added, 0, -6));
+			}
 		} else {
+			$date = intval(substr($this->date_added, 0, -6));
 			return timestamptodate($date);
 		}
 	}
@@ -119,6 +124,9 @@ class FreshRSS_Entry extends Minz_Model {
 
 	public function _id($value) {
 		$this->id = $value;
+		if ($this->date_added == 0) {
+			$this->date_added = $value;
+		}
 	}
 	public function _guid($value) {
 		if ($value == '') {
@@ -160,6 +168,13 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->hash = null;
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
+	}
+	public function _dateAdded($value, $microsecond = false) {
+		if ($microsecond) {
+			$this->date_added = $value;
+		} else {
+			$this->date_added = $value * 1000000;
+		}
 	}
 	public function _isRead($value) {
 		$this->is_read = $value === null ? null : (bool)$value;
@@ -280,7 +295,7 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {
 				if ($this->matches($filterAction->booleanSearch())) {
-					foreach ($filterAction->actions() as $action => $params) {
+					foreach ($filterAction->actions() as $action) {
 						switch ($action) {
 							case 'read':
 								$this->_isRead(true);
@@ -315,14 +330,13 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	private static function get_content_by_parsing($url, $path, $attributes = array()) {
+	public static function getContentByParsing($url, $path, $attributes = array()) {
 		require_once(LIB_PATH . '/lib_phpQuery.php');
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
 		if ($system_conf->simplepie_syslog_enabled) {
-			prepareSyslog();
 			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
 		}
 
@@ -373,7 +387,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent() {
+	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 		$feed = $this->feed(true);
@@ -381,13 +395,13 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
 
-			if ($entry) {
+			if ($entry && !$force) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
-					$fullContent = self::get_content_by_parsing(
+					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
 						$feed->pathEntries(),
 						$feed->attributes()

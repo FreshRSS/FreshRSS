@@ -401,7 +401,7 @@ class FreshRSS_Feed extends Minz_Model {
 						$content .= $enclosureContent;
 
 						if ($enclosure->get_description() != '') {
-							$content .= '<pre class="enclosure-description">' . $enclosure->get_description() . '</pre>';
+							$content .= '<p class="enclosure-description">' . $enclosure->get_description() . '</p>';
 						}
 						$content .= "</div>\n";
 					}
@@ -643,7 +643,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function pubSubHubbubPrepare() {
 		$key = '';
-		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
+		if (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) &&
+			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
 			if ($hubFile = @file_get_contents($hubFilename)) {
@@ -690,7 +691,7 @@ class FreshRSS_Feed extends Minz_Model {
 	//Parameter true to subscribe, false to unsubscribe.
 	public function pubSubHubbubSubscribe($state) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
-		if (FreshRSS_Context::$system_conf->base_url && $url) {
+		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {

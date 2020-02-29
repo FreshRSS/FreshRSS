@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
 		'create' => 'Oluştur',
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Pasif',
 		'empty' => 'Boş',
 		'enable' => 'Aktif',
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Yönet',
 		'mark_favorite' => 'Favoriye ekle',
 		'mark_read' => 'Okundu olarak işaretle',
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Sil',
 		'see_website' => 'Siteyi gör',
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\N\\i\\s\\a\\n',
 		'apr' => 'nis',
+		'Apr' => '\\N\\i\\s\\a\\n',
 		'april' => 'Nis',
 		'Aug' => '\\A\\ğ\\u\\s\\t\\o\\s',
 		'aug' => 'ağu',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Geçen ay',
 		'last_week' => 'Geçen hafta',
 		'last_year' => 'Geçen yıl',
-		'mar' => 'mar',
 		'Mar' => '\\M\\a\\r\\t',
+		'mar' => 'mar',
 		'march' => 'Mar',
-		'May' => '\\M\\a\\y\\ı\\s',
 		'may' => 'Mayıs',
+		'May' => '\\M\\a\\y\\ı\\s',
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Pzt',
 		'month' => 'ay',

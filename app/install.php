@@ -142,7 +142,7 @@ function saveStep2() {
 				'prefix' => $_SESSION['bd_prefix'],
 				'pdo_options' => [],
 			],
-			'pubsubhubbub_enabled' => server_is_public($base_url),
+			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
 		];
 		if (!empty($_SESSION['title'])) {
 			$config_array['title'] = $_SESSION['title'];
@@ -223,6 +223,7 @@ function saveStep3() {
 				$password_plain,
 				[
 					'language' => $_SESSION['language'],
+					'is_admin' => true,
 				]
 			);
 		} catch (Exception $e) {

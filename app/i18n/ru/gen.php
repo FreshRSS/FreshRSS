@@ -7,6 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',	// TODO - Translation
 		'cancel' => 'Cancel',	// TODO - Translation
 		'create' => 'Create',	// TODO - Translation
+		'demote' => 'Demote',	// TODO - Translation
 		'disable' => 'Disable',	// TODO - Translation
 		'empty' => 'Empty',	// TODO - Translation
 		'enable' => 'Enable',	// TODO - Translation
@@ -16,6 +17,7 @@ return array(
 		'manage' => 'Manage',	// TODO - Translation
 		'mark_favorite' => 'Mark as favourite',	// TODO - Translation
 		'mark_read' => 'Mark as read',	// TODO - Translation
+		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Remove',	// TODO - Translation
 		'see_website' => 'See website',	// TODO - Translation
@@ -46,8 +48,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',	// TODO - Translation
 		'apr' => 'apr',
+		'Apr' => '\\A\\p\\r\\i\\l',	// TODO - Translation
 		'april' => 'Apr',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO - Translation
 		'aug' => 'aug',
@@ -76,11 +78,11 @@ return array(
 		'last_month' => 'Last month',	// TODO - Translation
 		'last_week' => 'Last week',	// TODO - Translation
 		'last_year' => 'Last year',	// TODO - Translation
-		'mar' => 'mar',
 		'Mar' => '\\M\\a\\r\\c\\h',	// TODO - Translation
+		'mar' => 'mar',
 		'march' => 'Mar',
-		'May' => '\\M\\a\\y',	// TODO - Translation
 		'may' => 'May',	// TODO - Translation
+		'May' => '\\M\\a\\y',	// TODO - Translation
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Mon',	// TODO - Translation
 		'month' => 'months',	// TODO - Translation
