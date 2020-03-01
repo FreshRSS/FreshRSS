@@ -680,7 +680,11 @@ case 5:
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html<?php
+if (_t('gen.dir') === 'rtl') {
+	echo ' dir="rtl" class="rtl"';
+}
+?>>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />

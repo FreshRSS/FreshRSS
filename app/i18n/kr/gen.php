@@ -103,6 +103,7 @@ return array(
 		'wed' => '수',
 		'yesterday' => '어제',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => '정보',
 		'_' => 'FreshRSS',
