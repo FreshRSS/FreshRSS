@@ -103,6 +103,10 @@ class FreshRSS extends Minz_FrontController {
 					$theme_id = $theme['id'];
 					$filename = $file;
 				}
+				if (_t('gen.dir') === 'rtl') {
+					$filename = substr($filename, 0, -4);
+					$filename = $filename . '.rtl.css';
+				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
 				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
 				Minz_View::prependStyle(Minz_Url::display($url));

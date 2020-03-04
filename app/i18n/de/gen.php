@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Mi',
 		'yesterday' => 'Gestern',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'Über FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation

@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Wed',	// TODO - Translation
 		'yesterday' => 'Ieri',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'Informazioni',
 		'_' => 'Feed RSS Reader',
