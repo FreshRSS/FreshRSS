@@ -24,4 +24,17 @@ class FreshRSS_password_Util {
 
 		return $passwordHash == '' ? '' : $passwordHash;
 	}
+
+	/**
+	 * Verify the given password is valid.
+	 *
+	 * A valid password is a string of at least 7 characters.
+	 *
+	 * @param string $password
+	 *
+	 * @return boolean True if the password is valid, false otherwise
+	 */
+	public static function check($password) {
+		return strlen($password) >= 7;
+	}
 }

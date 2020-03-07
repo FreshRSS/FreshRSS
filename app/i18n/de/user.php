@@ -29,9 +29,16 @@ return array(
 			'welcome' => 'Willkommen, %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'The password is invalid.',	// TODO - Translation
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Sie müssen die Nutzungsbedingungen akzeptieren um sich zu registrieren.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'The username is invalid.',	// TODO - Translation
+		'taken' => 'The username %s is taken.',	// TODO - Translation
 	),
 );

@@ -43,7 +43,7 @@ return array(
 		'reset' => 'איפוס אימות',
 		'username' => array(
 			'admin' => 'שם משתמש של המנהל',
-			'format' => '<small>maximum 16 alphanumeric characters</small>',	// TODO - Translation
+			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
 			'_' => 'שם משתמש',
 		),
 	),

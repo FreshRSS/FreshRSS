@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Authentication reset',	// TODO - Translation
 		'username' => array(
 			'admin' => 'Administrator username',	// TODO - Translation
-			'format' => '<small>maximum 16 alphanumeric characters</small>',	// TODO - Translation
+			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
 			'_' => 'Username',	// TODO - Translation
 		),
 	),

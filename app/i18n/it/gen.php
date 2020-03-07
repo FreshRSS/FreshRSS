@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reset autenticazione',
 		'username' => array(
 			'admin' => 'Username amministratore',
-			'format' => '<small>massimo 16 caratteri alfanumerici</small>',
+			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
 			'_' => 'Username',	// TODO - Translation
 		),
 	),

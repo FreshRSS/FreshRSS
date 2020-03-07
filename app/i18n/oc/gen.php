@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reïnicializacion de l’autentificacion',
 		'username' => array(
 			'admin' => 'Nom d’utilizaire administrator',
-			'format' => '<small>16 caractèrs alfanumerics maximum)</small>',
+			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
 			'_' => 'Nom d’utilizaire',
 		),
 	),

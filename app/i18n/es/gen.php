@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reinicar identificación',
 		'username' => array(
 			'admin' => 'Nombre de usuario del Administrador',
-			'format' => '<small>máximo 16 caracteres alfanuméricos</small>',
+			'format' => '<small>Máximo 16 caracteres alfanuméricos</small>',
 			'_' => 'Nombre de usuario',
 		),
 	),
