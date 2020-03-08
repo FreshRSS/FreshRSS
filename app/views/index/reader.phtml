@@ -48,7 +48,8 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
 				</a>
 				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
-					<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /> <span><?= $feed->name() ?></span>
+					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /><?php endif; ?>
+					<span><?= $feed->name() ?></span>
 				</a>
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $item->link() ?>"><?= $item->title() ?></a></h1>
 
