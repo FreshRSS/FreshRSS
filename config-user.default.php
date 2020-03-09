@@ -76,6 +76,7 @@ return array (
 		'reading_view' => '3',
 		'rss_view' => '4',
 	),
+	'show_favicons' => true,
 	'topline_read' => true,
 	'topline_favorite' => true,
 	'topline_display_authors' => false,

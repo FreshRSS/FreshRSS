@@ -98,7 +98,8 @@
 			    data-feed-id="<?= $feed->id() ?>"
 			    dropzone="move">
 				<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
-				<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /> <?= $feed->name() ?>
+				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /><?php endif; ?>
+				<?= $feed->name() ?>
 			</li>
 			<?php 	}
 				} else {
