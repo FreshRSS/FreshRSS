@@ -12,7 +12,7 @@ People are sorted by name so please keep this order.
 * [Alexis Degrugillier](https://github.com/aledeg): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=aledeg)
 * [Alwaysin](https://github.com/Alwaysin): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alwaysin)
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=AmauryCarrade), [Web](https://amaury.carrade.eu/)
-* [Anton Smirnov](https://github.com/sandfoxme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sandfoxme), [Web](http://sandfox.me/)
+* [Anton Smirnov](https://github.com/arokettu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:arokettu), [Web](https://sandfox.me/)
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro), [Web](http://sandfox.me/)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ASMfreaK)
 * [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
