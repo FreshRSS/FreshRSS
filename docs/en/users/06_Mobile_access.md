@@ -1,4 +1,4 @@
-This page assumes you have completed the [server setup](../admins/02_Installation.md).
+This page assumes you have completed the [server setup](../admins/03_Installation.md).
 
 # Enable the API in FreshRSS
 
