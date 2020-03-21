@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\H\\a\\z\\i\\r\\a\\n',
 		'jun' => 'haz',
 		'june' => 'Haz',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => 'Son 3 ay',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => 'Son 6 ay',
 		'last_month' => 'Geçen ay',
 		'last_week' => 'Geçen hafta',
