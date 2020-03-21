@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Kimlik doğrulama sıfırla',
 		'username' => array(
 			'admin' => 'Yönetici kullanıcı adı',
-			'format' => '<small>en fazla 16 alfanümerik karakter</small>',
+			'format' => '<small>En fazla 16 alfanümerik karakter</small>',
 			'_' => 'Kullancı adı',
 		),
 	),
@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Çar',
 		'yesterday' => 'Dün',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'FreshRSS hakkında',
 		'_' => 'FreshRSS',	// TODO - Translation

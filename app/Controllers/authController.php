@@ -109,6 +109,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function formLoginAction() {
 		invalidateHttpCache();
 
+		Minz_View::prependTitle(_t('gen.auth.login') . ' · ');
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		$conf = Minz_Configuration::get('system');
@@ -122,7 +123,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 			$conf = get_user_configuration($username);
 			if ($conf == null) {
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				Minz_Request::bad(
+					_t('feedback.auth.login.invalid'),
+					array('c' => 'auth', 'a' => 'login')
+				);
 				return;
 			}
 
@@ -151,7 +155,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  ' user=' . $username .
 				                  ', nonce=' . $nonce .
 				                  ', c=' . $challenge);
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				Minz_Request::bad(
+					_t('feedback.auth.login.invalid'),
+					array('c' => 'auth', 'a' => 'login')
+				);
 			}
 		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
 			$username = Minz_Request::param('u', '');
@@ -182,7 +189,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                   array('c' => 'index', 'a' => 'index'));
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				Minz_Request::bad(
+					_t('feedback.auth.login.invalid'),
+					array('c' => 'auth', 'a' => 'login')
+				);
 			}
 		}
 	}

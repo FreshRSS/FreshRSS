@@ -29,9 +29,16 @@ return array(
 			'welcome' => '欢迎来到 %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'The password is invalid.',	// TODO - Translation
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => '您必须接受服务条款才能注册',
 		),
+	),
+	'username' => array(
+		'invalid' => 'The username is invalid.',	// TODO - Translation
+		'taken' => 'The username %s is taken.',	// TODO - Translation
 	),
 );

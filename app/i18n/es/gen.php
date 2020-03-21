@@ -3,11 +3,11 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
-		'back' => '← Go back',	// TODO - Translation
+		'back' => '← Volver',
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Crear',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => 'Degradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Vaciar',
 		'enable' => 'Activar',
@@ -17,16 +17,16 @@ return array(
 		'manage' => 'Administrar',
 		'mark_favorite' => 'Marcar como favorita',
 		'mark_read' => 'Marcar como leído',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
+		'promote' => 'Promover',
+		'purge' => 'Eliminar',
 		'remove' => 'Borrar',
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',
 		'truncate' => 'Borrar todos los artículos',
-		'update' => 'Update',	// TODO - Translation
+		'update' => 'Actualizar',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => 'Acpeto los <a href="%s">Terminos de Servicio</a>.',	// TODO - Translation
 		'email' => 'Correo electrónico',
 		'keep_logged_in' => 'Mantenerme identificado <small>(%s días)</small>',
 		'login' => 'Conectar',
@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reinicar identificación',
 		'username' => array(
 			'admin' => 'Nombre de usuario del Administrador',
-			'format' => '<small>máximo 16 caracteres alfanuméricos</small>',
+			'format' => '<small>Máximo 16 caracteres alfanuméricos</small>',
 			'_' => 'Nombre de usuario',
 		),
 	),
@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Mie',
 		'yesterday' => 'Ayer',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'Acerca de FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation
@@ -120,21 +121,21 @@ return array(
 		'should_be_activated' => 'JavaScript debe estar activado',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// TODO - Translation
-		'de' => 'Deutsch',	// TODO - Translation
-		'en' => 'English',	// TODO - Translation
-		'es' => 'Español',	// TODO - Translation
-		'fr' => 'Français',	// TODO - Translation
-		'he' => 'עברית',	// TODO - Translation
-		'it' => 'Italiano',	// TODO - Translation
-		'kr' => '한국어',	// TODO - Translation
-		'nl' => 'Nederlands',	// TODO - Translation
+		'cz' => 'Checo',
+		'de' => 'Aleman',
+		'en' => 'Ingles',
+		'es' => 'Español',
+		'fr' => 'Frances',
+		'he' => 'Hebreo',
+		'it' => 'Italiano',
+		'kr' => 'Coreano',
+		'nl' => 'Neerlandés',
 		'oc' => 'Occitan',	// TODO - Translation
-		'pt-br' => 'Português (Brasil)',	// TODO - Translation
-		'ru' => 'Русский',	// TODO - Translation
-		'sk' => 'Slovenčina',	// TODO - Translation
-		'tr' => 'Türkçe',	// TODO - Translation
-		'zh-cn' => '简体中文',	// TODO - Translation
+		'pt-br' => 'Portugues (Brasil)',
+		'ru' => 'Ruso',
+		'sk' => 'Eslovaco',
+		'tr' => 'Turco',
+		'zh-cn' => 'Chino Simplificado',
 	),
 	'menu' => array(
 		'about' => 'Acerca de',
@@ -167,11 +168,11 @@ return array(
 		'previous' => 'Anterior',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => 'dias',
+		'hours' => 'horas',
+		'months' => 'meses',
+		'weeks' => 'semanas',
+		'years' => 'años',
 	),
 	'share' => array(
 		'blogotext' => 'Blogotext',	// TODO - Translation
@@ -200,7 +201,7 @@ return array(
 		'by_default' => 'Por defecto',
 		'damn' => '¡Córcholis!',
 		'default_category' => 'Sin categorizar',
-		'no' => 'No',	// TODO - Translation
+		'no' => 'No',
 		'not_applicable' => 'No disponible',
 		'ok' => '¡Vale!',
 		'or' => 'o',

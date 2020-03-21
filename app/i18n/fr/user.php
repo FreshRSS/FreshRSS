@@ -29,9 +29,16 @@ return array(
 			'welcome' => 'Bienvenue %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'Le mot de passe est invalide.',
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Vous devez accepter les conditions générales d’utilisation pour pouvoir vous inscrire.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'Le nom d’utilisateur est invalide.',
+		'taken' => 'Le nom d’utilisateur %s est pris.',
 	),
 );

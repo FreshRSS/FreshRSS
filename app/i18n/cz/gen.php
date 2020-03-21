@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reset přihlášení',
 		'username' => array(
 			'admin' => 'Název administrátorského účtu',
-			'format' => '<small>maximálně 16 alfanumerických znaků</small>',
+			'format' => '<small>Maximálně 16 alfanumerických znaků</small>',
 			'_' => 'Uživatel',
 		),
 	),
@@ -103,6 +103,7 @@ return array(
 		'wed' => 'St',
 		'yesterday' => 'Včera',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'O FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation

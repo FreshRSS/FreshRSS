@@ -165,7 +165,7 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background: #fff;
-	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+	background-image: linear-gradient(to bottom, #fff 0%, #eee 100%);
 	display: inline-block;
 	color: #666;
 	font-size: 0.9rem;
@@ -346,6 +346,7 @@ a.btn {
 	width: 10px;
 	height: 10px;
 	border-top: 1px solid #ddd;
+	/* @noflip */
 	border-left: 1px solid #ddd;
 	content: "";
 	position: absolute;
@@ -692,21 +693,48 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
+	max-width: 20rem;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: .5rem;
+	padding-right: .5rem;
+
 	text-align: center;
 }
 
-.prompt label {
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+
 	text-align: left;
 }
 
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
+.prompt .form-group {
+	margin-bottom: 1rem;
 }
 
+.prompt .form-group::after {
+	display: none;
+}
+
+.prompt .form-group.form-group-actions {
+	display: flex;
+	margin-top: 2rem;
+
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prompt .stick,
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
+}
+
+.prompt .btn.btn-important {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+
+	font-size: 1.1rem;
 }
 
 .prompt p {

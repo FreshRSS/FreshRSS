@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Authentication reset',
 		'username' => array(
 			'admin' => 'Administrator username',
-			'format' => '<small>maximum 16 alphanumeric characters</small>',
+			'format' => '<small>Maximum 16 alphanumeric characters</small>',
 			'_' => 'Username',
 		),
 	),
@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Wed',
 		'yesterday' => 'Yesterday',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'About FreshRSS',
 		'_' => 'FreshRSS',

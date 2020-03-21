@@ -7,25 +7,30 @@
 
 	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div>
+
+		<div class="form-group">
 			<label for="username"><?= _t('gen.auth.username') ?></label>
 			<input type="text" id="username" name="username" autocomplete="username" size="16" required="required" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autofocus="autofocus" />
 		</div>
-		<div>
+
+		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
-				<input type="password" id="passwordPlain" required="required" />
-				<input type="hidden" id="challenge" name="challenge" /><br />
-				<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+			<input type="password" id="passwordPlain" required="required" />
+			<input type="hidden" id="challenge" name="challenge" />
+			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 		</div>
-		<div>
+
+		<div class="form-group">
 			<label class="checkbox" for="keep_logged_in">
 				<input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
 				<?= _t('gen.auth.keep_logged_in', $this->cookie_days) ?>
 			</label>
-			<br />
 		</div>
-		<div>
-			<button id="loginButton" type="submit" class="btn btn-important"><?= _t('gen.auth.login') ?></button>
+
+		<div class="form-group form-group-actions">
+			<button id="loginButton" type="submit" class="btn btn-important">
+				<?= _t('gen.auth.login') ?>
+			</button>
 		</div>
 	</form>
 

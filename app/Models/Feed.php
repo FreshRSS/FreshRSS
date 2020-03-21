@@ -401,7 +401,7 @@ class FreshRSS_Feed extends Minz_Model {
 						$content .= $enclosureContent;
 
 						if ($enclosure->get_description() != '') {
-							$content .= '<pre class="enclosure-description">' . $enclosure->get_description() . '</pre>';
+							$content .= '<p class="enclosure-description">' . $enclosure->get_description() . '</p>';
 						}
 						$content .= "</div>\n";
 					}

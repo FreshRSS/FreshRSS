@@ -39,20 +39,14 @@ return array(
 	),
 	'wallabag' => array(
 		'url' => '~URL~?action=add&amp;url=~LINK~',
-		'transform' => array(
-			'link' => array('base64_encode'),
-			'title' => array(),
-		),
+		'transform' => array('rawurlencode'),
 		'help' => 'http://www.wallabag.org/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
 	'wallabagv2' => array(
 		'url' => '~URL~/bookmarklet?url=~LINK~',
-		'transform' => array(
-			'link' => array('rawurlencode'),
-			'title' => array(),
-		),
+		'transform' => array('rawurlencode'),
 		'help' => 'http://www.wallabag.org/',
 		'form' => 'advanced',
 		'method' => 'GET',

@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => array(
 			'admin' => 'Administrator-Nutzername',
-			'format' => '<small>maximal 16 alphanumerische Zeichen</small>',
+			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
 			'_' => 'Nutzername',
 		),
 	),
@@ -103,6 +103,7 @@ return array(
 		'wed' => 'Mi',
 		'yesterday' => 'Gestern',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'Über FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation

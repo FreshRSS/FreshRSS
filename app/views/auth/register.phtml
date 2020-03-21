@@ -3,22 +3,23 @@
 
 	<form method="post" action="<?= _url('user', 'create') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div>
-			<label class="group-name" for="new_user_name"><?= _t('gen.auth.username'), '<br />', _i('help'), ' ', _t('gen.auth.username.format') ?></label>
+
+		<div class="form-group">
+			<label for="new_user_name"><?= _t('gen.auth.username'), '<br />', _i('help'), ' ', _t('gen.auth.username.format') ?></label>
 			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" />
 		</div>
 
 		<?php if ($this->show_email_field) { ?>
-			<div>
-				<label class="group-name" for="new_user_email">
+			<div class="form-group">
+				<label for="new_user_email">
 					<?= _t('gen.auth.email') ?>
 				</label>
 				<input id="new_user_email" name="new_user_email" type="email" required />
 			</div>
 		<?php } ?>
 
-		<div>
-			<label class="group-name" for="new_user_passwordPlain"><?= _t('gen.auth.password'), '<br />', _i('help'), ' ', _t('gen.auth.password.format') ?></label>
+		<div class="form-group">
+			<label for="new_user_passwordPlain"><?= _t('gen.auth.password'), '<br />', _i('help'), ' ', _t('gen.auth.password.format') ?></label>
 			<div class="stick">
 				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" required="required" autocomplete="new-password" pattern=".{7,}" />
 				<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></a>
@@ -27,7 +28,7 @@
 		</div>
 
 		<?php if ($this->show_tos_checkbox) { ?>
-			<div>
+			<div class="form-group">
 				<label class="checkbox" for="accept-tos">
 					<input type="checkbox" name="accept_tos" id="accept-tos" value="1" required />
 					<?= _t('gen.auth.accept_tos', _url('index', 'tos')) ?>
@@ -35,7 +36,7 @@
 			</div>
 		<?php } ?>
 
-		<div>
+		<div class="form-group form-group-actions">
 			<?php
 				$redirect_url = urlencode(Minz_Url::display(
 					array('c' => 'index', 'a' => 'index'),
@@ -43,8 +44,10 @@
 				));
 			?>
 			<input type="hidden" name="r" value="<?= $redirect_url ?>" />
+
 			<button type="submit" class="btn btn-important"><?= _t('gen.action.create') ?></button>
-			<a class="btn" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.cancel') ?></a>
+
+			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.cancel') ?></a>
 		</div>
 	</form>
 

@@ -1135,7 +1135,7 @@ input:checked + .slide-container .properties {
 	margin-left: .8em;
 }
 
-pre.enclosure-description {
+.enclosure-description {
 	white-space: pre-line;
 }
 
