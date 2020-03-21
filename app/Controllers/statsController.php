@@ -73,6 +73,9 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 *
 	 * It displays the list of idle feed for different period. The supported
 	 * periods are:
+	 *   - last 5 years
+	 *   - last 3 years
+	 *   - last 2 years
 	 *   - last year
 	 *   - last 6 months
 	 *   - last 3 months
