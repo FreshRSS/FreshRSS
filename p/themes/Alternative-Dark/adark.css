@@ -4,9 +4,9 @@
 /*============*/
 html, body {
 	background: #171717;
-	height: 100%;
+	color: #999;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
-    	color: #999;
+	height: 100%;
 }
 
 /*=== Links */
@@ -171,10 +171,10 @@ a.btn {
 }
 
 .btn:hover {
-    background: #1d242f;
-    text-decoration: none;
-    color: #6b88ae;
-    border: 1px solid #45699a;
+	background: #1d242f;
+	text-decoration: none;
+	color: #6b88ae;
+	border: 1px solid #45699a;
 }
 
 .btn.active,
@@ -192,7 +192,7 @@ a.btn {
 
 .btn-important:hover {
 	background: #0062b7;
-    color: #eee;
+	color: #eee;
 }
 
 .btn-important:active {
@@ -307,8 +307,8 @@ a.btn {
 }
 
 .dropdown-menu::after {
-    background: #fff;
-    display: none;
+	background: #fff;
+	display: none;
 	width: 10px;
 	height: 10px;
 	border-top: 1px solid #ddd;
@@ -496,7 +496,7 @@ a.btn {
 }
 
 .tree-folder-title:hover {
-    background: #1f1f1f;
+	background: #1f1f1f;
 }
 
 .tree-folder-title .title {
@@ -522,7 +522,7 @@ a.btn {
 }
 
 .tree-folder-items:hover {
-    background: #1f1f1f;
+	background: #1f1f1f;
 }
 
 .tree-folder-items > .item {
@@ -708,7 +708,7 @@ a.btn {
 	font-weight: bold;
 	line-height: 3em;
 	background: #171717;
-    color: #ccc;
+	color: #ccc;
 	border-top: 1px solid #aaa;
 }
 
@@ -748,7 +748,7 @@ a.btn {
 	border-left: 2px solid #0062be;
 }
 
-.flux.current.active{
+.flux.current.active {
 	background: #333;
 }
 
@@ -774,7 +774,7 @@ a.btn {
 
 .flux_header {
 	font-size: 0.8rem;
-    border-top: 1px solid #292929;
+	border-top: 1px solid #292929;
 	cursor: pointer;
 }
 
@@ -799,7 +799,7 @@ a.btn {
 /*=== Content of feed articles */
 .content {
 	padding: 20px 10px;
-    color: #999;
+	color: #999;
 }
 
 .content > h1.title > a {
@@ -1100,14 +1100,14 @@ a.btn {
 	}
 
 	.day .name {
-        display: none!important;
+		display: none!important;
 		font-size: 1.1rem;
 		text-shadow: none;
 	}
 
 	.pagination {
 		margin: 0 0 3.5em;
-        border-top: 1px solid #292929;
+		border-top: 1px solid #292929;
 	}
 
 	.notification a.close {
