@@ -126,14 +126,14 @@ return array(
 		'en' => 'English',
 		'es' => 'Español',
 		'fr' => 'Français',
-		'he' => 'עברית',	// TODO - Translation
+		'he' => 'עברית',
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
-		'oc' => 'Occitan',	// TODO - Translation
+		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
-		'sk' => 'Slovenčina',	// TODO - Translation
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
