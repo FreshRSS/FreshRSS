@@ -20,6 +20,7 @@ services:
       - freshrss_postgresql
     volumes:
       - freshrss_data:/var/www/FreshRSS/data
+      - freshrss_extensions:/var/www/FreshRSS/extensions
     environment:
       - CRON_MIN=*/20
       - TZ=Europe/Copenhagen
@@ -29,3 +30,4 @@ services:
 volumes:
   pgsql_data:
   freshrss_data:
+  freshrss_extensions:
