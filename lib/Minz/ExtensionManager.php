@@ -1,7 +1,7 @@
 <?php
 
 /**
- * An extension manager to load extensions present in EXTENSIONS_PATH.
+ * An extension manager to load extensions present in CORE_EXTENSIONS_PATH and THIRDPARTY_EXTENSIONS_PATH.
  *
  * @todo see coding style for methods!!
  */
@@ -78,16 +78,17 @@ class Minz_ExtensionManager {
 	 * inherit from Minz_Extension class.
 	 */
 	public static function init() {
-		$list_potential_extensions = array_values(array_diff(
-			scandir(EXTENSIONS_PATH),
-			array('..', '.')
-		));
+		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH), [ '..', '.' ]);
+		$list_thirdparty_extensions = array_diff(scandir(THIRDPARTY_EXTENSIONS_PATH), [ '..', '.' ], $list_core_extensions);
+		array_walk($list_core_extensions, function (&$s) { $s = CORE_EXTENSIONS_PATH . '/' . $s; });
+		array_walk($list_thirdparty_extensions, function (&$s) { $s = THIRDPARTY_EXTENSIONS_PATH . '/' . $s; });
+
+		$list_potential_extensions = $list_core_extensions + $list_thirdparty_extensions;
 
 		$system_conf = Minz_Configuration::get('system');
 		self::$ext_auto_enabled = $system_conf->extensions_enabled;
 
-		foreach ($list_potential_extensions as $ext_dir) {
-			$ext_pathname = EXTENSIONS_PATH . '/' . $ext_dir;
+		foreach ($list_potential_extensions as $ext_pathname) {
 			if (!is_dir($ext_pathname)) {
 				continue;
 			}
@@ -111,7 +112,7 @@ class Minz_ExtensionManager {
 
 			// Try to load extension itself
 			$extension = self::load($meta_json);
-			if (!is_null($extension)) {
+			if ($extension != null) {
 				self::register($extension);
 			}
 		}
