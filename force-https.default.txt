@@ -8,6 +8,7 @@ fsfe.org
 github.com
 gitlab.com
 gnu.org
+google.com
 gravatar.com
 gstatic.com
 kernel.org
