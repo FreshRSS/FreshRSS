@@ -146,7 +146,7 @@ return array(
 		'facebook' => 'Facebook',
 		'more_information' => 'Mais informação',
 		'print' => 'Imprimir',
-		'remove' => 'Remover método de compartilhamento'
+		'remove' => 'Remover método de compartilhamento',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Nome de visualização para compartilhar',
 		'share_url' => 'URL utilizada para compartilhar',
