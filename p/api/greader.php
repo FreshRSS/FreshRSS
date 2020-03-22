@@ -76,10 +76,6 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
-class MyPDO extends Minz_ModelPdo {
-	public $pdo;
-}
-
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -270,34 +266,30 @@ function tagList() {
 function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$model = new MyPDO();
-	$stm = $model->pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `_feed` f
-		INNER JOIN `_category` c ON c.id = f.category AND f.priority >= :priority_normal');
-	$stm->bindValue(':priority_normal', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
-	$stm->execute();
-	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
 	$salt = FreshRSS_Context::$system_conf->salt;
 	$faviconsUrl = Minz_Url::display('/f.php?', '', true);
 	$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 	$subscriptions = array();
 
-	foreach ($res as $line) {
-		$subscriptions[] = array(
-			'id' => 'feed/' . $line['id'],
-			'title' => escapeToUnicodeAlternative($line['name'], true),
-			'categories' => array(
-				array(
-					'id' => 'user/-/label/' . htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
-					'label' => htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
-				),
-			),
-			//'sortid' => $line['name'],
-			//'firstitemmsec' => 0,
-			'url' => htmlspecialchars_decode($line['url'], ENT_QUOTES),
-			'htmlUrl' => htmlspecialchars_decode($line['website'], ENT_QUOTES),
-			'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $line['url']),
-		);
+	$categoryDAO = FreshRSS_Factory::createCategoryDao();
+	foreach ($categoryDAO->listCategories(true, true) as $cat) {
+		foreach ($cat->feeds() as $feed) {
+			$subscriptions[] = [
+				'id' => 'feed/' . $feed->id(),
+				'title' => escapeToUnicodeAlternative($feed->name(), true),
+				'categories' => [
+					[
+						'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+						'label' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+					],
+				],
+				//'sortid' => $feed->name(),
+				//'firstitemmsec' => 0,
+				'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
+				'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
+				'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $feed->url()),
+			];
+		}
 	}
 
 	echo json_encode(array('subscriptions' => $subscriptions), JSON_OPTIONS), "\n";
