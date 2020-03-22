@@ -41,6 +41,7 @@ return array(
 		'filteractions' => array(
 			'help' => 'Escreva um filtro de pesquisa por linha.',
 			'_' => 'Ações do filtro',
+		),
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'maintenance' => array(
