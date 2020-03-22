@@ -70,6 +70,7 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca recomendada para o Unicode (mbstring).',
 			'ok' => 'Você tem a biblioteca recomendada para o Unicode (mbstring).',
+		),
 		'minz' => array(
 			'nok' => 'Não foi possível encontrar o framework Minz.',
 			'ok' => 'Você tem o framework Minz.',
