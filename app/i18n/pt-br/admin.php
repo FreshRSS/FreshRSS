@@ -2,10 +2,10 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Permitir a leitura anónima dos artidos pelo usuário padrão (%s)',
+		'allow_anonymous' => 'Permitir a leitura anónima dos artigos pelo usuário padrão (%s)',
 		'allow_anonymous_refresh' => 'Permitir atualização anónima dos artigos',
 		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis)</small>',
-		'form' => 'Formulário Web(traditional, Necessita de JavaScript)',
+		'form' => 'Formulário Web(tradicional, Necessita de JavaScript)',
 		'http' => 'HTTP (Para usuários avançados com HTTPS)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Você tem a extensão JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Não foi possível encontrar a biblioteca recomendada para Unicode (mbstring).',
+			'ok' => 'Você tem a biblioteca recomendada para Unicode (mbstring).',
 		),
 		'minz' => array(
 			'nok' => 'Não foi possível encontrar o framework Minz.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Autor',
+		'community' => 'Extensões da comunidade disponíveis',
+		'description' => 'Descrição',
 		'disabled' => 'Desabilitado',
 		'empty_list' => 'Não há extensões instaladas',
 		'enabled' => 'Habilitada',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Instalado',
+		'name' => 'Nome',
 		'no_configure_view' => 'Esta extensão não pode ser configurada.',
 		'system' => array(
 			'no_rights' => 'Extensões do sistema (Você não tem direitos para isto)',
 			'_' => 'Extensões do sistema',
 		),
 		'title' => 'Extensões',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Atualização disponível',
 		'user' => 'Extensões do usuário',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Versão',
 	),
 	'stats' => array(
 		'all_feeds' => 'Todos os feeds',
@@ -134,7 +134,7 @@ return array(
 		'entry_per_hour' => 'Por hora (média: %.2f mensagens)',
 		'entry_per_month' => 'Por mês(média: %.2f mensagens)',
 		'entry_repartition' => 'Repartição de entradas',
-		'feed' => 'Feed',	// TODO - Translation
+		'feed' => 'Feed',
 		'feed_per_category' => 'Feeds por categoria',
 		'idle' => 'Feeds inativos',
 		'main' => 'Estatísticas principais',
@@ -150,7 +150,7 @@ return array(
 		'repartition' => 'Repartição de artigos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Lido',
-		'status_total' => 'Total',	// TODO - Translation
+		'status_total' => 'Total',
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
 		'top_feed' => 'Top10 feeds',
@@ -159,10 +159,10 @@ return array(
 	'system' => array(
 		'auto-update-url' => 'URL do servidor para atualização automática',
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => 'em segundos',
+			'number' => 'Manter seção ativa durante',
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
@@ -182,25 +182,25 @@ return array(
 		'_' => 'Atualização do sistema',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
+		'admin' => 'Administrador',
 		'articles_and_size' => '%s artigos (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'article_count' => 'Artigos',
+		'back_to_manage' => '← Voltar para à lista de usuários',
 		'create' => 'Criar novo usuário',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Tamanho do banco de dados',
+		'delete_users' => 'Deletar usuário',
+		'email' => 'Endereço de email',
+		'feed_count' => 'Feeds',
+		'is_admin' => 'É administrador',
 		'language' => 'Idioma',
-		'list' => 'User list',	// TODO - Translation
+		'list' => 'Lista de usuários',
 		'number' => 'Há %d conta criada',
 		'numbers' => 'Há %d contas criadas',
 		'password_form' => 'Senha<br /><small>(para o login pelo método do formulário)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
-		'selected' => 'Selected user',	// TODO - Translation
+		'selected' => 'Usuário selecionado',
 		'title' => 'Gerenciar usuários',
-		'update_users' => 'Update user',	// TODO - Translation
+		'update_users' => 'Atualizar usuário',
 		'username' => 'Usuário',
 		'users' => 'Usuários',
 		'user_list' => 'Lista de usuários',
