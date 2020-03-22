@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\J\\u\\n\\h\\o',
 		'jun' => 'jun',
 		'june' => 'Jun',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => 'Últimos três meses',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => 'Últimos seis meses',
 		'last_month' => 'Últimos mês',
 		'last_week' => 'Última semana',

@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\六\\月',
 		'jun' => '六月',
 		'june' => '六月',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => '最近三个月',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => '最近六个月',
 		'last_month' => '上月',
 		'last_week' => '上周',

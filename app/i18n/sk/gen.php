@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\J\\ú\\n',
 		'jun' => 'Jún',
 		'june' => 'Jún',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => 'Posledné 3 mesiace',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => 'Posledných 6 mesiacov',
 		'last_month' => 'Posledný mesiac',
 		'last_week' => 'Posledný týždeň',

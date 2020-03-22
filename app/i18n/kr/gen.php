@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\J\\u\\n\\e',
 		'jun' => '6월',
 		'june' => '6월',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => '최근 3 개월',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => '최근 6 개월',
 		'last_month' => '최근 한 달',
 		'last_week' => '최근 한 주',
