@@ -2,7 +2,7 @@
 
 return array(
 	'about' => array(
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	
 		'bugs_reports' => 'Reportar Bugs',
 		'credits' => 'Créditos',
 		'credits_content' => 'Alguns elementos de design vieram do <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> Embora FreshRRS não utiliza este framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ícones</a> vieram do <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police foi criada por <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS é baseado no <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, um framework PHP.',
@@ -26,8 +26,8 @@ return array(
 	'log' => array(
 		'clear' => 'Limpar logs',
 		'empty' => 'Arquivo de log está vazio',
-		'title' => 'Logs',	// TODO - Translation
-		'_' => 'Logs',	// TODO - Translation
+		'title' => 'Logs',
+		'_' => 'Logs',
 	),
 	'menu' => array(
 		'about' => 'Sobre o FreshRSS',
@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => 'Marcar todos como lidos',
 		'mark_cat_read' => 'Marcar categoria como lida',
 		'mark_feed_read' => 'Marcar feed com lido',
-		'mark_selection_unread' => 'Mark selection as unread',	// TODO - Translation
+		'mark_selection_unread' => 'Marcar seleção como não lida',
 		'newer_first' => 'Novos primeiro',
 		'non-starred' => 'Mostrar todos, exceto favoritos',
 		'normal_view' => 'visualização normal',
@@ -48,12 +48,12 @@ return array(
 		'queries' => 'Queries do usuário',
 		'read' => 'Mostrar apenas lidos',
 		'reader_view' => 'Visualização de leitura',
-		'rss_view' => 'RSS feed',	// TODO - Translation
+		'rss_view' => 'Feed RSS',
 		'search_short' => 'Buscar',
 		'starred' => 'Mostrar apenas os favoritos',
 		'stats' => 'Estatísticas',
 		'subscription' => 'Gerenciamento de inscrições',
-		'tags' => 'My labels',	// TODO - Translation
+		'tags' => 'Minhas etiquetas',
 		'unread' => 'Mostrar apenas os não lidos',
 	),
 	'share' => 'Compartilhar',
@@ -61,6 +61,6 @@ return array(
 		'related' => 'Tags relacionadas',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Termos do serviço',
 	),
 );
