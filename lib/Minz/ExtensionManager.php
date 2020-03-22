@@ -83,7 +83,7 @@ class Minz_ExtensionManager {
 		array_walk($list_core_extensions, function (&$s) { $s = CORE_EXTENSIONS_PATH . '/' . $s; });
 		array_walk($list_thirdparty_extensions, function (&$s) { $s = THIRDPARTY_EXTENSIONS_PATH . '/' . $s; });
 
-		$list_potential_extensions = $list_core_extensions + $list_thirdparty_extensions;
+		$list_potential_extensions = array_merge($list_core_extensions, $list_thirdparty_extensions);
 
 		$system_conf = Minz_Configuration::get('system');
 		self::$ext_auto_enabled = $system_conf->extensions_enabled;

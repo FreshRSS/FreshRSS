@@ -49,7 +49,11 @@ safe_define('API_LOG', USERS_PATH . '/_/log_api.txt');
 safe_define('CACHE_PATH', DATA_PATH . '/cache');
 safe_define('PSHB_LOG', USERS_PATH . '/_/log_pshb.txt');
 safe_define('PSHB_PATH', DATA_PATH . '/PubSubHubbub');
+safe_define('EXTENSIONS_DATA', DATA_PATH . '/extensions-data');
 safe_define('THIRDPARTY_EXTENSIONS_PATH', FRESHRSS_PATH . '/extensions');
+
+//Deprecated constants
+safe_define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extensions');
 
 //Directory used for feed mutex with *.freshrss.lock files. Must be writable.
 safe_define('TMP_PATH', sys_get_temp_dir());
