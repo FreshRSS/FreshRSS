@@ -5,6 +5,6 @@ class GoogleGroupsExtension extends Minz_Extension {
 	}
 
 	public static function findFeed($url) {
-		return preg_replace('%^(https://groups.google.com/forum)/#!forum/(.+)$%i', '$1/feed/$2/msgs/rss.xml', $url);
+		return preg_replace('%^(https?://groups.google.com/forum)/#!forum/(.+)$%i', '$1/feed/$2/msgs/rss.xml', $url);
 	}
 }
