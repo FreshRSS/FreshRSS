@@ -237,31 +237,27 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 function tagList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$model = new MyPDO();
-	$stm = $model->pdo->query('SELECT c.name FROM `_category` c');
-	$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-
 	$tags = array(
 		array('id' => 'user/-/state/com.google/starred'),
 		//array('id' => 'user/-/state/com.google/broadcast', 'sortid' => '2'),
 	);
 
-	foreach ($res as $cName) {
+	$categoryDAO = FreshRSS_Factory::createCategoryDao();
+	$categories = $categoryDAO->listCategories(true, false);
+	foreach ($categories as $cat) {
 		$tags[] = array(
-			'id' => 'user/-/label/' . htmlspecialchars_decode($cName, ENT_QUOTES),
-			//'sortid' => $cName,
+			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+			//'sortid' => $cat->name(),
 			'type' => 'folder',	//Inoreader
 		);
 	}
-
-	unset($res);
 
 	$tagDAO = FreshRSS_Factory::createTagDao();
 	$labels = $tagDAO->listTags(true);
 	foreach ($labels as $label) {
 		$tags[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
-			//'sortid' => $cName,
+			//'sortid' => $label->name(),
 			'type' => 'tag',	//Inoreader
 			'unread_count' => $label->nbUnread(),	//Inoreader
 		);
