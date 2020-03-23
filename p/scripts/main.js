@@ -298,6 +298,13 @@ function mark_read(div, only_not_read, asBatch) {
 	}
 }
 
+function mark_previous_read(div) {
+	while (div) {
+		mark_read(div, true, true);
+		div = div.previousElementSibling;
+	}
+}
+
 function mark_favorite(div) {
 	if (!div) {
 		return false;
@@ -786,9 +793,9 @@ function init_shortcuts() {
 			}
 			if (k === s.mark_read) {
 				if (ev.altKey) {
-					return true;
-				} else if (ev.shiftKey) {	// Mark everything as read
 					document.querySelector('.nav_menu .read_all').click();
+				} else if (ev.shiftKey) {
+					mark_previous_read(document.querySelector('.flux.current'));
 				} else {	// Toggle the read state
 					mark_read(document.querySelector('.flux.current'), false, false);
 				}

@@ -66,6 +66,16 @@ sup {
 	vertical-align: baseline;
 }
 
+kbd {
+	background-color: #eee;
+	padding: 2px 4px;
+	display: inline-block;
+	color: #333;
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+	white-space: nowrap;
+}
+
 /*=== Images */
 img {
 	max-width: 100%;

@@ -171,7 +171,7 @@ return array(
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
 		'navigation' => 'Navigacion',
-		'navigation_help' => 'Amb lo modificador «Shift», los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador «Alt», los acorchis de navigacion s’aplican a las categorias.',
+		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
 		'normal_view' => 'Passar a la vista normala',
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Passar a la vista lectura',
 		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
 		'see_on_website' => 'Veire al site d’origina',
-		'shift_for_all_read' => '+ <code>shift</code> per marcar los articles coma legits',
+		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> per marcar los articles coma legits',	// TODO - Translation
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',
