@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Mudar para o modo de leitura',
 		'rss_view' => 'Abrir visualização de RSS em uma nova aba',
 		'see_on_website' => 'Visualize o site original',
-		'shift_for_all_read' => '+ <code>shift</code> para marcar todos os artigos como lido',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] para marcar todos os artigos como lido',	// TODO - Translation
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
 		'skip_previous_article' => 'Focar o anterior sem abri-lo',
 		'title' => 'Atalhos',

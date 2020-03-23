@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Orijinal sitede göster',
-		'shift_for_all_read' => '+ <code>shift</code> tuşu ile tüm makaleler okundu olarak işaretlenir',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] tuşu ile tüm makaleler okundu olarak işaretlenir',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Kısayollar',

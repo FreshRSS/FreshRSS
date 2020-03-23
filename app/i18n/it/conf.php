@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Vai al sito fonte',
-		'shift_for_all_read' => '+ <code>shift</code> per segnare tutti gli articoli come letti',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] per segnare tutti gli articoli come letti',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Comandi da tastiera',

@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Passar a la vista lectura',
 		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
 		'see_on_website' => 'Veire al site d’origina',
-		'shift_for_all_read' => '+ <code>shift</code> per marcar los articles coma legits',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] per marcar los articles coma legits',	// TODO - Translation
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',

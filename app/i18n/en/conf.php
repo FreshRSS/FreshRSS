@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',
 		'rss_view' => 'Open RSS view in a new tab',
 		'see_on_website' => 'See on original website',
-		'shift_for_all_read' => '+ <code>shift</code> to mark all articles as read',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] to mark all articles as read',
 		'skip_next_article' => 'Focus next without opening',
 		'skip_previous_article' => 'Focus previous without opening',
 		'title' => 'Shortcuts',

@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
 		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
 		'see_on_website' => 'Zobrazí na webovej stránke',
-		'shift_for_all_read' => '+ <code>shift</code> na označenie všetkých článkov ako prečítaných',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] na označenie všetkých článkov ako prečítaných',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',

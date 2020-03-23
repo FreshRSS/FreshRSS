@@ -180,7 +180,7 @@ return array(
 		'reading_view' => '切换到阅读视图',
 		'rss_view' => '在新标签中打开 RSS 视图',
 		'see_on_website' => '在原网站中查看',
-		'shift_for_all_read' => '+ <code>shift</code> 可以将全部文章设为已读',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] 可以将全部文章设为已读',	// TODO - Translation
 		'skip_next_article' => '跳转到下一篇文章而不打开',
 		'skip_previous_article' => '跳转到上一篇文章而不打开',
 		'title' => '快捷键',

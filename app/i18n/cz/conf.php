@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
-		'shift_for_all_read' => '+ <code>shift</code> označí vše jako přečtené',
+		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] označí vše jako přečtené',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Zkratky',
