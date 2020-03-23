@@ -171,7 +171,7 @@ return array(
 		'mark_favorite' => 'Marcar como favorito',
 		'mark_read' => 'Marcar como lido',
 		'navigation' => 'Navegação',
-		'navigation_help' => 'Com o modificador "Shift", atalhos de navegação aplicam aos feeds.<br/>Com o "Alt" modificador, atalhos de navegação aplicam as categorias.',
+		'navigation_help' => 'Com o modificador <kbd>⇧ Shift</kbd>, atalhos de navegação aplicam aos feeds.<br/>Com o <kbd>Alt ⎇</kbd> modificador, atalhos de navegação aplicam as categorias.',
 		'navigation_no_mod_help' => 'Os seguintes atalhos de navegação não suportam modificadores.',
 		'next_article' => 'Pule para o próximo artigo',
 		'normal_view' => 'Mudar para a visualização normal',
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Mudar para o modo de leitura',
 		'rss_view' => 'Abrir visualização de RSS em uma nova aba',
 		'see_on_website' => 'Visualize o site original',
-		'shift_for_all_read' => '+ <code>shift</code> para marcar todos os artigos como lido',
+		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> para marcar todos os artigos como lido',	// TODO - Translation
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
 		'skip_previous_article' => 'Focar o anterior sem abri-lo',
 		'title' => 'Atalhos',
