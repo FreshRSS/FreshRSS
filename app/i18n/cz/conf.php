@@ -171,7 +171,7 @@ return array(
 		'mark_favorite' => 'Označit jako oblíbené',
 		'mark_read' => 'Označit jako přečtené',
 		'navigation' => 'Navigace',
-		'navigation_help' => 'Pomocí přepínače "Shift" fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače "Alt" fungují v rámci kategorií.',
+		'navigation_help' => 'Pomocí přepínače [⇧ Shift] fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače [Alt ⎇] fungují v rámci kategorií.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Skočit na další článek',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
-		'shift_for_all_read' => '+ [Shift] to mark previous articles as read<br />+ [Alt] označí vše jako přečtené',	// TODO - Translation
+		'shift_for_all_read' => '+ [⇧ Shift] to mark previous articles as read<br />+ [Alt ⎇] označí vše jako přečtené',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Zkratky',

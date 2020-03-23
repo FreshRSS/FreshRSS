@@ -171,7 +171,7 @@ return array(
 		'mark_favorite' => 'Marcar como favorito',
 		'mark_read' => 'Marcar como leído',
 		'navigation' => 'Navegación',
-		'navigation_help' => 'Con el modificador "Mayúsculas" es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador "Alt" es posible aplicar los atajos de teclado en las categorías.',
+		'navigation_help' => 'Con el modificador [⇧ Mayúsculas] es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador [Alt ⎇] es posible aplicar los atajos de teclado en las categorías.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Saltar al siguiente artículo',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Ver en la web original',
-		'shift_for_all_read' => '+ [Mayúsculas] to mark previous articles as read<br />+ [Alt] para marcar todos los artículos como leídos',	// TODO - Translation
+		'shift_for_all_read' => '+ [⇧ Mayúsculas] to mark previous articles as read<br />+ [Alt ⎇] para marcar todos los artículos como leídos',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Atajos de teclado',
