@@ -171,7 +171,7 @@ return array(
 		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',
 		'navigation' => 'Navigation',	// TODO - Translation
-		'navigation_help' => 'With the [⇧ Shift] modifier, navigation shortcuts apply on feeds.<br/>With the [Alt ⎇] modifier, navigation shortcuts apply on categories.',	// TODO - Translation
+		'navigation_help' => 'With the <kbd>⇧ Shift</kbd> modifier, navigation shortcuts apply on feeds.<br/>With the <kbd>Alt ⎇</kbd> modifier, navigation shortcuts apply on categories.',	// TODO - Translation
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Skip to the next article',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'See on original website',	// TODO - Translation
-		'shift_for_all_read' => '+ [⇧ Shift] to mark previous articles as read<br />+ [Alt ⎇] to mark all articles as read',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Shortcuts',	// TODO - Translation
