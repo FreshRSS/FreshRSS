@@ -1549,6 +1549,7 @@ function init_normal() {
 }
 
 function init_beforeDOM() {
+	document.scrollingElement.scrollTop = 0;
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
