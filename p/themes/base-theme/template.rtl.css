@@ -875,11 +875,10 @@ br {
 }
 
 #first_load {
-	min-height: 40px;
-	min-width: 40px;
-	position: fixed;
-	top: 200px;
-	width: calc(100% - 300px);
+	margin: -40px auto 0 auto;
+	height: 40px;
+	position: relative;
+	top: 250px;
 	z-index: 2;
 }
 
