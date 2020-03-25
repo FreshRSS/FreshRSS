@@ -117,7 +117,7 @@ endif
 
 .PHONY: rtl
 rtl: ## Generate RTL CSS files
-	rtlcss -d p/themes
+	rtlcss -d p/themes && find . -type f -name '*.rtl.rtl.css' -delete
 
 ##########
 ## HELP ##
