@@ -874,7 +874,8 @@ br {
 	z-index: 5;
 }
 
-#first_load {
+/* Only matches while waiting for div#stream to be received */
+#first_load:nth-last-of-type(2) {
 	margin: -40px auto 0 auto;
 	height: 40px;
 	position: relative;
