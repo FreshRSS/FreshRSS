@@ -272,9 +272,9 @@ a.btn {
 
 .dropdown-menu {
 	margin: 0;
-	background: #fff;
+	background: #333;
 	display: none;
-	border: 1px solid #aaa;
+	border: 2px solid #262626;
 	min-width: 200px;
 	position: absolute;
 	left: 0;
@@ -409,7 +409,7 @@ a.btn {
 	display: inline-block;
 	max-width: 95%;
 	width: 20rem;
-	border: 1px solid #ccc;
+	border: 1px solid #444;
 	vertical-align: top;
 }
 
@@ -667,13 +667,13 @@ a.btn {
 }
 
 .flux:not(.current):hover .item.title {
-	background: #fff;
+	background: #333;
 	max-width: calc(100% - 320px);
 	position: absolute;
 }
 
 .flux .item.title a {
-	color: #000;
+	color: #ababab;
 	text-decoration: none;
 }
 
@@ -868,20 +868,7 @@ br {
 	display: block;
 }
 
-/*=== "Load" parts */
-#stream {
-	position: relative;
-	z-index: 5;
-}
-
-#first_load {
-	margin: -40px auto 0 auto;
-	height: 40px;
-	position: relative;
-	top: 250px;
-	z-index: 2;
-}
-
+/*=== "Load more" part */
 #load_more {
 	min-height: 40px;
 }
@@ -902,7 +889,7 @@ br {
 }
 
 .bigTick {
-	font-size: 4em;
+	display: none!important;
 }
 
 /*=== Statistiques */
@@ -1002,8 +989,8 @@ br {
 	top: 0; bottom: 0;
 	right: 100%; left: 0;
 	overflow: auto;
-	background: #fff;
-	border-right: 1px solid #aaa;
+	background: #171717;
+	border-right: 1px solid #333;
 	transition: right 200ms linear;
 }
 
@@ -1064,7 +1051,7 @@ br {
 	display: none;
 	width: 10%;
 	height: 100%;
-	color: #fff;
+	color: #0062b7;
 	font-family: "Varela Round", sans-serif;
 	font-size: 1000%;
 	position: absolute;
@@ -1158,7 +1145,7 @@ input:checked + .slide-container .properties {
 	margin-right: .8em;
 }
 
-.enclosure-description {
+pre.enclosure-description {
 	white-space: pre-line;
 }
 
@@ -1238,6 +1225,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.flux:not(.current):hover .item.title {
+		background: #333;
 		position: relative;
 		width: auto;
 		white-space: nowrap;
