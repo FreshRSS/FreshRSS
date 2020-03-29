@@ -194,7 +194,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function listTagsNewestItemUsec($id_tag = null) {
-		$sql = 'SELECT t.id AS id_tag, t.name, MAX(e.id) AS newest_item_us '
+		$sql = 'SELECT t.id AS id_tag, MAX(e.id) AS newest_item_us '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id '
 			 . 'LEFT OUTER JOIN `_entry` e ON et.id_entry = e.id ';
