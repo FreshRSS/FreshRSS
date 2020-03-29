@@ -883,8 +883,14 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit('OK');
 }
 
-$pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
+$pathInfo = empty($_SERVER['PATH_INFO']) ? '' : urldecode($_SERVER['PATH_INFO']);
+if ($pathInfo == '') {
+	exit('OK');
+}
 $pathInfos = explode('/', $pathInfo);
+if (count($pathInfos) < 3) {
+	badRequest();
+}
 
 Minz_Configuration::register('system',
 	DATA_PATH . '/config.php',
@@ -896,8 +902,6 @@ FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
-} elseif (count($pathInfos) < 3) {
-	badRequest();
 } elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
 	checkCompatibility();
 }
