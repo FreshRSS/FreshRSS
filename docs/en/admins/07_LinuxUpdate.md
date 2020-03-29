@@ -67,7 +67,7 @@ cd /usr/share/FreshRSS/
 
 3. Download and unzip the update file
 ```
-curl -L -o freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/1.15.3.zip
+wget -O freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/1.15.3.zip
 unzip freshrss.zip
 ```
 
