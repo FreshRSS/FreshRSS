@@ -302,6 +302,22 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
+	public function listFeedsNewestItemUsec($id_feed = null) {
+		$sql = 'SELECT id_feed, MAX(id) as newest_item_ms FROM `_entry` e ';
+		if ($id_feed === null) {
+			$sql .= 'GROUP BY id_feed';
+		} else {
+			$sql .= 'WHERE id_feed=' . intval($id_feed);
+		}
+		$stm = $this->pdo->query($sql);
+		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$feedsNewestItemUsec = [];
+		foreach ($res as $line) {
+			$feedsNewestItemUsec['f_' . $line['id_feed']] = $line['newest_item_ms'];
+		}
+		return $feedsNewestItemUsec;
+	}
+
 	public function arrayFeedCategoryNames() {	//For API
 		$sql = 'SELECT f.id, f.name, c.name as c_name FROM `_feed` f '
 		     . 'INNER JOIN `_category` c ON c.id = f.category';
