@@ -303,7 +303,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function listFeedsNewestItemUsec($id_feed = null) {
-		$sql = 'SELECT id_feed, MAX(id) as newest_item_us FROM `_entry` e ';
+		$sql = 'SELECT id_feed, MAX(id) as newest_item_us FROM `_entry` ';
 		if ($id_feed === null) {
 			$sql .= 'GROUP BY id_feed';
 		} else {
@@ -311,11 +311,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$feedsNewestItemUsec = [];
+		$newestItemUsec = [];
 		foreach ($res as $line) {
-			$feedsNewestItemUsec['f_' . $line['id_feed']] = $line['newest_item_us'];
+			$newestItemUsec['f_' . $line['id_feed']] = $line['newest_item_us'];
 		}
-		return $feedsNewestItemUsec;
+		return $newestItemUsec;
 	}
 
 	public function arrayFeedCategoryNames() {	//For API

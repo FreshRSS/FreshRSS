@@ -439,10 +439,13 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	}
 
 	$tagDAO = FreshRSS_Factory::createTagDao();
+	$tagsNewestItemUsec = $tagDAO->listTagsNewestItemUsec();
 	foreach ($tagDAO->listTags(true) as $label) {
+		$lastUpdate = isset($tagsNewestItemUsec['t_' . $label->id()]) ? $tagsNewestItemUsec['t_' . $label->id()] : 0;
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
+			'newestItemTimestampUsec' => $lastUpdate,
 		);
 	}
 
