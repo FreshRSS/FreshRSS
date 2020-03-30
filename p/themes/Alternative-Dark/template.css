@@ -869,18 +869,13 @@ br {
 }
 
 /*=== "Load" parts */
-#stream {
-	position: relative;
-	z-index: 5;
-}
 
 /* Only matches while waiting for div#stream to be received */
 #first_load:nth-last-of-type(2) {
 	margin: -40px auto 0 auto;
 	height: 40px;
 	position: relative;
-	top: 250px;
-	z-index: 2;
+	top: 290px;
 }
 
 #load_more {
