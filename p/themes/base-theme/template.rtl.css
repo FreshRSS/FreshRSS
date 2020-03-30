@@ -871,7 +871,7 @@ br {
 /*=== "Load" parts */
 
 /* Only matches while waiting for div#stream to be received */
-#first_load:nth-last-of-type(2) {
+#first_load:nth-last-of-type(1), #first_load:nth-last-of-type(2) {
 	margin: -40px auto 0 auto;
 	height: 40px;
 	position: relative;
