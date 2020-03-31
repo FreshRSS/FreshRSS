@@ -37,6 +37,9 @@ class FreshRSS_Search {
 
 		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
 
+		$input = $this->parseNotPubdateSearch($input);
+		$input = $this->parseNotDateSearch($input);
+
 		$input = $this->parseNotIntitleSearch($input);
 		$input = $this->parseNotAuthorSearch($input);
 		$input = $this->parseNotInurlSearch($input);
@@ -257,6 +260,19 @@ class FreshRSS_Search {
 		return $input;
 	}
 
+	private function parseNotDateSearch($input) {
+		if (preg_match_all('/[!-]date:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->max_date, $this->min_date) = parseDateInterval($dates[0]);
+				syslog(LOG_DEBUG, __method__ . date('c', $this->min_date) . ' / ' . date('c', $this->max_date));
+			}
+		}
+		return $input;
+	}
+
+
 	/**
 	 * Parse the search string to find pubdate keyword and the search related
 	 * to it.
@@ -271,6 +287,17 @@ class FreshRSS_Search {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotPubdateSearch($input) {
+		if (preg_match_all('/[!-]pubdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->max_pubdate, $this->min_pubdate) = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;
