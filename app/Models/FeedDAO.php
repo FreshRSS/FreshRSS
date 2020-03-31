@@ -407,7 +407,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$affected = $stm->rowCount();
 
 		$sql = 'UPDATE `_feed` '
-			 . 'SET `cache_nbEntries`=0, `cache_nbUnreads`=0 WHERE id=:id';
+			 . 'SET `cache_nbEntries`=0, `cache_nbUnreads`=0, `lastUpdate`=0 WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		if (!($stm && $stm->execute())) {
