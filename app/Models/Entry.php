@@ -230,12 +230,12 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 			if ($ok && $filter->getAuthor()) {
 				foreach ($filter->getAuthor() as $author) {
-					$ok &= stripos($this->authors, $author) !== false;
+					$ok &= stripos(implode(';', $this->authors), $author) !== false;
 				}
 			}
 			if ($ok && $filter->getNotAuthor()) {
 				foreach ($filter->getNotAuthor() as $author) {
-					$ok &= stripos($this->authors, $author) === false;
+					$ok &= stripos(implode(';', $this->authors), $author) === false;
 				}
 			}
 			if ($ok && $filter->getIntitle()) {
