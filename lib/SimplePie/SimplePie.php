@@ -1417,7 +1417,7 @@ class SimplePie
 			// Decide whether to enable caching
 			if ($this->cache && $parsed_feed_url['scheme'] !== '')
 			{
-				$url = $this->feed_url . ($this->force_feed ? '#force_feed' : '');	//FreshRSS
+				$url = $this->feed_url . ($this->force_feed ? '#force_feed' : '');
 				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $url), 'spc'));
 			}
 
@@ -1772,8 +1772,7 @@ class SimplePie
 					{
 						trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
 					}
-					$url = $this->feed_url . ($this->force_feed ? '#force_feed' : '');	//FreshRSS
-					$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $url), 'spc'));
+					$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $file->url), 'spc'));
 				}
 			}
 			$this->feed_url = $file->url;
