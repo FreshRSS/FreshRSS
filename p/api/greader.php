@@ -411,14 +411,17 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	$totalLastUpdate = 0;
 
 	$categoryDAO = FreshRSS_Factory::createCategoryDao();
+	$feedDAO = FreshRSS_Factory::createFeedDao();
+	$feedsNewestItemUsec = $feedDAO->listFeedsNewestItemUsec();
+
 	foreach ($categoryDAO->listCategories(true, true) as $cat) {
 		$catLastUpdate = 0;
 		foreach ($cat->feeds() as $feed) {
-			$lastUpdate = $feed->lastUpdate();
+			$lastUpdate = isset($feedsNewestItemUsec['f_' . $feed->id()]) ? $feedsNewestItemUsec['f_' . $feed->id()] : 0;
 			$unreadcounts[] = array(
 				'id' => 'feed/' . $feed->id(),
 				'count' => $feed->nbNotRead(),
-				'newestItemTimestampUsec' => $lastUpdate . '000000',
+				'newestItemTimestampUsec' => $lastUpdate,
 			);
 			if ($catLastUpdate < $lastUpdate) {
 				$catLastUpdate = $lastUpdate;
@@ -427,7 +430,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
-			'newestItemTimestampUsec' => $catLastUpdate . '000000',
+			'newestItemTimestampUsec' => $catLastUpdate,
 		);
 		$totalUnreads += $cat->nbNotRead();
 		if ($totalLastUpdate < $catLastUpdate) {
@@ -436,17 +439,20 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	}
 
 	$tagDAO = FreshRSS_Factory::createTagDao();
+	$tagsNewestItemUsec = $tagDAO->listTagsNewestItemUsec();
 	foreach ($tagDAO->listTags(true) as $label) {
+		$lastUpdate = isset($tagsNewestItemUsec['t_' . $label->id()]) ? $tagsNewestItemUsec['t_' . $label->id()] : 0;
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
+			'newestItemTimestampUsec' => $lastUpdate,
 		);
 	}
 
 	$unreadcounts[] = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'count' => $totalUnreads,
-		'newestItemTimestampUsec' => $totalLastUpdate . '000000',
+		'newestItemTimestampUsec' => $totalLastUpdate,
 	);
 
 	echo json_encode(array(

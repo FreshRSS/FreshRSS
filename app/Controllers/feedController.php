@@ -753,14 +753,20 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		//Check Feed ID validity.
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listWhere('f', $feed_id);
+		$entry = null;
 
-		if (empty($entries)) {
+		//Get first entry (syntax robust for Generator or Array)
+		foreach ($entries as $myEntry) {
+			$entry = $myEntry;
+			break;
+		}
+
+		if ($entry == null) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_entries');
 			return;
 		}
 
-		//Get feed & entry.
-		$entry = $entries[0];
+		//Get feed.
 		$feed = $entry->feed(true);
 
 		if (!$feed) {
