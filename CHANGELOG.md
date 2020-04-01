@@ -38,7 +38,7 @@
 		* Improved buffering strategy accordingly, with a loading animation while waiting for the first articles to arrive (e.g. complex / slow search) [#2845](https://github.com/FreshRSS/FreshRSS/pull/2845)
 		* To benefit from it, requires that the full Web stack allow efficient streaming / flushing of data. Check our reference [Docker + Traefik documentation](./Docker/README.md).
 	* Support RTL (right-to-left) languages [#2776](https://github.com/FreshRSS/FreshRSS/pull/2776)
-	* New keyboard shortcut <kbd>⇧ Shift</kbd>+<kbd>R</kbd> to park *previous* articles as read [](https://github.com/FreshRSS/FreshRSS/pull/2843)
+	* New keyboard shortcut <kbd>⇧ Shift</kbd>+<kbd>R</kbd> to park *previous* articles as read [#2843](https://github.com/FreshRSS/FreshRSS/pull/2843)
 		* *Marking all articles as read* is now achieved by <kbd>Alt ⎇</kbd>+<kbd>r</kbd> instead
 	* In the statistics page, show feeds inactive for 1, 2, 3, 5 years [#2827](https://github.com/FreshRSS/FreshRSS/issues/2827)
 	* Reset FreshRSS page scroll when restoring a browser session, to avoid inadvertently marking as read new articles [#2842](https://github.com/FreshRSS/FreshRSS/pull/2842)
@@ -57,8 +57,8 @@
 		* Etc.
 * Deployment
 	* Docker: Alpine image updated to 3.11 with PHP 7.3.15 [#2729](https://github.com/FreshRSS/FreshRSS/pull/2729)
-	* Move core extensions (shipped with FreshRSS) to their own directory, so that `./data/extensions/` is solely for third-party extensions [#2837](https://github.com/FreshRSS/FreshRSS/pull/2837)
-		* This allows mounting `./data/extensions/` as a Docker volume, to ease adding third-party extensions 
+	* Move core extensions (shipped with FreshRSS) to their own directory, so that `./extensions/` is solely for third-party extensions [#2837](https://github.com/FreshRSS/FreshRSS/pull/2837)
+		* This allows mounting `./extensions/` as a Docker volume, to ease adding third-party extensions 
 * Extensions
 	* New core extension to find feeds for Google Groups [#2835](https://github.com/FreshRSS/FreshRSS/issues/2835)
 	* New hooks `check_url_before_add` and `feed_before_actualize` [#2704](https://github.com/FreshRSS/FreshRSS/pull/2704)
