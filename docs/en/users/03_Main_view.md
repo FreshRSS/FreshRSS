@@ -200,7 +200,7 @@ You can use the search field to further refine results:
 Be careful not to enter a space between the operator and the search value.
 
 Some operators can be used negatively, to exclude articles, with the same syntax as above, but prefixed by a `!` or `-`:
-`-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`.
+`-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`, `!date:2019`, `!date:P1W`, `!pubdate:P3d/`.
 
 It is also possible to combine keywords to create a more precise filter. For example, you can enter multiple instances of `author:`, `intitle:`, `inurl:`, `#`, and free-text.
 
