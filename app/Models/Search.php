@@ -24,6 +24,10 @@ class FreshRSS_Search {
 	private $search;
 
 	private $not_intitle;
+	private $not_min_date;
+	private $not_max_date;
+	private $not_min_pubdate;
+	private $not_max_pubdate;
 	private $not_inurl;
 	private $not_author;
 	private $not_tags;
@@ -36,6 +40,9 @@ class FreshRSS_Search {
 		$this->raw_input = $input;
 
 		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
+
+		$input = $this->parseNotPubdateSearch($input);
+		$input = $this->parseNotDateSearch($input);
 
 		$input = $this->parseNotIntitleSearch($input);
 		$input = $this->parseNotAuthorSearch($input);
@@ -72,7 +79,9 @@ class FreshRSS_Search {
 	public function getMinDate() {
 		return $this->min_date;
 	}
-
+	public function getNotMinDate() {
+		return $this->not_min_date;
+	}
 	public function setMinDate($value) {
 		return $this->min_date = $value;
 	}
@@ -80,7 +89,9 @@ class FreshRSS_Search {
 	public function getMaxDate() {
 		return $this->max_date;
 	}
-
+	public function getNotMaxDate() {
+		return $this->not_max_date;
+	}
 	public function setMaxDate($value) {
 		return $this->max_date = $value;
 	}
@@ -88,9 +99,15 @@ class FreshRSS_Search {
 	public function getMinPubdate() {
 		return $this->min_pubdate;
 	}
+	public function getNotMinPubdate() {
+		return $this->not_min_pubdate;
+	}
 
 	public function getMaxPubdate() {
 		return $this->max_pubdate;
+	}
+	public function getNotMaxPubdate() {
+		return $this->not_max_pubdate;
 	}
 
 	public function getInurl() {
@@ -257,6 +274,18 @@ class FreshRSS_Search {
 		return $input;
 	}
 
+	private function parseNotDateSearch($input) {
+		if (preg_match_all('/[!-]date:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->not_min_date, $this->not_max_date) = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+
 	/**
 	 * Parse the search string to find pubdate keyword and the search related
 	 * to it.
@@ -271,6 +300,17 @@ class FreshRSS_Search {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotPubdateSearch($input) {
+		if (preg_match_all('/[!-]pubdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->not_min_pubdate, $this->not_max_pubdate) = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;

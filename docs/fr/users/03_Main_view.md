@@ -251,7 +251,7 @@ recherchée.
 
 Certains opérateurs peuvent être utilisé négativement, pour exclure des
 articles, avec la même syntaxe que ci-dessus, mais préfixé par `!` ou `-`
-:`-author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`.
+:`-author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`, `!date:2019`, `!date:P1W`, `!pubdate:P3d/`.
 
 Il est également possible de combiner les mots-clefs pour faire un filtrage
 encore plus précis, et il est autorisé d’avoir plusieurs instances de :

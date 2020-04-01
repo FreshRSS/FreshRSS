@@ -720,6 +720,38 @@ SQL;
 					$values[] = $filter->getMaxPubdate();
 				}
 
+				//Negation of date intervals must be combined by OR
+				if ($filter->getNotMinDate() || $filter->getNotMaxDate()) {
+					$sub_search .= 'AND (';
+					if ($filter->getNotMinDate()) {
+						$sub_search .= $alias . 'id < ?';
+						$values[] = "{$filter->getNotMinDate()}000000";
+						if ($filter->getNotMaxDate()) {
+							$sub_search .= ' OR ';
+						}
+					}
+					if ($filter->getNotMaxDate()) {
+						$sub_search .= $alias . 'id > ?';
+						$values[] = "{$filter->getNotMaxDate()}000000";
+					}
+					$sub_search .= ') ';
+				}
+				if ($filter->getNotMinPubdate() || $filter->getNotMaxPubdate()) {
+					$sub_search .= 'AND (';
+					if ($filter->getNotMinPubdate()) {
+						$sub_search .= $alias . 'date < ?';
+						$values[] = $filter->getNotMinPubdate();
+						if ($filter->getNotMaxPubdate()) {
+							$sub_search .= ' OR ';
+						}
+					}
+					if ($filter->getNotMaxPubdate()) {
+						$sub_search .= $alias . 'date > ?';
+						$values[] = $filter->getNotMaxPubdate();
+					}
+					$sub_search .= ') ';
+				}
+
 				if ($filter->getAuthor()) {
 					foreach ($filter->getAuthor() as $author) {
 						$sub_search .= 'AND ' . $alias . 'author LIKE ? ';
