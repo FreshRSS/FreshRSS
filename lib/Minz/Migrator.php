@@ -9,6 +9,8 @@
  */
 class Minz_Migrator
 {
+	const IS_EXECUTING_PATH = DATA_PATH . '/.migration_is_running.txt';
+
 	/** @var string[] */
 	private $applied_versions;
 
@@ -35,32 +37,12 @@ class Minz_Migrator
 			return "{$applied_migrations_path} file does not exist";
 		}
 
-		$applied_migrations_file = fopen($applied_migrations_path, 'r+');
-
-		// we need to acquire a lock to avoid multiple migrations at the same
-		// time if several users try to access the application.
-		if (!flock($applied_migrations_file, LOCK_EX)) {
-			return "Cannot get a lock on {$applied_migrations_path} file";
+		$applied_migrations = file_get_contents($applied_migrations_path);
+		if ($applied_migrations === false) {
+			return "Cannot open the {$applied_migrations_path} file";
 		}
 
-		$applied_migrations_filesize = filesize($applied_migrations_path);
-		if ($applied_migrations_filesize > 0) {
-			$applied_migrations = fread(
-				$applied_migrations_file,
-				$applied_migrations_filesize
-			);
-
-			if ($applied_migrations === false) {
-				flock($applied_migrations_file, LOCK_UN);
-				fclose($applied_migrations_file);
-				return "Cannot open the {$applied_migrations_path} file";
-			}
-
-			$applied_migrations = explode("\n", $applied_migrations);
-		} else {
-			$applied_migrations = [];
-		}
-
+		$applied_migrations = array_filter(explode("\n", $applied_migrations));
 		$migrator = new self($migrations_path);
 		if ($applied_migrations) {
 			$migrator->setAppliedVersions($applied_migrations);
@@ -68,9 +50,25 @@ class Minz_Migrator
 
 		if ($migrator->upToDate()) {
 			// already at the latest version, so there is nothing more to do
-			flock($applied_migrations_file, LOCK_UN);
-			fclose($applied_migrations_file);
 			return true;
+		}
+
+		if (file_exists(self::IS_EXECUTING_PATH)) {
+			// Someone is already executing the migrations.
+			// We should probably return something else, but we don't want the
+			// user to think there is an error (it's normal workflow), so let's
+			// stick to this solution for now.
+			// Another option would be to show him a maintenance page.
+			Minz_Log::warning(
+				'A request has been served while the application wasn’t up-to-date. '
+				. 'Too many of these errors probably means a previous migration failed.'
+			);
+			return true;
+		}
+
+		$is_executing = touch(self::IS_EXECUTING_PATH);
+		if (!$is_executing) {
+			return 'Cannot start the execution of the migrations';
 		}
 
 		$results = $migrator->migrate();
@@ -86,12 +84,18 @@ class Minz_Migrator
 		}
 
 		$applied_versions = implode("\n", $migrator->appliedVersions());
-		ftruncate($applied_migrations_file, 0);
-		rewind($applied_migrations_file);
-		$saved = fwrite($applied_migrations_file, $applied_versions);
+		$saved = file_put_contents($applied_migrations_path, $applied_versions);
 
-		flock($applied_migrations_file, LOCK_UN);
-		fclose($applied_migrations_file);
+		$stop_executing = unlink(self::IS_EXECUTING_PATH);
+		if (!$stop_executing) {
+			Minz_Log::error(
+				'We weren’t able to unlink the migration executing file, '
+				. 'you might want to delete yourself: ' . self::IS_EXECUTING_PATH
+			);
+			// we don't return early because the migrations could have been
+			// applied successfully. This file is not "critical" if not removed
+			// and more errors will eventually appear in the logs.
+		}
 
 		if ($saved === false) {
 			return "Cannot save the {$applied_migrations_path} file";
