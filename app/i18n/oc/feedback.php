@@ -10,8 +10,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Vòstre senhal pòt pas èsser modificat',
+			'updated' => 'Vòstre senhal es estat modificat',
 		),
 	),
 	'auth' => array(
@@ -90,18 +90,18 @@ return array(
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L\'URL <em>%s</em> es invalida',
 			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => 'Flux introbable',
 			'no_refresh' => 'I a pas cap de flux d’actualizar…',
 			'n_actualized' => '%s fluxes son estats actualizats',
 			'n_entries_deleted' => '%d articles son estats suprimits',
 			'over_max' => 'Avètz atengut vòstra limita de fluxes (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> es estat recargat',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => 'Fracàs del cargament del contengut del site web.',
+				'no_entries' => 'I a pas cap d’entrada dins lo flux. Vos cal almens una entrada per crear un apercebut.',
+				'no_feed' => 'Error inèrna (cap d’entrada a l’entrada).',
+				'no_result' => 'Lo selecctor a pas atrapat res. Coma solucion alternativa lo flux original serà mostrat.',
+				'selector_empty' => 'Lo selecctor es void. Vos cal ne definir un per crear un apercebut.',
 			),
 			'updated' => 'Lo flux es actualizat',
 		),

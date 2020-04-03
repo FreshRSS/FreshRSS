@@ -122,7 +122,7 @@ return array(
 		'title' => 'Extensions',
 		'update' => 'Mesa a jorn disponibla',
 		'user' => 'Extensions utilizaire',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Version',
 	),
 	'stats' => array(
 		'all_feeds' => 'Totes los fluxes',
@@ -150,7 +150,7 @@ return array(
 		'repartition' => 'Reparticion dels articles',
 		'status_favorites' => 'Favorits',
 		'status_read' => 'Legit',
-		'status_total' => 'Total',	// TODO - Translation
+		'status_total' => 'Total',
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
@@ -182,18 +182,18 @@ return array(
 		'_' => 'Sistèma de mesa a jorn',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
+		'admin' => 'Administrator',
 		'articles_and_size' => '%s articles (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'article_count' => 'Articles',
+		'back_to_manage' => '← Tornar a la lista dels utilizaires',
 		'create' => 'Crear un nòu utilizaire',
-		'database_size' => 'Database size',	// TODO - Translation
+		'database_size' => 'Talha basa de donadas',
 		'delete_users' => 'Suprimir un utilizaire',
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'email' => 'Adreça electronica',
+		'feed_count' => 'Flux',
+		'is_admin' => 'Es admin',
 		'language' => 'Lenga',
-		'list' => 'User list',	// TODO - Translation
+		'list' => 'Lista dels utilizaires',
 		'number' => '%d compte ja creat',
 		'numbers' => '%d comptes ja creats',
 		'password_form' => 'Senhal <br /><small>(ex. : per la connexion via formulari)</small>',

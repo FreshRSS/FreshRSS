@@ -49,7 +49,7 @@ return array(
 		'_' => 'Afichatge',
 	),
 	'profile' => array(
-		'api' => 'API management',	// TODO - Translation
+		'api' => 'Gestion API',
 		'delete' => array(
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
 			'_' => 'Supression del compte',
@@ -97,7 +97,7 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Aprèp « marcar coma legit »,',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Passar a la vista lectura',
 		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
 		'see_on_website' => 'Veire al site d’origina',
-		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> per marcar los articles coma legits',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> per marcar l’article precedent coma legit<br />+ <kbd>Alt ⎇</kbd> per marcar los articles coma legits',
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',
