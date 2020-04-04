@@ -1796,6 +1796,14 @@ class phpQueryObject
 		}
 		$this->elements = $stack;
 	}
+
+	/**
+	* used for ordering results in find()
+	*/
+	private function cmpByLineNo($a , $b) {
+		return $a->getLineNo() <= $b->getLineNo() ? -1 : 1;
+	}
+
 	/**
 	 * Enter description here...
 	 *
@@ -1958,6 +1966,7 @@ class phpQueryObject
 				if (! $this->elementsContainsNode($node, $stack))
 					$stack[] = $node;
 		}
+		usort($stack, array('phpQueryObject', 'cmpByLineNo'));
 		$this->elements = $stack;
 		return $this->newInstance();
 	}
