@@ -93,8 +93,12 @@ img.favicon {
 }
 
 /*=== Videos */
-iframe, embed, object, video {
+audio, iframe, embed, object, video {
 	max-width: 100%;
+}
+
+audio {
+	width: 100%;
 }
 
 /*=== Forms */
