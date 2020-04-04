@@ -70,6 +70,7 @@ People are sorted by name so please keep this order.
 * [Pim Snel](https://github.com/mipmip): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Amipmip), [Web](https://www.pimsnel.com)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)
+* [printfuck](https://github.com/printfuck): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:printfuck), [Web](https://eris.cc)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
 * [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/commits?author=Quenty31)
