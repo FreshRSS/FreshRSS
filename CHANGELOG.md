@@ -5,6 +5,7 @@
 * Features
 	* Allow multiple users to have administration rights [#2096](https://github.com/FreshRSS/FreshRSS/issues/2096)
 	* Preview the CSS rule to retrieve full article content [#2778](https://github.com/FreshRSS/FreshRSS/pull/2778)
+	* Improve CSS selector in `lib_phpQuery` to allow combining selectors with a comma such as `#article .title, #article .content` [#2874](https://github.com/FreshRSS/FreshRSS/pull/2874)
 	* New search option `!date:` allowing to exclude any date interval [#2869](https://github.com/FreshRSS/FreshRSS/pull/2869)
 		* For instance `!date:P1W` (exlude articles newer than 1 week), `!pubdate:2019`, `-date:2020-01-01/P5d`, etc.
 	* New option to show all articles in the favourites view [#2434](https://github.com/FreshRSS/FreshRSS/issues/2434)
@@ -34,7 +35,7 @@
 	* Fix minor bug in “articles to display” configuration UI [#2767](https://github.com/FreshRSS/FreshRSS/pull/2767)
 	* Fix sharing with Wallabag [#2817](https://github.com/FreshRSS/FreshRSS/pull/2817)
 * UI
-	* Better UI / client network performance (time to first byte, ) thanks to a data streaming pipeline with `yield` [#2588](https://github.com/FreshRSS/FreshRSS/pull/2588)
+	* Better UI / client network performance (time to first byte) thanks to a data streaming pipeline with `yield` [#2588](https://github.com/FreshRSS/FreshRSS/pull/2588)
 		* Improved buffering strategy accordingly, with a loading animation while waiting for the first articles to arrive (e.g. complex / slow search) [#2845](https://github.com/FreshRSS/FreshRSS/pull/2845)
 		* To benefit from it, requires that the full Web stack allow efficient streaming / flushing of data. Check our reference [Docker + Traefik documentation](./Docker/README.md).
 	* Support RTL (right-to-left) languages [#2776](https://github.com/FreshRSS/FreshRSS/pull/2776)
@@ -43,6 +44,7 @@
 	* In the statistics page, show feeds inactive for 1, 2, 3, 5 years [#2827](https://github.com/FreshRSS/FreshRSS/issues/2827)
 	* Reset FreshRSS page scroll when restoring a browser session, to avoid inadvertently marking as read new articles [#2842](https://github.com/FreshRSS/FreshRSS/pull/2842)
 	* Fix scrolling of labels dropdown [#2727](https://github.com/FreshRSS/FreshRSS/pull/2727)
+	* Enlarge `<audio>` widgets to use the full width of the reading zone, to help navigation in e.g. podcasts [#2875](https://github.com/FreshRSS/FreshRSS/issues/2875)
 	* Use `<p>` instead of `<pre>` to display `<media:description>` information [#2807](https://github.com/FreshRSS/FreshRSS/issues/2807)
 	* Show language and e-mail address in the list of users [#2703](https://github.com/FreshRSS/FreshRSS/pull/2703)
 	* Change logic when using shortcuts to navigate between feeds, in the case some are empty [#2687](https://github.com/FreshRSS/FreshRSS/pull/2687)
@@ -56,7 +58,7 @@
 		* Add Russian and German dates
 		* Etc.
 * Deployment
-	* Docker: Alpine image updated to 3.11 with PHP 7.3.15 [#2729](https://github.com/FreshRSS/FreshRSS/pull/2729)
+	* Docker: Alpine image updated to 3.11 with PHP 7.3.16 and Apache 2.4.43 [#2729](https://github.com/FreshRSS/FreshRSS/pull/2729)
 	* Move core extensions (shipped with FreshRSS) to their own directory, so that `./extensions/` is solely for third-party extensions [#2837](https://github.com/FreshRSS/FreshRSS/pull/2837)
 		* This allows mounting `./extensions/` as a Docker volume, to ease adding third-party extensions 
 * Extensions
@@ -70,6 +72,7 @@
 	* Improve German [#2690](https://github.com/FreshRSS/FreshRSS/pull/2690)
 	* Improve Spanish [#2823](https://github.com/FreshRSS/FreshRSS/pull/2823)
 	* Improve Portuguese [#2833](https://github.com/FreshRSS/FreshRSS/pull/2833)
+	* Improve Occitan [#2873](https://github.com/FreshRSS/FreshRSS/pull/2873)
 * Misc.
 	* Improve logging of database errors [#2734](https://github.com/FreshRSS/FreshRSS/pull/2734)
 	* Remove the `min_posts_per_rss` configuration, which made efficient buffering difficult [#2588](https://github.com/FreshRSS/FreshRSS/pull/2588)
