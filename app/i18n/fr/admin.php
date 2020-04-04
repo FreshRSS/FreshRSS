@@ -108,7 +108,7 @@ return array(
 	'extensions' => array(
 		'author' => 'Auteur',
 		'community' => 'Extensions utilisateur disponibles',
-		'description' => 'Description',	// TODO - Translation
+		'description' => 'Description',
 		'disabled' => 'Désactivée',
 		'empty_list' => 'Aucune extension installée',
 		'enabled' => 'Activée',
@@ -122,7 +122,7 @@ return array(
 		'title' => 'Extensions',
 		'update' => 'Mise à jour disponible',
 		'user' => 'Extensions utilisateur',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Version',
 	),
 	'stats' => array(
 		'all_feeds' => 'Tous les flux',

@@ -11,7 +11,7 @@ return array(
 		'keep_min_by_feed' => 'Nombre minimum d’articles à conserver par flux',
 		'keep_period' => 'Âge maximum des articles à conserver',
 		'keep_unreads' => 'Ne jamais supprimer les articles non lus',
-		'maintenance' => 'Maintenance',	// TODO - Translation
+		'maintenance' => 'Maintenance',
 		'optimize' => 'Optimiser la base de données',
 		'optimize_help' => 'À faire de temps en temps pour réduire la taille de la BDD',
 		'policy' => 'Politique de nettoyage',
@@ -24,7 +24,7 @@ return array(
 	'display' => array(
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
-			'display_authors' => 'Authors',	// TODO - Translation
+			'display_authors' => 'Auteurs',
 			'entry' => 'Icônes d’article',
 			'publication_date' => 'Date de publication',
 			'related_tags' => 'Tags de l’article',
