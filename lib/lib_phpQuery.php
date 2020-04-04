@@ -1966,7 +1966,7 @@ class phpQueryObject
 				if (! $this->elementsContainsNode($node, $stack))
 					$stack[] = $node;
 		}
-		usort($stack, array('phpQueryObject','cmpByLineNo'));
+		usort($stack, array('phpQueryObject', 'cmpByLineNo'));
 		$this->elements = $stack;
 		return $this->newInstance();
 	}
