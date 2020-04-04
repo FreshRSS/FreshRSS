@@ -1800,10 +1800,9 @@ class phpQueryObject
 	/**
 	* used for ordering results in find()
 	*/
-	private function cmpByLineNo($a , $b ) {
-    	return ( $a->getLineNo() <= $b->getLineNo() ) ? -1 : 1;
-  	}
-
+	private function cmpByLineNo($a , $b) {
+		return $a->getLineNo() <= $b->getLineNo() ? -1 : 1;
+	}
 
 	/**
 	 * Enter description here...
