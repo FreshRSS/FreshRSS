@@ -186,8 +186,8 @@ return array(
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basés sur Known',
 		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',	// TODO - Translation
 		'pocket' => 'Pocket',	// TODO - Translation
