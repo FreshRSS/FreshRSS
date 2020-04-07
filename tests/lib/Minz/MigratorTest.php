@@ -252,7 +252,7 @@ class Minz_MigratorTest extends TestCase
 	public function testConstructorLoadsDirectory() {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$migrator = new Minz_Migrator($migrations_path);
-		$expected_versions = ['20191222_225420_FooBar', '20191222_225428_Baz'];
+		$expected_versions = ['2019_12_22_FooBar', '2019_12_23_Baz'];
 
 		$migrations = $migrator->migrations();
 
@@ -267,19 +267,19 @@ class Minz_MigratorTest extends TestCase
 
 		$this->assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
-		$this->assertSame("20191222_225420_FooBar\n20191222_225428_Baz", $versions);
+		$this->assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
 	}
 
 	public function testExecuteWithAlreadyAppliedMigration() {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-		file_put_contents($applied_migrations_path, '20191222_225420_FooBar');
+		file_put_contents($applied_migrations_path, '2019_12_22_FooBar');
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
 		$this->assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
-		$this->assertSame("20191222_225420_FooBar\n20191222_225428_Baz", $versions);
+		$this->assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
 	}
 
 	public function testExecuteFailsIfVersionPathDoesNotExist() {
@@ -302,6 +302,6 @@ class Minz_MigratorTest extends TestCase
 
 		$this->assertSame($expected_result, $result);
 		$versions = file_get_contents($applied_migrations_path);
-		$this->assertSame('20200111_225420_FooBar', $versions);
+		$this->assertSame('2020_01_11_FooBar', $versions);
 	}
 }

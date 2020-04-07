@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Migration_20191222_225420_FooBar {
+class FreshRSS_Migration_2019_12_22_FooBar {
 	/**
 	 * @return boolean true if the migration was successful, false otherwise
 	 */
