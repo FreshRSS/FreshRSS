@@ -9,8 +9,6 @@
  */
 class Minz_Migrator
 {
-	const IS_EXECUTING_PATH = DATA_PATH . '/.migration_is_running.txt';
-
 	/** @var string[] */
 	private $applied_versions;
 
@@ -53,7 +51,8 @@ class Minz_Migrator
 			return true;
 		}
 
-		if (!@mkdir(self::IS_EXECUTING_PATH)) {
+		$lock_path = $applied_migrations_path . '.lock';
+		if (!@mkdir($lock_path)) {
 			// Someone is probably already executing the migrations (the folder
 			// already exists).
 			// We should probably return something else, but we don't want the
@@ -82,10 +81,10 @@ class Minz_Migrator
 		$applied_versions = implode("\n", $migrator->appliedVersions());
 		$saved = file_put_contents($applied_migrations_path, $applied_versions);
 
-		if (!@rmdir(self::IS_EXECUTING_PATH)) {
+		if (!@rmdir($lock_path)) {
 			Minz_Log::error(
 				'We weren’t able to unlink the migration executing folder, '
-				. 'you might want to delete yourself: ' . self::IS_EXECUTING_PATH
+				. 'you might want to delete yourself: ' . $lock_path
 			);
 			// we don't return early because the migrations could have been
 			// applied successfully. This file is not "critical" if not removed

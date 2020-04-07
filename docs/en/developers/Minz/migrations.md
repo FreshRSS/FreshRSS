@@ -36,4 +36,4 @@ They are automatically applied one by one when a user accesses FreshRSS.
 
 Before being applied, migrations are sorted by filenames (see the [`strnatcmp`](https://www.php.net/manual/en/function.strnatcmp.php) function). Already applied migrations are skipped (the list can be found in the `data/applied_migrations.txt` file).
 
-To ensure migrations are not applied several times if two users access FreshRSS at the same time, a lock is created on the `data/applied_migrations.txt` file and is released at the end of the process.
+To ensure migrations are not applied several times if two users access FreshRSS at the same time, a folder named `data/applied_migrations.txt.lock` is created, then deleted at the end of the process.
