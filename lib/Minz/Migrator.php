@@ -53,8 +53,9 @@ class Minz_Migrator
 			return true;
 		}
 
-		if (file_exists(self::IS_EXECUTING_PATH)) {
-			// Someone is already executing the migrations.
+		if (!@mkdir(self::IS_EXECUTING_PATH)) {
+			// Someone is probably already executing the migrations (the folder
+			// already exists).
 			// We should probably return something else, but we don't want the
 			// user to think there is an error (it's normal workflow), so let's
 			// stick to this solution for now.
@@ -64,11 +65,6 @@ class Minz_Migrator
 				. 'Too many of these errors probably means a previous migration failed.'
 			);
 			return true;
-		}
-
-		$is_executing = touch(self::IS_EXECUTING_PATH);
-		if (!$is_executing) {
-			return 'Cannot start the execution of the migrations';
 		}
 
 		$results = $migrator->migrate();
@@ -86,10 +82,9 @@ class Minz_Migrator
 		$applied_versions = implode("\n", $migrator->appliedVersions());
 		$saved = file_put_contents($applied_migrations_path, $applied_versions);
 
-		$stop_executing = unlink(self::IS_EXECUTING_PATH);
-		if (!$stop_executing) {
+		if (!@rmdir(self::IS_EXECUTING_PATH)) {
 			Minz_Log::error(
-				'We weren’t able to unlink the migration executing file, '
+				'We weren’t able to unlink the migration executing folder, '
 				. 'you might want to delete yourself: ' . self::IS_EXECUTING_PATH
 			);
 			// we don't return early because the migrations could have been
