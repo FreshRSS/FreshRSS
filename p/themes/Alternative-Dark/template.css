@@ -647,6 +647,7 @@ a.btn {
 
 /*=== Feed article header and footer */
 .flux_header {
+	background: inherit;
 	position: relative;
 }
 
