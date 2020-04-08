@@ -1,5 +1,7 @@
+# FreshRSS contributors
+
 This is a credit file of people who have [contributed to FreshRSS](https://github.com/FreshRSS/FreshRSS/graphs/contributors) with, at least,
-one commit on one of the FreshRSS repositories (at https://github.com/FreshRSS).
+one commit on one of the FreshRSS repositories (at [https://github.com/FreshRSS](github.com/FreshRSS)).
 Please note a commit on THIS specific file is not considered as a contribution
 (too easy!). Its purpose is to show that even the smallest contribution is important.
 People are sorted by name so please keep this order.
