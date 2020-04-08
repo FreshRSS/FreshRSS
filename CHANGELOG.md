@@ -35,6 +35,7 @@
 	* Fix encoding bug in `lib_phpQuery` when fetching the full content of HTML documents with a complex `<head ...>` [#2864](https://github.com/FreshRSS/FreshRSS/issues/2864)
 	* Fix minor bug in “articles to display” configuration UI [#2767](https://github.com/FreshRSS/FreshRSS/pull/2767)
 	* Fix sharing with Wallabag [#2817](https://github.com/FreshRSS/FreshRSS/pull/2817)
+	* Fix UI background bug when hovering over a long title that overlaps the date [#2755](https://github.com/FreshRSS/FreshRSS/issues/2755)
 * UI
 	* Better UI / client network performance (time to first byte) thanks to a data streaming pipeline with `yield` [#2588](https://github.com/FreshRSS/FreshRSS/pull/2588)
 		* Improved buffering strategy accordingly, with a loading animation while waiting for the first articles to arrive (e.g. complex / slow search) [#2845](https://github.com/FreshRSS/FreshRSS/pull/2845)
