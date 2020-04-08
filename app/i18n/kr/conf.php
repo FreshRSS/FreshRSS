@@ -180,7 +180,7 @@ return array(
 		'reading_view' => '읽기 모드로 전환',
 		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
-		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> 를 누른 상태에선 모두 읽음으로 표시',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> 를 누른 상태에선 모두 읽음으로 표시',	// TODO - Translation
 		'skip_next_article' => '다음 글로 커서 이동',
 		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',
