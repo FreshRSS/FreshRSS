@@ -40,8 +40,7 @@
 		* Improved buffering strategy accordingly, with a loading animation while waiting for the first articles to arrive (e.g. complex / slow search) [#2845](https://github.com/FreshRSS/FreshRSS/pull/2845)
 		* To benefit from it, requires that the full Web stack allow efficient streaming / flushing of data. Check our reference [Docker + Traefik documentation](./Docker/README.md).
 	* Support RTL (right-to-left) languages [#2776](https://github.com/FreshRSS/FreshRSS/pull/2776)
-	* New keyboard shortcut <kbd>⇧ Shift</kbd>+<kbd>R</kbd> to park *previous* articles as read [#2843](https://github.com/FreshRSS/FreshRSS/pull/2843)
-		* *Marking all articles as read* is now achieved by <kbd>Alt ⎇</kbd>+<kbd>r</kbd> instead
+	* New keyboard shortcut <kbd>Alt ⎇</kbd>+<kbd>r</kbd> to park *previous* articles as read [#2843](https://github.com/FreshRSS/FreshRSS/pull/2843)
 	* In the statistics page, show feeds inactive for 1, 2, 3, 5 years [#2827](https://github.com/FreshRSS/FreshRSS/issues/2827)
 	* Reset FreshRSS page scroll when restoring a browser session, to avoid inadvertently marking as read new articles [#2842](https://github.com/FreshRSS/FreshRSS/pull/2842)
 	* Fix scrolling of labels dropdown [#2727](https://github.com/FreshRSS/FreshRSS/pull/2727)

@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'ראו את המקור באתר',
-		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> על מנת לסמן את כל המאמרים כנקראו',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> על מנת לסמן את כל המאמרים כנקראו',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'קיצורי דרך',

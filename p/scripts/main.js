@@ -793,9 +793,9 @@ function init_shortcuts() {
 			}
 			if (k === s.mark_read) {
 				if (ev.altKey) {
-					document.querySelector('.nav_menu .read_all').click();
-				} else if (ev.shiftKey) {
 					mark_previous_read(document.querySelector('.flux.current'));
+				} else if (ev.shiftKey) {
+					document.querySelector('.nav_menu .read_all').click();
 				} else {	// Toggle the read state
 					mark_read(document.querySelector('.flux.current'), false, false);
 				}
