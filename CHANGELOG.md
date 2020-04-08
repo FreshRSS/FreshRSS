@@ -5,7 +5,8 @@
 * Features
 	* Allow multiple users to have administration rights [#2096](https://github.com/FreshRSS/FreshRSS/issues/2096)
 	* Preview the CSS rule to retrieve full article content [#2778](https://github.com/FreshRSS/FreshRSS/pull/2778)
-	* Improve CSS selector in `lib_phpQuery` to allow combining selectors with a comma such as `#article .title, #article .content` [#2874](https://github.com/FreshRSS/FreshRSS/pull/2874)
+	* Improve CSS selector ordering in the full-text retrieval (`lib_phpQuery`) [#2874](https://github.com/FreshRSS/FreshRSS/pull/2874)
+		* Allow combining selectors with a comma such as `#article .title, #article .content`
 	* New search option `!date:` allowing to exclude any date interval [#2869](https://github.com/FreshRSS/FreshRSS/pull/2869)
 		* For instance `!date:P1W` (exlude articles newer than 1 week), `!pubdate:2019`, `-date:2020-01-01/P5d`, etc.
 	* New option to show all articles in the favourites view [#2434](https://github.com/FreshRSS/FreshRSS/issues/2434)
@@ -60,7 +61,7 @@
 * Deployment
 	* Docker: Alpine image updated to 3.11 with PHP 7.3.16 and Apache 2.4.43 [#2729](https://github.com/FreshRSS/FreshRSS/pull/2729)
 	* Move core extensions (shipped with FreshRSS) to their own directory, so that `./extensions/` is solely for third-party extensions [#2837](https://github.com/FreshRSS/FreshRSS/pull/2837)
-		* This allows mounting `./extensions/` as a Docker volume, to ease adding third-party extensions 
+		* This allows mounting `./extensions/` as a Docker volume, to ease adding third-party extensions
 * Extensions
 	* New core extension to find feeds for Google Groups [#2835](https://github.com/FreshRSS/FreshRSS/issues/2835)
 	* New hooks `check_url_before_add` and `feed_before_actualize` [#2704](https://github.com/FreshRSS/FreshRSS/pull/2704)
@@ -68,11 +69,12 @@
 	* Allow extensions to change CSP (security) rules [#2708](https://github.com/FreshRSS/FreshRSS/pull/2708)
 	* Expose the article ID in the share system (for a new e-mail sharing extension) [#2707](https://github.com/FreshRSS/FreshRSS/pull/2707)
 * i18n
-	* Improve Simplified Chinese [#2730](https://github.com/FreshRSS/FreshRSS/pull/2730)
+	* Improve French [#2878](https://github.com/FreshRSS/FreshRSS/pull/2878)
 	* Improve German [#2690](https://github.com/FreshRSS/FreshRSS/pull/2690)
-	* Improve Spanish [#2823](https://github.com/FreshRSS/FreshRSS/pull/2823)
-	* Improve Portuguese [#2833](https://github.com/FreshRSS/FreshRSS/pull/2833)
 	* Improve Occitan [#2873](https://github.com/FreshRSS/FreshRSS/pull/2873)
+	* Improve Portuguese [#2833](https://github.com/FreshRSS/FreshRSS/pull/2833)
+	* Improve Simplified Chinese [#2730](https://github.com/FreshRSS/FreshRSS/pull/2730)
+	* Improve Spanish [#2823](https://github.com/FreshRSS/FreshRSS/pull/2823)
 * Misc.
 	* Improve logging of database errors [#2734](https://github.com/FreshRSS/FreshRSS/pull/2734)
 	* Remove the `min_posts_per_rss` configuration, which made efficient buffering difficult [#2588](https://github.com/FreshRSS/FreshRSS/pull/2588)
@@ -667,7 +669,7 @@
 	* Simplified Chinese [#1541](https://github.com/FreshRSS/FreshRSS/pull/1541)
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 	* Improve Dutch [#1559](https://github.com/FreshRSS/FreshRSS/pull/1559)
-	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/)
+	* Added Spanish language [#1631](https://github.com/FreshRSS/FreshRSS/pull/1631/)
 * Security
 	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.

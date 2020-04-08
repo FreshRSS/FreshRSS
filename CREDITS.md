@@ -1,5 +1,7 @@
+# FreshRSS contributors
+
 This is a credit file of people who have [contributed to FreshRSS](https://github.com/FreshRSS/FreshRSS/graphs/contributors) with, at least,
-one commit on one of the FreshRSS repositories (at https://github.com/FreshRSS).
+one commit on one of the FreshRSS repositories (at [https://github.com/FreshRSS](github.com/FreshRSS)).
 Please note a commit on THIS specific file is not considered as a contribution
 (too easy!). Its purpose is to show that even the smallest contribution is important.
 People are sorted by name so please keep this order.
@@ -21,6 +23,7 @@ People are sorted by name so please keep this order.
 * [Corentin Garcia](https://github.com/corenting): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:corenting), [Web](http://corenting.fr/)
 * [Craig Andrews](https://github.com/candrews): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:candrews), [Web](http://candrews.integralblue.com/)
 * [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)
+* [Damien Leroy](https://github.com/ShiiFu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ShiiFu)
 * [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
 * [danc](https://github.com/danc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=danc), [Web](http://tintouli.free.fr/)
 * [David Souza](https://github.com/araujo0205): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:araujo0205), [Web](http://davidsouza.tech/)
@@ -49,7 +52,7 @@ People are sorted by name so please keep this order.
 * [Leepic](https://github.com/Leepic): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Leepic)
 * [loft17](https://github.com/loft17): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:loft17)
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
-* [Luc Sanchez](https://github.com/ColonelMoutarde): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ColonelMoutarde), (https://www.luc-sanchez.fr/)
+* [Luc Sanchez](https://github.com/ColonelMoutarde): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ColonelMoutarde), [Web](https://www.luc-sanchez.fr/)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marcomrc)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mro), [Web](http://mro.name/~me)
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](https://marienfressinaud.fr/)
@@ -72,6 +75,7 @@ People are sorted by name so please keep this order.
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)
 * [printfuck](https://github.com/printfuck): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:printfuck), [Web](https://eris.cc)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
+* [Quent-in](https://github.com/Quent-in): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Quent-in)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
 * [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/commits?author=Quenty31)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
