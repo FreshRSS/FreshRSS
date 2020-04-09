@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2020-04-XX FreshRSS 1.15.4-dev
+## 2020-04-09 FreshRSS 1.16.0
 
 * Features
 	* Allow multiple users to have administration rights [#2096](https://github.com/FreshRSS/FreshRSS/issues/2096)
