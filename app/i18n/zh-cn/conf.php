@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => '阅读后隐藏文章',
 		'confirm_enabled' => '「全部标记为已读」时显示确认对话框',
 		'display_articles_unfolded' => '默认展开显示文章',
-		'display_categories_unfolded' => '默认展开显示类别',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => '智能显示',
 			'all_articles' => '显示所有',
 			'unread' => '只显示未读',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => '文章显示',
 		),
 		'sides_close_article' => '点击文章区域外以关闭',

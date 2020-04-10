@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Po přečtení články schovat',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
-		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie otevřené',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Vyberte zobrazení',
 			'all_articles' => 'Zobrazit všechny články',
 			'unread' => 'Zobrazit jen nepřečtené',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Počet zobrazených článků',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

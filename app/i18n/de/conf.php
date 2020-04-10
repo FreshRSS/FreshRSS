@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
-		'display_categories_unfolded' => 'Kategorien standardmäßig ausgeklappt zeigen',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Anzeige anpassen',
 			'all_articles' => 'Alle Artikel zeigen',
 			'unread' => 'Nur ungelesene zeigen',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Artikel zum Anzeigen',
 		),
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',

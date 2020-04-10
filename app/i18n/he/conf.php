@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Hide articles after reading',	// TODO - Translation
 		'confirm_enabled' => 'הצגת דו-שיח לאישור “סימון הכל כנקרא” ',
 		'display_articles_unfolded' => 'הצגת מאמרים בשלמותם כברירת מחדל',
-		'display_categories_unfolded' => 'הצגת קטגוריות בשלמותן כברירת מחדל',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'הסתרת קטגוריות &amp; הזנות ללא מאמרים שלא נקראו (לא עובד יחד עם “הצגת כל המאמרים”)',
 		'img_with_lazyload' => 'שימוש ב "טעינה עצלה" על מנת לטעון תמונות',
 		'jump_next' => 'קפיצה לפריט הבא שלא נקרא (הזנה או קטגוריה)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'תצוגה מתעדכנת',
 			'all_articles' => 'הצגת כל המאמרים',
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'מאמרים להצגה',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
