@@ -572,6 +572,10 @@ a.btn {
 	width: 100px;
 }
 
+.header > .item.search input {
+	-webkit-appearance: none; /* csslint allow: -webkit-appearance */
+}
+
 /*=== Body */
 #global {
 	display: table;
