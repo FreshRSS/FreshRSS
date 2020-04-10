@@ -49,6 +49,7 @@ People are sorted by name so please keep this order.
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=j8r), [Web](https://blog.jrei.ch/)
 * [Julien-Pierre Avérous](https://github.com/javerous): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:javerous), [Web](https://www.sourcemac.com/)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=kevinpapst), [Web](http://www.kevinpapst.de/)
+* [kinoushe](https://github.com/kinoushe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kinoushe)
 * [Leepic](https://github.com/Leepic): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Leepic)
 * [loft17](https://github.com/loft17): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:loft17)
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
