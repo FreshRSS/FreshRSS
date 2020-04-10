@@ -573,7 +573,9 @@ a.btn {
 }
 
 .header > .item.search input {
-	-webkit-appearance: none; /* csslint allow: -webkit-appearance */
+	/* stylelint-disable property-no-vendor-prefix */
+	-webkit-appearance: none;
+	/* stylelint-enable property-no-vendor-prefix */
 }
 
 /*=== Body */
