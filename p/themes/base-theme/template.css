@@ -572,7 +572,7 @@ a.btn {
 	width: 100px;
 }
 
-.header > .item.search input {
+input[type="search"] {
 	/* stylelint-disable property-no-vendor-prefix */
 	-webkit-appearance: none;
 	/* stylelint-enable property-no-vendor-prefix */
