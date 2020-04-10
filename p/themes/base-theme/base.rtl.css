@@ -475,6 +475,7 @@ a.btn {
 
 .header > .item.search input {
 	width: 230px;
+	-webkit-appearance: none;
 }
 
 .header .item.search input:focus {
