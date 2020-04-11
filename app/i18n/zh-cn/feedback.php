@@ -84,24 +84,24 @@ return array(
 			'actualizeds' => '已更新订阅源',
 			'added' => '订阅源 <em>%s</em> 已添加',
 			'already_subscribed' => '你已订阅 <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> 缓存已清理',
 			'deleted' => '已删除订阅源',
 			'error' => '订阅源更新失败',
 			'internal_problem' => '订阅源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在地址链接后附加 <code>#force_feed</code> 从而尝试强制添加。',
 			'invalid_url' => '地址链接 <em>%s</em> 无效',
 			'not_added' => '<em>%s</em> 添加失败',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => '无法找到订阅',
 			'no_refresh' => '没有可刷新的订阅源…',
 			'n_actualized' => '已更新 %d 个订阅源',
 			'n_entries_deleted' => '已删除 %d 篇文章',
 			'over_max' => '你已达到订阅源数上限（%d）',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> 已重置',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => '无法加载网站内容！无法加载网站内容！',
+				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。.',
+				'no_feed' => '内部错误 (no feed to entry).',
+				'no_result' => '选择器没有匹配到任何东西。作为备用，原始的feed文本将被显示出来。',
+				'selector_empty' => '选择器是空的。你需要一个来创建预览。',
 			),
 			'updated' => '已更新订阅源',
 		),
