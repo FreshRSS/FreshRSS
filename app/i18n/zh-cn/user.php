@@ -30,7 +30,7 @@ return array(
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => '无效密码',
 	),
 	'tos' => array(
 		'feedback' => array(
@@ -38,7 +38,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => 'The username is invalid.',	// TODO - Translation
-		'taken' => 'The username %s is taken.',	// TODO - Translation
+		'invalid' => '无效用户名',
+		'taken' => '已存在此用户名',
 	),
 );
