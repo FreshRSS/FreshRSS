@@ -207,6 +207,7 @@ the search field.
 Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 :
 
+* par ID de flux : `f:123` ou plusieurs flux : `f:123,234,345`
 * par auteur : `author:nom` or `author:'nom composé'`
 * par titre : `intitle:mot` or `intitle:'mot composé'`
 * par URL: `inurl:mot` or `inurl:'mot composé'`
@@ -244,19 +245,18 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 		* `date:PT30M/` (past thirty minutes)
 		* `date:PT90S/` (past ninety seconds)
 		* `date:P1DT1H/` (past one day and one hour)
-* by date of publication, using the same format: `pubdate:<date-interval>`
+* par date de publication, avec la même syntaxe: `pubdate:<date-interval>`
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur
 recherchée.
 
 Certains opérateurs peuvent être utilisé négativement, pour exclure des
-articles, avec la même syntaxe que ci-dessus, mais préfixé par `!` ou `-`
-:`-author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`, `!date:2019`, `!date:P1W`, `!pubdate:P3d/`.
+articles, avec la même syntaxe que ci-dessus, mais préfixé par `!` ou `-` :
+`!f:123`, `-author:nom`, `-intitle:mot`, `-inurl:mot`, `-#tag`, `!mot`, `!date:2019`, `!date:P1W`, `!pubdate:P3d/`.
 
 Il est également possible de combiner les mots-clefs pour faire un filtrage
 encore plus précis, et il est autorisé d’avoir plusieurs instances de :
-`author:`, `intitle:`, `inurl:`, `#`, et texte libre.
+`f:`, `author:`, `intitle:`, `inurl:`, `#`, et texte libre.
 
-Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR
-` peut être utiliser pour combiner plusieurs critères avec un *ou* logique
-:`author:Dupont OR author:Dupond`
+Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR`
+peut être utiliser pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`

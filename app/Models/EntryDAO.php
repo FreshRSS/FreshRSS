@@ -703,6 +703,26 @@ SQL;
 					continue;
 				}
 				$sub_search = '';
+
+				if ($filter->getFeedIds()) {
+					$sub_search .= 'AND ' . $alias . 'id_feed IN (';
+					foreach ($filter->getFeedIds() as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+				if ($filter->getNotFeedIds()) {
+					$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
+					foreach ($filter->getNotFeedIds() as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+
 				if ($filter->getMinDate()) {
 					$sub_search .= 'AND ' . $alias . 'id >= ? ';
 					$values[] = "{$filter->getMinDate()}000000";
