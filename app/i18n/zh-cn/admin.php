@@ -182,7 +182,7 @@ return array(
 		'_' => '更新系统',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
+		'admin' => '管理员',
 		'articles_and_size' => '%s 篇文章（%s)',
 		'article_count' => '文章数',
 		'back_to_manage' => '← 返回用户列表',
@@ -191,7 +191,7 @@ return array(
 		'delete_users' => '删除用户',
 		'email' => '邮箱地址',
 		'feed_count' => '订阅源数',
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'is_admin' => '管理员',
 		'language' => '语言',
 		'list' => '用户列表',
 		'number' => '已有 %d 个用户',
