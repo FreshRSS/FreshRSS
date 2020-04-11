@@ -24,9 +24,9 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => '您刚刚在 ％s 中注册，但仍然需要验证邮箱地址。为此，只需点击链接：',
+			'body' => '%s,欢迎',
 			'title' => '您需要验证您的帐户',
-			'welcome' => '欢迎来到 %s,',
+			'welcome' => '您已注册 %s 现在只需点击下方链接通过邮箱验证即可完成注册:',
 		),
 	),
 	'password' => array(
