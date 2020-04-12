@@ -166,7 +166,9 @@ function init_select_observers() {
 						s.disabled = true;
 						s.value = '';
 						if (s.form) {
-							s.form.querySelectorAll('[type=submit]').forEach(function (b) { b.disabled = true; });
+							s.form.querySelectorAll('[type=submit]').forEach(function (b) {
+									b.disabled = true;
+								});
 						}
 						location.href = url;
 					}
