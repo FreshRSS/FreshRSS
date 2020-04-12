@@ -76,6 +76,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 		} catch (Exception $ex) {
+			//Discard errors
 		}
 		return $results;
 	}
