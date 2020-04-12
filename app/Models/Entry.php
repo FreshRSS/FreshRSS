@@ -75,11 +75,12 @@ class FreshRSS_Entry extends Minz_Model {
 					];
 				}
 			}
+			return $results;
 		} catch (Exception $ex) {
-			//Discard errors
+			return $results;
 		}
-		return $results;
 	}
+
 	public function link() {
 		return $this->link;
 	}
