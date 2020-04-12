@@ -59,6 +59,26 @@ class FreshRSS_Entry extends Minz_Model {
 	public function content() {
 		return $this->content;
 	}
+	public function enclosures() {
+		$results = [];
+		try {
+			if ($this->content != '') {
+				$dom = new DOMDocument();
+				$dom->loadHTML($this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+				$xpath = new DOMXpath($dom);
+				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
+				foreach ($enclosures as $enclosure) {
+					$results[] = [
+						'url' => $enclosure->getAttribute('src'),
+						'type' => $enclosure->getAttribute('data-type'),
+						'length' => $enclosure->getAttribute('data-length'),
+					];
+				}
+			}
+		} catch (Exception $ex) {
+		}
+		return $results;
+	}
 	public function link() {
 		return $this->link;
 	}

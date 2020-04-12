@@ -508,6 +508,18 @@ function entriesToArray($entries) {
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
+		foreach ($entry->enclosures() as $enclosure) {
+			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
+				$media = [
+						'href' => $enclosure['url'],
+						'type' => $enclosure['type'],
+					];
+				if (!empty($enclosure['length'])) {
+					$media['length'] = intval($enclosure['length']);
+				}
+				$item['enclosure'][] = $media;
+			}
+		}
 		$author = $entry->authors(true);
 		$author = trim($author, '; ');
 		if ($author != '') {
