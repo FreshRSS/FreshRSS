@@ -462,7 +462,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				break;
 			}
 		}
-		if (!$noCommit) {
+		if (!$noCommit && ($nb_new_articles > 0 || $updated_feeds > 0)) {
 			if (!$entryDAO->inTransaction()) {
 				$entryDAO->beginTransaction();
 			}
