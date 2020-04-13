@@ -62,7 +62,7 @@ class FreshRSS_Entry extends Minz_Model {
 	public function enclosures() {
 		$results = [];
 		try {
-			if ($this->content != '') {
+			if (strpos($this->content, '<p class="enclosure-content') !== false) {
 				$dom = new DOMDocument();
 				$dom->loadHTML($this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 				$xpath = new DOMXpath($dom);
