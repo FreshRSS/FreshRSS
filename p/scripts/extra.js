@@ -163,9 +163,13 @@ function init_select_observers() {
 					const opt = s.options[s.selectedIndex],
 						url = opt.getAttribute('data-url');
 					if (url) {
-						s.form.querySelectorAll('[type=submit]').forEach(function (b) {
-								b.disabled = true;
-							});
+						s.disabled = true;
+						s.value = '';
+						if (s.form) {
+							s.form.querySelectorAll('[type=submit]').forEach(function (b) {
+									b.disabled = true;
+								});
+						}
 						location.href = url;
 					}
 				};
