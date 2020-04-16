@@ -46,7 +46,7 @@
 
 		<?php
 			$t_active = FreshRSS_Context::isCurrentGet('T');
-			$t_show = $t_active || FreshRSS_Context::$user_conf->display_categories;
+			$t_show = ($t_active && FreshRSS_Context::$user_conf->display_categories === 'active') || FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
 		<li class="tree-folder category tags<?= $t_active ? ' active' : '' ?>">
 			<div class="tree-folder-title">
@@ -75,7 +75,7 @@
 				$position = $cat->attributes('position');
 				if (!empty($feeds)) {
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
-					$c_show = $c_active || FreshRSS_Context::$user_conf->display_categories;
+					$c_show = ($c_active && FreshRSS_Context::$user_conf->display_categories === 'active') || FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
 		<li class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
