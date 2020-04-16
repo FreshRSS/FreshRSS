@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',
 		'confirm_enabled' => 'Mostra una conferma per “segna tutto come letto”',
 		'display_articles_unfolded' => 'Mostra articoli aperti di predefinito',
-		'display_categories_unfolded' => 'Mostra categorie aperte di predefinito',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità "caricamento ritardato" per le immagini',
 		'jump_next' => 'Salta al successivo feed o categoria non letto',

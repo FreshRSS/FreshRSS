@@ -825,6 +825,7 @@
 
 
 ## 2016-07-23 FreshRSS 1.4.0
+
 ## 2016-06-12 FreshRSS 1.3.2-beta
 
 * Compatibility
@@ -987,7 +988,7 @@
 ## 2015-01-15 FreshRSS 0.9.4 (beta)
 
 * Feature
-	* Extension system (!!): some extensions are available at https://github.com/FreshRSS/Extensions
+	* Extension system (!!): some extensions are available at [github.com/FreshRSS/Extensions](https://github.com/FreshRSS/Extensions)
 * Refactoring
 	* Front controller (FreshRSS class)
 	* Configuration system
@@ -1127,8 +1128,8 @@
 
 * API compatible with Google Reader API level 2
 	* FreshRSS can now be used from e.g.:
-		* (Android) News+ https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader
-		* (Android) EasyRSS https://github.com/Alkarex/EasyRSS
+		* (Android) [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader)
+		* (Android) [EasyRSS](https://github.com/Alkarex/EasyRSS)
 * Basic support for audio and video podcasts
 * Searching
 	* New search filters date: and pubdate: accepting ISO 8601 date intervals such as `date:2013-2014` or `pubdate:P1W`
@@ -1257,10 +1258,10 @@
 			* Les images, CSS, scripts sont servis sans cookie
 		* Utilise “HttpOnly” pour plus de sécurité
 	* Nouvel “agent utilisateur” exposé lors du téléchargement des flux, par exemple :
-		* “FreshRSS/0.7 (Linux; http://freshrss.org) SimplePie/1.3.1”
+		* `FreshRSS/0.7 (Linux; http://freshrss.org) SimplePie/1.3.1`
 	* Script d’actualisation avec plus de messages
 		* Sur la sortie standard, ainsi que dans le log système (syslog)
-	* Affichage du numéro de version dans "À propos"
+	* Affichage du numéro de version dans “À propos”
 
 
 ## 2013-11-21 FreshRSS 0.6.1

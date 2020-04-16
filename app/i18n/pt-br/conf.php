@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Esconder artigos depois de lidos',
 		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar "marcar todos como lido"',
 		'display_articles_unfolded' => 'Mostrar artigos abertos por padrão',
-		'display_categories_unfolded' => 'Mostrar artigos abertos por padrão',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
 		'jump_next' => 'Vá para o próximo irmão não lido (feed ou categoria)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Ajustar visualização',
 			'all_articles' => 'Exibir todos os artigos',
 			'unread' => 'Exibir apenas não lido',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Artigos para exibir',
 		),
 		'sides_close_article' => 'Clicando fora da área do texto do artigo fecha o mesmo',

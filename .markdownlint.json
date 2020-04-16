@@ -1,0 +1,16 @@
+{
+	"default": true,
+	"first-line-heading": false,
+	"line-length": false,
+	"no-hard-tabs": false,
+	"no-inline-html": {
+		"allowed_elements": [ "kbd" ]
+	},
+	"no-multiple-blanks": {
+		"maximum": 2
+	},
+	"ul-indent": false,
+	"ul-style": {
+		"style": "consistent"
+	}
+}

@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Verberg artikel na lezen',
 		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
-		'display_categories_unfolded' => 'Categorieën standaard uitklappen',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Pas weergave aan',
 			'all_articles' => 'Bekijk alle artikelen',
 			'unread' => 'Bekijk alleen ongelezen',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Artikelen om te tonen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',

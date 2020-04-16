@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Skryť články po prečítaní',
 		'confirm_enabled' => 'Zobraziť potvrdzovací dialóg po kliknutí na “Označiť všetko ako prečítané”',
 		'display_articles_unfolded' => 'Zobraziť články otvorené',
-		'display_categories_unfolded' => 'Zobraziť kategórie otvorené',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť "lazy load"',
 		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Vyberte zobrazenie',
 			'all_articles' => 'Zobraziť všetky články',
 			'unread' => 'Zobraziť iba neprečítané',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Článkov na zobrazenie',
 		),
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',

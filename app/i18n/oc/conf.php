@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
 		'confirm_enabled' => 'Mostrar una confirmacion per las accions del tipe « o marcar tot coma legit »',
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
-		'display_categories_unfolded' => 'Mostrar las categorias desplegadas per defaut',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Adaptar l’afichatge',
 			'all_articles' => 'Mostrar totes los articles',
 			'unread' => 'Mostrar pas que los pas legits',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Articles de mostrar',
 		),
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
