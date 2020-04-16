@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Schakel naar leesaanzicht',
 		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
 		'see_on_website' => 'Bekijk op originale website',
-		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> om voorgaande artikelen als gelezen te markeren<br />+ <kbd>Alt ⎇</kbd> om alle artikelen als gelezen te markeren',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> om voorgaande artikelen als gelezen te markeren<br />+ <kbd>⇧ Shift</kbd> om alle artikelen als gelezen te markeren',
 		'skip_next_article' => 'Volgend artikel focusen zonder openen',
 		'skip_previous_article' => 'Vorig artikel focusen zonder openen',
 		'title' => 'Verwijzingen',

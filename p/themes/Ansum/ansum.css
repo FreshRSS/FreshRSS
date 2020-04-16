@@ -972,7 +972,7 @@ form th {
   .flux.not_read .item.website a {
     color: #161a38; }
   .flux.not_read .item.date {
-    color: #161a3899; }
+    color: rgba(22, 26, 56, 0.5); }
   .flux.favorite {
     border-left-color: #ffc300;
     -webkit-transition: all 0.15s ease-in-out;
@@ -989,9 +989,8 @@ form th {
   .flux .website .favicon {
     padding: 5px; }
   .flux .date {
-    color: #363330;
-    font-size: 0.85rem;
-    opacity: 0.75; }
+    color: rgba(54, 51, 48, 0.5);
+    font-size: 0.85rem; }
   .flux .bottom {
     font-size: 1rem;
     text-align: center; }

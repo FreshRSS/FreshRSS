@@ -572,6 +572,10 @@ a.btn {
 	width: 100px;
 }
 
+input[type="search"] {
+	-webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
+}
+
 /*=== Body */
 #global {
 	display: table;
@@ -647,6 +651,7 @@ a.btn {
 
 /*=== Feed article header and footer */
 .flux_header {
+	background: inherit;
 	position: relative;
 }
 

@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
 		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
 		'see_on_website' => 'Zobrazí na webovej stránke',
-		'shift_for_all_read' => '+ <kbd>⇧ Shift</kbd> to mark previous articles as read<br />+ <kbd>Alt ⎇</kbd> na označenie všetkých článkov ako prečítaných',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> na označenie všetkých článkov ako prečítaných',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',
