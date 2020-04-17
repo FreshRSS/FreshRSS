@@ -12,7 +12,9 @@ class FreshRSS_Search {
 
 	// This contains the user input string
 	private $raw_input = '';
+
 	// The following properties are extracted from the raw input
+	private $feed_ids;
 	private $intitle;
 	private $min_date;
 	private $max_date;
@@ -23,6 +25,7 @@ class FreshRSS_Search {
 	private $tags;
 	private $search;
 
+	private $not_feed_ids;
 	private $not_intitle;
 	private $not_min_date;
 	private $not_max_date;
@@ -41,6 +44,8 @@ class FreshRSS_Search {
 
 		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
 
+		$input = $this->parseNotFeedIds($input);
+
 		$input = $this->parseNotPubdateSearch($input);
 		$input = $this->parseNotDateSearch($input);
 
@@ -48,6 +53,8 @@ class FreshRSS_Search {
 		$input = $this->parseNotAuthorSearch($input);
 		$input = $this->parseNotInurlSearch($input);
 		$input = $this->parseNotTagsSearch($input);
+
+		$input = $this->parseFeedIds($input);
 
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
@@ -67,6 +74,13 @@ class FreshRSS_Search {
 
 	public function getRawInput() {
 		return $this->raw_input;
+	}
+
+	public function getFeedIds() {
+		return $this->feed_ids;
+	}
+	public function getNotFeedIds() {
+		return $this->not_feed_ids;
 	}
 
 	public function getIntitle() {
@@ -151,6 +165,38 @@ class FreshRSS_Search {
 			$value = trim(str_replace('+', ' ', $value));
 		}
 		return $value;
+	}
+
+	/**
+	 * Parse the search string to find feed IDs.
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	private function parseFeedIds($input) {
+		if (preg_match_all('/\bf:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$ids_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = self::removeEmptyValues($ids_lists);
+			if (!empty($ids_lists[0])) {
+				$this->feed_ids = explode(',', $ids_lists[0]);
+				array_filter($this->feed_ids, function($v) { $v != ''; });
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotFeedIds($input) {
+		if (preg_match_all('/[!-]f:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$ids_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = self::removeEmptyValues($ids_lists);
+			if (!empty($ids_lists[0])) {
+				$this->not_feed_ids = explode(',', $ids_lists[0]);
+				array_filter($this->not_feed_ids, function($v) { $v != ''; });
+			}
+		}
+		return $input;
 	}
 
 	/**
