@@ -6,7 +6,7 @@
 
 		<div class="form-group">
 			<label for="new_user_name"><?= _t('gen.auth.username'), '<br />', _i('help'), ' ', _t('gen.auth.username.format') ?></label>
-			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocaptialize=off />
+			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocapitalize="off" />
 		</div>
 
 		<?php if ($this->show_email_field) { ?>
