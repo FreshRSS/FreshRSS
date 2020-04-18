@@ -1,7 +1,6 @@
 <?php
 
 $this->partial('aside_feed');
-$this->partial('nav_menu');
 
 call_user_func($this->callbackBeforeEntries, $this);
 
@@ -13,18 +12,33 @@ $lazyload = FreshRSS_Context::$user_conf->lazyload;
 $content_width = FreshRSS_Context::$user_conf->content_width;
 
 $today = @strtotime('today');
+
+// <Extra "first entry" buffer>
+ob_start();
+$callbackFirstEntry = function ($item) {
+	if ($item == null) {
+		ob_end_clean();	//Discard "first entry" buffer: discard the articles headers, as we have no articles
+		ob_end_clean();	//Discard "one entry at a time" buffer
+		$this->partial('nav_menu');
+	} else {
+		FreshRSS_Context::$id_max = $item->id();
+		$partialDivStream = ob_get_clean();
+		$this->partial('nav_menu');	//nav_menu needs information about the first entry
+		echo $partialDivStream;
+	}
+};
+// </Extra "first entry" buffer>
 ?>
 
 <div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
-	$firstEntry = null;
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
 		if ($nbEntries === 0) {
-			$firstEntry = $item;
+			$callbackFirstEntry($item);
 		}
 		$lastEntry = $item;
 		$nbEntries++;
@@ -100,11 +114,11 @@ $today = @strtotime('today');
 	endforeach;
 
 	if ($nbEntries > 0):
-		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $firstEntry, $lastEntry);
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('pagination');
 ?></div><?php
 	else:
-		ob_end_clean();	//Discard the articles headers, as we have no articles
+		$callbackFirstEntry(null);
 ?>
 <div id="stream" class="prompt alert alert-warn normal">
 	<h2><?= _t('index.feed.empty') ?></h2>
