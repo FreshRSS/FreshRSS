@@ -43,6 +43,7 @@ $callbackFirstEntry = function ($item) {
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
+		flush();
 		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if ($this->entry == null) {
 			continue;
