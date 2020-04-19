@@ -69,15 +69,12 @@
 			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user" id="http_user" class="extend" value="<?= empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 
 			<label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
 				<input type="password" name="http_pass" id="http_pass" class="extend" value="<?= $auth['password'] ?>" autocomplete="new-password" />
-			</div>
-
-			<div class="group-controls">
-				<?= _i('help') ?> <?= _t('sub.feed.auth.help') ?>
 			</div>
 		</div>
 
