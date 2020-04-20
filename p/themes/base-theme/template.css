@@ -59,8 +59,8 @@ p {
 	font-size: 1em;
 }
 
-p.help {
-	margin: 5px 0 0.5em !important;
+p.help, .prompt p.help {
+	margin: 5px 0 0.5em;
 }
 
 sup {
