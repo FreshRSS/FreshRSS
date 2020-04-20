@@ -31,11 +31,7 @@ class Minz_Migrator
 	 *                        migrations, or a string if it fails.
 	 */
 	public static function execute($migrations_path, $applied_migrations_path) {
-		if (!file_exists($applied_migrations_path)) {
-			return "{$applied_migrations_path} file does not exist";
-		}
-
-		$applied_migrations = file_get_contents($applied_migrations_path);
+		$applied_migrations = @file_get_contents($applied_migrations_path);
 		if ($applied_migrations === false) {
 			return "Cannot open the {$applied_migrations_path} file";
 		}

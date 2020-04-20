@@ -9,3 +9,4 @@ update.php
 tos.html
 opml.xml
 applied_migrations.txt
+applied_migrations.txt.lock

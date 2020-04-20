@@ -285,7 +285,7 @@ class Minz_MigratorTest extends TestCase
 	public function testExecuteFailsIfVersionPathDoesNotExist() {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-		$expected_result = $applied_migrations_path . ' file does not exist';
+		$expected_result = "Cannot open the {$applied_migrations_path} file";
 		unlink($applied_migrations_path);
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
