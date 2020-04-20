@@ -5,8 +5,9 @@
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
-			<label for="new_user_name"><?= _t('gen.auth.username'), '<br />', _i('help'), ' ', _t('gen.auth.username.format') ?></label>
+			<label for="new_user_name"><?= _t('gen.auth.username') ?></label>
 			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocapitalize="off" />
+			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.username.format') ?></p>
 		</div>
 
 		<?php if ($this->show_email_field) { ?>
@@ -19,12 +20,14 @@
 		<?php } ?>
 
 		<div class="form-group">
-			<label for="new_user_passwordPlain"><?= _t('gen.auth.password'), '<br />', _i('help'), ' ', _t('gen.auth.password.format') ?></label>
+			<label for="new_user_passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
 				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" required="required" autocomplete="new-password" pattern=".{7,}" />
 				<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></a>
 			</div>
 			<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
+			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.password.format') ?></p>
+
 		</div>
 
 		<?php if ($this->show_tos_checkbox) { ?>

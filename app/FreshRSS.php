@@ -54,7 +54,9 @@ class FreshRSS extends Minz_FrontController {
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
 
-		self::checkEmailValidated();
+		if ($system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
+			self::checkEmailValidated();
+		}
 
 		Minz_ExtensionManager::callHook('freshrss_init');
 	}
