@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Ocultar artículos tras la lectura',
 		'confirm_enabled' => 'Mostrar ventana de confirmación al usar la función “marcar todos como leídos”',
 		'display_articles_unfolded' => 'Mostrar los artículos expandidos por defecto',
-		'display_categories_unfolded' => 'Mostrar categorías expandidas por defecto',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración "Mostrar todos los artículos")',
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Ajustar la visualización',
 			'all_articles' => 'Mostrar todos los artículos',
 			'unread' => 'Mostrar solo pendientes',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Artículos a mostrar',
 		),
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'Marcar como favorito',
 		'mark_read' => 'Marcar como leído',
 		'navigation' => 'Navegación',
-		'navigation_help' => 'Con el modificador "Mayúsculas" es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador "Alt" es posible aplicar los atajos de teclado en las categorías.',
+		'navigation_help' => 'Con el modificador <kbd>⇧ Mayúsculas</kbd> es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador <kbd>Alt ⎇</kbd> es posible aplicar los atajos de teclado en las categorías.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Saltar al siguiente artículo',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Ver en la web original',
-		'shift_for_all_read' => '+ <code>mayúsculas</code> para marcar todos los artículos como leídos',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Mayúsculas</kbd> para marcar todos los artículos como leídos',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Atajos de teclado',

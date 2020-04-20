@@ -1,10 +1,15 @@
 <?php FreshRSS::preLayout(); ?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
+<html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>"<?php
+if (_t('gen.dir') === 'rtl') {
+	echo ' dir="rtl" class="rtl"';
+}
+?>>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
 		<?= self::headStyle() ?>
+		<script>/* Firefox FOUC Fix */</script>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
@@ -65,6 +70,19 @@
 <div id="notification" class="notification <?= $status ?>">
 	<span class="msg"><?= $msg ?></span>
 	<a class="close" href=""><?= _i('close') ?></a>
+</div>
+
+<!-- Popup-->
+<div id="popup">
+	<div id="popup-content">
+		<div id="popup-close" class="popup-row">&times;</div>
+		<div id="popup-txt" class="popup-row"></div>
+		<div id="popup-iframe-container" class="popup-row">
+			<div id="popup-iframe-sub">
+				<iframe id="popup-iframe" frameborder="0"></iframe>
+			</div>
+		</div>
+	</div>
 </div>
 	</body>
 </html>

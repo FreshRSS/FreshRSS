@@ -115,6 +115,10 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
 	@echo Key ignored.
 
+.PHONY: rtl
+rtl: ## Generate RTL CSS files
+	rtlcss -d p/themes && find . -type f -name '*.rtl.rtl.css' -delete
+
 ##########
 ## HELP ##
 ##########

@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
+		'maintenance' => array(
+			'clear_cache' => 'Vider le cache',
+			'clear_cache_help' => 'Supprime le cache de ce flux.',
+			'reload_articles' => 'Recharger les articles',
+			'reload_articles_help' => 'Recharge les articles et récupère le contenu complet si un sélecteur est défini.',
+			'title' => 'Maintenance',
+		),
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',
 		'no_selected' => 'Aucun flux sélectionné.',
@@ -53,6 +60,10 @@ return array(
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
 			'_' => 'Visibilité',
+		),
+		'selector_preview' => array(
+			'show_raw' => 'Afficher le code source',
+			'show_rendered' => 'Afficher le contenu',
 		),
 		'show' => array(
 			'all' => 'Montrer tous les flux',

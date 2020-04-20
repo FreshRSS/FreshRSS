@@ -56,10 +56,12 @@ You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
 ```sh
 docker volume create freshrss-data
+docker volume create freshrss-extensions
 
 # Remember to replace freshrss.example.net by your server address in the command below:
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss-extensions:/var/www/FreshRSS/extensions \
   -e 'CRON_MIN=4,34' \
   -e TZ=Europe/Paris \
   --net freshrss-network \
@@ -223,6 +225,7 @@ See cron option 1 for customising the cron schedule.
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss-extensions:/var/www/FreshRSS/extensions \
   -e 'CRON_MIN=17,47' \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
@@ -233,6 +236,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss-extensions:/var/www/FreshRSS/extensions \
   -e 'CRON_MIN=27,57' \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss:alpine \

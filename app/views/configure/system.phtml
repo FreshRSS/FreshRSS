@@ -25,7 +25,7 @@
 			<label class="group-name" for="max-registrations"><?= _t('admin.system.registration.number') ?></label>
 			<div class="group-controls">
 				<input type="number" id="max-registrations" name="max-registrations" value="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] ?>" min="0" data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] ?>"/>
-				<?= _i('help') ?> <?= _t('admin.system.registration.help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('admin.system.registration.help') ?></p>
 			</div>
 		</div>
 
@@ -74,7 +74,7 @@
 			<label class="group-name" for="cookie-duration"><?= _t('admin.system.cookie-duration.number') ?></label>
 			<div class="group-controls">
 				<input type="number" id="cookie-duration" name="cookie-duration" value="<?= FreshRSS_Context::$system_conf->limits['cookie_duration'] ?>" min="0" data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['cookie_duration'] ?>"/>
-				<?= _i('help') ?> <?= _t('admin.system.cookie-duration.help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('admin.system.cookie-duration.help') ?></p>
 			</div>
 		</div>
 

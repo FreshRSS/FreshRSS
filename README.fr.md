@@ -184,6 +184,7 @@ Tout client supportant une API de type Google Reader ; Sélection :
 	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
 	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
+	* [Readrops](https://github.com/readrops/Readrops) (Libre, [F-Droid](https://f-droid.org/fr/packages/com.readrops.app/) ou [Google Play](https://play.google.com/store/apps/details?id=com.readrops.app))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 * iOS

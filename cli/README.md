@@ -47,7 +47,7 @@ cd /usr/share/FreshRSS
 ./cli/reconfigure.php
 # Same parameters as for do-install.php. Used to update an existing installation.
 
-./cli/create-user.php --user username [ --password 'password' --api_password 'api_password' --language en --email user@example.net --token 'longRandomString' --no_default_feeds --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600 --since_hours_posts_per_rss 168 --min_posts_per_rss 2 --max_posts_per_rss 400 ]
+./cli/create-user.php --user username [ --password 'password' --api_password 'api_password' --language en --email user@example.net --token 'longRandomString' --no_default_feeds --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600 --since_hours_posts_per_rss 168 --max_posts_per_rss 400 ]
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
 
 ./cli/update-user.php --user username [ ... ]
@@ -86,19 +86,21 @@ cd /usr/share/FreshRSS
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
 ```
 
-#### Note about cron
+### Note about cron
 
 Some commands display informations on standard error, cron will send an email with thoses informations every time the command will be executed (exited zero or non-zero).
 
 To avoid cron sending email on success:
+
 ```sh
 @daily /usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log 2>/var/log/cron-freshrss-stderr.log || cat /var/log/cron-freshrss-stderr.log
 ```
 
 Explanations:
-- _/usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log_ : redirect the standard output to a log file
-- _/usr/local/bin/my-command 2> /var/log/cron-freshrss-stderr.log_ : redirect the standard error to a log file
-- _|| cat /var/log/cron-freshrss-stderr.log_ : if the exit code of _/usr/local/bin/my-command_ is non-zero, then it send by mail the content error file.
+
+* `/usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log`_ : redirect the standard output to a log file
+* `/usr/local/bin/my-command 2> /var/log/cron-freshrss-stderr.log` : redirect the standard error to a log file
+* `|| cat /var/log/cron-freshrss-stderr.log_ : if the exit code of _/usr/local/bin/my-command` is non-zero, then it send by mail the content error file.
 
 Now, cron will send you an email only if the exit code is non-zero and with the content of the file containing the errors.
 

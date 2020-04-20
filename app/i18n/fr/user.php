@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Un email a été envoyé à votre adresse.',
 				'error' => 'L’adresse email n’a pas pu être validée.',
 				'ok' => 'L’adresse email a été validée.',
-				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
+				'unneccessary' => 'L’adresse email a déjà été validée.',
 				'wrong_token' => 'L’adresse email n’a pas pu être validée à cause d’un mauvais token.',
 			),
 			'need_to' => 'Vous devez valider votre adresse email avant de pouvoir utiliser %s.',
@@ -29,9 +29,16 @@ return array(
 			'welcome' => 'Bienvenue %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'Le mot de passe est invalide.',
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Vous devez accepter les conditions générales d’utilisation pour pouvoir vous inscrire.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'Le nom d’utilisateur est invalide.',
+		'taken' => 'Le nom d’utilisateur %s est pris.',
 	),
 );

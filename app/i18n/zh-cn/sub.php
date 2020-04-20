@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
+		'maintenance' => array(
+			'clear_cache' => '清理缓存',
+			'clear_cache_help' => '清除该feed的缓存',
+			'reload_articles' => '重载文章',
+			'reload_articles_help' => '重新加载文章并获取完整内容',
+			'title' => 'Maintenance',
+		),
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',
@@ -53,6 +60,10 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 			'_' => '可见性',
+		),
+		'selector_preview' => array(
+			'show_raw' => '显示源码',
+			'show_rendered' => '显示内容',
 		),
 		'show' => array(
 			'all' => '显示所有订阅源',

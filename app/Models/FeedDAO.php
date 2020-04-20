@@ -302,6 +302,22 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
+	public function listFeedsNewestItemUsec($id_feed = null) {
+		$sql = 'SELECT id_feed, MAX(id) as newest_item_us FROM `_entry` ';
+		if ($id_feed === null) {
+			$sql .= 'GROUP BY id_feed';
+		} else {
+			$sql .= 'WHERE id_feed=' . intval($id_feed);
+		}
+		$stm = $this->pdo->query($sql);
+		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$newestItemUsec = [];
+		foreach ($res as $line) {
+			$newestItemUsec['f_' . $line['id_feed']] = $line['newest_item_us'];
+		}
+		return $newestItemUsec;
+	}
+
 	public function arrayFeedCategoryNames() {	//For API
 		$sql = 'SELECT f.id, f.name, c.name as c_name FROM `_feed` f '
 		     . 'INNER JOIN `_category` c ON c.id = f.category';
@@ -407,7 +423,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$affected = $stm->rowCount();
 
 		$sql = 'UPDATE `_feed` '
-			 . 'SET `cache_nbEntries`=0, `cache_nbUnreads`=0 WHERE id=:id';
+			 . 'SET `cache_nbEntries`=0, `cache_nbUnreads`=0, `lastUpdate`=0 WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		if (!($stm && $stm->execute())) {

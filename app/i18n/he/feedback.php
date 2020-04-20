@@ -84,15 +84,25 @@ return array(
 			'actualizeds' => 'הזנות RSS עודכנו',
 			'added' => 'RSS הזנת <em>%s</em> נוספה',
 			'already_subscribed' => 'אתה כבר רשום ל <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'ההזנה נמחקה',
 			'error' => 'Feed cannot be updated',	// TODO - Translation
 			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.',
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
 			'not_added' => '<em>%s</em> אין אפשרות להוסיף את',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'no_refresh' => 'אין הזנה שניתן לרענן…',
 			'n_actualized' => '%d הזנות עודכנו',
 			'n_entries_deleted' => '%d המאמרים נמחקו',
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'selector_preview' => array(
+				'http_error' => 'Failed to load website content.',	// TODO - Translation
+				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+			),
 			'updated' => 'ההזנה התעדכנה',
 		),
 		'purge_completed' => 'הניקוי הושלם (%d מאמרים נמחקו)',

@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',
 		'confirm_enabled' => '"Hepsini okundu say" eylemi için onay iste',
 		'display_articles_unfolded' => 'Show articles unfolded by default',	// TODO - Translation
-		'display_categories_unfolded' => 'Show categories unfolded by default',	// TODO - Translation
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle ("Tüm makaleleri göster" komutunda çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Ayarlanmış gösterim',
 			'all_articles' => 'Tüm makaleleri göster',
 			'unread' => 'Sadece okunmamış makaleleri göster',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Gösterilecek makaleler',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'Favori olarak işaretle',
 		'mark_read' => 'Okundu olarak işaretle',
 		'navigation' => 'Genel eylemler',
-		'navigation_help' => '"Shift" tuşu ile kısayollar akışlar için geçerli olur.<br/>"Alt" tuşu ile kısayollar kategoriler için geçerli olur.',
+		'navigation_help' => '<kbd>⇧ Shift</kbd> tuşu ile kısayollar akışlar için geçerli olur.<br/><kbd>Alt ⎇</kbd> tuşu ile kısayollar kategoriler için geçerli olur.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Sonraki makaleye geç',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Orijinal sitede göster',
-		'shift_for_all_read' => '+ <code>shift</code> tuşu ile tüm makaleler okundu olarak işaretlenir',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> tuşu ile tüm makaleler okundu olarak işaretlenir',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Kısayollar',

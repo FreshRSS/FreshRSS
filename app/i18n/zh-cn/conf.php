@@ -97,13 +97,13 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => '「全部标记为已读」后',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => '默认显示收藏夹中所有的文章',
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入下一篇文章',
 		'auto_remove_article' => '阅读后隐藏文章',
 		'confirm_enabled' => '「全部标记为已读」时显示确认对话框',
 		'display_articles_unfolded' => '默认展开显示文章',
-		'display_categories_unfolded' => '默认展开显示类别',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => '智能显示',
 			'all_articles' => '显示所有',
 			'unread' => '只显示未读',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => '文章显示',
 		),
 		'sides_close_article' => '点击文章区域外以关闭',
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => '加入收藏',
 		'mark_read' => '设为已读',
 		'navigation' => '浏览',
-		'navigation_help' => '组合 "Shift" 键，浏览快捷键将生效于订阅源。<br/>组合 "Alt" 键，浏览快捷键将生效于分类。',
+		'navigation_help' => '组合 <kbd>⇧ Shift</kbd> 键，浏览快捷键将生效于订阅源。<br/>组合 <kbd>Alt ⎇</kbd> 键，浏览快捷键将生效于分类。',
 		'navigation_no_mod_help' => '以下快捷键不支持组合键（Shift 或 Alt）',
 		'next_article' => '打开下一篇文章',
 		'normal_view' => '切换到普通视图',
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => '切换到阅读视图',
 		'rss_view' => '在新标签中打开 RSS 视图',
 		'see_on_website' => '在原网站中查看',
-		'shift_for_all_read' => '+ <code>shift</code> 可以将全部文章设为已读',
+		'shift_for_all_read' => '组合 <kbd>Alt ⎇</kbd>键 将上方的文章标记为已读<br />组合 <kbd>⇧ Shift</kbd>按键 可以将全部文章设为已读',
 		'skip_next_article' => '跳转到下一篇文章而不打开',
 		'skip_previous_article' => '跳转到上一篇文章而不打开',
 		'title' => '快捷键',

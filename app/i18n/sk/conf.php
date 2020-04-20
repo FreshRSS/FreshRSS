@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Skryť články po prečítaní',
 		'confirm_enabled' => 'Zobraziť potvrdzovací dialóg po kliknutí na “Označiť všetko ako prečítané”',
 		'display_articles_unfolded' => 'Zobraziť články otvorené',
-		'display_categories_unfolded' => 'Zobraziť kategórie otvorené',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť "lazy load"',
 		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Vyberte zobrazenie',
 			'all_articles' => 'Zobraziť všetky články',
 			'unread' => 'Zobraziť iba neprečítané',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Článkov na zobrazenie',
 		),
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'O(d)značí ako obľúbené',
 		'mark_read' => 'O(d)značí ako prečítané',
 		'navigation' => 'Navigácia',
-		'navigation_help' => 'Po stlačení skratky s klávesou "Shift", sa skratky navigácie vzťahujú na kanály.<br/>Po stlačení skratky s klávesou "Alt", sa skratky navigácie vzťahujú na kategórie.',
+		'navigation_help' => 'Po stlačení skratky s klávesou <kbd>⇧ Shift</kbd>, sa skratky navigácie vzťahujú na kanály.<br/>Po stlačení skratky s klávesou <kbd>Alt ⎇</kbd>, sa skratky navigácie vzťahujú na kategórie.',
 		'navigation_no_mod_help' => 'Tieto skratky navigácie nepodporujú klávesy "Shift" a "Alt".',
 		'next_article' => 'Otvorí ďalší článok',
 		'normal_view' => 'Prepne do základného zobrazenia',
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
 		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
 		'see_on_website' => 'Zobrazí na webovej stránke',
-		'shift_for_all_read' => '+ <code>shift</code> na označenie všetkých článkov ako prečítaných',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> na označenie všetkých článkov ako prečítaných',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',

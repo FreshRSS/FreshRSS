@@ -49,7 +49,7 @@ return array(
 		'_' => 'Afichatge',
 	),
 	'profile' => array(
-		'api' => 'API management',	// TODO - Translation
+		'api' => 'Gestion API',
 		'delete' => array(
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
 			'_' => 'Supression del compte',
@@ -97,13 +97,13 @@ return array(
 	),
 	'reading' => array(
 		'after_onread' => 'Aprèp « marcar coma legit »,',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
 		'confirm_enabled' => 'Mostrar una confirmacion per las accions del tipe « o marcar tot coma legit »',
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
-		'display_categories_unfolded' => 'Mostrar las categorias desplegadas per defaut',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Adaptar l’afichatge',
 			'all_articles' => 'Mostrar totes los articles',
 			'unread' => 'Mostrar pas que los pas legits',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Articles de mostrar',
 		),
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
 		'navigation' => 'Navigacion',
-		'navigation_help' => 'Amb lo modificador «Shift», los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador «Alt», los acorchis de navigacion s’aplican a las categorias.',
+		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
 		'normal_view' => 'Passar a la vista normala',
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Passar a la vista lectura',
 		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
 		'see_on_website' => 'Veire al site d’origina',
-		'shift_for_all_read' => '+ <code>shift</code> per marcar los articles coma legits',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> per marcar l’article precedent coma legit<br />+ <kbd>⇧ Shift</kbd> per marcar los articles coma legits',
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',

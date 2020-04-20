@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\j\\u\\i\\n',
 		'jun' => 'juin',
 		'june' => 'juin',
+		'last_2_year' => 'Depuis deux ans',
 		'last_3_month' => 'Depuis les trois derniers mois',
+		'last_3_year' => 'Depuis trois ans',
+		'last_5_year' => 'Depuis cinq ans',
 		'last_6_month' => 'Depuis les six derniers mois',
 		'last_month' => 'Depuis le mois dernier',
 		'last_week' => 'Depuis la semaine dernière',
@@ -103,6 +106,7 @@ return array(
 		'wed' => 'mer.',
 		'yesterday' => 'Hier',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'À propos de FreshRSS',
 		'_' => 'FreshRSS',
@@ -125,14 +129,14 @@ return array(
 		'en' => 'English',
 		'es' => 'Español',
 		'fr' => 'Français',
-		'he' => 'עברית',	// TODO - Translation
+		'he' => 'עברית',
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
-		'oc' => 'Occitan',	// TODO - Translation
+		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
-		'sk' => 'Slovenčina',	// TODO - Translation
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -182,8 +186,8 @@ return array(
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basés sur Known',
 		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',	// TODO - Translation
 		'pocket' => 'Pocket',	// TODO - Translation

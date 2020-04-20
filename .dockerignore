@@ -1,3 +1,6 @@
 **/.git/
+**/bin/
 **/data/
 **/docs/
+**/node_modules/
+**/package*.json

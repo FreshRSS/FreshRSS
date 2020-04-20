@@ -2,18 +2,28 @@
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
-if (!empty($this->entries)) {
-	$lazyload = FreshRSS_Context::$user_conf->lazyload;
-	$content_width = FreshRSS_Context::$user_conf->content_width;
+call_user_func($this->callbackBeforeEntries, $this);
+
+$lazyload = FreshRSS_Context::$user_conf->lazyload;
+$content_width = FreshRSS_Context::$user_conf->content_width;
 ?>
 
 <div id="stream" class="reader">
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
-	</div>
-	<?php foreach ($this->entries as $item) {
+	</div><?php
+	$firstEntry = null;
+	$lastEntry = null;
+	$nbEntries = 0;
+	foreach ($this->entries as $item):
+		if ($nbEntries === 0) {
+			$firstEntry = $item;
+		}
+		$lastEntry = $item;
+		$nbEntries++;
+		ob_flush();
 		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if (is_null($item)) {
+		if ($item == null) {
 			continue;
 		}
 	?><div class="flux<?= !$item->isRead() ? ' not_read' : '' ?><?= $item->isFavorite() ? ' favorite' : '' ?>" id="flux_<?= $item->id() ?>">
@@ -38,7 +48,8 @@ if (!empty($this->entries)) {
 					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
 				</a>
 				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
-					<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /> <span><?= $feed->name() ?></span>
+					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /><?php endif; ?>
+					<span><?= $feed->name() ?></span>
 				</a>
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $item->link() ?>"><?= $item->title() ?></a></h1>
 
@@ -61,15 +72,18 @@ if (!empty($this->entries)) {
 				<?= $item->content() ?>
 			</div>
 		</div>
-	</div>
-	<?php } ?>
+	</div><?php
+	endforeach;
 
-	<?php $this->renderHelper('pagination'); ?>
-</div>
-
-<?php } else { ?>
+	if ($nbEntries > 0):
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $firstEntry, $lastEntry);
+		$this->renderHelper('pagination');
+?></div><?php
+	else:
+		ob_end_clean();	//Discard the articles headers, as we have no articles
+?>
 <div id="stream" class="prompt alert alert-warn reader">
 	<h2><?= _t('index.feed.empty') ?></h2>
 	<a href="<?= _url('subscription', 'index') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </div>
-<?php } ?>
+<?php endif; ?>

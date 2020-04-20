@@ -98,12 +98,14 @@
 		<legend><?= _t('conf.shortcut.article_action') ?></legend>
 
 		<div class="form-group">
+			<p class="alert alert-warn"><?= _t('conf.shortcut.shift_for_all_read') ?></p>
 			<label class="group-name" for="mark_read"><?= _t('conf.shortcut.mark_read') ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?= $s['mark_read'] ?>" data-leave-validation="<?= $s['mark_read'] ?>"/>
-				<?= _t('conf.shortcut.shift_for_all_read') ?>
 			</div>
 		</div>
+
+		<p class="alert alert-warn"><?= _t('conf.shortcut.navigation_no_mod_help') ?></p>
 
 		<div class="form-group">
 			<label class="group-name" for="mark_favorite"><?= _t('conf.shortcut.mark_favorite') ?></label>

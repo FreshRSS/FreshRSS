@@ -7,19 +7,9 @@ if (!isset($_GET['f']) ||
 
 require(__DIR__ . '/../constants.php');
 
-/**
- * Check if a file can be served by ext.php. A valid file is under a
- * EXTENSIONS_PATH/extension_name/static/ directory.
- *
- * You should sanitize path by using the realpath() function.
- *
- * @param $path the path to the file we want to serve.
- * @return true if it can be served, false else.
- *
- */
-function is_valid_path($path) {
+function is_valid_path_extension($path, $extensionPath) {
 	// It must be under the extension path.
-	$real_ext_path = realpath(EXTENSIONS_PATH);
+	$real_ext_path = realpath($extensionPath);
 
 	//Windows compatibility
 	$real_ext_path = str_replace('\\', '/', $real_ext_path);
@@ -38,6 +28,20 @@ function is_valid_path($path) {
 	}
 
 	return true;
+}
+
+/**
+ * Check if a file can be served by ext.php. A valid file is under a
+ * CORE_EXTENSIONS_PATH/extension_name/static/ or THIRDPARTY_EXTENSIONS_PATH/extension_name/static/ directory.
+ *
+ * You should sanitize path by using the realpath() function.
+ *
+ * @param $path the path to the file we want to serve.
+ * @return true if it can be served, false otherwise.
+ *
+ */
+function is_valid_path($path) {
+	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH);
 }
 
 $file_name = urldecode($_GET['f']);

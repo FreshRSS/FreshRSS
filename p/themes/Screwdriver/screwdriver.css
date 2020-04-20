@@ -880,10 +880,6 @@ a.btn {
 	text-shadow: 0 0 2px #ccc;
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	opacity: 0.85;
-}
-
 .flux.favorite {
 	background: #fff6da;
 }
@@ -904,24 +900,21 @@ a.btn {
 	box-shadow: 0 -1px #fff inset, 0 2px #ccc;
 }
 
-.flux .item.title {
-	opacity: 0.35;
+.flux .item.title a {
+	color: #aca8a3;
 }
 
-.flux.favorite .item.title {
-	opacity: 1;
+.flux.not_read .item.title a,
+.flux.favorite .item.title a {
+	color: #333;
 }
 
-.flux.not_read .item.title {
-	opacity: 1;
+.flux.not_read:not(.current):hover .item.title a {
+	color: #50504f;
 }
 
 .flux.current .item.title a {
 	color: #0f0f0f;
-}
-
-.flux .item.title a {
-	color: #333;
 }
 
 .flux_header {

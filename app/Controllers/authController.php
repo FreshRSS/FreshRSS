@@ -109,19 +109,24 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function formLoginAction() {
 		invalidateHttpCache();
 
+		Minz_View::prependTitle(_t('gen.auth.login') . ' · ');
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
 		$this->view->cookie_days = round($limits['cookie_duration'] / 86400, 1);
 
-		if (Minz_Request::isPost()) {
+		$isPOST = Minz_Request::isPost() && !Minz_Session::param('POST_to_GET');
+		Minz_Session::_param('POST_to_GET');
+
+		if ($isPOST) {
 			$nonce = Minz_Session::param('nonce');
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
 
 			$conf = get_user_configuration($username);
 			if ($conf == null) {
+				//We do not test here whether the user exists, so most likely an internal error.
 				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 				return;
 			}
@@ -151,7 +156,15 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  ' user=' . $username .
 				                  ', nonce=' . $nonce .
 				                  ', c=' . $challenge);
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+
+				header('HTTP/1.1 403 Forbidden');
+				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
+				Minz_View::_param('notification', [
+					'type' => 'bad',
+					'content' => _t('feedback.auth.login.invalid'),
+				]);
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
+				return;
 			}
 		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
 			$username = Minz_Request::param('u', '');
@@ -182,7 +195,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                   array('c' => 'index', 'a' => 'index'));
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				Minz_Request::bad(
+					_t('feedback.auth.login.invalid'),
+					array('c' => 'auth', 'a' => 'login')
+				);
 			}
 		}
 	}

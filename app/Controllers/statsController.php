@@ -73,6 +73,9 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 *
 	 * It displays the list of idle feed for different period. The supported
 	 * periods are:
+	 *   - last 5 years
+	 *   - last 3 years
+	 *   - last 2 years
 	 *   - last year
 	 *   - last 6 months
 	 *   - last 3 months
@@ -83,6 +86,9 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
 		$idleFeeds = array(
+			'last_5_year' => array(),
+			'last_3_year' => array(),
+			'last_2_year' => array(),
 			'last_year' => array(),
 			'last_6_month' => array(),
 			'last_3_month' => array(),
@@ -101,13 +107,25 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$last6Month->modify('-6 month');
 		$lastYear = clone $now;
 		$lastYear->modify('-1 year');
+		$last2Year = clone $now;
+		$last2Year->modify('-2 year');
+		$last3Year = clone $now;
+		$last3Year->modify('-3 year');
+		$last5Year = clone $now;
+		$last5Year->modify('-5 year');
 
 		foreach ($feeds as $feed) {
 			$feedDate->setTimestamp($feed['last_date']);
 			if ($feedDate >= $lastWeek) {
 				continue;
 			}
-			if ($feedDate < $lastYear) {
+			if ($feedDate < $last5Year) {
+				$idleFeeds['last_5_year'][] = $feed;
+			} elseif ($feedDate < $last3Year) {
+				$idleFeeds['last_3_year'][] = $feed;
+			} elseif ($feedDate < $last2Year) {
+				$idleFeeds['last_2_year'][] = $feed;
+			} elseif ($feedDate < $lastYear) {
 				$idleFeeds['last_year'][] = $feed;
 			} elseif ($feedDate < $last6Month) {
 				$idleFeeds['last_6_month'][] = $feed;

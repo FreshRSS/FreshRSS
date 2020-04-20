@@ -54,7 +54,9 @@ class FreshRSS extends Minz_FrontController {
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
 
-		self::checkEmailValidated();
+		if ($system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
+			self::checkEmailValidated();
+		}
 
 		Minz_ExtensionManager::callHook('freshrss_init');
 	}
@@ -102,6 +104,10 @@ class FreshRSS extends Minz_FrontController {
 				} else {
 					$theme_id = $theme['id'];
 					$filename = $file;
+				}
+				if (_t('gen.dir') === 'rtl') {
+					$filename = substr($filename, 0, -4);
+					$filename = $filename . '.rtl.css';
 				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
 				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;

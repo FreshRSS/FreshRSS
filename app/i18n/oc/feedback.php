@@ -10,8 +10,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Vòstre senhal pòt pas èsser modificat',
+			'updated' => 'Vòstre senhal es estat modificat',
 		),
 	),
 	'auth' => array(
@@ -84,15 +84,25 @@ return array(
 			'actualizeds' => 'Los fluxes son estats actualizats',
 			'added' => 'Lo flux RSS <em>%s</em> es ajustat',
 			'already_subscribed' => 'Seguissètz ja <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Lo flux es suprimit',
 			'error' => 'Error en actualizar',
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L\'URL <em>%s</em> es invalida',
 			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
+			'not_found' => 'Flux introbable',
 			'no_refresh' => 'I a pas cap de flux d’actualizar…',
 			'n_actualized' => '%s fluxes son estats actualizats',
 			'n_entries_deleted' => '%d articles son estats suprimits',
 			'over_max' => 'Avètz atengut vòstra limita de fluxes (%d)',
+			'reloaded' => '<em>%s</em> es estat recargat',
+			'selector_preview' => array(
+				'http_error' => 'Fracàs del cargament del contengut del site web.',
+				'no_entries' => 'I a pas cap d’entrada dins lo flux. Vos cal almens una entrada per crear un apercebut.',
+				'no_feed' => 'Error inèrna (cap d’entrada a l’entrada).',
+				'no_result' => 'Lo selecctor a pas atrapat res. Coma solucion alternativa lo flux original serà mostrat.',
+				'selector_empty' => 'Lo selecctor es void. Vos cal ne definir un per crear un apercebut.',
+			),
 			'updated' => 'Lo flux es actualizat',
 		),
 		'purge_completed' => 'Purga realizada (%s articles suprimits)',

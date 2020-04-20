@@ -29,9 +29,16 @@ return array(
 			'welcome' => 'La benvenguda %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'Lo senhal es invalid.',
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'Vos cal acceptar las condicions d’utilizacion per poder vos inscriure.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'Lo nom d’utilizaire es invalid.',
+		'taken' => 'Lo nm d’utilizaire %s es pres.',
 	),
 );

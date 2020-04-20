@@ -3,7 +3,7 @@
 return array(
 	'api' => array(
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
-		'title' => 'API',	// TODO - Translation
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Depausatz aqueste boton per la barra de marcapaginas o clicatz-lo a drecha e causissètz « Enregistrar aqueste ligam». Puèi clicatz «S’abonar» sus las paginas que volètz seguir.',
@@ -44,6 +44,13 @@ return array(
 		),
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
+		'maintenance' => array(
+			'clear_cache' => 'Escafar lo cache',
+			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',
+			'reload_articles' => 'Recargar los articles',
+			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',
+			'title' => 'Mantenença',
+		),
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',
@@ -53,6 +60,10 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
 			'_' => 'Visibilitat',
+		),
+		'selector_preview' => array(
+			'show_raw' => 'Veire lo còdi font',
+			'show_rendered' => 'Veire lo contengut',
 		),
 		'show' => array(
 			'all' => 'Mostrar totes los fluxes',

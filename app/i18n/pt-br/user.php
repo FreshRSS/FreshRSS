@@ -3,35 +3,42 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'The email address is invalid.',	// TODO - Translation
-			'required' => 'The email address is required.',	// TODO - Translation
+			'invalid' => 'Endereço de email inválido',
+			'required' => 'O endereço de email é necessário',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.',	// TODO - Translation
+			'change_email' => 'Você pode mudar seu endereço de email <a href="%s">na página do perfil</a>.',
+			'email_sent_to' => 'Enviamos um email para <strong>%s</strong>. Por favor, siga as instruções contidas nele para verificar sua conta.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a misconfiguration of the server.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'The email address failed to be validated.',	// TODO - Translation
-				'ok' => 'The email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'The email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'Não foi possível enviar um email para você devido a um erro de configuração no servidor.',
+				'email_sent' => 'Um email foi enviado para o seu endereço',
+				'error' => 'Falha na verificação do endereço de email',
+				'ok' => 'O endereço de email foi verificado com sucesso.',
+				'unneccessary' => 'Esse endereço de email já foi verificado.',
+				'wrong_token' => 'A verificação do endereço de email falhou por causa do token incorreto.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => 'Para poder utilizar o %s, você deve verificar seu endereço de email.',
+			'resend_email' => 'Reenviar o email',
+			'title' => 'Validação do endereço de email',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s but you still need to validate your email. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => 'Você se registrou no %s. Mas ainda é necessário verificar seu endereço de email. Para isso, basta seguir o link:',
+			'title' => 'Você precisa verificar sua conta',
+			'welcome' => 'Bem vindo %s,',
 		),
+	),
+	'password' => array(
+		'invalid' => 'Senha incorreta',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Para se registrar, você deve aceitar os Termos do serviço.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'Nome de usuário inválido.',
+		'taken' => 'O nome de usuário %s já está sendo utilizado',
 	),
 );

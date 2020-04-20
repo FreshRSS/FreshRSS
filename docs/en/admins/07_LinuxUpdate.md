@@ -4,6 +4,22 @@ This tutorial demonstrates commands for updating FreshRSS. It assumes that your 
 
 **Note that FreshRSS contains a built-in update system.** It's easier to use if you don't understand the commands that follow. It's available through the web interface of your FreshRSS installation, Administration → Update.
 
+## Pausing automatic feed updates
+
+If [Automatic Feed Updating](08_FeedUpdates.md) has been configured, temporarily suspend the automatic feed updates during the upgrade process.
+
+Before performing the upgrade:
+
+1. cron method: run `sudo crontab -e` and comment out the task
+2. systemd method: run `sudo systemctl stop freshrss.timer`
+
+After performing the upgrade:
+
+1. cron method: run `sudo crontab -e` and uncomment the task
+2. systemd method: run `sudo systemctl start freshrss.timer`
+
+You may wish to run the cron task or systemd unit (`freshrss.service`) immediately after the upgrade to ensure the automatic feed updates are functioning correctly.
+
 ## Using git
 
 **You must have used git to install FreshRSS to use this update method.**
@@ -67,7 +83,7 @@ cd /usr/share/FreshRSS/
 
 3. Download and unzip the update file
 ```
-wget -o freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/1.15.3.zip
+wget -O freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/1.15.3.zip
 unzip freshrss.zip
 ```
 

@@ -43,7 +43,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->guid;
 	}
 	public function title() {
-		return $this->title;
+		return $this->title == '' ? $this->guid() : $this->title;
 	}
 	public function author() {
 		//Deprecated
@@ -59,6 +59,28 @@ class FreshRSS_Entry extends Minz_Model {
 	public function content() {
 		return $this->content;
 	}
+	public function enclosures() {
+		$results = [];
+		try {
+			if (strpos($this->content, '<p class="enclosure-content') !== false) {
+				$dom = new DOMDocument();
+				$dom->loadHTML($this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+				$xpath = new DOMXpath($dom);
+				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
+				foreach ($enclosures as $enclosure) {
+					$results[] = [
+						'url' => $enclosure->getAttribute('src'),
+						'type' => $enclosure->getAttribute('data-type'),
+						'length' => $enclosure->getAttribute('data-length'),
+					];
+				}
+			}
+			return $results;
+		} catch (Exception $ex) {
+			return $results;
+		}
+	}
+
 	public function link() {
 		return $this->link;
 	}
@@ -139,7 +161,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _title($value) {
 		$this->hash = null;
-		$this->title = $value;
+		$this->title = trim($value);
 	}
 	public function _author($value) {
 		//Deprecated
@@ -230,12 +252,12 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 			if ($ok && $filter->getAuthor()) {
 				foreach ($filter->getAuthor() as $author) {
-					$ok &= stripos($this->authors, $author) !== false;
+					$ok &= stripos(implode(';', $this->authors), $author) !== false;
 				}
 			}
 			if ($ok && $filter->getNotAuthor()) {
 				foreach ($filter->getNotAuthor() as $author) {
-					$ok &= stripos($this->authors, $author) === false;
+					$ok &= stripos(implode(';', $this->authors), $author) === false;
 				}
 			}
 			if ($ok && $filter->getIntitle()) {
@@ -295,7 +317,7 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {
 				if ($this->matches($filterAction->booleanSearch())) {
-					foreach ($filterAction->actions() as $action => $params) {
+					foreach ($filterAction->actions() as $action) {
 						switch ($action) {
 							case 'read':
 								$this->_isRead(true);
@@ -330,7 +352,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	private static function get_content_by_parsing($url, $path, $attributes = array()) {
+	public static function getContentByParsing($url, $path, $attributes = array()) {
 		require_once(LIB_PATH . '/lib_phpQuery.php');
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
@@ -387,7 +409,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent() {
+	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 		$feed = $this->feed(true);
@@ -395,13 +417,13 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
 
-			if ($entry) {
+			if ($entry && !$force) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
-					$fullContent = self::get_content_by_parsing(
+					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
 						$feed->pathEntries(),
 						$feed->attributes()

@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
-		'display_categories_unfolded' => 'Kategorien standardmäßig ausgeklappt zeigen',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Anzeige anpassen',
 			'all_articles' => 'Alle Artikel zeigen',
 			'unread' => 'Nur ungelesene zeigen',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Artikel zum Anzeigen',
 		),
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'Als Favorit markieren',
 		'mark_read' => 'Als gelesen markieren',
 		'navigation' => 'Navigation',	// TODO - Translation
-		'navigation_help' => 'Mit der "Umschalttaste" finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der "Alt-Taste" finden die Tastenkombination auf Kategorien Anwendung.',
+		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Wechsle zur Lese-Ansicht',
 		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
-		'shift_for_all_read' => '+ <code>Umschalttaste</code>, um alle Artikel als gelesen zu markieren.',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Umschalttaste</kbd>, um alle Artikel als gelesen zu markieren.',	// TODO - Translation
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',
 		'skip_previous_article' => 'Vorherigen markieren ohne zu öffnen',
 		'title' => 'Tastenkombination',

@@ -12,7 +12,9 @@ class FreshRSS_Search {
 
 	// This contains the user input string
 	private $raw_input = '';
+
 	// The following properties are extracted from the raw input
+	private $feed_ids;
 	private $intitle;
 	private $min_date;
 	private $max_date;
@@ -23,7 +25,12 @@ class FreshRSS_Search {
 	private $tags;
 	private $search;
 
+	private $not_feed_ids;
 	private $not_intitle;
+	private $not_min_date;
+	private $not_max_date;
+	private $not_min_pubdate;
+	private $not_max_pubdate;
 	private $not_inurl;
 	private $not_author;
 	private $not_tags;
@@ -37,10 +44,17 @@ class FreshRSS_Search {
 
 		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
 
+		$input = $this->parseNotFeedIds($input);
+
+		$input = $this->parseNotPubdateSearch($input);
+		$input = $this->parseNotDateSearch($input);
+
 		$input = $this->parseNotIntitleSearch($input);
 		$input = $this->parseNotAuthorSearch($input);
 		$input = $this->parseNotInurlSearch($input);
 		$input = $this->parseNotTagsSearch($input);
+
+		$input = $this->parseFeedIds($input);
 
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
@@ -62,6 +76,13 @@ class FreshRSS_Search {
 		return $this->raw_input;
 	}
 
+	public function getFeedIds() {
+		return $this->feed_ids;
+	}
+	public function getNotFeedIds() {
+		return $this->not_feed_ids;
+	}
+
 	public function getIntitle() {
 		return $this->intitle;
 	}
@@ -72,7 +93,9 @@ class FreshRSS_Search {
 	public function getMinDate() {
 		return $this->min_date;
 	}
-
+	public function getNotMinDate() {
+		return $this->not_min_date;
+	}
 	public function setMinDate($value) {
 		return $this->min_date = $value;
 	}
@@ -80,7 +103,9 @@ class FreshRSS_Search {
 	public function getMaxDate() {
 		return $this->max_date;
 	}
-
+	public function getNotMaxDate() {
+		return $this->not_max_date;
+	}
 	public function setMaxDate($value) {
 		return $this->max_date = $value;
 	}
@@ -88,9 +113,15 @@ class FreshRSS_Search {
 	public function getMinPubdate() {
 		return $this->min_pubdate;
 	}
+	public function getNotMinPubdate() {
+		return $this->not_min_pubdate;
+	}
 
 	public function getMaxPubdate() {
 		return $this->max_pubdate;
+	}
+	public function getNotMaxPubdate() {
+		return $this->not_max_pubdate;
 	}
 
 	public function getInurl() {
@@ -134,6 +165,38 @@ class FreshRSS_Search {
 			$value = trim(str_replace('+', ' ', $value));
 		}
 		return $value;
+	}
+
+	/**
+	 * Parse the search string to find feed IDs.
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	private function parseFeedIds($input) {
+		if (preg_match_all('/\bf:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$ids_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = self::removeEmptyValues($ids_lists);
+			if (!empty($ids_lists[0])) {
+				$this->feed_ids = explode(',', $ids_lists[0]);
+				array_filter($this->feed_ids, function($v) { $v != ''; });
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotFeedIds($input) {
+		if (preg_match_all('/[!-]f:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$ids_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = self::removeEmptyValues($ids_lists);
+			if (!empty($ids_lists[0])) {
+				$this->not_feed_ids = explode(',', $ids_lists[0]);
+				array_filter($this->not_feed_ids, function($v) { $v != ''; });
+			}
+		}
+		return $input;
 	}
 
 	/**
@@ -257,6 +320,18 @@ class FreshRSS_Search {
 		return $input;
 	}
 
+	private function parseNotDateSearch($input) {
+		if (preg_match_all('/[!-]date:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->not_min_date, $this->not_max_date) = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+
 	/**
 	 * Parse the search string to find pubdate keyword and the search related
 	 * to it.
@@ -271,6 +346,17 @@ class FreshRSS_Search {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotPubdateSearch($input) {
+		if (preg_match_all('/[!-]pubdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->not_min_pubdate, $this->not_max_pubdate) = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;

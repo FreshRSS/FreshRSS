@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Authentication reset',
 		'username' => array(
 			'admin' => 'Administrator username',
-			'format' => '<small>maximum 16 alphanumeric characters</small>',
+			'format' => '<small>Maximum 16 alphanumeric characters</small>',
 			'_' => 'Username',
 		),
 	),
@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\J\\u\\n\\e',
 		'jun' => 'June',
 		'june' => 'June',
+		'last_2_year' => 'Last two years',
 		'last_3_month' => 'Last three months',
+		'last_3_year' => 'Last three years',
+		'last_5_year' => 'Last five years',
 		'last_6_month' => 'Last six months',
 		'last_month' => 'Last month',
 		'last_week' => 'Last week',
@@ -103,6 +106,7 @@ return array(
 		'wed' => 'Wed',
 		'yesterday' => 'Yesterday',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'About FreshRSS',
 		'_' => 'FreshRSS',

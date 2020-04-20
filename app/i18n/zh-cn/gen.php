@@ -7,7 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
 		'create' => '创建',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => '撤销管理员',
 		'disable' => '禁用',
 		'empty' => '清空',
 		'enable' => '启用',
@@ -17,7 +17,7 @@ return array(
 		'manage' => '管理',
 		'mark_favorite' => '标记收藏',
 		'mark_read' => '标记已读',
-		'promote' => 'Promote',	// TODO - Translation
+		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',
 		'see_website' => '网站中查看',
@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\六\\月',
 		'jun' => '六月',
 		'june' => '六月',
+		'last_2_year' => '过去两年',
 		'last_3_month' => '最近三个月',
+		'last_3_year' => '过去三年',
+		'last_5_year' => '过去五年',
 		'last_6_month' => '最近六个月',
 		'last_month' => '上月',
 		'last_week' => '上周',
@@ -103,6 +106,7 @@ return array(
 		'wed' => '周三',
 		'yesterday' => '昨天',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => '关于 FreshRSS',
 		'_' => 'FreshRSS',

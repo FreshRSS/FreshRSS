@@ -76,10 +76,6 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
-class MyPDO extends Minz_ModelPdo {
-	public $pdo;
-}
-
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -237,31 +233,27 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 function tagList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$model = new MyPDO();
-	$stm = $model->pdo->query('SELECT c.name FROM `_category` c');
-	$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-
 	$tags = array(
 		array('id' => 'user/-/state/com.google/starred'),
 		//array('id' => 'user/-/state/com.google/broadcast', 'sortid' => '2'),
 	);
 
-	foreach ($res as $cName) {
+	$categoryDAO = FreshRSS_Factory::createCategoryDao();
+	$categories = $categoryDAO->listCategories(true, false);
+	foreach ($categories as $cat) {
 		$tags[] = array(
-			'id' => 'user/-/label/' . htmlspecialchars_decode($cName, ENT_QUOTES),
-			//'sortid' => $cName,
+			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+			//'sortid' => $cat->name(),
 			'type' => 'folder',	//Inoreader
 		);
 	}
-
-	unset($res);
 
 	$tagDAO = FreshRSS_Factory::createTagDao();
 	$labels = $tagDAO->listTags(true);
 	foreach ($labels as $label) {
 		$tags[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
-			//'sortid' => $cName,
+			//'sortid' => $label->name(),
 			'type' => 'tag',	//Inoreader
 			'unread_count' => $label->nbUnread(),	//Inoreader
 		);
@@ -274,34 +266,30 @@ function tagList() {
 function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$model = new MyPDO();
-	$stm = $model->pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `_feed` f
-		INNER JOIN `_category` c ON c.id = f.category AND f.priority >= :priority_normal');
-	$stm->bindValue(':priority_normal', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
-	$stm->execute();
-	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
 	$salt = FreshRSS_Context::$system_conf->salt;
 	$faviconsUrl = Minz_Url::display('/f.php?', '', true);
 	$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 	$subscriptions = array();
 
-	foreach ($res as $line) {
-		$subscriptions[] = array(
-			'id' => 'feed/' . $line['id'],
-			'title' => escapeToUnicodeAlternative($line['name'], true),
-			'categories' => array(
-				array(
-					'id' => 'user/-/label/' . htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
-					'label' => htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
-				),
-			),
-			//'sortid' => $line['name'],
-			//'firstitemmsec' => 0,
-			'url' => htmlspecialchars_decode($line['url'], ENT_QUOTES),
-			'htmlUrl' => htmlspecialchars_decode($line['website'], ENT_QUOTES),
-			'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $line['url']),
-		);
+	$categoryDAO = FreshRSS_Factory::createCategoryDao();
+	foreach ($categoryDAO->listCategories(true, true) as $cat) {
+		foreach ($cat->feeds() as $feed) {
+			$subscriptions[] = [
+				'id' => 'feed/' . $feed->id(),
+				'title' => escapeToUnicodeAlternative($feed->name(), true),
+				'categories' => [
+					[
+						'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+						'label' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+					],
+				],
+				//'sortid' => $feed->name(),
+				//'firstitemmsec' => 0,
+				'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
+				'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
+				'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $feed->url()),
+			];
+		}
 	}
 
 	echo json_encode(array('subscriptions' => $subscriptions), JSON_OPTIONS), "\n";
@@ -423,14 +411,17 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	$totalLastUpdate = 0;
 
 	$categoryDAO = FreshRSS_Factory::createCategoryDao();
+	$feedDAO = FreshRSS_Factory::createFeedDao();
+	$feedsNewestItemUsec = $feedDAO->listFeedsNewestItemUsec();
+
 	foreach ($categoryDAO->listCategories(true, true) as $cat) {
 		$catLastUpdate = 0;
 		foreach ($cat->feeds() as $feed) {
-			$lastUpdate = $feed->lastUpdate();
+			$lastUpdate = isset($feedsNewestItemUsec['f_' . $feed->id()]) ? $feedsNewestItemUsec['f_' . $feed->id()] : 0;
 			$unreadcounts[] = array(
 				'id' => 'feed/' . $feed->id(),
 				'count' => $feed->nbNotRead(),
-				'newestItemTimestampUsec' => $lastUpdate . '000000',
+				'newestItemTimestampUsec' => $lastUpdate,
 			);
 			if ($catLastUpdate < $lastUpdate) {
 				$catLastUpdate = $lastUpdate;
@@ -439,7 +430,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
-			'newestItemTimestampUsec' => $catLastUpdate . '000000',
+			'newestItemTimestampUsec' => $catLastUpdate,
 		);
 		$totalUnreads += $cat->nbNotRead();
 		if ($totalLastUpdate < $catLastUpdate) {
@@ -448,17 +439,20 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	}
 
 	$tagDAO = FreshRSS_Factory::createTagDao();
+	$tagsNewestItemUsec = $tagDAO->listTagsNewestItemUsec();
 	foreach ($tagDAO->listTags(true) as $label) {
+		$lastUpdate = isset($tagsNewestItemUsec['t_' . $label->id()]) ? $tagsNewestItemUsec['t_' . $label->id()] : 0;
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
+			'newestItemTimestampUsec' => $lastUpdate,
 		);
 	}
 
 	$unreadcounts[] = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'count' => $totalUnreads,
-		'newestItemTimestampUsec' => $totalLastUpdate . '000000',
+		'newestItemTimestampUsec' => $totalLastUpdate,
 	);
 
 	echo json_encode(array(
@@ -514,6 +508,18 @@ function entriesToArray($entries) {
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
+		foreach ($entry->enclosures() as $enclosure) {
+			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
+				$media = [
+						'href' => $enclosure['url'],
+						'type' => $enclosure['type'],
+					];
+				if (!empty($enclosure['length'])) {
+					$media['length'] = intval($enclosure['length']);
+				}
+				$item['enclosure'][] = $media;
+			}
+		}
 		$author = $entry->authors(true);
 		$author = trim($author, '; ');
 		if ($author != '') {
@@ -638,6 +644,7 @@ function streamContents($path, $include_target, $start_time, $stop_time, $count,
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+	$entries = iterator_to_array($entries);	//TODO: Improve
 
 	$items = entriesToArray($entries);
 
@@ -730,6 +737,7 @@ function streamContentsItems($e_ids, $order) {
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
+	$entries = iterator_to_array($entries);	//TODO: Improve
 
 	$items = entriesToArray($entries);
 
@@ -893,8 +901,14 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit('OK');
 }
 
-$pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
+$pathInfo = empty($_SERVER['PATH_INFO']) ? '' : urldecode($_SERVER['PATH_INFO']);
+if ($pathInfo == '') {
+	exit('OK');
+}
 $pathInfos = explode('/', $pathInfo);
+if (count($pathInfos) < 3) {
+	badRequest();
+}
 
 Minz_Configuration::register('system',
 	DATA_PATH . '/config.php',
@@ -906,8 +920,6 @@ FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
-} elseif (count($pathInfos) < 3) {
-	badRequest();
 } elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
 	checkCompatibility();
 }
@@ -1012,7 +1024,7 @@ if ($pathInfos[1] === 'accounts') {
 			if (isset($pathInfos[5]) && $pathInfos[5] === 'list') {
 				$output = isset($_GET['output']) ? $_GET['output'] : '';
 				if ($output !== 'json') notImplemented();
-				tagList($output);
+				tagList();
 			}
 			break;
 		case 'subscription':
@@ -1021,7 +1033,7 @@ if ($pathInfos[1] === 'accounts') {
 					case 'list':
 						$output = isset($_GET['output']) ? $_GET['output'] : '';
 						if ($output !== 'json') notImplemented();
-						subscriptionList($_GET['output']);
+						subscriptionList();
 						break;
 					case 'edit':
 						if (isset($_REQUEST['s']) && isset($_REQUEST['ac'])) {

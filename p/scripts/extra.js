@@ -1,7 +1,24 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
-/* globals context, openNotification, xmlHttpRequestJson */
+/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
 /* jshint esversion:6, strict:global */
+
+function fix_popup_preview_selector() {
+	const link = document.getElementById('popup-preview-selector');
+
+	if (!link) {
+		return;
+	}
+
+	link.addEventListener('click', function (ev) {
+		const selector_entries = document.getElementById('path_entries').value;
+		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries));
+
+		openPopupWithSource(href);
+
+		ev.preventDefault();
+	});
+}
 
 //<crypto form (Web login)>
 function poormanSalt() {	//If crypto.getRandomValues is not available
@@ -146,9 +163,13 @@ function init_select_observers() {
 					const opt = s.options[s.selectedIndex],
 						url = opt.getAttribute('data-url');
 					if (url) {
-						s.form.querySelectorAll('[type=submit]').forEach(function (b) {
-								b.disabled = true;
-							});
+						s.disabled = true;
+						s.value = '';
+						if (s.form) {
+							s.form.querySelectorAll('[type=submit]').forEach(function (b) {
+									b.disabled = true;
+								});
+						}
 						location.href = url;
 					}
 				};
@@ -176,6 +197,7 @@ function init_slider_observers() {
 							slider.classList.add('active');
 							closer.classList.add('active');
 							context.ajax_loading = false;
+							fix_popup_preview_selector();
 						};
 					req.send();
 					return false;
@@ -240,6 +262,7 @@ function init_extra() {
 	init_select_observers();
 	init_slider_observers();
 	init_configuration_alert();
+	fix_popup_preview_selector();
 }
 
 if (document.readyState && document.readyState !== 'loading') {

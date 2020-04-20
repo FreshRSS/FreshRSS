@@ -43,7 +43,7 @@ return array(
 		'reset' => 'איפוס אימות',
 		'username' => array(
 			'admin' => 'שם משתמש של המנהל',
-			'format' => '<small>maximum 16 alphanumeric characters</small>',	// TODO - Translation
+			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
 			'_' => 'שם משתמש',
 		),
 	),
@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\J\\u\\n\\e',	// TODO - Translation
 		'jun' => 'jun',
 		'june' => 'Jun',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => 'בשלושת החודשים האחרונים',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => 'בששת החודשים האחרונים',
 		'last_month' => 'בחודש שעבר',
 		'last_week' => 'בשבוע שעבר',
@@ -103,6 +106,7 @@ return array(
 		'wed' => 'Wed',	// TODO - Translation
 		'yesterday' => 'אתמול',
 	),
+	'dir' => 'rtl',
 	'freshrss' => array(
 		'about' => 'אודות FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation

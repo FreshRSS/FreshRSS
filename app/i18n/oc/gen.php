@@ -7,7 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => 'Retrogradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Voidar',
 		'enable' => 'Activar',
@@ -17,8 +17,8 @@ return array(
 		'manage' => 'Gerir',
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
+		'promote' => 'Promòure',
+		'purge' => 'Purgar',
 		'remove' => 'Levar',
 		'see_website' => 'Veire lo site',
 		'submit' => 'Mandar',
@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reïnicializacion de l’autentificacion',
 		'username' => array(
 			'admin' => 'Nom d’utilizaire administrator',
-			'format' => '<small>16 caractèrs alfanumerics maximum)</small>',
+			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
 			'_' => 'Nom d’utilizaire',
 		),
 	),
@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\j\\u\\n\\h',
 		'jun' => 'junh',
 		'june' => 'junh',
+		'last_2_year' => 'Dempuèi las darrièras doas annadas',
 		'last_3_month' => 'Dempuèi los darrièrs tres meses',
+		'last_3_year' => 'Dempuèi las darrièras tres annadas',
+		'last_5_year' => 'Dempuèi las darrièras cinc annadas',
 		'last_6_month' => 'Dempuèi los darrièrs sièis meses',
 		'last_month' => 'Dempuèi lo mes passat',
 		'last_week' => 'Dempuèi la setmana passada',
@@ -103,6 +106,7 @@ return array(
 		'wed' => 'Dc',
 		'yesterday' => 'Ièr',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'A prepaus de FreshRSS',
 		'_' => 'FreshRSS',
@@ -125,14 +129,14 @@ return array(
 		'en' => 'English',
 		'es' => 'Español',
 		'fr' => 'Français',
-		'he' => 'עברית',	// TODO - Translation
+		'he' => 'עברית',
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
-		'sk' => 'Slovenčina',	// TODO - Translation
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
@@ -182,11 +186,11 @@ return array(
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
 		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
+		'pinboard' => 'Pinboard',
+		'pocket' => 'Pocket',
 		'print' => 'Imprimir',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',

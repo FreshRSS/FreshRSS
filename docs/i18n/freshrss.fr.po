@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FreshRSS\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2019-12-29 11:00+0100\n"
+"POT-Creation-Date: 2020-02-29 18:49+0100\n"
 "PO-Revision-Date: 2019-12-07 10:50+0100\n"
 "Last-Translator: Marien Fressinaud <dev@marienfressinaud.fr>\n"
 "Language-Team: French <>\n"
@@ -380,6 +380,8 @@ msgstr ""
 #: en/./developers/01_First_steps.md:34 en/./developers/01_First_steps.md:42
 #: en/./developers/01_First_steps.md:50 en/./developers/03_Running_tests.md:9
 #: en/./developers/03_Running_tests.md:17
+#: en/./developers/04_Pull_requests.md:23
+#: en/./developers/04_Pull_requests.md:38
 #, no-wrap
 msgid "console"
 msgstr "console"
@@ -531,7 +533,7 @@ msgstr "Architecture du projet"
 #: en/./developers/03_Backend/04_Changing_source_code.md:12
 #: en/./developers/03_Backend/04_Changing_source_code.md:15
 #: en/./developers/03_Backend/05_Extensions.md:342
-#: en/./developers/03_Backend/05_Extensions.md:381
+#: en/./developers/03_Backend/05_Extensions.md:383
 #: en/./developers/04_Frontend/01_View_files.md:4
 #: en/./developers/04_Frontend/01_View_files.md:8
 #: en/./developers/04_Frontend/01_View_files.md:12
@@ -2896,7 +2898,16 @@ msgid "The following events are available:"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
+msgid ""
+"`check_url_before_add` (`function($url) -> Url | null`): will be executed "
+"every time a URL is added. The URL itself will be passed as parameter. This "
+"way a website known to have feeds which doesn't advertise it in the header "
+"can still be automatically supported."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`entry_before_display` (`function($entry) -> Entry | null`): will be "
 "executed every time an entry is rendered. The entry itself (instance of "
@@ -2904,7 +2915,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`entry_before_insert` (`function($entry) -> Entry | null`): will be executed "
 "when a feed is refreshed and new entries will be imported into the database. "
@@ -2912,7 +2923,15 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
+msgid ""
+"`feed_before_actualize` (`function($feed) -> Feed | null`): will be executed "
+"when a feed is updated. The feed (instance of FreshRSS\\_Feed) will be "
+"passed as parameter."
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`feed_before_insert` (`function($feed) -> Feed | null`): will be executed "
 "when a new feed is imported into the database. The new feed (instance of "
@@ -2920,7 +2939,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`freshrss_init` (`function() -> none`): will be executed at the end of the "
 "initialization of FreshRSS, useful to initialize components or to do "
@@ -2928,7 +2947,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`menu_admin_entry` (`function() -> string`): add an entry at the end of the "
 "\"Administration\" menu, the returned string must be valid HTML (e.g. `<li "
@@ -2936,7 +2955,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`menu_configuration_entry` (`function() -> string`): add an entry at the end "
 "of the \"Configuration\" menu, the returned string must be valid HTML (e.g. "
@@ -2944,7 +2963,7 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`menu_other_entry` (`function() -> string`): add an entry at the end of the "
 "header dropdown menu (i.e. after the \"About\" entry), the returned string "
@@ -2953,32 +2972,32 @@ msgid ""
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** "
 "add documentation"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid "`post_update` (`function(none) -> none`): **TODO** add documentation"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/03_Backend/05_Extensions.md:376
+#: en/./developers/03_Backend/05_Extensions.md:378
 msgid ""
 "`simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** "
 "add documentation"
 msgstr ""
 
 #. type: Title ###
-#: en/./developers/03_Backend/05_Extensions.md:377
+#: en/./developers/03_Backend/05_Extensions.md:379
 #, no-wrap
 msgid "Writing your own configure.phtml"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/03_Backend/05_Extensions.md:380
+#: en/./developers/03_Backend/05_Extensions.md:382
 msgid ""
 "When you want to support user configurations for your extension or simply "
 "display some information, you have to create the `configure.phtml` file."
@@ -3103,6 +3122,256 @@ msgstr "Écrire un nouveau thème"
 #, no-wrap
 msgid "Overriding icons"
 msgstr "Surcharger les icônes"
+
+#. type: Title #
+#: en/./developers/04_Pull_requests.md:1
+#, no-wrap
+msgid "Opening a pull request"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:4
+#, fuzzy
+#| msgid ""
+#| "[Go to the bug ticket manager](https://github.com/FreshRSS/FreshRSS/"
+#| "issues)"
+msgid ""
+"So you want to propose a patch to the community? It's time to open a [pull "
+"request](https://github.com/FreshRSS/FreshRSS/pulls)!"
+msgstr ""
+"[Rendez-vous sur le gestionnaire de tickets de bugs](https://github.com/"
+"FreshRSS/FreshRSS/issues)"
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:6
+msgid ""
+"When you open a PR, your message will be prefilled with a message based on "
+"[a template](https://github.com/FreshRSS/FreshRSS/blob/master/docs/"
+"pull_request_template.md). It contains a checklist to make sure you didn't "
+"forget anything. It is very important to verify you did everything mentioned "
+"so documentation is up-to-date, the commit history stays clear and the code "
+"is always stable."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:8
+msgid "The rest of this document explains specific points."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/04_Pull_requests.md:9
+#, no-wrap
+msgid "How to rebase your branch on `master`"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:12
+msgid ""
+"Rebasing a branch is useful to make sure your code is based on the most "
+"recent version of FreshRSS and there are no conflicts. You have two ways to "
+"do that."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:14
+msgid ""
+"If you have any doubt, please let us know and we'll help you! We all began "
+"with Git one day and it's not an easy thing to work with."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/04_Pull_requests.md:15
+#, no-wrap
+msgid "Rebasing"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:18
+msgid ""
+"Rebasing is the cleanest method because the Git history will be completely "
+"linear and consequently easier to read and navigate. It might also be more "
+"difficult if you're not at ease with Git since conflicts are harder to "
+"resolve."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:20
+msgid ""
+"Note that you should never rebase a branch if someone else is working on it. "
+"Otherwise, since it rewrites the history, it can be a real mess to sort it "
+"out."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:22
+msgid "To rebase a branch:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:23
+#, no-wrap
+msgid ""
+"$ git checkout master      # go on master branch\n"
+"$ git pull upstream master # pull the last version of master\n"
+"$ git checkout -           # go back to your branch\n"
+"$ git rebase master        # rebase your branch on master\n"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:31
+msgid ""
+"If you feel confident, you can use `git rebase -i master` to rewrite your "
+"history and make it clearer."
+msgstr ""
+
+#. type: Title ###
+#: en/./developers/04_Pull_requests.md:32
+#, fuzzy, no-wrap
+#| msgid "Debugging"
+msgid "Merging"
+msgstr "Déboguer"
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:35
+msgid ""
+"If you prefer, you can simply merge `master` into your own branch. Conflicts "
+"might be easier to resolve, but your Git history will be less readable. "
+"Don't worry, we'll take care of it before merging your PR back into `master`."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:37
+msgid "To merge `master`:"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:38
+#, no-wrap
+msgid ""
+"$ git checkout master      # go on master branch\n"
+"$ git pull upstream master # pull the last version of master\n"
+"$ git checkout -           # go back to your branch\n"
+"$ git merge master         # merge master into your branch\n"
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/04_Pull_requests.md:45
+#, fuzzy, no-wrap
+#| msgid "How to write a commit message"
+msgid "How to write a Git commit message"
+msgstr "Comment écrire un message de commit"
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:48
+msgid ""
+"It's important to have proper commit messages in order to facilitate later "
+"debugging, so please read the following advice. Commit messages should "
+"explain the choices made in the past (the “why?”)"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:50
+msgid ""
+"The first line should start with a verb (e.g., \"Add\") and explain the "
+"objective of the commit in few words. It's usually less than 50 characters "
+"so it remains concise. You can consider this line the subject of your "
+"commit. Think of it as the second part of a sentence that starts with the "
+"words \"This commit will.\""
+msgstr ""
+
+#. type: Bullet: '* '
+#: en/./developers/04_Pull_requests.md:52
+msgid "This commit will *add feature X*"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:54
+msgid ""
+"Then, insert a blank line, and start to write the body. It's usually wrapped "
+"at 72 characters, but you are pretty free in the tone of the message. The "
+"body is the place where you can clarify the context of your patch. For "
+"instance, you can explain what you were doing when you identified a bug, or "
+"the problem you had before your patch. Providing this information helps "
+"other developers understand why a specific choice was made, especially when "
+"a patch introduces a bug that is identified months later."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:56
+msgid ""
+"You also can add references (e.g., the URL to the initial ticket in the bug "
+"tracker, or a reference to some forum explaining a point)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:58
+#, fuzzy
+#| msgid ""
+#| "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+msgid ""
+"You can find more information about commit messages [on this blog post]"
+"(https://chris.beams.io/posts/git-commit/)."
+msgstr ""
+"Pour d'autres conseils, voir [ici](https://chris.beams.io/posts/git-commit/)."
+
+#. type: Title ##
+#: en/./developers/04_Pull_requests.md:59
+#, fuzzy, no-wrap
+#| msgid "How to write a commit message"
+msgid "How to write tests"
+msgstr "Comment écrire un message de commit"
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:62
+msgid ""
+"FreshRSS has few tests for now, but we're working on it. We added this point "
+"to the checklist to help us to write more tests, and we would really "
+"appreciate it if you wrote a test that ensures your patch is working."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:64
+msgid ""
+"We use [PHPUnit](https://phpunit.de/) version 7.5 ([documentation](https://"
+"phpunit.readthedocs.io/en/7.5/))."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:66
+msgid ""
+"You'll find more information on how to run tests [in this document]"
+"(03_Running_tests.md)."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:68
+msgid ""
+"Feel free to ask us for assistance. Not everything will be easy to test, so "
+"don't spend too much time on this."
+msgstr ""
+
+#. type: Title ##
+#: en/./developers/04_Pull_requests.md:69
+#, fuzzy, no-wrap
+#| msgid "Contribute to documentation"
+msgid "Why you should write documentation"
+msgstr "Contribuer à la documentation"
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:72
+msgid ""
+"A friendly project should have correct and complete documentation, so "
+"newcomers don't have to ask too many questions, and users can find answers "
+"to their problems. The documentation should not be written “later” or "
+"chances are it'll never be."
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/04_Pull_requests.md:73
+msgid ""
+"Our documentation can still be improved quite a bit, so you're very welcome "
+"if you want to help."
+msgstr ""
 
 #. type: Title #
 #: en/./developers/05_Release_new_version.md:1

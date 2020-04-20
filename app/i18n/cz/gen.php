@@ -43,7 +43,7 @@ return array(
 		'reset' => 'Reset přihlášení',
 		'username' => array(
 			'admin' => 'Název administrátorského účtu',
-			'format' => '<small>maximálně 16 alfanumerických znaků</small>',
+			'format' => '<small>Maximálně 16 alfanumerických znaků</small>',
 			'_' => 'Uživatel',
 		),
 	),
@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\Č\\e\\r\\v\\e\\n',
 		'jun' => 'čer',
 		'june' => 'Čer',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => 'Minulé tři měsíce',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => 'Minulých šest měsíců',
 		'last_month' => 'Minulý měsíc',
 		'last_week' => 'Minulý týden',
@@ -103,6 +106,7 @@ return array(
 		'wed' => 'St',
 		'yesterday' => 'Včera',
 	),
+	'dir' => 'ltr',
 	'freshrss' => array(
 		'about' => 'O FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation

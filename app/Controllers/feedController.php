@@ -462,7 +462,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				break;
 			}
 		}
-		if (!$noCommit) {
+		if (!$noCommit && ($nb_new_articles > 0 || $updated_feeds > 0)) {
 			if (!$entryDAO->inTransaction()) {
 				$entryDAO->beginTransaction();
 			}
@@ -644,6 +644,153 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url);
 		} else {
 			Minz_Request::bad(_t('feedback.sub.feed.error'), $redirect_url);
+		}
+	}
+
+	/**
+	 * This action force clears the cache of a feed.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *
+	 */
+	public function clearCacheAction() {
+		//Get Feed.
+		$id = Minz_Request::param('id');
+
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feed = $feedDAO->searchById($id);
+
+		if (!$feed) {
+			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
+			return;
+		}
+
+		$feed->clearCache();
+
+		Minz_Request::good(_t('feedback.sub.feed.cache_cleared', $feed->name()), array(
+			'params' => array('get' => 'f_' . $feed->id())
+		));
+	}
+
+	/**
+	 * This action forces reloading the articles of a feed.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *
+	 */
+	public function reloadAction() {
+		@set_time_limit(300);
+
+		//Get Feed ID.
+		$feed_id = Minz_Request::param('id');
+
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+
+		$feed = $feedDAO->searchById($feed_id);
+
+		if (!$feed) {
+			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
+			return;
+		}
+
+		//Re-fetch articles as if the feed was new.
+		self::actualizeFeed($feed_id, null, false, null, true);
+
+		//Extract all feed entries from database, load complete content and store them back in database.
+		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
+
+		$entryDAO->beginTransaction();
+
+		foreach ($entries as $entry) {
+			$entry->loadCompleteContent(true);
+			$entryDAO->updateEntry($entry->toArray());
+		}
+
+		$entryDAO->commit();
+
+		//Give feedback to user.
+		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), array(
+			'params' => array('get' => 'f_' . $feed->id())
+		));
+	}
+
+	/**
+	 * This action creates a preview of a content-selector.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *   - selector (mandatory - no default): Selector to preview
+	 *
+	 */
+	public function contentSelectorPreviewAction() {
+
+		//Configure.
+		$this->view->fatalError = '';
+		$this->view->selectorSuccess = false;
+		$this->view->htmlContent = '';
+
+		$this->view->_layout(false);
+
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-src' => '*',
+			'img-src' => '* data:',
+			'media-src' => '*',
+		]);
+
+		//Get parameters.
+		$feed_id = Minz_Request::param('id');
+		$content_selector = trim(Minz_Request::param('selector'));
+
+		if (!$content_selector) {
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.selector_empty');
+			return;
+		}
+
+		//Check Feed ID validity.
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entries = $entryDAO->listWhere('f', $feed_id);
+		$entry = null;
+
+		//Get first entry (syntax robust for Generator or Array)
+		foreach ($entries as $myEntry) {
+			$entry = $myEntry;
+			break;
+		}
+
+		if ($entry == null) {
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_entries');
+			return;
+		}
+
+		//Get feed.
+		$feed = $entry->feed(true);
+
+		if (!$feed) {
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
+			return;
+		}
+
+		//Fetch & select content.
+		try {
+			$fullContent = FreshRSS_Entry::getContentByParsing(
+				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				$content_selector,
+				$feed->attributes()
+			);
+
+			if ($fullContent != '') {
+				$this->view->selectorSuccess = true;
+				$this->view->htmlContent = $fullContent;
+			} else {
+				$this->view->selectorSuccess = false;
+				$this->view->htmlContent = $entry->content();
+			}
+		} catch (Exception $e) {
+			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');
 		}
 	}
 

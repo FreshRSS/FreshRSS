@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Hide articles after reading',	// TODO - Translation
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',	// TODO - Translation
 		'display_articles_unfolded' => 'Show articles unfolded by default',	// TODO - Translation
-		'display_categories_unfolded' => 'Show categories unfolded by default',	// TODO - Translation
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Hide categories & feeds with no unread article (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// TODO - Translation
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO - Translation
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Adjust showing',	// TODO - Translation
 			'all_articles' => 'Show all articles',	// TODO - Translation
 			'unread' => 'Show only unread',	// TODO - Translation
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Articles to display',	// TODO - Translation
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',
 		'navigation' => 'Navigation',	// TODO - Translation
-		'navigation_help' => 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Alt" modifier, navigation shortcuts apply on categories.',	// TODO - Translation
+		'navigation_help' => 'With the <kbd>⇧ Shift</kbd> modifier, navigation shortcuts apply on feeds.<br/>With the <kbd>Alt ⎇</kbd> modifier, navigation shortcuts apply on categories.',	// TODO - Translation
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Skip to the next article',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'See on original website',	// TODO - Translation
-		'shift_for_all_read' => '+ <code>shift</code> to mark all articles as read',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Shortcuts',	// TODO - Translation

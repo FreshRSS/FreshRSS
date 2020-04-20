@@ -501,9 +501,10 @@ class DOMDocumentWrapper {
 		$metaContentType = $matches[0][0];
 		$markup = substr($markup, 0, $matches[0][1])
 			.substr($markup, $matches[0][1]+strlen($metaContentType));
-		$headStart = stripos($markup, '<head>');
-		$markup = substr($markup, 0, $headStart+6).$metaContentType
-			.substr($markup, $headStart+6);
+		$headStart = stripos($markup, '<head');
+		$headStop = stripos($markup, '>', $headStart);
+		$markup = substr($markup, 0, $headStop+1).$metaContentType
+			.substr($markup, $headStop+1);
 		return $markup;
 	}
 	protected function charsetAppendToHTML($html, $charset, $xhtml = false) {
@@ -1795,6 +1796,14 @@ class phpQueryObject
 		}
 		$this->elements = $stack;
 	}
+
+	/**
+	* used for ordering results in find()
+	*/
+	private function cmpByLineNo($a , $b) {
+		return $a->getLineNo() <= $b->getLineNo() ? -1 : 1;
+	}
+
 	/**
 	 * Enter description here...
 	 *
@@ -1957,6 +1966,7 @@ class phpQueryObject
 				if (! $this->elementsContainsNode($node, $stack))
 					$stack[] = $node;
 		}
+		usort($stack, array('phpQueryObject', 'cmpByLineNo'));
 		$this->elements = $stack;
 		return $this->newInstance();
 	}
@@ -4206,7 +4216,7 @@ class phpQueryObject
 					.($node->getAttribute('id')
 						? '#'.$node->getAttribute('id'):'')
 					.($node->getAttribute('class')
-						? '.'.join('.', split(' ', $node->getAttribute('class'))):'')
+						? '.'.join('.', explode(' ', $node->getAttribute('class'))):'')
 					.($node->getAttribute('name')
 						? '[name="'.$node->getAttribute('name').'"]':'')
 					.($node->getAttribute('value') && strpos($node->getAttribute('value'), '<'.'?php') === false

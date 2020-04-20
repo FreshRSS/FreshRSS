@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',
 		'confirm_enabled' => 'Mostra una conferma per “segna tutto come letto”',
 		'display_articles_unfolded' => 'Mostra articoli aperti di predefinito',
-		'display_categories_unfolded' => 'Mostra categorie aperte di predefinito',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità "caricamento ritardato" per le immagini',
 		'jump_next' => 'Salta al successivo feed o categoria non letto',
@@ -171,7 +171,7 @@ return array(
 		'mark_favorite' => 'Segna come preferito',
 		'mark_read' => 'Segna come letto',
 		'navigation' => 'Navigazione',
-		'navigation_help' => 'Con il tasto "Shift" i comandi di navigazione verranno applicati ai feeds.<br/>Con il tasto "Alt" i comandi di navigazione verranno applicati alle categorie.',
+		'navigation_help' => 'Con il tasto <kbd>⇧ Shift</kbd> i comandi di navigazione verranno applicati ai feeds.<br/>Con il tasto <kbd>Alt ⎇</kbd> i comandi di navigazione verranno applicati alle categorie.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Salta al contenuto successivo',
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
@@ -180,7 +180,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Vai al sito fonte',
-		'shift_for_all_read' => '+ <code>shift</code> per segnare tutti gli articoli come letti',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> per segnare tutti gli articoli come letti',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Comandi da tastiera',

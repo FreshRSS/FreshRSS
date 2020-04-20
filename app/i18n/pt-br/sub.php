@@ -2,13 +2,13 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
-		'title' => 'API',	// TODO - Translation
+		'documentation' => 'Copie a seguinte URL para utilizar com uma ferramenta externa',
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
-		'label' => 'Subscribe',	// TODO - Translation
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'documentation' => 'Arraste este botão para sua barra de favoritos ou clique com o botão direito e escolha "Adicionar este link aos favoritos". Depois clique no no link da barra de favoritos "Inscrever-se" em qualquer página que você queira se inscrever.',
+		'label' => 'Inscrever-se',
+		'title' => 'Bookmarklet',	// TODO? - Translation
 	),
 	'category' => array(
 		'add' => 'Adicionar uma categoria',
@@ -16,8 +16,8 @@ return array(
 		'empty' => 'Categoria vazia',
 		'information' => 'Informações',
 		'new' => 'Nova categoria',
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
+		'position' => 'Posição de exibição',
+		'position_help' => 'Para controlar a ordem de exibição',
 		'title' => 'Título',
 		'_' => 'Categoria',
 	),
@@ -26,61 +26,72 @@ return array(
 		'advanced' => 'Avançado',
 		'archiving' => 'Arquivar',
 		'auth' => array(
-			'configuration' => 'Login',	// TODO - Translation
+			'configuration' => 'Entrar',
 			'help' => 'Permite acesso a feeds RSS protegidos por HTTP',
 			'http' => 'Autenticação HTTP',
 			'password' => 'Senha HTTP',
 			'username' => 'Usuário HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO - Translation
+		'clear_cache' => 'Sempre limpar o cache',
 		'css_help' => 'Retorna RSS feeds truncados (atenção, requer mais tempo!)',
 		'css_path' => 'Caminho do CSS do artigo no site original',
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
-			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Escreva um filtro de pesquisa por linha.',
+			'_' => 'Ações do filtro',
 		),
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
+		'maintenance' => array(
+			'clear_cache' => 'Limpar o cache',
+			'clear_cache_help' => 'Limpar o cache em disco deste feed',
+			'reload_articles' => 'Recarregar artigos',
+			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',
+			'title' => 'Manutenção',
+		),
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
-		'mute' => 'mute',	// TODO - Translation
+		'mute' => 'silenciar',
 		'no_selected' => 'Nenhum feed selecionado.',
 		'number_entries' => '%d artigos',
 		'priority' => array(
-			'archived' => 'Do not show (archived)',	// TODO - Translation
+			'archived' => 'Não exibir (arquivado)',
 			'main_stream' => 'Mostrar na tela principal',
-			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
+			'normal' => 'Mostrar na sua categoria',
+			'_' => 'Visibilidade',
+		),
+		'selector_preview' => array(
+			'show_raw' => 'Mostrar fonte',
+			'show_rendered' => 'Mostrar conteúdo',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'all' => 'Mostrar todos os Feeds',
+			'error' => 'Somente mostrar Feeds com erros',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Exibir apenas os feeds com erros',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
+		'ssl_verify' => 'Verificar segurança SSL',
 		'stats' => 'Estatísticas',
 		'think_to_add' => 'Você deve adicionar alguns feeds.',
-		'timeout' => 'Timeout in seconds',	// TODO - Translation
+		'timeout' => 'Timeout em segundos',
 		'title' => 'Título',
 		'title_add' => 'Adicionar o RSS feed',
-		'ttl' => 'Não atualize automáticamente mais que',
-		'url' => 'Feed URL',	// TODO - Translation
+		'ttl' => 'Não atualize automaticamente mais que',
+		'url' => 'URL do Feed',
 		'validator' => 'Verifique a validade do feed',
 		'website' => 'URL do site',
 		'websub' => 'Notificação instantânea com WebSub',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
+		'documentation' => 'Siga as instruções descritas em <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> para adicionar o FreshRSS para o seu leitor de Feed do Firefox.',
+		'obsolete_63' => 'A partir da versão 63, o Firefox removeu a capacidade de adicionar seus próprios serviços de assinatura que não são programas autônomos.',
+		'title' => 'Leitor de feed do Firefox',
 	),
 	'import_export' => array(
 		'export' => 'Exportar',
-		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
+		'export_labelled' => 'Exportar seus artigos etiquetados',
 		'export_opml' => 'Exporta a lista dos feeds (OPML)',
 		'export_starred' => 'Exportar seus favoritos',
 		'feed_list' => 'Lista dos %s artigos',
@@ -94,11 +105,11 @@ return array(
 		'bookmark' => 'Inscreva-se (FreshRSS favoritos)',
 		'import_export' => 'Importar / exportar',
 		'subscription_management' => 'Gerenciamento de inscrições',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'title' => array(
 		'feed_management' => 'Gerenciamento dos RSS feeds',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'subscription_tools' => 'Ferramentas de inscrição',
 		'_' => 'Gerenciamento de inscrições',
 	),
 );

@@ -103,7 +103,7 @@ return array(
 		'auto_remove_article' => 'Verberg artikel na lezen',
 		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
-		'display_categories_unfolded' => 'Categorieën standaard uitklappen',
+		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
@@ -120,6 +120,9 @@ return array(
 			'adaptive' => 'Pas weergave aan',
 			'all_articles' => 'Bekijk alle artikelen',
 			'unread' => 'Bekijk alleen ongelezen',
+			'active_category' => 'Active category',	// TODO - Translation
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'_' => 'Artikelen om te tonen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
@@ -171,7 +174,7 @@ return array(
 		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
 		'navigation' => 'Navigatie',
-		'navigation_help' => 'Met de "Shift" toets worden navigatieverwijzingen op feeds toegepast.<br/>Met de "Alt" toets worden navigatieverwijzingen op categorieën toegepast.',
+		'navigation_help' => 'Met de <kbd>⇧ Shift</kbd> toets worden navigatieverwijzingen op feeds toegepast.<br/>Met de <kbd>Alt ⎇</kbd> toets worden navigatieverwijzingen op categorieën toegepast.',
 		'navigation_no_mod_help' => 'De volgende navigatiesnelkoppelingen ondersteunen geen toetsencombinaties.',
 		'next_article' => 'Spring naar volgende artikel',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Schakel naar leesaanzicht',
 		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
 		'see_on_website' => 'Bekijk op originale website',
-		'shift_for_all_read' => '+ <code>shift</code> om alle artikelen als gelezen te markeren',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> om voorgaande artikelen als gelezen te markeren<br />+ <kbd>⇧ Shift</kbd> om alle artikelen als gelezen te markeren',
 		'skip_next_article' => 'Volgend artikel focusen zonder openen',
 		'skip_previous_article' => 'Vorig artikel focusen zonder openen',
 		'title' => 'Verwijzingen',

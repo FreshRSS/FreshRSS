@@ -43,7 +43,7 @@
 		}
 
 		.item.date {
-			color: unquote($unread-font-color+"99"); //--------------------
+			color: scale-color($unread-font-color, $alpha: -50%);
 		}
 	}
 
@@ -73,9 +73,8 @@
 	}
 
 	.date {
-		color: $main-font-color;
+		color: scale-color($main-font-color, $alpha: -50%);
 		font-size: 0.85rem;
-		opacity: 0.75;
 	}
 
 	.bottom {

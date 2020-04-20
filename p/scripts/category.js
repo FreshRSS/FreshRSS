@@ -143,6 +143,7 @@ function archiving() {
 		if (e.target.id === 'use_default_purge_options') {
 			slider.querySelectorAll('.archiving').forEach(function (element) {
 				element.hidden = e.target.checked;
+				if (!e.target.checked) element.style.visibility = 'visible'; 	//Help for Edge 44
 			});
 		}
 	});

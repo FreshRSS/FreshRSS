@@ -1,10 +1,8 @@
+<div id="first_load" class="loading"></div>
+
 <?php
 	$actual_view = Minz_Request::actionName();
-
 	flush();
-	if (isset($this->callbackBeforePagination)) {
-		call_user_func($this->callbackBeforePagination, $this);
-	}
 ?>
 
 <div class="nav_menu">
@@ -201,7 +199,7 @@
 			<?php } ?>
 		</form>
 	</div>
-	
+
 	<?php
 		if (FreshRSS_Context::$order === 'DESC') {
 			$order = 'ASC';
@@ -218,8 +216,9 @@
 	<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
 		<?= _i($icon) ?>
 	</a>
-	
+
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
 	<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
 	<?php } ?>
 </div>
+<?php flush(); ?>

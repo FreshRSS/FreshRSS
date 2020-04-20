@@ -373,13 +373,18 @@ class FreshRSS_Feed extends Minz_Model {
 						$elinks[$elink] = true;
 						$mime = strtolower($enclosure->get_type());
 						$medium = strtolower($enclosure->get_medium());
+						$length = $enclosure->get_length();
 						if ($medium === 'image' || strpos($mime, 'image/') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
 						} elseif ($medium === 'audio' || strpos($mime, 'audio/') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+								. ($length == null ? '' : '" data-length="' . intval($length))
+								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
 								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 						} elseif ($medium === 'video' || strpos($mime, 'video/') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+								. ($length == null ? '' : '" data-length="' . intval($length))
+								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
 								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 						} elseif ($medium != '' || strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink . '">💾</a></p>';
@@ -401,7 +406,7 @@ class FreshRSS_Feed extends Minz_Model {
 						$content .= $enclosureContent;
 
 						if ($enclosure->get_description() != '') {
-							$content .= '<pre class="enclosure-description">' . $enclosure->get_description() . '</pre>';
+							$content .= '<p class="enclosure-description">' . $enclosure->get_description() . '</p>';
 						}
 						$content .= "</div>\n";
 					}
