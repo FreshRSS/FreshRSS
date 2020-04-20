@@ -11,7 +11,7 @@
 			<label class="group-name" for="posts_per_page"><?= _t('conf.reading.articles_per_page') ?></label>
 			<div class="group-controls">
 				<input type="number" id="posts_per_page" name="posts_per_page" value="<?= FreshRSS_Context::$user_conf->posts_per_page ?>" min="5" max="500" data-leave-validation="<?= FreshRSS_Context::$user_conf->posts_per_page ?>"/>
-				<?= _i('help') ?> <?= _t('conf.reading.number_divided_when_reader') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('conf.reading.number_divided_when_reader') ?></p>
 			</div>
 		</div>
 

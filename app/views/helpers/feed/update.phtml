@@ -254,7 +254,7 @@
 			<label class="group-name" for="http_user_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?= empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
-				<?= _i('help') ?> <?= _t('sub.feed.auth.help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 
 			<label class="group-name" for="http_pass_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.password') ?></label>
@@ -278,7 +278,7 @@
 					<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?= _url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
 				</div>
-				<?= _i('help') ?> <?= _t('sub.feed.css_help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
 			</div>
 		</div>
 
@@ -347,7 +347,7 @@
 						echo htmlspecialchars($filterRead->getRawInput(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 					}
 				?></textarea>
-				<?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
 			</div>
 		</div>
 
@@ -364,13 +364,13 @@
 				<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id()) ?>">
 					<?= _t('sub.feed.maintenance.clear_cache') ?>
 				</a>
-				<?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 			</div>
 			<div class="group-controls">
 				<a class="btn btn-important" href="<?= _url('feed', 'reload', 'id', $this->feed->id()) ?>">
 					<?= _t('sub.feed.maintenance.reload_articles') ?>
 				</a>
-				<?= _i('help') ?> <?= _t('sub.feed.maintenance.reload_articles_help') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.reload_articles_help') ?></p>
 			</div>
 		</div>
 	</form>

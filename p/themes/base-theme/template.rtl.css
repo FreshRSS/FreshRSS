@@ -59,6 +59,10 @@ p {
 	font-size: 1em;
 }
 
+p.help, .prompt p.help {
+	margin: 5px 0 0.5em;
+}
+
 sup {
 	line-height: 25px;
 	position: relative;
