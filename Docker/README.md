@@ -354,7 +354,7 @@ server {
 ### Alternative reverse proxy using [Apache 2.4](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
 
 Here is an example of a configuration file for running FreshRSS behind an Apache reverse proxy (as a subdirectory).
-You need a working SSL configuration and the Apache modules `proxy`, `proxy_http` and and `headers`installed (depends on your distribution) and enabled (```a2enmod proxy proxy_http headers```).
+You need a working SSL configuration and the Apache modules `proxy`, `proxy_http` and `headers` installed (depends on your distribution) and enabled (```a2enmod proxy proxy_http headers```).
 
 ```
 ProxyPreserveHost On
