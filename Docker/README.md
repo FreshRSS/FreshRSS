@@ -351,3 +351,27 @@ server {
 	}
 }
 ```
+### Alternative reverse proxy using [apache 2.4](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+Here is an example of configuration to run FreshRSS behind an Apache reverse proxy (as subdirectory).
+You have to have a working SSL configuration and the apache modules proxy and proxy_http installed
+
+```
+ProxyPreserveHost On
+ProxyPass /freshrss http://127.0.0.1:8080
+ProxyPassReverse /freshrss http://127.0.0.1:8080
+
+
+
+<Proxy http://127.0.0.1:8080>
+
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Prefix "/freshrss"
+
+    Require all granted
+
+    Options none
+
+</Proxy>
+
+```
