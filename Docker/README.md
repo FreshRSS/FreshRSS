@@ -360,8 +360,8 @@ You need a working SSL configuration and the Apache modules `proxy`, `proxy_http
 ProxyPreserveHost On
 
 <Location /freshrss/>
-  ProxyPass http://127.0.0.1:9797/
-  ProxyPassReverse http://127.0.0.1:9797/
+  ProxyPass http://127.0.0.1:8080/
+  ProxyPassReverse http://127.0.0.1:8080/
   RequestHeader set X-Forwarded-Prefix "/freshrss"
   RequestHeader set X-Forwarded-Proto "https"
   Require all granted
