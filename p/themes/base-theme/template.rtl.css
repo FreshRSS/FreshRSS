@@ -883,12 +883,9 @@ br {
 
 /*=== "Load" parts */
 
-/* Only matches while waiting for div#stream to be received */
-#first_load:nth-last-of-type(1), #first_load:nth-last-of-type(2) {
-	margin: -40px auto 0 auto;
+#first_load {
+	margin: 130px auto -170px auto;
 	height: 40px;
-	position: relative;
-	top: 290px;
 }
 
 #load_more {
