@@ -49,10 +49,10 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 	// file to exist. This is because the install script creates this file, so
 	// if it is missing, it means the application is not installed. But we
 	// should also take care of applications installed before the new
-	// migrations system (<1.16). Indeed, they are installed but the migrations
-	// version file doesn't exist. So for now, we continue to check if the
+	// migrations system (<=1.16). Indeed, they are installed but the migrations
+	// version file doesn't exist. So for now (1.17), we continue to check if the
 	// application is installed with the do-install.txt file: if yes, we create
-	// the version file. Starting from version 1.17, all the installed systems
+	// the version file. Starting from version 1.18, all the installed systems
 	// will have the file and so we will be able to remove this temporary line
 	// and stop using the do-install.txt file to check if FRSS is already
 	// installed.
