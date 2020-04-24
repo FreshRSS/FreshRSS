@@ -695,7 +695,11 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//Parameter true to subscribe, false to unsubscribe.
 	public function pubSubHubbubSubscribe($state) {
-		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		if ($state) {
+			$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		} else {
+			$url = $this->url;	//Always use current URL during unsubscribe
+		}
 		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
