@@ -35,14 +35,20 @@ class Minz_Migrator
 		if ($applied_migrations === false) {
 			return "Cannot open the {$applied_migrations_path} file";
 		}
-
 		$applied_migrations = array_filter(explode("\n", $applied_migrations));
-		$migrator = new self($migrations_path);
-		if ($applied_migrations) {
-			$migrator->setAppliedVersions($applied_migrations);
-		}
 
-		if ($migrator->upToDate()) {
+		$migration_files = scandir($migrations_path);
+		$migration_files = array_filter($migration_files, function ($filename) {
+			return $filename[0] !== '.';
+		});
+		$migration_versions = array_map(function ($filename) {
+			return basename($filename, '.php');
+		}, $migration_files);
+
+		// We apply a "low-cost" comparaison to avoid to include the migration
+		// files at each run. It is equivalent to the upToDate method.
+		if (count($applied_migrations) === count($migration_versions) &&
+			empty(array_diff($applied_migrations, $migration_versions))) {
 			// already at the latest version, so there is nothing more to do
 			return true;
 		}
@@ -62,6 +68,10 @@ class Minz_Migrator
 			return true;
 		}
 
+		$migrator = new self($migrations_path);
+		if ($applied_migrations) {
+			$migrator->setAppliedVersions($applied_migrations);
+		}
 		$results = $migrator->migrate();
 
 		foreach ($results as $migration => $result) {
