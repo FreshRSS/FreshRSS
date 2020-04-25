@@ -1,7 +1,35 @@
 ﻿# FreshRSS changelog
 
-## 2020-XX-XX FreshRSS 1.16.1-dev
+## 2020-0X-XX FreshRSS 1.16.1-dev
 
+* Features
+	* Add the possibility to filter by feed IDs [#2892](https://github.com/FreshRSS/FreshRSS/pull/2892)
+		* like `f:123 more-search` or multiple feed IDs like `f:123,234,345 more-search` or an exclusion like `!f:456,789 more-search`
+* API
+	* Expose podcasts in API [#2898](https://github.com/FreshRSS/FreshRSS/pull/2898)
+* UI
+	* New option to control which categories to unfold [#2888](https://github.com/FreshRSS/FreshRSS/pull/2888)
+	* Turn off autocapitalization in login fields [#2907](https://github.com/FreshRSS/FreshRSS/pull/2907)
+	* Minor layout improvement of help labels [#2911](https://github.com/FreshRSS/FreshRSS/pull/2911)
+	* Fix styling of search input fields in Safari [#2887](https://github.com/FreshRSS/FreshRSS/pull/2887)
+	* Upgrade to jQuery 3.5.0 for statistics [#2895](https://github.com/FreshRSS/FreshRSS/pull/2895)
+* Deployment
+	* Docker: Ubuntu image updated to 20.04 with PHP 7.4.3 and Apache 2.4.41 [#2925](https://github.com/FreshRSS/FreshRSS/pull/2925)
+	* Docker: Alpine image updated to PHP 7.3.17
+	* Add reference documentation for using Apache as a reverse proxy [#2919](https://github.com/FreshRSS/FreshRSS/pull/2919)
+	* Enforce Unix line endings when checking out via git [#2879](https://github.com/FreshRSS/FreshRSS/pull/2879)
+* Bug fixing
+	* Fix e-mail validation bug for admins [#2917](https://github.com/FreshRSS/FreshRSS/pull/2917)
+	* Fix some cases when WebSub-enabled feeds change address [#2922](https://github.com/FreshRSS/FreshRSS/pull/2922)
+	* Fix ensuring that wrong login attempts generate HTTP 403 (e.g. for fail2ban) [#2903](https://github.com/FreshRSS/FreshRSS/pull/2903)
+	* Fix archiving options layout in Edge [#2906](https://github.com/FreshRSS/FreshRSS/pull/2906)
+	* Fix form in statistics for article repartition [#2896](https://github.com/FreshRSS/FreshRSS/pull/2896)
+	* Fix double-HTML-encoding of category names in statistics [#2897](https://github.com/FreshRSS/FreshRSS/pull/2897)
+* i18n
+	* Improve Simplified Chinese [#2891](https://github.com/FreshRSS/FreshRSS/pull/2891)
+* Misc.
+	* Reduce the risk of DB lock errors [#2899](https://github.com/FreshRSS/FreshRSS/pull/2899)
+	* Initial rules for Markdown linting [#2880](https://github.com/FreshRSS/FreshRSS/pull/2880)
 
 
 ## 2020-04-09 FreshRSS 1.16.0
