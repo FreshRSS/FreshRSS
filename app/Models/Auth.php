@@ -81,10 +81,7 @@ class FreshRSS_Auth {
 	 */
 	public static function giveAccess() {
 		$current_user = Minz_Session::param('currentUser');
-		/** @var Minz_Configuration $user_conf */
 		$user_conf = get_user_configuration($current_user);
-		$user_conf->last_login = time();
-		$user_conf->save();
 		if ($user_conf == null) {
 			self::$login_ok = false;
 			return false;
@@ -108,6 +105,8 @@ class FreshRSS_Auth {
 
 		Minz_Session::_param('loginOk', self::$login_ok);
 		Minz_Session::_param('REMOTE_USER', httpAuthUser());
+		FreshRSS_UserDAO::touch($current_user);
+
 		return self::$login_ok;
 	}
 
