@@ -95,5 +95,4 @@ return array (
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
 	'extensions_enabled' => array(),
-	'last_login' => null,
 );
