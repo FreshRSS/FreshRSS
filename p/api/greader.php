@@ -421,7 +421,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 			$unreadcounts[] = array(
 				'id' => 'feed/' . $feed->id(),
 				'count' => $feed->nbNotRead(),
-				'newestItemTimestampUsec' => $lastUpdate,
+				'newestItemTimestampUsec' => '' . $lastUpdate,
 			);
 			if ($catLastUpdate < $lastUpdate) {
 				$catLastUpdate = $lastUpdate;
@@ -430,7 +430,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
-			'newestItemTimestampUsec' => $catLastUpdate,
+			'newestItemTimestampUsec' => '' . $catLastUpdate,
 		);
 		$totalUnreads += $cat->nbNotRead();
 		if ($totalLastUpdate < $catLastUpdate) {
@@ -445,14 +445,14 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
-			'newestItemTimestampUsec' => $lastUpdate,
+			'newestItemTimestampUsec' => '' . $lastUpdate,
 		);
 	}
 
 	$unreadcounts[] = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'count' => $totalUnreads,
-		'newestItemTimestampUsec' => $totalLastUpdate,
+		'newestItemTimestampUsec' => '' . $totalLastUpdate,
 	);
 
 	echo json_encode(array(
