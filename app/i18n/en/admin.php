@@ -204,5 +204,7 @@ return array(
 		'username' => 'Username',
 		'users' => 'Users',
 		'user_list' => 'List of users',
+		'last_login' => 'Last login',
+		'never_loggedin' => 'Never logged in'
 	),
 );
