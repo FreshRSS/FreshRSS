@@ -77,6 +77,7 @@
 				<th><?= _t('admin.user.feed_count') ?></th>
 				<th><?= _t('admin.user.article_count') ?></th>
 				<th><?= _t('admin.user.database_size') ?></th>
+                <th><?= _t('admin.user.last_login') ?></th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -90,6 +91,7 @@
 					<td><?= format_number($values['feed_count']) ?></td>
 					<td><?= format_number($values['article_count']) ?></td>
 					<td><?= format_bytes($values['database_size']) ?></td>
+                    <td><?= $values['last_login'] ? $values['last_login'] : _t('admin.user.never_loggedin') ?></td>
 					<td><a href="<?= _url('user', 'details', 'username', $username) ?>">Details</a></td>
 				</tr>
 			<?php endforeach ?>
