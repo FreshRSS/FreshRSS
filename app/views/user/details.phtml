@@ -45,6 +45,13 @@
         </div>
 
         <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.last_login') ?></label>
+            <div class="group-controls">
+                <?= $this->details['last_login'] ? $this->details['last_login'] : _t('admin.user.never_loggedin') ?>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="group-name" for="newPasswordPlain"><?= _t('admin.user.password_form') ?></label>
             <div class="group-controls">
                 <div class="stick">
