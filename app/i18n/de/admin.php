@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 return array(
 	'auth' => array(
@@ -204,5 +204,7 @@ return array(
 		'username' => 'Nutzername',
 		'users' => 'Benutzer',
 		'user_list' => 'Liste der Benutzer',
+		'last_login' => 'Last login', // TODO - Translation
+		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

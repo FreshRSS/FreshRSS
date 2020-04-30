@@ -204,5 +204,7 @@ return array(
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',
 		'user_list' => 'Kullanıcı listesi',
+		'last_login' => 'Last login', // TODO - Translation
+		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

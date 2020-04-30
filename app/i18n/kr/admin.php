@@ -204,5 +204,7 @@ return array(
 		'username' => '사용자 이름',
 		'users' => '전체 사용자',
 		'user_list' => '사용자 목록',
+		'last_login' => 'Last login', // TODO - Translation
+		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

@@ -204,5 +204,7 @@ return array(
 		'username' => '用户名',
 		'users' => '用户',
 		'user_list' => '用户列表',
+		'last_login' => 'Last login', // TODO - Translation
+		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

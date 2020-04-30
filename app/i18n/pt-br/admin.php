@@ -204,5 +204,7 @@ return array(
 		'username' => 'Usuário',
 		'users' => 'Usuários',
 		'user_list' => 'Lista de usuários',
+		'last_login' => 'Last login', // TODO - Translation
+		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

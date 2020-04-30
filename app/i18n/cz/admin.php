@@ -204,5 +204,7 @@ return array(
 		'username' => 'Přihlašovací jméno',
 		'users' => 'Uživatelé',
 		'user_list' => 'Seznam uživatelů',
+		'last_login' => 'Last login', // TODO - Translation
+		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );
