@@ -1131,8 +1131,11 @@ a.btn {
 
 @media (max-width: 840px) {
 	.aside {
-		box-shadow: 3px 0 3px #aaa;
 		transition: width 200ms linear;
+	}
+
+	.aside:target {
+		box-shadow: 3px 0 3px #aaa;
 	}
 
 	.aside .toggle_aside,
