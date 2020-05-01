@@ -219,8 +219,17 @@ td.numeric {
 
 /*=== Buttons */
 .stick {
-	display: inline-block;
+	display: inline-flex;
+	max-width: 100%;
 	white-space: nowrap;
+}
+
+.stick > input.long {
+	flex-shrink: 1;
+}
+
+.stick > .btn {
+	flex-shrink: 0;
 }
 
 .btn,
