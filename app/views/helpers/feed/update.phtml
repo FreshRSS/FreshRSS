@@ -232,14 +232,18 @@
 				</label>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="group-name" for="pubsubhubbub"><?= _t('sub.feed.websub') ?></label>
-			<div class="group-controls">
-				<label class="checkbox" for="pubsubhubbub">
-					<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1"<?= $this->feed->pubSubHubbubEnabled() ? ' checked="checked"' : '' ?> />
-				</label>
+
+		<?php if ($this->feed->pubSubHubbubEnabled()) { ?>
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="pubsubhubbub">
+						<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1" checked />
+						<?= _t('sub.feed.websub') ?>
+					</label>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
@@ -310,9 +314,11 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="clear_cache"><?= _t('sub.feed.clear_cache') ?></label>
 			<div class="group-controls">
-				<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributes('clear_cache') ? ' checked="checked"' : '' ?> />
+				<label class="checkbox" for="clear_cache">
+					<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributes('clear_cache') ? ' checked="checked"' : '' ?> />
+					<?= _t('sub.feed.clear_cache') ?>
+				</label>
 			</div>
 		</div>
 
