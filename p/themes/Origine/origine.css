@@ -1130,6 +1130,11 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.aside {
 		transition: width 200ms linear;
 	}
