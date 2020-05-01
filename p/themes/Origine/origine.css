@@ -1153,6 +1153,11 @@ a.btn {
 		padding: 0;
 	}
 
+	.post {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
 	.nav_menu .btn {
 		margin: 5px 10px;
 	}
