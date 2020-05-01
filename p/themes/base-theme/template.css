@@ -1219,6 +1219,18 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
+	.form-group {
+		margin-bottom: 10px;
+	}
+
+	.form-group .group-name {
+		float: none;
+	}
+
+	.form-group .group-controls {
+		margin-left: 0;
+	}
+
 	.dropdown .dropdown-menu {
 		width: 100%;
 		border-radius: 0;

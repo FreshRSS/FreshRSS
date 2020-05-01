@@ -1130,6 +1130,12 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
+	.form-group .group-name {
+		padding-bottom: 0;
+
+		text-align: left;
+	}
+
 	.box .box-title .configure,
 	.box .box-content .item .configure {
 		visibility: visible;
