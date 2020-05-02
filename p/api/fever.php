@@ -536,7 +536,7 @@ class FeverAPI
 				continue;
 			}
 			$items[] = array(
-				'id' => $entry->id(),
+				'id' => '' . $entry->id(),
 				'feed_id' => $entry->feed(false),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
