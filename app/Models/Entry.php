@@ -212,7 +212,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	private function _feedId($value) {
 		$this->feed = null;
-		$this->feedId = $value;
+		$this->feedId = intval($value);
 	}
 	public function _tags($value) {
 		$this->hash = null;
