@@ -212,7 +212,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->description = $value === null ? '' : $value;
 	}
 	public function _lastUpdate($value) {
-		$this->lastUpdate = $value;
+		$this->lastUpdate = intval($value);
 	}
 	public function _priority($value) {
 		$this->priority = intval($value);
