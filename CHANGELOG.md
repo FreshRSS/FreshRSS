@@ -14,7 +14,6 @@
 	* Fix styling of search input fields in Safari [#2887](https://github.com/FreshRSS/FreshRSS/pull/2887)
 	* Upgrade to jQuery 3.5.0 for statistics [#2895](https://github.com/FreshRSS/FreshRSS/pull/2895)
 * Deployment
-	* Docker: Ubuntu image updated to 20.04 with PHP 7.4.3 and Apache 2.4.41 [#2925](https://github.com/FreshRSS/FreshRSS/pull/2925)
 	* Docker: Alpine image updated to PHP 7.3.17
 	* Add reference documentation for using Apache as a reverse proxy [#2919](https://github.com/FreshRSS/FreshRSS/pull/2919)
 	* Enforce Unix line endings when checking out via git [#2879](https://github.com/FreshRSS/FreshRSS/pull/2879)
