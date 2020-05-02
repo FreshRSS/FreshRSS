@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:19.10
 
 ENV TZ UTC
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
