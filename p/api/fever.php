@@ -288,7 +288,7 @@ class FeverAPI
 		$arr = array('api_version' => self::API_LEVEL, 'auth' => $status);
 
 		if ($status === self::STATUS_OK) {
-			$arr['last_refreshed_on_time'] = (string) $this->lastRefreshedOnTime();
+			$arr['last_refreshed_on_time'] = $this->lastRefreshedOnTime();
 			$arr = array_merge($arr, $reply);
 		}
 
