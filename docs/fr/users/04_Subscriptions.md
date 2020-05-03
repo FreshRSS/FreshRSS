@@ -11,7 +11,7 @@
 ## Exportation
 
  1. Pour exporter votre liste d'abonnements, allez dans « Gestion des abonnements ».
- 2. Cliquez ensuite sur « Importer/exporter » dans le menu de gauche.
+ 2. Cliquez ensuite sur « Importer / exporter » dans le menu de gauche.
  3. Vous pouvez mettre dans votre export :
     1. la liste des flux
     2. les articles que vous avez étiquetés
@@ -22,7 +22,7 @@
  
  ## Importation
  
-  1. Pour importer un fichier d'abonnement vers votre compte FreshRSS, allez dans l'espace « Importer/exporter » comme ci-dessus
+  1. Pour importer un fichier d'abonnement vers votre compte FreshRSS, allez dans l'espace « Importer / exporter » comme ci-dessus
   2. Cliquez sur « Parcourir » et sélectionnez votre fichier sur votre ordinateur.
   3. Validez en cliquant sur « Importer ».
 
@@ -40,7 +40,7 @@ effectuer des tâches diverses et variées. FreshRSS offre un signet (
 
 # Organisation des flux
 
-Vous pouvez trier vos flux dans des différentes catégories. Vous pouvez le faire dès votre abonnement à un flux (voir ci-dessus) ou quand vous voulez.
+Vous pouvez trier vos flux dans des différentes catégories. Vous pouvez le faire dès votre abonnement à un flux (voir ci-dessus) et quand vous voulez.
 Un flux ne peut être que dans une seule catégorie.
 
  1. Ouvrez « Gestion des abonnements ».
