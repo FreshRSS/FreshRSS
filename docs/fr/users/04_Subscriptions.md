@@ -3,7 +3,8 @@
  1. Pour ajouter un flux, copiez le lien vers le fichier RSS ou Atom qui vous intéresse (par exemple, le lien RSS du framablog est `https://framablog.org/feed/`).
  2. Sur l'interface de FreshRSS, cliquez sur « Gestion des abonnements ».
  3. Collez l'URL du flux dans le champs « Ajouter un flux RSS » juste en dessous du titre.
- 4. Validez.
+ 4. (facultatif) : Vous pouvez descendre jusqu'à « Catégorie » et sélectionner la catégorie dans laquelle vous souhaitez enregistrer votre flux. Par défaut, la catégorie « Sans catégorie » est sélectionnée.
+ 5. Validez.
 
 # Import et export
 
@@ -39,4 +40,14 @@ effectuer des tâches diverses et variées. FreshRSS offre un signet (
 
 # Organisation des flux
 
-**À FAIRE**
+Vous pouvez trier vos flux dans des différentes catégories. Vous pouvez le faire dès votre abonnement à un flux (voir ci-dessus) ou quand vous voulez.
+Un flux ne peut être que dans une seule catégorie.
+
+ 1. Ouvrez « Gestion des abonnements ».
+ 2. Vous pouvez ajouter une catégorie d'abonnements de cette manière :
+    1. Tapez le nom de votre catégorie dans le champ « Nouvelle catégorie »
+    2. Cliquez ensuite sur le bouton « Valider »
+ 3. Ensuite, vous pouvez glisser vos abonnements de catégorie en catégorie
+ 4. (facultatif) : Pour qu'un flux s'affiche dans la catégorie, et non pas dans l'onglet principal, en restant sur l'écran des catégories, cliquez la « roue » à gauche de votre flux.
+ 5. (facultatif) : Puis, sur la fonction « Visibilité », choisissez « Afficher dans sa catégorie ».
+ 6. (facultatif) : Validez
