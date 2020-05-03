@@ -12,10 +12,10 @@
  1. Pour exporter votre liste d'abonnements, allez dans « Gestion des abonnements ».
  2. Cliquez ensuite sur « Importer/exporter » dans le menu de gauche.
  3. Vous pouvez mettre dans votre export :
-  a. la liste des flux
-  b. les articles que vous avez étiquetés
-  c. les articles que vous avez mis en favoris
-  d. et enfin, vous pouvez sélectionner les flux que vous voulez exporter (par défaut tous les flux sont sélectionnés)
+    1. la liste des flux
+    2. les articles que vous avez étiquetés
+    3. les articles que vous avez mis en favoris
+    4. et enfin, vous pouvez sélectionner les flux que vous voulez exporter (par défaut tous les flux sont sélectionnés)
  4. Cliquez sur « Exporter ».
  5. Enregistrez votre fichier.
  
