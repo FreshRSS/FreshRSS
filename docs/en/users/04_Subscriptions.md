@@ -23,7 +23,7 @@
  ## Import
  
   1. Go to the page "Import / export".
-  2. Clic on "Browse" and select your file on your computer.
+  2. Click on "Browse" and select your file on your computer.
   3. Click on "Import"
   
 # Use bookmarklet
