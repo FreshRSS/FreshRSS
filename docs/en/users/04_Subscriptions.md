@@ -10,7 +10,7 @@
 
 ## Export
 
- 1. To export your list of fedds, go to “Subscriptions management”.
+ 1. To export your list of feeds, go to “Subscriptions management”.
  2. Click on "Import / export"
  3. You can select for your export :
     1. the list of feeds
