@@ -36,7 +36,7 @@ Bookmarklets are little scripts that you can execute to perform various tasks. F
 
 # Feed management
 
-You can manage your feeds with differents category. You can do it when addind a feed (top) and when you want. A feed can't be in many category.
+You can manage your feeds within different categories. You can select a category while adding a feed (top) or whenever you want. A feed can't be in multiple categories.
 
  1. Open "Subscriptions management".
  2. You can add a category :
