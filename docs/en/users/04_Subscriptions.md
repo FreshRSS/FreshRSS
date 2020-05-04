@@ -14,7 +14,7 @@
  2. Click on "Import / export"
  3. You can select for your export :
     1. the list of feeds
-    2. the labelled articles
+    2. labeled articles
     3. favorite articles
     4. and finally, you can to select feeds you want to export (by default, all feeds are selected)
  4. Clic on "export".
