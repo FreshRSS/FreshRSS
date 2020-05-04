@@ -15,7 +15,7 @@
  3. You can select for your export :
     1. the list of feeds
     2. the labelled articles
-    3. the favurites articles
+    3. favorite articles
     4. and finally, you can to select feeds you want to export (by default, all feeds are selected)
  4. Clic on "export".
  5. Save your file.
