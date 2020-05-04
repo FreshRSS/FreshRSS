@@ -1,6 +1,6 @@
 # Ajouter un flux
 
- 1. Pour ajouter un flux, copiez le lien vers le fichier RSS ou Atom qui vous intéresse (par exemple, le lien RSS du framablog est `https://framablog.org/feed/`).
+ 1. Pour ajouter un flux, copiez le lien vers le fichier RSS ou Atom qui vous intéresse (par exemple, le lien RSS du Framablog est `https://framablog.org/feed/`).
  2. Sur l'interface de FreshRSS, cliquez sur « Gestion des abonnements ».
  3. Collez l'URL du flux dans le champs « Ajouter un flux RSS » juste en dessous du titre.
  4. (facultatif) : Vous pouvez descendre jusqu'à « Catégorie » et sélectionner la catégorie dans laquelle vous souhaitez enregistrer votre flux. Par défaut, la catégorie « Sans catégorie » est sélectionnée.
