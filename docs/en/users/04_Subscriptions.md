@@ -43,6 +43,6 @@ You can manage your feeds within different categories. You can select a category
     1. Type the name of your category in "New category"
     2. Click on "Submit"
  3. You can move a feed on the category you want
- 4. (optional) : If you want a feed display on his category and not in main timeline, clic on the "wheel" of your feed.
+ 4. (optional) : If you want a feed display on his category and not in main timeline, click on the "wheel" of your feed.
  5. (optional) : Then, on "Visibility", select "Show in its category".
  6. (optional) : Submit
