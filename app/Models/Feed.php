@@ -180,7 +180,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function _id($value) {
-		$this->id = $value;
+		$this->id = intval($value);
 	}
 	public function _url($value, $validate = true) {
 		$this->hash = null;
@@ -212,7 +212,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->description = $value === null ? '' : $value;
 	}
 	public function _lastUpdate($value) {
-		$this->lastUpdate = $value;
+		$this->lastUpdate = intval($value);
 	}
 	public function _priority($value) {
 		$this->priority = intval($value);
