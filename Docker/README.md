@@ -213,7 +213,7 @@ Remember not pass the `CRON_MIN` environment variable to your Docker run, to avo
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
 ```
-7,37 * * * * root docker exec --user www-data -i freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 ### Option 3) Cron as another instance of the same FreshRSS Docker image
