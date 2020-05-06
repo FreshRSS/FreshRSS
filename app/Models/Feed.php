@@ -333,7 +333,12 @@ class FreshRSS_Feed extends Minz_Model {
 		$guids = array();
 		$hasUniqueGuids = true;
 
-		foreach ($feed->get_items() as $item) {
+		// We want chronological order and SimplePie uses reverse order.
+		for ($i = $feed->get_item_quantity() - 1; $i >= 0; $i--) {
+			$item = $feed->get_item($i);
+			if ($item == null) {
+				continue;
+			}
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
@@ -414,6 +419,7 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$guid = $item->get_id(false, false);
+			unset($item);
 			$hasUniqueGuids &= empty($guids['_' . $guid]);
 			$guids['_' . $guid] = true;
 			$author_names = '';
@@ -441,7 +447,6 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$entries[] = $entry;
-			unset($item);
 		}
 
 		$hasBadGuids = $this->attributes('hasBadGuids');
