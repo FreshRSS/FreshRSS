@@ -105,8 +105,6 @@ class FreshRSS_Auth {
 
 		Minz_Session::_param('loginOk', self::$login_ok);
 		Minz_Session::_param('REMOTE_USER', httpAuthUser());
-		FreshRSS_UserDAO::touch($current_user);
-
 		return self::$login_ok;
 	}
 

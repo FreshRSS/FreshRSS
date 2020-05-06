@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',
 		'is_admin' => 'É administrador',
 		'language' => 'Idioma',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'Lista de usuários',
 		'number' => 'Há %d conta criada',
 		'numbers' => 'Há %d contas criadas',
@@ -204,7 +205,5 @@ return array(
 		'username' => 'Usuário',
 		'users' => 'Usuários',
 		'user_list' => 'Lista de usuários',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

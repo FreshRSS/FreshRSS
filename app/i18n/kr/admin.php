@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => '언어',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => '%d 개의 계정이 생성되었습니다',
 		'numbers' => '%d 개의 계정이 생성되었습니다',
@@ -204,7 +205,5 @@ return array(
 		'username' => '사용자 이름',
 		'users' => '전체 사용자',
 		'user_list' => '사용자 목록',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Dil',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
@@ -204,7 +205,5 @@ return array(
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',
 		'user_list' => 'Kullanıcı listesi',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

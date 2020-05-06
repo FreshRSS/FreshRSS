@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Jazyk',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',
@@ -204,7 +205,5 @@ return array(
 		'username' => 'Přihlašovací jméno',
 		'users' => 'Uživatelé',
 		'user_list' => 'Seznam uživatelů',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

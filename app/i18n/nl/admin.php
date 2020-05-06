@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Taal',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',
@@ -203,8 +204,6 @@ return array(
 		'update_users' => 'Gebruiker bijwerken',
 		'username' => 'Gebruikersnaam',
 		'users' => 'Gebruikers',
-		'user_list' => 'Lijst van gebruikers ',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
+		'user_list' => 'Lijst van gebruikers',
 	),
 );

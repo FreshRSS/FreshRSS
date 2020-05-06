@@ -194,6 +194,7 @@ return array(
 		'is_admin' => 'Es admin',
 		'language' => 'Lenga',
 		'list' => 'Lista dels utilizaires',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'number' => '%d compte ja creat',
 		'numbers' => '%d comptes ja creats',
 		'password_form' => 'Senhal <br /><small>(ex. : per la connexion via formulari)</small>',
@@ -204,7 +205,5 @@ return array(
 		'username' => 'Nom d’utilizaire',
 		'users' => 'Utilizaires',
 		'user_list' => 'Lista dels utilizaires',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );

@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Язык',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'На данный момент создан %d аккаунт',
 		'numbers' => 'На данный момент аккаунтов создано:	%d',
@@ -204,7 +205,5 @@ return array(
 		'username' => 'Имя пользователя',
 		'users' => 'Пользователи',
 		'user_list' => 'Список пользователей',
-		'last_login' => 'Last login', // TODO - Translation
-		'never_loggedin' => 'Never logged in' // TODO - Translation
 	),
 );
