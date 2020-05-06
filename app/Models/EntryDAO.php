@@ -1031,8 +1031,8 @@ SQL;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : $res[0];
-		$unread = empty($res[1]) ? 0 : $res[1];
+		$all = empty($res[0]) ? 0 : intval($res[0]);
+		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 
@@ -1047,7 +1047,7 @@ SQL;
 			return false;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return isset($res[0]) ? $res[0] : 0;
+		return isset($res[0]) ? intval($res[0]) : 0;
 	}
 
 	public function countNotRead($minPriority = null) {
@@ -1061,7 +1061,7 @@ SQL;
 		}
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return isset($res[0]) ? intval($res[0]) : 0;
 	}
 
 	public function countUnreadReadFavorites() {
@@ -1089,8 +1089,8 @@ SQL;
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : $res[0];
-		$unread = empty($res[1]) ? 0 : $res[1];
+		$all = empty($res[0]) ? 0 : intval($res[0]);
+		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 

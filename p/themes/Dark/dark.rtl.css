@@ -1105,6 +1105,16 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
+	.form-group .group-name {
+		padding-bottom: 0;
+		text-align: right;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.aside {
 		transition: width 200ms linear;
 	}
@@ -1176,5 +1186,15 @@ a.btn {
 
 	.notification a.close .icon {
 		display: none;
+	}
+
+	.post {
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+
+	#close-slider.active {
+		background: #111;
+		border-bottom: 1px solid #333;
 	}
 }
