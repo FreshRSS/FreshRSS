@@ -934,10 +934,11 @@ FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
 	Minz_ExtensionManager::init();
-	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-
 	if (FreshRSS_Context::$user_conf != null) {
+		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+	} else {
+		Minz_Translate::init();
 	}
 } else {
 	Minz_Translate::init();
