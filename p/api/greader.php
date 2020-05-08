@@ -929,7 +929,7 @@ ini_set('session.use_cookies', '0');
 register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
-$user = $pathInfos[1] === 'accounts' ? null : authorizationToUser();
+$user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
