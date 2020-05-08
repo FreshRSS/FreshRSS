@@ -1,6 +1,6 @@
 # Adding a feed
 
- 1. To add a feed, copy the URL to RSS or Atom file's of the content wanted (for exemple, the framablog RSS URL is `https://framablog.org/feed/`).
+ 1. To add a feed, copy the URL to RSS or Atom file's of the content wanted (for instance, the Framablog RSS URL is `https://framablog.org/feed/`).
  2. On FreshRSS, clic “Subscriptions management”.
  3. Paste the URL in "Add an RSS feed" below the page title.
  4. (optional) : You can go to "Category" and select the category for your feed. By default "Uncategorized" is selected.
