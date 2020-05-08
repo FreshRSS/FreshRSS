@@ -929,15 +929,16 @@ ini_set('session.use_cookies', '0');
 register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
-$user = authorizationToUser();
+$user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
 	Minz_ExtensionManager::init();
-	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-
 	if (FreshRSS_Context::$user_conf != null) {
+		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+	} else {
+		Minz_Translate::init();
 	}
 } else {
 	Minz_Translate::init();
