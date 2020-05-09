@@ -77,20 +77,20 @@
 				<th><?= _t('admin.user.feed_count') ?></th>
 				<th><?= _t('admin.user.article_count') ?></th>
 				<th><?= _t('admin.user.database_size') ?></th>
-				<th>&nbsp;</th>
+				<th><?= _t('admin.user.last_user_activity') ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($this->users as $username => $values) : ?>
 				<tr>
-					<td><?= $username ?></td>
+					<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
 					<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 					<td><?= $values['mail_login'] ?></td>
 					<td><?= _t("gen.lang.{$values['language']}") ?></td>
 					<td><?= format_number($values['feed_count']) ?></td>
 					<td><?= format_number($values['article_count']) ?></td>
 					<td><?= format_bytes($values['database_size']) ?></td>
-					<td><a href="<?= _url('user', 'details', 'username', $username) ?>">Details</a></td>
+					<td><?= $values['last_user_activity'] ?></td>
 				</tr>
 			<?php endforeach ?>
 		</tbody>

@@ -616,6 +616,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			'language' => $userConfiguration->language,
 			'mail_login' => $userConfiguration->mail_login,
 			'is_admin' => $userConfiguration->is_admin,
+			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)),
 		);
 	}
 }

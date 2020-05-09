@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',
 		'is_admin' => 'Is admin',
 		'language' => 'Language',
+		'last_user_activity' => 'Last user activity',
 		'list' => 'User list',
 		'number' => 'There is %d account created',
 		'numbers' => 'There are %d accounts created',
