@@ -28,7 +28,7 @@
 		}
 	}
 	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
-		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" /><?php endif; ?>
+		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 		<span><?= $this->feed->name() ?></span></a></li>
 	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
