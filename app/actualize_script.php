@@ -79,7 +79,7 @@ if (defined('STDOUT')) {
 	$duration = date_diff($end_date, $begin_date);
 	fwrite(STDOUT, 'Ending feed actualization at ' . $end_date->format('c') . "\n");	//Unbuffered
 	fwrite(STDOUT, 'Feed actualizations took ' . $duration->format('%a day(s), %h hour(s), %i minute(s) and %s seconds') . ' for ' . count($users) . " users\n");	//Unbuffered
-	fwrite(STDOUT, 'Memory usage: ' . format_bytes(memory_get_usage(true)) . "\n");	//Unbuffered
+	fwrite(STDOUT, 'Memory usage: ' . format_bytes(memory_get_peak_usage(true)) . "\n");	//Unbuffered
 }
 echo 'End.', "\n";
 ob_end_flush();
