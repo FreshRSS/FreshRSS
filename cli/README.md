@@ -65,7 +65,7 @@ cd /usr/share/FreshRSS
 # -h is to use a human-readable format
 # --header outputs some columns headers
 # --user indicates a username, and can be repeated
-# Returns: 1) a * iff the user is admin, 2) the name of the user,
+# Returns: 1) a * if the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
 #  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, 9) favourites, 10) tags,
 #  11) language, 12) e-mail
@@ -90,7 +90,7 @@ cd /usr/share/FreshRSS
 
 ### Note about cron
 
-Some commands display informations on standard error, cron will send an email with thoses informations every time the command will be executed (exited zero or non-zero).
+Some commands display information on standard error; cron will send an email with this information every time the command will be executed (exited zero or non-zero).
 
 To avoid cron sending email on success:
 
