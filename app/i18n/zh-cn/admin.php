@@ -193,6 +193,7 @@ return array(
 		'feed_count' => '订阅源数',
 		'is_admin' => '管理员',
 		'language' => '语言',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => '用户列表',
 		'number' => '已有 %d 个用户',
 		'numbers' => '已有 %d 个用户',

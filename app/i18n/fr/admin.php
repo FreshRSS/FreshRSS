@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Flux',
 		'is_admin' => 'Admin ?',
 		'language' => 'Langue',
+		'last_user_activity' => 'Dernière activité utilisateur',
 		'list' => 'Liste des utilisateurs',
 		'number' => '%d compte a déjà été créé',
 		'numbers' => '%d comptes ont déjà été créés',

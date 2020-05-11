@@ -731,10 +731,10 @@ function streamContentsItems($e_ids, $order) {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	foreach ($e_ids as $i => $e_id) {
-		if (strpos($e_id, '/') !== false) {
-			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		// https://feedhq.readthedocs.io/en/latest/api/terminology.html#items
+		if (!ctype_digit($e_id) || $e_id[0] === '0') {
+			$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 		}
-		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -755,10 +755,9 @@ function streamContentsItems($e_ids, $order) {
 
 function editTag($e_ids, $a, $r) {
 	foreach ($e_ids as $i => $e_id) {
-		if (strpos($e_id, '/') !== false) {
-			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (!ctype_digit($e_id) || $e_id[0] === '0') {
+			$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 		}
-		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -930,15 +929,16 @@ ini_set('session.use_cookies', '0');
 register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
-$user = authorizationToUser();
+$user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
 	Minz_ExtensionManager::init();
-	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-
 	if (FreshRSS_Context::$user_conf != null) {
+		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+	} else {
+		Minz_Translate::init();
 	}
 } else {
 	Minz_Translate::init();
