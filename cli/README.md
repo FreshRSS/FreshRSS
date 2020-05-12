@@ -61,9 +61,10 @@ cd /usr/share/FreshRSS
 ./cli/list-users.php
 # Return a list of users, with the default/admin user first
 
-./cli/user-info.php -h --header --user username1 --user username2 ...
+./cli/user-info.php [ -h --header --json --user username1 --user username2 ... ]
 # -h is to use a human-readable format
 # --header outputs some columns headers
+# --json JSON format
 # --user indicates a username, and can be repeated
 # Returns: 1) a * if the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
@@ -119,7 +120,7 @@ Example showing user information for all users which username starts with 'a':
 Example showing all users ranked by date of last activity:
 
 ```sh
-./cli/user-info.php -h --user '*' | sort -k2 -r
+./cli/user-info.php -h | sort -k2 -r
 ```
 
 Example to get the number of feeds of a given user:
