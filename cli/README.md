@@ -64,7 +64,7 @@ cd /usr/share/FreshRSS
 ./cli/user-info.php [ -h --header --json --user username1 --user username2 ... ]
 # -h is to use a human-readable format
 # --header outputs some columns headers
-# --json JSON format
+# --json JSON format (disables --header and -h but uses ISO Zulu format for dates)
 # --user indicates a username, and can be repeated
 # Returns: 1) a * if the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
@@ -111,7 +111,7 @@ Now, cron will send you an email only if the exit code is non-zero and with the 
 ## Unix piping
 
 It is possible to invoke a command multiple times, e.g. with different usernames, thanks to the `xargs -n1` command.
-Example showing user information for all users which username starts with 'a':
+Example showing user information for all users which username starts with ‘a’:
 
 ```sh
 ./cli/list-users.php | grep '^a' | xargs -n1 ./cli/user-info.php -h --user
@@ -127,8 +127,21 @@ Example to get the number of feeds of a given user:
 
 ```sh
 ./cli/user-info.php --user alex | cut -f6
+#or
+./cli/user-info.php --user alex --json | jq '.[] | .feeds'
 ```
 
+Example to get the name of the users who have not been active since a given date:
+
+```sh
+cli/user-info.php --json | jq '.[] | select(.last_user_activity < "2020-05-01") | .user'
+```
+
+Example to get the date and name of users who have not been active the past 24 hours (86400 seconds):
+
+```sh
+cli/user-info.php --json | jq -r '.[] | select((.last_user_activity | fromdate) < (now - 86400)) | [.last_user_activity, .user] | @csv'
+```
 
 # Install and updates
 

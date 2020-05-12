@@ -28,6 +28,7 @@ sort($users);
 $formatJson = isset($options['json']);
 if ($formatJson) {
 	unset($options['header']);
+	unset($options['h']);
 	$jsonOutput = [];
 }
 
@@ -82,7 +83,7 @@ foreach ($users as $username) {
 	}
 	if ($formatJson) {
 		$data['is_default'] = !empty($data['is_default']);
-		$data['last_user_activity'] = date('c', $data['last_user_activity']);
+		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', $data['last_user_activity']);
 		$jsonOutput[] = $data;
 	} else {
 		vprintf(DATA_FORMAT, $data);
