@@ -61,12 +61,14 @@ cd /usr/share/FreshRSS
 ./cli/list-users.php
 # Return a list of users, with the default/admin user first
 
-./cli/user-info.php -h --user username
+./cli/user-info.php -h --header --user username1 --user username2 ...
 # -h is to use a human-readable format
-# --user can be a username, or '*' to loop on all users
-# Returns: 1) a * iff the user is admin, 2) the name of the user,
+# --header outputs some columns headers
+# --user indicates a username, and can be repeated
+# Returns: 1) a * if the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
-#  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, 9) favourites, and 10) tags
+#  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, 9) favourites, 10) tags,
+#  11) language, 12) e-mail
 
 ./cli/import-for-user.php --user username --filename /path/to/file.ext
 # The extension of the file { .json, .opml, .xml, .zip } is used to detect the type of import
@@ -88,7 +90,7 @@ cd /usr/share/FreshRSS
 
 ### Note about cron
 
-Some commands display informations on standard error, cron will send an email with thoses informations every time the command will be executed (exited zero or non-zero).
+Some commands display information on standard error; cron will send an email with this information every time the command will be executed (exited zero or non-zero).
 
 To avoid cron sending email on success:
 
