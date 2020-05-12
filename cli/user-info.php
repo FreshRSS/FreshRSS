@@ -7,11 +7,12 @@ const DATA_FORMAT = "%-7s | %-20s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10
 $params = array(
 	'user:',
 	'header',
+	'json',
 );
 $options = getopt('h', $params);
 
 if (!validateOptions($argv, $params)) {
-	fail('Usage: ' . basename(__FILE__) . ' (-h --header --user username --user username …)');
+	fail('Usage: ' . basename(__FILE__) . ' (-h --header --json --user username --user username …)');
 }
 
 if (empty($options['user'])) {
@@ -24,10 +25,17 @@ if (empty($options['user'])) {
 
 sort($users);
 
+$formatJson = isset($options['json']);
+if ($formatJson) {
+	unset($options['header']);
+	unset($options['h']);
+	$jsonOutput = [];
+}
+
 if (array_key_exists('header', $options)) {
 	printf(
 		DATA_FORMAT,
-		'default',
+		'is_default',
 		'user',
 		'last user activity',
 		'space used',
@@ -56,7 +64,7 @@ foreach ($users as $username) {
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 
 	$data = array(
-		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
+		'is_default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
 		'user' => $username,
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
@@ -73,7 +81,17 @@ foreach ($users as $username) {
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}
-	vprintf(DATA_FORMAT, $data);
+	if ($formatJson) {
+		$data['is_default'] = !empty($data['is_default']);
+		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', $data['last_user_activity']);
+		$jsonOutput[] = $data;
+	} else {
+		vprintf(DATA_FORMAT, $data);
+	}
+}
+
+if ($formatJson) {
+	echo json_encode($jsonOutput), "\n";
 }
 
 done();
