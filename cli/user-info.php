@@ -12,7 +12,7 @@ $params = array(
 $options = getopt('h', $params);
 
 if (!validateOptions($argv, $params)) {
-	fail('Usage: ' . basename(__FILE__) . ' (-h --header --json--user username --user username …)');
+	fail('Usage: ' . basename(__FILE__) . ' (-h --header --json --user username --user username …)');
 }
 
 if (empty($options['user'])) {
