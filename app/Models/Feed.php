@@ -320,7 +320,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				$simplePie->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
-				unset($simplePie)
+				unset($simplePie);
 			}
 		}
 	}
