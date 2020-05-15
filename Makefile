@@ -102,6 +102,20 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
 	@echo Key removed.
 
+.PHONY: i18n-update-key
+i18n-update-key: ## Update a translation key in all supported languages
+ifndef key
+	@echo To update a key, you need to provide one in the "key" variable.
+	@exit 10
+endif
+ifndef value
+	@echo To update a key, you need to provide its value in the "value" variable.
+	@exit 10
+endif
+	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
+	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
+	@echo Key updated.
+
 .PHONY: i18n-ignore-key
 i18n-ignore-key: ## Ignore a translation key for the selected language
 ifndef lang
