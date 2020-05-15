@@ -4,15 +4,15 @@ require(__DIR__ . '/../cli/_cli.php');
 
 /**
  * Writes to FreshRSS admin log, and if it is not already done by default,
- * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDERR
+ * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
  */
 function notice($message) {
 	Minz_Log::notice($message, ADMIN_LOG);
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
 		syslog(LOG_NOTICE, $message);
 	}
-	if (defined('STDERR') && !COPY_SYSLOG_TO_STDERR) {
-		fwrite(STDERR, $message . "\n");	//Unbuffered
+	if (defined('STDOUT') && !COPY_SYSLOG_TO_STDERR) {
+		fwrite(STDOUT, $message . "\n");	//Unbuffered
 	}
 }
 
