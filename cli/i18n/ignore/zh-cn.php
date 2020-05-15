@@ -8,6 +8,7 @@ return array(
 	'conf.sharing.shaarli',
 	'conf.sharing.twitter',
 	'conf.sharing.wallabag',
+	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',

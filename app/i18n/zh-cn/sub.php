@@ -11,6 +11,7 @@ return array(
 		'title' => '书签应用',
 	),
 	'category' => array(
+		'_' => '分类',
 		'add' => '添加分类',
 		'archiving' => '归档',
 		'empty' => '空分类',
@@ -19,7 +20,6 @@ return array(
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
 		'title' => '标题',
-		'_' => '分类',
 	),
 	'feed' => array(
 		'add' => '添加订阅源',
@@ -39,8 +39,8 @@ return array(
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
 		'filteractions' => array(
-			'help' => '每行写一条过滤搜索',
 			'_' => '过滤动作',
+			'help' => '每行写一条过滤搜索',
 		),
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
@@ -49,17 +49,17 @@ return array(
 			'clear_cache_help' => '清除该feed的缓存',
 			'reload_articles' => '重载文章',
 			'reload_articles_help' => '重新加载文章并获取完整内容',
-			'title' => 'Maintenance',
+			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',
 		'number_entries' => '%d 篇文章',
 		'priority' => array(
+			'_' => '可见性',
 			'archived' => '不显示（归档）',
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
-			'_' => '可见性',
 		),
 		'selector_preview' => array(
 			'show_raw' => '显示源码',
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => '订阅工具',
 	),
 	'title' => array(
+		'_' => '订阅管理',
 		'feed_management' => '订阅源管理',
 		'subscription_tools' => '订阅工具',
-		'_' => '订阅管理',
 	),
 );

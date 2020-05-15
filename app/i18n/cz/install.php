@@ -17,19 +17,20 @@ return array(
 		'type' => 'Způsob přihlášení',
 	),
 	'bdd' => array(
+		'_' => 'Databáze',
 		'conf' => array(
+			'_' => 'Nastavení databáze',
 			'ko' => 'Ověřte informace o databázi.',
 			'ok' => 'Nastavení databáze bylo uloženo.',
-			'_' => 'Nastavení databáze',
 		),
 		'host' => 'Hostitel',
 		'password' => 'Heslo',
 		'prefix' => 'Prefix tabulky',
 		'type' => 'Typ databáze',
 		'username' => 'Uživatel',
-		'_' => 'Databáze',
 	),
 	'check' => array(
+		'_' => 'Kontrola',
 		'already_installed' => 'Zjistili jsme, že FreshRSS je již nainstalován!',
 		'cache' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/cache</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
@@ -95,11 +96,10 @@ return array(
 			'nok' => 'Pro parsování XML chybí požadovaná knihovna.',
 			'ok' => 'Máte požadovanou knihovnu pro parsování XML.',
 		),
-		'_' => 'Kontrola',
 	),
 	'conf' => array(
-		'ok' => 'Nastavení bylo uloženo.',
 		'_' => 'Obecná nastavení',
+		'ok' => 'Nastavení bylo uloženo.',
 	),
 	'congratulations' => 'Gratulujeme!',
 	'default_user' => 'Jméno výchozího uživatele <small>(maximálně 16 alfanumerických znaků)</small>',
@@ -110,9 +110,9 @@ return array(
 		'confirm_reinstall' => 'Reinstalací FreshRSS ztratíte předchozí konfiguraci. Opravdu chcete pokračovat?',
 	),
 	'language' => array(
+		'_' => 'Jazyk',
 		'choose' => 'Vyberte jazyk FreshRSS',
 		'defined' => 'Jazyk byl nastaven.',
-		'_' => 'Jazyk',
 	),
 	'not_deleted' => 'Nastala chyba, soubor <em>%s</em> musíte smazat ručně.',
 	'ok' => 'Instalace byla úspěšná.',

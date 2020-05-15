@@ -27,6 +27,7 @@ return array(
 	'gen.date.november',
 	'gen.date.sep',
 	'gen.date.september',
+	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',
