@@ -206,56 +206,7 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ### Translation Management
 
-It is common (and that's an understatement) to want to show some text to the user. In the previous example, for example, we display feedback to the user based on the result of form validation. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
-
-The solution is to use the `Minz_Translate` class, which allows dynamic translation of FreshRSS (or any Minz-based application). Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `i18n`. For example, English language files are located in `i18n/fr/`. There are seven different files:
-
-* `admin.php` for anything related to FreshRSS administration
-* `conf.php` for configuration
-* `feedback.php` contains translations of feedback messages
-* `gen.php` stores what is global to FreshRSS (gen for "general")
-* `index.php` for the main page that lists feeds and the About page
-* `install.php` contains strings related FreshRSS installation
-* `sub.php` for subscription management (sub for "subscription")
-
-This organization makes it possible to avoid a single huge translation file.
-
-The translation files are quite simple: it's only a matter of returning a PHP table containing the translations. As an example, here's an extract from `app/i18n/fr/gen.php`:
-
-```php
-<?php
-
-return array(
-	'action' => [
-		'actualize' => 'Actualiser',
-		'back_to_rss_feeds' => '← Retour à vos flux RSS',
-		'cancel' => 'Annuler',
-		'create' => 'Créer',
-		'disable' => 'Désactiver',
-	),
-	'freshrss' => array(
-		'_' => 'FreshRSS',
-		'about' => 'À propos de FreshRSS',
-	),
-];
-
-?>
-```
-
-To access these translations, `Minz_Translate` will help us with its `Minz_Translate::t()` method. As this can be a bit long to type, a shortcut has been introduced that **must** be used in all circumstances: `_t()`.
-Code example:
-
-```html
-<p>
-	<a href="<?= _url('index', 'index') ?>">
-		<?= _t('gen.action.back_to_rss_feeds') ?>
-	</a>
-</p>
-```
-
-The string to pass to the `_t()` function consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation (in this case, `gen.php`), while the following ones indicate table entries. Thus `action` is an entry of the main array and `back_to_rss_feeds` is an entry of the `action` array. This allows us to further organize our translation files.
-
-There is a small special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It's pretty hard to explain but very simple to understand. In the example given above, a `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
+This part [is explained here](/docs/en/internationalization.md).
 
 ### Configuration management
 
