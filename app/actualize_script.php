@@ -36,7 +36,7 @@ $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 define('SIMPLEPIE_SYSLOG_ENABLED', $system_conf->simplepie_syslog_enabled);
 
-notice('FreshRSS starts feeds actualization at ' . $begin_date->format('c'));
+notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 performRequirementCheck($system_conf->db['type']);
