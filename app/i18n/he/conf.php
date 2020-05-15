@@ -2,6 +2,7 @@
 
 return array(
 	'archiving' => array(
+		'_' => 'ארכוב',
 		'delete_after' => 'מחיקת מאמרים לאחר',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'אפשרויות נוספות זמינות בזרמים ספציפיים',
@@ -19,9 +20,9 @@ return array(
 		'purge_now' => 'ניקוי עכשיו',
 		'title' => 'ארכוב',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
-		'_' => 'ארכוב',
 	),
 	'display' => array(
+		'_' => 'תצוגה',
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
 			'display_authors' => 'Authors',	// TODO - Translation
@@ -46,22 +47,22 @@ return array(
 			'no_limit' => 'ללא הגבלה',
 			'thin' => 'צר',
 		),
-		'_' => 'תצוגה',
 	),
 	'profile' => array(
+		'_' => 'Profile management',	// TODO - Translation
 		'api' => 'API management',	// TODO - Translation
 		'delete' => array(
-			'warn' => 'Your account and all related data will be deleted.',	// TODO - Translation
 			'_' => 'Account deletion',	// TODO - Translation
+			'warn' => 'Your account and all related data will be deleted.',	// TODO - Translation
 		),
 		'email' => 'Email address',	// TODO - Translation
 		'password_api' => 'סיסמת API<br /><small>(לדוגמה ליישומים סלולריים)</small>',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	// TODO - Translation
 		'title' => 'Profile',	// TODO - Translation
-		'_' => 'Profile management',	// TODO - Translation
 	),
 	'query' => array(
+		'_' => 'שאילתות',
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
 		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => 'מסננים בשימוש:',
@@ -69,8 +70,8 @@ return array(
 		'get_category' => 'הצגת קטגוריה "%s"',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
-		'none' => 'אף שאילתה לא נוצרה עדיין.',
 		'no_filter' => 'ללא סינון',
+		'none' => 'אף שאילתה לא נוצרה עדיין.',
 		'number' => 'שאילתה מספר °%d',
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
@@ -93,9 +94,9 @@ return array(
 		'state_14' => 'הצגת מאמרים שלא נקראו',
 		'state_15' => 'הצגת	כל המאמרים',
 		'title' => 'שאילתות',
-		'_' => 'שאילתות',
 	),
 	'reading' => array(
+		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'מספר המאמרים בעמוד',
@@ -117,19 +118,19 @@ return array(
 			'when' => 'סימון מאמרים כנקראו…',
 		),
 		'show' => array(
+			'_' => 'מאמרים להצגה',
 			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'תצוגה מתעדכנת',
 			'all_articles' => 'הצגת כל המאמרים',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
-			'_' => 'מאמרים להצגה',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
 		'sort' => array(
+			'_' => 'סדר המיון',
 			'newer_first' => 'חדשים בראש',
 			'older_first' => 'ישנים יותר בראש',
-			'_' => 'סדר המיון',
 		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
 		'title' => 'קריאה',
@@ -139,9 +140,9 @@ return array(
 			'normal' => 'תצוגה רגילה',
 			'reader' => 'תצוגת קריאה',
 		),
-		'_' => 'קריאה',
 	),
 	'sharing' => array(
+		'_' => 'שיתוף',
 		'add' => 'Add a sharing method',	// TODO - Translation
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
@@ -156,9 +157,9 @@ return array(
 		'title' => 'שיתוף',
 		'twitter' => 'Twitter',	// TODO - Translation
 		'wallabag' => 'wallabag',	// TODO - Translation
-		'_' => 'שיתוף',
 	),
 	'shortcut' => array(
+		'_' => 'קיצורי דרך',
 		'article_action' => 'פעולות על מאמרים',
 		'auto_share' => 'שיתוף',
 		'auto_share_help' => 'אם יש רק מצב שיתוף אחד, הוא מופעל. אחרת המצבים נבחרים על בסיס המספר שלהם.',
@@ -190,7 +191,6 @@ return array(
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',
 		'views' => 'Views',	// TODO - Translation
-		'_' => 'קיצורי דרך',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',	// TODO - Translation

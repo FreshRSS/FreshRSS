@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Categoría',
 		'add' => 'Añadir a la categoría',
 		'archiving' => 'Archivo',
 		'empty' => 'Vaciar categoría',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Título',
-		'_' => 'Categoría',
 	),
 	'feed' => array(
 		'add' => 'Añadir fuente RSS',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
 		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'No hay funentes seleccionadas.',
 		'number_entries' => '%d artículos',
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'Mostrar en salida principal',
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'Administración de suscripciones',
 		'feed_management' => 'Administración de fuentes RSS',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Administración de suscripciones',
 	),
 );

@@ -2,6 +2,7 @@
 
 return array(
 	'archiving' => array(
+		'_' => 'Archiving',
 		'delete_after' => 'Remove articles after',
 		'exception' => 'Purge exception',
 		'help' => 'More options are available in the individual feed settings',
@@ -19,9 +20,9 @@ return array(
 		'purge_now' => 'Purge now',
 		'title' => 'Archiving',
 		'ttl' => 'Do not automatically refresh more often than',
-		'_' => 'Archiving',
 	),
 	'display' => array(
+		'_' => 'Display',
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
 			'display_authors' => 'Authors',
@@ -46,22 +47,22 @@ return array(
 			'no_limit' => 'No limit',
 			'thin' => 'Thin',
 		),
-		'_' => 'Display',
 	),
 	'profile' => array(
+		'_' => 'Profile management',
 		'api' => 'API management',
 		'delete' => array(
-			'warn' => 'Your account and all related data will be deleted.',
 			'_' => 'Account deletion',
+			'warn' => 'Your account and all related data will be deleted.',
 		),
 		'email' => 'Email address',
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'title' => 'Profile',
-		'_' => 'Profile management',
 	),
 	'query' => array(
+		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
 		'display' => 'Display user query results',
 		'filter' => 'Filter applied:',
@@ -69,8 +70,8 @@ return array(
 		'get_category' => 'Display "%s" category',
 		'get_favorite' => 'Display favourite articles',
 		'get_feed' => 'Display "%s" feed',
-		'none' => 'You haven’t created any user queries yet.',
 		'no_filter' => 'No filter',
+		'none' => 'You haven’t created any user queries yet.',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
@@ -93,9 +94,9 @@ return array(
 		'state_14' => 'Display unread articles',
 		'state_15' => 'Display all articles',
 		'title' => 'User queries',
-		'_' => 'User queries',
 	),
 	'reading' => array(
+		'_' => 'Reading',
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favorites by default',
 		'articles_per_page' => 'Number of articles per page',
@@ -117,19 +118,19 @@ return array(
 			'when' => 'Mark article as read…',
 		),
 		'show' => array(
+			'_' => 'Articles to display',
 			'active_category' => 'Active category',
 			'adaptive' => 'Adjust showing',
 			'all_articles' => 'Show all articles',
 			'all_categories' => 'All categories',
 			'no_category' => 'No category',
 			'unread' => 'Show only unread',
-			'_' => 'Articles to display',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
 		'sort' => array(
+			'_' => 'Sort order',
 			'newer_first' => 'Newest first',
 			'older_first' => 'Oldest first',
-			'_' => 'Sort order',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
 		'title' => 'Reading',
@@ -139,9 +140,9 @@ return array(
 			'normal' => 'Normal view',
 			'reader' => 'Reading view',
 		),
-		'_' => 'Reading',
 	),
 	'sharing' => array(
+		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
@@ -156,9 +157,9 @@ return array(
 		'title' => 'Sharing',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
-		'_' => 'Sharing',
 	),
 	'shortcut' => array(
+		'_' => 'Shortcuts',
 		'article_action' => 'Article actions',
 		'auto_share' => 'Share',
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',
@@ -190,7 +191,6 @@ return array(
 		'user_filter' => 'Access user queries',
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',
 		'views' => 'Views',
-		'_' => 'Shortcuts',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',

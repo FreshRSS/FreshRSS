@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Kategorie',
 		'add' => 'Eine Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Reihenfolge',
 		'position_help' => 'Steuert die Kategoriesortierung',
 		'title' => 'Titel',
-		'_' => 'Kategorie',
 	),
 	'feed' => array(
 		'add' => 'Einen RSS-Feed hinzufügen',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
 		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
 		'filteractions' => array(
-			'help' => 'Ein Suchfilter pro Zeile',
 			'_' => 'Filteraktionen',
+			'help' => 'Ein Suchfilter pro Zeile',
 		),
 		'information' => 'Information',	// TODO - Translation
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
 		'priority' => array(
+			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 			'normal' => 'Zeige in eigener Kategorie',
-			'_' => 'Sichtbarkeit',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 	'title' => array(
+		'_' => 'Abonnementverwaltung',
 		'feed_management' => 'Verwaltung der RSS-Feeds',
 		'subscription_tools' => 'Abonnement-Tools',
-		'_' => 'Abonnementverwaltung',
 	),
 );

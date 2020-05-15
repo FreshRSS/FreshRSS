@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Başlık',
-		'_' => 'Kategori',
 	),
 	'feed' => array(
 		'add' => 'RSS akışı ekle',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Hiçbir akış seçilmedi.',
 		'number_entries' => '%d makale',
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'Ana akışda göster',
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'Abonelik yönetimi',
 		'feed_management' => 'RSS akış yönetimi',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Abonelik yönetimi',
 	),
 );

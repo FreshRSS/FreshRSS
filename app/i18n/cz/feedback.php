@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s nelze zapnout. Pro více detailů <a href="%s">zkontrolujte logy FreshRSS</a>.',
 			'ok' => '%s je nyní zapnut',
 		),
+		'no_access' => 'Nemáte přístup k %s',
 		'not_enabled' => '%s není ještě zapnut',
 		'not_found' => '%s neexistuje',
-		'no_access' => 'Nemáte přístup k %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Na serveru není naistalována podpora ZIP. Zkuste prosím exportovat soubory jeden po druhém.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Kategorie byla vyprázdněna',
 			'error' => 'Kategorii nelze aktualizovat',
 			'name_exists' => 'Název kategorie již existuje.',
-			'not_delete_default' => 'Nelze smazat výchozí kategorii!',
-			'not_exist' => 'Tato kategorie neexistuje!',
 			'no_id' => 'Musíte upřesnit id kategorie.',
 			'no_name' => 'Název kategorie nemůže být prázdný.',
+			'not_delete_default' => 'Nelze smazat výchozí kategorii!',
+			'not_exist' => 'Tato kategorie neexistuje!',
 			'over_max' => 'Dosáhl jste maximálního počtu kategorií (%d)',
 			'updated' => 'Kategorie byla aktualizována.',
 		),
@@ -89,11 +89,11 @@ return array(
 			'error' => 'Kanál nelze aktualizovat',
 			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>.',
 			'invalid_url' => 'URL <em>%s</em> není platné',
-			'not_added' => '<em>%s</em> nemůže být přidán',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'Nelze obnovit žádné kanály…',
 			'n_actualized' => '%d kanálů bylo aktualizováno',
 			'n_entries_deleted' => '%d článků bylo smazáno',
+			'no_refresh' => 'Nelze obnovit žádné kanály…',
+			'not_added' => '<em>%s</em> nemůže být přidán',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'Dosáhl jste maximálního počtu kanálů (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'Uživatele %s nelze vytvořit',
 			'_' => 'Uživatel %s byl vytvořen',
+			'error' => 'Uživatele %s nelze vytvořit',
 		),
 		'deleted' => array(
-			'error' => 'Uživatele %s nelze smazat',
 			'_' => 'Uživatel %s byl smazán',
+			'error' => 'Uživatele %s nelze smazat',
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',	// TODO - Translation
 			'_' => 'User %s has been updated',	// TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
 		),
 	),
 );

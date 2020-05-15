@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'Acerca de',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Informe de fallos',
 		'credits' => 'Créditos',
@@ -13,7 +14,6 @@ return array(
 		'title' => 'Acerca de',
 		'version' => 'Versión',
 		'website' => 'Web',
-		'_' => 'Acerca de',
 	),
 	'feed' => array(
 		'add' => 'Puedes añadir fuentes.',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Vista global',
 	),
 	'log' => array(
+		'_' => 'Registros',
 		'clear' => 'Limpiar registros',
 		'empty' => 'El archivo de registro está vacío',
 		'title' => 'Registros',
-		'_' => 'Registros',
 	),
 	'menu' => array(
 		'about' => 'Acerca de FreshRSS',

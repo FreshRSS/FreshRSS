@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Category',	// TODO - Translation
 		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => 'Archivage',
 		'empty' => 'Empty category',	// TODO - Translation
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Title',	// TODO - Translation
-		'_' => 'Category',	// TODO - Translation
 	),
 	'feed' => array(
 		'add' => 'Add a RSS feed',	// TODO - Translation
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO - Translation
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'Information',	// TODO - Translation
 		'keep_min' => 'Minimum number of articles to keep',	// TODO - Translation
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'No feed selected.',	// TODO - Translation
 		'number_entries' => '%d articles',	// TODO - Translation
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'Show in main stream',	// TODO - Translation
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'Subscriptions management',	// TODO - Translation
 		'feed_management' => 'RSS feeds management',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Subscriptions management',	// TODO - Translation
 	),
 );

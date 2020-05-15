@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Categorie',
 		'add' => 'Voeg categorie toe',
 		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
-		'_' => 'Categorie',
 	),
 	'feed' => array(
 		'add' => 'Voeg een RSS-feed toe',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
 		'filteractions' => array(
-			'help' => 'Voer één zoekfilter per lijn in.',
 			'_' => 'Filteracties',
+			'help' => 'Voer één zoekfilter per lijn in.',
 		),
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
 		'priority' => array(
+			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',
 			'main_stream' => 'Zichtbaar in het overzicht',
 			'normal' => 'Toon in categorie',
-			'_' => 'Zichtbaarheid',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'title' => array(
+		'_' => 'Abonnementenbeheer',
 		'feed_management' => 'RSS-feedbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
-		'_' => 'Abonnementenbeheer',
 	),
 );

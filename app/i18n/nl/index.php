@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'Over',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Rapporteer fouten',
 		'credits' => 'Waarderingen',
@@ -13,7 +14,6 @@ return array(
 		'title' => 'Over',
 		'version' => 'Versie',
 		'website' => 'Website',
-		'_' => 'Over',
 	),
 	'feed' => array(
 		'add' => 'U kunt wat feeds toevoegen.',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Globale weergave',
 	),
 	'log' => array(
+		'_' => 'Log bestanden',
 		'clear' => 'Leeg de log bestanden',
 		'empty' => 'Log bestand is leeg',
 		'title' => 'Log bestanden',
-		'_' => 'Log bestanden',
 	),
 	'menu' => array(
 		'about' => 'Over FreshRSS',

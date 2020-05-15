@@ -83,9 +83,9 @@ return array(
 			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'Installacion PHP',
 			'nok' => 'Vòstra version PHP es la %s más FreshRSS demanda almens la versión %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
-			'_' => 'Installacion PHP',
 		),
 		'tables' => array(
 			'nok' => 'Manca una o mai tabla dins la basa de donadas.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Nom',
 		'no_configure_view' => 'Aquesta extension se pòt pas configurar.',
 		'system' => array(
-			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 			'_' => 'Extensions sistèma',
+			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Mesa a jorn disponibla',
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',
 	),
 	'stats' => array(
+		'_' => 'Estatisticas',
 		'all_feeds' => 'Totes los fluxes',
 		'category' => 'Categoria',
 		'entry_count' => 'Nombre d’articles',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
-		'_' => 'Estatisticas',
 	),
 	'system' => array(
+		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
 		'cookie-duration' => array(
 			'help' => 'en segondas',
@@ -170,21 +171,20 @@ return array(
 			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
 			'number' => 'Nombre max de comptes',
 		),
-		'_' => 'Configuracion sistèma',
 	),
 	'update' => array(
+		'_' => 'Sistèma de mesa a jorn',
 		'apply' => 'Aplicar',
 		'check' => 'Verificar las mesas a jorn',
 		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
 		'last' => 'Darrièra verificacion : %s',
 		'none' => 'Cap d’actualizacion d’aplicar',
 		'title' => 'Sistèma de mesa a jorn',
-		'_' => 'Sistèma de mesa a jorn',
 	),
 	'user' => array(
 		'admin' => 'Administrator',
-		'articles_and_size' => '%s articles (%s)',
 		'article_count' => 'Articles',
+		'articles_and_size' => '%s articles (%s)',
 		'back_to_manage' => '← Tornar a la lista dels utilizaires',
 		'create' => 'Crear un nòu utilizaire',
 		'database_size' => 'Talha basa de donadas',
@@ -202,8 +202,8 @@ return array(
 		'selected' => 'Utilizaire seleccionat',
 		'title' => 'Gestion dels utilizaires',
 		'update_users' => 'Actualizar un utilizaire',
+		'user_list' => 'Lista dels utilizaires',
 		'username' => 'Nom d’utilizaire',
 		'users' => 'Utilizaires',
-		'user_list' => 'Lista dels utilizaires',
 	),
 );

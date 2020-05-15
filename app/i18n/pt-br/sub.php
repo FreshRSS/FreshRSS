@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Categoria',
 		'add' => 'Adicionar uma categoria',
 		'archiving' => 'Arquivar',
 		'empty' => 'Categoria vazia',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Posição de exibição',
 		'position_help' => 'Para controlar a ordem de exibição',
 		'title' => 'Título',
-		'_' => 'Categoria',
 	),
 	'feed' => array(
 		'add' => 'Adicionar um RSS feed',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
 		'filteractions' => array(
-			'help' => 'Escreva um filtro de pesquisa por linha.',
 			'_' => 'Ações do filtro',
+			'help' => 'Escreva um filtro de pesquisa por linha.',
 		),
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Nenhum feed selecionado.',
 		'number_entries' => '%d artigos',
 		'priority' => array(
+			'_' => 'Visibilidade',
 			'archived' => 'Não exibir (arquivado)',
 			'main_stream' => 'Mostrar na tela principal',
 			'normal' => 'Mostrar na sua categoria',
-			'_' => 'Visibilidade',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar fonte',
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'title' => array(
+		'_' => 'Gerenciamento de inscrições',
 		'feed_management' => 'Gerenciamento dos RSS feeds',
 		'subscription_tools' => 'Ferramentas de inscrição',
-		'_' => 'Gerenciamento de inscrições',
 	),
 );

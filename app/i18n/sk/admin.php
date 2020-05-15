@@ -83,9 +83,9 @@ return array(
 			'ok' => 'Našiel sa PDO a aspoň jeden z podporovaných ovládačov (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'Inštalácia PHP',
 			'nok' => 'Vaša verzia PHP je %s, ale FreshRSS vyžaduje minimálne verziu %s.',
 			'ok' => 'Vaša verzia PHP %s je kompatibilná s FreshRSS.',
-			'_' => 'Inštalácia PHP',
 		),
 		'tables' => array(
 			'nok' => 'V databáze chýba jedna alebo viacero tabuliek.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Názov',
 		'no_configure_view' => 'Toto rozšírenie nemá nastavenia.',
 		'system' => array(
-			'no_rights' => 'Systémové rozšírenie (nemáte oprávnenia)',
 			'_' => 'Systémové rozšírenia',
+			'no_rights' => 'Systémové rozšírenie (nemáte oprávnenia)',
 		),
 		'title' => 'Rozšírenia',
 		'update' => 'Sú dostupné aktualizácie',
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Verzia',
 	),
 	'stats' => array(
+		'_' => 'Štatistiky',
 		'all_feeds' => 'Všetky kanály',
 		'category' => 'Kategória',
 		'entry_count' => 'Počet položiek',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Neprečítané',
 		'title' => 'Štatistiky',
 		'top_feed' => 'Top 10 kanálov',
-		'_' => 'Štatistiky',
 	),
 	'system' => array(
+		'_' => 'Nastavenia systému',
 		'auto-update-url' => 'Odkaz na aktualizačný server',
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
@@ -170,21 +171,20 @@ return array(
 			'help' => '0 znamená žiadny limit počtu účtov',
 			'number' => 'Maximálny počt účtov',
 		),
-		'_' => 'Nastavenia systému',
 	),
 	'update' => array(
+		'_' => 'Aktualizácia systému',
 		'apply' => 'Použiť',
 		'check' => 'Skontrolovať aktualizácie',
 		'current_version' => 'Vaša aktuálna verzia FreshRSS: %s',
 		'last' => 'Posledná kontrola: %s',
 		'none' => 'Žiadna nová aktualizácia',
 		'title' => 'Aktualizácia systému',
-		'_' => 'Aktualizácia systému',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
-		'articles_and_size' => '%s článkov (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
+		'articles_and_size' => '%s článkov (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvoriť nového používateľa',
 		'database_size' => 'Database size',	// TODO - Translation
@@ -202,8 +202,8 @@ return array(
 		'selected' => 'Označený používateľ',
 		'title' => 'Správa používateľov',
 		'update_users' => 'Sktualizovať používateľov',
+		'user_list' => 'Zoznam používateľov',
 		'username' => 'Používateľské meno',
 		'users' => 'Používatelia',
-		'user_list' => 'Zoznam používateľov',
 	),
 );

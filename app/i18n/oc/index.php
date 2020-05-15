@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'A prepaus',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Senhalament de problèmas',
 		'credits' => 'Crèdits',
@@ -13,7 +14,6 @@ return array(
 		'title' => 'A prepaus',
 		'version' => 'Version',
 		'website' => 'Site internet',
-		'_' => 'A prepaus',
 	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Vista generala',
 	),
 	'log' => array(
+		'_' => 'Jornals d’audit',
 		'clear' => 'Escafar los jornals',
 		'empty' => 'Los jornals son voids',
 		'title' => 'Jornals d’audit',
-		'_' => 'Jornals d’audit',
 	),
 	'menu' => array(
 		'about' => 'A prepaus de FreshRSS',

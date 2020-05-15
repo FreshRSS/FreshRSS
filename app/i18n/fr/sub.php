@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Catégorie',
 		'add' => 'Ajouter une catégorie',
 		'archiving' => 'Archivage',
 		'empty' => 'Catégorie vide',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
-		'_' => 'Catégorie',
 	),
 	'feed' => array(
 		'add' => 'Ajouter un flux RSS',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
 		'filteractions' => array(
-			'help' => 'Écrivez une recherche par ligne.',
 			'_' => 'Filtres d’action',
+			'help' => 'Écrivez une recherche par ligne.',
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',
 		'priority' => array(
+			'_' => 'Visibilité',
 			'archived' => 'Ne pas afficher (archivé)',
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
-			'_' => 'Visibilité',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 	'title' => array(
+		'_' => 'Gestion des abonnements',
 		'feed_management' => 'Gestion des flux RSS',
 		'subscription_tools' => 'Outils d’abonnement',
-		'_' => 'Gestion des abonnements',
 	),
 );

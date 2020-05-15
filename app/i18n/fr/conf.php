@@ -2,6 +2,7 @@
 
 return array(
 	'archiving' => array(
+		'_' => 'Archivage',
 		'delete_after' => 'Supprimer les articles après',
 		'exception' => 'Exception de nettoyage',
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
@@ -19,9 +20,9 @@ return array(
 		'purge_now' => 'Purger maintenant',
 		'title' => 'Archivage',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
-		'_' => 'Archivage',
 	),
 	'display' => array(
+		'_' => 'Affichage',
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -46,22 +47,22 @@ return array(
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
 		),
-		'_' => 'Affichage',
 	),
 	'profile' => array(
+		'_' => 'Gestion du profil',
 		'api' => 'Gestion de l’API',
 		'delete' => array(
-			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 			'_' => 'Suppression du compte',
+			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
 		'email' => 'Adresse email',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
 		'title' => 'Profil',
-		'_' => 'Gestion du profil',
 	),
 	'query' => array(
+		'_' => 'Filtres utilisateurs',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
 		'display' => 'Afficher les résultats du filtre',
 		'filter' => 'Filtres appliqués :',
@@ -69,8 +70,8 @@ return array(
 		'get_category' => 'Afficher la catégorie "%s"',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux "%s"',
-		'none' => 'Vous n’avez pas encore créé de filtre.',
 		'no_filter' => 'Aucun filtre appliqué',
+		'none' => 'Vous n’avez pas encore créé de filtre.',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
@@ -93,9 +94,9 @@ return array(
 		'state_14' => 'Afficher les articles non lus',
 		'state_15' => 'Afficher tous les articles',
 		'title' => 'Filtres utilisateurs',
-		'_' => 'Filtres utilisateurs',
 	),
 	'reading' => array(
+		'_' => 'Lecture',
 		'after_onread' => 'Après “marquer tout comme lu”,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'articles_per_page' => 'Nombre d’articles par page',
@@ -117,19 +118,19 @@ return array(
 			'when' => 'Marquer un article comme lu…',
 		),
 		'show' => array(
+			'_' => 'Articles à afficher',
 			'active_category' => 'La catégorie active',
 			'adaptive' => 'Adapter l’affichage',
 			'all_articles' => 'Afficher tous les articles',
 			'all_categories' => 'Toutes les catégories',
 			'no_category' => 'Aucune catégorie',
 			'unread' => 'Afficher les non lus',
-			'_' => 'Articles à afficher',
 		),
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'sort' => array(
+			'_' => 'Ordre de tri',
 			'newer_first' => 'Plus récents en premier',
 			'older_first' => 'Plus anciens en premier',
-			'_' => 'Ordre de tri',
 		),
 		'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
 		'title' => 'Lecture',
@@ -139,9 +140,9 @@ return array(
 			'normal' => 'Vue normale',
 			'reader' => 'Vue lecture',
 		),
-		'_' => 'Lecture',
 	),
 	'sharing' => array(
+		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
@@ -156,9 +157,9 @@ return array(
 		'title' => 'Partage',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
-		'_' => 'Partage',
 	),
 	'shortcut' => array(
+		'_' => 'Raccourcis',
 		'article_action' => 'Actions associées à l’article courant',
 		'auto_share' => 'Partager',
 		'auto_share_help' => 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
@@ -190,7 +191,6 @@ return array(
 		'user_filter' => 'Accéder aux filtres utilisateur',
 		'user_filter_help' => 'S’il n’y a qu’un filtre utilisateur, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 		'views' => 'Vues',
-		'_' => 'Raccourcis',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',

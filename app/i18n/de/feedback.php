@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt aktiviert',
 		),
+		'no_access' => 'Sie haben keinen Zugang zu %s',
 		'not_enabled' => '%s ist noch nicht aktiviert',
 		'not_found' => '%s existiert nicht',
-		'no_access' => 'Sie haben keinen Zugang zu %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Die ZIP-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Die Kategorie ist geleert worden.',
 			'error' => 'Die Kategorie kann nicht aktualisiert werden',
 			'name_exists' => 'Der Kategorie-Name existiert bereits.',
-			'not_delete_default' => 'Sie können die Vorgabe-Kategorie nicht löschen!',
-			'not_exist' => 'Die Kategorie existiert nicht!',
 			'no_id' => 'Sie müssen die ID der Kategorie präzisieren.',
 			'no_name' => 'Der Kategorie-Name kann nicht leer sein.',
+			'not_delete_default' => 'Sie können die Vorgabe-Kategorie nicht löschen!',
+			'not_exist' => 'Die Kategorie existiert nicht!',
 			'over_max' => 'Sie haben Ihre Kategorien-Limite erreicht (%d)',
 			'updated' => 'Die Kategorie ist aktualisiert worden.',
 		),
@@ -89,11 +89,11 @@ return array(
 			'error' => 'Der Feed kann nicht aktualisiert werden',
 			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
-			'not_added' => '<em>%s</em> konnte nicht hinzugefügt werden',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'Es gibt keinen Feed zum Aktualisieren…',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
 			'n_entries_deleted' => 'Die %d Artikel sind gelöscht worden',
+			'no_refresh' => 'Es gibt keinen Feed zum Aktualisieren…',
+			'not_added' => '<em>%s</em> konnte nicht hinzugefügt werden',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'Sie haben Ihre Feeds-Limite erreicht (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'Der Benutzer %s kann nicht erstellt werden',
 			'_' => 'Der Benutzer %s ist erstellt worden',
+			'error' => 'Der Benutzer %s kann nicht erstellt werden',
 		),
 		'deleted' => array(
-			'error' => 'Der Benutzer %s kann nicht gelöscht werden',
 			'_' => 'Der Benutzer %s ist gelöscht worden',
+			'error' => 'Der Benutzer %s kann nicht gelöscht werden',
 		),
 		'updated' => array(
-			'error' => 'Benutzer %s wurde nicht aktualisiert',
 			'_' => 'Benutzer %s wurde aktualisiert',
+			'error' => 'Benutzer %s wurde nicht aktualisiert',
 		),
 	),
 );

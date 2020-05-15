@@ -79,7 +79,7 @@ class I18nFile implements I18nFileInterface{
 	private function unflatten($translation) {
 		$a = array();
 
-		ksort($translation, SORT_NATURAL | SORT_FLAG_CASE);
+		ksort($translation, SORT_NATURAL);
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);

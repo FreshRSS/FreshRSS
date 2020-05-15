@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO - Translation
 			'ok' => '%s is now enabled',	// TODO - Translation
 		),
+		'no_access' => 'You have no access on %s',	// TODO - Translation
 		'not_enabled' => '%s is not enabled yet',
 		'not_found' => '%s does not exist',	// TODO - Translation
-		'no_access' => 'You have no access on %s',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',	// TODO - Translation
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Category has been emptied',	// TODO - Translation
 			'error' => 'Category cannot be updated',	// TODO - Translation
 			'name_exists' => 'Category name already exists.',	// TODO - Translation
-			'not_delete_default' => 'You cannot delete the default category!',	// TODO - Translation
-			'not_exist' => 'The category does not exist!',	// TODO - Translation
 			'no_id' => 'You must precise the id of the category.',
 			'no_name' => 'Category name cannot be empty.',	// TODO - Translation
+			'not_delete_default' => 'You cannot delete the default category!',	// TODO - Translation
+			'not_exist' => 'The category does not exist!',	// TODO - Translation
 			'over_max' => 'You have reached your limit of categories (%d)',	// TODO - Translation
 			'updated' => 'Category has been updated.',	// TODO - Translation
 		),
@@ -89,11 +89,11 @@ return array(
 			'error' => 'Feed cannot be updated',	// TODO - Translation
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO - Translation
-			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'There is no feed to refresh…',	// TODO - Translation
 			'n_actualized' => '%d feeds have been updated',	// TODO - Translation
 			'n_entries_deleted' => '%d articles have been deleted',	// TODO - Translation
+			'no_refresh' => 'There is no feed to refresh…',	// TODO - Translation
+			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'User %s cannot be created',	// TODO - Translation
 			'_' => 'User %s has been created',	// TODO - Translation
+			'error' => 'User %s cannot be created',	// TODO - Translation
 		),
 		'deleted' => array(
-			'error' => 'User %s cannot be deleted',	// TODO - Translation
 			'_' => 'User %s has been deleted',	// TODO - Translation
+			'error' => 'User %s cannot be deleted',	// TODO - Translation
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',	// TODO - Translation
 			'_' => 'User %s has been updated',	// TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
 		),
 	),
 );

@@ -11,6 +11,7 @@ return array(
 		'title' => '북마클릿',
 	),
 	'category' => array(
+		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => '제목',
-		'_' => '카테고리',
 	),
 	'feed' => array(
 		'add' => 'RSS 피드 추가',
@@ -39,8 +39,8 @@ return array(
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
 		'priority' => array(
+			'_' => '표시',
 			'archived' => '표시하지 않음 (보관됨)',
 			'main_stream' => '메인 스트림에 표시하기',
 			'normal' => '피드가 속한 카테고리에만 표시하기',
-			'_' => '표시',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => '구독 도구',
 	),
 	'title' => array(
+		'_' => '구독 관리',
 		'feed_management' => 'RSS 피드 관리',
 		'subscription_tools' => '구독 도구',
-		'_' => '구독 관리',
 	),
 );

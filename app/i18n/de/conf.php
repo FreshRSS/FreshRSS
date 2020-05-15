@@ -2,6 +2,7 @@
 
 return array(
 	'archiving' => array(
+		'_' => 'Archivierung',
 		'delete_after' => 'Entferne Artikel nach',
 		'exception' => 'Archivierungsausnahmen',
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
@@ -19,9 +20,9 @@ return array(
 		'purge_now' => 'Jetzt bereinigen',
 		'title' => 'Archivierung',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
-		'_' => 'Archivierung',
 	),
 	'display' => array(
+		'_' => 'Anzeige',
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
@@ -46,22 +47,22 @@ return array(
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
 		),
-		'_' => 'Anzeige',
 	),
 	'profile' => array(
+		'_' => 'Profil-Verwaltung',
 		'api' => 'API management',	// TODO - Translation
 		'delete' => array(
-			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
 			'_' => 'Accountlöschung',
+			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
 		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Profil',
-		'_' => 'Profil-Verwaltung',
 	),
 	'query' => array(
+		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
 		'display' => 'Zeige Abfrage Ergebnisse',
 		'filter' => 'Angewendeter Filter:',
@@ -69,8 +70,8 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
-		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'no_filter' => 'Kein Filter',
+		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
@@ -93,9 +94,9 @@ return array(
 		'state_14' => 'Ungelesene Artikel anzeigen',
 		'state_15' => 'Alle Artikel anzeigen',
 		'title' => 'Benutzerabfragen',
-		'_' => 'Benutzerabfragen',
 	),
 	'reading' => array(
+		'_' => 'Lesen',
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
@@ -117,19 +118,19 @@ return array(
 			'when' => 'Artikel als gelesen markieren…',
 		),
 		'show' => array(
+			'_' => 'Artikel zum Anzeigen',
 			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Anzeige anpassen',
 			'all_articles' => 'Alle Artikel zeigen',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
 			'unread' => 'Nur ungelesene zeigen',
-			'_' => 'Artikel zum Anzeigen',
 		),
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'sort' => array(
+			'_' => 'Sortierreihenfolge',
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
-			'_' => 'Sortierreihenfolge',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',
@@ -139,9 +140,9 @@ return array(
 			'normal' => 'Normale Ansicht',
 			'reader' => 'Lese-Ansicht',
 		),
-		'_' => 'Lesen',
 	),
 	'sharing' => array(
+		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
@@ -156,9 +157,9 @@ return array(
 		'title' => 'Teilen',
 		'twitter' => 'Twitter',	// TODO - Translation
 		'wallabag' => 'wallabag',	// TODO - Translation
-		'_' => 'Teilen',
 	),
 	'shortcut' => array(
+		'_' => 'Tastenkombination',
 		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
@@ -190,7 +191,6 @@ return array(
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
 		'views' => 'Ansichten',
-		'_' => 'Tastenkombination',
 	),
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',
