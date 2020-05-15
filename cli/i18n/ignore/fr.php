@@ -15,6 +15,7 @@ return array(
 	'conf.sharing.wallabag',
 	'conf.shortcut.navigation',
 	'conf.user.articles_and_size',
+	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',
