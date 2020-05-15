@@ -32,45 +32,50 @@ return array(
 		'login' => 'Anmelden',
 		'logout' => 'Abmelden',
 		'password' => array(
-			'format' => '<small>mindestens 7 Zeichen</small>',
 			'_' => 'Passwort',
+			'format' => '<small>mindestens 7 Zeichen</small>',
 		),
 		'registration' => array(
+			'_' => 'Neuer Account',
 			'ask' => 'Erstelle einen Account?',
 			'title' => 'Accounterstellung',
-			'_' => 'Neuer Account',
 		),
 		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => array(
+			'_' => 'Nutzername',
 			'admin' => 'Administrator-Nutzername',
 			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
-			'_' => 'Nutzername',
 		),
 	),
 	'date' => array(
-		'apr' => 'Apr',
 		'Apr' => '\\A\\p\\r\\i\\l',	// TODO - Translation
-		'april' => 'April',	// TODO - Translation
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO - Translation
+		'Dec' => '\\D\\e\\z\\e\\m\\b\\e\\r',
+		'Feb' => '\\F\\e\\b\\r\\u\\a\\r',
+		'Jan' => '\\J\\a\\n\\u\\a\\r',
+		'Jul' => '\\J\\u\\l\\i',
+		'Jun' => '\\J\\u\\n\\i',
+		'Mar' => '\\M\\ä\\r\\z',
+		'May' => '\\M\\a\\i',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO - Translation
+		'Oct' => '\\O\\k\\t\\o\\b\\e\\r',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO - Translation
+		'apr' => 'Apr',
+		'april' => 'April',	// TODO - Translation
 		'aug' => 'Aug',
 		'august' => 'August',	// TODO - Translation
 		'before_yesterday' => 'Ältere Beiträge',
-		'Dec' => '\\D\\e\\z\\e\\m\\b\\e\\r',
 		'dec' => 'Dez',
 		'december' => 'Dezember',
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r',
 		'feb' => 'Feb',
 		'february' => 'Februar',
 		'format_date' => 'd\\. %s Y',
 		'format_date_hour' => 'd\\. %s Y \\u\\m H\\:i',
 		'fri' => 'Fr',
-		'Jan' => '\\J\\a\\n\\u\\a\\r',
 		'jan' => 'Jan',
 		'january' => 'Januar',
 		'jul' => 'Jul',
-		'Jul' => '\\J\\u\\l\\i',
 		'july' => 'Juli',
-		'Jun' => '\\J\\u\\n\\i',
 		'jun' => 'Jun',
 		'june' => 'Juni',
 		'last_2_year' => 'Last two years',	// TODO - Translation
@@ -81,22 +86,17 @@ return array(
 		'last_month' => 'Letzter Monat',
 		'last_week' => 'Letzte Woche',
 		'last_year' => 'Letztes Jahr',
-		'Mar' => '\\M\\ä\\r\\z',
 		'mar' => 'Mär',
 		'march' => 'März',
 		'may' => 'Mai',
-		'May' => '\\M\\a\\i',
 		'may_' => 'Mai',
 		'mon' => 'Mo',
 		'month' => 'Monat(en)',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO - Translation
 		'nov' => 'Nov',
 		'november' => 'November',	// TODO - Translation
-		'Oct' => '\\O\\k\\t\\o\\b\\e\\r',
 		'oct' => 'Okt',
 		'october' => 'Oktober',
 		'sat' => 'Sa',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO - Translation
 		'sep' => 'Sep',
 		'september' => 'September',	// TODO - Translation
 		'sun' => 'So',
@@ -108,8 +108,8 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'about' => 'Über FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation
+		'about' => 'Über FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Kategorie leeren',
@@ -178,13 +178,13 @@ return array(
 		'years' => 'Jahre',
 	),
 	'share' => array(
+		'Known' => 'Known-Seite (https://withknown.com)',
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',	// TODO - Translation
 		'gnusocial' => 'GNU social',	// TODO - Translation
 		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'Known' => 'Known-Seite (https://withknown.com)',
 		'lemmy' => 'Lemmy',	// TODO - Translation
 		'linkedin' => 'LinkedIn',	// TODO - Translation
 		'mastodon' => 'Mastodon',	// TODO - Translation

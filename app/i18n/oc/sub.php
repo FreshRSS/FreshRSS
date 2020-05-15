@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
 		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
-		'_' => 'Categoria',
 	),
 	'feed' => array(
 		'add' => 'Ajustar un flux RSS',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
 		'filteractions' => array(
-			'help' => 'Escrivètz una recèrca per linha.',
 			'_' => 'Filtre d’accion',
+			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Cap de flux pas seleccionat.',
 		'number_entries' => '%d articles',
 		'priority' => array(
+			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
-			'_' => 'Visibilitat',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Veire lo còdi font',
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 	'title' => array(
+		'_' => 'Gestion dels abonaments',
 		'feed_management' => 'Gestion dels fluxes RSS',
 		'subscription_tools' => 'Aisinas d’abonament',
-		'_' => 'Gestion dels abonaments',
 	),
 );

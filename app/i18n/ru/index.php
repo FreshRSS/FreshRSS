@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'About',	// TODO - Translation
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Bugs reports',	// TODO - Translation
 		'credits' => 'Credits',	// TODO - Translation
@@ -13,7 +14,6 @@ return array(
 		'title' => 'About',	// TODO - Translation
 		'version' => 'Version',	// TODO - Translation
 		'website' => 'Website',	// TODO - Translation
-		'_' => 'About',	// TODO - Translation
 	),
 	'feed' => array(
 		'add' => 'You may add some feeds.',	// TODO - Translation
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Global view',	// TODO - Translation
 	),
 	'log' => array(
+		'_' => 'Logs',	// TODO - Translation
 		'clear' => 'Clear the logs',	// TODO - Translation
 		'empty' => 'Log file is empty',	// TODO - Translation
 		'title' => 'Logs',	// TODO - Translation
-		'_' => 'Logs',	// TODO - Translation
 	),
 	'menu' => array(
 		'about' => 'About FreshRSS',	// TODO - Translation

@@ -4,6 +4,7 @@ services:
   freshrss_postgresql:
     image: postgres
     restart: unless-stopped
+    container_name: freshrss-db
     volumes:
       - pgsql_data:/var/lib/postgresql/data
     environment:

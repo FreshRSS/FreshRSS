@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s sa nepodarilo povoliť. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz povolený',
 		),
+		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
-		'no_access' => 'Nemáte prístup k %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Kategória bola vyprázdnená',
 			'error' => 'Nepodarilo sa aktualizovať kategóriu',
 			'name_exists' => 'Názov kategórie už existuje.',
-			'not_delete_default' => 'Nemôžete odstrániť prednastavenú kategóriu!',
-			'not_exist' => 'Kategória neexistuje!',
 			'no_id' => 'Musíte zadať ID kategórie.',
 			'no_name' => 'Názov kategórie nemôže byť prázdny.',
+			'not_delete_default' => 'Nemôžete odstrániť prednastavenú kategóriu!',
+			'not_exist' => 'Kategória neexistuje!',
 			'over_max' => 'Dosiahli ste limit počtu kategórií (%d)',
 			'updated' => 'Kategória bola aktualizovaná.',
 		),
@@ -89,17 +89,17 @@ return array(
 			'error' => 'Kanál sa nepodarilo aktualizovať',
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
 			'invalid_url' => 'Odkaz <em>%s</em> je neplatný',
-			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
 			'n_actualized' => 'Počet aktualizovaných kanálov: %d',
 			'n_entries_deleted' => 'Počet vymazaných článkov: %d',
+			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
+			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'Dosiahli ste limit počtu kanálov (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
 			),
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'Používateľ %s nebol vytvorený',
 			'_' => 'Používateľ %s bol vytvorený',
+			'error' => 'Používateľ %s nebol vytvorený',
 		),
 		'deleted' => array(
-			'error' => 'Používateľ %s nebol vymazaný',
 			'_' => 'Používateľ %s bol vymazaný',
+			'error' => 'Používateľ %s nebol vymazaný',
 		),
 		'updated' => array(
-			'error' => 'Používateľ %s nebol aktualizovaný',
 			'_' => 'Používateľ %s bol aktualizovaný',
+			'error' => 'Používateľ %s nebol aktualizovaný',
 		),
 	),
 );
