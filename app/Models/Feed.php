@@ -70,6 +70,11 @@ class FreshRSS_Feed extends Minz_Model {
 	public function category() {
 		return $this->category;
 	}
+	public function entries() {
+		Minz_Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
+		$simplePie = $this->load(false, true);
+		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
+	}
 	public function name() {
 		return $this->name;
 	}
