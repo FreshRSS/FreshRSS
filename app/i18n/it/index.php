@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'Informazioni',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Bugs',
 		'credits' => 'Crediti',
@@ -13,7 +14,6 @@ return array(
 		'title' => 'Informazioni',
 		'version' => 'Versione',
 		'website' => 'Sito',
-		'_' => 'Informazioni',
 	),
 	'feed' => array(
 		'add' => 'Aggiungi un Feed RSS',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Vista globale per categorie',
 	),
 	'log' => array(
+		'_' => 'Logs',	// TODO - Translation
 		'clear' => 'Svuota logs',
 		'empty' => 'File di log vuoto',
 		'title' => 'Logs',	// TODO - Translation
-		'_' => 'Logs',	// TODO - Translation
 	),
 	'menu' => array(
 		'about' => 'Informazioni',

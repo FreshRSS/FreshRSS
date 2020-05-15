@@ -32,45 +32,50 @@ return array(
 		'login' => 'Giriş',
 		'logout' => 'Çıkış',
 		'password' => array(
-			'format' => '<small>En az 7 karakter</small>',
 			'_' => 'Şifre',
+			'format' => '<small>En az 7 karakter</small>',
 		),
 		'registration' => array(
+			'_' => 'Yeni hesap',
 			'ask' => 'Yeni bir hesap oluştur',
 			'title' => 'Hesap oluşturma',
-			'_' => 'Yeni hesap',
 		),
 		'reset' => 'Kimlik doğrulama sıfırla',
 		'username' => array(
+			'_' => 'Kullancı adı',
 			'admin' => 'Yönetici kullanıcı adı',
 			'format' => '<small>En fazla 16 alfanümerik karakter</small>',
-			'_' => 'Kullancı adı',
 		),
 	),
 	'date' => array(
-		'apr' => 'nis',
 		'Apr' => '\\N\\i\\s\\a\\n',
-		'april' => 'Nis',
 		'Aug' => '\\A\\ğ\\u\\s\\t\\o\\s',
+		'Dec' => '\\A\\r\\a\\l\\ı\\k',
+		'Feb' => '\\Ş\\u\\b\\a\\t',
+		'Jan' => '\\O\\c\\a\\k',
+		'Jul' => '\\T\\e\\m\\m\\u\\z',
+		'Jun' => '\\H\\a\\z\\i\\r\\a\\n',
+		'Mar' => '\\M\\a\\r\\t',
+		'May' => '\\M\\a\\y\\ı\\s',
+		'Nov' => '\\K\\a\\s\\ı\\m',
+		'Oct' => '\\E\\k\\i\\m',
+		'Sep' => '\\E\\y\\l\\ü\\l',
+		'apr' => 'nis',
+		'april' => 'Nis',
 		'aug' => 'ağu',
 		'august' => 'Ağu',
 		'before_yesterday' => 'Dünden önceki gün',
-		'Dec' => '\\A\\r\\a\\l\\ı\\k',
 		'dec' => 'ara',
 		'december' => 'Ara',
-		'Feb' => '\\Ş\\u\\b\\a\\t',
 		'feb' => 'şub',
 		'february' => 'Şub',
 		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// TODO - Translation
 		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// TODO - Translation
 		'fri' => 'Cum',
-		'Jan' => '\\O\\c\\a\\k',
 		'jan' => 'oca',
 		'january' => 'Oca',
 		'jul' => 'tem',
-		'Jul' => '\\T\\e\\m\\m\\u\\z',
 		'july' => 'Tem',
-		'Jun' => '\\H\\a\\z\\i\\r\\a\\n',
 		'jun' => 'haz',
 		'june' => 'Haz',
 		'last_2_year' => 'Last two years',	// TODO - Translation
@@ -81,22 +86,17 @@ return array(
 		'last_month' => 'Geçen ay',
 		'last_week' => 'Geçen hafta',
 		'last_year' => 'Geçen yıl',
-		'Mar' => '\\M\\a\\r\\t',
 		'mar' => 'mar',
 		'march' => 'Mar',
 		'may' => 'Mayıs',
-		'May' => '\\M\\a\\y\\ı\\s',
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Pzt',
 		'month' => 'ay',
-		'Nov' => '\\K\\a\\s\\ı\\m',
 		'nov' => 'kas',
 		'november' => 'Kas',
-		'Oct' => '\\E\\k\\i\\m',
 		'oct' => 'ekm',
 		'october' => 'Ekm',
 		'sat' => 'Cts',
-		'Sep' => '\\E\\y\\l\\ü\\l',
 		'sep' => 'eyl',
 		'september' => 'Eyl',
 		'sun' => 'Pzr',
@@ -108,8 +108,8 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'about' => 'FreshRSS hakkında',
 		'_' => 'FreshRSS',	// TODO - Translation
+		'about' => 'FreshRSS hakkında',
 	),
 	'js' => array(
 		'category_empty' => 'Boş kategori',
@@ -178,13 +178,13 @@ return array(
 		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
+		'Known' => 'Known based sites',	// TODO - Translation
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',	// TODO - Translation
 		'gnusocial' => 'GNU social',	// TODO - Translation
 		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'Known' => 'Known based sites',	// TODO - Translation
 		'lemmy' => 'Lemmy',	// TODO - Translation
 		'linkedin' => 'LinkedIn',	// TODO - Translation
 		'mastodon' => 'Mastodon',	// TODO - Translation

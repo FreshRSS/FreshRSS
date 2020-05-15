@@ -17,19 +17,20 @@ return array(
 		'type' => 'שיטת אימות',
 	),
 	'bdd' => array(
+		'_' => 'בסיס נתונים',
 		'conf' => array(
+			'_' => 'הגדרות בסיס נתונים',
 			'ko' => 'נא לוודא את הגדרות בסיס הנתונים.',
 			'ok' => 'הגדרות בסיס הנתונים נשמרו.',
-			'_' => 'הגדרות בסיס נתונים',
 		),
 		'host' => 'מארח',
 		'password' => 'HTTP סיסמה',
 		'prefix' => 'קידומת הטבלה',
 		'type' => 'סוג בסיס הנתונים',
 		'username' => 'HTTP שם משתמש',
-		'_' => 'בסיס נתונים',
 	),
 	'check' => array(
+		'_' => 'בדיקות',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
 		'cache' => array(
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',	// TODO - Translation
@@ -95,11 +96,10 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'_' => 'בדיקות',
 	),
 	'conf' => array(
-		'ok' => 'ההגדרות הכלליות נשמרו.',
 		'_' => 'הגדרות כלליות',
+		'ok' => 'ההגדרות הכלליות נשמרו.',
 	),
 	'congratulations' => 'מזל טוב!',
 	'default_user' => 'שם המשתמש של משתמש ברירת המחדל <small>(לכל היותר 16 תווים אלפאנומריים)</small>',
@@ -110,9 +110,9 @@ return array(
 		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO - Translation
 	),
 	'language' => array(
+		'_' => 'שפה',
 		'choose' => 'בחירת שפה ל FreshRSS',
 		'defined' => 'השפה הוגדרה.',
-		'_' => 'שפה',
 	),
 	'not_deleted' => 'משהו נכשל; יש צורך למחוק את הקובץ <em>%s</em> ידנית.',
 	'ok' => 'The installation process was successful.',	// TODO - Translation

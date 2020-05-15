@@ -17,19 +17,20 @@ return array(
 		'type' => 'Método de identificación',
 	),
 	'bdd' => array(
+		'_' => 'Base de datos',
 		'conf' => array(
+			'_' => 'Configuración de la base de datos',
 			'ko' => 'Verificar la información de tu base de datos.',
 			'ok' => 'La configuración de la base de datos ha sido guardada.',
-			'_' => 'Configuración de la base de datos',
 		),
 		'host' => 'Servidor',
 		'password' => 'Contraseña de la base de datos',
 		'prefix' => 'Prefijo de la tabla',
 		'type' => 'Tipo de base de datos',
 		'username' => 'Nombre de usuario de la base de datos',
-		'_' => 'Base de datos',
 	),
 	'check' => array(
+		'_' => 'Verificaciones',
 		'already_installed' => '¡FreshRSS ya está instalado!',
 		'cache' => array(
 			'nok' => 'Comprueba los permisos en el directorio <em>./data/cache</em>. El servidor HTTP debe contar con permisos de escritura.',
@@ -95,11 +96,10 @@ return array(
 			'nok' => 'No se ha podido localizar la librería necesaria para procesar XML.',
 			'ok' => 'Dispones de la librería necesaria para procesar XML.',
 		),
-		'_' => 'Verificaciones',
 	),
 	'conf' => array(
-		'ok' => 'La configuración general se ha guardado.',
 		'_' => 'Configuración general',
+		'ok' => 'La configuración general se ha guardado.',
 	),
 	'congratulations' => '¡Enhorabuena!',
 	'default_user' => 'Nombre de usuario para el usuario por defecto <small>(máximo de 16 caracteres alfanuméricos)</small>',
@@ -110,9 +110,9 @@ return array(
 		'confirm_reinstall' => 'Al reinstalar FreshRSS perderás cualquier configuración anterior. ¿Seguro que quieres continuar?',
 	),
 	'language' => array(
+		'_' => 'Idioma',
 		'choose' => 'Selecciona el idioma para FreshRSS',
 		'defined' => 'Idioma seleccionado.',
-		'_' => 'Idioma',
 	),
 	'not_deleted' => 'Parece que ha habido un error. Debes eliminar el archivo <em>%s</em> de forma manual.',
 	'ok' => 'La instalación se ha completado correctamente.',

@@ -83,9 +83,9 @@ return array(
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'PHP installation',
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version is %s, which is compatible with FreshRSS.',
-			'_' => 'PHP installation',
 		),
 		'tables' => array(
 			'nok' => 'There are one or more missing tables in the database.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
 		'system' => array(
-			'no_rights' => 'System extension (you have no rights on it)',
 			'_' => 'System extensions',
+			'no_rights' => 'System extension (you have no rights on it)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Update available',
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',
 	),
 	'stats' => array(
+		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',
 		'category' => 'Category',
 		'entry_count' => 'Entry count',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
-		'_' => 'Statistics',
 	),
 	'system' => array(
+		'_' => 'System configuration',
 		'auto-update-url' => 'Auto-update server URL',
 		'cookie-duration' => array(
 			'help' => 'in seconds',
@@ -170,21 +171,20 @@ return array(
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
 		),
-		'_' => 'System configuration',
 	),
 	'update' => array(
+		'_' => 'Update system',
 		'apply' => 'Apply',
 		'check' => 'Check for new updates',
 		'current_version' => 'Your current version of FreshRSS is %s.',
 		'last' => 'Last verification: %s',
 		'none' => 'No update to apply',
 		'title' => 'Update system',
-		'_' => 'Update system',
 	),
 	'user' => array(
 		'admin' => 'Administrator',
-		'articles_and_size' => '%s articles (%s)',
 		'article_count' => 'Articles',
+		'articles_and_size' => '%s articles (%s)',
 		'back_to_manage' => '← Return to user list',
 		'create' => 'Create new user',
 		'database_size' => 'Database size',
@@ -202,8 +202,8 @@ return array(
 		'selected' => 'Selected user',
 		'title' => 'Manage users',
 		'update_users' => 'Update user',
+		'user_list' => 'List of users',
 		'username' => 'Username',
 		'users' => 'Users',
-		'user_list' => 'List of users',
 	),
 );

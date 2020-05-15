@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
 		'archiving' => 'Archivace',
 		'empty' => 'Vyprázdit kategorii',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Název',
-		'_' => 'Kategorie',
 	),
 	'feed' => array(
 		'add' => 'Přidat RSS kanál',
@@ -39,16 +39,16 @@ return array(
 		'empty' => 'Kanál je prázdný. Ověřte prosím zda je ještě autorem udržován.',
 		'error' => 'Vyskytl se problém s kanálem. Ověřte že je vždy dostupný, prosím, a poté jej aktualizujte.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'Informace',
 		'keep_min' => 'Zachovat tento minimální počet článků',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => 'Po smazání kategorie budou v ní obsažené kanály automaticky přesunuty do <em>%s</em>.',
@@ -56,13 +56,13 @@ return array(
 		'no_selected' => 'Nejsou označeny žádné kanály.',
 		'number_entries' => '%d článků',
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'Zobrazit ve “Všechny kanály”',
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'Správa subskripcí',
 		'feed_management' => 'Správa RSS kanálů',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Správa subskripcí',
 	),
 );

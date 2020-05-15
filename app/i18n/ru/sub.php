@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Category',	// TODO - Translation
 		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => 'Archivage',
 		'empty' => 'Empty category',	// TODO - Translation
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Title',	// TODO - Translation
-		'_' => 'Category',	// TODO - Translation
 	),
 	'feed' => array(
 		'add' => 'Add a RSS feed',	// TODO - Translation
@@ -39,16 +39,16 @@ return array(
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO - Translation
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'Information',	// TODO - Translation
 		'keep_min' => 'Minimum number of articles to keep',	// TODO - Translation
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// TODO - Translation
@@ -56,13 +56,13 @@ return array(
 		'no_selected' => 'No feed selected.',	// TODO - Translation
 		'number_entries' => '%d articles',	// TODO - Translation
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'Show in main stream',	// TODO - Translation
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'Subscriptions management',	// TODO - Translation
 		'feed_management' => 'RSS feeds management',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Subscriptions management',	// TODO - Translation
 	),
 );

@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Category',
 		'add' => 'Add a category',
 		'archiving' => 'Archiving',
 		'empty' => 'Empty category',
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
 		'title' => 'Title',
-		'_' => 'Category',
 	),
 	'feed' => array(
 		'add' => 'Add a RSS feed',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',
 			'_' => 'Filter actions',
+			'help' => 'Write one search filter per line.',
 		),
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'No feed selected.',
 		'number_entries' => '%d articles',
 		'priority' => array(
+			'_' => 'Visibility',
 			'archived' => 'Do not show (archived)',
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
-			'_' => 'Visibility',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',
 	),
 	'title' => array(
+		'_' => 'Subscriptions management',
 		'feed_management' => 'RSS feeds management',
 		'subscription_tools' => 'Subscription tools',
-		'_' => 'Subscriptions management',
 	),
 );

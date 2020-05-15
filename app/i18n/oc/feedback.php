@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s pòt pas èsser activada. <a href="%s">Consultatz los jornals d’audit de FreshRSS logs</a> per mai de detalhs.',
 			'ok' => '%s es ara activada',
 		),
+		'no_access' => 'Avètz pas accès sus %s',
 		'not_enabled' => '%s es pas encara activada',
 		'not_found' => '%s existís pas',
-		'no_access' => 'Avètz pas accès sus %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L\'extension ZIP es pas presenta sul servidor. Volgatz ensajar d\'exportar los fichièrs un per un.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'La categoria es estada voidada',
 			'error' => 'Actualizacion de la categoria impossibla',
 			'name_exists' => 'Una categoria se ditz ja atal.',
-			'not_delete_default' => 'Podètz pas suprimir la categoria per defaut !',
-			'not_exist' => 'Aquesta categoria existís pas !',
 			'no_id' => 'Vos cal precisar l’id de la categoria.',
 			'no_name' => 'Vos cal donar un nom a la categoria.',
+			'not_delete_default' => 'Podètz pas suprimir la categoria per defaut !',
+			'not_exist' => 'Aquesta categoria existís pas !',
 			'over_max' => 'Avètz atengut la limita de categoria (%d)',
 			'updated' => 'La categoria es estada actualizada.',
 		),
@@ -89,11 +89,11 @@ return array(
 			'error' => 'Error en actualizar',
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L\'URL <em>%s</em> es invalida',
-			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
-			'not_found' => 'Flux introbable',
-			'no_refresh' => 'I a pas cap de flux d’actualizar…',
 			'n_actualized' => '%s fluxes son estats actualizats',
 			'n_entries_deleted' => '%d articles son estats suprimits',
+			'no_refresh' => 'I a pas cap de flux d’actualizar…',
+			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
+			'not_found' => 'Flux introbable',
 			'over_max' => 'Avètz atengut vòstra limita de fluxes (%d)',
 			'reloaded' => '<em>%s</em> es estat recargat',
 			'selector_preview' => array(
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'L’utilizaire %s pòt pas èsser creat',
 			'_' => 'L’utilizaire %s es estat creat',
+			'error' => 'L’utilizaire %s pòt pas èsser creat',
 		),
 		'deleted' => array(
-			'error' => 'L’utilizaire %s pòt pas èsser suprimit',
 			'_' => 'L’utilizaire %s es estat suprimit',
+			'error' => 'L’utilizaire %s pòt pas èsser suprimit',
 		),
 		'updated' => array(
-			'error' => 'L’utilizaire %s es pas estat actualizat',
 			'_' => 'L’utilizaire %s es estat actualizat',
+			'error' => 'L’utilizaire %s es pas estat actualizat',
 		),
 	),
 );
