@@ -318,9 +318,6 @@ class FreshRSS_Feed extends Minz_Model {
 					//Minz_Log::debug('FreshRSS use cache for ' . $clean_url);
 					return null;
 				}
-
-				$simplePie->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
-				unset($simplePie);
 			}
 		}
 	}
