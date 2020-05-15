@@ -100,7 +100,7 @@ return array(
 				'http_error' => 'Falha ao carregar o conteúdo do site.',
 				'no_entries' => 'Não há nenhuma entrada nesse feed. Você precisa de pelo menos um artigo para criar uma pré-visualização',
 				'no_feed' => 'Erro interno (nenhum feed para verificar).',
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation - didn\'t?
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'O seletor está vazio. Você precisa definir um para criar uma pré-visualização.',
 			),
 			'updated' => 'Os feeds foram atualizados',

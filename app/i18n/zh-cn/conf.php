@@ -117,12 +117,12 @@ return array(
 			'when' => '何时将文章标记为已读',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => '智能显示',
 			'all_articles' => '显示所有',
-			'unread' => '只显示未读',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => '只显示未读',
 			'_' => '文章显示',
 		),
 		'sides_close_article' => '点击文章区域外以关闭',

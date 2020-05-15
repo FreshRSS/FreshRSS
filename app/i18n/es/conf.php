@@ -117,12 +117,12 @@ return array(
 			'when' => 'Marcar el artículo como leído…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Ajustar la visualización',
 			'all_articles' => 'Mostrar todos los artículos',
-			'unread' => 'Mostrar solo pendientes',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => 'Mostrar solo pendientes',
 			'_' => 'Artículos a mostrar',
 		),
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
@@ -183,7 +183,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Ver en la web original',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Mayúsculas</kbd> para marcar todos los artículos como leídos',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Atajos de teclado',

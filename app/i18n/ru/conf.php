@@ -117,12 +117,12 @@ return array(
 			'when' => 'Mark article as read…',	// TODO - Translation
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Adjust showing',	// TODO - Translation
 			'all_articles' => 'Show all articles',	// TODO - Translation
-			'unread' => 'Show only unread',	// TODO - Translation
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => 'Show only unread',	// TODO - Translation
 			'_' => 'Articles to display',	// TODO - Translation
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

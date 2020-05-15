@@ -117,12 +117,12 @@ return array(
 			'when' => 'Marcar un article coma legit…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Adaptar l’afichatge',
 			'all_articles' => 'Mostrar totes los articles',
-			'unread' => 'Mostrar pas que los pas legits',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => 'Mostrar pas que los pas legits',
 			'_' => 'Articles de mostrar',
 		),
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',

@@ -117,12 +117,12 @@ return array(
 			'when' => 'Markeer artikel als gelezen…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Pas weergave aan',
 			'all_articles' => 'Bekijk alle artikelen',
-			'unread' => 'Bekijk alleen ongelezen',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => 'Bekijk alleen ongelezen',
 			'_' => 'Artikelen om te tonen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',

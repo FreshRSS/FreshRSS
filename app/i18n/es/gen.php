@@ -26,7 +26,7 @@ return array(
 		'update' => 'Actualizar',
 	),
 	'auth' => array(
-		'accept_tos' => 'Acpeto los <a href="%s">Terminos de Servicio</a>.',	// TODO - Translation
+		'accept_tos' => 'Acpeto los <a href="%s">Terminos de Servicio</a>.',
 		'email' => 'Correo electrónico',
 		'keep_logged_in' => 'Mantenerme identificado <small>(%s días)</small>',
 		'login' => 'Conectar',

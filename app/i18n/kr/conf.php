@@ -117,12 +117,12 @@ return array(
 			'when' => '읽음으로 표시…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => '읽지 않은 글이 없으면 모든 글 표시',
 			'all_articles' => '모든 글 표시',
-			'unread' => '읽지 않은 글만 표시',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => '읽지 않은 글만 표시',
 			'_' => '글 표시 방식',
 		),
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
@@ -183,7 +183,7 @@ return array(
 		'reading_view' => '읽기 모드로 전환',
 		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> 를 누른 상태에선 모두 읽음으로 표시',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => '다음 글로 커서 이동',
 		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',

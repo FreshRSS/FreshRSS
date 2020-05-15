@@ -99,7 +99,7 @@ return array(
 			'selector_preview' => array(
 				'http_error' => '无法加载网站内容！无法加载网站内容！',
 				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。.',
-				'no_feed' => '内部错误 (no feed to entry).',
+				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
 				'no_result' => '选择器没有匹配到任何东西。作为备用，原始的feed文本将被显示出来。',
 				'selector_empty' => '选择器是空的。你需要一个来创建预览。',
 			),

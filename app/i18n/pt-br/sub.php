@@ -8,7 +8,7 @@ return array(
 	'bookmarklet' => array(
 		'documentation' => 'Arraste este botão para sua barra de favoritos ou clique com o botão direito e escolha "Adicionar este link aos favoritos". Depois clique no no link da barra de favoritos "Inscrever-se" em qualquer página que você queira se inscrever.',
 		'label' => 'Inscrever-se',
-		'title' => 'Bookmarklet',	// TODO? - Translation
+		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
 		'add' => 'Adicionar uma categoria',

@@ -73,7 +73,10 @@ return array(
 		'Jun' => '\\J\\u\\n\\h\\o',
 		'jun' => 'jun',
 		'june' => 'Jun',
+		'last_2_year' => 'Last two years',	// TODO - Translation
 		'last_3_month' => 'Últimos três meses',
+		'last_3_year' => 'Last three years',	// TODO - Translation
+		'last_5_year' => 'Last five years',	// TODO - Translation
 		'last_6_month' => 'Últimos seis meses',
 		'last_month' => 'Últimos mês',
 		'last_week' => 'Última semana',
@@ -177,11 +180,11 @@ return array(
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
+		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
+		'Known' => 'Known based sites',	// TODO - Translation
 		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',

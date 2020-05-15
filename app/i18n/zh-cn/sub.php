@@ -49,7 +49,7 @@ return array(
 			'clear_cache_help' => '清除该feed的缓存',
 			'reload_articles' => '重载文章',
 			'reload_articles_help' => '重新加载文章并获取完整内容',
-			'title' => 'Maintenance',
+			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',

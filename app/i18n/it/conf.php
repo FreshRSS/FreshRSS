@@ -117,8 +117,11 @@ return array(
 			'when' => 'Segna articoli come letti…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Adatta visualizzazione',
 			'all_articles' => 'Mostra tutti gli articoli',
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'unread' => 'Mostra solo non letti',
 			'_' => 'Articoli da visualizzare',
 		),
@@ -180,7 +183,7 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Vai al sito fonte',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> per segnare tutti gli articoli come letti',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Comandi da tastiera',

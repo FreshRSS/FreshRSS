@@ -117,12 +117,12 @@ return array(
 			'when' => 'Marcar artigo como lido…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Ajustar visualização',
 			'all_articles' => 'Exibir todos os artigos',
-			'unread' => 'Exibir apenas não lido',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => 'Exibir apenas não lido',
 			'_' => 'Artigos para exibir',
 		),
 		'sides_close_article' => 'Clicando fora da área do texto do artigo fecha o mesmo',
@@ -145,7 +145,7 @@ return array(
 		'add' => 'Adicionar um método de compartilhamento',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
+		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',
 		'more_information' => 'Mais informação',
 		'print' => 'Imprimir',
@@ -183,7 +183,7 @@ return array(
 		'reading_view' => 'Mudar para o modo de leitura',
 		'rss_view' => 'Abrir visualização de RSS em uma nova aba',
 		'see_on_website' => 'Visualize o site original',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> para marcar todos os artigos como lido',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
 		'skip_previous_article' => 'Focar o anterior sem abri-lo',
 		'title' => 'Atalhos',

@@ -117,12 +117,12 @@ return array(
 			'when' => 'Označiť článok ako prečítaný…',
 		),
 		'show' => array(
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Vyberte zobrazenie',
 			'all_articles' => 'Zobraziť všetky články',
-			'unread' => 'Zobraziť iba neprečítané',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'unread' => 'Zobraziť iba neprečítané',
 			'_' => 'Článkov na zobrazenie',
 		),
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
@@ -183,7 +183,7 @@ return array(
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
 		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
 		'see_on_website' => 'Zobrazí na webovej stránke',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> na označenie všetkých článkov ako prečítaných',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',

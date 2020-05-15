@@ -46,9 +46,9 @@ return array(
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
@@ -62,7 +62,7 @@ return array(
 			'_' => 'Viditeľnosť',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
