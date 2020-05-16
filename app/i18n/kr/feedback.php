@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s 확장 기능을 활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'ok' => '%s 확장 기능이 활성화되었습니다',
 		),
+		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
 		'not_enabled' => '%s 확장 기능이 활성화되지 않았습니다',
 		'not_found' => '%s 확장 기능이 존재하지 않습니다',
-		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => '카테고리를 비웠습니다',
 			'error' => '카테고리를 변경할 수 없습니다',
 			'name_exists' => '같은 카테고리 이름이 이미 존재합니다.',
-			'not_delete_default' => '기본 카테고리는 삭제할 수 없습니다!',
-			'not_exist' => '카테고리가 존재하지 않습니다!',
 			'no_id' => '카테고리 id를 명시해야 합니다.',
 			'no_name' => '카테고리 이름을 명시해야 합니다.',
+			'not_delete_default' => '기본 카테고리는 삭제할 수 없습니다!',
+			'not_exist' => '카테고리가 존재하지 않습니다!',
 			'over_max' => '카테고리 개수 제한에 다다랐습니다 (%d)',
 			'updated' => '카테고리가 변경되었습니다.',
 		),
@@ -89,17 +89,17 @@ return array(
 			'error' => '피드를 변경할 수 없습니다',
 			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
-			'not_added' => '<em>%s</em> 피드를 추가할 수 없습니다',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',
+			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
+			'not_added' => '<em>%s</em> 피드를 추가할 수 없습니다',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => '피드 개수 제한에 다다랐습니다 (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
 			),
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => '%s 사용자를 생성할 수 없습니다',
 			'_' => '%s 사용자가 생성되었습니다',
+			'error' => '%s 사용자를 생성할 수 없습니다',
 		),
 		'deleted' => array(
-			'error' => '%s 사용자를 삭제할 수 없습니다',
 			'_' => '%s 사용자를 삭제했습니다',
+			'error' => '%s 사용자를 삭제할 수 없습니다',
 		),
 		'updated' => array(
-			'error' => '사용자 %s의 정보가 변경되지 않았습니다',
 			'_' => '사용자 %s의 정보가 변경되었습니다',
+			'error' => '사용자 %s의 정보가 변경되지 않았습니다',
 		),
 	),
 );

@@ -19,6 +19,7 @@ return array(
 	'gen.date.Nov',
 	'gen.date.Oct',
 	'gen.date.Sep',
+	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',

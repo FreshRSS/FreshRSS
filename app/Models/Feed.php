@@ -180,7 +180,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function _id($value) {
-		$this->id = $value;
+		$this->id = intval($value);
 	}
 	public function _url($value, $validate = true) {
 		$this->hash = null;
@@ -212,7 +212,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->description = $value === null ? '' : $value;
 	}
 	public function _lastUpdate($value) {
-		$this->lastUpdate = $value;
+		$this->lastUpdate = intval($value);
 	}
 	public function _priority($value) {
 		$this->priority = intval($value);
@@ -333,7 +333,12 @@ class FreshRSS_Feed extends Minz_Model {
 		$guids = array();
 		$hasUniqueGuids = true;
 
-		foreach ($feed->get_items() as $item) {
+		// We want chronological order and SimplePie uses reverse order.
+		for ($i = $feed->get_item_quantity() - 1; $i >= 0; $i--) {
+			$item = $feed->get_item($i);
+			if ($item == null) {
+				continue;
+			}
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
@@ -414,6 +419,7 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$guid = $item->get_id(false, false);
+			unset($item);
 			$hasUniqueGuids &= empty($guids['_' . $guid]);
 			$guids['_' . $guid] = true;
 			$author_names = '';
@@ -441,7 +447,6 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$entries[] = $entry;
-			unset($item);
 		}
 
 		$hasBadGuids = $this->attributes('hasBadGuids');
@@ -695,7 +700,11 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//Parameter true to subscribe, false to unsubscribe.
 	public function pubSubHubbubSubscribe($state) {
-		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		if ($state) {
+			$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		} else {
+			$url = $this->url;	//Always use current URL during unsubscribe
+		}
 		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);

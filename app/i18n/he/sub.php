@@ -11,6 +11,7 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
 		'archiving' => 'ארכוב',
 		'empty' => 'Empty category',	// TODO - Translation
@@ -19,7 +20,6 @@ return array(
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'כותרת',
-		'_' => 'קטגוריה',
 	),
 	'feed' => array(
 		'add' => 'הוספת הזנה',
@@ -39,16 +39,16 @@ return array(
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'מידע',
 		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
@@ -56,13 +56,13 @@ return array(
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'הצגה בזרם המרכזי',
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
@@ -108,8 +108,8 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'ניהול הרשמות',
 		'feed_management' => 'ניהול הזנות RSS',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'ניהול הרשמות',
 	),
 );

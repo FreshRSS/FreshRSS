@@ -32,6 +32,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
 	}
 	function hex2dec($hex) {
+		if (!ctype_xdigit($hex)) return 0;
 		return gmp_strval(gmp_init($hex, 16), 10);
 	}
 } else {	//64-bit
@@ -39,6 +40,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
 	}
 	function hex2dec($hex) {
+		if (!ctype_xdigit($hex)) return 0;
 		return hexdec($hex);
 	}
 }
@@ -421,7 +423,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 			$unreadcounts[] = array(
 				'id' => 'feed/' . $feed->id(),
 				'count' => $feed->nbNotRead(),
-				'newestItemTimestampUsec' => $lastUpdate,
+				'newestItemTimestampUsec' => '' . $lastUpdate,
 			);
 			if ($catLastUpdate < $lastUpdate) {
 				$catLastUpdate = $lastUpdate;
@@ -430,7 +432,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
-			'newestItemTimestampUsec' => $catLastUpdate,
+			'newestItemTimestampUsec' => '' . $catLastUpdate,
 		);
 		$totalUnreads += $cat->nbNotRead();
 		if ($totalLastUpdate < $catLastUpdate) {
@@ -445,14 +447,14 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
-			'newestItemTimestampUsec' => $lastUpdate,
+			'newestItemTimestampUsec' => '' . $lastUpdate,
 		);
 	}
 
 	$unreadcounts[] = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'count' => $totalUnreads,
-		'newestItemTimestampUsec' => $totalLastUpdate,
+		'newestItemTimestampUsec' => '' . $totalLastUpdate,
 	);
 
 	echo json_encode(array(
@@ -729,10 +731,10 @@ function streamContentsItems($e_ids, $order) {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	foreach ($e_ids as $i => $e_id) {
-		if (strpos($e_id, '/') !== null) {
-			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		// https://feedhq.readthedocs.io/en/latest/api/terminology.html#items
+		if (!ctype_digit($e_id) || $e_id[0] === '0') {
+			$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 		}
-		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -753,10 +755,9 @@ function streamContentsItems($e_ids, $order) {
 
 function editTag($e_ids, $a, $r) {
 	foreach ($e_ids as $i => $e_id) {
-		if (strpos($e_id, '/') !== null) {
-			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (!ctype_digit($e_id) || $e_id[0] === '0') {
+			$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 		}
-		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -928,15 +929,16 @@ ini_set('session.use_cookies', '0');
 register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
-$user = authorizationToUser();
+$user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
 	Minz_ExtensionManager::init();
-	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-
 	if (FreshRSS_Context::$user_conf != null) {
+		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+	} else {
+		Minz_Translate::init();
 	}
 } else {
 	Minz_Translate::init();

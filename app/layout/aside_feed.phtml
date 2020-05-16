@@ -12,7 +12,7 @@
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
-	<div class="stick configure-feeds no-mobile">
+	<div class="stick configure-feeds">
 		<a id="btn-subscription" class="btn btn-important" href="<?= _url('subscription', 'index') ?>"><?= _t('index.menu.subscription') ?></a>
 		<a id="btn-importExport" class="btn btn-important" href="<?= _url('importExport', 'index') ?>"><?= _i('import') ?></a>
 	</div>
@@ -94,7 +94,7 @@
 						<a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /><?php endif; ?>
+					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'f_' . $feed->id()) ?>"><?= $feed->name() ?></a>
 				</li>
 				<?php } ?>

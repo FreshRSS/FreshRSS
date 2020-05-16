@@ -219,8 +219,17 @@ td.numeric {
 
 /*=== Buttons */
 .stick {
-	display: inline-block;
+	display: inline-flex;
+	max-width: 100%;
 	white-space: nowrap;
+}
+
+.stick > input.long {
+	flex-shrink: 1;
+}
+
+.stick > .btn {
+	flex-shrink: 0;
 }
 
 .btn,
@@ -1027,6 +1036,10 @@ br {
 	left: 0;
 }
 
+#close-slider img {
+	display: none;
+}
+
 /*=== SLIDESHOW */
 /*==============*/
 .slides {
@@ -1195,12 +1208,23 @@ input:checked + .slide-container .properties {
 
 @media (max-width: 840px) {
 	.header,
-	.aside .btn-important,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
+	}
+
+	.form-group {
+		margin-bottom: 10px;
+	}
+
+	.form-group .group-name {
+		float: none;
+	}
+
+	.form-group .group-controls {
+		margin-left: 0;
 	}
 
 	.dropdown .dropdown-menu {
@@ -1238,6 +1262,10 @@ input:checked + .slide-container .properties {
 		width: 90%;
 	}
 
+	.aside_feed .configure-feeds {
+		margin-top: 10px;
+	}
+
 	.flux_header .item.website {
 		width: 40px;
 	}
@@ -1269,6 +1297,26 @@ input:checked + .slide-container .properties {
 		display: inline-block;
 		width: 30px;
 		height: 30px;
+	}
+
+	#slider.active {
+		left: 0;
+		top: 50px;
+	}
+
+	#close-slider img {
+		display: initial;
+	}
+
+	#close-slider.active {
+		background: #f6f6f6;
+		display: block;
+		width: 100%;
+		height: 50px;
+		z-index: 10;
+		text-align: center;
+		line-height: 50px;
+		border-bottom: 1px solid #ddd;
 	}
 }
 

@@ -83,9 +83,9 @@ return array(
 			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'PHP instalace',
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
 			'ok' => 'Vaše verze PHP je %s a je kompatibilní s FreshRSS.',
-			'_' => 'PHP instalace',
 		),
 		'tables' => array(
 			'nok' => 'V databázi chybí jedna nevo více tabulek.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Toto rozšíření nemá žádné možnosti nastavení.',
 		'system' => array(
-			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 			'_' => 'Systémová rozšíření',
+			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 		),
 		'title' => 'Rozšíření',
 		'update' => 'Update available',	// TODO - Translation
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
+		'_' => 'Statistika',
 		'all_feeds' => 'Všechny kanály',
 		'category' => 'Kategorie',
 		'entry_count' => 'Počet článků',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Nepřečtené',
 		'title' => 'Statistika',
 		'top_feed' => 'Top ten kanálů',
-		'_' => 'Statistika',
 	),
 	'system' => array(
+		'_' => 'System configuration',	// TODO - Translation
 		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO - Translation
@@ -170,21 +171,20 @@ return array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
 		),
-		'_' => 'System configuration',	// TODO - Translation
 	),
 	'update' => array(
+		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
 		'check' => 'Zkontrolovat aktualizace',
 		'current_version' => 'Vaše instalace FreshRSS je verze %s.',
 		'last' => 'Poslední kontrola: %s',
 		'none' => 'Žádné nové aktualizace',
 		'title' => 'Aktualizovat systém',
-		'_' => 'Aktualizace systému',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
-		'articles_and_size' => '%s článků (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
+		'articles_and_size' => '%s článků (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvořit nového uživatele',
 		'database_size' => 'Database size',	// TODO - Translation
@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Jazyk',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',
@@ -201,8 +202,8 @@ return array(
 		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Správa uživatelů',
 		'update_users' => 'Update user',	// TODO - Translation
+		'user_list' => 'Seznam uživatelů',
 		'username' => 'Přihlašovací jméno',
 		'users' => 'Uživatelé',
-		'user_list' => 'Seznam uživatelů',
 	),
 );

@@ -1149,6 +1149,16 @@ form {
 		display: none;
 	}
 
+	.form-group .group-name {
+		padding-bottom: 0;
+		text-align: left;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
@@ -1201,6 +1211,13 @@ form {
 
 		&.aside_feed {
 			padding: 0;
+		}
+
+		&.aside_feed .configure-feeds {
+			display: flex;
+			margin-top: 0;
+			margin-left: auto;
+			margin-right: auto;
 		}
 
 		&:target {
@@ -1273,6 +1290,11 @@ form {
 
 	#nav_entries {
 		width: 100% !important;
+	}
+
+	.post {
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 
 	div#stream {

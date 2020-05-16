@@ -288,7 +288,7 @@ class FeverAPI
 		$arr = array('api_version' => self::API_LEVEL, 'auth' => $status);
 
 		if ($status === self::STATUS_OK) {
-			$arr['last_refreshed_on_time'] = (string) $this->lastRefreshedOnTime();
+			$arr['last_refreshed_on_time'] = $this->lastRefreshedOnTime();
 			$arr = array_merge($arr, $reply);
 		}
 
@@ -536,7 +536,7 @@ class FeverAPI
 				continue;
 			}
 			$items[] = array(
-				'id' => $entry->id(),
+				'id' => '' . $entry->id(),
 				'feed_id' => $entry->feed(false),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),

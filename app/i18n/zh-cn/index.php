@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => '关于',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => '报告错误',
 		'credits' => '致谢',
@@ -13,7 +14,6 @@ return array(
 		'title' => '关于',
 		'version' => '版本',
 		'website' => '网站',
-		'_' => '关于',
 	),
 	'feed' => array(
 		'add' => '你可以添加一些订阅源。',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => '全屏视图',
 	),
 	'log' => array(
+		'_' => '日志',
 		'clear' => '清除日志',
 		'empty' => '日志文件为空',
 		'title' => '日志',
-		'_' => '日志',
 	),
 	'menu' => array(
 		'about' => '关于 FreshRSS',

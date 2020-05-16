@@ -17,19 +17,20 @@ return array(
 		'type' => 'Kimlik doğrulama yöntemi',
 	),
 	'bdd' => array(
+		'_' => 'Veritabanı',
 		'conf' => array(
+			'_' => 'Veritabanı yapılandırılması',
 			'ko' => 'Veritabanı bilginizi doğrulayın.',
 			'ok' => 'Veritabanı yapılandırılması kayıt edildi.',
-			'_' => 'Veritabanı yapılandırılması',
 		),
 		'host' => 'Sunucu',
 		'password' => 'Veritabanı şifresi',
 		'prefix' => 'Tablo ön eki',
 		'type' => 'Veritabanı türü',
 		'username' => 'Veritabanı kullanıcı adı',
-		'_' => 'Veritabanı',
 	),
 	'check' => array(
+		'_' => 'Kontroller',
 		'already_installed' => 'FreshRSS zaten yüklü!',
 		'cache' => array(
 			'nok' => '<em>./data/cache</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
@@ -95,11 +96,10 @@ return array(
 			'nok' => 'You lack the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'_' => 'Kontroller',
 	),
 	'conf' => array(
-		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 		'_' => 'Genel yapılandırma',
+		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 	),
 	'congratulations' => 'Tebrikler!',
 	'default_user' => 'Öntanımlı kullanıcı adı <small>(en fazla 16 alfanümerik karakter)</small>',
@@ -110,9 +110,9 @@ return array(
 		'confirm_reinstall' => 'FreshRSS i yeniden kurarak önceki yapılandırma ayarlarınızı kaybedeceksiniz. Devam etmek istiyor musunuz ?',
 	),
 	'language' => array(
+		'_' => 'Dil',
 		'choose' => 'FreshRSS için bir dil seçin',
 		'defined' => 'Dil belirlendi.',
-		'_' => 'Dil',
 	),
 	'not_deleted' => 'Hata meydana geldi; <em>%s</em> dosyasını elle silmelisiniz.',
 	'ok' => 'Kurulum başarıyla tamamlandı.',

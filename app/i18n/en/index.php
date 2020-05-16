@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'About',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Bugs reports',
 		'credits' => 'Credits',
@@ -13,7 +14,6 @@ return array(
 		'title' => 'About',
 		'version' => 'Version',
 		'website' => 'Website',
-		'_' => 'About',
 	),
 	'feed' => array(
 		'add' => 'You may add some feeds.',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Global view',
 	),
 	'log' => array(
+		'_' => 'Logs',
 		'clear' => 'Clear the logs',
 		'empty' => 'Log file is empty',
 		'title' => 'Logs',
-		'_' => 'Logs',
 	),
 	'menu' => array(
 		'about' => 'About FreshRSS',

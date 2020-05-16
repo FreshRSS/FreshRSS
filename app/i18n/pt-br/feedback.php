@@ -44,9 +44,9 @@ return array(
 			'ko' => '%s não pode ser habilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está habilitado',
 		),
+		'no_access' => 'Você não tem acesso ao %s',
 		'not_enabled' => '%s não está habilitado',
 		'not_found' => '%s não existe',
-		'no_access' => 'Você não tem acesso ao %s',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'extensão ZIP não está presente em seu servidor. Por favor tente exportar os arquivos um por vez.',
@@ -72,10 +72,10 @@ return array(
 			'emptied' => 'Categoria foi esvaziada',
 			'error' => 'Categoria não pode ser atualizada',
 			'name_exists' => 'Este nome de categoria já existe.',
-			'not_delete_default' => 'Você não pode deletar uma categoria vazia!',
-			'not_exist' => 'A categoria não existe!',
 			'no_id' => 'Você precisa especificar um id para a categoria.',
 			'no_name' => 'Nome da categoria não pode ser vazio.',
+			'not_delete_default' => 'Você não pode deletar uma categoria vazia!',
+			'not_exist' => 'A categoria não existe!',
 			'over_max' => 'Você atingiu seu limite de categorias (%d)',
 			'updated' => 'Categoria foi atualizada.',
 		),
@@ -89,18 +89,18 @@ return array(
 			'error' => 'O feed não pode ser atualizado',
 			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes.',
 			'invalid_url' => 'URL <em>%s</em> é inválida',
-			'not_added' => '<em>%s</em> não pode ser atualizado',
-			'not_found' => 'Não foi possível encontrar o feed',
-			'no_refresh' => 'Não há feed para atualizar…',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',
+			'no_refresh' => 'Não há feed para atualizar…',
+			'not_added' => '<em>%s</em> não pode ser atualizado',
+			'not_found' => 'Não foi possível encontrar o feed',
 			'over_max' => 'Você atingiu seu limite de feeds (%d)',
 			'reloaded' => 'O feed <em>%s</em> foi recarregado',
 			'selector_preview' => array(
 				'http_error' => 'Falha ao carregar o conteúdo do site.',
 				'no_entries' => 'Não há nenhuma entrada nesse feed. Você precisa de pelo menos um artigo para criar uma pré-visualização',
 				'no_feed' => 'Erro interno (nenhum feed para verificar).',
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation - didn\'t?
+				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'O seletor está vazio. Você precisa definir um para criar uma pré-visualização.',
 			),
 			'updated' => 'Os feeds foram atualizados',
@@ -117,16 +117,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'Usuário %s não pode ser criado',
 			'_' => 'Usuário %s foi criado',
+			'error' => 'Usuário %s não pode ser criado',
 		),
 		'deleted' => array(
-			'error' => 'Usuário %s não pode ser deletado',
 			'_' => 'Usuário %s foi deletado',
+			'error' => 'Usuário %s não pode ser deletado',
 		),
 		'updated' => array(
-			'error' => 'O usuário %s não foi atualizado',
 			'_' => 'O usuário %s foi atualizado com sucesso',
+			'error' => 'O usuário %s não foi atualizado',
 		),
 	),
 );

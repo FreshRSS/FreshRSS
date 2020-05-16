@@ -83,9 +83,9 @@ return array(
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
 		),
 		'php' => array(
+			'_' => 'PHP installation',	// TODO - Translation
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
-			'_' => 'PHP installation',	// TODO - Translation
 		),
 		'tables' => array(
 			'nok' => 'There is one or more lacking tables in the database.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
 		'system' => array(
-			'no_rights' => 'System extension (you have no rights on it)',	// TODO - Translation
 			'_' => 'System extensions',	// TODO - Translation
+			'no_rights' => 'System extension (you have no rights on it)',	// TODO - Translation
 		),
 		'title' => 'Extensions',	// TODO - Translation
 		'update' => 'Update available',	// TODO - Translation
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
+		'_' => 'סטטיסטיקות',
 		'all_feeds' => 'כל ההזנות',
 		'category' => 'קטגוריה',
 		'entry_count' => 'סכום המאמרים',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'לא נקרא',
 		'title' => 'סטטיסטיקות',
 		'top_feed' => 'עשרת ההזנות המובילות',
-		'_' => 'סטטיסטיקות',
 	),
 	'system' => array(
+		'_' => 'System configuration',	// TODO - Translation
 		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO - Translation
@@ -170,21 +171,20 @@ return array(
 			'help' => '0 means that there is no account limit',	// TODO - Translation
 			'number' => 'Max number of accounts',	// TODO - Translation
 		),
-		'_' => 'System configuration',	// TODO - Translation
 	),
 	'update' => array(
+		'_' => 'מערכת העדכון',
 		'apply' => 'החלת העדכון',
 		'check' => 'בדיקת עדכונים חדשים',
 		'current_version' => 'Your current version of FreshRSS is the %s.',
 		'last' => 'תאריך בדיקה אחרון: %s',
 		'none' => 'אין עדכון להחלה',
 		'title' => 'מערכת העדכון',
-		'_' => 'מערכת העדכון',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
+		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'יצירת משתמש חדש',
 		'database_size' => 'Database size',	// TODO - Translation
@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'שפה',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'There is %d account created',	// TODO - Translation
 		'numbers' => 'There are %d accounts created',	// TODO - Translation
@@ -201,8 +202,8 @@ return array(
 		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Manage users',	// TODO - Translation
 		'update_users' => 'Update user',	// TODO - Translation
+		'user_list' => 'רשימת משתמשים',
 		'username' => 'שם משתמש',
 		'users' => 'משתמשים',
-		'user_list' => 'רשימת משתמשים',
 	),
 );

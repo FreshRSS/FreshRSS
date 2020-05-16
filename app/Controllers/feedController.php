@@ -333,9 +333,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$needFeedCacheRefresh = false;
 
-			// We want chronological order and SimplePie uses reverse order.
-			$entries = array_reverse($feed->entries());
-			if (count($entries) > 0) {
+			$entries = $feed->entries();
+			$nbEntries = count($entries);
+			if ($nbEntries > 0) {
 				$newGuids = array();
 				foreach ($entries as $entry) {
 					$newGuids[] = safe_ascii($entry->guid());
@@ -346,7 +346,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				$oldGuids = array();
 				// Add entries in database if possible.
-				foreach ($entries as $entry) {
+				for ($i = 0; $i < $nbEntries; $i++) {
+					$entry = $entries[$i];
 					if (isset($newGuids[$entry->guid()])) {
 						continue;	//Skip subsequent articles with same GUID
 					}
@@ -405,9 +406,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$entryDAO->addEntry($entry->toArray());
 						$nb_new_articles++;
 					}
+					unset($entry);
+					unset($entries[$i]);
 				}
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
 			}
+			unset($entries);
 
 			if (mt_rand(0, 30) === 1) {	// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
@@ -427,7 +431,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 
-			if ($pubSubHubbubEnabled && $feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
+			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs
 					$selfUrl = checkUrl($feed->selfUrl());
 					if ($selfUrl) {
@@ -455,6 +459,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feed->unlock();
 			$updated_feeds++;
 			unset($feed);
+			gc_collect_cycles();
 
 			// No more than $maxFeeds feeds unless $force is true to avoid overloading
 			// the server.

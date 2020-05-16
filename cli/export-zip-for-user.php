@@ -20,10 +20,9 @@ fwrite(STDERR, 'FreshRSS exporting ZIP for user “' . $username . "”…\n");
 $importController = new FreshRSS_importExport_Controller();
 
 $ok = false;
+$number_entries = empty($options['max-feed-entries']) ? 100 : intval($options['max-feed-entries']);
 try {
-	$ok = $importController->exportFile(true, true, true, true,
-		empty($options['max-feed-entries']) ? 100 : intval($options['max-feed-entries']),
-		$username);
+	$ok = $importController->exportFile($username, true, true, true, true, $number_entries);
 } catch (FreshRSS_ZipMissing_Exception $zme) {
 	fail('FreshRSS error: Lacking php-zip extension!');
 }

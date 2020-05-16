@@ -720,7 +720,21 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $return;
 	}
 
-	public function exportFile($export_opml = true, $export_starred = false, $export_labelled = false, $export_feeds = array(), $maxFeedEntries = 50, $username = null) {
+	/**
+	 * Export the files of a user and send them to the user by HTTP
+	 *
+	 * @param string $username
+	 * @param boolean $export_opml
+	 * @param boolean $export_starred
+	 * @param boolean $export_labelled
+	 * @param array|boolean $export_feeds The list of feeds ids to export, true to export all the feeds
+	 * @param integer $maxFeedEntries Limit the number of entries to export (default is 50)
+	 *
+	 * @throws FreshRSS_ZipMissing_Exception if we try to export more than two files and the zip extension doesn't exist
+	 *
+	 * @return integer The number of exported files
+	 */
+	public function exportFile($username, $export_opml = true, $export_starred = false, $export_labelled = false, $export_feeds = array(), $maxFeedEntries = 50) {
 		require_once(LIB_PATH . '/lib_opml.php');
 
 		$this->catDAO = new FreshRSS_CategoryDAO($username);
@@ -761,8 +775,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$nb_files = count($export_files);
 		if ($nb_files > 1) {
 			// If there are more than 1 file to export, we need a ZIP archive.
+			$filename = 'freshrss_' . $username . '_' . $day . '_export.zip';
 			try {
-				$this->sendZip($export_files);
+				$this->sendZip($filename, $export_files);
 			} catch (Exception $e) {
 				throw new FreshRSS_ZipMissing_Exception($e);
 			}
@@ -770,7 +785,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			// Only one file? Guess its type and export it.
 			$filename = key($export_files);
 			$type = self::guessFileType($filename);
-			$this->sendFile('freshrss_' . Minz_Session::param('currentUser', '_') . '_' . $filename, $export_files[$filename], $type);
+			$this->sendFile('freshrss_' . $username . '_' . $filename, $export_files[$filename], $type);
 		}
 		return $nb_files;
 	}
@@ -794,11 +809,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$nb_files = 0;
 		try {
 			$nb_files = $this->exportFile(
-					Minz_Request::param('export_opml', false),
-					Minz_Request::param('export_starred', false),
-					Minz_Request::param('export_labelled', false),
-					Minz_Request::param('export_feeds', array())
-				);
+				Minz_Session::param('currentUser'),
+				Minz_Request::param('export_opml', false),
+				Minz_Request::param('export_starred', false),
+				Minz_Request::param('export_labelled', false),
+				Minz_Request::param('export_feeds', array())
+			);
 		} catch (FreshRSS_ZipMissing_Exception $zme) {
 			# Oops, there is no ZIP extension!
 			Minz_Request::bad(_t('feedback.import_export.export_no_zip_extension'),
@@ -862,10 +878,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	/**
 	 * This method zips a list of files and returns it by HTTP.
 	 *
+	 * @param string $export_filename The name of the file to export
 	 * @param array $files list of files where key is filename and value the content.
 	 * @throws Exception if Zip extension is not loaded.
 	 */
-	private function sendZip($files) {
+	private function sendZip($export_filename, $files) {
 		if (!extension_loaded('zip')) {
 			throw new Exception();
 		}
@@ -883,8 +900,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$zip->close();
 		header('Content-Type: application/zip');
 		header('Content-Length: ' . filesize($zip_file));
-		$day = date('Y-m-d');
-		header('Content-Disposition: attachment; filename="freshrss_' . Minz_Session::param('currentUser', '_') . '_' . $day . '_export.zip"');
+		header('Content-Disposition: attachment; filename="' . $export_filename . '"');
 		readfile($zip_file);
 		unlink($zip_file);
 	}

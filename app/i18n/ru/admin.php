@@ -83,9 +83,9 @@ return array(
 			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'PHP installation',	// TODO - Translation
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
-			'_' => 'PHP installation',	// TODO - Translation
 		),
 		'tables' => array(
 			'nok' => 'В базе данных отсуствует одна или больше таблица.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Это расширение нельзя настроить.',
 		'system' => array(
-			'no_rights' => 'Системные расширения (у вас нет к ним доступа)',
 			'_' => 'Системные расширения',
+			'no_rights' => 'Системные расширения (у вас нет к ним доступа)',
 		),
 		'title' => 'Расширения',
 		'update' => 'Update available',	// TODO - Translation
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
+		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
 		'entry_count' => 'Количество статей',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших подписок',
-		'_' => 'Статистика',
 	),
 	'system' => array(
+		'_' => 'Системные настройки',
 		'auto-update-url' => 'Адрес сервера для автоматического обновления',
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO - Translation
@@ -170,21 +171,20 @@ return array(
 			'help' => '0 означает неограниченное количество пользователей',
 			'number' => 'Максимальное количество пользователей',
 		),
-		'_' => 'Системные настройки',
 	),
 	'update' => array(
+		'_' => 'Обновление системы',
 		'apply' => 'Применить',
 		'check' => 'Проверить обновления',
 		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
 		'last' => 'Последняя проверка: %s',
 		'none' => 'Нечего обновлять',
 		'title' => 'Обновить систему',
-		'_' => 'Обновление системы',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
-		'articles_and_size' => '%s статей (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
+		'articles_and_size' => '%s статей (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Создать нового пользователя',
 		'database_size' => 'Database size',	// TODO - Translation
@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Язык',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'На данный момент создан %d аккаунт',
 		'numbers' => 'На данный момент аккаунтов создано:	%d',
@@ -201,8 +202,8 @@ return array(
 		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Управление пользователями',
 		'update_users' => 'Update user',	// TODO - Translation
+		'user_list' => 'Список пользователей',
 		'username' => 'Имя пользователя',
 		'users' => 'Пользователи',
-		'user_list' => 'Список пользователей',
 	),
 );

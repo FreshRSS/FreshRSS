@@ -172,41 +172,26 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 
 # APIs et applications natives
 
-FreshRSS supporte l’accès depuis des applications natives pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes.
+FreshRSS supporte l’accès depuis des applications natives pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes :
+[l’API compatible Google Reader](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html) (la meilleure),
+et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.html) (moindres fonctionnalités et moins efficace).
 
-## Via l’API compatible Google Reader
-
-Voir notre [documentation sur l’accès mobile](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html).
-
-Tout client supportant une API de type Google Reader ; Sélection :
-
-* Android
-	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
-	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
-	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
-	* [Readrops](https://github.com/readrops/Readrops) (Libre, [F-Droid](https://f-droid.org/fr/packages/com.readrops.app/) ou [Google Play](https://play.google.com/store/apps/details?id=com.readrops.app))
-* GNU/Linux
-	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
-* iOS
-	* [Reeder](https://www.reederapp.com/) (Commercial)
-* MacOS
-	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
-	* [Reeder](https://www.reederapp.com/) (Commercial)
-
-## Via l’API compatible Fever
-
-Voir notre [documentation sur l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.html) page.
-
-Tout client supportant une API de type Fever ; Sélection :
-
-* Android
-	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
-* iOS
-	* [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
-	* [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
-* MacOS
-	* [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
-
+| App                                                                                   | Plateforme  | Logiciel libre                                                | Maintenu & Dévelopé    | API              | Mode hors-ligne | Sync rapide | Récupère plus d’articles dans les vues individuelles | Rrécupère les articles lus | Favoris  | Étiquettes | Podcasts | Gestion des flux |
+|:--------------------------------------------------------------------------------------|:-----------:|:-------------------------------------------------------------:|:----------------------:|:----------------:|:-------------:|:---------:|:------------------------------:|:-------------------:|:----------:|:------:|:--------:|:------------:|
+| [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) | Android | [Partially](https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/) | 2015       | GReader | ✔️             | ⭐⭐⭐       | ✔️                    | ✔️                 | ✔️         | ✔️     | ✔️       | ✔️           |
+| [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme)             | Android     | ➖                                                            | ✔️✔️                   | GReader          | ✔️            | ⭐⭐        | ➖                             | ➖                  | ✔️         | ✓     | ✔️       | ➖           |
+| [EasyRSS](https://github.com/Alkarex/EasyRSS)                                         | Android     | [✔️](https://github.com/Alkarex/EasyRSS)                      | ✔️                     | GReader          | Bug           | ⭐⭐        | ➖                             | ➖                  | ✔️         | ➖     | ➖       | ➖           |
+| [Readrops](https://github.com/readrops/Readrops)                                      | Android     | [✔️](https://github.com/readrops/Readrops)                    | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐       | ➖                             | ➖                  | ➖         | ➖     | ➖       | ✔️           |
+| [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)  | Android     | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ⭐         | ➖                             | ➖                  | ✔️         | ➖     | ➖       | ➖           |
+| [ChristopheHenry](https://git.feneas.org/christophehenry/freshrss-android)            | Android     | [✔️](https://git.feneas.org/christophehenry/freshrss-android) | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
+| [FeedReader](https://jangernert.github.io/FeedReader/)                                | GNU/Linux   | [✔️](https://jangernert.github.io/FeedReader/)                | ✔️                     | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ✔️           |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | En développement       | Fever, GReader   | ➖            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
+| [Vienna RSS](http://www.vienna-rss.com/)                                              | MacOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
+| [Reeder](https://www.reederapp.com/)                                                  | iOS, MacOS  | ➖                                                            | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐       | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ❔           |
+| [Unread](https://apps.apple.com/app/unread-2/id1363637349)                            | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ➖       | ➖           |
+| [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)         | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ❔            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
+| [Readkit](https://apps.apple.com/app/readkit/id588726889)                             | MacOS       | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
+| [Netnewswire](https://ranchero.com/netnewswire/)                                      | iOS, MacOS  | [✔️](https://github.com/Ranchero-Software/NetNewsWire)        | En développement       | GReader          | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ❔       | ✔️           |
 
 # Bibliothèques incluses
 * [SimplePie](https://simplepie.org/)

@@ -83,9 +83,9 @@ return array(
 			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'Installation de PHP',
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
 			'ok' => 'Votre version de PHP est la %s, qui est compatible avec FreshRSS.',
-			'_' => 'Installation de PHP',
 		),
 		'tables' => array(
 			'nok' => 'Impossible de trouver une ou plusieurs tables en base de données.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Nom',
 		'no_configure_view' => 'Cette extension n’a pas à être configurée',
 		'system' => array(
-			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 			'_' => 'Extensions système',
+			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Mise à jour disponible',
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',
 	),
 	'stats' => array(
+		'_' => 'Statistiques',
 		'all_feeds' => 'Tous les flux',
 		'category' => 'Catégorie',
 		'entry_count' => 'Nombre d’articles',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'non lus',
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
-		'_' => 'Statistiques',
 	),
 	'system' => array(
+		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
 		'cookie-duration' => array(
 			'help' => 'en secondes',
@@ -170,21 +171,20 @@ return array(
 			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
 		),
-		'_' => 'Configuration du système',
 	),
 	'update' => array(
+		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
 		'check' => 'Vérifier les mises à jour',
 		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
 		'last' => 'Dernière vérification : %s',
 		'none' => 'Aucune mise à jour à appliquer',
 		'title' => 'Système de mise à jour',
-		'_' => 'Système de mise à jour',
 	),
 	'user' => array(
 		'admin' => 'Administrateur',
-		'articles_and_size' => '%s articles (%s)',
 		'article_count' => 'Articles',
+		'articles_and_size' => '%s articles (%s)',
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
 		'create' => 'Créer un nouvel utilisateur',
 		'database_size' => 'Volumétrie',
@@ -193,6 +193,7 @@ return array(
 		'feed_count' => 'Flux',
 		'is_admin' => 'Admin ?',
 		'language' => 'Langue',
+		'last_user_activity' => 'Dernière activité utilisateur',
 		'list' => 'Liste des utilisateurs',
 		'number' => '%d compte a déjà été créé',
 		'numbers' => '%d comptes ont déjà été créés',
@@ -201,8 +202,8 @@ return array(
 		'selected' => 'Utilisateur sélectionné',
 		'title' => 'Gestion des utilisateurs',
 		'update_users' => 'Mettre à jour un utilisateur',
+		'user_list' => 'Liste des utilisateurs',
 		'username' => 'Nom d’utilisateur',
 		'users' => 'Utilisateurs',
-		'user_list' => 'Liste des utilisateurs',
 	),
 );
