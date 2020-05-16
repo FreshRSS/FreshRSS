@@ -73,7 +73,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforePagination = function ($view, $nbEntries, $lastEntry) {
+		$this->view->callbackBeforePagination = function ($view, $nbEntries, $firstEntry, $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next pagination
 				ob_clean();
@@ -81,9 +81,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 			ob_end_flush();
 
-			if (FreshRSS_Context::$id_max == '') {
-				FreshRSS_Context::$id_max = (time() - 1) . '000000';
-			}
+			FreshRSS_Context::$id_max = $firstEntry === null ? (time() - 1) . '000000' : $firstEntry->id();
 			if (FreshRSS_Context::$order === 'ASC') {
 				// In this case we do not know but we guess id_max
 				$id_max = (time() - 1) . '000000';

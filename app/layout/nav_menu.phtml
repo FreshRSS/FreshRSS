@@ -1,5 +1,8 @@
+<div id="first_load" class="loading"></div>
+
 <?php
 	$actual_view = Minz_Request::actionName();
+	flush();
 ?>
 
 <div class="nav_menu">
@@ -90,13 +93,7 @@
 
 	<div class="stick" id="nav_menu_read_all">
 		<form id="mark-read-menu" method="post">
-		<?php
-			if (FreshRSS_Context::$id_max == '') {
-				$confirm = '" disabled="disabled';	//We have no article
-			} else {
-				$confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '';
-			}
-		?>
+		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
 		        form="mark-read-menu"
 		        formaction="<?= Minz_Url::display($mark_read_url) ?>"
