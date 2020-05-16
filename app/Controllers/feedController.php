@@ -320,10 +320,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			try {
 				if ($simplePiePush) {
-					$feed->loadEntries($simplePiePush);	//Used by PubSubHubbub
+					$simplePie = $simplePiePush;	//Used by WebSub
 				} else {
-					$feed->load(false, $isNewFeed);
+					$simplePie = $feed->load(false, $isNewFeed);
 				}
+				$newGuids = $simplePie == null ? [] : $feed->loadGuids($simplePie);
+				$entries = $simplePie == null ? [] : $feed->loadEntries($simplePie);
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
@@ -333,21 +335,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$needFeedCacheRefresh = false;
 
-			$entries = $feed->entries();
-			$nbEntries = count($entries);
-			if ($nbEntries > 0) {
-				$newGuids = array();
-				foreach ($entries as $entry) {
-					$newGuids[] = safe_ascii($entry->guid());
-				}
+			if (count($newGuids) > 0) {
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
 				$newGuids = array();
 
 				$oldGuids = array();
 				// Add entries in database if possible.
-				for ($i = 0; $i < $nbEntries; $i++) {
-					$entry = $entries[$i];
+				foreach ($entries as $entry) {
 					if (isset($newGuids[$entry->guid()])) {
 						continue;	//Skip subsequent articles with same GUID
 					}
@@ -406,8 +401,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$entryDAO->addEntry($entry->toArray());
 						$nb_new_articles++;
 					}
-					unset($entry);
-					unset($entries[$i]);
 				}
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
 			}
