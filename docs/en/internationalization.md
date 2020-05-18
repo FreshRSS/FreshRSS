@@ -58,7 +58,7 @@ The command will create a new subfolder under `app/i18n/` and copy the strings f
 
 ## Translate the interface
 
-You might have noticed some strings are not translated in the interface. These strings are usually in English while you chose a different language. This is because we mostly speak English or French and it's pretty difficult to us to speak all the different languages!
+You might have noticed some strings are not yet translated from English even though you've selected a different language. This is because we mostly speak English or French and it's pretty difficult to us to speak all the different languages!
 
 To update a string, you just have to open its file, find the string, and change it (without removing the quotes around it!) You might want to remove the comment at the end of the line, but you should prefer to use the following command:
 
