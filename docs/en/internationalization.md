@@ -1,6 +1,6 @@
 # Contributing to internationalization (i18n)
 
-Thanks to different contributors, FreshRSS is actually translated in 15 languages. This section will explain you the basis of the internationalization in FreshRSS, either if you want to translate the application in your own language or if you have to make a specific change.
+Thanks to our contributors, FreshRSS is translated into more than 15 languages. This section will explain the basics of internationalization in FreshRSS, from translating the application to your own language to making a specific change.
 
 ## Overview
 
@@ -46,13 +46,13 @@ You should not have to write the array by yourself and we provide several comman
 
 ## Add support for a new language
 
-If you want to add support for your own language which is not supported by FreshRSS yet, you can call this command:
+If you want to add support for a language which isn't supported by FreshRSS yet, you can run this command:
 
 ```console
 $ make i18n-add-language lang=[your language code]
 ```
 
-You must replace `[your language code]` by the language tag of your language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. You can target a specific region with a subtag, for instance `pt-br` for Brazilian Portuguese. If your not sure of the code, Wikipedia might be a good start to find it or you can ask us for help too.
+You must replace `[your language code]` by the language tag of your language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. You can target a specific region with a subtag, for instance `pt-br` for Brazilian Portuguese. If you're not sure of the code, Wikipedia might be a good start to find it or you can ask us for help too.
 
 The command will create a new subfolder under `app/i18n/` and copy the strings from the reference language (i.e. English). It will also mark all the translations with a special tag represented by a comment: `// TODO - Translation`. We'll see in the next section how to translate the strings.
 
@@ -66,7 +66,7 @@ To update a string, you just have to open its file, find the string, and change 
 $ make i18n-format
 ```
 
-It will remove the comments on the lines that you've changed, and will reformat the file correctly. If you've made some mistakes, it will fix them by itself or it will tell you it can't (well… the command will dramatically fail without any damage, don't worry).
+It will remove the comments on the lines that you've changed, and will reformat the file correctly. If you've made any mistakes, it will fix them automatically or it will tell you it can't (well… the command will dramatically fail without any damage, don't worry).
 
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
@@ -100,7 +100,7 @@ Conversely, you may want to remove a key that is no longer used in the applicati
 $ make i18n-remove-key key=the.key.to.remove
 ```
 
-Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change doesn't impact the meaning of the sentence, and therefore other languages doesn't need to change (e.g. to fix a typo), you should make the change manually in the file. In the other case, you should use this command:
+Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change doesn't impact the meaning of the sentence, and therefore other languages don't need to change (e.g. to fix a typo), you should make the change manually in the file. In any other case, you should use the following command:
 
 ```console
 $ make i18n-update-key key=the.key.to.change value='The new string in English'
@@ -118,7 +118,7 @@ To access these translations, you must use the `_t()` function (which is a short
 </p>
 ```
 
-The function expects a translation key, but there's a special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It's pretty hard to explain but very simple to understand. In the example given above, a `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
+The function expects a translation key, but there's a special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It's pretty hard to explain but very simple to understand. In the example given above, an `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
 
 `_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/manual/function.sprintf).
 
