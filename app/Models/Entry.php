@@ -353,7 +353,6 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	public static function getContentByParsing($url, $path, $attributes = array()) {
-		require_once(LIB_PATH . '/lib_phpQuery.php');
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
@@ -391,18 +390,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 
 		if ($html) {
+			require_once(LIB_PATH . '/lib_phpQuery.php');
 			$doc = phpQuery::newDocument($html);
 			$content = $doc->find($path);
-
-			foreach (pq('img[data-src]') as $img) {
-				$imgP = pq($img);
-				$dataSrc = $imgP->attr('data-src');
-				if (strlen($dataSrc) > 4) {
-					$imgP->attr('src', $dataSrc);
-					$imgP->removeAttr('data-src');
-				}
-			}
-
 			return trim(sanitizeHTML($content->__toString(), $url));
 		} else {
 			throw new Exception();
