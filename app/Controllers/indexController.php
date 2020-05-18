@@ -48,6 +48,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 		Minz_View::prependTitle($title . ' · ');
 
+		FreshRSS_Context::$id_max = time() . '000000';
+
 		$this->view->callbackBeforeFeeds = function ($view) {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
@@ -66,29 +68,20 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				FreshRSS_Context::$number++;	//+1 for pagination
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
-				ob_start();
+				ob_start();	//Buffer "one entry at a time"
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
 			}
 		};
 
-		$this->view->callbackBeforePagination = function ($view, $nbEntries, $firstEntry, $lastEntry) {
+		$this->view->callbackBeforePagination = function ($view, $nbEntries, $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next pagination
 				ob_clean();
 				FreshRSS_Context::$next_id = $lastEntry->id();
 			}
 			ob_end_flush();
-
-			FreshRSS_Context::$id_max = $firstEntry === null ? (time() - 1) . '000000' : $firstEntry->id();
-			if (FreshRSS_Context::$order === 'ASC') {
-				// In this case we do not know but we guess id_max
-				$id_max = (time() - 1) . '000000';
-				if (strcmp($id_max, FreshRSS_Context::$id_max) > 0) {
-					FreshRSS_Context::$id_max = $id_max;
-				}
-			}
 		};
 	}
 
