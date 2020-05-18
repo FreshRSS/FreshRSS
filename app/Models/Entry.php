@@ -352,7 +352,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public static function getContentByParsing($url, $path, $attributes = array()) {
+	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
@@ -392,6 +392,21 @@ class FreshRSS_Entry extends Minz_Model {
 		if ($html) {
 			require_once(LIB_PATH . '/lib_phpQuery.php');
 			$doc = phpQuery::newDocument($html);
+
+			if ($maxRedirs > 0) {
+				//Follow any HTML redirection
+				$metas = $doc->find('meta[http-equiv][content]');
+				foreach ($metas as $meta) {
+					if (strtolower($meta->getAttribute('http-equiv')) === 'refresh') {
+						$refresh = preg_replace('/^.*?\bhttp/i', 'http', $meta->getAttribute('content'));
+						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
+						if ($refresh != false && $refresh !== $url) {
+							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
+						}
+					}
+				}
+			}
+
 			$content = $doc->find($path);
 			return trim(sanitizeHTML($content->__toString(), $url));
 		} else {
