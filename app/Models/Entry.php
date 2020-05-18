@@ -398,7 +398,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$metas = $doc->find('meta[http-equiv][content]');
 				foreach ($metas as $meta) {
 					if (strtolower($meta->getAttribute('http-equiv')) === 'refresh') {
-						$refresh = preg_replace('/^.*?\bhttp/i', 'http', $meta->getAttribute('content'));
+						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
 							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
