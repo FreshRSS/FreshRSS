@@ -15,6 +15,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	background: white;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
@@ -591,10 +592,15 @@ input[type="search"] {
 
 /*=== Body */
 #global {
+	background: inherit;
 	display: table;
 	width: 100%;
 	height: 100%;
 	table-layout: fixed;
+}
+
+#stream {
+	background: inherit;
 }
 
 .aside {
@@ -653,6 +659,10 @@ input[type="search"] {
 }
 
 /*=== Day indication */
+.day {
+	background: inherit;
+}
+
 .day .name {
 	position: absolute;
 	right: 0;
@@ -1162,6 +1172,10 @@ input:checked + .slide-container .properties {
 .state_unread .category:not(.active)[data-unread="0"],
 .state_unread .feed:not(.active)[data-unread="0"] {
 	display: none;
+}
+
+.nav_menu {
+	background: inherit;
 }
 
 .nav-login,
