@@ -5,19 +5,36 @@
 * Features
 	* Add the possibility to filter by feed IDs [#2892](https://github.com/FreshRSS/FreshRSS/pull/2892)
 		* like `f:123 more-search` or multiple feed IDs like `f:123,234,345 more-search` or an exclusion like `!f:456,789 more-search`
+	* Show users last activity date [#2936](https://github.com/FreshRSS/FreshRSS/pull/2936)
 * API
-	* Expose podcasts in API [#2898](https://github.com/FreshRSS/FreshRSS/pull/2898)
+	* New table of compatible clients [#2942](https://github.com/FreshRSS/FreshRSS/pull/2942)
+	* Expose podcasts in API (used by e.g. FeedMe) [#2898](https://github.com/FreshRSS/FreshRSS/pull/2898)
+	* Workaround for clients not sending a clean login request [#2961](https://github.com/FreshRSS/FreshRSS/pull/2961)
+	* Relaxed detection of GReader short/long ID form (for Reeder) [#2957](https://github.com/FreshRSS/FreshRSS/pull/2957)
+	* Fix warning with FeedReader [#2947](https://github.com/FreshRSS/FreshRSS/pull/2947)
+	* Fix GReader string type for Usec fields [#2935](https://github.com/FreshRSS/FreshRSS/pull/2935)
+	* Fix Fever integers type [#2946](https://github.com/FreshRSS/FreshRSS/pull/2946)
+* CLI
+	* JSON output option for `./cli/user-info.php --json` [#2968](https://github.com/FreshRSS/FreshRSS/pull/2968)
+	* Add language and e-mail in `./cli/user-info.php` [#2958](https://github.com/FreshRSS/FreshRSS/pull/2958)
+	* Fix filenames for exported files [#2932](https://github.com/FreshRSS/FreshRSS/pull/2932)
 * UI
+	* Access to feed configuration in mobile view [#2938](https://github.com/FreshRSS/FreshRSS/pull/2938)
+	* Use standard `loading="lazy"` for favicons [#2962](https://github.com/FreshRSS/FreshRSS/pull/2962)
 	* New option to control which categories to unfold [#2888](https://github.com/FreshRSS/FreshRSS/pull/2888)
 	* Turn off autocapitalization in login fields [#2907](https://github.com/FreshRSS/FreshRSS/pull/2907)
 	* Minor layout improvement of help labels [#2911](https://github.com/FreshRSS/FreshRSS/pull/2911)
+	* Minor layout improvement of checkbox labels [#2937](https://github.com/FreshRSS/FreshRSS/pull/2937)
 	* Fix styling of search input fields in Safari [#2887](https://github.com/FreshRSS/FreshRSS/pull/2887)
-	* Upgrade to jQuery 3.5.0 for statistics [#2895](https://github.com/FreshRSS/FreshRSS/pull/2895)
+	* Upgrade to jQuery 3.5.1 for statistics [#2982](https://github.com/FreshRSS/FreshRSS/pull/2982)
+* Compatibility
+	* Relax OPML parsing to allow importing not strictly-valid ones [#2983](https://github.com/FreshRSS/FreshRSS/pull/2983)
 * Deployment
 	* Docker: Alpine image updated to PHP 7.3.17
 	* Add reference documentation for using Apache as a reverse proxy [#2919](https://github.com/FreshRSS/FreshRSS/pull/2919)
 	* Enforce Unix line endings when checking out via git [#2879](https://github.com/FreshRSS/FreshRSS/pull/2879)
 * Bug fixing
+	* Fix Docker make cron use `FRESHRSS_ENV` environment variable [#2963](https://github.com/FreshRSS/FreshRSS/pull/2963)
 	* Fix e-mail validation bug for admins [#2917](https://github.com/FreshRSS/FreshRSS/pull/2917)
 	* Fix some cases when WebSub-enabled feeds change address [#2922](https://github.com/FreshRSS/FreshRSS/pull/2922)
 	* Fix ensuring that wrong login attempts generate HTTP 403 (e.g. for fail2ban) [#2903](https://github.com/FreshRSS/FreshRSS/pull/2903)
@@ -26,8 +43,12 @@
 	* Fix double-HTML-encoding of category names in statistics [#2897](https://github.com/FreshRSS/FreshRSS/pull/2897)
 * i18n
 	* Improve Simplified Chinese [#2891](https://github.com/FreshRSS/FreshRSS/pull/2891)
+	* Reformat i18n files [#2976](https://github.com/FreshRSS/FreshRSS/pull/2976)
 * Misc.
+	* Reduce memory consumption during feed refresh [#2972](https://github.com/FreshRSS/FreshRSS/pull/2972), [#2955](https://github.com/FreshRSS/FreshRSS/pull/2955)
+		* and improved logs containing memory consumption [#2964](https://github.com/FreshRSS/FreshRSS/pull/2964)
 	* Reduce the risk of DB lock errors [#2899](https://github.com/FreshRSS/FreshRSS/pull/2899)
+	* Update PHPMailer library to 6.1.5 [#2980](https://github.com/FreshRSS/FreshRSS/pull/2980)
 	* Initial rules for Markdown linting [#2880](https://github.com/FreshRSS/FreshRSS/pull/2880)
 
 
