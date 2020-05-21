@@ -258,12 +258,10 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function searchById($id) {
-		$sql = 'SELECT * FROM `_feed` WHERE id=?';
+		$sql = 'SELECT * FROM `_feed` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
-
-		$values = array($id);
-
-		$stm->execute($values);
+		$stm->bindParam(':id', $id, PDO::PARAM_INT);
+		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$feed = self::daoToFeed($res);
 

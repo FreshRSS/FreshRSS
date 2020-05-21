@@ -755,8 +755,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		//Get first entry (syntax robust for Generator or Array)
 		foreach ($entries as $myEntry) {
-			$entry = $myEntry;
-			break;
+			if ($entry == null) {
+				$entry = $myEntry;
+			}
 		}
 
 		if ($entry == null) {
