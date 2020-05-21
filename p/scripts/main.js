@@ -1526,6 +1526,13 @@ function faviconNbUnread(n) {
 	}
 }
 
+function removeFirstLoadSpinner() {
+	const first_load = document.getElementById('first_load');
+	if (first_load) {
+		first_load.remove();
+	}
+}
+
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -1556,6 +1563,7 @@ function init_beforeDOM() {
 }
 
 function init_afterDOM() {
+	removeFirstLoadSpinner();
 	init_notifications();
 	init_popup();
 	init_confirm_action();
@@ -1579,11 +1587,9 @@ init_beforeDOM();	//Can be called before DOM is fully loaded
 if (document.readyState && document.readyState !== 'loading') {
 	init_afterDOM();
 } else {
-	document.addEventListener('DOMContentLoaded', function () {
-			if (window.console) {
-				console.log('FreshRSS waiting for DOMContentLoaded…');
-			}
-			init_afterDOM();
-		}, false);
+	if (window.console) {
+		console.log('FreshRSS waiting for DOMContentLoaded…');
+	}
+	document.addEventListener('DOMContentLoaded', init_afterDOM, false);
 }
 // @license-end
