@@ -700,14 +700,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
 
-		$entryDAO->beginTransaction();
+		//We need another DB connexion in parallel
+		Minz_ModelPdo::$usesSharedPdo = false;
+		$entryDAO2 = FreshRSS_Factory::createEntryDao();
 
 		foreach ($entries as $entry) {
 			$entry->loadCompleteContent(true);
-			$entryDAO->updateEntry($entry->toArray());
+			$entryDAO2->updateEntry($entry->toArray());
 		}
 
-		$entryDAO->commit();
+		Minz_ModelPdo::$usesSharedPdo = true;
 
 		//Give feedback to user.
 		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), array(
