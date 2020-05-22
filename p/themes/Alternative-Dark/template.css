@@ -220,6 +220,11 @@ td.numeric {
 	white-space: nowrap;
 }
 
+.stick > input {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
 .stick > input.long {
 	flex-shrink: 1;
 }
