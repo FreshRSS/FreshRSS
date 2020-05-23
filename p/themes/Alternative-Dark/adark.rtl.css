@@ -300,10 +300,10 @@ a.btn {
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
-	background: #333;
-	border: 2px solid #262626;
 	padding: 5px 0;
+	background: #333;
 	font-size: 0.8rem;
+	border: 2px solid #262626;
 	border-radius: 5px;
 	text-align: right;
 }
@@ -452,8 +452,8 @@ a.btn {
 /*=== Boxes */
 .box {
 	background: #1f1f1f;
-	border-radius: 3px;
 	border: 1px solid #444;
+	border-radius: 3px;
 }
 
 .box .box-title {
