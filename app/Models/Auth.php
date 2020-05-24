@@ -62,7 +62,17 @@ class FreshRSS_Auth {
 			return $current_user != '';
 		case 'http_auth':
 			$current_user = httpAuthUser();
-			$login_ok = $current_user != '' && FreshRSS_UserDAO::exists($current_user);
+			if ($current_user == '') {
+				return false;
+			}
+			$login_ok = FreshRSS_UserDAO::exists($current_user);
+			if (!$login_ok && $conf->http_auth_auto_register) {
+				$email = null;
+				if ($conf->http_auth_auto_register_email_field !== '') {
+					$email = $_SERVER[$conf->http_auth_auto_register_email_field];
+				}
+				$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '');
+			}
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
 				Minz_Session::_param('csrf');
