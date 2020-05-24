@@ -408,7 +408,9 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 
 			$content = $doc->find($path);
-			return trim(sanitizeHTML($content->__toString(), $url));
+			$html = trim(sanitizeHTML($content->__toString(), $url));
+			phpQuery::unloadDocuments();
+			return $html;
 		} else {
 			throw new Exception();
 		}
