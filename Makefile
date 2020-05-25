@@ -51,17 +51,35 @@ start: ## Start the development environment (use Docker)
 stop: ## Stop FreshRSS container if any
 	docker stop freshrss-dev
 
-###########
-## Tests ##
-###########
-bin/phpunit: ## Install PHPUnit for test purposes
+######################
+## Tests and linter ##
+######################
+.PHONY: test
+test: bin/phpunit ## Run the test suite
+	$(PHP) ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
+
+.PHONY: lint
+lint: bin/phpcs ## Run the linter on the PHP files
+	$(PHP) ./bin/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+
+.PHONY: lint-fix
+lint-fix: bin/phpcbf ## Fix the errors detected by the linter
+	$(PHP) ./bin/phpcbf . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+
+bin/phpunit:
 	mkdir -p bin/
 	wget -O bin/phpunit https://phar.phpunit.de/phpunit-7.5.9.phar
 	echo '5404288061420c3921e53dd3a756bf044be546c825c5e3556dea4c51aa330f69 bin/phpunit' | sha256sum -c - || rm bin/phpunit
 
-.PHONY: test
-test: bin/phpunit ## Run the test suite
-	$(PHP) ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
+bin/phpcs:
+	mkdir -p bin/
+	wget -O bin/phpcs https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcs.phar
+	echo '4a2f6aff1b1f760216bb00c0b3070431131e3ed91307436bb1bfb252281a804a bin/phpcs' | sha256sum -c - || rm bin/phpcs
+
+bin/phpcbf:
+	mkdir -p bin/
+	wget -O bin/phpcbf https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcbf.phar
+	echo '6f64fe00dee53fa7b256f63656dc0154f5964666fc7e535fac86d0078e7dea41 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
 
 ##########
 ## I18N ##
