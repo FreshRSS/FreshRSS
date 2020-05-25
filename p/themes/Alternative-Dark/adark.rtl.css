@@ -301,7 +301,9 @@ a.btn {
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
+	background: #333;
 	font-size: 0.8rem;
+	border: 2px solid #262626;
 	border-radius: 5px;
 	text-align: right;
 }
@@ -450,6 +452,7 @@ a.btn {
 /*=== Boxes */
 .box {
 	background: #1f1f1f;
+	border: 1px solid #444;
 	border-radius: 3px;
 }
 
@@ -764,6 +767,14 @@ a.btn {
 	background: inherit;
 }
 
+.flux:not(.current):hover .item.title {
+	background: #333;
+}
+
+.flux .item.title a {
+	color: #ababab;
+}
+
 .flux.favorite {
 	border-right: 2px solid #ffc300;
 }
@@ -895,6 +906,10 @@ a.btn {
 	text-decoration: none;
 }
 
+.bigTick {
+	display: none!important;
+}
+
 /*=== Navigation menu (for articles) */
 #nav_entries {
 	margin: 0;
@@ -957,6 +972,18 @@ a.btn {
 .box.category .item.feed {
 	padding: 2px 10px;
 	font-size: 0.8rem;
+}
+
+/*=== Slider */
+#slider {
+	background: #171717;
+	border-left: 1px solid #333;
+}
+
+/*=== SLIDESHOW */
+/*==============*/
+.nav label {
+	color: #0062b7;
 }
 
 /*=== DIVERS */
@@ -1118,6 +1145,10 @@ a.btn {
 	.pagination {
 		margin: 0 0 3.5em;
 		border-top: 1px solid #292929;
+	}
+
+	.flux:not(.current):hover .item.title {
+		background: #333;
 	}
 
 	.notification a.close {
