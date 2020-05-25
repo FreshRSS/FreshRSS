@@ -10,8 +10,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Het wachtwoord kan niet worden gewijzigd',
+			'updated' => 'Het wachtwoord is gewijzigd',
 		),
 	),
 	'auth' => array(
@@ -84,7 +84,7 @@ return array(
 			'actualizeds' => 'RSS-feeds vernieuwd',
 			'added' => 'RSS feed <em>%s</em> toegevoegd',
 			'already_subscribed' => 'Al geabonneerd op <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> cache verwijderd',
 			'deleted' => 'Feed verwijderd',
 			'error' => 'Feed kan niet worden vernieuwd',
 			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FreshRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
@@ -93,15 +93,15 @@ return array(
 			'n_entries_deleted' => '%d artikelen zijn verwijderd',
 			'no_refresh' => 'Er is geen feed om te vernieuwen…',
 			'not_added' => '<em>%s</em> kon niet worden toegevoegd',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => 'Feed niet gevonden',
 			'over_max' => 'Maximum aantal feeds bereikt (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> is herladen',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => 'Website-inhoud laden mislukt.',
+				'no_entries' => 'Er zijn geen artikels in deze feed. Er moet ten minste een artikel zijn om een voorbeeld te tonen.',
+				'no_feed' => 'Interne fout (feed kan niet worden gevonden).',
+				'no_result' => 'De selector komt met niets overeen. Als een terugval zal de originele feedtekst worden weergegeven.',
+				'selector_empty' => 'De selector is leeg. Er moet een selector worden gedefinieerd om een voorbeeld te tonen.',
 			),
 			'updated' => 'Feed is vernieuwd',
 		),
