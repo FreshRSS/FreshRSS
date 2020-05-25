@@ -401,6 +401,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
+							phpQuery::unloadDocuments();
 							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
 						}
 					}
