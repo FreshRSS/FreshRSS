@@ -2,6 +2,7 @@
 
 return array(
 	'admin.stats.feed',
+	'admin.user.feed_count',
 	'conf.query.number',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',

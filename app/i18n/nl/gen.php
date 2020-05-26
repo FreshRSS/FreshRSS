@@ -7,7 +7,7 @@ return array(
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
 		'empty' => 'Leeg',
 		'enable' => 'Aanzetten',
@@ -17,9 +17,9 @@ return array(
 		'manage' => 'Beheren',
 		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
-		'remove' => 'Verwijder',
+		'promote' => 'Bevorderen',
+		'purge' => 'Zuiveren',
+		'remove' => 'Verwijderen',
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',

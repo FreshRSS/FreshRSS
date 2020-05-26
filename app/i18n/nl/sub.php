@@ -45,11 +45,11 @@ return array(
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Cache leegmaken',
+			'clear_cache_help' => 'Cache voor deze feed leegmaken.',
+			'reload_articles' => 'Artikels herladen',
+			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',
+			'title' => 'Onderhoud',
 		),
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
@@ -62,8 +62,8 @@ return array(
 			'normal' => 'Toon in categorie',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Broncode tonen',
+			'show_rendered' => 'Inhoud tonen',
 		),
 		'show' => array(
 			'all' => 'Alle feeds tonen',
