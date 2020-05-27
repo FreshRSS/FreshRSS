@@ -5,10 +5,9 @@ ifndef TAG
 endif
 
 PORT ?= 8080
-PHP := $(shell sh -c 'which php')
 
 ifdef NO_DOCKER
-	PHP = php
+	PHP = $(shell which php)
 else
 	PHP = docker run \
 		--rm \
