@@ -97,7 +97,7 @@ function initDb() {
 		try {
 			//First connection without database name to create the database
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-		} catch (PDOException $ex) {
+		} catch (Exception $ex) {
 			$databaseDAO = null;
 		}
 		//Restore final database parameters for auto-creation and for future connections
