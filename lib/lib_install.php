@@ -94,13 +94,19 @@ function initDb() {
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
 		$conf->db = $db;
-		//First connection without database name to create the database
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		try {
+			//First connection without database name to create the database
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		} catch (PDOException $ex) {
+			$databaseDAO = null;
+		}
 		//Restore final database parameters for auto-creation and for future connections
 		$db['base'] = $dbBase;
 		$conf->db = $db;
-		//Perfom database auto-creation
-		$databaseDAO->create();
+		if ($databaseDAO != null) {
+			//Perfom database auto-creation
+			$databaseDAO->create();
+		}
 	}
 
 	//New connection with the database name
