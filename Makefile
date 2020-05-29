@@ -146,6 +146,9 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
 	@echo Key ignored.
 
+###########
+## TOOLS ##
+###########
 .PHONY: rtl
 rtl: ## Generate RTL CSS files
 	rtlcss -d p/themes && find . -type f -name '*.rtl.rtl.css' -delete
@@ -153,6 +156,10 @@ rtl: ## Generate RTL CSS files
 .PHONY: pot
 pot: ## Generate POT templates for docs
 	cd docs && ../cli/translation-update.sh
+
+.PHONY: refresh
+refresh: ## Refresh feeds by fetching new messages
+	@$(PHP) ./app/actualize_script.php
 
 ##########
 ## HELP ##
