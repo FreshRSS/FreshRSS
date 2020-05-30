@@ -384,6 +384,10 @@ a.btn {
 	width: 90%;
 }
 
+.alert-warn {
+	background: inherit;
+}
+
 .group-controls .alert {
 	width: 100%
 }
@@ -604,7 +608,7 @@ input[type="search"] {
 	table-layout: fixed;
 }
 
-#stream {
+#stream:not(.alert-warn) {
 	background: inherit;
 }
 
