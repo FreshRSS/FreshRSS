@@ -183,7 +183,7 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _display_categories(&$data, $value) {
-		if (!in_array($value, [ 'active', 'all', 'none' ])) {
+		if (!in_array($value, [ 'active', 'all', 'none' ], true)) { 
 			$value = $value === true ? 'all' : 'active';
 		}
 		$data['display_categories'] = $value;
