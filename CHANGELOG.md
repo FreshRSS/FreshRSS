@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2020-05-3X FreshRSS 1.16.1-dev
+## 2020-05-30 FreshRSS 1.16.1
 
 * Features
 	* Add the possibility to filter by feed IDs [#2892](https://github.com/FreshRSS/FreshRSS/pull/2892)
