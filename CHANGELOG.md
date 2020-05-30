@@ -1,5 +1,9 @@
 ﻿# FreshRSS changelog
 
+## 2020-XX-XX FreshRSS 1.16.2-dev
+
+
+
 ## 2020-05-30 FreshRSS 1.16.1
 
 * Features
