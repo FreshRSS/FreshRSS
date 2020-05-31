@@ -145,7 +145,7 @@ return array(
 		'admin' => 'Administrácia',
 		'archiving' => 'Archivácia',
 		'authentication' => 'Prihlásenie',
-		'check_install' => 'Kontroloa inštalácie',
+		'check_install' => 'Kontrola inštalácie',
 		'configuration' => 'Nastavenia',
 		'display' => 'Zobrazenie',
 		'extensions' => 'Rozšírenia',
