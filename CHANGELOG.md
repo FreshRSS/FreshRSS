@@ -1,9 +1,9 @@
 ﻿# FreshRSS changelog
 
-## 2020-XX-XX FreshRSS 1.16.2-dev
+## 2020-05-31 FreshRSS 1.16.2
 
-* Bug fixing
-	* Fix migration of the preference *Show categories unfolded by default* (from ≤ 1.16.0) to the new *Categories to unfold* [#3019](https://github.com/FreshRSS/FreshRSS/pull/3019)
+* Bug fixing (regressions)
+	* Fix migration of the preference *Show categories unfolded* (from ≤ 1.16.0) to the new *Categories to unfold* [#3019](https://github.com/FreshRSS/FreshRSS/pull/3019)
 
 
 ## 2020-05-30 FreshRSS 1.16.1
