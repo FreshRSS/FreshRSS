@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovat',
+		'add' => 'Add',	// TODO - Translation
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Zpět na seznam RSS kanálů',
 		'cancel' => 'Zrušit',

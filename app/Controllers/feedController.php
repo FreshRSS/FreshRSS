@@ -39,7 +39,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 * @throws FreshRSS_Feed_Exception
 	 * @throws Minz_FileNotExistException
 	 */
-	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '') {
+	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array()) {
 		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
 
@@ -90,7 +90,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'description' => $feed->description(),
 			'lastUpdate' => time(),
 			'httpAuth' => $feed->httpAuth(),
-			'attributes' => array(),
+			'attributes' => $attributes,
 		);
 
 		$id = $feedDAO->addFeed($values);
@@ -141,7 +141,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$url_redirect = array(
 			'c' => 'subscription',
-			'a' => 'index',
+			'a' => 'add',
 			'params' => array(),
 		);
 
@@ -154,13 +154,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$cat = Minz_Request::param('category');
-			$new_cat_name = '';
-			if ($cat === 'nc') {
-				// User want to create a new category, new_category parameter
-				// must exist
-				$new_cat = Minz_Request::param('new_category');
-				$new_cat_name = isset($new_cat['name']) ? trim($new_cat['name']) : '';
-			}
 
 			// HTTP information are useful if feed is protected behind a
 			// HTTP authentication
@@ -171,8 +164,18 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$http_auth = $user . ':' . $pass;
 			}
 
+			$attributes = array(
+				'ssl_verify' => null,
+				'timeout' => null,
+			);
+			if (FreshRSS_Auth::hasAccess('admin')) {
+				$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
+				$timeout = intval(Minz_Request::param('timeout', 0));
+				$attributes['timeout'] = $timeout > 0 ? $timeout : null;
+			}
+
 			try {
-				$feed = self::addFeed($url, '', $cat, $new_cat_name, $http_auth);
+				$feed = self::addFeed($url, '', $cat, null, $http_auth, $attributes);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
@@ -192,6 +195,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			// Entries are in DB, we redirect to feed configuration page.
+			$url_redirect['a'] = 'index';
 			$url_redirect['params']['id'] = $feed->id();
 			Minz_Request::good(_t('feedback.sub.feed.added', $feed->name()), $url_redirect);
 		} else {
@@ -212,6 +216,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feed = $feedDAO->searchByUrl($this->view->feed->url());
 			if ($feed) {
 				// Already subscribe so we redirect to the feed configuration page.
+				$url_redirect['a'] = 'index';
 				$url_redirect['params']['id'] = $feed->id();
 				Minz_Request::good(_t('feedback.sub.feed.already_subscribed', $feed->name()), $url_redirect);
 			}

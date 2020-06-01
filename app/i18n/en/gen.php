@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualize',
+		'add' => 'Add',
 		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',

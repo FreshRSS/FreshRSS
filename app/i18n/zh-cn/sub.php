@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => '复制以下地址，以供外部工具使用',
 		'title' => 'API',
@@ -16,7 +17,6 @@ return array(
 		'archiving' => '归档',
 		'empty' => '空分类',
 		'information' => '信息',
-		'new' => '新分类',
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
 		'title' => '标题',
@@ -102,6 +102,8 @@ return array(
 		'title' => '导入/导出',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => '订阅（FreshRSS 书签）',
 		'import_export' => '导入/导出',
 		'subscription_management' => '订阅管理',
@@ -109,6 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => '订阅管理',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => '订阅源管理',
 		'subscription_tools' => '订阅工具',
 	),
