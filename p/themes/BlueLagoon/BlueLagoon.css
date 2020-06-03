@@ -15,14 +15,6 @@ a, button.as-link {
 	outline: none;
 }
 
-/*=== Forms */
-.form-group {
-	display: inline-block;
-	float: left;
-	width: 100%;
-	height: auto;
-}
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
