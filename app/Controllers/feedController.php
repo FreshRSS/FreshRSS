@@ -67,6 +67,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
+		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
 		$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz_FileNotExistException
 		$feed->_category($cat_id);
@@ -90,7 +91,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'description' => $feed->description(),
 			'lastUpdate' => time(),
 			'httpAuth' => $feed->httpAuth(),
-			'attributes' => $attributes,
+			'attributes' => $feed->attributes(),
 		);
 
 		$id = $feedDAO->addFeed($values);
