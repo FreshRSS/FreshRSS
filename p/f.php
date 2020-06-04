@@ -50,11 +50,11 @@ header('Content-Disposition: inline; filename="' . $id . '.ico"');
 if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
 
     // In case the favicon is a svg file, replace the Content-Type header
-    $ico_content = file_get_contents($ico);
-    if (substr($ico_content, 0, 4) === '<svg') {
-            header('Content-Type: image/svg+xml');
-    }
+	$ico_content_type = mime_content_type($ico);
+	if ($ico_content_type === 'image/svg') {
+		header('Content-Type: image/svg+xml');
+	}
 
-    echo $ico_content;
+	readfile($ico);
 
 }
