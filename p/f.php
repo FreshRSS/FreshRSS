@@ -48,7 +48,6 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
 if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
-
 	// In case the favicon is a svg file, replace the Content-Type header
 	$ico_content_type = mime_content_type($ico);
 	if ($ico_content_type === 'image/svg') {
@@ -56,5 +55,4 @@ if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
 	}
 
 	readfile($ico);
-
 }
