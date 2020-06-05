@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',
+		'cannot_delete' => '%s cannot be deleted',
 		'disable' => array(
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now disabled',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => 'You have no access on %s',
 		'not_enabled' => '%s is not enabled',
 		'not_found' => '%s does not exist',
+		'removed' => '%s removed',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',

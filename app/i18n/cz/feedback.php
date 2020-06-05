@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s je již zapnut',
+		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s nelze vypnout. Pro více detailů <a href="%s">zkontrolujte logy FreshRSS</a>.',
 			'ok' => '%s je nyní vypnut',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => 'Nemáte přístup k %s',
 		'not_enabled' => '%s není ještě zapnut',
 		'not_found' => '%s neexistuje',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Na serveru není naistalována podpora ZIP. Zkuste prosím exportovat soubory jeden po druhém.',

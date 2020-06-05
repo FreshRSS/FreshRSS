@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
+		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
 		'disable' => array(
 			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',

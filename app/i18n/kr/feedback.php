@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 확장 기능은 이미 활성화되어 있습니다',
+		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s 확장 기능을 비활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'ok' => '%s 확장 기능이 비활성화되었습니다',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
 		'not_enabled' => '%s 확장 기능이 활성화되지 않았습니다',
 		'not_found' => '%s 확장 기능이 존재하지 않습니다',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',

@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s zaten aktif',
+		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'ok' => '%s pasif',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => '%s de yetkiniz yok',
 		'not_enabled' => '%s henüz aktif değil',
 		'not_found' => '%s bulunmamaktadır',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
