@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => '跳转到下一篇文章而不打开',
 		'skip_previous_article' => '跳转到上一篇文章而不打开',
 		'title' => '快捷键',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的序号依次访问。',
 		'views' => '视图',
