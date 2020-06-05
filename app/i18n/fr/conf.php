@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Passer au suivant sans ouvrir',
 		'skip_previous_article' => 'Passer au précédent sans ouvrir',
 		'title' => 'Raccourcis',
+		'toggle_media' => 'Lire/arrêter le média',
 		'user_filter' => 'Accéder aux filtres utilisateur',
 		'user_filter_help' => 'S’il n’y a qu’un filtre utilisateur, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 		'views' => 'Vues',

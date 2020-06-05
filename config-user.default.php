@@ -75,6 +75,7 @@ return array (
 		'global_view' => '2',
 		'reading_view' => '3',
 		'rss_view' => '4',
+		'toggle_media' => 'v',
 	),
 	'show_favicons' => true,
 	'topline_read' => true,
