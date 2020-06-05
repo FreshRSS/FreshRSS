@@ -24,8 +24,6 @@ $ico = FAVICONS_DIR . $id . '.ico';
 $ico_mtime = @filemtime($ico);
 $txt_mtime = @filemtime($txt);
 
-header('Content-Type: image/x-icon');
-
 if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
@@ -45,14 +43,17 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 	}
 }
 
-header('Content-Disposition: inline; filename="' . $id . '.ico"');
-
 if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
-	// In case the favicon is a svg file, replace the Content-Type header
-	$ico_content_type = mime_content_type($ico);
-	if ($ico_content_type === 'image/svg') {
-		header('Content-Type: image/svg+xml');
+	$ico_content_type = 'image/x-icon';
+	if (function_exists('mime_content_type')) {
+		$ico_content_type = mime_content_type($ico);
 	}
-
+	switch ($ico_content_type) {
+		case 'image/svg':
+			$ico_content_type = 'image/svg+xml';
+			break;
+	}
+	header('Content-Type: ' . $ico_content_type);
+	header('Content-Disposition: inline; filename="' . $id . '.ico"');
 	readfile($ico);
 }
