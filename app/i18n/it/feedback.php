@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s è già abilitata',
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s non può essere disabilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è disabilitata',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => 'Accesso negato a %s',
 		'not_enabled' => '%s non abilitato',
 		'not_found' => '%s non disponibile',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',

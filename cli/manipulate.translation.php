@@ -39,6 +39,19 @@ switch ($options['a']) {
 			exit;
 		}
 		break;
+	case 'exist':
+		if (array_key_exists('k', $options)) {
+			$key = $options['k'];
+			if ($i18nData->isKnown($key)) {
+				echo "The '{$key}' key is known.\n\n";
+			} else {
+				echo "The '{$key}' key is unknown.\n\n";
+			}
+		} else {
+			error('You need to specify the key to check.');
+			exit;
+		}
+		break;
 	case 'format' :
 		break;
 	case 'ignore' :
@@ -85,7 +98,7 @@ DESCRIPTION
 
 	-a=ACTION
 		select the action to perform. Available actions are add, delete,
-		format, and ignore. This option is mandatory.
+		exist, format, and ignore. This option is mandatory.
 	-k=KEY	select the key to work on.
 	-v=VAL	select the value to set.
 	-l=LANG	select the language to work on.
@@ -111,7 +124,10 @@ Exemple 6: ignore a key. It adds the key in the ignore file to mark it as transl
 	php %1\$s -a ignore -k my_key -l my_lang
 
 Exemple 7: revert ignore a key. It removes the key from the ignore file.
-	php %1\$s -a ignore -r -k my_key -l my_lang\n\n
+	php %1\$s -a ignore -r -k my_key -l my_lang
+
+Exemple 8: check if a key exist.
+	php %1\$s -a exist -k my_key\n\n
 HELP;
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 	echo sprintf($help, $file);

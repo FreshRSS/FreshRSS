@@ -133,6 +133,17 @@ class I18nData {
 	}
 
 	/**
+	 * Check if the key is known.
+	 *
+	 * @param string $key
+	 * @return bool
+	 */
+	public function isKnown($key) {
+		return array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
+			array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
+	}
+
+	/**
 	 * Add a new key to all languages.
 	 *
 	 * @param string $key
@@ -140,8 +151,7 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function addKey($key, $value) {
-		if (array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
-		    array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if ($this->isKnown($key)) {
 			throw new Exception('The selected key already exist.');
 		}
 
@@ -178,8 +188,7 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function removeKey($key) {
-		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
-		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (!$this->isKnown($key)) {
 			throw new Exception('The selected key does not exist.');
 		}
 		foreach ($this->getAvailableLanguages() as $language) {

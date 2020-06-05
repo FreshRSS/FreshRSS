@@ -146,6 +146,14 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
 	@echo Key ignored.
 
+.PHONY: i18n-key-exists
+i18n-key-exists: ## Check if a translation key exists
+ifndef key
+	@echo To check if a key exists, you need to provide one in the "key" variable.
+	@exit 10
+endif
+	@$(PHP) ./cli/manipulate.translation.php -a exist -k $(key)
+
 ###########
 ## TOOLS ##
 ###########
