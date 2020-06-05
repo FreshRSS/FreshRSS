@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s zaten aktif',
-		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'ok' => '%s pasif',

@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s ist bereits aktiviert',
-		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s kann nicht deaktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt deaktiviert',

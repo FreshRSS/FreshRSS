@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s è già abilitata',
-		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s non può essere disabilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è disabilitata',

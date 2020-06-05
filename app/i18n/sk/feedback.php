@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s už je povolené',
-		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s sa nepodarilo nainštalovať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz zakázaný',

@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s es ja activada',
-		'cannot_delete' => '%s cannot be deleted',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s pòt pas èsser desactivada. <a href="%s">Consultatz los jornals d’audit de FreshRSS logs</a> per mai de detalhs.',
 			'ok' => '%s es ara desactivada',

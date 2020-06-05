@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',
-		'cannot_delete' => '%s cannot be deleted',
+		'cannot_remove' => '%s cannot be removed',
 		'disable' => array(
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now disabled',
