@@ -5,11 +5,10 @@ require(LIB_PATH . '/favicons.php');
 require(LIB_PATH . '/http-conditional.php');
 
 function show_default_favicon($cacheSeconds = 3600) {
-	header('Content-Type: image/x-icon');
-	header('Content-Disposition: inline; filename="default_favicon.ico"');
-
 	$default_mtime = @filemtime(DEFAULT_FAVICON);
 	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
+		header('Content-Type: image/x-icon');
+		header('Content-Disposition: inline; filename="default_favicon.ico"');
 		readfile(DEFAULT_FAVICON);
 	}
 }
