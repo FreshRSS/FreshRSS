@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 $isUpdate = true;
 require(__DIR__ . '/_update-or-create-user.php');
