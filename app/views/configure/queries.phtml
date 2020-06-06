@@ -15,7 +15,7 @@
 
 			<div class="group-controls">
 				<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
-				<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= $query->getSearch() ?>"/>
+				<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
@@ -52,7 +52,7 @@
 
 					<ul>
 						<?php if ($query->hasSearch()) { ?>
-						<li class="item"><?= _t('conf.query.search', $query->getSearch()->getRawInput()) ?></li>
+						<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
 						<?php } ?>
 
 						<?php if ($query->getState()) { ?>
