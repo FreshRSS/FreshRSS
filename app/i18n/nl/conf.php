@@ -49,8 +49,8 @@ return array(
 		),
 	),
 	'profile' => array(
-		'_' => 'Profiel beheer',
-		'api' => 'API management',	// TODO - Translation
+		'_' => 'Profielbeheer',
+		'api' => 'API-beheer',
 		'delete' => array(
 			'_' => 'Account verwijderen',
 			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
@@ -98,13 +98,13 @@ return array(
 	'reading' => array(
 		'_' => 'Lezen',
 		'after_onread' => 'Na “markeer alles als gelezen”,',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
 		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
-		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
+		'display_categories_unfolded' => 'Categoriën om uit te klappen',
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
@@ -119,11 +119,11 @@ return array(
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',
-			'active_category' => 'Active category',	// TODO - Translation
+			'active_category' => 'Actieve categorie',
 			'adaptive' => 'Pas weergave aan',
 			'all_articles' => 'Bekijk alle artikelen',
-			'all_categories' => 'All categories',	// TODO - Translation
-			'no_category' => 'No category',	// TODO - Translation
+			'all_categories' => 'Alle categorieën',
+			'no_category' => 'Geen categorie',
 			'unread' => 'Bekijk alleen ongelezen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Volgend artikel focusen zonder openen',
 		'skip_previous_article' => 'Vorig artikel focusen zonder openen',
 		'title' => 'Verwijzingen',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Toegang gebruikers filters',
 		'user_filter_help' => 'Als er slechts één gebruikersfilter is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',
 		'views' => 'Aanzichten',

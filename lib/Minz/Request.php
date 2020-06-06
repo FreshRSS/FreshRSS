@@ -395,7 +395,7 @@ class Minz_Request {
 	/**
 	 * @return array
 	 */
-	public static function getPreferredLanguage() {
+	public static function getPreferredLanguages() {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', static::getHeader('HTTP_ACCEPT_LANGUAGE'), $matches)) {
 			return $matches['lang'];
 		}

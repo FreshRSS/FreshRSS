@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
 		'skip_previous_article' => 'Focar o anterior sem abri-lo',
 		'title' => 'Atalhos',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Acesse filtros de usuário',
 		'user_filter_help' => 'Se há apenas um filtro, ele é utilizado. Caso contrário, os filtros serão acessíveis pelos seus números.',
 		'views' => 'Visualizações',

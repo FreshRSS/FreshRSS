@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s ist bereits aktiviert',
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s kann nicht deaktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt deaktiviert',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => 'Sie haben keinen Zugang zu %s',
 		'not_enabled' => '%s ist noch nicht aktiviert',
 		'not_found' => '%s existiert nicht',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Die ZIP-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',

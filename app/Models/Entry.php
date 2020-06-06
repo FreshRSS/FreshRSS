@@ -401,6 +401,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
+							phpQuery::unloadDocuments();
 							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
 						}
 					}
@@ -408,7 +409,9 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 
 			$content = $doc->find($path);
-			return trim(sanitizeHTML($content->__toString(), $url));
+			$html = trim(sanitizeHTML($content->__toString(), $url));
+			phpQuery::unloadDocuments();
+			return $html;
 		} else {
 			throw new Exception();
 		}

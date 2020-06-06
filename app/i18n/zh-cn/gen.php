@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '获取',
+		'add' => 'Add',	// TODO - Translation
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',

@@ -581,6 +581,18 @@ function collapse_entry() {
 	toggleContent(flux_current, flux_current, false);
 }
 
+function toggle_media() {
+	const media = document.querySelector('.flux.current video,.flux.current audio');
+	if (media === null) {
+		return;
+	}
+	if (media.paused) {
+		media.play();
+	} else {
+		media.pause();
+	}
+}
+
 function user_filter(key) {
 	const filter = document.getElementById('dropdown-query'),
 		filters = filter.parentElement.querySelectorAll('.dropdown-menu > .query > a');
@@ -861,6 +873,7 @@ function init_shortcuts() {
 			if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); return false; }
 			if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); return false; }
 			if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); return false; }
+			if (k === s.toggle_media) { toggle_media(); return false;}
 			return true;
 		};
 }

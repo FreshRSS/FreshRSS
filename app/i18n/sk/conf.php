@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Použiť používateľské filtre',
 		'user_filter_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',
 		'views' => 'Zobrazenia',

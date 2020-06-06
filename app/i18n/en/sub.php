@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',
 		'title' => 'API',
@@ -16,7 +17,6 @@ return array(
 		'archiving' => 'Archiving',
 		'empty' => 'Empty category',
 		'information' => 'Information',
-		'new' => 'New category',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
 		'title' => 'Title',
@@ -102,6 +102,8 @@ return array(
 		'title' => 'Import / export',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',
+		'add_feed' => 'Add a feed',
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Subscriptions management',
@@ -109,6 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Subscriptions management',
+		'add' => 'Add a feed/a category',
+		'add_category' => 'Add a category',
+		'add_feed' => 'Add a feed',
 		'feed_management' => 'RSS feeds management',
 		'subscription_tools' => 'Subscription tools',
 	),

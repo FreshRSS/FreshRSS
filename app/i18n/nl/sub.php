@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Kopieer de volgende URL om deze in een externe toepassing te gebruiken.',
 		'title' => 'API',
@@ -16,7 +17,6 @@ return array(
 		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
-		'new' => 'Nieuwe categorie',
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
@@ -45,11 +45,11 @@ return array(
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Cache leegmaken',
+			'clear_cache_help' => 'Cache voor deze feed leegmaken.',
+			'reload_articles' => 'Artikels herladen',
+			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',
+			'title' => 'Onderhoud',
 		),
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
@@ -62,8 +62,8 @@ return array(
 			'normal' => 'Toon in categorie',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Broncode tonen',
+			'show_rendered' => 'Inhoud tonen',
 		),
 		'show' => array(
 			'all' => 'Alle feeds tonen',
@@ -102,6 +102,8 @@ return array(
 		'title' => 'Importeren / exporteren',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
 		'subscription_management' => 'Abonnementenbeheer',
@@ -109,6 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Abonnementenbeheer',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'RSS-feedbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),

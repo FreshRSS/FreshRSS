@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
 		'title' => 'API',	// TODO - Translation
@@ -16,7 +17,6 @@ return array(
 		'archiving' => 'Archiviazione',
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
-		'new' => 'Nuova categoria',
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Titolo',
@@ -102,6 +102,8 @@ return array(
 		'title' => 'Importa / esporta',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Bookmark (trascina nei preferiti)',
 		'import_export' => 'Importa / esporta',
 		'subscription_management' => 'Gestione sottoscrizioni',
@@ -109,6 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Gestione sottoscrizioni',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'Gestione RSS feeds',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Zkratky',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Aplikovat uživatelské filtry',
 		'user_filter_help' => 'Je-li nastaven pouze jeden filtr, bude použit. Další filtry jsou dostupné pomocí jejich čísla.',
 		'views' => 'Views',	// TODO - Translation

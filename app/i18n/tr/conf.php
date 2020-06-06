@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Kısayollar',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Kullanıcı filtrelerine eriş',
 		'user_filter_help' => 'Eğer tek filtre varsa o kullanılır. Yoksa filtrelerin kendi numaralarıyla kullanılır.',
 		'views' => 'Views',	// TODO - Translation

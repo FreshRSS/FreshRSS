@@ -18,6 +18,15 @@ Then, it executes PHPUnit in a Docker container. If you don't use Docker, you ca
 $ NO_DOCKER=true make test
 ```
 
+The linter can be run with a `make` command as well:
+
+```console
+$ make lint # to execute the linter on the PHP files
+$ make lint-fix # or, to fix the errors detected by the linter
+```
+
+Similarly to PHPUnit, it downloads a [PHP\_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) binary (i.e. `phpcs` or `phpcbf` depending on the command) and verifies its checksum.
+
 ## Travis
 
 Tests are automatically run when you open a pull request on GitHub. It is done with [Travis CI](https://travis-ci.org/FreshRSS/FreshRSS/). This is done to ensure there is no regressions in your code. We cannot merge a PR if the tests fail so we'll ask you to fix bugs before to review your code.
