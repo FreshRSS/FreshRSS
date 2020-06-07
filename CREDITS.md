@@ -72,6 +72,7 @@ People are sorted by name so please keep this order.
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
 * [Offerel](https://github.com/Offerel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Offerel)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=blankoworld), [Web](https://olivier.dossmann.net)
+* [Pablo Caro](https://github.com/pcaro90): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pcaro90), [Web](https://pcaro.es/)
 * [Patrick Crandol](https://github.com/pattems): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pattems)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
