@@ -127,6 +127,7 @@ return array(
 		'cz' => 'Čeština',	// TODO - Translation
 		'de' => 'Deutsch',	// TODO - Translation
 		'en' => 'English',	// TODO - Translation
+		'en-us' => 'English (United States)',	// TODO - Translation
 		'es' => 'Español',	// TODO - Translation
 		'fr' => 'Français',	// TODO - Translation
 		'he' => 'עברית',	// TODO - Translation
