@@ -113,8 +113,8 @@ return array(
 	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// TODO - Translation
-		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',	// TODO - Translation
-		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be cancelled!',
+		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',	// TODO - Translation
+		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// TODO - Translation
 			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',	// TODO - Translation

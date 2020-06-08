@@ -16,7 +16,7 @@ return array(
 	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => 'A problem occured during authentication system configuration. Please retry later.',
+			'not_set' => 'A problem occurred during authentication system configuration. Please retry later.',
 			'set' => 'Form is now your default authentication system.',
 		),
 		'login' => array(
@@ -54,7 +54,7 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
 		'no_zip_extension' => 'ZIP extension is not present on your server.',
-		'zip_error' => 'An error occured during ZIP import.',
+		'zip_error' => 'An error occurred during ZIP import.',
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',
