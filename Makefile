@@ -94,7 +94,7 @@ ifndef lang
 	@echo To add a new language, you need to provide one in the "lang" variable.
 	@exit 10
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a add -l $(lang)
+	$(PHP) ./cli/manipulate.translation.php -a add -l $(lang) -o $(ref)
 	@echo Language added.
 
 .PHONY: i18n-add-key
