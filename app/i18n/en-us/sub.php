@@ -91,7 +91,7 @@ return array(
 	),
 	'import_export' => array(
 		'export' => 'Export',	// TODO - Translation
-		'export_labeled' => 'Export your labeled articles',
+		'export_labelled' => 'Export your labeled articles',
 		'export_opml' => 'Export list of feeds (OPML)',	// TODO - Translation
 		'export_starred' => 'Export your favorites',
 		'feed_list' => 'List of %s articles',	// TODO - Translation
