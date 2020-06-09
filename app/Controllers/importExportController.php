@@ -721,76 +721,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * Export the files of a user and send them to the user by HTTP
-	 *
-	 * @param string $username
-	 * @param boolean $export_opml
-	 * @param boolean $export_starred
-	 * @param boolean $export_labelled
-	 * @param array|boolean $export_feeds The list of feeds ids to export, true to export all the feeds
-	 * @param integer $maxFeedEntries Limit the number of entries to export (default is 50)
-	 *
-	 * @throws FreshRSS_ZipMissing_Exception if we try to export more than two files and the zip extension doesn't exist
-	 *
-	 * @return integer The number of exported files
-	 */
-	public function exportFile($username, $export_opml = true, $export_starred = false, $export_labelled = false, $export_feeds = array(), $maxFeedEntries = 50) {
-		require_once(LIB_PATH . '/lib_opml.php');
-
-		$this->catDAO = new FreshRSS_CategoryDAO($username);
-		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
-		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
-
-		if ($export_feeds === true) {
-			//All feeds
-			$export_feeds = $this->feedDAO->listFeedsIds();
-		}
-		if (!is_array($export_feeds)) {
-			$export_feeds = array();
-		}
-
-		$day = date('Y-m-d');
-
-		$export_files = array();
-		if ($export_opml) {
-			$export_files["feeds_${day}.opml.xml"] = $this->generateOpml();
-		}
-
-		if ($export_starred || $export_labelled) {
-			$export_files["starred_${day}.json"] = $this->generateEntries(
-				($export_starred ? 'S' : '') .
-				($export_labelled ? 'T' : '')
-			);
-		}
-
-		foreach ($export_feeds as $feed_id) {
-			$feed = $this->feedDAO->searchById($feed_id);
-			if ($feed) {
-				$filename = "feed_${day}_" . $feed->category() . '_'
-				          . $feed->id() . '.json';
-				$export_files[$filename] = $this->generateEntries('f', $feed, $maxFeedEntries);
-			}
-		}
-
-		$nb_files = count($export_files);
-		if ($nb_files > 1) {
-			// If there are more than 1 file to export, we need a ZIP archive.
-			$filename = 'freshrss_' . $username . '_' . $day . '_export.zip';
-			try {
-				$this->sendZip($filename, $export_files);
-			} catch (Exception $e) {
-				throw new FreshRSS_ZipMissing_Exception($e);
-			}
-		} elseif ($nb_files === 1) {
-			// Only one file? Guess its type and export it.
-			$filename = key($export_files);
-			$type = self::guessFileType($filename);
-			$this->sendFile('freshrss_' . $username . '_' . $filename, $export_files[$filename], $type);
-		}
-		return $nb_files;
-	}
-
-	/**
 	 * This action handles export action.
 	 *
 	 * This action must be reached by a POST request.
@@ -798,135 +728,113 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * Parameters are:
 	 *   - export_opml (default: false)
 	 *   - export_starred (default: false)
+	 *   - export_labelled (default: false)
 	 *   - export_feeds (default: array()) a list of feed ids
 	 */
 	public function exportAction() {
 		if (!Minz_Request::isPost()) {
-			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
-		}
-		$this->view->_layout(false);
-
-		$nb_files = 0;
-		try {
-			$nb_files = $this->exportFile(
-				Minz_Session::param('currentUser'),
-				Minz_Request::param('export_opml', false),
-				Minz_Request::param('export_starred', false),
-				Minz_Request::param('export_labelled', false),
-				Minz_Request::param('export_feeds', array())
+			return Minz_Request::forward(
+				array('c' => 'importExport', 'a' => 'index'),
+				true
 			);
-		} catch (FreshRSS_ZipMissing_Exception $zme) {
-			# Oops, there is no ZIP extension!
-			Minz_Request::bad(_t('feedback.import_export.export_no_zip_extension'),
-			                  array('c' => 'importExport', 'a' => 'index'));
 		}
 
-		if ($nb_files < 1) {
-			// Nothing to do...
-			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+		$username = Minz_Session::param('currentUser');
+		$export_service = new FreshRSS_Export_Service($username);
+
+		$export_opml = Minz_Request::param('export_opml', false);
+		$export_starred = Minz_Request::param('export_starred', false);
+		$export_labelled = Minz_Request::param('export_labelled', false);
+		$export_feeds = Minz_Request::param('export_feeds', array());
+		$max_number_entries = 50;
+
+		$exported_files = [];
+
+		if ($export_opml) {
+			list($filename, $content) = $export_service->generateOpml();
+			$exported_files[$filename] = $content;
 		}
+
+		// Starred and labelled entries are merged in the same `starred` file
+		// to avoid duplication of content.
+		if ($export_starred && $export_labelled) {
+			list($filename, $content) = $export_service->generateStarredEntries('ST');
+			$exported_files[$filename] = $content;
+		} elseif ($export_starred) {
+			list($filename, $content) = $export_service->generateStarredEntries('S');
+			$exported_files[$filename] = $content;
+		} elseif ($export_labelled) {
+			list($filename, $content) = $export_service->generateStarredEntries('T');
+			$exported_files[$filename] = $content;
+		}
+
+		foreach ($export_feeds as $feed_id) {
+			$result = $export_service->generateFeedEntries($feed_id, $max_number_entries);
+			if (!$result) {
+				// It means the actual feed_id doesn't correspond to any existing feed
+				continue;
+			}
+
+			list($filename, $content) = $result;
+			$exported_files[$filename] = $content;
+		}
+
+		$nb_files = count($exported_files);
+		if ($nb_files <= 0) {
+			// There's nothing to do, there're no files to export
+			return Minz_Request::forward(
+				array('c' => 'importExport', 'a' => 'index'),
+				true
+			);
+		}
+
+		if ($nb_files === 1) {
+			// If we only have one file, we just export it as it is
+			$filename = key($exported_files);
+			$content = $exported_files[$filename];
+		} else {
+			// More files? Let's compress them in a Zip archive
+			if (!extension_loaded('zip')) {
+				// Oops, there is no ZIP extension!
+				return Minz_Request::bad(
+					_t('feedback.import_export.export_no_zip_extension'),
+					array('c' => 'importExport', 'a' => 'index')
+				);
+			}
+
+			list($filename, $content) = $export_service->zip($exported_files);
+		}
+
+		$content_type = self::filenameToContentType($filename);
+		header('Content-Type: ' . $content_type);
+		header('Content-disposition: attachment; filename="' . $filename . '"');
+
+		$this->view->_layout(false);
+		$this->view->content = $content;
 	}
 
 	/**
-	 * This method returns the OPML file based on user subscriptions.
+	 * Return the Content-Type corresponding to a filename.
 	 *
-	 * @return string the OPML file content.
-	 */
-	private function generateOpml() {
-		$list = array();
-		foreach ($this->catDAO->listCategories() as $key => $cat) {
-			$list[$key]['name'] = $cat->name();
-			$list[$key]['feeds'] = $this->feedDAO->listByCategory($cat->id());
-		}
-
-		$this->view->categories = $list;
-		return $this->view->helperToString('export/opml');
-	}
-
-	/**
-	 * This method returns a JSON file content.
-	 *
-	 * @param string $type must be one of:
-	 * 	'S' (starred/favourite), 'f' (feed), 'T' (taggued/labelled), 'ST' (starred or labelled)
-	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
-	 * @return string the JSON file content.
-	 */
-	private function generateEntries($type, $feed = null, $maxFeedEntries = 50) {
-		$this->view->categories = $this->catDAO->listCategories();
-		$tagDAO = FreshRSS_Factory::createTagDao();
-
-		if ($type === 's' || $type === 'S' || $type === 'T' || $type === 'ST') {
-			$this->view->list_title = _t('sub.import_export.starred_list');
-			$this->view->type = 'starred';
-			$this->view->entriesId = $this->entryDAO->listIdsWhere($type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
-			$this->view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->view->entriesId);
-			//The following is a streamable query, i.e. must be last
-			$this->view->entriesRaw = $this->entryDAO->listWhereRaw($type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
-		} elseif ($type === 'f' && $feed != null) {
-			$this->view->list_title = _t('sub.import_export.feed_list', $feed->name());
-			$this->view->type = 'feed/' . $feed->id();
-			$this->view->entriesId = $this->entryDAO->listIdsWhere($type, $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $maxFeedEntries);
-			$this->view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->view->entriesId);
-			//The following is a streamable query, i.e. must be last
-			$this->view->entriesRaw = $this->entryDAO->listWhereRaw($type, $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $maxFeedEntries);
-			$this->view->feed = $feed;
-		}
-
-		return $this->view->helperToString('export/articles');
-	}
-
-	/**
-	 * This method zips a list of files and returns it by HTTP.
-	 *
-	 * @param string $export_filename The name of the file to export
-	 * @param array $files list of files where key is filename and value the content.
-	 * @throws Exception if Zip extension is not loaded.
-	 */
-	private function sendZip($export_filename, $files) {
-		if (!extension_loaded('zip')) {
-			throw new Exception();
-		}
-
-		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-		$zip_file = @tempnam('/tmp', 'zip');
-		$zip = new ZipArchive();
-		$zip->open($zip_file, ZipArchive::OVERWRITE);
-
-		foreach ($files as $filename => $content) {
-			$zip->addFromString($filename, $content);
-		}
-
-		// Close and send to user
-		$zip->close();
-		header('Content-Type: application/zip');
-		header('Content-Length: ' . filesize($zip_file));
-		header('Content-Disposition: attachment; filename="' . $export_filename . '"');
-		readfile($zip_file);
-		unlink($zip_file);
-	}
-
-	/**
-	 * This method returns a single file (OPML or JSON) by HTTP.
+	 * If the type of the filename is not supported, it returns
+	 * `application/octet-stream` by default.
 	 *
 	 * @param string $filename
-	 * @param string $content
-	 * @param string $type the file type (opml, json_feed or json_starred).
-	 *                     If equals to unknown, nothing happens.
+	 *
+	 * @return string
 	 */
-	private function sendFile($filename, $content, $type) {
-		if ($type === 'unknown') {
-			return;
+	private static function filenameToContentType($filename) {
+		$filetype = self::guessFileType($filename);
+		switch ($filetype) {
+		case 'zip':
+			return 'application/zip';
+		case 'opml':
+			return 'application/xml; charset=utf-8';
+		case 'json_starred':
+		case 'json_feed':
+			return 'application/json; charset=utf-8';
+		default:
+			return 'application/octet-stream';
 		}
-
-		$content_type = '';
-		if ($type === 'opml') {
-			$content_type = 'application/xml';
-		} elseif ($type === 'json_feed' || $type === 'json_starred') {
-			$content_type = 'application/json';
-		}
-
-		header('Content-Type: ' . $content_type . '; charset=utf-8');
-		header('Content-disposition: attachment; filename=' . $filename);
-		print($content);
 	}
 }
