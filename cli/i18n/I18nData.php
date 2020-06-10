@@ -123,13 +123,17 @@ class I18nData {
 	 * Add a new language. It's a copy of the reference language.
 	 *
 	 * @param string $language
+	 * @param string $reference
 	 * @throws Exception
 	 */
-	public function addLanguage($language) {
+	public function addLanguage($language, $reference = null) {
 		if (array_key_exists($language, $this->data)) {
 			throw new Exception('The selected language already exist.');
 		}
-		$this->data[$language] = $this->data[static::REFERENCE_LANGUAGE];
+		if (!is_string($reference) && !array_key_exists($reference, $this->data)) {
+			$reference = static::REFERENCE_LANGUAGE;
+		}
+		$this->data[$language] = $this->data[$reference];
 	}
 
 	/**
