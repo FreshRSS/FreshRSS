@@ -68,7 +68,8 @@ class FreshRSS_Auth {
 			$login_ok = FreshRSS_UserDAO::exists($current_user);
 			if (!$login_ok && $conf->http_auth_auto_register) {
 				$email = null;
-				if ($conf->http_auth_auto_register_email_field !== '') {
+				if ($conf->http_auth_auto_register_email_field !== '' &&
+					isset($_SERVER[$conf->http_auth_auto_register_email_field])) {
 					$email = $_SERVER[$conf->http_auth_auto_register_email_field];
 				}
 				$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '');
