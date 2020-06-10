@@ -38,9 +38,11 @@ build: ## Build a Docker image
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
+	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
 	docker run \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
+		$(volumes) \
 		--publish $(PORT):80 \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
