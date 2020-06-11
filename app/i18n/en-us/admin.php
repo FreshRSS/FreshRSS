@@ -2,7 +2,7 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the articles of the default user (%s)',	// TODO - Translation
+		'allow_anonymous' => 'Allow anonymous reading of the default user\'s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// TODO - Translation
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// TODO - Translation
 		'form' => 'Web form (traditional, requires JavaScript)',	// TODO - Translation
@@ -17,12 +17,12 @@ return array(
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on cache directory are good.',	// TODO - Translation
 		),
 		'categories' => array(
 			'nok' => 'Category table is improperly configured.',	// TODO - Translation
-			'ok' => 'Category table is OK.',
+			'ok' => 'Category table is okay.',
 		),
 		'connection' => array(
 			'nok' => 'Connection to the database cannot be established.',	// TODO - Translation
@@ -37,7 +37,7 @@ return array(
 			'ok' => 'You have the cURL library.',	// TODO - Translation
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on data directory are good.',	// TODO - Translation
 		),
 		'database' => 'Database installation',	// TODO - Translation
@@ -50,7 +50,7 @@ return array(
 			'ok' => 'Entry table is okay.',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on favicons directory are good.',	// TODO - Translation
 		),
 		'feeds' => array(
@@ -91,18 +91,18 @@ return array(
 			'nok' => 'There are one or more missing tables in the database.',	// TODO - Translation
 			'ok' => 'The appropriate tables exist in the database.',	// TODO - Translation
 		),
-		'title' => 'Installation checking',	// TODO - Translation
+		'title' => 'Installation check',
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on tokens directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',
+			'ok' => 'Permissions on the tokens directory are good.',
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',
+			'ok' => 'Permissions on the users directory are good.',
 		),
 		'zip' => array(
-			'nok' => 'Cannot find ZIP extension (php-zip package).',	// TODO - Translation
-			'ok' => 'You have ZIP extension.',	// TODO - Translation
+			'nok' => 'Cannot find the ZIP extension (php-zip package).',
+			'ok' => 'You have the ZIP extension.',
 		),
 	),
 	'extensions' => array(
@@ -117,7 +117,7 @@ return array(
 		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
 		'system' => array(
 			'_' => 'System extensions',	// TODO - Translation
-			'no_rights' => 'System extension (you have no rights on it)',	// TODO - Translation
+			'no_rights' => 'System extension (you do not have the required permissions)',
 		),
 		'title' => 'Extensions',	// TODO - Translation
 		'update' => 'Update available',	// TODO - Translation
@@ -163,10 +163,10 @@ return array(
 			'help' => 'in seconds',	// TODO - Translation
 			'number' => 'Duration to keep logged in',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',
 		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Categories per user limit',	// TODO - Translation
-		'max-feeds' => 'Feeds per user limit',	// TODO - Translation
+		'max-categories' => 'Max number of categories per user',
+		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
 			'help' => '0 means that there is no account limit',	// TODO - Translation
 			'number' => 'Max number of accounts',	// TODO - Translation
