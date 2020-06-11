@@ -64,11 +64,11 @@ return array(
 		'files' => 'File installation',	// TODO - Translation
 		'json' => array(
 			'nok' => 'Cannot find JSON (php-json package).',	// TODO - Translation
-			'ok' => 'You have JSON extension.',	// TODO - Translation
+			'ok' => 'You have the JSON extension.',
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended library, mbstring, for Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Cannot find the Minz framework.',	// TODO - Translation
@@ -85,7 +85,7 @@ return array(
 		'php' => array(
 			'_' => 'PHP installation',	// TODO - Translation
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO - Translation
-			'ok' => 'Your PHP version is %s, which is compatible with FreshRSS.',	// TODO - Translation
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',
 		),
 		'tables' => array(
 			'nok' => 'There are one or more missing tables in the database.',	// TODO - Translation
