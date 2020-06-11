@@ -18,7 +18,7 @@ return array(
 	'check_install' => array(
 		'cache' => array(
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',
-			'ok' => 'Permissions on cache directory are good.',	// TODO - Translation
+			'ok' => 'Permissions on the cache directory are good.',
 		),
 		'categories' => array(
 			'nok' => 'Category table is improperly configured.',	// TODO - Translation
@@ -38,7 +38,7 @@ return array(
 		),
 		'data' => array(
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',
-			'ok' => 'Permissions on data directory are good.',	// TODO - Translation
+			'ok' => 'Permissions on the data directory are good.',
 		),
 		'database' => 'Database installation',	// TODO - Translation
 		'dom' => array(
@@ -51,7 +51,7 @@ return array(
 		),
 		'favicons' => array(
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',
-			'ok' => 'Permissions on favicons directory are good.',	// TODO - Translation
+			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'feeds' => array(
 			'nok' => 'Feed table is improperly configured.',	// TODO - Translation
