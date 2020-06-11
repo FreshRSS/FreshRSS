@@ -395,7 +395,7 @@ function quickadd($url) {
 		$feed = FreshRSS_feed_Controller::addFeed($url);
 		exit(json_encode(array(
 				'numResults' => 1,
-				'streamId' => $feed->id(),
+				'streamId' => 'feed/' . $feed->id(),
 			), JSON_OPTIONS));
 	} catch (Exception $e) {
 		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
