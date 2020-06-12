@@ -26,15 +26,45 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		);
 
 		$this->view->extensions_installed = array();
+		$user_installed = array();
 
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
 			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
+			if ('user' === $ext->getType()) {
+				$user_installed[] = $ext->getEntrypoint();
+			}
 		}
 
-		$availableExtensions = $this->getAvailableExtensionList();
+		$availableExtensions = $this->getAvailableExtensionSortedList($user_installed);
 		$this->view->available_extensions = $availableExtensions;
+	}
+
+	/**
+	 * Returns the sorted list of extensions.
+	 * The order is based on status (installed or not) and name (alphabetical).
+	 */
+	private function getAvailableExtensionSortedList(array $installed = array()) {
+		$extensions = $this->getAvailableExtensionList();
+
+		foreach ($installed as $_installed) {
+			if (array_key_exists($_installed, $extensions)) {
+				$extensions[$_installed]['installed'] = true;
+			}
+		}
+
+		usort($extensions, function ($a, $b) {
+			if ($a['installed'] && !$b['installed']) {
+				return -1;
+			}
+			if (!$a['installed'] && $b['installed']) {
+				return 1;
+			}
+			return ($a['name'] < $b['name']) ? -1 : 1;
+		});
+
+		return $extensions;
 	}
 
 	/**
@@ -63,7 +93,11 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		// By now, all the needed data is kept in the main extension file.
 		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
 		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
-		$extensions = $list['extensions'];
+		$extensions = array();
+		foreach ($list['extensions'] as $extension) {
+			$extension['installed'] = false;
+			$extensions[$extension['name']] = $extension;
+		}
 
 		return $extensions;
 	}
