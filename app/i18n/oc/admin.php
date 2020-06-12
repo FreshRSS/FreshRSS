@@ -107,6 +107,7 @@ return array(
 	),
 	'extensions' => array(
 		'author' => 'Autor',
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Extensions utilizaires disponiblas',
 		'description' => 'Descripcion',
 		'disabled' => 'Desactivada',
@@ -115,6 +116,7 @@ return array(
 		'latest' => 'Installada',
 		'name' => 'Nom',
 		'no_configure_view' => 'Aquesta extension se pòt pas configurar.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Extensions sistèma',
 			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',

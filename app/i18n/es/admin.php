@@ -107,6 +107,7 @@ return array(
 	),
 	'extensions' => array(
 		'author' => 'Author',	// TODO - Translation
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Available community extensions',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Desactivado',
@@ -115,6 +116,7 @@ return array(
 		'latest' => 'Installed',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Sistema de extensiones',
 			'no_rights' => 'Sistema de extensiones (careces de los permisos necesarios)',

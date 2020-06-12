@@ -107,6 +107,7 @@ return array(
 	),
 	'extensions' => array(
 		'author' => 'Author',
+		'available' => 'Available',
 		'community' => 'Available community extensions',
 		'description' => 'Description',
 		'disabled' => 'Disabled',
@@ -115,6 +116,7 @@ return array(
 		'latest' => 'Installed',
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
+		'status' => 'Status',
 		'system' => array(
 			'_' => 'System extensions',
 			'no_rights' => 'System extension (you have no rights on it)',

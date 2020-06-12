@@ -39,6 +39,7 @@
 		<table>
 			<tr>
 				<th><?= _t('admin.extensions.name') ?></th>
+				<th><?= _t('admin.extensions.status') ?></th>
 				<th><?= _t('admin.extensions.version') ?></th>
 				<th><?= _t('admin.extensions.author') ?></th>
 				<th><?= _t('admin.extensions.description') ?></th>
@@ -46,22 +47,18 @@
 			<?php foreach ($this->available_extensions as $ext) { ?>
 				<tr>
 					<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
+					<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+						<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+							<td class='alert-success'><?= _t('admin.extensions.latest') ?></td>
+						<?php } else if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+							<td class='alert-warn'><?= _t('admin.extensions.update') ?></td>
+						<?php } ?>
+					<?php } else { ?>
+						<td><?= _t('admin.extensions.available') ?></td>
+					<?php } ?>
 					<td><?= $ext['version'] ?></td>
 					<td><?= $ext['author'] ?></td>
-					<td>
-						<?= $ext['description'] ?>
-						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
-								<span class="alert alert-success">
-									<?= _t('admin.extensions.latest') ?>
-								</span>
-							<?php } else  if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
-								<span class="alert alert-warn">
-									<?= _t('admin.extensions.update') ?>
-								</span>
-							<?php } ?>
-						<?php } ?>
-					</td>
+					<td><?= $ext['description'] ?></td>
 				</tr>
 			<?php } ?>
 		</table>
