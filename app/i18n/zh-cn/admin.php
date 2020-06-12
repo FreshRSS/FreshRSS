@@ -119,7 +119,6 @@ return array(
 		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => '系统扩展',
-			'no_rights' => '系统扩展（你无权修改）',
 		),
 		'title' => '扩展',
 		'update' => '更新可用',

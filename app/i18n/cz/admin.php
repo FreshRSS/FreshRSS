@@ -119,7 +119,6 @@ return array(
 		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Systémová rozšíření',
-			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 		),
 		'title' => 'Rozšíření',
 		'update' => 'Update available',	// TODO - Translation

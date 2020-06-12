@@ -119,7 +119,6 @@ return array(
 		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Systeemuitbreidingen',
-			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
 		),
 		'title' => 'Uitbreidingen',
 		'update' => 'Update beschikbaar',

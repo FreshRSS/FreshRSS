@@ -119,7 +119,6 @@ return array(
 		'status' => 'État',
 		'system' => array(
 			'_' => 'Extensions système',
-			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Mise à jour disponible',

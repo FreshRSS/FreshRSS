@@ -119,7 +119,6 @@ return array(
 		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Extensions sistèma',
-			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Mesa a jorn disponibla',

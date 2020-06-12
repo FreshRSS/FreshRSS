@@ -1,6 +1,5 @@
 <ul class="horizontal-list">
 	<li class="item">
-		<?php if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) { ?>
 		<?php $name_encoded = urlencode($this->ext_details->getName()); ?>
 		<div class="stick">
 			<a class="btn open-slider" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?> <?= _t('gen.action.manage') ?></a>
@@ -13,9 +12,6 @@
 			<button class="btn btn-attention confirm" form="form-extension" formaction="<?= _url('extension', 'remove', 'e', $name_encoded) ?>"><?= _t('gen.action.remove') ?></button>
 			<?php } ?>
 		</div>
-		<?php } else { ?>
-		<?= _t('admin.extensions.system.no_rights') ?>
-		<?php } ?>
 	</li>
 	<li class="item"><?= $this->ext_details->getName() ?></li>
 </ul>

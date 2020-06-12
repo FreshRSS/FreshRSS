@@ -119,7 +119,6 @@ return array(
 		'status' => 'Status',
 		'system' => array(
 			'_' => 'System extensions',
-			'no_rights' => 'System extension (you have no rights on it)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Update available',
