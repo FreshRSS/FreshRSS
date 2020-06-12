@@ -106,6 +106,7 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Autor',
 		'available' => 'Available',	// TODO - Translation
 		'community' => 'Rozšírenia od komunity',

@@ -106,6 +106,7 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',
 		'author' => 'Author',
 		'available' => 'Available',
 		'community' => 'Available community extensions',

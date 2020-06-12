@@ -30,10 +30,10 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
-			$this->view->extension_list[$ext->getType()][] = $ext;
-			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
+			$this->view->extension_list[$ext->getType()][$ext->getName()] = $ext;
+			$this->view->extensions_installed[$ext->getName()] = $ext->getVersion();
 			if ('user' === $ext->getType()) {
-				$user_installed[] = $ext->getEntrypoint();
+				$user_installed[] = $ext->getName();
 			}
 		}
 

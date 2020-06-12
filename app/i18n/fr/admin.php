@@ -106,6 +106,7 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',
 		'author' => 'Auteur',
 		'available' => 'Disponible',
 		'community' => 'Extensions utilisateur disponibles',

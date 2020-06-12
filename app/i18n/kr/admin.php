@@ -106,6 +106,7 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => '제작자',
 		'available' => 'Available',	// TODO - Translation
 		'community' => '사용 가능한 커뮤니티 확장 기능들',
