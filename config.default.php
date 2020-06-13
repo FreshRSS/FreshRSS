@@ -56,7 +56,7 @@ return array(
 	'auth_type' => 'form',
 
 	# When using http_auth, automatically register any unknown user
-	'http_auth_auto_register' => false,
+	'http_auth_auto_register' => true,
 
 	# Optionally, you can specify the $_SERVER key containing the email address used when registering
 	# the user (e.g. REMOTE_USER_EMAIL).
@@ -109,7 +109,7 @@ return array(
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
-		# Max number of accounts that anonymous users can create
+		# Max number of accounts that anonymous users can create (only for Web form login type)
 		#   0 for an unlimited number of accounts
 		#   1 is to not allow user registrations (1 is corresponding to the admin account)
 		'max_registrations' => 1,
