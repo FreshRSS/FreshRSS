@@ -5,16 +5,16 @@ return array(
 		'_' => 'Archiving',	// TODO - Translation
 		'delete_after' => 'Remove articles after',	// TODO - Translation
 		'exception' => 'Purge exception',	// TODO - Translation
-		'help' => 'More options are available in the individual feed settings',	// TODO - Translation
+		'help' => 'More options are available in the individual feed\'s settings',	// TODO - Translation
 		'keep_favourites' => 'Never delete favorites',
 		'keep_labels' => 'Never delete labels',	// TODO - Translation
 		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
-		'keep_min_by_feed' => 'Minimum number of articles to keep by feed',	// TODO - Translation
+		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// TODO - Translation
 		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
 		'keep_unreads' => 'Never delete unread articles',
 		'maintenance' => 'Maintenance',	// TODO - Translation
 		'optimize' => 'Optimize database',
-		'optimize_help' => 'Do occasionally to reduce the size of the database',	// TODO - Translation
+		'optimize_help' => 'Run occasionally to reduce the size of the database',	// TODO - Translation
 		'policy' => 'Purge policy',	// TODO - Translation
 		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	// TODO - Translation
 		'purge_now' => 'Purge now',	// TODO - Translation
@@ -42,10 +42,10 @@ return array(
 		'title' => 'Display',	// TODO - Translation
 		'width' => array(
 			'content' => 'Content width',	// TODO - Translation
-			'large' => 'Large',	// TODO - Translation
+			'large' => 'Wide',	// TODO - Translation
 			'medium' => 'Medium',	// TODO - Translation
-			'no_limit' => 'No limit',	// TODO - Translation
-			'thin' => 'Thin',	// TODO - Translation
+			'no_limit' => 'Full Width',	// TODO - Translation
+			'thin' => 'Narrow',	// TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -100,7 +100,7 @@ return array(
 		'after_onread' => 'After “mark all as read”,',	// TODO - Translation
 		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Number of articles per page',	// TODO - Translation
-		'auto_load_more' => 'Load more articles at the page bottom',	// TODO - Translation
+		'auto_load_more' => 'Load more articles at the bottom of the page',	// TODO - Translation
 		'auto_remove_article' => 'Hide articles after reading',	// TODO - Translation
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',	// TODO - Translation
 		'display_articles_unfolded' => 'Show articles unfolded by default',	// TODO - Translation
@@ -109,13 +109,13 @@ return array(
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// TODO - Translation
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO - Translation
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO - Translation
-		'number_divided_when_reader' => 'Divided by 2 in the reading view.',	// TODO - Translation
+		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO - Translation
 		'read' => array(
-			'article_open_on_website' => 'when article is opened on its original website',	// TODO - Translation
-			'article_viewed' => 'when article is viewed',	// TODO - Translation
+			'article_open_on_website' => 'when the article is opened on its original website',	// TODO - Translation
+			'article_viewed' => 'when the article is viewed',	// TODO - Translation
 			'scroll' => 'while scrolling',	// TODO - Translation
 			'upon_reception' => 'upon receiving the article',	// TODO - Translation
-			'when' => 'Mark article as read…',	// TODO - Translation
+			'when' => 'Mark an article as read…',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Articles to display',	// TODO - Translation
