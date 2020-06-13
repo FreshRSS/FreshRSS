@@ -77,6 +77,7 @@ People are sorted by name so please keep this order.
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
 * [Peter Stoinov](https://github.com/stoinov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stoinov), [Web](https://stoinov.com)
+* [Petra Lamborn](https://github.com/petraoleum): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:petraoleum), [Web](https://petras.space)
 * [Pim Snel](https://github.com/mipmip): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Amipmip), [Web](https://www.pimsnel.com)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
 * [Pofilo](https://github.com/Pofilo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Pofilo), [Web](https://www.pofilo.fr/)
