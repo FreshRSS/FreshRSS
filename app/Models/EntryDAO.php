@@ -1083,6 +1083,10 @@ SELECT c FROM (
 ORDER BY o
 SQL;
 		$stm = $this->pdo->prepare($sql);
+		if (!$stm) {
+			Minz_Log::error('SQL error in ' . __method__ . ' ' . json_encode($this->pdo->errorInfo()));
+			return false;
+		}
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
 		$stm->bindValue(':priority_normal1', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
 		$stm->bindValue(':priority_normal2', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
