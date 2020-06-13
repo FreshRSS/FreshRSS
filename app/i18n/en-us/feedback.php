@@ -3,7 +3,7 @@
 return array(
 	'access' => array(
 		'denied' => 'You don’t have permission to access this page',	// TODO - Translation
-		'not_found' => 'You are looking for a page which doesn’t exist',	// TODO - Translation
+		'not_found' => 'You are looking for a page that doesn’t exist',
 	),
 	'admin' => array(
 		'optimization_complete' => 'Optimization complete',	// TODO - Translation
@@ -29,7 +29,7 @@ return array(
 		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',	// TODO - Translation
 	),
 	'conf' => array(
-		'error' => 'An error occurred during configuration saving',	// TODO - Translation
+		'error' => 'An error occurred while saving configuration',
 		'query_created' => 'Query "%s" has been created.',	// TODO - Translation
 		'shortcuts_updated' => 'Shortcuts have been updated',	// TODO - Translation
 		'updated' => 'Configuration has been updated',	// TODO - Translation
@@ -49,11 +49,11 @@ return array(
 		'not_found' => '%s does not exist',	// TODO - Translation
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',	// TODO - Translation
+		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',
 		'feeds_imported' => 'Your feeds have been imported and will now be updated',	// TODO - Translation
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',	// TODO - Translation
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO - Translation
-		'no_zip_extension' => 'ZIP extension is not present on your server.',	// TODO - Translation
+		'no_zip_extension' => 'The ZIP extension is not present on your server.',
 		'zip_error' => 'An error occurred during ZIP import.',	// TODO - Translation
 	),
 	'profile' => array(
@@ -67,7 +67,7 @@ return array(
 			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
 		),
 		'category' => array(
-			'created' => 'Category %s has been created.',	// TODO - Translation
+			'created' => 'Category, %s, has been created.',
 			'deleted' => 'Category has been deleted.',	// TODO - Translation
 			'emptied' => 'Category has been emptied',	// TODO - Translation
 			'error' => 'Category cannot be updated',	// TODO - Translation
@@ -91,7 +91,7 @@ return array(
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO - Translation
 			'n_actualized' => '%d feeds have been updated',	// TODO - Translation
 			'n_entries_deleted' => '%d articles have been deleted',	// TODO - Translation
-			'no_refresh' => 'There is no feed to refresh…',	// TODO - Translation
+			'no_refresh' => 'There is no feed to refresh',
 			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
 			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
@@ -99,7 +99,7 @@ return array(
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',	// TODO - Translation
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
+				'no_feed' => 'Internal error (feed cannot be found).',
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
 			),
@@ -110,8 +110,8 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// TODO - Translation
 		'error' => 'The update process has encountered an error: %s',	// TODO - Translation
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-		'finished' => 'Update completed!',	// TODO - Translation
+		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',
+		'finished' => 'Update complete!',
 		'none' => 'No update to apply',	// TODO - Translation
 		'server_not_found' => 'Update server cannot be found. [%s]',	// TODO - Translation
 	),
