@@ -16,11 +16,10 @@ $username = cliInitUser($options['user']);
 
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
-$importController = new FreshRSS_importExport_Controller();
-
-$ok = false;
-$ok = $importController->exportFile($username, true, false, false, array(), 0);
+$export_service = new FreshRSS_Export_Service($username);
+list($filename, $content) = $export_service->generateOpml();
+echo $content;
 
 invalidateHttpCache($username);
 
-done($ok);
+done();
