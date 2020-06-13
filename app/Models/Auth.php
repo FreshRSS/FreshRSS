@@ -47,8 +47,8 @@ class FreshRSS_Auth {
 	 * @return boolean true if user can be connected, false else.
 	 */
 	private static function accessControl() {
-		$conf = Minz_Configuration::get('system');
-		$auth_type = $conf->auth_type;
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
@@ -66,11 +66,11 @@ class FreshRSS_Auth {
 				return false;
 			}
 			$login_ok = FreshRSS_UserDAO::exists($current_user);
-			if (!$login_ok && $conf->http_auth_auto_register) {
+			if (!$login_ok && FreshRSS_Context::$system_conf->http_auth_auto_register) {
 				$email = null;
-				if ($conf->http_auth_auto_register_email_field !== '' &&
-					isset($_SERVER[$conf->http_auth_auto_register_email_field])) {
-					$email = $_SERVER[$conf->http_auth_auto_register_email_field];
+				if (FreshRSS_Context::$system_conf->http_auth_auto_register_email_field !== '' &&
+					isset($_SERVER[FreshRSS_Context::$system_conf->http_auth_auto_register_email_field])) {
+					$email = $_SERVER[FreshRSS_Context::$system_conf->http_auth_auto_register_email_field];
 				}
 				$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '');
 			}
