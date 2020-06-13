@@ -117,10 +117,10 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// TODO - Translation
-			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',	// TODO - Translation
+			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',	// TODO - Translation
 		),
-		'new_article' => 'There are new available articles, click to refresh the page.',	// TODO - Translation
+		'new_article' => 'There are new articles available, click to refresh the page.',
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO - Translation
 	),
 	'lang' => array(
