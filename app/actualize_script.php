@@ -53,6 +53,10 @@ if ($system_conf->default_user !== '') {
 $limits = $system_conf->limits;
 $min_last_activity = time() - $limits['max_inactivity'];
 foreach ($users as $user) {
+	if (!get_user_configuration($user)->enabled) {
+		notice('FreshRSS skip disabled user ' . $user);
+		continue;
+	}
 	if (($user !== $system_conf->default_user) &&
 			(FreshRSS_UserDAO::mtime($user) < $min_last_activity)) {
 		notice('FreshRSS skip inactive user ' . $user);

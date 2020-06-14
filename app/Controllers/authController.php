@@ -131,6 +131,11 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
+			if (!$conf->enabled) {
+				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				return;
+			}
+
 			$ok = FreshRSS_FormAuth::checkCredentials(
 				$username, $conf->passwordHash, $nonce, $challenge
 			);

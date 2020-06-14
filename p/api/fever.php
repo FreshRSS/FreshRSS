@@ -163,7 +163,7 @@ class FeverAPI
 				$username = trim($username);
 				Minz_Session::_param('currentUser', $username);
 				$user_conf = get_user_configuration($username);
-				if ($user_conf != null && $feverKey === $user_conf->feverKey) {
+				if ($user_conf != null && $feverKey === $user_conf->feverKey && $user_conf->enabled) {
 					FreshRSS_Context::$user_conf = $user_conf;
 					Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();

@@ -190,6 +190,7 @@ return array(
 		'database_size' => '数据库大小',
 		'delete_users' => '删除用户',
 		'email' => '邮箱地址',
+		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => '订阅源数',
 		'is_admin' => '管理员',
 		'language' => '语言',
