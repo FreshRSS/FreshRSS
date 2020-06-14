@@ -157,6 +157,10 @@ function authorizationToUser() {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
+				if (!FreshRSS_Context::$user_conf->enabled) {
+					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
+					unauthorized();
+				}
 				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {

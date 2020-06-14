@@ -71,6 +71,7 @@
 		<thead>
 			<tr>
 				<th><?= _t('admin.user.username') ?></th>
+				<th><?= _t('admin.user.enabled') ?></th>
 				<th><?= _t('admin.user.is_admin') ?></th>
 				<th><?= _t('admin.user.email') ?></th>
 				<th><?= _t('admin.user.language') ?></th>
@@ -82,8 +83,9 @@
 		</thead>
 		<tbody>
 			<?php foreach ($this->users as $username => $values) : ?>
-				<tr>
+				<tr <?php if ($values['is_default']):?>class="default-user"<?php endif; ?>>
 					<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
+					<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
 					<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 					<td><?= $values['mail_login'] ?></td>
 					<td><?= _t("gen.lang.{$values['language']}") ?></td>

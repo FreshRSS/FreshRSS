@@ -190,6 +190,7 @@ return array(
 		'database_size' => 'Tamanho do banco de dados',
 		'delete_users' => 'Deletar usuário',
 		'email' => 'Endereço de email',
+		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',
 		'is_admin' => 'É administrador',
 		'language' => 'Idioma',

@@ -140,6 +140,11 @@ foreach ($users as $userFilename) {
 			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);
 		}
 
+		if (!FreshRSS_Context::$user_conf->enabled) {
+			Minz_Log::warning('FreshRSS skip disabled user ' . $username);
+			continue;
+		}
+
 		list($updated_feeds, $feed, $nb_new_articles) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
 		if ($updated_feeds > 0 || $feed != false) {
 			$nb++;
