@@ -145,7 +145,7 @@ return array(
 			'main' => 'Main statistics',	// TODO - Translation
 			'repartition' => 'Articles repartition',	// TODO - Translation
 		),
-		'no_idle' => 'There is no idle feed!',	// TODO - Translation
+		'no_idle' => 'There are no idle feeds!',
 		'number_entries' => '%d articles',	// TODO - Translation
 		'percent_of_total' => '%% of total',	// TODO - Translation
 		'repartition' => 'Articles repartition',	// TODO - Translation
