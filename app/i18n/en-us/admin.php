@@ -67,7 +67,7 @@ return array(
 			'ok' => 'You have the JSON extension.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',
 			'ok' => 'You have the recommended mbstring library for Unicode.',
 		),
 		'minz' => array(
