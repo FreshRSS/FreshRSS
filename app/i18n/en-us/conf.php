@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',
 		'skip_previous_article' => 'Focus previous without opening',
 		'title' => 'Shortcuts',
+		'toggle_media' => 'Play/pause media',
 		'user_filter' => 'Access user queries',
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',
 		'views' => 'Views',

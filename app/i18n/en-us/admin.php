@@ -190,6 +190,7 @@ return array(
 		'database_size' => 'Database size',
 		'delete_users' => 'Delete user',
 		'email' => 'Email address',
+		'enabled' => 'Enabled',
 		'feed_count' => 'Feeds',
 		'is_admin' => 'Is admin',
 		'language' => 'Language',
