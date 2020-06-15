@@ -3,19 +3,19 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'The email address is invalid.',	// TODO - Translation
-			'required' => 'The email address is required.',	// TODO - Translation
+			'invalid' => 'This email address is invalid.',
+			'required' => 'An email address is required.',
 		),
 		'validation' => array(
 			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.',	// TODO - Translation
+			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its instructions to validate your address.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a misconfiguration of the server.',	// TODO - Translation
+				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',
 				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'The email address failed to be validated.',	// TODO - Translation
-				'ok' => 'The email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'The email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'error' => 'This email address validation failed.',
+				'ok' => 'This email address has been validated.',
+				'unneccessary' => 'This email address was already validated.',
+				'wrong_token' => 'This email address failed to be validated due to a wrong token.',
 			),
 			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
 			'resend_email' => 'Resend the email',	// TODO - Translation
@@ -24,7 +24,7 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s but you still need to validate your email. For that, just follow the link:',	// TODO - Translation
+			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',
 			'title' => 'You need to validate your account',	// TODO - Translation
 			'welcome' => 'Welcome %s,',	// TODO - Translation
 		),
@@ -38,7 +38,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => 'The username is invalid.',	// TODO - Translation
-		'taken' => 'The username %s is taken.',	// TODO - Translation
+		'invalid' => 'This username is invalid.',
+		'taken' => 'This username, %s, is taken.',
 	),
 );
