@@ -6,7 +6,7 @@ return array(
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',
 		'label' => 'Subscribe',	// TODO - Translation
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
@@ -67,17 +67,17 @@ return array(
 		),
 		'show' => array(
 			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'error' => 'Show only feeds with errors',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Showing only feeds with errors',
 		),
 		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
 		'stats' => 'Statistics',	// TODO - Translation
 		'think_to_add' => 'You may add some feeds.',	// TODO - Translation
 		'timeout' => 'Timeout in seconds',	// TODO - Translation
 		'title' => 'Title',	// TODO - Translation
-		'title_add' => 'Add a RSS feed',	// TODO - Translation
+		'title_add' => 'Add an RSS feed',
 		'ttl' => 'Do not automatically refresh more often than',	// TODO - Translation
 		'url' => 'Feed URL',	// TODO - Translation
 		'validator' => 'Check the validity of the feed',	// TODO - Translation
@@ -104,11 +104,11 @@ return array(
 	'menu' => array(
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
 		'import_export' => 'Import / export',	// TODO - Translation
-		'subscription_management' => 'Subscriptions management',	// TODO - Translation
+		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
-		'_' => 'Subscriptions management',	// TODO - Translation
+		'_' => 'Subscription management',
 		'feed_management' => 'RSS feeds management',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
