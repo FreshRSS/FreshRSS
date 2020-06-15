@@ -234,7 +234,7 @@ class I18nData {
 	 *
 	 * @param string $language
 	 * @param boolean $reverse
-   */
+	 */
 	public function ignore_unmodified($language, $reverse = false) {
 		$my_language = $this->getLanguage($language);
 		foreach ($this->getReferenceLanguage() as $file => $ref_language) {
