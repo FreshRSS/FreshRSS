@@ -4,6 +4,7 @@
 # `./data/config-user.custom.php` file instead, containing the keys you want to
 # override.
 return array (
+	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
 	'archiving' => [
@@ -75,6 +76,7 @@ return array (
 		'global_view' => '2',
 		'reading_view' => '3',
 		'rss_view' => '4',
+		'toggle_media' => 'v',
 	),
 	'show_favicons' => true,
 	'topline_read' => true,

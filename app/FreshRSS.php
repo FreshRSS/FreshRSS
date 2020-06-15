@@ -68,7 +68,7 @@ class FreshRSS extends Minz_FrontController {
 				// Basic protection against XSRF attacks
 				FreshRSS_Auth::removeAccess();
 				$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
-				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				self::initI18n();
 				Minz_Error::error(403, array('error' => array(
 						_t('feedback.access.denied'),
 						' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
@@ -80,7 +80,7 @@ class FreshRSS extends Minz_FrontController {
 					!FreshRSS_Auth::hasAccess('admin'))
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
-				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				self::initI18n();
 				Minz_Error::error(403, array('error' => array(
 						_t('feedback.access.denied'),
 						' [CSRF]'
@@ -90,8 +90,11 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private static function initI18n() {
-		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
-		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+		$selected_language = FreshRSS_Auth::hasAccess() ? FreshRSS_Context::$user_conf->language : null;
+		$language = Minz_Translate::getLanguage($selected_language, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
+
+		Minz_Session::_param('language', $language);
+		Minz_Translate::init($language);
 	}
 
 	public static function loadStylesAndScripts() {

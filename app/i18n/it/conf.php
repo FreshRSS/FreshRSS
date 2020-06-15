@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Comandi da tastiera',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Accedi alle ricerche personali',
 		'user_filter_help' => 'Se è presente una sola ricerca personale verrà usata quella, altrimenti usare anche il numero associato.',
 		'views' => 'Views',	// TODO - Translation

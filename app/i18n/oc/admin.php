@@ -190,6 +190,7 @@ return array(
 		'database_size' => 'Talha basa de donadas',
 		'delete_users' => 'Suprimir un utilizaire',
 		'email' => 'Adreça electronica',
+		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Flux',
 		'is_admin' => 'Es admin',
 		'language' => 'Lenga',

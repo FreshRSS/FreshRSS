@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Accedir als filtres utilizaire',
 		'user_filter_help' => 'S’i a pas qu’un filtre utilizaire, aquel serà utilizat. Autrament los filtres son accessibles per lor numèro.',
 		'views' => 'Vistas',

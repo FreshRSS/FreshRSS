@@ -224,6 +224,7 @@ function saveStep3() {
 				[
 					'language' => $_SESSION['language'],
 					'is_admin' => true,
+					'enabled' => true,
 				]
 			);
 		} catch (Exception $e) {

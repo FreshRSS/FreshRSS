@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',
 		'skip_previous_article' => 'Vorherigen markieren ohne zu öffnen',
 		'title' => 'Tastenkombination',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
 		'views' => 'Ansichten',

@@ -125,21 +125,6 @@ function init_remove_observers() {
 		});
 }
 
-function init_feed_observers() {
-	const s = document.getElementById('category');
-	if (s && s.matches('select')) {
-		s.onchange = function (ev) {
-				const detail = document.getElementById('new_category_name').parentElement;
-				if (this.value === 'nc') {
-					detail.setAttribute('aria-hidden', 'false');
-					detail.querySelector('input').focus();
-				} else {
-					detail.setAttribute('aria-hidden', 'true');
-				}
-			};
-	}
-}
-
 function init_password_observers() {
 	document.querySelectorAll('.toggle-password').forEach(function (a) {
 			a.onmousedown = function (ev) {
@@ -257,7 +242,6 @@ function init_extra() {
 	init_crypto_form();
 	init_share_observers();
 	init_remove_observers();
-	init_feed_observers();
 	init_password_observers();
 	init_select_observers();
 	init_slider_observers();

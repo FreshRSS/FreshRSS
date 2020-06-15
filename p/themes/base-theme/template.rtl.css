@@ -1203,6 +1203,10 @@ input:checked + .slide-container .properties {
 	white-space: pre-line;
 }
 
+.default-user {
+	font-style: italic;
+}
+
 /*=== READER */
 /*===========*/
 .reader .nav_menu .toggle_aside {

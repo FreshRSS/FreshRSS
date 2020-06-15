@@ -216,6 +216,13 @@ Here we are! We've talked about the most useful features of Minz and how to run 
 
 An extension allows you to easily add functionality to FreshRSS without having to touch the core of the project directly.
 
+### Make it work in Docker
+
+When working on an extension, it's easier to see it working directly in its environment. With Docker, you can leverage the use of the ```volume``` option when starting the container. Hopefully, you can use it without Docker-related knowledge by using the Makefile rule:
+```
+make start extensions="/full/path/to/extension/1 /full/path/to/extension/2"
+```
+
 ### Basic files and folders
 
 The first thing to note is that **all** extensions **must** be located in the `extensions` directory, at the base of the FreshRSS tree.

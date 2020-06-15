@@ -123,13 +123,28 @@ class I18nData {
 	 * Add a new language. It's a copy of the reference language.
 	 *
 	 * @param string $language
+	 * @param string $reference
 	 * @throws Exception
 	 */
-	public function addLanguage($language) {
+	public function addLanguage($language, $reference = null) {
 		if (array_key_exists($language, $this->data)) {
 			throw new Exception('The selected language already exist.');
 		}
-		$this->data[$language] = $this->data[static::REFERENCE_LANGUAGE];
+		if (!is_string($reference) && !array_key_exists($reference, $this->data)) {
+			$reference = static::REFERENCE_LANGUAGE;
+		}
+		$this->data[$language] = $this->data[$reference];
+	}
+
+	/**
+	 * Check if the key is known.
+	 *
+	 * @param string $key
+	 * @return bool
+	 */
+	public function isKnown($key) {
+		return array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
+			array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
 	}
 
 	/**
@@ -140,8 +155,7 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function addKey($key, $value) {
-		if (array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
-		    array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if ($this->isKnown($key)) {
 			throw new Exception('The selected key already exist.');
 		}
 
@@ -178,8 +192,7 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function removeKey($key) {
-		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
-		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (!$this->isKnown($key)) {
 			throw new Exception('The selected key does not exist.');
 		}
 		foreach ($this->getAvailableLanguages() as $language) {

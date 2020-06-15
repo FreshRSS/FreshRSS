@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
 		'title' => 'API',
@@ -16,7 +17,6 @@ return array(
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
-		'new' => '새 카테고리',
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => '제목',
@@ -102,6 +102,8 @@ return array(
 		'title' => '불러오기 / 내보내기',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
 		'subscription_management' => '구독 관리',
@@ -109,6 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => '구독 관리',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'RSS 피드 관리',
 		'subscription_tools' => '구독 도구',
 	),

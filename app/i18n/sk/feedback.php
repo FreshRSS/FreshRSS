@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s už je povolené',
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s sa nepodarilo nainštalovať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz zakázaný',
@@ -47,6 +48,7 @@ return array(
 		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
