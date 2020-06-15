@@ -91,7 +91,7 @@ return array(
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO - Translation
 			'n_actualized' => '%d feeds have been updated',	// TODO - Translation
 			'n_entries_deleted' => '%d articles have been deleted',	// TODO - Translation
-			'no_refresh' => 'There is no feed to refresh',
+			'no_refresh' => 'There are no feeds to refresh',
 			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
 			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
