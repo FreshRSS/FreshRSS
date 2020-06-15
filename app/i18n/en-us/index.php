@@ -16,7 +16,7 @@ return array(
 		'website' => 'Website',
 	),
 	'feed' => array(
-		'add' => 'Add some feeds.',
+		'add' => 'Please add some feeds.',
 		'empty' => 'There are no articles to show.',
 		'rss_of' => 'RSS feed of %s',
 		'title' => 'Your RSS feeds',

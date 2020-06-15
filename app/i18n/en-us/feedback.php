@@ -69,7 +69,7 @@ return array(
 			'marked_unread' => 'The articles have been marked as unread.',
 		),
 		'category' => array(
-			'created' => 'Category, %s, has been created.',
+			'created' => 'Category %s has been created.',
 			'deleted' => 'Category has been deleted.',
 			'emptied' => 'Category has been emptied',
 			'error' => 'Category cannot be updated',

@@ -208,7 +208,7 @@ return array(
 		'default_category' => 'Uncategorized',
 		'no' => 'No',
 		'not_applicable' => 'Not available',
-		'ok' => 'OK!',
+		'ok' => 'Okay!',
 		'or' => 'or',
 		'yes' => 'Yes',
 	),
