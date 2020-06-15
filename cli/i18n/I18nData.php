@@ -230,7 +230,7 @@ class I18nData {
 	}
 
 	/**
-	 * Ignore all unmidified keys from a language, or reverse it.
+	 * Ignore all unmodified keys from a language, or reverse it.
 	 *
 	 * @param string $language
 	 * @param boolean $reverse
