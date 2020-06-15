@@ -93,8 +93,7 @@ i18n-format: ## Format I18N files
 .PHONY: i18n-add-language
 i18n-add-language: ## Add a new supported language
 ifndef lang
-	@echo To add a new language, you need to provide one in the "lang" variable.
-	@exit 10
+	$(error To add a new language, you need to provide one in the "lang" variable)
 endif
 	$(PHP) ./cli/manipulate.translation.php -a add -l $(lang) -o $(ref)
 	@echo Language added.
@@ -102,12 +101,10 @@ endif
 .PHONY: i18n-add-key
 i18n-add-key: ## Add a translation key to all supported languages
 ifndef key
-	@echo To add a key, you need to provide one in the "key" variable.
-	@exit 10
+	$(error To add a key, you need to provide one in the "key" variable)
 endif
 ifndef value
-	@echo To add a key, you need to provide its value in the "value" variable.
-	@exit 10
+	$(error To add a key, you need to provide its value in the "value" variable)
 endif
 	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
 	@echo Key added.
@@ -115,8 +112,7 @@ endif
 .PHONY: i18n-remove-key
 i18n-remove-key: ## Remove a translation key from all supported languages
 ifndef key
-	@echo To remove a key, you need to provide one in the "key" variable.
-	@exit 10
+	$(error To remove a key, you need to provide one in the "key" variable)
 endif
 	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
 	@echo Key removed.
@@ -124,12 +120,10 @@ endif
 .PHONY: i18n-update-key
 i18n-update-key: ## Update a translation key in all supported languages
 ifndef key
-	@echo To update a key, you need to provide one in the "key" variable.
-	@exit 10
+	$(error To update a key, you need to provide one in the "key" variable)
 endif
 ifndef value
-	@echo To update a key, you need to provide its value in the "value" variable.
-	@exit 10
+	$(error To update a key, you need to provide its value in the "value" variable)
 endif
 	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
 	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
@@ -138,12 +132,10 @@ endif
 .PHONY: i18n-ignore-key
 i18n-ignore-key: ## Ignore a translation key for the selected language
 ifndef lang
-	@echo To ignore a key, you need to provide a language in the "lang" variable.
-	@exit 10
+	$(error To ignore a key, you need to provide a language in the "lang" variable)
 endif
 ifndef key
-	@echo To ignore a key, you need to provide one in the "key" variable.
-	@exit 10
+	$(error To ignore a key, you need to provide one in the "key" variable)
 endif
 	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
 	@echo Key ignored.
@@ -151,8 +143,7 @@ endif
 .PHONY: i18n-key-exists
 i18n-key-exists: ## Check if a translation key exists
 ifndef key
-	@echo To check if a key exists, you need to provide one in the "key" variable.
-	@exit 10
+	$(error To check if a key exists, you need to provide one in the "key" variable)
 endif
 	@$(PHP) ./cli/manipulate.translation.php -a exist -k $(key)
 
