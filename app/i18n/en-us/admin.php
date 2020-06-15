@@ -68,7 +68,7 @@ return array(
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
-			'ok' => 'You have the recommended library, mbstring, for Unicode.',
+			'ok' => 'You have the recommended mbstring library for Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Cannot find the Minz framework.',
