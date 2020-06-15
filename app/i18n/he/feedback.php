@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO - Translation
 			'ok' => '%s is now disabled',	// TODO - Translation
@@ -47,6 +48,7 @@ return array(
 		'no_access' => 'You have no access on %s',	// TODO - Translation
 		'not_enabled' => '%s is not enabled yet',
 		'not_found' => '%s does not exist',	// TODO - Translation
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',

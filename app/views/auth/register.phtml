@@ -5,6 +5,16 @@
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
+			<label for="new_user_language"><?= _t('admin.user.language') ?></label>
+			<select name="new_user_language" id="new_user_language">
+			<?php $languages = Minz_Translate::availableLanguages(); ?>
+			<?php foreach ($languages as $lang) { ?>
+			<option value="<?= $lang ?>"<?= $this->preferred_language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
+			<?php } ?>
+			</select>
+		</div>
+
+		<div class="form-group">
 			<label for="new_user_name"><?= _t('gen.auth.username') ?></label>
 			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocapitalize="off" />
 			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.username.format') ?></p>

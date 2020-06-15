@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovať',
+		'add' => 'Add',	// TODO - Translation
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
@@ -146,7 +147,7 @@ return array(
 		'admin' => 'Administrácia',
 		'archiving' => 'Archivácia',
 		'authentication' => 'Prihlásenie',
-		'check_install' => 'Kontroloa inštalácie',
+		'check_install' => 'Kontrola inštalácie',
 		'configuration' => 'Nastavenia',
 		'display' => 'Zobrazenie',
 		'extensions' => 'Rozšírenia',

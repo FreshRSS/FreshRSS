@@ -798,7 +798,7 @@ form th {
   border-radius: 3px;
 }
 
-.aside_feed .stick #btn-importExport {
+.aside_feed .stick #btn-add {
   border-left-color: #303136;
 }
 
@@ -1105,7 +1105,6 @@ form th {
 .content code, .content.thin code {
   padding: 2px 5px;
   background: #f9fafb;
-  color: #eff0f2;
   border: 1px solid #eff0f2;
   border-radius: 3px;
 }

@@ -157,6 +157,10 @@ function authorizationToUser() {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
+				if (!FreshRSS_Context::$user_conf->enabled) {
+					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
+					unauthorized();
+				}
 				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {
@@ -392,10 +396,15 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 function quickadd($url) {
 	try {
 		$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
+		if (substr($url, 0, 5) === 'feed/') {
+			$url = substr($url, 5);
+		}
 		$feed = FreshRSS_feed_Controller::addFeed($url);
 		exit(json_encode(array(
 				'numResults' => 1,
-				'streamId' => $feed->id(),
+				'query' => $feed->url(),
+				'streamId' => 'feed/' . $feed->id(),
+				'streamName' => $feed->name(),
 			), JSON_OPTIONS));
 	} catch (Exception $e) {
 		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
@@ -1052,8 +1061,8 @@ if ($pathInfos[1] === 'accounts') {
 						}
 						break;
 					case 'quickadd':	//https://github.com/theoldreader/api
-						if (isset($_GET['quickadd'])) {
-							quickadd($_GET['quickadd']);
+						if (isset($_REQUEST['quickadd'])) {
+							quickadd($_REQUEST['quickadd']);
 						}
 						break;
 				}

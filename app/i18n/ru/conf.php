@@ -188,6 +188,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Shortcuts',	// TODO - Translation
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Access user filters',
 		'user_filter_help' => 'If there is only one user filter, it is used. Else filters are accessible by their number.',
 		'views' => 'Views',	// TODO - Translation

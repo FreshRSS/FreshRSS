@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'L\'ajout de flux et de catégories se fait désormais <a href=\'%s\'>ici</a>. Il est possible d\'y accéder depuis le menu de gauche ou depuis l\'icône ✚ présente sur la page principale.',
 	'api' => array(
 		'documentation' => 'Copier l’URL suivante dans l’outil qui utilisera l’API.',
 		'title' => 'API',	// TODO - Translation
@@ -16,7 +17,6 @@ return array(
 		'archiving' => 'Archivage',
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
-		'new' => 'Nouvelle catégorie',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
@@ -102,6 +102,8 @@ return array(
 		'title' => 'Importer / exporter',
 	),
 	'menu' => array(
+		'add' => 'Ajouter un flux/une catégorie',
+		'add_feed' => 'Ajouter un flux',
 		'bookmark' => 'S’abonner (bookmark FreshRSS)',
 		'import_export' => 'Importer / exporter',
 		'subscription_management' => 'Gestion des abonnements',
@@ -109,6 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Gestion des abonnements',
+		'add' => 'Ajouter un flux/une catégorie',
+		'add_category' => 'Ajouter une catégorie',
+		'add_feed' => 'Ajouter un flux',
 		'feed_management' => 'Gestion des flux RSS',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
