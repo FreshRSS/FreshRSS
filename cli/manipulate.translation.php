@@ -49,6 +49,14 @@ switch ($options['a']) {
 			exit;
 		}
 		break;
+	case 'ignore_unmodified' :
+		if (array_key_exists('l', $options)) {
+			$i18nData->ignore_unmodified($options['l'], array_key_exists('r', $options));
+		} else {
+			error('You need to specify a valid set of options.');
+			exit;
+		}
+    break;
 	default :
 		help();
 		exit;
@@ -111,7 +119,13 @@ Exemple 6: ignore a key. It adds the key in the ignore file to mark it as transl
 	php %1\$s -a ignore -k my_key -l my_lang
 
 Exemple 7: revert ignore a key. It removes the key from the ignore file.
-	php %1\$s -a ignore -r -k my_key -l my_lang\n\n
+	php %1\$s -a ignore -r -k my_key -l my_lang
+
+Exemple 8: ignore all unmodified keys. It adds all modified keys in the ignore file to mark it as translated.
+	php %1\$s -a ignore_unmodified -l my_lang
+
+Exemple 9: revert ignore of all unmodified keys. It removes the unmodified keys from the ignore file.  Warning, this will also revert keys added individually.
+	php %1\$s -a ignore_unmodified -r -l my_lang\n\n
 HELP;
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 	echo sprintf($help, $file);

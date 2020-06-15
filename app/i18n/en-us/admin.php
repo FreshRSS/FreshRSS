@@ -3,16 +3,16 @@
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Allow anonymous reading of the default user\'s articles (%s)',
-		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// TODO - Translation
-		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// TODO - Translation
-		'form' => 'Web form (traditional, requires JavaScript)',	// TODO - Translation
-		'http' => 'HTTP (for advanced users with HTTPS)',	// TODO - Translation
-		'none' => 'None (dangerous)',	// TODO - Translation
-		'title' => 'Authentication',	// TODO - Translation
-		'title_reset' => 'Authentication reset',	// TODO - Translation
-		'token' => 'Authentication token',	// TODO - Translation
-		'token_help' => 'Allows access to RSS output of the default user without authentication:',	// TODO - Translation
-		'type' => 'Authentication method',	// TODO - Translation
+		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
+		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
+		'form' => 'Web form (traditional, requires JavaScript)',
+		'http' => 'HTTP (for advanced users with HTTPS)',
+		'none' => 'None (dangerous)',
+		'title' => 'Authentication',
+		'title_reset' => 'Authentication reset',
+		'token' => 'Authentication token',
+		'token_help' => 'Allows access to RSS output of the default user without authentication:',
+		'type' => 'Authentication method',
 		'unsafe_autologin' => 'Allow unsafe automatic login using the format:	-> todo',
 	),
 	'check_install' => array(
@@ -21,32 +21,32 @@ return array(
 			'ok' => 'Permissions on the cache directory are good.',
 		),
 		'categories' => array(
-			'nok' => 'Category table is improperly configured.',	// TODO - Translation
+			'nok' => 'Category table is improperly configured.',
 			'ok' => 'Category table is okay.',
 		),
 		'connection' => array(
-			'nok' => 'Connection to the database cannot be established.',	// TODO - Translation
+			'nok' => 'Connection to the database cannot be established.',
 			'ok' => 'Connection to the database is okay.',
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// TODO - Translation
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO - Translation
+			'nok' => 'Cannot find a required library for character type checking (php-ctype).',
+			'ok' => 'You have the required library for character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO - Translation
-			'ok' => 'You have the cURL library.',	// TODO - Translation
+			'nok' => 'Cannot find the cURL library (php-curl package).',
+			'ok' => 'You have the cURL library.',
 		),
 		'data' => array(
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
 		),
-		'database' => 'Database installation',	// TODO - Translation
+		'database' => 'Database installation',
 		'dom' => array(
-			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// TODO - Translation
-			'ok' => 'You have the required library to browse the DOM.',	// TODO - Translation
+			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',
+			'ok' => 'You have the required library to browse the DOM.',
 		),
 		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// TODO - Translation
+			'nok' => 'Entry table is improperly configured.',
 			'ok' => 'Entry table is okay.',
 		),
 		'favicons' => array(
@@ -54,42 +54,42 @@ return array(
 			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'feeds' => array(
-			'nok' => 'Feed table is improperly configured.',	// TODO - Translation
+			'nok' => 'Feed table is improperly configured.',
 			'ok' => 'Feed table is okay.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the fileinfo library.',
 		),
-		'files' => 'File installation',	// TODO - Translation
+		'files' => 'File installation',
 		'json' => array(
-			'nok' => 'Cannot find JSON (php-json package).',	// TODO - Translation
+			'nok' => 'Cannot find JSON (php-json package).',
 			'ok' => 'You have the JSON extension.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
 			'ok' => 'You have the recommended library, mbstring, for Unicode.',
 		),
 		'minz' => array(
-			'nok' => 'Cannot find the Minz framework.',	// TODO - Translation
-			'ok' => 'You have the Minz framework.',	// TODO - Translation
+			'nok' => 'Cannot find the Minz framework.',
+			'ok' => 'You have the Minz framework.',
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// TODO - Translation
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO - Translation
+			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',
+			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// TODO - Translation
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO - Translation
+			'_' => 'PHP installation',
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',
 		),
 		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',	// TODO - Translation
-			'ok' => 'The appropriate tables exist in the database.',	// TODO - Translation
+			'nok' => 'There are one or more missing tables in the database.',
+			'ok' => 'The appropriate tables exist in the database.',
 		),
 		'title' => 'Installation check',
 		'tokens' => array(
@@ -106,104 +106,104 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
-		'disabled' => 'Disabled',	// TODO - Translation
-		'empty_list' => 'There are no installed extensions',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
-		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
+		'author' => 'Author',
+		'community' => 'Available community extensions',
+		'description' => 'Description',
+		'disabled' => 'Disabled',
+		'empty_list' => 'There are no installed extensions',
+		'enabled' => 'Enabled',
+		'latest' => 'Installed',
+		'name' => 'Name',
+		'no_configure_view' => 'This extension cannot be configured.',
 		'system' => array(
-			'_' => 'System extensions',	// TODO - Translation
+			'_' => 'System extensions',
 			'no_rights' => 'System extension (you do not have the required permissions)',
 		),
-		'title' => 'Extensions',	// TODO - Translation
-		'update' => 'Update available',	// TODO - Translation
-		'user' => 'User extensions',	// TODO - Translation
-		'version' => 'Version',	// TODO - Translation
+		'title' => 'Extensions',
+		'update' => 'Update available',
+		'user' => 'User extensions',
+		'version' => 'Version',
 	),
 	'stats' => array(
-		'_' => 'Statistics',	// TODO - Translation
-		'all_feeds' => 'All feeds',	// TODO - Translation
-		'category' => 'Category',	// TODO - Translation
-		'entry_count' => 'Entry count',	// TODO - Translation
-		'entry_per_category' => 'Entries per category',	// TODO - Translation
-		'entry_per_day' => 'Entries per day (last 30 days)',	// TODO - Translation
-		'entry_per_day_of_week' => 'Per day of week (average: %.2f messages)',	// TODO - Translation
-		'entry_per_hour' => 'Per hour (average: %.2f messages)',	// TODO - Translation
-		'entry_per_month' => 'Per month (average: %.2f messages)',	// TODO - Translation
-		'entry_repartition' => 'Entries repartition',	// TODO - Translation
-		'feed' => 'Feed',	// TODO - Translation
-		'feed_per_category' => 'Feeds per category',	// TODO - Translation
-		'idle' => 'Idle feeds',	// TODO - Translation
-		'main' => 'Main statistics',	// TODO - Translation
-		'main_stream' => 'Main stream',	// TODO - Translation
+		'_' => 'Statistics',
+		'all_feeds' => 'All feeds',
+		'category' => 'Category',
+		'entry_count' => 'Entry count',
+		'entry_per_category' => 'Entries per category',
+		'entry_per_day' => 'Entries per day (last 30 days)',
+		'entry_per_day_of_week' => 'Per day of week (average: %.2f messages)',
+		'entry_per_hour' => 'Per hour (average: %.2f messages)',
+		'entry_per_month' => 'Per month (average: %.2f messages)',
+		'entry_repartition' => 'Entries repartition',
+		'feed' => 'Feed',
+		'feed_per_category' => 'Feeds per category',
+		'idle' => 'Idle feeds',
+		'main' => 'Main statistics',
+		'main_stream' => 'Main stream',
 		'menu' => array(
-			'idle' => 'Idle feeds',	// TODO - Translation
-			'main' => 'Main statistics',	// TODO - Translation
-			'repartition' => 'Articles repartition',	// TODO - Translation
+			'idle' => 'Idle feeds',
+			'main' => 'Main statistics',
+			'repartition' => 'Articles repartition',
 		),
 		'no_idle' => 'There are no idle feeds!',
-		'number_entries' => '%d articles',	// TODO - Translation
-		'percent_of_total' => '%% of total',	// TODO - Translation
-		'repartition' => 'Articles repartition',	// TODO - Translation
+		'number_entries' => '%d articles',
+		'percent_of_total' => '%% of total',
+		'repartition' => 'Articles repartition',
 		'status_favorites' => 'Favorites',
-		'status_read' => 'Read',	// TODO - Translation
-		'status_total' => 'Total',	// TODO - Translation
-		'status_unread' => 'Unread',	// TODO - Translation
-		'title' => 'Statistics',	// TODO - Translation
-		'top_feed' => 'Top ten feeds',	// TODO - Translation
+		'status_read' => 'Read',
+		'status_total' => 'Total',
+		'status_unread' => 'Unread',
+		'title' => 'Statistics',
+		'top_feed' => 'Top ten feeds',
 	),
 	'system' => array(
-		'_' => 'System configuration',	// TODO - Translation
-		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'_' => 'System configuration',
+		'auto-update-url' => 'Auto-update server URL',
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => 'in seconds',
+			'number' => 'Duration to keep logged in',
 		),
 		'force_email_validation' => 'Force email address validation',
-		'instance-name' => 'Instance name',	// TODO - Translation
+		'instance-name' => 'Instance name',
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
-			'help' => '0 means that there is no account limit',	// TODO - Translation
-			'number' => 'Max number of accounts',	// TODO - Translation
+			'help' => '0 means that there is no account limit',
+			'number' => 'Max number of accounts',
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// TODO - Translation
-		'apply' => 'Apply',	// TODO - Translation
-		'check' => 'Check for new updates',	// TODO - Translation
-		'current_version' => 'Your current version of FreshRSS is %s.',	// TODO - Translation
-		'last' => 'Last verification: %s',	// TODO - Translation
-		'none' => 'No update to apply',	// TODO - Translation
-		'title' => 'Update system',	// TODO - Translation
+		'_' => 'Update system',
+		'apply' => 'Apply',
+		'check' => 'Check for new updates',
+		'current_version' => 'Your current version of FreshRSS is %s.',
+		'last' => 'Last verification: %s',
+		'none' => 'No update to apply',
+		'title' => 'Update system',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
-		'create' => 'Create new user',	// TODO - Translation
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
-		'language' => 'Language',	// TODO - Translation
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
-		'number' => 'There is %d account created',	// TODO - Translation
-		'numbers' => 'There are %d accounts created',	// TODO - Translation
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO - Translation
-		'password_format' => 'At least 7 characters',	// TODO - Translation
-		'selected' => 'Selected user',	// TODO - Translation
-		'title' => 'Manage users',	// TODO - Translation
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'List of users',	// TODO - Translation
-		'username' => 'Username',	// TODO - Translation
-		'users' => 'Users',	// TODO - Translation
+		'admin' => 'Administrator',
+		'article_count' => 'Articles',
+		'articles_and_size' => '%s articles (%s)',
+		'back_to_manage' => '← Return to user list',
+		'create' => 'Create new user',
+		'database_size' => 'Database size',
+		'delete_users' => 'Delete user',
+		'email' => 'Email address',
+		'feed_count' => 'Feeds',
+		'is_admin' => 'Is admin',
+		'language' => 'Language',
+		'last_user_activity' => 'Last user activity',
+		'list' => 'User list',
+		'number' => 'There is %d account created',
+		'numbers' => 'There are %d accounts created',
+		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
+		'password_format' => 'At least 7 characters',
+		'selected' => 'Selected user',
+		'title' => 'Manage users',
+		'update_users' => 'Update user',
+		'user_list' => 'List of users',
+		'username' => 'Username',
+		'users' => 'Users',
 	),
 );

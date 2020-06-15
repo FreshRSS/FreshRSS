@@ -2,47 +2,47 @@
 
 return array(
 	'action' => array(
-		'finish' => 'Complete installation',	// TODO - Translation
+		'finish' => 'Complete installation',
 		'fix_errors_before' => 'Please fix errors before continuing to the next step.',
-		'keep_install' => 'Keep previous configuration',	// TODO - Translation
-		'next_step' => 'Go to the next step',	// TODO - Translation
-		'reinstall' => 'Reinstall FreshRSS',	// TODO - Translation
+		'keep_install' => 'Keep previous configuration',
+		'next_step' => 'Go to the next step',
+		'reinstall' => 'Reinstall FreshRSS',
 	),
 	'auth' => array(
-		'form' => 'Web form (traditional, requires JavaScript)',	// TODO - Translation
-		'http' => 'HTTP (for advanced users with HTTPS)',	// TODO - Translation
-		'none' => 'None (dangerous)',	// TODO - Translation
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO - Translation
-		'password_format' => 'At least 7 characters',	// TODO - Translation
-		'type' => 'Authentication method',	// TODO - Translation
+		'form' => 'Web form (traditional, requires JavaScript)',
+		'http' => 'HTTP (for advanced users with HTTPS)',
+		'none' => 'None (dangerous)',
+		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
+		'password_format' => 'At least 7 characters',
+		'type' => 'Authentication method',
 	),
 	'bdd' => array(
-		'_' => 'Database',	// TODO - Translation
+		'_' => 'Database',
 		'conf' => array(
-			'_' => 'Database configuration',	// TODO - Translation
+			'_' => 'Database configuration',
 			'ko' => 'Verify your database configuration.',
-			'ok' => 'Database configuration has been saved.',	// TODO - Translation
+			'ok' => 'Database configuration has been saved.',
 		),
-		'host' => 'Host',	// TODO - Translation
-		'password' => 'Database password',	// TODO - Translation
-		'prefix' => 'Table prefix',	// TODO - Translation
-		'type' => 'Type of database',	// TODO - Translation
-		'username' => 'Database username',	// TODO - Translation
+		'host' => 'Host',
+		'password' => 'Database password',
+		'prefix' => 'Table prefix',
+		'type' => 'Type of database',
+		'username' => 'Database username',
 	),
 	'check' => array(
-		'_' => 'Checks',	// TODO - Translation
-		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
+		'_' => 'Checks',
+		'already_installed' => 'We have detected that FreshRSS is already installed!',
 		'cache' => array(
 			'nok' => 'Check permissions on the <em>./data/cache</em> directory. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the cache directory are good.',
 		),
 		'ctype' => array(
 			'nok' => 'Cannot find the required library for character type checking (php-ctype).',
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO - Translation
+			'ok' => 'You have the required library for character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO - Translation
-			'ok' => 'You have the cURL library.',	// TODO - Translation
+			'nok' => 'Cannot find the cURL library (php-curl package).',
+			'ok' => 'You have the cURL library.',
 		),
 		'data' => array(
 			'nok' => 'Check permissions on the <em>./data</em> directory. The HTTP server must have write permission.',
@@ -50,39 +50,39 @@ return array(
 		),
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',
-			'ok' => 'You have the required library to browse the DOM.',	// TODO - Translation
+			'ok' => 'You have the required library to browse the DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Check permissions on the <em>./data/favicons</em> directory. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the fileinfo library.',
 		),
 		'http_referer' => array(
-			'nok' => 'Please check that you are not altering your HTTP REFERER.',	// TODO - Translation
-			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',	// TODO - Translation
+			'nok' => 'Please check that you are not altering your HTTP REFERER.',
+			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',
 		),
 		'json' => array(
 			'nok' => 'Cannot find the recommended library to parse JSON.',
 			'ok' => 'You have the recommended library to parse JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
+			'ok' => 'You have the recommended library mbstring for Unicode.',
 		),
 		'minz' => array(
-			'nok' => 'Cannot find the Minz framework.',	// TODO - Translation
-			'ok' => 'You have the Minz framework.',	// TODO - Translation
+			'nok' => 'Cannot find the Minz framework.',
+			'ok' => 'You have the Minz framework.',
 		),
 		'pcre' => array(
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO - Translation
+			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
@@ -93,31 +93,31 @@ return array(
 			'ok' => 'Permissions on the users directory are good.',
 		),
 		'xml' => array(
-			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
-			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
+			'nok' => 'Cannot find the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(
-		'_' => 'General configuration',	// TODO - Translation
-		'ok' => 'General configuration has been saved.',	// TODO - Translation
+		'_' => 'General configuration',
+		'ok' => 'General configuration has been saved.',
 	),
-	'congratulations' => 'Congratulations!',	// TODO - Translation
-	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',	// TODO - Translation
-	'delete_articles_after' => 'Remove articles after',	// TODO - Translation
+	'congratulations' => 'Congratulations!',
+	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
+	'delete_articles_after' => 'Remove articles after',
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',
-	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// TODO - Translation
+	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',
 	'js' => array(
-		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO - Translation
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',
 	),
 	'language' => array(
-		'_' => 'Language',	// TODO - Translation
-		'choose' => 'Choose a language for FreshRSS',	// TODO - Translation
-		'defined' => 'Language has been defined.',	// TODO - Translation
+		'_' => 'Language',
+		'choose' => 'Choose a language for FreshRSS',
+		'defined' => 'Language has been defined.',
 	),
-	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',	// TODO - Translation
-	'ok' => 'The installation process was successful.',	// TODO - Translation
-	'step' => 'step %d',	// TODO - Translation
-	'steps' => 'Steps',	// TODO - Translation
-	'this_is_the_end' => 'This is the end',	// TODO - Translation
-	'title' => 'Installation · FreshRSS',	// TODO - Translation
+	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',
+	'ok' => 'The installation process was successful.',
+	'step' => 'step %d',
+	'steps' => 'Steps',
+	'this_is_the_end' => 'This is the end',
+	'title' => 'Installation · FreshRSS',
 );
