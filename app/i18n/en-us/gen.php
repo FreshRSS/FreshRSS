@@ -147,7 +147,7 @@ return array(
 		'admin' => 'Administration',
 		'archiving' => 'Archiving',
 		'authentication' => 'Authentication',
-		'check_install' => 'Installation checking',
+		'check_install' => 'Installation check',
 		'configuration' => 'Configuration',
 		'display' => 'Display',
 		'extensions' => 'Extensions',
