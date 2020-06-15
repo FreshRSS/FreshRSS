@@ -73,7 +73,7 @@ switch ($options['a']) {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
-    break;
+		break;
 	default :
 		help();
 		exit;

@@ -230,23 +230,23 @@ class I18nData {
 	}
 
 	/**
-	 * Ignore all unmodified keys from a language, or reverse it.
+	 *Ignore all unmodified keys from a language, or reverse it.
 	 *
 	 * @param string $language
 	 * @param boolean $reverse
-	 */
-  public function ignore_unmodified($language, $reverse = false) {
-    $my_language = $this->getLanguage($language);
-    foreach ($this->getReferenceLanguage() as $file => $ref_language) {
-      foreach ($ref_language as $key => $ref_value) {
-        if (array_key_exists($key, $my_language[$file])) {
-          if($ref_value == $my_language[$file][$key]) {
-            $this->ignore($key, $language, $reverse);
-          }
-        }
-      }
-    }
-  }
+   */
+	public function ignore_unmodified($language, $reverse = false) {
+		$my_language = $this->getLanguage($language);
+		foreach ($this->getReferenceLanguage() as $file => $ref_language) {
+			foreach ($ref_language as $key => $ref_value) {
+				if (array_key_exists($key, $my_language[$file])) {
+					if($ref_value == $my_language[$file][$key]) {
+						$this->ignore($key, $language, $reverse);
+					}
+				}
+			}
+		}
+	}
 
 	public function getLanguage($language) {
 		return $this->data[$language];
