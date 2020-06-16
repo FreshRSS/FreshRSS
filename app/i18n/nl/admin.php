@@ -190,7 +190,7 @@ return array(
 		'database_size' => 'Databasegrootte',
 		'delete_users' => 'Verwijder gebruiker',
 		'email' => 'Emailadres',
-		'enabled' => 'Enabled',	// TODO - Translation
+		'enabled' => 'Ingeschakeld',
 		'feed_count' => 'Feeds',
 		'is_admin' => 'Is beheerder',
 		'language' => 'Taal',

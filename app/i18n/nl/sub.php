@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
+	'add' => 'Het toevoegen van feeds en categorieën is <a href=\'%s\'>hierheen</a> verplaatst. Deze functionaliteit is ook toegankelijk via het menu links en via het ✚ icoon op de hoofdpagina.',
 	'api' => array(
 		'documentation' => 'Kopieer de volgende URL om deze in een externe toepassing te gebruiken.',
 		'title' => 'API',
@@ -102,8 +102,8 @@ return array(
 		'title' => 'Importeren / exporteren',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => 'Feed of categorie toevoegen',
+		'add_feed' => 'Feed toevoegen',
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
 		'subscription_management' => 'Abonnementenbeheer',
@@ -111,9 +111,9 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Abonnementenbeheer',
-		'add' => 'Add a feed/a category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => 'Feed of categorie toevoegen',
+		'add_category' => 'Categorie toevoegen',
+		'add_feed' => 'Feed toevoegen',
 		'feed_management' => 'RSS-feedbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
