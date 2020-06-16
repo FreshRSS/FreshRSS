@@ -11,6 +11,7 @@ return array(
 	'admin.auth.token',
 	'admin.auth.token_help',
 	'admin.auth.type',
+	'admin.auth.unsafe_autologin',
 	'admin.check_install.categories.nok',
 	'admin.check_install.connection.nok',
 	'admin.check_install.ctype.nok',

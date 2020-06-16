@@ -13,7 +13,7 @@ return array(
 		'token' => 'Authentication token',
 		'token_help' => 'Allows access to RSS output of the default user without authentication:',
 		'type' => 'Authentication method',
-		'unsafe_autologin' => 'Allow unsafe automatic login using the format:	-> todo',
+		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
 	),
 	'check_install' => array(
 		'cache' => array(
