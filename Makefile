@@ -140,6 +140,14 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
 	@echo Key ignored.
 
+.PHONY: i18n-ignore-unmodified-keys
+i18n-ignore-unmodified-keys: ## Ignore all unmodified translation keys for the selected language
+ifndef lang
+	$(error To ignore unmodified keys, you need to provide a language in the "lang" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php -a ignore_unmodified -l $(lang)
+	@echo Unmodified keys ignored.
+
 .PHONY: i18n-key-exists
 i18n-key-exists: ## Check if a translation key exists
 ifndef key

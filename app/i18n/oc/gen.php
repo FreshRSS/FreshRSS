@@ -128,6 +128,7 @@ return array(
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
+		'en-us' => 'English (United States)',
 		'es' => 'Español',
 		'fr' => 'Français',
 		'he' => 'עברית',

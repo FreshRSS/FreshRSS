@@ -21,6 +21,7 @@ return array(
 	'gen.lang.cz',
 	'gen.lang.de',
 	'gen.lang.en',
+	'gen.lang.en-us',
 	'gen.lang.es',
 	'gen.lang.fr',
 	'gen.lang.he',
