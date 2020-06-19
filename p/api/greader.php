@@ -912,6 +912,7 @@ function markAllAsRead($streamId, $olderThanId) {
 }
 
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '' : urldecode($_SERVER['PATH_INFO']);
+$pathInfo = preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
 if ($pathInfo == '') {
 	exit('OK');
 }
