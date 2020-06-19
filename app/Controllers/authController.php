@@ -112,8 +112,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(_t('gen.auth.login') . ' · ');
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
-		$conf = Minz_Configuration::get('system');
-		$limits = $conf->limits;
+		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->cookie_days = round($limits['cookie_duration'] / 86400, 1);
 
 		$isPOST = Minz_Request::isPost() && !Minz_Session::param('POST_to_GET');

@@ -72,24 +72,18 @@ function saveStep1() {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		Minz_Configuration::register('system',
-		                             join_path(DATA_PATH, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config.default.php'));
-		$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem();
 
-		$current_user = $system_conf->default_user;
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		$user_conf = Minz_Configuration::get('user');
+		Minz_Session::_param('currentUser', FreshRSS_Context::$system_conf->default_user);
+		FreshRSS_Context::initUser();
 
 		// Then, we set $_SESSION vars
-		$_SESSION['title'] = $system_conf->title;
-		$_SESSION['auth_type'] = $system_conf->auth_type;
-		$_SESSION['default_user'] = $current_user;
-		$_SESSION['passwordHash'] = $user_conf->passwordHash;
+		$_SESSION['title'] = FreshRSS_Context::$system_conf->title;
+		$_SESSION['auth_type'] = FreshRSS_Context::$system_conf->auth_type;
+		$_SESSION['default_user'] = Minz_Session::param('currentUser');
+		$_SESSION['passwordHash'] = FreshRSS_Context::$user_conf->passwordHash;
 
-		$db = $system_conf->db;
+		$db = FreshRSS_Context::$system_conf->db;
 		$_SESSION['bd_type'] = $db['type'];
 		$_SESSION['bd_host'] = $db['host'];
 		$_SESSION['bd_user'] = $db['user'];
@@ -158,8 +152,7 @@ function saveStep2() {
 			opcache_reset();
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem();
 
 		$ok = false;
 		try {
@@ -204,8 +197,7 @@ function saveStep3() {
 			return false;
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem();
 		Minz_Translate::init($_SESSION['language']);
 
 		FreshRSS_Context::$system_conf->default_user = $_SESSION['default_user'];

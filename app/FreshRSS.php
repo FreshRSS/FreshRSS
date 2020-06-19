@@ -24,10 +24,7 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		// Register the configuration setter for the system configuration
-		$configuration_setter = new FreshRSS_ConfigurationSetter();
-		$system_conf = Minz_Configuration::get('system');
-		$system_conf->_configurationSetter($configuration_setter);
+		FreshRSS_Context::initSystem();
 
 		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
@@ -36,25 +33,17 @@ class FreshRSS extends Minz_FrontController {
 		// because it's this part which create this parameter.
 		self::initAuth();
 
-		// Then, register the user configuration and use the configuration setter
-		// created above.
-		$current_user = Minz_Session::param('currentUser', '_');
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'),
-		                             $configuration_setter);
-
 		// Finish to initialize the other FreshRSS / Minz components.
-		FreshRSS_Context::init();
+		FreshRSS_Context::initUser();
 		self::initI18n();
 		self::loadNotifications();
 		// Enable extensions for the current (logged) user.
-		if (FreshRSS_Auth::hasAccess() || $system_conf->allow_anonymous) {
+		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
 
-		if ($system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
+		if (FreshRSS_Context::$system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
 			self::checkEmailValidated();
 		}
 

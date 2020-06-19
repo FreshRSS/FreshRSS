@@ -152,7 +152,8 @@ function authorizationToUser() {
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (FreshRSS_user_Controller::checkUsername($user)) {
-				FreshRSS_Context::$user_conf = get_user_configuration($user);
+				Minz_Session::_param('currentUser', $user);
+				FreshRSS_Context::initUser();
 				if (FreshRSS_Context::$user_conf == null) {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
@@ -178,7 +179,8 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		FreshRSS_Context::$user_conf = get_user_configuration($email);
+		Minz_Session::_param('currentUser', $email);
+		FreshRSS_Context::initUser();
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();
@@ -921,10 +923,7 @@ if (count($pathInfos) < 3) {
 	badRequest();
 }
 
-Minz_Configuration::register('system',
-	DATA_PATH . '/config.php',
-	FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::initSystem();
 
 //Minz_Log::debug('----------------------------------------------------------------', API_LOG);
 //Minz_Log::debug(debugInfo(), API_LOG);
@@ -939,29 +938,23 @@ ini_set('session.use_cookies', '0');
 register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
-$user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
-FreshRSS_Context::$user_conf = null;
-if ($user !== '') {
-	FreshRSS_Context::$user_conf = get_user_configuration($user);
+if ($pathInfos[1] !== 'accounts') {
+	authorizationToUser();
+}
+if (FreshRSS_Context::$user_conf != null) {
+	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	Minz_ExtensionManager::init();
-	if (FreshRSS_Context::$user_conf != null) {
-		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
-	} else {
-		Minz_Translate::init();
-	}
+	Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
 } else {
 	Minz_Translate::init();
 }
-
-Minz_Session::_param('currentUser', $user);
 
 if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
 } elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
-	if ($user == '') {
+	if (Minz_Session::param('currentUser', '') == '') {
 		unauthorized();
 	}
 	$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.

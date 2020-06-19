@@ -43,14 +43,36 @@ class FreshRSS_Context {
 	public static $isCli = false;
 
 	/**
-	 * Initialize the context.
-	 *
-	 * Set the correct configurations and $categories variables.
+	 * Initialize the context for the global system.
 	 */
-	public static function init() {
-		// Init configuration.
-		self::$system_conf = Minz_Configuration::get('system');
-		self::$user_conf = Minz_Configuration::get('user');
+	public static function initSystem() {
+		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		// Register the configuration setter for the system configuration
+		$configurationSetter = new FreshRSS_ConfigurationSetter();
+		FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
+	}
+
+	/**
+	 * Initialize the context for the current user.
+	 */
+	public static function initUser() {
+		FreshRSS_Context::$user_conf = null;
+		$current_user = Minz_Session::param('currentUser', '');
+		if (!FreshRSS_user_Controller::checkUsername($current_user)) {
+			return;
+		}
+		try {
+			Minz_Configuration::register('user',
+				USERS_PATH . '/' . $current_user . '/config.php',
+				FRESHRSS_PATH . '/config-user.default.php',
+				FreshRSS_Context::$system_conf->configurationSetter());
+
+			FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
+		} catch (Exception $ex) {
+			Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
+			return;
+		}
 
 		//Legacy
 		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
@@ -74,6 +96,14 @@ class FreshRSS_Context {
 		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
+	}
+
+	/**
+	 * Initialize the context for the global system and the current user
+	 */
+	public static function init() {
+		self::initSystem();
+		self::initUser();
 	}
 
 	/**

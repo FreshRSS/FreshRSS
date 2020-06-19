@@ -10,10 +10,7 @@ require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
-Minz_Configuration::register('system',
-	DATA_PATH . '/config.php',
-	FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::initSystem();
 Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
@@ -33,7 +30,7 @@ function cliInitUser($username) {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	FreshRSS_Context::$user_conf = get_user_configuration($username);
+	FreshRSS_Context::initUser();
 	if (FreshRSS_Context::$user_conf == null) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
