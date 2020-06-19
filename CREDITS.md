@@ -32,6 +32,7 @@ People are sorted by name so please keep this order.
 * [Django Janny](https://github.com/keltroth): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:keltroth)
 * [dswd](https://github.com/dswd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dswd)
 * [ealdraed](https://github.com/ealdraed): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ealdraed)
+* [Ed Sandor](https://github.com/ewsandor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ewsandor), [Web](https://ewsandor.com)
 * [equinoxmatt](https://github.com/equinoxmatt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:equinoxmatt)
 * [fabianski7](https://github.com/fabianski7): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:fabianski7)
 * [Fake4d](https://github.com/Fake4d): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Fake4d)
