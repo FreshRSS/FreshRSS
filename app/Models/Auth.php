@@ -47,8 +47,8 @@ class FreshRSS_Auth {
 	 * @return boolean true if user can be connected, false else.
 	 */
 	private static function accessControl() {
-		$conf = Minz_Configuration::get('system');
-		$auth_type = $conf->auth_type;
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
@@ -62,7 +62,22 @@ class FreshRSS_Auth {
 			return $current_user != '';
 		case 'http_auth':
 			$current_user = httpAuthUser();
-			$login_ok = $current_user != '' && FreshRSS_UserDAO::exists($current_user);
+			if ($current_user == '') {
+				return false;
+			}
+			$login_ok = FreshRSS_UserDAO::exists($current_user);
+			if (!$login_ok && FreshRSS_Context::$system_conf->http_auth_auto_register) {
+				$email = null;
+				if (FreshRSS_Context::$system_conf->http_auth_auto_register_email_field !== '' &&
+					isset($_SERVER[FreshRSS_Context::$system_conf->http_auth_auto_register_email_field])) {
+					$email = $_SERVER[FreshRSS_Context::$system_conf->http_auth_auto_register_email_field];
+				}
+				$language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
+				Minz_Translate::init($language);
+				$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '', [
+					'language' => $language,
+				]);
+			}
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
 				Minz_Session::_param('csrf');
