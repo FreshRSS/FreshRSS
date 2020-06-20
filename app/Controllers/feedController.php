@@ -430,6 +430,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 
+			$feedProperties = [];
+
 			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs
 					$selfUrl = checkUrl($feed->selfUrl());
@@ -445,7 +447,28 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			} elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
 				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url(false));
-				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
+				$feedProperties['url'] = $feed->url();
+			}
+
+			if ($simplePie != null) {
+				if (trim($feed->name()) == '') {
+					//HTML to HTML-PRE	//ENT_COMPAT except '&'
+					$name = strtr(html_only_entity_decode($simplePie->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));
+					$feedProperties['name'] = $name == '' ? $feed->url() : $name;
+				}
+				if (trim($feed->website()) == '') {
+					$website = html_only_entity_decode($simplePie->get_link());
+					$feedProperties['website'] = $website == '' ? $feed->url() : $website;
+				}
+				if (trim($feed->description()) == '') {
+					$description = html_only_entity_decode($simplePie->get_description());
+					if ($description != '') {
+						$feedProperties['description'] = $description;
+					}
+				}
+			}
+			if (!empty($feedProperties)) {
+				$feedDAO->updateFeed($feed->id(), $feedProperties);
 			}
 
 			$feed->faviconPrepare();
