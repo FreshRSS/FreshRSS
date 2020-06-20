@@ -54,11 +54,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		$cat = null;
-		if ($new_cat_name != '') {
+		if ($cat_id > 0) {
+			$cat = $catDAO->searchById($cat_id);
+		}
+		if ($cat == null && $new_cat_name != '') {
 			$new_cat_id = $catDAO->addCategory(array('name' => $new_cat_name));
 			$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
-		}
-		if ($cat_id > 0) {
 			$cat = $catDAO->searchById($cat_id);
 		}
 		if ($cat == null) {
