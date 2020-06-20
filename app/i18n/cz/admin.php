@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Máte rozšíření JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
@@ -163,10 +163,10 @@ return array(
 			'help' => 'in seconds',	// TODO - Translation
 			'number' => 'Duration to keep logged in',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Categories per user limit',	// TODO - Translation
-		'max-feeds' => 'Feeds per user limit',	// TODO - Translation
+		'max-categories' => 'Max number of categories per user',	// TODO - Translation
+		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
