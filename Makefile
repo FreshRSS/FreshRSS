@@ -125,8 +125,7 @@ endif
 ifndef value
 	$(error To update a key, you need to provide its value in the "value" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
-	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
+	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)" -l en
 	@echo Key updated.
 
 .PHONY: i18n-ignore-key

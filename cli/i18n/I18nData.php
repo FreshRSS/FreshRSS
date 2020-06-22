@@ -182,7 +182,16 @@ class I18nData {
 		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key does not exist for the selected language.');
 		}
-		$this->data[$language][$this->getFilenamePrefix($key)][$key] = $value;
+		if (static::REFERENCE_LANGUAGE === $language) {
+			$previousValue = $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
+			foreach ($this->getAvailableLanguages() as $lang) {
+				if ($this->data[$lang][$this->getFilenamePrefix($key)][$key] === $previousValue) {
+					$this->data[$lang][$this->getFilenamePrefix($key)][$key] = $value;
+				}
+			}
+		} else {
+			$this->data[$language][$this->getFilenamePrefix($key)][$key] = $value;
+		}
 	}
 
 	/**
