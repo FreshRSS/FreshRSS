@@ -73,9 +73,7 @@ function saveStep1() {
 
 		// First, we try to get previous configurations
 		FreshRSS_Context::initSystem();
-
-		Minz_Session::_param('currentUser', FreshRSS_Context::$system_conf->default_user);
-		FreshRSS_Context::initUser();
+		FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
 
 		// Then, we set $_SESSION vars
 		$_SESSION['title'] = FreshRSS_Context::$system_conf->title;

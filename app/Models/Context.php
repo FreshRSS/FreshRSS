@@ -51,27 +51,36 @@ class FreshRSS_Context {
 		// Register the configuration setter for the system configuration
 		$configurationSetter = new FreshRSS_ConfigurationSetter();
 		FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
+		return FreshRSS_Context::$system_conf;
 	}
 
 	/**
 	 * Initialize the context for the current user.
 	 */
-	public static function initUser() {
+	public static function initUser($username = '') {
 		FreshRSS_Context::$user_conf = null;
-		$current_user = Minz_Session::param('currentUser', '');
-		if (!FreshRSS_user_Controller::checkUsername($current_user)) {
-			return;
+		if (!isset($_SESSION)) {
+			Minz_Session::init('FreshRSS');
+		}
+		Minz_Session::_param('loginOk');
+		Minz_Session::_param('currentUser');
+		if ($username == '') {
+			$username = Minz_Session::param('currentUser', '');
+		}
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
+			return false;
 		}
 		try {
 			Minz_Configuration::register('user',
-				USERS_PATH . '/' . $current_user . '/config.php',
+				USERS_PATH . '/' . $username . '/config.php',
 				FRESHRSS_PATH . '/config-user.default.php',
 				FreshRSS_Context::$system_conf->configurationSetter());
 
+			Minz_Session::_param('currentUser', $username);
 			FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
 		} catch (Exception $ex) {
 			Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
-			return;
+			return false;
 		}
 
 		//Legacy
@@ -96,14 +105,8 @@ class FreshRSS_Context {
 		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
-	}
 
-	/**
-	 * Initialize the context for the global system and the current user
-	 */
-	public static function init() {
-		self::initSystem();
-		self::initUser();
+		return FreshRSS_Context::$user_conf;
 	}
 
 	/**

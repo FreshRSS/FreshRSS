@@ -53,7 +53,12 @@ if (FreshRSS_Context::$system_conf->default_user !== '') {
 $limits = FreshRSS_Context::$system_conf->limits;
 $min_last_activity = time() - $limits['max_inactivity'];
 foreach ($users as $user) {
-	if (!get_user_configuration($user)->enabled) {
+	FreshRSS_Context::initUser($user);
+	if (FreshRSS_Context::$user_conf == null) {
+		notice('Invalid user ' . $user);
+		continue;
+	}
+	if (!FreshRSS_Context::$user_conf->enabled) {
 		notice('FreshRSS skip disabled user ' . $user);
 		continue;
 	}
@@ -63,8 +68,6 @@ foreach ($users as $user) {
 		continue;
 	}
 
-	Minz_Session::_param('currentUser', $user);
-	new Minz_ModelPdo($user);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 	FreshRSS_Auth::giveAccess();
 	$app->init();
 	notice('FreshRSS actualize ' . $user . '...');
@@ -78,8 +81,6 @@ foreach ($users as $user) {
 		}
 	}
 
-	Minz_Session::_param('currentUser', '_');
-	Minz_Session::_param('loginOk');
 	gc_collect_cycles();
 }
 

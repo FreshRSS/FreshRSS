@@ -30,11 +30,9 @@ function cliInitUser($username) {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	FreshRSS_Context::initUser();
-	if (FreshRSS_Context::$user_conf == null) {
+	if (!FreshRSS_Context::initUser($username)) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
-	Minz_Session::_param('currentUser', $username);
 
 	return $username;
 }

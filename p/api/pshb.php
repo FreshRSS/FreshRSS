@@ -124,12 +124,7 @@ foreach ($users as $userFilename) {
 	}
 
 	try {
-		Minz_Session::_param('currentUser', $username);
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		FreshRSS_Context::initUser();
-		new Minz_ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
+		FreshRSS_Context::initUser($username);
 		if (FreshRSS_Context::$user_conf != null) {
 			Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
 			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);

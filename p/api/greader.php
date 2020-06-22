@@ -152,8 +152,7 @@ function authorizationToUser() {
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (FreshRSS_user_Controller::checkUsername($user)) {
-				Minz_Session::_param('currentUser', $user);
-				FreshRSS_Context::initUser();
+				FreshRSS_Context::initUser($user);
 				if (FreshRSS_Context::$user_conf == null) {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
@@ -179,8 +178,7 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		Minz_Session::_param('currentUser', $email);
-		FreshRSS_Context::initUser();
+		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();

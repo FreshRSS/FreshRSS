@@ -130,6 +130,7 @@ class FreshRSS_Auth {
 		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
+		$currentUser = Minz_Session::param('currentUser');
 		$isAdmin = FreshRSS_Context::$user_conf->is_admin;
 		$default_user = FreshRSS_Context::$system_conf->default_user;
 		$ok = self::$login_ok;
