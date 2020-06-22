@@ -345,7 +345,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
 		$streamUrl = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
 		if (strpos($streamUrl, 'feed/') === 0) {
-			$streamUrl = substr($streamUrl, 5);
+			$streamUrl = preg_replace('%^(feed/)+%', '', $streamUrl);
 			$feedId = 0;
 			if (ctype_digit($streamUrl)) {
 				if ($action === 'subscribe') {
