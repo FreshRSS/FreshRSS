@@ -91,7 +91,7 @@ server {
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# By default, the variable PATH_INFO is not set under PHP-FPM
 		# But FreshRSS API greader.php need it. If you have a “Bad Request” error, double check this var!
-		# NOTE: usage of the separate $path_info variable is necessary
+		# NOTE: the separate $path_info variable is required (fixes #3076).
 		set $path_info $fastcgi_path_info;
 		fastcgi_param PATH_INFO $path_info;
 		include fastcgi_params;
