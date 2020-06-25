@@ -63,10 +63,9 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 						echo ' — ';
 					endif;
 					echo $item->date();
-				?></div>
-
+				?></div><div class="text">
 				<?= $item->content() ?>
-			</div>
+			</div></div>
 		</div>
 	</div><?php
 	endforeach;

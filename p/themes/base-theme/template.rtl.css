@@ -719,7 +719,7 @@ input[type="search"] {
 }
 
 .flux .item.title .author {
-	padding-right: 1rem;
+	padding-left: 1rem;
 	color: #555;
 	font-size: .9rem;
 	font-weight: normal;
@@ -779,6 +779,14 @@ input[type="search"] {
 
 .content pre {
 	overflow: auto;
+}
+
+.content .website, .content .author {
+	display: inline;
+}
+
+.normal .content .author::before {
+	content: ' · ';
 }
 
 br {

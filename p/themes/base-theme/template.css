@@ -781,6 +781,14 @@ input[type="search"] {
 	overflow: auto;
 }
 
+.content .website, .content .author {
+	display: inline;
+}
+
+.normal .content .author::before {
+	content: ' · ';
+}
+
 br {
 	line-height: 1em;
 }
