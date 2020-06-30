@@ -11,7 +11,7 @@ return array(
 		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
 		'keep_min_by_feed' => 'Numero minimo di articoli da mantenere per feed',
 		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
-		'keep_unreads' => 'Never delete unreads',	// TODO - Translation
+		'keep_unreads' => 'Never delete unread articles',	// TODO - Translation
 		'maintenance' => 'Maintenance',	// TODO - Translation
 		'optimize' => 'Ottimizza database',
 		'optimize_help' => 'Da fare occasionalmente per ridurre le dimensioni del database',
@@ -98,7 +98,7 @@ return array(
 	'reading' => array(
 		'_' => 'Lettura',
 		'after_onread' => 'Dopo “segna tutto come letto”,',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO - Translation
 		'articles_per_page' => 'Numero di articoli per pagina',
 		'auto_load_more' => 'Carica articoli successivi a fondo pagina',
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',

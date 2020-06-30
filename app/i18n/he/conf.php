@@ -11,7 +11,7 @@ return array(
 		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
 		'keep_min_by_feed' => 'Minimum number of articles to keep by feed',	// TODO - Translation
 		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
-		'keep_unreads' => 'Never delete unreads',	// TODO - Translation
+		'keep_unreads' => 'Never delete unread articles',	// TODO - Translation
 		'maintenance' => 'Maintenance',	// TODO - Translation
 		'optimize' => 'מיטוב בסיס הנתונים',
 		'optimize_help' => 'ביצוע לעיתים קרובות על מנת למטב את בסיס הנתונים',
@@ -98,7 +98,7 @@ return array(
 	'reading' => array(
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO - Translation
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO - Translation
