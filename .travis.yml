@@ -58,7 +58,7 @@ jobs:
         - HADOLINT="$HOME/hadolint"
       install:
         - npm install --save-dev jshint stylelint stylelint-order stylelint-scss stylelint-config-recommended-scss
-        - curl -sLo "$HADOLINT" $(curl -H  'Authorization: token $GITHUB_TOKEN' -s https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
+        - curl -sLo "$HADOLINT" $(curl -H  "Authorization: token $GITHUB_TOKEN" -s https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
       script:
         - node_modules/jshint/bin/jshint .
         # check SCSS separately
