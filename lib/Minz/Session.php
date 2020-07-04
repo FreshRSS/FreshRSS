@@ -16,6 +16,7 @@ class Minz_Session {
 		// démarre la session
 		session_name($name);
 		session_start();
+		session_write_close();
 	}
 
 
@@ -35,11 +36,13 @@ class Minz_Session {
 	 * @param $v la valeur à attribuer, false pour supprimer
 	 */
 	public static function _param($p, $v = false) {
+		session_start();
 		if ($v === false) {
 			unset($_SESSION[$p]);
 		} else {
 			$_SESSION[$p] = $v;
 		}
+		session_write_close();
 	}
 
 
