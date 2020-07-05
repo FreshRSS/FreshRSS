@@ -45,6 +45,17 @@ class Minz_Session {
 		session_write_close();
 	}
 
+	public static function _params($keyValues) {
+		session_start();
+		foreach ($keyValues as $k => $v) {
+			if ($v === false) {
+				unset($_SESSION[$k]);
+			} else {
+				$_SESSION[$k] = $v;
+			}
+		}
+		session_write_close();
+	}
 
 	/**
 	 * Permet d'effacer une session

@@ -78,8 +78,10 @@ foreach ($users as $user) {
 		}
 	}
 
-	Minz_Session::_param('currentUser', '_');
-	Minz_Session::_param('loginOk');
+	Minz_Session::_params([
+		'currentUser' => '_',
+		'loginOk' => false,
+	]);
 	gc_collect_cycles();
 }
 
