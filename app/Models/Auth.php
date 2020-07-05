@@ -23,8 +23,10 @@ class FreshRSS_Auth {
 		if ($current_user === '') {
 			$conf = Minz_Configuration::get('system');
 			$current_user = $conf->default_user;
-			Minz_Session::_param('currentUser', $current_user);
-			Minz_Session::_param('csrf');
+			Minz_Session::_params([
+				'currentUser' => $current_user,
+				'csrf' => false,
+			]);
 		}
 
 		if (self::$login_ok) {
@@ -55,9 +57,11 @@ class FreshRSS_Auth {
 			$current_user = '';
 			if (isset($credentials[1])) {
 				$current_user = trim($credentials[0]);
-				Minz_Session::_param('currentUser', $current_user);
-				Minz_Session::_param('passwordHash', trim($credentials[1]));
-				Minz_Session::_param('csrf');
+				Minz_Session::_params([
+					'currentUser' => $current_user,
+					'passwordHash' => trim($credentials[1]),
+					'csrf' => false,
+				]);
 			}
 			return $current_user != '';
 		case 'http_auth':
@@ -79,8 +83,10 @@ class FreshRSS_Auth {
 				]);
 			}
 			if ($login_ok) {
-				Minz_Session::_param('currentUser', $current_user);
-				Minz_Session::_param('csrf');
+				Minz_Session::_params([
+					'currentUser' => $current_user,
+					'csrf' => false,
+				]);
 			}
 			return $login_ok;
 		case 'none':
@@ -118,8 +124,10 @@ class FreshRSS_Auth {
 			self::$login_ok = false;
 		}
 
-		Minz_Session::_param('loginOk', self::$login_ok);
-		Minz_Session::_param('REMOTE_USER', httpAuthUser());
+		Minz_Session::_params([
+			'loginOk' => self::$login_ok,
+			'REMOTE_USER' => httpAuthUser(),
+		]);
 		return self::$login_ok;
 	}
 
@@ -153,9 +161,11 @@ class FreshRSS_Auth {
 	 */
 	public static function removeAccess() {
 		self::$login_ok = false;
-		Minz_Session::_param('loginOk');
-		Minz_Session::_param('csrf');
-		Minz_Session::_param('REMOTE_USER');
+		Minz_Session::_params([
+			'loginOk' => false,
+			'csrf' => false,
+			'REMOTE_USER' => false,
+		]);
 		$system_conf = Minz_Configuration::get('system');
 
 		$username = '';
