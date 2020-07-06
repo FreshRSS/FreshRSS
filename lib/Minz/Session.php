@@ -17,6 +17,8 @@ class Minz_Session {
 		session_name($name);
 		session_start();
 		session_write_close();
+		//Use cookie only the first time the session is started
+		ini_set('session.use_cookies', '0');
 	}
 
 
