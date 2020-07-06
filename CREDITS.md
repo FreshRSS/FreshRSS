@@ -45,6 +45,7 @@ People are sorted by name so please keep this order.
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
+* [Jake Mannens](https://github.com/jakem72360): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jakem72360)
 * [Jan van den Berg](https://github.com/jan-vandenberg): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jan-vandenberg), [Web](https://j11g.com/)
 * [Jaussoin Timothée](https://github.com/edhelas): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=edhelas), [Web](http://edhelas.movim.eu/)
 * [jlefler](https://github.com/jlefler): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jlefler)
