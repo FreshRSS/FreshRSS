@@ -4,12 +4,22 @@
  * La classe Session gère la session utilisateur
  */
 class Minz_Session {
+	private static $volatile = false;
+	
 	/**
 	 * Initialise la session, avec un nom
 	 * Le nom de session est utilisé comme nom pour les cookies et les URLs(i.e. PHPSESSID).
-	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif
+	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif.
+	 * If the volatile parameter is true, then no cookie and not session storage are used.
+	 * Volatile is especially useful for API calls without cookie / Web session.
 	 */
-	public static function init($name) {
+	public static function init($name, $volatile = false) {
+		self::$volatile = $volatile;
+		if (self::$volatile) {
+			$_SESSION = [];
+			return;
+		}
+
 		$cookie = session_get_cookie_params();
 		self::keepCookie($cookie['lifetime']);
 
@@ -38,17 +48,23 @@ class Minz_Session {
 	 * @param $v la valeur à attribuer, false pour supprimer
 	 */
 	public static function _param($p, $v = false) {
-		session_start();
+		if (!self::$volatile) {
+			session_start();
+		}
 		if ($v === false) {
 			unset($_SESSION[$p]);
 		} else {
 			$_SESSION[$p] = $v;
 		}
-		session_write_close();
+		if (!self::$volatile) {
+			session_write_close();
+		}
 	}
 
 	public static function _params($keyValues) {
-		session_start();
+		if (!self::$volatile) {
+			session_start();
+		}
 		foreach ($keyValues as $k => $v) {
 			if ($v === false) {
 				unset($_SESSION[$k]);
@@ -56,7 +72,9 @@ class Minz_Session {
 				$_SESSION[$k] = $v;
 			}
 		}
-		session_write_close();
+		if (!self::$volatile) {
+			session_write_close();
+		}
 	}
 
 	/**
@@ -66,7 +84,9 @@ class Minz_Session {
 	public static function unset_session($force = false) {
 		$language = self::param('language');
 
-		session_destroy();
+		if (!self::$volatile) {
+			session_destroy();
+		}
 		$_SESSION = array();
 
 		if (!$force) {
