@@ -287,7 +287,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if ((!$mtime) || $simplePie->error()) {
 					$errorMessage = $simplePie->error();
 					throw new FreshRSS_Feed_Exception(
-						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $url . ']'
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $this->url . ']'
 					);
 				}
 
@@ -302,7 +302,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 					//HTML to HTML-PRE	//ENT_COMPAT except '&'
 					$title = strtr(html_only_entity_decode($simplePie->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));
-					$this->_name($title == '' ? $url : $title);
+					$this->_name($title == '' ? $this->url : $title);
 
 					$this->_website(html_only_entity_decode($simplePie->get_link()));
 					$this->_description(html_only_entity_decode($simplePie->get_description()));
