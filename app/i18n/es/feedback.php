@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s ya está activado',
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s no se puede desactivar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado desactivado',
@@ -44,9 +45,10 @@ return array(
 			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
 		),
+		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
-		'no_access' => 'No tienes acceso a %s',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor. Por favor, exporta estos archivos uno a uno.',
@@ -72,10 +74,10 @@ return array(
 			'emptied' => 'Se ha vaciado la categoría',
 			'error' => 'No es posible actualizar la categoría',
 			'name_exists' => 'Ya existe una categoría con ese nombre.',
-			'not_delete_default' => '¡No puedes borrar la categoría por defecto!',
-			'not_exist' => 'La categoría no existe',
 			'no_id' => 'Debes especificar la id de la categoría.',
 			'no_name' => '¡El nombre de la categoría no puede dejarse en blanco!.',
+			'not_delete_default' => '¡No puedes borrar la categoría por defecto!',
+			'not_exist' => 'La categoría no existe',
 			'over_max' => 'Has alcanzado el límite de categorías (%d)',
 			'updated' => 'La categoría se ha actualizado.',
 		),
@@ -89,17 +91,17 @@ return array(
 			'error' => 'No es posible actualizar la fuente',
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
-			'not_added' => '<em>%s</em> no ha podido se añadida',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'No hay fuente a actualizar…',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
+			'no_refresh' => 'No hay fuente a actualizar…',
+			'not_added' => '<em>%s</em> no ha podido se añadida',
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'Has alcanzado tu límite de fuentes (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
 			),
@@ -117,16 +119,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'No se ha podido crear al usuario %s',
 			'_' => 'Se ha creado el usuario %s',
+			'error' => 'No se ha podido crear al usuario %s',
 		),
 		'deleted' => array(
-			'error' => 'El usuario %s no ha podido ser eliminado',
 			'_' => 'El usuario %s ha sido eliminado',
+			'error' => 'El usuario %s no ha podido ser eliminado',
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',	// TODO - Translation
 			'_' => 'User %s has been updated',	// TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
 		),
 	),
 );

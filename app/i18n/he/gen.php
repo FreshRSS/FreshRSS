@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'מימוש',
+		'add' => 'Add',	// TODO - Translation
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
@@ -32,45 +33,50 @@ return array(
 		'login' => 'כניסה לחשבון',
 		'logout' => 'יציאה מהחשבון',
 		'password' => array(
-			'format' => '<small>At least 7 characters</small>',	// TODO - Translation
 			'_' => 'סיסמה',
+			'format' => '<small>At least 7 characters</small>',	// TODO - Translation
 		),
 		'registration' => array(
+			'_' => 'New account',	// TODO - Translation
 			'ask' => 'Create an account?',	// TODO - Translation
 			'title' => 'Account creation',	// TODO - Translation
-			'_' => 'New account',	// TODO - Translation
 		),
 		'reset' => 'איפוס אימות',
 		'username' => array(
+			'_' => 'שם משתמש',
 			'admin' => 'שם משתמש של המנהל',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
-			'_' => 'שם משתמש',
 		),
 	),
 	'date' => array(
-		'apr' => 'apr',
 		'Apr' => '\\A\\p\\r\\i\\l',	// TODO - Translation
-		'april' => 'Apr',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO - Translation
+		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO - Translation
+		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',	// TODO - Translation
+		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',	// TODO - Translation
+		'Jul' => '\\J\\u\\l\\y',	// TODO - Translation
+		'Jun' => '\\J\\u\\n\\e',	// TODO - Translation
+		'Mar' => '\\M\\a\\r\\c\\h',	// TODO - Translation
+		'May' => '\\M\\a\\y',	// TODO - Translation
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO - Translation
+		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',	// TODO - Translation
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO - Translation
+		'apr' => 'apr',
+		'april' => 'Apr',
 		'aug' => 'aug',
 		'august' => 'Aug',
 		'before_yesterday' => 'ישן יותר',
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO - Translation
 		'dec' => 'dec',
 		'december' => 'Dec',
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',	// TODO - Translation
 		'feb' => 'feb',
 		'february' => 'Feb',
 		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// TODO - Translation
 		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// TODO - Translation
 		'fri' => 'Fri',	// TODO - Translation
-		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',	// TODO - Translation
 		'jan' => 'jan',
 		'january' => 'Jan',
 		'jul' => 'jul',
-		'Jul' => '\\J\\u\\l\\y',	// TODO - Translation
 		'july' => 'Jul',
-		'Jun' => '\\J\\u\\n\\e',	// TODO - Translation
 		'jun' => 'jun',
 		'june' => 'Jun',
 		'last_2_year' => 'Last two years',	// TODO - Translation
@@ -81,22 +87,17 @@ return array(
 		'last_month' => 'בחודש שעבר',
 		'last_week' => 'בשבוע שעבר',
 		'last_year' => 'בשנה האחרונה',
-		'Mar' => '\\M\\a\\r\\c\\h',	// TODO - Translation
 		'mar' => 'mar',
 		'march' => 'Mar',
 		'may' => 'May',	// TODO - Translation
-		'May' => '\\M\\a\\y',	// TODO - Translation
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Mon',	// TODO - Translation
 		'month' => 'חודשים',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO - Translation
 		'nov' => 'nov',
 		'november' => 'Nov',
-		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',	// TODO - Translation
 		'oct' => 'oct',
 		'october' => 'Oct',
 		'sat' => 'Sat',	// TODO - Translation
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO - Translation
 		'sep' => 'sep',
 		'september' => 'Sep',
 		'sun' => 'Sun',	// TODO - Translation
@@ -108,8 +109,8 @@ return array(
 	),
 	'dir' => 'rtl',
 	'freshrss' => array(
-		'about' => 'אודות FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation
+		'about' => 'אודות FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// TODO - Translation
@@ -127,6 +128,7 @@ return array(
 		'cz' => 'Čeština',	// TODO - Translation
 		'de' => 'Deutsch',	// TODO - Translation
 		'en' => 'English',	// TODO - Translation
+		'en-us' => 'English (United States)',
 		'es' => 'Español',	// TODO - Translation
 		'fr' => 'Français',	// TODO - Translation
 		'he' => 'עברית',	// TODO - Translation
@@ -178,13 +180,13 @@ return array(
 		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
+		'Known' => 'Known based sites',	// TODO - Translation
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'דואר אלקטרוני',
 		'facebook' => 'Facebook',	// TODO - Translation
 		'gnusocial' => 'GNU social',	// TODO - Translation
 		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'Known' => 'Known based sites',	// TODO - Translation
 		'lemmy' => 'Lemmy',	// TODO - Translation
 		'linkedin' => 'LinkedIn',	// TODO - Translation
 		'mastodon' => 'Mastodon',	// TODO - Translation

@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',
 		'title' => 'API',
@@ -11,15 +12,14 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Category',
 		'add' => 'Add a category',
 		'archiving' => 'Archiving',
 		'empty' => 'Empty category',
 		'information' => 'Information',
-		'new' => 'New category',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
 		'title' => 'Title',
-		'_' => 'Category',
 	),
 	'feed' => array(
 		'add' => 'Add a RSS feed',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',
 			'_' => 'Filter actions',
+			'help' => 'Write one search filter per line.',
 		),
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'No feed selected.',
 		'number_entries' => '%d articles',
 		'priority' => array(
+			'_' => 'Visibility',
 			'archived' => 'Do not show (archived)',
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
-			'_' => 'Visibility',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Import / export',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',
+		'add_feed' => 'Add a feed',
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Subscriptions management',
 		'subscription_tools' => 'Subscription tools',
 	),
 	'title' => array(
+		'_' => 'Subscriptions management',
+		'add' => 'Add a feed/a category',
+		'add_category' => 'Add a category',
+		'add_feed' => 'Add a feed',
 		'feed_management' => 'RSS feeds management',
 		'subscription_tools' => 'Subscription tools',
-		'_' => 'Subscriptions management',
 	),
 );

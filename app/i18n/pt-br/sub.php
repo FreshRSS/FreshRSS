@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copie a seguinte URL para utilizar com uma ferramenta externa',
 		'title' => 'API',
@@ -8,18 +9,17 @@ return array(
 	'bookmarklet' => array(
 		'documentation' => 'Arraste este botão para sua barra de favoritos ou clique com o botão direito e escolha "Adicionar este link aos favoritos". Depois clique no no link da barra de favoritos "Inscrever-se" em qualquer página que você queira se inscrever.',
 		'label' => 'Inscrever-se',
-		'title' => 'Bookmarklet',	// TODO? - Translation
+		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Categoria',
 		'add' => 'Adicionar uma categoria',
 		'archiving' => 'Arquivar',
 		'empty' => 'Categoria vazia',
 		'information' => 'Informações',
-		'new' => 'Nova categoria',
 		'position' => 'Posição de exibição',
 		'position_help' => 'Para controlar a ordem de exibição',
 		'title' => 'Título',
-		'_' => 'Categoria',
 	),
 	'feed' => array(
 		'add' => 'Adicionar um RSS feed',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
 		'filteractions' => array(
-			'help' => 'Escreva um filtro de pesquisa por linha.',
 			'_' => 'Ações do filtro',
+			'help' => 'Escreva um filtro de pesquisa por linha.',
 		),
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Nenhum feed selecionado.',
 		'number_entries' => '%d artigos',
 		'priority' => array(
+			'_' => 'Visibilidade',
 			'archived' => 'Não exibir (arquivado)',
 			'main_stream' => 'Mostrar na tela principal',
 			'normal' => 'Mostrar na sua categoria',
-			'_' => 'Visibilidade',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar fonte',
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Importar / exportar',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Inscreva-se (FreshRSS favoritos)',
 		'import_export' => 'Importar / exportar',
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'title' => array(
+		'_' => 'Gerenciamento de inscrições',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'Gerenciamento dos RSS feeds',
 		'subscription_tools' => 'Ferramentas de inscrição',
-		'_' => 'Gerenciamento de inscrições',
 	),
 );

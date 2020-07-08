@@ -2,6 +2,7 @@
 
 return array(
 	'archiving' => array(
+		'_' => 'Archiviazione',
 		'delete_after' => 'Rimuovi articoli dopo',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
@@ -19,9 +20,9 @@ return array(
 		'purge_now' => 'Cancella ora',
 		'title' => 'Archiviazione',
 		'ttl' => 'Non effettuare aggiornamenti per più di',
-		'_' => 'Archiviazione',
 	),
 	'display' => array(
+		'_' => 'Visualizzazione',
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
 			'display_authors' => 'Authors',	// TODO - Translation
@@ -46,22 +47,22 @@ return array(
 			'no_limit' => 'Nessun limite',
 			'thin' => 'Stretto',
 		),
-		'_' => 'Visualizzazione',
 	),
 	'profile' => array(
+		'_' => 'Gestione profili',
 		'api' => 'API management',	// TODO - Translation
 		'delete' => array(
-			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 			'_' => 'Cancellazione account',
+			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 		),
 		'email' => 'Indirizzo email',
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
 		'title' => 'Profilo',
-		'_' => 'Gestione profili',
 	),
 	'query' => array(
+		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
 		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => 'Filtro applicato:',
@@ -69,8 +70,8 @@ return array(
 		'get_category' => 'Mostra la categoria "%s" ',
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed "%s" ',
-		'none' => 'Non hai creato nessuna ricerca personale.',
 		'no_filter' => 'Nessun filtro',
+		'none' => 'Non hai creato nessuna ricerca personale.',
 		'number' => 'Ricerca n°%d',
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
@@ -93,9 +94,9 @@ return array(
 		'state_14' => 'Mostra gli articoli non letti',
 		'state_15' => 'Mostra tutti gli articoli',
 		'title' => 'Ricerche personali',
-		'_' => 'Ricerche personali',
 	),
 	'reading' => array(
+		'_' => 'Lettura',
 		'after_onread' => 'Dopo “segna tutto come letto”,',
 		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Numero di articoli per pagina',
@@ -117,16 +118,19 @@ return array(
 			'when' => 'Segna articoli come letti…',
 		),
 		'show' => array(
+			'_' => 'Articoli da visualizzare',
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Adatta visualizzazione',
 			'all_articles' => 'Mostra tutti gli articoli',
+			'all_categories' => 'All categories',	// TODO - Translation
+			'no_category' => 'No category',	// TODO - Translation
 			'unread' => 'Mostra solo non letti',
-			'_' => 'Articoli da visualizzare',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
 		'sort' => array(
+			'_' => 'Ordinamento',
 			'newer_first' => 'Prima i più recenti',
 			'older_first' => 'Prima i più vecchi',
-			'_' => 'Ordinamento',
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
 		'title' => 'Lettura',
@@ -136,9 +140,9 @@ return array(
 			'normal' => 'Vista elenco',
 			'reader' => 'Modalità di lettura',
 		),
-		'_' => 'Lettura',
 	),
 	'sharing' => array(
+		'_' => 'Condivisione',
 		'add' => 'Add a sharing method',	// TODO - Translation
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
@@ -153,9 +157,9 @@ return array(
 		'title' => 'Condividi',
 		'twitter' => 'Twitter',	// TODO - Translation
 		'wallabag' => 'wallabag',	// TODO - Translation
-		'_' => 'Condivisione',
 	),
 	'shortcut' => array(
+		'_' => 'Comandi tastiera',
 		'article_action' => 'Azioni sugli articoli',
 		'auto_share' => 'Condividi',
 		'auto_share_help' => 'Se è presente un solo servizio di condivisione verrà usato quello, altrimenti usare anche il numero associato.',
@@ -180,14 +184,14 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Vai al sito fonte',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> per segnare tutti gli articoli come letti',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Comandi da tastiera',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Accedi alle ricerche personali',
 		'user_filter_help' => 'Se è presente una sola ricerca personale verrà usata quella, altrimenti usare anche il numero associato.',
 		'views' => 'Views',	// TODO - Translation
-		'_' => 'Comandi tastiera',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articoli (%s)',

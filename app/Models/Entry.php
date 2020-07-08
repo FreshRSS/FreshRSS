@@ -212,7 +212,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	private function _feedId($value) {
 		$this->feed = null;
-		$this->feedId = $value;
+		$this->feedId = intval($value);
 	}
 	public function _tags($value) {
 		$this->hash = null;
@@ -352,8 +352,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public static function getContentByParsing($url, $path, $attributes = array()) {
-		require_once(LIB_PATH . '/lib_phpQuery.php');
+	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
@@ -391,19 +390,28 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 
 		if ($html) {
+			require_once(LIB_PATH . '/lib_phpQuery.php');
 			$doc = phpQuery::newDocument($html);
-			$content = $doc->find($path);
 
-			foreach (pq('img[data-src]') as $img) {
-				$imgP = pq($img);
-				$dataSrc = $imgP->attr('data-src');
-				if (strlen($dataSrc) > 4) {
-					$imgP->attr('src', $dataSrc);
-					$imgP->removeAttr('data-src');
+			if ($maxRedirs > 0) {
+				//Follow any HTML redirection
+				$metas = $doc->find('meta[http-equiv][content]');
+				foreach ($metas as $meta) {
+					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
+						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
+						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
+						if ($refresh != false && $refresh !== $url) {
+							phpQuery::unloadDocuments();
+							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
+						}
+					}
 				}
 			}
 
-			return trim(sanitizeHTML($content->__toString(), $url));
+			$content = $doc->find($path);
+			$html = trim(sanitizeHTML($content->__toString(), $url));
+			phpQuery::unloadDocuments();
+			return $html;
 		} else {
 			throw new Exception();
 		}

@@ -1,5 +1,4 @@
 <?php
-
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
@@ -19,13 +18,9 @@ $today = @strtotime('today');
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
-	$firstEntry = null;
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
-		if ($nbEntries === 0) {
-			$firstEntry = $item;
-		}
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
@@ -100,7 +95,7 @@ $today = @strtotime('today');
 	endforeach;
 
 	if ($nbEntries > 0):
-		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $firstEntry, $lastEntry);
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('pagination');
 ?></div><?php
 	else:

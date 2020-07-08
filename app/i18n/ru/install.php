@@ -17,19 +17,20 @@ return array(
 		'type' => 'Метод аутентификации',
 	),
 	'bdd' => array(
+		'_' => 'База данных',
 		'conf' => array(
+			'_' => 'Конфигурация базы данныхDatabase configuration',
 			'ko' => 'Проверьте конфигурацию базы данных.',
 			'ok' => 'Конфигурация базы данных сохранена.',
-			'_' => 'Конфигурация базы данныхDatabase configuration',
 		),
 		'host' => 'Хост',
 		'password' => 'Пароль базы данных',
 		'prefix' => 'Префикс таблицы',
 		'type' => 'Тип базы данных',
 		'username' => 'Имя пользователя базы данных',
-		'_' => 'База данных',
 	),
 	'check' => array(
+		'_' => 'Проверки',
 		'already_installed' => 'Обнаружена предыдущая установка FreshRSS!',
 		'cache' => array(
 			'nok' => 'Проверьте права доступа к папке <em>./data/cache</em> . Сервер HTTP должен иметь права на запись в эту папку.',
@@ -95,11 +96,10 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'_' => 'Проверки',
 	),
 	'conf' => array(
-		'ok' => 'Общие настройки были сохранены.',
 		'_' => 'Общие настройки',
+		'ok' => 'Общие настройки были сохранены.',
 	),
 	'congratulations' => 'Поздравляем!',
 	'default_user' => 'Имя пользователя по умолчанию <small>(максимум 16 латинских букв и/или цифр)</small>',
@@ -110,9 +110,9 @@ return array(
 		'confirm_reinstall' => 'Переустанавливая FreshRSS, вы потеряете предыдущую конфигурацию. Вы хотите продолжить?',
 	),
 	'language' => array(
+		'_' => 'Язык',
 		'choose' => 'Выберите язык для FreshRSS',
 		'defined' => 'Язык выбран.',
-		'_' => 'Язык',
 	),
 	'not_deleted' => 'Что-то пошло не так; удалите файл <em>%s</em> вручную.',
 	'ok' => 'Установка успешна.',

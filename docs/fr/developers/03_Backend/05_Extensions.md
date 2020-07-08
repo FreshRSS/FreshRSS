@@ -374,6 +374,13 @@ temps d'aborder les extensions en elles-même.
 Une extension permet donc d'ajouter des fonctionnalités facilement à
 FreshRSS sans avoir à toucher au cœur du projet directement.
 
+### Travailler dans Docker
+
+Quand on travaille sur une extension, c'est toujours plus facile de la travailler directement dans son environnement. Avec Docker, on peut exploiter l'option ```volume``` quand on démarre le conteneur. Heureusement, on peut l'utiliser sans avoir de connaissances particulières de Docker en utilisant la règle du Makefile :
+```
+make start extensions="/chemin/complet/de/l/extension/1 /chemin/complet/de/l/extension/2"
+```
+
 ### Les fichiers et répertoires de base
 
 La première chose à noter est que **toutes** les extensions **doivent** se

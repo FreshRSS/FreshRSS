@@ -213,7 +213,7 @@ Remember not pass the `CRON_MIN` environment variable to your Docker run, to avo
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
 ```
-7,37 * * * * root docker exec --user www-data -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 ### Option 3) Cron as another instance of the same FreshRSS Docker image
@@ -287,6 +287,7 @@ Require valid-user
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 - In the `postgresql` service:
+    * `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
 	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
 	* the `POSTGRES_PASSWORD` in the `environment` section;
 - In the `freshrss` service:

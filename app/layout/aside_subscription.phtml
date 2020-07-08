@@ -1,7 +1,11 @@
 <ul class="nav nav-list aside">
 	<li class="nav-header"><?= _t('sub.menu.subscription_management') ?></li>
 
-	<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() !== 'bookmarklet' ? ' active' : '' ?>">
+	<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'add' ? ' active' : '' ?>">
+		<a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.menu.add') ?></a>
+	</li>
+
+	<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 		<a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.menu.subscription_management') ?></a>
 	</li>
 

@@ -113,10 +113,6 @@ function libopml_parse_outline($outline_xml, $strict = true) {
 		// An outline may contain any number of outline children
 		if ($key === 'outline') {
 			$outline['@outlines'][] = libopml_parse_outline($value, $strict);
-		} else {
-			throw new LibOPML_Exception(
-				'Body can contain only outline elements'
-			);
 		}
 	}
 
@@ -200,10 +196,6 @@ function libopml_parse_string($xml, $strict = true) {
 		if ($key === 'outline') {
 			$at_least_one_outline = true;
 			$array['body'][] = libopml_parse_outline($value, $strict);
-		} else {
-			throw new LibOPML_Exception(
-				'Body can contain only outline elements'
-			);
 		}
 	}
 

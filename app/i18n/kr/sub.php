@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
 		'title' => 'API',
@@ -11,15 +12,14 @@ return array(
 		'title' => '북마클릿',
 	),
 	'category' => array(
+		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
-		'new' => '새 카테고리',
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => '제목',
-		'_' => '카테고리',
 	),
 	'feed' => array(
 		'add' => 'RSS 피드 추가',
@@ -39,16 +39,16 @@ return array(
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
@@ -56,13 +56,13 @@ return array(
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
 		'priority' => array(
+			'_' => '표시',
 			'archived' => '표시하지 않음 (보관됨)',
 			'main_stream' => '메인 스트림에 표시하기',
 			'normal' => '피드가 속한 카테고리에만 표시하기',
-			'_' => '표시',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
@@ -102,14 +102,19 @@ return array(
 		'title' => '불러오기 / 내보내기',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
 	),
 	'title' => array(
+		'_' => '구독 관리',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'RSS 피드 관리',
 		'subscription_tools' => '구독 도구',
-		'_' => '구독 관리',
 	),
 );

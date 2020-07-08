@@ -30,7 +30,7 @@ return array(
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'Het wachtwoord is ongeldig.',
 	),
 	'tos' => array(
 		'feedback' => array(
@@ -38,7 +38,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => 'The username is invalid.',	// TODO - Translation
-		'taken' => 'The username %s is taken.',	// TODO - Translation
+		'invalid' => 'De gebruikersnaam is ongeldig.',
+		'taken' => 'De gebruikersnaam %s is bezet.',
 	),
 );

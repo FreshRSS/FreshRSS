@@ -15,14 +15,6 @@ a, button.as-link {
 	outline: none;
 }
 
-/*=== Forms */
-.form-group {
-	display: inline-block;
-	float: left;
-	width: 100%;
-	height: auto;
-}
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
@@ -1244,6 +1236,16 @@ a.btn {
 /*===========*/
 
 @media screen and (max-width: 840px) {
+	.form-group .group-name {
+		padding-bottom: 0;
+		text-align: left;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.header {
 		display: table;
 	}
@@ -1272,11 +1274,6 @@ a.btn {
 		line-height: 40px;
 		text-align: center;
 		box-shadow: 0 1px rgba(255,255,255,0.08);
-	}
-
-	.aside .btn-important {
-		margin: 20px 0 0;
-		display: inline-block;
 	}
 
 	.aside.aside_feed {
@@ -1333,6 +1330,16 @@ a.btn {
 	#nav_entries {
 		width: 100%;
 	}
+
+	.post {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	#close-slider.active {
+		background: #171717;
+		box-shadow: 0 1px rgba(255,255,255,0.08)
+	}
 }
 
 @media (max-width: 700px) {
@@ -1347,9 +1354,5 @@ a.btn {
 
 	.nav_menu .search {
 		display: inline-block;
-	}
-
-	.aside .btn-important {
-		display: none;
 	}
 }

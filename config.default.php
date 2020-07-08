@@ -55,6 +55,13 @@ return array(
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
 	'auth_type' => 'form',
 
+	# When using http_auth, automatically register any unknown user
+	'http_auth_auto_register' => true,
+
+	# Optionally, you can specify the $_SERVER key containing the email address used when registering
+	# the user (e.g. REMOTE_USER_EMAIL).
+	'http_auth_auto_register_email_field' => '',
+
 	# Allow or not the use of the API, used for mobile apps.
 	#	End-point is https://freshrss.example.net/api/greader.php
 	#	You need to set the user's API password.
@@ -102,7 +109,7 @@ return array(
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
-		# Max number of accounts that anonymous users can create
+		# Max number of accounts that anonymous users can create (only for Web form login type)
 		#   0 for an unlimited number of accounts
 		#   1 is to not allow user registrations (1 is corresponding to the admin account)
 		'max_registrations' => 1,

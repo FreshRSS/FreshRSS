@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
 		'title' => 'API',	// TODO - Translation
@@ -11,15 +12,14 @@ return array(
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
 	'category' => array(
+		'_' => 'Categoria',
 		'add' => 'Aggiungi una categoria',
 		'archiving' => 'Archiviazione',
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
-		'new' => 'Nuova categoria',
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Titolo',
-		'_' => 'Categoria',
 	),
 	'feed' => array(
 		'add' => 'Aggiungi un Feed RSS',
@@ -39,16 +39,16 @@ return array(
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
 			'_' => 'Filter actions',	// TODO - Translation
+			'help' => 'Write one search filter per line.',	// TODO - Translation
 		),
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
@@ -56,13 +56,13 @@ return array(
 		'no_selected' => 'Nessun feed selezionato.',
 		'number_entries' => '%d articoli',
 		'priority' => array(
+			'_' => 'Visibility',	// TODO - Translation
 			'archived' => 'Do not show (archived)',	// TODO - Translation
 			'main_stream' => 'Mostra in homepage',
 			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Importa / esporta',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Bookmark (trascina nei preferiti)',
 		'import_export' => 'Importa / esporta',
 		'subscription_management' => 'Gestione sottoscrizioni',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
+		'_' => 'Gestione sottoscrizioni',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'Gestione RSS feeds',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Gestione sottoscrizioni',
 	),
 );

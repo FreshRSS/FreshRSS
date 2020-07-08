@@ -1130,9 +1130,23 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
+	.form-group .group-name {
+		padding-bottom: 0;
+
+		text-align: left;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.aside {
-		box-shadow: 3px 0 3px #aaa;
 		transition: width 200ms linear;
+	}
+
+	.aside:target {
+		box-shadow: 3px 0 3px #aaa;
 	}
 
 	.aside .toggle_aside,
@@ -1148,6 +1162,11 @@ a.btn {
 
 	.aside.aside_feed {
 		padding: 0;
+	}
+
+	.post {
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 
 	.nav_menu .btn {

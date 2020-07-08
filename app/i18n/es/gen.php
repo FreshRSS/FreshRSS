@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
+		'add' => 'Add',	// TODO - Translation
 		'back' => '← Volver',
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
@@ -26,51 +27,56 @@ return array(
 		'update' => 'Actualizar',
 	),
 	'auth' => array(
-		'accept_tos' => 'Acpeto los <a href="%s">Terminos de Servicio</a>.',	// TODO - Translation
+		'accept_tos' => 'Acpeto los <a href="%s">Terminos de Servicio</a>.',
 		'email' => 'Correo electrónico',
 		'keep_logged_in' => 'Mantenerme identificado <small>(%s días)</small>',
 		'login' => 'Conectar',
 		'logout' => 'Desconectar',
 		'password' => array(
-			'format' => '<small>Mínimo de 7 caracteres</small>',
 			'_' => 'Contraseña',
+			'format' => '<small>Mínimo de 7 caracteres</small>',
 		),
 		'registration' => array(
+			'_' => 'Nueva cuenta',
 			'ask' => '¿Crear una cuenta?',
 			'title' => 'Creación de cuenta',
-			'_' => 'Nueva cuenta',
 		),
 		'reset' => 'Reinicar identificación',
 		'username' => array(
+			'_' => 'Nombre de usuario',
 			'admin' => 'Nombre de usuario del Administrador',
 			'format' => '<small>Máximo 16 caracteres alfanuméricos</small>',
-			'_' => 'Nombre de usuario',
 		),
 	),
 	'date' => array(
-		'apr' => 'abr',
 		'Apr' => '\\A\\b\\r\\i\\l',
-		'april' => 'abril',
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
+		'Dec' => '\\D\\i\\c\\i\\e\\m\\b\\r\\e',
+		'Feb' => '\\F\\e\\b\\r\\e\\r\\o',
+		'Jan' => '\\E\\n\\e\\r\\o',
+		'Jul' => '\\J\\u\\l\\i\\o',
+		'Jun' => '\\J\\u\\n\\i\\o',
+		'Mar' => '\\M\\a\\r\\z\\o',
+		'May' => '\\M\\a\\y\\o',
+		'Nov' => '\\N\\o\\v\\i\\e\\m\\b\\r\\e',
+		'Oct' => '\\O\\c\\t\\u\\b\\r\\e',
+		'Sep' => '\\S\\e\\p\\t\\i\\e\\m\\b\\r\\e',
+		'apr' => 'abr',
+		'april' => 'abril',
 		'aug' => 'ago',
 		'august' => 'agosto',
 		'before_yesterday' => 'Anteayer',
-		'Dec' => '\\D\\i\\c\\i\\e\\m\\b\\r\\e',
 		'dec' => 'dic',
 		'december' => 'diciembre',
-		'Feb' => '\\F\\e\\b\\r\\e\\r\\o',
 		'feb' => 'feb',
 		'february' => 'febrero',
 		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// TODO - Translation
 		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// TODO - Translation
 		'fri' => 'Vie',
-		'Jan' => '\\E\\n\\e\\r\\o',
 		'jan' => 'ene',
 		'january' => 'ene',
 		'jul' => 'jul',
-		'Jul' => '\\J\\u\\l\\i\\o',
 		'july' => 'julio',
-		'Jun' => '\\J\\u\\n\\i\\o',
 		'jun' => 'jun',
 		'june' => 'junio',
 		'last_2_year' => 'Last two years',	// TODO - Translation
@@ -81,22 +87,17 @@ return array(
 		'last_month' => 'Mes pasado',
 		'last_week' => 'Semana pasada',
 		'last_year' => 'Año pasado',
-		'Mar' => '\\M\\a\\r\\z\\o',
 		'mar' => 'mar',
 		'march' => 'marzo',
 		'may' => 'mayo',
-		'May' => '\\M\\a\\y\\o',
 		'may_' => 'may',
 		'mon' => 'Lun',
 		'month' => 'meses',
-		'Nov' => '\\N\\o\\v\\i\\e\\m\\b\\r\\e',
 		'nov' => 'nov',
 		'november' => 'noviembre',
-		'Oct' => '\\O\\c\\t\\u\\b\\r\\e',
 		'oct' => 'oct',
 		'october' => 'octubre',
 		'sat' => 'Sab',
-		'Sep' => '\\S\\e\\p\\t\\i\\e\\m\\b\\r\\e',
 		'sep' => 'sep',
 		'september' => 'septiembre',
 		'sun' => 'Dom',
@@ -108,8 +109,8 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'about' => 'Acerca de FreshRSS',
 		'_' => 'FreshRSS',	// TODO - Translation
+		'about' => 'Acerca de FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Vaciar categoría',
@@ -127,6 +128,7 @@ return array(
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
+		'en-us' => 'English (United States)',
 		'es' => 'Español',
 		'fr' => 'Français',
 		'he' => 'עברית',
@@ -178,13 +180,13 @@ return array(
 		'years' => 'años',
 	),
 	'share' => array(
+		'Known' => 'Known based sites',	// TODO - Translation
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',	// TODO - Translation
 		'gnusocial' => 'GNU social',	// TODO - Translation
 		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'Known' => 'Known based sites',	// TODO - Translation
 		'lemmy' => 'Lemmy',	// TODO - Translation
 		'linkedin' => 'LinkedIn',	// TODO - Translation
 		'mastodon' => 'Mastodon',	// TODO - Translation

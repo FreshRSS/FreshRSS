@@ -1,0 +1,91 @@
+<?php $this->partial('aside_subscription'); ?>
+
+<div class="post drop-section">
+    <a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+
+	<h2><?= _t('sub.title.add_feed') ?></h2>
+    <form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+		<div class="form-group">
+			<label class="group-name" for="url_rss"><?= _t('sub.feed.url') ?></label>
+			<div class="group-controls">
+				<input id="url_rss" name="url_rss" type="url" required="required" autocomplete="off" class="long"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="category"><?= _t('sub.category') ?></label>
+			<div class="group-controls">
+                <select name="category" id="category">
+                <?php foreach ($this->categories as $cat) { ?>
+                <option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
+                    <?= $cat->name() ?>
+                </option>
+                <?php } ?>
+                </select>
+			</div>
+		</div>
+
+        <legend><?= _t('sub.feed.auth.configuration') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
+			<div class="group-controls">
+				<input id="http_user" name="http_user" type="text" autocomplete="off"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+        <label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
+			<div class="group-controls">
+				<input id="http_pass" name="http_pass" type="text" value=" " autocomplete="new-password"/>
+			</div>
+		</div>
+
+		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+		<legend><?= _t('sub.feed.advanced') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
+			<div class="group-controls">
+				<input type="number" name="timeout" id="timeout" min="3" max="120" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="ssl_verify"><?= _t('sub.feed.ssl_verify') ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="ssl_verify">
+					<select name="ssl_verify" id="ssl_verify">
+						<option value=""><?= _t('gen.short.by_default') ?></option>
+						<option value="0"><?= _t('gen.short.no') ?></option>
+						<option value="1"><?= _t('gen.short.yes') ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+		<?php } ?>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+			</div>
+		</div>
+	</form>
+
+	<h2><?= _t('sub.title.add_category') ?></h2>
+	<form action="<?= _url('category', 'create') ?>" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
+			<div class="group-controls">
+				<input id="new-category" name="new-category" type="text" autocomplete="off"/>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+			</div>
+		</div>
+	</form>
+</div>

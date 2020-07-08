@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
 		'title' => 'API',
@@ -11,15 +12,14 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
 		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
-		'new' => 'Nòva categoria',
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
-		'_' => 'Categoria',
 	),
 	'feed' => array(
 		'add' => 'Ajustar un flux RSS',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
 		'filteractions' => array(
-			'help' => 'Escrivètz una recèrca per linha.',
 			'_' => 'Filtre d’accion',
+			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Cap de flux pas seleccionat.',
 		'number_entries' => '%d articles',
 		'priority' => array(
+			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
-			'_' => 'Visibilitat',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Veire lo còdi font',
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Importar / Exportar',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 	'title' => array(
+		'_' => 'Gestion dels abonaments',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'Gestion dels fluxes RSS',
 		'subscription_tools' => 'Aisinas d’abonament',
-		'_' => 'Gestion dels abonaments',
 	),
 );

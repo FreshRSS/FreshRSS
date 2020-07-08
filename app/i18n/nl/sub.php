@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Het toevoegen van feeds en categorieën is <a href=\'%s\'>hierheen</a> verplaatst. Deze functionaliteit is ook toegankelijk via het menu links en via het ✚ icoon op de hoofdpagina.',
 	'api' => array(
 		'documentation' => 'Kopieer de volgende URL om deze in een externe toepassing te gebruiken.',
 		'title' => 'API',
@@ -11,15 +12,14 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Categorie',
 		'add' => 'Voeg categorie toe',
 		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
-		'new' => 'Nieuwe categorie',
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
-		'_' => 'Categorie',
 	),
 	'feed' => array(
 		'add' => 'Voeg een RSS-feed toe',
@@ -39,31 +39,31 @@ return array(
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
 		'filteractions' => array(
-			'help' => 'Voer één zoekfilter per lijn in.',
 			'_' => 'Filteracties',
+			'help' => 'Voer één zoekfilter per lijn in.',
 		),
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Cache leegmaken',
+			'clear_cache_help' => 'Cache voor deze feed leegmaken.',
+			'reload_articles' => 'Artikels herladen',
+			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',
+			'title' => 'Onderhoud',
 		),
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
 		'priority' => array(
+			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',
 			'main_stream' => 'Zichtbaar in het overzicht',
 			'normal' => 'Toon in categorie',
-			'_' => 'Zichtbaarheid',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Broncode tonen',
+			'show_rendered' => 'Inhoud tonen',
 		),
 		'show' => array(
 			'all' => 'Alle feeds tonen',
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Importeren / exporteren',
 	),
 	'menu' => array(
+		'add' => 'Feed of categorie toevoegen',
+		'add_feed' => 'Feed toevoegen',
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'title' => array(
+		'_' => 'Abonnementenbeheer',
+		'add' => 'Feed of categorie toevoegen',
+		'add_category' => 'Categorie toevoegen',
+		'add_feed' => 'Feed toevoegen',
 		'feed_management' => 'RSS-feedbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
-		'_' => 'Abonnementenbeheer',
 	),
 );

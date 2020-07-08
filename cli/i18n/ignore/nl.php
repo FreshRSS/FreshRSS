@@ -2,6 +2,7 @@
 
 return array(
 	'admin.stats.feed',
+	'admin.user.feed_count',
 	'conf.query.number',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
@@ -15,10 +16,12 @@ return array(
 	'gen.date.Dec',
 	'gen.date.Nov',
 	'gen.date.Sep',
+	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',
 	'gen.lang.en',
+	'gen.lang.en-us',
 	'gen.lang.es',
 	'gen.lang.fr',
 	'gen.lang.he',

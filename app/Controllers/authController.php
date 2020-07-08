@@ -131,6 +131,11 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
+			if (!$conf->enabled) {
+				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				return;
+			}
+
 			$ok = FreshRSS_FormAuth::checkCredentials(
 				$username, $conf->passwordHash, $nonce, $challenge
 			);
@@ -147,6 +152,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				} else {
 					FreshRSS_FormAuth::deleteCookie();
 				}
+
+				Minz_Translate::init($conf->language);
 
 				// All is good, go back to the index.
 				Minz_Request::good(_t('feedback.auth.login.success'),
@@ -191,6 +198,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Session::_param('csrf');
 				FreshRSS_Auth::giveAccess();
 
+				Minz_Translate::init($conf->language);
+
 				Minz_Request::good(_t('feedback.auth.login.success'),
 				                   array('c' => 'index', 'a' => 'index'));
 			} else {
@@ -231,6 +240,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 		$this->view->show_tos_checkbox = file_exists(join_path(DATA_PATH, 'tos.html'));
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
+		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
 		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

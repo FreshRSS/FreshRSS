@@ -163,7 +163,7 @@ class FeverAPI
 				$username = trim($username);
 				Minz_Session::_param('currentUser', $username);
 				$user_conf = get_user_configuration($username);
-				if ($user_conf != null && $feverKey === $user_conf->feverKey) {
+				if ($user_conf != null && $feverKey === $user_conf->feverKey && $user_conf->enabled) {
 					FreshRSS_Context::$user_conf = $user_conf;
 					Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
@@ -288,7 +288,7 @@ class FeverAPI
 		$arr = array('api_version' => self::API_LEVEL, 'auth' => $status);
 
 		if ($status === self::STATUS_OK) {
-			$arr['last_refreshed_on_time'] = (string) $this->lastRefreshedOnTime();
+			$arr['last_refreshed_on_time'] = $this->lastRefreshedOnTime();
 			$arr = array_merge($arr, $reply);
 		}
 
@@ -536,7 +536,7 @@ class FeverAPI
 				continue;
 			}
 			$items[] = array(
-				'id' => $entry->id(),
+				'id' => '' . $entry->id(),
 				'feed_id' => $entry->feed(false),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),

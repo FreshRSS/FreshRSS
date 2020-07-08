@@ -55,7 +55,8 @@ class Minz_Log {
 				$level_label = 'debug';
 				break;
 			default :
-				$level_label = 'unknown';
+				$level = LOG_INFO;
+				$level_label = 'info';
 			}
 
 			$log = '[' . date('r') . ']'

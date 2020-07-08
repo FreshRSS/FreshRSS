@@ -246,7 +246,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				Minz_Request::good(_t('feedback.extensions.removed', $ext_name),
 				                   $url_redirect);
 			} else {
-				Minz_Request::bad(_t('feedback.extensions.cannot_delete', $ext_name),
+				Minz_Request::bad(_t('feedback.extensions.cannot_remove', $ext_name),
 				                  $url_redirect);
 			}
 		}

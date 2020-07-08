@@ -45,11 +45,7 @@ If your idea is nice, we’ll have a look at it.
 
 ## Contribute to internationalization (i18n)
 
-If you want to improve internationalization, please open a new ticket first and follow indications from « Fix a bug » section.
-
-Translations are present in the subdirectories of `./app/i18n/`.
-
-We are working on a better way to handle internationalization but don’t hesitate to suggest any idea!
+Learn how to contribute to translations in [the dedicated documentation](./docs/en/internationalization.md).
 
 ## Contribute to documentation
 

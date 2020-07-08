@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Skopírujte tento odkaz a použite ho v inom programe.',
 		'title' => 'API',
@@ -11,15 +12,14 @@ return array(
 		'title' => 'Záložka',
 	),
 	'category' => array(
+		'_' => 'Kategória',
 		'add' => 'Pridať kategóriu',
 		'archiving' => 'Archiving',	// TODO - Translation
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
-		'new' => 'Nová kategória',
 		'position' => 'Display position',	// TODO - Translation
 		'position_help' => 'To control category sort order',	// TODO - Translation
 		'title' => 'Názov',
-		'_' => 'Kategória',
 	),
 	'feed' => array(
 		'add' => 'Pridať RSS kanál',
@@ -39,16 +39,16 @@ return array(
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
 		'filteractions' => array(
-			'help' => 'Napíšte jeden výraz hľadania na riadok.',
 			'_' => 'Filtrovať akcie',
+			'help' => 'Napíšte jeden výraz hľadania na riadok.',
 		),
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache of this feed on disk',	// TODO - Translation
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
 			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
@@ -56,13 +56,13 @@ return array(
 		'no_selected' => 'Nevybrali ste kanál.',
 		'number_entries' => 'Počet článkov: %d',
 		'priority' => array(
+			'_' => 'Viditeľnosť',
 			'archived' => 'Nezobrazovať (archivované)',
 			'main_stream' => 'Zobraziť v prehľade kanálov',
 			'normal' => 'Zobraziť vo svojej kategórii',
-			'_' => 'Viditeľnosť',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source',	// TODO - Translation
+			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation
 		),
 		'show' => array(
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Import / export',
 	),
 	'menu' => array(
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Odoberať (záložka FreshRSS)',
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 	'title' => array(
+		'_' => 'Správa odoberaných kanálov',
+		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add_category' => 'Add a category',	// TODO - Translation
+		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'Správa RSS kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
-		'_' => 'Správa odoberaných kanálov',
 	),
 );

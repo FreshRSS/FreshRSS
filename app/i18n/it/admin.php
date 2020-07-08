@@ -83,9 +83,9 @@ return array(
 			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'Installazione PHP',
 			'nok' => 'Versione PHP %s FreshRSS richiede almeno la versione %s.',
 			'ok' => 'Versione PHP %s, compatibile con FreshRSS.',
-			'_' => 'Installazione PHP',
 		),
 		'tables' => array(
 			'nok' => 'Rilevate tabelle mancanti nel database.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
 		'system' => array(
-			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 			'_' => 'Estensioni di sistema',
+			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 		),
 		'title' => 'Estensioni',
 		'update' => 'Update available',	// TODO - Translation
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
+		'_' => 'Statistiche',
 		'all_feeds' => 'Tutti i feeds',
 		'category' => 'Categoria',
 		'entry_count' => 'Articoli',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Non letti',
 		'title' => 'Statistiche',
 		'top_feed' => 'I migliori 10 feeds',
-		'_' => 'Statistiche',
 	),
 	'system' => array(
+		'_' => 'Configurazione di sistema',
 		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO - Translation
@@ -170,29 +171,30 @@ return array(
 			'help' => '0 significa che non esiste limite sui profili',
 			'number' => 'Numero massimo di profili',
 		),
-		'_' => 'Configurazione di sistema',
 	),
 	'update' => array(
+		'_' => 'Aggiornamento sistema',
 		'apply' => 'Applica',
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
 		'current_version' => 'FreshRSS versione %s.',
 		'last' => 'Ultima verifica: %s',
 		'none' => 'Nessun aggiornamento da applicare',
 		'title' => 'Aggiorna sistema',
-		'_' => 'Aggiornamento sistema',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
-		'articles_and_size' => '%s articoli (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
+		'articles_and_size' => '%s articoli (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Crea nuovo utente',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Email address',	// TODO - Translation
+		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Lingua',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
@@ -201,8 +203,8 @@ return array(
 		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Gestione utenti',
 		'update_users' => 'Update user',	// TODO - Translation
+		'user_list' => 'Lista utenti',
 		'username' => 'Nome utente',
 		'users' => 'Utenti',
-		'user_list' => 'Lista utenti',
 	),
 );

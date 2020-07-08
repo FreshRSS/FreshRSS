@@ -17,19 +17,20 @@ return array(
 		'type' => 'Metodo di autenticazione',
 	),
 	'bdd' => array(
+		'_' => 'Database',	// TODO - Translation
 		'conf' => array(
+			'_' => 'Configurazione database',
 			'ko' => 'Verifica le informazioni del database.',
 			'ok' => 'Le configurazioni del database sono state salvate.',
-			'_' => 'Configurazione database',
 		),
 		'host' => 'Host',	// TODO - Translation
 		'password' => 'Password del database',
 		'prefix' => 'Prefisso tabella',
 		'type' => 'Tipo di database',
 		'username' => 'Nome utente del database',
-		'_' => 'Database',	// TODO - Translation
 	),
 	'check' => array(
+		'_' => 'Controlli',
 		'already_installed' => 'FreshRSS risulta già installato!',
 		'cache' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>./data/cache</em>. Il server HTTP deve avere i permessi per scriverci dentro',
@@ -95,11 +96,10 @@ return array(
 			'nok' => 'You lack the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'_' => 'Controlli',
 	),
 	'conf' => array(
-		'ok' => 'Configurazioni generali salvate.',
 		'_' => 'Configurazioni generali',
+		'ok' => 'Configurazioni generali salvate.',
 	),
 	'congratulations' => 'Congratulazione!',
 	'default_user' => 'Username utente predefinito <small>(massimo 16 caratteri alfanumerici)</small>',
@@ -110,9 +110,9 @@ return array(
 		'confirm_reinstall' => 'Reinstallando FreshRSS perderai la configurazione precedente. Sei sicuro di voler procedere?',
 	),
 	'language' => array(
+		'_' => 'Lingua',
 		'choose' => 'Seleziona la lingua per FreshRSS',
 		'defined' => 'Lingua impostata.',
-		'_' => 'Lingua',
 	),
 	'not_deleted' => 'Qualcosa non ha funzionato; devi cancellare il file <em>%s</em> manualmente.',
 	'ok' => 'Processo di installazione terminato con successo.',

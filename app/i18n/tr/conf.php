@@ -2,6 +2,7 @@
 
 return array(
 	'archiving' => array(
+		'_' => 'Arşiv',
 		'delete_after' => 'Makelelerin tutulacağı süre',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
@@ -19,9 +20,9 @@ return array(
 		'purge_now' => 'Şimdi temizle',
 		'title' => 'Arşiv',
 		'ttl' => 'Şu süreden sık otomatik yenileme yapma',
-		'_' => 'Arşiv',
 	),
 	'display' => array(
+		'_' => 'Görünüm',
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Authors',	// TODO - Translation
@@ -46,22 +47,22 @@ return array(
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
 		),
-		'_' => 'Görünüm',
 	),
 	'profile' => array(
+		'_' => 'Profil yönetimi',
 		'api' => 'API management',	// TODO - Translation
 		'delete' => array(
-			'warn' => 'Hesabınız ve tüm verileriniz silinecek.',
 			'_' => 'Hesap silme',
+			'warn' => 'Hesabınız ve tüm verileriniz silinecek.',
 		),
 		'email' => 'Email adresleri',
 		'password_api' => 'API Şifresi<br /><small>(ör. mobil uygulamalar için)</small>',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
 		'title' => 'Profil',
-		'_' => 'Profil yönetimi',
 	),
 	'query' => array(
+		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
 		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => 'Filtre uygulandı:',
@@ -69,8 +70,8 @@ return array(
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
-		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'no_filter' => 'Filtre yok',
+		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
@@ -93,9 +94,9 @@ return array(
 		'state_14' => 'Okunmamış makaleleri göster',
 		'state_15' => 'Tüm makaleleri göster',
 		'title' => 'Kullanıcı sorguları',
-		'_' => 'Kullanıcı sorguları',
 	),
 	'reading' => array(
+		'_' => 'Okuma',
 		'after_onread' => '"Hepsini okundu say" dedinten sonra,',
 		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
 		'articles_per_page' => 'Sayfa başına makale sayısı',
@@ -117,19 +118,19 @@ return array(
 			'when' => 'Makaleyi okundu olarak işaretle…',
 		),
 		'show' => array(
+			'_' => 'Gösterilecek makaleler',
+			'active_category' => 'Active category',	// TODO - Translation
 			'adaptive' => 'Ayarlanmış gösterim',
 			'all_articles' => 'Tüm makaleleri göster',
-			'unread' => 'Sadece okunmamış makaleleri göster',
-			'active_category' => 'Active category',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
-			'_' => 'Gösterilecek makaleler',
+			'unread' => 'Sadece okunmamış makaleleri göster',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
 		'sort' => array(
+			'_' => 'Sıralama',
 			'newer_first' => 'Önce yeniler',
 			'older_first' => 'Önce eskiler',
-			'_' => 'Sıralama',
 		),
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',
@@ -139,9 +140,9 @@ return array(
 			'normal' => 'Normal görünüm',
 			'reader' => 'Okuma görünümü',
 		),
-		'_' => 'Okuma',
 	),
 	'sharing' => array(
+		'_' => 'Paylaşım',
 		'add' => 'Add a sharing method',	// TODO - Translation
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
@@ -156,9 +157,9 @@ return array(
 		'title' => 'Paylaşım',
 		'twitter' => 'Twitter',	// TODO - Translation
 		'wallabag' => 'wallabag',	// TODO - Translation
-		'_' => 'Paylaşım',
 	),
 	'shortcut' => array(
+		'_' => 'Kısayollar',
 		'article_action' => 'Makale eylemleri',
 		'auto_share' => 'Paylaş',
 		'auto_share_help' => 'Sadece 1 paylaşım modu varsa bu kullanılır. Yoksa kendi paylaşım numaraları ile kullanılır.',
@@ -183,14 +184,14 @@ return array(
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
 		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
 		'see_on_website' => 'Orijinal sitede göster',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> tuşu ile tüm makaleler okundu olarak işaretlenir',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
 		'skip_previous_article' => 'Focus previous without opening',	// TODO - Translation
 		'title' => 'Kısayollar',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'Kullanıcı filtrelerine eriş',
 		'user_filter_help' => 'Eğer tek filtre varsa o kullanılır. Yoksa filtrelerin kendi numaralarıyla kullanılır.',
 		'views' => 'Views',	// TODO - Translation
-		'_' => 'Kısayollar',
 	),
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',

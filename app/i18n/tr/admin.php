@@ -83,9 +83,9 @@ return array(
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'PHP kurulumu',
 			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
-			'_' => 'PHP kurulumu',
 		),
 		'tables' => array(
 			'nok' => 'Veritabanında bir veya daha fazla tablo eksik.',
@@ -116,8 +116,8 @@ return array(
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
-			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 			'_' => 'Sistem eklentileri',
+			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 		),
 		'title' => 'Eklentiler',
 		'update' => 'Update available',	// TODO - Translation
@@ -125,6 +125,7 @@ return array(
 		'version' => 'Version',	// TODO - Translation
 	),
 	'stats' => array(
+		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm akış',
 		'category' => 'Kategori',
 		'entry_count' => 'Makale sayısı',
@@ -154,9 +155,9 @@ return array(
 		'status_unread' => 'Okunmamış',
 		'title' => 'İstatistikler',
 		'top_feed' => 'İlk 10 akış',
-		'_' => 'İstatistikler',
 	),
 	'system' => array(
+		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO - Translation
@@ -170,29 +171,30 @@ return array(
 			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',
 		),
-		'_' => 'Sistem yapılandırması',
 	),
 	'update' => array(
+		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
 		'check' => 'Güncelleme kontrolü',
 		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
 		'last' => 'Son kontrol: %s',
 		'none' => 'Yeni güncelleme yok',
 		'title' => 'Sistem güncelleme',
-		'_' => 'Sistem güncelleme',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
-		'articles_and_size' => '%s makale (%s)',
 		'article_count' => 'Articles',	// TODO - Translation
+		'articles_and_size' => '%s makale (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Yeni kullanıcı oluştur',
 		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Email address',	// TODO - Translation
+		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Dil',
+		'last_user_activity' => 'Last user activity',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
@@ -201,8 +203,8 @@ return array(
 		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Kullanıcıları yönet',
 		'update_users' => 'Update user',	// TODO - Translation
+		'user_list' => 'Kullanıcı listesi',
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',
-		'user_list' => 'Kullanıcı listesi',
 	),
 );

@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'O FreshRSS',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Hlášení chyb',
 		'credits' => 'Poděkování',
@@ -13,7 +14,6 @@ return array(
 		'title' => 'O FreshRSS',
 		'version' => 'Verze',
 		'website' => 'Webové stránka',
-		'_' => 'O FreshRSS',
 	),
 	'feed' => array(
 		'add' => 'Můžete přidat kanály.',
@@ -24,10 +24,10 @@ return array(
 		'title_global' => 'Přehled',
 	),
 	'log' => array(
+		'_' => 'Logy',
 		'clear' => 'Vymazat logy',
 		'empty' => 'Log je prázdný',
 		'title' => 'Logy',
-		'_' => 'Logy',
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',

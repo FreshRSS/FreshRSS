@@ -1031,8 +1031,8 @@ SQL;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : $res[0];
-		$unread = empty($res[1]) ? 0 : $res[1];
+		$all = empty($res[0]) ? 0 : intval($res[0]);
+		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 
@@ -1047,7 +1047,7 @@ SQL;
 			return false;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return isset($res[0]) ? $res[0] : 0;
+		return isset($res[0]) ? intval($res[0]) : 0;
 	}
 
 	public function countNotRead($minPriority = null) {
@@ -1061,7 +1061,7 @@ SQL;
 		}
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return isset($res[0]) ? intval($res[0]) : 0;
 	}
 
 	public function countUnreadReadFavorites() {
@@ -1083,14 +1083,18 @@ SELECT c FROM (
 ORDER BY o
 SQL;
 		$stm = $this->pdo->prepare($sql);
+		if (!$stm) {
+			Minz_Log::error('SQL error in ' . __method__ . ' ' . json_encode($this->pdo->errorInfo()));
+			return false;
+		}
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
 		$stm->bindValue(':priority_normal1', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
 		$stm->bindValue(':priority_normal2', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : $res[0];
-		$unread = empty($res[1]) ? 0 : $res[1];
+		$all = empty($res[0]) ? 0 : intval($res[0]);
+		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 

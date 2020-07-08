@@ -15,6 +15,7 @@
 			}
 
 			a {
+				box-sizing: border-box;
 				padding: 1rem 1rem 1rem 2.5rem;
 
 				background: url("../../themes/icons/logout.svg") no-repeat $sid-bg-dark 3% center;
@@ -36,6 +37,15 @@
 
 	}
 
+	.form-group .group-name {
+		text-align: left;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.aside {
 
 		@include transition(all, 0.2s, ease-in-out);
@@ -50,7 +60,8 @@
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	#close-slider.active {
 		background: $main-first-alt;
 		display: block;
 		width: 100%;
@@ -68,6 +79,12 @@
 			}
 
 			&.search {
+				display: block;
+
+				.stick {
+					display: flex;
+				}
+
 				input {
 					width: 90%;
 					height: 3.5rem;
@@ -85,16 +102,14 @@
 			}
 
 			&.configure {
-				width: 2.75rem;
-				top: 3.125rem;
-
-				.dropdown {
-					.btn {
-						padding: 1.125rem;
-					}
-				}
+				display: none;
 			}
 		}
+	}
+
+	.post {
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 
 	.nav_menu {

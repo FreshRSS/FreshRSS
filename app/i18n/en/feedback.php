@@ -16,7 +16,7 @@ return array(
 	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => 'A problem occured during authentication system configuration. Please retry later.',
+			'not_set' => 'A problem occurred during authentication system configuration. Please retry later.',
 			'set' => 'Form is now your default authentication system.',
 		),
 		'login' => array(
@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',
+		'cannot_remove' => '%s cannot be removed',
 		'disable' => array(
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now disabled',
@@ -44,9 +45,10 @@ return array(
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now enabled',
 		),
+		'no_access' => 'You have no access on %s',
 		'not_enabled' => '%s is not enabled',
 		'not_found' => '%s does not exist',
-		'no_access' => 'You have no access on %s',
+		'removed' => '%s removed',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',
@@ -54,7 +56,7 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
 		'no_zip_extension' => 'ZIP extension is not present on your server.',
-		'zip_error' => 'An error occured during ZIP import.',
+		'zip_error' => 'An error occurred during ZIP import.',
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',
@@ -72,10 +74,10 @@ return array(
 			'emptied' => 'Category has been emptied',
 			'error' => 'Category cannot be updated',
 			'name_exists' => 'Category name already exists.',
-			'not_delete_default' => 'You cannot delete the default category!',
-			'not_exist' => 'The category does not exist!',
 			'no_id' => 'You must specify the id of the category.',
 			'no_name' => 'Category name cannot be empty.',
+			'not_delete_default' => 'You cannot delete the default category!',
+			'not_exist' => 'The category does not exist!',
 			'over_max' => 'You have reached your limit of categories (%d)',
 			'updated' => 'Category has been updated.',
 		),
@@ -89,17 +91,17 @@ return array(
 			'error' => 'Feed cannot be updated',
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
-			'not_added' => '<em>%s</em> could not be added',
-			'not_found' => 'Feed cannot be found',
-			'no_refresh' => 'There is no feed to refresh…',
 			'n_actualized' => '%d feeds have been updated',
 			'n_entries_deleted' => '%d articles have been deleted',
+			'no_refresh' => 'There is no feed to refresh…',
+			'not_added' => '<em>%s</em> could not be added',
+			'not_found' => 'Feed cannot be found',
 			'over_max' => 'You have reached your limit of feeds (%d)',
 			'reloaded' => '<em>%s</em> has been reloaded',
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',
-				'no_feed' => 'Internal error (feed can\'t be found).',
+				'no_feed' => 'Internal error (feed can’t be found).',
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',
 			),
@@ -117,16 +119,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'User %s cannot be created',
 			'_' => 'User %s has been created',
+			'error' => 'User %s cannot be created',
 		),
 		'deleted' => array(
-			'error' => 'User %s cannot be deleted',
 			'_' => 'User %s has been deleted',
+			'error' => 'User %s cannot be deleted',
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',
 			'_' => 'User %s has been updated',
+			'error' => 'User %s has not been updated',
 		),
 	),
 );

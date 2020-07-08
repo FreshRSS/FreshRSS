@@ -16,7 +16,7 @@ return array(
 	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => 'A problem occured during authentication system configuration. Please retry later.',	// TODO - Translation
+			'not_set' => 'A problem occurred during authentication system configuration. Please retry later.',	// TODO - Translation
 			'set' => 'Form is now your default authentication system.',	// TODO - Translation
 		),
 		'login' => array(
@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO - Translation
 			'ok' => '%s is now disabled',	// TODO - Translation
@@ -44,9 +45,10 @@ return array(
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO - Translation
 			'ok' => '%s is now enabled',	// TODO - Translation
 		),
+		'no_access' => 'You have no access on %s',	// TODO - Translation
 		'not_enabled' => '%s is not enabled yet',
 		'not_found' => '%s does not exist',	// TODO - Translation
-		'no_access' => 'You have no access on %s',	// TODO - Translation
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',	// TODO - Translation
@@ -54,7 +56,7 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO - Translation
 		'no_zip_extension' => 'ZIP extension is not present on your server.',	// TODO - Translation
-		'zip_error' => 'An error occured during ZIP import.',	// TODO - Translation
+		'zip_error' => 'An error occurred during ZIP import.',	// TODO - Translation
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// TODO - Translation
@@ -72,10 +74,10 @@ return array(
 			'emptied' => 'Category has been emptied',	// TODO - Translation
 			'error' => 'Category cannot be updated',	// TODO - Translation
 			'name_exists' => 'Category name already exists.',	// TODO - Translation
-			'not_delete_default' => 'You cannot delete the default category!',	// TODO - Translation
-			'not_exist' => 'The category does not exist!',	// TODO - Translation
 			'no_id' => 'You must precise the id of the category.',
 			'no_name' => 'Category name cannot be empty.',	// TODO - Translation
+			'not_delete_default' => 'You cannot delete the default category!',	// TODO - Translation
+			'not_exist' => 'The category does not exist!',	// TODO - Translation
 			'over_max' => 'You have reached your limit of categories (%d)',	// TODO - Translation
 			'updated' => 'Category has been updated.',	// TODO - Translation
 		),
@@ -89,17 +91,17 @@ return array(
 			'error' => 'Feed cannot be updated',	// TODO - Translation
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO - Translation
-			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'There is no feed to refresh…',	// TODO - Translation
 			'n_actualized' => '%d feeds have been updated',	// TODO - Translation
 			'n_entries_deleted' => '%d articles have been deleted',	// TODO - Translation
+			'no_refresh' => 'There is no feed to refresh…',	// TODO - Translation
+			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
+			'not_found' => 'Feed cannot be found',	// TODO - Translation
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
+				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
+				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
 			),
@@ -117,16 +119,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'User %s cannot be created',	// TODO - Translation
 			'_' => 'User %s has been created',	// TODO - Translation
+			'error' => 'User %s cannot be created',	// TODO - Translation
 		),
 		'deleted' => array(
-			'error' => 'User %s cannot be deleted',	// TODO - Translation
 			'_' => 'User %s has been deleted',	// TODO - Translation
+			'error' => 'User %s cannot be deleted',	// TODO - Translation
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',	// TODO - Translation
 			'_' => 'User %s has been updated',	// TODO - Translation
+			'error' => 'User %s has not been updated',	// TODO - Translation
 		),
 	),
 );

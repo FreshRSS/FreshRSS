@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'L\'ajout de flux et de catégories se fait désormais <a href=\'%s\'>ici</a>. Il est possible d\'y accéder depuis le menu de gauche ou depuis l\'icône ✚ présente sur la page principale.',
 	'api' => array(
 		'documentation' => 'Copier l’URL suivante dans l’outil qui utilisera l’API.',
 		'title' => 'API',	// TODO - Translation
@@ -11,15 +12,14 @@ return array(
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
+		'_' => 'Catégorie',
 		'add' => 'Ajouter une catégorie',
 		'archiving' => 'Archivage',
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
-		'new' => 'Nouvelle catégorie',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
-		'_' => 'Catégorie',
 	),
 	'feed' => array(
 		'add' => 'Ajouter un flux RSS',
@@ -39,8 +39,8 @@ return array(
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
 		'filteractions' => array(
-			'help' => 'Écrivez une recherche par ligne.',
 			'_' => 'Filtres d’action',
+			'help' => 'Écrivez une recherche par ligne.',
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
@@ -56,10 +56,10 @@ return array(
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',
 		'priority' => array(
+			'_' => 'Visibilité',
 			'archived' => 'Ne pas afficher (archivé)',
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
-			'_' => 'Visibilité',
 		),
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
@@ -102,14 +102,19 @@ return array(
 		'title' => 'Importer / exporter',
 	),
 	'menu' => array(
+		'add' => 'Ajouter un flux/une catégorie',
+		'add_feed' => 'Ajouter un flux',
 		'bookmark' => 'S’abonner (bookmark FreshRSS)',
 		'import_export' => 'Importer / exporter',
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 	'title' => array(
+		'_' => 'Gestion des abonnements',
+		'add' => 'Ajouter un flux/une catégorie',
+		'add_category' => 'Ajouter une catégorie',
+		'add_feed' => 'Ajouter un flux',
 		'feed_management' => 'Gestion des flux RSS',
 		'subscription_tools' => 'Outils d’abonnement',
-		'_' => 'Gestion des abonnements',
 	),
 );

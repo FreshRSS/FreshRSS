@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aggiorna',
+		'add' => 'Add',	// TODO - Translation
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
@@ -32,45 +33,50 @@ return array(
 		'login' => 'Accedi',
 		'logout' => 'Esci',
 		'password' => array(
-			'format' => '<small>almeno 7 caratteri</small>',
 			'_' => 'Password',	// TODO - Translation
+			'format' => '<small>almeno 7 caratteri</small>',
 		),
 		'registration' => array(
+			'_' => 'Nuovo profilo',
 			'ask' => 'Vuoi creare un nuovo profilo?',
 			'title' => 'Creazione profilo',
-			'_' => 'Nuovo profilo',
 		),
 		'reset' => 'Reset autenticazione',
 		'username' => array(
+			'_' => 'Username',	// TODO - Translation
 			'admin' => 'Username amministratore',
 			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
-			'_' => 'Username',	// TODO - Translation
 		),
 	),
 	'date' => array(
-		'apr' => 'apr.',
 		'Apr' => '\\A\\p\\r\\i\\l\\e',
-		'april' => 'aprile',
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
+		'Dec' => '\\D\\i\\c\\e\\m\\b\\r\\e',
+		'Feb' => '\\F\\e\\b\\b\\r\\a\\i\\o',
+		'Jan' => '\\G\\e\\n\\u\\a\\i\\o',
+		'Jul' => '\\L\\u\\g\\l\\i\\o',
+		'Jun' => '\\G\\i\\u\\g\\n\\o',
+		'Mar' => '\\M\\a\\r\\z\\o',
+		'May' => '\\M\\a\\g\\g\\i\\o',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\r\\e',
+		'Oct' => '\\O\\t\\t\\o\\b\\r\\e',
+		'Sep' => '\\S\\e\\t\\t\\e\\m\\b\\r\\e',
+		'apr' => 'apr.',
+		'april' => 'aprile',
 		'aug' => 'ag.',
 		'august' => 'agosto',
 		'before_yesterday' => 'Meno recenti',
-		'Dec' => '\\D\\i\\c\\e\\m\\b\\r\\e',
 		'dec' => 'dic.',
 		'december' => 'dicembre',
-		'Feb' => '\\F\\e\\b\\b\\r\\a\\i\\o',
 		'feb' => 'febbr.',
 		'february' => 'febbraio',
 		'format_date' => 'j\\ %s Y',
 		'format_date_hour' => 'j\\ %s Y \\o\\r\\e H\\:i',
 		'fri' => 'Fri',	// TODO - Translation
-		'Jan' => '\\G\\e\\n\\u\\a\\i\\o',
 		'jan' => 'genn.',
 		'january' => 'gennaio',
 		'jul' => 'jul',
-		'Jul' => '\\L\\u\\g\\l\\i\\o',
 		'july' => 'luglio',
-		'Jun' => '\\G\\i\\u\\g\\n\\o',
 		'jun' => 'jun',
 		'june' => 'giugno',
 		'last_2_year' => 'Last two years',	// TODO - Translation
@@ -81,22 +87,17 @@ return array(
 		'last_month' => 'Ultimo mese',
 		'last_week' => 'Ultima settimana',
 		'last_year' => 'Ultimo anno',
-		'Mar' => '\\M\\a\\r\\z\\o',
 		'mar' => 'mar.',
 		'march' => 'marzo',
 		'may' => 'maggio',
-		'May' => '\\M\\a\\g\\g\\i\\o',
 		'may_' => 'May',	// TODO - Translation
 		'mon' => 'Mon',	// TODO - Translation
 		'month' => 'mesi',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\r\\e',
 		'nov' => 'nov.',
 		'november' => 'novembre',
-		'Oct' => '\\O\\t\\t\\o\\b\\r\\e',
 		'oct' => 'ott.',
 		'october' => 'ottobre',
 		'sat' => 'Sat',	// TODO - Translation
-		'Sep' => '\\S\\e\\t\\t\\e\\m\\b\\r\\e',
 		'sep' => 'sett.',
 		'september' => 'settembre',
 		'sun' => 'Sun',	// TODO - Translation
@@ -108,8 +109,8 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'about' => 'Informazioni',
 		'_' => 'Feed RSS Reader',
+		'about' => 'Informazioni',
 	),
 	'js' => array(
 		'category_empty' => 'Categoria vuota',
@@ -127,6 +128,7 @@ return array(
 		'cz' => 'Čeština',	// TODO - Translation
 		'de' => 'Deutsch',	// TODO - Translation
 		'en' => 'English',	// TODO - Translation
+		'en-us' => 'English (United States)',
 		'es' => 'Español',	// TODO - Translation
 		'fr' => 'Français',	// TODO - Translation
 		'he' => 'עברית',	// TODO - Translation
@@ -178,13 +180,13 @@ return array(
 		'years' => 'years',	// TODO - Translation
 	),
 	'share' => array(
+		'Known' => 'Siti basati su Known',
 		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',	// TODO - Translation
 		'gnusocial' => 'GNU social',	// TODO - Translation
 		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'Known' => 'Siti basati su Known',
 		'lemmy' => 'Lemmy',	// TODO - Translation
 		'linkedin' => 'LinkedIn',	// TODO - Translation
 		'mastodon' => 'Mastodon',	// TODO - Translation
