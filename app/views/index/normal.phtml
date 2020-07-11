@@ -72,23 +72,26 @@ $today = @strtotime('today');
 		?><div class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
-				<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-					<span><?= $this->feed->name() ?></span></a>
+				<div class="subtitle">
+					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+						<span><?= $this->feed->name() ?></span></a>
+					</div>
+					<div class="date"><?= $this->entry->date() ?></div>
+					<?php
+						$authors = $this->entry->authors();
+						if (!empty($authors) && is_array($authors)):
+							$first = true;
+					?>
+					<div class="author"><?php
+							foreach ($authors as $author):
+								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+								$first = false;
+					?>
+	<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
+					<?php	endforeach; ?>
+					</div><?php endif; ?>
 				</div>
-				<?php
-					$authors = $this->entry->authors();
-					if (!empty($authors) && is_array($authors)):
-						$first = true;
-				?>
-				<div class="author"><?php
-						foreach ($authors as $author):
-							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
-							$first = false;
-				?>
-<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
-				<?php	endforeach; ?>
-				</div><?php endif; ?>
 				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>

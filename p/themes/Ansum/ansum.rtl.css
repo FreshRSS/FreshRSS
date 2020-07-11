@@ -1227,7 +1227,7 @@ form th {
 .flux .website .favicon {
   padding: 5px;
 }
-.flux .date {
+.flux .item.date {
   color: rgba(54, 51, 48, 0.5);
   font-size: 0.85rem;
 }

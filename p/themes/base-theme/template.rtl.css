@@ -781,11 +781,11 @@ input[type="search"] {
 	overflow: auto;
 }
 
-.content .website, .content .author {
+.subtitle > div {
 	display: inline;
 }
 
-.normal .content .author::before {
+.subtitle > div:not(:first-of-type)::before {
 	content: ' · ';
 }
 
