@@ -304,7 +304,7 @@ a.btn {
 }
 
 .dropdown-menu-scrollable {
-	max-height: 75vh;
+	max-height: min(75vh, 50em);
 	overflow-x: hidden;
 	overflow-y: auto;
 }
