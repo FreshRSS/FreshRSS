@@ -5,7 +5,7 @@
  */
 class Minz_Session {
 	private static $volatile = false;
-	
+
 	/**
 	 * Initialise la session, avec un nom
 	 * Le nom de session est utilisé comme nom pour les cookies et les URLs(i.e. PHPSESSID).
