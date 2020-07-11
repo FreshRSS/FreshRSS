@@ -102,7 +102,7 @@ return array(
 		'title' => 'Import / export',	// TODO - Translation
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Přihlásit (FreshRSS bookmark)',
 		'import_export' => 'Import / export',	// TODO - Translation

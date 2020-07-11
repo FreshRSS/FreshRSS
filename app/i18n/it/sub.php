@@ -102,7 +102,7 @@ return array(
 		'title' => 'Importa / esporta',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Bookmark (trascina nei preferiti)',
 		'import_export' => 'Importa / esporta',
