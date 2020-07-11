@@ -70,7 +70,7 @@ return array(
 			'error' => 'Show only feeds with errors',	// TODO - Translation
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Showing only feeds with errors',	// TODO - Translation
 		),
 		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
 		'stats' => 'Statistika',
