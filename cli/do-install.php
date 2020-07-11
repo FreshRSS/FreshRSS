@@ -109,6 +109,10 @@ echo '• Remember to create the default user: ', $config['default_user'] , "\n"
 
 accessRights();
 
+if (!setupMigrations()) {
+	fail('FreshRSS access right problem while creating migrations version file!');
+}
+
 if (!deleteInstall()) {
 	fail('FreshRSS access right problem while deleting install file!');
 }
