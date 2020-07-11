@@ -111,7 +111,7 @@ return array(
 	),
 	'title' => array(
 		'_' => '订阅管理',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => '订阅源管理',
