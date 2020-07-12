@@ -25,6 +25,11 @@ class FreshRSS extends Minz_FrontController {
 		}
 
 		FreshRSS_Context::initSystem();
+		if (FreshRSS_Context::$system_conf == null) {
+			$message = 'Error during context system init!';
+			Minz_Error::error(500, [$message], false);
+			die($message);
+		}
 
 		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
@@ -32,9 +37,16 @@ class FreshRSS extends Minz_FrontController {
 		// Auth has to be initialized before using currentUser session parameter
 		// because it's this part which create this parameter.
 		self::initAuth();
+		if (FreshRSS_Context::$user_conf == null) {
+			FreshRSS_Context::initUser();
+		}
+		if (FreshRSS_Context::$user_conf == null) {
+			$message = 'Error during context user init!';
+			Minz_Error::error(500, [$message], false);
+			die($message);
+		}
 
-		// Finish to initialize the other FreshRSS / Minz components.
-		FreshRSS_Context::initUser();
+		// Complete initialization of the other FreshRSS / Minz components.
 		self::initI18n();
 		self::loadNotifications();
 		// Enable extensions for the current (logged) user.

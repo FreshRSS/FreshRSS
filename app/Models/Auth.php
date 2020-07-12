@@ -20,7 +20,7 @@ class FreshRSS_Auth {
 
 		self::$login_ok = Minz_Session::param('loginOk', false);
 		$current_user = Minz_Session::param('currentUser', '');
-		if ($current_user === '') {
+		if ($current_user == '') {
 			$current_user = FreshRSS_Context::$system_conf->default_user;
 			Minz_Session::_param('currentUser', $current_user);
 			Minz_Session::_param('csrf');
@@ -93,6 +93,7 @@ class FreshRSS_Auth {
 	 * Gives access to the current user.
 	 */
 	public static function giveAccess() {
+		FreshRSS_Context::initUser();
 		if (FreshRSS_Context::$user_conf == null) {
 			self::$login_ok = false;
 			return false;
