@@ -7,7 +7,7 @@ return array(
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
 		'label' => 'Subscribe',	// TODO - Translation
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
