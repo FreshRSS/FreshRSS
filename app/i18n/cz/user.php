@@ -3,8 +3,8 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'The email address is invalid.',	// TODO - Translation
-			'required' => 'The email address is required.',	// TODO - Translation
+			'invalid' => 'This email address is invalid.',	// TODO - Translation
+			'required' => 'An email address is required.',	// TODO - Translation
 		),
 		'validation' => array(
 			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
