@@ -107,7 +107,7 @@
 		<?php } ?>
 	</li><?php
 	if ($bottomline_date) {
-		?><li class="item date"><?= $this->entry->date() ?></li><?php
+		?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php
 	}
 	if ($bottomline_link) {
 		?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= _i('link') ?></a></li><?php
