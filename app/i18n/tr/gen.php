@@ -15,6 +15,7 @@ return array(
 		'export' => 'Dışa Aktar',
 		'filter' => 'Filtrele',
 		'import' => 'İçe Aktar',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Yönet',
 		'mark_favorite' => 'Favoriye ekle',
 		'mark_read' => 'Okundu olarak işaretle',

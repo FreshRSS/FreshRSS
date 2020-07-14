@@ -174,7 +174,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$this->view->list_keys = SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(Minz_Request::param('shortcuts'));
+			$shortcuts = Minz_Request::param('shortcuts');
+			if (false !== Minz_Request::param('load_default_shortcuts')) {
+				$shortcuts = array_filter($shortcuts);
+			}
+			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList($shortcuts);
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
