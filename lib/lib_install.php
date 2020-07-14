@@ -127,5 +127,5 @@ function setupMigrations() {
 
 	$migrator = new Minz_Migrator($migrations_path);
 	$versions = implode("\n", $migrator->versions());
-	return @file_put_contents($migrations_version_path, $versions);
+	return @file_put_contents($migrations_version_path, $versions) !== false;
 }
