@@ -15,6 +15,7 @@ return array(
 		'export' => '내보내기',
 		'filter' => '해당하는 글 보기',
 		'import' => '불러오기',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => '관리',
 		'mark_favorite' => '즐겨찾기에 등록',
 		'mark_read' => '읽음으로 표시',

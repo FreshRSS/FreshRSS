@@ -15,6 +15,7 @@ return array(
 		'export' => 'Exportar',
 		'filter' => 'Filtre',
 		'import' => 'Importar',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Gerir',
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',

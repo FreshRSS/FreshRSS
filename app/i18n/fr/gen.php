@@ -15,6 +15,7 @@ return array(
 		'export' => 'Exporter',
 		'filter' => 'Filtrer',
 		'import' => 'Importer',
+		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
 		'mark_favorite' => 'Mettre en favori',
 		'mark_read' => 'Marquer comme lu',

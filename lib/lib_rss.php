@@ -540,7 +540,9 @@ function validateShortcutList($shortcuts) {
 	$shortcuts_ok = array();
 
 	foreach ($shortcuts as $key => $value) {
-		if (in_array($value, SHORTCUT_KEYS)) {
+		if ('' === $value) {
+			$shortcuts_ok[$key] = $value;
+		} elseif (in_array($value, SHORTCUT_KEYS)) {
 			$shortcuts_ok[$key] = $value;
 		} elseif (isset($legacy[$value])) {
 			$shortcuts_ok[$key] = $legacy[$value];
