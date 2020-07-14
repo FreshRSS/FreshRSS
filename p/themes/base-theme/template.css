@@ -781,6 +781,14 @@ input[type="search"] {
 	overflow: auto;
 }
 
+.subtitle > div {
+	display: inline;
+}
+
+.subtitle > div:not(:first-of-type)::before {
+	content: ' · ';
+}
+
 br {
 	line-height: 1em;
 }

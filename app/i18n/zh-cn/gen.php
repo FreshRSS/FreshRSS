@@ -15,6 +15,7 @@ return array(
 		'export' => '导出',
 		'filter' => '过滤',
 		'import' => '导入',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => '管理',
 		'mark_favorite' => '标记收藏',
 		'mark_read' => '标记已读',

@@ -15,6 +15,7 @@ return array(
 		'export' => 'Export',
 		'filter' => 'Filter',
 		'import' => 'Import',
+		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',

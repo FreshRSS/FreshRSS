@@ -15,6 +15,7 @@ return array(
 		'export' => 'Exportovať',
 		'filter' => 'Filtrovať',
 		'import' => 'Importovať',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Spravovať',
 		'mark_favorite' => 'Označiť ako obľúbené',
 		'mark_read' => 'Označiť ako prečítané',
