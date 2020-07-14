@@ -90,8 +90,11 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		return timestamptodate($this->date);
 	}
-	public function machineReadableDate() {
-		return @date (DATE_ATOM, $this->date);
+	public function machineReadableDate($utc = true) {
+		if (true === $utc) {
+			return @gmdate(DATE_ATOM, $this->date);
+		}
+		return @date(DATE_ATOM, $this->date);
 	}
 	public function dateAdded($raw = false, $microsecond = false) {
 		if ($raw) {
