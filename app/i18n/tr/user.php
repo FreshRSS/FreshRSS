@@ -38,7 +38,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => 'The username is invalid.',	// TODO - Translation
-		'taken' => 'The username %s is taken.',	// TODO - Translation
+		'invalid' => 'This username is invalid.',	// TODO - Translation
+		'taken' => 'This username, %s, is taken.',	// TODO - Translation
 	),
 );
