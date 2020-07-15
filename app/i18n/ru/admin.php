@@ -163,7 +163,7 @@ return array(
 			'help' => 'in seconds',	// TODO - Translation
 			'number' => 'Duration to keep logged in',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => 'Название этого сервера',
 		'max-categories' => 'Количество категорий на пользователя',
 		'max-feeds' => 'Количество статей на пользователя',

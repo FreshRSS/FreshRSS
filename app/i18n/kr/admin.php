@@ -163,7 +163,7 @@ return array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => '인스턴스 이름',
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
