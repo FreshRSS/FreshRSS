@@ -111,7 +111,7 @@ return array(
 	),
 	'title' => array(
 		'_' => '구독 관리',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'feed_management' => 'RSS 피드 관리',
