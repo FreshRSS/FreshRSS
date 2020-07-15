@@ -10,7 +10,7 @@ return array(
 			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
 			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a misconfiguration of the server.',	// TODO - Translation
+				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
 				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
 				'error' => 'The email address failed to be validated.',	// TODO - Translation
 				'ok' => 'The email address has been validated.',	// TODO - Translation
