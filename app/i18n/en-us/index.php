@@ -32,6 +32,8 @@ return array(
 	'menu' => array(
 		'about' => 'About FreshRSS',
 		'add_query' => 'Add a query',
+		'before_one_day' => 'Older than one day',
+		'before_one_week' => 'Older than one week',
 		'favorites' => 'Favorites (%s)',
 		'global_view' => 'Global view',
 		'main_stream' => 'Main stream',
