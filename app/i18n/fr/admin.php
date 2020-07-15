@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',
 		'author' => 'Auteur',
+		'available' => 'Disponible',
 		'community' => 'Extensions utilisateur disponibles',
 		'description' => 'Description',
 		'disabled' => 'Désactivée',
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Installée',
 		'name' => 'Nom',
 		'no_configure_view' => 'Cette extension n’a pas à être configurée',
+		'status' => 'État',
 		'system' => array(
 			'_' => 'Extensions système',
-			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Mise à jour disponible',

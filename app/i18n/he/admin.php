@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Author',	// TODO - Translation
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Available community extensions',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Disabled',	// TODO - Translation
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Installed',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'System extensions',	// TODO - Translation
-			'no_rights' => 'System extension (you have no rights on it)',	// TODO - Translation
 		),
 		'title' => 'Extensions',	// TODO - Translation
 		'update' => 'Update available',	// TODO - Translation

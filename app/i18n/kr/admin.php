@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => '제작자',
+		'available' => 'Available',	// TODO - Translation
 		'community' => '사용 가능한 커뮤니티 확장 기능들',
 		'description' => '설명',
 		'disabled' => '비활성화됨',
@@ -115,9 +117,9 @@ return array(
 		'latest' => '설치됨',
 		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => '시스템 확장 기능',
-			'no_rights' => '시스템 확장 기능 (이 확장 기능에 대한 권한이 없습니다)',
 		),
 		'title' => '확장 기능',
 		'update' => '업데이트 있음',

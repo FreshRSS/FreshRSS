@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Auteur',
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Gebruikersuitbreidingen beschikbaar',
 		'description' => 'Beschrijving',
 		'disabled' => 'Uitgeschakeld',
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Systeemuitbreidingen',
-			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
 		),
 		'title' => 'Uitbreidingen',
 		'update' => 'Update beschikbaar',

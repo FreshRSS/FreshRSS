@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Autor',
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Rozšírenia od komunity',
 		'description' => 'Popis',
 		'disabled' => 'Zakázané',
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Nainštalované',
 		'name' => 'Názov',
 		'no_configure_view' => 'Toto rozšírenie nemá nastavenia.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Systémové rozšírenia',
-			'no_rights' => 'Systémové rozšírenie (nemáte oprávnenia)',
 		),
 		'title' => 'Rozšírenia',
 		'update' => 'Sú dostupné aktualizácie',

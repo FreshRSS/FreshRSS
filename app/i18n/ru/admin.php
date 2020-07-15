@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Author',	// TODO - Translation
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Available community extensions',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Отключены',
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Installed',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Это расширение нельзя настроить.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Системные расширения',
-			'no_rights' => 'Системные расширения (у вас нет к ним доступа)',
 		),
 		'title' => 'Расширения',
 		'update' => 'Update available',	// TODO - Translation

@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Author',	// TODO - Translation
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Available community extensions',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Vypnuto',
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Installed',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Toto rozšíření nemá žádné možnosti nastavení.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Systémová rozšíření',
-			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 		),
 		'title' => 'Rozšíření',
 		'update' => 'Update available',	// TODO - Translation

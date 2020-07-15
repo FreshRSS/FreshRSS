@@ -3,12 +3,10 @@
 <div class="post">
 	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h1><?= _t('admin.extensions.title') ?></h1>
-
 	<form id="form-extension" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	<?php if (!empty($this->extension_list['system'])) { ?>
-	<h2><?= _t('admin.extensions.system') ?></h2>
+	<?php if (!empty($this->extension_list['system']) && FreshRSS_Auth::hasAccess('admin')) { ?>
+	<h1><?= _t('admin.extensions.system') ?></h1>
 	<?php
 		foreach ($this->extension_list['system'] as $ext) {
 			$this->ext_details = $ext;
@@ -17,55 +15,54 @@
 	?>
 	<?php } ?>
 
-	<?php if (!empty($this->extension_list['user'])) { ?>
-	<h2><?= _t('admin.extensions.user') ?></h2>
-	<?php
-		foreach ($this->extension_list['user'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	?>
-	<?php
-	}
-
-	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
-	?>
-	<p class="alert alert-warn"><?= _t('admin.extensions.empty_list') ?></p>
-	<?php } ?>
-	</form>
-
 	<?php if (!empty($this->available_extensions)) { ?>
-		<h2><?= _t('admin.extensions.community') ?></h2>
+		<h1><?= _t('admin.extensions.user') ?></h1>
 		<table>
 			<tr>
 				<th><?= _t('admin.extensions.name') ?></th>
+				<th><?= _t('admin.extensions.status') ?></th>
 				<th><?= _t('admin.extensions.version') ?></th>
 				<th><?= _t('admin.extensions.author') ?></th>
 				<th><?= _t('admin.extensions.description') ?></th>
+				<th><?= _t('admin.extensions.actions') ?></th>
 			</tr>
 			<?php foreach ($this->available_extensions as $ext) { ?>
 				<tr>
 					<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
+					<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+						<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+							<td class='alert-success'><?= _t('admin.extensions.latest') ?></td>
+						<?php } else if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+							<td class='alert-warn'><?= _t('admin.extensions.update') ?></td>
+						<?php } ?>
+					<?php } else { ?>
+						<td><?= _t('admin.extensions.available') ?></td>
+					<?php } ?>
 					<td><?= $ext['version'] ?></td>
 					<td><?= $ext['author'] ?></td>
+					<td><?= $ext['description'] ?></td>
 					<td>
-						<?= $ext['description'] ?>
-						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
-								<span class="alert alert-success">
-									<?= _t('admin.extensions.latest') ?>
-								</span>
-							<?php } else  if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
-								<span class="alert alert-warn">
-									<?= _t('admin.extensions.update') ?>
-								</span>
-							<?php } ?>
+						<?php $name_encoded = urlencode($ext['name']); ?>
+						<?php if ($ext['installed']) { ?>
+							<?php $extension = $this->extension_list['user'][$ext['name']]; ?>
+							<div class="stick">
+								<a class="btn open-slider" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?> <?= _t('gen.action.manage') ?></a>
+								<?php if ($extension->isEnabled()) { ?>
+									<button class="btn active" form="form-extension" formaction="<?= _url('extension', 'disable', 'e', $name_encoded) ?>"><?= _t('gen.action.disable') ?></button>
+								<?php } else { ?>
+									<button class="btn active" form="form-extension" formaction="<?= _url('extension', 'enable', 'e', $name_encoded) ?>"><?= _t('gen.action.enable') ?></button>
+								<?php } ?>
+								<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+									<button class="btn btn-attention confirm" form="form-extension" formaction="<?= _url('extension', 'remove', 'e', $name_encoded) ?>"><?= _t('gen.action.remove') ?></button>
+								<?php } ?>
+							</div>
 						<?php } ?>
 					</td>
 				</tr>
 			<?php } ?>
 		</table>
 	<?php } ?>
+	</form>
 </div>
 
 <?php $class = isset($this->extension) ? ' class="active"' : ''; ?>

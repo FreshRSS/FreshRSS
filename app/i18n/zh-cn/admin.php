@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => '作者',
+		'available' => 'Available',	// TODO - Translation
 		'community' => '可用的社区扩展',
 		'description' => '描述',
 		'disabled' => '已禁用',
@@ -115,9 +117,9 @@ return array(
 		'latest' => '已安装',
 		'name' => '名称',
 		'no_configure_view' => '此扩展不能配置。',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => '系统扩展',
-			'no_rights' => '系统扩展（你无权修改）',
 		),
 		'title' => '扩展',
 		'update' => '更新可用',

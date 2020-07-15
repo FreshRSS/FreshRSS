@@ -106,7 +106,9 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'actions' => 'Actions',	// TODO - Translation
 		'author' => 'Author',	// TODO - Translation
+		'available' => 'Available',	// TODO - Translation
 		'community' => 'Available community extensions',	// TODO - Translation
 		'description' => 'Description',	// TODO - Translation
 		'disabled' => 'Disabilitata',
@@ -115,9 +117,9 @@ return array(
 		'latest' => 'Installed',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
+		'status' => 'Status',	// TODO - Translation
 		'system' => array(
 			'_' => 'Estensioni di sistema',
-			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 		),
 		'title' => 'Estensioni',
 		'update' => 'Update available',	// TODO - Translation

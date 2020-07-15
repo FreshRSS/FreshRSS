@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'admin.extensions.actions',
 	'admin.extensions.description',
 	'admin.extensions.title',
 	'admin.extensions.version',
