@@ -12,7 +12,7 @@ return array(
 			'feedback' => array(
 				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
 				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'The email address failed to be validated.',
+				'error' => 'Email address validation failed.',	// TODO - Translation
 				'ok' => 'The email address has been validated.',
 				'unneccessary' => 'The email address was already validated.',
 				'wrong_token' => 'The email address failed to be validated due to a wrong token.',

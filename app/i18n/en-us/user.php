@@ -12,7 +12,7 @@ return array(
 			'feedback' => array(
 				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',
 				'email_sent' => 'An email has been sent to your address.',
-				'error' => 'This email address validation failed.',
+				'error' => 'Email address validation failed.',
 				'ok' => 'This email address has been validated.',
 				'unneccessary' => 'This email address was already validated.',
 				'wrong_token' => 'This email address failed to be validated due to a wrong token.',
