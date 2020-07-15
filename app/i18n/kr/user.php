@@ -14,8 +14,8 @@ return array(
 				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
 				'error' => 'Email address validation failed.',	// TODO - Translation
 				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'The email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'unneccessary' => 'This email address was already validated.',	// TODO - Translation
+				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
 			),
 			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
 			'resend_email' => 'Resend the email',	// TODO - Translation
@@ -24,7 +24,7 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s but you still need to validate your email. For that, just follow the link:',	// TODO - Translation
+			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
 			'title' => 'You need to validate your account',	// TODO - Translation
 			'welcome' => 'Welcome %s,',	// TODO - Translation
 		),
