@@ -22,11 +22,11 @@ return array(
 		),
 		'categories' => array(
 			'nok' => 'Category table is bad configured.',
-			'ok' => 'Category table is ok.',	// TODO - Translation
+			'ok' => 'Category table is okay.',	// TODO - Translation
 		),
 		'connection' => array(
 			'nok' => 'Connection to the database cannot being established.',
-			'ok' => 'Connection to the database is ok.',	// TODO - Translation
+			'ok' => 'Connection to the database is okay.',	// TODO - Translation
 		),
 		'ctype' => array(
 			'nok' => 'הספרייה הנדרשת ל character type checking (php-ctype) אינה מותקנת',
