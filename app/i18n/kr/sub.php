@@ -108,13 +108,22 @@ return array(
 		'import_export' => '불러오기 / 내보내기',
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
+		'tag_management' => 'Tags management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => '구독 관리',
 		'add' => 'Add a feed/a category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'RSS 피드 관리',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => '구독 도구',
 	),
 );

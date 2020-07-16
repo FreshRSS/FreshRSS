@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'Importeer / exporteer',
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
+		'tag_management' => 'Tags management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => 'Abonnementenbeheer',
 		'add' => 'Feed of categorie toevoegen',
 		'add_category' => 'Categorie toevoegen',
 		'add_feed' => 'Feed toevoegen',
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'RSS-feedbeheer',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 );

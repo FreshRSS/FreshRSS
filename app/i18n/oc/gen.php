@@ -22,6 +22,7 @@ return array(
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
 		'remove' => 'Levar',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Veire lo site',
 		'submit' => 'Mandar',
 		'truncate' => 'Suprimir totes los articles',

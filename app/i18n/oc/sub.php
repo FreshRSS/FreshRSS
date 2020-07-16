@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'Importar / Exportar',
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
+		'tag_management' => 'Tags management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => 'Gestion dels abonaments',
 		'add' => 'Add a feed/a category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'Gestion dels fluxes RSS',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 );
