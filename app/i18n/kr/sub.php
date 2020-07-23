@@ -108,7 +108,7 @@ return array(
 		'import_export' => '불러오기 / 내보내기',
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
-		'tag_management' => 'Tags management',	// TODO - Translation
+		'tag_management' => 'Tag management',	// TODO - Translation
 	),
 	'tag' => array(
 		'name' => 'Name',	// TODO - Translation

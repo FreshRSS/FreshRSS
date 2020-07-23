@@ -108,7 +108,7 @@ return array(
 		'import_export' => '导入/导出',
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',
-		'tag_management' => 'Tags management',	// TODO - Translation
+		'tag_management' => 'Tag management',	// TODO - Translation
 	),
 	'tag' => array(
 		'name' => 'Name',	// TODO - Translation
