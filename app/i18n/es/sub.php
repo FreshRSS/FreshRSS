@@ -7,7 +7,7 @@ return array(
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
 		'label' => 'Subscribe',	// TODO - Translation
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
@@ -67,10 +67,10 @@ return array(
 		),
 		'show' => array(
 			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'error' => 'Show only feeds with errors',	// TODO - Translation
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Showing only feeds with errors',	// TODO - Translation
 		),
 		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
 		'stats' => 'Estadísticas',
@@ -102,7 +102,7 @@ return array(
 		'title' => 'Importar / exportar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Suscribirse (favorito FreshRSS)',
 		'import_export' => 'Importar / exportar',
@@ -117,7 +117,7 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Administración de suscripciones',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'add_tag' => 'Add a tag',	// TODO - Translation

@@ -102,7 +102,7 @@ return array(
 		'title' => '导入/导出',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => '订阅（FreshRSS 书签）',
 		'import_export' => '导入/导出',
@@ -117,7 +117,7 @@ return array(
 	),
 	'title' => array(
 		'_' => '订阅管理',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'add_tag' => 'Add a tag',	// TODO - Translation

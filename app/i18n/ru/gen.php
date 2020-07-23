@@ -120,10 +120,10 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// TODO - Translation
-			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',	// TODO - Translation
+			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO - Translation
 			'title_new_articles' => 'FreshRSS: new articles!',	// TODO - Translation
 		),
-		'new_article' => 'There are new available articles, click to refresh the page.',	// TODO - Translation
+		'new_article' => 'There are new articles available, click to refresh the page.',	// TODO - Translation
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO - Translation
 	),
 	'lang' => array(
@@ -149,7 +149,7 @@ return array(
 		'admin' => 'Administration',	// TODO - Translation
 		'archiving' => 'Archiving',	// TODO - Translation
 		'authentication' => 'Authentication',	// TODO - Translation
-		'check_install' => 'Installation checking',	// TODO - Translation
+		'check_install' => 'Installation check',	// TODO - Translation
 		'configuration' => 'Configuration',	// TODO - Translation
 		'display' => 'Display',	// TODO - Translation
 		'extensions' => 'Extensions',	// TODO - Translation
@@ -210,7 +210,7 @@ return array(
 		'default_category' => 'Uncategorized',	// TODO - Translation
 		'no' => 'No',	// TODO - Translation
 		'not_applicable' => 'Not available',	// TODO - Translation
-		'ok' => 'Ok!',	// TODO - Translation
+		'ok' => 'Okay!',	// TODO - Translation
 		'or' => 'or',	// TODO - Translation
 		'yes' => 'Yes',	// TODO - Translation
 	),

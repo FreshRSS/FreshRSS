@@ -7,7 +7,7 @@ return array(
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
 		'label' => 'Subscribe',	// TODO - Translation
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
@@ -67,17 +67,17 @@ return array(
 		),
 		'show' => array(
 			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'error' => 'Show only feeds with errors',	// TODO - Translation
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Showing only feeds with errors',	// TODO - Translation
 		),
 		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
 		'stats' => 'Statistics',	// TODO - Translation
 		'think_to_add' => 'You may add some feeds.',	// TODO - Translation
 		'timeout' => 'Timeout in seconds',	// TODO - Translation
 		'title' => 'Title',	// TODO - Translation
-		'title_add' => 'Add a RSS feed',	// TODO - Translation
+		'title_add' => 'Add an RSS feed',	// TODO - Translation
 		'ttl' => 'Do not automatically refresh more often than',	// TODO - Translation
 		'url' => 'Feed URL',	// TODO - Translation
 		'validator' => 'Check the validity of the feed',	// TODO - Translation
@@ -102,11 +102,11 @@ return array(
 		'title' => 'Import / export',	// TODO - Translation
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
 		'import_export' => 'Import / export',	// TODO - Translation
-		'subscription_management' => 'Subscriptions management',	// TODO - Translation
+		'subscription_management' => 'Subscription management',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 		'tag_management' => 'Tag management',	// TODO - Translation
 	),
@@ -116,8 +116,8 @@ return array(
 		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
-		'_' => 'Subscriptions management',	// TODO - Translation
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'_' => 'Subscription management',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'add_tag' => 'Add a tag',	// TODO - Translation

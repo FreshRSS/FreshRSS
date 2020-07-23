@@ -102,7 +102,7 @@ return array(
 		'title' => 'Importar / Exportar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
@@ -117,7 +117,7 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Gestion dels abonaments',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'add_tag' => 'Add a tag',	// TODO - Translation

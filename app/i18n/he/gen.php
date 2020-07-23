@@ -120,7 +120,7 @@ return array(
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
 		'feedback' => array(
 			'body_new_articles' => 'ישנם	\\d מאמרים חדשים לקרוא ב FreshRSS.',
-			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',	// TODO - Translation
+			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO - Translation
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
@@ -149,7 +149,7 @@ return array(
 		'admin' => 'ניהול',
 		'archiving' => 'ארכוב',
 		'authentication' => 'Authentication',	// TODO - Translation
-		'check_install' => 'Installation checking',	// TODO - Translation
+		'check_install' => 'Installation check',	// TODO - Translation
 		'configuration' => 'הגדרות',
 		'display' => 'תצוגה',
 		'extensions' => 'Extensions',	// TODO - Translation

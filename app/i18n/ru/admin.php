@@ -67,8 +67,8 @@ return array(
 			'ok' => 'У вас установлена библиотека для работы с JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',
@@ -102,7 +102,7 @@ return array(
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php-zip package).',
-			'ok' => 'You have ZIP extension.',	// TODO - Translation
+			'ok' => 'You have the ZIP extension.',	// TODO - Translation
 		),
 	),
 	'extensions' => array(
@@ -163,7 +163,7 @@ return array(
 			'help' => 'in seconds',	// TODO - Translation
 			'number' => 'Duration to keep logged in',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => 'Название этого сервера',
 		'max-categories' => 'Количество категорий на пользователя',
 		'max-feeds' => 'Количество статей на пользователя',

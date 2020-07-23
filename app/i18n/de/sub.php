@@ -102,7 +102,7 @@ return array(
 		'title' => 'Importieren / Exportieren',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
@@ -117,7 +117,7 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Abonnementverwaltung',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'add_tag' => 'Add a tag',	// TODO - Translation

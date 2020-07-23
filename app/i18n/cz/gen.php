@@ -210,7 +210,7 @@ return array(
 		'default_category' => 'Nezařazeno',
 		'no' => 'Ne',
 		'not_applicable' => 'Not available',	// TODO - Translation
-		'ok' => 'Ok!',	// TODO - Translation
+		'ok' => 'Okay!',	// TODO - Translation
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),

@@ -8,11 +8,11 @@ return array(
 		),
 		'validation' => array(
 			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its instructions to validate your address.',
+			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',
 			'feedback' => array(
 				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',
 				'email_sent' => 'An email has been sent to your address.',
-				'error' => 'This email address validation failed.',
+				'error' => 'Email address validation failed.',
 				'ok' => 'This email address has been validated.',
 				'unneccessary' => 'This email address was already validated.',
 				'wrong_token' => 'This email address failed to be validated due to a wrong token.',
