@@ -48,7 +48,7 @@ People are sorted by name so please keep this order.
 * [Jake Mannens](https://github.com/jakem72360): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jakem72360)
 * [Jan van den Berg](https://github.com/jan-vandenberg): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jan-vandenberg), [Web](https://j11g.com/)
 * [Jaussoin Timothée](https://github.com/edhelas): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=edhelas), [Web](http://edhelas.movim.eu/)
-* [Jeremy](https://github.com/Germs2004): [contributions](https://github.com/FreshRSS/FreshRSS/pull/3112)
+* [Jeremy](https://github.com/Germs2004): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Germs2004)
 * [jlefler](https://github.com/jlefler): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jlefler)
 * [Jonas Östanbäck](https://github.com/cez81): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=cez81)
 * [Joris Kinable](https://github.com/jkinable): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jkinable)
