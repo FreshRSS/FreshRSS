@@ -106,11 +106,11 @@ return array(
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
 		'import_export' => 'Import / export',	// TODO - Translation
-		'subscription_management' => 'Subscriptions management',	// TODO - Translation
+		'subscription_management' => 'Subscription management',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 	'title' => array(
-		'_' => 'Subscriptions management',	// TODO - Translation
+		'_' => 'Subscription management',	// TODO - Translation
 		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
