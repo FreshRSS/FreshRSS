@@ -117,7 +117,7 @@ return array(
 		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
 		'system' => array(
 			'_' => 'System extensions',	// TODO - Translation
-			'no_rights' => 'System extension (you have no rights on it)',	// TODO - Translation
+			'no_rights' => 'System extension (you do not have the required permissions)',	// TODO - Translation
 		),
 		'title' => 'Extensions',	// TODO - Translation
 		'update' => 'Update available',	// TODO - Translation
@@ -165,8 +165,8 @@ return array(
 		),
 		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Categories per user limit',	// TODO - Translation
-		'max-feeds' => 'Feeds per user limit',	// TODO - Translation
+		'max-categories' => 'Max number of categories per user',	// TODO - Translation
+		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
 		'registration' => array(
 			'help' => '0 means that there is no account limit',	// TODO - Translation
 			'number' => 'Max number of accounts',	// TODO - Translation
