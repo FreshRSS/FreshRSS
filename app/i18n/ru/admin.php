@@ -102,7 +102,7 @@ return array(
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php-zip package).',
-			'ok' => 'You have ZIP extension.',	// TODO - Translation
+			'ok' => 'You have the ZIP extension.',	// TODO - Translation
 		),
 	),
 	'extensions' => array(

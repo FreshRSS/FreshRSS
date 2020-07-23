@@ -91,18 +91,18 @@ return array(
 			'nok' => 'There is one or more lacking tables in the database.',
 			'ok' => 'Tables are existing in the database.',
 		),
-		'title' => 'Installation checking',	// TODO - Translation
+		'title' => 'Installation check',	// TODO - Translation
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on tokens directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO - Translation
+			'ok' => 'Permissions on the tokens directory are good.',	// TODO - Translation
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO - Translation
+			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php-zip package).',
-			'ok' => 'You have ZIP extension.',	// TODO - Translation
+			'ok' => 'You have the ZIP extension.',	// TODO - Translation
 		),
 	),
 	'extensions' => array(
