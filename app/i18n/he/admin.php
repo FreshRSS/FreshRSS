@@ -46,16 +46,16 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'entries' => array(
-			'nok' => 'Entry table is bad configured.',
-			'ok' => 'Entry table is ok.',	// TODO - Translation
+			'nok' => 'Entry table is improperly configured.',	// TODO - Translation
+			'ok' => 'Entry table is okay.',	// TODO - Translation
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'feeds' => array(
 			'nok' => 'Feed table is bad configured.',
-			'ok' => 'Feed table is ok.',	// TODO - Translation
+			'ok' => 'Feed table is okay.',	// TODO - Translation
 		),
 		'fileinfo' => array(
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
@@ -64,7 +64,7 @@ return array(
 		'files' => 'File installation',	// TODO - Translation
 		'json' => array(
 			'nok' => 'You lack JSON (php-json package).',
-			'ok' => 'You have JSON extension.',	// TODO - Translation
+			'ok' => 'You have the JSON extension.',	// TODO - Translation
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
