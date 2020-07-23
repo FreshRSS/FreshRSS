@@ -22,6 +22,7 @@ return array(
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => '삭제',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',

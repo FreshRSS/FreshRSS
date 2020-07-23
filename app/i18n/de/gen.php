@@ -22,6 +22,7 @@ return array(
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Entfernen',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Webseite ansehen',
 		'submit' => 'Abschicken',
 		'truncate' => 'Alle Artikel löschen',

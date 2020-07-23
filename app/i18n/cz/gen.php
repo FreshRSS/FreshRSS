@@ -22,6 +22,7 @@ return array(
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Odstranit',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Smazat všechny články',

@@ -63,7 +63,7 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 		}
 		if (!$this->ajax) {
 			Minz_Request::forward(array(
-				'c' => 'index',
+				'c' => 'tag',
 				'a' => 'index',
 			), true);
 		}
@@ -76,5 +76,43 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 		$id_entry = Minz_Request::param('id_entry', 0);
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->getTagsForEntry($id_entry);
+	}
+
+	public function addAction() {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(405);
+		}
+
+		$name = Minz_Request::param('name');
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		if (null === $tagDAO->searchByName($name)) {
+			$tagDAO->addTag(['name' => $name]);
+			Minz_Request::good('feedback.tag.created', ['c' => 'tag', 'a' => 'index'], true);
+		}
+
+		Minz_Request::bad('feedback.tag.name_exists', ['c' => 'tag', 'a' => 'index'], true);
+	}
+
+	public function renameAction() {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(405);
+		}
+
+		$name = Minz_Request::param('name');
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$newTag = $tagDAO->searchByName($name);
+		if (null === $newTag) {
+			$tagDAO->updateTag(Minz_Request::param('id_tag'), ['name' => $name]);
+		} else {
+			$tagDAO->updateEntryTag(Minz_Request::param('id_tag'), $newTag->id());
+			$tagDAO->deleteTag(Minz_Request::param('id_tag'));
+		}
+
+		Minz_Request::good('feedback.tag.renamed', ['c' => 'tag', 'a' => 'index'], true);
+	}
+
+	public function indexAction() {
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$this->view->tags = $tagDAO->listTags();
 	}
 }

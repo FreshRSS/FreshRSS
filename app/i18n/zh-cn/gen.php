@@ -22,6 +22,7 @@ return array(
 		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',

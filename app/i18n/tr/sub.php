@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'İçe / dışa aktar',
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'tag_management' => 'Tags management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => 'Abonelik yönetimi',
 		'add' => 'Add a feed/a category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'RSS akış yönetimi',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 );

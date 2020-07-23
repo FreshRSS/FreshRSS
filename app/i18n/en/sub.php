@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Subscriptions management',
 		'subscription_tools' => 'Subscription tools',
+		'tag_management' => 'Tags management',
+	),
+	'tag' => array(
+		'name' => 'Name',
+		'new_name' => 'New name',
+		'old_name' => 'Old name',
 	),
 	'title' => array(
 		'_' => 'Subscriptions management',
 		'add' => 'Add a feed/a category',
 		'add_category' => 'Add a category',
 		'add_feed' => 'Add a feed',
+		'add_tag' => 'Add a tag',
+		'delete_tag' => 'Delete a tag',
 		'feed_management' => 'RSS feeds management',
+		'rename_tag' => 'Rename a tag',
 		'subscription_tools' => 'Subscription tools',
 	),
 );
