@@ -108,7 +108,7 @@ return array(
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
-		'tag_management' => 'Tags management',	// TODO - Translation
+		'tag_management' => 'Tag management',	// TODO - Translation
 	),
 	'tag' => array(
 		'name' => 'Name',	// TODO - Translation
