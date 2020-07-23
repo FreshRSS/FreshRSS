@@ -22,6 +22,7 @@ return array(
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Sil',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',

@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'יבוא / יצוא ',
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'tag_management' => 'Tag management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => 'ניהול הרשמות',
 		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'ניהול הזנות RSS',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 );

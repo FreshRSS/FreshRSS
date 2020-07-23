@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
+		'tag_management' => 'Tag management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => 'Správa odoberaných kanálov',
 		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'Správa RSS kanálov',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 );

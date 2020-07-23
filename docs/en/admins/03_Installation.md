@@ -16,6 +16,8 @@ Before you begin, make sure that you've read the [prerequisites](02_Prerequisite
 
 6. Using your supported web browser of choice, navigate to the address you've installed your server to complete the installation from the GUI.[^3]
 
+7. You can then customize [the configuration of your instance](https://github.com/FreshRSS/FreshRSS/blob/master/config.default.php#L3-L4), [the default configuration for new users](https://github.com/FreshRSS/FreshRSS/blob/master/config-user.default.php#L3-L5) or [the default set of feeds for new users](https://github.com/FreshRSS/FreshRSS/blob/master/opml.default.xml#L2-L5).
+
 [^1]: Make sure to expose only the `./p/` folder to the Web, as the other directories contain personal and sensitive data.
 
 [^2]: If you wish to allow updates from the web interface, also give group write permissions to this folder.

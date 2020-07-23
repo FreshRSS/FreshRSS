@@ -22,6 +22,7 @@ return array(
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
 		'remove' => 'Verwijderen',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',
