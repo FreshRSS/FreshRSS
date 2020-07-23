@@ -77,7 +77,7 @@ return array(
 		'think_to_add' => 'You may add some feeds.',	// TODO - Translation
 		'timeout' => 'Timeout in seconds',	// TODO - Translation
 		'title' => 'Title',	// TODO - Translation
-		'title_add' => 'Add a RSS feed',	// TODO - Translation
+		'title_add' => 'Add an RSS feed',	// TODO - Translation
 		'ttl' => 'Do not automatically refresh more often than',	// TODO - Translation
 		'url' => 'Feed URL',	// TODO - Translation
 		'validator' => 'Check the validity of the feed',	// TODO - Translation

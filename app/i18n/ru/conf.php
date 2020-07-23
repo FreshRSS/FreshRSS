@@ -9,7 +9,7 @@ return array(
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
 		'keep_labels' => 'Never delete labels',	// TODO - Translation
 		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
-		'keep_min_by_feed' => 'Minimum number of articles to keep by feed',	// TODO - Translation
+		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// TODO - Translation
 		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
 		'keep_unreads' => 'Never delete unread articles',	// TODO - Translation
 		'maintenance' => 'Maintenance',	// TODO - Translation
@@ -42,10 +42,10 @@ return array(
 		'title' => 'Display',	// TODO - Translation
 		'width' => array(
 			'content' => 'Content width',	// TODO - Translation
-			'large' => 'Large',	// TODO - Translation
+			'large' => 'Wide',	// TODO - Translation
 			'medium' => 'Medium',	// TODO - Translation
-			'no_limit' => 'No limit',	// TODO - Translation
-			'thin' => 'Thin',	// TODO - Translation
+			'no_limit' => 'Full Width',	// TODO - Translation
+			'thin' => 'Narrow',	// TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -109,13 +109,13 @@ return array(
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// TODO - Translation
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO - Translation
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO - Translation
-		'number_divided_when_reader' => 'Divided by 2 in the reading view.',	// TODO - Translation
+		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO - Translation
 		'read' => array(
-			'article_open_on_website' => 'when article is opened on its original website',	// TODO - Translation
-			'article_viewed' => 'when article is viewed',	// TODO - Translation
+			'article_open_on_website' => 'when the article is opened on its original website',	// TODO - Translation
+			'article_viewed' => 'when the article is viewed',	// TODO - Translation
 			'scroll' => 'while scrolling',	// TODO - Translation
 			'upon_reception' => 'upon reception of the article',
-			'when' => 'Mark article as read…',	// TODO - Translation
+			'when' => 'Mark an article as read…',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Articles to display',	// TODO - Translation
