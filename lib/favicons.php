@@ -40,8 +40,11 @@ function downloadHttp(&$url, $curlOptions = array()) {
 	$response = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	curl_close($ch);
-	if (!empty($info['url']) && checkUrl($info['url'])) {
-		$url = $info['url'];	//Possible redirect
+	if (!empty($info['url'])) {
+		$url2 = checkUrl($info['url']);
+		if ($url2 != '') {
+			$url = $url2;	//Possible redirect
+		}
 	}
 	return $info['http_code'] == 200 ? $response : '';
 }
