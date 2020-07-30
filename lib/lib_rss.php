@@ -74,12 +74,12 @@ function idn_to_puny($url) {
 	return $url;
 }
 
-function checkUrl($url) {
+function checkUrl($url, $fixScheme = true) {
 	$url = trim($url);
 	if ($url == '') {
 		return '';
 	}
-	if (!preg_match('#^https?://#i', $url)) {
+	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
 		$url = 'https://' . ltrim($url, '/');
 	}
 

@@ -68,7 +68,7 @@ function searchFavicon(&$url) {
 							$href = 'https:' . $href;
 						}
 					}
-					if (!checkUrl($href)) {
+					if (!checkUrl($href, false)) {
 						$href = SimplePie_IRI::absolutize($url, $href);
 					}
 					$favicon = downloadHttp($href, array(
