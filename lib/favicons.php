@@ -23,10 +23,8 @@ function isImgMime($content) {
 
 function downloadHttp(&$url, $curlOptions = array()) {
 	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
-	if (substr($url, 0, 2) === '//') {
-		$url = 'https:' . $url;
-	}
-	if ($url == '' || filter_var($url, FILTER_VALIDATE_URL) === false) {
+	$url = checkUrl($url);
+	if (!$url) {
 		return '';
 	}
 	$ch = curl_init($url);
@@ -42,7 +40,7 @@ function downloadHttp(&$url, $curlOptions = array()) {
 	$response = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	curl_close($ch);
-	if (!empty($info['url']) && (filter_var($info['url'], FILTER_VALIDATE_URL) !== false)) {
+	if (!empty($info['url']) && checkUrl($info['url'])) {
 		$url = $info['url'];	//Possible redirect
 	}
 	return $info['http_code'] == 200 ? $response : '';
@@ -67,7 +65,7 @@ function searchFavicon(&$url) {
 							$href = 'https:' . $href;
 						}
 					}
-					if (filter_var($href, FILTER_VALIDATE_URL) === false) {
+					if (!checkUrl($href)) {
 						$href = SimplePie_IRI::absolutize($url, $href);
 					}
 					$favicon = downloadHttp($href, array(

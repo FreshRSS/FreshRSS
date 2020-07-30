@@ -188,7 +188,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
-		if (empty($value)) {
+		if ($value == '') {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
 		$this->url = $value;
@@ -204,7 +204,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
-		if (empty($value)) {
+		if ($value == '') {
 			$value = '';
 		}
 		$this->website = $value;
