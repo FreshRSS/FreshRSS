@@ -74,15 +74,19 @@ function idn_to_puny($url) {
 	return $url;
 }
 
-function checkUrl($url) {
+function checkUrl($url, $fixScheme = true) {
+	$url = trim($url);
 	if ($url == '') {
 		return '';
 	}
-	if (!preg_match('#^https?://#i', $url)) {
-		$url = 'http://' . $url;
+	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
+		$url = 'https://' . ltrim($url, '/');
 	}
+
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
-	if (filter_var($url, FILTER_VALIDATE_URL)) {
+	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
+
+	if (filter_var($urlRelaxed, FILTER_VALIDATE_URL)) {
 		return $url;
 	} else {
 		return false;

@@ -118,7 +118,7 @@ class FreshRSS_ConfigurationSetter {
 
 			// Verify URL and add default value when needed
 			if (isset($value['url'])) {
-				$is_url = filter_var($value['url'], FILTER_VALIDATE_URL);
+				$is_url = checkUrl($value['url']);
 				if (!$is_url) {
 					continue;
 				}
