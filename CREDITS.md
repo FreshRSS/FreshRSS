@@ -73,6 +73,7 @@ People are sorted by name so please keep this order.
 * [Nicolas Elie](https://github.com/nicolaselie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicolaselie)
 * [Nicolas Frandeboeuf](https://github.com/nicofrand): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicofrand), [Web](https://nicofrand.ey)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
+* [No Name Pro](https://github.com/NoNamePro0): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=NoNamePro0)
 * [Offerel](https://github.com/Offerel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Offerel)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=blankoworld), [Web](https://olivier.dossmann.net)
 * [Pablo Caro](https://github.com/pcaro90): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pcaro90), [Web](https://pcaro.es/)
