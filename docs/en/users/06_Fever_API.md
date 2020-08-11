@@ -30,7 +30,13 @@ Tested with:
 
 * MacOS
   * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
+  * [Fluent Reader](https://hyliu.me/fluent-reader/) ([Open Source](https://github.com/yang991178/fluent-reader))
 
+* Windows
+  * [Fluent Reader](https://hyliu.me/fluent-reader/) ([Open Source](https://github.com/yang991178/fluent-reader))
+
+* Linux
+  * [Fluent Reader](https://hyliu.me/fluent-reader/) ([Open Source](https://github.com/yang991178/fluent-reader))
 
 ## Features
 
