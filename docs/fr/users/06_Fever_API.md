@@ -23,19 +23,14 @@ Connectez ensuite votre application mobile en utilisant l'adresse de l'API
 
 ## Clients compatibles
 
-Testé avec :
-
-* Android
-  * [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
-
-* iOS
-  * [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
-  * [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
-  * [Reeder](https://www.reederapp.com/) (Commercial) (Connectez-vous plutôt par son option Google Reader API)
-
-* MacOS
-  * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
-
+| App                                                                                | Platform            | License                                            |
+|:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
+|[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
+|[Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)|Android              |Source fermée                                             |
+|[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Source fermée                                             |
+|[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Source fermée                                             |
+|[Reeder](https://www.reederapp.com/)                                                |iOS                  |Source fermée                                              |
+|[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Source fermée                                              |
 
 ## Fonctionnalités
 
