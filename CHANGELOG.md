@@ -41,6 +41,7 @@
 	* Add language negotiation when the user is not logged in [#3022](https://github.com/FreshRSS/FreshRSS/pull/3022)
 	* New United States English [#3060](https://github.com/FreshRSS/FreshRSS/pull/3060)
 	* Improved British English [#3068](https://github.com/FreshRSS/FreshRSS/pull/3068)
+	* Improved Dutch [#3063](https://github.com/FreshRSS/FreshRSS/pull/3063)
 	* Improved Slovak [#3020](https://github.com/FreshRSS/FreshRSS/pull/3020)
 	* Add a language reference when adding a new one [#3044](https://github.com/FreshRSS/FreshRSS/pull/3044)
 	* Change how updating a key works [#3072](https://github.com/FreshRSS/FreshRSS/pull/3072)
@@ -49,6 +50,7 @@
 	* Return proper MIME type for favicons [#3032](https://github.com/FreshRSS/FreshRSS/pull/3032)
 	* Add a migration system [#2760](https://github.com/FreshRSS/FreshRSS/pull/2760)
 	* Makefile support for FreshRSS extensions [#3042](https://github.com/FreshRSS/FreshRSS/pull/3042)
+	* Update rules to use Make syntax [#3062](https://github.com/FreshRSS/FreshRSS/pull/3062)
 	* Refactor the export feature [#3045](https://github.com/FreshRSS/FreshRSS/pull/3045)
 
 
