@@ -160,7 +160,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// HTTP information are useful if feed is protected behind a
 			// HTTP authentication
 			$user = trim(Minz_Request::param('http_user', ''));
-			$pass = Minz_Request::param('http_pass', '');
+			$pass = trim(Minz_Request::param('http_pass', ''));
 			$http_auth = '';
 			if ($user != '' && $pass != '') {	//TODO: Sanitize
 				$http_auth = $user . ':' . $pass;
