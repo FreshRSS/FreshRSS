@@ -71,6 +71,3 @@ EXPOSE 80
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
-
-HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
-	CMD (php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars') || exit 1
