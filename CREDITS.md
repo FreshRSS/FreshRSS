@@ -19,6 +19,7 @@ People are sorted by name so please keep this order.
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ASMfreaK)
 * [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
+* [Brewal Bouvet](https://github.com/Jucgshu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jucgshu), [Web](https://dizolo.eu/)
 * [Brooke.](https://github.com/BrookeDot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BrookeDot), [Web](https://brooke.codes/)
 * [chemical1979](https://github.com/chemical1979): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=chemical1979)
 * [Clemens Neubauer](https://github.com/cn-tools): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cn-tools), [Web](http://cn-tools.eu/)
