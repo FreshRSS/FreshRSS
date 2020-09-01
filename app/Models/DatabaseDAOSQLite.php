@@ -69,7 +69,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		$ok = $this->pdo->exec('VACUUM') !== false;
 		if (!$ok) {
 			$info = $this->pdo->errorInfo();
-			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+			Minz_Log::warning(__METHOD__ . ' error : ' . json_encode($info));
 		}
 		return $ok;
 	}
