@@ -251,7 +251,7 @@ class FreshRSS_FormAuth {
 		$mtime = @filemtime($token_file);
 		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
-		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
+		$cookie_duration = empty($limits['cookie_duration']) ? 31536000 : $limits['cookie_duration'];
 		if ($mtime + $cookie_duration < time()) {
 			// Token has expired (> cookie_duration) or does not exist.
 			@unlink($token_file);
@@ -274,7 +274,7 @@ class FreshRSS_FormAuth {
 		}
 
 		$limits = $conf->limits;
-		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
+		$cookie_duration = empty($limits['cookie_duration']) ? 31536000 : $limits['cookie_duration'];
 		$expire = time() + $cookie_duration;
 		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
 		return $token;
@@ -295,7 +295,7 @@ class FreshRSS_FormAuth {
 	public static function purgeTokens() {
 		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
-		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
+		$cookie_duration = empty($limits['cookie_duration']) ? 31536000 : $limits['cookie_duration'];
 		$oldest = time() - $cookie_duration;
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $file_info) {
 			$extension = $file_info->getExtension();
