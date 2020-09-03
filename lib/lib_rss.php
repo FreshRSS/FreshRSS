@@ -184,6 +184,9 @@ function customSimplePie($attributes = array()) {
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+		if (!$attributes['ssl_verify']) {
+			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+		}
 	}
 	$simplePie->set_curl_options($curl_options);
 
