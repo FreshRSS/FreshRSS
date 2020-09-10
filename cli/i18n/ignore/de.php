@@ -10,7 +10,7 @@ return array(
 	'conf.sharing.facebook',
 	'conf.sharing.shaarli',
 	'conf.sharing.twitter',
-	'conf.sharing.twallabag',
+	'conf.sharing.wallabag',
 	'conf.shortcut.navigation',
 	'gen.date.Apr',
 	'gen.date.Aug',
@@ -37,7 +37,7 @@ return array(
 	'gen.lang.ru',
 	'gen.lang.sk',
 	'gen.lang.tr',
-	'gen.lang.zn-cn',
+	'gen.lang.zh-cn',
 	'gen.menu.admin',
 	'gen.share.blogotext',
 	'gen.share.diaspora',
@@ -62,5 +62,5 @@ return array(
 	'sub.bookmarklet.title',
 	'sub.category.information',
 	'sub.feed.information',
-	'sub.tag.name'
+	'sub.tag.name',
 );
