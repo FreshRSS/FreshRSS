@@ -25,7 +25,7 @@ if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename($_SERVER['SCRIPT_FILENAME']) .
 		" --user username ( --password 'password' --api_password 'api_password'" .
 		" --language en --email user@example.net --token 'longRandomString'" .
-		($isUpdate ? '' : '--no_default_feeds') .
+		($isUpdate ? '' : ' --no_default_feeds') .
 		" --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600" .
 		" --since_hours_posts_per_rss 168 --max_posts_per_rss 400 )");
 }
