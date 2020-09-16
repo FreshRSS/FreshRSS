@@ -151,7 +151,6 @@ class SimplePie_File
 						{
 							$this->redirects++;
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
-							
 							$previousStatusCode = $this->status_code;
 							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options, $syslog_enabled);
 							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
