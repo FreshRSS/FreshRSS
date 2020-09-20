@@ -48,7 +48,7 @@
 			$t_active = FreshRSS_Context::isCurrentGet('T');
 			$t_show = ($t_active && FreshRSS_Context::$user_conf->display_categories === 'active') || FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
-		<li class="tree-folder category tags<?= $t_active ? ' active' : '' ?>">
+		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($t_active ? 'up' : 'down') ?></a>
 				<a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') ?>"><?= _t('index.menu.tags') ?></a>
@@ -77,7 +77,7 @@
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
 					$c_show = ($c_active && FreshRSS_Context::$user_conf->display_categories === 'active') || FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
-		<li class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
+		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?= format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) ?>"><?= $cat->name() ?></a>
