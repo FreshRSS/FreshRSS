@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2020-09-XX FreshRSS 1.16.3-dev
+## 2020-09-22 FreshRSS 1.17.0
 
 * Features
 	* New tag management page [#3121](https://github.com/FreshRSS/FreshRSS/pull/3121)
