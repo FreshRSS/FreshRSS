@@ -138,6 +138,7 @@ return array(
 		'kr' => '한국어',	// TODO - Translation
 		'nl' => 'Nederlands',	// TODO - Translation
 		'oc' => 'Occitan',	// TODO - Translation
+		'pl' => 'Polski',	// TODO - Translation
 		'pt-br' => 'Português (Brasil)',	// TODO - Translation
 		'ru' => 'Русский',	// TODO - Translation
 		'sk' => 'Slovenčina',	// TODO - Translation
