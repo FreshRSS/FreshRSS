@@ -2148,19 +2148,6 @@ class phpQueryObject
 							: null;
 					}
 				)->elements;
-//				$this->elements = $this->map(
-//					function($node) { $node = pq($node);
-//						return $node->is("h1")
-//							|| $node->is("h2")
-//							|| $node->is("h3")
-//							|| $node->is("h4")
-//							|| $node->is("h5")
-//							|| $node->is("h6")
-//							|| $node->is("h7")
-//							? $node
-//							: null;
-//					}
-//				)->elements;
 			break;
 			case 'only-child':
 				$this->elements = $this->map(
@@ -4724,12 +4711,6 @@ abstract class phpQuery {
 			while (preg_match($regex, $php, $matches)) {
 				$php = preg_replace_callback(
 					$regex,
-//					function($m, $charsetParam) use ($charset) {
-//						$charset = $charsetParam ?? $charset;
-//						return $m[1].$m[2]
-//							.htmlspecialchars("<"."?php".$m[4]."?".">", ENT_QUOTES|ENT_NOQUOTES, $charset)
-//							.$m[5].$m[2];
-//					},
 					array('phpQuery', '_phpToMarkupCallback'),
 					$php
 				);
@@ -4761,9 +4742,6 @@ abstract class phpQuery {
 		/* <php>...</php> to <?php...? > */
 		$content = preg_replace_callback(
 			'@<php>\s*<!--(.*?)-->\s*</php>@s',
-//			function($m) {
-//				return "<?php ".htmlspecialchars_decode($m[1])." ?".">";
-//			},
 			array('phpQuery', '_markupToPHPCallback'),
 			$content
 		);
