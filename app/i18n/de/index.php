@@ -3,17 +3,17 @@
 return array(
 	'about' => array(
 		'_' => 'Über',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Fehlerberichte',
-		'credits' => 'Credits',	// TODO - Translation
+		'credits' => 'Mitwirkende',
 		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
 		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten wie zum Beispiel <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> oder <a href="https://github.com/LeedRSS/Leed">Leed</a>. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',	// TODO - Translation
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf Github</a>',
 		'license' => 'Lizenz',
-		'project_website' => 'Projekt-Webseite',
+		'project_website' => 'Projekt-Website',
 		'title' => 'Über',
-		'version' => 'Version',	// TODO - Translation
-		'website' => 'Webseite',
+		'version' => 'Version',
+		'website' => 'Website',
 	),
 	'feed' => array(
 		'add' => 'Sie können Feeds hinzufügen.',

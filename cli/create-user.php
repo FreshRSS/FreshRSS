@@ -28,6 +28,14 @@ if (!$ok) {
 	fail('FreshRSS could not create user!');
 }
 
+if (!empty($options['api_password'])) {
+	$username = cliInitUser($username);
+	$error = FreshRSS_api_Controller::updatePassword($options['api_password']);
+	if ($error) {
+		fail($error);
+	}
+}
+
 invalidateHttpCache(FreshRSS_Context::$system_conf->default_user);
 
 echo '• Remember to refresh the feeds of the user: ', $username , "\n",

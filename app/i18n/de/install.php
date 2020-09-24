@@ -23,11 +23,11 @@ return array(
 			'ko' => 'Überprüfen Sie Ihre Datenbank-Information.',
 			'ok' => 'Datenbank-Konfiguration ist gespeichert worden.',
 		),
-		'host' => 'Host',	// TODO - Translation
-		'password' => 'SQL-Password',
+		'host' => 'Host',
+		'password' => 'Datenbank-Password',
 		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
-		'username' => 'SQL-Nutzername',
+		'username' => 'Datenbank-Benutzername',
 	),
 	'check' => array(
 		'_' => 'Überprüfungen',
@@ -102,7 +102,7 @@ return array(
 		'ok' => 'Die allgemeine Konfiguration ist gespeichert worden.',
 	),
 	'congratulations' => 'Glückwunsch!',
-	'default_user' => 'Nutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
+	'default_user' => 'Benutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
 	'delete_articles_after' => 'Entferne Artikel nach',
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
@@ -112,12 +112,12 @@ return array(
 	'language' => array(
 		'_' => 'Sprache',
 		'choose' => 'Wählen Sie eine Sprache für FreshRSS',
-		'defined' => 'Die Sprache ist festgelegt worden.',
+		'defined' => 'Die Sprache wurde festgelegt.',
 	),
 	'not_deleted' => 'Etwas ist schiefgelaufen; Sie müssen die Datei <em>%s</em> manuell löschen.',
 	'ok' => 'Der Installationsvorgang war erfolgreich.',
 	'step' => 'Schritt %d',
 	'steps' => 'Schritte',
 	'this_is_the_end' => 'Das ist das Ende',
-	'title' => 'Installation · FreshRSS',	// TODO - Translation
+	'title' => 'Installation · FreshRSS',
 );
