@@ -692,13 +692,99 @@ function init_posts() {
 	}
 }
 
+//Gets URL search parameter value.
+//Does not use URLSearchParams to ensure coverage of older versions of Internet Explorer.
+function get_search_param_value(param_name) {
+	const query_string = location.search;
+	const search_params_string = query_string.slice(1); //Removing '?' at '0' position.
+	const search_params = search_params_string.split('&');
+	let param_value = '';
+	let key_value_array;
+	search_params.forEach(function(key_value) {
+		key_value_array = key_value.split('=');
+		if (key_value_array[0] === param_name) {
+			param_value = key_value_array[1];
+			return;
+		}
+	});
+	return param_value;
+}
+
+//Adds category id to session storage when user opens corresponding category in the left sidebar.
+function add_category_to_session_storage(category_id) {
+	if ((category_id.charAt(0) !== 'c') && (category_id !== 'tags')) {
+		return;
+	}
+
+	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
+	if (!open_categories) {
+		open_categories = '';
+	}
+
+	if (open_categories.indexOf(category_id) === -1) {
+		open_categories += category_id + ',';
+	}
+	sessionStorage.setItem('FreshRSS_open_categories', open_categories);
+}
+
+//Removes category id from session storage when user closes corresponding category in the left sidebar.
+function remove_category_from_session_storage(category_id) {
+	if ((category_id.charAt(0) !== 'c') && (category_id !== 'tags')) {
+		return;
+	}
+
+	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
+	if (open_categories.indexOf(category_id) !== -1) {
+		let re = new RegExp(`${category_id},`);
+		open_categories = open_categories.replace(re, '');
+	}
+	sessionStorage.setItem('FreshRSS_open_categories', open_categories);
+}
+
+//On page load, displays sidebar category dropdowns for categories opened by the user. 
+//Retrieves ids of categories from Session Storage.
+function display_open_categories() {
+	const open_categories = sessionStorage.getItem('FreshRSS_open_categories');
+	if (open_categories === null) {
+		//Page loaded for the first time. Drop down for category id already open.
+		//Add category id corresponding to URL 'get' parameter to session storage.
+		let request_item_id = get_search_param_value('get');
+		if (request_item_id && ['c', 'f', 'T', 't'].indexOf(request_item_id.charAt[0]) !== -1) {
+			let category_element = document.getElementById(request_item_id).closest('.category');
+			if (category_element) {
+				add_category_to_session_storage(category_element.id);
+			}
+		}
+	} else if (open_categories !== '') {
+		//Page loaded second time or later.
+		//Display category dropdowns in the UI for categories in open_categories.
+		let open_categories_array = open_categories.split(',');
+		open_categories_array.pop(); //Remove empty last element
+		open_categories_array.forEach(function(category_id) {			
+			let category_element = document.getElementById(category_id);
+			category_element.classList.add('active');
+			category_element.querySelector('.tree-folder-items').classList.add('active');
+			const img = category_element.querySelector('a.dropdown-toggle img');
+			img.src = img.src.replace('/icons/down.', '/icons/up.');
+			img.alt = '△';
+		});
+	}
+}
+
 function init_column_categories() {
 	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
 		return;
 	}
 
 	display_open_categories();
-	document.getElementById('sidebar').scrollTop = sessionStorage.getItem('FreshRSS_sidebar_scroll_position');
+
+	// Set sidebar scroll position. Wait to let browser set the scroll position first.
+	setTimeout(function() { document.getElementById('sidebar').scrollTop = parseInt(sessionStorage.getItem('FreshRSS_sidebar_scroll_position')); }, 100);
+
+	// Sidebar scroll handler. Stores sidebar scroll position in Session Storage.
+	document.getElementById('sidebar').onscroll = function (event) {
+		sessionStorage.setItem('FreshRSS_sidebar_scroll_position', event.target.scrollTop);
+	};
 
 	document.getElementById('aside_feed').onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
@@ -1612,111 +1698,3 @@ if (document.readyState && document.readyState !== 'loading') {
 	document.addEventListener('DOMContentLoaded', init_afterDOM, false);
 }
 // @license-end
-
-
-
-
-//Adds CSS class to an HTML element.
-function add_class(elem, class_name) {
-	const elem_classes = elem.className.split(' ');
-	if (elem_classes.indexOf(class_name) === -1) {
-		elem.className += ' ' + class_name;
-	}
-}
-
-//Removes a CSS class from an HTML element.
-function remove_class(elem, class_name) {
-	const elem_classes = elem.className.split(' ');
-	let updated_classname = '';
-	elem_classes.forEach(function(elem_class) {
-		if (elem_class !== class_name) {
-			updated_classname += elem_class + ' ';
-		}
-	});
-	updated_classname.trim();
-	elem.className = updated_classname;
-}
-
-//Gets URL search parameter value.
-//Does not use URLSearchParams to ensure coverage of older versions of Internet Explorer.
-function get_search_param_value(param_name) {
-	const query_string = location.search;
-	const search_params_string = query_string.slice(1); //Removing '?' at '0' position.
-	const search_params = search_params_string.split('&');
-	let param_value = '';
-	let key_value_array;
-	search_params.forEach(function(key_value) {
-		key_value_array = key_value.split('=');
-		if (key_value_array[0] === param_name) {
-			param_value = key_value_array[1];
-			return;
-		}
-	});
-	return param_value;
-}
-
-//Adds category id to session storage when user opens corresponding category in the left sidebar.
-function add_category_to_session_storage(category_id) {
-	if ((category_id.charAt(0) !== 'c') && (category_id !== 'tags')) {
-		return;
-	}
-
-	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
-	if (!open_categories) {
-		open_categories = '';
-	}
-
-	if (open_categories.indexOf(category_id) === -1) {
-		open_categories += category_id + ',';
-	}
-	sessionStorage.setItem('FreshRSS_open_categories', open_categories);
-}
-
-//Removes category id from session storage when user closes corresponding category in the left sidebar.
-function remove_category_from_session_storage(category_id) {
-	if ((category_id.charAt(0) !== 'c') && (category_id !== 'tags')) {
-		return;
-	}
-
-	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
-	if (open_categories.indexOf(category_id) !== -1) {
-		let re = new RegExp(`${category_id},`);
-		open_categories = open_categories.replace(re, '');
-	}
-	sessionStorage.setItem('FreshRSS_open_categories', open_categories);
-}
-
-//On page load, displays sidebar category dropdowns for categories opened by the user. 
-//Retrieves ids of categories from Session Storage.
-function display_open_categories() {
-	const open_categories = sessionStorage.getItem('FreshRSS_open_categories');
-	if (open_categories === null) {
-		//Page loaded for the first time. Drop down for category id already open.
-		//Add category id corresponding to URL 'get' parameter to session storage.
-		let request_item_id = get_search_param_value('get');
-		if (request_item_id && ['c', 'f', 'T', 't'].indexOf(request_item_id.charAt[0]) !== -1) {
-			let category_element = document.getElementById(request_item_id).closest('.category');
-			if (category_element) {
-				add_category_to_session_storage(category_element.id);
-			}
-		}
-	} else if (open_categories !== '') {
-		//Page loaded second time or later.
-		//Display category dropdowns in the UI for categories in open_categories.
-		let open_categories_array = open_categories.split(',');
-		open_categories_array.pop(); //Remove empty last element
-		open_categories_array.forEach(function(category_id) {			
-			let category_element = document.getElementById(category_id);
-			add_class(category_element, 'active');
-			add_class(category_element.querySelector('.tree-folder-items'), 'active');
-			const img = category_element.querySelector('a.dropdown-toggle img');
-			img.src = img.src.replace('/icons/down.', '/icons/up.');
-			img.alt = '△';
-		});
-	}
-}
-
-//Sidebar scroll handler. Stores sidebar scroll position in Session Storage.
-document.getElementById('sidebar').onscroll = function(event) {	
-	sessionStorage.setItem('FreshRSS_sidebar_scroll_position', event.target.scrollTop);
-};
