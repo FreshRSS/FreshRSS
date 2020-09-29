@@ -169,10 +169,10 @@ return array(
 	'pagination' => array(
 		'first' => 'First',	// TODO - Translation
 		'last' => 'Last',	// TODO - Translation
-		'load_more' => 'Load more articles',	// TODO - Translation
-		'mark_all_read' => 'Mark all as read',	// TODO - Translation
+		'load_more' => 'Załaduj więcej wiadomości',
+		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
 		'next' => 'Next',	// TODO - Translation
-		'nothing_to_load' => 'There are no more articles',	// TODO - Translation
+		'nothing_to_load' => 'Koniec listy wiadomości',
 		'previous' => 'Previous',	// TODO - Translation
 	),
 	'period' => array(
