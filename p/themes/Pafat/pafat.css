@@ -700,21 +700,49 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
+	max-width: 20rem;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: .5rem;
+	padding-right: .5rem;
+
 	text-align: center;
 }
 
-.prompt label {
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+
 	text-align: left;
 }
 
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
+.prompt .form-group {
+	margin-bottom: 1rem;
 }
 
+.prompt .form-group::after {
+	display: none;
+}
+
+.prompt .form-group.form-group-actions {
+	display: flex;
+	margin-top: 2rem;
+
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prompt .stick,
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
+	box-sizing: border-box;
+}
+
+.prompt .btn.btn-important {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+
+	font-size: 1.1rem;
 }
 
 .prompt p {
