@@ -668,7 +668,6 @@ a.btn {
 	margin-right: auto;
 	padding-left: .5rem;
 	padding-right: .5rem;
-
 	text-align: center;
 }
 
@@ -679,7 +678,6 @@ a.btn {
 .prompt form {
 	margin-top: 2rem;
 	margin-bottom: 3rem;
-
 	text-align: left;
 }
 
@@ -694,7 +692,6 @@ a.btn {
 .prompt .form-group.form-group-actions {
 	display: flex;
 	margin-top: 2rem;
-
 	align-items: center;
 	justify-content: space-between;
 }
@@ -708,7 +705,6 @@ a.btn {
 .prompt .btn.btn-important {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
-
 	font-size: 1.1rem;
 }
 
