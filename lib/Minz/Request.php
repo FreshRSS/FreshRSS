@@ -261,6 +261,43 @@ class Minz_Request {
 		return (bool)$is_public;
 	}
 
+	private static function requestId() {
+		if (empty($_GET['rid']) || !ctype_xdigit($_GET['rid'])) {
+			$_GET['rid'] = uniqid();
+		}
+		return $_GET['rid'];
+	}
+
+	public static function setNotification($type, $content) {
+		Minz_Session::_param('notification', [ 'type' => $type, 'content' => $content ]);
+	}
+
+	public static function getNotification() {
+		//Restore forwarded notifications
+		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
+		$forwards = Minz_Session::param('forwards');
+		if ($forwards) {
+			//Delete abandonned notifications
+			foreach ($forwards as $fid => $forward) {
+				if (empty($forward['time']) || $forward['time'] < time() - 3600) {
+					unset($forwards[$fid]);
+				}
+			}
+
+			$requestId = self::requestId();
+			if (!empty($forwards[$requestId]['notification'])) {
+				$notif = $forwards[$requestId]['notification'];
+				unset($forwards[$requestId]);
+				Minz_Session::_param('forwards', $forwards);
+				return $notif;
+			}
+		}
+
+		$notif = Minz_Session::param('notification');
+		Minz_Session::_param('notification');
+		return $notif;
+	}
+
 	/**
 	 * Relance une requête
 	 * @param $url l'url vers laquelle est relancée la requête
@@ -274,6 +311,20 @@ class Minz_Request {
 		}
 
 		$url = Minz_Url::checkUrl($url);
+		$requestId = self::requestId();
+		$url['params']['rid'] = $requestId;
+
+		//Forward notification
+		$notif = self::getNotification();
+		if ($notif) {
+			//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
+			$forwards = Minz_Session::param('forwards', []);
+			$forwards[$requestId] = [
+					'time' => time(),
+					'notification' => $notif,
+				];
+			$forwards = Minz_Session::_param('forwards', $forwards);
+		}
 
 		if ($redirect) {
 			header('Location: ' . Minz_Url::display($url, 'php'));
@@ -296,20 +347,12 @@ class Minz_Request {
 	 * @param $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
-		Minz_Session::_param('notification', array(
-			'type' => 'good',
-			'content' => $msg
-		));
-
+		Minz_Request::setNotification('good', $msg);
 		Minz_Request::forward($url, true);
 	}
 
 	public static function bad($msg, $url = array()) {
-		Minz_Session::_param('notification', array(
-			'type' => 'bad',
-			'content' => $msg
-		));
-
+		Minz_Request::setNotification('bad', $msg);
 		Minz_Request::forward($url, true);
 	}
 
