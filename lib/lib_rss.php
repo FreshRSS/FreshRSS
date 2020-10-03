@@ -74,15 +74,19 @@ function idn_to_puny($url) {
 	return $url;
 }
 
-function checkUrl($url) {
+function checkUrl($url, $fixScheme = true) {
+	$url = trim($url);
 	if ($url == '') {
 		return '';
 	}
-	if (!preg_match('#^https?://#i', $url)) {
-		$url = 'http://' . $url;
+	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
+		$url = 'https://' . ltrim($url, '/');
 	}
+
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
-	if (filter_var($url, FILTER_VALIDATE_URL)) {
+	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
+
+	if (filter_var($urlRelaxed, FILTER_VALIDATE_URL)) {
 		return $url;
 	} else {
 		return false;
@@ -180,6 +184,9 @@ function customSimplePie($attributes = array()) {
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+		if (!$attributes['ssl_verify']) {
+			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+		}
 	}
 	$simplePie->set_curl_options($curl_options);
 
@@ -540,7 +547,9 @@ function validateShortcutList($shortcuts) {
 	$shortcuts_ok = array();
 
 	foreach ($shortcuts as $key => $value) {
-		if (in_array($value, SHORTCUT_KEYS)) {
+		if ('' === $value) {
+			$shortcuts_ok[$key] = $value;
+		} elseif (in_array($value, SHORTCUT_KEYS)) {
 			$shortcuts_ok[$key] = $value;
 		} elseif (isset($legacy[$value])) {
 			$shortcuts_ok[$key] = $legacy[$value];

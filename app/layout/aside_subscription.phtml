@@ -9,6 +9,10 @@
 		<a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.menu.subscription_management') ?></a>
 	</li>
 
+	<li class="item<?= Minz_Request::controllerName() === 'tag' ? ' active' : '' ?>">
+		<a href="<?= _url('tag', 'index') ?>"><?= _t('sub.menu.tag_management') ?></a>
+	</li>
+
 	<li class="item<?= Minz_Request::controllerName() === 'importExport' ? ' active' : '' ?>">
 		<a href="<?= _url('importExport', 'index') ?>"><?= _t('sub.menu.import_export') ?></a>
 	</li>

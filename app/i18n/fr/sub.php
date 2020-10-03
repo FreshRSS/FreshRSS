@@ -108,13 +108,22 @@ return array(
 		'import_export' => 'Importer / exporter',
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',
+		'tag_management' => 'Gestion des étiquettes',
+	),
+	'tag' => array(
+		'name' => 'Nom',
+		'new_name' => 'Ancien nom',
+		'old_name' => 'Nouveau nom',
 	),
 	'title' => array(
 		'_' => 'Gestion des abonnements',
 		'add' => 'Ajouter un flux/une catégorie',
 		'add_category' => 'Ajouter une catégorie',
 		'add_feed' => 'Ajouter un flux',
+		'add_tag' => 'Ajouter une étiquette',
+		'delete_tag' => 'Supprimer une étiquette',
 		'feed_management' => 'Gestion des flux RSS',
+		'rename_tag' => 'Renommer une étiquette',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 );

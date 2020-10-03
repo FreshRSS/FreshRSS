@@ -153,7 +153,7 @@ class FreshRSS_UserQuery {
 		if ($this->tag_dao == null) {
 			throw new FreshRSS_DAO_Exception('Tag DAO is not loaded in UserQuery');
 		}
-		$category = $this->category_dao->searchById($id);
+		$tag = $this->tag_dao->searchById($id);
 		if ($tag) {
 			$this->get_name = $tag->name();
 		} else {

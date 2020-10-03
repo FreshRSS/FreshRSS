@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
-		'add' => 'Add',	// TODO - Translation
+		'add' => 'Ajustar',
 		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
@@ -15,12 +15,14 @@ return array(
 		'export' => 'Exportar',
 		'filter' => 'Filtre',
 		'import' => 'Importar',
+		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
 		'remove' => 'Levar',
+		'rename' => 'Renomenar',
 		'see_website' => 'Veire lo site',
 		'submit' => 'Mandar',
 		'truncate' => 'Suprimir totes los articles',
@@ -136,6 +138,7 @@ return array(
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
+		'pl' => 'Polski',	// TODO - Translation
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'sk' => 'Slovenčina',

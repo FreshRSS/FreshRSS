@@ -22,11 +22,11 @@ return array(
 		),
 		'categories' => array(
 			'nok' => 'Category table is bad configured.',
-			'ok' => 'Category table is ok.',	// TODO - Translation
+			'ok' => 'Category table is okay.',	// TODO - Translation
 		),
 		'connection' => array(
 			'nok' => 'Connection to the database cannot being established.',
-			'ok' => 'Connection to the database is ok.',	// TODO - Translation
+			'ok' => 'Connection to the database is okay.',	// TODO - Translation
 		),
 		'ctype' => array(
 			'nok' => 'הספרייה הנדרשת ל character type checking (php-ctype) אינה מותקנת',
@@ -46,16 +46,16 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'entries' => array(
-			'nok' => 'Entry table is bad configured.',
-			'ok' => 'Entry table is ok.',	// TODO - Translation
+			'nok' => 'Entry table is improperly configured.',	// TODO - Translation
+			'ok' => 'Entry table is okay.',	// TODO - Translation
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'feeds' => array(
 			'nok' => 'Feed table is bad configured.',
-			'ok' => 'Feed table is ok.',	// TODO - Translation
+			'ok' => 'Feed table is okay.',	// TODO - Translation
 		),
 		'fileinfo' => array(
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
@@ -64,11 +64,11 @@ return array(
 		'files' => 'File installation',	// TODO - Translation
 		'json' => array(
 			'nok' => 'You lack JSON (php-json package).',
-			'ok' => 'You have JSON extension.',	// TODO - Translation
+			'ok' => 'You have the JSON extension.',	// TODO - Translation
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'You lack the Minz framework.',
@@ -91,18 +91,18 @@ return array(
 			'nok' => 'There is one or more lacking tables in the database.',
 			'ok' => 'Tables are existing in the database.',
 		),
-		'title' => 'Installation checking',	// TODO - Translation
+		'title' => 'Installation check',	// TODO - Translation
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on tokens directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO - Translation
+			'ok' => 'Permissions on the tokens directory are good.',	// TODO - Translation
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO - Translation
+			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php-zip package).',
-			'ok' => 'You have ZIP extension.',	// TODO - Translation
+			'ok' => 'You have the ZIP extension.',	// TODO - Translation
 		),
 	),
 	'extensions' => array(
@@ -117,7 +117,7 @@ return array(
 		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
 		'system' => array(
 			'_' => 'System extensions',	// TODO - Translation
-			'no_rights' => 'System extension (you have no rights on it)',	// TODO - Translation
+			'no_rights' => 'System extension (you do not have the required permissions)',	// TODO - Translation
 		),
 		'title' => 'Extensions',	// TODO - Translation
 		'update' => 'Update available',	// TODO - Translation
@@ -163,10 +163,10 @@ return array(
 			'help' => 'in seconds',	// TODO - Translation
 			'number' => 'Duration to keep logged in',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Categories per user limit',	// TODO - Translation
-		'max-feeds' => 'Feeds per user limit',	// TODO - Translation
+		'max-categories' => 'Max number of categories per user',	// TODO - Translation
+		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
 		'registration' => array(
 			'help' => '0 means that there is no account limit',	// TODO - Translation
 			'number' => 'Max number of accounts',	// TODO - Translation

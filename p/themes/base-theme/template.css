@@ -16,6 +16,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	background: white;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
@@ -304,7 +305,7 @@ a.btn {
 }
 
 .dropdown-menu-scrollable {
-	max-height: 75vh;
+	max-height: min(75vh, 50em);
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -779,6 +780,14 @@ input[type="search"] {
 
 .content pre {
 	overflow: auto;
+}
+
+.subtitle > div {
+	display: inline;
+}
+
+.subtitle > div:not(:first-of-type)::before {
+	content: ' · ';
 }
 
 br {

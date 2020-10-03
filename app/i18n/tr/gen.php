@@ -15,12 +15,14 @@ return array(
 		'export' => 'Dışa Aktar',
 		'filter' => 'Filtrele',
 		'import' => 'İçe Aktar',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Yönet',
 		'mark_favorite' => 'Favoriye ekle',
 		'mark_read' => 'Okundu olarak işaretle',
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Sil',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',
@@ -136,6 +138,7 @@ return array(
 		'kr' => '한국어',	// TODO - Translation
 		'nl' => 'Nederlands',	// TODO - Translation
 		'oc' => 'Occitan',	// TODO - Translation
+		'pl' => 'Polski',	// TODO - Translation
 		'pt-br' => 'Português (Brasil)',	// TODO - Translation
 		'ru' => 'Русский',	// TODO - Translation
 		'sk' => 'Slovenčina',	// TODO - Translation

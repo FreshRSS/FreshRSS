@@ -15,12 +15,14 @@ return array(
 		'export' => 'Export',	// TODO - Translation
 		'filter' => 'Filtrovat',
 		'import' => 'Import',	// TODO - Translation
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Spravovat',
 		'mark_favorite' => 'Označit jako oblíbené',
 		'mark_read' => 'Označit jako přečtené',
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Odstranit',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Smazat všechny články',
@@ -136,6 +138,7 @@ return array(
 		'kr' => '한국어',	// TODO - Translation
 		'nl' => 'Nederlands',	// TODO - Translation
 		'oc' => 'Occitan',	// TODO - Translation
+		'pl' => 'Polski',	// TODO - Translation
 		'pt-br' => 'Português (Brasil)',	// TODO - Translation
 		'ru' => 'Русский',	// TODO - Translation
 		'sk' => 'Slovenčina',	// TODO - Translation
@@ -208,7 +211,7 @@ return array(
 		'default_category' => 'Nezařazeno',
 		'no' => 'Ne',
 		'not_applicable' => 'Not available',	// TODO - Translation
-		'ok' => 'Ok!',	// TODO - Translation
+		'ok' => 'Okay!',	// TODO - Translation
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),

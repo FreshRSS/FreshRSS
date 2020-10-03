@@ -65,8 +65,8 @@ return array(
 			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find a recommended library to parse JSON.',	// TODO - Translation
-			'ok' => 'You have a recommended library to parse JSON.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
+			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation

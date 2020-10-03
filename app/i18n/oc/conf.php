@@ -104,7 +104,7 @@ return array(
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
 		'confirm_enabled' => 'Mostrar una confirmacion per las accions del tipe « o marcar tot coma legit »',
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
-		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
+		'display_categories_unfolded' => 'Categorias a desplegar',
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
@@ -119,11 +119,11 @@ return array(
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',
-			'active_category' => 'Active category',	// TODO - Translation
+			'active_category' => 'Activar categoria',
 			'adaptive' => 'Adaptar l’afichatge',
 			'all_articles' => 'Mostrar totes los articles',
-			'all_categories' => 'All categories',	// TODO - Translation
-			'no_category' => 'No category',	// TODO - Translation
+			'all_categories' => 'Totas las categorias',
+			'no_category' => 'Cap de categoria',
 			'unread' => 'Mostrar pas que los pas legits',
 		),
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
@@ -188,7 +188,7 @@ return array(
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',
-		'toggle_media' => 'Play/pause media',	// TODO - Translation
+		'toggle_media' => 'Legir/arrestar mèdia',
 		'user_filter' => 'Accedir als filtres utilizaire',
 		'user_filter_help' => 'S’i a pas qu’un filtre utilizaire, aquel serà utilizat. Autrament los filtres son accessibles per lor numèro.',
 		'views' => 'Vistas',

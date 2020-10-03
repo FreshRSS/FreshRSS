@@ -141,10 +141,10 @@ The tags correspond to FreshRSS branches and versions:
 * `:x.y.z` are specific FreshRSS releases
 * `:arm` or `:*-arm` are the ARM versions (e.g. for Raspberry Pi)
 
-### Linux: Ubuntu vs. Alpine
-Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
-In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
-while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
+### Linux: Debian vs. Alpine
+Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
+In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is faster,
+while Alpine is [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 
 
 ## Optional: Build Docker image of FreshRSS

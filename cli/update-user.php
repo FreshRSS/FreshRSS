@@ -17,6 +17,13 @@ if (!$ok) {
 	fail('FreshRSS could not update user!');
 }
 
+if (!empty($options['api_password'])) {
+	$error = FreshRSS_api_Controller::updatePassword($options['api_password']);
+	if ($error) {
+		fail($error);
+	}
+}
+
 invalidateHttpCache($username);
 
 accessRights();

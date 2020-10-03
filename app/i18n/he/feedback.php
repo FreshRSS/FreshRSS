@@ -29,7 +29,7 @@ return array(
 		'no_password_set' => 'לא הוגדרה סיסמת מנהל. תכונה זו אינה זמינה.',
 	),
 	'conf' => array(
-		'error' => 'An error occurred during configuration saving',	// TODO - Translation
+		'error' => 'An error occurred while saving configuration',	// TODO - Translation
 		'query_created' => 'השאילתה "%s" נוצרה.',
 		'shortcuts_updated' => 'קיצורי הדרך עודכנו',
 		'updated' => 'ההגדרות עודכנו',
@@ -101,7 +101,7 @@ return array(
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',	// TODO - Translation
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed can’t be found).',	// TODO - Translation
+				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
 			),

@@ -765,27 +765,40 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
+	max-width: 20rem;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: .5rem;
+	padding-left: .5rem;
 	text-align: center;
-	padding: 14px 0px;
 	text-shadow: 0 1px rgba(255,255,255,0.08);
 }
 
-.prompt label {
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
 	text-align: right;
 }
 
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 180px;
+.prompt .form-group {
+	margin-bottom: 1rem;
 }
 
+.prompt .form-group::after {
+	display: none;
+}
+
+.prompt .form-group.form-group-actions {
+	display: flex;
+	margin-top: 2rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prompt .stick,
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
-}
-
-.prompt p {
-	margin: 20px 0;
+	box-sizing: border-box;	
 }
 
 .prompt input#username,.prompt input#passwordPlain {
@@ -797,6 +810,16 @@ a.btn {
 .prompt input#username:focus,.prompt input#passwordPlain:focus {
 	border: solid 1px #0062be;
 	box-shadow: 0 0 3px #0062be;
+}
+
+.prompt .btn.btn-important {
+	padding-right: 1.5rem;
+	padding-left: 1.5rem;
+	font-size: 1.1rem;
+}
+
+.prompt p {
+	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -941,7 +964,7 @@ a.btn {
 	padding: 5px;
 }
 
-.flux .date {
+.flux .item.date {
 	color: #666;
 	font-size: 0.7rem;
 }
