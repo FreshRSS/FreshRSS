@@ -156,9 +156,9 @@ abstract class MinzPDO extends PDO {
 		return parent::exec($statement);
 	}
 
-	public function query($statement) {
+	public function query($query, $fetch_mode = null, ...$fetch_mode_args) {
 		$statement = $this->preSql($statement);
-		return parent::query($statement);
+		return parent::query($statement, $fetch_mode);
 	}
 }
 
