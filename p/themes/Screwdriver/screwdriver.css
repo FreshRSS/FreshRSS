@@ -746,27 +746,40 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
+	max-width: 20rem;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: .5rem;
+	padding-right: .5rem;
 	text-align: center;
-	padding: 14px 0px;
 	text-shadow: 0 1px rgba(255,255,255,0.08);
 }
 
-.prompt label {
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
 	text-align: left;
 }
 
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 180px;
+.prompt .form-group {
+	margin-bottom: 1rem;
 }
 
+.prompt .form-group::after {
+	display: none;
+}
+
+.prompt .form-group.form-group-actions {
+	display: flex;
+	margin-top: 2rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prompt .stick,
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
-}
-
-.prompt p {
-	margin: 20px 0;
+	box-sizing: border-box;
 }
 
 .prompt input#username,.prompt input#passwordPlain {
@@ -778,6 +791,16 @@ a.btn {
 .prompt input#username:focus,.prompt input#passwordPlain:focus {
 	border: solid 1px #e7ab34;
 	box-shadow: 0 0 3px #e7ab34;
+}
+
+.prompt .btn.btn-important {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	font-size: 1.1rem;
+}
+
+.prompt p {
+	margin: 20px 0;
 }
 
 /*=== New article notification */
