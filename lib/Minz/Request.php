@@ -268,8 +268,16 @@ class Minz_Request {
 		return $_GET['rid'];
 	}
 
-	public static function setNotification($type, $content) {
+	private static function setNotification($type, $content) {
 		Minz_Session::_param('notification', [ 'type' => $type, 'content' => $content ]);
+	}
+
+	public static function setGoodNotification($content) {
+		self::setNotification('good', $content);
+	}
+
+	public static function setBadNotification($content) {
+		self::setNotification('bad', $content);
 	}
 
 	public static function getNotification() {
@@ -314,8 +322,8 @@ class Minz_Request {
 		$requestId = self::requestId();
 		$url['params']['rid'] = $requestId;
 
-		//Forward notification
-		$notif = self::getNotification();
+		//Forward request data such as notifications
+		$notif = Minz_Request::getNotification();
 		if ($notif) {
 			//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
 			$requests = Minz_Session::param('requests', []);
@@ -347,12 +355,12 @@ class Minz_Request {
 	 * @param $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
-		Minz_Request::setNotification('good', $msg);
+		Minz_Request::setGoodNotification($msg);
 		Minz_Request::forward($url, true);
 	}
 
 	public static function bad($msg, $url = array()) {
-		Minz_Request::setNotification('bad', $msg);
+		Minz_Request::setBadNotification($msg);
 		Minz_Request::forward($url, true);
 	}
 

@@ -356,8 +356,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				FreshRSS_Auth::giveAccess();
 			}
 
-			Minz_Request::setNotification($ok ? 'good' : 'bad',
-				_t('feedback.user.created' . (!$ok ? '.error' : ''), $new_user_name));
+			if ($ok) {
+				Minz_Request::setGoodNotification(_t('feedback.user.created', $new_user_name));
+			} else {
+				Minz_Request::setBadNotification(_t('feedback.user.created.error', $new_user_name));
+			}
 		}
 
 		$redirect_url = urldecode(Minz_Request::param('r', false, true));
@@ -543,8 +546,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 			invalidateHttpCache();
 
-			Minz_Request::setNotification($ok ? 'good' : 'bad',
-				_t('feedback.user.deleted' . (!$ok ? '.error' : ''), $username));
+			if ($ok) {
+				Minz_Request::setGoodNotification(_t('feedback.user.deleted', $username));
+			} else {
+				Minz_Request::setBadNotification(_t('feedback.user.deleted.error', $username));
+			}
 		}
 
 		Minz_Request::forward($redirect_url, true);

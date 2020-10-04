@@ -374,7 +374,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			invalidateHttpCache();
 
-			Minz_Request::setNotification('good', _t('feedback.conf.updated'));
+			Minz_Request::setGoodNotification(_t('feedback.conf.updated'));
 		}
 	}
 }

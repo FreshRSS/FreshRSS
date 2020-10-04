@@ -544,7 +544,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// Most of the time, ajax request is for only one feed. But since
 			// there are several parallel requests, we should return that there
 			// are several updated feeds.
-			Minz_Request::setNotification('good', _t('feedback.sub.feed.actualizeds'));
+			Minz_Request::setGoodNotification(_t('feedback.sub.feed.actualizeds'));
 			// No layout in ajax request.
 			$this->view->_layout(false);
 		} else {
