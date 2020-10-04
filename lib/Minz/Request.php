@@ -281,28 +281,27 @@ class Minz_Request {
 	}
 
 	public static function getNotification() {
+		$notif = null;
+
 		//Restore forwarded notifications
 		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
 			//Delete abandonned notifications
-			foreach ($requests as $fid => $request) {
-				if (empty($request['time']) || $request['time'] < time() - 3600) {
-					unset($requests[$fid]);
-				}
-			}
+			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {
 				$notif = $requests[$requestId]['notification'];
 				unset($requests[$requestId]);
-				Minz_Session::_param('requests', $requests);
-				return $notif;
 			}
+			Minz_Session::_param('requests', $requests);
 		}
 
-		$notif = Minz_Session::param('notification');
-		Minz_Session::_param('notification');
+		if (!$notif) {
+			$notif = Minz_Session::param('notification');
+			Minz_Session::_param('notification');
+		}
 		return $notif;
 	}
 
