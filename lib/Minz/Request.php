@@ -275,20 +275,20 @@ class Minz_Request {
 	public static function getNotification() {
 		//Restore forwarded notifications
 		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
-		$forwards = Minz_Session::param('forwards');
-		if ($forwards) {
+		$requests = Minz_Session::param('requests');
+		if ($requests) {
 			//Delete abandonned notifications
-			foreach ($forwards as $fid => $forward) {
-				if (empty($forward['time']) || $forward['time'] < time() - 3600) {
-					unset($forwards[$fid]);
+			foreach ($requests as $fid => $request) {
+				if (empty($request['time']) || $request['time'] < time() - 3600) {
+					unset($requests[$fid]);
 				}
 			}
 
 			$requestId = self::requestId();
-			if (!empty($forwards[$requestId]['notification'])) {
-				$notif = $forwards[$requestId]['notification'];
-				unset($forwards[$requestId]);
-				Minz_Session::_param('forwards', $forwards);
+			if (!empty($requests[$requestId]['notification'])) {
+				$notif = $requests[$requestId]['notification'];
+				unset($requests[$requestId]);
+				Minz_Session::_param('requests', $requests);
 				return $notif;
 			}
 		}
@@ -318,12 +318,12 @@ class Minz_Request {
 		$notif = self::getNotification();
 		if ($notif) {
 			//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
-			$forwards = Minz_Session::param('forwards', []);
-			$forwards[$requestId] = [
+			$requests = Minz_Session::param('requests', []);
+			$requests[$requestId] = [
 					'time' => time(),
 					'notification' => $notif,
 				];
-			$forwards = Minz_Session::_param('forwards', $forwards);
+			Minz_Session::_param('requests', $requests);
 		}
 
 		if ($redirect) {
