@@ -269,7 +269,13 @@ class Minz_Request {
 	}
 
 	private static function setNotification($type, $content) {
-		Minz_Session::_param('notification', [ 'type' => $type, 'content' => $content ]);
+		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
+		$requests = Minz_Session::param('requests', []);
+		$requests[self::requestId()] = [
+				'time' => time(),
+				'notification' => [ 'type' => $type, 'content' => $content ],
+			];
+		Minz_Session::_param('requests', $requests);
 	}
 
 	public static function setGoodNotification($content) {
@@ -282,8 +288,6 @@ class Minz_Request {
 
 	public static function getNotification() {
 		$notif = null;
-
-		//Restore forwarded notifications
 		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
@@ -296,11 +300,6 @@ class Minz_Request {
 				unset($requests[$requestId]);
 			}
 			Minz_Session::_param('requests', $requests);
-		}
-
-		if (!$notif) {
-			$notif = Minz_Session::param('notification');
-			Minz_Session::_param('notification');
 		}
 		return $notif;
 	}
@@ -318,20 +317,7 @@ class Minz_Request {
 		}
 
 		$url = Minz_Url::checkUrl($url);
-		$requestId = self::requestId();
-		$url['params']['rid'] = $requestId;
-
-		//Forward request data such as notifications
-		$notif = Minz_Request::getNotification();
-		if ($notif) {
-			//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
-			$requests = Minz_Session::param('requests', []);
-			$requests[$requestId] = [
-					'time' => time(),
-					'notification' => $notif,
-				];
-			Minz_Session::_param('requests', $requests);
-		}
+		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
 			header('Location: ' . Minz_Url::display($url, 'php'));
