@@ -269,13 +269,14 @@ class Minz_Request {
 	}
 
 	private static function setNotification($type, $content) {
-		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
+		Minz_Session::lock();
 		$requests = Minz_Session::param('requests', []);
 		$requests[self::requestId()] = [
 				'time' => time(),
 				'notification' => [ 'type' => $type, 'content' => $content ],
 			];
 		Minz_Session::_param('requests', $requests);
+		Minz_Session::unlock();
 	}
 
 	public static function setGoodNotification($content) {
@@ -288,7 +289,7 @@ class Minz_Request {
 
 	public static function getNotification() {
 		$notif = null;
-		//TODO: Will need to ensure non-concurrency when landing https://github.com/FreshRSS/FreshRSS/pull/3096
+		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
 			//Delete abandonned notifications
@@ -301,6 +302,7 @@ class Minz_Request {
 			}
 			Minz_Session::_param('requests', $requests);
 		}
+		Minz_Session::unlock();
 		return $notif;
 	}
 

@@ -7,9 +7,28 @@ class Minz_Session {
 	private static $volatile = false;
 
 	/**
+	 * For mutal exclusion.
+	 */
+	private static $locked = false;
+
+	public static function lock() {
+		if (!self::$volatile && !self::$locked && session_start()) {
+			self::$locked = true;
+		}
+		return self::$locked;
+	}
+
+	public static function unlock() {
+		if (!self::$volatile && session_write_close()) {
+			self::$locked = false;
+		}
+		return self::$locked;
+	}
+
+	/**
 	 * Initialise la session, avec un nom
 	 * Le nom de session est utilisé comme nom pour les cookies et les URLs(i.e. PHPSESSID).
-	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif.
+	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif
 	 * If the volatile parameter is true, then no cookie and not session storage are used.
 	 * Volatile is especially useful for API calls without cookie / Web session.
 	 */
@@ -25,9 +44,10 @@ class Minz_Session {
 
 		// démarre la session
 		session_name($name);
+		//When using cookies (default value), session_stars() sends HTTP headers
 		session_start();
 		session_write_close();
-		//Use cookie only the first time the session is started
+		//Use cookie only the first time the session is started to avoid resending HTTP headers
 		ini_set('session.use_cookies', '0');
 	}
 
@@ -48,7 +68,7 @@ class Minz_Session {
 	 * @param $v la valeur à attribuer, false pour supprimer
 	 */
 	public static function _param($p, $v = false) {
-		if (!self::$volatile) {
+		if (!self::$volatile && !self::$locked) {
 			session_start();
 		}
 		if ($v === false) {
@@ -56,13 +76,13 @@ class Minz_Session {
 		} else {
 			$_SESSION[$p] = $v;
 		}
-		if (!self::$volatile) {
+		if (!self::$volatile && !self::$locked) {
 			session_write_close();
 		}
 	}
 
 	public static function _params($keyValues) {
-		if (!self::$volatile) {
+		if (!self::$volatile && !self::$locked) {
 			session_start();
 		}
 		foreach ($keyValues as $k => $v) {
@@ -72,7 +92,7 @@ class Minz_Session {
 				$_SESSION[$k] = $v;
 			}
 		}
-		if (!self::$volatile) {
+		if (!self::$volatile && !self::$locked) {
 			session_write_close();
 		}
 	}
