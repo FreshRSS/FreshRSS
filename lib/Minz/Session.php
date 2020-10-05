@@ -7,7 +7,7 @@ class Minz_Session {
 	private static $volatile = false;
 
 	/**
-	 * For mutal exclusion.
+	 * For mutual exclusion.
 	 */
 	private static $locked = false;
 
