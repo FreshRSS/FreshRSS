@@ -125,10 +125,9 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private static function loadNotifications() {
-		$notif = Minz_Session::param('notification');
+		$notif = Minz_Request::getNotification();
 		if ($notif) {
 			Minz_View::_param('notification', $notif);
-			Minz_Session::_param('notification');
 		}
 	}
 

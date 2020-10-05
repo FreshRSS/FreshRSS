@@ -168,10 +168,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
-				Minz_View::_param('notification', [
-					'type' => 'bad',
-					'content' => _t('feedback.auth.login.invalid'),
-				]);
+				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
 				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
 				return;
 			}
