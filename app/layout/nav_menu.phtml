@@ -43,7 +43,9 @@
 
 				<?php foreach (FreshRSS_Context::$user_conf->queries as $query) { ?>
 				<li class="item query">
-					<a href="<?= $query['url'] ?>"><?= $query['name'] ?></a>
+					<a href="<?= Minz_Url::display('/i/?search=' . urlencode($query['name'])) ?>">
+						<?= $query['name'] ?>
+					</a>
 				</li>
 				<?php } ?>
 
