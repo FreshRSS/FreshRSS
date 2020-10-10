@@ -16,8 +16,10 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 	public function indexAction() {
 		$code_int = Minz_Session::param('error_code', 404);
 		$error_logs = Minz_Session::param('error_logs', array());
-		Minz_Session::_param('error_code');
-		Minz_Session::_param('error_logs');
+		Minz_Session::_params([
+			'error_code' => false,
+			'error_logs' => false,
+		]);
 
 		switch ($code_int) {
 		case 200 :

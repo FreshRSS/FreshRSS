@@ -33,8 +33,13 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 			if ($id_entry != false) {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				if ($id_tag == 0 && $name_tag != '' && $checked) {
-					//Create new tag
-					$id_tag = $tagDAO->addTag(array('name' => $name_tag));
+					if ($existing_tag = $tagDAO->searchByName($name_tag)) {
+					    // Use existing tag
+                        $tagDAO->tagEntry($existing_tag->id(), $id_entry, $checked);
+                    } else {
+                        //Create new tag
+                        $id_tag = $tagDAO->addTag(array('name' => $name_tag));
+                    }
 				}
 				if ($id_tag != 0) {
 					$tagDAO->tagEntry($id_tag, $id_entry, $checked);

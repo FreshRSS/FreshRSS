@@ -4,18 +4,51 @@
  * La classe Session gère la session utilisateur
  */
 class Minz_Session {
+	private static $volatile = false;
+
+	/**
+	 * For mutual exclusion.
+	 */
+	private static $locked = false;
+
+	public static function lock() {
+		if (!self::$volatile && !self::$locked && session_start()) {
+			self::$locked = true;
+		}
+		return self::$locked;
+	}
+
+	public static function unlock() {
+		if (!self::$volatile && session_write_close()) {
+			self::$locked = false;
+		}
+		return self::$locked;
+	}
+
 	/**
 	 * Initialise la session, avec un nom
 	 * Le nom de session est utilisé comme nom pour les cookies et les URLs(i.e. PHPSESSID).
 	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif
+	 * If the volatile parameter is true, then no cookie and not session storage are used.
+	 * Volatile is especially useful for API calls without cookie / Web session.
 	 */
-	public static function init($name) {
+	public static function init($name, $volatile = false) {
+		self::$volatile = $volatile;
+		if (self::$volatile) {
+			$_SESSION = [];
+			return;
+		}
+
 		$cookie = session_get_cookie_params();
 		self::keepCookie($cookie['lifetime']);
 
 		// démarre la session
 		session_name($name);
+		//When using cookies (default value), session_stars() sends HTTP headers
 		session_start();
+		session_write_close();
+		//Use cookie only the first time the session is started to avoid resending HTTP headers
+		ini_set('session.use_cookies', '0');
 	}
 
 
@@ -35,13 +68,34 @@ class Minz_Session {
 	 * @param $v la valeur à attribuer, false pour supprimer
 	 */
 	public static function _param($p, $v = false) {
+		if (!self::$volatile && !self::$locked) {
+			session_start();
+		}
 		if ($v === false) {
 			unset($_SESSION[$p]);
 		} else {
 			$_SESSION[$p] = $v;
 		}
+		if (!self::$volatile && !self::$locked) {
+			session_write_close();
+		}
 	}
 
+	public static function _params($keyValues) {
+		if (!self::$volatile && !self::$locked) {
+			session_start();
+		}
+		foreach ($keyValues as $k => $v) {
+			if ($v === false) {
+				unset($_SESSION[$k]);
+			} else {
+				$_SESSION[$k] = $v;
+			}
+		}
+		if (!self::$volatile && !self::$locked) {
+			session_write_close();
+		}
+	}
 
 	/**
 	 * Permet d'effacer une session
@@ -50,7 +104,9 @@ class Minz_Session {
 	public static function unset_session($force = false) {
 		$language = self::param('language');
 
-		session_destroy();
+		if (!self::$volatile) {
+			session_destroy();
+		}
 		$_SESSION = array();
 
 		if (!$force) {
