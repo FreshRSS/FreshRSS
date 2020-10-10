@@ -20,6 +20,8 @@
 				<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
 
+				<?= _t('conf.query.name') ?>:
+                <br>
 				<div class="stick">
 					<input class="extend"
 					       type="text"
@@ -36,6 +38,20 @@
 					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?= $key ?>" title="<?= _t('conf.query.remove') ?>">
 						<?= _i('close') ?>
 					</a>
+				</div>
+
+				<br /><br />
+
+				<?= _t('conf.query.url') ?>:
+				<br />
+				<div class="stick">
+					<input class="extend"
+						type="text"
+						id="queries_<?= $key ?>url"
+						name="queries[<?= $key ?>][url]"
+						value="<?= $query->getUrl() ?>"
+						data-leave-validation="<?= $query->getUrl() ?>"
+					/>
 				</div>
 
 				<?php if (!$query->hasParameters()) { ?>

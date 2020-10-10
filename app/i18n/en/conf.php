@@ -73,6 +73,8 @@ return array(
 		'no_filter' => 'No filter',
 		'none' => 'You haven’t created any user queries yet.',
 		'number' => 'Query n°%d',
+		'name' => 'Name',
+		'url' => 'URL',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
 		'remove' => 'Remove user query',

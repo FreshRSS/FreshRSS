@@ -288,6 +288,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				if ($query['search']) {
 					$query['search'] = urldecode($query['search']);
 				}
+				if ($url = trim($query['url'])) {
+					$searchParam = '?search=';
+					$query['url'] = urldecode(strpos($url, $searchParam) === 0 ? $url : $searchParam . $url);
+				}
 				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
