@@ -1289,10 +1289,10 @@ function init_popup() {
 
 	//Configure close button.
 	document.getElementById('popup-close').addEventListener('click', function (ev) {
-  		closePopup();
-  	});
+		closePopup();
+	});
 
-  	//Configure close-on-click.
+	//Configure close-on-click.
 	window.addEventListener('click', function (ev) {
 		if (ev.target == popup) {
 			closePopup();

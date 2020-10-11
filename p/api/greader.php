@@ -20,6 +20,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/theoldreader/api
 * https://www.inoreader.com/developers/
 * https://feedhq.readthedocs.io/en/latest/api/index.html
+* https://github.com/bazqux/bazqux-api
 */
 
 require(__DIR__ . '/../../constants.php');
