@@ -7,7 +7,7 @@
 		<a href="<?= _url('stats', 'repartition', 'id', $this->feed->id()) ?>"><?= _i('stats') ?> <?= _t('sub.feed.stats') ?></a>
 	</div>
 
-	<p><?= $this->feed->description() ?></p>
+	<p><?= sanitizeHTML($this->feed->description()) ?></p>
 
 	<?php $nbEntries = $this->feed->nbEntries(); ?>
 

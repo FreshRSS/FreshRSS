@@ -241,16 +241,25 @@ function customSimplePie($attributes = array()) {
 	return $simplePie;
 }
 
-function sanitizeHTML($data, $base = '') {
-	if (!is_string($data)) {
+function sanitizeHTML($data, $base = '', $maxLength = false) {
+	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
 		return '';
+	}
+	if ($maxLength !== false) {
+		$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
 	}
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = customSimplePie();
 		$simplePie->init();
 	}
-	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	if ($maxLength !== false && strlen($result) > $maxLength) {
+		//Sanitizing has made the result too long so try again shorter
+		$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
+		return sanitizeHTML($data, $base, $maxLength);
+	}
+	return $result;
 }
 
 /**
