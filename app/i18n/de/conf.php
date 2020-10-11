@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Kein Filter',
 		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'number' => 'Abfrage Nr. %d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Ungelesene Artikel anzeigen',
 		'state_15' => 'Alle Artikel anzeigen',
 		'title' => 'Benutzerabfragen',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Lesen',

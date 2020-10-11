@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Afficher la catégorie "%s"',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux "%s"',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Aucun filtre appliqué',
 		'none' => 'Vous n’avez pas encore créé de filtre.',
 		'number' => 'Filtre n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Afficher les articles non lus',
 		'state_15' => 'Afficher tous les articles',
 		'title' => 'Filtres utilisateurs',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Lecture',

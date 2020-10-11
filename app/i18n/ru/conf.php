@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Display "%s" category',	// TODO - Translation
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'No filter',	// TODO - Translation
 		'none' => 'You haven’t created any user query yet.',
 		'number' => 'Query n°%d',	// TODO - Translation
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Display unread articles',	// TODO - Translation
 		'state_15' => 'Display all articles',	// TODO - Translation
 		'title' => 'User queries',	// TODO - Translation
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Reading',	// TODO - Translation

@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Wyświetlenie kategorii "%s"',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału "%s"',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Brak filtrów',
 		'none' => 'Nie zapisałeś jeszcze żadnego zapytania.',
 		'number' => 'Zapytanie nr %d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Wyświetl nieprzeczytane wiadomości',
 		'state_15' => 'Wyświetl wszystkie wiadomości',
 		'title' => 'Zapisane zapytania',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Czytanie',

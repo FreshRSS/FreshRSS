@@ -70,6 +70,7 @@ return array(
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Filtre yok',
 		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Okunmamış makaleleri göster',
 		'state_15' => 'Tüm makaleleri göster',
 		'title' => 'Kullanıcı sorguları',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Okuma',

@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
 		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',
 		'number' => 'Dotaz n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Zobrazit nepřečtené články',
 		'state_15' => 'Zobrazit všechny články',
 		'title' => 'Uživatelské dotazy',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Čtení',

@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'הצגת קטגוריה "%s"',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'ללא סינון',
 		'none' => 'אף שאילתה לא נוצרה עדיין.',
 		'number' => 'שאילתה מספר °%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'הצגת מאמרים שלא נקראו',
 		'state_15' => 'הצגת	כל המאמרים',
 		'title' => 'שאילתות',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'קריאה',

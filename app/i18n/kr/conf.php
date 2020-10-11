@@ -70,6 +70,7 @@ return array(
 		'get_category' => '"%s" 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '"%s" 피드 표시',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => '필터가 없습니다',
 		'none' => '아직 사용자 쿼리를 만들지 않았습니다.',
 		'number' => '쿼리 #%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => '읽지 않은 글 표시',
 		'state_15' => '모든 글 표시',
 		'title' => '사용자 쿼리',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => '읽기',

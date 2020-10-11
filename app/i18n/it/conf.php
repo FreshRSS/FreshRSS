@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Mostra la categoria "%s" ',
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed "%s" ',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Nessun filtro',
 		'none' => 'Non hai creato nessuna ricerca personale.',
 		'number' => 'Ricerca n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Mostra gli articoli non letti',
 		'state_15' => 'Mostra tutti gli articoli',
 		'title' => 'Ricerche personali',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Lettura',

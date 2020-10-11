@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Geen filter',
 		'none' => 'U hebt nog geen gebruikers query aangemaakt..',
 		'number' => 'Query n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Toon ongelezen artikelen',
 		'state_15' => 'Toon alle artikelen',
 		'title' => 'Gebruikersquery\'s',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Lezen',

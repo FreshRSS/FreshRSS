@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Cap de filtre aplicat',
 		'none' => 'Avètz pas encara creat cap de filtre.',
 		'number' => 'Filtre n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Mostrar los articles pas legits',
 		'state_15' => 'Mostrar totes los articles',
 		'title' => 'Filtres utilizaire',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Lectura',

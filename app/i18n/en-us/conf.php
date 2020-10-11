@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Display "%s" category',
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'No filter',
 		'none' => 'You haven’t created any user queries yet.',
 		'number' => 'Query n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Display unread articles',
 		'state_15' => 'Display all articles',
 		'title' => 'User queries',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Reading',

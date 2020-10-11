@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Visualizar "%s" categoria',
 		'get_favorite' => 'Visualizar artigos favoritos',
 		'get_feed' => 'Visualizar "%s" feed',
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Sem filtro',
 		'none' => 'Você não criou nenhuma query de usuário ainda.',
 		'number' => 'Query n°%d',
@@ -94,6 +95,7 @@ return array(
 		'state_14' => 'Exibir artigos não lidos',
 		'state_15' => 'Exibir todos os artigos',
 		'title' => 'Queries de usuários',
+		'url' => 'URL',	// TODO - Translation
 	),
 	'reading' => array(
 		'_' => 'Leitura',
