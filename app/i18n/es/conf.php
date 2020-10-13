@@ -124,6 +124,7 @@ return array(
 			'all_articles' => 'Mostrar todos los artículos',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'open_categories' => 'Open categories',	// TODO - Translation
 			'unread' => 'Mostrar solo pendientes',
 		),
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',

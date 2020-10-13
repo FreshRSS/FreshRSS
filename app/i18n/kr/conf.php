@@ -124,6 +124,7 @@ return array(
 			'all_articles' => '모든 글 표시',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'open_categories' => 'Open categories',	// TODO - Translation
 			'unread' => '읽지 않은 글만 표시',
 		),
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',

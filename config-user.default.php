@@ -32,7 +32,7 @@ return array (
 	'show_fav_unread' => false,
 	'auto_load_more' => true,
 	'display_posts' => false,
-	'display_categories' => 'active',	//{ active, all, none }
+	'display_categories' => 'active',	//{ active, open, all, none }
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,

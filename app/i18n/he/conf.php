@@ -124,6 +124,7 @@ return array(
 			'all_articles' => 'הצגת כל המאמרים',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'open_categories' => 'Open categories',	// TODO - Translation
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
