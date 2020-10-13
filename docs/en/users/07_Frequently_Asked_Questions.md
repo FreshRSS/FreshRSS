@@ -57,3 +57,16 @@ Examples with _uBlock_:
 
 - Whitelist your FreshRSS instance by adding it in _uBlock > Open the dashboard > Whitelist_.
 - Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the dashboard > My filters_
+
+## Problems with firewalls
+
+If you have the error "Blast! This feed has encountered a problem. Please verify that it is always reachable then update it.", it might be because of a firewall misconfiguration.
+
+To identify the problem, here are the steps to follow:
+
+- step 1: Try to reach the feed locally to discard a problem with the feed itself. You can use your browser to this purpose.
+- step 2: Try to reach the feed from the host in which FreshRSS is installed. Something like `time curl -v 'http://myfeed.com'` should make the deal. If you are running FreshRSS within a Docker container, then you can check connectivity from within the container itself with something similar to `sudo docker exec freshrss php -r "readfile('http://myfeed.com');"`. If none of this works, then it might be a problem with your firewall.
+
+Then to fix it, you need to do check your firewall configuration and ensure that you are not blocking connections to IPs and/or ports in which your feeds are located. If using iptables and you are blocking inbound connections to ports 80/443, check that the rules are properly configured and you are not also blocking outbound connections to the very same ports.
+
+For example, when using the firewall provided by Synology, you can block traffic for certain applications (i.e., ports). One could think that these rules would be applied only to incoming connections but specifying * for the originating host of the requests will also include your local networks. To deal with this issue, you will have to add exceptions for your local networks to be able to access those ports with a higher priority than the one blocking incoming connections. This could be similar for other frontends to iptables. Please check the following discussion about a [similar issue](https://www.reddit.com/r/synology/comments/8fo2sj/ds918_firewall_blocking_outgoing_traffic_from/).
