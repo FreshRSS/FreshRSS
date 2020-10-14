@@ -65,7 +65,7 @@ If you have the error "Blast! This feed has encountered a problem. Please verify
 To identify the problem, here are the steps to follow:
 
 - step 1: Try to reach the feed locally to discard a problem with the feed itself. You can use your browser to this purpose.
-- step 2: Try to reach the feed from the host in which FreshRSS is installed. Something like `time curl -v 'http://myfeed.com'` should make the deal. If you are running FreshRSS within a Docker container, then you can check connectivity from within the container itself with something similar to `sudo docker exec freshrss php -r "readfile('http://myfeed.com');"`. If none of this works, then it might be a problem with your firewall.
+- step 2: Try to reach the feed from the host in which FreshRSS is installed. Something like `time curl -v 'https://github.com/FreshRSS/FreshRSS/commits/master.atom'` should make the deal. If you are running FreshRSS within a Docker container, then you can check connectivity from within the container itself with something similar to `sudo docker exec freshrss php -r "readfile('https://github.com/FreshRSS/FreshRSS/commits/master.atom');"`. If none of this works, then it might be a problem with your firewall.
 
 Then to fix it, you need to do check your firewall configuration and ensure that you are not blocking connections to IPs and/or ports in which your feeds are located. If using iptables and you are blocking inbound connections to ports 80/443, check that the rules are properly configured and you are not also blocking outbound connections to the very same ports.
 
