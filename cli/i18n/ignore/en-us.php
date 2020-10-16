@@ -235,6 +235,7 @@ return array(
 	'conf.reading.show.all_articles',
 	'conf.reading.show.all_categories',
 	'conf.reading.show.no_category',
+	'conf.reading.show.remember_categories',
 	'conf.reading.show.unread',
 	'conf.reading.sides_close_article',
 	'conf.reading.sort._',

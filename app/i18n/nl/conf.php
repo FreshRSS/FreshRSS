@@ -124,7 +124,7 @@ return array(
 			'all_articles' => 'Bekijk alle artikelen',
 			'all_categories' => 'Alle categorieën',
 			'no_category' => 'Geen categorie',
-			'open_categories' => 'Open categories',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Bekijk alleen ongelezen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',

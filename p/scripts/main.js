@@ -693,34 +693,21 @@ function init_posts() {
 }
 
 function add_category_to_session_storage(category_id) {
-	if ((category_id.charAt(0) !== 'c') && (category_id !== 'tags')) {
-		return;
-	}
-
-	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
-	open_categories = (open_categories) ? JSON.parse(open_categories) : [];
-	if (open_categories.indexOf(category_id) === -1) {
-		open_categories.push(category_id);
-	}
-	sessionStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
+	let open_categories = localStorage.getItem('FreshRSS_open_categories');
+	open_categories = open_categories ? JSON.parse(open_categories) : {};
+	open_categories[category_id] = true;
+	localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
 }
 
 function remove_category_from_session_storage(category_id) {
-	if ((category_id.charAt(0) !== 'c') && (category_id !== 'tags')) {
-		return;
-	}
-
-	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
+	let open_categories = localStorage.getItem('FreshRSS_open_categories');
 	open_categories = JSON.parse(open_categories);
-	let category_id_index = open_categories.indexOf(category_id);
-	if (category_id_index !== -1) {
-		open_categories.splice(category_id_index, 1);
-	}
-	sessionStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
+	delete open_categories[category_id];
+	localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
 }
 
 function open_category_dropdown(category_id) {
-	let category_element = document.getElementById(category_id);
+	const category_element = document.getElementById(category_id);
 	category_element.classList.add('active');
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
@@ -728,8 +715,8 @@ function open_category_dropdown(category_id) {
 	img.alt = '△';
 }
 
-function init_open_categories() {
-	if (typeof window.URLSearchParams === 'undefined') {
+function init_remember_categories() {
+	if (context.display_categories !== 'remember' || typeof window.URLSearchParams === 'undefined') {
 		return;
 	}
 
@@ -747,16 +734,16 @@ function init_open_categories() {
 	});
 
 	//Open categories dropdowns.
-	let open_categories = sessionStorage.getItem('FreshRSS_open_categories');
-	if (open_categories === null) {
-		//First page load in this session. Expected 'open_categories' value is null.
+	let open_categories = localStorage.getItem('FreshRSS_open_categories');
+	if (!open_categories) {
+		//First page load in this session.
 		//Add category id corresponding to URL 'get' parameter to session storage and open corresponding categroy dropdown.
 		let request_params = new window.URLSearchParams(document.location.search.substring(1));
 		let request_item_id = request_params.get('get');
 		if (request_item_id && ['c', 'f', 'T', 't'].indexOf(request_item_id.charAt(0)) !== -1) {
 			let category_element = document.getElementById(request_item_id).closest('.category');
 			if (category_element) {
-				let category_id = category_element.id;
+				const category_id = category_element.id;
 				add_category_to_session_storage(category_id);
 				open_category_dropdown(category_id);
 			}
@@ -765,7 +752,7 @@ function init_open_categories() {
 		//Page loaded second time or later in this session.
 		//Open category dropdowns for categories in 'open_categories'.
 		open_categories = JSON.parse(open_categories);
-		open_categories.forEach(function(category_id) {
+		Object.keys(open_categories).forEach(function (category_id) {
 			open_category_dropdown(category_id);
 		});
 	}
@@ -776,9 +763,7 @@ function init_column_categories() {
 		return;
 	}
 
-	if (typeof context.display_categories !== 'undefined' && context.display_categories === 'open') {
-		init_open_categories();
-	}
+	init_remember_categories();
 
 	document.getElementById('aside_feed').onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');

@@ -124,7 +124,7 @@ return array(
 			'all_articles' => 'Alle Artikel zeigen',
 			'all_categories' => 'Alle Kategorien',
 			'no_category' => 'Keine Kategorie',
-			'open_categories' => 'Open categories',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Nur ungelesene zeigen',
 		),
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
