@@ -715,7 +715,7 @@ function open_category_dropdown(category_id) {
 }
 
 function init_remember_categories() {
-	if (context.display_categories !== 'remember' || typeof window.URLSearchParams === 'undefined') {
+	if (context.display_categories !== 'remember') {
 		return;
 	}
 
