@@ -692,14 +692,14 @@ function init_posts() {
 	}
 }
 
-function add_category_to_session_storage(category_id) {
+function add_category_to_local_storage(category_id) {
 	let open_categories = localStorage.getItem('FreshRSS_open_categories');
 	open_categories = open_categories ? JSON.parse(open_categories) : {};
 	open_categories[category_id] = true;
 	localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
 }
 
-function remove_category_from_session_storage(category_id) {
+function remove_category_from_local_storage(category_id) {
 	let open_categories = localStorage.getItem('FreshRSS_open_categories');
 	open_categories = JSON.parse(open_categories);
 	delete open_categories[category_id];
@@ -708,7 +708,6 @@ function remove_category_from_session_storage(category_id) {
 
 function open_category_dropdown(category_id) {
 	const category_element = document.getElementById(category_id);
-	category_element.classList.add('active');
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
@@ -720,37 +719,22 @@ function init_remember_categories() {
 		return;
 	}
 
-	//Add click handlers for category dropdown icons. Add/remove category ID to session storage on dropdown open/close.
+	//Add click handlers for category dropdown icons. Add/remove category ID to local storage on dropdown open/close.
 	document.getElementById('aside_feed').querySelectorAll('.tree-folder > .tree-folder-title > a.dropdown-toggle').forEach(function (elem) {
 		elem.onclick = function () {
 			const img = elem.querySelector('img');
 			const category_id = elem.closest('.category').id;
 			if (img.alt === '▽') {
-				add_category_to_session_storage(category_id);
+				add_category_to_local_storage(category_id);
 			} else {
-				remove_category_from_session_storage(category_id);
+				remove_category_from_local_storage(category_id);
 			}
 		};
 	});
 
 	//Open categories dropdowns.
 	let open_categories = localStorage.getItem('FreshRSS_open_categories');
-	if (!open_categories) {
-		//First page load in this session.
-		//Add category id corresponding to URL 'get' parameter to session storage and open corresponding categroy dropdown.
-		let request_params = new window.URLSearchParams(document.location.search.substring(1));
-		let request_item_id = request_params.get('get');
-		if (request_item_id && ['c', 'f', 'T', 't'].indexOf(request_item_id.charAt(0)) !== -1) {
-			let category_element = document.getElementById(request_item_id).closest('.category');
-			if (category_element) {
-				const category_id = category_element.id;
-				add_category_to_session_storage(category_id);
-				open_category_dropdown(category_id);
-			}
-		}
-	} else {
-		//Page loaded second time or later in this session.
-		//Open category dropdowns for categories in 'open_categories'.
+	if (open_categories) {
 		open_categories = JSON.parse(open_categories);
 		Object.keys(open_categories).forEach(function (category_id) {
 			open_category_dropdown(category_id);
