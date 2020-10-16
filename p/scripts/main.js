@@ -706,6 +706,10 @@ function remove_category_from_local_storage(category_id) {
 	localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
 }
 
+function delete_open_categories_from_local_storage() {
+	localStorage.removeItem('FreshRSS_open_categories');
+}
+
 function open_category_dropdown(category_id) {
 	const category_element = document.getElementById(category_id);
 	category_element.querySelector('.tree-folder-items').classList.add('active');
@@ -1598,6 +1602,18 @@ function removeFirstLoadSpinner() {
 	}
 }
 
+function init_delete_open_categories() {
+	const menu_signout_item = document.querySelector('.header .item.configure .dropdown ul.dropdown-menu li.item .signout');
+	if (menu_signout_item) {
+		menu_signout_item.onclick = delete_open_categories_from_local_storage;
+	}
+	
+	const navigation_signout_link = document.querySelector('ul.nav.nav-head.nav-login li.item .signout');
+	if (navigation_signout_link) {
+		navigation_signout_link.onclick = delete_open_categories_from_local_storage;
+	}
+}
+
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -1622,6 +1638,7 @@ function init_normal() {
 
 function init_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
+	init_delete_open_categories();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}

@@ -70,6 +70,7 @@ function init_crypto_form() {
 						openNotification('Crypto error!', 'bad');
 					} else {
 						success = true;
+						delete_open_categories_from_local_storage();
 					}
 				} catch (ex) {
 					openNotification('Crypto exception! ' + ex, 'bad');
