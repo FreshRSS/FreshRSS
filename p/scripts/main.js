@@ -751,6 +751,9 @@ function init_column_categories() {
 		return;
 	}
 
+	//Restore sidebar scroll position
+	document.getElementById('sidebar').scrollTop = +sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
+	
 	init_remember_categories();
 
 	document.getElementById('aside_feed').onclick = function (ev) {
@@ -1630,6 +1633,10 @@ function init_normal() {
 	faviconNbUnread();
 
 	window.onbeforeunload = function (e) {
+		const sidebar = document.getElementById('sidebar');
+		if (sidebar) {	//Save sidebar scroll position
+			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+		}
 		if (mark_read_queue && mark_read_queue.length > 0) {
 			return false;
 		}
