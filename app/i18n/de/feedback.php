@@ -102,8 +102,8 @@ return array(
 				'http_error' => 'Website-Inhalt konnte nicht geladen werden.',
 				'no_entries' => 'In diesem Feed gibt es keine Artikel. Um eine Vorschau zu erstellen, muss mindestens ein Artikel vorhanden sein.',
 				'no_feed' => 'Interner Fehler (Feed konnte nicht gefunden werden).',
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'no_result' => 'Die Auswahl ergab keine Ergebnisse. Der Originaltext des Feeds wird daher angezeigt.',
+				'selector_empty' => 'Die Auswahl ist leer. Sie müssen einen definieren um eine Vorschau zu erstellen.',
 			),
 			'updated' => 'Der Feed ist aktualisiert worden',
 		),
