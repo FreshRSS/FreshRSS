@@ -185,7 +185,7 @@ return array(
 		'reading_view' => 'Wechsle zur Lese-Ansicht',
 		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> um vorherige Artikel als gelesen zu markieren<br />+ <kbd>⇧ Shift</kbd> um alle Artikel als gelesen zu markieren',
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',
 		'skip_previous_article' => 'Vorherigen markieren ohne zu öffnen',
 		'title' => 'Tastenkombination',
