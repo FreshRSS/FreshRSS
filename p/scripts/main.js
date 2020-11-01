@@ -692,58 +692,24 @@ function init_posts() {
 	}
 }
 
-function add_category_to_local_storage(category_id) {
-	let open_categories = localStorage.getItem('FreshRSS_open_categories');
-	open_categories = open_categories ? JSON.parse(open_categories) : {};
-	open_categories[category_id] = true;
-	localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
+function rememberOpenCategory(category_id, isOpen) {
+	if (context.display_categories === 'remember') {
+		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
+		if (isOpen) {
+			open_categories[category_id] = true;
+		} else {
+			delete open_categories[category_id];
+		}
+		localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
+	}
 }
 
-function remove_category_from_local_storage(category_id) {
-	let open_categories = localStorage.getItem('FreshRSS_open_categories');
-	open_categories = JSON.parse(open_categories);
-	delete open_categories[category_id];
-	localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
-}
-
-function delete_open_categories_from_local_storage() {
-	localStorage.removeItem('FreshRSS_open_categories');
-}
-
-function open_category_dropdown(category_id) {
+function openCategory(category_id) {
 	const category_element = document.getElementById(category_id);
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
 	img.alt = '△';
-}
-
-function init_remember_categories() {
-	if (context.display_categories !== 'remember') {
-		return;
-	}
-
-	//Add click handlers for category dropdown icons. Add/remove category ID to local storage on dropdown open/close.
-	document.getElementById('aside_feed').querySelectorAll('.tree-folder > .tree-folder-title > a.dropdown-toggle').forEach(function (elem) {
-		elem.onclick = function () {
-			const img = elem.querySelector('img');
-			const category_id = elem.closest('.category').id;
-			if (img.alt === '▽') {
-				add_category_to_local_storage(category_id);
-			} else {
-				remove_category_from_local_storage(category_id);
-			}
-		};
-	});
-
-	//Open categories dropdowns.
-	let open_categories = localStorage.getItem('FreshRSS_open_categories');
-	if (open_categories) {
-		open_categories = JSON.parse(open_categories);
-		Object.keys(open_categories).forEach(function (category_id) {
-			open_category_dropdown(category_id);
-		});
-	}
 }
 
 function init_column_categories() {
@@ -753,19 +719,28 @@ function init_column_categories() {
 
 	//Restore sidebar scroll position
 	document.getElementById('sidebar').scrollTop = +sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
-	
-	init_remember_categories();
+
+	//Restore open categories
+	if (context.display_categories === 'remember') {
+		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
+		Object.keys(open_categories).forEach(function (category_id) {
+			openCategory(category_id);
+		});
+	}
 
 	document.getElementById('aside_feed').onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
 		if (a) {
 			const img = a.querySelector('img');
+			const category_id = a.closest('.category').id;
 			if (img.alt === '▽') {
 				img.src = img.src.replace('/icons/down.', '/icons/up.');
 				img.alt = '△';
+				rememberOpenCategory(category_id, true);
 			} else {
 				img.src = img.src.replace('/icons/up.', '/icons/down.');
 				img.alt = '▽';
+				rememberOpenCategory(category_id, false);
 			}
 
 			const ul = a.closest('li').querySelector('.tree-folder-items');
@@ -1605,18 +1580,6 @@ function removeFirstLoadSpinner() {
 	}
 }
 
-function init_delete_open_categories() {
-	const menu_signout_item = document.querySelector('.header .item.configure .dropdown ul.dropdown-menu li.item .signout');
-	if (menu_signout_item) {
-		menu_signout_item.onclick = delete_open_categories_from_local_storage;
-	}
-	
-	const navigation_signout_link = document.querySelector('ul.nav.nav-head.nav-login li.item .signout');
-	if (navigation_signout_link) {
-		navigation_signout_link.onclick = delete_open_categories_from_local_storage;
-	}
-}
-
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -1645,7 +1608,6 @@ function init_normal() {
 
 function init_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
-	init_delete_open_categories();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}

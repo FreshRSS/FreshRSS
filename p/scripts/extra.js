@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 "use strict";
-/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson, delete_open_categories_from_local_storage */
+/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
 /* jshint esversion:6, strict:global */
 
 function fix_popup_preview_selector() {
@@ -30,6 +30,10 @@ function poormanSalt() {	//If crypto.getRandomValues is not available
 	return text;
 }
 
+function forgetOpenCategories() {
+	localStorage.removeItem('FreshRSS_open_categories');
+}
+
 function init_crypto_form() {
 	/* globals dcodeIO */
 	const crypto_form = document.getElementById('crypto-form');
@@ -44,6 +48,8 @@ function init_crypto_form() {
 		setTimeout(init_crypto_form, 100);
 		return;
 	}
+
+	forgetOpenCategories();
 
 	crypto_form.onsubmit = function (e) {
 		const submit_button = this.querySelector('button[type="submit"]');
@@ -70,7 +76,6 @@ function init_crypto_form() {
 						openNotification('Crypto error!', 'bad');
 					} else {
 						success = true;
-						delete_open_categories_from_local_storage();
 					}
 				} catch (ex) {
 					openNotification('Crypto exception! ' + ex, 'bad');
