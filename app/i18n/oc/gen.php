@@ -138,7 +138,7 @@ return array(
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
-		'pl' => 'Polski',	// TODO - Translation
+		'pl' => 'Polski',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'sk' => 'Slovenčina',
