@@ -124,6 +124,7 @@ return array(
 			'all_articles' => 'Mostrar totes los articles',
 			'all_categories' => 'Totas las categorias',
 			'no_category' => 'Cap de categoria',
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Mostrar pas que los pas legits',
 		),
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',

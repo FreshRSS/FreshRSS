@@ -692,6 +692,26 @@ function init_posts() {
 	}
 }
 
+function rememberOpenCategory(category_id, isOpen) {
+	if (context.display_categories === 'remember') {
+		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
+		if (isOpen) {
+			open_categories[category_id] = true;
+		} else {
+			delete open_categories[category_id];
+		}
+		localStorage.setItem('FreshRSS_open_categories', JSON.stringify(open_categories));
+	}
+}
+
+function openCategory(category_id) {
+	const category_element = document.getElementById(category_id);
+	category_element.querySelector('.tree-folder-items').classList.add('active');
+	const img = category_element.querySelector('a.dropdown-toggle img');
+	img.src = img.src.replace('/icons/down.', '/icons/up.');
+	img.alt = '△';
+}
+
 function init_column_categories() {
 	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
 		return;
@@ -700,16 +720,27 @@ function init_column_categories() {
 	//Restore sidebar scroll position
 	document.getElementById('sidebar').scrollTop = +sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
 
+	//Restore open categories
+	if (context.display_categories === 'remember') {
+		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
+		Object.keys(open_categories).forEach(function (category_id) {
+			openCategory(category_id);
+		});
+	}
+
 	document.getElementById('aside_feed').onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
 		if (a) {
 			const img = a.querySelector('img');
+			const category_id = a.closest('.category').id;
 			if (img.alt === '▽') {
 				img.src = img.src.replace('/icons/down.', '/icons/up.');
 				img.alt = '△';
+				rememberOpenCategory(category_id, true);
 			} else {
 				img.src = img.src.replace('/icons/up.', '/icons/down.');
 				img.alt = '▽';
+				rememberOpenCategory(category_id, false);
 			}
 
 			const ul = a.closest('li').querySelector('.tree-folder-items');

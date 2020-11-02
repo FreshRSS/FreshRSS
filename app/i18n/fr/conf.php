@@ -124,6 +124,7 @@ return array(
 			'all_articles' => 'Afficher tous les articles',
 			'all_categories' => 'Toutes les catégories',
 			'no_category' => 'Aucune catégorie',
+			'remember_categories' => 'Se souvenir des catégories dépliées',
 			'unread' => 'Afficher les non lus',
 		),
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',

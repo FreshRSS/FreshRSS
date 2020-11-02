@@ -30,6 +30,10 @@ function poormanSalt() {	//If crypto.getRandomValues is not available
 	return text;
 }
 
+function forgetOpenCategories() {
+	localStorage.removeItem('FreshRSS_open_categories');
+}
+
 function init_crypto_form() {
 	/* globals dcodeIO */
 	const crypto_form = document.getElementById('crypto-form');
@@ -44,6 +48,8 @@ function init_crypto_form() {
 		setTimeout(init_crypto_form, 100);
 		return;
 	}
+
+	forgetOpenCategories();
 
 	crypto_form.onsubmit = function (e) {
 		const submit_button = this.querySelector('button[type="submit"]');

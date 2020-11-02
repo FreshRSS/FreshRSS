@@ -124,6 +124,7 @@ return array(
 			'all_articles' => 'Zobraziť všetky články',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobraziť iba neprečítané',
 		),
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
