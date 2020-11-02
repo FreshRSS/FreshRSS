@@ -545,7 +545,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z_.-]{1,64}" value="<?= isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?= isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
 			</div>
 		</div>
 

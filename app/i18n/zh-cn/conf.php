@@ -126,6 +126,7 @@ return array(
 			'all_articles' => '显示所有',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => '只显示未读',
 		),
 		'sides_close_article' => '点击文章区域外以关闭',

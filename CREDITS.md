@@ -114,6 +114,7 @@ People are sorted by name so please keep this order.
 * [thomas-gt](https://github.com/thomas-gt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:thomas-gt)
 * [Tibor Repček](https://github.com/tiborepcek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tiborepcek)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
+* [tonitonae](https://github.com/tonitonae): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tonitonae)
 * [Troy Engel](https://github.com/troyengel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:troyengel)
 * [Twilek-de](https://github.com/Twilek-de): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Twilek-de)
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)

@@ -126,6 +126,7 @@ return array(
 			'all_articles' => 'Show all articles',
 			'all_categories' => 'All categories',
 			'no_category' => 'No category',
+			'remember_categories' => 'Remember open categories',
 			'unread' => 'Show only unread',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',

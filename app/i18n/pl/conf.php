@@ -126,6 +126,7 @@ return array(
 			'all_articles' => 'Wszystkie wiadomości',
 			'all_categories' => 'Wszystkie',
 			'no_category' => 'Żadna',
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Tylko nieprzeczytane',
 		),
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
