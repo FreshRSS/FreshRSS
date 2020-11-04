@@ -493,6 +493,7 @@ return array(
 	'gen.lang.kr',
 	'gen.lang.nl',
 	'gen.lang.oc',
+	'gen.lang.pl',
 	'gen.lang.pt-br',
 	'gen.lang.ru',
 	'gen.lang.sk',
