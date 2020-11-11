@@ -673,7 +673,7 @@ function streamContents($path, $include_target, $start_time, $stop_time, $count,
 	if (count($entries) >= $count) {
 		$entry = end($entries);
 		if ($entry != false) {
-			$response['continuation'] = $entry->id();
+			$response['continuation'] = '' . $entry->id();
 		}
 	}
 
@@ -729,7 +729,7 @@ function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $ord
 	if (count($ids) >= $count) {
 		$id = end($ids);
 		if ($id != false) {
-			$response['continuation'] = $id;
+			$response['continuation'] = '' . $id;
 		}
 	}
 
