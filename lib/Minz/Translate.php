@@ -103,7 +103,7 @@ class Minz_Translate {
 			}
 		}
 
-		return $default;
+		return $default ? $default : 'en';
 	}
 
 	/**
