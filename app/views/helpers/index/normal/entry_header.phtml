@@ -44,6 +44,6 @@
 			?></span><?php
 		endif;
 	?></a></li>
-	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>
+	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= date('Y-m-d h:i A',strtotime($this->entry->machineReadableDate())) ?></time>&nbsp;</li><?php } ?>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>
