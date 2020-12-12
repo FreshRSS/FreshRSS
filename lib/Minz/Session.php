@@ -12,14 +12,16 @@ class Minz_Session {
 	private static $locked = false;
 
 	public static function lock() {
-		if (!self::$volatile && !self::$locked && session_start()) {
+		if (!self::$volatile && !self::$locked) {
+			session_start();
 			self::$locked = true;
 		}
 		return self::$locked;
 	}
 
 	public static function unlock() {
-		if (!self::$volatile && session_write_close()) {
+		if (!self::$volatile) {
+			session_write_close();
 			self::$locked = false;
 		}
 		return self::$locked;
