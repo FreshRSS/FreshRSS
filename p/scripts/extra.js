@@ -51,8 +51,10 @@ function init_crypto_form() {
 
 	forgetOpenCategories();
 
+	const submit_button = document.querySelector('button[type="submit"]');
+	submit_button.disabled = false;
+
 	crypto_form.onsubmit = function (e) {
-		const submit_button = this.querySelector('button[type="submit"]');
 		submit_button.disabled = true;
 		let success = false;
 
