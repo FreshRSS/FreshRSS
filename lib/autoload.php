@@ -1,26 +1,74 @@
 <?php
 
-function classAutoloader($class) {
-	if (strpos($class, 'FreshRSS') === 0) {
-		$components = explode('_', $class);
-		switch (count($components)) {
-			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
-				return;
-			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
-				return;
-			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
-				return;
-		}
-	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'SimplePie') === 0) {
-		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
-		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
-	}
+class ClassLoader {
+    private $searchPath = [];
+
+    /**
+     * Register path in which to look for a class.
+     */
+    public function registerPath($path) {
+        if (is_string($path)) {
+            $this->searchPath[] = $path;
+        }
+        if (is_array($path)) {
+            array_push($this->searchPath, ...$path);
+        }
+    }
+
+    /**
+     * Load class file if found.
+     */
+    public function loadClass($class)
+    {
+        if ($file = $this->findFile($class)) {
+            require $file;
+        }
+    }
+
+    /**
+     * Find the file containing the class definition.
+     */
+    public function findFile($class) {
+        // This match most of classes directly
+        foreach ($this->searchPath as $path) {
+            $file = $path . DIRECTORY_SEPARATOR . str_replace(['\\', '_'], DIRECTORY_SEPARATOR, $class) . '.php';
+            if (file_exists($file)) {
+                return $file;
+            }
+        }
+
+        // This match FRSS model classes
+        $freshrssClass = str_replace('FreshRSS_', '', $class);
+        foreach ($this->searchPath as $path) {
+            $file = $path . DIRECTORY_SEPARATOR . str_replace(['\\', '_'], DIRECTORY_SEPARATOR, $freshrssClass) . '.php';
+            if (file_exists($file)) {
+                return $file;
+            }
+        }
+
+        // This match FRSS other classes
+        list(, $classType) = explode('_', $freshrssClass);
+        foreach ($this->searchPath as $path) {
+            $file = $path . DIRECTORY_SEPARATOR . $classType . 's' . DIRECTORY_SEPARATOR . str_replace('_', '', $freshrssClass) . '.php';
+            if (file_exists($file)) {
+                return $file;
+            }
+        }
+    }
+
+    /**
+     * Register the current loader in the autoload queue.
+     */
+    public function register($prepend = false) {
+        spl_autoload_register([$this, 'loadClass'], true, $prepend);
+    }
 }
 
-spl_autoload_register('classAutoloader');
+$loader = new ClassLoader();
+$loader->registerPath([
+    APP_PATH,
+    APP_PATH . DIRECTORY_SEPARATOR . 'Models',
+    LIB_PATH,
+    LIB_PATH . DIRECTORY_SEPARATOR . 'SimplePie',
+]);
+$loader->register();

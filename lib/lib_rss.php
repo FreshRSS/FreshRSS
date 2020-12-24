@@ -15,7 +15,7 @@ if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
 }
 
-require_once 'autoload.php';
+require_once LIB_PATH . DIRECTORY_SEPARATOR . 'autoload.php';
 
 /**
  * Build a directory path by concatenating a list of directory names.
