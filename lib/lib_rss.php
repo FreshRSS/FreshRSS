@@ -165,6 +165,7 @@ function customSimplePie($attributes = array()) {
 	}
 	$simplePie->set_curl_options($curl_options);
 
+	$simplePie->strip_comments(true);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
