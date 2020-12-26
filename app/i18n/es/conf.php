@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Mostrar la categoría "%s"',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente "%s"',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Sin filtro',
 		'none' => 'Todavía no has creado ninguna consulta de usuario.',
 		'number' => 'Consulta n° %d',

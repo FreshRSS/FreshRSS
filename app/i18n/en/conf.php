@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Display "%s" category',
 		'get_favorite' => 'Display favourite articles',
 		'get_feed' => 'Display "%s" feed',
+		'get_tag' => 'Display "%s" label',
 		'no_filter' => 'No filter',
 		'none' => 'You haven’t created any user queries yet.',
 		'number' => 'Query n°%d',

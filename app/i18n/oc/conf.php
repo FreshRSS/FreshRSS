@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Cap de filtre aplicat',
 		'none' => 'Avètz pas encara creat cap de filtre.',
 		'number' => 'Filtre n°%d',
