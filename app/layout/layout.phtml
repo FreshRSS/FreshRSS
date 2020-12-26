@@ -13,9 +13,9 @@ if (_t('gen.dir') === 'rtl') {
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
 		<?= self::headScript() ?>
-		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
-		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
-		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz\Url::display('/favicon.ico') ?>" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz\Url::display('/themes/icons/favicon-256.png') ?>" />
+		<link rel="apple-touch-icon" href="<?= Minz\Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
@@ -25,7 +25,7 @@ if (_t('gen.dir') === 'rtl') {
 <?php } ?>
 		<?= self::headTitle() ?>
 <?php
-	$url_base = Minz_Request::currentRequest();
+	$url_base = Minz\Request::currentRequest();
 	if (isset($this->rss_title)) {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
@@ -33,14 +33,14 @@ if (_t('gen.dir') === 'rtl') {
 			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
 		}
 ?>
-		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
+		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz\Url::display($url_rss) ?>" />
 <?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
 		<meta name="description" content="<?= htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
 <?php } else { ?>
 		<meta name="robots" content="noindex,nofollow" />
 <?php } ?>
 	</head>
-	<body class="<?= Minz_Request::actionName() ?>">
+	<body class="<?= Minz\Request::actionName() ?>">
 <?php
 	flush();
 	$this->partial('header');

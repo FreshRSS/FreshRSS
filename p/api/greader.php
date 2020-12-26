@@ -104,14 +104,14 @@ function debugInfo() {
 }
 
 function badRequest() {
-	Minz_Log::warning('badRequest() ' . debugInfo(), API_LOG);
+	Minz\Log::warning('badRequest() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 400 Bad Request');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Bad Request!');
 }
 
 function unauthorized() {
-	Minz_Log::warning('unauthorized() ' . debugInfo(), API_LOG);
+	Minz\Log::warning('unauthorized() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 401 Unauthorized');
 	header('Content-Type: text/plain; charset=UTF-8');
 	header('Google-Bad-Token: true');
@@ -119,21 +119,21 @@ function unauthorized() {
 }
 
 function notImplemented() {
-	Minz_Log::warning('notImplemented() ' . debugInfo(), API_LOG);
+	Minz\Log::warning('notImplemented() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');
 }
 
 function serviceUnavailable() {
-	Minz_Log::warning('serviceUnavailable() ' . debugInfo(), API_LOG);
+	Minz\Log::warning('serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
 }
 
 function checkCompatibility() {
-	Minz_Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
+	Minz\Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension! Wrong PHP configuration.');
@@ -155,18 +155,18 @@ function authorizationToUser() {
 			if (FreshRSS_user_Controller::checkUsername($user)) {
 				FreshRSS_Context::$user_conf = get_user_configuration($user);
 				if (FreshRSS_Context::$user_conf == null) {
-					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
+					Minz\Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
 				if (!FreshRSS_Context::$user_conf->enabled) {
-					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
+					Minz\Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
 				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {
-					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], API_LOG);
-					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
+					Minz\Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], API_LOG);
+					Minz\Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
 					unauthorized();
 				}
 			} else {
@@ -181,7 +181,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 	if (FreshRSS_user_Controller::checkUsername($email)) {
 		FreshRSS_Context::$user_conf = get_user_configuration($email);
 		if (FreshRSS_Context::$user_conf == null) {
-			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
+			Minz\Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();
 		}
 
@@ -193,7 +193,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 				'Auth=', $auth, "\n";
 			exit();
 		} else {
-			Minz_Log::warning('Password API mismatch for user ' . $email);
+			Minz\Log::warning('Password API mismatch for user ' . $email);
 			unauthorized();
 		}
 	} else {
@@ -205,8 +205,8 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 function token($conf) {
 //http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
-	$user = Minz_Session::param('currentUser', '_');
-	//Minz_Log::debug('token('. $user . ')', API_LOG);	//TODO: Implement real token that expires
+	$user = Minz\Session::param('currentUser', '_');
+	//Minz\Log::debug('token('. $user . ')', API_LOG);	//TODO: Implement real token that expires
 	$token = str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
 	exit();
@@ -214,7 +214,7 @@ function token($conf) {
 
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
-	$user = Minz_Session::param('currentUser', '_');
+	$user = Minz\Session::param('currentUser', '_');
 	if ($user !== '_' && (	//TODO: Check security consequences
 		$token == '' || //FeedMe
 		$token === 'x')) { //Reeder
@@ -223,12 +223,12 @@ function checkToken($conf, $token) {
 	if ($token === str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
-	Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);
+	Minz\Log::warning('Invalid POST token: ' . $token, API_LOG);
 	unauthorized();
 }
 
 function userInfo() {	//https://github.com/theoldreader/api#user-info
-	$user = Minz_Session::param('currentUser', '_');
+	$user = Minz\Session::param('currentUser', '_');
 	exit(json_encode(array(
 			'userId' => $user,
 			'userName' => $user,
@@ -274,7 +274,7 @@ function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$salt = FreshRSS_Context::$system_conf->salt;
-	$faviconsUrl = Minz_Url::display('/f.php?', '', true);
+	$faviconsUrl = Minz\Url::display('/f.php?', '', true);
 	$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 	$subscriptions = array();
 
@@ -323,7 +323,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		if (strpos($add, 'user/-/label/') === 0) {
 			$c_name = substr($add, 13);
 		} else {
-			$user = Minz_Session::param('currentUser', '_');
+			$user = Minz\Session::param('currentUser', '_');
 			$prefix = 'user/' . $user . '/label/';
 			if (strpos($add, $prefix) === 0) {
 				$c_name = substr($add, strlen($prefix));
@@ -366,7 +366,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 							$feed = FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, $c_name, $http_auth);
 							continue 2;
 						} catch (Exception $e) {
-							Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
+							Minz\Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
 						}
 					}
 					badRequest();
@@ -408,7 +408,7 @@ function quickadd($url) {
 				'streamName' => $feed->name(),
 			), JSON_OPTIONS));
 	} catch (Exception $e) {
-		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
+		Minz\Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
 		die(json_encode(array(
 				'numResults' => 0,
 				'error' => $e->getMessage(),
@@ -488,7 +488,7 @@ function entriesToArray($entries) {
 
 	$items = array();
 	foreach ($entries as $item) {
-		$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		$entry = Minz\ExtensionManager::callHook('entry_before_display', $item);
 		if ($entry == null) {
 			continue;
 		}
@@ -791,7 +791,7 @@ function editTag($e_ids, $a, $r) {
 			if (strpos($a, 'user/-/label/') === 0) {
 				$tagName = substr($a, 13);
 			} else {
-				$user = Minz_Session::param('currentUser', '_');
+				$user = Minz\Session::param('currentUser', '_');
 				$prefix = 'user/' . $user . '/label/';
 				if (strpos($a, $prefix) === 0) {
 					$tagName = substr($a, strlen($prefix));
@@ -922,13 +922,13 @@ if (count($pathInfos) < 3) {
 	badRequest();
 }
 
-Minz_Configuration::register('system',
+Minz\Configuration::register('system',
 	DATA_PATH . '/config.php',
 	FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::$system_conf = Minz\Configuration::get('system');
 
-//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
-//Minz_Log::debug(debugInfo(), API_LOG);
+//Minz\Log::debug('----------------------------------------------------------------', API_LOG);
+//Minz\Log::debug(debugInfo(), API_LOG);
 
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
@@ -936,24 +936,24 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 	checkCompatibility();
 }
 
-Minz_Session::init('FreshRSS', true);
+Minz\Session::init('FreshRSS', true);
 
 $user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
-	Minz_ExtensionManager::init();
+	Minz\ExtensionManager::init();
 	if (FreshRSS_Context::$user_conf != null) {
-		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+		Minz\Translate::init(FreshRSS_Context::$user_conf->language);
+		Minz\ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
 	} else {
-		Minz_Translate::init();
+		Minz\Translate::init();
 	}
 } else {
-	Minz_Translate::init();
+	Minz\Translate::init();
 }
 
-Minz_Session::_param('currentUser', $user);
+Minz\Session::_param('currentUser', $user);
 
 if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {

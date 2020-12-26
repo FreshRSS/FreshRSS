@@ -1,13 +1,15 @@
 <?php
 
+namespace Minz;
+
 /**
- * The Minz_Migrator helps to migrate data (in a database or not) or the
+ * The Migrator helps to migrate data (in a database or not) or the
  * architecture of a Minz application.
  *
  * @author Marien Fressinaud <dev@marienfressinaud.fr>
  * @license http://www.gnu.org/licenses/agpl-3.0.en.html AGPL
  */
-class Minz_Migrator
+class Migrator
 {
 	/** @var string[] */
 	private $applied_versions;
@@ -21,8 +23,8 @@ class Minz_Migrator
 	 * @param string $migrations_path
 	 * @param string $applied_migrations_path
 	 *
-	 * @throws BadFunctionCallException if a callback isn't callable.
-	 * @throws DomainException if there is no migrations corresponding to the
+	 * @throws \BadFunctionCallException if a callback isn't callable.
+	 * @throws \DomainException if there is no migrations corresponding to the
 	 *                         given version (can happen if version file has
 	 *                         been modified, or migrations path cannot be
 	 *                         read).
@@ -61,7 +63,7 @@ class Minz_Migrator
 			// user to think there is an error (it's normal workflow), so let's
 			// stick to this solution for now.
 			// Another option would be to show him a maintenance page.
-			Minz_Log::warning(
+			Log::warning(
 				'A request has been served while the application wasn’t up-to-date. '
 				. 'Too many of these errors probably means a previous migration failed.'
 			);
@@ -81,14 +83,14 @@ class Minz_Migrator
 				$result = 'KO';
 			}
 
-			Minz_Log::notice("Migration {$migration}: {$result}");
+			Log::notice("Migration {$migration}: {$result}");
 		}
 
 		$applied_versions = implode("\n", $migrator->appliedVersions());
 		$saved = file_put_contents($applied_migrations_path, $applied_versions);
 
 		if (!@rmdir($lock_path)) {
-			Minz_Log::error(
+			Log::error(
 				'We weren’t able to unlink the migration executing folder, '
 				. 'you might want to delete yourself: ' . $lock_path
 			);
@@ -110,7 +112,7 @@ class Minz_Migrator
 	}
 
 	/**
-	 * Create a Minz_Migrator instance. If directory is given, it'll load the
+	 * Create a Migrator instance. If directory is given, it'll load the
 	 * migrations from it.
 	 *
 	 * All the files in the directory must declare a class named
@@ -123,7 +125,7 @@ class Minz_Migrator
 	 *
 	 * @param string|null $directory
 	 *
-	 * @throws BadFunctionCallException if a callback isn't callable (i.e.
+	 * @throws \BadFunctionCallException if a callback isn't callable (i.e.
 	 *                                  cannot call a migrate method).
 	 */
 	public function __construct($directory = null)
@@ -146,7 +148,7 @@ class Minz_Migrator
 
 			$include_result = @include_once($filepath);
 			if (!$include_result) {
-				Minz_Log::error(
+				Log::error(
 					"{$filepath} migration file cannot be loaded.",
 					ADMIN_LOG
 				);
@@ -164,12 +166,12 @@ class Minz_Migrator
 	 *                           return true on success and must return false
 	 *                           on error
 	 *
-	 * @throws BadFunctionCallException if the callback isn't callable.
+	 * @throws \BadFunctionCallException if the callback isn't callable.
 	 */
 	public function addMigration($version, $callback)
 	{
 		if (!is_callable($callback)) {
-			throw new BadFunctionCallException("{$version} migration cannot be called.");
+			throw new \BadFunctionCallException("{$version} migration cannot be called.");
 		}
 
 		$this->migrations[$version] = $callback;
@@ -194,14 +196,14 @@ class Minz_Migrator
 	 *
 	 * @param string[] $applied_versions
 	 *
-	 * @throws DomainException if there is no migrations corresponding to a version
+	 * @throws \DomainException if there is no migrations corresponding to a version
 	 */
 	public function setAppliedVersions($versions)
 	{
 		foreach ($versions as $version) {
 			$version = trim($version);
 			if (!isset($this->migrations[$version])) {
-				throw new DomainException("{$version} migration does not exist.");
+				throw new \DomainException("{$version} migration does not exist.");
 			}
 			$this->applied_versions[] = $version;
 		}

@@ -6,7 +6,7 @@ header("Content-Security-Policy: default-src 'self'");
 
 require(LIB_PATH . '/lib_install.php');
 
-Minz_Session::init('FreshRSS');
+Minz\Session::init('FreshRSS');
 
 if (isset($_GET['step'])) {
 	define('STEP', (int)$_GET['step']);
@@ -15,7 +15,7 @@ if (isset($_GET['step'])) {
 }
 
 if (STEP === 2 && isset($_POST['type'])) {
-	Minz_Session::_param('bd_type', $_POST['type']);
+	Minz\Session::_param('bd_type', $_POST['type']);
 }
 
 function param($key, $default = false) {
@@ -28,18 +28,18 @@ function param($key, $default = false) {
 
 // gestion internationalisation
 function initTranslate() {
-	Minz_Translate::init();
-	$available_languages = Minz_Translate::availableLanguages();
+	Minz\Translate::init();
+	$available_languages = Minz\Translate::availableLanguages();
 
-	if (Minz_Session::param('language') == '') {
-		Minz_Session::_param('language', get_best_language());
+	if (Minz\Session::param('language') == '') {
+		Minz\Session::_param('language', get_best_language());
 	}
 
-	if (!in_array(Minz_Session::param('language'), $available_languages)) {
-		Minz_Session::_param('language', 'en');
+	if (!in_array(Minz\Session::param('language'), $available_languages)) {
+		Minz\Session::_param('language', 'en');
 	}
 
-	Minz_Translate::reset(Minz_Session::param('language'));
+	Minz\Translate::reset(Minz\Session::param('language'));
 }
 
 function get_best_language() {
@@ -55,7 +55,7 @@ function saveLanguage() {
 			return false;
 		}
 
-		Minz_Session::_param('language', $_POST['language']);
+		Minz\Session::_param('language', $_POST['language']);
 
 		header('Location: index.php?step=1');
 	}
@@ -69,19 +69,19 @@ function saveStep1() {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		Minz_Configuration::register('system',
+		Minz\Configuration::register('system',
 		                             join_path(DATA_PATH, 'config.php'),
 		                             join_path(FRESHRSS_PATH, 'config.default.php'));
-		$system_conf = Minz_Configuration::get('system');
+		$system_conf = Minz\Configuration::get('system');
 
 		$current_user = $system_conf->default_user;
-		Minz_Configuration::register('user',
+		Minz\Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		$user_conf = Minz_Configuration::get('user');
+		$user_conf = Minz\Configuration::get('user');
 
 		// Then, we set $_SESSION vars
-		Minz_Session::_params([
+		Minz\Session::_params([
 				'title' => $system_conf->title,
 				'auth_type' => $system_conf->auth_type,
 				'default_user' => $current_user,
@@ -101,8 +101,8 @@ function saveStep1() {
 
 function saveStep2() {
 	if (!empty($_POST)) {
-		if (Minz_Session::param('bd_type') === 'sqlite') {
-			Minz_Session::_params([
+		if (Minz\Session::param('bd_type') === 'sqlite') {
+			Minz\Session::_params([
 					'bd_base' => false,
 					'bd_host' => false,
 					'bd_user' => false,
@@ -114,9 +114,9 @@ function saveStep2() {
 			    empty($_POST['host']) ||
 			    empty($_POST['user']) ||
 			    empty($_POST['base'])) {
-				Minz_Session::_param('bd_error', 'Missing parameters!');
+				Minz\Session::_param('bd_error', 'Missing parameters!');
 			}
-			Minz_Session::_params([
+			Minz\Session::_params([
 					'bd_base' => substr($_POST['base'], 0, 64),
 					'bd_host' => $_POST['host'],
 					'bd_user' => $_POST['user'],
@@ -124,32 +124,32 @@ function saveStep2() {
 					'bd_prefix' => substr($_POST['prefix'], 0, 16),
 				]);
 		}
-		if (Minz_Session::param('bd_type') === 'pgsql') {
-			Minz_Session::_param('bd_base', strtolower(Minz_Session::param('bd_base')));
+		if (Minz\Session::param('bd_type') === 'pgsql') {
+			Minz\Session::_param('bd_base', strtolower(Minz\Session::param('bd_base')));
 		}
 
 		// We use dirname to remove the /i part
-		$base_url = dirname(Minz_Request::guessBaseUrl());
+		$base_url = dirname(Minz\Request::guessBaseUrl());
 		$config_array = [
 			'salt' => generateSalt(),
 			'base_url' => $base_url,
 			'default_user' => '_',
 			'db' => [
-				'type' => Minz_Session::param('bd_type'),
-				'host' => Minz_Session::param('bd_host'),
-				'user' => Minz_Session::param('bd_user'),
-				'password' => Minz_Session::param('bd_password'),
-				'base' => Minz_Session::param('bd_base'),
-				'prefix' => Minz_Session::param('bd_prefix'),
+				'type' => Minz\Session::param('bd_type'),
+				'host' => Minz\Session::param('bd_host'),
+				'user' => Minz\Session::param('bd_user'),
+				'password' => Minz\Session::param('bd_password'),
+				'base' => Minz\Session::param('bd_base'),
+				'prefix' => Minz\Session::param('bd_prefix'),
 				'pdo_options' => [],
 			],
-			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
+			'pubsubhubbub_enabled' => Minz\Request::serverIsPublic($base_url),
 		];
-		if (Minz_Session::param('title') != '') {
-			$config_array['title'] = Minz_Session::param('title');
+		if (Minz\Session::param('title') != '') {
+			$config_array['title'] = Minz\Session::param('title');
 		}
-		if (Minz_Session::param('auth_type') != '') {
-			$config_array['auth_type'] = Minz_Session::param('auth_type');
+		if (Minz\Session::param('auth_type') != '') {
+			$config_array['auth_type'] = Minz\Session::param('auth_type');
 		}
 
 		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
@@ -159,21 +159,21 @@ function saveStep2() {
 			opcache_reset();
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		Minz\Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+		FreshRSS_Context::$system_conf = Minz\Configuration::get('system');
 
 		$ok = false;
 		try {
-			Minz_Session::_param('currentUser', $config_array['default_user']);
+			Minz\Session::_param('currentUser', $config_array['default_user']);
 			$error = initDb();
-			Minz_Session::_param('currentUser');
+			Minz\Session::_param('currentUser');
 			if ($error != '') {
-				Minz_Session::_param('bd_error', $error);
+				Minz\Session::_param('bd_error', $error);
 			} else {
 				$ok = true;
 			}
 		} catch (Exception $ex) {
-			Minz_Session::_param('bd_error', $ex->getMessage());
+			Minz\Session::_param('bd_error', $ex->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -181,61 +181,61 @@ function saveStep2() {
 		}
 
 		if ($ok) {
-			Minz_Session::_param('bd_error');
+			Minz\Session::_param('bd_error');
 			header('Location: index.php?step=3');
-		} elseif (Minz_Session::param('bd_error') == '') {
-			Minz_Session::_param('bd_error', 'Unknown error!');
+		} elseif (Minz\Session::param('bd_error') == '') {
+			Minz\Session::_param('bd_error', 'Unknown error!');
 		}
 	}
 	invalidateHttpCache();
 }
 
 function saveStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
+	$user_default_config = Minz\Configuration::get('default_user');
 	if (!empty($_POST)) {
-		$system_default_config = Minz_Configuration::get('default_system');
-		Minz_Session::_params([
+		$system_default_config = Minz\Configuration::get('default_system');
+		Minz\Session::_params([
 				'title' => $system_default_config->title,
 				'auth_type' => param('auth_type', 'form'),
 			]);
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			Minz_Session::_param('default_user', param('default_user', ''));
+			Minz\Session::_param('default_user', param('default_user', ''));
 		}
 
-		if (Minz_Session::param('auth_type') == '' || Minz_Session::param('default_user') == '') {
+		if (Minz\Session::param('auth_type') == '' || Minz\Session::param('default_user') == '') {
 			return false;
 		}
 
 		$password_plain = param('passwordPlain', false);
-		if (Minz_Session::param('auth_type') === 'form' && $password_plain == '') {
+		if (Minz\Session::param('auth_type') === 'form' && $password_plain == '') {
 			return false;
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-		Minz_Translate::init(Minz_Session::param('language'));
+		Minz\Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+		FreshRSS_Context::$system_conf = Minz\Configuration::get('system');
+		Minz\Translate::init(Minz\Session::param('language'));
 
-		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
+		FreshRSS_Context::$system_conf->default_user = Minz\Session::param('default_user');
 		FreshRSS_Context::$system_conf->save();
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
-		recursive_unlink(USERS_PATH . '/' . Minz_Session::param('default_user'));
+		recursive_unlink(USERS_PATH . '/' . Minz\Session::param('default_user'));
 
 		$ok = false;
 		try {
 			$ok = FreshRSS_user_Controller::createUser(
-				Minz_Session::param('default_user'),
+				Minz\Session::param('default_user'),
 				'',	//TODO: Add e-mail
 				$password_plain,
 				[
-					'language' => Minz_Session::param('language'),
+					'language' => Minz\Session::param('language'),
 					'is_admin' => true,
 					'enabled' => true,
 				]
 			);
 		} catch (Exception $e) {
-			Minz_Session::_param('bd_error', $e->getMessage());
+			Minz\Session::_param('bd_error', $e->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -261,12 +261,12 @@ function checkStep() {
 	} elseif (STEP > 3 && $s3['all'] != 'ok') {
 		header('Location: index.php?step=3');
 	}
-	Minz_Session::_param('actualize_feeds', true);
+	Minz\Session::_param('actualize_feeds', true);
 }
 
 function checkStep0() {
-	$languages = Minz_Translate::availableLanguages();
-	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages);
+	$languages = Minz\Translate::availableLanguages();
+	$language = Minz\Session::param('language') != '' && in_array(Minz\Session::param('language'), $languages);
 
 	return array(
 		'language' => $language ? 'ok' : 'ko',
@@ -283,17 +283,17 @@ function freshrss_already_installed() {
 	// A configuration file already exists, we try to load it.
 	$system_conf = null;
 	try {
-		Minz_Configuration::register('system', $conf_path);
-		$system_conf = Minz_Configuration::get('system');
-	} catch (Minz_FileNotExistException $e) {
+		Minz\Configuration::register('system', $conf_path);
+		$system_conf = Minz\Configuration::get('system');
+	} catch (Minz\FileNotExistException $e) {
 		return false;
 	}
 
 	// ok, the global conf exists... but what about default user conf?
 	$current_user = $system_conf->default_user;
 	try {
-		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
-	} catch (Minz_FileNotExistException $e) {
+		Minz\Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
+	} catch (Minz\FileNotExistException $e) {
 		return false;
 	}
 
@@ -304,8 +304,8 @@ function freshrss_already_installed() {
 function checkStep2() {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
-	$bd = Minz_Session::param('bd_type') != '';
-	$conn = Minz_Session::param('bd_error') == '';
+	$bd = Minz\Session::param('bd_type') != '';
+	$conn = Minz\Session::param('bd_error') == '';
 
 	return [
 		'bd' => $bd ? 'ok' : 'ko',
@@ -316,13 +316,13 @@ function checkStep2() {
 }
 
 function checkStep3() {
-	$conf = Minz_Session::param('default_user') != '';
+	$conf = Minz\Session::param('default_user') != '';
 
-	$form = Minz_Session::param('auth_type') != '';
+	$form = Minz\Session::param('auth_type') != '';
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {
-		$defaultUser = Minz_Session::param('default_user') == '' ? '' : Minz_Session::param('default_user');
+		$defaultUser = Minz\Session::param('default_user') == '' ? '' : Minz\Session::param('default_user');
 	}
 	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
@@ -337,8 +337,8 @@ function checkStep3() {
 
 /*** AFFICHAGE ***/
 function printStep0() {
-	$actual = Minz_Translate::language();
-	$languages = Minz_Translate::availableLanguages();
+	$actual = Minz\Translate::language();
+	$languages = Minz\Translate::availableLanguages();
 ?>
 	<?php $s0 = checkStep0(); if ($s0['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.language.defined') ?></p>
@@ -493,7 +493,7 @@ function printStep1() {
 }
 
 function printStep2() {
-	$system_default_config = Minz_Configuration::get('default_system');
+	$system_default_config = Minz\Configuration::get('default_system');
 ?>
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
@@ -580,7 +580,7 @@ function printStep2() {
 }
 
 function printStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
+	$user_default_config = Minz\Configuration::get('default_user');
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>

@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe ActionController représente le contrôleur de l'application
  */
-class Minz_ActionController {
+class ActionController {
 	protected $view;
 	private $csp_policies = array(
 		'default-src' => "'self'",
@@ -17,8 +20,8 @@ class Minz_ActionController {
 	 * Constructeur
 	 */
 	public function __construct () {
-		$this->view = new Minz_View();
-		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
+		$this->view = new View();
+		$view_path = Request::controllerName() . '/' . Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
 		$this->view->attributeParams ();
 	}
@@ -43,8 +46,8 @@ class Minz_ActionController {
 	 */
 	protected function _csp($policies) {
 		if (!isset($policies['default-src'])) {
-			$action = Minz_Request::controllerName() . '#' . Minz_Request::actionName();
-			Minz_Log::warning(
+			$action = Request::controllerName() . '#' . Request::actionName();
+			Log::warning(
 				"Default CSP policy is not declared for action {$action}.",
 				ADMIN_LOG
 			);

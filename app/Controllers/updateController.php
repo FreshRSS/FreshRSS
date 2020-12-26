@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_update_Controller extends Minz_ActionController {
+class FreshRSS_update_Controller extends Minz\ActionController {
 
 	public static function isGit() {
 		return is_dir(FRESHRSS_PATH . '/.git/');
@@ -16,10 +16,10 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				exec('git status -sb --porcelain remote', $output, $return);
 			} else {
 				$line = is_array($output) ? implode('; ', $output) : '' . $output;
-				Minz_Log::warning('git fetch warning:' . $line);
+				Minz\Log::warning('git fetch warning:' . $line);
 			}
 		} catch (Exception $e) {
-			Minz_Log::warning('git fetch error:' . $e->getMessage());
+			Minz\Log::warning('git fetch error:' . $e->getMessage());
 		}
 		chdir($cwd);
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
@@ -37,7 +37,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				exec('git reset --hard FETCH_HEAD', $output, $return);
 			}
 		} catch (Exception $e) {
-			Minz_Log::warning('Git error:' . $e->getMessage());
+			Minz\Log::warning('Git error:' . $e->getMessage());
 			if ($output == '') {
 				$output = $e->getMessage();
 			}
@@ -51,7 +51,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		include_once(LIB_PATH . '/lib_install.php');
@@ -67,7 +67,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
-		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
+		Minz\View::prependTitle(_t('admin.update.title') . ' · ');
 
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
@@ -99,7 +99,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			// There is already an update file to apply: we don't need to check
 			// the webserver!
 			// Or if already check during the last hour, do nothing.
-			Minz_Request::forward(array('c' => 'update'), true);
+			Minz\Request::forward(array('c' => 'update'), true);
 
 			return;
 		}
@@ -121,7 +121,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			}
 		} else {
 			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '?v=' . FRESHRSS_VERSION;
-			Minz_Log::debug('HTTP GET ' . $auto_update_url);
+			Minz\Log::debug('HTTP GET ' . $auto_update_url);
 			$c = curl_init($auto_update_url);
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
@@ -132,7 +132,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			curl_close($c);
 
 			if ($c_status !== 200) {
-				Minz_Log::warning(
+				Minz\Log::warning(
 					'Error during update (HTTP code ' . $c_status . '): ' . $c_error
 				);
 
@@ -163,7 +163,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
 			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
-			Minz_Request::forward(array('c' => 'update'), true);
+			Minz\Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
@@ -174,11 +174,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function applyAction() {
-		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH) || Minz_Configuration::get('system')->disable_update) {
-			Minz_Request::forward(array('c' => 'update'), true);
+		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH) || Minz\Configuration::get('system')->disable_update) {
+			Minz\Request::forward(array('c' => 'update'), true);
 		}
 
-		if (Minz_Request::param('post_conf', false)) {
+		if (Minz\Request::param('post_conf', false)) {
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
@@ -186,14 +186,14 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				$res = do_post_update();
 			}
 
-			Minz_ExtensionManager::callHook('post_update');
+			Minz\ExtensionManager::callHook('post_update');
 
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
-				Minz_Request::good(_t('feedback.update.finished'));
+				Minz\Request::good(_t('feedback.update.finished'));
 			} else {
-				Minz_Request::bad(_t('feedback.update.error', $res),
+				Minz\Request::bad(_t('feedback.update.error', $res),
 				                  array('c' => 'update', 'a' => 'index'));
 			}
 		} else {
@@ -203,7 +203,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				$res = self::gitPull();
 			} else {
 				require(UPDATE_FILENAME);
-				if (Minz_Request::isPost()) {
+				if (Minz\Request::isPost()) {
 					save_info_update();
 				}
 				if (!need_info_update()) {
@@ -214,13 +214,13 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			}
 
 			if ($res === true) {
-				Minz_Request::forward(array(
+				Minz\Request::forward(array(
 					'c' => 'update',
 					'a' => 'apply',
 					'params' => array('post_conf' => true)
 				), true);
 			} else {
-				Minz_Request::bad(_t('feedback.update.error', $res),
+				Minz\Request::bad(_t('feedback.update.error', $res),
 				                  array('c' => 'update', 'a' => 'index'));
 			}
 		}
@@ -230,7 +230,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	 * This action displays information about installation.
 	 */
 	public function checkInstallAction() {
-		Minz_View::prependTitle(_t('admin.check_install.title') . ' · ');
+		Minz\View::prependTitle(_t('admin.check_install.title') . ' · ');
 
 		$this->view->status_php = check_install_php();
 		$this->view->status_files = check_install_files();

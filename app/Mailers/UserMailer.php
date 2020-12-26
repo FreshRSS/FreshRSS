@@ -3,13 +3,13 @@
 /**
  * Manage the emails sent to the users.
  */
-class FreshRSS_User_Mailer extends Minz_Mailer {
+class FreshRSS_User_Mailer extends Minz\Mailer {
 	public function send_email_need_validation($username, $user_config) {
 		$this->view->_path('user_mailer/email_need_validation.txt');
 
 		$this->view->username = $username;
 		$this->view->site_title = FreshRSS_Context::$system_conf->title;
-		$this->view->validation_url = Minz_Url::display(
+		$this->view->validation_url = Minz\Url::display(
 			array(
 				'c' => 'user',
 				'a' => 'validateEmail',

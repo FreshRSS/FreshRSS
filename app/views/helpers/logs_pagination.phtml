@@ -1,7 +1,7 @@
 <?php
-	$c = Minz_Request::controllerName();
-	$a = Minz_Request::actionName();
-	$params = Minz_Request::fetchGET();
+	$c = Minz\Request::controllerName();
+	$a = Minz\Request::actionName();
+	$params = Minz\Request::fetchGET();
 ?>
 
 <?php if ($this->nbPage > 1) { ?>
@@ -9,14 +9,14 @@
 	<?php $params[$getteur] = 1; ?>
 	<li class="item pager-first">
 		<?php if ($this->currentPage > 1) { ?>
-		<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">« <?= _t('gen.pagination.first') ?></a>
+		<a href="<?= Minz\Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">« <?= _t('gen.pagination.first') ?></a>
 		<?php } ?>
 	</li>
 
 	<?php $params[$getteur] = $this->currentPage - 1; ?>
 	<li class="item pager-previous">
 		<?php if ($this->currentPage > 1) { ?>
-		<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">‹ <?= _t('gen.pagination.previous') ?></a>
+		<a href="<?= Minz\Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">‹ <?= _t('gen.pagination.previous') ?></a>
 		<?php } ?>
 	</li>
 
@@ -24,7 +24,7 @@
 		<?php if($i > 0 && $i <= $this->nbPage) { ?>
 			<?php if ($i != $this->currentPage) { ?>
 			<?php $params[$getteur] = $i; ?>
-			<li class="item pager-item"><a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= $i ?></a></li>
+			<li class="item pager-item"><a href="<?= Minz\Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= $i ?></a></li>
 			<?php } else { ?>
 			<li class="item pager-current"><?= $i ?></li>
 			<?php } ?>
@@ -34,13 +34,13 @@
 	<?php $params[$getteur] = $this->currentPage + 1; ?>
 	<li class="item pager-next">
 		<?php if ($this->currentPage < $this->nbPage) { ?>
-		<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('gen.pagination.next') ?> ›</a>
+		<a href="<?= Minz\Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('gen.pagination.next') ?> ›</a>
 		<?php } ?>
 	</li>
 	<?php $params[$getteur] = $this->nbPage; ?>
 	<li class="item pager-last">
 		<?php if ($this->currentPage < $this->nbPage) { ?>
-		<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('gen.pagination.last') ?> »</a>
+		<a href="<?= Minz\Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('gen.pagination.last') ?> »</a>
 		<?php } ?>
 	</li>
 </ul>

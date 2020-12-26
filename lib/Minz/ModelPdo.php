@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe Model_sql représente le modèle interragissant avec les bases de données
  */
-class Minz_ModelPdo {
+class ModelPdo {
 
 	/**
 	 * Partage la connexion à la base de données entre toutes les instances.
@@ -26,14 +29,14 @@ class Minz_ModelPdo {
 	 */
 	public function __construct($currentUser = null, $currentPdo = null) {
 		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser');
+			$currentUser = Session::param('currentUser');
 		}
 		if ($currentPdo != null) {
 			$this->pdo = $currentPdo;
 			return;
 		}
 		if ($currentUser == '') {
-			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
+			throw new PDOConnectionException('Current user must not be empty!', '', Exception::ERROR);
 		}
 		if (self::$usesSharedPdo && self::$sharedPdo != null &&
 			($currentUser == '' || $currentUser === self::$sharedCurrentUser)) {
@@ -44,7 +47,7 @@ class Minz_ModelPdo {
 		$this->current_user = $currentUser;
 		self::$sharedCurrentUser = $currentUser;
 
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$db = $conf->db;
 
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
@@ -62,13 +65,13 @@ class Minz_ModelPdo {
 					if (!empty($dbServer['port'])) {
 						$dsn .= ';port=' . $dbServer['port'];
 					}
-					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
-					$this->pdo = new MinzPDOMySql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+					$driver_options[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
+					$this->pdo = new PDOMySql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				case 'sqlite':
 					$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
-					$this->pdo = new MinzPDOSQLite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new PDOSQLite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix('');
 					break;
 				case 'pgsql':
@@ -79,20 +82,20 @@ class Minz_ModelPdo {
 					if (!empty($dbServer['port'])) {
 						$dsn .= ';port=' . $dbServer['port'];
 					}
-					$this->pdo = new MinzPDOPGSQL($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new PDOPGSQL($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				default:
-					throw new Minz_PDOConnectionException(
+					throw new PDOConnectionException(
 						'Invalid database type!',
-						$db['user'], Minz_Exception::ERROR
+						$db['user'], Exception::ERROR
 					);
 			}
 			self::$sharedPdo = $this->pdo;
 		} catch (Exception $e) {
-			throw new Minz_PDOConnectionException(
+			throw new PDOConnectionException(
 				$e->getMessage(),
-				$db['user'], Minz_Exception::ERROR
+				$db['user'], Exception::ERROR
 			);
 		}
 	}
@@ -116,10 +119,10 @@ class Minz_ModelPdo {
 	}
 }
 
-abstract class MinzPDO extends PDO {
+abstract class AbstractPDO extends \PDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
-		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+		$this->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 	}
 
 	abstract public function dbType();
@@ -162,10 +165,10 @@ abstract class MinzPDO extends PDO {
 	}
 }
 
-class MinzPDOMySql extends MinzPDO {
+class PDOMySql extends AbstractPDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
-		$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+		$this->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 	}
 
 	public function dbType() {
@@ -177,7 +180,7 @@ class MinzPDOMySql extends MinzPDO {
 	}
 }
 
-class MinzPDOSQLite extends MinzPDO {
+class PDOSQLite extends AbstractPDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->exec('PRAGMA foreign_keys = ON;');
@@ -192,7 +195,7 @@ class MinzPDOSQLite extends MinzPDO {
 	}
 }
 
-class MinzPDOPGSQL extends MinzPDO {
+class PDOPGSQL extends AbstractPDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->exec("SET NAMES 'UTF8';");

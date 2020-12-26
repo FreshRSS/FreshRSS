@@ -10,10 +10,10 @@
 <?php
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+Minz\Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 echo json_encode(array(
-		'greader' => Minz_Url::display('/api/greader.php', 'php', true),
-		'fever' => Minz_Url::display('/api/fever.php', 'php', true),
+		'greader' => Minz\Url::display('/api/greader.php', 'php', true),
+		'fever' => Minz\Url::display('/api/fever.php', 'php', true),
 	));
 ?>
 </script>
@@ -26,7 +26,7 @@ echo json_encode(array(
 <dl>
 <dt>Your API address:</dt>
 <dd><?php
-echo Minz_Url::display('/api/greader.php', 'html', true);
+echo Minz\Url::display('/api/greader.php', 'html', true);
 ?></dd>
 <dt>Google Reader API configuration test:</dt>
 <dd id="greaderOutput">?</dd>
@@ -36,7 +36,7 @@ echo Minz_Url::display('/api/greader.php', 'html', true);
 <dl>
 <dt>Your API address:</dt>
 <dd><?php
-echo Minz_Url::display('/api/fever.php', 'html', true);
+echo Minz\Url::display('/api/fever.php', 'html', true);
 ?></dd>
 <dt>Fever API configuration test:</dt>
 <dd id="feverOutput">?</dd>

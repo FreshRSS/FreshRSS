@@ -1,5 +1,5 @@
 <?php
-class GoogleGroupsExtension extends Minz_Extension {
+class GoogleGroupsExtension extends Minz\Extension {
 	public function init() {
 		$this->registerHook('check_url_before_add', array('GoogleGroupsExtension', 'findFeed'));
 	}

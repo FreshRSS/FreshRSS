@@ -19,7 +19,7 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = 0;
 				}
-				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
+				?><a class="read" href="<?= Minz\Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
 					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -29,7 +29,7 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = 0;
 				}
-				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
+				?><a class="bookmark" href="<?= Minz\Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}

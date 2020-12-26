@@ -3,7 +3,7 @@
 /**
  * Controller to handle application statistics.
  */
-class FreshRSS_stats_Controller extends Minz_ActionController {
+class FreshRSS_stats_Controller extends Minz\ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
@@ -12,7 +12,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		$this->_csp([
@@ -20,7 +20,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			'style-src' => "'self' 'unsafe-inline'",
 		]);
 
-		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
+		Minz\View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
 	private function convertToSerie($data) {
@@ -57,8 +57,8 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		Minz_View::prependScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
-		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		Minz\View::prependScript(Minz\Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
+		Minz\View::appendScript(Minz\Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
 		$entryCount = $statsDAO->calculateEntryCount();
 		$this->view->count = $this->convertToSerie($entryCount);
@@ -157,8 +157,8 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
-		$id = Minz_Request::param('id', null);
+		Minz\View::appendScript(Minz\Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		$id = Minz\Request::param('id', null);
 		$this->view->categories = $categoryDAO->listCategories();
 		$this->view->feed = $feedDAO->searchById($id);
 		$this->view->days = $statsDAO->getDays();

@@ -47,7 +47,7 @@
 					<input type="checkbox" name="unsafe_autologin" id="unsafe_autologin" value="1"<?php echo FreshRSS_Context::$system_conf->unsafe_autologin_enabled ? ' checked="checked"' : '',
 						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?= FreshRSS_Context::$system_conf->unsafe_autologin_enabled ?>"/>
 					<?= _t('admin.auth.unsafe_autologin') ?>
-					<kbd><?= Minz_Url::display(array('c' => 'auth', 'a' => 'login', 'params' => array('u' => 'alice', 'p' => '1234')), 'html', true) ?></kbd>
+					<kbd><?= Minz\Url::display(array('c' => 'auth', 'a' => 'login', 'params' => array('u' => 'alice', 'p' => '1234')), 'html', true) ?></kbd>
 				</label>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 <?php
-	$actual_view = Minz_Request::actionName();
+	$actual_view = Minz\Request::actionName();
 ?>
 
 <div class="nav_menu">
@@ -19,14 +19,14 @@
 
 			foreach ($states as $state_str => $state) {
 				$state_enabled = FreshRSS_Context::isStateEnabled($state);
-				$url_state = Minz_Request::currentRequest();
+				$url_state = Minz\Request::currentRequest();
 				$url_state['params']['state'] = FreshRSS_Context::getRevertState($state);
 		?>
 		<a id="toggle-<?= $state_str ?>"
 		   class="btn <?= $state_enabled ? 'active' : '' ?>"
 		   role="checkbox" aria-checked="<?= $state_enabled ? 'true' : 'false' ?>"
 		   title="<?= _t('index.menu.' . $state_str) ?>"
-		   href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
+		   href="<?= Minz\Url::display($url_state) ?>"><?= _i($state_str) ?></a>
 		<?php } ?>
 
 		<div class="dropdown">
@@ -52,11 +52,11 @@
 				<?php } ?>
 
 				<?php
-					$url_query = Minz_Request::currentRequest();;
+					$url_query = Minz\Request::currentRequest();;
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'addQuery';
 				?>
-				<li class="item no-mobile"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.add_query') ?></a></li>
+				<li class="item no-mobile"><a href="<?= Minz\Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.add_query') ?></a></li>
 			</ul>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
 		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
 		        form="mark-read-menu"
-		        formaction="<?= Minz_Url::display($mark_read_url) ?>"
+		        formaction="<?= Minz\Url::display($mark_read_url) ?>"
 		        type="submit"><?= _t('gen.action.mark_read') ?></button>
 
 		<div class="dropdown">
@@ -107,7 +107,7 @@
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
 					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_read_url) ?>"
+					        formaction="<?= Minz\Url::display($mark_read_url) ?>"
 					        type="submit"><?= $string_mark ?></button>
 				</li>
 				<li class="separator"></li>
@@ -122,20 +122,20 @@
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
 					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_before_today) ?>"
+					        formaction="<?= Minz\Url::display($mark_before_today) ?>"
 					        type="submit"><?= _t('index.menu.before_one_day') ?></button>
 				</li>
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
 					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
+					        formaction="<?= Minz\Url::display($mark_before_one_week) ?>"
 					        type="submit"><?= _t('index.menu.before_one_week') ?></button>
 				</li>
 				<li class="separator"></li>
 				<li class="item">
 					<button class="as-link <?= $mark_unread_enabled ? $confirm : '" disabled="disabled' ?>"
 					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_unread_url) ?>"
+					        formaction="<?= Minz\Url::display($mark_unread_url) ?>"
 					        type="submit"><?= $string_unmark ?></button>
 				</li>
 			</ul>
@@ -144,16 +144,16 @@
 	</div>
 	<?php } ?>
 
-	<?php $url_output = Minz_Request::currentRequest(); ?>
+	<?php $url_output = Minz\Request::currentRequest(); ?>
 	<div class="stick" id="nav_menu_views">
 		<?php
 		$readingModes = FreshRSS_ReadingMode::getReadingModes();
-		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+		$readingModes = Minz\ExtensionManager::callHook('nav_reading_modes', $readingModes);
 
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?= $mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
+			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?= $mode->getTitle() ?>" href="<?= Minz\Url::display($mode->getUrlParams()) ?>">
 				<?= $mode->getName() ?>
 			</a>
 			<?php
@@ -163,14 +163,14 @@
 		<?php
 			$url_output['a'] = 'rss';
 			if (FreshRSS_Context::$user_conf->token) {
-				$url_output['params']['user'] = Minz_Session::param('currentUser');
+				$url_output['params']['user'] = Minz\Session::param('currentUser');
 				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
 			}
 			if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
 				$url_output['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
 			}
 		?>
-		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?= _t('index.menu.rss_view') ?>" href="<?= Minz_Url::display($url_output) ?>">
+		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?= _t('index.menu.rss_view') ?>" href="<?= Minz\Url::display($url_output) ?>">
 			<?= _i('rss') ?>
 		</a>
 	</div>
@@ -180,17 +180,17 @@
 			<input type="search" name="search" class="extend" value="<?php
 				echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?= _t('index.menu.search_short') ?>" />
 
-			<?php $get = Minz_Request::param('get', ''); ?>
+			<?php $get = Minz\Request::param('get', ''); ?>
 			<?php if($get != '') { ?>
 			<input type="hidden" name="get" value="<?= $get ?>" />
 			<?php } ?>
 
-			<?php $order = Minz_Request::param('order', ''); ?>
+			<?php $order = Minz\Request::param('order', ''); ?>
 			<?php if($order != '') { ?>
 			<input type="hidden" name="order" value="<?= $order ?>" />
 			<?php } ?>
 
-			<?php $state = Minz_Request::param('state', ''); ?>
+			<?php $state = Minz\Request::param('state', ''); ?>
 			<?php if($state != '') { ?>
 			<input type="hidden" name="state" value="<?= $state ?>" />
 			<?php } ?>
@@ -207,10 +207,10 @@
 			$icon = 'down';
 			$title = _t('index.menu.newer_first');
 		}
-		$url_order = Minz_Request::currentRequest();
+		$url_order = Minz\Request::currentRequest();
 		$url_order['params']['order'] = $order;
 	?>
-	<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
+	<a id="toggle-order" class="btn" href="<?= Minz\Url::display($url_order) ?>" title="<?= $title ?>">
 		<?= _i($icon) ?>
 	</a>
 

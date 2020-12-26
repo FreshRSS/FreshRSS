@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `tmp`;
 		}
 		$result = $this->pdo->exec($sql) !== false;
 		if (!$result) {
-			Minz_Log::error('SQL error commitNewEntries: ' . json_encode($this->pdo->errorInfo()));
+			Minz\Log::error('SQL error commitNewEntries: ' . json_encode($this->pdo->errorInfo()));
 		}
 		if (!$hadTransaction) {
 			$this->pdo->commit();
@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS `tmp`;
 			return true;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
+			Minz\Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
 	}
@@ -124,7 +124,7 @@ DROP TABLE IF EXISTS `tmp`;
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error markRead 1: ' . $info[2]);
+				Minz\Log::error('SQL error markRead 1: ' . $info[2]);
 				$this->pdo->rollBack();
 				return false;
 			}
@@ -136,7 +136,7 @@ DROP TABLE IF EXISTS `tmp`;
 				$stm = $this->pdo->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
 					$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-					Minz_Log::error('SQL error markRead 2: ' . $info[2]);
+					Minz\Log::error('SQL error markRead 2: ' . $info[2]);
 					$this->pdo->rollBack();
 					return false;
 				}
@@ -171,7 +171,7 @@ DROP TABLE IF EXISTS `tmp`;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
+			Minz\Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
@@ -187,7 +187,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
+			Minz\Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -212,7 +212,7 @@ DROP TABLE IF EXISTS `tmp`;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
+			Minz\Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `_entry` '
@@ -226,7 +226,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
+			Minz\Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -246,7 +246,7 @@ DROP TABLE IF EXISTS `tmp`;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
+			Minz\Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `_entry` e '
@@ -265,7 +265,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
+			Minz\Log::error('SQL error markReadTag: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();

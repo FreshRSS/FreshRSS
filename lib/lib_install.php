@@ -2,8 +2,8 @@
 
 define('BCRYPT_COST', 9);
 
-Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
+Minz\Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+Minz\Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 function checkRequirements($dbType = '') {
 	$php = version_compare(PHP_VERSION, '5.6.0') >= 0;
@@ -89,7 +89,7 @@ function initDb() {
 
 	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
-		Minz_ModelPdo::$usesSharedPdo = false;
+		Minz\ModelPdo::$usesSharedPdo = false;
 		$dbBase = isset($db['base']) ? $db['base'] : '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
@@ -111,7 +111,7 @@ function initDb() {
 
 	//New connection with the database name
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-	Minz_ModelPdo::$usesSharedPdo = true;
+	Minz\ModelPdo::$usesSharedPdo = true;
 	return $databaseDAO->testConnection();
 }
 
@@ -125,7 +125,7 @@ function setupMigrations() {
 	$migrations_path = APP_PATH . '/migrations';
 	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';
 
-	$migrator = new Minz_Migrator($migrations_path);
+	$migrator = new Minz\Migrator($migrations_path);
 	$versions = implode("\n", $migrator->versions());
 	return @file_put_contents($migrations_version_path, $versions) !== false;
 }

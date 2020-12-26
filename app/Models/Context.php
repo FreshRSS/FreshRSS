@@ -49,8 +49,8 @@ class FreshRSS_Context {
 	 */
 	public static function init() {
 		// Init configuration.
-		self::$system_conf = Minz_Configuration::get('system');
-		self::$user_conf = Minz_Configuration::get('user');
+		self::$system_conf = Minz\Configuration::get('system');
+		self::$user_conf = Minz\Configuration::get('user');
 
 		//Legacy
 		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);

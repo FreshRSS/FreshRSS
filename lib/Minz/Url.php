@@ -1,9 +1,11 @@
 <?php
 
+namespace Minz;
+
 /**
  * La classe Url permet de gérer les URL à travers MINZ
  */
-class Minz_Url {
+class Url {
 	/**
 	 * Affiche une Url formatée
 	 * @param $url l'url à formater définie comme un tableau :
@@ -24,9 +26,9 @@ class Minz_Url {
 		$url_string = '';
 
 		if ($absolute) {
-			$url_string = Minz_Request::getBaseUrl();
+			$url_string = Request::getBaseUrl();
 			if (strlen($url_string) < strlen('http://a.bc')) {
-				$url_string = Minz_Request::guessBaseUrl();
+				$url_string = Request::guessBaseUrl();
 				if (PUBLIC_RELATIVE === '..') {
 					//TODO: Implement proper resolver of relative parts such as /test/./../
 					$url_string = dirname($url_string);
@@ -45,7 +47,7 @@ class Minz_Url {
 		if ($isArray) {
 			$url_string .= '/' . self::printUri($url, $encodage);
 		} elseif ($encodage === 'html') {
-			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
+			$url_string = Helper::htmlspecialchars_utf8($url_string . $url);
 		} else {
 			$url_string .= $url;
 		}
@@ -70,13 +72,13 @@ class Minz_Url {
 		}
 
 		if (isset($url['c'])
-		 && $url['c'] != Minz_Request::defaultControllerName()) {
+		 && $url['c'] != Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
 
 		if (isset($url['a'])
-		 && $url['a'] != Minz_Request::defaultActionName()) {
+		 && $url['a'] != Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}
@@ -103,10 +105,10 @@ class Minz_Url {
 
 		if (is_array ($url)) {
 			if (!isset ($url['c'])) {
-				$url_checked['c'] = Minz_Request::defaultControllerName ();
+				$url_checked['c'] = Request::defaultControllerName ();
 			}
 			if (!isset ($url['a'])) {
-				$url_checked['a'] = Minz_Request::defaultActionName ();
+				$url_checked['a'] = Request::defaultActionName ();
 			}
 			if (!isset ($url['params'])) {
 				$url_checked['params'] = array ();
@@ -130,5 +132,5 @@ function _url ($controller, $action) {
 		$params[$args[$i]] = $args[$i + 1];
 	}
 
-	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));
+	return Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));
 }

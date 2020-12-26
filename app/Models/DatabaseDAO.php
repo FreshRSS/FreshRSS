@@ -3,7 +3,7 @@
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
+class FreshRSS_DatabaseDAO extends Minz\ModelPdo {
 
 	//MySQL error codes
 	const ER_BAD_FIELD_ERROR = '42S22';
@@ -158,7 +158,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			if ($stm == false || $stm->fetchAll(PDO::FETCH_ASSOC) === false) {
 				$ok = false;
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+				Minz\Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			}
 		}
 		return $ok;
@@ -174,7 +174,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$ok = $this->pdo->exec($SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
 			} catch (Exception $e) {
 				$ok = false;
-				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
+				Minz\Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 			}
 		}
 		return $ok;
@@ -191,7 +191,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		if (defined('STDERR')) {
 			fwrite(STDERR, $error . "\n");
 		}
-		Minz_Log::error($error);
+		Minz\Log::error($error);
 		return false;
 	}
 
@@ -247,7 +247,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			return self::stdError($error);
 		}
 
-		Minz_ModelPdo::clean();
+		Minz\ModelPdo::clean();
 		$userDAOSQLite = new FreshRSS_UserDAO('', $sqlite);
 		$categoryDAOSQLite = new FreshRSS_CategoryDAOSQLite('', $sqlite);
 		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', $sqlite);

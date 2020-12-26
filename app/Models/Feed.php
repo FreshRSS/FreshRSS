@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Feed extends Minz_Model {
+class FreshRSS_Feed extends Minz\Model {
 	const PRIORITY_MAIN_STREAM = 10;
 	const PRIORITY_NORMAL = 0;
 	const PRIORITY_ARCHIVED = -10;
@@ -71,7 +71,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category;
 	}
 	public function entries() {
-		Minz_Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
+		Minz\Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
 		$simplePie = $this->load(false, true);
 		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
 	}
@@ -177,7 +177,7 @@ class FreshRSS_Feed extends Minz_Model {
 		@unlink($path . '.txt');
 	}
 	public function favicon() {
-		return Minz_Url::display('/f.php?' . $this->hash());
+		return Minz\Url::display('/f.php?' . $this->hash());
 	}
 
 	public function _id($value) {
@@ -259,9 +259,9 @@ class FreshRSS_Feed extends Minz_Model {
 	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
-				throw new Minz_FileNotExistException(
+				throw new Minz\FileNotExistException(
 					'CACHE_PATH',
-					Minz_Exception::ERROR
+					Minz\Exception::ERROR
 				);
 			} else {
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
@@ -281,7 +281,7 @@ class FreshRSS_Feed extends Minz_Model {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
-				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
+				Minz\ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
 				$mtime = $simplePie->init();
 
 				if ((!$mtime) || $simplePie->error()) {
@@ -317,10 +317,10 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
-					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
+					//Minz\Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					return $simplePie;
 				} else {
-					//Minz_Log::debug('FreshRSS use cache for ' . $clean_url);
+					//Minz\Log::debug('FreshRSS use cache for ' . $clean_url);
 					return null;
 				}
 			}
@@ -347,9 +347,9 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($hasBadGuids != !$hasUniqueGuids) {
 			$hasBadGuids = !$hasUniqueGuids;
 			if ($hasBadGuids) {
-				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
+				Minz\Log::warning('Feed has invalid GUIDs: ' . $this->url);
 			} else {
-				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
+				Minz\Log::warning('Feed has valid GUIDs again: ' . $this->url);
 			}
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
@@ -491,7 +491,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$nb = $entryDAO->cleanOldEntries($this->id(), $archiving);
 			if ($nb > 0) {
 				$needFeedCacheRefresh = true;
-				Minz_Log::debug($nb . ' entries cleaned in feed [' . $this->url(false) . '] with: ' . json_encode($archiving));
+				Minz\Log::debug($nb . ' entries cleaned in feed [' . $this->url(false) . '] with: ' . json_encode($archiving));
 			}
 			return $nb;
 		}
@@ -653,14 +653,14 @@ class FreshRSS_Feed extends Minz_Model {
 		if (!isset($hubJson['error']) || $hubJson['error'] !== (bool)$error) {
 			$hubJson['error'] = (bool)$error;
 			file_put_contents($hubFilename, json_encode($hubJson));
-			Minz_Log::warning('Set error to ' . ($error ? 1 : 0) . ' for ' . $url, PSHB_LOG);
+			Minz\Log::warning('Set error to ' . ($error ? 1 : 0) . ' for ' . $url, PSHB_LOG);
 		}
 		return false;
 	}
 
 	public function pubSubHubbubPrepare() {
 		$key = '';
-		if (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) &&
+		if (Minz\Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) &&
 			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
@@ -668,16 +668,16 @@ class FreshRSS_Feed extends Minz_Model {
 				$hubJson = json_decode($hubFile, true);
 				if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
-					Minz_Log::warning($text);
-					Minz_Log::warning($text, PSHB_LOG);
+					Minz\Log::warning($text);
+					Minz\Log::warning($text, PSHB_LOG);
 					return false;
 				}
 				if ((!empty($hubJson['lease_end'])) && ($hubJson['lease_end'] < (time() + (3600 * 23)))) {	//TODO: Make a better policy
 					$text = 'WebSub lease ends at '
 						. date('c', empty($hubJson['lease_end']) ? time() : $hubJson['lease_end'])
 						. ' and needs renewal: ' . $this->url;
-					Minz_Log::warning($text);
-					Minz_Log::warning($text, PSHB_LOG);
+					Minz\Log::warning($text);
+					Minz\Log::warning($text, PSHB_LOG);
 					$key = $hubJson['key'];	//To renew our lease
 				} elseif (((!empty($hubJson['error'])) || empty($hubJson['lease_end'])) &&
 					(empty($hubJson['lease_start']) || $hubJson['lease_start'] < time() - (3600 * 23))) {	//Do not renew too often
@@ -694,10 +694,10 @@ class FreshRSS_Feed extends Minz_Model {
 				@mkdir(PSHB_PATH . '/keys/');
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
 				$text = 'WebSub prepared for ' . $this->url;
-				Minz_Log::debug($text);
-				Minz_Log::debug($text, PSHB_LOG);
+				Minz\Log::debug($text);
+				Minz\Log::debug($text, PSHB_LOG);
 			}
-			$currentUser = Minz_Session::param('currentUser');
+			$currentUser = Minz\Session::param('currentUser');
 			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
 				touch($path . '/' . $currentUser . '.txt');
 			}
@@ -712,21 +712,21 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
+		if ($url && (Minz\Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
-				Minz_Log::warning('JSON not found for WebSub: ' . $this->url);
+				Minz\Log::warning('JSON not found for WebSub: ' . $this->url);
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
 			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
-				Minz_Log::warning('Invalid JSON for WebSub: ' . $this->url);
+				Minz\Log::warning('Invalid JSON for WebSub: ' . $this->url);
 				return false;
 			}
-			$callbackUrl = checkUrl(Minz_Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
+			$callbackUrl = checkUrl(Minz\Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
 			if ($callbackUrl == '') {
-				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
+				Minz\Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
 			}
 			if (!$state) {	//unsubscribe
@@ -751,7 +751,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 
-			Minz_Log::warning('WebSub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
+			Minz\Log::warning('WebSub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 

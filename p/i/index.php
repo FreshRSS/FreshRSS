@@ -30,14 +30,14 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 		require(LIB_PATH . '/http-conditional.php');
-		$currentUser = Minz_Session::param('currentUser', '');
+		$currentUser = Minz\Session::param('currentUser', '');
 		$dateLastModification = $currentUser === '' ? time() : max(
 			@filemtime(join_path(USERS_PATH, $currentUser, 'log.txt')),
 			@filemtime(join_path(DATA_PATH, 'config.php'))
 		);
 		if (httpConditional($dateLastModification, 0, 0, false, PHP_COMPRESSION, true)) {
-			Minz_Session::init('FreshRSS');
-			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
+			Minz\Session::init('FreshRSS');
+			Minz\Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 			exit();	//No need to send anything
 		}
 	}
@@ -61,11 +61,11 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 	$error = false;
 	try {
 		// Apply the migrations if any
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Minz\Migrator::execute($migrations_path, $applied_migrations_path);
 		if ($result === true) {
 			$front_controller = new FreshRSS();
 			$front_controller->init();
-			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
+			Minz\Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 			$front_controller->run();
 		} else {
 			$error = $result;
@@ -78,7 +78,7 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		// TODO this should be definitely improved to display a nicer error
 		// page to the users (especially non administrators).
 		echo '### Fatal error! ###<br />', "\n";
-		Minz_Log::error($error);
+		Minz\Log::error($error);
 		echo 'See logs files.';
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 	}

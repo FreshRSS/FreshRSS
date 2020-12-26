@@ -2,15 +2,15 @@
 header('Content-Type: application/json; charset=UTF-8');
 
 $url = array(
-	'c' => Minz_Request::controllerName(),
-	'a' => Minz_Request::actionName(),
-	'params' => Minz_Request::fetchGET(),
+	'c' => Minz\Request::controllerName(),
+	'a' => Minz\Request::actionName(),
+	'params' => Minz\Request::fetchGET(),
 );
 
-$url['params']['is_favorite'] = Minz_Request::param('is_favorite', true) ? '0' : '1';
+$url['params']['is_favorite'] = Minz\Request::param('is_favorite', true) ? '0' : '1';
 
 FreshRSS::loadStylesAndScripts();
 echo json_encode(array(
-		'url' => str_ireplace('&amp;', '&', Minz_Url::display($url)),
+		'url' => str_ireplace('&amp;', '&', Minz\Url::display($url)),
 		'icon' => _i($url['params']['is_favorite'] === '1' ? 'non-starred' : 'starred')
 	));

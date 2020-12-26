@@ -3,7 +3,7 @@
 /**
  * Controller to handle every entry actions.
  */
-class FreshRSS_entry_Controller extends Minz_ActionController {
+class FreshRSS_entry_Controller extends Minz\ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -11,14 +11,14 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		// If ajax request, we do not print layout
-		$this->ajax = Minz_Request::param('ajax');
+		$this->ajax = Minz\Request::param('ajax');
 		if ($this->ajax) {
 			$this->view->_layout(false);
-			Minz_Request::_param('ajax');
+			Minz\Request::_param('ajax');
 		}
 	}
 
@@ -36,14 +36,14 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 *   - is_read (default: true)
 	 */
 	public function readAction() {
-		$id = Minz_Request::param('id');
-		$get = Minz_Request::param('get');
-		$next_get = Minz_Request::param('nextGet', $get);
-		$id_max = Minz_Request::param('idMax', 0);
-		$is_read = (bool)(Minz_Request::param('is_read', true));
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
+		$id = Minz\Request::param('id');
+		$get = Minz\Request::param('get');
+		$next_get = Minz\Request::param('nextGet', $get);
+		$id_max = Minz\Request::param('idMax', 0);
+		$is_read = (bool)(Minz\Request::param('is_read', true));
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz\Request::param('search', ''));
 
-		FreshRSS_Context::$state = Minz_Request::param('state', 0);
+		FreshRSS_Context::$state = Minz\Request::param('state', 0);
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
 			FreshRSS_Context::$state = FreshRSS_Entry::STATE_FAVORITE;
 		} elseif (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)) {
@@ -58,8 +58,8 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id === false) {
 			// id is false? It MUST be a POST request!
-			if (!Minz_Request::isPost()) {
-				Minz_Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
+			if (!Minz\Request::isPost()) {
+				Minz\Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
 				return;
 			}
 
@@ -109,7 +109,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::good(_t($is_read ? 'feedback.sub.articles.marked_read' : 'feedback.sub.articles.marked_unread'),
+			Minz\Request::good(_t($is_read ? 'feedback.sub.articles.marked_read' : 'feedback.sub.articles.marked_unread'),
 			array(
 				'c' => 'index',
 				'a' => 'index',
@@ -127,15 +127,15 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 * If id is false, nothing happened.
 	 */
 	public function bookmarkAction() {
-		$id = Minz_Request::param('id');
-		$is_favourite = (bool)Minz_Request::param('is_favorite', true);
+		$id = Minz\Request::param('id');
+		$is_favourite = (bool)Minz\Request::param('is_favorite', true);
 		if ($id !== false) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite($id, $is_favourite);
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::forward(array(
+			Minz\Request::forward(array(
 				'c' => 'index',
 				'a' => 'index',
 			), true);
@@ -156,8 +156,8 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			'a' => 'archiving',
 		);
 
-		if (!Minz_Request::isPost()) {
-			Minz_Request::forward($url_redirect, true);
+		if (!Minz\Request::isPost()) {
+			Minz\Request::forward($url_redirect, true);
 		}
 
 		@set_time_limit(300);
@@ -169,7 +169,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
+		Minz\Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
 	}
 
 	/**
@@ -200,7 +200,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
+		Minz\Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
 			'c' => 'configure',
 			'a' => 'archiving'
 		));

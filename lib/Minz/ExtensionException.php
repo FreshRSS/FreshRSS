@@ -1,6 +1,8 @@
 <?php
 
-class Minz_ExtensionException extends Minz_Exception {
+namespace Minz;
+
+class ExtensionException extends Exception {
 	public function __construct ($message, $extension_name = false, $code = self::ERROR) {
 		if ($extension_name) {
 			$message = 'An error occured in `' . $extension_name

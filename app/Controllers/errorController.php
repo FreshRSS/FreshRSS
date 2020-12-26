@@ -3,20 +3,20 @@
 /**
  * Controller to handle error page.
  */
-class FreshRSS_error_Controller extends Minz_ActionController {
+class FreshRSS_error_Controller extends Minz\ActionController {
 	/**
 	 * This action is the default one for the controller.
 	 *
-	 * It is called by Minz_Error::error() method.
+	 * It is called by Minz\Error::error() method.
 	 *
-	 * Parameters are passed by Minz_Session to have a proper url:
+	 * Parameters are passed by Minz\Session to have a proper url:
 	 *   - error_code (default: 404)
 	 *   - error_logs (default: array())
 	 */
 	public function indexAction() {
-		$code_int = Minz_Session::param('error_code', 404);
-		$error_logs = Minz_Session::param('error_logs', array());
-		Minz_Session::_params([
+		$code_int = Minz\Session::param('error_code', 404);
+		$error_logs = Minz\Session::param('error_logs', array());
+		Minz\Session::_params([
 			'error_code' => false,
 			'error_logs' => false,
 		]);
@@ -50,6 +50,6 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 			$this->view->errorMessage = $error_message;
 		}
 
-		Minz_View::prependTitle($this->view->code . ' · ');
+		Minz\View::prependTitle($this->view->code . ' · ');
 	}
 }

@@ -7,7 +7,7 @@
 		<div class="form-group">
 			<label for="new_user_language"><?= _t('admin.user.language') ?></label>
 			<select name="new_user_language" id="new_user_language">
-			<?php $languages = Minz_Translate::availableLanguages(); ?>
+			<?php $languages = Minz\Translate::availableLanguages(); ?>
 			<?php foreach ($languages as $lang) { ?>
 			<option value="<?= $lang ?>"<?= $this->preferred_language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 			<?php } ?>
@@ -51,7 +51,7 @@
 
 		<div class="form-group form-group-actions">
 			<?php
-				$redirect_url = urlencode(Minz_Url::display(
+				$redirect_url = urlencode(Minz\Url::display(
 					array('c' => 'index', 'a' => 'index'),
 					'php', true
 				));

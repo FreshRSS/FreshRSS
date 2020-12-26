@@ -2,7 +2,7 @@
 $feeds = array();
 foreach ($this->feeds as $feed) {
 	$feeds[] = array(
-		'url' => Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'),
+		'url' => Minz\Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'),
 		'title' => $feed->name(),
 	);
 }

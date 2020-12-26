@@ -1,5 +1,5 @@
 <?php
-	$actual_view = Minz_Request::actionName();
+	$actual_view = Minz\Request::actionName();
 	$class = '';
 	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&

@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_EntryDAO extends Minz\ModelPdo implements FreshRSS_Searchable {
 
 	public function isCompressed() {
 		return true;
@@ -27,10 +27,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		try {
 			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
+			Minz\Log::warning('SQL CREATE TABLE entrytmp...');
 			$ok = $this->pdo->exec($SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_INDEX_ENTRY_1) !== false;
 		} catch (Exception $ex) {
-			Minz_Log::error(__method__ . ' error: ' . $ex->getMessage());
+			Minz\Log::error(__method__ . ' error: ' . $ex->getMessage());
 		}
 		if ($hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -42,7 +42,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->pdo->dbType() !== 'mysql') {
 			return false;
 		}
-		Minz_Log::warning('Update MySQL table to use MEDIUMBLOB...');
+		Minz\Log::warning('Update MySQL table to use MEDIUMBLOB...');
 
 		$sql = <<<'SQL'
 ALTER TABLE `_entry` MODIFY `content_bin` MEDIUMBLOB;
@@ -52,7 +52,7 @@ SQL;
 			$ok = $this->pdo->exec($sql) !== false;
 		} catch (Exception $e) {
 			$ok = false;
-			Minz_Log::error(__method__ . ' error: ' . $e->getMessage());
+			Minz\Log::error(__method__ . ' error: ' . $e->getMessage());
 		}
 		return $ok;
 	}
@@ -139,7 +139,7 @@ SQL;
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
 			} elseif ((int)((int)$info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				Minz\Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
 					. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
 			}
 			return false;
@@ -230,7 +230,7 @@ SQL;
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
-			Minz_Log::error('SQL error updateEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+			Minz\Log::error('SQL error updateEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
 				. ' while updating entry with GUID ' . $valuesTmp['guid'] . ' in feed ' . $valuesTmp['id_feed']);
 			return false;
 		}
@@ -264,7 +264,7 @@ SQL;
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markFavorite: ' . $info[2]);
+			Minz\Log::error('SQL error markFavorite: ' . $info[2]);
 			return false;
 		}
 	}
@@ -309,7 +309,7 @@ SQL;
 			return true;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
+			Minz\Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
 	}
@@ -346,7 +346,7 @@ SQL;
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error markRead: ' . $info[2]);
+				Minz\Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
 			$affected = $stm->rowCount();
@@ -365,7 +365,7 @@ SQL;
 				return $stm->rowCount();
 			} else {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error markRead: ' . $info[2]);
+				Minz\Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
 		}
@@ -396,7 +396,7 @@ SQL;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
+			Minz\Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
@@ -414,7 +414,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
+			Minz\Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -439,7 +439,7 @@ SQL;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
+			Minz\Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
@@ -452,7 +452,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
+			Minz\Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -477,7 +477,7 @@ SQL;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
+			Minz\Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
 		$this->pdo->beginTransaction();
 
@@ -491,7 +491,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadFeed: ' . $info[2] . ' with SQL: ' . $sql . $search);
+			Minz\Log::error('SQL error markReadFeed: ' . $info[2] . ' with SQL: ' . $sql . $search);
 			$this->pdo->rollBack();
 			return false;
 		}
@@ -505,7 +505,7 @@ SQL;
 			$stm->bindParam(':id', $id_feed, PDO::PARAM_INT);
 			if (!($stm && $stm->execute())) {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error markReadFeed cache: ' . $info[2]);
+				Minz\Log::error('SQL error markReadFeed cache: ' . $info[2]);
 				$this->pdo->rollBack();
 				return false;
 			}
@@ -525,7 +525,7 @@ SQL;
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
+			Minz\Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id '
@@ -545,7 +545,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
+			Minz\Log::error('SQL error markReadTag: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -609,7 +609,7 @@ SQL;
 			if ($this->autoUpdateDb($info)) {
 				return $this->cleanOldEntries($id_feed, $options);
 			}
-			Minz_Log::error(__method__ . ' error:' . json_encode($info));
+			Minz\Log::error(__method__ . ' error:' . json_encode($info));
 			return false;
 		}
 	}
@@ -929,7 +929,7 @@ SQL;
 			return $stm;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
+			Minz\Log::error('SQL error listWhereRaw: ' . $info[2]);
 			return false;
 		}
 	}
@@ -994,7 +994,7 @@ SQL;
 			if ($this->autoUpdateDb($info)) {
 				return $this->listHashForFeedGuids($id_feed, $guids);
 			}
-			Minz_Log::error('SQL error listHashForFeedGuids: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+			Minz\Log::error('SQL error listHashForFeedGuids: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
 				. ' while querying feed ' . $id_feed);
 			return false;
 		}
@@ -1018,7 +1018,7 @@ SQL;
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateLastSeen($id_feed, $guids);
 			}
-			Minz_Log::error('SQL error updateLastSeen: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+			Minz\Log::error('SQL error updateLastSeen: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
 				. ' while updating feed ' . $id_feed);
 			return false;
 		}
@@ -1086,7 +1086,7 @@ ORDER BY o
 SQL;
 		$stm = $this->pdo->prepare($sql);
 		if (!$stm) {
-			Minz_Log::error('SQL error in ' . __method__ . ' ' . json_encode($this->pdo->errorInfo()));
+			Minz\Log::error('SQL error in ' . __method__ . ' ' . json_encode($this->pdo->errorInfo()));
 			return false;
 		}
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417

@@ -1,13 +1,13 @@
 <?php
 
-class FreshRSS_javascript_Controller extends Minz_ActionController {
+class FreshRSS_javascript_Controller extends Minz\ActionController {
 	public function firstAction() {
 		$this->view->_layout(false);
 	}
 
 	public function actualizeAction() {
 		header('Content-Type: application/json; charset=UTF-8');
-		Minz_Session::_param('actualize_feeds', false);
+		Minz\Session::_param('actualize_feeds', false);
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
 	}
@@ -37,14 +37,14 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 				if (strlen($s) >= 60) {
 					$this->view->salt1 = substr($s, 0, 29);	//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->nonce = sha1($salt . uniqid(mt_rand(), true));
-					Minz_Session::_param('nonce', $this->view->nonce);
+					Minz\Session::_param('nonce', $this->view->nonce);
 					return;	//Success
 				}
-			} catch (Minz_Exception $me) {
-				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
+			} catch (Minz\Exception $me) {
+				Minz\Log::warning('Nonce failure: ' . $me->getMessage());
 			}
 		} else {
-			Minz_Log::notice('Nonce failure due to invalid username!');
+			Minz\Log::notice('Nonce failure due to invalid username!');
 		}
 		//Failure: Return random data.
 		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);

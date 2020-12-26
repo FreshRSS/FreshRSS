@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Log extends Minz_Model {
+class FreshRSS_Log extends Minz\Model {
 	private $date;
 	private $level;
 	private $information;

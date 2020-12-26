@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Category extends Minz_Model {
+class FreshRSS_Category extends Minz\Model {
 	private $id = 0;
 	private $name;
 	private $nbFeed = -1;

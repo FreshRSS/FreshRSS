@@ -1,5 +1,8 @@
 <?php
-class Minz_PermissionDeniedException extends Minz_Exception {
+
+namespace Minz;
+
+class PermissionDeniedException extends Exception {
 	public function __construct ($file_name, $code = self::ERROR) {
 		$message = 'Permission is denied for `' . $file_name.'`';
 

@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -22,7 +25,7 @@
  * La classe FrontController est le Dispatcher du framework, elle lance l'application
  * Elle est appelée en général dans le fichier index.php à la racine du serveur
  */
-class Minz_FrontController {
+class FrontController {
 	protected $dispatcher;
 
 	/**
@@ -31,25 +34,25 @@ class Minz_FrontController {
 	 */
 	public function __construct () {
 		try {
-			Minz_Configuration::register('system',
+			Configuration::register('system',
 			                             DATA_PATH . '/config.php',
 			                             FRESHRSS_PATH . '/config.default.php');
 			$this->setReporting();
 
-			Minz_Request::init();
+			Request::init();
 
 			$url = $this->buildUrl();
 			$url['params'] = array_merge (
 				$url['params'],
-				Minz_Request::fetchPOST ()
+				Request::fetchPOST ()
 			);
-			Minz_Request::forward ($url);
-		} catch (Minz_Exception $e) {
-			Minz_Log::error($e->getMessage());
+			Request::forward ($url);
+		} catch (Exception $e) {
+			Log::error($e->getMessage());
 			$this->killApp ($e->getMessage ());
 		}
 
-		$this->dispatcher = Minz_Dispatcher::getInstance();
+		$this->dispatcher = Dispatcher::getInstance();
 	}
 
 	/**
@@ -59,15 +62,15 @@ class Minz_FrontController {
 	private function buildUrl() {
 		$url = array ();
 
-		$url['c'] = Minz_Request::fetchGET (
+		$url['c'] = Request::fetchGET (
 			'c',
-			Minz_Request::defaultControllerName ()
+			Request::defaultControllerName ()
 		);
-		$url['a'] = Minz_Request::fetchGET (
+		$url['a'] = Request::fetchGET (
 			'a',
-			Minz_Request::defaultActionName ()
+			Request::defaultActionName ()
 		);
-		$url['params'] = Minz_Request::fetchGET ();
+		$url['params'] = Request::fetchGET ();
 
 		// post-traitement
 		unset ($url['params']['c']);
@@ -82,18 +85,18 @@ class Minz_FrontController {
 	public function run () {
 		try {
 			$this->dispatcher->run();
-		} catch (Minz_Exception $e) {
+		} catch (Exception $e) {
 			try {
-				Minz_Log::error($e->getMessage());
-			} catch (Minz_PermissionDeniedException $e) {
+				Log::error($e->getMessage());
+			} catch (PermissionDeniedException $e) {
 				$this->killApp ($e->getMessage ());
 			}
 
-			if ($e instanceof Minz_FileNotExistException ||
-					$e instanceof Minz_ControllerNotExistException ||
-					$e instanceof Minz_ControllerNotActionControllerException ||
-					$e instanceof Minz_ActionException) {
-				Minz_Error::error (
+			if ($e instanceof FileNotExistException ||
+					$e instanceof ControllerNotExistException ||
+					$e instanceof ControllerNotActionControllerException ||
+					$e instanceof ActionException) {
+				Error::error (
 					404,
 					array ('error' => array ($e->getMessage ())),
 					true
@@ -117,7 +120,7 @@ class Minz_FrontController {
 	private function setReporting() {
 		$envType = getenv('FRESHRSS_ENV');
 		if ($envType == '') {
-			$conf = Minz_Configuration::get('system');
+			$conf = Configuration::get('system');
 			$envType = $conf->environment;
 		}
 		switch ($envType) {

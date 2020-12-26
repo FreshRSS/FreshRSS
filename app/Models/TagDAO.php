@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_TagDAO extends Minz\ModelPdo implements FreshRSS_Searchable {
 
 	public function sqlIgnore() {
 		return 'IGNORE';
@@ -15,14 +15,14 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
-			Minz_Log::warning('SQL ALTER GUID case sensitivity...');
+			Minz\Log::warning('SQL ALTER GUID case sensitivity...');
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->ensureCaseInsensitiveGuids();
 
-			Minz_Log::warning('SQL CREATE TABLE tag...');
+			Minz\Log::warning('SQL CREATE TABLE tag...');
 			$ok = $this->pdo->exec($SQL_CREATE_TABLE_TAGS) !== false;
 		} catch (Exception $e) {
-			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
+			Minz\Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
 		}
 		if ($hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -61,7 +61,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $this->pdo->lastInsertId('`_tag_id_seq`');
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error addTag: ' . $info[2]);
+			Minz\Log::error('SQL error addTag: ' . $info[2]);
 			return false;
 		}
 	}
@@ -98,7 +98,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error updateTag: ' . $info[2]);
+			Minz\Log::error('SQL error updateTag: ' . $info[2]);
 			return false;
 		}
 	}
@@ -127,7 +127,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error deleteTag: ' . $info[2]);
+			Minz\Log::error('SQL error deleteTag: ' . $info[2]);
 			return false;
 		}
 	}
@@ -154,7 +154,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		if (!($stm && $stm->execute([$newTagId, $oldTagId]))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error moveTag: ' . $info[2]);
+			Minz\Log::error('SQL error moveTag: ' . $info[2]);
 			return false;
 		}
 
@@ -165,7 +165,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error moveTag: ' . $info[2]);
+			Minz\Log::error('SQL error moveTag: ' . $info[2]);
 			return false;
 		}
 	}
@@ -210,7 +210,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($this->autoUpdateDb($info)) {
 				return $this->listTags($precounts);
 			}
-			Minz_Log::error('SQL error listTags: ' . $info[2]);
+			Minz\Log::error('SQL error listTags: ' . $info[2]);
 			return false;
 		}
 	}
@@ -245,7 +245,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($this->autoUpdateDb($info)) {
 				return $this->count();
 			}
-			Minz_Log::error('SQL error TagDAO::count: ' . $info[2]);
+			Minz\Log::error('SQL error TagDAO::count: ' . $info[2]);
 			return false;
 		}
 	}
@@ -283,7 +283,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return true;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error tagEntry: ' . $info[2]);
+			Minz\Log::error('SQL error tagEntry: ' . $info[2]);
 			return false;
 		}
 	}
@@ -309,7 +309,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($this->autoUpdateDb($info)) {
 				return $this->getTagsForEntry($id_entry);
 			}
-			Minz_Log::error('SQL error getTagsForEntry: ' . $info[2]);
+			Minz\Log::error('SQL error getTagsForEntry: ' . $info[2]);
 			return false;
 		}
 	}
@@ -345,7 +345,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($this->autoUpdateDb($info)) {
 				return $this->getTagsForEntries($entries);
 			}
-			Minz_Log::error('SQL error getTagsForEntries: ' . $info[2]);
+			Minz\Log::error('SQL error getTagsForEntries: ' . $info[2]);
 			return false;
 		}
 	}

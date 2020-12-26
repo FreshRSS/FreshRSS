@@ -7,7 +7,7 @@ require(__DIR__ . '/../cli/_cli.php');
  * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
  */
 function notice($message) {
-	Minz_Log::notice($message, ADMIN_LOG);
+	Minz\Log::notice($message, ADMIN_LOG);
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
 		syslog(LOG_NOTICE, $message);
 	}
@@ -32,7 +32,7 @@ $_SERVER['HTTP_HOST'] = '';
 
 $app = new FreshRSS();
 
-$system_conf = Minz_Configuration::get('system');
+$system_conf = Minz\Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 define('SIMPLEPIE_SYSLOG_ENABLED', $system_conf->simplepie_syslog_enabled);
 
@@ -63,8 +63,8 @@ foreach ($users as $user) {
 		continue;
 	}
 
-	Minz_Session::_param('currentUser', $user);
-	new Minz_ModelPdo($user);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
+	Minz\Session::_param('currentUser', $user);
+	new Minz\ModelPdo($user);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 	FreshRSS_Auth::giveAccess();
 	$app->init();
 	notice('FreshRSS actualize ' . $user . '...');
@@ -72,13 +72,13 @@ foreach ($users as $user) {
 	$app->run();
 
 	if (!invalidateHttpCache()) {
-		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'), ADMIN_LOG);
+		Minz\Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'), ADMIN_LOG);
 		if (defined('STDERR')) {
 			fwrite(STDERR, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
 		}
 	}
 
-	Minz_Session::_params([
+	Minz\Session::_params([
 		'currentUser' => '_',
 		'loginOk' => false,
 	]);

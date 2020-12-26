@@ -1,9 +1,11 @@
 <?php
 
+namespace Minz;
+
 /**
  * La classe Session gère la session utilisateur
  */
-class Minz_Session {
+class Session {
 	private static $volatile = false;
 
 	/**
@@ -113,7 +115,7 @@ class Minz_Session {
 
 		if (!$force) {
 			self::_param('language', $language);
-			Minz_Translate::reset($language);
+			Translate::reset($language);
 		}
 	}
 
@@ -135,7 +137,7 @@ class Minz_Session {
 	 * @param $l la durée de vie
 	 */
 	public static function keepCookie($l) {
-		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
+		session_set_cookie_params($l, self::getCookieDir(), '', Request::isHttps(), true);
 	}
 
 
@@ -148,11 +150,11 @@ class Minz_Session {
 	}
 
 	public static function deleteLongTermCookie($name) {
-		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
+		setcookie($name, '', 1, '', '', Request::isHttps(), true);
 	}
 
 	public static function setLongTermCookie($name, $value, $expire) {
-		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
+		setcookie($name, $value, $expire, '', '', Request::isHttps(), true);
 	}
 
 	public static function getLongTermCookie($name) {

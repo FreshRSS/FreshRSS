@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	<channel>
 		<title><?= $this->rss_title ?></title>
-		<link><?= Minz_Url::display(null, 'html', true) ?></link>
+		<link><?= Minz\Url::display(null, 'html', true) ?></link>
 		<description><?= _t('index.feed.rss_of', $this->rss_title) ?></description>
 		<pubDate><?= date('D, d M Y H:i:s O') ?></pubDate>
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
-		<atom:link href="<?= Minz_Url::display($this->url, 'html', true) ?>" rel="self" type="application/rss+xml" />
+		<atom:link href="<?= Minz\Url::display($this->url, 'html', true) ?>" rel="self" type="application/rss+xml" />
 <?php
 foreach ($this->entries as $item) {
 ?>

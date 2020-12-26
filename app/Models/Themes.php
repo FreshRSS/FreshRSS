@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Themes extends Minz_Model {
+class FreshRSS_Themes extends Minz\Model {
 	private static $themesUrl = '/themes/';
 	private static $defaultIconsUrl = '/themes/icons/';
 	public static $defaultTheme = 'Origine';
@@ -119,6 +119,6 @@ class FreshRSS_Themes extends Minz_Model {
 		$url = $name . '.svg';
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alt . '" />';
+		return $urlOnly ? Minz\Url::display($url) : '<img class="icon" src="' . Minz\Url::display($url) . '" alt="' . $alt . '" />';
 	}
 }

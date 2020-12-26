@@ -15,7 +15,7 @@ class FreshRSS_fever_Util {
 
 		$ok = is_writable(self::FEVER_PATH);
 		if (!$ok) {
-			Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
+			Minz\Log::error("Could not save Fever API credentials. The directory does not have write access.");
 		}
 		return $ok;
 	}
@@ -52,7 +52,7 @@ class FreshRSS_fever_Util {
 		if ($res !== false) {
 			return $feverKey;
 		} else {
-			Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
+			Minz\Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
 			return false;
 		}
 	}

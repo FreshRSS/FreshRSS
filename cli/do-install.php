@@ -53,7 +53,7 @@ foreach ($params as $param) {
 	}
 }
 
-if ((!empty($config['base_url'])) && Minz_Request::serverIsPublic($config['base_url'])) {
+if ((!empty($config['base_url'])) && Minz\Request::serverIsPublic($config['base_url'])) {
 	$config['pubsubhubbub_enabled'] = true;
 }
 
@@ -86,10 +86,10 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+Minz\Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+FreshRSS_Context::$system_conf = Minz\Configuration::get('system');
 
-Minz_Session::_param('currentUser', '_');	//Default user
+Minz\Session::_param('currentUser', '_');	//Default user
 
 $ok = false;
 try {

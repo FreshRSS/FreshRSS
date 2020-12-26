@@ -1,9 +1,11 @@
 <?php
 
+namespace Minz;
+
 /**
  * The extension base class.
  */
-class Minz_Extension {
+class Extension {
 	private $name;
 	private $entrypoint;
 	private $path;
@@ -146,7 +148,7 @@ class Minz_Extension {
 	}
 	private function setType($type) {
 		if (!in_array($type, self::$authorized_types)) {
-			throw new Minz_ExtensionException('invalid `type` info', $this->name);
+			throw new ExtensionException('invalid `type` info', $this->name);
 		}
 		$this->type = $type;
 	}
@@ -168,7 +170,7 @@ class Minz_Extension {
 		$url = '/ext.php?f=' . $file_name_url .
 		       '&amp;t=' . $type .
 		       '&amp;' . $mtime;
-		return Minz_Url::display($url, 'php');
+		return Url::display($url, 'php');
 	}
 
 	/**
@@ -178,14 +180,14 @@ class Minz_Extension {
 	 *                   FreshExtension_<base_name>_Controller.
 	 */
 	public function registerController($base_name) {
-		Minz_Dispatcher::registerController($base_name, $this->path);
+		Dispatcher::registerController($base_name, $this->path);
 	}
 
 	/**
 	 * Register the views in order to be accessible by the application.
 	 */
 	public function registerViews() {
-		Minz_View::addBasePathname($this->path);
+		View::addBasePathname($this->path);
 	}
 
 	/**
@@ -193,7 +195,7 @@ class Minz_Extension {
 	 */
 	public function registerTranslates() {
 		$i18n_dir = $this->path . '/i18n';
-		Minz_Translate::registerPath($i18n_dir);
+		Translate::registerPath($i18n_dir);
 	}
 
 	/**
@@ -203,6 +205,6 @@ class Minz_Extension {
 	 * @param $hook_function the function name to call (must be callable).
 	 */
 	public function registerHook($hook_name, $hook_function) {
-		Minz_ExtensionManager::addHook($hook_name, $hook_function, $this);
+		ExtensionManager::addHook($hook_name, $hook_function, $this);
 	}
 }

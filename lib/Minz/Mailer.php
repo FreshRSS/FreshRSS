@@ -1,12 +1,14 @@
 <?php
 
+namespace Minz;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 /**
  * Allow to send emails.
  *
- * The Minz_Mailer class must be inherited by classes under app/Mailers.
+ * The Mailer class must be inherited by classes under app/Mailers.
  * They work similarly to the ActionControllers in the way they have a view to
  * which you can pass params (eg. $this->view->foo = 'bar').
  *
@@ -17,18 +19,18 @@ use PHPMailer\PHPMailer\Exception;
  * $this->view->_path('user_mailer/email_need_validation.txt')
  * ```
  *
- * Minz_Mailer uses the PHPMailer library under the hood. The latter requires
- * PHP >= 5.5 to work. If you instantiate a Minz_Mailer with PHP < 5.5, a
+ * Mailer uses the PHPMailer library under the hood. The latter requires
+ * PHP >= 5.5 to work. If you instantiate a Mailer with PHP < 5.5, a
  * warning will be logged.
  *
  * The email is sent by calling the `mail` method.
  */
-class Minz_Mailer {
+class Mailer {
 	/**
 	 * The view attached to the mailer.
 	 * You should set its file with `$this->view->_path($path)`
 	 *
-	 * @var Minz_View
+	 * @var View
 	 */
 	protected $view;
 
@@ -39,14 +41,14 @@ class Minz_Mailer {
 	 */
 	public function __construct () {
 		if (version_compare(PHP_VERSION, '5.5') < 0) {
-			Minz_Log::warning('Minz_Mailer cannot be used with a version of PHP < 5.5.');
+			Log::warning('Mailer cannot be used with a version of PHP < 5.5.');
 		}
 
-		$this->view = new Minz_View();
+		$this->view = new View();
 		$this->view->_layout(false);
 		$this->view->attributeParams();
 
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$this->mailer = $conf->mailer;
 		$this->smtp_config = $conf->smtp;
 
@@ -108,7 +110,7 @@ class Minz_Mailer {
 			$mail->send();
 			return true;
 		} catch (Exception $e) {
-			Minz_Log::error('Minz_Mailer cannot send a message: ' . $mail->ErrorInfo);
+			Log::error('Mailer cannot send a message: ' . $mail->ErrorInfo);
 			return false;
 		}
 	}

@@ -1,5 +1,8 @@
 <?php
-class Minz_CurrentPagePaginationException extends Minz_Exception {
+
+namespace Minz;
+
+class CurrentPagePaginationException extends Exception {
 	public function __construct ($page) {
 		$message = 'Page number `' . $page . '` doesn\'t exist';
 

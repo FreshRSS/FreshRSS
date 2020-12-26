@@ -16,7 +16,7 @@ $today = @strtotime('today');
 
 <div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
 	<div id="new-article">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Minz\Url::display(Minz\Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
@@ -24,7 +24,7 @@ $today = @strtotime('today');
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
-		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		$this->entry = Minz\ExtensionManager::callHook('entry_before_display', $item);
 		if ($this->entry == null) {
 			continue;
 		}

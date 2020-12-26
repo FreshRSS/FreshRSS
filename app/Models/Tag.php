@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Tag extends Minz_Model {
+class FreshRSS_Tag extends Minz\Model {
 	private $id = 0;
 	private $name;
 	private $attributes = [];

@@ -1,23 +1,23 @@
 <ul class="nav nav-list aside">
 	<li class="nav-header"><?= _t('sub.menu.subscription_management') ?></li>
 
-	<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'add' ? ' active' : '' ?>">
+	<li class="item<?= Minz\Request::controllerName() === 'subscription' && Minz\Request::actionName() === 'add' ? ' active' : '' ?>">
 		<a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.menu.add') ?></a>
 	</li>
 
-	<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
+	<li class="item<?= Minz\Request::controllerName() === 'subscription' && Minz\Request::actionName() === 'index' ? ' active' : '' ?>">
 		<a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.menu.subscription_management') ?></a>
 	</li>
 
-	<li class="item<?= Minz_Request::controllerName() === 'tag' ? ' active' : '' ?>">
+	<li class="item<?= Minz\Request::controllerName() === 'tag' ? ' active' : '' ?>">
 		<a href="<?= _url('tag', 'index') ?>"><?= _t('sub.menu.tag_management') ?></a>
 	</li>
 
-	<li class="item<?= Minz_Request::controllerName() === 'importExport' ? ' active' : '' ?>">
+	<li class="item<?= Minz\Request::controllerName() === 'importExport' ? ' active' : '' ?>">
 		<a href="<?= _url('importExport', 'index') ?>"><?= _t('sub.menu.import_export') ?></a>
 	</li>
 
-	<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'bookmarklet' ? ' active' : '' ?>">
+	<li class="item<?= Minz\Request::controllerName() === 'subscription' && Minz\Request::actionName() === 'bookmarklet' ? ' active' : '' ?>">
 		<a href="<?= _url('subscription', 'bookmarklet') ?>"><?= _t('sub.menu.subscription_tools') ?></a>
 	</li>
 </ul>

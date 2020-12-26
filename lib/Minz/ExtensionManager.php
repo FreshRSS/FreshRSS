@@ -1,11 +1,13 @@
 <?php
 
+namespace Minz;
+
 /**
  * An extension manager to load extensions present in CORE_EXTENSIONS_PATH and THIRDPARTY_EXTENSIONS_PATH.
  *
  * @todo see coding style for methods!!
  */
-class Minz_ExtensionManager {
+class ExtensionManager {
 	private static $ext_metaname = 'metadata.json';
 	private static $ext_entry_point = 'extension.php';
 	private static $ext_list = array();
@@ -75,7 +77,7 @@ class Minz_ExtensionManager {
 	 * `name` and `entry_point`.
 	 * extension.php should contain at least a class named <name>Extension where
 	 * <name> must match with the entry point in metadata.json. This class must
-	 * inherit from Minz_Extension class.
+	 * inherit from Extension class.
 	 */
 	public static function init() {
 		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH), [ '..', '.' ]);
@@ -85,7 +87,7 @@ class Minz_ExtensionManager {
 
 		$list_potential_extensions = array_merge($list_core_extensions, $list_thirdparty_extensions);
 
-		$system_conf = Minz_Configuration::get('system');
+		$system_conf = Configuration::get('system');
 		self::$ext_auto_enabled = $system_conf->extensions_enabled;
 
 		foreach ($list_potential_extensions as $ext_pathname) {
@@ -104,7 +106,7 @@ class Minz_ExtensionManager {
 			if (!$meta_json || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
 				// or metadata.json is invalid (no required information), invalid!
-				Minz_Log::warning('`' . $metadata_filename . '` is not a valid metadata file');
+				Log::warning('`' . $metadata_filename . '` is not a valid metadata file');
 				continue;
 			}
 
@@ -141,7 +143,7 @@ class Minz_ExtensionManager {
 	 * Load the extension source code based on info metadata.
 	 *
 	 * @param array $info an array containing information about extension.
-	 * @return Minz_Extension|null an extension inheriting from Minz_Extension.
+	 * @return Extension|null an extension inheriting from Extension.
 	 */
 	public static function load($info) {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
@@ -151,7 +153,7 @@ class Minz_ExtensionManager {
 
 		// Test if the given extension class exists.
 		if (!class_exists($ext_class_name)) {
-			Minz_Log::warning('`' . $ext_class_name .
+			Log::warning('`' . $ext_class_name .
 			                  '` cannot be found in `' . $entry_point_filename . '`');
 			return null;
 		}
@@ -162,14 +164,14 @@ class Minz_ExtensionManager {
 			$extension = new $ext_class_name($info);
 		} catch (Exception $e) {
 			// We cannot load the extension? Invalid!
-			Minz_Log::warning('Invalid extension `' . $ext_class_name . '`: ' . $e->getMessage());
+			Log::warning('Invalid extension `' . $ext_class_name . '`: ' . $e->getMessage());
 			return null;
 		}
 
 		// Test if class is correct.
-		if (!($extension instanceof Minz_Extension)) {
-			Minz_Log::warning('`' . $ext_class_name .
-			                  '` is not an instance of `Minz_Extension`');
+		if (!($extension instanceof Extension)) {
+			Log::warning('`' . $ext_class_name .
+			                  '` is not an instance of `Extension`');
 			return null;
 		}
 
@@ -182,7 +184,7 @@ class Minz_ExtensionManager {
 	 * If the extension is present in $ext_auto_enabled and if its type is "system",
 	 * it will be enabled in the same time.
 	 *
-	 * @param Minz_Extension $ext a valid extension.
+	 * @param Extension $ext a valid extension.
 	 */
 	public static function register($ext) {
 		$name = $ext->getName();
@@ -202,7 +204,7 @@ class Minz_ExtensionManager {
 	 *
 	 * The extension init() method will be called.
 	 *
-	 * @param Minz_Extension $ext_name is the name of a valid extension present in $ext_list.
+	 * @param Extension $ext_name is the name of a valid extension present in $ext_list.
 	 */
 	public static function enable($ext_name) {
 		if (isset(self::$ext_list[$ext_name])) {
@@ -235,7 +237,7 @@ class Minz_ExtensionManager {
 	 * Return a list of extensions.
 	 *
 	 * @param bool $only_enabled if true returns only the enabled extensions (false by default).
-	 * @return Minz_Extension[] an array of extensions.
+	 * @return Extension[] an array of extensions.
 	 */
 	public static function listExtensions($only_enabled = false) {
 		if ($only_enabled) {
@@ -249,7 +251,7 @@ class Minz_ExtensionManager {
 	 * Return an extension by its name.
 	 *
 	 * @param string $ext_name the name of the extension.
-	 * @return Minz_Extension|null the corresponding extension or null if it doesn't exist.
+	 * @return Extension|null the corresponding extension or null if it doesn't exist.
 	 */
 	public static function findExtension($ext_name) {
 		if (!isset(self::$ext_list[$ext_name])) {
@@ -267,7 +269,7 @@ class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
-	 * @param Minz_Extension $ext the extension which register the hook.
+	 * @param Extension $ext the extension which register the hook.
 	 */
 	public static function addHook($hook_name, $hook_function, $ext) {
 		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {

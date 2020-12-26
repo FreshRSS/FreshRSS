@@ -4,7 +4,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
 			?><li class="item"><?= _i('logout') ?> <a class="signout" href="<?= _url('auth', 'logout') ?>"><?php
-				echo _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li><?php
+				echo _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz\Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li><?php
 		} else {
 			?><li class="item"><?= _i('login') ?> <a class="signin" href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a></li><?php
 		}
@@ -29,17 +29,17 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<input type="search" name="search" id="search" class="extend" value="<?php
 					echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?= _t('gen.menu.search') ?>" />
 
-				<?php $get = Minz_Request::param('get', ''); ?>
+				<?php $get = Minz\Request::param('get', ''); ?>
 				<?php if ($get != '') { ?>
 				<input type="hidden" name="get" value="<?= $get ?>" />
 				<?php } ?>
 
-				<?php $order = Minz_Request::param('order', ''); ?>
+				<?php $order = Minz\Request::param('order', ''); ?>
 				<?php if ($order != '') { ?>
 				<input type="hidden" name="order" value="<?= $order ?>" />
 				<?php } ?>
 
-				<?php $state = Minz_Request::param('state', ''); ?>
+				<?php $state = Minz\Request::param('state', ''); ?>
 				<?php if ($state != '') { ?>
 				<input type="hidden" name="state" value="<?= $state ?>" />
 				<?php } ?>
@@ -66,7 +66,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<li class="item"><a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a></li>
 				<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 				<li class="item"><a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a></li>
-				<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
+				<?= Minz\ExtensionManager::callHook('menu_configuration_entry') ?>
 
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="separator"></li>
@@ -75,24 +75,24 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<li class="item"><a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a></li>
 				<li class="item"><a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a></li>
 				<li class="item"><a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a></li>
-				<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
+				<?php if (!Minz\Configuration::get('system')->disable_update) { ?>
 				<li class="item"><a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a></li>
 				<?php } ?>
-				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
+				<?= Minz\ExtensionManager::callHook('menu_admin_entry') ?>
 				<?php } ?>
 
 				<li class="separator"></li>
 				<li class="item"><a href="<?= _url('stats', 'index') ?>"><?= _t('gen.menu.stats') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
-				<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
+				<?= Minz\ExtensionManager::callHook('menu_other_entry') ?>
 
 				<li class="separator"></li>
 				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
 				<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?php
-					echo _i('logout') . ' ' . _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li>
+					echo _i('logout') . ' ' . _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz\Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li>
 				<?php else: ?>
-				<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
+				<li class="item"><span class="signout">(<?= htmlspecialchars(Minz\Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
 				<?php endif; ?>
 			</ul>
 		</div>

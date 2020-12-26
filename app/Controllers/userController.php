@@ -3,7 +3,7 @@
 /**
  * Controller to handle user actions.
  */
-class FreshRSS_user_Controller extends Minz_ActionController {
+class FreshRSS_user_Controller extends Minz\ActionController {
 	/**
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.
@@ -50,28 +50,28 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 	public function updateAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		if (Minz_Request::isPost()) {
-			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
-			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
+		if (Minz\Request::isPost()) {
+			$passwordPlain = Minz\Request::param('newPasswordPlain', '', true);
+			Minz\Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
 			$_POST['newPasswordPlain'] = '';
 
-			$username = Minz_Request::param('username');
+			$username = Minz\Request::param('username');
 			$ok = self::updateUser($username, null, $passwordPlain, array(
-				'token' => Minz_Request::param('token', null),
+				'token' => Minz\Request::param('token', null),
 			));
 
 			if ($ok) {
-				$isSelfUpdate = Minz_Session::param('currentUser', '_') === $username;
+				$isSelfUpdate = Minz\Session::param('currentUser', '_') === $username;
 				if ($passwordPlain == '' || !$isSelfUpdate) {
-					Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
+					Minz\Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
+					Minz\Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.user.updated.error', $username),
+				Minz\Request::bad(_t('feedback.user.updated.error', $username),
 				                  array('c' => 'user', 'a' => 'manage'));
 			}
 		}
@@ -82,7 +82,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function profileAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		$email_not_verified = FreshRSS_Context::$user_conf->email_validation_token != '';
@@ -92,55 +92,55 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$this->view->disable_aside = true;
 		}
 
-		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
+		Minz\View::prependTitle(_t('conf.profile.title') . ' · ');
 
-		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+		Minz\View::appendScript(Minz\Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
-		if (Minz_Request::isPost()) {
+		if (Minz\Request::isPost()) {
 			$system_conf = FreshRSS_Context::$system_conf;
 			$user_config = FreshRSS_Context::$user_conf;
 			$old_email = $user_config->mail_login;
 
-			$email = trim(Minz_Request::param('email', ''));
-			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
-			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
+			$email = trim(Minz\Request::param('email', ''));
+			$passwordPlain = Minz\Request::param('newPasswordPlain', '', true);
+			Minz\Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
 			$_POST['newPasswordPlain'] = '';
 
 			if ($system_conf->force_email_validation && empty($email)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.email.feedback.required'),
 					array('c' => 'user', 'a' => 'profile')
 				);
 			}
 
 			if (!empty($email) && !validateEmailAddress($email)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.email.feedback.invalid'),
 					array('c' => 'user', 'a' => 'profile')
 				);
 			}
 
 			$ok = self::updateUser(
-				Minz_Session::param('currentUser'),
+				Minz\Session::param('currentUser'),
 				$email,
 				$passwordPlain,
 				array(
-					'token' => Minz_Request::param('token', null),
+					'token' => Minz\Request::param('token', null),
 				)
 			);
 
-			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
+			Minz\Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
 
 			if ($ok) {
 				if ($system_conf->force_email_validation && $email !== $old_email) {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'validateEmail'));
+					Minz\Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'validateEmail'));
 				} elseif ($passwordPlain == '') {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'profile'));
+					Minz\Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'profile'));
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
+					Minz\Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.profile.error'),
+				Minz\Request::bad(_t('feedback.profile.error'),
 				                  array('c' => 'user', 'a' => 'profile'));
 			}
 		}
@@ -148,14 +148,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 	public function purgeAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		if (Minz_Request::isPost()) {
-			$username = Minz_Request::param('username');
+		if (Minz\Request::isPost()) {
+			$username = Minz\Request::param('username');
 
 			if (!FreshRSS_UserDAO::exists($username)) {
-				Minz_Error::error(404);
+				Minz\Error::error(404);
 			}
 
 			$feedDAO = FreshRSS_Factory::createFeedDao($username);
@@ -168,13 +168,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function manageAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('admin.user.title') . ' · ');
+		Minz\View::prependTitle(_t('admin.user.title') . ' · ');
 
-		if (Minz_Request::isPost()) {
-			$action = Minz_Request::param('action');
+		if (Minz\Request::isPost()) {
+			$action = Minz\Request::param('action');
 			switch ($action) {
 				case 'delete':
 					$this->deleteAction();
@@ -201,7 +201,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
-		$this->view->current_user = Minz_Request::param('u');
+		$this->view->current_user = Minz\Request::param('u');
 
 		foreach (listUsers() as $user) {
 			$this->view->users[$user] = $this->retrieveUserDetails($user);
@@ -227,7 +227,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
 
 		if ($ok) {
-			$languages = Minz_Translate::availableLanguages();
+			$languages = Minz\Translate::availableLanguages();
 			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages)) {
 				$userConfig['language'] = 'en';
 			}
@@ -256,7 +256,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				try {
 					$importController->importFile($opmlPath, $opmlPath, $new_user_name);
 				} catch (Exception $e) {
-					Minz_Log::error('Error while importing default OPML for user ' . $new_user_name . ': ' . $e->getMessage());
+					Minz\Log::error('Error while importing default OPML for user ' . $new_user_name . ': ' . $e->getMessage());
 				}
 			}
 
@@ -276,71 +276,71 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 *   - r (i.e. a redirection url, optional)
 	 *
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
-	 * @todo handle r redirection in Minz_Request::forward directly?
+	 * @todo handle r redirection in Minz\Request::forward directly?
 	 */
 	public function createAction() {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		if (Minz_Request::isPost()) {
+		if (Minz\Request::isPost()) {
 			$system_conf = FreshRSS_Context::$system_conf;
 
-			$new_user_name = Minz_Request::param('new_user_name');
-			$email = Minz_Request::param('new_user_email', '');
-			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
+			$new_user_name = Minz\Request::param('new_user_name');
+			$email = Minz\Request::param('new_user_email', '');
+			$passwordPlain = Minz\Request::param('new_user_passwordPlain', '', true);
 
 			if (!self::checkUsername($new_user_name)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.username.invalid'),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}
 
 			if (FreshRSS_UserDAO::exists($new_user_name)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.username.taken', $new_user_name),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}
 
 			if (!FreshRSS_password_Util::check($passwordPlain)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.password.invalid'),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}
 
 			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
-			$accept_tos = Minz_Request::param('accept_tos', false);
+			$accept_tos = Minz\Request::param('accept_tos', false);
 
 			if ($system_conf->force_email_validation && empty($email)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.email.feedback.required'),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}
 
 			if (!empty($email) && !validateEmailAddress($email)) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.email.feedback.invalid'),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}
 
 			if ($tos_enabled && !$accept_tos) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.tos.feedback.invalid'),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}
 
 			$ok = self::createUser($new_user_name, $email, $passwordPlain, array(
-				'language' => Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language),
-				'is_admin' => Minz_Request::paramBoolean('new_user_is_admin'),
+				'language' => Minz\Request::param('new_user_language', FreshRSS_Context::$user_conf->language),
+				'is_admin' => Minz\Request::paramBoolean('new_user_is_admin'),
 				'enabled' => true,
 			));
-			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
+			Minz\Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
 			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
 
@@ -350,7 +350,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			// get started immediately.
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = get_user_configuration($new_user_name);
-				Minz_Session::_params([
+				Minz\Session::_params([
 					'currentUser' => $new_user_name,
 					'passwordHash' => $user_conf->passwordHash,
 					'csrf' => false,
@@ -359,17 +359,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 
 			if ($ok) {
-				Minz_Request::setGoodNotification(_t('feedback.user.created', $new_user_name));
+				Minz\Request::setGoodNotification(_t('feedback.user.created', $new_user_name));
 			} else {
-				Minz_Request::setBadNotification(_t('feedback.user.created.error', $new_user_name));
+				Minz\Request::setBadNotification(_t('feedback.user.created.error', $new_user_name));
 			}
 		}
 
-		$redirect_url = urldecode(Minz_Request::param('r', false, true));
+		$redirect_url = urldecode(Minz\Request::param('r', false, true));
 		if (!$redirect_url) {
 			$redirect_url = array('c' => 'user', 'a' => 'manage');
 		}
-		Minz_Request::forward($redirect_url, true);
+		Minz\Request::forward($redirect_url, true);
 	}
 
 	public static function deleteUser($username) {
@@ -409,29 +409,29 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function validateEmailAction() {
 		if (!FreshRSS_Context::$system_conf->force_email_validation) {
-			Minz_Error::error(404);
+			Minz\Error::error(404);
 		}
 
-		Minz_View::prependTitle(_t('user.email.validation.title') . ' · ');
+		Minz\View::prependTitle(_t('user.email.validation.title') . ' · ');
 		$this->view->_layout('simple');
 
-		$username = Minz_Request::param('username');
-		$token = Minz_Request::param('token');
+		$username = Minz\Request::param('username');
+		$token = Minz\Request::param('token');
 
 		if ($username) {
 			$user_config = get_user_configuration($username);
 		} elseif (FreshRSS_Auth::hasAccess()) {
 			$user_config = FreshRSS_Context::$user_conf;
 		} else {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		if (!FreshRSS_UserDAO::exists($username) || $user_config === null) {
-			Minz_Error::error(404);
+			Minz\Error::error(404);
 		}
 
 		if ($user_config->email_validation_token === '') {
-			Minz_Request::good(
+			Minz\Request::good(
 				_t('user.email.validation.feedback.unnecessary'),
 				array('c' => 'index', 'a' => 'index')
 			);
@@ -439,7 +439,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		if ($token) {
 			if ($user_config->email_validation_token !== $token) {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.email.validation.feedback.wrong_token'),
 					array('c' => 'user', 'a' => 'validateEmail')
 				);
@@ -447,12 +447,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$user_config->email_validation_token = '';
 			if ($user_config->save()) {
-				Minz_Request::good(
+				Minz\Request::good(
 					_t('user.email.validation.feedback.ok'),
 					array('c' => 'index', 'a' => 'index')
 				);
 			} else {
-				Minz_Request::bad(
+				Minz\Request::bad(
 					_t('user.email.validation.feedback.error'),
 					array('c' => 'user', 'a' => 'validateEmail')
 				);
@@ -472,18 +472,18 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function sendValidationEmailAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		if (!Minz_Request::isPost()) {
-			Minz_Error::error(404);
+		if (!Minz\Request::isPost()) {
+			Minz\Error::error(404);
 		}
 
-		$username = Minz_Session::param('currentUser', '_');
+		$username = Minz\Session::param('currentUser', '_');
 		$user_config = FreshRSS_Context::$user_conf;
 
 		if ($user_config->email_validation_token === '') {
-			Minz_Request::forward(array(
+			Minz\Request::forward(array(
 				'c' => 'index',
 				'a' => 'index',
 			), true);
@@ -494,12 +494,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		$redirect_url = array('c' => 'user', 'a' => 'validateEmail');
 		if ($ok) {
-			Minz_Request::good(
+			Minz\Request::good(
 				_t('user.email.validation.feedback.email_sent'),
 				$redirect_url
 			);
 		} else {
-			Minz_Request::bad(
+			Minz\Request::bad(
 				_t('user.email.validation.feedback.email_failed'),
 				$redirect_url
 			);
@@ -515,24 +515,24 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * @todo clean up this method. Idea: create a User->clean() method.
 	 */
 	public function deleteAction() {
-		$username = Minz_Request::param('username');
-		$self_deletion = Minz_Session::param('currentUser', '_') === $username;
+		$username = Minz\Request::param('username');
+		$self_deletion = Minz\Session::param('currentUser', '_') === $username;
 
 		if (!FreshRSS_Auth::hasAccess('admin') && !$self_deletion) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		$redirect_url = urldecode(Minz_Request::param('r', false, true));
+		$redirect_url = urldecode(Minz\Request::param('r', false, true));
 		if (!$redirect_url) {
 			$redirect_url = array('c' => 'user', 'a' => 'manage');
 		}
 
-		if (Minz_Request::isPost()) {
+		if (Minz\Request::isPost()) {
 			$ok = true;
 			if ($ok && $self_deletion) {
 				// We check the password if it's a self-destruction
-				$nonce = Minz_Session::param('nonce');
-				$challenge = Minz_Request::param('challenge', '');
+				$nonce = Minz\Session::param('nonce');
+				$challenge = Minz\Request::param('challenge', '');
 
 				$ok &= FreshRSS_FormAuth::checkCredentials(
 					$username, FreshRSS_Context::$user_conf->passwordHash,
@@ -549,13 +549,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::setGoodNotification(_t('feedback.user.deleted', $username));
+				Minz\Request::setGoodNotification(_t('feedback.user.deleted', $username));
 			} else {
-				Minz_Request::setBadNotification(_t('feedback.user.deleted.error', $username));
+				Minz\Request::setBadNotification(_t('feedback.user.deleted.error', $username));
 			}
 		}
 
-		Minz_Request::forward($redirect_url, true);
+		Minz\Request::forward($redirect_url, true);
 	}
 
 	public function promoteAction() {
@@ -576,20 +576,20 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 	private function toggleAction($field, $value) {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		if (!Minz_Request::isPost()) {
-			Minz_Error::error(403);
+		if (!Minz\Request::isPost()) {
+			Minz\Error::error(403);
 		}
 
-		$username = Minz_Request::param('username');
+		$username = Minz\Request::param('username');
 		if (!FreshRSS_UserDAO::exists($username)) {
-			Minz_Error::error(404);
+			Minz\Error::error(404);
 		}
 
 		if (null === $userConfig = get_user_configuration($username)) {
-			Minz_Error::error(500);
+			Minz\Error::error(500);
 		}
 
 		$userConfig->_param($field, $value);
@@ -598,21 +598,21 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		FreshRSS_UserDAO::touch($username);
 
 		if ($ok) {
-			Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
+			Minz\Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
 		} else {
-			Minz_Request::bad(_t('feedback.user.updated.error', $username),
+			Minz\Request::bad(_t('feedback.user.updated.error', $username),
 							  array('c' => 'user', 'a' => 'manage'));
 		}
 	}
 
 	public function detailsAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
-		$username = Minz_Request::param('username');
+		$username = Minz\Request::param('username');
 		if (!FreshRSS_UserDAO::exists($username)) {
-			Minz_Error::error(404);
+			Minz\Error::error(404);
 		}
 
 		$this->view->username = $username;

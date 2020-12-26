@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * Request représente la requête http
  */
-class Minz_Request {
+class Request {
 	private static $controller_name = '';
 	private static $action_name = '';
 	private static $params = array();
@@ -33,7 +36,7 @@ class Minz_Request {
 			if (is_object($p) || $specialchars) {
 				return $p;
 			} else {
-				return Minz_Helper::htmlspecialchars_utf8($p);
+				return Helper::htmlspecialchars_utf8($p);
 			}
 		} else {
 			return $default;
@@ -220,7 +223,7 @@ class Minz_Request {
 	 * @return the base_url with a suffix.
 	 */
 	public static function getBaseUrl() {
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$url = rtrim($conf->base_url, '/\\');
 		return filter_var($url, FILTER_SANITIZE_URL);
 	}
@@ -269,14 +272,14 @@ class Minz_Request {
 	}
 
 	private static function setNotification($type, $content) {
-		Minz_Session::lock();
-		$requests = Minz_Session::param('requests', []);
+		Session::lock();
+		$requests = Session::param('requests', []);
 		$requests[self::requestId()] = [
 				'time' => time(),
 				'notification' => [ 'type' => $type, 'content' => $content ],
 			];
-		Minz_Session::_param('requests', $requests);
-		Minz_Session::unlock();
+		Session::_param('requests', $requests);
+		Session::unlock();
 	}
 
 	public static function setGoodNotification($content) {
@@ -289,8 +292,8 @@ class Minz_Request {
 
 	public static function getNotification() {
 		$notif = null;
-		Minz_Session::lock();
-		$requests = Minz_Session::param('requests');
+		Session::lock();
+		$requests = Session::param('requests');
 		if ($requests) {
 			//Delete abandonned notifications
 			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
@@ -300,9 +303,9 @@ class Minz_Request {
 				$notif = $requests[$requestId]['notification'];
 				unset($requests[$requestId]);
 			}
-			Minz_Session::_param('requests', $requests);
+			Session::_param('requests', $requests);
 		}
-		Minz_Session::unlock();
+		Session::unlock();
 		return $notif;
 	}
 
@@ -318,11 +321,11 @@ class Minz_Request {
 			exit();
 		}
 
-		$url = Minz_Url::checkUrl($url);
+		$url = Url::checkUrl($url);
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
-			header('Location: ' . Minz_Url::display($url, 'php'));
+			header('Location: ' . Url::display($url, 'php'));
 			exit();
 		} else {
 			self::_controllerName($url['c']);
@@ -331,7 +334,7 @@ class Minz_Request {
 				self::$params,
 				$url['params']
 			));
-			Minz_Dispatcher::reset();
+			Dispatcher::reset();
 		}
 	}
 
@@ -342,13 +345,13 @@ class Minz_Request {
 	 * @param $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
-		Minz_Request::setGoodNotification($msg);
-		Minz_Request::forward($url, true);
+		Request::setGoodNotification($msg);
+		Request::forward($url, true);
 	}
 
 	public static function bad($msg, $url = array()) {
-		Minz_Request::setBadNotification($msg);
-		Minz_Request::forward($url, true);
+		Request::setBadNotification($msg);
+		Request::forward($url, true);
 	}
 
 

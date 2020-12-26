@@ -9,9 +9,9 @@
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
 		<?= self::headScript() ?>
-		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
-		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
-		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz\Url::display('/favicon.ico') ?>" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz\Url::display('/themes/icons/favicon-256.png') ?>" />
+		<link rel="apple-touch-icon" href="<?= Minz\Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
@@ -41,7 +41,7 @@
 				<a class="signout" href="<?= _url('auth', 'logout') ?>">
 					<?= _i('logout') . _t('gen.auth.logout') ?>
 
-					(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)
+					(<?= htmlspecialchars(Minz\Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)
 				</a>
 			<?php } ?>
 		</div>

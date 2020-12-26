@@ -11,7 +11,7 @@
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
 			<div class="group-controls">
 				<select name="new_user_language" id="new_user_language">
-				<?php $languages = Minz_Translate::availableLanguages(); ?>
+				<?php $languages = Minz\Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $lang) { ?>
 				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>

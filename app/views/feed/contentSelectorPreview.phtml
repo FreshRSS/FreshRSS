@@ -3,7 +3,7 @@
 <html class="preview_background" lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
 	<head>
 		<?= self::headStyle() ?>
-		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>
+		<script src="<?= Minz\Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>
 	</head>
 	<body class="preview_background">
 		<?php if ($this->fatalError != '') { ?>

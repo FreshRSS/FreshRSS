@@ -3,14 +3,14 @@
 /**
  * This controller manage API-related features.
  */
-class FreshRSS_api_Controller extends Minz_ActionController {
+class FreshRSS_api_Controller extends Minz\ActionController {
 
 	/**
 	 * Update the user API password.
 	 * Return an error message, or `false` if no error.
 	 */
 	public static function updatePassword($apiPasswordPlain) {
-		$username = Minz_Session::param('currentUser');
+		$username = Minz\Session::param('currentUser');
 		$userConfig = FreshRSS_Context::$user_conf;
 
 		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
@@ -37,26 +37,26 @@ class FreshRSS_api_Controller extends Minz_ActionController {
 	 */
 	public function updatePasswordAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		$return_url = array('c' => 'user', 'a' => 'profile');
 
-		if (!Minz_Request::isPost()) {
-			Minz_Request::forward($return_url, true);
+		if (!Minz\Request::isPost()) {
+			Minz\Request::forward($return_url, true);
 		}
 
-		$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+		$apiPasswordPlain = Minz\Request::param('apiPasswordPlain', '', true);
 		$apiPasswordPlain = trim($apiPasswordPlain);
 		if ($apiPasswordPlain == '') {
-			Minz_Request::forward($return_url, true);
+			Minz\Request::forward($return_url, true);
 		}
 
 		$error = self::updatePassword($apiPasswordPlain);
 		if ($error) {
-			Minz_Request::bad($error, $return_url);
+			Minz\Request::bad($error, $return_url);
 		} else {
-			Minz_Request::good(_t('feedback.api.password.updated'), $return_url);
+			Minz\Request::good(_t('feedback.api.password.updated'), $return_url);
 		}
 	}
 }

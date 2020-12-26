@@ -82,7 +82,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 			if ($this->pdo->exec($sql) === false) {
 				$ok = false;
 				$info = $this->pdo->errorInfo();
-				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+				Minz\Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			}
 		}
 		return $ok;

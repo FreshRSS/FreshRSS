@@ -3,7 +3,7 @@
 /**
  * The controller to manage extensions.
  */
-class FreshRSS_extension_Controller extends Minz_ActionController {
+class FreshRSS_extension_Controller extends Minz\ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -11,7 +11,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 	}
 
@@ -19,7 +19,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 * This action lists all the extensions available to the current user.
 	 */
 	public function indexAction() {
-		Minz_View::prependTitle(_t('admin.extensions.title') . ' · ');
+		Minz\View::prependTitle(_t('admin.extensions.title') . ' · ');
 		$this->view->extension_list = array(
 			'system' => array(),
 			'user' => array(),
@@ -27,7 +27,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		$this->view->extensions_installed = array();
 
-		$extensions = Minz_ExtensionManager::listExtensions();
+		$extensions = Minz\ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
 			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
@@ -46,14 +46,14 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		// we ran into problems, simply ignore them
 		if ($json === false) {
-			Minz_Log::error('Could not fetch available extension from GitHub');
+			Minz\Log::error('Could not fetch available extension from GitHub');
 			return array();
 		}
 
 		// fetch the list as an array
 		$list = json_decode($json, true);
 		if (empty($list)) {
-			Minz_Log::warning('Failed to convert extension file list');
+			Minz\Log::warning('Failed to convert extension file list');
 			return array();
 		}
 
@@ -79,21 +79,21 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 *   handleConfigureAction() method (POST request).
 	 */
 	public function configureAction() {
-		if (Minz_Request::param('ajax')) {
+		if (Minz\Request::param('ajax')) {
 			$this->view->_layout(false);
 		} else {
 			$this->indexAction();
 			$this->view->_path('extension/index.phtml');
 		}
 
-		$ext_name = urldecode(Minz_Request::param('e'));
-		$ext = Minz_ExtensionManager::findExtension($ext_name);
+		$ext_name = urldecode(Minz\Request::param('e'));
+		$ext = Minz\ExtensionManager::findExtension($ext_name);
 
 		if (is_null($ext)) {
-			Minz_Error::error(404);
+			Minz\Error::error(404);
 		}
 		if ($ext->getType() === 'system' && !FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		$this->view->extension = $ext;
@@ -112,17 +112,17 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	public function enableAction() {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
-		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
-			$ext = Minz_ExtensionManager::findExtension($ext_name);
+		if (Minz\Request::isPost()) {
+			$ext_name = urldecode(Minz\Request::param('e'));
+			$ext = Minz\ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.not_found', $ext_name),
 				                  $url_redirect);
 			}
 
 			if ($ext->isEnabled()) {
-				Minz_Request::bad(_t('feedback.extensions.already_enabled', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.already_enabled', $ext_name),
 				                  $url_redirect);
 			}
 
@@ -132,7 +132,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			} elseif ($ext->getType() === 'user') {
 				$conf = FreshRSS_Context::$user_conf;
 			} else {
-				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.no_access', $ext_name),
 				                  $url_redirect);
 			}
 
@@ -144,16 +144,16 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name),
+				Minz\Request::good(_t('feedback.extensions.enable.ok', $ext_name),
 				                   $url_redirect);
 			} else {
-				Minz_Log::warning('Can not enable extension ' . $ext_name . ': ' . $res);
-				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')),
+				Minz\Log::warning('Can not enable extension ' . $ext_name . ': ' . $res);
+				Minz\Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')),
 				                  $url_redirect);
 			}
 		}
 
-		Minz_Request::forward($url_redirect, true);
+		Minz\Request::forward($url_redirect, true);
 	}
 
 	/**
@@ -168,17 +168,17 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	public function disableAction() {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
-		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
-			$ext = Minz_ExtensionManager::findExtension($ext_name);
+		if (Minz\Request::isPost()) {
+			$ext_name = urldecode(Minz\Request::param('e'));
+			$ext = Minz\ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.not_found', $ext_name),
 				                  $url_redirect);
 			}
 
 			if (!$ext->isEnabled()) {
-				Minz_Request::bad(_t('feedback.extensions.not_enabled', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.not_enabled', $ext_name),
 				                  $url_redirect);
 			}
 
@@ -188,7 +188,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			} elseif ($ext->getType() === 'user') {
 				$conf = FreshRSS_Context::$user_conf;
 			} else {
-				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.no_access', $ext_name),
 				                  $url_redirect);
 			}
 
@@ -204,16 +204,16 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name),
+				Minz\Request::good(_t('feedback.extensions.disable.ok', $ext_name),
 				                   $url_redirect);
 			} else {
-				Minz_Log::warning('Can not unable extension ' . $ext_name . ': ' . $res);
-				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')),
+				Minz\Log::warning('Can not unable extension ' . $ext_name . ': ' . $res);
+				Minz\Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')),
 				                  $url_redirect);
 			}
 		}
 
-		Minz_Request::forward($url_redirect, true);
+		Minz\Request::forward($url_redirect, true);
 	}
 
 	/**
@@ -227,30 +227,30 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 */
 	public function removeAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz\Error::error(403);
 		}
 
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
-		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
-			$ext = Minz_ExtensionManager::findExtension($ext_name);
+		if (Minz\Request::isPost()) {
+			$ext_name = urldecode(Minz\Request::param('e'));
+			$ext = Minz\ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.not_found', $ext_name),
 				                  $url_redirect);
 			}
 
 			$res = recursive_unlink($ext->getPath());
 			if ($res) {
-				Minz_Request::good(_t('feedback.extensions.removed', $ext_name),
+				Minz\Request::good(_t('feedback.extensions.removed', $ext_name),
 				                   $url_redirect);
 			} else {
-				Minz_Request::bad(_t('feedback.extensions.cannot_remove', $ext_name),
+				Minz\Request::bad(_t('feedback.extensions.cannot_remove', $ext_name),
 				                  $url_redirect);
 			}
 		}
 
-		Minz_Request::forward($url_redirect, true);
+		Minz\Request::forward($url_redirect, true);
 	}
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -7,7 +10,7 @@
 /**
  * La classe Model_array représente le modèle interragissant avec les fichiers de type texte gérant des tableaux php
  */
-class Minz_ModelArray {
+class ModelArray {
 	/**
 	 * $filename est le nom du fichier
 	 */
@@ -24,15 +27,15 @@ class Minz_ModelArray {
 
 	protected function loadArray() {
 		if (!file_exists($this->filename)) {
-			throw new Minz_FileNotExistException($this->filename, Minz_Exception::WARNING);
+			throw new FileNotExistException($this->filename, Exception::WARNING);
 		} elseif (($handle = $this->getLock()) === false) {
-			throw new Minz_PermissionDeniedException($this->filename);
+			throw new PermissionDeniedException($this->filename);
 		} else {
 			$data = include($this->filename);
 			$this->releaseLock($handle);
 
 			if ($data === false) {
-				throw new Minz_PermissionDeniedException($this->filename);
+				throw new PermissionDeniedException($this->filename);
 			} elseif (!is_array($data)) {
 				$data = array();
 			}
@@ -45,7 +48,7 @@ class Minz_ModelArray {
 	 **/
 	protected function writeArray($array) {
 		if (file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX) === false) {
-			throw new Minz_PermissionDeniedException($this->filename);
+			throw new PermissionDeniedException($this->filename);
 		}
 		if (function_exists('opcache_invalidate')) {
 			opcache_invalidate($this->filename);	//Clear PHP cache for include
