@@ -269,7 +269,23 @@ class FreshRSS_FormAuth {
 		}
 
 		$credentials = @file_get_contents($token_file);
-		return $credentials === false ? array() : explode("\t", $credentials, 2);
+		if ($credentials !== false && self::renewCookie($token)) {
+			return explode("\t", $credentials, 2);
+		}
+		return [];
+	}
+
+	private static function renewCookie($token) {
+		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
+		if (touch($token_file)) {
+			$conf = Minz_Configuration::get('system');
+			$limits = $conf->limits;
+			$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
+			$expire = time() + $cookie_duration;
+			Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
+			return $token;
+		}
+		return false;
 	}
 
 	public static function makeCookie($username, $password_hash) {
@@ -283,11 +299,7 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		$limits = $conf->limits;
-		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
-		$expire = time() + $cookie_duration;
-		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
-		return $token;
+		return self::renewCookie($token);
 	}
 
 	public static function deleteCookie() {
