@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Display "%s" category',	// TODO - Translation
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',	// TODO - Translation
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'No filter',	// TODO - Translation
 		'none' => 'You haven’t created any user query yet.',
 		'number' => 'Query n°%d',	// TODO - Translation

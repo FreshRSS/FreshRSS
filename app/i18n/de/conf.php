@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Kein Filter',
 		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'number' => 'Abfrage Nr. %d',

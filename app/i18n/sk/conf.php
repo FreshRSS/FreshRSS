@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Zobraziť kategóriu "%s"',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál "%s"',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Žiadny filter',
 		'none' => 'Zatiaľ ste nevytvorili používateľský dopyt.',
 		'number' => 'Dopyt číslo %d',

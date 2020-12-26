@@ -288,7 +288,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				if ($query['search']) {
 					$query['search'] = urldecode($query['search']);
 				}
-				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
@@ -298,7 +298,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		} else {
 			$this->view->queries = array();
 			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 		}
 
