@@ -251,6 +251,13 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$nb_cats = count($this->catDAO->listCategories(false));
 		$limits = FreshRSS_Context::$system_conf->limits;
 
+		//Sort with categories first
+		usort($opml_elements, function ($a, $b) {
+			return strcmp(
+				(isset($a['xmlUrl']) ? 'Z' : 'A') . $a['text'],
+				(isset($b['xmlUrl']) ? 'Z' : 'A') . $b['text']);
+		});
+
 		foreach ($opml_elements as $elt) {
 			if (isset($elt['xmlUrl'])) {
 				// If xmlUrl exists, it means it is a feed
