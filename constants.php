@@ -39,6 +39,9 @@ safe_define('COPY_LOG_TO_SYSLOG', filter_var(getenv('COPY_LOG_TO_SYSLOG'), FILTE
 // For cases when syslog is not available
 safe_define('COPY_SYSLOG_TO_STDERR', filter_var(getenv('COPY_SYSLOG_TO_STDERR'), FILTER_VALIDATE_BOOLEAN));
 
+// Default cookie duration to three months
+safe_define('COOKIE_DURATION', 7890000);
+
 // Maximum log file size in Bytes, before it will be divided by two
 safe_define('MAX_LOG_SIZE', 1048576);
 

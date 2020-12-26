@@ -346,7 +346,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
-	 *   - user login duration for form auth (default: 31536000)
+	 *   - user login duration for form auth (default: COOKIE_DURATION)
 	 *
 	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
@@ -363,7 +363,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
 			$limits['max_feeds'] = Minz_Request::param('max-feeds', 16384);
 			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
-			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', 31536000);
+			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', COOKIE_DURATION);
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
