@@ -15,7 +15,10 @@
 
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
-			<input type="password" id="passwordPlain" required="required" />
+			<div class="stick">
+				<input type="password" id="passwordPlain" required="required" />
+				<a class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></a>
+			</div>
 			<input type="hidden" id="challenge" name="challenge" />
 			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 		</div>
@@ -28,7 +31,7 @@
 		</div>
 
 		<div class="form-group form-group-actions">
-			<button id="loginButton" type="submit" class="btn btn-important">
+			<button id="loginButton" type="submit" class="btn btn-important" disabled="disabled">
 				<?= _t('gen.auth.login') ?>
 			</button>
 		</div>

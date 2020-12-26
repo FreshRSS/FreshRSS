@@ -76,7 +76,7 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseGet($get) {
 		$this->get = $get;
-		if (preg_match('/(?P<type>[acfs])(_(?P<id>\d+))?/', $get, $matches)) {
+		if (preg_match('/(?P<type>[acfst])(_(?P<id>\d+))?/', $get, $matches)) {
 			switch ($matches['type']) {
 				case 'a':
 					$this->parseAll();

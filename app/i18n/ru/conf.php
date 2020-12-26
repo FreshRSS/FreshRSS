@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Display "%s" category',	// TODO - Translation
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',	// TODO - Translation
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'No filter',	// TODO - Translation
 		'none' => 'You haven’t created any user query yet.',
 		'number' => 'Query n°%d',	// TODO - Translation
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Show all articles',	// TODO - Translation
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Show only unread',	// TODO - Translation
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

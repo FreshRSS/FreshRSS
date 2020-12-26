@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Mostrar la categoría "%s"',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente "%s"',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Sin filtro',
 		'none' => 'Todavía no has creado ninguna consulta de usuario.',
 		'number' => 'Consulta n° %d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Mostrar todos los artículos',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Mostrar solo pendientes',
 		),
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',

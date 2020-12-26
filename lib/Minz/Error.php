@@ -24,8 +24,10 @@ class Minz_Error {
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
 		if (file_exists ($error_filename)) {
-			Minz_Session::_param('error_code', $code);
-			Minz_Session::_param('error_logs', $logs);
+			Minz_Session::_params([
+				'error_code' => $code,
+				'error_logs' => $logs,
+			]);
 
 			Minz_Request::forward (array (
 				'c' => 'error'

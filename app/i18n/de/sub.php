@@ -1,22 +1,22 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
+	'add' => 'Die Erstellung von Kategorien und Feeds wurde verschoben und findet sich ab sofort <a href=\'%s\'>hier</a>. Zusätzlich ist ein Zugriff über den linken Menüpunkt oder über das ✚ Symbol auf der Hauptseite möglich.',
 	'api' => array(
 		'documentation' => 'Kopieren Sie die folgende URL, um sie in einem externen Tool zu verwenden.',
-		'title' => 'API',	// TODO - Translation
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie "Als Lesezeichen hinzufügen". Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche "Abonnieren".',
 		'label' => 'Abonnieren',
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'title' => 'Bookmarklet',
 	),
 	'category' => array(
 		'_' => 'Kategorie',
 		'add' => 'Eine Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
-		'information' => 'Information',	// TODO - Translation
+		'information' => 'Information',
 		'position' => 'Reihenfolge',
 		'position_help' => 'Steuert die Kategoriesortierung',
 		'title' => 'Titel',
@@ -42,14 +42,14 @@ return array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile',
 		),
-		'information' => 'Information',	// TODO - Translation
+		'information' => 'Information',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Zwischenspeicher leeren',
+			'clear_cache_help' => 'Zwischenspeicher für diesen Feed leeren.',
+			'reload_articles' => 'Artikel neuladen',
+			'reload_articles_help' => 'Artikel neuladen und komplette Inhalte holen, wenn ein Selektor festgelegt wurde.',
+			'title' => 'Wartung',
 		),
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
 		'mute' => 'Stumm schalten',
@@ -62,8 +62,8 @@ return array(
 			'normal' => 'Zeige in eigener Kategorie',
 		),
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Quellcode anzeigen',
+			'show_rendered' => 'Inhalt anzeigen',
 		),
 		'show' => array(
 			'all' => 'Alle Feeds zeigen',
@@ -102,28 +102,28 @@ return array(
 		'title' => 'Importieren / Exportieren',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => 'Feed oder Kategorie hinzufügen',
+		'add_feed' => 'Feed hinzufügen',
 		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
-		'tag_management' => 'Tag management',	// TODO - Translation
+		'tag_management' => 'Tag-Verwaltung',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'Name',
+		'new_name' => 'Alter Name',
+		'old_name' => 'Neuer Name',
 	),
 	'title' => array(
 		'_' => 'Abonnementverwaltung',
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_tag' => 'Add a tag',	// TODO - Translation
-		'delete_tag' => 'Delete a tag',	// TODO - Translation
+		'add' => 'Feed oder Kategorie hinzufügen',
+		'add_category' => 'Kategorie hinzufügen',
+		'add_feed' => 'Feed hinzufügen',
+		'add_tag' => 'Tag hinzufügen',
+		'delete_tag' => 'Tag löschen',
 		'feed_management' => 'Verwaltung der RSS-Feeds',
-		'rename_tag' => 'Rename a tag',	// TODO - Translation
+		'rename_tag' => 'Tag umbenennen',
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 );

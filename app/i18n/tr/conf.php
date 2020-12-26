@@ -70,6 +70,7 @@ return array(
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Filtre yok',
 		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Tüm makaleleri göster',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Sadece okunmamış makaleleri göster',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

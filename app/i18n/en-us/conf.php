@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Display "%s" category',
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'No filter',
 		'none' => 'You haven’t created any user queries yet.',
 		'number' => 'Query n°%d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Show all articles',
 			'all_categories' => 'All categories',
 			'no_category' => 'No category',
+			'remember_categories' => 'Remember open categories',
 			'unread' => 'Show only unread',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',

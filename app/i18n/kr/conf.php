@@ -70,6 +70,7 @@ return array(
 		'get_category' => '"%s" 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '"%s" 피드 표시',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => '필터가 없습니다',
 		'none' => '아직 사용자 쿼리를 만들지 않았습니다.',
 		'number' => '쿼리 #%d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => '모든 글 표시',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => '읽지 않은 글만 표시',
 		),
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',

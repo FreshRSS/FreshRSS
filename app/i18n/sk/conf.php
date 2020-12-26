@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Zobraziť kategóriu "%s"',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál "%s"',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Žiadny filter',
 		'none' => 'Zatiaľ ste nevytvorili používateľský dopyt.',
 		'number' => 'Dopyt číslo %d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Zobraziť všetky články',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobraziť iba neprečítané',
 		),
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',

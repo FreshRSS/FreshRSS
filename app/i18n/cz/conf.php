@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
 		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',
 		'number' => 'Dotaz n°%d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Zobrazit všechny články',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobrazit jen nepřečtené',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

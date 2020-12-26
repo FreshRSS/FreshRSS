@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Geen filter',
 		'none' => 'U hebt nog geen gebruikers query aangemaakt..',
 		'number' => 'Query n°%d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Bekijk alle artikelen',
 			'all_categories' => 'Alle categorieën',
 			'no_category' => 'Geen categorie',
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Bekijk alleen ongelezen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',

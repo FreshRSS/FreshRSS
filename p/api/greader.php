@@ -20,6 +20,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/theoldreader/api
 * https://www.inoreader.com/developers/
 * https://feedhq.readthedocs.io/en/latest/api/index.html
+* https://github.com/bazqux/bazqux-api
 */
 
 require(__DIR__ . '/../../constants.php');
@@ -672,7 +673,7 @@ function streamContents($path, $include_target, $start_time, $stop_time, $count,
 	if (count($entries) >= $count) {
 		$entry = end($entries);
 		if ($entry != false) {
-			$response['continuation'] = $entry->id();
+			$response['continuation'] = '' . $entry->id();
 		}
 	}
 
@@ -728,7 +729,7 @@ function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $ord
 	if (count($ids) >= $count) {
 		$id = end($ids);
 		if ($id != false) {
-			$response['continuation'] = $id;
+			$response['continuation'] = '' . $id;
 		}
 	}
 
@@ -935,9 +936,7 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 	checkCompatibility();
 }
 
-ini_set('session.use_cookies', '0');
-register_shutdown_function('session_destroy');
-Minz_Session::init('FreshRSS');
+Minz_Session::init('FreshRSS', true);
 
 $user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
 FreshRSS_Context::$user_conf = null;

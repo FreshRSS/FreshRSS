@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'הצגת קטגוריה "%s"',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'ללא סינון',
 		'none' => 'אף שאילתה לא נוצרה עדיין.',
 		'number' => 'שאילתה מספר °%d',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'הצגת כל המאמרים',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

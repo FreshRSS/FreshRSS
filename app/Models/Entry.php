@@ -381,6 +381,9 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+			if (!$attributes['ssl_verify']) {
+				curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+			}
 		}
 		$html = curl_exec($ch);
 		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);

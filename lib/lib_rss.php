@@ -15,6 +15,8 @@ if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
 }
 
+require_once LIB_PATH . DIRECTORY_SEPARATOR . 'autoload.php';
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -25,33 +27,6 @@ function join_path() {
 	$path_parts = func_get_args();
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
-
-//<Auto-loading>
-function classAutoloader($class) {
-	if (strpos($class, 'FreshRSS') === 0) {
-		$components = explode('_', $class);
-		switch (count($components)) {
-			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
-				return;
-			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
-				return;
-			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
-				return;
-		}
-	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'SimplePie') === 0) {
-		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
-		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
-	}
-}
-
-spl_autoload_register('classAutoloader');
-//</Auto-loading>
 
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
@@ -184,6 +159,9 @@ function customSimplePie($attributes = array()) {
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+		if (!$attributes['ssl_verify']) {
+			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+		}
 	}
 	$simplePie->set_curl_options($curl_options);
 
@@ -238,16 +216,25 @@ function customSimplePie($attributes = array()) {
 	return $simplePie;
 }
 
-function sanitizeHTML($data, $base = '') {
-	if (!is_string($data)) {
+function sanitizeHTML($data, $base = '', $maxLength = false) {
+	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
 		return '';
+	}
+	if ($maxLength !== false) {
+		$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
 	}
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = customSimplePie();
 		$simplePie->init();
 	}
-	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	if ($maxLength !== false && strlen($result) > $maxLength) {
+		//Sanitizing has made the result too long so try again shorter
+		$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
+		return sanitizeHTML($data, $base, $maxLength);
+	}
+	return $result;
 }
 
 /**
