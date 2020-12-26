@@ -236,7 +236,7 @@ class FreshRSS_Auth {
 
 
 class FreshRSS_FormAuth {
-	const DEFAULT_COOKIE_DURATION = 7890000;
+	const DEFAULT_COOKIE_DURATION = 7776000;
 
 	public static function checkCredentials($username, $hash, $nonce, $challenge) {
 		if (!FreshRSS_user_Controller::checkUsername($username) ||
