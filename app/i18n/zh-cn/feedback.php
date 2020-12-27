@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => '清除完成（已删除 %d 篇文章）',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>.',
 		'error' => '更新出错：%s',
