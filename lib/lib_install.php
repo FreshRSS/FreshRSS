@@ -1,5 +1,7 @@
 <?php
 
+use Minz\Pdo\ModelPdo;
+
 define('BCRYPT_COST', 9);
 
 Minz\Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
@@ -89,7 +91,7 @@ function initDb() {
 
 	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
-		Minz\ModelPdo::$usesSharedPdo = false;
+		ModelPdo::$usesSharedPdo = false;
 		$dbBase = isset($db['base']) ? $db['base'] : '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
@@ -111,7 +113,7 @@ function initDb() {
 
 	//New connection with the database name
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-	Minz\ModelPdo::$usesSharedPdo = true;
+	ModelPdo::$usesSharedPdo = true;
 	return $databaseDAO->testConnection();
 }
 

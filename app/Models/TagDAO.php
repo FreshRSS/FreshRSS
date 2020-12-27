@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_TagDAO extends Minz\ModelPdo implements FreshRSS_Searchable {
+use Minz\Pdo\ModelPdo;
+
+class FreshRSS_TagDAO extends ModelPdo implements FreshRSS_Searchable {
 
 	public function sqlIgnore() {
 		return 'IGNORE';

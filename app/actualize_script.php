@@ -2,6 +2,8 @@
 <?php
 require(__DIR__ . '/../cli/_cli.php');
 
+use Minz\Pdo\ModelPdo;
+
 /**
  * Writes to FreshRSS admin log, and if it is not already done by default,
  * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
@@ -64,7 +66,7 @@ foreach ($users as $user) {
 	}
 
 	Minz\Session::_param('currentUser', $user);
-	new Minz\ModelPdo($user);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
+	new ModelPdo($user);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 	FreshRSS_Auth::giveAccess();
 	$app->init();
 	notice('FreshRSS actualize ' . $user . '...');

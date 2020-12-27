@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_UserDAO extends Minz\ModelPdo {
+use Minz\Pdo\ModelPdo;
+
+class FreshRSS_UserDAO extends ModelPdo {
 	public function createUser() {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 

@@ -14,6 +14,9 @@
 // BOOTSTRAP FreshRSS
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');    //Includes class autoloader
+
+use Minz\Pdo\ModelPdo;
+
 Minz\Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 
 // check if API is enabled globally
@@ -59,7 +62,7 @@ function debugInfo() {
 //Minz\Log::debug(debugInfo(), API_LOG);
 // </Debug>
 
-class FeverDAO extends Minz\ModelPdo
+class FeverDAO extends ModelPdo
 {
 	/**
 	 * @param string $prefix

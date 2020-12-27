@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_EntryDAO extends Minz\ModelPdo implements FreshRSS_Searchable {
+use Minz\Pdo\ModelPdo;
+
+class FreshRSS_EntryDAO extends ModelPdo implements FreshRSS_Searchable {
 
 	public function isCompressed() {
 		return true;

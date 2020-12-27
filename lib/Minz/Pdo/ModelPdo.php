@@ -1,8 +1,10 @@
 <?php
 
-namespace Minz;
+namespace Minz\Pdo;
 
+use Minz\Configuration;
 use Minz\Exception\PDOConnectionException;
+use Minz\Session;
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
@@ -68,12 +70,12 @@ class ModelPdo {
 						$dsn .= ';port=' . $dbServer['port'];
 					}
 					$driver_options[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
-					$this->pdo = new PDOMySql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new PdoMysql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				case 'sqlite':
 					$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
-					$this->pdo = new PDOSQLite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix('');
 					break;
 				case 'pgsql':
@@ -84,7 +86,7 @@ class ModelPdo {
 					if (!empty($dbServer['port'])) {
 						$dsn .= ';port=' . $dbServer['port'];
 					}
-					$this->pdo = new PDOPGSQL($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new PdoPgsql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				default:
@@ -118,97 +120,5 @@ class ModelPdo {
 	public static function clean() {
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
-	}
-}
-
-abstract class AbstractPDO extends \PDO {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
-		parent::__construct($dsn, $username, $passwd, $options);
-		$this->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-	}
-
-	abstract public function dbType();
-
-	private $prefix = '';
-	public function prefix() { return $this->prefix; }
-	public function setPrefix($prefix) { $this->prefix = $prefix; }
-
-	private function autoPrefix($sql) {
-		return str_replace('`_', '`' . $this->prefix, $sql);
-	}
-
-	protected function preSql($statement) {
-		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
-			invalidateHttpCache();
-		}
-		return $this->autoPrefix($statement);
-	}
-
-	public function lastInsertId($name = null) {
-		if ($name != null) {
-			$name = $this->preSql($name);
-		}
-		return parent::lastInsertId($name);
-	}
-
-	public function prepare($statement, $driver_options = array()) {
-		$statement = $this->preSql($statement);
-		return parent::prepare($statement, $driver_options);
-	}
-
-	public function exec($statement) {
-		$statement = $this->preSql($statement);
-		return parent::exec($statement);
-	}
-
-	public function query($query, $fetch_mode = null, ...$fetch_mode_args) {
-		$query = $this->preSql($query);
-		return $fetch_mode ? parent::query($query, $fetch_mode, ...$fetch_mode_args) : parent::query($query);
-	}
-}
-
-class PDOMySql extends AbstractPDO {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
-		parent::__construct($dsn, $username, $passwd, $options);
-		$this->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-	}
-
-	public function dbType() {
-		return 'mysql';
-	}
-
-	public function lastInsertId($name = null) {
-		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
-	}
-}
-
-class PDOSQLite extends AbstractPDO {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
-		parent::__construct($dsn, $username, $passwd, $options);
-		$this->exec('PRAGMA foreign_keys = ON;');
-	}
-
-	public function dbType() {
-		return 'sqlite';
-	}
-
-	public function lastInsertId($name = null) {
-		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
-	}
-}
-
-class PDOPGSQL extends AbstractPDO {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
-		parent::__construct($dsn, $username, $passwd, $options);
-		$this->exec("SET NAMES 'UTF8';");
-	}
-
-	public function dbType() {
-		return 'pgsql';
-	}
-
-	protected function preSql($statement) {
-		$statement = parent::preSql($statement);
-		return str_replace(array('`', ' LIKE '), array('"', ' ILIKE '), $statement);
 	}
 }

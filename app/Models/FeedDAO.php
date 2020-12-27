@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_FeedDAO extends Minz\ModelPdo implements FreshRSS_Searchable {
+use Minz\Pdo\ModelPdo;
+
+class FreshRSS_FeedDAO extends ModelPdo implements FreshRSS_Searchable {
 
 	protected function addColumn($name) {
 		Minz\Log::warning(__method__ . ': ' . $name);

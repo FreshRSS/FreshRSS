@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_CategoryDAO extends Minz\ModelPdo implements FreshRSS_Searchable {
+use Minz\Pdo\ModelPdo;
+
+class FreshRSS_CategoryDAO extends ModelPdo implements FreshRSS_Searchable {
 
 	const DEFAULTCATEGORYID = 1;
 

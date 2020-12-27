@@ -2,6 +2,8 @@
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
+use Minz\Pdo\ModelPdo;
+
 const MAX_PAYLOAD = 3145728;
 
 header('Content-Type: text/plain; charset=UTF-8');
@@ -133,7 +135,7 @@ foreach ($users as $userFilename) {
 		Minz\Configuration::register('user',
 		                             join_path(USERS_PATH, $username, 'config.php'),
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		new Minz\ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
+		new ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 		FreshRSS_Context::init();
 		if (FreshRSS_Context::$user_conf != null) {
 			Minz\ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);

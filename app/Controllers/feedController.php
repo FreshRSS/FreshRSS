@@ -2,6 +2,7 @@
 
 use Minz\Controller\ActionController;
 use Minz\Exception\FileNotExistException;
+use Minz\Pdo\ModelPdo;
 
 /**
  * Controller to handle every feed actions.
@@ -730,7 +731,7 @@ class FreshRSS_feed_Controller extends ActionController {
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
 
 		//We need another DB connection in parallel
-		Minz\ModelPdo::$usesSharedPdo = false;
+		ModelPdo::$usesSharedPdo = false;
 		$entryDAO2 = FreshRSS_Factory::createEntryDao();
 
 		foreach ($entries as $entry) {
@@ -738,7 +739,7 @@ class FreshRSS_feed_Controller extends ActionController {
 			$entryDAO2->updateEntry($entry->toArray());
 		}
 
-		Minz\ModelPdo::$usesSharedPdo = true;
+		ModelPdo::$usesSharedPdo = true;
 
 		//Give feedback to user.
 		Minz\Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), array(

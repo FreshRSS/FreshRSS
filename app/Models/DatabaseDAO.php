@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Pdo\ModelPdo;
+
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAO extends Minz\ModelPdo {
+class FreshRSS_DatabaseDAO extends ModelPdo {
 
 	//MySQL error codes
 	const ER_BAD_FIELD_ERROR = '42S22';
