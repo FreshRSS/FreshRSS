@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class FileNotExistException extends Exception {
 	public function __construct ($file_name, $code = self::ERROR) {

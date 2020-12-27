@@ -1,6 +1,16 @@
 <?php
 
-namespace Minz;
+namespace Minz\Controller;
+
+use Minz\Configuration;
+use Minz\Dispatcher;
+use Minz\Exception\ActionException;
+use Minz\Exception\ControllerNotActionControllerException;
+use Minz\Exception\ControllerNotExistException;
+use Minz\Exception\FileNotExistException;
+use Minz\Exception\PermissionDeniedException;
+use Minz\Request;
+use Minz\View;
 
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework

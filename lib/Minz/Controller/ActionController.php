@@ -1,6 +1,9 @@
 <?php
 
-namespace Minz;
+namespace Minz\Controller;
+
+use Minz\Request;
+use Minz\View;
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud

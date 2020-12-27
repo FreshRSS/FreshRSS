@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS extends Minz\FrontController {
+use Minz\Controller\FrontController;
+
+class FreshRSS extends FrontController {
 	/**
 	 * Initialize the different FreshRSS / Minz components.
 	 *

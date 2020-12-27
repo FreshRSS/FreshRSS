@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class PDOConnectionException extends Exception {
 	public function __construct ($error, $user, $code = self::ERROR) {

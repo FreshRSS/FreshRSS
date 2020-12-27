@@ -2,6 +2,8 @@
 
 namespace Minz;
 
+use Minz\Exception\PDOConnectionException;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -36,7 +38,7 @@ class ModelPdo {
 			return;
 		}
 		if ($currentUser == '') {
-			throw new PDOConnectionException('Current user must not be empty!', '', Exception::ERROR);
+			throw new PDOConnectionException('Current user must not be empty!', '', PDOConnectionException::ERROR);
 		}
 		if (self::$usesSharedPdo && self::$sharedPdo != null &&
 			($currentUser == '' || $currentUser === self::$sharedCurrentUser)) {
@@ -88,14 +90,14 @@ class ModelPdo {
 				default:
 					throw new PDOConnectionException(
 						'Invalid database type!',
-						$db['user'], Exception::ERROR
+						$db['user'], PDOConnectionException::ERROR
 					);
 			}
 			self::$sharedPdo = $this->pdo;
 		} catch (Exception $e) {
 			throw new PDOConnectionException(
 				$e->getMessage(),
-				$db['user'], Exception::ERROR
+				$db['user'], PDOConnectionException::ERROR
 			);
 		}
 	}

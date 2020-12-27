@@ -1,8 +1,8 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
-class Exception extends Exception {
+class Exception extends \Exception {
 	const ERROR = 0;
 	const WARNING = 10;
 	const NOTICE = 20;

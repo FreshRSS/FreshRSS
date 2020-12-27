@@ -2,6 +2,10 @@
 
 namespace Minz;
 
+use Minz\Exception\ConfigurationNamespaceException;
+use Minz\Exception\ConfigurationParamException;
+use Minz\Exception\FileNotExistException;
+
 /**
  * Manage configuration for the application.
  */

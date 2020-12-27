@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * Controller to handle error page.
  */
-class FreshRSS_error_Controller extends Minz\ActionController {
+class FreshRSS_error_Controller extends ActionController {
 	/**
 	 * This action is the default one for the controller.
 	 *

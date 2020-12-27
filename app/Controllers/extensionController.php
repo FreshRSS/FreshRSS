@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * The controller to manage extensions.
  */
-class FreshRSS_extension_Controller extends Minz\ActionController {
+class FreshRSS_extension_Controller extends ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the

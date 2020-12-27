@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class ConfigurationParamException extends ConfigurationException {
 }

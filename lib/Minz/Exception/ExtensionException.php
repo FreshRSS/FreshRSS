@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class ExtensionException extends Exception {
 	public function __construct ($message, $extension_name = false, $code = self::ERROR) {

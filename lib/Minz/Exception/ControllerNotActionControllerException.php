@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class ControllerNotActionControllerException extends Exception {
 	public function __construct ($controller_name, $code = self::ERROR) {

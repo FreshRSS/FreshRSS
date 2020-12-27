@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * This controller handles action about authentication.
  */
-class FreshRSS_auth_Controller extends Minz\ActionController {
+class FreshRSS_auth_Controller extends ActionController {
 	/**
 	 * This action handles authentication management page.
 	 *

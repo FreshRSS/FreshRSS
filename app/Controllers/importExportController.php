@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * Controller to handle every import and export actions.
  */
-class FreshRSS_importExport_Controller extends Minz\ActionController {
+class FreshRSS_importExport_Controller extends ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the

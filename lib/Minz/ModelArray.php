@@ -2,6 +2,9 @@
 
 namespace Minz;
 
+use Minz\Exception\FileNotExistException;
+use Minz\Exception\PermissionDeniedException;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -27,7 +30,7 @@ class ModelArray {
 
 	protected function loadArray() {
 		if (!file_exists($this->filename)) {
-			throw new FileNotExistException($this->filename, Exception::WARNING);
+			throw new FileNotExistException($this->filename, FileNotExistException::WARNING);
 		} elseif (($handle = $this->getLock()) === false) {
 			throw new PermissionDeniedException($this->filename);
 		} else {

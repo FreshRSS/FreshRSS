@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class CurrentPagePaginationException extends Exception {
 	public function __construct ($page) {

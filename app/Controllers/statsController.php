@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * Controller to handle application statistics.
  */
-class FreshRSS_stats_Controller extends Minz\ActionController {
+class FreshRSS_stats_Controller extends ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is

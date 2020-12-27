@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * Controller to handle user actions.
  */
-class FreshRSS_user_Controller extends Minz\ActionController {
+class FreshRSS_user_Controller extends ActionController {
 	/**
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.

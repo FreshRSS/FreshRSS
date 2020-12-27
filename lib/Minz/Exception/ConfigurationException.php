@@ -1,6 +1,6 @@
 <?php
 
-namespace Minz;
+namespace Minz\Exception;
 
 class ConfigurationException extends Exception {
 	public function __construct($error, $code = self::ERROR) {

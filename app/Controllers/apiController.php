@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * This controller manage API-related features.
  */
-class FreshRSS_api_Controller extends Minz\ActionController {
+class FreshRSS_api_Controller extends ActionController {
 
 	/**
 	 * Update the user API password.

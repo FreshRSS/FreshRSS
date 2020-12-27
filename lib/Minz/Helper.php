@@ -18,7 +18,7 @@ class Helper {
 	 */
 	public static function htmlspecialchars_utf8($var) {
 		if (is_array($var)) {
-			return array_map(array('Helper', 'htmlspecialchars_utf8'), $var);
+			return array_map(array('Minz\Helper', 'htmlspecialchars_utf8'), $var);
 		}
 		return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
 	}

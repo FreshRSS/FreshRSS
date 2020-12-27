@@ -89,7 +89,9 @@ Exemple de code :
 ```php
 <?php
 
-class FreshRSS_hello_Controller extends Minz_ActionController {
+use Minz\Controller\ActionController;
+
+class FreshRSS_hello_Controller extends ActionController {
 	public function indexAction() {
 		$this->view->a_variable = 'FooBar';
 	}

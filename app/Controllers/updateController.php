@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_update_Controller extends Minz\ActionController {
+use Minz\Controller\ActionController;
+
+class FreshRSS_update_Controller extends ActionController {
 
 	public static function isGit() {
 		return is_dir(FRESHRSS_PATH . '/.git/');

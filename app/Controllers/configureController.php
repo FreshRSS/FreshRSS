@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * Controller to handle every configuration options.
  */
-class FreshRSS_configure_Controller extends Minz\ActionController {
+class FreshRSS_configure_Controller extends ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the

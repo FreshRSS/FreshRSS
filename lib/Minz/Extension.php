@@ -2,6 +2,8 @@
 
 namespace Minz;
 
+use Minz\Exception\ExtensionException;
+
 /**
  * The extension base class.
  */

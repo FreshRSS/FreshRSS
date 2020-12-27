@@ -2,6 +2,11 @@
 
 namespace Minz;
 
+use Minz\Controller\ActionController;
+use Minz\Exception\ActionException;
+use Minz\Exception\ControllerNotActionControllerException;
+use Minz\Exception\ControllerNotExistException;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>

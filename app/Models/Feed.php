@@ -1,5 +1,7 @@
 <?php
 
+use Minz\Exception\FileNotExistException;
+
 class FreshRSS_Feed extends Minz\Model {
 	const PRIORITY_MAIN_STREAM = 10;
 	const PRIORITY_NORMAL = 0;
@@ -259,9 +261,9 @@ class FreshRSS_Feed extends Minz\Model {
 	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
-				throw new Minz\FileNotExistException(
+				throw new FileNotExistException(
 					'CACHE_PATH',
-					Minz\Exception::ERROR
+					FileNotExistException::ERROR
 				);
 			} else {
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);

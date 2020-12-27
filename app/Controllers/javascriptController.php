@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_javascript_Controller extends Minz\ActionController {
+use Minz\Controller\ActionController;
+
+class FreshRSS_javascript_Controller extends ActionController {
 	public function firstAction() {
 		$this->view->_layout(false);
 	}

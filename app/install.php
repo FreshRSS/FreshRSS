@@ -6,6 +6,8 @@ header("Content-Security-Policy: default-src 'self'");
 
 require(LIB_PATH . '/lib_install.php');
 
+use Minz\Exception\FileNotExistException;
+
 Minz\Session::init('FreshRSS');
 
 if (isset($_GET['step'])) {
@@ -285,7 +287,7 @@ function freshrss_already_installed() {
 	try {
 		Minz\Configuration::register('system', $conf_path);
 		$system_conf = Minz\Configuration::get('system');
-	} catch (Minz\FileNotExistException $e) {
+	} catch (FileNotExistException $e) {
 		return false;
 	}
 
@@ -293,7 +295,7 @@ function freshrss_already_installed() {
 	$current_user = $system_conf->default_user;
 	try {
 		Minz\Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
-	} catch (Minz\FileNotExistException $e) {
+	} catch (FileNotExistException $e) {
 		return false;
 	}
 

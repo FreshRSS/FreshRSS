@@ -17,6 +17,10 @@ if (COPY_SYSLOG_TO_STDERR) {
 
 require_once LIB_PATH . DIRECTORY_SEPARATOR . 'autoload.php';
 
+use Minz\Exception\ConfigurationNamespaceException;
+use Minz\Exception\FileNotExistException;
+use Minz\Exception\PDOConnectionException;
+
 /**
  * Alias for Translate::t()
  */
@@ -358,10 +362,10 @@ function get_user_configuration($username) {
 		Minz\Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-	} catch (Minz\ConfigurationNamespaceException $e) {
+	} catch (ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
 		Minz\Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
-	} catch (Minz\FileNotExistException $e) {
+	} catch (FileNotExistException $e) {
 		Minz\Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 		return null;
 	}
@@ -477,7 +481,7 @@ function check_install_database() {
 		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
 		$status['tag'] = $dbDAO->tagIsCorrect();
 		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
-	} catch(Minz\PDOConnectionException $e) {
+	} catch(PDOConnectionException $e) {
 		$status['connection'] = false;
 	}
 

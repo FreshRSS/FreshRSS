@@ -2,6 +2,9 @@
 
 namespace Minz;
 
+use Minz\Exception\ConfigurationException;
+use Minz\Exception\PermissionDeniedException;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -73,7 +76,7 @@ class Log {
 			self::ensureMaxLogSize($file_name);
 
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
-				throw new PermissionDeniedException($file_name, Exception::ERROR);
+				throw new PermissionDeniedException($file_name, PermissionDeniedException::ERROR);
 			}
 		}
 	}
@@ -101,7 +104,7 @@ class Log {
 				fflush($fp);
 				flock($fp, LOCK_UN);
 			} else {
-				throw new PermissionDeniedException($file_name, Exception::ERROR);
+				throw new PermissionDeniedException($file_name, PermissionDeniedException::ERROR);
 			}
 			if ($fp) {
 				fclose($fp);

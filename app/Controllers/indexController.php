@@ -1,9 +1,11 @@
 <?php
 
+use Minz\Controller\ActionController;
+
 /**
  * This class handles main actions of FreshRSS.
  */
-class FreshRSS_index_Controller extends Minz\ActionController {
+class FreshRSS_index_Controller extends ActionController {
 
 	/**
 	 * This action only redirect on the default view mode (normal or global)

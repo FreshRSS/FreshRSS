@@ -1,9 +1,12 @@
 <?php
 
+use Minz\Controller\ActionController;
+use Minz\Exception\FileNotExistException;
+
 /**
  * Controller to handle every feed actions.
  */
-class FreshRSS_feed_Controller extends Minz\ActionController {
+class FreshRSS_feed_Controller extends ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -37,7 +40,7 @@ class FreshRSS_feed_Controller extends Minz\ActionController {
 	 * @throws FreshRSS_AlreadySubscribed_Exception
 	 * @throws FreshRSS_FeedNotAdded_Exception
 	 * @throws FreshRSS_Feed_Exception
-	 * @throws Minz\FileNotExistException
+	 * @throws Minz\Exception\FileNotExistException
 	 */
 	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array()) {
 		FreshRSS_UserDAO::touch();
@@ -70,7 +73,7 @@ class FreshRSS_feed_Controller extends Minz\ActionController {
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz\FileNotExistException
+		$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz\Exception\FileNotExistException
 		$feed->_category($cat_id);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -186,7 +189,7 @@ class FreshRSS_feed_Controller extends Minz\ActionController {
 				// Something went bad (timeout, server not found, etc.)
 				Minz\Log::warning($e->getMessage());
 				Minz\Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
-			} catch (Minz\FileNotExistException $e) {
+			} catch (FileNotExistException $e) {
 				// Cache directory doesn't exist!
 				Minz\Log::error($e->getMessage());
 				Minz\Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
