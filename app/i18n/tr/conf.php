@@ -70,6 +70,7 @@ return array(
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Filtre yok',
 		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',

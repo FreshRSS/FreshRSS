@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Cap de filtre aplicat',
 		'none' => 'Avètz pas encara creat cap de filtre.',
@@ -126,7 +127,7 @@ return array(
 			'all_articles' => 'Mostrar totes los articles',
 			'all_categories' => 'Totas las categorias',
 			'no_category' => 'Cap de categoria',
-			'remember_categories' => 'Remember open categories',	// TODO - Translation
+			'remember_categories' => 'Se remembrar de las categorias dobèrtas',
 			'unread' => 'Mostrar pas que los pas legits',
 		),
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',

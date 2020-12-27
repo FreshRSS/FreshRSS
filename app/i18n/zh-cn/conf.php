@@ -70,6 +70,7 @@ return array(
 		'get_category' => '显示分类 "%s"',
 		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示订阅源 "%s"',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => '无过滤器',
 		'none' => '你未创建任何自定义查询。',

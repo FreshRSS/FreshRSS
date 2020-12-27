@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Geen filter',
 		'none' => 'U hebt nog geen gebruikers query aangemaakt..',

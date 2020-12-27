@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'הצגת קטגוריה "%s"',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'ללא סינון',
 		'none' => 'אף שאילתה לא נוצרה עדיין.',

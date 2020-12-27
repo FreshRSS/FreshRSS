@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
 		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',

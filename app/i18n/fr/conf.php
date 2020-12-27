@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Afficher la catégorie "%s"',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux "%s"',
+		'get_tag' => 'Afficher l’étiquette "%s"',
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Aucun filtre appliqué',
 		'none' => 'Vous n’avez pas encore créé de filtre.',

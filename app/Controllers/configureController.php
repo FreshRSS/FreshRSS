@@ -292,7 +292,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$searchParam = '?search=';
 					$query['url'] = urldecode(strpos($url, $searchParam) === 0 ? $url : $searchParam . $url);
 				}
-				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
@@ -302,7 +302,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		} else {
 			$this->view->queries = array();
 			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 		}
 
@@ -350,7 +350,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
-	 *   - user login duration for form auth (default: 2592000)
+	 *   - user login duration for form auth (default: FreshRSS_Auth::DEFAULT_COOKIE_DURATION)
 	 *
 	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
@@ -367,7 +367,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
 			$limits['max_feeds'] = Minz_Request::param('max-feeds', 16384);
 			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
-			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', 2592000);
+			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', FreshRSS_Auth::DEFAULT_COOKIE_DURATION);
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);

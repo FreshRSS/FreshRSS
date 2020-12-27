@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Wyświetlenie kategorii "%s"',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału "%s"',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Brak filtrów',
 		'none' => 'Nie zapisałeś jeszcze żadnego zapytania.',

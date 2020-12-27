@@ -88,6 +88,7 @@ People are sorted by name so please keep this order.
 * [Pim Snel](https://github.com/mipmip): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Amipmip), [Web](https://www.pimsnel.com)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
 * [Pofilo](https://github.com/Pofilo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Pofilo), [Web](https://www.pofilo.fr/)
+* [Prashant Tholia](https://github.com/prashanttholia): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:prashanttholia)
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)
 * [printfuck](https://github.com/printfuck): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:printfuck), [Web](https://eris.cc)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
