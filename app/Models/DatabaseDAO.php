@@ -241,7 +241,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$sqlite = null;
 
 		try {
-			$sqlite = new MinzPDOSQLite('sqlite:' . $filename);
+			$sqlite = new Minz_PdoSqlite('sqlite:' . $filename);
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);
