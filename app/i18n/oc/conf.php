@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'en davalar la pagina',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',

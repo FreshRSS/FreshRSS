@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'kaydırma yapılırken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',

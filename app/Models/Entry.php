@@ -311,10 +311,13 @@ class FreshRSS_Entry extends Minz_Model {
 		return false;
 	}
 
-	public function applyFilterActions() {
+	public function applyFilterActions($titlesAsRead = []) {
 		if ($this->feed != null) {
 			if ($this->feed->attributes('read_upon_reception') ||
 				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
+				$this->_isRead(true);
+			}
+			if (isset($titlesAsRead[$this->title()])) {
 				$this->_isRead(true);
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {

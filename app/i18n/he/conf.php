@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'כאשר גוללים',
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'מאמרים להצגה',

@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'počas skrolovania',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Článkov na zobrazenie',

@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'while scrolling',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',
 		),
 		'show' => array(
 			'_' => 'Articles to display',

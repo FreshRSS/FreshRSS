@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'while scrolling',	// TODO - Translation
 			'upon_reception' => 'upon reception of the article',
 			'when' => 'Mark an article as read…',	// TODO - Translation
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Articles to display',	// TODO - Translation

@@ -117,6 +117,7 @@ return array(
 			'scroll' => '스크롤을 하며 지나갈 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => '글 표시 방식',

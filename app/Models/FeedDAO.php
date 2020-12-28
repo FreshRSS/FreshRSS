@@ -356,6 +356,19 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
+	public function listTitles($id, $limit = null) {
+		$sql = 'SELECT title FROM `_entry` WHERE id_feed=:id_feed ORDER BY id DESC'
+			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+
+		$stm = $this->pdo->prepare($sql);
+		$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
+
+		if ($stm && $stm->execute()) {
+			return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		}
+		return false;
+	}
+
 	public function listByCategory($cat) {
 		$sql = 'SELECT * FROM `_feed` WHERE category=?';
 		$stm = $this->pdo->prepare($sql);

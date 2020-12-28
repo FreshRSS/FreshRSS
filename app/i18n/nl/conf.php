@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'tijdens het scrollen',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',

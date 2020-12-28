@@ -343,6 +343,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$needFeedCacheRefresh = false;
 
 			if (count($newGuids) > 0) {
+				$titlesAsRead = [];
+				if ($feed->attributes('read_when_same_title_in_feed')) {
+					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $feed->attributes('read_when_same_title_in_feed')));
+				}
+
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
 				$newGuids = array();
@@ -385,7 +390,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$id = uTimeString();
 						$entry->_id($id);
 
-						$entry->applyFilterActions();
+						$entry->applyFilterActions($titlesAsRead);
+						if ($feed->attributes('read_when_same_title_in_feed')) {
+							$titlesAsRead[$entry->title()] = true;
+						}
 
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 						if ($entry === null) {

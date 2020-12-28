@@ -117,6 +117,7 @@ return array(
 			'scroll' => '在滚动浏览后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => '文章显示',

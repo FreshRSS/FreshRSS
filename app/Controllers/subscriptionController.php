@@ -112,6 +112,17 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
 
+			$read_when_same_title_in_feed = Minz_Request::param('read_when_same_title_in_feed', '');
+			if ($read_when_same_title_in_feed === '') {
+				$read_when_same_title_in_feed = null;
+			} else {
+				$read_when_same_title_in_feed = intval($read_when_same_title_in_feed);
+				if ($read_when_same_title_in_feed <= 0) {
+					$read_when_same_title_in_feed = false;
+				}
+			}
+			$feed->_attributes('read_when_same_title_in_feed', $read_when_same_title_in_feed);
+
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
 				$timeout = intval(Minz_Request::param('timeout', 0));

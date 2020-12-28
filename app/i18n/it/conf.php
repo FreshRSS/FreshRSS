@@ -117,6 +117,7 @@ return array(
 			'scroll' => 'Scorrendo la pagina',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Articoli da visualizzare',
