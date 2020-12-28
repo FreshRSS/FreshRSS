@@ -160,6 +160,13 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
+			<div class="group-controls">
+				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="read_upon_reception"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="read_upon_reception">

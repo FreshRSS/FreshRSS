@@ -114,6 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
+			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
 			'scroll' => 'kaydırma yapılırken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',

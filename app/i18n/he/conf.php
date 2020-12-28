@@ -114,6 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'כאשר מאמר נפתח באתר המקורי',
 			'article_viewed' => 'כאשר מאמר נצפה',
+			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
 			'scroll' => 'כאשר גוללים',
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',

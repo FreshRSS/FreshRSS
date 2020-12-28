@@ -114,6 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'keď je článok otvorený na svojej webovej stránke',
 			'article_viewed' => 'keď je článok zobrazený',
+			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
 			'scroll' => 'počas skrolovania',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',

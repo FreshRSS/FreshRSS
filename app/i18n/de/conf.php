@@ -114,6 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
+			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
 			'scroll' => 'beim Scrollen bzw. Überspringen',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',

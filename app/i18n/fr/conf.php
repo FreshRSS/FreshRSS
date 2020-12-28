@@ -114,6 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'lorsque l’article est ouvert sur le site d’origine',
 			'article_viewed' => 'lorsque l’article est affiché',
+			'keep_max_n_unread' => 'Conserver au maximum <i>n</i> articles non lus',
 			'scroll' => 'au défilement de la page',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
