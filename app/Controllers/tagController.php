@@ -92,10 +92,10 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		if (null === $tagDAO->searchByName($name)) {
 			$tagDAO->addTag(['name' => $name]);
-			Minz_Request::good('feedback.tag.created', ['c' => 'tag', 'a' => 'index'], true);
+			Minz_Request::good(_t('feedback.tag.created', $name), ['c' => 'tag', 'a' => 'index'], true);
 		}
 
-		Minz_Request::bad('feedback.tag.name_exists', ['c' => 'tag', 'a' => 'index'], true);
+		Minz_Request::bad(_t('feedback.tag.name_exists', $name), ['c' => 'tag', 'a' => 'index'], true);
 	}
 
 	public function renameAction() {
@@ -103,17 +103,21 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 			Minz_Error::error(405);
 		}
 
-		$name = Minz_Request::param('name');
+		$targetName = Minz_Request::param('name');
+		$sourceId = Minz_Request::param('id_tag');
+
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$newTag = $tagDAO->searchByName($name);
-		if (null === $newTag) {
-			$tagDAO->updateTag(Minz_Request::param('id_tag'), ['name' => $name]);
+
+		$sourceName = $tagDAO->searchById($sourceId)->name();
+		$targetTag = $tagDAO->searchByName($targetName);
+		if (null === $targetTag) {
+			$tagDAO->updateTag($sourceId, ['name' => $targetName]);
 		} else {
-			$tagDAO->updateEntryTag(Minz_Request::param('id_tag'), $newTag->id());
-			$tagDAO->deleteTag(Minz_Request::param('id_tag'));
+			$tagDAO->updateEntryTag($sourceId, $targetTag->id());
+			$tagDAO->deleteTag($sourceId);
 		}
 
-		Minz_Request::good('feedback.tag.renamed', ['c' => 'tag', 'a' => 'index'], true);
+		Minz_Request::good(_t('feedback.tag.renamed', $sourceName, $targetName), ['c' => 'tag', 'a' => 'index'], true);
 	}
 
 	public function indexAction() {
