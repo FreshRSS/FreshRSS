@@ -18,7 +18,7 @@ Example:
 // File: app/migrations/2020_01_11_CreateFooTable.php
 class FreshRSS_Migration_2020_01_11_CreateFooTable {
 	public static function migrate() {
-		$pdo = new MinzPDOSQLite('sqlite:/some/path/db.sqlite');
+		$pdo = new Minz_PdoSqlite('sqlite:/some/path/db.sqlite');
 		$result = $pdo->exec('CREATE TABLE foos (bar TEXT)');
 		if ($result === false) {
 			$error = $pdo->errorInfo();
