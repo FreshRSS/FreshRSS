@@ -7,7 +7,6 @@ Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-us
 
 function checkRequirements($dbType = '') {
 	$php = version_compare(PHP_VERSION, '5.6.0') >= 0;
-	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
@@ -50,7 +49,6 @@ function checkRequirements($dbType = '') {
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
-		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
 		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
@@ -69,7 +67,7 @@ function checkRequirements($dbType = '') {
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'message' => $message ?: 'ok',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
+		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
 		         $data && $cache && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
 	);
 }

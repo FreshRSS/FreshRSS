@@ -384,12 +384,6 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, '5.6.0') ?></p>
 	<?php } ?>
 
-	<?php if ($res['minz'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.minz.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.minz.nok', join_path(LIB_PATH, 'Minz')) ?></p>
-	<?php } ?>
-
 	<?php if ($res['pdo'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.pdo.ok') ?></p>
 	<?php } else { ?>
