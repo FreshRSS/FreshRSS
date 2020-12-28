@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
+use Cli\I18n\I18nValue;
 
 class I18nValueTest extends PHPUnit\Framework\TestCase {
 	public function testConstructorWithoutState() {

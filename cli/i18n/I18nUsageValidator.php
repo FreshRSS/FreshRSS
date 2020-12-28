@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/I18nValidatorInterface.php';
+namespace Cli\I18n;
 
 class I18nUsageValidator implements I18nValidatorInterface {
 

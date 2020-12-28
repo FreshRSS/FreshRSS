@@ -23,6 +23,8 @@ if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
 }
 
+require_once LIB_PATH . '/autoload.php';
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -32,41 +34,6 @@ if (COPY_SYSLOG_TO_STDERR) {
 function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
-
-//<Auto-loading>
-function classAutoloader($class) {
-	if (strpos($class, 'FreshRSS') === 0) {
-		$components = explode('_', $class);
-		switch (count($components)) {
-			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
-				return;
-			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
-				return;
-			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
-				return;
-		}
-	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'SimplePie') === 0) {
-		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
-		$prefix = 'Gt\\CssXPath\\';
-		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
-		$relative_class_name = substr($class, strlen($prefix));
-		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
-	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
-		$prefix = 'PHPMailer\\PHPMailer\\';
-		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
-		$relative_class_name = substr($class, strlen($prefix));
-		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
-	}
-}
-
-spl_autoload_register('classAutoloader');
-//</Auto-loading>
 
 /**
  * @param string $url

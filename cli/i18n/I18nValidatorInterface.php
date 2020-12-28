@@ -1,5 +1,7 @@
 <?php
 
+namespace Cli\I18n;
+
 interface I18nValidatorInterface {
 
 	/**

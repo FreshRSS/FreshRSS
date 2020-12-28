@@ -1,10 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/i18n/I18nData.php';
-require_once __DIR__ . '/i18n/I18nFile.php';
-require_once __DIR__ . '/../constants.php';
+require(__DIR__ . '/../constants.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
+use Cli\I18n\I18nFile;
+use Cli\I18n\I18nData;
 
 $options = getopt("a:hk:l:o:rv:");
 

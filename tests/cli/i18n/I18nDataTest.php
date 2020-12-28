@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../../../cli/i18n/I18nData.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
+use Cli\I18n\I18nData;
+use Cli\I18n\I18nValue;
 
 class I18nDataTest extends PHPUnit\Framework\TestCase {
 	private $referenceData;

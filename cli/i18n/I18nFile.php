@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/I18nValue.php';
+namespace Cli\I18n;
+
+use \DirectoryIterator;
+use \ParseError;
 
 class I18nFile {
 	public function load() {
