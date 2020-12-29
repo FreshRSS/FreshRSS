@@ -1170,6 +1170,11 @@ function updateFeed(feeds, feeds_count) {
 function init_actualize() {
 	let auto = false;
 
+	const actualize = document.getElementById('actualize');
+	if (!actualize) {
+		return;
+	}
+
 	document.getElementById('actualize').onclick = function () {
 		if (context.ajax_loading) {
 			return false;
