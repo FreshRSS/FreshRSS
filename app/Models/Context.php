@@ -45,13 +45,15 @@ class FreshRSS_Context {
 	/**
 	 * Initialize the context for the global system.
 	 */
-	public static function initSystem() {
-		//TODO: Keep in session what we need instead of always reloading from disk
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-		// Register the configuration setter for the system configuration
-		$configurationSetter = new FreshRSS_ConfigurationSetter();
-		FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
+	public static function initSystem($reload = false) {
+		if ($reload || FreshRSS_Context::$system_conf == null) {
+			//TODO: Keep in session what we need instead of always reloading from disk
+			Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+			FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+			// Register the configuration setter for the system configuration
+			$configurationSetter = new FreshRSS_ConfigurationSetter();
+			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
+		}
 		return FreshRSS_Context::$system_conf;
 	}
 
