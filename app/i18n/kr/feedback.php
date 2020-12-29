@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => '삭제 완료 (%d 개의 글을 삭제했습니다)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS가 <strong>%s</strong> 버전으로 업데이트됩니다.',
 		'error' => '업데이트 과정에서 문제가 발생했습니다: %s',
