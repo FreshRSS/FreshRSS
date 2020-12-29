@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Dispones de la extensión JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'No se ha podido localizar el entorno Minz.',
@@ -163,7 +163,7 @@ return array(
 			'help' => 'in seconds',	// TODO - Translation
 			'number' => 'Duration to keep logged in',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO - Translation
 		'instance-name' => 'Nombre de la fuente',
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',

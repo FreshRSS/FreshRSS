@@ -753,7 +753,7 @@ form th {
 .flux.not_read:not(.current):hover .item.title {
   background: #fff3ed;
 }
-.flux .date {
+.flux .item.date {
   color: #969696;
   font-size: 0.7rem;
 }

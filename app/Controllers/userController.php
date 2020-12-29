@@ -350,17 +350,19 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			// get started immediately.
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = get_user_configuration($new_user_name);
-				Minz_Session::_param('currentUser', $new_user_name);
-				Minz_Session::_param('passwordHash', $user_conf->passwordHash);
-				Minz_Session::_param('csrf');
+				Minz_Session::_params([
+					'currentUser' => $new_user_name,
+					'passwordHash' => $user_conf->passwordHash,
+					'csrf' => false,
+				]);
 				FreshRSS_Auth::giveAccess();
 			}
 
-			$notif = array(
-				'type' => $ok ? 'good' : 'bad',
-				'content' => _t('feedback.user.created' . (!$ok ? '.error' : ''), $new_user_name)
-			);
-			Minz_Session::_param('notification', $notif);
+			if ($ok) {
+				Minz_Request::setGoodNotification(_t('feedback.user.created', $new_user_name));
+			} else {
+				Minz_Request::setBadNotification(_t('feedback.user.created.error', $new_user_name));
+			}
 		}
 
 		$redirect_url = urldecode(Minz_Request::param('r', false, true));
@@ -546,11 +548,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => $ok ? 'good' : 'bad',
-				'content' => _t('feedback.user.deleted' . (!$ok ? '.error' : ''), $username)
-			);
-			Minz_Session::_param('notification', $notif);
+			if ($ok) {
+				Minz_Request::setGoodNotification(_t('feedback.user.deleted', $username));
+			} else {
+				Minz_Request::setBadNotification(_t('feedback.user.deleted.error', $username));
+			}
 		}
 
 		Minz_Request::forward($redirect_url, true);

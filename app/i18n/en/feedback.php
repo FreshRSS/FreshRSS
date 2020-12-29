@@ -3,7 +3,7 @@
 return array(
 	'access' => array(
 		'denied' => 'You don’t have permission to access this page',
-		'not_found' => 'You are looking for a page which doesn’t exist',
+		'not_found' => 'You are looking for a page that doesn’t exist',
 	),
 	'admin' => array(
 		'optimization_complete' => 'Optimization complete',
@@ -16,7 +16,7 @@ return array(
 	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => 'A problem occurred during authentication system configuration. Please retry later.',
+			'not_set' => 'A problem occurred during authentication system configuration. Please try again later.',
 			'set' => 'Form is now your default authentication system.',
 		),
 		'login' => array(
@@ -29,7 +29,7 @@ return array(
 		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',
 	),
 	'conf' => array(
-		'error' => 'An error occurred during configuration saving',
+		'error' => 'An error occurred while saving configuration',
 		'query_created' => 'Query "%s" has been created.',
 		'shortcuts_updated' => 'Shortcuts have been updated',
 		'updated' => 'Configuration has been updated',
@@ -51,11 +51,11 @@ return array(
 		'removed' => '%s removed',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',
+		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',
 		'feeds_imported' => 'Your feeds have been imported and will now be updated',
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
-		'no_zip_extension' => 'ZIP extension is not present on your server.',
+		'no_zip_extension' => 'The ZIP extension is not present on your server.',
 		'zip_error' => 'An error occurred during ZIP import.',
 	),
 	'profile' => array(
@@ -93,7 +93,7 @@ return array(
 			'invalid_url' => 'URL <em>%s</em> is invalid',
 			'n_actualized' => '%d feeds have been updated',
 			'n_entries_deleted' => '%d articles have been deleted',
-			'no_refresh' => 'There is no feed to refresh…',
+			'no_refresh' => 'There are no feeds to refresh',
 			'not_added' => '<em>%s</em> could not be added',
 			'not_found' => 'Feed cannot be found',
 			'over_max' => 'You have reached your limit of feeds (%d)',
@@ -101,7 +101,7 @@ return array(
 			'selector_preview' => array(
 				'http_error' => 'Failed to load website content.',
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',
-				'no_feed' => 'Internal error (feed can’t be found).',
+				'no_feed' => 'Internal error (feed cannot be found).',
 				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',
 			),
@@ -109,11 +109,16 @@ return array(
 		),
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',
+		'name_exists' => 'Tag name already exists.',
+		'renamed' => 'Tag "%s" has been renamed to "%s".',
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
-		'finished' => 'Update completed!',
+		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',
+		'finished' => 'Update complete!',
 		'none' => 'No update to apply',
 		'server_not_found' => 'Update server cannot be found. [%s]',
 	),

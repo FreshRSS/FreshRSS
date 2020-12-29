@@ -76,7 +76,7 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseGet($get) {
 		$this->get = $get;
-		if (preg_match('/(?P<type>[acfs])(_(?P<id>\d+))?/', $get, $matches)) {
+		if (preg_match('/(?P<type>[acfst])(_(?P<id>\d+))?/', $get, $matches)) {
 			switch ($matches['type']) {
 				case 'a':
 					$this->parseAll();
@@ -153,7 +153,7 @@ class FreshRSS_UserQuery {
 		if ($this->tag_dao == null) {
 			throw new FreshRSS_DAO_Exception('Tag DAO is not loaded in UserQuery');
 		}
-		$category = $this->category_dao->searchById($id);
+		$tag = $this->tag_dao->searchById($id);
 		if ($tag) {
 			$this->get_name = $tag->name();
 		} else {

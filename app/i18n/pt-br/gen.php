@@ -15,12 +15,14 @@ return array(
 		'export' => 'Exportar',
 		'filter' => 'Filtrar',
 		'import' => 'Importar',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Gerenciar',
 		'mark_favorite' => 'Marcar como favorito',
 		'mark_read' => 'Marcar como lido',
 		'promote' => 'Promover',
 		'purge' => 'Limpar',
 		'remove' => 'Remover',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => 'Ver o site',
 		'submit' => 'Enviar',
 		'truncate' => 'Deletar todos os artigos',
@@ -136,6 +138,7 @@ return array(
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
+		'pl' => 'Polski',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'sk' => 'Slovenčina',

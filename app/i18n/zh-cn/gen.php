@@ -15,12 +15,14 @@ return array(
 		'export' => '导出',
 		'filter' => '过滤',
 		'import' => '导入',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => '管理',
 		'mark_favorite' => '标记收藏',
 		'mark_read' => '标记已读',
 		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',
+		'rename' => 'Rename',	// TODO - Translation
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
@@ -136,6 +138,7 @@ return array(
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
+		'pl' => 'Polski',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'sk' => 'Slovenčina',

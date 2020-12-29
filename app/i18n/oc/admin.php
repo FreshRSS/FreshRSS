@@ -190,11 +190,11 @@ return array(
 		'database_size' => 'Talha basa de donadas',
 		'delete_users' => 'Suprimir un utilizaire',
 		'email' => 'Adreça electronica',
-		'enabled' => 'Enabled',	// TODO - Translation
+		'enabled' => 'Activat',
 		'feed_count' => 'Flux',
 		'is_admin' => 'Es admin',
 		'language' => 'Lenga',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'last_user_activity' => 'Darrièra activitat utilizaire',
 		'list' => 'Lista dels utilizaires',
 		'number' => '%d compte ja creat',
 		'numbers' => '%d comptes ja creats',

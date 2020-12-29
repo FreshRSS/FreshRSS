@@ -66,7 +66,7 @@ return array(
 		),
 		'json' => array(
 			'nok' => 'You lack a recommended library to parse JSON.',
-			'ok' => 'You have a recommended library to parse JSON.',	// TODO - Translation
+			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation

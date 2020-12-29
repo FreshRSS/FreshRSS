@@ -91,8 +91,9 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private static function initI18n() {
-		$selected_language = FreshRSS_Auth::hasAccess() ? FreshRSS_Context::$user_conf->language : null;
-		$language = Minz_Translate::getLanguage($selected_language, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
+		$userLanguage = isset(FreshRSS_Context::$user_conf) ? FreshRSS_Context::$user_conf->language : null;
+		$systemLanguage = isset(FreshRSS_Context::$system_conf) ? FreshRSS_Context::$system_conf->language : null;
+		$language = Minz_Translate::getLanguage($userLanguage, Minz_Request::getPreferredLanguages(), $systemLanguage);
 
 		Minz_Session::_param('language', $language);
 		Minz_Translate::init($language);
@@ -126,10 +127,9 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private static function loadNotifications() {
-		$notif = Minz_Session::param('notification');
+		$notif = Minz_Request::getNotification();
 		if ($notif) {
 			Minz_View::_param('notification', $notif);
-			Minz_Session::_param('notification');
 		}
 	}
 

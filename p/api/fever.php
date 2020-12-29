@@ -24,9 +24,7 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 	die('Service Unavailable!');
 }
 
-ini_set('session.use_cookies', '0');
-register_shutdown_function('session_destroy');
-Minz_Session::init('FreshRSS');
+Minz_Session::init('FreshRSS', true);
 // ================================================================================================
 
 // <Debug>

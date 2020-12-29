@@ -52,6 +52,7 @@
 			<div class="group-controls">
 				<select name="display_categories" id="display_categories" data-leave-validation="<?= FreshRSS_Context::$user_conf->display_categories ?>">
 					<option value="active"<?= FreshRSS_Context::$user_conf->display_categories === 'active' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.active_category') ?></option>
+					<option value="remember"<?= FreshRSS_Context::$user_conf->display_categories === 'remember' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.remember_categories') ?></option>
 					<option value="all"<?= FreshRSS_Context::$user_conf->display_categories === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.all_categories') ?></option>
 					<option value="none"<?= FreshRSS_Context::$user_conf->display_categories === 'none' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.no_category') ?></option>
 				</select>

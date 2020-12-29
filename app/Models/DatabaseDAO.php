@@ -20,11 +20,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		try {
 			$sql = sprintf($SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
-			return $this->pdo->exec($sql) !== false;
+			return $this->pdo->exec($sql) === false ? 'Error during CREATE DATABASE' : '';
 		} catch (Exception $e) {
-			$_SESSION['bd_error'] = $e->getMessage();
-			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
-			return false;
+			syslog(LOG_DEBUG, __method__ . ' notice: ' . $e->getMessage());
+			return $e->getMessage();
 		}
 	}
 
@@ -33,11 +32,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$sql = 'SELECT 1';
 			$stm = $this->pdo->query($sql);
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-			return $res != false;
+			return $res == false ? 'Error during SQL connection test!' : '';
 		} catch (Exception $e) {
-			$_SESSION['bd_error'] = $e->getMessage();
 			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
-			return false;
+			return $e->getMessage();
 		}
 	}
 
@@ -243,7 +241,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$sqlite = null;
 
 		try {
-			$sqlite = new MinzPDOSQLite('sqlite:' . $filename);
+			$sqlite = new Minz_PdoSqlite('sqlite:' . $filename);
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);

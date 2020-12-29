@@ -16,6 +16,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	background: white;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
@@ -781,6 +782,14 @@ input[type="search"] {
 	overflow: auto;
 }
 
+.subtitle > div {
+	display: inline;
+}
+
+.subtitle > div:not(:first-of-type)::before {
+	content: ' · ';
+}
+
 br {
 	line-height: 1em;
 }
@@ -1287,6 +1296,7 @@ input:checked + .slide-container .properties {
 
 	.aside:target {
 		width: 90%;
+		height: 100vh;
 	}
 
 	.aside_feed .configure-feeds {

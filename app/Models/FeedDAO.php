@@ -62,7 +62,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			substr($valuesTmp['website'], 0, 255),
-			mb_strcut($valuesTmp['description'], 0, 1023, 'UTF-8'),
+			sanitizeHTML($valuesTmp['description'], '', 1023),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? intval($valuesTmp['priority']) : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 511, 'UTF-8'),
@@ -357,14 +357,18 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function listByCategory($cat) {
-		$sql = 'SELECT * FROM `_feed` WHERE category=? ORDER BY name';
+		$sql = 'SELECT * FROM `_feed` WHERE category=?';
 		$stm = $this->pdo->prepare($sql);
 
-		$values = array($cat);
+		$stm->execute(array($cat));
 
-		$stm->execute($values);
+		$feeds = self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
 
-		return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
+		usort($feeds, function ($a, $b) {
+			return strnatcasecmp($a->name(), $b->name());
+		});
+
+		return $feeds;
 	}
 
 	public function countEntries($id) {

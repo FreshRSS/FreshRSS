@@ -174,7 +174,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$this->view->list_keys = SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(Minz_Request::param('shortcuts'));
+			$shortcuts = Minz_Request::param('shortcuts');
+			if (false !== Minz_Request::param('load_default_shortcuts')) {
+				$shortcuts = array_filter($shortcuts);
+			}
+			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList($shortcuts);
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
@@ -284,7 +288,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				if ($query['search']) {
 					$query['search'] = urldecode($query['search']);
 				}
-				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
@@ -294,7 +298,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		} else {
 			$this->view->queries = array();
 			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 		}
 
@@ -342,7 +346,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
-	 *   - user login duration for form auth (default: 2592000)
+	 *   - user login duration for form auth (default: FreshRSS_Auth::DEFAULT_COOKIE_DURATION)
 	 *
 	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
@@ -359,7 +363,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
 			$limits['max_feeds'] = Minz_Request::param('max-feeds', 16384);
 			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
-			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', 2592000);
+			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', FreshRSS_Auth::DEFAULT_COOKIE_DURATION);
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
@@ -370,10 +374,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			invalidateHttpCache();
 
-			Minz_Session::_param('notification', array(
-				'type' => 'good',
-				'content' => _t('feedback.conf.updated')
-			));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'system' ]);
 		}
 	}
 }

@@ -92,10 +92,14 @@ Minz_Session::_param('currentUser', '_');	//Default user
 
 $ok = false;
 try {
-	$ok = initDb();
+	$error = initDb();
+	if ($error != '') {
+		$_SESSION['bd_error'] = $error;
+	} else {
+		$ok = true;
+	}
 } catch (Exception $ex) {
 	$_SESSION['bd_error'] = $ex->getMessage();
-	$ok = false;
 }
 
 if (!$ok) {

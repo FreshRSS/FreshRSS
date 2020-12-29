@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
+	'add' => 'La creacion de flux e categoria es desplaçada <a href=\'%s\'>aquí</a>. I avètz tanben accès del menú a man esquèrra e de l’icòna ✚ sus la pagina principala.',
 	'api' => array(
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
 		'title' => 'API',
@@ -102,19 +102,28 @@ return array(
 		'title' => 'Importar / Exportar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => 'Ajustar un flux o una categoria',
+		'add_feed' => 'Ajustar un flux',
 		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
+		'tag_management' => 'Gestion de las etiquetas',
+	),
+	'tag' => array(
+		'name' => 'Nom',
+		'new_name' => 'Nom novèl',
+		'old_name' => 'Nom ancian',
 	),
 	'title' => array(
 		'_' => 'Gestion dels abonaments',
-		'add' => 'Add a feed/a category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => 'Apondon de flux o categoria',
+		'add_category' => 'Ajustar una categoria',
+		'add_feed' => 'Ajustar un flux',
+		'add_tag' => 'Ajustar una etiqueta',
+		'delete_tag' => 'Suprimir una etiqueta',
 		'feed_management' => 'Gestion dels fluxes RSS',
+		'rename_tag' => 'Rennomenar una etiqueta',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 );

@@ -11,7 +11,7 @@ return array(
 		'keep_max' => 'Maximum number of articles to keep',	// TODO - Translation
 		'keep_min_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
 		'keep_period' => 'Maximum age of articles to keep',	// TODO - Translation
-		'keep_unreads' => 'Never delete unreads',	// TODO - Translation
+		'keep_unreads' => 'Never delete unread articles',	// TODO - Translation
 		'maintenance' => 'Maintenance',	// TODO - Translation
 		'optimize' => 'Optimalizovat databázi',
 		'optimize_help' => 'Občasná údržba zmenší velikost databáze',
@@ -70,6 +70,7 @@ return array(
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
+		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
 		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',
 		'number' => 'Dotaz n°%d',
@@ -98,7 +99,7 @@ return array(
 	'reading' => array(
 		'_' => 'Čtení',
 		'after_onread' => 'Po “označit vše jako přečtené”,',
-		'always_show_favorites' => 'Show all articles in favorites by default',	// TODO - Translation
+		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO - Translation
 		'articles_per_page' => 'Počet článků na stranu',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články schovat',
@@ -124,6 +125,7 @@ return array(
 			'all_articles' => 'Zobrazit všechny články',
 			'all_categories' => 'All categories',	// TODO - Translation
 			'no_category' => 'No category',	// TODO - Translation
+			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobrazit jen nepřečtené',
 		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation

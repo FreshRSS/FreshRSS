@@ -7,7 +7,7 @@ return array(
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
 		'label' => 'Subscribe',	// TODO - Translation
 		'title' => 'Bookmarklet',	// TODO - Translation
 	),
@@ -67,10 +67,10 @@ return array(
 		),
 		'show' => array(
 			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'error' => 'Show only feeds with errors',	// TODO - Translation
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Showing only feeds with errors',	// TODO - Translation
 		),
 		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
 		'stats' => 'İstatistikler',
@@ -102,19 +102,28 @@ return array(
 		'title' => 'İçe / dışa aktar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
 		'import_export' => 'İçe / dışa aktar',
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'tag_management' => 'Tag management',	// TODO - Translation
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO - Translation
+		'new_name' => 'New name',	// TODO - Translation
+		'old_name' => 'Old name',	// TODO - Translation
 	),
 	'title' => array(
 		'_' => 'Abonelik yönetimi',
-		'add' => 'Add a feed/a category',	// TODO - Translation
+		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add_tag' => 'Add a tag',	// TODO - Translation
+		'delete_tag' => 'Delete a tag',	// TODO - Translation
 		'feed_management' => 'RSS akış yönetimi',
+		'rename_tag' => 'Rename a tag',	// TODO - Translation
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
 );

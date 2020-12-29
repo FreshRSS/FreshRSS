@@ -10,6 +10,7 @@ require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
+Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
 Minz_Translate::init('en');
 

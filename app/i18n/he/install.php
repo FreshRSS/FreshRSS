@@ -33,7 +33,7 @@ return array(
 		'_' => 'בדיקות',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>./data/cache</em> directory. The HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>./data</em> directory. The HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>./data/favicons</em> directory. The HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'fileinfo' => array(
@@ -65,8 +65,8 @@ return array(
 			'ok' => 'הHTTP REFERER ידוע ותאם לשרת שלך.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find a recommended library to parse JSON.',	// TODO - Translation
-			'ok' => 'You have a recommended library to parse JSON.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
+			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
@@ -89,8 +89,8 @@ return array(
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',	// TODO - Translation
-			'ok' => 'Permissions on users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>./data/users</em> directory. The HTTP server must have write permissions',	// TODO - Translation
+			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
 		),
 		'xml' => array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation

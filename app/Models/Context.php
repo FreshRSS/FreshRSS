@@ -102,7 +102,7 @@ class FreshRSS_Context {
 		}
 
 		//Legacy < 1.16.1
-		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'all', 'none' ], true)) {
+		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
 

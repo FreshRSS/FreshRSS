@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
+	'tag' => array(
+		'created' => 'L’étiquette "%s" a été créée.',
+		'name_exists' => 'L’étiquette existe déjà.',
+		'renamed' => 'L’étiquette "%s" a été renommée en "%s".',
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',

@@ -160,7 +160,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// HTTP information are useful if feed is protected behind a
 			// HTTP authentication
 			$user = trim(Minz_Request::param('http_user', ''));
-			$pass = Minz_Request::param('http_pass', '');
+			$pass = trim(Minz_Request::param('http_pass', ''));
 			$http_auth = '';
 			if ($user != '' && $pass != '') {	//TODO: Sanitize
 				$http_auth = $user . ':' . $pass;
@@ -544,11 +544,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// Most of the time, ajax request is for only one feed. But since
 			// there are several parallel requests, we should return that there
 			// are several updated feeds.
-			$notif = array(
-				'type' => 'good',
-				'content' => _t('feedback.sub.feed.actualizeds')
-			);
-			Minz_Session::_param('notification', $notif);
+			Minz_Request::setGoodNotification(_t('feedback.sub.feed.actualizeds'));
 			// No layout in ajax request.
 			$this->view->_layout(false);
 		} else {
