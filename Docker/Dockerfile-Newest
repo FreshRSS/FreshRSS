@@ -41,7 +41,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 	# https://bugs.php.net/bug.php?id=78681 \
 	sed -r -i "s/php8_module/php_module/" \
 		/etc/apache2/conf.d/php8-module.conf && \
-	ln -s /usr/bin/php8 /usr/bin/php ; \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8 /usr/bin/php; else true; fi && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
