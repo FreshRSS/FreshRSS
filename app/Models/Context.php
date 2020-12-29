@@ -46,6 +46,7 @@ class FreshRSS_Context {
 	 * Initialize the context for the global system.
 	 */
 	public static function initSystem() {
+		//TODO: Keep in session what we need instead of always reloading from disk
 		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 		// Register the configuration setter for the system configuration
@@ -62,24 +63,34 @@ class FreshRSS_Context {
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
-		Minz_Session::_param('loginOk');
+
+		Minz_Session::lock();
 		if ($username == '') {
 			$username = Minz_Session::param('currentUser', '');
 		}
-		Minz_Session::_param('currentUser');
-		if ($username !== '_' && !FreshRSS_user_Controller::checkUsername($username)) {
-			return false;
-		}
-		try {
-			Minz_Configuration::register('user',
-				USERS_PATH . '/' . $username . '/config.php',
-				FRESHRSS_PATH . '/config-user.default.php',
-				FreshRSS_Context::$system_conf->configurationSetter());
+		if ($username === '_' || FreshRSS_user_Controller::checkUsername($username)) {
+			try {
+				//TODO: Keep in session what we need instead of always reloading from disk
+				Minz_Configuration::register('user',
+					USERS_PATH . '/' . $username . '/config.php',
+					FRESHRSS_PATH . '/config-user.default.php',
+					FreshRSS_Context::$system_conf->configurationSetter());
 
-			Minz_Session::_param('currentUser', $username);
-			FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
-		} catch (Exception $ex) {
-			Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
+				Minz_Session::_param('currentUser', $username);
+				FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
+			} catch (Exception $ex) {
+				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
+			}
+		}
+		if (FreshRSS_Context::$user_conf == null) {
+			Minz_Session::_params([
+				'loginOk' => false,
+				'currentUser' => false,
+			]);
+		}
+		Minz_Session::unlock();
+
+		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
 
