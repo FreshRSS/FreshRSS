@@ -63,10 +63,10 @@ class FreshRSS_Context {
 			Minz_Session::init('FreshRSS');
 		}
 		Minz_Session::_param('loginOk');
-		Minz_Session::_param('currentUser');
 		if ($username == '') {
 			$username = Minz_Session::param('currentUser', '');
 		}
+		Minz_Session::_param('currentUser');
 		if ($username !== '_' && !FreshRSS_user_Controller::checkUsername($username)) {
 			return false;
 		}
