@@ -205,9 +205,6 @@ function saveStep3() {
 		FreshRSS_Context::initSystem();
 		Minz_Translate::init(Minz_Session::param('language'));
 
-		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
-		FreshRSS_Context::$system_conf->save();
-
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
 		recursive_unlink(USERS_PATH . '/' . Minz_Session::param('default_user'));
@@ -231,6 +228,9 @@ function saveStep3() {
 		if (!$ok) {
 			return false;
 		}
+
+		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
+		FreshRSS_Context::$system_conf->save();
 
 		header('Location: index.php?step=4');
 	}
