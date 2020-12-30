@@ -1175,7 +1175,7 @@ function init_actualize() {
 		return;
 	}
 
-	document.getElementById('actualize').onclick = function () {
+	actualize.onclick = function () {
 		if (context.ajax_loading) {
 			return false;
 		}
@@ -1231,7 +1231,7 @@ function init_actualize() {
 
 	if (context.auto_actualize_feeds) {
 		auto = true;
-		document.getElementById('actualize').click();
+		actualize.click();
 	}
 }
 // </actualize>
