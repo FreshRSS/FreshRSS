@@ -114,7 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
-			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'en davalar la pagina',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',

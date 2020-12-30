@@ -114,7 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',
 			'article_viewed' => 'when the article is viewed',
-			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',
 			'scroll' => 'while scrolling',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',

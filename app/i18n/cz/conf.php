@@ -114,7 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je otevřen původní web s článkem',
 			'article_viewed' => 'během čtení článku',
-			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'během skrolování',
 			'upon_reception' => 'po načtení článku',
 			'when' => 'Označit článek jako přečtený…',

@@ -114,7 +114,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
 			'article_viewed' => '글을 읽었을 때',
-			'keep_max_n_unread' => 'Keep at max <i>n</i> articles unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => '스크롤을 하며 지나갈 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
