@@ -65,6 +65,7 @@ People are sorted by name so please keep this order.
 * [Luc Sanchez](https://github.com/ColonelMoutarde): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ColonelMoutarde), [Web](https://www.luc-sanchez.fr/)
 * [LucasVerneyDGE](https://github.com/LucasVerneyDGE): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:LucasVerneyDGE)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marcomrc)
+* [Marco Hinniger](https://github.com/rom-1): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=rom-1), [Web](https://blog.rootdir.net/)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mro), [Web](http://mro.name/~me)
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](https://marienfressinaud.fr/)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=yaurthek), [Web](http://x2a.yt/)
