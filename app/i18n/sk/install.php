@@ -33,7 +33,7 @@ return array(
 		'_' => 'Kontrola',
 		'already_installed' => 'Zistilo sa, že FreshRSS je už nainštalovaný!',
 		'cache' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>./data/cache</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia prístupu do priečinku vyrovnávacej pamäte sú OK.',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'Našla sa knižnica cURL.',
 		),
 		'data' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>./data</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia prístupu do priečinku údajov sú OK.',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'Našla sa požadovaná knižnica na prehliadanie DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>./data/favicons</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia prístupu do priečinku ikôn obľúbených sú OK.',
 		),
 		'fileinfo' => array(
@@ -88,8 +88,12 @@ return array(
 			'nok' => 'Vaša verzia PHP je %s, ale FreshRSS vyžaduje minimálne verziu %s.',
 			'ok' => 'Vaša verzia PHP %s je kompatibilná s FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>./data/users</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia prístupu do priečinku používateľov sú OK.',
 		),
 		'xml' => array(

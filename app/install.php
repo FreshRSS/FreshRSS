@@ -440,25 +440,31 @@ function printStep1() {
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.data.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.data.ok', DATA_PATH) ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.data.nok', DATA_PATH) ?></p>
 	<?php } ?>
 
 	<?php if ($res['cache'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.cache.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.cache.ok', CACHE_PATH) ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.cache.nok', CACHE_PATH) ?></p>
 	<?php } ?>
 
+	<?php if ($res['tmp'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.tmp.ok', TMP_PATH) ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.tmp.nok', TMP_PATH) ?></p>
+	<?php } ?>
+
 	<?php if ($res['users'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.users.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.users.ok', USERS_PATH) ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.users.nok', USERS_PATH) ?></p>
 	<?php } ?>
 
 	<?php if ($res['favicons'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.favicons.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.favicons.ok', DATA_PATH . '/favicons') ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.favicons.nok', DATA_PATH . '/favicons') ?></p>
 	<?php } ?>

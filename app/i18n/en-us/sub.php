@@ -108,22 +108,22 @@ return array(
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
-		'tag_management' => 'Tag management',	// TODO - Translation
+		'tag_management' => 'Tag management',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'Name',
+		'new_name' => 'New name',
+		'old_name' => 'Old name',
 	),
 	'title' => array(
 		'_' => 'Subscription management',
 		'add' => 'Add a feed or category',
 		'add_category' => 'Add a category',
 		'add_feed' => 'Add a feed',
-		'add_tag' => 'Add a tag',	// TODO - Translation
-		'delete_tag' => 'Delete a tag',	// TODO - Translation
+		'add_tag' => 'Add a tag',
+		'delete_tag' => 'Delete a tag',
 		'feed_management' => 'RSS feeds management',
-		'rename_tag' => 'Rename a tag',	// TODO - Translation
+		'rename_tag' => 'Rename a tag',
 		'subscription_tools' => 'Subscription tools',
 	),
 );

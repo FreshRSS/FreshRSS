@@ -43,6 +43,7 @@ function checkRequirements($dbType = '') {
 	$mbstring = extension_loaded('mbstring');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
+	$tmp = TMP_PATH && is_writable(TMP_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
 	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
 	$http_referer = is_referer_from_same_domain();
@@ -63,12 +64,13 @@ function checkRequirements($dbType = '') {
 		'mbstring' => $mbstring ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
+		'tmp' => $tmp ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'message' => $message ?: 'ok',
 		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
+		         $data && $cache && $tmp && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
 	);
 }
 

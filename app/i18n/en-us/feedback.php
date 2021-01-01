@@ -110,9 +110,9 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'Tag "%s" has been created.',
+		'name_exists' => 'Tag name already exists.',
+		'renamed' => 'Tag "%s" has been renamed to "%s".',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',
