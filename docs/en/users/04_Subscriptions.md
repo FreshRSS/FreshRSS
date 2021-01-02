@@ -24,6 +24,13 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/master/cli
   1. Go to the page “Import / export”.
   2. Click on “Browse” and select your OPML or archive file on your computer.
   3. Click on “Import”
+
+> **Important**: you can not import directly a list of feeds from a text file.
+> You need to convert it beforehand to _OPML_.
+> Here is some tools you could use :
+> - [Pandoc](https://pandoc.org/) available for most systems,
+> - [OPML generator](https://opml-gen.ovh/) available online,
+> - [txt2opml](https://alterfiles.com/convert/txt/opml) available online.
   
 # Use bookmarklet
 
