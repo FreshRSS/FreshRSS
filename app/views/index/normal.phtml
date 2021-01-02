@@ -88,7 +88,7 @@ $today = @strtotime('today');
 								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 								$first = false;
 					?>
-	<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
+	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])) ?>"><?= $author ?></a></em>
 					<?php	endforeach; ?>
 					</div><?php endif; ?>
 				</div>
