@@ -979,8 +979,15 @@ if ($pathInfos[1] === 'accounts') {
 			if (!ctype_digit($continuation)) {
 				$continuation = '';
 			}
-			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
-				if (isset($pathInfos[7])) {
+			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents') {
+				if (!isset($pathInfos[6]) && isset($_GET['s'])) {
+					// Compatibility BazQux API https://github.com/bazqux/bazqux-api#fetching-streams
+					$streamIdInfos = explode('/', $_GET['s']);
+					foreach ($streamIdInfos as $streamIdInfo) {
+						$pathInfos[] = $streamIdInfo;
+					}
+				}
+				if (isset($pathInfos[6]) && isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
 						$include_target = $pathInfos[7];
 						if ($include_target != '' && !ctype_digit($include_target)) {
@@ -1005,7 +1012,7 @@ if ($pathInfos[1] === 'accounts') {
 							streamContents($pathInfos[8], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 						}
 					}
-				} else {	//EasyRSS
+				} else {	//EasyRSS, FeedMe
 					$include_target = '';
 					streamContents('reading-list', $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				}
