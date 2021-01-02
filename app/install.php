@@ -69,29 +69,21 @@ function saveStep1() {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		Minz_Configuration::register('system',
-		                             join_path(DATA_PATH, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config.default.php'));
-		$system_conf = Minz_Configuration::get('system');
-
-		$current_user = $system_conf->default_user;
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		$user_conf = Minz_Configuration::get('user');
+		FreshRSS_Context::initSystem();
+		FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
 
 		// Then, we set $_SESSION vars
 		Minz_Session::_params([
-				'title' => $system_conf->title,
-				'auth_type' => $system_conf->auth_type,
-				'default_user' => $current_user,
-				'passwordHash' => $user_conf->passwordHash,
-				'bd_type' => $system_conf->db['type'],
-				'bd_host' => $system_conf->db['host'],
-				'bd_user' => $system_conf->db['user'],
-				'bd_password' => $system_conf->db['password'],
-				'bd_base' => $system_conf->db['base'],
-				'bd_prefix' => $system_conf->db['prefix'],
+				'title' => FreshRSS_Context::$system_conf->title,
+				'auth_type' => FreshRSS_Context::$system_conf->auth_type,
+				'default_user' => Minz_Session::param('currentUser'),
+				'passwordHash' => FreshRSS_Context::$user_conf->passwordHash,
+				'bd_type' => FreshRSS_Context::$system_conf->db['type'],
+				'bd_host' => FreshRSS_Context::$system_conf->db['host'],
+				'bd_user' => FreshRSS_Context::$system_conf->db['user'],
+				'bd_password' => FreshRSS_Context::$system_conf->db['password'],
+				'bd_base' => FreshRSS_Context::$system_conf->db['base'],
+				'bd_prefix' => FreshRSS_Context::$system_conf->db['prefix'],
 				'bd_error' => false,
 			]);
 
@@ -159,8 +151,7 @@ function saveStep2() {
 			opcache_reset();
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem();
 
 		$ok = false;
 		try {
@@ -211,12 +202,8 @@ function saveStep3() {
 			return false;
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem();
 		Minz_Translate::init(Minz_Session::param('language'));
-
-		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
-		FreshRSS_Context::$system_conf->save();
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
@@ -241,6 +228,9 @@ function saveStep3() {
 		if (!$ok) {
 			return false;
 		}
+
+		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
+		FreshRSS_Context::$system_conf->save();
 
 		header('Location: index.php?step=4');
 	}

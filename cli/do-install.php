@@ -86,8 +86,7 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::initSystem();
 
 Minz_Session::_param('currentUser', '_');	//Default user
 

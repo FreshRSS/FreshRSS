@@ -9,9 +9,8 @@ header('X-Content-Type-Options: nosniff');
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, MAX_PAYLOAD);
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-$system_conf = Minz_Configuration::get('system');
-$system_conf->auth_type = 'none';	// avoid necessity to be logged in (not saved!)
+FreshRSS_Context::initSystem();
+FreshRSS_Context::$system_conf->auth_type = 'none';	// avoid necessity to be logged in (not saved!)
 
 //Minz_Log::debug(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true), PSHB_LOG);
 
@@ -58,10 +57,6 @@ if (empty($users)) {
 	$url = base64url_decode($canonical64);
 	Minz_Log::warning('Warning: Nobody subscribes to this feed anymore!: ' . $url, PSHB_LOG);
 	unlink('../../keys/' . $key . '.txt');
-	Minz_Configuration::register('system',
-		DATA_PATH . '/config.php',
-		FRESHRSS_PATH . '/config.default.php');
-	FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 	$feed = new FreshRSS_Feed($url);
 	$feed->pubSubHubbubSubscribe(false);
 	unlink('!hub.json');
@@ -129,12 +124,7 @@ foreach ($users as $userFilename) {
 	}
 
 	try {
-		Minz_Session::_param('currentUser', $username);
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		new Minz_ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
-		FreshRSS_Context::init();
+		FreshRSS_Context::initUser($username);
 		if (FreshRSS_Context::$user_conf != null) {
 			Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
 			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);

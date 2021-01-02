@@ -169,18 +169,17 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie($attributes = array()) {
-	$system_conf = Minz_Configuration::get('system');
-	$limits = $system_conf->limits;
+	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
+	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = $system_conf->curl_options;
+	$curl_options = FreshRSS_Context::$system_conf->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
@@ -331,8 +330,7 @@ function listUsers() {
  * @return true if number of users >= max registrations, false else.
  */
 function max_registrations_reached() {
-	$system_conf = Minz_Configuration::get('system');
-	$limit_registrations = $system_conf->limits['max_registrations'];
+	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
 	$number_accounts = count(listUsers());
 
 	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;

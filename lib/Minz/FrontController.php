@@ -31,9 +31,6 @@ class Minz_FrontController {
 	 */
 	public function __construct () {
 		try {
-			Minz_Configuration::register('system',
-			                             DATA_PATH . '/config.php',
-			                             FRESHRSS_PATH . '/config.default.php');
 			$this->setReporting();
 
 			Minz_Request::init();
