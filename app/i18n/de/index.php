@@ -19,8 +19,8 @@ return array(
 		'add' => 'Sie können Feeds hinzufügen.',
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'rss_of' => 'RSS-Feed von %s',
-		'title' => 'Ihre RSS-Feeds',
-		'title_fav' => 'Ihre Favoriten',
+		'title' => 'Haupt-Feeds',
+		'title_fav' => 'Favoriten',
 		'title_global' => 'Globale Ansicht',
 	),
 	'log' => array(

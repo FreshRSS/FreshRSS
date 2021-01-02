@@ -19,8 +19,8 @@ return array(
 		'add' => 'Please add some feeds.',	// TODO - Translation
 		'empty' => 'There are no articles to show.',	// TODO - Translation
 		'rss_of' => 'RSS feed of %s',	// TODO - Translation
-		'title' => 'Your RSS feeds',	// TODO - Translation
-		'title_fav' => 'Your favourites',	// TODO - Translation
+		'title' => 'Main stream',	// TODO - Translation
+		'title_fav' => 'Favourites',	// TODO - Translation
 		'title_global' => 'Global view',	// TODO - Translation
 	),
 	'log' => array(
