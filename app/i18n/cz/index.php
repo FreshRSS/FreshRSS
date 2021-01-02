@@ -19,7 +19,7 @@ return array(
 		'add' => 'Můžete přidat kanály.',
 		'empty' => 'Žádné články k zobrazení.',
 		'rss_of' => 'RSS kanál %s',
-		'title' => 'RSS kanály',
+		'title' => 'Všechny kanály',
 		'title_fav' => 'Oblíbené',
 		'title_global' => 'Přehled',
 	),

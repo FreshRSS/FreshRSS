@@ -19,7 +19,7 @@ return array(
 		'add' => 'Aggiungi un Feed RSS',
 		'empty' => 'Non ci sono articoli da mostrare.',
 		'rss_of' => 'RSS feed di %s',
-		'title' => 'RSS feeds',
+		'title' => 'Flusso principale',
 		'title_fav' => 'Preferiti',
 		'title_global' => 'Vista globale per categorie',
 	),
