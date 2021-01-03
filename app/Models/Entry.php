@@ -353,13 +353,6 @@ class FreshRSS_Entry extends Minz_Model {
 			return false;
 		}
 	}
-	public static function curl_opt_decode($s){
-		$opts = array(	'CURLOPT_COOKIE' => CURLOPT_COOKIE,
-						'FOO' => 0,
-						'CURLPROXY_SOCKS5' => CURLPROXY_SOCKS5,
-						'CURLOPT_PROXY' => CURLOPT_PROXY); 
-		return array_key_exists($s, $opts) ? $opts[$s] : null;
-	}
 	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
