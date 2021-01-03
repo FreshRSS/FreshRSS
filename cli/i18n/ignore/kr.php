@@ -19,8 +19,6 @@ return array(
 	'gen.date.Nov',
 	'gen.date.Oct',
 	'gen.date.Sep',
-	'gen.date.format_date',
-	'gen.date.format_date_hour',
 	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
