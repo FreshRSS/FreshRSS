@@ -24,7 +24,7 @@ return array(
 		'remove' => 'Entfernen',
 		'rename' => 'Umbenennen',
 		'see_website' => 'Website ansehen',
-		'submit' => 'Abschicken',
+		'submit' => 'Speichern',
 		'truncate' => 'Alle Artikel löschen',
 		'update' => 'Aktualisieren',
 	),
