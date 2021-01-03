@@ -18,8 +18,6 @@ return array(
 	'conf.sharing.wallabag',
 	'conf.shortcut.navigation',
 	'conf.user.articles_and_size',
-	'gen.date.format_date',
-	'gen.date.format_date_hour',
 	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
