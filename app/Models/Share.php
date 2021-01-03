@@ -43,6 +43,10 @@ class FreshRSS_Share {
 			$share_options['type'] = $share_type;
 			self::register($share_options);
 		}
+
+		uasort(self::$list_sharing, function ($a, $b) {
+			return strcasecmp($a->name(), $b->name());
+		});
 	}
 
 	/**
