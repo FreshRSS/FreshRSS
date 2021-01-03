@@ -185,6 +185,7 @@ return array(
 	'share' => array(
 		'Known' => '基于 Known 的站点',
 		'blogotext' => 'Blogotext',
+		'clipboard' => 'Clipboard',	// TODO - Translation
 		'diaspora' => 'Diaspora*',
 		'email' => '邮箱',
 		'facebook' => '脸书',

@@ -185,6 +185,7 @@ return array(
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',
 		'blogotext' => 'Blogotext',
+		'clipboard' => 'Klembord',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

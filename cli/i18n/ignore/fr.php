@@ -50,6 +50,7 @@ return array(
 	'gen.share.linkedin',
 	'gen.share.mastodon',
 	'gen.share.movim',
+	'gen.share.pocket',
 	'gen.share.shaarli',
 	'gen.share.twitter',
 	'gen.share.wallabag',
