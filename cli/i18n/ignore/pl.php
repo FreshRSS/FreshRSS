@@ -1,8 +1,6 @@
 <?php
 
 return array(
-	'gen.date.format_date',
-	'gen.date.format_date_hour',
 	'admin.user.admin',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
@@ -10,6 +8,8 @@ return array(
 	'conf.sharing.shaarli',
 	'conf.sharing.twitter',
 	'conf.sharing.wallabag',
+	'gen.date.format_date',
+	'gen.date.format_date_hour',
 	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',
