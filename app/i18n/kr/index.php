@@ -19,7 +19,7 @@ return array(
 		'add' => '피드를 추가하세요.',
 		'empty' => '글이 없습니다.',
 		'rss_of' => '%s의 피드',
-		'title' => 'RSS 피드',
+		'title' => '메인 스트림',
 		'title_fav' => '즐겨찾기',
 		'title_global' => '전체 모드',
 	),

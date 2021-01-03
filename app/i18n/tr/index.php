@@ -19,8 +19,8 @@ return array(
 		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
 		'rss_of' => 'RSS feed of %s',	// TODO - Translation
-		'title' => 'RSS akışlarınız',
-		'title_fav' => 'Favorilerin',
+		'title' => 'Ana akış',
+		'title_fav' => 'Favoriler',
 		'title_global' => 'Global görünüm',
 	),
 	'log' => array(

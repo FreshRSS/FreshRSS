@@ -1170,7 +1170,12 @@ function updateFeed(feeds, feeds_count) {
 function init_actualize() {
 	let auto = false;
 
-	document.getElementById('actualize').onclick = function () {
+	const actualize = document.getElementById('actualize');
+	if (!actualize) {
+		return;
+	}
+
+	actualize.onclick = function () {
 		if (context.ajax_loading) {
 			return false;
 		}
@@ -1226,7 +1231,7 @@ function init_actualize() {
 
 	if (context.auto_actualize_feeds) {
 		auto = true;
-		document.getElementById('actualize').click();
+		actualize.click();
 	}
 }
 // </actualize>

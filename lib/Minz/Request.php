@@ -71,6 +71,13 @@ class Minz_Request {
 			'params' => self::$params,
 		);
 	}
+	public static function modifiedCurrentRequest(array $extraParams = null) {
+		$currentRequest = self::currentRequest();
+		if (null !== $extraParams) {
+			$currentRequest['params'] = array_merge($currentRequest['params'], $extraParams);
+		}
+		return $currentRequest;
+	}
 
 	/**
 	 * Setteurs

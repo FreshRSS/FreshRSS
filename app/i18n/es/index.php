@@ -19,8 +19,8 @@ return array(
 		'add' => 'Puedes añadir fuentes.',
 		'empty' => 'No hay artículos a mostrar.',
 		'rss_of' => 'Fuente RSS de %s',
-		'title' => 'Tus fuentes RSS',
-		'title_fav' => 'Tus favoritos',
+		'title' => 'Salida Principal',
+		'title_fav' => 'Favoritos',
 		'title_global' => 'Vista global',
 	),
 	'log' => array(

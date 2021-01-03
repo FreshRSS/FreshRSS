@@ -24,6 +24,13 @@ Voir [export/import SQLite]( https://github.com/FreshRSS/FreshRSS/tree/master/cl
   2. Cliquez sur « Parcourir » et sélectionnez votre fichier sur votre ordinateur.
   3. Validez en cliquant sur « Importer ».
 
+> **Important**: vous ne pouvez pas importer directement depuis un fichier texte.
+> Vous devez le convertir au format _OPML_ au préalable.
+> Voici une liste d’outils que vous pouvez utiliser :
+> - [Pandoc](https://pandoc.org/) disponible sur la plus part des systèmes,
+> - [OPML generator](https://opml-gen.ovh/) disponible en ligne,
+> - [txt2opml](https://alterfiles.com/convert/txt/opml) disponible en ligne.
+
 # Utiliser le « bookmarklet »
 
 Les « bookmarklets » sont de petits scripts que vous pouvez exécuter pour effectuer des tâches diverses et variées. FreshRSS offre un signet « bookmark » pour s’abonner aux fils de nouvelles.

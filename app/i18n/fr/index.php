@@ -19,8 +19,8 @@ return array(
 		'add' => 'Vous pouvez ajouter des flux.',
 		'empty' => 'Il n’y a aucun article à afficher.',
 		'rss_of' => 'Flux RSS de %s',
-		'title' => 'Vos flux RSS',
-		'title_fav' => 'Vos favoris',
+		'title' => 'Flux principal',
+		'title_fav' => 'Favoris',
 		'title_global' => 'Vue globale',
 	),
 	'log' => array(

@@ -15,14 +15,14 @@ return array(
 		'export' => 'Export',
 		'filter' => 'Filter',
 		'import' => 'Import',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_favorite' => 'Mark as favorite',
 		'mark_read' => 'Mark as read',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
 		'remove' => 'Remove',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Rename',
 		'see_website' => 'See website',
 		'submit' => 'Submit',
 		'truncate' => 'Delete all articles',

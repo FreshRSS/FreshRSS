@@ -55,7 +55,6 @@ if (array_key_exists('header', $options)) {
 foreach ($users as $username) {
 	$username = cliInitUser($username);
 
-	$userConfiguration = get_user_configuration($username);
 	$catDAO = FreshRSS_Factory::createCategoryDao($username);
 	$feedDAO = FreshRSS_Factory::createFeedDao($username);
 	$entryDAO = FreshRSS_Factory::createEntryDao($username);
@@ -68,8 +67,8 @@ foreach ($users as $username) {
 	$data = array(
 		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
 		'user' => $username,
-		'admin' => $userConfiguration->is_admin ? '*' : '',
-		'enabled' => $userConfiguration->enabled ? '*' : '',
+		'admin' => FreshRSS_Context::$user_conf->is_admin ? '*' : '',
+		'enabled' => FreshRSS_Context::$user_conf->enabled ? '*' : '',
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
 		'categories' => (int) $catDAO->count(),
@@ -78,8 +77,8 @@ foreach ($users as $username) {
 		'unreads' => (int) $nbEntries['unread'],
 		'favourites' => (int) $nbFavorites['all'],
 		'tags' => (int) $tagDAO->count(),
-		'lang' => $userConfiguration->language,
-		'mail_login' => $userConfiguration->mail_login,
+		'lang' => FreshRSS_Context::$user_conf->language,
+		'mail_login' => FreshRSS_Context::$user_conf->mail_login,
 	);
 	if (isset($options['h'])) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);

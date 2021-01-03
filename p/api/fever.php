@@ -14,10 +14,9 @@
 // BOOTSTRAP FreshRSS
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');    //Includes class autoloader
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	Minz_Log::warning('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
@@ -159,10 +158,8 @@ class FeverAPI
 			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
 			if ($username != false) {
 				$username = trim($username);
-				Minz_Session::_param('currentUser', $username);
-				$user_conf = get_user_configuration($username);
-				if ($user_conf != null && $feverKey === $user_conf->feverKey && $user_conf->enabled) {
-					FreshRSS_Context::$user_conf = $user_conf;
+				FreshRSS_Context::initUser($username);
+				if (FreshRSS_Context::$user_conf != null && $feverKey === FreshRSS_Context::$user_conf->feverKey && FreshRSS_Context::$user_conf->enabled) {
 					Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
 					$this->feedDAO = FreshRSS_Factory::createFeedDao();

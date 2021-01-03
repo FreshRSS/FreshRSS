@@ -19,8 +19,8 @@ return array(
 		'add' => 'Môžete pridať kanály.',
 		'empty' => 'Žiadne články.',
 		'rss_of' => 'RSS kanál pre %s',
-		'title' => 'Vaše RSS kanály',
-		'title_fav' => 'Vaše obľúbené',
+		'title' => 'Všetky kanály',
+		'title_fav' => 'Obľúbené',
 		'title_global' => 'Prehľad',
 	),
 	'log' => array(

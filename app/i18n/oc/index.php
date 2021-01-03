@@ -19,8 +19,8 @@ return array(
 		'add' => 'Podètz ajustar de fluxes.',
 		'empty' => 'I a pas cap de flux de mostrar.',
 		'rss_of' => 'Flux RSS de %s',
-		'title' => 'Vòstres fluxes RSS',
-		'title_fav' => 'Vòstres favorits',
+		'title' => 'Flux màger',
+		'title_fav' => 'Favorits',
 		'title_global' => 'Vista generala',
 	),
 	'log' => array(

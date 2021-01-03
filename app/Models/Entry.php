@@ -358,11 +358,10 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
-		$system_conf = Minz_Configuration::get('system');
-		$limits = $system_conf->limits;
+		$limits = FreshRSS_Context::$system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-		if ($system_conf->simplepie_syslog_enabled) {
+		if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
 			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
 		}
 
@@ -380,7 +379,7 @@ class FreshRSS_Entry extends Minz_Model {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
-		curl_setopt_array($ch, $system_conf->curl_options);
+		curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
 		if (isset($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);

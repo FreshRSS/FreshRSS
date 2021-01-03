@@ -33,7 +33,7 @@ return array(
 		'_' => 'בדיקות',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>./data/cache</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>./data</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>./data/favicons</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permission.',	// TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'fileinfo' => array(
@@ -88,8 +88,12 @@ return array(
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
+		'tmp' => array(
+			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permissions.',	// TODO - Translation
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Check permissions on the <em>./data/users</em> directory. The HTTP server must have write permissions',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permissions.',	// TODO - Translation
 			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
 		),
 		'xml' => array(
