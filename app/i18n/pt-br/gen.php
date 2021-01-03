@@ -185,6 +185,7 @@ return array(
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO - Translation
 		'blogotext' => 'Blogotext',
+		'clipboard' => 'Clipboard',	// TODO - Translation
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',

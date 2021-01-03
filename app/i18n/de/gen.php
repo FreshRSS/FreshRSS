@@ -24,7 +24,7 @@ return array(
 		'remove' => 'Entfernen',
 		'rename' => 'Umbenennen',
 		'see_website' => 'Website ansehen',
-		'submit' => 'Abschicken',
+		'submit' => 'Speichern',
 		'truncate' => 'Alle Artikel löschen',
 		'update' => 'Aktualisieren',
 	),
@@ -185,6 +185,7 @@ return array(
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
 		'blogotext' => 'Blogotext',
+		'clipboard' => 'Zwischenablage',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',

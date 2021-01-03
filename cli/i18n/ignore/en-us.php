@@ -540,6 +540,7 @@ return array(
 	'gen.period.years',
 	'gen.share.Known',
 	'gen.share.blogotext',
+	'gen.share.clipboard',
 	'gen.share.diaspora',
 	'gen.share.email',
 	'gen.share.facebook',

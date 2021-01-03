@@ -63,6 +63,7 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		// Apply the migrations if any
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 		if ($result === true) {
+			FreshRSS_Context::initSystem();
 			$front_controller = new FreshRSS();
 			$front_controller->init();
 			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
