@@ -200,7 +200,7 @@ In this case it is possible to combine multiple CSS tags using comma separation:
 
 ### Retrieve a truncated stream with external tools
 
-Complimentary tools can be used to retrieve full article content, such as: 
+Complimentary tools can be used to retrieve full article content, such as:
 
 * [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
 * [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)
