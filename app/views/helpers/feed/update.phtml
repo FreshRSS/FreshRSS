@@ -293,7 +293,7 @@
 					<input type="text" name="curl_params" id="curl_params" class="extend" value="<?= $this->feed->attributes('curl_params') ?>" placeholder="params_placeholder" />
 					<a id="popup-preview-selector" class="btn" href="<?= _url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
 				</div>
-				<p class="help"><?= _i('help') ?> Use json syntax: { "CURLOPT_COOKIE" : "fooo; bar; baz", "CURLOPT_PROXY" : "socks5://127.0.0.1:1080" }</p>
+				<p class="help"><?= _i('help') ?> Use json syntax: { "CURLOPT_COOKIE" : "foo=nya; bar=baz", "CURLOPT_PROXY" : "socks5://127.0.0.1:1080" }</p>
 			</div>
 		</div>
 
