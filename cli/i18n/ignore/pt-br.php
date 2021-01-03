@@ -12,8 +12,6 @@ return array(
 	'conf.sharing.shaarli',
 	'conf.sharing.twitter',
 	'conf.sharing.wallabag',
-	'gen.date.format_date',
-	'gen.date.format_date_hour',
 	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
