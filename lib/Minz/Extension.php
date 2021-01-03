@@ -3,7 +3,7 @@
 /**
  * The extension base class.
  */
-class Minz_Extension {
+abstract class Minz_Extension {
 	private $name;
 	private $entrypoint;
 	private $path;
@@ -31,11 +31,9 @@ class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * It must not be redefined by child classes.
-	 *
 	 * @param $meta_info contains information about the extension.
 	 */
-	public function __construct($meta_info) {
+	final public function __construct($meta_info) {
 		$this->name = $meta_info['name'];
 		$this->entrypoint = $meta_info['entrypoint'];
 		$this->path = $meta_info['path'];
@@ -50,8 +48,6 @@ class Minz_Extension {
 	/**
 	 * Used when installing an extension (e.g. update the database scheme).
 	 *
-	 * It must be redefined by child classes.
-	 *
 	 * @return true if the extension has been installed or a string explaining
 	 *         the problem.
 	 */
@@ -63,8 +59,6 @@ class Minz_Extension {
 	 * Used when uninstalling an extension (e.g. revert the database scheme to
 	 * cancel changes from install).
 	 *
-	 * It must be redefined by child classes.
-	 *
 	 * @return true if the extension has been uninstalled or a string explaining
 	 *         the problem.
 	 */
@@ -75,10 +69,8 @@ class Minz_Extension {
 	/**
 	 * Call at the initialization of the extension (i.e. when the extension is
 	 * enabled by the extension manager).
-	 *
-	 * It must be redefined by child classes.
 	 */
-	public function init() {}
+	abstract public function init();
 
 	/**
 	 * Set the current extension to enable.
@@ -115,8 +107,6 @@ class Minz_Extension {
 
 	/**
 	 * Handle the configure action.
-	 *
-	 * It must be redefined by child classes.
 	 */
 	public function handleConfigureAction() {}
 
