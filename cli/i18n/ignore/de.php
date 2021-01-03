@@ -21,6 +21,8 @@ return array(
 	'gen.date.august',
 	'gen.date.november',
 	'gen.date.september',
+	'gen.date.format_date',
+	'gen.date.format_date_hour',
 	'gen.dir',
 	'gen.freshrss._',
 	'gen.lang.cz',
