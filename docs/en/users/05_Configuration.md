@@ -182,9 +182,25 @@ Here we find that the block that encompasses nothing but the content of the arti
 *  Lesnumériques: ```article#body div.text.clearfix```
 *  Phoronix: ```#main .content```
 
+#### Combining CSS Classes
+Lets say we have an article which contains ads within its content, and we do not want to have those ads retrieved by FreshRSS. Example Source Code:
+```
+<div id='article'>
+<h2>wanted</h2>
+<p class='content'>wanted content</p>
+<p class='add'>unwanted content</p>
+<h2>wanted</h2>
+<p class='content'>wanted content</p>
+<h2>wanted</h2>
+<p class='add'>unwanted content</p>
+<p class='content'>wanted content</p>
+</div>
+```
+In this case it is possible to combine multiple CSS tags using comma separation: ```#article p.content, #article h2```
+
 ### Retrieve a truncated stream with external tools
 
-Complimentary tools can be used to retrieve full article content, such as:
+Complimentary tools can be used to retrieve full article content, such as: 
 
 * [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
 * [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)
