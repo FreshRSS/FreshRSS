@@ -287,6 +287,17 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="path_entries">Additional curl params for feed requests</label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="text" name="curl_params" id="curl_params" class="extend" value="<?= $this->feed->attributes('curl_params') ?>" placeholder="params_placeholder" />
+					<a id="popup-preview-selector" class="btn" href="<?= _url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
+				</div>
+				<p class="help"><?= _i('help') ?> Use json syntax: { "key_0" : "value", "key_0" => "value" }</p>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="mark_updated_article_unread"><?= _t('conf.reading.mark_updated_article_unread') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="mark_updated_article_unread">
