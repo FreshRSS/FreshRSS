@@ -183,20 +183,20 @@ Here we find that the block that encompasses nothing but the content of the arti
 *  Phoronix: ```#main .content```
 
 #### Combining CSS Classes
-Lets say we have an article which contains ads within its content, and we do not want to have those ads retrieved by FreshRSS. Example Source Code:
+Let's say we have an article which contains ads within its content, and we do not want to have those ads retrieved by FreshRSS. Example Source Code:
 ```
 <div id='article'>
 <h2>wanted</h2>
 <p class='content'>wanted content</p>
-<p class='add'>unwanted content</p>
+<p class='ad'>unwanted content</p>
 <h2>wanted</h2>
 <p class='content'>wanted content</p>
 <h2>wanted</h2>
-<p class='add'>unwanted content</p>
+<p class='ad'>unwanted content</p>
 <p class='content'>wanted content</p>
 </div>
 ```
-In this case it is possible to combine multiple CSS tags using comma separation: ```#article p.content, #article h2```
+In this case it's possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
 
 ### Retrieve a truncated stream with external tools
 
