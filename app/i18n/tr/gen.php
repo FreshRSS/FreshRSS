@@ -72,8 +72,8 @@ return array(
 		'december' => 'Ara',
 		'feb' => 'şub',
 		'february' => 'Şub',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// TODO - Translation
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// TODO - Translation
+		'format_date' => 'j %s Y',
+		'format_date_hour' => 'j %s Y \\a\\t H\\:i',
 		'fri' => 'Cum',
 		'jan' => 'oca',
 		'january' => 'Oca',

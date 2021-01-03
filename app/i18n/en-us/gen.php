@@ -73,7 +73,7 @@ return array(
 		'feb' => 'Feb.',
 		'february' => 'February',
 		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
+		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t g\\:i a',
 		'fri' => 'Fri',
 		'jan' => 'Jan.',
 		'january' => 'January',
