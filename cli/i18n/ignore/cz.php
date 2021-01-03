@@ -1,6 +1,8 @@
 <?php
 
 return array(
+	'gen.date.format_date',
+	'gen.date.format_date_hour',
 	'gen.dir',
 	'gen.lang.cz',
 	'gen.lang.de',

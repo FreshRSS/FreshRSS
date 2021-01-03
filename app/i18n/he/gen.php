@@ -72,8 +72,8 @@ return array(
 		'december' => 'Dec',
 		'feb' => 'feb',
 		'february' => 'Feb',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// TODO - Translation
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// TODO - Translation
+		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
+		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
 		'fri' => 'Fri',	// TODO - Translation
 		'jan' => 'jan',
 		'january' => 'Jan',
