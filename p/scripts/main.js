@@ -946,7 +946,7 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.share > a[href="#"]');
+		el = ev.target.closest('.item.share > a[data-type="print"]');
 		if (el) {	//Print
 			const tmp_window = window.open();
 			for (var i = 0; i < document.styleSheets.length; i++) {
@@ -957,6 +957,12 @@ function init_stream(stream) {
 			tmp_window.focus();
 			tmp_window.print();
 			tmp_window.close();
+			return false;
+		}
+
+		el = ev.target.closest('.item.share > a[data-type="clipboard"]');
+		if (el && navigator.clipboard) {	//Clipboard
+			navigator.clipboard.writeText(el.href);
 			return false;
 		}
 

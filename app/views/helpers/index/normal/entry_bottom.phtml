@@ -93,7 +93,7 @@
 						$share->update($share_options);
 				?><li class="item share">
 					<?php if ('GET' === $share->method()) {?>
-						<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>"><?= $share->name() ?></a>
+						<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
 					<?php } else {?>
 						<a href="POST"><?= $share->name() ?></a>
 						<form method="POST" action="<?= $share->url() ?>" disabled="disabled">
