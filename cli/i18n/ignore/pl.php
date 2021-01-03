@@ -1,6 +1,8 @@
 <?php
 
 return array(
+	'gen.date.format_date',
+	'gen.date.format_date_hour',
 	'admin.user.admin',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
