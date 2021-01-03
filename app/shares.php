@@ -140,4 +140,10 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
+	'clipboard' => array(
+		'url' => '~LINK~',
+		'transform' => array(),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 );
