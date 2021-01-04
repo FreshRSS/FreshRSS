@@ -172,6 +172,14 @@ class Minz_ExtensionManager {
 			                  '` is not an instance of `Minz_Extension`');
 			return null;
 		}
+		$reflector = new ReflectionClass($extension);
+		$className = $reflector->getName();
+		if ('Minz_Extension' === $reflector->getMethod('handleConfigureAction')->class ||
+			'Minz_Extension' === $reflector->getMethod('install')->class ||
+			'Minz_Extension' === $reflector->getMethod('init')->class ||
+			'Minz_Extension' === $reflector->getMethod('uninstall')->class) {
+			Minz_Log::error("The '{$className}' extension class definition is deprecated. It will continue to work with the current version but will break in the future. The '{$className}' extension class needs to override the 'handleConfigurationAction' method, the 'install' method, the 'init' method, and the 'uninstall' method to work properly.");
+		}
 
 		return $extension;
 	}
