@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'A prepaus de FreshRSS',
-		'add_query' => 'Crear un filtre',
 		'before_one_day' => '1 jorn en arrièr',
 		'before_one_week' => '1 setmana en arrièr',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favorits (%s)',
 		'global_view' => 'Vista generala',
 		'main_stream' => 'Flux màger',

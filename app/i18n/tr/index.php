@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSS hakkında',
-		'add_query' => 'Sorgu ekle',
 		'before_one_day' => 'Bir gün önce',
 		'before_one_week' => 'Bir hafta önce',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Global görünüm',
 		'main_stream' => 'Ana akış',

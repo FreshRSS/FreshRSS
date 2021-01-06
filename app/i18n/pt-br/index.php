@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Sobre o FreshRSS',
-		'add_query' => 'Adicionar uma query',
 		'before_one_day' => 'Antes de um dia',
 		'before_one_week' => 'Antes de uma semana',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Visualização global',
 		'main_stream' => 'Stream principal',

@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Over FreshRSS',
-		'add_query' => 'Voeg een query toe',
 		'before_one_day' => 'Ouder dan een dag',
 		'before_one_week' => 'Ouder dan een week',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
 		'main_stream' => 'Overzicht',

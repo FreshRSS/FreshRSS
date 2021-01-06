@@ -42,7 +42,7 @@ class FreshRSS_UserQuery {
 		if (!isset($query['search'])) {
 			$query['search'] = '';
 		}
-		// linked to deeply with the search object, need to use dependency injection
+		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search']);
 		if (isset($query['state'])) {
 			$this->state = $query['state'];

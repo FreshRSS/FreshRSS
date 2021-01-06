@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
-		'add_query' => 'Aggiungi ricerca',
 		'before_one_day' => 'Giorno precedente',
 		'before_one_week' => 'Settimana precedente',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Preferiti (%s)',
 		'global_view' => 'Vista globale per categorie',
 		'main_stream' => 'Flusso principale',

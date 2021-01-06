@@ -312,7 +312,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * storage. Before it is saved, the unwanted parameters are unset to keep
 	 * lean data.
 	 */
-	public function addQueryAction() {
+	public function bookmarkQueryAction() {
 		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$tag_dao = FreshRSS_Factory::createTagDao();
