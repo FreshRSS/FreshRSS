@@ -329,7 +329,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		FreshRSS_Context::$user_conf->queries = $queries;
 		FreshRSS_Context::$user_conf->save();
 
-		Minz_Request::good(_t('feedback.conf.query_created', $query['name']),
+		Minz_Request::good(_t('feedback.conf.query_created', $params['name']),
 		                   array('c' => 'configure', 'a' => 'queries'));
 	}
 
