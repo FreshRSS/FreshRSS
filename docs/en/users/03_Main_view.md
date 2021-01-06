@@ -116,16 +116,19 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 # Filtering articles
 
+## Purpose
 When the number of articles stored by FreshRSS inevitably grows larger, it's important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
-## By category
+## How-to filter
+
+### By category
 
 This is the easiest method. You only need to click on the category title in the side panel. There are two special categories at the top of the panel:
 
   * *Main feed* displays only articles from feeds marked as available in that category
   * *Favourites* displays only articles marked as favourites
 
-## By feed
+### By feed
 
 There are several methods to filter articles by feed:
 
@@ -136,7 +139,7 @@ There are several methods to filter articles by feed:
 
 ![Feed filter](../img/users/feed.filter.1.png)
 
-## By status
+### By status
 
 Each article has two attributes that can be combined. The first attribute indicates whether or not the article has been read. The second attribute indicates if the article was marked as favorite or not.
 
@@ -150,11 +153,11 @@ Starting with version 0.8, all attribute filters are visible as toggle icons. Th
 
 By default, this filter displays only unread articles
 
-## By content
+### By content
 
 It is possible to filter articles by their content by inputting a string in the search field.
 
-## With the search field
+### With the search field
 
 You can use the search field to further refine results:
 
@@ -208,3 +211,34 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
+
+### By sorting by date
+
+You can change the sort order by clicking the toggle button available in the header.
+
+## Store your filters
+
+Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
+
+Hopefully, there is a way to bookmark them for later use.
+We call them _user queries_.
+You can create as many as you want, the only limit is how they will be displayed on your screen.
+
+### Bookmark the current query
+
+Display the user queries drop-down by clicking the button next to the state buttons.
+![User queries drop-down](../img/users/user.queries.drop-down.empty.png)
+
+Then click on the bookmark action.
+
+Congratulations, you're done!
+
+### Using a bookmarked query
+
+Display the user queries drop-down by clicking the button next to the state buttons.
+![User queries drop-down](../img/users/user.queries.drop-down.not.empty.png)
+
+Then click on the bookmarked query, the previously stored query will be applied.
+
+> Note that only the query is stored, not the articles.
+> The results you are seing now could be different from the results on the day you've created the query.
