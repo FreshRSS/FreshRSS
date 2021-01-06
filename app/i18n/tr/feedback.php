@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Temizleme tamamlandı (%d makale silindi)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s versiyonuna</strong> güncellenecek.',
 		'error' => 'Güncelleme işlemi sırasında hata: %s',

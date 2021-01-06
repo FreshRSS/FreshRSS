@@ -162,7 +162,7 @@ You can use the search field to further refine results:
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag`
+* by tag: `#tag` or `#tag+with+whitespace`
 * by free-text: `keyword` or `'composed keyword'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:

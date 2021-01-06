@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Purga realizada (%s articles suprimits)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS es per èsser mes a jorn en <strong>version %s</strong>.',
 		'error' => 'La mesa a jorn a conegut un problèma : %s',

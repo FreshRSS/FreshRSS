@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Vyprázdněno (smazáno %d článků)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS bude nyní upgradováno na <strong>verzi %s</strong>.',
 		'error' => 'Během upgrade došlo k chybě: %s',

@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'הניקוי הושלם (%d מאמרים נמחקו)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',
 		'error' => 'תהליך העדכון נתקל בשגיאה: %s',

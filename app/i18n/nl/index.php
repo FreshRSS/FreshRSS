@@ -19,8 +19,8 @@ return array(
 		'add' => 'U kunt wat feeds toevoegen.',
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'rss_of' => 'RSS-feed van %s',
-		'title' => 'Overzicht RSS-feeds',
-		'title_fav' => 'Uw favorieten',
+		'title' => 'Overzicht',
+		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
 	),
 	'log' => array(

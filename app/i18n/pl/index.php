@@ -19,8 +19,8 @@ return array(
 		'add' => 'Dodaj więcej kanałów.',
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'rss_of' => 'Kanał RSS: %s',
-		'title' => 'Subskrybowane kanały RSS',
-		'title_fav' => 'Ulubione wiadomości',
+		'title' => 'Kanał główny',
+		'title_fav' => 'Ulubione',
 		'title_global' => 'Widok globalny',
 	),
 	'log' => array(

@@ -29,11 +29,10 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		header('Pragma: no-cache');
 
 		$user = isset($_GET['user']) ? $_GET['user'] : '';
-		if (FreshRSS_user_Controller::checkUsername($user)) {
+		if (FreshRSS_Context::initUser($user)) {
 			try {
 				$salt = FreshRSS_Context::$system_conf->salt;
-				$conf = get_user_configuration($user);
-				$s = $conf->passwordHash;
+				$s = FreshRSS_Context::$user_conf->passwordHash;
 				if (strlen($s) >= 60) {
 					$this->view->salt1 = substr($s, 0, 29);	//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->nonce = sha1($salt . uniqid(mt_rand(), true));
