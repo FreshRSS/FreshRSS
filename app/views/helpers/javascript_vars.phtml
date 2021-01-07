@@ -1,6 +1,7 @@
 <?php
 $mark = FreshRSS_Context::$user_conf->mark_when;
 $s = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
+$extData = Minz_ExtensionManager::callHook('js_vars', []);
 echo htmlspecialchars(json_encode(array(
 	'context' => array(
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
@@ -62,4 +63,5 @@ echo htmlspecialchars(json_encode(array(
 		'read' => rawurlencode(_i('read')),
 		'unread' => rawurlencode(_i('unread')),
 	),
+	'extensions' => $extData,
 ), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');

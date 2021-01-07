@@ -327,9 +327,11 @@ The following events are available:
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks
+* `js_vars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated
 * `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
 * `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
 * `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+* `nav_menu` (`function() -> string`): will be executed if the navigation was built.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation

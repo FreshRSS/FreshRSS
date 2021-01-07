@@ -39,6 +39,10 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'NoneToNone',
 		),
+		'js_vars' => array(  // function($vars = array) -> array | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
 		'menu_admin_entry' => array(  // function() -> string
 			'list' => array(),
 			'signature' => 'NoneToString',
@@ -48,6 +52,10 @@ class Minz_ExtensionManager {
 			'signature' => 'NoneToString',
 		),
 		'menu_other_entry' => array(  // function() -> string
+			'list' => array(),
+			'signature' => 'NoneToString',
+		),
+		'nav_menu' => array(  // function() -> string
 			'list' => array(),
 			'signature' => 'NoneToString',
 		),
