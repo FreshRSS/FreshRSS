@@ -175,6 +175,10 @@
 		</a>
 	</div>
 
+	<div class="stick" id="nav_menu_hooks">
+		<?= Minz_ExtensionManager::callHook('nav_menu') ?>
+	</div>
+
 	<div class="item search">
 		<form action="<?= _url('index', 'index') ?>" method="get">
 			<input type="search" name="search" class="extend" value="<?php
