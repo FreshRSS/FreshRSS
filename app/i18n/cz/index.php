@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
-		'add_query' => 'Vytvořit dotaz',
 		'before_one_day' => 'Den nazpět',
 		'before_one_week' => 'Před týdnem',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Oblíbené (%s)',
 		'global_view' => 'Přehled',
 		'main_stream' => 'Všechny kanály',
