@@ -37,7 +37,7 @@ Since the [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) relea
 ```sh
 ./cli/update_user.php --user <username> --password <password>
 ```
-For more information on that matter, please refer to the [dedicated documentation](../../cli/README.md).
+For more information on that matter, please refer to the [dedicated documentation](https://github.com/FreshRSS/FreshRSS/blob/master/cli/README.md).
 
 ## Permissions under SELinux
 
