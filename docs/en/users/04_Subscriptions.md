@@ -19,7 +19,7 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/master/cli
     4. and finally, you can select feeds you want to export (by default, all feeds are selected)
  4. Click on “export”.
 
- ## Import
+## Import
  
   1. Go to the page “Import / export”.
   2. Click on “Browse” and select your OPML or archive file on your computer.
