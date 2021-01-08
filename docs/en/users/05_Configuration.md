@@ -1,7 +1,7 @@
 
-## Display
+# Display
 
-### Language
+## Language
 
 FreshRSS is currently available in 14 languages. After confirming your choice, the interface will be displayed in your preferred language.
 Depending on the language chosen, parts of the interface may not be not translated yet. If you're willing to help translate
@@ -11,7 +11,7 @@ Some parts of FreshRSS aren't translated and aren't intended to be translated ei
 
 Available languages are: cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, tr, zh-cn.
 
-### Theme
+## Theme
 
 There's no accounting for tastes, which is why FreshRSS offers eight official themes:
 
@@ -28,7 +28,7 @@ If you can't find any themes you like, it's always possible to [create your own]
 
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
 
-### Content width
+## Content width
 
 Some people prefer short lines of text, while others prefer to maximize the available screen space. To satisfy the maximum number of people, it's possible to customize the width of the displayed content. There are four settings available:
 
@@ -37,7 +37,7 @@ Some people prefer short lines of text, while others prefer to maximize the avai
  * **Large** displays content up to a maximum width of 1000 pixels
  * **No limit** displays the content on 100% of the available space
 
-### Article icons
+## Article icons
 
 Please note that this section only affects normal view.
 
@@ -50,13 +50,13 @@ If you disable every item in the top line, you'll still be able to see it since
 it contains the feed name and the article title. But if you do the same thing for
 the bottom line, it will be empty.
 
-### HTML5 notification timout
+## HTML5 notification timout
 
 After automatically updating the feeds, FreshRSS can pop up a notification using the HTML5 notification API.
 
 The duration of this notification can be set. By default, the value is 0.
 
-### Show the navigation button
+## Show the navigation button
 
 By default, FreshRSS displays buttons to ease the article navigation when browsing on mobile. The drawback is that they eat up some precious space.
 
@@ -64,31 +64,31 @@ By default, FreshRSS displays buttons to ease the article navigation when browsi
 
 If you don't use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
 
-## Reading
+# Reading
 
-### Number of articles per page
+## Number of articles per page
 
 Defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the loaded list. 
 
-### Articles to display
+## Articles to display
 
 The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show. 
 
-### Use "lazy load" mode to load images
+## Use "lazy load" mode to load images
 
 This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
-## Archival
+# Archival
 
-### Archiving
+## Archiving
 
 These are the global options for fetching and retaining articles from feeds. They can be overwridden by individual feed's settings.
 
-### Maintenance 
+## Maintenance 
 
 This allows for purging/optimizing the current user's articles in the database. 
 
-## Sharing
+# Sharing
 
 To make your life easier, you can share articles straight from FreshRSS.
 
@@ -111,7 +111,7 @@ To remove an item from the list, follow those simple steps:
 
 
 
-## Shortcuts
+# Shortcuts
 
 To ease the use of the application, FreshRSS comes with a lot of predefined keyboard shortcuts.
 They allow actions to improve the user experience with a keyboard.
@@ -133,28 +133,28 @@ The same process applies to the user queries.
 Be aware that there is no validation on the selected shortcuts.
 This means that if you assign a shortcut to more than one action, you'll end up with some unexpected behavior.
 
-## User queries
+# User queries
 
 You can configure your [user queries](./03_Main_view.md) in that section. There is not much to say here as it is pretty straightforward.
 You can only change user query titles or drop them.
 
 At the moment, there is no helper to build a user query from here.
 
-## Profile
+# Profile
 
 You can change your email address or password here. The authentication token is required for accessing the aggregated RSS feed for a user. A blank token will disable accessing the RSS feed without being logged in. 
 
-## Extensions
+# Extensions
 
 Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it. 
 
-## Users
+# Users
 
 **TODO**
 
-### Authentication methods
+## Authentication methods
 
-#### HTTP Authentication (Apache)
+### HTTP Authentication (Apache)
 
  1. User control is based on the `.htaccess` file.
  2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
@@ -171,23 +171,23 @@ Require user marie
 
 More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
 
-## Subscription management
+# Subscription management
 
-### Information
-
-**TODO**
-
-### Archival
+## Information
 
 **TODO**
 
-### Login
+## Archival
 
 **TODO**
 
-### Advanced
+## Login
 
-#### Retrieve a truncated stream from within FreshRSS
+**TODO**
+
+## Advanced
+
+### Retrieve a truncated stream from within FreshRSS
 
 This question comes up regularly, so we'll try to clarify how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not user friendly, but it works. :)
 
@@ -195,20 +195,20 @@ Please be aware that this way you'll generate much more traffic to the originati
 
 What's meant by "CSS path of articles on the original site" actually corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page).
 
-##### Example: Rue89
+#### Example: Rue89
 
 To find this path, you have to go to the address of one of the truncated articles (for example, http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
 
 Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We'll only use the `.content` class here. Nevertheless, as said above, it's best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
 
-##### Add the corresponding classes to the article CSS path on the feed configuration page. Examples:
+#### Add the corresponding classes to the article CSS path on the feed configuration page. Examples:
 
 *  Rue89: ```#article .content```
 *  PCINpact: ```#actu_content```
 *  Lesnumériques: ```article#body div.text.clearfix```
 *  Phoronix: ```#main .content```
 
-##### Combining CSS Classes
+#### Combining CSS Classes
 Let's say we have an article which contains ads within its content, and we do not want to have those ads retrieved by FreshRSS. Example Source Code:
 ```
 <div id='article'>
@@ -224,7 +224,7 @@ Let's say we have an article which contains ads within its content, and we do no
 ```
 In this case it's possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
 
-#### Retrieve a truncated stream with external tools
+### Retrieve a truncated stream with external tools
 
 Complimentary tools can be used to retrieve full article content, such as:
 
