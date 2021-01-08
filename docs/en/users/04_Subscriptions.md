@@ -5,6 +5,18 @@
  3. Paste the URL in “Add an RSS feed” below the page title.
  4. (optional): You can select the category for your feed. By default, it will be in “Uncategorized”.
 
+# Feed management
+
+You can manage your feeds within different categories. A feed cannot be in multiple categories.
+
+ 1. Open “Subscriptions management”.
+ 2. You can add a category:
+    1. Type the name of your category in “New category”
+    2. Click on “Submit”
+ 3. You can move a feed on the category you want with drag & drop
+ 4. (optional): If you want the articles of a feed to be visible solely within its category and not in the main view, in the “Visibility” option, select “Show in its category”.
+
+
 # Import and export
 See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/master/cli) as an alternative.
 
@@ -40,13 +52,3 @@ Bookmarklets are little scripts that you can execute to perform various tasks. F
  2. Click on “Subscription tools”.
  3. Drag the “Subscribe” button to your bookmark toolbar or right click and choose your browser’s “Bookmark link” action.
 
-# Feed management
-
-You can manage your feeds within different categories. A feed cannot be in multiple categories.
-
- 1. Open “Subscriptions management”.
- 2. You can add a category:
-    1. Type the name of your category in “New category”
-    2. Click on “Submit”
- 3. You can move a feed on the category you want with drag & drop
- 4. (optional): If you want the articles of a feed to be visible solely within its category and not in the main view, in the “Visibility” option, select “Show in its category”.
