@@ -26,11 +26,11 @@ Clicking the gear icon next to an individual feed will display additional option
 
 # Global view
 
-**TODO**
+Global view allows quick views of many feeds' statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a stream will open it in a view similar to normal view. 
 
 # Reader view
 
-**TODO**
+Reader view will display a stream will all articles already open for reading. Streams can be switched by clicking the folder icon at the top to bring up the category/feed sidebar.
 
 # Refreshing feeds
 
