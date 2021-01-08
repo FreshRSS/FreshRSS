@@ -6,7 +6,7 @@ Normal view will allow you to view articles in a compressed view. They can be se
 
 ## Article List
 
-The normal view includes six items per article. From left to right:
+By default, the normal view includes six items per article. From left to right:
 * **Read status:** An envalope icon to show if the article has been read or not. Closed envalopes are unread, open envalopes are read. Clicking on the icon will toggle the read status.
 * **Favourite status:** A star icon to show if the article has been favourited or not. Filled stars are favourited, empty stars are not. Clicking on the icon will toggle the favourite status.
 * **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed's view in normal view.
