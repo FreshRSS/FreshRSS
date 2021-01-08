@@ -275,6 +275,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction() {
+		Minz_View::appendScript(Minz_Url::display('/scripts/user.query.js?' . @filemtime(PUBLIC_PATH . '/scripts/user.query.js')));
+
 		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$tag_dao = FreshRSS_Factory::createTagDao();

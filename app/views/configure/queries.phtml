@@ -3,12 +3,12 @@
 <div class="post">
 	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<form method="post" action="<?= _url('configure', 'queries') ?>">
+	<form method="post" action="<?= _url('configure', 'queries') ?>" id="configureQueries">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<legend><?= _t('conf.query') ?></legend>
 
 		<?php foreach ($this->queries as $key => $query) { ?>
-		<div class="form-group" id="query-group-<?= $key ?>">
+		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
 			<label class="group-name" for="queries_<?= $key ?>_name">
 				<?= _t('conf.query.number', $key + 1) ?>
 			</label>
