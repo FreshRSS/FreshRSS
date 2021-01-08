@@ -1,10 +1,3 @@
-## Join us on the mailing lists
-
-Do you want to ask us some questions? Do you want to discuss with us? Don't hesitate to subscribe to our mailing lists!
-
-* The first mailing is destined to generic information, it should be adapted to users. [Join mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
-* The second mailing is mainly for developers. [Join dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
-
 ## Report a bug
 
 Have you found a bug? Don't panic, here are some steps to report it with ease:
