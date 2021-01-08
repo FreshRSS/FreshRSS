@@ -66,7 +66,17 @@ If you don't use those buttons because you never browse on mobile or because you
 
 # Reading
 
-**TODO**
+## Number of articles per page
+
+Defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the loaded list. 
+
+## Articles to display
+
+The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show. 
+
+## Use "lazy load" mode to load images
+
+This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
 # Archival
 
