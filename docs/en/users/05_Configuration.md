@@ -68,7 +68,7 @@ If you don't use those buttons because you never browse on mobile or because you
 
 ## Number of articles per page
 
-Defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the loaded list. 
+This setting defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the list. 
 
 ## Articles to display
 
@@ -170,5 +170,4 @@ Require user marie
 ```
 
 More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
-
 
