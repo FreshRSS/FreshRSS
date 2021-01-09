@@ -29,7 +29,7 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
 4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/).
 
-If you have to write code, please follow [our coding style recommendations](developers/06_Reporting_Bugs.md).
+If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
 **Tip:** if you're searching for easy-to-fix bugs, please have a look at the "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)" ticket label.
 
