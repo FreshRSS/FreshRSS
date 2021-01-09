@@ -26,11 +26,11 @@ Clicking the gear icon next to an individual feed will display additional option
 
 # Global view
 
-Global view allows quick views of many feeds' statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a stream will open it in a view similar to normal view. 
+Global view allows quick views of feed's statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed's name will open it in a view similar to normal view. 
 
 # Reader view
 
-Reader view will display a stream will all articles already open for reading. Streams can be switched by clicking the folder icon at the top to bring up the category/feed sidebar.
+Reader view will display a feed will all articles already open for reading. Feeds can be switched by clicking the folder icon at the top to bring up the category/feed sidebar.
 
 # Refreshing feeds
 
