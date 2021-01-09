@@ -90,7 +90,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'name' => $title != '' ? $title : $feed->name(),
 			'website' => $feed->website(),
 			'description' => $feed->description(),
-			'lastUpdate' => time(),
+			'lastUpdate' => 0,
 			'httpAuth' => $feed->httpAuth(),
 			'attributes' => $feed->attributes(),
 		);
