@@ -1,19 +1,28 @@
-# FreshRSS Administration
+# FreshRSS Development
 
-Learn how to install, update, and backup FreshRSS, as well as how to use the command line tools.
+## First Steps
 
-1. [Prerequisites](02_Prerequisites.md): What you'll need to run FreshRSS
-2. [General installation instructions](03_Installation.md) for FreshRSS
-3. [Update your installation](04_Updating.md) to the latest stable or development version
+Start by creating your development environment. A guide to setting up FreshRSS's development environment can be found on [the appropriate page](02_First_steps.md).
 
-## Tutorials and Examples
+## After That
 
-* [Backing up FreshRSS](05_Backup.md)
-* [Installation on Debian 9/Ubuntu 16.04](06_LinuxInstall.md)
-* [Updating on Debian 9/Ubuntu 16.04](07_LinuxUpdate.md)
-* [Setting Up Automatic Feed Updating](08_FeedUpdates.md)
-* [Access Control](09_AccessControl.md)
-* [Apache/Nginx configuration files](10_ServerConfig.md)
-* [Using the command line interface (CLI)](https://github.com/FreshRSS/FreshRSS/tree/master/cli)
-* [Configuring the email address validation](05_Configuring_email_validation.md)
-* [Frequently asked questions](04_Frequently_Asked_Questions.md)
+* [Github Branching and Pushing](02_Github.md)
+* [Running tests](03_Running_tests.md)
+* [Creating a pull request](04_Pull_requests.md)
+* [Releasing a new version](05_Release_new_version.md)
+* [Reporting bugs](06_Reporting_Bugs.md)
+
+## Backend Development
+
+* [Making extensions for FreshRSS](03_Backend/05_Extensions.md)
+* [Database Schema](03_Backend/01_Database_schema.md)
+* [External libraries](03_Backend/03_External_libraries.md)
+* [Changing source code](03_Backend/04_Changing_source_code.md)
+
+## Frontend Development
+
+* [View files](04_Frontend/01_View_files.md)
+* [Design](04_Frontend/02_Design.md)
+
+## Minz
+Minz is the homemade PHP framework used by FreshRSS. More information can be found [here](Minz/index.md).
