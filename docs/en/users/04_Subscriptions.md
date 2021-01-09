@@ -76,7 +76,7 @@ Let's say we have an article which contains ads within its content, and we do no
 ```
 In this case it's possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
 
-#### Retrieve a truncated stream with external tools
+#### Retrieve a truncated feed with external tools
 
 Complimentary tools can be used to retrieve full article content, such as:
 
