@@ -1,6 +1,6 @@
 # Reporting a bug or a suggestion
 
-Despite the care given to FreshRSS, it's still possible that bugs occur. The project is young and development is dynamic, so it can be corrected quickly. You might also have a feature in mind that doesn't yet exist. Regardless whether your idea seems silly, far-fetched, useless or too specific, please don't hesitate to propose it to us! "Ideas in the air" often find an attentive ear. It's new external perspectives that make the project evolve the most.
+Despite the care given to FreshRSS, it's still possible that bugs occur. Development is dynamic, so issues can be corrected quickly. You might also have a feature in mind that doesn't yet exist. Regardless whether your idea seems silly, far-fetched, useless or too specific, please don't hesitate to propose it to us! "Ideas in the air" often find an attentive ear. It's new external perspectives that make the project evolve the most.
 
 If you're convinced that you should be heard, here's how you can go about it.
 
