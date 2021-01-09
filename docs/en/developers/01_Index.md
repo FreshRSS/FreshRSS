@@ -11,6 +11,7 @@ Start by creating your development environment. A guide to setting up FreshRSS's
 * [Creating a pull request](04_Pull_requests.md)
 * [Releasing a new version](05_Release_new_version.md)
 * [Reporting bugs](06_Reporting_Bugs.md)
+* [Fever API](06_Fever_API.md)
 
 ## Backend Development
 
