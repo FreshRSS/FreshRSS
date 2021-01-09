@@ -1,9 +1,12 @@
 # Adding a feed
 
  1. To add a feed, copy the URL of its RSS or Atom file (for instance, the Framablog RSS URL is `https://framablog.org/feed/`). FreshRSS is able to automatically find the address of the feed for websites that are declaring it in a standard way.
- 2. On FreshRSS, click the plus button next to “Subscriptions management”.
- 3. Paste the URL in “Feed URL” below the page title.
+ 2. On FreshRSS, click the "**+**" button next to “Subscriptions management”.
+ 3. Paste the URL in “Feed URL” field.
  4. (optional): You can select the category for your feed. By default, it will be in “Uncategorized”.
+ 5. (optional): If the subscription requires credentials, you can enter them in the "HTTP username" and "HTTP password" fields. 
+ 6. (optional): You can get a timeout for the feed request if the feed requires it.
+ 7. (optional): You can choose to ignore SSL certificate errors (such as with self-signed certificates) by setting "Verify SSL security" to "No". This is not recommended, and it is better to either add the root certificate to the FreshRSS server or to fix the SSL certificate problems on the feed hosting server. 
 
 # Subscription management
 
@@ -36,7 +39,7 @@ Some feeds require a username/password submitted over HTTP. These usually aren't
 
 ### Advanced
 
-#### Retrieve a truncated stream from within FreshRSS
+#### Retrieve a truncated feed from within FreshRSS
 
 This question comes up regularly, so we'll try to clarify how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not user friendly, but it works. :)
 
