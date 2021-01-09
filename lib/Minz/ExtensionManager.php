@@ -188,7 +188,7 @@ class Minz_ExtensionManager {
 	 * Add the extension to the list of the known extensions ($ext_list).
 	 *
 	 * If the extension is present in $ext_auto_enabled and if its type is "system",
-	 * it will be enabled in the same time.
+	 * it will be enabled at the same time.
 	 *
 	 * @param Minz_Extension $ext a valid extension.
 	 */
@@ -216,6 +216,10 @@ class Minz_ExtensionManager {
 		if (isset(self::$ext_list[$ext_name])) {
 			$ext = self::$ext_list[$ext_name];
 			self::$ext_list_enabled[$ext_name] = $ext;
+
+			if (method_exists($ext, 'autoload')) {
+				spl_autoload_register([$ext, 'autoload']);
+			}
 			$ext->enable();
 			$ext->init();
 		}

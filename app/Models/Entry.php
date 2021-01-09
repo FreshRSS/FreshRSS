@@ -442,6 +442,7 @@ class FreshRSS_Entry extends Minz_Model {
 					);
 					if ($fullContent != '') {
 						$this->content = $fullContent;
+						return true;
 					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu(requête a échoué)
@@ -449,6 +450,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 		}
+		return false;
 	}
 
 	public function toArray() {
