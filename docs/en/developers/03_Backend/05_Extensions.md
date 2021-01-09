@@ -296,6 +296,11 @@ In addition, you will have a number of methods directly inherited from `Minz_Ext
 * `getFileUrl($filename, $type)` will return the URL to a file in the `static` directory. The first parameter is the name of the file (without `static /`), the second is the type of file to be used (`css` or` js`).
 * `registerController($base_name)` will tell Minz to take into account the given controller in the routing system. The controller must be located in your `Controllers` directory, the name of the file must be` <base_name>Controller.php` and the name of the `FreshExtension_<base_name>_Controller` class.
 
+> If your extension code is scattered in different classes, you need to load their source before using them.
+> Of course you could include the files manually, but it's more efficient to load them automatically.
+> To do so, you just need to define the `autoload` method which will include them when needed.
+> This method will be registered automatically when the extension is enabled.
+
 **TODO**
 
 * `registerViews()`
