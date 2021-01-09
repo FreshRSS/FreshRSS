@@ -25,9 +25,8 @@ If "Purge Policy" has "By default" selected, then the [default purge policy](./0
 
 ## Feed Settings
 
-### Information
 
-These should be auto-filled when adding a feed, but can be modified after. **Visibility** will define if the feed is displayed in the main feed, only in category feeds, or not at all.
+These fields will be auto-filled when adding a feed, but they can be modified later. **Visibility** will define if the feed is displayed in the main feed, only in specific categories, or not at all.
 
 ### Archival
 
