@@ -18,6 +18,8 @@ We also need some information:
 * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
 * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
+For a more detailed guide on reporting bugs, please refer to [the appropriate page](developers/06_Reporting_Bugs).
+
 ## Fix a bug
 
 Would you like to fix a bug? For optimum coordination between collaborators, you should follow these indications:
@@ -27,7 +29,7 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
 4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/).
 
-If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
+If you have to write code, please follow [our coding style recommendations](developers/06_Reporting_Bugs.md).
 
 **Tip:** if you're searching for easy-to-fix bugs, please have a look at the "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)" ticket label.
 
