@@ -18,7 +18,7 @@ We also need some information:
 * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
 * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
-For a more detailed guide on reporting bugs, please refer to [the appropriate page](developers/06_Reporting_Bugs).
+For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](developers/06_Reporting_Bugs).
 
 ## Fix a bug
 
