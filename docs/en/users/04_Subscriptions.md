@@ -62,15 +62,15 @@ Here we find that the block that encompasses nothing but the content of the arti
 ##### Combining CSS Classes
 Let's say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
 ```
-<div id='article'>
+<div id="article">
 <h2>wanted</h2>
-<p class='content'>wanted content</p>
-<p class='ad'>unwanted content</p>
+<p class="content">wanted content</p>
+<p class="ad">unwanted content</p>
 <h2>wanted</h2>
-<p class='content'>wanted content</p>
+<p class="content">wanted content</p>
 <h2>wanted</h2>
-<p class='ad'>unwanted content</p>
-<p class='content'>wanted content</p>
+<p class="ad">unwanted content</p>
+<p class="content">wanted content</p>
 </div>
 ```
 In this case it's possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
