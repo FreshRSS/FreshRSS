@@ -19,6 +19,7 @@ GitHub is the ideal platform to submit your requests. It allows us to discuss a 
 Not everyone likes or uses GitHub for a variety of legitimate reasons. That is why you can also contact us in a more informal way.
 
 * On [our Mattermost chat](https://framateam.org/signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)
+* On [our subreddit](https://www.reddit.com/r/freshrss/)
 * At events / meetings around Free Software
 * Over a beer in a bar
 * Etc.
