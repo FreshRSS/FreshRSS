@@ -21,12 +21,13 @@ if [ -n "$CRON_MIN" ]; then
 fi
 
 if [ -n "$FRESHRSS_INSTALL" ]; then
+	# shellcheck disable=SC2046
 	php -f ./cli/do-install.php -- \
 		$(echo "$FRESHRSS_INSTALL" | sed -r 's/[\r\n]+/\n/g' | paste -s -) \
 		1>/tmp/out.txt 2>/tmp/err.txt
 	EXITCODE=$?
-	cat /tmp/out.txt | grep -v 'Remember to'
-	cat /tmp/err.txt | grep -v 'Please use' 1>&2
+	grep -v 'Remember to' /tmp/out.txt
+	grep -v 'Please use' /tmp/err.txt 1>&2
 
 	if [ $EXITCODE -eq 3 ]; then
 		echo 'ℹ️ FreshRSS already installed; no change performed.'
@@ -42,11 +43,12 @@ if [ -n "$FRESHRSS_INSTALL" ]; then
 fi
 
 if [ -n "$FRESHRSS_USER" ]; then
+	# shellcheck disable=SC2046
 	php -f ./cli/create-user.php -- \
 		$(echo "$FRESHRSS_USER" | sed -r 's/[\r\n]+/\n/g' | paste -s -) \
 		1>/tmp/out.txt 2>/tmp/err.txt
 	EXITCODE=$?
-	cat /tmp/out.txt | grep -v 'Remember to'
+	grep -v 'Remember to' /tmp/out.txt
 	cat /tmp/err.txt 1>&2
 
 	if [ $EXITCODE -eq 3 ]; then
