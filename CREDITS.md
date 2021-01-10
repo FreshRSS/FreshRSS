@@ -68,6 +68,7 @@ People are sorted by name so please keep this order.
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
 * [Luc Sanchez](https://github.com/ColonelMoutarde): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ColonelMoutarde), [Web](https://www.luc-sanchez.fr/)
 * [LucasVerneyDGE](https://github.com/LucasVerneyDGE): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:LucasVerneyDGE)
+* [Lukas David Vacula](https://github.com/ldv8434): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ldv8434), [Web](https://lvacula.com/)
 * [Marc Ole Bulling](https://github.com/Forceu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Forceu)
 * [Marco Hinniger](https://github.com/rom-1): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=rom-1), [Web](https://blog.rootdir.net/)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marcomrc)
