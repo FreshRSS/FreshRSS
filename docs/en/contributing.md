@@ -1,10 +1,3 @@
-## Join us on the mailing lists
-
-Do you want to ask us some questions? Do you want to discuss with us? Don't hesitate to subscribe to our mailing lists!
-
-* The first mailing is destined to generic information, it should be adapted to users. [Join mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
-* The second mailing is mainly for developers. [Join dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
-
 ## Report a bug
 
 Have you found a bug? Don't panic, here are some steps to report it with ease:
@@ -25,6 +18,8 @@ We also need some information:
 * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
 * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
+For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](developers/06_Reporting_Bugs).
+
 ## Fix a bug
 
 Would you like to fix a bug? For optimum coordination between collaborators, you should follow these indications:
@@ -34,7 +29,7 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
 4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/).
 
-If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
+If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
 **Tip:** if you're searching for easy-to-fix bugs, please have a look at the "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)" ticket label.
 
