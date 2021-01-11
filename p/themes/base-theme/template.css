@@ -708,11 +708,12 @@ input[type="search"] {
 	font-weight: bold;
 }
 
-.flux:not(.current):hover .item.title {
+.normal .flux:not(.current):hover .item.title {
 	background: #fff;
 	max-width: calc(100% - 320px);
 	position: absolute;
 }
+
 
 .flux .item.title a {
 	color: #000;
@@ -1422,4 +1423,90 @@ input:checked + .slide-container .properties {
 
 .preview_background {
 	background-color: transparent;
+}
+
+/*=== CONTEXTVIEW */
+/*===========*/
+
+.contextview .flux .item {
+    line-height: 20px;
+    white-space: nowrap;
+	margin-bottom: 20px;
+	margin-top: 0px;
+
+}
+
+.contextview .flux .item.title a {
+    margin-top: 5px;
+}
+/*.flux .item.image img {
+   	  object-fit: cover;
+  width:64px;
+  height:64px;
+}
+*/
+
+.contextview .flux .item.image  {
+
+padding-right: 20px;
+}
+
+
+.contextview .flux .item.context {
+	
+
+	font-size: .8rem;
+    display: block;
+    white-space: initial;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* number of lines to show */
+	-webkit-box-orient: vertical;
+	filter: invert(30%);
+
+
+}
+
+
+
+@media screen and (min-width: 800px) {
+
+	
+	.contextview .flux .item {
+
+	   margin-right: 25%;
+	   line-height: 25px;
+
+	}
+}
+
+@media only screen and (max-width: 600px) {
+
+	.contextview .flux .item.context {
+
+   	text-align: start;
+	font-size: 0.85rem;
+	line-height: 25px;
+
+
+
+	}
+	.contextview .flux .item {
+
+	   margin-right: 5%;
+
+	}
+}
+
+
+.contextview .flux .item.manage, .flux .item.image {
+    width: 90px;
+    text-align: center;
+}
+
+.contextview .horizontal-list .item {
+    vertical-align: top;
 }

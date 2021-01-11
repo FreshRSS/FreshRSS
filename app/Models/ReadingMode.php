@@ -141,6 +141,13 @@ class FreshRSS_ReadingMode {
 				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'reader')),
 				($isDefaultCtrl && $actualView === 'reader')
 			),
+			
+			new FreshRSS_ReadingMode(
+				"view-contextview",
+				_t('index.menu.contextview_view'),
+				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'contextview')),
+				($isDefaultCtrl && $actualView === 'contextview')
+			),
 		);
 
 		return $readingModes;

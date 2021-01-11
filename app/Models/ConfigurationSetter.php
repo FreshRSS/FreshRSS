@@ -149,7 +149,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _view_mode(&$data, $value) {
 		$value = strtolower($value);
-		if (!in_array($value, array('global', 'normal', 'reader'))) {
+		if (!in_array($value, array('global', 'normal', 'reader', 'contextview'))) {
 			$value = 'normal';
 		}
 		$data['view_mode'] = $value;

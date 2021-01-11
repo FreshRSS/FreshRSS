@@ -3,8 +3,9 @@
 ?>
 
 <div class="nav_menu">
-	<?php if ($actual_view === 'normal' || $actual_view === 'reader' ) { ?>
-	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+	<?php if ($actual_view === 'normal' || $actual_view === 'reader' || $actual_view === 'contextview'  ) { ?>
+		<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+
 	<?php } ?>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>

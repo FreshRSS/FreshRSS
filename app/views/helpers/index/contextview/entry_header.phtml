@@ -1,0 +1,52 @@
+<?php
+	$topline_read = FreshRSS_Context::$user_conf->topline_read;
+	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
+	$topline_date = FreshRSS_Context::$user_conf->topline_date;
+	$topline_link = FreshRSS_Context::$user_conf->topline_link;
+?><ul class="horizontal-list flux_header"><?php
+	if (FreshRSS_Auth::hasAccess()) {
+		if ($topline_read) {
+			?><li class="item manage"><?php
+				$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $this->entry->id()));
+				if ($this->entry->isRead()) {
+					$arUrl['params']['is_read'] = 0;
+				}
+				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
+					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
+			?></li><?php
+		}
+		if ($topline_favorite) {
+			?><li class="item manage"><?php
+				$arUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $this->entry->id()));
+				if ($this->entry->isFavorite()) {
+					$arUrl['params']['is_favorite'] = 0;
+				}
+				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
+					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
+			?></li><?php
+		}
+	}
+	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+		<span><?= $this->feed->name() ?></span></a></li>
+	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
+		if ($topline_display_authors):
+			?><span class="author"><?php
+			$authors = $this->entry->authors();
+			if (is_array($authors)) {
+				$first = true;
+				foreach ($authors as $author) {
+					echo $first ? $author : ', ' . $author;
+					$first = false;
+				}
+			}
+			?></span><?php
+		endif;
+	?>
+	</a>
+		<p class="item context" dir="auto"><SUP>&nbsp;</SUP><?= ContextViewExtension::addABriefInEntryHeader($this->entry); ?></p>
+	</li>
+	<?php if (true) { ?><li class="item image"> <a target="_blank" dir=auto rel="noreferrer" href="<?= $this->entry->link() ?>" <time datetime="<?= $this->entry->machineReadableDate() ?>"> <?=ContextViewExtension::humanTiming(strtotime($this->entry->machineReadableDate())).'';?> <?=ContextViewExtension::imageInEntryHeader($this->entry);?> </time></a></li><?php } ?>
+
+</ul>

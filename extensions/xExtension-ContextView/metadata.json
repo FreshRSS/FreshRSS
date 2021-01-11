@@ -1,0 +1,8 @@
+{
+	"name": "ContextView",
+	"author": "PAXXO",
+	"description": "ContextView",
+	"version": 0.10,
+	"entrypoint": "ContextView",
+	"type": "user"
+}
