@@ -21,6 +21,11 @@ img.favicon {
 	border-radius: 2px;
 }
 
+body img,
+body video {
+	filter: brightness(.6) contrast(1.2);
+}
+
 /*=== Forms */
 legend {
 	margin: 20px 0 5px;
