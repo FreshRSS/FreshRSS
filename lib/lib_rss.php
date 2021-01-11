@@ -163,15 +163,16 @@ function customSimplePie($attributes = array()) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
+	Minz_Log::warning('customSimplePie called');
 	$opts = array(	'CURLOPT_COOKIE' => 10022,
-		'FOO' => 0,
-		'CURLPROXY_SOCKS5' => CURLPROXY_SOCKS5,
-		'CURLOPT_PROXY' => 10004 );
+			'CURLOPT_PROXYTYPE' => 101,
+			'CURLOPT_PROXY' => 10004 );
 	if (isset($attributes['curl_params'])){
 		$opts_parsed = json_decode(str_replace('&quot;','"', $attributes['curl_params']),true);
 		if ($opts_parsed != null){
 			foreach ( $opts_parsed as $co => $v){
 				if (array_key_exists($co, $opts)){
+					unset($curl_options[$opts[$co]]);
 					$curl_options[$opts[$co]] = $v;
 				}
 			}
