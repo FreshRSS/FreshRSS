@@ -376,26 +376,23 @@ class FreshRSS_Entry extends Minz_Model {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
-		//$feed = $this->feed;
-		Minz_Log::warning('Fetching!');
+
 		$opts = array(	'CURLOPT_COOKIE' => 10022,
 						'CURLOPT_PROXYTYPE' => 101,
 						'CURLOPT_PROXY' => 10004 );
 		if (! empty($attributes['curl_params'])){
-			Minz_Log::warning('Fetching with curl_params');
 			$opts_parsed = json_decode(str_replace('&quot;','"', $attributes['curl_params']),true);
-			Minz_Log::warning('Params: ' . $attributes['curl_params']);
 			if ($opts_parsed != null){
-				Minz_Log::warning('Attributes have been read');
 				foreach ( $opts_parsed as $co => $v){
 					if (array_key_exists($co, $opts)){
-						Minz_Log::warning('Actually passed all checks');
 						curl_setopt($ch, $opts[$co],$v);
 					}
 				}
 			}
 		}
+
 		curl_setopt_array($ch, $system_conf->curl_options);
+		
 		if (isset($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
