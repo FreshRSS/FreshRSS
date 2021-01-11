@@ -1500,7 +1500,7 @@ padding-left: 20px;
 }
 
 
-.contextview .flux .item.manage, .flux .item.image {
+.contextview .flux .item.image {
     width: 90px;
     text-align: center;
 }
