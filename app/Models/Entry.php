@@ -379,9 +379,8 @@ class FreshRSS_Entry extends Minz_Model {
 		//$feed = $this->feed;
 		Minz_Log::warning('Fetching!');
 		$opts = array(	'CURLOPT_COOKIE' => 10022,
-			'FOO' => 0,
-			'CURLPROXY_SOCKS5' => CURLPROXY_SOCKS5,
-			'CURLOPT_PROXY' => 10004 );
+						'CURLOPT_PROXYTYPE' => 101,
+						'CURLOPT_PROXY' => 10004 );
 		if (! empty($attributes['curl_params'])){
 			Minz_Log::warning('Fetching with curl_params');
 			$opts_parsed = json_decode(str_replace('&quot;','"', $attributes['curl_params']),true);

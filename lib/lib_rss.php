@@ -165,8 +165,8 @@ function customSimplePie($attributes = array()) {
 	}
 	Minz_Log::warning('customSimplePie called');
 	$opts = array(	'CURLOPT_COOKIE' => 10022,
-			'CURLOPT_PROXYTYPE' => 101,
-			'CURLOPT_PROXY' => 10004 );
+					'CURLOPT_PROXYTYPE' => 101,
+					'CURLOPT_PROXY' => 10004 );
 	if (isset($attributes['curl_params'])){
 		$opts_parsed = json_decode(str_replace('&quot;','"', $attributes['curl_params']),true);
 		if ($opts_parsed != null){
