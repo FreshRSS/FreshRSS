@@ -1308,7 +1308,7 @@ input:checked + .slide-container .properties {
 		width: 40px;
 	}
 
-	.flux:not(.current):hover .item.title {
+	.normal .flux:not(.current):hover .item.title {
 		position: relative;
 		width: auto;
 		white-space: nowrap;

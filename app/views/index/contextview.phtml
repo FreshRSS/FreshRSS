@@ -14,7 +14,7 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 $today = @strtotime('today');
 ?>
 
-<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
+<div id="stream" class="contextview<?= $hidePosts ? ' hide_posts' : '' ?>">
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
@@ -67,7 +67,7 @@ $today = @strtotime('today');
 		?>" data-feed="<?php echo $this->feed->id();
 		?>"><?php
 
-			$this->renderHelper('index/normal/entry_header');
+			$this->renderHelper('index/contextview/entry_header');
 
 		?><div class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
@@ -97,7 +97,7 @@ $today = @strtotime('today');
 				?></div>
 			</div><?php
 
-			$this->renderHelper('index/normal/entry_bottom');
+			$this->renderHelper('index/contextview/entry_bottom');
 
 		?></div>
 	</div><?php
@@ -110,7 +110,7 @@ $today = @strtotime('today');
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<div id="stream" class="prompt alert alert-warn normal">
+<div id="stream" class="prompt alert alert-warn contextview">
 	<h2><?= _t('index.feed.empty') ?></h2>
 	<a href="<?= _url('subscription', 'index') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </div>
