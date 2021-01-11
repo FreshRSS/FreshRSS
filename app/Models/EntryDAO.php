@@ -158,7 +158,7 @@ SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `last
 FROM `_entrytmp`
 ORDER BY date;
 
-DELETE FROM `_entrytmp` WHERE id <= @rank;';
+DELETE FROM `_entrytmp` WHERE id <= @rank;
 SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
