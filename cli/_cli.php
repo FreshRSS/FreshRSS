@@ -17,7 +17,7 @@ Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
 
-function fail($message, $exitCode=1) {
+function fail($message, $exitCode = 1) {
 	fwrite(STDERR, $message . "\n");
 	die($exitCode);
 }
