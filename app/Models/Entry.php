@@ -353,13 +353,7 @@ class FreshRSS_Entry extends Minz_Model {
 			return false;
 		}
 	}
-	public static function curl_opt_decode($s){
-		$opts = array(	'CURLOPT_COOKIE' => CURLOPT_COOKIE,
-						'FOO' => 0,
-						'CURLPROXY_SOCKS5' => CURLPROXY_SOCKS5,
-						'CURLOPT_PROXY' => CURLOPT_PROXY); 
-		return array_key_exists($s, $opts) ? $opts[$s] : null;
-	}
+
 	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
 		$system_conf = Minz_Configuration::get('system');
 		$limits = $system_conf->limits;
@@ -383,26 +377,14 @@ class FreshRSS_Entry extends Minz_Model {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
-		//$feed = $this->feed;
-		Minz_Log::warning('Fetching!');
-		/*$opts = array(	'CURLOPT_COOKIE' => CURLOPT_COOKIE,
-						'FOO' => 0,
-						'CURLPROXY_SOCKS5' => CURLPROXY_SOCKS5,
-						'CURLOPT_PROXY' => CURLOPT_PROXY);*/
-		if (! empty($attributes['curl_params'])){
-			Minz_Log::warning('Fetching with curl_params');
-			//$opts = json_decode(str_replace('&quot;','"', $attributes['curl_params']),true);
-			//Minz_Log::warning('Params: ' . $attributes['curl_params']);
-			//if ($opts != null){
-				Minz_Log::warning('Attributes have been read');
-				foreach ( $attributes['curl_params'] as $co => $v){
-					//if (array_key_exists($co, $opts)){
-						Minz_Log::warning('Taken Opt: ' . $co . ' => ' . $v);
-						curl_setopt($ch, $co,$v);
-					//}
-				}
-			//}
+
+		if (is_array($attributes['curl_params']) && !empty($attributes['curl_params']) ){
+			Minz_Log::warning('Attributes have been read');
+			foreach ( $attributes['curl_params'] as $co => $v){
+				curl_setopt($ch, $co,$v);
+			}
 		}
+
 		curl_setopt_array($ch, $system_conf->curl_options);
 		if (isset($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
