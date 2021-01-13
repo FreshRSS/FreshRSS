@@ -111,7 +111,23 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
-			$feed->_attributes('curl_params', Minz_Request::param('curl_params', ''));
+			
+			
+			
+			$cookie = Minz_Request::param('curl_params_cookie', '');
+			$proxy_address = Minz_Request::param('curl_params', '');
+			$proxy_type = intval(Minz_Request::param('proxy_type', 3)); //3 -> NONE
+			$opts = array();
+			if (array_key_exists($proxy_type, array(0,2,4,5,6,7)) && $proxy_address != ''){
+				$opts[CURLOPT_PROXY] = $proxy_address;
+				$opts[CURLOPT_PROXYTYPE] = $proxy_type;
+			}
+			if ($cookie != ''){
+				$opts[CURLOPT_COOKIE] = $cookie;
+			}
+			if (isset($opts[CURLOPT_PROXY]) || isset($opts[CURLOPT_COOKIE])){
+				$feed->_attributes('curl_params', $opts);
+			}
 
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
