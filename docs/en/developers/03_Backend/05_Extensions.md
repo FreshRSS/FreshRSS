@@ -279,33 +279,29 @@ A __system__ extension in comparison is enabled for every account.
 
 ### Writing your own extension.php
 
-This file is the entry point of your extension. It must contain a specific class to function.
-As mentioned above, the name of the class must be your `entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example).
-In addition, this class must be inherited from the `Minz_Extension` class to benefit from extensions-specific methods.
+This file is the core of your extension.
+It must define some key elements to be loaded by the extension system:
 
-Your class will benefit from four methods to redefine:
+1. The class name must be the `entrypoint` value defined in the `metadata.json` file suffixed by `Extension` (if your `entrypoint` value is _HelloWorld_, your class name will be _HelloWorldExtension_).
+1. The class must extend the `Minz_Extension` abstract class which defines the core methods and properties of a FreshRSS extension.
+1. The class must define the `init` method. This method is called **only** if the extension is loaded. Its purpose is to initialize the extension and its behavior during every page load.
 
-* `install()` is called when a user clicks the button to activate your extension. It allows, for example, to update the database of a user in order to make it compatible with the extension. It returns `true` if everything went well or, if not, a string explaining the problem.
-* `uninstall()` is called when a user clicks the button to disable your extension. This will allow you to undo the database changes you potentially made in `install ()`. It returns `true` if everything went well or, if not, a string explaining the problem.
-* `init()` is called for every page load *if the extension is enabled*. It will therefore initialize the behavior of the extension. This is the most important method.
-* `handleConfigureAction()` is called when a user loads the extension management panel. Specifically, it is called when the `?c=extension&a=configured&e=name-of-your-extension` URL is loaded. You should also write here the behavior you want when validating the form in your `configure.phtml` file.
+The `Minz_Extension` abstract class defines a set of methods that can be overridden to fit your needs:
+* the `install` method is called when the user enables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to prepare FreshRSS for the extension (adding a table to the database, creating a folder tree, ...).
+* the `uninstall` method is called when the user disables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to clean FreshRSS (removing a table from the database, deleting a folder tree, ...). Usually it reverts changes introduced by the `install` method.
+* the `handleConfigureAction` method is called when a user loads the extension configuration panel. It contains the logic to validate and store the submitted values defined in the `configure.phtml` file.
 
-In addition, you will have a number of methods directly inherited from `Minz_Extension` that you should not redefine:
+> If your extension code is scattered in different classes, you need to load their source before using them. Of course you could include the files manually, but it's more efficient to load them automatically. To do so, you just need to define the `autoload` method which will include them when needed. This method will be registered automatically when the extension is enabled.
 
-* The "getters" first: most are explicit enough not to detail them here - `getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the path to your extension), `getAuthor()`, `getDescription()`, `getVersion()`, `getType()`.
-* `getFileUrl($filename, $type)` will return the URL to a file in the `static` directory. The first parameter is the name of the file (without `static /`), the second is the type of file to be used (`css` or` js`).
-* `registerController($base_name)` will tell Minz to take into account the given controller in the routing system. The controller must be located in your `Controllers` directory, the name of the file must be` <base_name>Controller.php` and the name of the `FreshExtension_<base_name>_Controller` class.
+The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
+* the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
+* the `getFileUrl` returns the URL of the selected file. The file must exist in the `static` folder of the extension.
+* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension _Controllers_ folder, its file name must be _<name>Controller.php_, and its class name must be *FreshExtension\_<name>\_Controller*.
+* the `registerViews` method registers the extension views in FreshRSS.
+* the `registerTranslates` method registers the extension translation files in FreshRSS.
+* the `registerHook` method registers hook actions in different part of the application.
 
-> If your extension code is scattered in different classes, you need to load their source before using them.
-> Of course you could include the files manually, but it's more efficient to load them automatically.
-> To do so, you just need to define the `autoload` method which will include them when needed.
-> This method will be registered automatically when the extension is enabled.
-
-**TODO**
-
-* `registerViews()`
-* `registerTranslates()`
-* `registerHook($hook_name, $hook_function)`
+> Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it's highly recommended to let those unmodified.
 
 ### The "hooks" system
 
