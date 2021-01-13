@@ -1423,3 +1423,7 @@ input:checked + .slide-container .properties {
 .preview_background {
 	background-color: transparent;
 }
+
+.drag-drop-marker {
+	margin: -1px;
+}
