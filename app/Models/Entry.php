@@ -378,7 +378,7 @@ class FreshRSS_Entry extends Minz_Model {
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
 
-		if (is_array($attributes['curl_params']) && !empty($attributes['curl_params']) ){
+		if (isset($attributes['curl_params']) && is_array($attributes['curl_params']) ){
 			Minz_Log::warning('Attributes have been read');
 			foreach ( $attributes['curl_params'] as $co => $v){
 				curl_setopt($ch, $co,$v);
