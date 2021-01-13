@@ -125,8 +125,10 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			if ($cookie != ''){
 				$opts[CURLOPT_COOKIE] = $cookie;
 			}
-			if (isset($opts[CURLOPT_PROXY]) || isset($opts[CURLOPT_COOKIE])){
+			if (!empty($opts)){
 				$feed->_attributes('curl_params', $opts);
+			} else {
+				$feed->_attributes('curl_params', null);
 			}
 
 			if (FreshRSS_Auth::hasAccess('admin')) {
