@@ -1,0 +1,91 @@
+<div class="post">
+	<h1><?= $this->query->getName() ?></h1>
+
+	<div>
+		<a href="<?= $this->query->getUrl() ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
+	</div>
+
+	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId) ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+		<div class="form-group">
+			<label class="group-name" for="name"><?= _t('conf.query.name') ?></label>
+			<div class="group-controls">
+				<input type="text" name="name" id="name" class="extend" value="<?= $this->query->getName()  ?>" />
+			</div>
+		</div>
+		<legend><?= _t('conf.query.filter') ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
+			<div class="group-controls">
+				<input type="text" id="query_search" name="query[search]"  class="extend" value="<?= urldecode($this->query->getSearch()) ?>"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for=""><?= _t('conf.query.filter.state') ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="show_read">
+					<input type="checkbox" name="query[state][]" id="show_read" value="<?= FreshRSS_Entry::STATE_READ ?>" <?= FreshRSS_Entry::STATE_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<?= _t('index.menu.read') ?>
+				</label>
+				<label class="checkbox" for="show_not_read">
+					<input type="checkbox" name="query[state][]" id="show_not_read" value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" <?= FreshRSS_Entry::STATE_NOT_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<?= _t('index.menu.unread') ?>
+				</label>
+				<label class="checkbox" for="show_favorite">
+					<input type="checkbox" name="query[state][]" id="show_favorite" value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" <?= FreshRSS_Entry::STATE_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<?= _t('index.menu.starred') ?>
+				</label>
+				<label class="checkbox" for="show_not_favorite">
+					<input type="checkbox" name="query[state][]" id="show_not_favorite" value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" <?= FreshRSS_Entry::STATE_NOT_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<?= _t('index.menu.non-starred') ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="query_get"><?= _t('conf.query.filter.type') ?></label>
+			<div class="group-controls">
+				<select name="query[get]" id="query_get" size="10">
+					<option value=""></option>
+					<option value="s" <?= 's' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('conf.query.get_favorite') ?></option>
+					<optgroup label="<?= _t('conf.query.filter.categories') ?>">
+						<?php foreach ($this->categories as $category): ?>
+							<option value="c_<?= $category->id() ?>" <?= "c_{$category->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $category->name() ?></option>
+						<?php endforeach?>
+					</optgroup>
+					<optgroup label="<?= _t('conf.query.filter.feeds') ?>">
+					<?php foreach ($this->feeds as $feed): ?>
+						<option value="f_<?= $feed->id() ?>" <?= "f_{$feed->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $feed->name() ?></option>
+					<?php endforeach?>
+					</optgroup>
+					<optgroup label="<?= _t('conf.query.filter.tags') ?>">
+					<?php foreach ($this->tags as $tag): ?>
+						<option value="t_<?= $tag->id() ?>" <?= "t_{$tag->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $tag->name() ?></option>
+					<?php endforeach?>
+					</optgroup>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for=""><?= _t('conf.query.filter.order') ?></label>
+			<div class="group-controls">
+				<select name="query[order]" id="query_order">
+					<option value=""></option>
+					<option value="ASC" <?= 'ASC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_asc') ?></option>
+					<option value="DESC" <?= 'DESC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_desc') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button class="btn btn-attention confirm"
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('configure', 'deleteQuery', 'id', $this->queryId) ?>"
+					formmethod="post"><?= _t('gen.action.remove') ?></button>
+			</div>
+		</div>
+	</form>
+</div>

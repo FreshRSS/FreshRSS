@@ -65,12 +65,22 @@ return array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
 		'display' => 'Zeige Abfrage Ergebnisse',
-		'filter' => 'Angewendeter Filter:',
+		'filter' => array(
+			'_' => 'Angewendeter Filter:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Alle Artikel anzeigen',
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Kein Filter',
 		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'number' => 'Abfrage Nr. %d',

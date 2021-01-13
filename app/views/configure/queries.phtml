@@ -14,29 +14,14 @@
 			</label>
 
 			<div class="group-controls">
+				<?= $query->getName() ?>
+				<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', $key) ?>"><?= _i('configure') ?></a>
+				<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 				<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
-
-				<div class="stick">
-					<input class="extend"
-					       type="text"
-					       id="queries_<?= $key ?>_name"
-					       name="queries[<?= $key ?>][name]"
-					       value="<?= $query->getName() ?>"
-					       data-leave-validation="<?= $query->getName() ?>"
-					/>
-
-					<a class="btn" href="<?= $query->getUrl() ?>" title="<?= _t('conf.query.display') ?>">
-						<?= _i('link') ?>
-					</a>
-
-					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?= $key ?>" title="<?= _t('conf.query.remove') ?>">
-						<?= _i('close') ?>
-					</a>
-				</div>
 
 				<?php if (!$query->hasParameters()) { ?>
 				<div class="alert alert-warn">
@@ -83,5 +68,16 @@
 		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('conf.query.none') ?></p>
 		<?php } ?>
 	</form>
+</div>
 
+<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
+<a href="#" id="close-slider"<?= $class ?>>
+	<?= _i('close') ?>
+</a>
+<div id="slider"<?= $class ?>>
+<?php
+	if (isset($this->query)) {
+		$this->renderHelper('configure/query');
+	}
+?>
 </div>
