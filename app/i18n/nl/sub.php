@@ -33,6 +33,8 @@ return array(
 			'username' => 'HTTP gebruikers naam',
 		),
 		'clear_cache' => 'Cache altijd leegmaken',
+		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
+		'css_cookie_help' => 'Example: foo=bar; gdpr_consent=true; cookie=value',	// TODO - Translation
 		'css_help' => 'Haalt onvolledige RSS-feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'CSS-pad van artikelen op originele website',
 		'description' => 'Omschrijving',
@@ -61,6 +63,8 @@ return array(
 			'main_stream' => 'Zichtbaar in het overzicht',
 			'normal' => 'Toon in categorie',
 		),
+		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: 127.0.0.1:1080)',	// TODO - Translation
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',
 			'show_rendered' => 'Inhoud tonen',

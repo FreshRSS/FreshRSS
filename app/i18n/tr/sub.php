@@ -33,6 +33,8 @@ return array(
 			'username' => 'HTTP kullanıcı adı',
 		),
 		'clear_cache' => 'Always clear cache',	// TODO - Translation
+		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
+		'css_cookie_help' => 'Example: foo=bar; gdpr_consent=true; cookie=value',	// TODO - Translation
 		'css_help' => 'Dikkat, daha çok zaman gerekir!',
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
 		'description' => 'Tanım',
@@ -61,6 +63,8 @@ return array(
 			'main_stream' => 'Ana akışda göster',
 			'normal' => 'Show in its category',	// TODO - Translation
 		),
+		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: 127.0.0.1:1080)',	// TODO - Translation
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO - Translation
 			'show_rendered' => 'Show content',	// TODO - Translation

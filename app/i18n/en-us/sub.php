@@ -33,12 +33,10 @@ return array(
 			'username' => 'HTTP username',
 		),
 		'clear_cache' => 'Always clear cache',
+		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
+		'css_cookie_help' => 'Example: foo=bar; gdpr_consent=true; cookie=value',	// TODO - Translation
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
 		'css_path' => 'Article CSS selector on original website',
-		'proxy' => 'Set a proxy for fetching this feed', 
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: 127.0.0.1:1080)',
-		'css_cookie' => 'Use Cookies when fetching the article content',
-		'css_cookie_help' => 'Example: foo=bar; gdpr_consent=true; cookie=value',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
@@ -65,6 +63,8 @@ return array(
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
 		),
+		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: 127.0.0.1:1080)',	// TODO - Translation
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
 			'show_rendered' => 'Show content',
