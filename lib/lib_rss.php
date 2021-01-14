@@ -187,8 +187,8 @@ function customSimplePie($attributes = array()) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
-	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])){
-		foreach ( $attributes['curl_params'] as $co => $v){
+	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		foreach ($attributes['curl_params'] as $co => $v) {
 			Minz_Log::warning('Taken Opt: ' . $co . ' => ' . $v);
 			$curl_options[$co] = $v;
 		}

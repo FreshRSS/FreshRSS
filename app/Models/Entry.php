@@ -376,13 +376,12 @@ class FreshRSS_Entry extends Minz_Model {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
-		
+
 		curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
 
-		if (isset($attributes['curl_params']) && is_array($attributes['curl_params']) ){
-			Minz_Log::warning('Attributes have been read');
-			foreach ( $attributes['curl_params'] as $co => $v){
-				curl_setopt($ch, $co,$v);
+		if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+			foreach ( $attributes['curl_params'] as $co => $v) {
+				curl_setopt($ch, $co, $v);
 			}
 		}
 
