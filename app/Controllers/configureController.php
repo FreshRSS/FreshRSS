@@ -358,9 +358,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$can_enable_email_validation = version_compare(PHP_VERSION, '5.5') >= 0;
-		$this->view->can_enable_email_validation = $can_enable_email_validation;
-
 		if (Minz_Request::isPost()) {
 			$limits = FreshRSS_Context::$system_conf->limits;
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
@@ -370,9 +367,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
-			if ($can_enable_email_validation) {
-				FreshRSS_Context::$system_conf->force_email_validation = Minz_Request::param('force-email-validation', false);
-			}
+			FreshRSS_Context::$system_conf->force_email_validation = Minz_Request::param('force-email-validation', false);
 			FreshRSS_Context::$system_conf->save();
 
 			invalidateHttpCache();
