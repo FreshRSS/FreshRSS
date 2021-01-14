@@ -73,6 +73,7 @@ const init_draggable = function() {
 		}
 		source.remove();
 		removeMarker();
+		configureQueries.submit();
 	});
 
 	// This is needed to work around a Firefox bug → https://bugzilla.mozilla.org/show_bug.cgi?id=800050
