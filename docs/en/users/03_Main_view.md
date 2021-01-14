@@ -1,14 +1,36 @@
+FreshRSS has three primary viewing modes: Normal, Global, and Reader view.
+
 # Normal view
 
-**TODO**
+Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed's view. 
+
+## Article List
+
+By default, the normal view includes six items per article. From left to right:
+* **Read status:** An envalope icon to show if the article has been read or not. Closed envalopes are unread, open envalopes are read. Clicking on the icon will toggle the read status.
+* **Favourite status:** A star icon to show if the article has been favourited or not. Filled stars are favourited, empty stars are not. Clicking on the icon will toggle the favourite status.
+* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed's view in normal view.
+* **Article title:** The title of the article. Clicking will open the article for viewing within FreshRSS. 
+* **Article date/time:** The time the article was posted.
+* **Link to original article:** A globe icon that can be clicked to go to the article on the original website.
+
+## Normal View Sidebar
+
+Clicking the gear icon next to an individual feed will display additional options for that feed. 
+* **Filter:** Run the defined filter to mark articles as read
+* **Statistics:** View statistics about the feed
+* **See website:** Open the feed's website in another tab
+* **Manage:** Configure the feed
+* **Actualize:** Force-update the feed
+* **Mark as read:** Mark all items in the feed as read
 
 # Global view
 
-**TODO**
+Global view allows quick views of feed's statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed's name will open it in a view similar to normal view. 
 
 # Reader view
 
-**TODO**
+Reader view will display a feed will all articles already open for reading. Feeds can be switched by clicking the folder icon at the top to bring up the category/feed sidebar.
 
 # Refreshing feeds
 
@@ -116,16 +138,19 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 # Filtering articles
 
+## Purpose
 When the number of articles stored by FreshRSS inevitably grows larger, it's important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
-## By category
+## How-to filter
+
+### By category
 
 This is the easiest method. You only need to click on the category title in the side panel. There are two special categories at the top of the panel:
 
   * *Main feed* displays only articles from feeds marked as available in that category
   * *Favourites* displays only articles marked as favourites
 
-## By feed
+### By feed
 
 There are several methods to filter articles by feed:
 
@@ -136,7 +161,7 @@ There are several methods to filter articles by feed:
 
 ![Feed filter](../img/users/feed.filter.1.png)
 
-## By status
+### By status
 
 Each article has two attributes that can be combined. The first attribute indicates whether or not the article has been read. The second attribute indicates if the article was marked as favorite or not.
 
@@ -150,11 +175,11 @@ Starting with version 0.8, all attribute filters are visible as toggle icons. Th
 
 By default, this filter displays only unread articles
 
-## By content
+### By content
 
 It is possible to filter articles by their content by inputting a string in the search field.
 
-## With the search field
+### With the search field
 
 You can use the search field to further refine results:
 
@@ -162,7 +187,7 @@ You can use the search field to further refine results:
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag`
+* by tag: `#tag` or `#tag+with+whitespace`
 * by free-text: `keyword` or `'composed keyword'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
@@ -208,3 +233,34 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
+
+### By sorting by date
+
+You can change the sort order by clicking the toggle button available in the header.
+
+## Store your filters
+
+Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
+
+Hopefully, there is a way to bookmark them for later use.
+We call them _user queries_.
+You can create as many as you want, the only limit is how they will be displayed on your screen.
+
+### Bookmark the current query
+
+Display the user queries drop-down by clicking the button next to the state buttons.
+![User queries drop-down](../img/users/user.queries.drop-down.empty.png)
+
+Then click on the bookmark action.
+
+Congratulations, you're done!
+
+### Using a bookmarked query
+
+Display the user queries drop-down by clicking the button next to the state buttons.
+![User queries drop-down](../img/users/user.queries.drop-down.not.empty.png)
+
+Then click on the bookmarked query, the previously stored query will be applied.
+
+> Note that only the query is stored, not the articles.
+> The results you are seing now could be different from the results on the day you've created the query.

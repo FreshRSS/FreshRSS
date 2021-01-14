@@ -19,8 +19,8 @@ return array(
 		'add' => 'Puedes añadir fuentes.',
 		'empty' => 'No hay artículos a mostrar.',
 		'rss_of' => 'Fuente RSS de %s',
-		'title' => 'Tus fuentes RSS',
-		'title_fav' => 'Tus favoritos',
+		'title' => 'Salida Principal',
+		'title_fav' => 'Favoritos',
 		'title_global' => 'Vista global',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Acerca de FreshRSS',
-		'add_query' => 'Añadir petición',
 		'before_one_day' => 'Con más de 1 día',
 		'before_one_week' => 'Con más de una semana',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Vista Global',
 		'main_stream' => 'Salida Principal',

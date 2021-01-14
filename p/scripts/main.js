@@ -43,6 +43,7 @@ var context;
 	context.icons = json.icons;
 	context.icons.read = decodeURIComponent(context.icons.read);
 	context.icons.unread = decodeURIComponent(context.icons.unread);
+	context.extensions = json.extensions;
 }());
 //</Global context>
 
@@ -946,7 +947,7 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.share > a[href="#"]');
+		el = ev.target.closest('.item.share > a[data-type="print"]');
 		if (el) {	//Print
 			const tmp_window = window.open();
 			for (var i = 0; i < document.styleSheets.length; i++) {
@@ -957,6 +958,12 @@ function init_stream(stream) {
 			tmp_window.focus();
 			tmp_window.print();
 			tmp_window.close();
+			return false;
+		}
+
+		el = ev.target.closest('.item.share > a[data-type="clipboard"]');
+		if (el && navigator.clipboard) {	//Clipboard
+			navigator.clipboard.writeText(el.href);
 			return false;
 		}
 
@@ -1170,7 +1177,12 @@ function updateFeed(feeds, feeds_count) {
 function init_actualize() {
 	let auto = false;
 
-	document.getElementById('actualize').onclick = function () {
+	const actualize = document.getElementById('actualize');
+	if (!actualize) {
+		return;
+	}
+
+	actualize.onclick = function () {
 		if (context.ajax_loading) {
 			return false;
 		}
@@ -1226,7 +1238,7 @@ function init_actualize() {
 
 	if (context.auto_actualize_feeds) {
 		auto = true;
-		document.getElementById('actualize').click();
+		actualize.click();
 	}
 }
 // </actualize>

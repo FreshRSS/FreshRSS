@@ -19,8 +19,8 @@ return array(
 		'add' => 'Môžete pridať kanály.',
 		'empty' => 'Žiadne články.',
 		'rss_of' => 'RSS kanál pre %s',
-		'title' => 'Vaše RSS kanály',
-		'title_fav' => 'Vaše obľúbené',
+		'title' => 'Všetky kanály',
+		'title_fav' => 'Obľúbené',
 		'title_global' => 'Prehľad',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
-		'add_query' => 'Vytvoriť dopyt',
 		'before_one_day' => 'Pred 1 dňom',
 		'before_one_week' => 'Pred 1 týždňom',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',
 		'main_stream' => 'Všetky kanály',

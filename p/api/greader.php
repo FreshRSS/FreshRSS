@@ -153,7 +153,7 @@ function authorizationToUser() {
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (FreshRSS_user_Controller::checkUsername($user)) {
-				FreshRSS_Context::$user_conf = get_user_configuration($user);
+				FreshRSS_Context::initUser($user);
 				if (FreshRSS_Context::$user_conf == null) {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
@@ -179,7 +179,7 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		FreshRSS_Context::$user_conf = get_user_configuration($email);
+		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();
@@ -922,10 +922,7 @@ if (count($pathInfos) < 3) {
 	badRequest();
 }
 
-Minz_Configuration::register('system',
-	DATA_PATH . '/config.php',
-	FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::initSystem();
 
 //Minz_Log::debug('----------------------------------------------------------------', API_LOG);
 //Minz_Log::debug(debugInfo(), API_LOG);
@@ -938,29 +935,23 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 
 Minz_Session::init('FreshRSS', true);
 
-$user = $pathInfos[1] === 'accounts' ? '' : authorizationToUser();
-FreshRSS_Context::$user_conf = null;
-if ($user !== '') {
-	FreshRSS_Context::$user_conf = get_user_configuration($user);
+if ($pathInfos[1] !== 'accounts') {
+	authorizationToUser();
+}
+if (FreshRSS_Context::$user_conf != null) {
+	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	Minz_ExtensionManager::init();
-	if (FreshRSS_Context::$user_conf != null) {
-		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
-	} else {
-		Minz_Translate::init();
-	}
+	Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
 } else {
 	Minz_Translate::init();
 }
-
-Minz_Session::_param('currentUser', $user);
 
 if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
 } elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
-	if ($user == '') {
+	if (Minz_Session::param('currentUser', '') == '') {
 		unauthorized();
 	}
 	$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.
@@ -988,8 +979,15 @@ if ($pathInfos[1] === 'accounts') {
 			if (!ctype_digit($continuation)) {
 				$continuation = '';
 			}
-			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
-				if (isset($pathInfos[7])) {
+			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents') {
+				if (!isset($pathInfos[6]) && isset($_GET['s'])) {
+					// Compatibility BazQux API https://github.com/bazqux/bazqux-api#fetching-streams
+					$streamIdInfos = explode('/', $_GET['s']);
+					foreach ($streamIdInfos as $streamIdInfo) {
+						$pathInfos[] = $streamIdInfo;
+					}
+				}
+				if (isset($pathInfos[6]) && isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
 						$include_target = $pathInfos[7];
 						if ($include_target != '' && !ctype_digit($include_target)) {
@@ -1014,7 +1012,7 @@ if ($pathInfos[1] === 'accounts') {
 							streamContents($pathInfos[8], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 						}
 					}
-				} else {	//EasyRSS
+				} else {	//EasyRSS, FeedMe
 					$include_target = '';
 					streamContents('reading-list', $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				}

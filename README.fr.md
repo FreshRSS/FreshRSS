@@ -158,12 +158,31 @@ Créer `/etc/cron.d/FreshRSS` avec :
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/users/*/config.php`
 * Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](cli/README.md)
-* Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](https://www.phpmyadmin.net) ou les outils de MySQL :
+* Pour sauvegarder les articles eux-mêmes :
+    * **Dans le cas où vous utilisez MySQL**  
+	Vous pouvez utiliser [phpMyAdmin](https://www.phpmyadmin.net) ou les outils de MySQL :
+		```bash
+		mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
+		```
+	* **Pour toutes les bases supportées**  
+	Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre base de données vers une base de données au format SQLite :
+		```
+		./cli/export-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
+		```
+		> Il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
 
-```bash
-mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
-```
+		Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer la base de données au format SQLite dans votre base de données:
+		```
+		./cli/import-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
+		```
+		> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
 
+		Le processus d'import/export à l'aide d'une base de données SQLite est utile quand vous devez :
+		- exporter complètement les données d'un utilisateur,
+		- sauvegarder votre service,
+		- migrer votre service sur un autre serveur,
+		- changer de type de base de données,
+		- corriger des erreurs de base de données.
 
 # Extensions
 FreshRSS permet l’ajout d’extensions en plus des fonctionnalités natives.

@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Svecchiamento completato (%d articoli cancellati)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS verrà aggiornato alla <strong>versione %s</strong>.',
 		'error' => 'Il processo di aggiornamento ha riscontrato il seguente errore: %s',

@@ -10,13 +10,15 @@ Before you begin, make sure that you've read the [prerequisites](02_Prerequisite
 
 3. Give ownership of the FreshRSS folder to your web server user (often `www-data`). Give group read permissions to all files in `.`[^2], and group write permissions to `./data/`.
 
-4. Install needed PHP modules.
+4. Install needed PHP modules. A precise and up-to-date list can be found in [the Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfile#L11-L12). 
 
 5. Create a database for FreshRSS to use. Note the username and password for this database, as it will be needed during installation!
 
 6. Using your supported web browser of choice, navigate to the address you've installed your server to complete the installation from the GUI.[^3]
 
 7. You can then customize [the configuration of your instance](https://github.com/FreshRSS/FreshRSS/blob/master/config.default.php#L3-L4), [the default configuration for new users](https://github.com/FreshRSS/FreshRSS/blob/master/config-user.default.php#L3-L5) or [the default set of feeds for new users](https://github.com/FreshRSS/FreshRSS/blob/master/opml.default.xml#L2-L5).
+
+---
 
 [^1]: Make sure to expose only the `./p/` folder to the Web, as the other directories contain personal and sensitive data.
 

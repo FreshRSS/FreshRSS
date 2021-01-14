@@ -19,8 +19,8 @@ return array(
 		'add' => 'Please add some feeds.',
 		'empty' => 'There are no articles to show.',
 		'rss_of' => 'RSS feed of %s',
-		'title' => 'Your RSS feeds',
-		'title_fav' => 'Your favorites',
+		'title' => 'Main stream',
+		'title_fav' => 'Favorites',
 		'title_global' => 'Global view',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'About FreshRSS',
-		'add_query' => 'Add a query',
 		'before_one_day' => 'Older than one day',
 		'before_one_week' => 'Older than one week',
+		'bookmark_query' => 'Bookmark current query',
 		'favorites' => 'Favorites (%s)',
 		'global_view' => 'Global view',
 		'main_stream' => 'Main stream',

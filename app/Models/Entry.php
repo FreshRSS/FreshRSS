@@ -355,11 +355,10 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
-		$system_conf = Minz_Configuration::get('system');
-		$limits = $system_conf->limits;
+		$limits = FreshRSS_Context::$system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-		if ($system_conf->simplepie_syslog_enabled) {
+		if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
 			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
 		}
 
@@ -452,6 +451,7 @@ class FreshRSS_Entry extends Minz_Model {
 					);
 					if ($fullContent != '') {
 						$this->content = $fullContent;
+						return true;
 					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu(requête a échoué)
@@ -459,6 +459,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 		}
+		return false;
 	}
 
 	public function toArray() {

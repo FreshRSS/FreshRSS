@@ -43,14 +43,58 @@ class FreshRSS_Context {
 	public static $isCli = false;
 
 	/**
-	 * Initialize the context.
-	 *
-	 * Set the correct configurations and $categories variables.
+	 * Initialize the context for the global system.
 	 */
-	public static function init() {
-		// Init configuration.
-		self::$system_conf = Minz_Configuration::get('system');
-		self::$user_conf = Minz_Configuration::get('user');
+	public static function initSystem($reload = false) {
+		if ($reload || FreshRSS_Context::$system_conf == null) {
+			//TODO: Keep in session what we need instead of always reloading from disk
+			Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+			FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+			// Register the configuration setter for the system configuration
+			$configurationSetter = new FreshRSS_ConfigurationSetter();
+			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
+		}
+		return FreshRSS_Context::$system_conf;
+	}
+
+	/**
+	 * Initialize the context for the current user.
+	 */
+	public static function initUser($username = '') {
+		FreshRSS_Context::$user_conf = null;
+		if (!isset($_SESSION)) {
+			Minz_Session::init('FreshRSS');
+		}
+
+		Minz_Session::lock();
+		if ($username == '') {
+			$username = Minz_Session::param('currentUser', '');
+		}
+		if ($username === '_' || FreshRSS_user_Controller::checkUsername($username)) {
+			try {
+				//TODO: Keep in session what we need instead of always reloading from disk
+				Minz_Configuration::register('user',
+					USERS_PATH . '/' . $username . '/config.php',
+					FRESHRSS_PATH . '/config-user.default.php',
+					FreshRSS_Context::$system_conf->configurationSetter());
+
+				Minz_Session::_param('currentUser', $username);
+				FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
+			} catch (Exception $ex) {
+				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
+			}
+		}
+		if (FreshRSS_Context::$user_conf == null) {
+			Minz_Session::_params([
+				'loginOk' => false,
+				'currentUser' => false,
+			]);
+		}
+		Minz_Session::unlock();
+
+		if (FreshRSS_Context::$user_conf == null) {
+			return false;
+		}
 
 		//Legacy
 		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
@@ -74,6 +118,8 @@ class FreshRSS_Context {
 		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
+
+		return FreshRSS_Context::$user_conf;
 	}
 
 	/**

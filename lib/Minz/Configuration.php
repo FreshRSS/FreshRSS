@@ -136,6 +136,10 @@ class Minz_Configuration {
 		}
 	}
 
+	public function configurationSetter() {
+		return $this->configuration_setter;
+	}
+
 	/**
 	 * Return the value of the given param.
 	 *

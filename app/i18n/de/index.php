@@ -19,8 +19,8 @@ return array(
 		'add' => 'Sie können Feeds hinzufügen.',
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'rss_of' => 'RSS-Feed von %s',
-		'title' => 'Ihre RSS-Feeds',
-		'title_fav' => 'Ihre Favoriten',
+		'title' => 'Haupt-Feeds',
+		'title_fav' => 'Favoriten',
 		'title_global' => 'Globale Ansicht',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Über FreshRSS',
-		'add_query' => 'Eine Abfrage hinzufügen',
 		'before_one_day' => 'Vor einem Tag',
 		'before_one_week' => 'Vor einer Woche',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoriten (%s)',
 		'global_view' => 'Globale Ansicht',
 		'main_stream' => 'Haupt-Feeds',

@@ -72,8 +72,8 @@ return array(
 		'december' => 'December',
 		'feb' => 'Feb.',
 		'february' => 'February',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
+		'format_date' => 'j %s Y',
+		'format_date_hour' => 'j %s Y \\a\\t H\\:i',
 		'fri' => 'Fri',
 		'jan' => 'Jan.',
 		'january' => 'January',
@@ -185,6 +185,7 @@ return array(
 	'share' => array(
 		'Known' => 'Known based sites',
 		'blogotext' => 'Blogotext',
+		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

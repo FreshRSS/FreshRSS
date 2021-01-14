@@ -19,8 +19,8 @@ return array(
 		'add' => 'ניתן להוסיף הזנות חדשות.',
 		'empty' => 'אין מאמר להצגה.',
 		'rss_of' => 'הזנת RSS של %s',
-		'title' => 'ההזנות שלך',
-		'title_fav' => 'המועדפים שלך',
+		'title' => 'הזנה ראשית',
+		'title_fav' => 'מועדפים',
 		'title_global' => 'תצוגה גלובלית',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'אודות FreshRSS',
-		'add_query' => 'הוספת שאילתה',
 		'before_one_day' => 'אתמול',
 		'before_one_week' => 'לפני שבוע',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'מועדפים (%s)',
 		'global_view' => 'תצוגה גלובלית',
 		'main_stream' => 'הזנה ראשית',

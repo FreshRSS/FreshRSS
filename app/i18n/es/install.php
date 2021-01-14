@@ -33,7 +33,7 @@ return array(
 		'_' => 'Verificaciones',
 		'already_installed' => '¡FreshRSS ya está instalado!',
 		'cache' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>./data/cache</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Comprueba los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio cache son correctos.',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'Dispones de la librería cURL.',
 		),
 		'data' => array(
-			'nok' => 'Comprueba los permisos del directorio <em>./data</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Comprueba los permisos del directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Verifica los permisos en el directorio <em>./data/favicons</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Verifica los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio favicons son correctos.',
 		),
 		'fileinfo' => array(
@@ -88,8 +88,12 @@ return array(
 			'nok' => 'Dispones de la versión PHP %s, pero FreshRSS necesita de, al menos, la versión %s.',
 			'ok' => 'Dispones de la versión PHP %s, que es compatible con FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Revisa los permisos en el directorio <em>./data/users</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio users son correctos.',
 		),
 		'xml' => array(
