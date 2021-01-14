@@ -65,12 +65,22 @@ return array(
 		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
 		'display' => 'Queryresultaten weergeven',
-		'filter' => 'Filter toegepast:',
+		'filter' => array(
+			'_' => 'Filter toegepast:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Geen filter',
 		'none' => 'U hebt nog geen gebruikers query aangemaakt..',
 		'number' => 'Query n°%d',

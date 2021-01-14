@@ -65,12 +65,22 @@ return array(
 		'_' => 'Queries do usuário',
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
 		'display' => 'Exibir resultados da query do usuário',
-		'filter' => 'Filtro aplicado:',
+		'filter' => array(
+			'_' => 'Filtro aplicado:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Mostrar todos os artigos',
 		'get_category' => 'Visualizar "%s" categoria',
 		'get_favorite' => 'Visualizar artigos favoritos',
 		'get_feed' => 'Visualizar "%s" feed',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Sem filtro',
 		'none' => 'Você não criou nenhuma query de usuário ainda.',
 		'number' => 'Query n°%d',

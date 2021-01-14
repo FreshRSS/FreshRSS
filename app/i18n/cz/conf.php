@@ -65,12 +65,22 @@ return array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
 		'display' => 'Display user query results',	// TODO - Translation
-		'filter' => 'Filtr aplikován:',
+		'filter' => array(
+			'_' => 'Filtr aplikován:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
 		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',
 		'number' => 'Dotaz n°%d',

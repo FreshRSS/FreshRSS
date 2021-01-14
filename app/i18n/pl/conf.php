@@ -65,12 +65,22 @@ return array(
 		'_' => 'Zapisane zapytania',
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
 		'display' => 'Pokaż wyniki dla tego zapytania',
-		'filter' => 'Zastosowane filtry:',
+		'filter' => array(
+			'_' => 'Zastosowane filtry:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
 		'get_category' => 'Wyświetlenie kategorii "%s"',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału "%s"',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Brak filtrów',
 		'none' => 'Nie zapisałeś jeszcze żadnego zapytania.',
 		'number' => 'Zapytanie nr %d',

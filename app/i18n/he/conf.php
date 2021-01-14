@@ -65,12 +65,22 @@ return array(
 		'_' => 'שאילתות',
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
 		'display' => 'Display user query results',	// TODO - Translation
-		'filter' => 'מסננים בשימוש:',
+		'filter' => array(
+			'_' => 'מסננים בשימוש:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'הצגת כל המאמרים',
 		'get_category' => 'הצגת קטגוריה "%s"',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'ללא סינון',
 		'none' => 'אף שאילתה לא נוצרה עדיין.',
 		'number' => 'שאילתה מספר °%d',
