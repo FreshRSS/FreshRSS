@@ -371,7 +371,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.php.ok', PHP_VERSION) ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, '5.6.0') ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) ?></p>
 	<?php } ?>
 
 	<?php if ($res['pdo'] == 'ok') { ?>
