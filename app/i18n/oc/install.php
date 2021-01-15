@@ -92,6 +92,7 @@ return array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',

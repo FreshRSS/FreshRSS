@@ -363,17 +363,35 @@ function printStep0() {
 }
 
 function printStep1Template($key, $value, $messageParams = []) {
-	$message = _t("install.check.{$key}.{$value}", ...$messageParams);
 	if ('ok' === $value) {
+		$message = _t("install.check.{$key}.ok", ...$messageParams);
 		?><p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= $message ?></p><?php
 	} else {
+		$message = _t("install.check.{$key}.nok", ...$messageParams);
 		?><p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= $message ?></p><?php
 	}
+}
+
+function getProcessUsername() {
+	if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
+		$processUser = posix_getpwuid(posix_geteuid());
+		return $processUser['name'];
+	}
+
+	if (function_exists('exec')) {
+		exec('whoami', $output);
+		if (!empty($output[0])) {
+			return $output[0];
+		}
+	}
+
+	return _t('install.check.unknown_process_username');
 }
 
 // @todo refactor this view with the check_install action
 function printStep1() {
 	$res = checkRequirements();
+	$processUsername = getProcessUsername();
 ?>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
@@ -388,11 +406,11 @@ function printStep1() {
 	printStep1Template('xml', $res['xml']);
 	printStep1Template('mbstring', $res['mbstring']);
 	printStep1Template('fileinfo', $res['fileinfo']);
-	printStep1Template('data', $res['data'], [DATA_PATH]);
-	printStep1Template('cache', $res['cache'], [CACHE_PATH]);
-	printStep1Template('tmp', $res['tmp'], [TMP_PATH]);
-	printStep1Template('users', $res['users'], [USERS_PATH]);
-	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons']);
+	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
+	printStep1Template('cache', $res['cache'], [CACHE_PATH, $processUsername]);
+	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
+	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
+	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
 	printStep1Template('http_referer', $res['http_referer']);
 	?>
 

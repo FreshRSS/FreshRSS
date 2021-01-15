@@ -92,6 +92,7 @@ return array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de users map zijn goed.',

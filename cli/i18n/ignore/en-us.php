@@ -672,6 +672,7 @@ return array(
 	'install.check.php.ok',
 	'install.check.tmp.nok',
 	'install.check.tmp.ok',
+	'install.check.unknown_process_username',
 	'install.check.users.nok',
 	'install.check.users.ok',
 	'install.check.xml.nok',
