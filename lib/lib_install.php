@@ -6,7 +6,7 @@ Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.
 Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 function checkRequirements($dbType = '') {
-	$php = version_compare(PHP_VERSION, '5.6.0') >= 0;
+	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');

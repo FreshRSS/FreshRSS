@@ -65,12 +65,22 @@ return array(
 		'_' => 'Dopyty používateľa',
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
 		'display' => 'Zobraziť výsledky dopytu používateľa',
-		'filter' => 'Použitý filter:',
+		'filter' => array(
+			'_' => 'Použitý filter:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Zobraziť všetky články',
 		'get_category' => 'Zobraziť kategóriu "%s"',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál "%s"',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Žiadny filter',
 		'none' => 'Zatiaľ ste nevytvorili používateľský dopyt.',
 		'number' => 'Dopyt číslo %d',
