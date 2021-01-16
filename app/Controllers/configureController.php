@@ -145,6 +145,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * some unwanted behavior when the end-user was using an ad-blocker.
 	 */
 	public function integrationAction() {
+		Minz_View::appendScript(Minz_Url::display('/scripts/integration.js?' . @filemtime(PUBLIC_PATH . '/scripts/integration.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
+
 		if (Minz_Request::isPost()) {
 			$params = Minz_Request::fetchPOST();
 			FreshRSS_Context::$user_conf->sharing = $params['share'];
@@ -275,7 +278,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction() {
-		Minz_View::appendScript(Minz_Url::display('/scripts/user.query.js?' . @filemtime(PUBLIC_PATH . '/scripts/user.query.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
