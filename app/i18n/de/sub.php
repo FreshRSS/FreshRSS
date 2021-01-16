@@ -33,6 +33,8 @@ return array(
 			'username' => 'HTTP-Nutzername',
 		),
 		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
+		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
+		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Ruft bei gekürzten RSS-Feeds den vollständigen Artikelinhalt ab (Achtung, benötigt mehr Zeit!)',
 		'css_path' => 'CSS-Selektor des Artikelinhaltes auf der Original-Webseite',
 		'description' => 'Beschreibung',
@@ -61,6 +63,8 @@ return array(
 			'main_stream' => 'In Haupt-Feeds zeigen',
 			'normal' => 'Zeige in eigener Kategorie',
 		),
+		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
+		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Quellcode anzeigen',
 			'show_rendered' => 'Inhalt anzeigen',

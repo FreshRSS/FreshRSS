@@ -187,6 +187,11 @@ function customSimplePie($attributes = array()) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
+	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		foreach ($attributes['curl_params'] as $co => $v) {
+			curl_setopt($ch, $co, $v);
+		}
+	}
 	$simplePie->set_curl_options($curl_options);
 
 	$simplePie->strip_comments(true);
