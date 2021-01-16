@@ -188,7 +188,9 @@ function customSimplePie($attributes = array()) {
 		}
 	}
 	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
-		$curl_options = array_merge($curl_options, $attributes['curl_params']);
+		foreach ($attributes['curl_params'] as $co => $v) {
+			curl_setopt($ch, $co, $v);
+		}
 	}
 	$simplePie->set_curl_options($curl_options);
 
