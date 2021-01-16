@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Cache altijd leegmaken',
 		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: foo=bar; gdpr_consent=true; cookie=value',	// TODO - Translation
+		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => 'Haalt onvolledige RSS-feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'CSS-pad van artikelen op originele website',
 		'description' => 'Omschrijving',
@@ -64,7 +64,7 @@ return array(
 			'normal' => 'Toon in categorie',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: 127.0.0.1:1080)',	// TODO - Translation
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',
 			'show_rendered' => 'Inhoud tonen',

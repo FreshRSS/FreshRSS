@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
-		'css_cookie_help' => 'Beispiel: foo=bar; gdpr_consent=true; cookie=value',
+		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Ruft bei gekürzten RSS-Feeds den vollständigen Artikelinhalt ab (Achtung, benötigt mehr Zeit!)',
 		'css_path' => 'CSS-Selektor des Artikelinhaltes auf der Original-Webseite',
 		'description' => 'Beschreibung',
