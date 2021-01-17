@@ -6,6 +6,7 @@ return array(
 	'admin.stats.feed',
 	'admin.user.admin',
 	'admin.user.feed_count',
+	'conf.query.name',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
 	'conf.sharing.facebook',

@@ -33,7 +33,7 @@ return array(
 		'about' => 'Über FreshRSS',
 		'before_one_day' => 'Vor einem Tag',
 		'before_one_week' => 'Vor einer Woche',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Aktuelle Abfrage speichern',
 		'favorites' => 'Favoriten (%s)',
 		'global_view' => 'Globale Ansicht',
 		'main_stream' => 'Haupt-Feeds',
