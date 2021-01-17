@@ -191,6 +191,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				case 'demote':
 					$this->demoteAction();
 					break;
+				case 'enable':
+					$this->enableAction();
+					break;
+				case 'disable':
+					$this->disableAction();
+					break;
 			}
 		}
 
@@ -332,6 +338,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok = self::createUser($new_user_name, $email, $passwordPlain, array(
 				'language' => Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language),
 				'is_admin' => Minz_Request::paramBoolean('new_user_is_admin'),
+				'enabled' => true,
 			));
 			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
 			$_POST['new_user_passwordPlain'] = '';
@@ -343,17 +350,19 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			// get started immediately.
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = get_user_configuration($new_user_name);
-				Minz_Session::_param('currentUser', $new_user_name);
-				Minz_Session::_param('passwordHash', $user_conf->passwordHash);
-				Minz_Session::_param('csrf');
+				Minz_Session::_params([
+					'currentUser' => $new_user_name,
+					'passwordHash' => $user_conf->passwordHash,
+					'csrf' => false,
+				]);
 				FreshRSS_Auth::giveAccess();
 			}
 
-			$notif = array(
-				'type' => $ok ? 'good' : 'bad',
-				'content' => _t('feedback.user.created' . (!$ok ? '.error' : ''), $new_user_name)
-			);
-			Minz_Session::_param('notification', $notif);
+			if ($ok) {
+				Minz_Request::setGoodNotification(_t('feedback.user.created', $new_user_name));
+			} else {
+				Minz_Request::setBadNotification(_t('feedback.user.created.error', $new_user_name));
+			}
 		}
 
 		$redirect_url = urldecode(Minz_Request::param('r', false, true));
@@ -539,25 +548,33 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => $ok ? 'good' : 'bad',
-				'content' => _t('feedback.user.deleted' . (!$ok ? '.error' : ''), $username)
-			);
-			Minz_Session::_param('notification', $notif);
+			if ($ok) {
+				Minz_Request::setGoodNotification(_t('feedback.user.deleted', $username));
+			} else {
+				Minz_Request::setBadNotification(_t('feedback.user.deleted.error', $username));
+			}
 		}
 
 		Minz_Request::forward($redirect_url, true);
 	}
 
 	public function promoteAction() {
-		$this->switchAdminAction(true);
+		$this->toggleAction('is_admin', true);
 	}
 
 	public function demoteAction() {
-		$this->switchAdminAction(false);
+		$this->toggleAction('is_admin', false);
 	}
 
-	private function switchAdminAction($isAdmin) {
+	public function enableAction() {
+		$this->toggleAction('enabled', true);
+	}
+
+	public function disableAction() {
+		$this->toggleAction('enabled', false);
+	}
+
+	private function toggleAction($field, $value) {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -575,9 +592,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(500);
 		}
 
-		$userConfig->_param('is_admin', $isAdmin);
+		$userConfig->_param($field, $value);
 
 		$ok = $userConfig->save();
+		FreshRSS_UserDAO::touch($username);
 
 		if ($ok) {
 			Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
@@ -597,7 +615,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$this->view->isDefaultUser = $username === FreshRSS_Context::$system_conf->default_user;
 		$this->view->username = $username;
 		$this->view->details = $this->retrieveUserDetails($username);
 	}
@@ -615,7 +632,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			'database_size' => $databaseDAO->size(),
 			'language' => $userConfiguration->language,
 			'mail_login' => $userConfiguration->mail_login,
+			'enabled' => $userConfiguration->enabled,
 			'is_admin' => $userConfiguration->is_admin,
+			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)),
+			'is_default' => FreshRSS_Context::$system_conf->default_user === $username,
 		);
 	}
 }

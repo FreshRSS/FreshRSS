@@ -57,7 +57,7 @@ The `TAG` variable can be anything (e.g. `local`). You can target a specific arc
 
 # Project architecture
 
-**TODO**
+- the PHP framework: [Minz](Minz/index.md)
 
 # Extensions
 

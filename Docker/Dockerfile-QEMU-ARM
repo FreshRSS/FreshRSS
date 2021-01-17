@@ -1,7 +1,7 @@
 # Only relevant for Docker Hub or QEMU multi-architecture builds.
 # Prefer the normal `Dockerfile` if you are building manually on the targeted architecture.
 
-FROM arm32v7/ubuntu:19.10
+FROM arm32v7/debian:10-slim
 
 # Requires ./hooks/*
 COPY ./Docker/qemu-arm-* /usr/bin/
@@ -41,7 +41,7 @@ LABEL \
 	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
 RUN a2dismod -f alias autoindex negotiation status && \
-	a2enmod deflate expires headers mime setenvif && \
+	a2enmod deflate expires headers mime remoteip setenvif && \
 	a2disconf '*' && \
 	a2dissite '*' && \
 	a2ensite 'FreshRSS*'
@@ -63,6 +63,7 @@ ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
 ENV FRESHRSS_ENV ''
+ENV LISTEN ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
@@ -71,6 +72,3 @@ EXPOSE 80
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
-
-HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
-	CMD (php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars') || exit 1

@@ -6,8 +6,7 @@ Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.
 Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 function checkRequirements($dbType = '') {
-	$php = version_compare(PHP_VERSION, '5.6.0') >= 0;
-	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
+	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
@@ -44,13 +43,13 @@ function checkRequirements($dbType = '') {
 	$mbstring = extension_loaded('mbstring');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
+	$tmp = TMP_PATH && is_writable(TMP_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
 	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
 	$http_referer = is_referer_from_same_domain();
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
-		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
 		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
@@ -65,12 +64,13 @@ function checkRequirements($dbType = '') {
 		'mbstring' => $mbstring ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
+		'tmp' => $tmp ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'message' => $message ?: 'ok',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
+		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
+		         $data && $cache && $tmp && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
 	);
 }
 
@@ -94,13 +94,19 @@ function initDb() {
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
 		$conf->db = $db;
-		//First connection without database name to create the database
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		try {
+			//First connection without database name to create the database
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		} catch (Exception $ex) {
+			$databaseDAO = null;
+		}
 		//Restore final database parameters for auto-creation and for future connections
 		$db['base'] = $dbBase;
 		$conf->db = $db;
-		//Perfom database auto-creation
-		$databaseDAO->create();
+		if ($databaseDAO != null) {
+			//Perfom database auto-creation
+			$databaseDAO->create();
+		}
 	}
 
 	//New connection with the database name
@@ -113,4 +119,13 @@ function deleteInstall() {
 	$path = join_path(DATA_PATH, 'do-install.txt');
 	@unlink($path);
 	return !file_exists($path);
+}
+
+function setupMigrations() {
+	$migrations_path = APP_PATH . '/migrations';
+	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';
+
+	$migrator = new Minz_Migrator($migrations_path);
+	$versions = implode("\n", $migrator->versions());
+	return @file_put_contents($migrations_version_path, $versions) !== false;
 }

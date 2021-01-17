@@ -63,6 +63,8 @@ class Minz_Translate {
 	public static function availableLanguages() {
 		$list_langs = array();
 
+		self::registerPath(APP_PATH . '/i18n');
+
 		foreach (self::$path_list as $path) {
 			$scan = scandir($path);
 			if (is_array($scan)) {
@@ -77,6 +79,31 @@ class Minz_Translate {
 		}
 
 		return array_unique($list_langs);
+	}
+
+	/**
+	 * Return the language to use in the application.
+	 * It returns the connected language if it exists then returns the first match from the
+	 * preferred languages then returns the default language
+	 * @param $user the connected user language (nullable)
+	 * @param $preferred an array of the preferred languages
+	 * @param $default the preferred language to use
+	 * @return a string containing the language to use
+	 */
+	public static function getLanguage($user, $preferred, $default) {
+		if (null !== $user) {
+			return $user;
+		}
+
+		$languages = Minz_Translate::availableLanguages();
+		foreach ($preferred as $language) {
+			$language = strtolower($language);
+			if (in_array($language, $languages, true)) {
+				return $language;
+			}
+		}
+
+		return $default ? $default : 'en';
 	}
 
 	/**

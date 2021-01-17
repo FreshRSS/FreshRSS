@@ -301,7 +301,9 @@ a.btn {
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
+	background: #333;
 	font-size: 0.8rem;
+	border: 2px solid #262626;
 	border-radius: 5px;
 	text-align: left;
 }
@@ -450,6 +452,7 @@ a.btn {
 /*=== Boxes */
 .box {
 	background: #1f1f1f;
+	border: 1px solid #444;
 	border-radius: 3px;
 }
 
@@ -660,6 +663,11 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
+	max-width: 20rem;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: .5rem;
+	padding-right: .5rem;
 	text-align: center;
 }
 
@@ -668,13 +676,36 @@ a.btn {
 }
 
 .prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	text-align: left;
 }
 
+.prompt .form-group {
+	margin-bottom: 1rem;
+}
+
+.prompt .form-group::after {
+	display: none;
+}
+
+.prompt .form-group.form-group-actions {
+	display: flex;
+	margin-top: 2rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prompt .stick,
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
+	box-sizing: border-box;
+}
+
+.prompt .btn.btn-important {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	font-size: 1.1rem;
 }
 
 .prompt p {
@@ -764,6 +795,14 @@ a.btn {
 	background: inherit;
 }
 
+.flux:not(.current):hover .item.title {
+	background: #333;
+}
+
+.flux .item.title a {
+	color: #ababab;
+}
+
 .flux.favorite {
 	border-left: 2px solid #ffc300;
 }
@@ -786,7 +825,7 @@ a.btn {
 	padding: 5px;
 }
 
-.flux .date {
+.flux .item.date {
 	color: #ababab;
 	font-size: 0.7rem;
 }
@@ -895,6 +934,10 @@ a.btn {
 	text-decoration: none;
 }
 
+.bigTick {
+	display: none!important;
+}
+
 /*=== Navigation menu (for articles) */
 #nav_entries {
 	margin: 0;
@@ -957,6 +1000,18 @@ a.btn {
 .box.category .item.feed {
 	padding: 2px 10px;
 	font-size: 0.8rem;
+}
+
+/*=== Slider */
+#slider {
+	background: #171717;
+	border-left: 1px solid #333;
+}
+
+/*=== SLIDESHOW */
+/*==============*/
+.nav label {
+	color: #0062b7;
 }
 
 /*=== DIVERS */
@@ -1053,6 +1108,16 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
+	.form-group .group-name {
+		padding-bottom: 0;
+		text-align: left;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.aside {
 		box-shadow: 3px 0 3px #aaa;
 		transition: width 200ms linear;
@@ -1110,6 +1175,10 @@ a.btn {
 		border-top: 1px solid #292929;
 	}
 
+	.flux:not(.current):hover .item.title {
+		background: #333;
+	}
+
 	.notification a.close {
 		background: transparent;
 		display: block;
@@ -1122,5 +1191,10 @@ a.btn {
 
 	.notification a.close .icon {
 		display: none;
+	}
+
+	.post {
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 }

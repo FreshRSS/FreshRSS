@@ -141,10 +141,10 @@ The tags correspond to FreshRSS branches and versions:
 * `:x.y.z` are specific FreshRSS releases
 * `:arm` or `:*-arm` are the ARM versions (e.g. for Raspberry Pi)
 
-### Linux: Ubuntu vs. Alpine
-Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
-In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
-while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
+### Linux: Debian vs. Alpine
+Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
+In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is faster,
+while Alpine is [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 
 
 ## Optional: Build Docker image of FreshRSS
@@ -213,7 +213,7 @@ Remember not pass the `CRON_MIN` environment variable to your Docker run, to avo
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
 ```
-7,37 * * * * root docker exec --user www-data -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 ### Option 3) Cron as another instance of the same FreshRSS Docker image
@@ -287,6 +287,7 @@ Require valid-user
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 - In the `postgresql` service:
+    * `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
 	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
 	* the `POSTGRES_PASSWORD` in the `environment` section;
 - In the `freshrss` service:
@@ -350,4 +351,21 @@ server {
 		proxy_pass_header Authorization;
 	}
 }
+```
+### Alternative reverse proxy using [Apache 2.4](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+Here is an example of a configuration file for running FreshRSS behind an Apache reverse proxy (as a subdirectory).
+You need a working SSL configuration and the Apache modules `proxy`, `proxy_http` and `headers` installed (depends on your distribution) and enabled (```a2enmod proxy proxy_http headers```).
+
+```
+ProxyPreserveHost On
+
+<Location /freshrss/>
+  ProxyPass http://127.0.0.1:8080/
+  ProxyPassReverse http://127.0.0.1:8080/
+  RequestHeader set X-Forwarded-Prefix "/freshrss"
+  RequestHeader set X-Forwarded-Proto "https"
+  Require all granted
+  Options none
+</Location>
 ```

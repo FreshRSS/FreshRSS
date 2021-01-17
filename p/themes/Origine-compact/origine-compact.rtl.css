@@ -735,21 +735,45 @@ a.btn,
 
 /*=== Prompt (centered) */
 .prompt {
+	max-width: 20rem;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: .5rem;
+	padding-left: .5rem;
 	text-align: center;
 }
 
-.prompt label {
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
 	text-align: right;
 }
 
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
+.prompt .form-group {
+	margin-bottom: 1rem;
 }
 
+.prompt .form-group::after {
+	display: none;
+}
+
+.prompt .form-group.form-group-actions {
+	display: flex;
+	margin-top: 2rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prompt .stick,
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
+	box-sizing: border-box;	
+}
+
+.prompt .btn.btn-important {
+	padding-right: 1.5rem;
+	padding-left: 1.5rem;
+	font-size: 1.1rem;
 }
 
 .prompt p {
@@ -862,7 +886,7 @@ a.btn,
 	padding: 5px;
 }
 
-.flux .date {
+.flux .item.date {
 	color: #666;
 	font-size: 0.7rem;
 }
@@ -1153,9 +1177,22 @@ a.btn,
 /*===========*/
 
 @media (max-width: 840px) {
+	.form-group .group-name {
+		padding-bottom: 0;
+		text-align: right;
+	}
+
+	.box .box-title .configure,
+	.box .box-content .item .configure {
+		visibility: visible;
+	}
+
 	.aside {
-		box-shadow: -3px 0 3px #aaa;
 		transition: width 200ms linear;
+	}
+
+	.aside:target {
+		box-shadow: -3px 0 3px #aaa;
 	}
 
 	.aside .toggle_aside,
@@ -1220,5 +1257,10 @@ a.btn,
 
 	.notification a.close .icon {
 		display: none;
+	}
+
+	.post {
+		padding-right: 15px;
+		padding-left: 15px;
 	}
 }

@@ -17,22 +17,23 @@ return array(
 		'type' => 'Způsob přihlášení',
 	),
 	'bdd' => array(
+		'_' => 'Databáze',
 		'conf' => array(
+			'_' => 'Nastavení databáze',
 			'ko' => 'Ověřte informace o databázi.',
 			'ok' => 'Nastavení databáze bylo uloženo.',
-			'_' => 'Nastavení databáze',
 		),
 		'host' => 'Hostitel',
 		'password' => 'Heslo',
 		'prefix' => 'Prefix tabulky',
 		'type' => 'Typ databáze',
 		'username' => 'Uživatel',
-		'_' => 'Databáze',
 	),
 	'check' => array(
+		'_' => 'Kontrola',
 		'already_installed' => 'Zjistili jsme, že FreshRSS je již nainstalován!',
 		'cache' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/cache</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
 			'ok' => 'Oprávnění adresáře cache jsou v pořádku.',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
 			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro procházení DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/favicons</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
 			'ok' => 'Oprávnění adresáře favicons jsou v pořádku.',
 		),
 		'fileinfo' => array(
@@ -87,19 +88,22 @@ return array(
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
 			'ok' => 'Vaše verze PHP je %s a je kompatibilní s FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/users</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
 		),
 		'xml' => array(
 			'nok' => 'Pro parsování XML chybí požadovaná knihovna.',
 			'ok' => 'Máte požadovanou knihovnu pro parsování XML.',
 		),
-		'_' => 'Kontrola',
 	),
 	'conf' => array(
-		'ok' => 'Nastavení bylo uloženo.',
 		'_' => 'Obecná nastavení',
+		'ok' => 'Nastavení bylo uloženo.',
 	),
 	'congratulations' => 'Gratulujeme!',
 	'default_user' => 'Jméno výchozího uživatele <small>(maximálně 16 alfanumerických znaků)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => 'Reinstalací FreshRSS ztratíte předchozí konfiguraci. Opravdu chcete pokračovat?',
 	),
 	'language' => array(
+		'_' => 'Jazyk',
 		'choose' => 'Vyberte jazyk FreshRSS',
 		'defined' => 'Jazyk byl nastaven.',
-		'_' => 'Jazyk',
 	),
 	'not_deleted' => 'Nastala chyba, soubor <em>%s</em> musíte smazat ručně.',
 	'ok' => 'Instalace byla úspěšná.',

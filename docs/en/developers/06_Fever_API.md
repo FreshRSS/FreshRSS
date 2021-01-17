@@ -18,19 +18,14 @@ Then point your mobile application to the `fever.php` address (e.g. `https://fre
 
 ## Compatible clients
 
-Tested with:
-
-* Android
-  * [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
-
-* iOS
-  * [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
-  * [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
-  * [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API / native FreshRSS option when possible)
-
-* MacOS
-  * [ReadKit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
-
+| App                                                                                | Platform            | License                                            |
+|:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
+|[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
+|[Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)|Android              |Closed Source                                             |
+|[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Closed Source                                             |
+|[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Closed Source                                             |
+|[Reeder](https://www.reederapp.com/)                                                |iOS                  |Closed Source                                              |
+|[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Closed Source                                              |
 
 ## Features
 

@@ -20,6 +20,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/theoldreader/api
 * https://www.inoreader.com/developers/
 * https://feedhq.readthedocs.io/en/latest/api/index.html
+* https://github.com/bazqux/bazqux-api
 */
 
 require(__DIR__ . '/../../constants.php');
@@ -32,6 +33,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
 	}
 	function hex2dec($hex) {
+		if (!ctype_xdigit($hex)) return 0;
 		return gmp_strval(gmp_init($hex, 16), 10);
 	}
 } else {	//64-bit
@@ -39,6 +41,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
 	}
 	function hex2dec($hex) {
+		if (!ctype_xdigit($hex)) return 0;
 		return hexdec($hex);
 	}
 }
@@ -150,8 +153,12 @@ function authorizationToUser() {
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (FreshRSS_user_Controller::checkUsername($user)) {
-				FreshRSS_Context::$user_conf = get_user_configuration($user);
+				FreshRSS_Context::initUser($user);
 				if (FreshRSS_Context::$user_conf == null) {
+					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
+					unauthorized();
+				}
+				if (!FreshRSS_Context::$user_conf->enabled) {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
@@ -172,7 +179,7 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		FreshRSS_Context::$user_conf = get_user_configuration($email);
+		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();
@@ -337,7 +344,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
 		$streamUrl = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
 		if (strpos($streamUrl, 'feed/') === 0) {
-			$streamUrl = substr($streamUrl, 5);
+			$streamUrl = preg_replace('%^(feed/)+%', '', $streamUrl);
 			$feedId = 0;
 			if (ctype_digit($streamUrl)) {
 				if ($action === 'subscribe') {
@@ -390,10 +397,15 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 function quickadd($url) {
 	try {
 		$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
+		if (substr($url, 0, 5) === 'feed/') {
+			$url = substr($url, 5);
+		}
 		$feed = FreshRSS_feed_Controller::addFeed($url);
 		exit(json_encode(array(
 				'numResults' => 1,
-				'streamId' => $feed->id(),
+				'query' => $feed->url(),
+				'streamId' => 'feed/' . $feed->id(),
+				'streamName' => $feed->name(),
 			), JSON_OPTIONS));
 	} catch (Exception $e) {
 		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
@@ -421,7 +433,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 			$unreadcounts[] = array(
 				'id' => 'feed/' . $feed->id(),
 				'count' => $feed->nbNotRead(),
-				'newestItemTimestampUsec' => $lastUpdate,
+				'newestItemTimestampUsec' => '' . $lastUpdate,
 			);
 			if ($catLastUpdate < $lastUpdate) {
 				$catLastUpdate = $lastUpdate;
@@ -430,7 +442,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
-			'newestItemTimestampUsec' => $catLastUpdate,
+			'newestItemTimestampUsec' => '' . $catLastUpdate,
 		);
 		$totalUnreads += $cat->nbNotRead();
 		if ($totalLastUpdate < $catLastUpdate) {
@@ -445,14 +457,14 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		$unreadcounts[] = array(
 			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
-			'newestItemTimestampUsec' => $lastUpdate,
+			'newestItemTimestampUsec' => '' . $lastUpdate,
 		);
 	}
 
 	$unreadcounts[] = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'count' => $totalUnreads,
-		'newestItemTimestampUsec' => $totalLastUpdate,
+		'newestItemTimestampUsec' => '' . $totalLastUpdate,
 	);
 
 	echo json_encode(array(
@@ -508,6 +520,18 @@ function entriesToArray($entries) {
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
+		foreach ($entry->enclosures() as $enclosure) {
+			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
+				$media = [
+						'href' => $enclosure['url'],
+						'type' => $enclosure['type'],
+					];
+				if (!empty($enclosure['length'])) {
+					$media['length'] = intval($enclosure['length']);
+				}
+				$item['enclosure'][] = $media;
+			}
+		}
 		$author = $entry->authors(true);
 		$author = trim($author, '; ');
 		if ($author != '') {
@@ -649,7 +673,7 @@ function streamContents($path, $include_target, $start_time, $stop_time, $count,
 	if (count($entries) >= $count) {
 		$entry = end($entries);
 		if ($entry != false) {
-			$response['continuation'] = $entry->id();
+			$response['continuation'] = '' . $entry->id();
 		}
 	}
 
@@ -705,7 +729,7 @@ function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $ord
 	if (count($ids) >= $count) {
 		$id = end($ids);
 		if ($id != false) {
-			$response['continuation'] = $id;
+			$response['continuation'] = '' . $id;
 		}
 	}
 
@@ -717,10 +741,10 @@ function streamContentsItems($e_ids, $order) {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	foreach ($e_ids as $i => $e_id) {
-		if (strpos($e_id, '/') !== null) {
-			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		// https://feedhq.readthedocs.io/en/latest/api/terminology.html#items
+		if (!ctype_digit($e_id) || $e_id[0] === '0') {
+			$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 		}
-		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -741,10 +765,9 @@ function streamContentsItems($e_ids, $order) {
 
 function editTag($e_ids, $a, $r) {
 	foreach ($e_ids as $i => $e_id) {
-		if (strpos($e_id, '/') !== null) {
-			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (!ctype_digit($e_id) || $e_id[0] === '0') {
+			$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 		}
-		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -890,6 +913,7 @@ function markAllAsRead($streamId, $olderThanId) {
 }
 
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '' : urldecode($_SERVER['PATH_INFO']);
+$pathInfo = preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
 if ($pathInfo == '') {
 	exit('OK');
 }
@@ -898,10 +922,7 @@ if (count($pathInfos) < 3) {
 	badRequest();
 }
 
-Minz_Configuration::register('system',
-	DATA_PATH . '/config.php',
-	FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::initSystem();
 
 //Minz_Log::debug('----------------------------------------------------------------', API_LOG);
 //Minz_Log::debug(debugInfo(), API_LOG);
@@ -912,32 +933,25 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 	checkCompatibility();
 }
 
-ini_set('session.use_cookies', '0');
-register_shutdown_function('session_destroy');
-Minz_Session::init('FreshRSS');
+Minz_Session::init('FreshRSS', true);
 
-$user = authorizationToUser();
-FreshRSS_Context::$user_conf = null;
-if ($user !== '') {
-	FreshRSS_Context::$user_conf = get_user_configuration($user);
-	Minz_ExtensionManager::init();
+if ($pathInfos[1] !== 'accounts') {
+	authorizationToUser();
+}
+if (FreshRSS_Context::$user_conf != null) {
 	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
-
-	if (FreshRSS_Context::$user_conf != null) {
-		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
-	}
+	Minz_ExtensionManager::init();
+	Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
 } else {
 	Minz_Translate::init();
 }
-
-Minz_Session::_param('currentUser', $user);
 
 if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
 } elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
-	if ($user == '') {
+	if (Minz_Session::param('currentUser', '') == '') {
 		unauthorized();
 	}
 	$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.
@@ -965,8 +979,15 @@ if ($pathInfos[1] === 'accounts') {
 			if (!ctype_digit($continuation)) {
 				$continuation = '';
 			}
-			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
-				if (isset($pathInfos[7])) {
+			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents') {
+				if (!isset($pathInfos[6]) && isset($_GET['s'])) {
+					// Compatibility BazQux API https://github.com/bazqux/bazqux-api#fetching-streams
+					$streamIdInfos = explode('/', $_GET['s']);
+					foreach ($streamIdInfos as $streamIdInfo) {
+						$pathInfos[] = $streamIdInfo;
+					}
+				}
+				if (isset($pathInfos[6]) && isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
 						$include_target = $pathInfos[7];
 						if ($include_target != '' && !ctype_digit($include_target)) {
@@ -991,7 +1012,7 @@ if ($pathInfos[1] === 'accounts') {
 							streamContents($pathInfos[8], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 						}
 					}
-				} else {	//EasyRSS
+				} else {	//EasyRSS, FeedMe
 					$include_target = '';
 					streamContents('reading-list', $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				}
@@ -1038,8 +1059,8 @@ if ($pathInfos[1] === 'accounts') {
 						}
 						break;
 					case 'quickadd':	//https://github.com/theoldreader/api
-						if (isset($_GET['quickadd'])) {
-							quickadd($_GET['quickadd']);
+						if (isset($_REQUEST['quickadd'])) {
+							quickadd($_REQUEST['quickadd']);
 						}
 						break;
 				}

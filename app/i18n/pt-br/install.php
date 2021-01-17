@@ -17,22 +17,23 @@ return array(
 		'type' => 'Método de autenticação',
 	),
 	'bdd' => array(
+		'_' => 'Banco de dados',
 		'conf' => array(
+			'_' => 'Configuração do banco de dados',
 			'ko' => 'Verifique as informações do seu banco de dados.',
 			'ok' => 'Configurações do banco de dados foram salvas.',
-			'_' => 'Configuração do banco de dados',
 		),
 		'host' => 'Host',
 		'password' => 'Senha do banco de dados',
 		'prefix' => 'Prefixo da tabela',
 		'type' => 'Tipo do banco de dados',
 		'username' => 'Usuário do banco de dados',
-		'_' => 'Banco de dados',
 	),
 	'check' => array(
+		'_' => 'Verificações',
 		'already_installed' => 'Verificamos que o FreshRSS já está instalado!',
 		'cache' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data/cache</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório cache estão corretos.',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'Você tem a biblioteca cURL.',
 		),
 		'data' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data/favicons</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório favicons estão corretos.',
 		),
 		'fileinfo' => array(
@@ -87,19 +88,22 @@ return array(
 			'nok' => 'Sua versão do PHP é %s mas FreshRSS requer ao menos a versão %s.',
 			'ok' => 'Sua versão do PHP é %s, que é compatível com o FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Verifiquei as permissões no diretório <em>./data/users</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório users estão corretos.',
 		),
 		'xml' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca necessária para parse o XML.',
 			'ok' => 'Você tem a biblioteca necessária para parse o XML.',
 		),
-		'_' => 'Verificações',
 	),
 	'conf' => array(
-		'ok' => 'Configurações gerais foram salvas.',
 		'_' => 'Configurações gerais',
+		'ok' => 'Configurações gerais foram salvas.',
 	),
 	'congratulations' => 'Parabéns!',
 	'default_user' => 'Usuário do usuário padrão <small>(máximo de 16 caracteres alfanuméricos)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => 'Você irá perder suas configurações anteriores ao reinstalar o FreshRSS. Você está certo que deseja continuar?',
 	),
 	'language' => array(
+		'_' => 'Idioma',
 		'choose' => 'Escolha o idioma para o FreshRSS',
 		'defined' => 'O idioma foi definido.',
-		'_' => 'Idioma',
 	),
 	'not_deleted' => 'Algo deu errado; você deve deletar o arquivo <em>%s</em> manualmente.',
 	'ok' => 'O processo de instalação foi um sucesso.',

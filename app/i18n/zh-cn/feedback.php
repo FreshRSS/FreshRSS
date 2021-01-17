@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
+		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
 		'disable' => array(
 			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
@@ -44,9 +45,10 @@ return array(
 			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
+		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
-		'no_access' => '你无权访问 %s',
+		'removed' => '%s removed',	// TODO - Translation
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
@@ -72,10 +74,10 @@ return array(
 			'emptied' => '已清空分类',
 			'error' => '更新分类失败',
 			'name_exists' => '分类名已存在',
-			'not_delete_default' => '你不能删除默认分类！',
-			'not_exist' => '分类不存在！',
 			'no_id' => '你必须明确分类编号',
 			'no_name' => '分类名不能为空',
+			'not_delete_default' => '你不能删除默认分类！',
+			'not_exist' => '分类不存在！',
 			'over_max' => '你已达到分类数上限（%d）',
 			'updated' => '已更新分类',
 		),
@@ -84,28 +86,33 @@ return array(
 			'actualizeds' => '已更新订阅源',
 			'added' => '订阅源 <em>%s</em> 已添加',
 			'already_subscribed' => '你已订阅 <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> 缓存已清理',
 			'deleted' => '已删除订阅源',
 			'error' => '订阅源更新失败',
 			'internal_problem' => '订阅源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在地址链接后附加 <code>#force_feed</code> 从而尝试强制添加。',
 			'invalid_url' => '地址链接 <em>%s</em> 无效',
-			'not_added' => '<em>%s</em> 添加失败',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => '没有可刷新的订阅源…',
 			'n_actualized' => '已更新 %d 个订阅源',
 			'n_entries_deleted' => '已删除 %d 篇文章',
+			'no_refresh' => '没有可刷新的订阅源…',
+			'not_added' => '<em>%s</em> 添加失败',
+			'not_found' => '无法找到订阅',
 			'over_max' => '你已达到订阅源数上限（%d）',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> 已重置',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => '无法加载网站内容！无法加载网站内容！',
+				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。.',
+				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
+				'no_result' => '选择器没有匹配到任何东西。作为备用，原始的feed文本将被显示出来。',
+				'selector_empty' => '选择器是空的。你需要一个来创建预览。',
 			),
 			'updated' => '已更新订阅源',
 		),
 		'purge_completed' => '清除完成（已删除 %d 篇文章）',
+	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>.',
@@ -117,16 +124,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => '创建用户 %s 失败',
 			'_' => '已创建用户 %s',
+			'error' => '创建用户 %s 失败',
 		),
 		'deleted' => array(
-			'error' => '删除用户 %s 失败',
 			'_' => '已删除用户 %s',
+			'error' => '删除用户 %s 失败',
 		),
 		'updated' => array(
-			'error' => '更新用户 %s 失败',
 			'_' => '已更新用户 %s',
+			'error' => '更新用户 %s 失败',
 		),
 	),
 );

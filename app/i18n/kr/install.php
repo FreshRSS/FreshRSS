@@ -17,22 +17,23 @@ return array(
 		'type' => '인증 방식',
 	),
 	'bdd' => array(
+		'_' => '데이터베이스',
 		'conf' => array(
+			'_' => '데이터베이스 설정',
 			'ko' => '데이터베이스 정보를 확인하세요.',
 			'ok' => '데이터베이스 설정이 저장되었습니다.',
-			'_' => '데이터베이스 설정',
 		),
 		'host' => '데이터베이스 서버',
 		'password' => '데이터베이스 암호',
 		'prefix' => '테이블 접두어',
 		'type' => '데이터베이스 종류',
 		'username' => '데이터베이스 사용자 이름',
-		'_' => '데이터베이스',
 	),
 	'check' => array(
+		'_' => '설치 요구사항 확인',
 		'already_installed' => 'FreshRSS가 이미 설치되어 있는 것을 감지했습니다!',
 		'cache' => array(
-			'nok' => '<em>./data/cache</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'cache 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'cURL 라이브러리가 설치되어 있습니다.',
 		),
 		'data' => array(
-			'nok' => '<em>./data</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'data 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => 'DOM을 다룰 수 있는 라이브러리가 설치되어 있습니다.',
 		),
 		'favicons' => array(
-			'nok' => '<em>./data/favicons</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'favicons 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'fileinfo' => array(
@@ -87,19 +88,22 @@ return array(
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
 			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
 		),
+		'tmp' => array(
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => '<em>./data/users</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'users 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'xml' => array(
 			'nok' => 'XML 해석을 위한 라이브러리르 찾을 수 없습니다.',
 			'ok' => 'XML 해석을 위한 라이브러리가 설치되어 있습니다.',
 		),
-		'_' => '설치 요구사항 확인',
 	),
 	'conf' => array(
-		'ok' => '일반 설정이 저장되었습니다.',
 		'_' => '일반 설정',
+		'ok' => '일반 설정이 저장되었습니다.',
 	),
 	'congratulations' => '축하합니다!',
 	'default_user' => '기본 사용자 이름<small>(알파벳과 숫자를 포함할 수 있고 최대 16 글자)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => 'FreshRSS을 다시 설치하면 이전 설정이 사라집니다. 계속하시겠습니까?',
 	),
 	'language' => array(
+		'_' => '언어',
 		'choose' => 'FreshRSS에서 사용할 언어를 고르세요',
 		'defined' => '언어가 설정되었습니다.',
-		'_' => '언어',
 	),
 	'not_deleted' => '무언가 잘못되었습니다; <em>%s</em> 파일을 직접 삭제해주세요.',
 	'ok' => '설치 과정이 성공적으로 끝났습니다.',

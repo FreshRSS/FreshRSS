@@ -30,7 +30,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 	* With __Apache__:
 		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
 			* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:
-				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/02_Installation.md) again.
+				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/03_Installation.md) again.
 				* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):
 					* With Debian / Ubuntu: `sudo a2enmod rewrite`
 	* With __nginx__:
@@ -48,7 +48,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 
 7. Pick a client supporting a Google Reader-like API. Selection:
 	* Android
-		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 	* Linux

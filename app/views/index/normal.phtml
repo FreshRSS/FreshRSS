@@ -1,5 +1,4 @@
 <?php
-
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
@@ -19,13 +18,9 @@ $today = @strtotime('today');
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
-	$firstEntry = null;
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
-		if ($nbEntries === 0) {
-			$firstEntry = $item;
-		}
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
@@ -77,20 +72,29 @@ $today = @strtotime('today');
 		?><div class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
-				<div class="author"><?php
-					$authors = $this->entry->authors();
-					if (is_array($authors)):
-						$first = true;
-						foreach ($authors as $author):
-							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
-							$first = false;
-				?>
-<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
-				<?php	endforeach; ?>
-				</div><?php
-					endif;
+				<div class="subtitle">
+					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+						<span><?= $this->feed->name() ?></span></a>
+					</div>
+					<div class="date"><?= $this->entry->date() ?></div>
+					<?php
+						$authors = $this->entry->authors();
+						if (!empty($authors) && is_array($authors)):
+							$first = true;
+					?>
+					<div class="author"><?php
+							foreach ($authors as $author):
+								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+								$first = false;
+					?>
+	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])) ?>"><?= $author ?></a></em>
+					<?php	endforeach; ?>
+					</div><?php endif; ?>
+				</div>
+				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
-				?>
+				?></div>
 			</div><?php
 
 			$this->renderHelper('index/normal/entry_bottom');
@@ -100,7 +104,7 @@ $today = @strtotime('today');
 	endforeach;
 
 	if ($nbEntries > 0):
-		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $firstEntry, $lastEntry);
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('pagination');
 ?></div><?php
 	else:

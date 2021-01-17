@@ -17,22 +17,23 @@ return array(
 		'type' => 'Метод аутентификации',
 	),
 	'bdd' => array(
+		'_' => 'База данных',
 		'conf' => array(
+			'_' => 'Конфигурация базы данныхDatabase configuration',
 			'ko' => 'Проверьте конфигурацию базы данных.',
 			'ok' => 'Конфигурация базы данных сохранена.',
-			'_' => 'Конфигурация базы данныхDatabase configuration',
 		),
 		'host' => 'Хост',
 		'password' => 'Пароль базы данных',
 		'prefix' => 'Префикс таблицы',
 		'type' => 'Тип базы данных',
 		'username' => 'Имя пользователя базы данных',
-		'_' => 'База данных',
 	),
 	'check' => array(
+		'_' => 'Проверки',
 		'already_installed' => 'Обнаружена предыдущая установка FreshRSS!',
 		'cache' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/cache</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Права на папку кэша в порядке.',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'У вас установлено расширение cURL.',
 		),
 		'data' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Права на <em>./data/</em> в порядке.',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/favicons</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Права на папку значков в порядке.',
 		),
 		'fileinfo' => array(
@@ -64,8 +65,8 @@ return array(
 			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find a recommended library to parse JSON.',	// TODO - Translation
-			'ok' => 'You have a recommended library to parse JSON.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
+			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
@@ -87,19 +88,22 @@ return array(
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Права на папку users в порядке.',
 		),
 		'xml' => array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'_' => 'Проверки',
 	),
 	'conf' => array(
-		'ok' => 'Общие настройки были сохранены.',
 		'_' => 'Общие настройки',
+		'ok' => 'Общие настройки были сохранены.',
 	),
 	'congratulations' => 'Поздравляем!',
 	'default_user' => 'Имя пользователя по умолчанию <small>(максимум 16 латинских букв и/или цифр)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => 'Переустанавливая FreshRSS, вы потеряете предыдущую конфигурацию. Вы хотите продолжить?',
 	),
 	'language' => array(
+		'_' => 'Язык',
 		'choose' => 'Выберите язык для FreshRSS',
 		'defined' => 'Язык выбран.',
-		'_' => 'Язык',
 	),
 	'not_deleted' => 'Что-то пошло не так; удалите файл <em>%s</em> вручную.',
 	'ok' => 'Установка успешна.',

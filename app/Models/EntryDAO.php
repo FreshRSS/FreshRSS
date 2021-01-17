@@ -109,6 +109,7 @@ SQL;
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
+			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
 			$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			if (empty($valuesTmp['lastSeen'])) {
 				$valuesTmp['lastSeen'] = time();
@@ -157,7 +158,7 @@ SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `last
 FROM `_entrytmp`
 ORDER BY date;
 
-DELETE FROM `_entrytmp` WHERE id <= @rank;';
+DELETE FROM `_entrytmp` WHERE id <= @rank;
 SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
@@ -203,6 +204,7 @@ SQL;
 		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
 		$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 		$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
+		$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
 		$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 		$valuesTmp['lastSeen'] = time();
 		$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
@@ -703,6 +705,26 @@ SQL;
 					continue;
 				}
 				$sub_search = '';
+
+				if ($filter->getFeedIds()) {
+					$sub_search .= 'AND ' . $alias . 'id_feed IN (';
+					foreach ($filter->getFeedIds() as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+				if ($filter->getNotFeedIds()) {
+					$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
+					foreach ($filter->getNotFeedIds() as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+
 				if ($filter->getMinDate()) {
 					$sub_search .= 'AND ' . $alias . 'id >= ? ';
 					$values[] = "{$filter->getMinDate()}000000";
@@ -1011,8 +1033,8 @@ SQL;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : $res[0];
-		$unread = empty($res[1]) ? 0 : $res[1];
+		$all = empty($res[0]) ? 0 : intval($res[0]);
+		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 
@@ -1027,7 +1049,7 @@ SQL;
 			return false;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return isset($res[0]) ? $res[0] : 0;
+		return isset($res[0]) ? intval($res[0]) : 0;
 	}
 
 	public function countNotRead($minPriority = null) {
@@ -1041,7 +1063,7 @@ SQL;
 		}
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return isset($res[0]) ? intval($res[0]) : 0;
 	}
 
 	public function countUnreadReadFavorites() {
@@ -1063,14 +1085,18 @@ SELECT c FROM (
 ORDER BY o
 SQL;
 		$stm = $this->pdo->prepare($sql);
+		if (!$stm) {
+			Minz_Log::error('SQL error in ' . __method__ . ' ' . json_encode($this->pdo->errorInfo()));
+			return false;
+		}
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
 		$stm->bindValue(':priority_normal1', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
 		$stm->bindValue(':priority_normal2', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : $res[0];
-		$unread = empty($res[1]) ? 0 : $res[1];
+		$all = empty($res[0]) ? 0 : intval($res[0]);
+		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 

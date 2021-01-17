@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'Sobre',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Reportar Bugs',
 		'credits' => 'Créditos',
@@ -13,27 +14,26 @@ return array(
 		'title' => 'Sobre',
 		'version' => 'Versão',
 		'website' => 'Site',
-		'_' => 'Sobre',
 	),
 	'feed' => array(
 		'add' => 'Você pode adicionar alguns feeds.',
 		'empty' => 'Não há nenhum artigo para mostrar.',
 		'rss_of' => 'RSS feed do %s',
-		'title' => 'Seus RSS feeds',
-		'title_fav' => 'Seus favoritos',
+		'title' => 'Stream principal',
+		'title_fav' => 'Favoritos',
 		'title_global' => 'Visualização Global',
 	),
 	'log' => array(
+		'_' => 'Logs',
 		'clear' => 'Limpar logs',
 		'empty' => 'Arquivo de log está vazio',
 		'title' => 'Logs',
-		'_' => 'Logs',
 	),
 	'menu' => array(
 		'about' => 'Sobre o FreshRSS',
-		'add_query' => 'Adicionar uma query',
 		'before_one_day' => 'Antes de um dia',
 		'before_one_week' => 'Antes de uma semana',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Visualização global',
 		'main_stream' => 'Stream principal',

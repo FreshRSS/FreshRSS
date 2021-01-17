@@ -93,7 +93,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$user = trim(Minz_Request::param('http_user_feed' . $id, ''));
-			$pass = Minz_Request::param('http_pass_feed' . $id, '');
+			$pass = trim(Minz_Request::param('http_pass_feed' . $id, ''));
 
 			$httpAuth = '';
 			if ($user != '' && $pass != '') {	//TODO: Sanitize
@@ -111,6 +111,19 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
+
+			$cookie = Minz_Request::param('curl_params_cookie', '');
+			$proxy_address = Minz_Request::param('curl_params', '');
+			$proxy_type = Minz_Request::param('proxy_type', '');
+			$opts = [];
+			if ($proxy_address != '' && $proxy_type != '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+				$opts[CURLOPT_PROXY] = $proxy_address;
+				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
+			}
+			if ($cookie != '') {
+				$opts[CURLOPT_COOKIE] = $cookie;
+			}
+			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
 
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
@@ -240,5 +253,12 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 */
 	public function bookmarkletAction() {
 		Minz_View::prependTitle(_t('sub.title.subscription_tools') . ' . ');
+	}
+
+	/**
+	 * This action displays the page to add a new feed
+	 */
+	public function addAction() {
+		Minz_View::prependTitle(_t('sub.title.add') . ' . ');
 	}
 }

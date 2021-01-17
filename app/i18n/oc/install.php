@@ -17,22 +17,23 @@ return array(
 		'type' => 'Mòde d’autentification',
 	),
 	'bdd' => array(
+		'_' => 'Basa de donadas',
 		'conf' => array(
+			'_' => 'Configuracion de la basa de donadas',
 			'ko' => 'Verificatz las informacions de la basa de donadas.',
 			'ok' => 'La configuracion de la basa de donadas es salvagarda.',
-			'_' => 'Configuracion de la basa de donadas',
 		),
 		'host' => 'Òste',
 		'password' => 'Senhal de la basa de donadas',
 		'prefix' => 'Prefixe de tabla',
 		'type' => 'Tipe de basa de donadas',
 		'username' => 'Nom d’utilizaire de la basa de donadas',
-		'_' => 'Basa de donadas',
 	),
 	'check' => array(
+		'_' => 'Verificacions',
 		'already_installed' => 'Sembla que FreshRSS es ja installat !',
 		'cache' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/cache</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul cache son bons.',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'Avètz la bibliotèca cURL.',
 		),
 		'data' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri data son bons.',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/favicons</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels favicons son bons.',
 		),
 		'fileinfo' => array(
@@ -87,19 +88,22 @@ return array(
 			'nok' => 'Vòstra version PHP es la %s mas FreshRSS demanda almens la version %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/users</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
 		),
 		'xml' => array(
 			'nok' => 'Impossible de trobar una bibliotèca necessària per XML.',
 			'ok' => 'Avètz la bibliotèca per percórrer los XML.',
 		),
-		'_' => 'Verificacions',
 	),
 	'conf' => array(
-		'ok' => 'La configuracion generala es enregistrada.',
 		'_' => 'Configuracion generala',
+		'ok' => 'La configuracion generala es enregistrada.',
 	),
 	'congratulations' => 'Òsca !',
 	'default_user' => 'Nom d’utilizaire per defaut <small>16 caractèrs alfanumerics maximum)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => 'En reïnstallant FreshRSS perdretz la configuracion precedenta. Volètz vertadièrament contunhar ?',
 	),
 	'language' => array(
+		'_' => 'Lenga',
 		'choose' => 'Causissètz la lenga per FreshRSS',
 		'defined' => 'La lenga es corrèctament definida.',
-		'_' => 'Lenga',
 	),
 	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
 	'ok' => 'L’installacion s’es corrèctament passada.',

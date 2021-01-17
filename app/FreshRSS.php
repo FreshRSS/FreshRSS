@@ -24,10 +24,12 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		// Register the configuration setter for the system configuration
-		$configuration_setter = new FreshRSS_ConfigurationSetter();
-		$system_conf = Minz_Configuration::get('system');
-		$system_conf->_configurationSetter($configuration_setter);
+		FreshRSS_Context::initSystem();
+		if (FreshRSS_Context::$system_conf == null) {
+			$message = 'Error during context system init!';
+			Minz_Error::error(500, [$message], false);
+			die($message);
+		}
 
 		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
@@ -35,26 +37,27 @@ class FreshRSS extends Minz_FrontController {
 		// Auth has to be initialized before using currentUser session parameter
 		// because it's this part which create this parameter.
 		self::initAuth();
+		if (FreshRSS_Context::$user_conf == null) {
+			FreshRSS_Context::initUser();
+		}
+		if (FreshRSS_Context::$user_conf == null) {
+			$message = 'Error during context user init!';
+			Minz_Error::error(500, [$message], false);
+			die($message);
+		}
 
-		// Then, register the user configuration and use the configuration setter
-		// created above.
-		$current_user = Minz_Session::param('currentUser', '_');
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'),
-		                             $configuration_setter);
-
-		// Finish to initialize the other FreshRSS / Minz components.
-		FreshRSS_Context::init();
+		// Complete initialization of the other FreshRSS / Minz components.
 		self::initI18n();
 		self::loadNotifications();
 		// Enable extensions for the current (logged) user.
-		if (FreshRSS_Auth::hasAccess() || $system_conf->allow_anonymous) {
+		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
 
-		self::checkEmailValidated();
+		if (FreshRSS_Context::$system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
+			self::checkEmailValidated();
+		}
 
 		Minz_ExtensionManager::callHook('freshrss_init');
 	}
@@ -66,7 +69,7 @@ class FreshRSS extends Minz_FrontController {
 				// Basic protection against XSRF attacks
 				FreshRSS_Auth::removeAccess();
 				$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
-				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				self::initI18n();
 				Minz_Error::error(403, array('error' => array(
 						_t('feedback.access.denied'),
 						' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
@@ -74,11 +77,12 @@ class FreshRSS extends Minz_FrontController {
 			}
 			if (!(FreshRSS_Auth::isCsrfOk() ||
 				(Minz_Request::controllerName() === 'auth' && Minz_Request::actionName() === 'login') ||
-				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' &&
-					!FreshRSS_Auth::hasAccess('admin'))
+				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' && !FreshRSS_Auth::hasAccess('admin')) ||
+				(Minz_Request::controllerName() === 'feed' && Minz_Request::actionName() === 'actualize' && FreshRSS_Context::$system_conf->allow_anonymous_refresh) ||
+				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize' && FreshRSS_Context::$system_conf->allow_anonymous)
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
-				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				self::initI18n();
 				Minz_Error::error(403, array('error' => array(
 						_t('feedback.access.denied'),
 						' [CSRF]'
@@ -88,8 +92,12 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private static function initI18n() {
-		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
-		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+		$userLanguage = isset(FreshRSS_Context::$user_conf) ? FreshRSS_Context::$user_conf->language : null;
+		$systemLanguage = isset(FreshRSS_Context::$system_conf) ? FreshRSS_Context::$system_conf->language : null;
+		$language = Minz_Translate::getLanguage($userLanguage, Minz_Request::getPreferredLanguages(), $systemLanguage);
+
+		Minz_Session::_param('language', $language);
+		Minz_Translate::init($language);
 	}
 
 	public static function loadStylesAndScripts() {
@@ -120,10 +128,9 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private static function loadNotifications() {
-		$notif = Minz_Session::param('notification');
+		$notif = Minz_Request::getNotification();
 		if ($notif) {
 			Minz_View::_param('notification', $notif);
-			Minz_Session::_param('notification');
 		}
 	}
 

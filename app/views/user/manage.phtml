@@ -53,7 +53,7 @@
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
 					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></a>
 				</div>
-				<?= _i('help') ?> <?= _t('admin.user.password_format') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
@@ -71,26 +71,28 @@
 		<thead>
 			<tr>
 				<th><?= _t('admin.user.username') ?></th>
+				<th><?= _t('admin.user.enabled') ?></th>
 				<th><?= _t('admin.user.is_admin') ?></th>
 				<th><?= _t('admin.user.email') ?></th>
 				<th><?= _t('admin.user.language') ?></th>
 				<th><?= _t('admin.user.feed_count') ?></th>
 				<th><?= _t('admin.user.article_count') ?></th>
 				<th><?= _t('admin.user.database_size') ?></th>
-				<th>&nbsp;</th>
+				<th><?= _t('admin.user.last_user_activity') ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($this->users as $username => $values) : ?>
-				<tr>
-					<td><?= $username ?></td>
+				<tr <?php if ($values['is_default']):?>class="default-user"<?php endif; ?>>
+					<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
+					<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
 					<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 					<td><?= $values['mail_login'] ?></td>
 					<td><?= _t("gen.lang.{$values['language']}") ?></td>
 					<td><?= format_number($values['feed_count']) ?></td>
 					<td><?= format_number($values['article_count']) ?></td>
 					<td><?= format_bytes($values['database_size']) ?></td>
-					<td><a href="<?= _url('user', 'details', 'username', $username) ?>">Details</a></td>
+					<td><?= $values['last_user_activity'] ?></td>
 				</tr>
 			<?php endforeach ?>
 		</tbody>

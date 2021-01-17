@@ -16,8 +16,10 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 	public function indexAction() {
 		$code_int = Minz_Session::param('error_code', 404);
 		$error_logs = Minz_Session::param('error_logs', array());
-		Minz_Session::_param('error_code');
-		Minz_Session::_param('error_logs');
+		Minz_Session::_params([
+			'error_code' => false,
+			'error_logs' => false,
+		]);
 
 		switch ($code_int) {
 		case 200 :
@@ -31,10 +33,12 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 		case 500:
 			header('HTTP/1.1 500 Internal Server Error');
 			$this->view->code = 'Error 500 - Internal Server Error';
+			$this->view->errorMessage = 'Error 500 - Internal Server Error';
 			break;
 		case 503:
 			header('HTTP/1.1 503 Service Unavailable');
 			$this->view->code = 'Error 503 - Service Unavailable';
+			$this->view->errorMessage = 'Error 503 - Service Unavailable';
 			break;
 		case 404:
 		default:

@@ -30,6 +30,10 @@ function poormanSalt() {	//If crypto.getRandomValues is not available
 	return text;
 }
 
+function forgetOpenCategories() {
+	localStorage.removeItem('FreshRSS_open_categories');
+}
+
 function init_crypto_form() {
 	/* globals dcodeIO */
 	const crypto_form = document.getElementById('crypto-form');
@@ -45,8 +49,12 @@ function init_crypto_form() {
 		return;
 	}
 
+	forgetOpenCategories();
+
+	const submit_button = document.getElementById('loginButton');
+	submit_button.disabled = false;
+
 	crypto_form.onsubmit = function (e) {
-		const submit_button = this.querySelector('button[type="submit"]');
 		submit_button.disabled = true;
 		let success = false;
 
@@ -85,61 +93,6 @@ function init_crypto_form() {
 }
 //</crypto form (Web login)>
 
-function init_share_observers() {
-	let shares = document.querySelectorAll('.group-share').length;
-	const shareAdd = document.querySelector('.share.add');
-	if (shareAdd) {
-		shareAdd.onclick = function (ev) {
-				const s = this.parentElement.querySelector('select'),
-					opt = s.options[s.selectedIndex];
-				let row = this.closest('form').getAttribute('data-' + opt.getAttribute('data-form'));
-				row = row.replace(/##label##/g, opt.text);
-				row = row.replace(/##type##/g, opt.value);
-				row = row.replace(/##help##/g, opt.getAttribute('data-help'));
-				row = row.replace(/##key##/g, shares);
-				row = row.replace(/##method##/g, opt.getAttribute('data-method'));
-				row = row.replace(/##field##/g, opt.getAttribute('data-field'));
-				this.closest('.form-group').insertAdjacentHTML('beforebegin', row);
-				shares++;
-				return false;
-			};
-	}
-}
-
-
-function init_remove_observers() {
-	document.querySelectorAll('.post').forEach(function (div) {
-			div.onclick = function (ev) {
-					const a = ev.target.closest('a.remove');
-					if (a) {
-						const remove_what = a.getAttribute('data-remove');
-						if (remove_what !== undefined) {
-							const d = document.getElementById(remove_what);
-							if (d) {
-								d.remove();
-							}
-						}
-						return false;
-					}
-				};
-		});
-}
-
-function init_feed_observers() {
-	const s = document.getElementById('category');
-	if (s && s.matches('select')) {
-		s.onchange = function (ev) {
-				const detail = document.getElementById('new_category_name').parentElement;
-				if (this.value === 'nc') {
-					detail.setAttribute('aria-hidden', 'false');
-					detail.querySelector('input').focus();
-				} else {
-					detail.setAttribute('aria-hidden', 'true');
-				}
-			};
-	}
-}
-
 function init_password_observers() {
 	document.querySelectorAll('.toggle-password').forEach(function (a) {
 			a.onmousedown = function (ev) {
@@ -163,9 +116,13 @@ function init_select_observers() {
 					const opt = s.options[s.selectedIndex],
 						url = opt.getAttribute('data-url');
 					if (url) {
-						s.form.querySelectorAll('[type=submit]').forEach(function (b) {
-								b.disabled = true;
-							});
+						s.disabled = true;
+						s.value = '';
+						if (s.form) {
+							s.form.querySelectorAll('[type=submit]').forEach(function (b) {
+									b.disabled = true;
+								});
+						}
 						location.href = url;
 					}
 				};
@@ -251,9 +208,6 @@ function init_extra() {
 		return;
 	}
 	init_crypto_form();
-	init_share_observers();
-	init_remove_observers();
-	init_feed_observers();
 	init_password_observers();
 	init_select_observers();
 	init_slider_observers();

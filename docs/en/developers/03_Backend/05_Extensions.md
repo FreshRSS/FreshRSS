@@ -206,56 +206,7 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ### Translation Management
 
-It is common (and that's an understatement) to want to show some text to the user. In the previous example, for example, we display feedback to the user based on the result of form validation. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
-
-The solution is to use the `Minz_Translate` class, which allows dynamic translation of FreshRSS (or any Minz-based application). Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `i18n`. For example, English language files are located in `i18n/fr/`. There are seven different files:
-
-* `admin.php` for anything related to FreshRSS administration
-* `conf.php` for configuration
-* `feedback.php` contains translations of feedback messages
-* `gen.php` stores what is global to FreshRSS (gen for "general")
-* `index.php` for the main page that lists feeds and the About page
-* `install.php` contains strings related FreshRSS installation
-* `sub.php` for subscription management (sub for "subscription")
-
-This organization makes it possible to avoid a single huge translation file.
-
-The translation files are quite simple: it's only a matter of returning a PHP table containing the translations. As an example, here's an extract from `app/i18n/fr/gen.php`:
-
-```php
-<?php
-
-return array(
-	'action' => [
-		'actualize' => 'Actualiser',
-		'back_to_rss_feeds' => '← Retour à vos flux RSS',
-		'cancel' => 'Annuler',
-		'create' => 'Créer',
-		'disable' => 'Désactiver',
-	),
-	'freshrss' => array(
-		'_' => 'FreshRSS',
-		'about' => 'À propos de FreshRSS',
-	),
-];
-
-?>
-```
-
-To access these translations, `Minz_Translate` will help us with its `Minz_Translate::t()` method. As this can be a bit long to type, a shortcut has been introduced that **must** be used in all circumstances: `_t()`.
-Code example:
-
-```html
-<p>
-	<a href="<?= _url('index', 'index') ?>">
-		<?= _t('gen.action.back_to_rss_feeds') ?>
-	</a>
-</p>
-```
-
-The string to pass to the `_t()` function consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation (in this case, `gen.php`), while the following ones indicate table entries. Thus `action` is an entry of the main array and `back_to_rss_feeds` is an entry of the `action` array. This allows us to further organize our translation files.
-
-There is a small special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It's pretty hard to explain but very simple to understand. In the example given above, a `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
+This part [is explained here](/docs/en/internationalization.md).
 
 ### Configuration management
 
@@ -264,6 +215,13 @@ There is a small special case that sometimes makes life easier: the `_` identifi
 Here we are! We've talked about the most useful features of Minz and how to run FreshRSS correctly and it's about time to address the extensions themselves.
 
 An extension allows you to easily add functionality to FreshRSS without having to touch the core of the project directly.
+
+### Make it work in Docker
+
+When working on an extension, it's easier to see it working directly in its environment. With Docker, you can leverage the use of the ```volume``` option when starting the container. Hopefully, you can use it without Docker-related knowledge by using the Makefile rule:
+```
+make start extensions="/full/path/to/extension/1 /full/path/to/extension/2"
+```
 
 ### Basic files and folders
 
@@ -321,28 +279,29 @@ A __system__ extension in comparison is enabled for every account.
 
 ### Writing your own extension.php
 
-This file is the entry point of your extension. It must contain a specific class to function.
-As mentioned above, the name of the class must be your `entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example).
-In addition, this class must be inherited from the `Minz_Extension` class to benefit from extensions-specific methods.
+This file is the core of your extension.
+It must define some key elements to be loaded by the extension system:
 
-Your class will benefit from four methods to redefine:
+1. The class name must be the `entrypoint` value defined in the `metadata.json` file suffixed by `Extension` (if your `entrypoint` value is _HelloWorld_, your class name will be _HelloWorldExtension_).
+1. The class must extend the `Minz_Extension` abstract class which defines the core methods and properties of a FreshRSS extension.
+1. The class must define the `init` method. This method is called **only** if the extension is loaded. Its purpose is to initialize the extension and its behavior during every page load.
 
-* `install()` is called when a user clicks the button to activate your extension. It allows, for example, to update the database of a user in order to make it compatible with the extension. It returns `true` if everything went well or, if not, a string explaining the problem.
-* `uninstall()` is called when a user clicks the button to disable your extension. This will allow you to undo the database changes you potentially made in `install ()`. It returns `true` if everything went well or, if not, a string explaining the problem.
-* `init()` is called for every page load *if the extension is enabled*. It will therefore initialize the behavior of the extension. This is the most important method.
-* `handleConfigureAction()` is called when a user loads the extension management panel. Specifically, it is called when the `?c=extension&a=configured&e=name-of-your-extension` URL is loaded. You should also write here the behavior you want when validating the form in your `configure.phtml` file.
+The `Minz_Extension` abstract class defines a set of methods that can be overridden to fit your needs:
+* the `install` method is called when the user enables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to prepare FreshRSS for the extension (adding a table to the database, creating a folder tree, ...).
+* the `uninstall` method is called when the user disables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to clean FreshRSS (removing a table from the database, deleting a folder tree, ...). Usually it reverts changes introduced by the `install` method.
+* the `handleConfigureAction` method is called when a user loads the extension configuration panel. It contains the logic to validate and store the submitted values defined in the `configure.phtml` file.
 
-In addition, you will have a number of methods directly inherited from `Minz_Extension` that you should not redefine:
+> If your extension code is scattered in different classes, you need to load their source before using them. Of course you could include the files manually, but it's more efficient to load them automatically. To do so, you just need to define the `autoload` method which will include them when needed. This method will be registered automatically when the extension is enabled.
 
-* The "getters" first: most are explicit enough not to detail them here - `getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the path to your extension), `getAuthor()`, `getDescription()`, `getVersion()`, `getType()`.
-* `getFileUrl($filename, $type)` will return the URL to a file in the `static` directory. The first parameter is the name of the file (without `static /`), the second is the type of file to be used (`css` or` js`).
-* `registerController($base_name)` will tell Minz to take into account the given controller in the routing system. The controller must be located in your `Controllers` directory, the name of the file must be` <base_name>Controller.php` and the name of the `FreshExtension_<base_name>_Controller` class.
+The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
+* the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
+* the `getFileUrl` returns the URL of the selected file. The file must exist in the `static` folder of the extension.
+* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension _Controllers_ folder, its file name must be _<name>Controller.php_, and its class name must be *FreshExtension\_<name>\_Controller*.
+* the `registerViews` method registers the extension views in FreshRSS.
+* the `registerTranslates` method registers the extension translation files in FreshRSS.
+* the `registerHook` method registers hook actions in different part of the application.
 
-**TODO**
-
-* `registerViews()`
-* `registerTranslates()`
-* `registerHook($hook_name, $hook_function)`
+> Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it's highly recommended to let those unmodified.
 
 ### The "hooks" system
 
@@ -369,9 +328,11 @@ The following events are available:
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks
+* `js_vars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated
 * `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
 * `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
 * `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+* `nav_menu` (`function() -> string`): will be executed if the navigation was built.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation

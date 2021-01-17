@@ -12,7 +12,7 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = 0;
 				}
-				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>"><?php
+				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
 					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -22,13 +22,13 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = 0;
 				}
-				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>"><?php
+				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
 	}
-	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
-		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" /><?php endif; ?>
+	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 		<span><?= $this->feed->name() ?></span></a></li>
 	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
@@ -44,6 +44,6 @@
 			?></span><?php
 		endif;
 	?></a></li>
-	<?php if ($topline_date) { ?><li class="item date"><?= $this->entry->date() ?> </li><?php } ?>
-	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= _i('link') ?></a></li><?php } ?>
+	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>
+	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>

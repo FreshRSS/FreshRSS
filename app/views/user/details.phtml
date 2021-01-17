@@ -1,6 +1,8 @@
 <?php $this->partial('aside_configure'); ?>
 
+<?php $isDefault = $this->details['is_default']; ?>
 <?php $isAdmin = $this->details['is_admin']; ?>
+<?php $enabled = $this->details['enabled']; ?>
 
 <div class="post">
     <a href="<?= _url('user', 'manage'); ?>"><?= _t('admin.user.back_to_manage'); ?></a>
@@ -45,13 +47,20 @@
         </div>
 
         <div class="form-group">
+            <label class="group-name"><?= _t('admin.user.last_user_activity') ?></label>
+            <div class="group-controls">
+                <?= $this->details['last_user_activity'] ?>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="group-name" for="newPasswordPlain"><?= _t('admin.user.password_form') ?></label>
             <div class="group-controls">
                 <div class="stick">
                     <input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
                     <a class="btn toggle-password" data-toggle="password-<?= $this->username; ?>"><?= _i('key') ?></a>
                 </div>
-                <?= _i('help'); ?> <?= _t('admin.user.password_format') ?>
+                <p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
             </div>
         </div>
 
@@ -61,10 +70,15 @@
                 <button type="submit" class="btn btn-important" name="action" value="update"><?= _t('gen.action.update') ?></button>
                 <button type="submit" class="btn btn-attention confirm" name="action" value="purge"><?= _t('gen.action.purge') ?></button>
                 <button type="submit" class="btn btn-attention confirm" name="action" value="delete"><?= _t('gen.action.remove') ?></button>
-                <?php if ($isAdmin && !$this->isDefaultUser): ?>
+                <?php if ($isAdmin && !$isDefault): ?>
                     <button type="submit" class="btn btn-attention confirm" name="action" value="demote"><?= _t('gen.action.demote') ?></button>
                 <?php elseif (!$isAdmin): ?>
                     <button type="submit" class="btn btn-attention confirm" name="action" value="promote"><?= _t('gen.action.promote') ?></button>
+                <?php endif; ?>
+                <?php if ($enabled && !$isDefault): ?>
+                    <button type="submit" class="btn btn-attention" name="action" value="disable"><?= _t('gen.action.disable') ?></button>
+                <?php elseif (!$enabled): ?>
+                    <button type="submit" class="btn btn-attention" name="action" value="enable"><?= _t('gen.action.enable') ?></button>
                 <?php endif; ?>
             <div>
         </div>

@@ -1,33 +1,35 @@
 version: "3"
 
 services:
-  freshrss_postgresql:
-    image: postgres
+  freshrss-db:
+    image: postgres:12-alpine
+    container_name: freshrss-db
+    hostname: freshrss-db
     restart: unless-stopped
     volumes:
-      - pgsql_data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=freshrss
-      - POSTGRES_PASSWORD=freshrss
-      - POSTGRES_DB=freshrss
+      POSTGRES_USER: freshrss
+      POSTGRES_PASSWORD: freshrss
+      POSTGRES_DB: freshrss
 
-  freshrss:
-    image: freshrss/freshrss
+  freshrss-app:
+    image: freshrss/freshrss:latest
+    container_name: freshrss-app
+    hostname: freshrss-app
     restart: unless-stopped
     ports:
       - "8080:80"
     depends_on:
-      - freshrss_postgresql
+      - freshrss-db
     volumes:
-      - freshrss_data:/var/www/FreshRSS/data
-      - freshrss_extensions:/var/www/FreshRSS/extensions
+      - data:/var/www/FreshRSS/data
+      - extensions:/var/www/FreshRSS/extensions
     environment:
-      - CRON_MIN=*/20
-      - TZ=Europe/Copenhagen
-    labels:
-      - "traefik.port=80"
+      CRON_MIN: '*/20'
+      TZ: Europe/Paris
 
 volumes:
-  pgsql_data:
-  freshrss_data:
-  freshrss_extensions:
+  db:
+  data:
+  extensions:

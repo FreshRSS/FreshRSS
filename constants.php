@@ -2,9 +2,12 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-define('FRESHRSS_VERSION', '1.15.4-dev');
+define('FRESHRSS_MIN_PHP_VERSION', '5.6.0');
+define('FRESHRSS_VERSION', '1.17.1-dev');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
+
+define('APP_NAME', 'FreshRSS');
 
 define('FRESHRSS_PATH', __DIR__);
 define('PUBLIC_PATH', FRESHRSS_PATH . '/p');
@@ -14,6 +17,7 @@ define('PUBLIC_RELATIVE', '..');
 define('LIB_PATH', FRESHRSS_PATH . '/lib');
 define('APP_PATH', FRESHRSS_PATH . '/app');
 define('CORE_EXTENSIONS_PATH', LIB_PATH . '/core-extensions');
+define('TESTS_PATH', FRESHRSS_PATH . '/tests');
 //</Not customisable>
 
 function safe_define($name, $value) {

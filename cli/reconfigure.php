@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 require(__DIR__ . '/_cli.php');
 
@@ -37,14 +37,13 @@ if (!validateOptions($argv, array_merge($params, $dBparams))) {
 
 fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 
-$config = Minz_Configuration::get('system');
 foreach ($params as $param) {
 	$param = rtrim($param, ':');
 	if (isset($options[$param])) {
-		$config->$param = $options[$param] === false ? true : $options[$param];
+		FreshRSS_Context::$system_conf->$param = $options[$param] === false ? true : $options[$param];
 	}
 }
-$db = $config->db;
+$db = FreshRSS_Context::$system_conf->db;
 foreach ($dBparams as $dBparam) {
 	$dBparam = rtrim($dBparam, ':');
 	if (isset($options[$dBparam])) {
@@ -52,17 +51,19 @@ foreach ($dBparams as $dBparam) {
 		$db[$param] = $options[$dBparam];
 	}
 }
-$config->db = $db;
+FreshRSS_Context::$system_conf->db = $db;
 
-if (!FreshRSS_user_Controller::checkUsername($config->default_user)) {
-	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $config->default_user);
+if (!FreshRSS_user_Controller::checkUsername(FreshRSS_Context::$system_conf->default_user)) {
+	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' .
+		FreshRSS_Context::$system_conf->default_user);
 }
 
-if (isset($config->auth_type) && !in_array($config->auth_type, array('form', 'http_auth', 'none'))) {
+if (isset(FreshRSS_Context::$system_conf->auth_type) &&
+	!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'http_auth', 'none'))) {
 	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: '
-		. $config->auth_type);
+		. FreshRSS_Context::$system_conf->auth_type);
 }
 
-$config->save();
+FreshRSS_Context::$system_conf->save();
 
 done();

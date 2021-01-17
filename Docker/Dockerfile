@@ -1,4 +1,4 @@
-FROM ubuntu:19.10
+FROM debian:10-slim
 
 ENV TZ UTC
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -35,7 +35,7 @@ LABEL \
 	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
 RUN a2dismod -f alias autoindex negotiation status && \
-	a2enmod deflate expires headers mime setenvif && \
+	a2enmod deflate expires headers mime remoteip setenvif && \
 	a2disconf '*' && \
 	a2dissite '*' && \
 	a2ensite 'FreshRSS*'
@@ -51,6 +51,7 @@ ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
 ENV FRESHRSS_ENV ''
+ENV LISTEN ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
@@ -59,6 +60,3 @@ EXPOSE 80
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
-
-HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
-	CMD (php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars') || exit 1

@@ -1,6 +1,6 @@
 <?php
-if (version_compare(PHP_VERSION, '5.6.0', '<')) {
-	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
+if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
+	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }
 
 if (!function_exists('mb_strcut')) {
@@ -74,15 +74,19 @@ function idn_to_puny($url) {
 	return $url;
 }
 
-function checkUrl($url) {
+function checkUrl($url, $fixScheme = true) {
+	$url = trim($url);
 	if ($url == '') {
 		return '';
 	}
-	if (!preg_match('#^https?://#i', $url)) {
-		$url = 'http://' . $url;
+	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
+		$url = 'https://' . ltrim($url, '/');
 	}
+
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
-	if (filter_var($url, FILTER_VALIDATE_URL)) {
+	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
+
+	if (filter_var($urlRelaxed, FILTER_VALIDATE_URL)) {
 		return $url;
 	} else {
 		return false;
@@ -165,24 +169,32 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie($attributes = array()) {
-	$system_conf = Minz_Configuration::get('system');
-	$limits = $system_conf->limits;
+	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
+	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = $system_conf->curl_options;
+	$curl_options = FreshRSS_Context::$system_conf->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+		if (!$attributes['ssl_verify']) {
+			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+		}
+	}
+	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		foreach ($attributes['curl_params'] as $co => $v) {
+			curl_setopt($ch, $co, $v);
+		}
 	}
 	$simplePie->set_curl_options($curl_options);
 
+	$simplePie->strip_comments(true);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -234,16 +246,25 @@ function customSimplePie($attributes = array()) {
 	return $simplePie;
 }
 
-function sanitizeHTML($data, $base = '') {
-	if (!is_string($data)) {
+function sanitizeHTML($data, $base = '', $maxLength = false) {
+	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
 		return '';
+	}
+	if ($maxLength !== false) {
+		$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
 	}
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = customSimplePie();
 		$simplePie->init();
 	}
-	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	if ($maxLength !== false && strlen($result) > $maxLength) {
+		//Sanitizing has made the result too long so try again shorter
+		$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
+		return sanitizeHTML($data, $base, $maxLength);
+	}
+	return $result;
 }
 
 /**
@@ -314,8 +335,7 @@ function listUsers() {
  * @return true if number of users >= max registrations, false else.
  */
 function max_registrations_reached() {
-	$system_conf = Minz_Configuration::get('system');
-	$limit_registrations = $system_conf->limits['max_registrations'];
+	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
 	$number_accounts = count(listUsers());
 
 	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
@@ -401,7 +421,7 @@ function check_install_php() {
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.5.0') >= 0,
+		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
@@ -540,7 +560,9 @@ function validateShortcutList($shortcuts) {
 	$shortcuts_ok = array();
 
 	foreach ($shortcuts as $key => $value) {
-		if (in_array($value, SHORTCUT_KEYS)) {
+		if ('' === $value) {
+			$shortcuts_ok[$key] = $value;
+		} elseif (in_array($value, SHORTCUT_KEYS)) {
 			$shortcuts_ok[$key] = $value;
 		} elseif (isset($legacy[$value])) {
 			$shortcuts_ok[$key] = $legacy[$value];

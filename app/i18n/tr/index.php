@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'Hakkında',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'Hata raporu',
 		'credits' => 'Tanıtım',
@@ -13,27 +14,26 @@ return array(
 		'title' => 'Hakkında',
 		'version' => 'Versiyon',
 		'website' => 'Website',	// TODO - Translation
-		'_' => 'Hakkında',
 	),
 	'feed' => array(
 		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
 		'rss_of' => 'RSS feed of %s',	// TODO - Translation
-		'title' => 'RSS akışlarınız',
-		'title_fav' => 'Favorilerin',
+		'title' => 'Ana akış',
+		'title_fav' => 'Favoriler',
 		'title_global' => 'Global görünüm',
 	),
 	'log' => array(
+		'_' => 'Log Kayıtları',
 		'clear' => 'Log kayıt dosyasını temizle',
 		'empty' => 'Log kayır dosyası boş',
 		'title' => 'Log Kayıtları',
-		'_' => 'Log Kayıtları',
 	),
 	'menu' => array(
 		'about' => 'FreshRSS hakkında',
-		'add_query' => 'Sorgu ekle',
 		'before_one_day' => 'Bir gün önce',
 		'before_one_week' => 'Bir hafta önce',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Global görünüm',
 		'main_stream' => 'Ana akış',

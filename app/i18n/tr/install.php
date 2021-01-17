@@ -17,22 +17,23 @@ return array(
 		'type' => 'Kimlik doğrulama yöntemi',
 	),
 	'bdd' => array(
+		'_' => 'Veritabanı',
 		'conf' => array(
+			'_' => 'Veritabanı yapılandırılması',
 			'ko' => 'Veritabanı bilginizi doğrulayın.',
 			'ok' => 'Veritabanı yapılandırılması kayıt edildi.',
-			'_' => 'Veritabanı yapılandırılması',
 		),
 		'host' => 'Sunucu',
 		'password' => 'Veritabanı şifresi',
 		'prefix' => 'Tablo ön eki',
 		'type' => 'Veritabanı türü',
 		'username' => 'Veritabanı kullanıcı adı',
-		'_' => 'Veritabanı',
 	),
 	'check' => array(
+		'_' => 'Kontroller',
 		'already_installed' => 'FreshRSS zaten yüklü!',
 		'cache' => array(
-			'nok' => '<em>./data/cache</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s/em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Önbellek klasörü yetkileri sorunsuz.',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'cURL eklentisi sorunsuz.',
 		),
 		'data' => array(
-			'nok' => '<em>./data</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Veri klasörü yetkileri sorunsuz.',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => 'DOM kütüphanesi sorunsuz.',
 		),
 		'favicons' => array(
-			'nok' => '<em>./data/favicons</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
 		),
 		'fileinfo' => array(
@@ -87,19 +88,22 @@ return array(
 			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
 		),
+		'tmp' => array(
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => '<em>./data/users</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
 		),
 		'xml' => array(
 			'nok' => 'You lack the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'_' => 'Kontroller',
 	),
 	'conf' => array(
-		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 		'_' => 'Genel yapılandırma',
+		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 	),
 	'congratulations' => 'Tebrikler!',
 	'default_user' => 'Öntanımlı kullanıcı adı <small>(en fazla 16 alfanümerik karakter)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => 'FreshRSS i yeniden kurarak önceki yapılandırma ayarlarınızı kaybedeceksiniz. Devam etmek istiyor musunuz ?',
 	),
 	'language' => array(
+		'_' => 'Dil',
 		'choose' => 'FreshRSS için bir dil seçin',
 		'defined' => 'Dil belirlendi.',
-		'_' => 'Dil',
 	),
 	'not_deleted' => 'Hata meydana geldi; <em>%s</em> dosyasını elle silmelisiniz.',
 	'ok' => 'Kurulum başarıyla tamamlandı.',

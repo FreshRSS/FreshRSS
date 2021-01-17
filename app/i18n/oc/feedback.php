@@ -10,8 +10,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Vòstre senhal pòt pas èsser modificat',
+			'updated' => 'Vòstre senhal es estat modificat',
 		),
 	),
 	'auth' => array(
@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s es ja activada',
+		'cannot_remove' => '%s pòt pas èsser suprimida',
 		'disable' => array(
 			'ko' => '%s pòt pas èsser desactivada. <a href="%s">Consultatz los jornals d’audit de FreshRSS logs</a> per mai de detalhs.',
 			'ok' => '%s es ara desactivada',
@@ -44,9 +45,10 @@ return array(
 			'ko' => '%s pòt pas èsser activada. <a href="%s">Consultatz los jornals d’audit de FreshRSS logs</a> per mai de detalhs.',
 			'ok' => '%s es ara activada',
 		),
+		'no_access' => 'Avètz pas accès sus %s',
 		'not_enabled' => '%s es pas encara activada',
 		'not_found' => '%s existís pas',
-		'no_access' => 'Avètz pas accès sus %s',
+		'removed' => '%s suprimida',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L\'extension ZIP es pas presenta sul servidor. Volgatz ensajar d\'exportar los fichièrs un per un.',
@@ -72,10 +74,10 @@ return array(
 			'emptied' => 'La categoria es estada voidada',
 			'error' => 'Actualizacion de la categoria impossibla',
 			'name_exists' => 'Una categoria se ditz ja atal.',
-			'not_delete_default' => 'Podètz pas suprimir la categoria per defaut !',
-			'not_exist' => 'Aquesta categoria existís pas !',
 			'no_id' => 'Vos cal precisar l’id de la categoria.',
 			'no_name' => 'Vos cal donar un nom a la categoria.',
+			'not_delete_default' => 'Podètz pas suprimir la categoria per defaut !',
+			'not_exist' => 'Aquesta categoria existís pas !',
 			'over_max' => 'Avètz atengut la limita de categoria (%d)',
 			'updated' => 'La categoria es estada actualizada.',
 		),
@@ -84,28 +86,33 @@ return array(
 			'actualizeds' => 'Los fluxes son estats actualizats',
 			'added' => 'Lo flux RSS <em>%s</em> es ajustat',
 			'already_subscribed' => 'Seguissètz ja <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> cache escafat',
 			'deleted' => 'Lo flux es suprimit',
 			'error' => 'Error en actualizar',
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L\'URL <em>%s</em> es invalida',
-			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'no_refresh' => 'I a pas cap de flux d’actualizar…',
 			'n_actualized' => '%s fluxes son estats actualizats',
 			'n_entries_deleted' => '%d articles son estats suprimits',
+			'no_refresh' => 'I a pas cap de flux d’actualizar…',
+			'not_added' => '<em>%s</em> a pas pogut èsser ajustat',
+			'not_found' => 'Flux introbable',
 			'over_max' => 'Avètz atengut vòstra limita de fluxes (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> es estat recargat',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There is no entries in your feed. You need at least one entry to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (no feed to entry).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => 'Fracàs del cargament del contengut del site web.',
+				'no_entries' => 'I a pas cap d’entrada dins lo flux. Vos cal almens una entrada per crear un apercebut.',
+				'no_feed' => 'Error inèrna (cap d’entrada a l’entrada).',
+				'no_result' => 'Lo selecctor a pas atrapat res. Coma solucion alternativa lo flux original serà mostrat.',
+				'selector_empty' => 'Lo selecctor es void. Vos cal ne definir un per crear un apercebut.',
 			),
 			'updated' => 'Lo flux es actualizat',
 		),
 		'purge_completed' => 'Purga realizada (%s articles suprimits)',
+	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS es per èsser mes a jorn en <strong>version %s</strong>.',
@@ -117,16 +124,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'L’utilizaire %s pòt pas èsser creat',
 			'_' => 'L’utilizaire %s es estat creat',
+			'error' => 'L’utilizaire %s pòt pas èsser creat',
 		),
 		'deleted' => array(
-			'error' => 'L’utilizaire %s pòt pas èsser suprimit',
 			'_' => 'L’utilizaire %s es estat suprimit',
+			'error' => 'L’utilizaire %s pòt pas èsser suprimit',
 		),
 		'updated' => array(
-			'error' => 'L’utilizaire %s es pas estat actualizat',
 			'_' => 'L’utilizaire %s es estat actualizat',
+			'error' => 'L’utilizaire %s es pas estat actualizat',
 		),
 	),
 );

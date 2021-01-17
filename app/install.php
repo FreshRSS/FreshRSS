@@ -6,10 +6,7 @@ header("Content-Security-Policy: default-src 'self'");
 
 require(LIB_PATH . '/lib_install.php');
 
-session_name('FreshRSS');
-$forwardedPrefix = empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) ? '' : rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
-session_set_cookie_params(0, $forwardedPrefix . dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
-session_start();
+Minz_Session::init('FreshRSS');
 
 if (isset($_GET['step'])) {
 	define('STEP', (int)$_GET['step']);
@@ -18,7 +15,7 @@ if (isset($_GET['step'])) {
 }
 
 if (STEP === 2 && isset($_POST['type'])) {
-	$_SESSION['bd_type'] = $_POST['type'];
+	Minz_Session::_param('bd_type', $_POST['type']);
 }
 
 function param($key, $default = false) {
@@ -34,15 +31,15 @@ function initTranslate() {
 	Minz_Translate::init();
 	$available_languages = Minz_Translate::availableLanguages();
 
-	if (!isset($_SESSION['language'])) {
-		$_SESSION['language'] = get_best_language();
+	if (Minz_Session::param('language') == '') {
+		Minz_Session::_param('language', get_best_language());
 	}
 
-	if (!in_array($_SESSION['language'], $available_languages)) {
-		$_SESSION['language'] = 'en';
+	if (!in_array(Minz_Session::param('language'), $available_languages)) {
+		Minz_Session::_param('language', 'en');
 	}
 
-	Minz_Translate::reset($_SESSION['language']);
+	Minz_Translate::reset(Minz_Session::param('language'));
 }
 
 function get_best_language() {
@@ -58,7 +55,7 @@ function saveLanguage() {
 			return false;
 		}
 
-		$_SESSION['language'] = $_POST['language'];
+		Minz_Session::_param('language', $_POST['language']);
 
 		header('Location: index.php?step=1');
 	}
@@ -72,31 +69,23 @@ function saveStep1() {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		Minz_Configuration::register('system',
-		                             join_path(DATA_PATH, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config.default.php'));
-		$system_conf = Minz_Configuration::get('system');
-
-		$current_user = $system_conf->default_user;
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		$user_conf = Minz_Configuration::get('user');
+		FreshRSS_Context::initSystem();
+		FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
 
 		// Then, we set $_SESSION vars
-		$_SESSION['title'] = $system_conf->title;
-		$_SESSION['auth_type'] = $system_conf->auth_type;
-		$_SESSION['default_user'] = $current_user;
-		$_SESSION['passwordHash'] = $user_conf->passwordHash;
-
-		$db = $system_conf->db;
-		$_SESSION['bd_type'] = $db['type'];
-		$_SESSION['bd_host'] = $db['host'];
-		$_SESSION['bd_user'] = $db['user'];
-		$_SESSION['bd_password'] = $db['password'];
-		$_SESSION['bd_base'] = $db['base'];
-		$_SESSION['bd_prefix'] = $db['prefix'];
-		$_SESSION['bd_error'] = '';
+		Minz_Session::_params([
+				'title' => FreshRSS_Context::$system_conf->title,
+				'auth_type' => FreshRSS_Context::$system_conf->auth_type,
+				'default_user' => Minz_Session::param('currentUser'),
+				'passwordHash' => FreshRSS_Context::$user_conf->passwordHash,
+				'bd_type' => FreshRSS_Context::$system_conf->db['type'],
+				'bd_host' => FreshRSS_Context::$system_conf->db['host'],
+				'bd_user' => FreshRSS_Context::$system_conf->db['user'],
+				'bd_password' => FreshRSS_Context::$system_conf->db['password'],
+				'bd_base' => FreshRSS_Context::$system_conf->db['base'],
+				'bd_prefix' => FreshRSS_Context::$system_conf->db['prefix'],
+				'bd_error' => false,
+			]);
 
 		header('Location: index.php?step=4');
 	}
@@ -104,27 +93,31 @@ function saveStep1() {
 
 function saveStep2() {
 	if (!empty($_POST)) {
-		if ($_SESSION['bd_type'] === 'sqlite') {
-			$_SESSION['bd_base'] = '';
-			$_SESSION['bd_host'] = '';
-			$_SESSION['bd_user'] = '';
-			$_SESSION['bd_password'] = '';
-			$_SESSION['bd_prefix'] = '';
+		if (Minz_Session::param('bd_type') === 'sqlite') {
+			Minz_Session::_params([
+					'bd_base' => false,
+					'bd_host' => false,
+					'bd_user' => false,
+					'bd_password' => false,
+					'bd_prefix' => false,
+				]);
 		} else {
 			if (empty($_POST['type']) ||
 			    empty($_POST['host']) ||
 			    empty($_POST['user']) ||
 			    empty($_POST['base'])) {
-				$_SESSION['bd_error'] = 'Missing parameters!';
+				Minz_Session::_param('bd_error', 'Missing parameters!');
 			}
-			$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
-			$_SESSION['bd_host'] = $_POST['host'];
-			$_SESSION['bd_user'] = $_POST['user'];
-			$_SESSION['bd_password'] = $_POST['pass'];
-			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
+			Minz_Session::_params([
+					'bd_base' => substr($_POST['base'], 0, 64),
+					'bd_host' => $_POST['host'],
+					'bd_user' => $_POST['user'],
+					'bd_password' => $_POST['pass'],
+					'bd_prefix' => substr($_POST['prefix'], 0, 16),
+				]);
 		}
-		if ($_SESSION['bd_type'] === 'pgsql') {
-			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
+		if (Minz_Session::param('bd_type') === 'pgsql') {
+			Minz_Session::_param('bd_base', strtolower(Minz_Session::param('bd_base')));
 		}
 
 		// We use dirname to remove the /i part
@@ -134,21 +127,21 @@ function saveStep2() {
 			'base_url' => $base_url,
 			'default_user' => '_',
 			'db' => [
-				'type' => $_SESSION['bd_type'],
-				'host' => $_SESSION['bd_host'],
-				'user' => $_SESSION['bd_user'],
-				'password' => $_SESSION['bd_password'],
-				'base' => $_SESSION['bd_base'],
-				'prefix' => $_SESSION['bd_prefix'],
+				'type' => Minz_Session::param('bd_type'),
+				'host' => Minz_Session::param('bd_host'),
+				'user' => Minz_Session::param('bd_user'),
+				'password' => Minz_Session::param('bd_password'),
+				'base' => Minz_Session::param('bd_base'),
+				'prefix' => Minz_Session::param('bd_prefix'),
 				'pdo_options' => [],
 			],
 			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
 		];
-		if (!empty($_SESSION['title'])) {
-			$config_array['title'] = $_SESSION['title'];
+		if (Minz_Session::param('title') != '') {
+			$config_array['title'] = Minz_Session::param('title');
 		}
-		if (!empty($_SESSION['auth_type'])) {
-			$config_array['auth_type'] = $_SESSION['auth_type'];
+		if (Minz_Session::param('auth_type') != '') {
+			$config_array['auth_type'] = Minz_Session::param('auth_type');
 		}
 
 		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
@@ -158,16 +151,20 @@ function saveStep2() {
 			opcache_reset();
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem();
 
 		$ok = false;
 		try {
 			Minz_Session::_param('currentUser', $config_array['default_user']);
-			$ok = initDb();
+			$error = initDb();
 			Minz_Session::_param('currentUser');
+			if ($error != '') {
+				Minz_Session::_param('bd_error', $error);
+			} else {
+				$ok = true;
+			}
 		} catch (Exception $ex) {
-			$_SESSION['bd_error'] = $ex->getMessage();
+			Minz_Session::_param('bd_error', $ex->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -175,10 +172,10 @@ function saveStep2() {
 		}
 
 		if ($ok) {
-			$_SESSION['bd_error'] = '';
+			Minz_Session::_param('bd_error');
 			header('Location: index.php?step=3');
-		} elseif (empty($_SESSION['bd_error'])) {
-			$_SESSION['bd_error'] = 'Unknown error!';
+		} elseif (Minz_Session::param('bd_error') == '') {
+			Minz_Session::_param('bd_error', 'Unknown error!');
 		}
 	}
 	invalidateHttpCache();
@@ -188,51 +185,52 @@ function saveStep3() {
 	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
-		$_SESSION['title'] = $system_default_config->title;
-		$_SESSION['auth_type'] = param('auth_type', 'form');
+		Minz_Session::_params([
+				'title' => $system_default_config->title,
+				'auth_type' => param('auth_type', 'form'),
+			]);
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			$_SESSION['default_user'] = param('default_user', '');
+			Minz_Session::_param('default_user', param('default_user', ''));
 		}
 
-		if (empty($_SESSION['auth_type']) ||
-		    empty($_SESSION['default_user'])) {
+		if (Minz_Session::param('auth_type') == '' || Minz_Session::param('default_user') == '') {
 			return false;
 		}
 
 		$password_plain = param('passwordPlain', false);
-		if ($_SESSION['auth_type'] === 'form' && $password_plain == '') {
+		if (Minz_Session::param('auth_type') === 'form' && $password_plain == '') {
 			return false;
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-		Minz_Translate::init($_SESSION['language']);
-
-		FreshRSS_Context::$system_conf->default_user = $_SESSION['default_user'];
-		FreshRSS_Context::$system_conf->save();
+		FreshRSS_Context::initSystem();
+		Minz_Translate::init(Minz_Session::param('language'));
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
-		recursive_unlink(USERS_PATH . '/' . $_SESSION['default_user']);
+		recursive_unlink(USERS_PATH . '/' . Minz_Session::param('default_user'));
 
 		$ok = false;
 		try {
 			$ok = FreshRSS_user_Controller::createUser(
-				$_SESSION['default_user'],
+				Minz_Session::param('default_user'),
 				'',	//TODO: Add e-mail
 				$password_plain,
 				[
-					'language' => $_SESSION['language'],
+					'language' => Minz_Session::param('language'),
 					'is_admin' => true,
+					'enabled' => true,
 				]
 			);
 		} catch (Exception $e) {
-			$_SESSION['bd_error'] = $e->getMessage();
+			Minz_Session::_param('bd_error', $e->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
 			return false;
 		}
+
+		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
+		FreshRSS_Context::$system_conf->save();
 
 		header('Location: index.php?step=4');
 	}
@@ -253,13 +251,12 @@ function checkStep() {
 	} elseif (STEP > 3 && $s3['all'] != 'ok') {
 		header('Location: index.php?step=3');
 	}
-	$_SESSION['actualize_feeds'] = true;
+	Minz_Session::_param('actualize_feeds', true);
 }
 
 function checkStep0() {
 	$languages = Minz_Translate::availableLanguages();
-	$language = isset($_SESSION['language']) &&
-	            in_array($_SESSION['language'], $languages);
+	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages);
 
 	return array(
 		'language' => $language ? 'ok' : 'ko',
@@ -297,14 +294,8 @@ function freshrss_already_installed() {
 function checkStep2() {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
-	$bd = isset($_SESSION['bd_type']) &&
-	      isset($_SESSION['bd_host']) &&
-	      isset($_SESSION['bd_user']) &&
-	      isset($_SESSION['bd_password']) &&
-	      isset($_SESSION['bd_base']) &&
-	      isset($_SESSION['bd_prefix']) &&
-	      isset($_SESSION['bd_error']);
-	$conn = empty($_SESSION['bd_error']);
+	$bd = Minz_Session::param('bd_type') != '';
+	$conn = Minz_Session::param('bd_error') == '';
 
 	return [
 		'bd' => $bd ? 'ok' : 'ko',
@@ -315,13 +306,13 @@ function checkStep2() {
 }
 
 function checkStep3() {
-	$conf = !empty($_SESSION['default_user']);
+	$conf = Minz_Session::param('default_user') != '';
 
-	$form = isset($_SESSION['auth_type']);
+	$form = Minz_Session::param('auth_type') != '';
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {
-		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
+		$defaultUser = Minz_Session::param('default_user') == '' ? '' : Minz_Session::param('default_user');
 	}
 	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
@@ -380,13 +371,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.php.ok', PHP_VERSION) ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, '5.6.0') ?></p>
-	<?php } ?>
-
-	<?php if ($res['minz'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.minz.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.minz.nok', join_path(LIB_PATH, 'Minz')) ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) ?></p>
 	<?php } ?>
 
 	<?php if ($res['pdo'] == 'ok') { ?>
@@ -445,25 +430,31 @@ function printStep1() {
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.data.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.data.ok', DATA_PATH) ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.data.nok', DATA_PATH) ?></p>
 	<?php } ?>
 
 	<?php if ($res['cache'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.cache.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.cache.ok', CACHE_PATH) ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.cache.nok', CACHE_PATH) ?></p>
 	<?php } ?>
 
+	<?php if ($res['tmp'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.tmp.ok', TMP_PATH) ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.tmp.nok', TMP_PATH) ?></p>
+	<?php } ?>
+
 	<?php if ($res['users'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.users.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.users.ok', USERS_PATH) ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.users.nok', USERS_PATH) ?></p>
 	<?php } ?>
 
 	<?php if ($res['favicons'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.favicons.ok') ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.favicons.ok', DATA_PATH . '/favicons') ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.favicons.nok', DATA_PATH . '/favicons') ?></p>
 	<?php } ?>
@@ -539,7 +530,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z_.-]{1,64}" value="<?= isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?= isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
 			</div>
 		</div>
 
@@ -621,7 +612,7 @@ function printStep3() {
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></a>
 				</div>
-				<?= _i('help') ?> <?= _t('install.auth.password_format') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
@@ -673,7 +664,7 @@ case 3:
 case 4:
 	break;
 case 5:
-	if (deleteInstall()) {
+	if (setupMigrations() && deleteInstall()) {
 		header('Location: index.php');
 	}
 	break;

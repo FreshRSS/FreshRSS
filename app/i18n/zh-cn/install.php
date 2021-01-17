@@ -17,22 +17,23 @@ return array(
 		'type' => '认证方式',
 	),
 	'bdd' => array(
+		'_' => '数据库',
 		'conf' => array(
+			'_' => '数据库配置',
 			'ko' => '请验证你的数据库信息',
 			'ok' => '数据库配置已保存',
-			'_' => '数据库配置',
 		),
 		'host' => '主机',
 		'password' => '密码',
 		'prefix' => '表前缀',
 		'type' => '数据库类型',
 		'username' => '用户名',
-		'_' => '数据库',
 	),
 	'check' => array(
+		'_' => '检查',
 		'already_installed' => '我们检测到 FreshRSS 已经安装！',
 		'cache' => array(
-			'nok' => '请检查 <em>./data/cache</em> 目录权限。HTTP 服务器必须有其写入权限。',
+			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'cache 目录权限正常',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => '已找到 cURL 库',
 		),
 		'data' => array(
-			'nok' => '请检查 <em>./data</em> 目录权限。HTTP 服务器必须有其写入权限。',
+			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'data 目录权限正常',
 		),
 		'dom' => array(
@@ -52,7 +53,7 @@ return array(
 			'ok' => '已找到用于浏览 DOM 的库',
 		),
 		'favicons' => array(
-			'nok' => '请检查 <em>./data/favicons</em> 目录权限。HTTP 服务器必须有其写入权限。',
+			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'favicons 目录权限正常',
 		),
 		'fileinfo' => array(
@@ -87,19 +88,22 @@ return array(
 			'nok' => '你的 PHP 版本为 %s，但 FreshRSS 最低需要 %s',
 			'ok' => '你的 PHP 版本为 %s，与 FreshRSS 兼容',
 		),
+		'tmp' => array(
+			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
 		'users' => array(
-			'nok' => '请检查 <em>./data/users</em> 目录权限。HTTP 服务器必须有其写入权限。',
+			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'users 目录权限正常',
 		),
 		'xml' => array(
 			'nok' => '找不到用于 XML 解析库',
 			'ok' => '已找到 XML 解析库',
 		),
-		'_' => '检查',
 	),
 	'conf' => array(
-		'ok' => '常规配置已保存',
 		'_' => '常规配置',
+		'ok' => '常规配置已保存',
 	),
 	'congratulations' => '恭喜！',
 	'default_user' => '默认用户名 <small>(最多 16 个数字或字母)</small>',
@@ -110,9 +114,9 @@ return array(
 		'confirm_reinstall' => '重新安装 FreshRSS 将会重置之前的配置。你确定要继续吗？',
 	),
 	'language' => array(
+		'_' => '语言',
 		'choose' => '为 FreshRSS 选择语言',
 		'defined' => '语言已指定',
-		'_' => '语言',
 	),
 	'not_deleted' => '出错！你必须手动删除文件 <em>%s</em>',
 	'ok' => '安装成功',

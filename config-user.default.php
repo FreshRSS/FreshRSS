@@ -4,6 +4,7 @@
 # `./data/config-user.custom.php` file instead, containing the keys you want to
 # override.
 return array (
+	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
 	'archiving' => [
@@ -31,7 +32,7 @@ return array (
 	'show_fav_unread' => false,
 	'auto_load_more' => true,
 	'display_posts' => false,
-	'display_categories' => false,
+	'display_categories' => 'active',	//{ active, remember, all, none }
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
@@ -75,6 +76,7 @@ return array (
 		'global_view' => '2',
 		'reading_view' => '3',
 		'rss_view' => '4',
+		'toggle_media' => 'v',
 	),
 	'show_favicons' => true,
 	'topline_read' => true,

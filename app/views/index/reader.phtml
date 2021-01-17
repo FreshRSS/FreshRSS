@@ -12,13 +12,9 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
-	$firstEntry = null;
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
-		if ($nbEntries === 0) {
-			$firstEntry = $item;
-		}
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
@@ -48,7 +44,7 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
 				</a>
 				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" /><?php endif; ?>
+					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<span><?= $feed->name() ?></span>
 				</a>
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $item->link() ?>"><?= $item->title() ?></a></h1>
@@ -61,22 +57,20 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 							$first = false;
 				?>
-<em><a href="<?= _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))) ?>"><?= $author ?></a></em>
+<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])) ?>"><?= $author ?></a></em>
 				<?php
 						endforeach;
 						echo ' — ';
 					endif;
-					echo $item->date();
-				?></div>
-
+				?><time datetime="<?= $item->machineReadableDate() ?>"><?= $item->date() ?></time></div><div class="text">
 				<?= $item->content() ?>
-			</div>
+			</div></div>
 		</div>
 	</div><?php
 	endforeach;
 
 	if ($nbEntries > 0):
-		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $firstEntry, $lastEntry);
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('pagination');
 ?></div><?php
 	else:

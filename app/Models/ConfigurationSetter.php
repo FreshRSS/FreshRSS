@@ -118,7 +118,7 @@ class FreshRSS_ConfigurationSetter {
 
 			// Verify URL and add default value when needed
 			if (isset($value['url'])) {
-				$is_url = filter_var($value['url'], FILTER_VALIDATE_URL);
+				$is_url = checkUrl($value['url']);
 				if (!$is_url) {
 					continue;
 				}
@@ -183,7 +183,10 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _display_categories(&$data, $value) {
-		$data['display_categories'] = $this->handleBool($value);
+		if (!in_array($value, [ 'active', 'remember', 'all', 'none' ], true)) {
+			$value = $value === true ? 'all' : 'active';
+		}
+		$data['display_categories'] = $value;
 	}
 
 	private function _display_posts(&$data, $value) {

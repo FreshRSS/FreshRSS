@@ -36,6 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s est déjà activée',
+		'cannot_remove' => '%s ne peut pas être supprimée',
 		'disable' => array(
 			'ko' => '%s ne peut pas être désactivée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 			'ok' => '%s est désormais désactivée',
@@ -44,9 +45,10 @@ return array(
 			'ko' => '%s ne peut pas être activée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 			'ok' => '%s est désormais activée',
 		),
+		'no_access' => 'Vous n’avez aucun accès sur %s',
 		'not_enabled' => '%s n’est pas encore activée',
 		'not_found' => '%s n’existe pas',
-		'no_access' => 'Vous n’avez aucun accès sur %s',
+		'removed' => '%s a été supprimée',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
@@ -72,10 +74,10 @@ return array(
 			'emptied' => 'La catégorie a été vidée.',
 			'error' => 'La catégorie n’a pas pu être modifiée',
 			'name_exists' => 'Une catégorie possède déjà ce nom.',
-			'not_delete_default' => 'Vous ne pouvez pas supprimer la catégorie par défaut !',
-			'not_exist' => 'Cette catégorie n’existe pas !',
 			'no_id' => 'Vous devez préciser l’id de la catégorie.',
 			'no_name' => 'Vous devez préciser un nom pour la catégorie.',
+			'not_delete_default' => 'Vous ne pouvez pas supprimer la catégorie par défaut !',
+			'not_exist' => 'Cette catégorie n’existe pas !',
 			'over_max' => 'Vous avez atteint votre limite de catégories (%d)',
 			'updated' => 'La catégorie a été mise à jour.',
 		),
@@ -89,11 +91,11 @@ return array(
 			'error' => 'Une erreur est survenue',
 			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails. Vous pouvez essayer de forcer l’ajout par addition de <code>#force_feed</code> à l’URL.',
 			'invalid_url' => 'L’url <em>%s</em> est invalide.',
-			'not_added' => '<em>%s</em> n’a pas pu être ajouté.',
-			'not_found' => 'Le flux n\'a pas pu être trouvé.',
-			'no_refresh' => 'Il n’y a aucun flux à actualiser…',
 			'n_actualized' => '%d flux ont été mis à jour.',
 			'n_entries_deleted' => '%d articles ont été supprimés.',
+			'no_refresh' => 'Il n’y a aucun flux à actualiser…',
+			'not_added' => '<em>%s</em> n’a pas pu être ajouté.',
+			'not_found' => 'Le flux n\'a pas pu être trouvé.',
 			'over_max' => 'Vous avez atteint votre limite de flux (%d)',
 			'reloaded' => '<em>%s</em> a été rechargé.',
 			'selector_preview' => array(
@@ -107,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
+	'tag' => array(
+		'created' => 'L’étiquette "%s" a été créée.',
+		'name_exists' => 'L’étiquette existe déjà.',
+		'renamed' => 'L’étiquette "%s" a été renommée en "%s".',
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',
@@ -117,16 +124,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'L’utilisateur %s ne peut pas être créé.',
 			'_' => 'L’utilisateur %s a été créé.',
+			'error' => 'L’utilisateur %s ne peut pas être créé.',
 		),
 		'deleted' => array(
-			'error' => 'L’utilisateur %s ne peut pas être supprimé.',
 			'_' => 'L’utilisateur %s a été supprimé.',
+			'error' => 'L’utilisateur %s ne peut pas être supprimé.',
 		),
 		'updated' => array(
-			'error' => 'L’utilisateur %s n’a pas été mis à jour',
 			'_' => 'L’utilisateur %s a été mis à jour',
+			'error' => 'L’utilisateur %s n’a pas été mis à jour',
 		),
 	),
 );

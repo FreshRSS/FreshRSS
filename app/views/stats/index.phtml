@@ -83,11 +83,11 @@
 </div>
 
 <script id="jsonStats" type="application/json"><?php
-echo htmlspecialchars(json_encode(array(
+echo json_encode(array(
 	'average' => $this->average,
 	'dataCount' => $this->count,
 	'feedByCategory' => $this->feedByCategory,
 	'entryByCategory' => $this->entryByCategory,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
+), JSON_UNESCAPED_UNICODE);
 ?></script>
 <script src="../scripts/stats.js?<?= @filemtime(PUBLIC_PATH . '/scripts/stats.js') ?>"></script>

@@ -37,8 +37,10 @@ class Minz_Log {
 			if ($username == '') {
 				$username = '_';
 			}
-			if ($file_name === null) {
+			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, 'log.txt');
+			} else {
+				$username = '_';
 			}
 
 			switch ($level) {
@@ -55,7 +57,8 @@ class Minz_Log {
 				$level_label = 'debug';
 				break;
 			default :
-				$level_label = 'unknown';
+				$level = LOG_INFO;
+				$level_label = 'info';
 			}
 
 			$log = '[' . date('r') . ']'

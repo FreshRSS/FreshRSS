@@ -2,6 +2,7 @@
 
 return array(
 	'about' => array(
+		'_' => 'אודות',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'דיווח באגים',
 		'credits' => 'קרדיטים',
@@ -13,27 +14,26 @@ return array(
 		'title' => 'אודות',
 		'version' => 'גרסה',
 		'website' => 'אתר',
-		'_' => 'אודות',
 	),
 	'feed' => array(
 		'add' => 'ניתן להוסיף הזנות חדשות.',
 		'empty' => 'אין מאמר להצגה.',
 		'rss_of' => 'הזנת RSS של %s',
-		'title' => 'ההזנות שלך',
-		'title_fav' => 'המועדפים שלך',
+		'title' => 'הזנה ראשית',
+		'title_fav' => 'מועדפים',
 		'title_global' => 'תצוגה גלובלית',
 	),
 	'log' => array(
+		'_' => 'לוגים',
 		'clear' => 'ניקוי הלוגים',
 		'empty' => 'קובץ הלוג ריק',
 		'title' => 'לוגים',
-		'_' => 'לוגים',
 	),
 	'menu' => array(
 		'about' => 'אודות FreshRSS',
-		'add_query' => 'הוספת שאילתה',
 		'before_one_day' => 'אתמול',
 		'before_one_week' => 'לפני שבוע',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'מועדפים (%s)',
 		'global_view' => 'תצוגה גלובלית',
 		'main_stream' => 'הזנה ראשית',

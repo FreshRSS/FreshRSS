@@ -34,14 +34,8 @@ class Minz_Mailer {
 
 	/**
 	 * Constructor.
-	 *
-	 * If PHP version is < 5.5, a warning is logged.
 	 */
 	public function __construct () {
-		if (version_compare(PHP_VERSION, '5.5') < 0) {
-			Minz_Log::warning('Minz_Mailer cannot be used with a version of PHP < 5.5.');
-		}
-
 		$this->view = new Minz_View();
 		$this->view->_layout(false);
 		$this->view->attributeParams();

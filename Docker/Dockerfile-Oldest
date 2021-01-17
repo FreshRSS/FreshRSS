@@ -1,0 +1,57 @@
+FROM alpine:3.4
+
+ENV TZ UTC
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+RUN apk add --no-cache \
+	apache2 php5-apache2 \
+	php5 php5-curl php5-gmp php5-intl php5-xml php5-zip \
+	php5-ctype php5-dom php5-iconv php5-json php5-opcache php5-phar php5-xmlreader php5-zlib \
+	php5-pdo_sqlite php5-pdo_mysql php5-pdo_pgsql
+
+RUN mkdir -p /var/www/FreshRSS /run/apache2/
+WORKDIR /var/www/FreshRSS
+
+COPY . /var/www/FreshRSS
+COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+
+ARG FRESHRSS_VERSION
+ARG SOURCE_BRANCH
+ARG SOURCE_COMMIT
+
+LABEL \
+	org.opencontainers.image.authors="Alkarex" \
+	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
+	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
+	org.opencontainers.image.licenses="AGPL-3.0" \
+	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
+	org.opencontainers.image.title="FreshRSS" \
+	org.opencontainers.image.url="https://freshrss.org/" \
+	org.opencontainers.image.vendor="FreshRSS" \
+	org.opencontainers.image.version="$FRESHRSS_VERSION"
+
+RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
+		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
+	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" \
+		/etc/apache2/httpd.conf && \
+	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
+		/etc/apache2/httpd.conf && \
+	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
+		/etc/apache2/httpd.conf && \
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
+
+ENV COPY_LOG_TO_SYSLOG On
+ENV COPY_SYSLOG_TO_STDERR On
+ENV CRON_MIN ''
+ENV FRESHRSS_ENV ''
+ENV LISTEN ''
+
+ENTRYPOINT ["./Docker/entrypoint.sh"]
+
+EXPOSE 80
+# hadolint ignore=DL3025
+CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
+	exec httpd -D FOREGROUND

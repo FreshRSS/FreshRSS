@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.png -text
+*.waff -text
+*.waff2 -text

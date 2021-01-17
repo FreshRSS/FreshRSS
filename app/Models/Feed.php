@@ -15,7 +15,6 @@ class FreshRSS_Feed extends Minz_Model {
 	private $category = 1;
 	private $nbEntries = -1;
 	private $nbNotRead = -1;
-	private $entries = null;
 	private $name = '';
 	private $website = '';
 	private $description = '';
@@ -72,7 +71,9 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category;
 	}
 	public function entries() {
-		return $this->entries === null ? array() : $this->entries;
+		Minz_Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
+		$simplePie = $this->load(false, true);
+		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
 	}
 	public function name() {
 		return $this->name;
@@ -180,14 +181,14 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function _id($value) {
-		$this->id = $value;
+		$this->id = intval($value);
 	}
 	public function _url($value, $validate = true) {
 		$this->hash = null;
 		if ($validate) {
 			$value = checkUrl($value);
 		}
-		if (empty($value)) {
+		if ($value == '') {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
 		$this->url = $value;
@@ -203,7 +204,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
-		if (empty($value)) {
+		if ($value == '') {
 			$value = '';
 		}
 		$this->website = $value;
@@ -212,7 +213,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->description = $value === null ? '' : $value;
 	}
 	public function _lastUpdate($value) {
-		$this->lastUpdate = $value;
+		$this->lastUpdate = intval($value);
 	}
 	public function _priority($value) {
 		$this->priority = intval($value);
@@ -267,46 +268,47 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($this->httpAuth != '') {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
-				$feed = customSimplePie($this->attributes());
+				$simplePie = customSimplePie($this->attributes());
 				if (substr($url, -11) === '#force_feed') {
-					$feed->force_feed(true);
+					$simplePie->force_feed(true);
 					$url = substr($url, 0, -11);
 				}
-				$feed->set_feed_url($url);
+				$simplePie->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
-					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
+					$simplePie->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
 				if ($this->attributes('clear_cache')) {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
-				Minz_ExtensionManager::callHook('simplepie_before_init', $feed, $this);
-				$mtime = $feed->init();
+				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
+				$mtime = $simplePie->init();
 
-				if ((!$mtime) || $feed->error()) {
-					$errorMessage = $feed->error();
+				if ((!$mtime) || $simplePie->error()) {
+					$errorMessage = $simplePie->error();
 					throw new FreshRSS_Feed_Exception(
-						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $url . ']'
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $this->url . ']'
 					);
 				}
 
-				$links = $feed->get_links('self');
+				$links = $simplePie->get_links('self');
 				$this->selfUrl = isset($links[0]) ? $links[0] : null;
-				$links = $feed->get_links('hub');
+				$links = $simplePie->get_links('hub');
 				$this->hubUrl = isset($links[0]) ? $links[0] : null;
 
 				if ($loadDetails) {
 					// si on a utilisé l'auto-discover, notre url va avoir changé
-					$subscribe_url = $feed->subscribe_url(false);
+					$subscribe_url = $simplePie->subscribe_url(false);
 
-					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
-					$this->_name($title == '' ? $url : $title);
+					//HTML to HTML-PRE	//ENT_COMPAT except '&'
+					$title = strtr(html_only_entity_decode($simplePie->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));
+					$this->_name($title == '' ? $this->url : $title);
 
-					$this->_website(html_only_entity_decode($feed->get_link()));
-					$this->_description(html_only_entity_decode($feed->get_description()));
+					$this->_website(html_only_entity_decode($simplePie->get_link()));
+					$this->_description(html_only_entity_decode($simplePie->get_description()));
 				} else {
 					//The case of HTTP 301 Moved Permanently
-					$subscribe_url = $feed->subscribe_url(true);
+					$subscribe_url = $simplePie->subscribe_url(true);
 				}
 
 				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);
@@ -316,24 +318,54 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
-					$this->loadEntries($feed);	// et on charge les articles du flux
+					return $simplePie;
 				} else {
 					//Minz_Log::debug('FreshRSS use cache for ' . $clean_url);
-					$this->entries = array();
+					return null;
 				}
-
-				$feed->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
-				unset($feed);
 			}
 		}
 	}
 
-	public function loadEntries($feed) {
-		$entries = array();
-		$guids = array();
+	public function loadGuids($simplePie) {
 		$hasUniqueGuids = true;
+		$testGuids = [];
+		$guids = [];
+		$hasBadGuids = $this->attributes('hasBadGuids');
 
-		foreach ($feed->get_items() as $item) {
+		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
+			$item = $simplePie->get_item($i);
+			if ($item == null) {
+				continue;
+			}
+			$guid = safe_ascii($item->get_id(false, false));
+			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
+			$testGuids['_' . $guid] = true;
+			$guids[] = $guid;
+		}
+
+		if ($hasBadGuids != !$hasUniqueGuids) {
+			$hasBadGuids = !$hasUniqueGuids;
+			if ($hasBadGuids) {
+				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
+			} else {
+				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
+			}
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
+		}
+		return $guids;
+	}
+
+	public function loadEntries($simplePie) {
+		$hasBadGuids = $this->attributes('hasBadGuids');
+
+		// We want chronological order and SimplePie uses reverse order.
+		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
+			$item = $simplePie->get_item($i);
+			if ($item == null) {
+				continue;
+			}
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
@@ -373,18 +405,23 @@ class FreshRSS_Feed extends Minz_Model {
 						$elinks[$elink] = true;
 						$mime = strtolower($enclosure->get_type());
 						$medium = strtolower($enclosure->get_medium());
-						if ($medium === 'image' || strpos($mime, 'image/') === 0) {
+						$height = $enclosure->get_height();
+						$width = $enclosure->get_width();
+						$length = $enclosure->get_length();
+						if (strpos($mime, 'image') === 0 || ($mime == '' && $length == null && ($width != 0 || $height != 0))) {
 							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
-						} elseif ($medium === 'audio' || strpos($mime, 'audio/') === 0) {
+						} elseif (strpos($mime, 'audio') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+								. ($length == null ? '' : '" data-length="' . intval($length))
+								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
 								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-						} elseif ($medium === 'video' || strpos($mime, 'video/') === 0) {
+						} elseif (strpos($mime, 'video') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+								. ($length == null ? '' : '" data-length="' . intval($length))
+								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
 								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-						} elseif ($medium != '' || strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
+						} else {	//e.g. application, text, unknown
 							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink . '">💾</a></p>';
-						} else {
-							unset($elinks[$elink]);
 						}
 
 						$thumbnailContent = '';
@@ -408,9 +445,9 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
-			$guid = $item->get_id(false, false);
-			$hasUniqueGuids &= empty($guids['_' . $guid]);
-			$guids['_' . $guid] = true;
+			$guid = safe_ascii($item->get_id(false, false));
+			unset($item);
+
 			$author_names = '';
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
@@ -421,7 +458,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$guid,
+				$hasBadGuids ? '' : $guid,
 				$title === null ? '' : $title,
 				$author_names,
 				$content === null ? '' : $content,
@@ -435,28 +472,8 @@ class FreshRSS_Feed extends Minz_Model {
 				$entry->loadCompleteContent();
 			}
 
-			$entries[] = $entry;
-			unset($item);
+			yield $entry;
 		}
-
-		$hasBadGuids = $this->attributes('hasBadGuids');
-		if ($hasBadGuids != !$hasUniqueGuids) {
-			$hasBadGuids = !$hasUniqueGuids;
-			if ($hasBadGuids) {
-				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			} else {
-				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
-			}
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
-		}
-		if (!$hasUniqueGuids) {
-			foreach ($entries as $entry) {
-				$entry->_guid('');
-			}
-		}
-
-		$this->entries = $entries;
 	}
 
 	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
@@ -690,7 +707,11 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//Parameter true to subscribe, false to unsubscribe.
 	public function pubSubHubbubSubscribe($state) {
-		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		if ($state) {
+			$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		} else {
+			$url = $this->url;	//Always use current URL during unsubscribe
+		}
 		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);

@@ -1,4 +1,4 @@
-# How to contribute to FreshRSS?
+# How to contribute to FreshRSS
 
 ## Chat with us
 
@@ -19,10 +19,10 @@ If you have to create a new ticket, try to apply the following advices:
 - Give an explicit title to the ticket so it will be easier to find it later.
 - Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?
 - We also need some information:
-    + Your FreshRSS version (on about page or `constants.php` file)
-    + Your server configuration: type of hosting, PHP version
-    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
-    + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
+	- Your FreshRSS version (on about page or `constants.php` file)
+	- Your server configuration: type of hosting, PHP version
+	- Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
+	- If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
 ## Fix a bug
 
@@ -31,7 +31,7 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 1. Be sure the bug is associated to a ticket and say you work on it.
 2. [Fork this project repository](https://help.github.com/articles/fork-a-repo/).
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **dev branch**.
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **master branch**.
 
 If you have to write code, please follow [our coding style recommendations](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html).
 
@@ -45,11 +45,7 @@ If your idea is nice, we’ll have a look at it.
 
 ## Contribute to internationalization (i18n)
 
-If you want to improve internationalization, please open a new ticket first and follow indications from « Fix a bug » section.
-
-Translations are present in the subdirectories of `./app/i18n/`.
-
-We are working on a better way to handle internationalization but don’t hesitate to suggest any idea!
+Learn how to contribute to translations in [the dedicated documentation](./docs/en/internationalization.md).
 
 ## Contribute to documentation
 

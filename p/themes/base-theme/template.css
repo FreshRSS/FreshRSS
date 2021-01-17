@@ -15,6 +15,8 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	background: white;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
@@ -59,6 +61,10 @@ p {
 	font-size: 1em;
 }
 
+p.help, .prompt p.help {
+	margin: 5px 0 0.5em;
+}
+
 sup {
 	line-height: 25px;
 	position: relative;
@@ -93,8 +99,12 @@ img.favicon {
 }
 
 /*=== Videos */
-iframe, embed, object, video {
+audio, iframe, embed, object, video {
 	max-width: 100%;
+}
+
+audio {
+	width: 100%;
 }
 
 /*=== Forms */
@@ -211,8 +221,22 @@ td.numeric {
 
 /*=== Buttons */
 .stick {
-	display: inline-block;
+	display: inline-flex;
+	max-width: 100%;
 	white-space: nowrap;
+}
+
+.stick > input {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.stick > input.long {
+	flex-shrink: 1;
+}
+
+.stick > .btn {
+	flex-shrink: 0;
 }
 
 .btn,
@@ -281,7 +305,7 @@ a.btn {
 }
 
 .dropdown-menu-scrollable {
-	max-height: 75vh;
+	max-height: min(75vh, 50em);
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -359,6 +383,10 @@ a.btn {
 .alert {
 	display: block;
 	width: 90%;
+}
+
+.alert-warn {
+	background: inherit;
 }
 
 .group-controls .alert {
@@ -568,12 +596,21 @@ a.btn {
 	width: 100px;
 }
 
+input[type="search"] {
+	-webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
+}
+
 /*=== Body */
 #global {
+	background: inherit;
 	display: table;
 	width: 100%;
 	height: 100%;
 	table-layout: fixed;
+}
+
+#stream:not(.alert-warn) {
+	background: inherit;
 }
 
 .aside {
@@ -632,6 +669,10 @@ a.btn {
 }
 
 /*=== Day indication */
+.day {
+	background: inherit;
+}
+
 .day .name {
 	position: absolute;
 	right: 0;
@@ -643,6 +684,7 @@ a.btn {
 
 /*=== Feed article header and footer */
 .flux_header {
+	background: inherit;
 	position: relative;
 }
 
@@ -738,6 +780,14 @@ a.btn {
 
 .content pre {
 	overflow: auto;
+}
+
+.subtitle > div {
+	display: inline;
+}
+
+.subtitle > div:not(:first-of-type)::before {
+	content: ' · ';
 }
 
 br {
@@ -869,13 +919,9 @@ br {
 }
 
 /*=== "Load" parts */
-
-/* Only matches while waiting for div#stream to be received */
-#first_load:nth-last-of-type(1), #first_load:nth-last-of-type(2) {
-	margin: -40px auto 0 auto;
+#first_load {
+	margin: 130px auto -170px auto;
 	height: 40px;
-	position: relative;
-	top: 290px;
 }
 
 #load_more {
@@ -1018,6 +1064,10 @@ br {
 	left: 0;
 }
 
+#close-slider img {
+	display: none;
+}
+
 /*=== SLIDESHOW */
 /*==============*/
 .slides {
@@ -1142,6 +1192,10 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
+.nav_menu {
+	background: inherit;
+}
+
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,
@@ -1156,6 +1210,10 @@ input:checked + .slide-container .properties {
 
 .enclosure-description {
 	white-space: pre-line;
+}
+
+.default-user {
+	font-style: italic;
 }
 
 /*=== READER */
@@ -1186,12 +1244,23 @@ input:checked + .slide-container .properties {
 
 @media (max-width: 840px) {
 	.header,
-	.aside .btn-important,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
+	}
+
+	.form-group {
+		margin-bottom: 10px;
+	}
+
+	.form-group .group-name {
+		float: none;
+	}
+
+	.form-group .group-controls {
+		margin-left: 0;
 	}
 
 	.dropdown .dropdown-menu {
@@ -1227,6 +1296,11 @@ input:checked + .slide-container .properties {
 
 	.aside:target {
 		width: 90%;
+		height: 100vh;
+	}
+
+	.aside_feed .configure-feeds {
+		margin-top: 10px;
 	}
 
 	.flux_header .item.website {
@@ -1260,6 +1334,26 @@ input:checked + .slide-container .properties {
 		display: inline-block;
 		width: 30px;
 		height: 30px;
+	}
+
+	#slider.active {
+		left: 0;
+		top: 50px;
+	}
+
+	#close-slider img {
+		display: initial;
+	}
+
+	#close-slider.active {
+		background: #f6f6f6;
+		display: block;
+		width: 100%;
+		height: 50px;
+		z-index: 10;
+		text-align: center;
+		line-height: 50px;
+		border-bottom: 1px solid #ddd;
 	}
 }
 
@@ -1328,4 +1422,8 @@ input:checked + .slide-container .properties {
 
 .preview_background {
 	background-color: transparent;
+}
+
+.drag-drop-marker {
+	margin: -1px;
 }
