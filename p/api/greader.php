@@ -507,6 +507,9 @@ function entriesToArray($entries) {
 			'published' => $entry->date(true),
 			'title' => escapeToUnicodeAlternative($entry->title(), false),
 			'summary' => array('content' => $entry->content()),
+			'canonical' => array(
+				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
+			),
 			'alternate' => array(
 				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
 			),
