@@ -714,8 +714,7 @@ function openCategory(category_id) {
 }
 
 function init_column_categories() {
-	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
-	if (context.current_view !== 'normal' && context.current_view !== 'reader' && context.current_view !== 'contextview') {
+	if (['normal', 'reader', 'contextview'].indexOf(context.current_view) >= 0) {
 		return;
 	}
 
@@ -1622,7 +1621,6 @@ function init_normal() {
 
 function init_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
-	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 	if (['normal', 'reader', 'global', 'contextview'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
