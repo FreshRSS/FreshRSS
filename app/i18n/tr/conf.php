@@ -65,12 +65,22 @@ return array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
 		'display' => 'Display user query results',	// TODO - Translation
-		'filter' => 'Filtre uygulandı:',
+		'filter' => array(
+			'_' => 'Filtre uygulandı:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Tüm makaleleri göster',
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Filtre yok',
 		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',

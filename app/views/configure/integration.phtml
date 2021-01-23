@@ -5,7 +5,7 @@
 
 	<form method="post" action="<?= _url('configure', 'integration') ?>"
 		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick"><input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="##label##" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
-			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled /><a href="#" class="remove btn btn-attention" data-remove="group-share-##key##"><?= _i('close') ?></a></div>
+			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled /><a href="#" class="remove btn btn-attention"><?= _i('close') ?></a></div>
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" /></div></div>'
 		data-advanced='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls">
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
@@ -14,9 +14,9 @@
 			<div class="stick">
 			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
 			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('conf.sharing.share_url') ?>" size="64" />
-			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##" title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a></div>
+			<a href="#" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a></div>
 			<a target="_blank" rel="noreferrer" class="btn" title="<?= _t('conf.sharing.more_information') ?>" href="##help##"><?= _i('help') ?></a>
-			</div></div>'>
+			</div></div>' class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<legend><?= _t('conf.sharing') ?></legend>
 		<?php
@@ -24,7 +24,7 @@
 				$share = FreshRSS_Share::get($share_options['type']);
 				$share->update($share_options);
 		?>
-			<div class="form-group group-share" id="group-share-<?= $key ?>">
+			<div class="form-group group-share" id="group-share-<?= $key ?>" draggable="true">
 				<label class="group-name">
 					<?= $share->name(true) ?>
 				</label>
@@ -39,7 +39,7 @@
 					<?php } else { ?>
 						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled/>
 					<?php } ?>
-						<a href='#' class='remove btn btn-attention' data-remove="group-share-<?= $key ?>" title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a>
+						<a href='#' class='remove btn btn-attention' title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a>
 					</div>
 					<?php if ($share->formType() === 'advanced') { ?>
 						<a target="_blank" rel="noreferrer" class="btn" title="<?= _t('conf.sharing.more_information') ?>" href="<?= $share->help() ?>"><?= _i('help') ?></a>
@@ -64,7 +64,6 @@
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>

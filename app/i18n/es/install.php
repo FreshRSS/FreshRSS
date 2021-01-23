@@ -92,6 +92,7 @@ return array(
 			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio users son correctos.',

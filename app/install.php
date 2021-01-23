@@ -362,108 +362,57 @@ function printStep0() {
 <?php
 }
 
+function printStep1Template($key, $value, $messageParams = []) {
+	if ('ok' === $value) {
+		$message = _t("install.check.{$key}.ok", ...$messageParams);
+		?><p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= $message ?></p><?php
+	} else {
+		$message = _t("install.check.{$key}.nok", ...$messageParams);
+		?><p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= $message ?></p><?php
+	}
+}
+
+function getProcessUsername() {
+	if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
+		$processUser = posix_getpwuid(posix_geteuid());
+		return $processUser['name'];
+	}
+
+	if (function_exists('exec')) {
+		exec('whoami', $output);
+		if (!empty($output[0])) {
+			return $output[0];
+		}
+	}
+
+	return _t('install.check.unknown_process_username');
+}
+
 // @todo refactor this view with the check_install action
 function printStep1() {
 	$res = checkRequirements();
+	$processUsername = getProcessUsername();
 ?>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
-	<?php if ($res['php'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.php.ok', PHP_VERSION) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, '5.6.0') ?></p>
-	<?php } ?>
-
-	<?php if ($res['pdo'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.pdo.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.pdo.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['curl'] == 'ok') { ?>
-	<?php $version = curl_version(); ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.curl.ok', $version['version']) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.curl.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['json'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.json.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.json.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['pcre'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.pcre.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.pcre.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['ctype'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.ctype.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.ctype.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['dom'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.dom.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.dom.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['xml'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.xml.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.xml.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['mbstring'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.mbstring.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.mbstring.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['fileinfo'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.fileinfo.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.fileinfo.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.data.ok', DATA_PATH) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.data.nok', DATA_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['cache'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.cache.ok', CACHE_PATH) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.cache.nok', CACHE_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['tmp'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.tmp.ok', TMP_PATH) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.tmp.nok', TMP_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['users'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.users.ok', USERS_PATH) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.users.nok', USERS_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['favicons'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.favicons.ok', DATA_PATH . '/favicons') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.favicons.nok', DATA_PATH . '/favicons') ?></p>
-	<?php } ?>
-
-	<?php if ($res['http_referer'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.http_referer.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.http_referer.nok') ?></p>
-	<?php } ?>
+	<?php
+	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
+	printStep1Template('pdo', $res['pdo']);
+	printStep1Template('curl', $res['curl'], [$version['version']]);
+	printStep1Template('json', $res['json']);
+	printStep1Template('pcre', $res['pcre']);
+	printStep1Template('ctype', $res['ctype']);
+	printStep1Template('dom', $res['dom']);
+	printStep1Template('xml', $res['xml']);
+	printStep1Template('mbstring', $res['mbstring']);
+	printStep1Template('fileinfo', $res['fileinfo']);
+	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
+	printStep1Template('cache', $res['cache'], [CACHE_PATH, $processUsername]);
+	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
+	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
+	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
+	printStep1Template('http_referer', $res['http_referer']);
+	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
 	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.check.already_installed') ?></p>

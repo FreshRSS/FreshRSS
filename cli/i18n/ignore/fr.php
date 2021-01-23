@@ -9,6 +9,8 @@ return array(
 	'admin.user.articles_and_size',
 	'conf.archiving.maintenance',
 	'conf.display.width.large',
+	'conf.query.filter.search',
+	'conf.query.filter.type',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
 	'conf.sharing.facebook',

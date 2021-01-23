@@ -1422,89 +1422,60 @@ input:checked + .slide-container .properties {
 	background-color: transparent;
 }
 
+.drag-drop-marker {
+	margin: -1px;
+}
 
 /*=== CONTEXTVIEW */
 /*===========*/
-
 .contextview .flux .item {
-    line-height: 20px;
-    white-space: nowrap;
+	line-height: 20px;
+	white-space: nowrap;
 	margin-bottom: 20px;
 	margin-top: 0px;
-
 }
 
 .contextview .flux .item.title a {
-    margin-top: 5px;
-}
-/*.flux .item.image img {
-   	  object-fit: cover;
-  width:64px;
-  height:64px;
-}
-*/
-
-.contextview .flux .item.image  {
-
-padding-left: 20px;
+	margin-top: 5px;
 }
 
+.contextview .flux .item.image {
+	width: 90px;
+	text-align: center;
+	padding-left: 20px;
+}
 
 .contextview .flux .item.context {
-	
-
-	font-size: .8rem;
-    display: block;
-    white-space: initial;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	display: block;
 	display: -webkit-box;
+	font-size: .8rem;
+	white-space: initial;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	-webkit-line-clamp: 3; /* number of lines to show */
-	-webkit-box-orient: vertical;
+	-webkit-box-orient: vertical; /* stylelint-disable-line property-no-vendor-prefix */
 	filter: invert(30%);
-
-
 }
 
-
-
 @media screen and (min-width: 800px) {
-
-	
 	.contextview .flux .item {
-
-	   margin-left: 25%;
-	   line-height: 25px;
-
+		margin-left: 25%;
+		line-height: 25px;
 	}
 }
 
 @media only screen and (max-width: 600px) {
-
 	.contextview .flux .item.context {
-
-   	text-align: start;
-	font-size: 0.85rem;
-	line-height: 25px;
-
-
-
+		text-align: start;
+		font-size: 0.85rem;
+		line-height: 25px;
 	}
+
 	.contextview .flux .item {
-
-	   margin-left: 5%;
-
+		margin-left: 5%;
 	}
-}
-
-
-.contextview .flux .item.image {
-    width: 90px;
-    text-align: center;
 }
 
 .contextview .horizontal-list .item {
-    vertical-align: top;
+	vertical-align: top;
 }

@@ -33,6 +33,8 @@ return array(
 			'username' => 'Identificant HTTP',
 		),
 		'clear_cache' => 'Totjorn escafar lo cache',
+		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
+		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
 		'description' => 'Descripcion',
@@ -61,6 +63,8 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
 		),
+		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
 		'selector_preview' => array(
 			'show_raw' => 'Veire lo còdi font',
 			'show_rendered' => 'Veire lo contengut',

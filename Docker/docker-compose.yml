@@ -9,9 +9,9 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=freshrss
-      - POSTGRES_PASSWORD=freshrss
-      - POSTGRES_DB=freshrss
+      POSTGRES_USER: freshrss
+      POSTGRES_PASSWORD: freshrss
+      POSTGRES_DB: freshrss
 
   freshrss-app:
     image: freshrss/freshrss:latest
@@ -26,10 +26,8 @@ services:
       - data:/var/www/FreshRSS/data
       - extensions:/var/www/FreshRSS/extensions
     environment:
-      - CRON_MIN=*/20
-      - TZ=Europe/Copenhagen
-    labels:
-      - "traefik.port=80"
+      CRON_MIN: '*/20'
+      TZ: Europe/Paris
 
 volumes:
   db:
