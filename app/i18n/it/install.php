@@ -92,6 +92,7 @@ return array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'I permessi sulla cartella users sono corretti.',

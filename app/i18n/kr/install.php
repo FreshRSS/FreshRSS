@@ -92,6 +92,7 @@ return array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'users 디렉토리의 권한이 올바르게 설정되어 있습니다.',
