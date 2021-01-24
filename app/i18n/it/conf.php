@@ -65,12 +65,22 @@ return array(
 		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
 		'display' => 'Display user query results',	// TODO - Translation
-		'filter' => 'Filtro applicato:',
+		'filter' => array(
+			'_' => 'Filtro applicato:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Mostra tutti gli articoli',
 		'get_category' => 'Mostra la categoria "%s" ',
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed "%s" ',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Nessun filtro',
 		'none' => 'Non hai creato nessuna ricerca personale.',
 		'number' => 'Ricerca n°%d',

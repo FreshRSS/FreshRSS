@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'אודות FreshRSS',
-		'add_query' => 'הוספת שאילתה',
 		'before_one_day' => 'אתמול',
 		'before_one_week' => 'לפני שבוע',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'מועדפים (%s)',
 		'global_view' => 'תצוגה גלובלית',
 		'main_stream' => 'הזנה ראשית',

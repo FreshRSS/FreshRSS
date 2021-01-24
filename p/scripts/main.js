@@ -43,6 +43,7 @@ var context;
 	context.icons = json.icons;
 	context.icons.read = decodeURIComponent(context.icons.read);
 	context.icons.unread = decodeURIComponent(context.icons.unread);
+	context.extensions = json.extensions;
 }());
 //</Global context>
 

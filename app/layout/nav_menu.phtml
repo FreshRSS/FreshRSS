@@ -54,9 +54,9 @@
 				<?php
 					$url_query = Minz_Request::currentRequest();;
 					$url_query['c'] = 'configure';
-					$url_query['a'] = 'addQuery';
+					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item no-mobile"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.add_query') ?></a></li>
+				<li class="item no-mobile"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
 			</ul>
 		</div>
 	</div>
@@ -174,6 +174,13 @@
 			<?= _i('rss') ?>
 		</a>
 	</div>
+
+	<?php $nav_menu_hooks = Minz_ExtensionManager::callHook('nav_menu'); ?>
+	<?php if ($nav_menu_hooks != '') { ?>
+	<div class="stick" id="nav_menu_hooks">
+		<?php echo $nav_menu_hooks; ?>
+	</div>
+	<?php } ?>
 
 	<div class="item search">
 		<form action="<?= _url('index', 'index') ?>" method="get">

@@ -33,7 +33,7 @@ return array(
 		'_' => 'בדיקות',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'fileinfo' => array(
@@ -89,11 +89,12 @@ return array(
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
 		'tmp' => array(
-			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permissions.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
-			'nok' => 'Check permissions on the <em>%s</em> directory. The HTTP server must have write permissions.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
 			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
 		),
 		'xml' => array(

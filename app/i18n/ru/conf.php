@@ -65,12 +65,22 @@ return array(
 		'_' => 'User queries',	// TODO - Translation
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// TODO - Translation
 		'display' => 'Display user query results',	// TODO - Translation
-		'filter' => 'Filter applied:',	// TODO - Translation
+		'filter' => array(
+			'_' => 'Filter applied:',	// TODO - Translation
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Display all articles',	// TODO - Translation
 		'get_category' => 'Display "%s" category',	// TODO - Translation
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',	// TODO - Translation
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'No filter',	// TODO - Translation
 		'none' => 'You haven’t created any user query yet.',
 		'number' => 'Query n°%d',	// TODO - Translation

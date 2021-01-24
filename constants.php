@@ -2,6 +2,7 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
+define('FRESHRSS_MIN_PHP_VERSION', '5.6.0');
 define('FRESHRSS_VERSION', '1.17.1-dev');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');

@@ -148,6 +148,61 @@ class I18nData {
 	}
 
 	/**
+	 * Return the parent key for a specified key.
+	 * To get the parent key, you need to remove the last section of the key. Each
+	 * is separated into sections. The parent of a section is the concatenation of
+	 * all sections before the selected key. For instance, if the key is 'a.b.c.d.e',
+	 * the parent key is 'a.b.c.d'.
+	 *
+	 * @return string
+	 */
+	private function getParentKey($key) {
+		return substr($key, 0, strrpos($key, '.'));
+	}
+
+	/**
+	 * Return the siblings for a specified key.
+	 * To get the siblings, we need to find all matches with the parent.
+	 */
+	private function getSiblings($key) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE])) {
+			return [];
+		}
+
+		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
+		$parent = $this->getParentKey($key);
+
+		return array_values(array_filter($keys, function ($element) use ($parent) {
+			return false !== strpos($element, $parent);
+		}));
+	}
+
+	/**
+	 * Check if the key is an only child.
+	 * To be an only child, there must be only one sibling and that sibling must
+	 * be the empty sibling. The empty sibling is the parent.
+	 *
+	 * @return bool
+	 */
+	private function isOnlyChild($key) {
+		$siblings = $this->getSiblings($key);
+
+		if (1 !== count($siblings)) {
+			return false;
+		}
+		return '_' === $siblings[0][-1];
+	}
+
+	/**
+	 * Return the parent key as an empty sibling.
+	 * When a key has children, it cannot have its value directly. The value
+	 * needs to be attached to an empty sibling represented by "_".
+	 */
+	private function getEmptySibling($key) {
+		return "{$key}._";
+	}
+
+	/**
 	 * Add a new key to all languages.
 	 *
 	 * @param string $key
@@ -159,10 +214,24 @@ class I18nData {
 			throw new Exception('The selected key already exist.');
 		}
 
+		$parentKey = $this->getParentKey($key);
+		if ($this->isKnown($parentKey)) {
+			// The parent key exists, that means that we need to convert it to an array.
+			// To create an array, we need to change the key by appending an empty section.
+			foreach ($this->getAvailableLanguages() as $language) {
+				$parentValue = $this->data[$language][$this->getFilenamePrefix($parentKey)][$parentKey];
+				$this->data[$language][$this->getFilenamePrefix($this->getEmptySibling($parentKey))][$this->getEmptySibling($parentKey)] = $parentValue;
+			}
+		}
+
 		foreach ($this->getAvailableLanguages() as $language) {
 			if (!array_key_exists($key, $this->data[$language][$this->getFilenamePrefix($key)])) {
 				$this->data[$language][$this->getFilenamePrefix($key)][$key] = $value;
 			}
+		}
+
+		if ($this->isKnown($parentKey)) {
+			$this->removeKey($parentKey);
 		}
 	}
 
@@ -179,7 +248,7 @@ class I18nData {
 			throw new Exception('The selected language does not exist.');
 		}
 		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
-		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+			!array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key does not exist for the selected language.');
 		}
 		if (static::REFERENCE_LANGUAGE === $language) {
@@ -201,9 +270,14 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function removeKey($key) {
-		if (!$this->isKnown($key)) {
+		if (!$this->isKnown($key) && !$this->isKnown($this->getEmptySibling($key))) {
 			throw new Exception('The selected key does not exist.');
 		}
+		if (!$this->isKnown($key)) {
+			// The key has children, it needs to be appended with an empty section.
+			$key = $this->getEmptySibling($key);
+		}
+
 		foreach ($this->getAvailableLanguages() as $language) {
 			if (array_key_exists($key, $this->data[$language][$this->getFilenamePrefix($key)])) {
 				unset($this->data[$language][$this->getFilenamePrefix($key)][$key]);
@@ -211,6 +285,15 @@ class I18nData {
 			if (array_key_exists($language, $this->ignore) && $position = array_search($key, $this->ignore[$language])) {
 				unset($this->ignore[$language][$position]);
 			}
+		}
+
+		if ($this->isOnlyChild($key)) {
+			$parentKey = $this->getParentKey($key);
+			foreach ($this->getAvailableLanguages() as $language) {
+				$parentValue = $this->data[$language][$this->getFilenamePrefix($this->getEmptySibling($parentKey))][$this->getEmptySibling($parentKey)];
+				$this->data[$language][$this->getFilenamePrefix($parentKey)][$parentKey] = $parentValue;
+			}
+			$this->removeKey($this->getEmptySibling($parentKey));
 		}
 	}
 

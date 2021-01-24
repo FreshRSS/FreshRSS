@@ -33,6 +33,8 @@ return array(
 			'username' => 'HTTP 用户名',
 		),
 		'clear_cache' => '总是清除缓存',
+		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
+		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
 		'description' => '描述',
@@ -61,6 +63,8 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 		),
+		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
 		'selector_preview' => array(
 			'show_raw' => '显示源码',
 			'show_rendered' => '显示内容',

@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => '关于 FreshRSS',
-		'add_query' => '添加查询',
 		'before_one_day' => '一天前',
 		'before_one_week' => '一周前',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => '收藏（%s）',
 		'global_view' => '全屏视图',
 		'main_stream' => '首页',

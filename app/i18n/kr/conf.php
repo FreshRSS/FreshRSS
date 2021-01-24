@@ -65,12 +65,22 @@ return array(
 		'_' => '사용자 쿼리',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
 		'display' => '사용자 쿼리 결과 표시',
-		'filter' => '적용된 필터:',
+		'filter' => array(
+			'_' => 'Filter applied:',	// TODO - Translation
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => '모든 글 표시',
 		'get_category' => '"%s" 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '"%s" 피드 표시',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => '필터가 없습니다',
 		'none' => '아직 사용자 쿼리를 만들지 않았습니다.',
 		'number' => '쿼리 #%d',

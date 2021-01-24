@@ -90,7 +90,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'name' => $title != '' ? $title : $feed->name(),
 			'website' => $feed->website(),
 			'description' => $feed->description(),
-			'lastUpdate' => time(),
+			'lastUpdate' => 0,
 			'httpAuth' => $feed->httpAuth(),
 			'attributes' => $feed->attributes(),
 		);
@@ -103,7 +103,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$feed->_id($id);
 
 		// Ok, feed has been added in database. Now we have to refresh entries.
-		self::actualizeFeed($id, $url, false, null, true);
+		self::actualizeFeed($id, $url, false, null);
 
 		return $feed;
 	}
@@ -256,7 +256,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false, $noCommit = false, $maxFeeds = 10) {
+	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $noCommit = false, $maxFeeds = 10) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -324,6 +324,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::notice('Feed already being actualized: ' . $feed->url(false));
 				continue;
 			}
+
+			$isNewFeed = $feed->lastUpdate() <= 0;
 
 			try {
 				if ($simplePiePush) {
@@ -483,7 +485,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			}
 			if (!empty($feedProperties)) {
-				$feedDAO->updateFeed($feed->id(), $feedProperties);
+				$ok = $feedDAO->updateFeed($feed->id(), $feedProperties);
+				if (!$ok && $isNewFeed) {
+					//Cancel adding new feed in case of database error at first actualize
+					$feedDAO->deleteFeed($feed->id());
+					$feed->unlock();
+					break;
+				}
 			}
 
 			$feed->faviconPrepare();
@@ -551,7 +559,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->minorDbMaintenance();
 		} else {
-			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, false, $noCommit, $maxFeeds);
+			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, $noCommit, $maxFeeds);
 		}
 
 		if (Minz_Request::param('ajax')) {
@@ -735,6 +743,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		//Re-fetch articles as if the feed was new.
+		$feedDAO->updateFeed($feed->id(), [ 'lastUpdate' => 0 ]);
 		self::actualizeFeed($feed_id, null, false, null, true);
 
 		//Extract all feed entries from database, load complete content and store them back in database.
@@ -745,8 +754,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$entryDAO2 = FreshRSS_Factory::createEntryDao();
 
 		foreach ($entries as $entry) {
-			$entry->loadCompleteContent(true);
-			$entryDAO2->updateEntry($entry->toArray());
+			if ($entry->loadCompleteContent(true)) {
+				$entryDAO2->updateEntry($entry->toArray());
+			}
 		}
 
 		Minz_ModelPdo::$usesSharedPdo = true;

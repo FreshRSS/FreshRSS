@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSS 정보',
-		'add_query' => '쿼리 만들기',
 		'before_one_day' => '하루 이전',
 		'before_one_week' => '한 주 이전',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => '즐겨찾기 (%s)',
 		'global_view' => '전체 모드',
 		'main_stream' => '메인 스트림',

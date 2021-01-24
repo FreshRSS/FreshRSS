@@ -65,12 +65,22 @@ return array(
 		'_' => 'Consultas de usuario',
 		'deprecated' => 'Esta consulta ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
 		'display' => 'Display user query results',	// TODO - Translation
-		'filter' => 'Filtro aplicado:',
+		'filter' => array(
+			'_' => 'Filtro aplicado:',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Mostrar todos los artículos',
 		'get_category' => 'Mostrar la categoría "%s"',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente "%s"',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Sin filtro',
 		'none' => 'Todavía no has creado ninguna consulta de usuario.',
 		'number' => 'Consulta n° %d',

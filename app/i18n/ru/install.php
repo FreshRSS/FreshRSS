@@ -92,6 +92,7 @@ return array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Права на папку users в порядке.',

@@ -379,7 +379,13 @@ class FreshRSS_Entry extends Minz_Model {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
+
 		curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
+
+		if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+			curl_setopt_array($ch, $attributes['curl_params']);
+		}
+
 		if (isset($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
@@ -445,6 +451,7 @@ class FreshRSS_Entry extends Minz_Model {
 					);
 					if ($fullContent != '') {
 						$this->content = $fullContent;
+						return true;
 					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu(requête a échoué)
@@ -452,6 +459,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 		}
+		return false;
 	}
 
 	public function toArray() {

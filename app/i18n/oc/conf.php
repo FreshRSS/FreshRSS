@@ -65,12 +65,22 @@ return array(
 		'_' => 'Filtres utilizaires',
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
 		'display' => 'Mostrar los resultats del filtre',
-		'filter' => 'Filtres aplicats :',
+		'filter' => array(
+			'_' => 'Filtres aplicats :',
+			'categories' => 'Display by category',	// TODO - Translation
+			'feeds' => 'Display by feed',	// TODO - Translation
+			'order' => 'Sort by date',	// TODO - Translation
+			'search' => 'Expression',	// TODO - Translation
+			'state' => 'State',	// TODO - Translation
+			'tags' => 'Display by tag',	// TODO - Translation
+			'type' => 'Type',	// TODO - Translation
+		),
 		'get_all' => 'Mostrar totes los articles',
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
 		'get_tag' => 'Display "%s" label',	// TODO - Translation
+		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Cap de filtre aplicat',
 		'none' => 'Avètz pas encara creat cap de filtre.',
 		'number' => 'Filtre n°%d',

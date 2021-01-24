@@ -357,6 +357,42 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_cookie') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="<?= 
+						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_COOKIE]) ? 
+							$this->feed->attributes('curl_params')[CURLOPT_COOKIE] : ''
+					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="path_entries"><?= _t('sub.feed.proxy') ?></label>
+			<div class="group-controls">
+				<select class="number" name="proxy_type" id="proxy_type"><?php
+					$type = '';
+					if (is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_PROXYTYPE])) {
+						$type = $this->feed->attributes('curl_params')[CURLOPT_PROXYTYPE];
+					}
+					foreach(['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
+						echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
+					}
+				?>
+				</select>
+				<div class="stick">
+					<input type="text" name="curl_params" id="curl_params" class="extend" value="<?=
+						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_PROXY]) ? 
+							$this->feed->attributes('curl_params')[CURLOPT_PROXY] : ''
+					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
+			</div>
+		</div>
+
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
 			<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
