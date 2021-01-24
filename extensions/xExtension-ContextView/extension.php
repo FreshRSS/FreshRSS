@@ -4,7 +4,7 @@ class ContextViewExtension extends Minz_Extension
 {
     public function init()
     {
-        
+        //initializing the extension 
     }
 	
     public static function addABriefInEntryHeader($entry)
@@ -20,29 +20,28 @@ class ContextViewExtension extends Minz_Extension
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-
         $doc->preserveWhiteSpace = true;
         $doc->formatOutput = true;
 
-        $realbreif = '';
+        $textPreview = '';
 
         foreach ($doc->getElementsByTagName('p') as $element)
         {
 
-            $realbreif .= $element->textContent;
-            $realbreif .= "&nbsp;";
+            $textPreview .= $element->textContent;
+            $textPreview .= "&nbsp;";
 
         }
 
         // We remove the spaces and see if the text actually has text in <p> otherwise we show nromal text
-        $realbriefCheck = str_replace('&nbsp;', ' ', $realbreif);
+        $textPreviewCheck = str_replace('&nbsp;', ' ', $textPreview);
         if (strlen($realbriefCheck) <= (count($doc->getElementsByTagName('p')) * 7))
         {
-            $realbreif = $doc->textContent;
+            $textPreview = $doc->textContent;
         }
 
-        $brief = $realbreif;
-        return $brief;
+  
+        return $textPreview;
     }
 
     public static function imageInEntryHeader($entry)
@@ -58,32 +57,29 @@ class ContextViewExtension extends Minz_Extension
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-
         $imgs = $doc->getElementsByTagName('img');
-
+		
+		$imgHTML = '';
+		
         // if it has images
         if (count($imgs))
         {
-            $newSrc = $imgs[0]->getAttribute('src');
-            $imgHTML = '';
+            $imgSrc = $imgs[0]->getAttribute('src');
 
+			
             if (count($imgs) > 1)
             {
-
-                $newSrc = $imgs[count($imgs) - 1]->getAttribute('src');
-
+                $imgSrc = $imgs[count($imgs) - 1]->getAttribute('src');
             }
 
-            $imgHTML .= "<br>";
-            $imgHTML .= "<img    src=\"$newSrc\" alt=\"error\">";
+            $imgHTML = "<img src=\"$imgSrc\" alt=\"error\">";
 
         }
         else
         {
-            // this image show if the entry has no images.
-            $newSrc = '../themes/icons/article-no-picture.png';
-            $imgHTML .= "<br>";
-            $imgHTML .= "<img width='32' src=\"$newSrc\" alt=\"error\">";
+            // this image show up if the entry has no images.
+            $imgSrc = Minz_Url::display('/themes/icons/article-no-picture.png');
+            $imgHTML = "<img src=\"$imgSrc\" alt=\"error\">";
 
         }
 
