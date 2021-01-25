@@ -11,6 +11,7 @@ abstract class Minz_Extension {
 	private $description;
 	private $version;
 	private $type;
+	private $config_key = 'extensions';
 
 	public static $authorized_types = array(
 		'system',
@@ -194,5 +195,77 @@ abstract class Minz_Extension {
 	 */
 	public function registerHook($hook_name, $hook_function) {
 		Minz_ExtensionManager::addHook($hook_name, $hook_function, $this);
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isUserConfigurationEnabled() {
+		if (!class_exists('FreshRSS_Context', false)) {
+			return false;
+		}
+		if (null === FreshRSS_Context::$user_conf) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isExtensionConfigured() {
+		if (!FreshRSS_Context::$user_conf->hasParam($this->config_key)) {
+			return false;
+		}
+
+		$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
+		return array_key_exists($this->getName(), $extensions);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getUserConfiguration() {
+		if (!$this->isUserConfigurationEnabled()) {
+			return [];
+		}
+		if (!$this->isExtensionConfigured()) {
+			return [];
+		}
+
+		return FreshRSS_Context::$user_conf->{$this->config_key}[$this->getName()];
+	}
+
+	public function setUserConfiguration(array $configuration) {
+		if (!$this->isUserConfigurationEnabled()) {
+			return;
+		}
+		if ($this->isExtensionConfigured()) {
+			$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
+		} else {
+			$extensions = [];
+		}
+		$extensions[$this->getName()] = $configuration;
+
+		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
+		FreshRSS_Context::$user_conf->save();
+	}
+
+	public function removeUserConfiguration(){
+		if (!$this->isUserConfigurationEnabled()) {
+			return;
+		}
+		if (!$this->isExtensionConfigured()) {
+			return;
+		}
+
+		$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
+		unset($extensions[$this->getName()]);
+		if (empty($extensions)) {
+			$extensions = null;
+		}
+
+		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
+		FreshRSS_Context::$user_conf->save();
 	}
 }
