@@ -584,6 +584,7 @@ function errorMessage($errorTitle, $error = '') {
 	if ('' !== $error) {
 		$error = "<h2>{$error}</h2>";
 	}
+	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
 	return <<<MSG
 	<h1>{$errorTitle}</h1>
 	{$error}
