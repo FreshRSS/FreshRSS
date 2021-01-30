@@ -76,11 +76,13 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 	}
 
 	if ($error) {
-		// TODO this should be definitely improved to display a nicer error
-		// page to the users (especially non administrators).
 		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::error($error);
-		echo 'See log files for the service "journalctl -xeu freshrss" or check in /var/log if the service is not present';
+		echo 'See log files for the feed update service "journalctl -xeu freshrss".';
+		echo 'If you do not use a service to update the feeds, run the script manually "/usr/sbin/php /usr/share/webapps/freshrss/app/actualize_script.php".';
+		echo 'If you get no hints from there, see logs for your webserver i.e. "journalctl -xeu nginx".';
+		echo 'If you are using php-fpm, also check logs for it "journalctl -xeu php-fpm".';
+		echo 'Note: Change paths and service names as necessary depending on where and what things are installed. Additional logs may be in "/var/log".';
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 	}
 }
