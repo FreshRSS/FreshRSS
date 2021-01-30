@@ -982,7 +982,7 @@ class SimplePie_Item
 			$this->data['links'] = array();
 			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link') as $link)
 			{
-				if (!empty($link['attribs']['']['href']))
+				if (isset($link['attribs']['']['href']))
 				{
 					$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
@@ -991,7 +991,7 @@ class SimplePie_Item
 			}
 			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link') as $link)
 			{
-				if (!empty($link['attribs']['']['href']))
+				if (isset($link['attribs']['']['href']))
 				{
 					$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
@@ -1803,7 +1803,7 @@ class SimplePie_Item
 							}
 							if (!empty($content['attribs']['']['fileSize']))
 							{
-								$length = ceil($content['attribs']['']['fileSize']);
+								$length = ceil(intval($content['attribs']['']['fileSize']));
 							}
 							if (!empty($content['attribs']['']['medium']))
 							{
@@ -2425,7 +2425,7 @@ class SimplePie_Item
 						}
 						if (!empty($content['attribs']['']['fileSize']))
 						{
-							$length = ceil($content['attribs']['']['fileSize']);
+							$length = ceil(intval($content['attribs']['']['fileSize']));
 						}
 						if (!empty($content['attribs']['']['medium']))
 						{
@@ -2765,7 +2765,7 @@ class SimplePie_Item
 
 			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link') as $link)
 			{
-				if (!empty($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure')
+				if (isset($link['attribs']['']['href']) && isset($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure')
 				{
 					// Attributes
 					$bitrate = null;
@@ -2790,7 +2790,7 @@ class SimplePie_Item
 					}
 					if (!empty($link['attribs']['']['length']))
 					{
-						$length = ceil($link['attribs']['']['length']);
+						$length = ceil(intval($link['attribs']['']['length']));
 					}
 					if (!empty($link['attribs']['']['title']))
 					{
@@ -2808,7 +2808,7 @@ class SimplePie_Item
 
 			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link') as $link)
 			{
-				if (!empty($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure')
+				if (isset($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure')
 				{
 					// Attributes
 					$bitrate = null;
@@ -2833,7 +2833,7 @@ class SimplePie_Item
 					}
 					if (!empty($link['attribs']['']['length']))
 					{
-						$length = ceil($link['attribs']['']['length']);
+						$length = ceil(intval($link['attribs']['']['length']));
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
@@ -2868,7 +2868,7 @@ class SimplePie_Item
 					}
 					if (!empty($enclosure[0]['attribs']['']['length']))
 					{
-						$length = ceil($enclosure[0]['attribs']['']['length']);
+						$length = ceil(intval($enclosure[0]['attribs']['']['length']));
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
