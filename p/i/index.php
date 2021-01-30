@@ -80,7 +80,7 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		// page to the users (especially non administrators).
 		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::error($error);
-		echo 'See logs files.';
+		echo 'See log files for the service "journalctl -xeu freshrss" or check in /var/log if the service is not present.';
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 	}
 }

@@ -106,7 +106,7 @@ class Minz_FrontController {
 	*/
 	private function killApp ($txt = '') {
 		if ($txt == '') {
-			$txt = 'See logs files';
+			$txt = 'See log files for the service "journalctl -xeu freshrss" or check in /var/log if the service is not present';
 		}
 		exit ('### Application problem ###<br />'."\n".$txt);
 	}
