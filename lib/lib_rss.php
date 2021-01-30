@@ -582,6 +582,7 @@ function validateShortcutList($shortcuts) {
 function errorMessage($errorTitle, $error = '') {
 	// Prevent empty <h2> tags by checking if error isn't empty first
 	if ('' !== $error) {
+		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
 		$error = "<h2>{$error}</h2>";
 	}
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
