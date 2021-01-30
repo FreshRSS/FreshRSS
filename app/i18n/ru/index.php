@@ -19,8 +19,8 @@ return array(
 		'add' => 'Please add some feeds.',	// TODO - Translation
 		'empty' => 'There are no articles to show.',	// TODO - Translation
 		'rss_of' => 'RSS feed of %s',	// TODO - Translation
-		'title' => 'Your RSS feeds',	// TODO - Translation
-		'title_fav' => 'Your favourites',	// TODO - Translation
+		'title' => 'Main stream',	// TODO - Translation
+		'title_fav' => 'Favourites',	// TODO - Translation
 		'title_global' => 'Global view',	// TODO - Translation
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'About FreshRSS',	// TODO - Translation
-		'add_query' => 'Add a query',	// TODO - Translation
 		'before_one_day' => 'Older than one day',	// TODO - Translation
 		'before_one_week' => 'Older than one week',	// TODO - Translation
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favourites (%s)',	// TODO - Translation
 		'global_view' => 'Global view',	// TODO - Translation
 		'main_stream' => 'Main stream',	// TODO - Translation

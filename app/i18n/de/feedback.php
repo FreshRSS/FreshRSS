@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Bereinigung abgeschlossen (%d Artikel gelöscht)',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" wurde erstellt.',
+		'name_exists' => 'Tag Name existiert bereits.',
+		'renamed' => 'Der Tag "%s" wurde umbenannt in "%s".',
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS wird nun auf die <strong>Version %s</strong> aktualisiert.',
 		'error' => 'Der Aktualisierungsvorgang stieß auf einen Fehler: %s',

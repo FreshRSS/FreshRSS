@@ -3,7 +3,7 @@
 require(__DIR__ . '/_cli.php');
 
 if (!file_exists(DATA_PATH . '/do-install.txt')) {
-	fail('FreshRSS seems to be already installed! Please use `./cli/reconfigure.php` instead.');
+	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
 $params = array(
@@ -86,8 +86,7 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+FreshRSS_Context::initSystem();
 
 Minz_Session::_param('currentUser', '_');	//Default user
 
@@ -108,7 +107,7 @@ if (!$ok) {
 	fail('FreshRSS database error: ' . (empty($_SESSION['bd_error']) ? 'Unknown error' : $_SESSION['bd_error']));
 }
 
-echo '• Remember to create the default user: ', $config['default_user'] , "\n",
+echo 'ℹ️ Remember to create the default user: ', $config['default_user'],
 	"\t", './cli/create-user.php --user ', $config['default_user'], " --password 'password' --more-options\n";
 
 accessRights();

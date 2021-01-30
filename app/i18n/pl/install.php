@@ -33,7 +33,7 @@ return array(
 		'_' => 'Checks',	// TODO - Translation
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>./data/cache</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the cache directory are good.',	// TODO - Translation
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'You have the cURL library.',	// TODO - Translation
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>./data</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the data directory are good.',	// TODO - Translation
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'You have the required library to browse the DOM.',	// TODO - Translation
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>./data/favicons</em> directory. The HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the favicons directory are good.',	// TODO - Translation
 		),
 		'fileinfo' => array(
@@ -88,8 +88,13 @@ return array(
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',	// TODO - Translation
 			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',	// TODO - Translation
 		),
+		'tmp' => array(
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
-			'nok' => 'Check permissions on the <em>./data/users</em> directory. The HTTP server must have write permissions',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
 			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
 		),
 		'xml' => array(

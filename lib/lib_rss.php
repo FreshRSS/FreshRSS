@@ -1,6 +1,6 @@
 <?php
-if (version_compare(PHP_VERSION, '5.6.0', '<')) {
-	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
+if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
+	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }
 
 if (!function_exists('mb_strcut')) {
@@ -15,8 +15,6 @@ if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
 }
 
-require_once LIB_PATH . DIRECTORY_SEPARATOR . 'autoload.php';
-
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -27,6 +25,33 @@ function join_path() {
 	$path_parts = func_get_args();
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
+
+//<Auto-loading>
+function classAutoloader($class) {
+	if (strpos($class, 'FreshRSS') === 0) {
+		$components = explode('_', $class);
+		switch (count($components)) {
+			case 1:
+				include(APP_PATH . '/' . $components[0] . '.php');
+				return;
+			case 2:
+				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				return;
+			case 3:	//Controllers, Exceptions
+				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				return;
+		}
+	} elseif (strpos($class, 'Minz') === 0) {
+		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'SimplePie') === 0) {
+		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'PHPMailer') === 0) {
+		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
+	}
+}
+
+spl_autoload_register('classAutoloader');
+//</Auto-loading>
 
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
@@ -144,18 +169,17 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie($attributes = array()) {
-	$system_conf = Minz_Configuration::get('system');
-	$limits = $system_conf->limits;
+	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
+	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = $system_conf->curl_options;
+	$curl_options = FreshRSS_Context::$system_conf->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
@@ -163,8 +187,14 @@ function customSimplePie($attributes = array()) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
+	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		foreach ($attributes['curl_params'] as $co => $v) {
+			$curl_options[$co] = $v;
+		}
+	}
 	$simplePie->set_curl_options($curl_options);
 
+	$simplePie->strip_comments(true);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -305,8 +335,7 @@ function listUsers() {
  * @return true if number of users >= max registrations, false else.
  */
 function max_registrations_reached() {
-	$system_conf = Minz_Configuration::get('system');
-	$limit_registrations = $system_conf->limits['max_registrations'];
+	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
 	$number_accounts = count(listUsers());
 
 	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
@@ -392,7 +421,7 @@ function check_install_php() {
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.5.0') >= 0,
+		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,

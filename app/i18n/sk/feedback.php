@@ -109,6 +109,11 @@ return array(
 		),
 		'purge_completed' => 'Čistenie ukončené. Počet vymazaných článkov: %d',
 	),
+	'tag' => array(
+		'created' => 'Tag "%s" has been created.',	// TODO - Translation
+		'name_exists' => 'Tag name already exists.',	// TODO - Translation
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+	),
 	'update' => array(
 		'can_apply' => 'FreshRSS sa teraz aktualizuje <strong>na verziu %s</strong>.',
 		'error' => 'Počas aktualizácie sa vyskytla chyba: %s',

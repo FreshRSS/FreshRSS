@@ -33,6 +33,8 @@ return array(
 			'username' => 'Identifiant HTTP',
 		),
 		'clear_cache' => 'Toujours vider le cache',
+		'css_cookie' => 'Utiliser des cookies pour la réception du contenu des articles',
+		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
 		'description' => 'Description',
@@ -61,6 +63,8 @@ return array(
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
 		),
+		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
+		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
 			'show_rendered' => 'Afficher le contenu',

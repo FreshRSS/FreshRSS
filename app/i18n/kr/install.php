@@ -33,7 +33,7 @@ return array(
 		'_' => '설치 요구사항 확인',
 		'already_installed' => 'FreshRSS가 이미 설치되어 있는 것을 감지했습니다!',
 		'cache' => array(
-			'nok' => '<em>./data/cache</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'cache 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'cURL 라이브러리가 설치되어 있습니다.',
 		),
 		'data' => array(
-			'nok' => '<em>./data</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'data 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'DOM을 다룰 수 있는 라이브러리가 설치되어 있습니다.',
 		),
 		'favicons' => array(
-			'nok' => '<em>./data/favicons</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'favicons 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'fileinfo' => array(
@@ -88,8 +88,13 @@ return array(
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
 			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
 		),
+		'tmp' => array(
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
+			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
-			'nok' => '<em>./data/users</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'users 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'xml' => array(

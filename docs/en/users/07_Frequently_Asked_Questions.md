@@ -13,7 +13,7 @@ Of course, ```/i``` has a purpose! It's used for performance and usability:
 
 To increase security, FreshRSS is hosted in two sections. The first section is public (the `./p` folder) and the second section is private (everything else). Therefore the `robots.txt` file is located in the `./p` sub-folder.
 
-As explained in the [security section](/en/User_documentation/Installation/Security), it's highly recommended to make only the public section available at the domain level. With that configuration, `./p` is the root folder for http://demo.freshrss.org/, thus making `robots.txt` available at the root of the application.
+As explained in the [security section](../admins/09_AccessControl.html), it's highly recommended to make only the public section available at the domain level. With that configuration, `./p` is the root folder for http://demo.freshrss.org/, thus making `robots.txt` available at the root of the application.
 
 The same principle applies to `favicon.ico` and `.htaccess`.
 
@@ -37,7 +37,7 @@ Since the [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) relea
 ```sh
 ./cli/update_user.php --user <username> --password <password>
 ```
-For more information on that matter, please refer to the [dedicated documentation](../../cli/README.md).
+For more information on that matter, please refer to the [dedicated documentation](https://github.com/FreshRSS/FreshRSS/blob/master/cli/README.md).
 
 ## Permissions under SELinux
 

@@ -33,10 +33,12 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 		case 500:
 			header('HTTP/1.1 500 Internal Server Error');
 			$this->view->code = 'Error 500 - Internal Server Error';
+			$this->view->errorMessage = 'Error 500 - Internal Server Error';
 			break;
 		case 503:
 			header('HTTP/1.1 503 Service Unavailable');
 			$this->view->code = 'Error 503 - Service Unavailable';
+			$this->view->errorMessage = 'Error 503 - Service Unavailable';
 			break;
 		case 404:
 		default:

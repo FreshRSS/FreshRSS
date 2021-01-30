@@ -19,8 +19,8 @@ return array(
 		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
 		'rss_of' => 'RSS feed of %s',	// TODO - Translation
-		'title' => 'RSS akışlarınız',
-		'title_fav' => 'Favorilerin',
+		'title' => 'Ana akış',
+		'title_fav' => 'Favoriler',
 		'title_global' => 'Global görünüm',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSS hakkında',
-		'add_query' => 'Sorgu ekle',
 		'before_one_day' => 'Bir gün önce',
 		'before_one_week' => 'Bir hafta önce',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Global görünüm',
 		'main_stream' => 'Ana akış',

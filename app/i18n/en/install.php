@@ -33,7 +33,7 @@ return array(
 		'_' => 'Checks',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>./data/cache</em> directory. The HTTP server must have write permission.',
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the cache directory are good.',
 		),
 		'ctype' => array(
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'You have the cURL library.',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>./data</em> directory. The HTTP server must have write permission.',
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
 		),
 		'dom' => array(
@@ -53,7 +53,7 @@ return array(
 			'ok' => 'You have the required library to browse the DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>./data/favicons</em> directory. The HTTP server must have write permission.',
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'fileinfo' => array(
@@ -88,8 +88,13 @@ return array(
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',
 		),
+		'tmp' => array(
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
+			'ok' => 'Permissions on the temp directory are good.',
+		),
+		'unknown_process_username' => 'unknown',
 		'users' => array(
-			'nok' => 'Check permissions on the <em>./data/users</em> directory. The HTTP server must have write permissions',
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the users directory are good.',
 		),
 		'xml' => array(

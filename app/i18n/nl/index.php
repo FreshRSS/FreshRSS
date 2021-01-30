@@ -19,8 +19,8 @@ return array(
 		'add' => 'U kunt wat feeds toevoegen.',
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'rss_of' => 'RSS-feed van %s',
-		'title' => 'Overzicht RSS-feeds',
-		'title_fav' => 'Uw favorieten',
+		'title' => 'Overzicht',
+		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Over FreshRSS',
-		'add_query' => 'Voeg een query toe',
 		'before_one_day' => 'Ouder dan een dag',
 		'before_one_week' => 'Ouder dan een week',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
 		'main_stream' => 'Overzicht',

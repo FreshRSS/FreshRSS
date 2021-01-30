@@ -19,8 +19,8 @@ return array(
 		'add' => 'Dodaj więcej kanałów.',
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'rss_of' => 'Kanał RSS: %s',
-		'title' => 'Subskrybowane kanały RSS',
-		'title_fav' => 'Ulubione wiadomości',
+		'title' => 'Kanał główny',
+		'title_fav' => 'Ulubione',
 		'title_global' => 'Widok globalny',
 	),
 	'log' => array(
@@ -31,9 +31,9 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O serwisie FreshRSS',
-		'add_query' => 'Zapisz wyszukiwanie',
 		'before_one_day' => 'Starsze niż dzień',
 		'before_one_week' => 'Starsze niż tydzień',
+		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Ulubione (%s)',
 		'global_view' => 'Widok globalny',
 		'main_stream' => 'Kanał główny',

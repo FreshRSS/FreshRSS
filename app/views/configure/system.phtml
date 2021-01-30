@@ -38,23 +38,21 @@
 			</div>
 		</div>
 
-		<?php if ($this->can_enable_email_validation) { ?>
-			<div class="form-group">
-				<div class="group-controls">
-					<label class="checkbox" for="force-email-validation">
-						<input
-							type="checkbox"
-							name="force-email-validation"
-							id="force-email-validation"
-							value="1"
-							<?= FreshRSS_Context::$system_conf->force_email_validation ? 'checked="checked"' : '' ?>
-							data-leave-validation="<?= FreshRSS_Context::$system_conf->force_email_validation ?>"
-						/>
-						<?= _t('admin.system.force_email_validation') ?>
-					</label>
-				</div>
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="force-email-validation">
+					<input
+						type="checkbox"
+						name="force-email-validation"
+						id="force-email-validation"
+						value="1"
+						<?= FreshRSS_Context::$system_conf->force_email_validation ? 'checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$system_conf->force_email_validation ?>"
+					/>
+					<?= _t('admin.system.force_email_validation') ?>
+				</label>
 			</div>
-		<?php } ?>
+		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="max-feeds"><?= _t('admin.system.max-feeds') ?></label>

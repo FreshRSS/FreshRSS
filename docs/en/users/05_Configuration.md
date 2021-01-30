@@ -66,11 +66,27 @@ If you don't use those buttons because you never browse on mobile or because you
 
 # Reading
 
-**TODO**
+## Number of articles per page
+
+This setting defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the list. 
+
+## Articles to display
+
+The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show. 
+
+## Use "lazy load" mode to load images
+
+This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
 # Archival
 
-**TODO**
+## Archiving
+
+These are the global options for fetching and retaining articles from feeds. They can be overwridden by individual feed's settings.
+
+## Maintenance 
+
+This allows for purging/optimizing the current user's articles in the database. 
 
 # Sharing
 
@@ -92,6 +108,8 @@ To remove an item from the list, follow those simple steps:
 
  1. Press the ```❌``` button next to the share method you want to remove.
  1. Submit your changes.
+
+
 
 # Shortcuts
 
@@ -122,6 +140,14 @@ You can only change user query titles or drop them.
 
 At the moment, there is no helper to build a user query from here.
 
+# Profile
+
+You can change your email address or password here. The authentication token is required for accessing the aggregated RSS feed for a user. A blank token will disable accessing the RSS feed without being logged in. 
+
+# Extensions
+
+Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it. 
+
 # Users
 
 **TODO**
@@ -145,46 +171,3 @@ Require user marie
 
 More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
 
-# Subscription management
-
-## Information
-
-**TODO**
-
-## Archival
-
-**TODO**
-
-## Login
-
-**TODO**
-
-## Advanced
-
-### Retrieve a truncated stream from within FreshRSS
-
-This question comes up regularly, so we'll try to clarify how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not user friendly, but it works. :)
-
-Please be aware that this way you'll generate much more traffic to the originating sites, and they might block you accordingly. FreshRSS performance is also negatively affected, because you'll have to fetch the full article content one by one. So it's a feature to use sparingly!
-
-What's meant by "CSS path of articles on the original site" actually corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page).
-
-#### Example: Rue89
-
-To find this path, you have to go to the address of one of the truncated articles (for example, http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
-
-Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We'll only use the `.content` class here. Nevertheless, as said above, it's best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
-
-#### Add the corresponding classes to the article CSS path on the feed configuration page. Examples:
-
-*  Rue89: ```#article .content```
-*  PCINpact: ```#actu_content```
-*  Lesnumériques: ```article#body div.text.clearfix```
-*  Phoronix: ```#main .content```
-
-### Retrieve a truncated stream with external tools
-
-Complimentary tools can be used to retrieve full article content, such as:
-
-* [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
-* [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)
