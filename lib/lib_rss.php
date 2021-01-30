@@ -580,9 +580,13 @@ function validateShortcutList($shortcuts) {
 }
 
 function errorMessage($errorTitle, $error = '') {
-	$message=<<<MSG
+	// Prevent empty <h2> tags by checking if error isn't empty first
+	if ('' !== $error) {
+		$error = "<h2>{$error}</h2>";
+	}
+	return <<<MSG
 	<h1>{$errorTitle}</h1>
-	<h2>{$error}<h2>
+	{$error}
 	<pre>
 	See log files for the feed update service "journalctl -xeu freshrss".
 	If you do not use a service to update the feeds, run the script manually "/usr/sbin/php /usr/share/webapps/freshrss/app/actualize_script.php".
@@ -591,5 +595,4 @@ function errorMessage($errorTitle, $error = '') {
 	</pre>
 	<b>Note</b>: Change paths and service names as necessary depending on where and what things are installed. Additional logs may be in "/var/log".
 	MSG;
-	echo($message);
 }

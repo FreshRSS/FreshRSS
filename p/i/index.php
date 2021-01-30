@@ -77,7 +77,7 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 
 	if ($error) {
 		Minz_Log::error($error);
-		errorMessage ("Fatal error");
+		errorMessage ('Fatal error');
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 	}
 }
