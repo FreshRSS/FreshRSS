@@ -578,3 +578,18 @@ function validateShortcutList($shortcuts) {
 	}
 	return $shortcuts_ok;
 }
+
+function errorMessage($errorTitle, $error = '') {
+	$message=<<<MSG
+	<h1>{$errorTitle}</h1>
+	<h2>{$error}<h2>
+	<pre>
+	See log files for the feed update service "journalctl -xeu freshrss".
+	If you do not use a service to update the feeds, run the script manually "/usr/sbin/php /usr/share/webapps/freshrss/app/actualize_script.php".
+	If you get no hints from there, see logs for your webserver i.e. "journalctl -xeu nginx".
+	If you are using php-fpm, also check logs for it "journalctl -xeu php-fpm".
+	</pre>
+	<b>Note</b>: Change paths and service names as necessary depending on where and what things are installed. Additional logs may be in "/var/log".
+	MSG;
+	echo($message);
+}

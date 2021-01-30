@@ -106,14 +106,10 @@ class Minz_FrontController {
 	*/
 	private function killApp ($txt = '') {
 		if ($txt == '') {
-			$txt = '
-			See log files for the feed update service "journalctl -xeu freshrss".<br>
-			If you do not use a service to update the feeds, run the script manually "/usr/sbin/php /usr/share/webapps/freshrss/app/actualize_script.php".<br>
-			If you get no hints from there, see logs for your webserver i.e. "journalctl -xeu nginx".<br>
-			If you are using php-fpm, also check logs for it "journalctl -xeu php-fpm".<br>
-			Note: Change paths and service names as necessary depending on where and what things are installed. Additional logs may be in "/var/log".';
+			exit (errorMessage ("Application problem") );
+		} else {
+			exit (errorMessage ("Application problem", $txt) );
 		}
-		exit ('### Application problem ###<br />'."\n".$txt);
 	}
 
 	private function setReporting() {
