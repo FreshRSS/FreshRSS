@@ -1803,7 +1803,7 @@ class SimplePie_Item
 							}
 							if (!empty($content['attribs']['']['fileSize']))
 							{
-								$length = ceil(intval($content['attribs']['']['fileSize']));
+								$length = intval($content['attribs']['']['fileSize']);
 							}
 							if (!empty($content['attribs']['']['medium']))
 							{
@@ -2425,7 +2425,7 @@ class SimplePie_Item
 						}
 						if (!empty($content['attribs']['']['fileSize']))
 						{
-							$length = ceil(intval($content['attribs']['']['fileSize']));
+							$length = intval($content['attribs']['']['fileSize']);
 						}
 						if (!empty($content['attribs']['']['medium']))
 						{
@@ -2790,7 +2790,7 @@ class SimplePie_Item
 					}
 					if (!empty($link['attribs']['']['length']))
 					{
-						$length = ceil(intval($link['attribs']['']['length']));
+						$length = intval($link['attribs']['']['length']);
 					}
 					if (!empty($link['attribs']['']['title']))
 					{
@@ -2833,7 +2833,7 @@ class SimplePie_Item
 					}
 					if (!empty($link['attribs']['']['length']))
 					{
-						$length = ceil(intval($link['attribs']['']['length']));
+						$length = intval($link['attribs']['']['length']);
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
@@ -2868,7 +2868,7 @@ class SimplePie_Item
 					}
 					if (!empty($enclosure[0]['attribs']['']['length']))
 					{
-						$length = ceil(intval($enclosure[0]['attribs']['']['length']));
+						$length = intval($enclosure[0]['attribs']['']['length']);
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
