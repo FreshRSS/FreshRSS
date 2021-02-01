@@ -300,6 +300,9 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
+* the `getUserConfiguration` method retrieves the extension configuration for the current user.
+* the `setUserConfiguration` method stores the extension configuration for the current user.
+* the `removeUserConfiguration` method removes the extension configuration for the current user.
 
 > Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it's highly recommended to let those unmodified.
 

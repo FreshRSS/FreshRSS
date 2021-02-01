@@ -141,6 +141,15 @@ class Minz_Configuration {
 	}
 
 	/**
+	 * Check if a parameter is defined in the configuration
+	 *
+	 * @return bool
+	 */
+	public function hasParam(string $key) {
+		return isset($this->data[$key]);
+	}
+
+	/**
 	 * Return the value of the given param.
 	 *
 	 * @param $key the name of the param.
