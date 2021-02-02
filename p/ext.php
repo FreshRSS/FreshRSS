@@ -13,6 +13,28 @@ const SUPPORTED_TYPES = [
 	'svg' => 'image/svg+xml',
 ];
 
+/**
+ * @return string
+ */
+function get_absolute_filename(string $file_name) {
+	$core_extension = realpath(CORE_EXTENSIONS_PATH . '/' . $file_name);
+	if (false !== $core_extension) {
+		return $core_extension;
+	}
+
+	$extension = realpath(EXTENSIONS_PATH . '/' . $file_name);
+	if (false !== $extension) {
+		return $extension;
+	}
+
+	$third_party_extension = realpath(THIRDPARTY_EXTENSIONS_PATH . '/' . $file_name);
+	if (false !== $third_party_extension) {
+		return $third_party_extension;
+	}
+
+	return '';
+}
+
 function is_valid_path_extension($path, $extensionPath) {
 	// It must be under the extension path.
 	$real_ext_path = realpath($extensionPath);
@@ -71,7 +93,7 @@ if (empty(SUPPORTED_TYPES[$file_type])) {
 	sendBadRequestResponse('File type is not supported.');
 }
 
-$absolute_filename = realpath(EXTENSIONS_PATH . '/' . $file_name);
+$absolute_filename = get_absolute_filename($file_name);
 if (!is_valid_path($absolute_filename)) {
 	sendBadRequestResponse('File is not supported.');
 }
