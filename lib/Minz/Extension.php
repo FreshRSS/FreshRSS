@@ -240,7 +240,7 @@ abstract class Minz_Extension {
 		if (!$this->isUserConfigurationEnabled()) {
 			return;
 		}
-		if ($this->isExtensionConfigured()) {
+		if (FreshRSS_Context::$user_conf->hasParam($this->config_key)) {
 			$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
 		} else {
 			$extensions = [];
