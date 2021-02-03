@@ -1,14 +1,14 @@
 # Writing a new theme
 
-**Note: Currently personal themes are not officially supported and may be overwritten when updating. Be sure to keep backups! It is currently recommended to create the theme as an extension for persistence through updates.**
+**Note: Currently personal themes are not officially supported and may be overwritten when updating. Be sure to keep backups!**
+
+**As of writing (02-02-2021), support for themes as extensions is under development.**
 
 The easiest way to create a theme is by copying and modifying the base theme (or another of the pre-installed themes). The base theme can be found in [/p/themes/base-theme](https://github.com/FreshRSS/FreshRSS/tree/master/p/themes/base-theme). Themes require:
 - a **metadata.json** file to describe the theme.
 - a **loader.gif** file to use as a loading icon (assuming .loading's background has not been overridden)
 - an **icons** folder containing .svg, .ico, and .png files to override existing icons
 - a **thumbs** folder containing a file, **original.png** that will be used as the preview for the theme
-
-
 
 "_template.css" is normally added to the metadata file as a fallback for missing aspects. The file is taken from the base theme. If submitting a pull request for a theme, please know that [pull request themes must include this file.](https://github.com/FreshRSS/FreshRSS/pull/2938#issuecomment-624085450)
 
