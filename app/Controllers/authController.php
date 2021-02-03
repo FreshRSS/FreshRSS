@@ -123,6 +123,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
 
+			usleep(rand(100, 10000));	//Primitive mitigation of timing attacks, in μs
+
 			FreshRSS_Context::initUser($username);
 			if (FreshRSS_Context::$user_conf == null) {
 				//We do not test here whether the user exists, so most likely an internal error.
@@ -130,7 +132,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
-			if (!FreshRSS_Context::$user_conf->enabled) {
+			if (!FreshRSS_Context::$user_conf->enabled || FreshRSS_Context::$user_conf->passwordHash == '') {
+				usleep(rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
 				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 				return;
 			}

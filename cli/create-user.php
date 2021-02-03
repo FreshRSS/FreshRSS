@@ -11,7 +11,7 @@ if (!FreshRSS_user_Controller::checkUsername($username)) {
 
 $usernames = listUsers();
 if (preg_grep("/^$username$/i", $usernames)) {
-	fail('FreshRSS error: username already taken “' . $username . '”');
+	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
 }
 
 echo 'FreshRSS creating user “', $username, "”…\n";
@@ -38,7 +38,7 @@ if (!empty($options['api_password'])) {
 
 invalidateHttpCache(FreshRSS_Context::$system_conf->default_user);
 
-echo '• Remember to refresh the feeds of the user: ', $username , "\n",
+echo 'ℹ️ Remember to refresh the feeds of the user: ', $username ,
 	"\t", './cli/actualize-user.php --user ', $username, "\n";
 
 accessRights();

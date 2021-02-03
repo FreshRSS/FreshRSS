@@ -18,6 +18,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'hex(' . $x . ')';
 	}
 
+	public function sqlIgnoreConflict($sql) {
+		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
+	}
+
 	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function createEntryTempTable() {
 		$ok = false;
@@ -83,14 +87,15 @@ SQL;
 
 	public function addEntry($valuesTmp, $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
-			$sql = 'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
+			$sql = $this->sqlIgnoreConflict(
+				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. ($this->isCompressed() ? 'content_bin' : 'content')
 				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
 				. $this->sqlHexDecode(':hash')
-				. ', :is_read, :is_favorite, :id_feed, :tags)';
+				. ', :is_read, :is_favorite, :id_feed, :tags)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared) {
@@ -158,7 +163,7 @@ SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `last
 FROM `_entrytmp`
 ORDER BY date;
 
-DELETE FROM `_entrytmp` WHERE id <= @rank;';
+DELETE FROM `_entrytmp` WHERE id <= @rank;
 SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {

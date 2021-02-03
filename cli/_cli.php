@@ -3,6 +3,7 @@ if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
 
+const EXIT_CODE_ALREADY_EXISTS = 3;
 const REGEX_INPUT_OPTIONS = '/^--/';
 const REGEX_PARAM_OPTIONS = '/:*$/';
 
@@ -16,9 +17,9 @@ Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
 
-function fail($message) {
+function fail($message, $exitCode = 1) {
 	fwrite(STDERR, $message . "\n");
-	die(1);
+	die($exitCode);
 }
 
 function cliInitUser($username) {
@@ -39,12 +40,14 @@ function cliInitUser($username) {
 }
 
 function accessRights() {
-	echo '• Remember to re-apply the appropriate access rights, such as:' , "\n",
+	echo 'ℹ️ Remember to re-apply the appropriate access rights, such as:',
 		"\t", 'sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/', "\n";
 }
 
 function done($ok = true) {
-	fwrite(STDERR, 'Result: ' . ($ok ? 'success' : 'fail') . "\n");
+	if (!$ok) {
+		fwrite(STDERR, (empty($_SERVER['argv'][0]) ? 'Process' : basename($_SERVER['argv'][0])) . ' failed!' . "\n");
+	}
 	exit($ok ? 0 : 1);
 }
 

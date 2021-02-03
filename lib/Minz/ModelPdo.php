@@ -21,6 +21,52 @@ class Minz_ModelPdo {
 	protected $pdo;
 	protected $current_user;
 
+	private function dbConnect() {
+		$db = Minz_Configuration::get('system')->db;
+		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
+		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_SILENT;
+		$dbServer = parse_url('db://' . $db['host']);
+		$dsn = '';
+		$dsnParams = empty($db['connection_uri_params']) ? '' : (';' . $db['connection_uri_params']);
+
+		switch ($db['type']) {
+			case 'mysql':
+				$dsn = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';charset=utf8mb4';
+				if (!empty($db['base'])) {
+					$dsn .= ';dbname=' . $db['base'];
+				}
+				if (!empty($dbServer['port'])) {
+					$dsn .= ';port=' . $dbServer['port'];
+				}
+				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
+				$this->pdo = new Minz_PdoMysql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+				$this->pdo->setPrefix($db['prefix'] . $this->current_user . '_');
+				break;
+			case 'sqlite':
+				$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite');
+				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+				$this->pdo->setPrefix('');
+				break;
+			case 'pgsql':
+				$dsn = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']);
+				if (!empty($db['base'])) {
+					$dsn .= ';dbname=' . $db['base'];
+				}
+				if (!empty($dbServer['port'])) {
+					$dsn .= ';port=' . $dbServer['port'];
+				}
+				$this->pdo = new Minz_PdoPgsql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+				$this->pdo->setPrefix($db['prefix'] . $this->current_user . '_');
+				break;
+			default:
+				throw new Minz_PDOConnectionException(
+					'Invalid database type!',
+					$db['user'], Minz_Exception::ERROR
+				);
+		}
+		self::$sharedPdo = $this->pdo;
+	}
+
 	/**
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
@@ -45,57 +91,28 @@ class Minz_ModelPdo {
 		$this->current_user = $currentUser;
 		self::$sharedCurrentUser = $currentUser;
 
-		$conf = Minz_Configuration::get('system');
-		$db = $conf->db;
-
-		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
-		$dbServer = parse_url('db://' . $db['host']);
-		$dsn = '';
-		$dsnParams = empty($db['connection_uri_params']) ? '' : (';' . $db['connection_uri_params']);
-
-		try {
-			switch ($db['type']) {
-				case 'mysql':
-					$dsn = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';charset=utf8mb4';
-					if (!empty($db['base'])) {
-						$dsn .= ';dbname=' . $db['base'];
-					}
-					if (!empty($dbServer['port'])) {
-						$dsn .= ';port=' . $dbServer['port'];
-					}
-					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
-					$this->pdo = new Minz_PdoMysql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
-					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
+		$ex = null;
+		//Attempt a few times to connect to database
+		for ($attempt = 1; $attempt <= 5; $attempt++) {
+			try {
+				$this->dbConnect();
+				return;
+			} catch (PDOException $e) {
+				$ex = $e;
+				if (empty($e->errorInfo[0]) || $e->errorInfo[0] !== '08006') {
+					//We are only only interested in: SQLSTATE connection exception / connection failure
 					break;
-				case 'sqlite':
-					$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
-					$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
-					$this->pdo->setPrefix('');
-					break;
-				case 'pgsql':
-					$dsn = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']);
-					if (!empty($db['base'])) {
-						$dsn .= ';dbname=' . $db['base'];
-					}
-					if (!empty($dbServer['port'])) {
-						$dsn .= ';port=' . $dbServer['port'];
-					}
-					$this->pdo = new Minz_PdoPgsql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
-					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
-					break;
-				default:
-					throw new Minz_PDOConnectionException(
-						'Invalid database type!',
-						$db['user'], Minz_Exception::ERROR
-					);
+				}
 			}
-			self::$sharedPdo = $this->pdo;
-		} catch (Exception $e) {
-			throw new Minz_PDOConnectionException(
-				$e->getMessage(),
+			sleep(2);
+		}
+
+		$db = Minz_Configuration::get('system')->db;
+
+		throw new Minz_PDOConnectionException(
+				$ex->getMessage(),
 				$db['user'], Minz_Exception::ERROR
 			);
-		}
 	}
 
 	public function beginTransaction() {

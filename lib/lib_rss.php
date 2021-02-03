@@ -1,6 +1,6 @@
 <?php
-if (version_compare(PHP_VERSION, '5.6.0', '<')) {
-	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
+if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
+	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }
 
 if (!function_exists('mb_strcut')) {
@@ -185,6 +185,11 @@ function customSimplePie($attributes = array()) {
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
 		if (!$attributes['ssl_verify']) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+		}
+	}
+	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		foreach ($attributes['curl_params'] as $co => $v) {
+			$curl_options[$co] = $v;
 		}
 	}
 	$simplePie->set_curl_options($curl_options);
@@ -416,7 +421,7 @@ function check_install_php() {
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.5.0') >= 0,
+		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,

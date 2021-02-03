@@ -92,6 +92,7 @@ return array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
 		),
+		'unknown_process_username' => 'unknown',	// TODO - Translation
 		'users' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'users 目录权限正常',
