@@ -14,7 +14,7 @@ The easiest way to create a theme is by copying and modifying the base theme (or
 
 ## RTL Support
 
-RTL (right-to-left) support for languages such as Hebrew and Arabic is handled automatically through CSSJanus. There should be no extra work required when developing the theme.
+RTL (right-to-left) support for languages such as Hebrew and Arabic is handled through CSSJanus. To generate an RTL CSS file from your standard file, use `make rtl`. Be sure to commit the resulting file (filename.rtl.css).
 
 # Overriding icons
 
