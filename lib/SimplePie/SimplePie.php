@@ -1424,7 +1424,7 @@ class SimplePie
 			// Fetch the data via SimplePie_File into $this->raw_data
 			if (($fetched = $this->fetch_data($cache)) === true)
 			{
-				return $this->data['mtime'];
+				return empty($this->data['mtime']) ? false : $this->data['mtime'];
 			}
 			elseif ($fetched === false) {
 				return false;
