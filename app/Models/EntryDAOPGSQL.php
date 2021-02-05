@@ -14,6 +14,10 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		return 'encode(' . $x . ", 'hex')";
 	}
 
+	public function sqlIgnoreConflict($sql) {
+		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
+	}
+
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
@@ -33,6 +37,7 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	public function commitNewEntries() {
+		//TODO: Update to PostgreSQL 9.5+ syntax with ON CONFLICT DO NOTHING
 		$sql = 'DO $$
 DECLARE
 maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);

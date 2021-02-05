@@ -14,6 +14,10 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return $x;
 	}
 
+	public function sqlIgnoreConflict($sql) {
+		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
+	}
+
 	protected function autoUpdateDb($errorInfo) {
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
