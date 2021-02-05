@@ -201,7 +201,7 @@ function libopml_parse_string($xml, $strict = true) {
 
 	if (!$at_least_one_outline) {
 		throw new LibOPML_Exception(
-			'Body must contain at least one outline element'
+			'OPML body must contain at least one outline element'
 		);
 	}
 
