@@ -68,7 +68,7 @@ function checkRequirements($dbType = '') {
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
-		'message' => $message ?: 'ok',
+		'message' => $message ?: '',
 		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
 		         $data && $cache && $tmp && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
 	);
