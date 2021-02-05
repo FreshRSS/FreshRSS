@@ -54,13 +54,13 @@ function done($ok = true) {
 function performRequirementCheck($databaseType) {
 	$requirements = checkRequirements($databaseType);
 	if ($requirements['all'] !== 'ok') {
-		$message = 'FreshRSS install failed requirements:' . "\n";
+		$message = 'FreshRSS failed requirements:' . "\n";
 		foreach ($requirements as $requirement => $check) {
 			if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
 				$message .= '• ' . $requirement . "\n";
 			}
 		}
-		if (!empty($requirements['message'])) {
+		if (!empty($requirements['message']) && $requirements['message'] !== 'ok') {
 			$message .= '• ' . $requirements['message'] . "\n";
 		}
 		fail($message);
