@@ -1,0 +1,8 @@
+{
+	"name": "Ansum",
+	"author": "Thomas Guesnon",
+	"description": "Thème sablonneux",
+	"version": "0.1",
+	"entrypoint": "AnsumTheme",
+	"type": "user"
+}

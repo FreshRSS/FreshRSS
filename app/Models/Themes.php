@@ -1,124 +1,108 @@
 <?php
 
 class FreshRSS_Themes extends Minz_Model {
-	private static $themesUrl = '/themes/';
-	private static $defaultIconsUrl = '/themes/icons/';
 	public static $defaultTheme = 'Origine';
+	private static $alts = [
+		'add' => '✚',
+		'add-white' => '✚',
+		'all' => '☰',
+		'bookmark' => '★',
+		'bookmark-add' => '✚',
+		'category' => '☷',
+		'category-white' => '☷',
+		'close' => '❌',
+		'configure' => '⚙',
+		'down' => '▽',
+		'favorite' => '★',
+		'help' => 'ⓘ',
+		'icon' => '⊚',
+		'import' => '⤓',
+		'key' => '⚿',
+		'label' => '🏷️',
+		'link' => '↗',
+		'login' => '🔒',
+		'logout' => '🔓',
+		'look' => '👁',
+		'next' => '⏩',
+		'non-starred' => '☆',
+		'prev' => '⏪',
+		'read' => '☑',
+		'refresh' => '🔃',	//↻
+		'rss' => '☄',
+		'search' => '🔍',
+		'share' => '♺',
+		'starred' => '★',
+		'stats' => '%',
+		'tag' => '⚐',
+		'unread' => '☐',
+		'up' => '△',
+		'view-global' => '☷',
+		'view-normal' => '☰',
+		'view-reader' => '☕',
+	];
+	private static $iconPaths = [];
 
-	public static function getList() {
-		return array_values(array_diff(
-			scandir(PUBLIC_PATH . self::$themesUrl),
-			array('..', '.')
-		));
-	}
-
+	/**
+	 * @return array of Minz_ThemeExtension
+	 */
 	public static function get() {
-		$themes_list = self::getList();
-		$list = array();
-		foreach ($themes_list as $theme_dir) {
-			$theme = self::get_infos($theme_dir);
-			if ($theme) {
-				$list[$theme_dir] = $theme;
-			}
+		$themes = Minz_ExtensionManager::listThemes(true);
+		ksort($themes);
+
+		return $themes;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public static function isAvailable(string $theme) {
+		$themes = Minz_ExtensionManager::listThemes(true);
+		return array_key_exists($theme, $themes);
+	}
+
+	public static function load(string $theme) {
+		if (null === $theme = Minz_ExtensionManager::findExtension($theme)) {
+			return;
 		}
-		return $list;
-	}
 
-	public static function get_infos($theme_id) {
-		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
-		if (is_dir($theme_dir)) {
-			$json_filename = $theme_dir . '/metadata.json';
-			if (file_exists($json_filename)) {
-				$content = file_get_contents($json_filename);
-				$res = json_decode($content, true);
-				if ($res &&
-						!empty($res['name']) &&
-						isset($res['files']) &&
-						is_array($res['files'])) {
-					$res['id'] = $theme_id;
-					return $res;
-				}
-			}
+		foreach (self::$alts as $key => $value) {
+			self::$iconPaths[$key] = Minz_Url::display("/themes/icons/{$key}.svg");
 		}
-		return false;
-	}
-
-	private static $themeIconsUrl;
-	private static $themeIcons;
-
-	public static function load($theme_id) {
-		$infos = self::get_infos($theme_id);
-		if (!$infos) {
-			if ($theme_id !== self::$defaultTheme) {	//Fall-back to default theme
-				return self::load(self::$defaultTheme);
-			}
-			$themes_list = self::getList();
-			if (!empty($themes_list)) {
-				if ($theme_id !== $themes_list[0]) {	//Fall-back to first theme
-					return self::load($themes_list[0]);
-				}
-			}
-			return false;
+		foreach ($theme->getIconFiles() as $key => $value) {
+			self::$iconPaths[$key] = $value;
 		}
-		self::$themeIconsUrl = self::$themesUrl . $theme_id . '/icons/';
-		self::$themeIcons = is_dir(PUBLIC_PATH . self::$themeIconsUrl) ? array_fill_keys(array_diff(
-			scandir(PUBLIC_PATH . self::$themeIconsUrl),
-			array('..', '.')
-		), 1) : array();
-		return $infos;
+
+		return $theme;
 	}
 
-	public static function alt($name) {
-		static $alts = array(
-			'add' => '✚',
-			'add-white' => '✚',
-			'all' => '☰',
-			'bookmark' => '★',
-			'bookmark-add' => '✚',
-			'category' => '☷',
-			'category-white' => '☷',
-			'close' => '❌',
-			'configure' => '⚙',
-			'down' => '▽',
-			'favorite' => '★',
-			'help' => 'ⓘ',
-			'icon' => '⊚',
-			'import' => '⤓',
-			'key' => '⚿',
-			'label' => '🏷️',
-			'link' => '↗',
-			'look' => '👁',
-			'login' => '🔒',
-			'logout' => '🔓',
-			'next' => '⏩',
-			'non-starred' => '☆',
-			'prev' => '⏪',
-			'read' => '☑',
-			'rss' => '☄',
-			'unread' => '☐',
-			'refresh' => '🔃',	//↻
-			'search' => '🔍',
-			'share' => '♺',
-			'starred' => '★',
-			'stats' => '%',
-			'tag' => '⚐',
-			'up' => '△',
-			'view-normal' => '☰',
-			'view-global' => '☷',
-			'view-reader' => '☕',
-		);
-		return isset($name) ? $alts[$name] : '';
+	/**
+	 * @return string
+	 */
+	public static function alt(string $name) {
+		return isset($name) ? self::$alts[$name] : '';
 	}
 
-	public static function icon($name, $urlOnly = false, $altOnly = false) {
-		$alt = self::alt($name);
-		if ($alt == '') {
+	/**
+	 * @return bool
+	 */
+	private static function isIconSupported(string $iconName) {
+		return array_key_exists($iconName, self::$alts);
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function icon(string $name, $urlOnly = false, $altOnly = false) {
+		if (!self::isIconSupported($name)) {
 			return '';
 		}
 
-		$url = $name . '.svg';
-		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
+		$url = self::$iconPaths[$name];
+		if ($urlOnly) {
+			return $url;
+		}
 
-		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alt . '" />';
+		$altValue = self::$alts[$name];
+		return "<img class=\"icon\" src=\"{$url}\" alt=\"{$altValue}\" />";
 	}
 }

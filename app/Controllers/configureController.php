@@ -68,6 +68,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
+		$this->view->theme_available = FreshRSS_Themes::isAvailable(FreshRSS_Context::$user_conf->theme);
 
 		Minz_View::prependTitle(_t('conf.display.title') . ' · ');
 	}

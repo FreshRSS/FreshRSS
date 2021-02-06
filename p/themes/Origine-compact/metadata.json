@@ -1,7 +1,0 @@
-{
-  "name": "Origine-compact",
-  "author": "Kevin Papst",
-  "description": "A theme that tries to use the screen size more efficiently, based on Origine",
-  "version": 0.1,
-  "files": ["_template.css", "origine-compact.css"]
-}

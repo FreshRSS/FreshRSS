@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
+		'themes_are_extensions' => 'Themes are now extensions and need to be enabled. You have selected the <em>%s</em> theme but it is not enabled at the moment. You can enable it <a href="%s">here</a>.',	// TODO - Translation
 		'title' => 'Opmaak',
 		'width' => array(
 			'content' => 'Inhoud breedte',

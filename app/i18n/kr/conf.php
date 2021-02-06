@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'theme' => '테마',
+		'themes_are_extensions' => 'Themes are now extensions and need to be enabled. You have selected the <em>%s</em> theme but it is not enabled at the moment. You can enable it <a href="%s">here</a>.',	// TODO - Translation
 		'title' => '표시',
 		'width' => array(
 			'content' => '내용 표시 너비',
