@@ -27,7 +27,7 @@ class FreshRSS_Export_Service {
 	public function __construct($username) {
 		$this->username = $username;
 
-		$this->category_dao = new FreshRSS_CategoryDAO($username);
+		$this->category_dao = FreshRSS_Factory::createCategoryDao($username);
 		$this->feed_dao = FreshRSS_Factory::createFeedDao($username);
 		$this->entry_dao = FreshRSS_Factory::createEntryDao($username);
 		$this->tag_dao = FreshRSS_Factory::createTagDao();

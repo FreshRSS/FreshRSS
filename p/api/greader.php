@@ -270,6 +270,29 @@ function tagList() {
 	exit();
 }
 
+function subscriptionExport() {
+	$user = Minz_Session::param('currentUser', '_');
+	$export_service = new FreshRSS_Export_Service($user);
+	list($filename, $content) = $export_service->generateOpml();
+	header('Content-Type: application/xml; charset=UTF-8');
+	header('Content-disposition: attachment; filename="' . $filename . '"');
+	echo $content;
+	exit();
+}
+
+function subscriptionImport($opml) {
+	$user = Minz_Session::param('currentUser', '_');
+	$importService = new FreshRSS_Import_Service($user);
+	$ok = $importService->importOpml($opml);
+	if ($ok) {
+		list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
+		invalidateHttpCache($user);
+		exit('OK');
+	} else {
+		badRequest();
+	}
+}
+
 function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
@@ -1042,6 +1065,14 @@ if ($pathInfos[1] === 'accounts') {
 		case 'subscription':
 			if (isset($pathInfos[5])) {
 				switch ($pathInfos[5]) {
+					case 'export':
+						subscriptionExport();
+						break;
+					case 'import':
+						if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $ORIGINAL_INPUT != '') {
+							subscriptionImport($ORIGINAL_INPUT);
+						}
+						break;
 					case 'list':
 						$output = isset($_GET['output']) ? $_GET['output'] : '';
 						if ($output !== 'json') notImplemented();
