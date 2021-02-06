@@ -396,6 +396,7 @@ function printStep1() {
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
 	<?php
+	$version = curl_version();
 	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
 	printStep1Template('pdo', $res['pdo']);
 	printStep1Template('curl', $res['curl'], [$version['version']]);
