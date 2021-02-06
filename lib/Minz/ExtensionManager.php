@@ -257,6 +257,14 @@ class Minz_ExtensionManager {
 		}
 	}
 
+	public static function listThemes($only_enabled = false) {
+		$extensions = $only_enabled ? self::$ext_list_enabled : self::$ext_list;
+
+		return array_filter($extensions, function ($extension) {
+			return $extension instanceof Minz_ThemeExtension;
+		});
+	}
+
 	/**
 	 * Return an extension by its name.
 	 *

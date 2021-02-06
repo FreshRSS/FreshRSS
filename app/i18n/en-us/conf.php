@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
 		'theme' => 'Theme',
+		'themes_are_extensions' => 'Themes are now extensions and need to be enabled. You have selected the <em>%s</em> theme but it is not enabled at the moment. You can enable it <a href="%s">here</a>.',
 		'title' => 'Display',
 		'width' => array(
 			'content' => 'Content width',

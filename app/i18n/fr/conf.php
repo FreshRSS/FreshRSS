@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'theme' => 'Thème',
+		'themes_are_extensions' => 'Les thèmes sont maintenant des extensions et doivent être activés. Vous avez sélectionné le thème <em>%s</em> mais il n’est pas activé pour le moment. Vous pouvez l’activer <a href="%s">ici</a>.',
 		'title' => 'Affichage',
 		'width' => array(
 			'content' => 'Largeur du contenu',

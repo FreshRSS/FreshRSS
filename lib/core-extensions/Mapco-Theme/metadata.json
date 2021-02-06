@@ -1,0 +1,8 @@
+{
+	"name": "Mapco",
+	"author": "Thomas Guesnon",
+	"description": "Thème pour FreshRSS",
+	"version": "0.1",
+	"entrypoint": "MapcoTheme",
+	"type": "user"
+}

@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
 		'theme' => 'Vzhľad',
+		'themes_are_extensions' => 'Themes are now extensions and need to be enabled. You have selected the <em>%s</em> theme but it is not enabled at the moment. You can enable it <a href="%s">here</a>.',	// TODO - Translation
 		'title' => 'Zobraziť',
 		'width' => array(
 			'content' => 'Šírka obsahu',

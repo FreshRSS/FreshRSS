@@ -19,16 +19,22 @@
 			</div>
 		</div>
 
+		<?php if (!$this->theme_available): ?>
+			<p class="alert alert-warn">
+				<?= _t('conf.display.themes_are_extensions', FreshRSS_Context::$user_conf->theme, _url('extension', 'index')) ?>
+			</p>
+		<?php endif ?>
+
 		<div class="form-group">
 			<label class="group-name" for="theme"><?= _t('conf.display.theme') ?></label>
 			<div class="group-controls">
 				<ul class="slides">
 					<?php $slides = count($this->themes); $i = 1; ?>
 					<?php foreach($this->themes as $theme) { ?>
-						<input type="radio" name="theme" id="img-<?= $i ?>" <?php if (FreshRSS_Context::$user_conf->theme === $theme['id']) {echo "checked";}?> value="<?= $theme['id'] ?>" data-leave-validation="<?= (FreshRSS_Context::$user_conf->theme === $theme['id']) ? 1 : 0 ?>"/>
+						<input type="radio" name="theme" id="img-<?= $i ?>" <?php if (FreshRSS_Context::$user_conf->theme === $theme->getName() || (!$this->theme_available && 1 === $i)) {echo "checked";}?> value="<?= $theme->getName() ?>" data-leave-validation="<?= (FreshRSS_Context::$user_conf->theme === $theme->getName()) ? 1 : 0 ?>"/>
 						<li class="slide-container">
 							<div class="slide">
-								<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>"/>
+								<img src="<?= $theme->getThumbnailUrl() ?>"/>
 							</div>
 							<div class="nav">
 								<?php if ($i !== 1) {?>
@@ -39,8 +45,8 @@
 								<?php } ?>
 							</div>
 							<div class="properties">
-								<div><?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?></div>
-								<div><?= $theme['description'] ?></div>
+								<div><?= sprintf('%s — %s %s', $theme->getName(), _t('gen.short.by_author'), $theme->getAuthor()) ?></div>
+								<div><?= $theme->getDescription() ?></div>
 								<div class="page-number"><?= sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
 						</li>
