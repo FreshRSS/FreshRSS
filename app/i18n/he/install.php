@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'משהו נכשל; יש צורך למחוק את הקובץ <em>%s</em> ידנית.',
 	'ok' => 'The installation process was successful.',	// TODO - Translation
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'step %d',	// TODO - Translation
 	'steps' => 'שלבים',
 	'this_is_the_end' => 'סיום',

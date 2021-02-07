@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Quelque chose s’est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
 	'ok' => 'L’installation s’est bien passée.',
+	'session' => array(
+		'nok' => 'Le serveur Web semble mal configué pour les cookies nécessaires aux sessions PHP!',
+	),
 	'step' => 'étape %d',
 	'steps' => 'Étapes',
 	'this_is_the_end' => 'This is the end',
