@@ -122,7 +122,7 @@ return array(
 	'not_deleted' => 'Что-то пошло не так; удалите файл <em>%s</em> вручную.',
 	'ok' => 'Установка успешна.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
 	),
 	'step' => '%d этап',
 	'steps' => 'Этапы',

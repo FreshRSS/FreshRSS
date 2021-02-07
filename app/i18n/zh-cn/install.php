@@ -122,7 +122,7 @@ return array(
 	'not_deleted' => '出错！你必须手动删除文件 <em>%s</em>',
 	'ok' => '安装成功',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
 	),
 	'step' => '步骤 %d',
 	'steps' => '步骤',
