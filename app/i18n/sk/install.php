@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Niečo sa nepodarilo. Musíte ručne zmazať súbor <em>%s</em>.',
 	'ok' => 'Inštalácia bola úspešná.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+	),
 	'step' => 'krok %d',
 	'steps' => 'Kroky',
 	'this_is_the_end' => 'Toto je koniec',

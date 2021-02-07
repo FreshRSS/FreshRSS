@@ -690,6 +690,7 @@ return array(
 	'install.language.defined',
 	'install.not_deleted',
 	'install.ok',
+	'install.session.nok',
 	'install.step',
 	'install.steps',
 	'install.this_is_the_end',

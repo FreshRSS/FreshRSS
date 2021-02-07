@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => '무언가 잘못되었습니다; <em>%s</em> 파일을 직접 삭제해주세요.',
 	'ok' => '설치 과정이 성공적으로 끝났습니다.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+	),
 	'step' => '단계 %d',
 	'steps' => '단계',
 	'this_is_the_end' => '마침',

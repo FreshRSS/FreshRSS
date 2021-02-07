@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
 	'ok' => 'De installatieprocedure is geslaagd.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+	),
 	'step' => 'stap %d',
 	'steps' => 'Stappen',
 	'this_is_the_end' => 'Dit is het einde',

@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Algo deu errado; você deve deletar o arquivo <em>%s</em> manualmente.',
 	'ok' => 'O processo de instalação foi um sucesso.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+	),
 	'step' => 'passo %d',
 	'steps' => 'Passos',
 	'this_is_the_end' => 'Este é o final',

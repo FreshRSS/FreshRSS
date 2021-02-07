@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',
 	'ok' => 'The installation process was successful.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',
+	),
 	'step' => 'step %d',
 	'steps' => 'Steps',
 	'this_is_the_end' => 'This is the end',

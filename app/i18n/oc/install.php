@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+	),
 	'step' => 'etapa %d',
 	'steps' => 'Etapas',
 	'this_is_the_end' => 'Es la fin',

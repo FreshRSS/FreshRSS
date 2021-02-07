@@ -121,6 +121,9 @@ return array(
 	),
 	'not_deleted' => 'Hata meydana geldi; <em>%s</em> dosyasını elle silmelisiniz.',
 	'ok' => 'Kurulum başarıyla tamamlandı.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions! ',	// TODO - Translation
+	),
 	'step' => 'adım %d',
 	'steps' => 'Adımlar',
 	'this_is_the_end' => 'Son Adım',
