@@ -265,6 +265,8 @@ abstract class Minz_Extension {
 
 		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
 		FreshRSS_Context::$user_conf->save();
+
+		$this->user_configuration = $configuration;
 	}
 
 	public function removeUserConfiguration(){
@@ -283,5 +285,7 @@ abstract class Minz_Extension {
 
 		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
 		FreshRSS_Context::$user_conf->save();
+
+		$this->user_configuration = null;
 	}
 }
