@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Mercés de verificar que modificatz pas vòstre HTTP REFERER.',
-			'ok' => 'Lo HTTP REFERER es conegut e sembla correspondre a vòstre servidor.',
-		),
 		'json' => array(
 			'nok' => 'Impossible de trobar l’extension recomandada JSON (paquet php-json).',
 			'ok' => 'Avètz l’exension recomandada JSON.',

@@ -60,10 +60,6 @@ return array(
 			'nok' => 'PHP fileinfo eksik (fileinfo package).',
 			'ok' => 'fileinfo eklentisi sorunsuz.',
 		),
-		'http_referer' => array(
-			'nok' => 'Lütfen HTTP REFERER değiştirmediğinize emin olun.',
-			'ok' => 'HTTP REFERER ve sunucunuz arası iletişim sorunsuz.',
-		),
 		'json' => array(
 			'nok' => 'Tavsiye edilen JSON çözümleme kütüphanesi eksik.',
 			'ok' => 'Tavsiye edilen JSON çözümleme kütüphanesi sorunsuz.',

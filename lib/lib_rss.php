@@ -393,23 +393,6 @@ function cryptAvailable() {
 	return false;
 }
 
-function is_referer_from_same_domain() {
-	if (empty($_SERVER['HTTP_REFERER'])) {
-		return true;	//Accept empty referer while waiting for good support of meta referrer same-origin policy in browsers
-	}
-	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
-		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
-	$referer = parse_url($_SERVER['HTTP_REFERER']);
-	if (empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
-		return false;
-	}
-	//TODO: check 'scheme', taking into account the case of a proxy
-	if ((isset($host['port']) ? $host['port'] : 0) !== (isset($referer['port']) ? $referer['port'] : 0)) {
-		return false;
-	}
-	return true;
-}
-
 
 /**
  * Check PHP and its extensions are well-installed.

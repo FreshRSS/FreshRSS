@@ -60,10 +60,6 @@ return array(
 			'nok' => 'fileinfo 라이브러리를 찾을 수 없습니다 (fileinfo 패키지).',
 			'ok' => 'fileinfo 라이브러리가 설치되어 있습니다.',
 		),
-		'http_referer' => array(
-			'nok' => 'HTTP REFERER가 변경되지 않았는지 확인해주세요.',
-			'ok' => 'HTTP REFERER가 서버와 일치하는 것을 확인했습니다.',
-		),
 		'json' => array(
 			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
 			'ok' => 'JSON 확장 기능이 설치되어 있습니다.',

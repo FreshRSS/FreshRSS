@@ -418,7 +418,6 @@ function printStep1() {
 	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
 	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
 	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
-	printStep1Template('http_referer', $res['http_referer']);
 	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>

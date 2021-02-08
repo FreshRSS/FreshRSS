@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Nepodarilo sa nájsť knižniuc PHP fileinfo (balík fileinfo).',
 			'ok' => 'Našla sa knižnica fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Prosím, skontrolujte, či ste nezmenili váš HTTP REFERER.',
-			'ok' => 'Váš HTTP REFERER je OK.',
-		),
 		'json' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na spracovanie formátu JSON.',
 			'ok' => 'Našla sa požadovaná knižnica na spracovanie formátu JSON.',
