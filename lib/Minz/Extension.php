@@ -148,19 +148,22 @@ abstract class Minz_Extension {
 	 *
 	 * @param $filename name of the file to serve.
 	 * @param $type the type (js or css) of the file to serve.
+	 * @param $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return the url corresponding to the file.
 	 */
-	public function getFileUrl($filename, $type) {
-		$dir = substr(strrchr($this->path, '/'), 1);
-		$file_name_url = urlencode($dir . '/static/' . $filename);
+	public function getFileUrl($filename, $type, $isStatic = true) {
+		if ($isStatic) {
+			$dir = basename($this->path);
+			$file_name_url = urlencode("{$dir}/static/{$filename}");
+			$mtime = @filemtime("{$this->path}/static/{$filename}");
+		} else {
+			$username = Minz_Session::param('currentUser');
+			$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
+			$file_name_url = urlencode("{$username}/{$this->config_key}/{$this->getName()}/{$filename}");
+			$mtime = @filemtime($path);
+		}
 
-		$absolute_path = $this->path . '/static/' . $filename;
-		$mtime = @filemtime($absolute_path);
-
-		$url = '/ext.php?f=' . $file_name_url .
-		       '&amp;t=' . $type .
-		       '&amp;' . $mtime;
-		return Minz_Url::display($url, 'php');
+		return Minz_Url::display("/ext.php?f={$file_name_url}&amp;t={$type}&amp;{$mtime}", 'php');
 	}
 
 	/**
@@ -269,7 +272,7 @@ abstract class Minz_Extension {
 		$this->user_configuration = $configuration;
 	}
 
-	public function removeUserConfiguration(){
+	public function removeUserConfiguration() {
 		if (!$this->isUserConfigurationEnabled()) {
 			return;
 		}
@@ -287,5 +290,25 @@ abstract class Minz_Extension {
 		FreshRSS_Context::$user_conf->save();
 
 		$this->user_configuration = null;
+	}
+
+	public function saveFile(string $filename, string $content) {
+		$username = Minz_Session::param('currentUser');
+		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}";
+
+		if (!file_exists($path)) {
+			mkdir($path, 0777, true);
+		}
+
+		file_put_contents("{$path}/{$filename}", $content);
+	}
+
+	public function removeFile(string $filename) {
+		$username = Minz_Session::param('currentUser');
+		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
+
+		if (file_exists($path)) {
+			unlink($path);
+		}
 	}
 }
