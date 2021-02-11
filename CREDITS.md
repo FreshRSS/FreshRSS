@@ -135,3 +135,4 @@ People are sorted by name so please keep this order.
 * [wtoscer](https://github.com/wtoscer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wtoscer)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
+* [hesch](https://github.com/hesch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hesch)
