@@ -405,7 +405,6 @@ function check_install_php() {
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
 		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
-		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
 		'pcre' => extension_loaded('pcre'),
