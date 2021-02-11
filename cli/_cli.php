@@ -13,6 +13,7 @@ require(LIB_PATH . '/lib_install.php');
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
+Minz_ExtensionManager::init();
 Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
