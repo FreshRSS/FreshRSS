@@ -70,10 +70,6 @@ return array(
 			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
 		),
-		'minz' => array(
-			'nok' => 'У вас не установлен фрейворк Minz.',
-			'ok' => 'У вас установлен фрейворк Minz.',
-		),
 		'pcre' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',

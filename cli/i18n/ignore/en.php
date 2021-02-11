@@ -25,8 +25,6 @@ return array(
 	'admin.check_install.fileinfo.ok',
 	'admin.check_install.json.nok',
 	'admin.check_install.json.ok',
-	'admin.check_install.minz.nok',
-	'admin.check_install.minz.ok',
 	'admin.check_install.pcre.nok',
 	'admin.check_install.pcre.ok',
 	'admin.check_install.pdo.nok',

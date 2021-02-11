@@ -68,10 +68,6 @@ return array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu mbstring pre Unicode.',
 			'ok' => 'Našla sa požadovaná knižnica mbstring pre Unicode.',
 		),
-		'minz' => array(
-			'nok' => 'Nepodarilo sa nájsť framework Minz.',
-			'ok' => 'Našiel sa framework Minz.',
-		),
 		'pcre' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu pre regulárne výrazy (php-pcre).',
 			'ok' => 'Našla sa požadovaná knižnica pre regulárne výrazy (PCRE).',

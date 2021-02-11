@@ -68,10 +68,6 @@ return array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
 			'ok' => 'Vouz disposez de la librairie recommandée mbstring pour Unicode.',
 		),
-		'minz' => array(
-			'nok' => 'Vous ne disposez pas de la librairie Minz.',
-			'ok' => 'Vous disposez du framework Minz',
-		),
 		'pcre' => array(
 			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
 			'ok' => 'Vous disposez de la librairie pour les expressions régulières (PCRE).',

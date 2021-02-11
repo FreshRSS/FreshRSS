@@ -68,10 +68,6 @@ return array(
 			'nok' => 'Es fehlt die empfohlene mbstring-Bibliothek für Unicode.',
 			'ok' => 'Sie haben die empfohlene mbstring-Bibliothek für Unicode.',
 		),
-		'minz' => array(
-			'nok' => 'Ihnen fehlt das Minz-Framework.',
-			'ok' => 'Sie haben das Minz-Framework.',
-		),
 		'pcre' => array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für reguläre Ausdrücke (php-pcre).',
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',

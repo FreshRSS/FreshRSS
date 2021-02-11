@@ -68,10 +68,6 @@ return array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
 		),
-		'minz' => array(
-			'nok' => 'Minz framework eksik.',
-			'ok' => 'Minz framework sorunsuz.',
-		),
 		'pcre' => array(
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
 			'ok' => 'Düzenli ifadeler kütüphanesi sorunsuz (PCRE).',
