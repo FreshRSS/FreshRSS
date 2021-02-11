@@ -60,10 +60,6 @@ return array(
 			'nok' => '找不到 PHP fileinfo 库（fileinfo）',
 			'ok' => '已找到 fileinfo 库',
 		),
-		'http_referer' => array(
-			'nok' => '请检查你是否修改了 HTTP REFERER',
-			'ok' => '你的 HTTP REFERER 已知且与服务器一致',
-		),
 		'json' => array(
 			'nok' => '找不到推荐的 JSON 解析库',
 			'ok' => '已找到推荐的 JSON 解析库',

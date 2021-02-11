@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Nemáte PHP fileinfo (balíček fileinfo).',
 			'ok' => 'Máte rozšíření fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Zkontrolujte prosím že neměníte HTTP REFERER.',
-			'ok' => 'Váš HTTP REFERER je znám a odpovídá Vašemu serveru.',
-		),
 		'json' => array(
 			'nok' => 'Pro parsování JSON chybí doporučená knihovna.',
 			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',

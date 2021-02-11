@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
 			'ok' => 'You have the fileinfo library.',	// TODO - Translation
 		),
-		'http_referer' => array(
-			'nok' => 'Please check that you are not altering your HTTP REFERER.',	// TODO - Translation
-			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',	// TODO - Translation
-		),
 		'json' => array(
 			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
 			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation

@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Não foi possível encontrar a biblioteca fileinfo do PHP (fileinfo).',
 			'ok' => 'Você tem a biblioteca fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Por favor verifique se você não está alterando o cabeçalho HTTP REFERER.',
-			'ok' => 'O cabeçalho HTTP REFERER é conhecido e corresponde ao seu servidor.',
-		),
 		'json' => array(
 			'nok' => 'Não foi possível encontrar JSON (php-json).',
 			'ok' => 'Você tem a extensão JSON.',

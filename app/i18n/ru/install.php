@@ -60,10 +60,6 @@ return array(
 			'nok' => 'У вас нет расширения PHP fileinfo (пакет fileinfo).',
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Убедитесь, что вы не изменяете ваш HTTP REFERER.',
-			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
-		),
 		'json' => array(
 			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
 			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation

@@ -46,7 +46,6 @@ function checkRequirements($dbType = '') {
 	$tmp = TMP_PATH && is_writable(TMP_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
 	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
-	$http_referer = is_referer_from_same_domain();
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
@@ -67,10 +66,9 @@ function checkRequirements($dbType = '') {
 		'tmp' => $tmp ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
-		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'message' => $message ?: '',
 		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $tmp && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
+		         $data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko'
 	);
 }
 

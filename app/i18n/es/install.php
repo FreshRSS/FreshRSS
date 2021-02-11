@@ -60,10 +60,6 @@ return array(
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
 			'ok' => 'Dispones de la librería fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Por favor, comprueba que no estás alterando tu configuración HTTP REFERER.',
-			'ok' => 'La configuración HTTP REFERER es conocida y se corresponde con la de tu servidor.',
-		),
 		'json' => array(
 			'nok' => 'No se ha podido localizar la librería para procesar JSON.',
 			'ok' => 'Dispones de la librería recomendada para procesar JSON.',

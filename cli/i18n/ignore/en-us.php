@@ -656,8 +656,6 @@ return array(
 	'install.check.favicons.ok',
 	'install.check.fileinfo.nok',
 	'install.check.fileinfo.ok',
-	'install.check.http_referer.nok',
-	'install.check.http_referer.ok',
 	'install.check.json.nok',
 	'install.check.json.ok',
 	'install.check.mbstring.nok',

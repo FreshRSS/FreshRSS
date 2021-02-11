@@ -60,10 +60,6 @@ return array(
 			'nok' => 'U mist PHP fileinfo (fileinfo package).',
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
-		'http_referer' => array(
-			'nok' => 'Controleer a.u.b. dat u niet uw HTTP REFERER wijzigd.',
-			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',
-		),
 		'json' => array(
 			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
