@@ -49,6 +49,7 @@ People are sorted by name so please keep this order.
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [Guillaume Pugnet](https://github.com/GuillaumePugnet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:GuillaumePugnet)
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
+* [hesch](https://github.com/hesch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hesch)
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
 * [Jake Mannens](https://github.com/jakem72360): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jakem72360)
 * [Jan van den Berg](https://github.com/jan-vandenberg): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jan-vandenberg), [Web](https://j11g.com/)
