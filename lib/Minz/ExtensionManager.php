@@ -39,6 +39,10 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'NoneToNone',
 		),
+		'freshrss_user_maintenance' => array(  // function() -> none
+			'list' => array(),
+			'signature' => 'NoneToNone',
+		),
 		'js_vars' => array(  // function($vars = array) -> array | null
 			'list' => array(),
 			'signature' => 'OneToOne',
