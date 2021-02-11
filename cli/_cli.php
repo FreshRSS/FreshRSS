@@ -37,6 +37,9 @@ function cliInitUser($username) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
 
+	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+	Minz_ExtensionManager::enableByList($ext_list);
+
 	return $username;
 }
 
