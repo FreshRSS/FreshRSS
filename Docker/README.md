@@ -377,7 +377,8 @@ server {
 	# Other SSL stuff goes here
 
 	location / {
-		proxy_pass http://freshrss;
+		# The final `/` is important.
+		proxy_pass http://freshrss/;
 		add_header X-Frame-Options SAMEORIGIN;
 		add_header X-XSS-Protection "1; mode=block";
 		proxy_redirect off;
