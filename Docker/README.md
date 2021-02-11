@@ -302,8 +302,9 @@ docker-compose up -d
 
 ### Alternative reverse proxy using [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
 
+#### Hosted in a subdirectory
+
 Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as subdirectory).
-In particular, the proxy should be setup to allow cookies via HTTP headers (see `proxy_cookie_path` below) to allow logging in via the Web form method.
 
 ```
 upstream freshrss {
@@ -325,9 +326,6 @@ server {
 
 	# Other SSL stuff goes here
 
-	# Needed for Freshrss cookie/session :
-	proxy_cookie_path / "/; HTTPOnly; Secure; SameSite=Lax";
-
 	location / {
 		try_files $uri $uri/ =404;
 		index index.htm index.html;
@@ -335,6 +333,52 @@ server {
 
 	location /freshrss/ {
 		proxy_pass http://freshrss;
+		add_header X-Frame-Options SAMEORIGIN;
+		add_header X-XSS-Protection "1; mode=block";
+		proxy_redirect off;
+		proxy_buffering off;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-Prefix /freshrss/;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Forwarded-Port $server_port;
+		proxy_read_timeout 90;
+
+		# Forward the Authorization header for the Google Reader API.
+		proxy_set_header Authorization $http_authorization;
+		proxy_pass_header Authorization;
+	}
+}
+```
+
+#### Hosted as domain root
+
+Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as domain root).
+
+```
+upstream freshrss {
+	server 127.0.0.1:8080;
+	keepalive 64;
+}
+
+server {
+	listen 80;
+
+	location / {
+		return 301 https://$host$request_uri;
+	}
+}
+
+server {
+	server_name mywebsite.example.net;
+	listen 443 ssl http2;
+
+	# Other SSL stuff goes here
+
+	location / {
+		# The final `/` is important.
+		proxy_pass http://freshrss/;
 		add_header X-Frame-Options SAMEORIGIN;
 		add_header X-XSS-Protection "1; mode=block";
 		proxy_redirect off;
@@ -352,6 +396,7 @@ server {
 	}
 }
 ```
+
 ### Alternative reverse proxy using [Apache 2.4](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
 
 Here is an example of a configuration file for running FreshRSS behind an Apache reverse proxy (as a subdirectory).
