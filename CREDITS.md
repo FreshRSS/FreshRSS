@@ -27,6 +27,7 @@ People are sorted by name so please keep this order.
 * [Clemens Neubauer](https://github.com/cn-tools): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cn-tools), [Web](http://cn-tools.eu/)
 * [Corentin Garcia](https://github.com/corenting): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:corenting), [Web](http://corenting.fr/)
 * [Craig Andrews](https://github.com/candrews): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:candrews), [Web](http://candrews.integralblue.com/)
+* [Creak](https://github.com/MightyCreak): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3AMightyCreak)
 * [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)
 * [Damien Leroy](https://github.com/ShiiFu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ShiiFu)
 * [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
