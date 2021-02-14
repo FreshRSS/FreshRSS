@@ -28,7 +28,7 @@ return array(
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
-			'related_tags' => 'Verwandte Tags',
+			'related_tags' => 'Artikel-Labels',
 			'sharing' => 'Teilen',
 			'top_line' => 'Kopfzeile',
 		),
