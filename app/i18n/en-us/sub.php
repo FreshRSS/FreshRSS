@@ -33,6 +33,12 @@ return array(
 			'username' => 'HTTP username',
 		),
 		'clear_cache' => 'Always clear cache',
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',
+			'append' => 'Add after existing content',
+			'prepend' => 'Add before existing content',
+			'replace' => 'Replace existing content',
+		),
 		'css_cookie' => 'Use Cookies when fetching the article content',
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',

@@ -300,6 +300,17 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="content_action"><?= _t('sub.feed.content_action') ?></label>
+			<div class="group-controls">
+				<select name="content_action" id="content_action">
+					<option value="replace"<?= 'replace' === $this->feed->attributes('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.replace') ?></option>
+					<option value="prepend"<?= 'prepend' === $this->feed->attributes('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.prepend') ?></option>
+					<option value="append"<?= 'append' === $this->feed->attributes('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.append') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="path_entries"><?= _t('sub.feed.proxy') ?></label>
 			<div class="group-controls">
 				<select class="number" name="proxy_type" id="proxy_type"><?php
