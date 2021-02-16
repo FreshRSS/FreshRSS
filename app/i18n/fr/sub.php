@@ -33,6 +33,12 @@ return array(
 			'username' => 'Identifiant HTTP',
 		),
 		'clear_cache' => 'Toujours vider le cache',
+		'content_action' => array(
+			'_' => 'Action à effectuer pour la réception du contenu des articles',
+			'append' => 'Ajouter après le contenu existant',
+			'prepend' => 'Ajouter avant le contenu existant',
+			'replace' => 'Remplacer le contenu existant',
+		),
 		'css_cookie' => 'Utiliser des cookies pour la réception du contenu des articles',
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',

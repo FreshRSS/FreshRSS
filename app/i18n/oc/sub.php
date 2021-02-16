@@ -33,6 +33,12 @@ return array(
 			'username' => 'Identificant HTTP',
 		),
 		'clear_cache' => 'Totjorn escafar lo cache',
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',	// TODO - Translation
+			'append' => 'Add after existing content',	// TODO - Translation
+			'prepend' => 'Add before existing content',	// TODO - Translation
+			'replace' => 'Replace existing content',	// TODO - Translation
+		),
 		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',

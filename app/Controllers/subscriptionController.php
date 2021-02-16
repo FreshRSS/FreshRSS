@@ -125,6 +125,8 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			}
 			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
 
+			$feed->_attributes('content_action', Minz_Request::param('content_action', 'replace'));
+
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
 				$timeout = intval(Minz_Request::param('timeout', 0));
