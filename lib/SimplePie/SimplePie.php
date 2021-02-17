@@ -1322,21 +1322,24 @@ class SimplePie
 
 	function cleanMd5($rss)
 	{
-		$data = '';
-
-		$stream = fopen('php://memory','r+');                             
-		fwrite($stream, $rss);                                           
-		rewind($stream);                                                  
-																		  
-		while (($stream_data = fread($stream, 16384))) {                  
-			$data .= preg_replace(array(
-				'#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
-				'#<(media:starRating|media:statistics) [^/<>]+/>#',
-				'#<!--.+?-->#s',
-				), '', $stream_data);
-		}  
-
-		return md5($data);
+		//Process by chunks not to use too much memory
+		if (($stream = fopen('php://temp', 'r+')) &&
+			fwrite($stream, $rss) &&
+			rewind($stream))
+		{
+			$ctx = hash_init('md5');
+			while ($stream_data = fread($stream, 1048576))
+			{
+				hash_update($ctx, preg_replace([
+					'#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
+					'#<(media:starRating|media:statistics) [^/<>]+/>#',
+					'#<!--.+?-->#s',
+				], '', $stream_data));
+			}
+			fclose($stream);
+			return hash_final($ctx);
+		}
+		return '';
 	}
 
 	/**
