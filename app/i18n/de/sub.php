@@ -34,10 +34,10 @@ return array(
 		),
 		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'_' => 'Behandlung von Feed-Inhalt beim Herunterladen von Artikelinhalt',
+			'append' => 'Artikelinhalt hinter Feed-Inhalt platzieren',
+			'prepend' => 'Artikelinhalt vor Feed-Inhalt platzieren',
+			'replace' => 'Artikelinhalt ersetzt Feed-Inhalt (Standard)',
 		),
 		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
 		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
