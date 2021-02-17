@@ -60,10 +60,6 @@ return array(
 			'nok' => 'U mist PHP fileinfo (fileinfo package).',
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
-		'http_referer' => array(
-			'nok' => 'Controleer a.u.b. dat u niet uw HTTP REFERER wijzigd.',
-			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',
-		),
 		'json' => array(
 			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'De voor Unicode aanbevolen bibliotheek mbstring kan niet worden gevonden.',
 			'ok' => 'De voor Unicode aanbevolen bibliotheek mbstring is gevonden.',
-		),
-		'minz' => array(
-			'nok' => 'U mist het Minz framework.',
-			'ok' => 'U hebt het Minz framework.',
 		),
 		'pcre' => array(
 			'nok' => 'U mist een benodigde bibliotheek voor regular expressions (php-pcre).',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
 	'ok' => 'De installatieprocedure is geslaagd.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'stap %d',
 	'steps' => 'Stappen',
 	'this_is_the_end' => 'Dit is het einde',

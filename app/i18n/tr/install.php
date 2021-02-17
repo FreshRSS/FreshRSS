@@ -60,10 +60,6 @@ return array(
 			'nok' => 'PHP fileinfo eksik (fileinfo package).',
 			'ok' => 'fileinfo eklentisi sorunsuz.',
 		),
-		'http_referer' => array(
-			'nok' => 'Lütfen HTTP REFERER değiştirmediğinize emin olun.',
-			'ok' => 'HTTP REFERER ve sunucunuz arası iletişim sorunsuz.',
-		),
 		'json' => array(
 			'nok' => 'Tavsiye edilen JSON çözümleme kütüphanesi eksik.',
 			'ok' => 'Tavsiye edilen JSON çözümleme kütüphanesi sorunsuz.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Minz framework eksik.',
-			'ok' => 'Minz framework sorunsuz.',
 		),
 		'pcre' => array(
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => 'Hata meydana geldi; <em>%s</em> dosyasını elle silmelisiniz.',
 	'ok' => 'Kurulum başarıyla tamamlandı.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'adım %d',
 	'steps' => 'Adımlar',
 	'this_is_the_end' => 'Son Adım',

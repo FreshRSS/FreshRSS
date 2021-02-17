@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
 			'ok' => 'Estensione fileinfo presente.',
 		),
-		'http_referer' => array(
-			'nok' => 'Per favore verifica che non stai alterando il tuo HTTP REFERER.',
-			'ok' => 'Il tuo HTTP REFERER riconosciuto corrisponde al tuo server.',
-		),
 		'json' => array(
 			'nok' => 'You lack a recommended library to parse JSON.',
 			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Manca il framework Minz.',
-			'ok' => 'Framework Minz presente.',
 		),
 		'pcre' => array(
 			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => 'Qualcosa non ha funzionato; devi cancellare il file <em>%s</em> manualmente.',
 	'ok' => 'Processo di installazione terminato con successo.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'Passaggio %d',
 	'steps' => 'Passaggi',
 	'this_is_the_end' => 'Fine',

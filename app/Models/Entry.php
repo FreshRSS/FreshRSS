@@ -446,8 +446,20 @@ class FreshRSS_Entry extends Minz_Model {
 						$feed->pathEntries(),
 						$feed->attributes()
 					);
-					if ($fullContent != '') {
-						$this->content = $fullContent;
+					if ('' !== $fullContent) {
+						switch ($feed->attributes('content_action')) {
+							case 'prepend':
+								$this->content = $fullContent . $this->content();
+								break;
+							case 'append':
+								$this->content = $this->content() . $fullContent;
+								break;
+							case 'replace':
+							default:
+								$this->content = $fullContent;
+								break;
+						}
+
 						return true;
 					}
 				} catch (Exception $e) {

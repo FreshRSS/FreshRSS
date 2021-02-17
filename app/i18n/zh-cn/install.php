@@ -60,10 +60,6 @@ return array(
 			'nok' => '找不到 PHP fileinfo 库（fileinfo）',
 			'ok' => '已找到 fileinfo 库',
 		),
-		'http_referer' => array(
-			'nok' => '请检查你是否修改了 HTTP REFERER',
-			'ok' => '你的 HTTP REFERER 已知且与服务器一致',
-		),
 		'json' => array(
 			'nok' => '找不到推荐的 JSON 解析库',
 			'ok' => '已找到推荐的 JSON 解析库',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => '找不到推荐的 Unicode 解析库（mbstring)',
 			'ok' => '已找到推荐的 Unicode 解析库（mbstring)',
-		),
-		'minz' => array(
-			'nok' => '找不到 Minz 框架',
-			'ok' => '已找到 Minz 框架',
 		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库（php-pcre）',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => '出错！你必须手动删除文件 <em>%s</em>',
 	'ok' => '安装成功',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => '步骤 %d',
 	'steps' => '步骤',
 	'this_is_the_end' => '最后一步',

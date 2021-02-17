@@ -56,6 +56,7 @@ function saveLanguage() {
 		}
 
 		Minz_Session::_param('language', $_POST['language']);
+		Minz_Session::_param('sessionWorking', 'ok');
 
 		header('Location: index.php?step=1');
 	}
@@ -242,13 +243,13 @@ function checkStep() {
 	$s1 = checkRequirements();
 	$s2 = checkStep2();
 	$s3 = checkStep3();
-	if (STEP > 0 && $s0['all'] != 'ok') {
+	if (STEP > 0 && $s0['all'] !== 'ok') {
 		header('Location: index.php?step=0');
-	} elseif (STEP > 1 && $s1['all'] != 'ok') {
+	} elseif (STEP > 1 && $s1['all'] !== 'ok') {
 		header('Location: index.php?step=1');
-	} elseif (STEP > 2 && $s2['all'] != 'ok') {
+	} elseif (STEP > 2 && $s2['all'] !== 'ok') {
 		header('Location: index.php?step=2');
-	} elseif (STEP > 3 && $s3['all'] != 'ok') {
+	} elseif (STEP > 3 && $s3['all'] !== 'ok') {
 		header('Location: index.php?step=3');
 	}
 	Minz_Session::_param('actualize_feeds', true);
@@ -257,10 +258,12 @@ function checkStep() {
 function checkStep0() {
 	$languages = Minz_Translate::availableLanguages();
 	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages);
+	$sessionWorking = Minz_Session::param('sessionWorking') === 'ok';
 
 	return array(
 		'language' => $language ? 'ok' : 'ko',
-		'all' => $language ? 'ok' : 'ko'
+		'sessionWorking' => $sessionWorking ? 'ok' : 'ko',
+		'all' => $language && $sessionWorking ? 'ok' : 'ko'
 	);
 }
 
@@ -329,9 +332,12 @@ function checkStep3() {
 function printStep0() {
 	$actual = Minz_Translate::language();
 	$languages = Minz_Translate::availableLanguages();
+	$s0 = checkStep0();
 ?>
-	<?php $s0 = checkStep0(); if ($s0['all'] == 'ok') { ?>
+	<?php if ($s0['all'] === 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.language.defined') ?></p>
+	<?php } else if (!empty($_POST) && $s0['sessionWorking'] !== 'ok') { ?>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.session.nok') ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=0" method="post">
@@ -396,6 +402,7 @@ function printStep1() {
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
 	<?php
+	$version = curl_version();
 	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
 	printStep1Template('pdo', $res['pdo']);
 	printStep1Template('curl', $res['curl'], [$version['version']]);
@@ -411,7 +418,6 @@ function printStep1() {
 	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
 	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
 	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
-	printStep1Template('http_referer', $res['http_referer']);
 	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>

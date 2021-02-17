@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Nemáte PHP fileinfo (balíček fileinfo).',
 			'ok' => 'Máte rozšíření fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Zkontrolujte prosím že neměníte HTTP REFERER.',
-			'ok' => 'Váš HTTP REFERER je znám a odpovídá Vašemu serveru.',
-		),
 		'json' => array(
 			'nok' => 'Pro parsování JSON chybí doporučená knihovna.',
 			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Nemáte framework Minz.',
-			'ok' => 'Máte framework Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'Nemáte požadovanou knihovnu pro regulární výrazy (php-pcre).',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => 'Nastala chyba, soubor <em>%s</em> musíte smazat ručně.',
 	'ok' => 'Instalace byla úspěšná.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'krok %d',
 	'steps' => 'Kroky',
 	'this_is_the_end' => 'Konec',

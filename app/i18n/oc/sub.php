@@ -33,6 +33,12 @@ return array(
 			'username' => 'Identificant HTTP',
 		),
 		'clear_cache' => 'Totjorn escafar lo cache',
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',	// TODO - Translation
+			'append' => 'Add after existing content',	// TODO - Translation
+			'prepend' => 'Add before existing content',	// TODO - Translation
+			'replace' => 'Replace existing content',	// TODO - Translation
+		),
 		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
@@ -110,9 +116,9 @@ return array(
 		'add_feed' => 'Ajustar un flux',
 		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
+		'label_management' => 'Gestion de las etiquetas',
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
-		'tag_management' => 'Gestion de las etiquetas',
 	),
 	'tag' => array(
 		'name' => 'Nom',
@@ -124,10 +130,10 @@ return array(
 		'add' => 'Apondon de flux o categoria',
 		'add_category' => 'Ajustar una categoria',
 		'add_feed' => 'Ajustar un flux',
-		'add_tag' => 'Ajustar una etiqueta',
-		'delete_tag' => 'Suprimir una etiqueta',
+		'add_label' => 'Ajustar una etiqueta',
+		'delete_label' => 'Suprimir una etiqueta',
 		'feed_management' => 'Gestion dels fluxes RSS',
-		'rename_tag' => 'Rennomenar una etiqueta',
+		'rename_label' => 'Rennomenar una etiqueta',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 );

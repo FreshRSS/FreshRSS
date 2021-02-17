@@ -12,6 +12,7 @@ abstract class Minz_Extension {
 	private $version;
 	private $type;
 	private $config_key = 'extensions';
+	private $user_configuration;
 
 	public static $authorized_types = array(
 		'system',
@@ -236,6 +237,21 @@ abstract class Minz_Extension {
 		return FreshRSS_Context::$user_conf->{$this->config_key}[$this->getName()];
 	}
 
+	/**
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function getUserConfigurationValue(string $key, $default = null) {
+		if (!is_array($this->user_configuration)) {
+			$this->user_configuration = $this->getUserConfiguration();
+		}
+
+		if (array_key_exists($key, $this->user_configuration)) {
+			return $this->user_configuration[$key];
+		}
+		return $default;
+	}
+
 	public function setUserConfiguration(array $configuration) {
 		if (!$this->isUserConfigurationEnabled()) {
 			return;
@@ -249,6 +265,8 @@ abstract class Minz_Extension {
 
 		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
 		FreshRSS_Context::$user_conf->save();
+
+		$this->user_configuration = $configuration;
 	}
 
 	public function removeUserConfiguration(){
@@ -267,5 +285,7 @@ abstract class Minz_Extension {
 
 		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
 		FreshRSS_Context::$user_conf->save();
+
+		$this->user_configuration = null;
 	}
 }

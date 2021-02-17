@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Mercés de verificar que modificatz pas vòstre HTTP REFERER.',
-			'ok' => 'Lo HTTP REFERER es conegut e sembla correspondre a vòstre servidor.',
-		),
 		'json' => array(
 			'nok' => 'Impossible de trobar l’extension recomandada JSON (paquet php-json).',
 			'ok' => 'Avètz l’exension recomandada JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
 			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Avètz pas la bibliotèca Minz.',
-			'ok' => 'Avètz la bibliotèca Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'etapa %d',
 	'steps' => 'Etapas',
 	'this_is_the_end' => 'Es la fin',

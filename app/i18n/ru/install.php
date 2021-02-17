@@ -60,10 +60,6 @@ return array(
 			'nok' => 'У вас нет расширения PHP fileinfo (пакет fileinfo).',
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Убедитесь, что вы не изменяете ваш HTTP REFERER.',
-			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
-		),
 		'json' => array(
 			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
 			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'У вас не установлен фрейворк Minz.',
-			'ok' => 'У вас установлен фрейворк Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
@@ -121,6 +113,9 @@ return array(
 	),
 	'not_deleted' => 'Что-то пошло не так; удалите файл <em>%s</em> вручную.',
 	'ok' => 'Установка успешна.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => '%d этап',
 	'steps' => 'Этапы',
 	'this_is_the_end' => 'Это конец',

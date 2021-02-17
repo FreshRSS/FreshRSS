@@ -33,8 +33,14 @@ return array(
 			'username' => 'HTTP username',
 		),
 		'clear_cache' => 'Always clear cache',
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',
+			'append' => 'Add after existing content',
+			'prepend' => 'Add before existing content',
+			'replace' => 'Replace existing content',
+		),
+		'css_cookie' => 'Use Cookies when fetching the article content',
+		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
 		'css_path' => 'Article CSS selector on original website',
 		'description' => 'Description',
@@ -63,8 +69,8 @@ return array(
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Set a proxy for fetching this feed',
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
 			'show_rendered' => 'Show content',
@@ -110,9 +116,9 @@ return array(
 		'add_feed' => 'Add a feed',
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',
+		'label_management' => 'Label management',
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
-		'tag_management' => 'Tag management',
 	),
 	'tag' => array(
 		'name' => 'Name',
@@ -124,10 +130,10 @@ return array(
 		'add' => 'Add a feed or category',
 		'add_category' => 'Add a category',
 		'add_feed' => 'Add a feed',
-		'add_tag' => 'Add a tag',
-		'delete_tag' => 'Delete a tag',
+		'add_label' => 'Add a label',
+		'delete_label' => 'Delete a label',
 		'feed_management' => 'RSS feeds management',
-		'rename_tag' => 'Rename a tag',
+		'rename_label' => 'Rename a label',
 		'subscription_tools' => 'Subscription tools',
 	),
 );

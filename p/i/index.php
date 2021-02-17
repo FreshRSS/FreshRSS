@@ -76,11 +76,8 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 	}
 
 	if ($error) {
-		// TODO this should be definitely improved to display a nicer error
-		// page to the users (especially non administrators).
-		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::error($error);
-		echo 'See logs files.';
+		errorMessage('Fatal error');
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 	}
 }
