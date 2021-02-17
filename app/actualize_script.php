@@ -72,6 +72,9 @@ foreach ($users as $user) {
 	}
 
 	FreshRSS_Auth::giveAccess();
+
+	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+
 	$app->init();
 	notice('FreshRSS actualize ' . $user . '...');
 	echo $user, ' ';	//Buffered
