@@ -35,8 +35,8 @@ return array(
 		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'content_action' => array(
 			'_' => 'Behandlung von Feed-Inhalt beim Herunterladen von Artikelinhalt',
-			'append' => 'Artikelinhalt hinter Feed-Inhalt platzieren',
-			'prepend' => 'Artikelinhalt vor Feed-Inhalt platzieren',
+			'append' => 'Artikelinhalt nach Feed-Inhalt hinzufügen',
+			'prepend' => 'Artikelinhalt vor Feed-Inhalt hinzufügen',
 			'replace' => 'Artikelinhalt ersetzt Feed-Inhalt (Standard)',
 		),
 		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
