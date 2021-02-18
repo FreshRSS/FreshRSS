@@ -183,13 +183,14 @@ SQL;
 			$valuesTmp['is_read'] = null;
 		}
 
+		$this->updateEntryPrepared = null;	//TODO: Remove this line after debugging
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
 				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen, '
 				. 'hash=' . $this->sqlHexDecode(':hash')
-				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
+				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')	//FIXME: Likely error in the logic here, if this gets cached for next entry
 				. 'tags=:tags '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
