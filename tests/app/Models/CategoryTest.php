@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryTest extends PHPUnit\Framework\TestCase {
+class CategoryTest extends PHPUnit\Framework\TestCase {
 
 	public function test__construct_whenNoParameters_createsObjectWithDefaultValues() {
 		$category = new FreshRSS_Category();
