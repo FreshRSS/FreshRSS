@@ -4,8 +4,6 @@ jobs:
   fast_finish: true
   allow_failures:
     - name: "Translations"
-    - name: "PHP 8.0 Syntax, linter and tests"
-
 
   include:
     - name: "PHP 8.0 Syntax, linter and tests"
