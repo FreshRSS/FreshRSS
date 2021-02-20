@@ -244,6 +244,7 @@ return array(
 	'conf.reading.show.no_category',
 	'conf.reading.show.remember_categories',
 	'conf.reading.show.unread',
+	'conf.reading.show_fav_unread_help',
 	'conf.reading.sides_close_article',
 	'conf.reading.sort._',
 	'conf.reading.sort.newer_first',

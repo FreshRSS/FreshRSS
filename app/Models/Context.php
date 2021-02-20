@@ -292,9 +292,10 @@ class FreshRSS_Context {
 			self::$get_unread = $tag->nbUnread();
 			break;
 		case 'T':
+			$tagDAO = FreshRSS_Factory::createTagDao();
 			self::$current_get['tags'] = true;
 			self::$name = _t('index.menu.tags');
-			self::$get_unread = 0;
+			self::$get_unread = $tagDAO->countNotRead();
 			break;
 		default:
 			throw new FreshRSS_Context_Exception('Invalid getter: ' . $get);

@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobraziť iba neprečítané',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
 		'sort' => array(
 			'_' => 'Poradie',

@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Mostrar solo pendientes',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
 		'sort' => array(
 			'_' => 'Orden',

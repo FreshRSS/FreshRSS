@@ -6,6 +6,8 @@
 			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 		$class = ' state_unread';
 	}
+
+	$state_filter = FreshRSS_Context::$user_conf->show_fav_unread ? '&state=3' : '';
 ?>
 
 <div class="aside aside_feed<?= $class ?>" id="aside_feed">
@@ -31,14 +33,8 @@
 
 		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
-				<?php
-					$url_starred = _url('index', $actual_view, 'get', 's');
-					if (FreshRSS_Context::$user_conf->show_fav_unread) {
-						$url_starred = $url_starred . '&state=3';
-					}
-				?>
 				<?= _i('bookmark') ?>
-				<a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= $url_starred ?>">
+				<a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter ?>">
 					<?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?>
 				</a>
 			</div>
@@ -51,7 +47,7 @@
 		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($t_active ? 'up' : 'down') ?></a>
-				<a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') ?>"><?= _t('index.menu.tags') ?></a>
+				<a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter ?>"><?= _t('index.menu.tags') ?></a>
 			</div>
 			<ul class="tree-folder-items<?= $t_show ? ' active' : '' ?>">
 				<?php
@@ -63,7 +59,7 @@
 						<a class="dropdown-toggle"><?= _i('configure') ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
-					<?= FreshRSS_Themes::alt('label') ?> <a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?= _url('index', $actual_view, 'get', 't_' . $tag->id()) ?>"><?= $tag->name() ?></a>
+					<?= FreshRSS_Themes::alt('label') ?> <a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?= _url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter ?>"><?= $tag->name() ?></a>
 				</li>
 				<?php endforeach; ?>
 			</ul>

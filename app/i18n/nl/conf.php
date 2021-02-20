@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Open categorieën herinneren',
 			'unread' => 'Bekijk alleen ongelezen',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'sort' => array(
 			'_' => 'Sorteer volgorde',

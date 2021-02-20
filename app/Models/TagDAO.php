@@ -259,12 +259,19 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0]['count'];
 	}
 
-	public function countNotRead($id) {
+	public function countNotRead($id = null) {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` et '
 			 . 'INNER JOIN `_entry` e ON et.id_entry=e.id '
-			 . 'WHERE et.id_tag=? AND e.is_read=0';
+			 . 'WHERE e.is_read=0';
+		$values = null;
+
+		if (null !== $id) {
+			$sql .= ' AND et.id_tag=?';
+			$values = [$id];
+		}
+
 		$stm = $this->pdo->prepare($sql);
-		$values = array($id);
+
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		return $res[0]['count'];
