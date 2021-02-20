@@ -208,11 +208,11 @@
 	<?php
 		if (FreshRSS_Context::$order === 'DESC') {
 			$order = 'ASC';
-			$icon = 'up';
+			$icon = 'sort-up';
 			$title = _t('index.menu.older_first');
 		} else {
 			$order = 'DESC';
-			$icon = 'down';
+			$icon = 'sort-down';
 			$title = _t('index.menu.newer_first');
 		}
 		$url_order = Minz_Request::currentRequest();
