@@ -15,14 +15,14 @@ return array(
 		'export' => 'Exporteren',
 		'filter' => 'Filteren',
 		'import' => 'Importeren',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
 		'remove' => 'Verwijderen',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Hernoemen',
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',

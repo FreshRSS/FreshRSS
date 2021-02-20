@@ -67,20 +67,20 @@ return array(
 		'display' => 'Queryresultaten weergeven',
 		'filter' => array(
 			'_' => 'Filter toegepast:',
-			'categories' => 'Display by category',	// TODO - Translation
-			'feeds' => 'Display by feed',	// TODO - Translation
-			'order' => 'Sort by date',	// TODO - Translation
-			'search' => 'Expression',	// TODO - Translation
-			'state' => 'State',	// TODO - Translation
-			'tags' => 'Display by tag',	// TODO - Translation
-			'type' => 'Type',	// TODO - Translation
+			'categories' => 'Weergeven op categorie',
+			'feeds' => 'Weergeven op feed',
+			'order' => 'Sorteren op datum',
+			'search' => 'Expressie',
+			'state' => 'Status',
+			'tags' => 'Weergeven op tag',
+			'type' => 'Type',
 		),
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'get_tag' => 'Toon "%s" label',
+		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
 		'none' => 'U hebt nog geen gebruikers query aangemaakt..',
 		'number' => 'Query n°%d',
@@ -135,7 +135,7 @@ return array(
 			'all_articles' => 'Bekijk alle artikelen',
 			'all_categories' => 'Alle categorieën',
 			'no_category' => 'Geen categorie',
-			'remember_categories' => 'Remember open categories',	// TODO - Translation
+			'remember_categories' => 'Open categorieën herinneren',
 			'unread' => 'Bekijk alleen ongelezen',
 		),
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
