@@ -34,13 +34,13 @@ return array(
 		),
 		'clear_cache' => 'Cache altijd leegmaken',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'_' => 'Inhoudsactie bij ophalen artikelinhoud',
+			'append' => 'Na huidige inhoud toevoegen',
+			'prepend' => 'Voor huidige inhoud toevoegen',
+			'replace' => 'Huidige inhoud vervangen',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'css_cookie' => 'Cookies gebruiken bij het ophalen van artikelinhoud',
+		'css_cookie_help' => 'Voorbeeld: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Haalt onvolledige RSS-feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'CSS-pad van artikelen op originele website',
 		'description' => 'Omschrijving',
@@ -69,8 +69,8 @@ return array(
 			'main_stream' => 'Zichtbaar in het overzicht',
 			'normal' => 'Toon in categorie',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Proxy instellen om deze feed op te halen',
+		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',
 			'show_rendered' => 'Inhoud tonen',
@@ -116,24 +116,24 @@ return array(
 		'add_feed' => 'Feed toevoegen',
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
-		'label_management' => 'Label management',	// TODO - Translation
+		'label_management' => 'Labelbeheer',
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'Naam',
+		'new_name' => 'Nieuwe naam',
+		'old_name' => 'Oude naam',
 	),
 	'title' => array(
 		'_' => 'Abonnementenbeheer',
 		'add' => 'Feed of categorie toevoegen',
 		'add_category' => 'Categorie toevoegen',
 		'add_feed' => 'Feed toevoegen',
-		'add_label' => 'Add a label',	// TODO - Translation
-		'delete_label' => 'Delete a label',	// TODO - Translation
+		'add_label' => 'Label toevoegen',
+		'delete_label' => 'Label verwijderen',
 		'feed_management' => 'RSS-feedbeheer',
-		'rename_label' => 'Rename a label',	// TODO - Translation
+		'rename_label' => 'Label hernoemen',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 );

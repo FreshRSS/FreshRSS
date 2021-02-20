@@ -110,9 +110,9 @@ return array(
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'Tag "%s" is aangemaakt.',
+		'name_exists' => 'Tagnaam bestaat al.',
+		'renamed' => 'Tag "%s" hernoemd naar "%s".',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',
