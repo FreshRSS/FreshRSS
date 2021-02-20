@@ -181,7 +181,8 @@ class SimplePie_Parser
 			xml_set_element_handler($xml, 'tag_open', 'tag_close');
 
 			// Parse!
-			if (($stream = fopen('php://temp', 'r+')) &&
+			$wrapper = @is_writable(sys_get_temp_dir()) ? 'php://temp' : 'php://memory';
+			if (($stream = fopen($wrapper, 'r+')) &&
 				fwrite($stream, $data) &&
 				rewind($stream))
 			{
