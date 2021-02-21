@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
-		'cannot_remove' => '%s 不可被移除',
+		'cannot_remove' => '%s 删除失败',
 		'disable' => array(
 			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',

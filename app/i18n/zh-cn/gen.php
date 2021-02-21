@@ -15,7 +15,7 @@ return array(
 		'export' => '导出',
 		'filter' => '过滤',
 		'import' => '导入',
-		'load_default_shortcuts' => '加载默认快捷方式',
+		'load_default_shortcuts' => '重置快捷键',
 		'manage' => '管理',
 		'mark_favorite' => '标记收藏',
 		'mark_read' => '标记已读',

@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>here</a>。 也可以从左侧菜单或主页的 ✚ 图标访问。',
+	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>here</a>。 也可从左侧菜单或主页的 ✚ 图标访问。',
 	'api' => array(
 		'documentation' => '复制以下地址，以供外部工具使用',
 		'title' => 'API',
@@ -34,10 +34,10 @@ return array(
 		),
 		'clear_cache' => '总是清除缓存',
 		'content_action' => array(
-			'_' => '获取文章内容时的操作',
-			'append' => '添加在已有内容后部',
-			'prepend' => '添加在已有内容前部',
-			'replace' => '替换已有内容',
+			'_' => '获取文章更新时的操作',
+			'append' => '添加在旧内容后部',
+			'prepend' => '添加在旧内容前部',
+			'replace' => '替换旧内容',
 		),
 		'css_cookie' => '设置此订阅源的 Cookies',
 		'css_cookie_help' => '例：<kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
