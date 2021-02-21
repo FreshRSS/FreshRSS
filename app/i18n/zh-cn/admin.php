@@ -186,11 +186,11 @@ return array(
 		'database_size' => '数据库大小',
 		'delete_users' => '删除用户',
 		'email' => '邮箱地址',
-		'enabled' => 'Enabled',	// TODO - Translation
+		'enabled' => '启用',
 		'feed_count' => '订阅源数',
 		'is_admin' => '管理员',
 		'language' => '语言',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'last_user_activity' => '最近活跃',
 		'list' => '用户列表',
 		'number' => '已有 %d 个用户',
 		'numbers' => '已有 %d 个用户',

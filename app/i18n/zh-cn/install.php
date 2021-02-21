@@ -82,9 +82,9 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => '缓存目录权限正常.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => '未知',
 		'users' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'users 目录权限正常',
@@ -114,7 +114,7 @@ return array(
 	'not_deleted' => '出错！你必须手动删除文件 <em>%s</em>',
 	'ok' => '安装成功',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'Web 服务器似乎未正确配置 PHP 会话所需的 cookie！',
 	),
 	'step' => '步骤 %d',
 	'steps' => '步骤',

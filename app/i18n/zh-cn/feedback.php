@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'cannot_remove' => '%s 不可被移除',
 		'disable' => array(
 			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
@@ -48,7 +48,7 @@ return array(
 		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
-		'removed' => '%s removed',	// TODO - Translation
+		'removed' => '%s 已移除',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
@@ -101,7 +101,7 @@ return array(
 			'selector_preview' => array(
 				'http_error' => '无法加载网站内容！无法加载网站内容！',
 				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。.',
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
+				'no_feed' => '网络错误（订阅源不存在）',
 				'no_result' => '选择器没有匹配到任何东西。作为备用，原始的feed文本将被显示出来。',
 				'selector_empty' => '选择器是空的。你需要一个来创建预览。',
 			),
@@ -110,9 +110,9 @@ return array(
 		'purge_completed' => '清除完成（已删除 %d 篇文章）',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => '标签 "%s" 已创建。',
+		'name_exists' => '标签名已存在。',
+		'renamed' => '标签 "%s" 已被重命名为 "%s"。',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>.',

@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '获取',
-		'add' => 'Add',	// TODO - Translation
+		'add' => '添加',
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
@@ -15,14 +15,14 @@ return array(
 		'export' => '导出',
 		'filter' => '过滤',
 		'import' => '导入',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => '加载默认快捷方式',
 		'manage' => '管理',
 		'mark_favorite' => '标记收藏',
 		'mark_read' => '标记已读',
 		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => '重命名',
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
@@ -185,7 +185,7 @@ return array(
 	'share' => array(
 		'Known' => '基于 Known 的站点',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => '剪贴板',
 		'diaspora' => 'Diaspora*',
 		'email' => '邮箱',
 		'facebook' => '脸书',
