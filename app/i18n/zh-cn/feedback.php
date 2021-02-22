@@ -36,7 +36,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
-		'cannot_remove' => '%s 删除失败',
+		'cannot_remove' => '无法删除 %s',
 		'disable' => array(
 			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
@@ -48,7 +48,7 @@ return array(
 		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
-		'removed' => '%s 已移除',
+		'removed' => '%s 已删除',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
@@ -99,8 +99,8 @@ return array(
 			'over_max' => '你已达到订阅源数上限（%d）',
 			'reloaded' => '<em>%s</em> 已重置',
 			'selector_preview' => array(
-				'http_error' => '无法加载网站内容！无法加载网站内容！',
-				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。.',
+				'http_error' => '无法加载网站内容。',
+				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。',
 				'no_feed' => '网络错误（订阅源不存在）',
 				'no_result' => '选择器没有匹配到任何东西。作为备用，原始的feed文本将被显示出来。',
 				'selector_empty' => '选择器是空的。你需要一个来创建预览。',
