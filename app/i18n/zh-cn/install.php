@@ -82,7 +82,7 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
-			'ok' => '缓存目录权限正常.',
+			'ok' => '缓存目录权限正常。',
 		),
 		'unknown_process_username' => '未知',
 		'users' => array(

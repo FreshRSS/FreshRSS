@@ -172,7 +172,7 @@ return array(
 		'_' => '更新系统',
 		'apply' => '应用',
 		'check' => '检查更新',
-		'current_version' => '当前 FreshRSS 版本为 %s.',
+		'current_version' => '当前 FreshRSS 版本为 %s。',
 		'last' => '上一次检查：%s',
 		'none' => '没有可用更新',
 		'title' => '更新系统',

@@ -115,7 +115,7 @@ return array(
 		'renamed' => '标签 "%s" 已被重命名为 "%s"。',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>.',
+		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>。',
 		'error' => '更新出错：%s',
 		'file_is_nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 		'finished' => '更新完成！',
