@@ -82,6 +82,7 @@ People are sorted by name so please keep this order.
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=yaurthek), [Web](http://x2a.yt/)
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mszkb)
+* [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
 * [Nick Cross](https://github.com/rnc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rnc)
 * [Nico B](https://github.com/youknow0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:youknow0)
 * [Nicola Spanti](https://github.com/RyDroid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RyDroid), [Web](http://www.nicola-spanti.info/)
