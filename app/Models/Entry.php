@@ -447,12 +447,14 @@ class FreshRSS_Entry extends Minz_Model {
 						$feed->attributes()
 					);
 					if ('' !== $fullContent) {
+						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
+						$originalContent = preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content());
 						switch ($feed->attributes('content_action')) {
 							case 'prepend':
-								$this->content = $fullContent . $this->content();
+								$this->content = $fullContent . $originalContent;
 								break;
 							case 'append':
-								$this->content = $this->content() . $fullContent;
+								$this->content = $originalContent . $fullContent;
 								break;
 							case 'replace':
 							default:

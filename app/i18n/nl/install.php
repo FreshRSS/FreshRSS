@@ -82,9 +82,9 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Permissies van de temp-map zijn goed.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'onbekend',
 		'users' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de users map zijn goed.',
@@ -114,7 +114,7 @@ return array(
 	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
 	'ok' => 'De installatieprocedure is geslaagd.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'De webserver lijkt niet goed te zijn geconfigureerd voor de cookies die voor PHP-sessies nodig zijn!',
 	),
 	'step' => 'stap %d',
 	'steps' => 'Stappen',

@@ -62,6 +62,10 @@ class FreshRSS_Category extends Minz_Model {
 			}
 		}
 
+		usort($this->feeds, function ($a, $b) {
+			return strnatcasecmp($a->name(), $b->name());
+		});
+
 		return $this->feeds;
 	}
 
