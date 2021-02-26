@@ -103,6 +103,7 @@
 	</rule>
 	<!-- No PHP code was found in this file -->
 	<rule ref="Internal.NoCodeFound">
+		<exclude-pattern>.css</exclude-pattern>
 		<exclude-pattern>.phtml</exclude-pattern>
 	</rule>
 </ruleset>

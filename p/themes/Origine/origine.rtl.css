@@ -725,7 +725,7 @@ a.btn {
 .prompt .stick,
 .prompt input {
 	width: 100%;
-	box-sizing: border-box;	
+	box-sizing: border-box;
 }
 
 .prompt .btn.btn-important {
