@@ -53,11 +53,9 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.conf.updated'),
-				                   array('c' => 'auth', 'a' => 'index'));
+				Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'auth', 'a' => 'index' ]);
 			} else {
-				Minz_Request::bad(_t('feedback.conf.error'),
-				                  array('c' => 'auth', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.conf.error'), [ 'c' => 'auth', 'a' => 'index' ]);
 			}
 		}
 	}
@@ -160,13 +158,12 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 
 				// All is good, go back to the index.
-				Minz_Request::good(_t('feedback.auth.login.success'),
-				                   array('c' => 'index', 'a' => 'index'));
+				Minz_Request::good(_t('feedback.auth.login.success'), [ 'c' => 'index', 'a' => 'index' ]);
 			} else {
-				Minz_Log::warning('Password mismatch for' .
-				                  ' user=' . $username .
-				                  ', nonce=' . $nonce .
-				                  ', c=' . $challenge);
+				Minz_Log::warning('Password mismatch for'
+					. ' user=' . $username
+					. ', nonce=' . $nonce
+					. ', c=' . $challenge);
 
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
@@ -203,8 +200,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 				Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 
-				Minz_Request::good(_t('feedback.auth.login.success'),
-				                   array('c' => 'index', 'a' => 'index'));
+				Minz_Request::good(_t('feedback.auth.login.success'), [ 'c' => 'index', 'a' => 'index' ]);
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
 				Minz_Request::bad(
@@ -221,8 +217,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function logoutAction() {
 		invalidateHttpCache();
 		FreshRSS_Auth::removeAccess();
-		Minz_Request::good(_t('feedback.auth.logout.success'),
-		                   array('c' => 'index', 'a' => 'index'));
+		Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
 	}
 
 	/**

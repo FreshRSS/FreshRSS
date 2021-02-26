@@ -4,8 +4,10 @@
 	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
 	<form method="post" action="<?= _url('configure', 'integration') ?>"
-		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick"><input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="##label##" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
-			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled /><a href="#" class="remove btn btn-attention"><?= _i('close') ?></a></div>
+		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick">
+			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="##label##" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
+			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled />
+			<a href="#" class="remove btn btn-attention"><?= _i('close') ?></a></div>
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" /></div></div>'
 		data-advanced='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls">
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
@@ -33,11 +35,14 @@
 					<input type='hidden' id='share_<?= $key ?>_method' name="share[<?= $key ?>][method]" value='<?= $share->method() ?>' />
 					<input type='hidden' id='share_<?= $key ?>_field' name="share[<?= $key ?>][field]" value='<?= $share->field() ?>' />
 					<div class="stick">
-						<input type="text" id="share_<?= $key ?>_name" name="share[<?= $key ?>][name]" class="extend" value="<?= $share->name() ?>" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" data-leave-validation="<?= $share->name() ?>"/>
+						<input type="text" id="share_<?= $key ?>_name" name="share[<?= $key ?>][name]" class="extend" value="<?= $share->name() ?>"
+							placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" data-leave-validation="<?= $share->name() ?>"/>
 					<?php if ($share->formType() === 'advanced') { ?>
-						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>" placeholder="<?= _t('conf.sharing.share_url') ?>" size="64" data-leave-validation="<?= $share->baseUrl() ?>"/>
+						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>"
+							placeholder="<?= _t('conf.sharing.share_url') ?>" size="64" data-leave-validation="<?= $share->baseUrl() ?>"/>
 					<?php } else { ?>
-						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled/>
+						<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>"
+							placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled="disabled" />
 					<?php } ?>
 						<a href='#' class='remove btn btn-attention' title="<?= _t('conf.sharing.remove') ?>"><?= _i('close') ?></a>
 					</div>
@@ -52,7 +57,8 @@
 			<div class="group-controls">
 				<select>
 					<?php foreach (FreshRSS_Share::enum() as $share) { ?>
-					<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>' data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
+					<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>'
+						data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
 						<?= $share->name(true) ?>
 					</option>
 					<?php } ?>

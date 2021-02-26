@@ -104,9 +104,9 @@ function saveStep2() {
 				]);
 		} else {
 			if (empty($_POST['type']) ||
-			    empty($_POST['host']) ||
-			    empty($_POST['user']) ||
-			    empty($_POST['base'])) {
+				empty($_POST['host']) ||
+				empty($_POST['user']) ||
+				empty($_POST['base'])) {
 				Minz_Session::_param('bd_error', 'Missing parameters!');
 			}
 			Minz_Session::_params([
@@ -336,7 +336,7 @@ function printStep0() {
 ?>
 	<?php if ($s0['all'] === 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.language.defined') ?></p>
-	<?php } else if (!empty($_POST) && $s0['sessionWorking'] !== 'ok') { ?>
+	<?php } elseif (!empty($_POST) && $s0['sessionWorking'] !== 'ok') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.session.nok') ?></p>
 	<?php } ?>
 
@@ -426,7 +426,8 @@ function printStep1() {
 	<form action="index.php?step=1" method="post">
 		<input type="hidden" name="freshrss-keep-install" value="1" />
 		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?= _t('install.action.keep_install') ?></button>
-		<a class="btn btn-attention next-step confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>" href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
+		<a class="btn btn-attention next-step confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
+			href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
 	</form>
 
 	<?php } elseif ($res['all'] == 'ok') { ?>
@@ -443,7 +444,8 @@ function printStep2() {
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
+		(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=2" method="post" autocomplete="off">
@@ -478,35 +480,40 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?= isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host'] ?>" tabindex="2" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?=
+					isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host'] ?>" tabindex="2" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?= isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?=
+					isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="pass"><?= _t('install.bdd.password') ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?= isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : '' ?>" tabindex="4" autocomplete="off" />
+				<input type="password" id="pass" name="pass" value="<?=
+					isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : '' ?>" tabindex="4" autocomplete="off" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?= isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : '' ?>" tabindex="5" />
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?=
+					isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : '' ?>" tabindex="5" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?= _t('install.bdd.prefix') ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?= isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix'] ?>" tabindex="6" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?=
+					isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix'] ?>" tabindex="6" />
 			</div>
 		</div>
 		</div>
@@ -539,7 +546,9 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?= _t('install.default_user') ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>" placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="3" />
+				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
+					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
+					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="3" />
 			</div>
 		</div>
 
@@ -553,9 +562,12 @@ function printStep3() {
 						}
 						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 					?>
-					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
-					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('install.auth.http') ?>(REMOTE_USER = '<?= httpAuthUser() ?>')</option>
-					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : '' ?>><?= _t('install.auth.none') ?></option>
+					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
+						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
+					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
+						httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('install.auth.http') ?>(REMOTE_USER = '<?= httpAuthUser() ?>')</option>
+					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
+						?>><?= _t('install.auth.none') ?></option>
 				</select>
 			</div>
 		</div>
@@ -564,7 +576,8 @@ function printStep3() {
 			<label class="group-name" for="passwordPlain"><?= _t('install.auth.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
+						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>

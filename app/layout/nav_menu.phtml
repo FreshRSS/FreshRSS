@@ -3,7 +3,7 @@
 ?>
 
 <div class="nav_menu">
-	<?php if ($actual_view === 'normal' || $actual_view === 'reader' ) { ?>
+	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
 	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
 	<?php } ?>
 
@@ -23,10 +23,10 @@
 				$url_state['params']['state'] = FreshRSS_Context::getRevertState($state);
 		?>
 		<a id="toggle-<?= $state_str ?>"
-		   class="btn <?= $state_enabled ? 'active' : '' ?>"
-		   role="checkbox" aria-checked="<?= $state_enabled ? 'true' : 'false' ?>"
-		   title="<?= _t('index.menu.' . $state_str) ?>"
-		   href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
+			class="btn <?= $state_enabled ? 'active' : '' ?>"
+			role="checkbox" aria-checked="<?= $state_enabled ? 'true' : 'false' ?>"
+			title="<?= _t('index.menu.' . $state_str) ?>"
+			href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
 		<?php } ?>
 
 		<div class="dropdown">
@@ -92,9 +92,9 @@
 		<form id="mark-read-menu" method="post">
 		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
-		        form="mark-read-menu"
-		        formaction="<?= Minz_Url::display($mark_read_url) ?>"
-		        type="submit"><?= _t('gen.action.mark_read') ?></button>
+			form="mark-read-menu"
+			formaction="<?= Minz_Url::display($mark_read_url) ?>"
+			type="submit"><?= _t('gen.action.mark_read') ?></button>
 
 		<div class="dropdown">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
@@ -106,9 +106,9 @@
 
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
-					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_read_url) ?>"
-					        type="submit"><?= $string_mark ?></button>
+						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_read_url) ?>"
+						type="submit"><?= $string_mark ?></button>
 				</li>
 				<li class="separator"></li>
 <?php
@@ -121,22 +121,22 @@
 ?>
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
-					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_before_today) ?>"
-					        type="submit"><?= _t('index.menu.before_one_day') ?></button>
+						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_before_today) ?>"
+						type="submit"><?= _t('index.menu.before_one_day') ?></button>
 				</li>
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
-					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
-					        type="submit"><?= _t('index.menu.before_one_week') ?></button>
+						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
+						type="submit"><?= _t('index.menu.before_one_week') ?></button>
 				</li>
 				<li class="separator"></li>
 				<li class="item">
 					<button class="as-link <?= $mark_unread_enabled ? $confirm : '" disabled="disabled' ?>"
-					        form="mark-read-menu"
-					        formaction="<?= Minz_Url::display($mark_unread_url) ?>"
-					        type="submit"><?= $string_unmark ?></button>
+						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_unread_url) ?>"
+						type="submit"><?= $string_unmark ?></button>
 				</li>
 			</ul>
 		</div>
@@ -153,7 +153,8 @@
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?= $mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
+			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
+				$mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
 				<?= $mode->getName() ?>
 			</a>
 			<?php

@@ -13,9 +13,11 @@
 			echo '<optgroup label="', $category->name(), '">';
 			foreach ($feeds as $feed) {
 				if ($this->feed && $feed->id() == $this->feed->id()) {
-					echo '<option value="', $feed->id(), '" selected="selected" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					echo '<option value="', $feed->id(), '" selected="selected" data-url="',
+						_url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				} else {
-					echo '<option value="', $feed->id(), '" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					echo '<option value="', $feed->id(), '" data-url="',
+						_url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				}
 			}
 			echo '</optgroup>';

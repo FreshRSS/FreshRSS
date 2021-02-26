@@ -13,7 +13,8 @@
 				<select name="new_user_language" id="new_user_language">
 				<?php $languages = Minz_Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $lang) { ?>
-				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
+				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ? (
+					' selected="selected"') : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>
 				</select>
 			</div>
@@ -22,7 +23,8 @@
 		<div class="form-group">
 			<label class="group-name" for="new_user_name"><?= _t('admin.user.username') ?></label>
 			<div class="group-controls">
-				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" placeholder="demo" />
+				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off"
+					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" placeholder="demo" />
 			</div>
 		</div>
 
@@ -83,7 +85,7 @@
 		</thead>
 		<tbody>
 			<?php foreach ($this->users as $username => $values) : ?>
-				<tr <?php if ($values['is_default']):?>class="default-user"<?php endif; ?>>
+				<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>>
 					<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
 					<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
 					<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>

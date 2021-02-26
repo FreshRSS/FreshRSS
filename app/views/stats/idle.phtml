@@ -26,11 +26,13 @@
 					<div class="stick">
 						<a class="btn" href="<?= _url('index', 'index', 'get', 'f_' . $feed['id']) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 						<a class="btn" href="<?= _url('subscription', 'index', 'id', $feed['id']) ?>"><?= _i('configure') ?> <?= _t('gen.action.manage') ?></a>
-						<button class="btn btn-attention confirm" form="form-delete" formaction="<?= _url('feed', 'delete', 'id', $feed['id'], 'r', $current_url) ?>"><?= _t('gen.action.remove') ?></button>
+						<button class="btn btn-attention confirm" form="form-delete"
+							formaction="<?= _url('feed', 'delete', 'id', $feed['id'], 'r', $current_url) ?>"><?= _t('gen.action.remove') ?></button>
 					</div>
 				</li>
 				<li class="item">
-					<span title="<?= timestamptodate($feed['last_date'], false) ?>"><?= $feed['name'] ?> (<?= _t('admin.stats.number_entries', $feed['nb_articles']) ?>)</span>
+					<span title="<?= timestamptodate($feed['last_date'], false) ?>"><?= $feed['name'] ?>
+						(<?= _t('admin.stats.number_entries', $feed['nb_articles']) ?>)</span>
 				</li>
 			</ul>
 			<?php } ?>

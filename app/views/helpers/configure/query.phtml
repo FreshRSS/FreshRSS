@@ -26,19 +26,23 @@
 			<label class="group-name" for=""><?= _t('conf.query.filter.state') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="show_read">
-					<input type="checkbox" name="query[state][]" id="show_read" value="<?= FreshRSS_Entry::STATE_READ ?>" <?= FreshRSS_Entry::STATE_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<input type="checkbox" name="query[state][]" id="show_read"
+						value="<?= FreshRSS_Entry::STATE_READ ?>" <?= FreshRSS_Entry::STATE_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
 					<?= _t('index.menu.read') ?>
 				</label>
 				<label class="checkbox" for="show_not_read">
-					<input type="checkbox" name="query[state][]" id="show_not_read" value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" <?= FreshRSS_Entry::STATE_NOT_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<input type="checkbox" name="query[state][]" id="show_not_read"
+						value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" <?= FreshRSS_Entry::STATE_NOT_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
 					<?= _t('index.menu.unread') ?>
 				</label>
 				<label class="checkbox" for="show_favorite">
-					<input type="checkbox" name="query[state][]" id="show_favorite" value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" <?= FreshRSS_Entry::STATE_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<input type="checkbox" name="query[state][]" id="show_favorite"
+						value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" <?= FreshRSS_Entry::STATE_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
 					<?= _t('index.menu.starred') ?>
 				</label>
 				<label class="checkbox" for="show_not_favorite">
-					<input type="checkbox" name="query[state][]" id="show_not_favorite" value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" <?= FreshRSS_Entry::STATE_NOT_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
+					<input type="checkbox" name="query[state][]" id="show_not_favorite"
+						value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" <?= FreshRSS_Entry::STATE_NOT_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
 					<?= _t('index.menu.non-starred') ?>
 				</label>
 			</div>

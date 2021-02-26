@@ -27,10 +27,10 @@
 		</a>
 	<?php } elseif ($url_mark_read) { ?>
 		<button id="bigMarkAsRead"
-		        class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
-		        form="mark-read-pagination"
-		        formaction="<?= Minz_Url::display($url_mark_read) ?>"
-		        type="submit">
+			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
+			form="mark-read-pagination"
+			formaction="<?= Minz_Url::display($url_mark_read) ?>"
+			type="submit">
 			<?= _t('gen.pagination.nothing_to_load') ?><br />
 			<span class="bigTick">✓</span><br />
 			<?= _t('gen.pagination.mark_all_read') ?>

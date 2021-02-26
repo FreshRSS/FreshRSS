@@ -157,9 +157,7 @@ abstract class Minz_Extension {
 		$absolute_path = $this->path . '/static/' . $filename;
 		$mtime = @filemtime($absolute_path);
 
-		$url = '/ext.php?f=' . $file_name_url .
-		       '&amp;t=' . $type .
-		       '&amp;' . $mtime;
+		$url = '/ext.php?f=' . $file_name_url . '&amp;t=' . $type . '&amp;' . $mtime;
 		return Minz_Url::display($url, 'php');
 	}
 

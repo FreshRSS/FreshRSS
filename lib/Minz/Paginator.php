@@ -144,7 +144,7 @@ class Minz_Paginator {
 
 		return $array;
 	}
-	public function nbItemsPerPage  () {
+	public function nbItemsPerPage () {
 		return $this->nbItemsPerPage;
 	}
 	public function currentPage () {

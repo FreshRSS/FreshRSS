@@ -15,8 +15,8 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 */
 	public function calculateEntryRepartition() {
 		return array(
-		    'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
-		    'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
+			'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
+			'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
 		);
 	}
 

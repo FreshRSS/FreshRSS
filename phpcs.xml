@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="FreshRSS Ruleset">
 	<description>Created with the PHP Coding Standard Generator. https://edorian.github.com/php-coding-standard-generator/</description>
-	<!-- to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
-	<arg name="tab-width" value="40"/>
+	<arg name="tab-width" value="4"/>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
 	<exclude-pattern>./lib/PHPMailer/</exclude-pattern>
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
 	<exclude-pattern>./lib/lib_phpQuery.php</exclude-pattern>
+	<exclude-pattern>./node_modules/</exclude-pattern>
 	<exclude-pattern>./data/config.php</exclude-pattern>
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
 	<exclude-pattern>./extensions/</exclude-pattern>
@@ -20,19 +20,15 @@
 	<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
 	<!-- Do not override methods to call their parent -->
 	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
-	<!-- One line should not have more than 80 characters -->
-	<!-- One line must never exceed 120 characters -->
+	<!-- Maximum line length -->
 	<rule ref="Generic.Files.LineLength">
 		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
 		<!-- Don't enforce line length on the HTML; the point is to improve legibility, not reduce it -->
-		<exclude-pattern>./app/install.php</exclude-pattern>
-		<!-- @todo remove test exclusion -->
-		<exclude-pattern>./tests/app/</exclude-pattern>
+		<exclude-pattern>.phtml</exclude-pattern>
 		<properties>
-			<property name="lineLimit" value="100"/>
-			<!-- needs to be large to accomodate extra large tab width to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
-			<property name="absoluteLineLimit" value="500"/>
+			<property name="lineLimit" value="165"/>
+			<property name="absoluteLineLimit" value="190"/>
 		</properties>
 	</rule>
 	<!-- When calling a function: -->
@@ -97,4 +93,16 @@
 	<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
 	<!-- Do not add whitespace at start or end of a file or end of a line -->
 	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+	<!-- Expected space after closing parenthesis -->
+	<rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
+		<exclude-pattern>.phtml</exclude-pattern>
+	</rule>
+	<!-- Newline required after opening brace -->
+	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
+		<exclude-pattern>.phtml</exclude-pattern>
+	</rule>
+	<!-- No PHP code was found in this file -->
+	<rule ref="Internal.NoCodeFound">
+		<exclude-pattern>.phtml</exclude-pattern>
+	</rule>
 </ruleset>

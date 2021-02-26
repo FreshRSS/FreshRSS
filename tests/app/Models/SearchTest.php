@@ -224,7 +224,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param array $tags_value
 	 * @param string|null $search_value
 	 */
-	public function test__construct_whenInputContainsMultipleKeywords_setsValues($input, $author_value, $min_date_value, $max_date_value, $intitle_value, $inurl_value, $min_pubdate_value, $max_pubdate_value, $tags_value, $search_value) {
+	public function test__construct_whenInputContainsMultipleKeywords_setsValues($input, $author_value, $min_date_value,
+			$max_date_value, $intitle_value, $inurl_value, $min_pubdate_value, $max_pubdate_value, $tags_value, $search_value) {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($author_value, $search->getAuthor());
 		$this->assertEquals($min_date_value, $search->getMinDate());

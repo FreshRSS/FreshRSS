@@ -15,10 +15,12 @@
 		<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
 
 		<?php foreach ($items as $log) { ?>
-		<div class="log <?= $log->level() ?>"><span class="date"><?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?></span><?= htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8') ?></div>
+		<div class="log <?= $log->level() ?>"><span class="date">
+				<?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?>
+			</span><?= htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8') ?></div>
 		<?php } ?>
 
-		<?php $this->logsPaginator->render('logs_pagination.phtml','page'); ?>
+		<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
 	</div>
 	<?php } else { ?>
 	<p class="alert alert-warn"><?= _t('index.log.empty') ?></p>
