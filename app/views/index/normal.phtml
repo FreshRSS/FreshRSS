@@ -91,7 +91,7 @@ $today = @strtotime('today');
 								$first = false;
 					?>
 	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
-			['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])
+			['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
 		) ?>"><?= $author ?></a></em>
 					<?php	endforeach; ?>
 					</div><?php endif; ?>
