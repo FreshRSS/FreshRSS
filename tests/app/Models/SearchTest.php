@@ -66,6 +66,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('intitle:"word1 word2\' word3"', array("word1 word2' word3"), null),
 			array("intitle:'word1 word2\" word3'", array('word1 word2" word3'), null),
 			array("intitle:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['intitle:word1+word2', ['word1+word2'], null],
 		);
 	}
 
@@ -102,6 +103,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('author:"word1 word2\' word3"', array("word1 word2' word3"), null),
 			array("author:'word1 word2\" word3'", array('word1 word2" word3'), null),
 			array("author:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['author:word1+word2', ['word1+word2'], null],
 		);
 	}
 
@@ -129,6 +131,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('inurl:"word1 word2"', array('"word1'), array('word2"')),
 			array('inurl:word1 word2 inurl:word3', array('word1', 'word3'), array('word2')),
 			array("inurl:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['inurl:word1+word2', ['word1+word2'], null],
 		);
 	}
 
@@ -208,6 +211,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('#"word1 word2"', array('"word1'), array('word2"')),
 			array('#word1 #word2', array('word1', 'word2'), null),
 			array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['#word1+word2', ['word1 word2'], null],
 		);
 	}
 
@@ -290,5 +294,4 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			),
 		);
 	}
-
 }
