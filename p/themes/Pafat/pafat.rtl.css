@@ -1168,6 +1168,7 @@ a.btn {
 
 	.nav_menu .stick {
 		margin: 0 10px;
+		min-width: 0;
 	}
 
 	.nav_menu .stick .btn {
