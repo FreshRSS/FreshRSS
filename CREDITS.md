@@ -62,6 +62,7 @@ People are sorted by name so please keep this order.
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=j8r), [Web](https://blog.jrei.ch/)
 * [Julien-Pierre Avérous](https://github.com/javerous): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:javerous), [Web](https://www.sourcemac.com/)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=kevinpapst), [Web](http://www.kevinpapst.de/)
+* [Kiblyn11](https://github.com/Kiblyn11): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Kiblyn11)
 * [kinoushe](https://github.com/kinoushe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kinoushe)
 * [knasdk](https://github.com/knasdk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:knasdk)
 * [Kristian Salonen](https://github.com/krisu5): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:krisu5)
