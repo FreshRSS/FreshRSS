@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Se souvenir des catégories dépliées',
 			'unread' => 'Afficher les non lus',
 		),
+		'show_fav_unread_help' => 'S’applique aussi aux étiquettes',
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'sort' => array(
 			'_' => 'Ordre de tri',

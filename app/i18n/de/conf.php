@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Geöffnete Kategorien merken',
 			'unread' => 'Nur ungelesene zeigen',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'sort' => array(
 			'_' => 'Sortierreihenfolge',

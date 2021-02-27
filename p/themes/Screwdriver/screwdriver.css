@@ -390,8 +390,14 @@ a.btn {
 	transform: rotate(45deg);
 }
 
-.dropdown-header {
+.configure .dropdown-header {
 	display: none;
+}
+
+.dropdown-header {
+	padding: 0 5px 5px;
+	color: #ccc;
+	font-weight: bold;
 }
 
 .dropdown-menu > .item > a,

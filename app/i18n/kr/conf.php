@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => '읽지 않은 글만 표시',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
 		'sort' => array(
 			'_' => '정렬 순서',

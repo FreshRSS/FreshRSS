@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Se remembrar de las categorias dobèrtas',
 			'unread' => 'Mostrar pas que los pas legits',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
 		'sort' => array(
 			'_' => 'Òrdre de tria',
