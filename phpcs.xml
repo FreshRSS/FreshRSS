@@ -25,7 +25,7 @@
 		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
 		<!-- Don't enforce line length on the HTML; the point is to improve legibility, not reduce it -->
-		<exclude-pattern>.phtml</exclude-pattern>
+		<exclude-pattern>*.phtml</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="165"/>
 			<property name="absoluteLineLimit" value="190"/>
