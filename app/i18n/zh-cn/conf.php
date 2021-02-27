@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => '记住打开的分类',
 			'unread' => '只显示未读',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => '点击文章区域外以关闭',
 		'sort' => array(
 			'_' => '排列顺序',

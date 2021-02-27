@@ -32,10 +32,15 @@ function get_absolute_filename(string $file_name) {
 		return $third_party_extension;
 	}
 
+	$user = realpath(USERS_PATH . '/' . $file_name);
+	if (false !== $user) {
+		return $user;
+	}
+
 	return '';
 }
 
-function is_valid_path_extension($path, $extensionPath) {
+function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
 	// It must be under the extension path.
 	$real_ext_path = realpath($extensionPath);
 
@@ -48,7 +53,12 @@ function is_valid_path_extension($path, $extensionPath) {
 		return false;
 	}
 
-	// File to serve must be under a `ext_dir/static/` directory.
+	// User files do not need further validations
+	if (!$isStatic) {
+		return true;
+	}
+
+	// Static files to serve must be under a `ext_dir/static/` directory.
 	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
 	list(,$static,$file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s');
 	if (null === $file || 'static' !== $static) {
@@ -69,7 +79,7 @@ function is_valid_path_extension($path, $extensionPath) {
  *
  */
 function is_valid_path($path) {
-	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH);
+	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH) || is_valid_path_extension($path, USERS_PATH, $false);
 }
 
 function sendBadRequestResponse(string $message = null) {

@@ -13,6 +13,7 @@ require(LIB_PATH . '/lib_install.php');
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
+Minz_ExtensionManager::init();
 Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
@@ -35,6 +36,9 @@ function cliInitUser($username) {
 	if (!FreshRSS_Context::initUser($username)) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
+
+	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+	Minz_ExtensionManager::enableByList($ext_list);
 
 	return $username;
 }
