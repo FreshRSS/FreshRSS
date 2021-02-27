@@ -308,8 +308,8 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="<?=
-						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_COOKIE]) ? (
-							$this->feed->attributes('curl_params')[CURLOPT_COOKIE]) : ''
+						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_COOKIE]) ?
+							$this->feed->attributes('curl_params')[CURLOPT_COOKIE] : ''
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
@@ -342,8 +342,8 @@
 				</select>
 				<div class="stick">
 					<input type="text" name="curl_params" id="curl_params" class="extend" value="<?=
-						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_PROXY]) ? (
-							$this->feed->attributes('curl_params')[CURLOPT_PROXY]) : ''
+						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_PROXY]) ?
+							$this->feed->attributes('curl_params')[CURLOPT_PROXY] : ''
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>

@@ -61,11 +61,11 @@ test: bin/phpunit ## Run the test suite
 
 .PHONY: lint
 lint: bin/phpcs ## Run the linter on the PHP files
-	$(PHP) ./bin/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+	$(PHP) ./bin/phpcs . -p -s
 
 .PHONY: lint-fix
 lint-fix: bin/phpcbf ## Fix the errors detected by the linter
-	$(PHP) ./bin/phpcbf . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+	$(PHP) ./bin/phpcbf . -p -s
 
 bin/phpunit:
 	mkdir -p bin/
