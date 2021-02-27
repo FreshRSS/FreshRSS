@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment information (please complete the following information):**
  - Device: [e.g. iPhone6]
- - OS: [e.g. Ubuntu 20.4]
+ - OS: [e.g. Ubuntu 20.04]
  - Browser: [e.g. Firefox 86]
  - FreshRSS version: [e.g. 1.17.1]
  - Database version: [e.g. Mysql 5.7]
