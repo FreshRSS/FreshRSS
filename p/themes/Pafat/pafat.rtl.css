@@ -120,6 +120,7 @@ form th {
 .stick {
 	vertical-align: middle;
 	font-size: 0;
+	min-width: 215px;
 }
 
 .stick input,
@@ -1167,6 +1168,7 @@ a.btn {
 
 	.nav_menu .stick {
 		margin: 0 10px;
+		min-width: max-content;
 	}
 
 	.nav_menu .stick .btn {
