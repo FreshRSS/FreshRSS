@@ -6,10 +6,7 @@ class FreshRSS_FormAuth {
 				!ctype_graph($hash) ||
 				!ctype_graph($challenge) ||
 				!ctype_alnum($nonce)) {
-			Minz_Log::debug('Invalid credential parameters:' .
-				' user=' . $username .
-				' challenge=' . $challenge .
-				' nonce=' . $nonce);
+			Minz_Log::debug("Invalid credential parameters: user={$username}, challenge={$challenge}, nonce={$nonce}");
 			return false;
 		}
 

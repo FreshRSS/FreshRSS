@@ -160,10 +160,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				// All is good, go back to the index.
 				Minz_Request::good(_t('feedback.auth.login.success'), [ 'c' => 'index', 'a' => 'index' ]);
 			} else {
-				Minz_Log::warning('Password mismatch for'
-					. ' user=' . $username
-					. ', nonce=' . $nonce
-					. ', c=' . $challenge);
+				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect

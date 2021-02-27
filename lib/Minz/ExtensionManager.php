@@ -161,7 +161,7 @@ class Minz_ExtensionManager {
 
 		// Test if the given extension class exists.
 		if (!class_exists($ext_class_name)) {
-			Minz_Log::warning('`' . $ext_class_name . '` cannot be found in `' . $entry_point_filename . '`');
+			Minz_Log::warning("`{$ext_class_name}` cannot be found in `{$entry_point_filename}`");
 			return null;
 		}
 
@@ -171,13 +171,13 @@ class Minz_ExtensionManager {
 			$extension = new $ext_class_name($info);
 		} catch (Exception $e) {
 			// We cannot load the extension? Invalid!
-			Minz_Log::warning('Invalid extension `' . $ext_class_name . '`: ' . $e->getMessage());
+			Minz_Log::warning("Invalid extension `{$ext_class_name}`: " . $e->getMessage());
 			return null;
 		}
 
 		// Test if class is correct.
 		if (!($extension instanceof Minz_Extension)) {
-			Minz_Log::warning('`' . $ext_class_name . '` is not an instance of `Minz_Extension`');
+			Minz_Log::warning("`{$ext_class_name}` is not an instance of `Minz_Extension`");
 			return null;
 		}
 

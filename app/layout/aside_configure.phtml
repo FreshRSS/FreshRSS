@@ -18,7 +18,7 @@
 	<li class="item<?= Minz_Request::actionName() === 'queries' ? ' active' : '' ?>">
 		<a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : ''; ?>">
+	<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
 		<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
 	</li>
 	<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
@@ -31,17 +31,17 @@
 	<li class="item<?= Minz_Request::actionName() === 'system' ? ' active' : '' ?>">
 		<a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'manage' ? ' active' : ''; ?>">
+	<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'manage' ? ' active' : '' ?>">
 		<a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a>
 	</li>
 	<li class="item<?= Minz_Request::controllerName() === 'auth' ? ' active' : '' ?>">
 		<a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : ''; ?>">
+	<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : '' ?>">
 		<a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a>
 	</li>
 	<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
-	<li class="item<?php echo Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : ''; ?>">
+	<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 		<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 	</li>
 	<?php } ?>

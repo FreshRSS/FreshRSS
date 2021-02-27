@@ -70,7 +70,8 @@ class FreshRSS extends Minz_FrontController {
 				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' && !FreshRSS_Auth::hasAccess('admin')) ||
 				(Minz_Request::controllerName() === 'feed' && Minz_Request::actionName() === 'actualize'
 					&& FreshRSS_Context::$system_conf->allow_anonymous_refresh) ||
-				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize' && FreshRSS_Context::$system_conf->allow_anonymous)
+				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize'
+					&& FreshRSS_Context::$system_conf->allow_anonymous)
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				self::initI18n();
