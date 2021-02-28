@@ -1168,6 +1168,8 @@ a.btn {
 
 	.nav_menu .btn {
 		margin: 5px 10px;
+		padding: 3px 5px;
+		min-height: 0;
 	}
 
 	.nav_menu .stick {
@@ -1181,6 +1183,7 @@ a.btn {
 	.nav_menu .search {
 		display: inline-block;
 		max-width: 97%;
+		padding: 3px 5px;
 	}
 
 	.nav_menu .search input {
