@@ -30,7 +30,7 @@
 	* Add autofocus on subscription page [#3334](https://github.com/FreshRSS/FreshRSS/pull/3334)
 	* Fix contrast issue by enforcing black text in base theme [#3196](https://github.com/FreshRSS/FreshRSS/pull/3196)
 	* Adjust brightness & contrast of images and videos in dark themes [#3356](https://github.com/FreshRSS/FreshRSS/pull/3356)
-	* Improve menu bar of Pafat theme for mobile view [#3480](https://github.com/FreshRSS/FreshRSS/pull/3480)
+	* Improve menu bar of several themes for mobile view [#3480](https://github.com/FreshRSS/FreshRSS/pull/3480), [#3491](https://github.com/FreshRSS/FreshRSS/pull/3491)
 	* Fix dropdown menu for user queries with BlueLagoon and Screwdriver themes [#3485](https://github.com/FreshRSS/FreshRSS/pull/3485)
 * Bug fixing
 	* Better handle expected article conflicts in database [#3409](https://github.com/FreshRSS/FreshRSS/pull/3409)
@@ -52,10 +52,11 @@
 		* New tolerance when the database is not available / up (yet) by trying a few times to connect
 	* Docker: use Apache `remoteip` to log the client remote IP instead of the local proxy IP [#3226](https://github.com/FreshRSS/FreshRSS/pull/3226)
 	* Docker: new environment variable `LISTEN` to change the internal Apache port when running in host network mode [#3343](https://github.com/FreshRSS/FreshRSS/pull/3343)
-	* Docker: Alpine image updated to 3.13 with PHP 8.0.1 and Apache 2.4.46 [#3375](https://github.com/FreshRSS/FreshRSS/pull/3375)
+	* Docker: Alpine image updated to 3.13 with PHP 8.0.2 and Apache 2.4.46 [#3375](https://github.com/FreshRSS/FreshRSS/pull/3375)
 		* Note: needed for MySQL 8+ with default authentication settings [#3191](https://github.com/FreshRSS/FreshRSS/issues/3191)
+	* Docker default image (Debian 10 Buster) updated to PHP 7.3.27
 	* New Docker development image based on `alpine:edge` to test the latest PHP 8+ version [#3294](https://github.com/FreshRSS/FreshRSS/pull/3294)
-	* New Docker development image based on `alpine:3.4` to test oldest supported PHP 5.36 version [#3274](https://github.com/FreshRSS/FreshRSS/pull/3274)
+	* New Docker development image based on `alpine:3.4` to test oldest supported PHP 5.6.36 version with Apache 2.4.43 [#3274](https://github.com/FreshRSS/FreshRSS/pull/3274)
 	* Check that PHP session is working during install [#3430](https://github.com/FreshRSS/FreshRSS/pull/3430)
 * Security
 	* Auto-renew login cookie [#3287](https://github.com/FreshRSS/FreshRSS/pull/3287)
