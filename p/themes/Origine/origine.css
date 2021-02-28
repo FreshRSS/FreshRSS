@@ -1183,10 +1183,10 @@ a.btn {
 	.nav_menu .search {
 		display: inline-block;
 		max-width: 97%;
-		padding: 3px 5px;
 	}
 
 	.nav_menu .search input {
+		padding: 3px 5px;
 		max-width: 97%;
 		width: 90px;
 	}

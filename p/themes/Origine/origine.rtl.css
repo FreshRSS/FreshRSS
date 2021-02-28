@@ -1186,9 +1186,9 @@ a.btn {
 	}
 
 	.nav_menu .search input {
+		padding: 3px 5px;
 		max-width: 97%;
 		width: 90px;
-		padding: 3px 5px;
 	}
 
 	.nav_menu .search input:focus {
