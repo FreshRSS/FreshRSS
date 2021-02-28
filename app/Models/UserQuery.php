@@ -59,12 +59,12 @@ class FreshRSS_UserQuery {
 	 */
 	public function toArray() {
 		return array_filter(array(
-		    'get' => $this->get,
-		    'name' => $this->name,
-		    'order' => $this->order,
-		    'search' => $this->search->__toString(),
-		    'state' => $this->state,
-		    'url' => $this->url,
+			'get' => $this->get,
+			'name' => $this->name,
+			'order' => $this->order,
+			'search' => $this->search->__toString(),
+			'state' => $this->state,
+			'url' => $this->url,
 		));
 	}
 

@@ -17,7 +17,7 @@ jobs:
         - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
         - COMPOSER_BIN=$(composer global config --absolute bin-dir)
         - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
-        - $COMPOSER_BIN/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+        - $COMPOSER_BIN/phpcs . -p -s
     - name: "PHP 7.4 Syntax, linter and tests"
       php: "7.4"
       install:
@@ -29,7 +29,7 @@ jobs:
         - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
         - COMPOSER_BIN=$(composer global config --absolute bin-dir)
         - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
-        - $COMPOSER_BIN/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+        - $COMPOSER_BIN/phpcs . -p -s
     - name: "PHP 5.6 Syntax"
       php: "5.6"
       script:

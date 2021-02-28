@@ -42,9 +42,13 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function addTag($valuesTmp) {
-		$sql = 'INSERT INTO `_tag`(name, attributes) '
-		     . 'SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2 '	//TRIM() gives a text type hint to PostgreSQL
-		     . 'WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))';	//No category of the same name
+		// TRIM() gives a text type hint to PostgreSQL
+		// No category of the same name
+		$sql = <<<'SQL'
+INSERT INTO `_tag`(name, attributes)
+SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2
+WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
+SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
@@ -79,8 +83,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateTag($id, $valuesTmp) {
-		$sql = 'UPDATE `_tag` SET name=?, attributes=? WHERE id=? '
-		     . 'AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)';	//No category of the same name
+		// No category of the same name
+		$sql = <<<'SQL'
+UPDATE `_tag` SET name=?, attributes=? WHERE id=?
+AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)
+SQL;
+
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
@@ -149,7 +157,11 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateEntryTag($oldTagId, $newTagId) {
-		$sql = 'DELETE FROM `_entrytag` WHERE EXISTS (SELECT 1 FROM `_entrytag` AS e WHERE e.id_entry = `_entrytag`.id_entry AND e.id_tag = ? AND `_entrytag`.id_tag = ?)';
+		$sql = <<<'SQL'
+DELETE FROM `_entrytag` WHERE EXISTS (
+	SELECT 1 FROM `_entrytag` AS e
+	WHERE e.id_entry = `_entrytag`.id_entry AND e.id_tag = ? AND `_entrytag`.id_tag = ?)
+SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		if (!($stm && $stm->execute([$newTagId, $oldTagId]))) {

@@ -68,7 +68,7 @@ function checkRequirements($dbType = '') {
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'message' => $message ?: '',
 		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko'
+			$data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko'
 	);
 }
 

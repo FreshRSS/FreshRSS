@@ -193,8 +193,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
-				Minz_Request::bad(_t('feedback.update.error', $res),
-				                  array('c' => 'update', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
 			$res = false;
@@ -220,8 +219,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 					'params' => array('post_conf' => true)
 				), true);
 			} else {
-				Minz_Request::bad(_t('feedback.update.error', $res),
-				                  array('c' => 'update', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		}
 	}

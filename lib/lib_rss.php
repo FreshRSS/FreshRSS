@@ -124,7 +124,7 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
-	return str_replace(' ', ' ',  //Espace fine insécable
+	return str_replace(' ', ' ',	//Espace fine insécable
 		number_format($n, $precision, '.', ' ')
 	);
 }
@@ -358,8 +358,8 @@ function get_user_configuration($username) {
 	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
-		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
+			USERS_PATH . '/' . $username . '/config.php',
+			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
 		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
@@ -572,7 +572,8 @@ function errorMessage($errorTitle, $error = '') {
 	<h1>{$errorTitle}</h1>
 	{$error}
 	<h2>Common problems</h2>
-	<p>A typical problem leading to this message is wrong file permissions in the <code>./FreshRSS/data/</code> folder so make sure the Web server can write there and in sub-directories.</p>
+	<p>A typical problem leading to this message is wrong file permissions in the <code>./FreshRSS/data/</code> folder
+	so make sure the Web server can write there and in sub-directories.</p>
 	<h2>Common locations for additional logs</h2>
 	<p><strong>N.B.:</strong> Adapt names and paths according to your local setup.</p>
 	<ul>

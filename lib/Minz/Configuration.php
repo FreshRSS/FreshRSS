@@ -17,8 +17,7 @@ class Minz_Configuration {
 	 * @param $default_filename a filename containing default values for the configuration
 	 * @param $configuration_setter an optional helper to set values in configuration
 	 */
-	public static function register($namespace, $config_filename, $default_filename = null,
-	                                $configuration_setter = null) {
+	public static function register($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		self::$config_list[$namespace] = new Minz_Configuration(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
@@ -103,8 +102,7 @@ class Minz_Configuration {
 	 * @param $default_filename the file containing default values, null by default.
 	 * @param $configuration_setter an optional helper to set values in configuration
 	 */
-	private function __construct($namespace, $config_filename, $default_filename = null,
-	                             $configuration_setter = null) {
+	private function __construct($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 		$this->default_filename = $default_filename;
@@ -206,8 +204,7 @@ class Minz_Configuration {
 		@rename($this->config_filename, $back_filename);
 
 		if (file_put_contents($this->config_filename,
-		                      "<?php\nreturn " . var_export($this->data, true) . ';',
-		                      LOCK_EX) === false) {
+			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX) === false) {
 			return false;
 		}
 

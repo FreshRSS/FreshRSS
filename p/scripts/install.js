@@ -17,7 +17,7 @@ function hide_password(ev) {
 	return false;
 }
 const toggles = document.getElementsByClassName('toggle-password');
-for (let i = 0 ; i < toggles.length ; i++) {
+for (let i = 0; i < toggles.length; i++) {
 	toggles[i].addEventListener('mousedown', show_password);
 	toggles[i].addEventListener('mouseup', hide_password);
 }
@@ -68,7 +68,7 @@ function ask_confirmation(ev) {
 	}
 }
 const confirms = document.getElementsByClassName('confirm');
-for (let i = 0 ; i < confirms.length ; i++) {
+for (let i = 0; i < confirms.length; i++) {
 	confirms[i].addEventListener('click', ask_confirmation);
 }
 // @license-end

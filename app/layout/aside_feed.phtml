@@ -27,7 +27,8 @@
 	<ul id="sidebar" class="tree">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
-				<?= _i('all') ?> <a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?= _url('index', $actual_view) ?>"><?= _t('index.menu.main_stream') ?></a>
+				<?= _i('all') ?> <a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
+					_url('index', $actual_view) ?>"><?= _t('index.menu.main_stream') ?></a>
 			</div>
 		</li>
 
@@ -59,7 +60,8 @@
 						<a class="dropdown-toggle"><?= _i('configure') ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
-					<?= FreshRSS_Themes::alt('label') ?> <a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?= _url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter ?>"><?= $tag->name() ?></a>
+					<?= FreshRSS_Themes::alt('label') ?> <a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
+						_url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter ?>"><?= $tag->name() ?></a>
 				</li>
 				<?php endforeach; ?>
 			</ul>
@@ -71,12 +73,15 @@
 				$position = $cat->attributes('position');
 				if (!empty($feeds)) {
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
-					$c_show = ($c_active && in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember' ])) || FreshRSS_Context::$user_conf->display_categories === 'all';
+					$c_show = ($c_active && in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember' ]))
+						|| FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
-		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
+		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
+			null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
-				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?= format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) ?>"><?= $cat->name() ?></a>
+				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
+					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) ?>"><?= $cat->name() ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
@@ -84,14 +89,17 @@
 					foreach ($feeds as $feed) {
 						$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 				?>
-				<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?= $feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : '' ?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
+				<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?=
+					$feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : ''
+					?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
 					<div class="dropdown no-mobile">
 						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-					<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'f_' . $feed->id()) ?>"><?= $feed->name() ?></a>
+					<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
+						_url('index', $actual_view, 'get', 'f_' . $feed->id()) ?>"><?= $feed->name() ?></a>
 				</li>
 				<?php } ?>
 			</ul>
@@ -134,9 +142,9 @@
 		<li class="item">
 			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 			<button class="read_all as-link <?= $confirm ?>"
-			        form="mark-read-aside"
-			        formaction="<?= _url('entry', 'read', 'get', 'f_------') ?>"
-			        type="submit"><?= _t('gen.action.mark_read') ?></button>
+				form="mark-read-aside"
+				formaction="<?= _url('entry', 'read', 'get', 'f_------') ?>"
+				type="submit"><?= _t('gen.action.mark_read') ?></button>
 		</li>
 		<?php } ?>
 	</ul>

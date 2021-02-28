@@ -34,7 +34,8 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 				$salt = FreshRSS_Context::$system_conf->salt;
 				$s = FreshRSS_Context::$user_conf->passwordHash;
 				if (strlen($s) >= 60) {
-					$this->view->salt1 = substr($s, 0, 29);	//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
+					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
+					$this->view->salt1 = substr($s, 0, 29);
 					$this->view->nonce = sha1($salt . uniqid(mt_rand(), true));
 					Minz_Session::_param('nonce', $this->view->nonce);
 					return;	//Success

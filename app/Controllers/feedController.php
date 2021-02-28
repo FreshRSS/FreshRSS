@@ -150,8 +150,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
-			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']),
-			                  $url_redirect);
+			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']), $url_redirect);
 		}
 
 		if (Minz_Request::isPost()) {
@@ -366,9 +365,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						} else {	//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
-							$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
-									$feed->attributes('mark_updated_article_unread')
-								) : FreshRSS_Context::$user_conf->mark_updated_article_unread;
+							$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ?
+								$feed->attributes('mark_updated_article_unread') :
+								FreshRSS_Context::$user_conf->mark_updated_article_unread;
 							$needFeedCacheRefresh = $mark_updated_article_unread;
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 

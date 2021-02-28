@@ -61,10 +61,10 @@ $today = @strtotime('today');
 			?></div><?php
 			$display_others = false;
 		}
-	?><div class="flux<?php echo !$this->entry->isRead() ? ' not_read' : '';
-		?><?php echo $this->entry->isFavorite() ? ' favorite' : '';
-		?>" id="flux_<?php echo $this->entry->id();
-		?>" data-feed="<?php echo $this->feed->id();
+	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
+		?><?= $this->entry->isFavorite() ? ' favorite' : ''
+		?>" id="flux_<?= $this->entry->id()
+		?>" data-feed="<?= $this->feed->id()
 		?>"><?php
 
 			$this->renderHelper('index/normal/entry_header');
@@ -74,7 +74,9 @@ $today = @strtotime('today');
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
 				<div class="subtitle">
 					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
-						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
+						<?php endif; ?>
 						<span><?= $this->feed->name() ?></span></a>
 					</div>
 					<div class="date"><?= $this->entry->date() ?></div>
@@ -88,7 +90,9 @@ $today = @strtotime('today');
 								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 								$first = false;
 					?>
-	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])) ?>"><?= $author ?></a></em>
+	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
+			['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
+		) ?>"><?= $author ?></a></em>
 					<?php	endforeach; ?>
 					</div><?php endif; ?>
 				</div>

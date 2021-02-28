@@ -157,8 +157,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		if ($status_file !== 0) {
 			Minz_Log::warning('File cannot be uploaded. Error code: ' . $status_file);
-			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'),
-			                  array('c' => 'importExport', 'a' => 'index'));
+			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'), [ 'c' => 'importExport', 'a' => 'index' ]);
 		}
 
 		@set_time_limit(300);

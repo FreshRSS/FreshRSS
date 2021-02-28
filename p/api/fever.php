@@ -13,7 +13,7 @@
 // ================================================================================================
 // BOOTSTRAP FreshRSS
 require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');    //Includes class autoloader
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
@@ -506,7 +506,7 @@ class FeverAPI
 			if (!ctype_digit($max_id)) {
 				$max_id = null;
 			}
-		} else if (isset($_REQUEST['with_ids'])) {
+		} elseif (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
 		} else {
 			// use the since_id argument to request the next $item_limit items
