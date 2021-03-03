@@ -756,6 +756,8 @@ return array(
 	'sub.feed.title_add',
 	'sub.feed.ttl',
 	'sub.feed.url',
+	'sub.feed.useragent',
+	'sub.feed.useragent_help',
 	'sub.feed.validator',
 	'sub.feed.website',
 	'sub.feed.websub',

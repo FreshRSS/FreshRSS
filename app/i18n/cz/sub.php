@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'Přidat RSS kanál',
 		'ttl' => 'Neobnovovat častěji než',
 		'url' => 'URL kanálu',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'Zkontrolovat platnost kanálu',
 		'website' => 'URL webové stránky',
 		'websub' => 'Okamžité oznámení s WebSub',

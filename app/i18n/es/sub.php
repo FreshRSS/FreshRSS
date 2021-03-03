@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
 		'url' => 'URL de la fuente',
+		'useragent' => 'Selecciona el agente de usario por recuperar la fuente',
+		'useragent_help' => 'Ejemplo: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Verifica la validez de la fuente',
 		'website' => 'Web de la URL',
 		'websub' => 'Notificación inmedaiata con WebSub',

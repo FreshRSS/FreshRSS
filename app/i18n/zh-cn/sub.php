@@ -90,6 +90,8 @@ return array(
 		'title_add' => '添加订阅源',
 		'ttl' => '最小自动更新间隔',
 		'url' => '源地址',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => '检查订阅源有效性',
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',

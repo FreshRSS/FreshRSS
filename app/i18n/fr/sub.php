@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'Ajouter un flux RSS',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'url' => 'URL du flux',
+		'useragent' => 'Sélectionner l’agent utilisateur pour télécharger ce flux',
+		'useragent_help' => 'Exemple: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
 		'websub' => 'Notification instantanée par WebSub',

@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'url' => '피드 URL',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => '피드 유효성 검사',
 		'website' => '웹사이트 URL',
 		'websub' => 'WebSub을 사용한 즉시 알림',

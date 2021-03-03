@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'Aggiungi RSS feed',
 		'ttl' => 'Non aggiornare automaticamente piu di',
 		'url' => 'Feed URL',	// TODO - Translation
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'Controlla la validita del feed ',
 		'website' => 'URL del sito',
 		'websub' => 'Notifica istantanea con WebSub',

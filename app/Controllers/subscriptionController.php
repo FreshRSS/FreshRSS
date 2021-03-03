@@ -113,6 +113,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
 
 			$cookie = Minz_Request::param('curl_params_cookie', '');
+			$useragent = Minz_Request::param('curl_params_useragent', '');
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
 			$opts = [];
@@ -122,6 +123,9 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			}
 			if ($cookie != '') {
 				$opts[CURLOPT_COOKIE] = $cookie;
+			}
+			if ($useragent != '') {
+				$opts[CURLOPT_USERAGENT] = $useragent;
 			}
 			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
 
