@@ -96,7 +96,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$pass = trim(Minz_Request::param('http_pass_feed' . $id, ''));
 
 			$httpAuth = '';
-			if ($user != '' && $pass != '') {	//TODO: Sanitize
+			if ($user !== '' && $pass !== '') {	//TODO: Sanitize
 				$httpAuth = $user . ':' . $pass;
 			}
 
@@ -117,14 +117,14 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
 			$opts = [];
-			if ($proxy_address != '' && $proxy_type != '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
 				$opts[CURLOPT_PROXY] = $proxy_address;
 				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
 			}
-			if ($cookie != '') {
+			if ($cookie !== '') {
 				$opts[CURLOPT_COOKIE] = $cookie;
 			}
-			if ($useragent != '') {
+			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
 			}
 			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
