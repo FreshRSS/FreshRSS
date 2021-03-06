@@ -187,10 +187,10 @@ SQL;
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
 				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
-				. ', link=:link, date=:date, `lastSeen`=:last_seen, '
-				. 'hash=' . $this->sqlHexDecode(':hash')
-				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
-				. 'tags=:tags '
+				. ', link=:link, date=:date, `lastSeen`=:last_seen'
+				. ', hash=' . $this->sqlHexDecode(':hash')
+				. ', is_read=COALESCE(:is_read, is_read)'
+				. ', tags=:tags '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
@@ -213,7 +213,9 @@ SQL;
 		$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 		$valuesTmp['lastSeen'] = time();
 		$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-		if ($valuesTmp['is_read'] !== null) {
+		if ($valuesTmp['is_read'] === null) {
+			$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
+		} else {
 			$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 		}
 		$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
