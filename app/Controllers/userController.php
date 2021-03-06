@@ -71,8 +71,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.user.updated.error', $username),
-				                  array('c' => 'user', 'a' => 'manage'));
+				Minz_Request::bad(_t('feedback.user.updated.error', $username), [ 'c' => 'user', 'a' => 'manage' ]);
 			}
 		}
 	}
@@ -140,8 +139,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.profile.error'),
-				                  array('c' => 'user', 'a' => 'profile'));
+				Minz_Request::bad(_t('feedback.profile.error'), [ 'c' => 'user', 'a' => 'profile' ]);
 			}
 		}
 	}

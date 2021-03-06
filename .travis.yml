@@ -6,30 +6,18 @@ jobs:
     - name: "Translations"
 
   include:
-    - name: "PHP 7.3 Syntax, linter and tests"
-      php: "7.3"
+    - name: "PHP 8.0 Syntax, linter and tests"
+      php: "8.0"
       install:
         - composer global require squizlabs/php_codesniffer
-        - composer global require phpunit/phpunit ^7
+        - composer global require phpunit/phpunit ^9
       script:
         - phpenv rehash
         - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
         - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
         - COMPOSER_BIN=$(composer global config --absolute bin-dir)
         - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
-        - $COMPOSER_BIN/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
-
-    - name: "PHP 7.1 Syntax and tests"
-      php: "7.1"
-      install:
-        - composer global require phpunit/phpunit ^7
-      script:
-        - phpenv rehash
-        - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
-        - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
-        - COMPOSER_BIN=$(composer global config --absolute bin-dir)
-        - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
-
+        - $COMPOSER_BIN/phpcs . -p -s
     - name: "PHP 5.6 Syntax"
       php: "5.6"
       script:
@@ -38,14 +26,14 @@ jobs:
         - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
 
     - name: "Translations format"
-      php: "7.3"
+      php: "7.4"
       script:
         - phpenv rehash
         - php cli/manipulate.translation.php -a format
         - git diff --exit-code
 
     - name: "Translations"
-      php: "7.3"
+      php: "7.4"
       script:
         - phpenv rehash
         - php cli/check.translation.php -r

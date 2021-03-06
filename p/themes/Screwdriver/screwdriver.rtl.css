@@ -398,8 +398,14 @@ a.btn {
 	transform: rotate(-45deg);
 }
 
-.dropdown-header {
+.configure .dropdown-header {
 	display: none;
+}
+
+.dropdown-header {
+	padding: 0 5px 5px;
+	color: #ccc;
+	font-weight: bold;
 }
 
 .dropdown-menu > .item > a,
@@ -787,7 +793,7 @@ a.btn {
 .prompt input {
 	width: 100%;
 	box-sizing: border-box;
-	
+
 }
 
 .prompt input#username,.prompt input#passwordPlain {
@@ -1307,6 +1313,8 @@ a.btn {
 
 	.nav_menu .btn {
 		margin: 5px 10px;
+		padding: 3px 5px;
+		min-height: 0;
 	}
 
 	.nav_menu .stick {
@@ -1322,6 +1330,7 @@ a.btn {
 	}
 
 	.nav_menu .search input {
+		padding: 3px 5px;
 		max-width: 97%;
 		width: 90px;
 	}

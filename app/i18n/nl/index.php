@@ -33,7 +33,7 @@ return array(
 		'about' => 'Over FreshRSS',
 		'before_one_day' => 'Ouder dan een dag',
 		'before_one_week' => 'Ouder dan een week',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Huidige query opslaan',
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
 		'main_stream' => 'Overzicht',

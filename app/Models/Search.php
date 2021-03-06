@@ -217,7 +217,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
-		$this->intitle = self::decodeSpaces($this->intitle);
 		return $input;
 	}
 
@@ -231,7 +230,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
-		$this->not_intitle = self::decodeSpaces($this->not_intitle);
 		return $input;
 	}
 
@@ -255,7 +253,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->author = self::removeEmptyValues($this->author);
-		$this->author = self::decodeSpaces($this->author);
 		return $input;
 	}
 
@@ -269,7 +266,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
-		$this->not_author = self::decodeSpaces($this->not_author);
 		return $input;
 	}
 
@@ -287,7 +283,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->inurl = self::removeEmptyValues($this->inurl);
-		$this->inurl = self::decodeSpaces($this->inurl);
 		return $input;
 	}
 
@@ -297,7 +292,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
-		$this->not_inurl = self::decodeSpaces($this->not_inurl);
 		return $input;
 	}
 
@@ -416,7 +410,6 @@ class FreshRSS_Search {
 		} else {
 			$this->search = explode(' ', $input);
 		}
-		$this->search = self::decodeSpaces($this->search);
 	}
 
 	private function parseNotSearch($input) {
@@ -436,7 +429,6 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_search = self::removeEmptyValues($this->not_search);
-		$this->not_search = self::decodeSpaces($this->not_search);
 		return $input;
 	}
 
@@ -450,5 +442,4 @@ class FreshRSS_Search {
 		$input = preg_replace('/\s+/', ' ', $input);
 		return trim($input);
 	}
-
 }

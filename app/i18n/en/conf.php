@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Remember open categories',
 			'unread' => 'Show only unread',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
 		'sort' => array(
 			'_' => 'Sort order',

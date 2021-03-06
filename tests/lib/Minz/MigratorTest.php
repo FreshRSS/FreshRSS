@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class Minz_MigratorTest extends TestCase
+class MigratorTest extends TestCase
 {
 	public function testAddMigration() {
 		$migrator = new Minz_Migrator();

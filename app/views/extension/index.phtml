@@ -55,7 +55,7 @@
 								<span class="alert alert-success">
 									<?= _t('admin.extensions.latest') ?>
 								</span>
-							<?php } else  if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+							<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
 								<span class="alert alert-warn">
 									<?= _t('admin.extensions.update') ?>
 								</span>

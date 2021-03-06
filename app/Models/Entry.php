@@ -23,7 +23,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $tags;
 
 	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
-	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+			$link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -447,12 +447,14 @@ class FreshRSS_Entry extends Minz_Model {
 						$feed->attributes()
 					);
 					if ('' !== $fullContent) {
+						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
+						$originalContent = preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content());
 						switch ($feed->attributes('content_action')) {
 							case 'prepend':
-								$this->content = $fullContent . $this->content();
+								$this->content = $fullContent . $originalContent;
 								break;
 							case 'append':
-								$this->content = $this->content() . $fullContent;
+								$this->content = $originalContent . $fullContent;
 								break;
 							case 'replace':
 							default:

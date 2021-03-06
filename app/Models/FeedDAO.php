@@ -175,9 +175,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateLastUpdate($id, $inError = false, $mtime = 0) {	//See also updateCachedValue()
-		$sql = 'UPDATE `_feed` '
-		     . 'SET `lastUpdate`=?, error=? '
-		     . 'WHERE id=?';
+		$sql = 'UPDATE `_feed` SET `lastUpdate`=?, error=? WHERE id=?';
 		$values = array(
 			$mtime <= 0 ? time() : $mtime,
 			$inError ? 1 : 0,
@@ -248,9 +246,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function selectAll() {
-		$sql = 'SELECT id, url, category, name, website, description, `lastUpdate`, priority, '
-		     . '`pathEntries`, `httpAuth`, error, ttl, attributes '
-		     . 'FROM `_feed`';
+		$sql = <<<'SQL'
+SELECT id, url, category, name, website, description, `lastUpdate`,
+	priority, `pathEntries`, `httpAuth`, error, ttl, attributes
+FROM `_feed`
+SQL;
 		$stm = $this->pdo->query($sql);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 			yield $row;
@@ -317,8 +317,10 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function arrayFeedCategoryNames() {	//For API
-		$sql = 'SELECT f.id, f.name, c.name as c_name FROM `_feed` f '
-		     . 'INNER JOIN `_category` c ON c.id = f.category';
+		$sql = <<<'SQL'
+SELECT f.id, f.name, c.name as c_name FROM `_feed` f
+INNER JOIN `_category` c ON c.id = f.category
+SQL;
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$feedCategoryNames = array();
@@ -337,12 +339,12 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function listFeedsOrderUpdate($defaultCacheDuration = 3600, $limit = 0) {
 		$this->updateTTL();
 		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
-		     . 'FROM `_feed` '
-		     . ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
-		     . ' AND `lastUpdate` < (' . (time() + 60)
-			 . '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
-		     . 'ORDER BY `lastUpdate` '
-		     . ($limit < 1 ? '' : 'LIMIT ' . intval($limit));
+			. 'FROM `_feed` '
+			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
+			. ' AND `lastUpdate` < (' . (time() + 60)
+			. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
+			. 'ORDER BY `lastUpdate` '
+			. ($limit < 1 ? '' : 'LIMIT ' . intval($limit));
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
@@ -394,9 +396,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function updateCachedValues($id = null) {
 		//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
 		$sql = 'UPDATE `_feed` '
-		     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),'
-		     . '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
-		     . ($id != null ? ' WHERE id=:id' : '');
+			. 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),'
+			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
+			. ($id != null ? ' WHERE id=:id' : '');
 		$stm = $this->pdo->prepare($sql);
 		if ($id != null) {
 			$stm->bindParam(':id', $id, PDO::PARAM_INT);

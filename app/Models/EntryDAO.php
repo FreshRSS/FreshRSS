@@ -579,14 +579,14 @@ SQL;
 		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
 			//Double SELECT for MySQL workaround ERROR 1093 (HY000)
 			$sql .= ' AND `lastSeen` < (SELECT `lastSeen`'
-			      . ' FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
-			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)';
+				. ' FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
+				. ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)';
 			$params[':id_feed2'] = $id_feed;
 			$params[':keep_min'] = (int)$options['keep_min'];
 		}
 		//Keep at least the articles seen at the last refresh
 		$sql .= ' AND `lastSeen` < (SELECT maxlastseen'
-		      . ' FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)';
+			. ' FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)';
 		$params[':id_feed3'] = $id_feed;
 
 		//==Inclusions==
@@ -599,8 +599,8 @@ SQL;
 		}
 		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
 			$sql .= ' OR `lastSeen` <= (SELECT `lastSeen`'
-			      . ' FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
-			      . ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)';
+				. ' FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
+				. ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)';
 			$params[':id_feed4'] = $id_feed;
 			$params[':keep_max'] = (int)$options['keep_max'];
 		}
@@ -671,7 +671,8 @@ SQL;
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	protected function sqlListEntriesWhere($alias = '', $filters = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
+	protected function sqlListEntriesWhere($alias = '', $filters = null, $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $firstId = '', $date_min = 0) {
 		$search = ' ';
 		$values = array();
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
@@ -832,13 +833,15 @@ SQL;
 
 				if ($filter->getSearch()) {
 					foreach ($filter->getSearch() as $search_value) {
-						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
+						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title',
+							$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
 						$values[] = "%{$search_value}%";
 					}
 				}
 				if ($filter->getNotSearch()) {
 					foreach ($filter->getNotSearch() as $search_value) {
-						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title',
+							$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
 						$values[] = "%{$search_value}%";
 					}
 				}
@@ -860,7 +863,8 @@ SQL;
 		return array($values, $search);
 	}
 
-	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -918,7 +922,8 @@ SQL;
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
+	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
@@ -940,7 +945,8 @@ SQL;
 		}
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
+	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -970,7 +976,8 @@ SQL;
 		}
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
+	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
 		$stm = $this->pdo->prepare($sql);
@@ -984,7 +991,8 @@ SQL;
 			return array();
 		}
 		$guids = array_unique($guids);
-		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') . ' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') .
+			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id_feed);
 		$values = array_merge($values, $guids);

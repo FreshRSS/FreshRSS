@@ -67,20 +67,20 @@ return array(
 		'display' => '显示查询结果',
 		'filter' => array(
 			'_' => '生效的过滤器：',
-			'categories' => 'Display by category',	// TODO - Translation
-			'feeds' => 'Display by feed',	// TODO - Translation
-			'order' => 'Sort by date',	// TODO - Translation
-			'search' => 'Expression',	// TODO - Translation
-			'state' => 'State',	// TODO - Translation
-			'tags' => 'Display by tag',	// TODO - Translation
-			'type' => 'Type',	// TODO - Translation
+			'categories' => '按分类显示',
+			'feeds' => '按订阅源显示',
+			'order' => '按日期排序',
+			'search' => '表达式',
+			'state' => '状态',
+			'tags' => '按标签显示',
+			'type' => '类型',
 		),
 		'get_all' => '显示所有文章',
 		'get_category' => '显示分类 "%s"',
 		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示订阅源 "%s"',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'get_tag' => '显示标签 "%s"',
+		'name' => '名称',
 		'no_filter' => '无过滤器',
 		'none' => '你未创建任何自定义查询。',
 		'number' => '查询 n°%d',
@@ -115,7 +115,7 @@ return array(
 		'auto_remove_article' => '阅读后隐藏文章',
 		'confirm_enabled' => '「全部标记为已读」时显示确认对话框',
 		'display_articles_unfolded' => '默认展开显示文章',
-		'display_categories_unfolded' => 'Categories to unfold',	// TODO - Translation
+		'display_categories_unfolded' => '展开的分类',
 		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
@@ -130,14 +130,15 @@ return array(
 		),
 		'show' => array(
 			'_' => '文章显示',
-			'active_category' => 'Active category',	// TODO - Translation
+			'active_category' => '激活的分类',
 			'adaptive' => '智能显示',
 			'all_articles' => '显示所有',
-			'all_categories' => 'All categories',	// TODO - Translation
-			'no_category' => 'No category',	// TODO - Translation
-			'remember_categories' => 'Remember open categories',	// TODO - Translation
+			'all_categories' => '所有分类',
+			'no_category' => '无分类',
+			'remember_categories' => '记住打开的分类',
 			'unread' => '只显示未读',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => '点击文章区域外以关闭',
 		'sort' => array(
 			'_' => '排列顺序',
@@ -200,7 +201,7 @@ return array(
 		'skip_next_article' => '跳转到下一篇文章而不打开',
 		'skip_previous_article' => '跳转到上一篇文章而不打开',
 		'title' => '快捷键',
-		'toggle_media' => 'Play/pause media',	// TODO - Translation
+		'toggle_media' => '播放/暂停媒体',
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的序号依次访问。',
 		'views' => '视图',

@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.5.5
+ * @version 1.5.6
  * @copyright 2004-2017 Ryan Parman, Sam Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Sam Sneddon
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.5.5');
+define('SIMPLEPIE_VERSION', '1.5.6');
 
 /**
  * SimplePie Build
@@ -1521,7 +1521,7 @@ class SimplePie
 				$parser = $this->registry->create('Parser');
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8'))	//FreshRSS
+				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8', $this->permanent_url))	//FreshRSS
 				{
 					$this->data = $parser->get_data();
 					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))

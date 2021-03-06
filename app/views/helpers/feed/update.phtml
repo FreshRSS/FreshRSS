@@ -23,7 +23,7 @@
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('sub.feed.title') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" class="extend" value="<?= $this->feed->name()  ?>" />
+				<input type="text" name="name" id="name" class="extend" value="<?= $this->feed->name() ?>" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -49,7 +49,8 @@
 					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
 				</div>
 
-				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)) ?>"><?= _t('sub.feed.validator') ?></a>
+				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?=
+					rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)) ?>"><?= _t('sub.feed.validator') ?></a>
 			</div>
 		</div>
 		<div class="form-group">
@@ -57,7 +58,7 @@
 			<div class="group-controls">
 				<select name="category" id="category">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id()== $this->feed->category() ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->category() ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
@@ -68,9 +69,12 @@
 			<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
 			<div class="group-controls">
 				<select name="priority" id="priority">
-				    <option value='<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>' <?php if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.main_stream') ?></option>
-				    <option value='<?= FreshRSS_Feed::PRIORITY_NORMAL ?>' <?php if (FreshRSS_Feed::PRIORITY_NORMAL === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.normal') ?></option>
-				    <option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
+					<option value='<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.main_stream') ?></option>
+					<option value='<?= FreshRSS_Feed::PRIORITY_NORMAL ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_NORMAL === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.normal') ?></option>
+					<option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
 				</select>
 			</div>
 		</div>
@@ -80,9 +84,9 @@
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 				<button class="btn btn-attention confirm"
-				        data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-				        formaction="<?= _url('feed', 'delete', 'id', $this->feed->id()) ?>"
-				        formmethod="post"><?= _t('gen.action.remove') ?></button>
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('feed', 'delete', 'id', $this->feed->id()) ?>"
+					formmethod="post"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>
 
@@ -143,7 +147,8 @@
 			<label class="group-name"><?= _t('conf.archiving.policy') ?></label>
 			<div class="group-controls">
 				<label class="checkbox">
-					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
+					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
 					<?= _t('gen.short.by_default') ?>
 				</label>
 			</div>
@@ -151,18 +156,22 @@
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="enable_keep_max">
-					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?> data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
+					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?>
+						data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
 					<?= _t('conf.archiving.keep_max') ?>
-					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>" data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
+					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"
+						data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
 				</label>
 			</div>
 		</div>
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="enable_keep_period">
-					<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+					<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_period') ?>
-					<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>" data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
+					<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>"
+						data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
 					<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
 						<option></option>
 						<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
@@ -178,7 +187,8 @@
 			<label class="group-name"><?= _t('conf.archiving.exception') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
-					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_favourites') ?>
 				</label>
 			</div>
@@ -186,7 +196,8 @@
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_labels">
-					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_labels') ?>
 				</label>
 			</div>
@@ -194,7 +205,8 @@
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_unreads">
-					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_unreads'] ?>"/>
+					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= $archiving['keep_unreads'] ?>"/>
 					<?= _t('conf.archiving.keep_unreads') ?>
 				</label>
 			</div>
@@ -202,7 +214,8 @@
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label for="keep_min"><?= _t('sub.feed.keep_min') ?>
-					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" data-leave-validation="<?= $archiving['keep_min'] ?>">
+					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>"
+						data-leave-validation="<?= $archiving['keep_min'] ?>">
 				</label>
 			</div>
 		</div>
@@ -213,10 +226,10 @@
 				<select class="number" name="ttl" id="ttl" required="required"><?php
 					$found = false;
 					foreach (array(FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
-					                3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
-					                36000 => '10h', 43200 => '12h', 64800 => '18h',
-					                86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
-					                604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo') as $v => $t) {
+							3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
+							36000 => '10h', 43200 => '12h', 64800 => '18h',
+							86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
+							604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo') as $v => $t) {
 						echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
 						if ($this->feed->ttl() == $v) {
 							$found = true;
@@ -257,13 +270,15 @@
 		<div class="form-group">
 			<label class="group-name" for="http_user_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?= empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
+				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?=
+					empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 
 			<label class="group-name" for="http_pass_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" class="extend" value="<?= $auth['password'] ?>" autocomplete="new-password" />
+				<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" class="extend" value="<?=
+					$auth['password'] ?>" autocomplete="new-password" />
 			</div>
 		</div>
 
@@ -279,8 +294,10 @@
 			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_path') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
-					<a id="popup-preview-selector" class="btn" href="<?= _url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
+					<input type="text" name="path_entries" id="path_entries" class="extend" value="<?= $this->feed->pathEntries() ?>"
+						placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<a id="popup-preview-selector" class="btn" href="<?=
+						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
 			</div>
@@ -290,8 +307,8 @@
 			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_cookie') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="<?= 
-						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_COOKIE]) ? 
+					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="<?=
+						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_COOKIE]) ?
 							$this->feed->attributes('curl_params')[CURLOPT_COOKIE] : ''
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				</div>
@@ -325,7 +342,7 @@
 				</select>
 				<div class="stick">
 					<input type="text" name="curl_params" id="curl_params" class="extend" value="<?=
-						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_PROXY]) ? 
+						is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_PROXY]) ?
 							$this->feed->attributes('curl_params')[CURLOPT_PROXY] : ''
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				</div>

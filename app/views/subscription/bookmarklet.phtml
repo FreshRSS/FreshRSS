@@ -4,7 +4,9 @@
 	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
 	<legend><?= _t('sub.bookmarklet.title') ?></legend>
-	<p><a class="btn btn-important" href="javascript:(function(){var%20url%20=%20location.href;var%20otherWindow=window.open('about:blank','_blank');otherWindow.opener=null;otherWindow.location='<?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss='+encodeURIComponent(url);})();"><?= _t('sub.bookmarklet.label') ?></a></p>
+	<p><a class="btn btn-important"
+		href="javascript:(function(){var%20url%20=%20location.href;var%20otherWindow=window.open('about:blank','_blank');otherWindow.opener=null;otherWindow.location='<?=
+		Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss='+encodeURIComponent(url);})();"><?= _t('sub.bookmarklet.label') ?></a></p>
 	<?= _t('sub.bookmarklet.documentation') ?>
 
 	<legend><?= _t('sub.firefox.title') ?></legend>

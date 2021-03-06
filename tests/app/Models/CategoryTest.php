@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryTest extends PHPUnit\Framework\TestCase {
+class CategoryTest extends PHPUnit\Framework\TestCase {
 
 	public function test__construct_whenNoParameters_createsObjectWithDefaultValues() {
 		$category = new FreshRSS_Category();
@@ -25,7 +25,8 @@ class FreshRSS_CategoryTest extends PHPUnit\Framework\TestCase {
 			array('  this string needs trimming on left', 'this string needs trimming on left'),
 			array('this string needs trimming on right  ', 'this string needs trimming on right'),
 			array('  this string needs trimming on both ends  ', 'this string needs trimming on both ends'),
-			array(str_repeat('This string needs to be shortened because its length is way too long. ', 4), str_repeat('This string needs to be shortened because its length is way too long. ', 3) . 'This string needs to be shortened because its'),
+			array(str_repeat('This string needs to be shortened because its length is way too long. ', 4),
+				str_repeat('This string needs to be shortened because its length is way too long. ', 3) . 'This string needs to be shortened because its'),
 		);
 	}
 

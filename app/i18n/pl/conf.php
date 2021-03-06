@@ -138,6 +138,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Tylko nieprzeczytane',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
 		'sort' => array(
 			'_' => 'Porządek sortowania',

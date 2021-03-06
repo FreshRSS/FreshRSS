@@ -64,31 +64,24 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// We try to list all files according to their type
 		$list = array();
-		if ($type_file === 'zip' && extension_loaded('zip')) {
-			$zip = zip_open($path);
-			if (!is_resource($zip)) {
+		if ('zip' === $type_file && extension_loaded('zip')) {
+			$zip = new ZipArchive();
+			$result = $zip->open($path);
+			if (true !== $result) {
 				// zip_open cannot open file: something is wrong
-				throw new FreshRSS_Zip_Exception($zip);
+				throw new FreshRSS_Zip_Exception($result);
 			}
-			while (($zipfile = zip_read($zip)) !== false) {
-				if (!is_resource($zipfile)) {
-					// zip_entry() can also return an error code!
-					throw new FreshRSS_Zip_Exception($zipfile);
-				} else {
-					$type_zipfile = self::guessFileType(zip_entry_name($zipfile));
-					if ($type_file !== 'unknown') {
-						$list_files[$type_zipfile][] = zip_entry_read(
-							$zipfile,
-							zip_entry_filesize($zipfile)
-						);
-					}
+			for ($i = 0; $i < $zip->numFiles; $i++) {
+				$type_zipfile = self::guessFileType($zip->getNameIndex($i));
+				if ('unknown' !== $type_zipfile) {
+					$list_files[$type_zipfile][] = $zip->getFromIndex($i);
 				}
 			}
-			zip_close($zip);
-		} elseif ($type_file === 'zip') {
+			$zip->close();
+		} elseif ('zip' === $type_file) {
 			// ZIP extension is not loaded
 			throw new FreshRSS_ZipMissing_Exception();
-		} elseif ($type_file !== 'unknown') {
+		} elseif ('unknown' !== $type_file) {
 			$list_files[$type_file][] = file_get_contents($path);
 		}
 
@@ -164,8 +157,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		if ($status_file !== 0) {
 			Minz_Log::warning('File cannot be uploaded. Error code: ' . $status_file);
-			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'),
-			                  array('c' => 'importExport', 'a' => 'index'));
+			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'), [ 'c' => 'importExport', 'a' => 'index' ]);
 		}
 
 		@set_time_limit(300);
