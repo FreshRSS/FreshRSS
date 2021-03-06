@@ -733,13 +733,25 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
-		$entries = iterator_to_array($entries);	//TODO: Improve
+		//TODO: Parameter to limit the number of articles to reload
+
+		//We need another DB connection in parallel
+		Minz_ModelPdo::$usesSharedPdo = false;
+		if (FreshRSS_Context::$system_conf->db['type'] === 'sqlite') {
+			// Single connection for SQLite
+			$entryDAO2 = $entryDAO;
+		} else {
+			// Second parallel connection for other databases
+			$entryDAO2 = FreshRSS_Factory::createEntryDao();
+		}
 
 		foreach ($entries as $entry) {
 			if ($entry->loadCompleteContent(true)) {
-				$entryDAO->updateEntry($entry->toArray());
+				$entryDAO2->updateEntry($entry->toArray());
 			}
 		}
+
+		Minz_ModelPdo::$usesSharedPdo = true;
 
 		//Give feedback to user.
 		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), array(

@@ -183,7 +183,6 @@ SQL;
 			$valuesTmp['is_read'] = null;
 		}
 
-		$this->updateEntryPrepared = null;	//TODO: Remove this line after debugging
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
