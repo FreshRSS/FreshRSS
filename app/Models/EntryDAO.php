@@ -189,7 +189,7 @@ SQL;
 				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen, '
 				. 'hash=' . $this->sqlHexDecode(':hash')
-				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')	//FIXME: Likely error in the logic here, if this gets cached for next entry
+				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
 				. 'tags=:tags '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
