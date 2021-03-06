@@ -1429,9 +1429,9 @@ class SimplePie
 			// Decide whether to enable caching
 			if ($this->cache && $parsed_feed_url['scheme'] !== '')
 			{
-				// Append other parameters to the URL to avoid cache polution in case of multiple calls with different parameters.
+				// Append custom parameters to the URL to avoid cache polution in case of multiple calls with different parameters.
 				$url = $this->feed_url . ($this->force_feed ? '#force_feed' : '');
-				$url .= '#' . urlencode(var_export($this->curl_options, true));
+				$url .= empty($this->curl_options) ? '' : '#' . urlencode(var_export($this->curl_options, true));
 				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $url), 'spc'));
 			}
 
