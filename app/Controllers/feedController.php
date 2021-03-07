@@ -733,10 +733,18 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
+		//TODO: Parameter to limit the number of articles to reload
 
-		//We need another DB connection in parallel
+		//We need another DB connection in parallel for unbuffered streaming
 		Minz_ModelPdo::$usesSharedPdo = false;
-		$entryDAO2 = FreshRSS_Factory::createEntryDao();
+		if (FreshRSS_Context::$system_conf->db['type'] === 'mysql') {
+			// Second parallel connection for unbuffered streaming: MySQL
+			$entryDAO2 = FreshRSS_Factory::createEntryDao();
+		} else {
+			// Single connection for buffered queries (in memory): SQLite, PostgreSQL
+			//TODO: Consider an unbuffered query for PostgreSQL
+			$entryDAO2 = $entryDAO;
+		}
 
 		foreach ($entries as $entry) {
 			if ($entry->loadCompleteContent(true)) {
