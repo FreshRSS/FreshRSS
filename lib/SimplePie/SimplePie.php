@@ -921,6 +921,22 @@ class SimplePie
 	}
 
 	/**
+	 * Return the filename (i.e. hash, without path and without extension) of the file to cache a given URL.
+	 */
+	public function get_cache_filename($url)
+	{
+		// Append custom parameters to the URL to avoid cache polution in case of multiple calls with different parameters.
+		$url .= $this->force_feed ? '#force_feed' : '';
+		if (!empty($this->curl_options))
+		{
+			$options = $this->curl_options;
+			$options = ksort($options);
+			$url .= '#' . urlencode(var_export($options, true));
+		}
+		return call_user_func($this->cache_name_function, $url);
+	}
+
+	/**
 	 * Set whether feed items should be sorted into reverse chronological order
 	 *
 	 * @param bool $enable Sort as reverse chronological order.
@@ -1429,10 +1445,8 @@ class SimplePie
 			// Decide whether to enable caching
 			if ($this->cache && $parsed_feed_url['scheme'] !== '')
 			{
-				// Append custom parameters to the URL to avoid cache polution in case of multiple calls with different parameters.
-				$url = $this->feed_url . ($this->force_feed ? '#force_feed' : '');
-				$url .= empty($this->curl_options) ? '' : '#' . urlencode(var_export($this->curl_options, true));
-				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $url), 'spc'));
+				$filename = $this->get_cache_filename($this->url);
+				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, $filename, 'spc'));
 			}
 
 			// Fetch the data via SimplePie_File into $this->raw_data

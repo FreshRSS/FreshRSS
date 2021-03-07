@@ -499,9 +499,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	protected function cacheFilename() {
-		$url = $this->url;	//Includes #force_feed when applicable
-		$url .= empty($this->attributes['curl_params']) ? '' : '#' . urlencode(var_export($this->attributes['curl_params'], true));
-		return CACHE_PATH . '/' . sha1($url) . '.spc';
+		$simplePie = customSimplePie($this->attributes());
+		$filename = $simplePie->get_cache_filename($this->url);
+		return CACHE_PATH . '/' . $filename . '.spc';
 	}
 
 	public function clearCache() {
