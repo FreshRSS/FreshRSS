@@ -5,6 +5,7 @@
 * Features
 	* Allow parallel requests [#3096](https://github.com/FreshRSS/FreshRSS/pull/3096)
 		* Much faster manual feeds refresh
+	* Reload full article content when an article has changed [#3506](https://github.com/FreshRSS/FreshRSS/pull/3506)
 	* New share article link to clipboard [#3330](https://github.com/FreshRSS/FreshRSS/pull/3330)
 	* Improved OPML import of feeds with multiple categories [#3286](https://github.com/FreshRSS/FreshRSS/pull/3286)
 	* Add a content action parameter to work with CSS selector [#3453](https://github.com/FreshRSS/FreshRSS/pull/3453)
@@ -32,7 +33,10 @@
 	* Adjust brightness & contrast of images and videos in dark themes [#3356](https://github.com/FreshRSS/FreshRSS/pull/3356)
 	* Improve menu bar of several themes for mobile view [#3480](https://github.com/FreshRSS/FreshRSS/pull/3480), [#3491](https://github.com/FreshRSS/FreshRSS/pull/3491)
 	* Fix dropdown menu for user queries with BlueLagoon and Screwdriver themes [#3485](https://github.com/FreshRSS/FreshRSS/pull/3485)
+	* Upgrade to jQuery 3.6.0 for statistics [#3501](https://github.com/FreshRSS/FreshRSS/pull/3501)
 * Bug fixing
+	* Fix the reloading of full article content with SQLite [#3461](https://github.com/FreshRSS/FreshRSS/pull/3461)
+	* Fix the caching of an SQL prepared statement affecting the read state of updated articles [#3500](https://github.com/FreshRSS/FreshRSS/pull/3500)
 	* Better handle expected article conflicts in database [#3409](https://github.com/FreshRSS/FreshRSS/pull/3409)
 	* Fix SQL syntax error/warning when deleting temporary articles [#3357](https://github.com/FreshRSS/FreshRSS/pull/3357)
 	* Fix login and refresh bugs in anonymous mode [#3305](https://github.com/FreshRSS/FreshRSS/pull/3305)
@@ -52,11 +56,12 @@
 		* New tolerance when the database is not available / up (yet) by trying a few times to connect
 	* Docker: use Apache `remoteip` to log the client remote IP instead of the local proxy IP [#3226](https://github.com/FreshRSS/FreshRSS/pull/3226)
 	* Docker: new environment variable `LISTEN` to change the internal Apache port when running in host network mode [#3343](https://github.com/FreshRSS/FreshRSS/pull/3343)
-	* Docker: Alpine image updated to 3.13 with PHP 8.0.2 and Apache 2.4.46 [#3375](https://github.com/FreshRSS/FreshRSS/pull/3375)
+	* Docker: Alpine image updated to 3.13 with PHP 8.0.3 and Apache 2.4.46 [#3375](https://github.com/FreshRSS/FreshRSS/pull/3375)
 		* Note: needed for MySQL 8+ with default authentication settings [#3191](https://github.com/FreshRSS/FreshRSS/issues/3191)
 	* Docker default image (Debian 10 Buster) updated to PHP 7.3.27
 	* New Docker development image based on `alpine:edge` to test the latest PHP 8+ version [#3294](https://github.com/FreshRSS/FreshRSS/pull/3294)
 	* New Docker development image based on `alpine:3.4` to test oldest supported PHP 5.6.36 version with Apache 2.4.43 [#3274](https://github.com/FreshRSS/FreshRSS/pull/3274)
+	* Disable built-in update mechanism for new installations using Docker [#3496](https://github.com/FreshRSS/FreshRSS/pull/3496)
 	* Check that PHP session is working during install [#3430](https://github.com/FreshRSS/FreshRSS/pull/3430)
 * Security
 	* Auto-renew login cookie [#3287](https://github.com/FreshRSS/FreshRSS/pull/3287)
@@ -116,6 +121,7 @@
 	* Check access rights to temp folder during install [#3312](https://github.com/FreshRSS/FreshRSS/pull/3312)
 	* Ensure maximum integer for a date to avoid some database issues [#3259](https://github.com/FreshRSS/FreshRSS/pull/3259)
 	* Upgrade PHPMailer to 6.3.0 [#3457](https://github.com/FreshRSS/FreshRSS/pull/3457)
+	* Make our Travis greener by testing only our oldest and newest supported PHP versions [#3492](https://github.com/FreshRSS/FreshRSS/pull/3492)
 
 
 ## 2020-09-22 FreshRSS 1.17.0
