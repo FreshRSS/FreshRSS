@@ -930,7 +930,7 @@ class SimplePie
 		if (!empty($this->curl_options))
 		{
 			$options = $this->curl_options;
-			$options = ksort($options);
+			ksort($options);
 			$url .= '#' . urlencode(var_export($options, true));
 		}
 		return call_user_func($this->cache_name_function, $url);
@@ -1445,7 +1445,7 @@ class SimplePie
 			// Decide whether to enable caching
 			if ($this->cache && $parsed_feed_url['scheme'] !== '')
 			{
-				$filename = $this->get_cache_filename($this->url);
+				$filename = $this->get_cache_filename($this->feed_url);
 				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, $filename, 'spc'));
 			}
 
