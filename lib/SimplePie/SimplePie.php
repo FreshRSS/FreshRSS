@@ -925,7 +925,7 @@ class SimplePie
 	 */
 	public function get_cache_filename($url)
 	{
-		// Append custom parameters to the URL to avoid cache polution in case of multiple calls with different parameters.
+		// Append custom parameters to the URL to avoid cache pollution in case of multiple calls with different parameters.
 		$url .= $this->force_feed ? '#force_feed' : '';
 		if (!empty($this->curl_options))
 		{
