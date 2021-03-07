@@ -194,40 +194,41 @@ SQL;
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
+		if ($this->updateEntryPrepared) {
+			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
+			$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
+			$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
+			$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
+			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
+			$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
+			$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
+			$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
+			$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
+			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
+			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
+			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
+			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+			$valuesTmp['lastSeen'] = time();
+			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			if ($valuesTmp['is_read'] === null) {
+				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
+			}
+			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
+			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
+			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
-		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
-		$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
-		$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-		$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
-		$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
-		$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
-		$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
-		$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
-		$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
-		$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
-		$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
-		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
-		$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
-		$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
-		$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
-		$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-		$valuesTmp['lastSeen'] = time();
-		$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-		if ($valuesTmp['is_read'] === null) {
-			$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
-		} else {
-			$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
-		}
-		$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-		$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
-		$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
-		$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
-
-		if ($this->hasNativeHex()) {
-			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
-		} else {
-			$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
-			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			if ($this->hasNativeHex()) {
+				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+			} else {
+				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
+				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			}
 		}
 
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute()) {
