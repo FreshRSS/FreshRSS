@@ -377,7 +377,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 								continue;
 							}
 
-							// If the entry has changed, there is a good chance for the full content to haved changed as well.
+							// If the entry has changed, there is a good chance for the full content to have changed as well.
 							$entry->loadCompleteContent(true);
 
 							if (!$entryDAO->inTransaction()) {
