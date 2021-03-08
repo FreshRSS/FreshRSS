@@ -926,10 +926,20 @@ class SimplePie
 	public function get_cache_filename($url)
 	{
 		// Append custom parameters to the URL to avoid cache pollution in case of multiple calls with different parameters.
-		$url .= $this->force_feed ? '#force_feed' : '';
+		if ($this->timeout != 10)
+		{
+			$options[CURLOPT_TIMEOUT] = $this->timeout;
+		}
+		if ($this->useragent !== SIMPLEPIE_USERAGENT)
+		{
+			$options[CURLOPT_USERAGENT] = $this->useragent;
+		}
 		if (!empty($this->curl_options))
 		{
-			$options = $this->curl_options;
+			$options = array_merge($options, $this->curl_options);
+		}
+		if (!empty($options))
+		{
 			ksort($options);
 			$url .= '#' . urlencode(var_export($options, true));
 		}
