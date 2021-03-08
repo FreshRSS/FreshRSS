@@ -936,7 +936,10 @@ class SimplePie
 		}
 		if (!empty($this->curl_options))
 		{
-			$options = array_merge($options, $this->curl_options);
+			foreach ($this->curl_options as $k => $v)
+			{
+				$options[$k] = $v;
+			}
 		}
 		if (!empty($options))
 		{
