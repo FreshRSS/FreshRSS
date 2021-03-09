@@ -34,13 +34,13 @@ return array(
 		),
 		'clear_cache' => 'Totjorn escafar lo cache',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'_' => 'Action sul contengut en recuperant lo contengut de l’article',
+			'append' => 'Apondre aprèp lo contengut existent',
+			'prepend' => 'Apondre abans lo contengut existent',
+			'replace' => 'Remplaçar lo contengut existent',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'css_cookie' => 'Utilizar los cookies en recuperant lo contengut de l’article',
+		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
 		'description' => 'Descripcion',
@@ -69,8 +69,8 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
+		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Veire lo còdi font',
 			'show_rendered' => 'Veire lo contengut',
