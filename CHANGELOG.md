@@ -51,6 +51,13 @@
 	* Support PHP 8+ [#3186](https://github.com/FreshRSS/FreshRSS/pull/3186), [#3207](https://github.com/FreshRSS/FreshRSS/pull/3207), [#3459](https://github.com/FreshRSS/FreshRSS/pull/3459), [#3487](https://github.com/FreshRSS/FreshRSS/pull/3487)
 		* Note: needed for MySQL 8+ with default authentication settings
 		* Change ZIP-handling method [#3470](https://github.com/FreshRSS/FreshRSS/pull/3470)
+* API
+	* Implement OPML import/export [#3424](https://github.com/FreshRSS/FreshRSS/pull/3424)
+	* Add `canonical` field for fluent-reader, better compatibility InoReader [#3391](https://github.com/FreshRSS/FreshRSS/pull/3391)
+	* Better compatibility with BazQux API [#3320](https://github.com/FreshRSS/FreshRSS/pull/3320)
+	* Fix continuation token by ensuring it is a string (for Reeder) [#3247](https://github.com/FreshRSS/FreshRSS/issues/3247)
+* CLI
+	* Add requirements check in relevant CLI [#3410](https://github.com/FreshRSS/FreshRSS/pull/3410)
 * Deployment
 	* Possibility to auto-install via e.g. `docker-compose` [#3353](https://github.com/FreshRSS/FreshRSS/pull/3353)
 		* New tolerance when the database is not available / up (yet) by trying a few times to connect
@@ -72,14 +79,8 @@
 	* Better sanitize feed description [#3222](https://github.com/FreshRSS/FreshRSS/pull/3222)
 	* Allow `@`-sign in database username (for Azure) [#3241](https://github.com/FreshRSS/FreshRSS/pull/3241)
 	* Add username hint for permissions during install [#3373](https://github.com/FreshRSS/FreshRSS/pull/3373)
-* API
-	* Implement OPML import/export [#3424](https://github.com/FreshRSS/FreshRSS/pull/3424)
-	* Add `canonical` field for fluent-reader, better compatibility InoReader [#3391](https://github.com/FreshRSS/FreshRSS/pull/3391)
-	* Better compatibility with BazQux API [#3320](https://github.com/FreshRSS/FreshRSS/pull/3320)
-	* Fix continuation token by ensuring it is a string (for Reeder) [#3247](https://github.com/FreshRSS/FreshRSS/issues/3247)
-* CLI
-	* Add requirements check in relevant CLI [#3410](https://github.com/FreshRSS/FreshRSS/pull/3410)
 * SimplePie
+	* SimplePie prevent cache pollution [#3502](https://github.com/FreshRSS/FreshRSS/pull/3502)
 	* Update to SimplePie 1.5.6 with PHP8 support [#3469](https://github.com/FreshRSS/FreshRSS/pull/3469), [#3206](https://github.com/FreshRSS/FreshRSS/pull/3206)
 	* Reduce memory consumption to handle very big feeds [#3416](https://github.com/FreshRSS/FreshRSS/pull/3416)
 	* Replace `ceil()` by `intval()` for edge cases with PHP8 [#3404](https://github.com/FreshRSS/FreshRSS/pull/3404)
