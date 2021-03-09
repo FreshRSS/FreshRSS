@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'הוספת הזנה',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
 		'url' => 'הזנה URL',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'בדיקות תקינות ההזנה',
 		'website' => 'אתר URL',
 		'websub' => 'Instant notification with WebSub',	// TODO - Translation

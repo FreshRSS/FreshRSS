@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'RSS akışı ekle',
 		'ttl' => 'Şu kadar süreden fazla otomatik yenileme yapma',
 		'url' => 'Akış URL',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'Akış geçerliliğini kontrol edin',
 		'website' => 'Site URL',
 		'websub' => 'WebSub ile anlık bildirim',
