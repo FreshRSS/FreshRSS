@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2021-03-XX FreshRSS 1.17.1-dev
+## 2021-03-XX FreshRSS 1.18.0-rc
 
 * Features
 	* Allow parallel requests [#3096](https://github.com/FreshRSS/FreshRSS/pull/3096)
@@ -9,7 +9,8 @@
 	* New share article link to clipboard [#3330](https://github.com/FreshRSS/FreshRSS/pull/3330)
 	* Improved OPML import of feeds with multiple categories [#3286](https://github.com/FreshRSS/FreshRSS/pull/3286)
 	* Add a content action parameter to work with CSS selector [#3453](https://github.com/FreshRSS/FreshRSS/pull/3453)
-	* cURL options per feed [#3367](https://github.com/FreshRSS/FreshRSS/pull/3367)
+	* New cURL options per feed: proxy, cookie [#3367](https://github.com/FreshRSS/FreshRSS/pull/3367)
+	* New option to set a custom user-agent to retrieve a feed [#3494](https://github.com/FreshRSS/FreshRSS/pull/3494)
 	* No not import feeds causing database errors (e.g. due to conflicting HTTP redirections) [##3347](https://github.com/FreshRSS/FreshRSS/pull/3347)
 * UI
 	* New option to remember open categories [#3185](https://github.com/FreshRSS/FreshRSS/pull/3185)
@@ -105,7 +106,7 @@
 	* Improve English [#3248](https://github.com/FreshRSS/FreshRSS/pull/3248)
 		* Improve British English date format [#3326](https://github.com/FreshRSS/FreshRSS/pull/3326)
 	* Improve German [#3237](https://github.com/FreshRSS/FreshRSS/pull/3237), [#3317](https://github.com/FreshRSS/FreshRSS/pull/3317), [#3318](https://github.com/FreshRSS/FreshRSS/pull/3318), [#3325](https://github.com/FreshRSS/FreshRSS/pull/3325), [#3379](https://github.com/FreshRSS/FreshRSS/pull/3379), [#3448](https://github.com/FreshRSS/FreshRSS/pull/3448), [#3455](https://github.com/FreshRSS/FreshRSS/pull/3455)
-	* Improve Occitan [#3245](https://github.com/FreshRSS/FreshRSS/pull/3245)
+	* Improve Occitan [#3245](https://github.com/FreshRSS/FreshRSS/pull/3245), [#3511](https://github.com/FreshRSS/FreshRSS/pull/3511)
 * Code improvements
 	* Improve FreshRSS system initialisation [#3070](https://github.com/FreshRSS/FreshRSS/pull/3070)
 	* Improve session code during install [#3276](https://github.com/FreshRSS/FreshRSS/pull/3276)
