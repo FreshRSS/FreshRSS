@@ -82,9 +82,9 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Permissions on the temp directory are good.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'desconegut',
 		'users' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
@@ -114,7 +114,7 @@ return array(
 	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'Sembla que lo servidor web siá pas corrèctament configurat pels cookies per las sessions PHP !',
 	),
 	'step' => 'etapa %d',
 	'steps' => 'Etapas',
