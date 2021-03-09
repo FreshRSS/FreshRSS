@@ -173,6 +173,7 @@ function customSimplePie($attributes = array()) {
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
+	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 

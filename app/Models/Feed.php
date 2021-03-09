@@ -497,7 +497,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	protected function cacheFilename() {
-		return CACHE_PATH . '/' . md5($this->url) . '.spc';
+		$simplePie = customSimplePie($this->attributes());
+		$filename = $simplePie->get_cache_filename($this->url);
+		return CACHE_PATH . '/' . $filename . '.spc';
 	}
 
 	public function clearCache() {
