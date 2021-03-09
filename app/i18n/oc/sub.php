@@ -34,7 +34,7 @@ return array(
 		),
 		'clear_cache' => 'Totjorn escafar lo cache',
 		'content_action' => array(
-			'_' => 'Action sul contengut en recuperant lo contengut de l’article',
+			'_' => 'Accion sul contengut en recuperant lo contengut de l’article',
 			'append' => 'Apondre aprèp lo contengut existent',
 			'prepend' => 'Apondre abans lo contengut existent',
 			'replace' => 'Remplaçar lo contengut existent',
