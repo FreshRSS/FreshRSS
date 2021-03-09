@@ -467,10 +467,8 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 			$entry->_tags($tags);
 			$entry->_feed($this);
-			if ($this->pathEntries != '') {
-				// Optionally load full content for truncated feeds
-				$entry->loadCompleteContent();
-			}
+			$entry->hash();	//Must be computed before loading full content
+			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 
 			yield $entry;
 		}
@@ -499,7 +497,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	protected function cacheFilename() {
-		return CACHE_PATH . '/' . md5($this->url) . '.spc';
+		$simplePie = customSimplePie($this->attributes());
+		$filename = $simplePie->get_cache_filename($this->url);
+		return CACHE_PATH . '/' . $filename . '.spc';
 	}
 
 	public function clearCache() {

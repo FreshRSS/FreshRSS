@@ -433,9 +433,9 @@ class FreshRSS_Entry extends Minz_Model {
 		$feed = $this->feed(true);
 		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
+			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 
-			if ($entry && !$force) {
+			if ($entry) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
