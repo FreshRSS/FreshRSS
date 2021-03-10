@@ -11,7 +11,7 @@
 	* Add a content action parameter to work with CSS selector [#3453](https://github.com/FreshRSS/FreshRSS/pull/3453)
 	* New cURL options per feed: proxy, cookie [#3367](https://github.com/FreshRSS/FreshRSS/pull/3367)
 	* New option to set a custom user-agent to retrieve a feed [#3494](https://github.com/FreshRSS/FreshRSS/pull/3494)
-	* No not import feeds causing database errors (e.g. due to conflicting HTTP redirections) [##3347](https://github.com/FreshRSS/FreshRSS/pull/3347)
+	* Do not import feeds causing database errors (e.g. due to conflicting HTTP redirections) [##3347](https://github.com/FreshRSS/FreshRSS/pull/3347)
 * UI
 	* New option to remember open categories [#3185](https://github.com/FreshRSS/FreshRSS/pull/3185)
 	* Remember the scroll position of the sidebar [#3231](https://github.com/FreshRSS/FreshRSS/pull/3231)
@@ -53,6 +53,7 @@
 		* Note: needed for MySQL 8+ with default authentication settings
 		* Change ZIP-handling method [#3470](https://github.com/FreshRSS/FreshRSS/pull/3470)
 * API
+	* Supported by [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Android) [#3478](https://github.com/FreshRSS/FreshRSS/issues/3478)
 	* Implement OPML import/export [#3424](https://github.com/FreshRSS/FreshRSS/pull/3424)
 	* Add `canonical` field for fluent-reader, better compatibility InoReader [#3391](https://github.com/FreshRSS/FreshRSS/pull/3391)
 	* Better compatibility with BazQux API [#3320](https://github.com/FreshRSS/FreshRSS/pull/3320)
