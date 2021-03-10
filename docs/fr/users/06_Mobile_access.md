@@ -56,6 +56,8 @@ possibilité.
 		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
+		* [Readrops](https://github.com/readrops/Readrops) (Open source)
+		* [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Commercial)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 	* MacOS
