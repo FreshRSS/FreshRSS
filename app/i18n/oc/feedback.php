@@ -110,9 +110,9 @@ return array(
 		'purge_completed' => 'Purga realizada (%s articles suprimits)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'L’etiqueta « %s » es estada creada.',
+		'name_exists' => 'Lo nom de l’etiqueta existís ja.',
+		'renamed' => 'L’etiqueta « %s » es estada renomenada en « %s ».',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS es per èsser mes a jorn en <strong>version %s</strong>.',
