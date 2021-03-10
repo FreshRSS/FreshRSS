@@ -66,4 +66,5 @@ return array(
 	'sub.bookmarklet.title',
 	'sub.feed.description',
 	'sub.feed.number_entries',
+	'query.filter.search',
 );
