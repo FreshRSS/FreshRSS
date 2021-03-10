@@ -9,6 +9,7 @@ return array(
 	'admin.user.article_count',
 	'admin.user.articles_and_size',
 	'conf.display.width.large',
+	'conf.query.filter.search',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
 	'conf.sharing.facebook',
@@ -66,5 +67,4 @@ return array(
 	'sub.bookmarklet.title',
 	'sub.feed.description',
 	'sub.feed.number_entries',
-	'query.filter.search',
 );
