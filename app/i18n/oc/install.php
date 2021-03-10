@@ -82,7 +82,7 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
-			'ok' => 'Permissions on the temp directory are good.',
+			'ok' => 'Las permissions sul repertòri temporari son bonas.',
 		),
 		'unknown_process_username' => 'desconegut',
 		'users' => array(
