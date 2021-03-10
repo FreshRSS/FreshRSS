@@ -59,8 +59,34 @@
 			</div>
 		</div>
 
-		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<legend><?= _t('sub.feed.advanced') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="path_entries"><?= _t('sub.feed.useragent') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="path_entries"><?= _t('sub.feed.proxy') ?></label>
+			<div class="group-controls">
+				<select class="number" name="proxy_type" id="proxy_type"><?php
+					foreach(['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
+						echo '<option value="' . $k . '">' . $v . '</option>';
+					}
+				?>
+				</select>
+				<div class="stick">
+					<input type="text" name="curl_params" id="curl_params" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
+			</div>
+		</div>
+
+		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
 			<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
 			<div class="group-controls">

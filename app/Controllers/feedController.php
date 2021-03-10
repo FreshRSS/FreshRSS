@@ -165,9 +165,25 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$http_auth = $user . ':' . $pass;
 			}
 
+			$useragent = Minz_Request::param('curl_params_useragent', '');
+			$proxy_address = Minz_Request::param('curl_params', '');
+			$proxy_type = Minz_Request::param('proxy_type', '');
+			$opts = [];
+			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+				$opts[CURLOPT_PROXY] = $proxy_address;
+				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
+			}
+			if ($cookie !== '') {
+				$opts[CURLOPT_COOKIE] = $cookie;
+			}
+			if ($useragent !== '') {
+				$opts[CURLOPT_USERAGENT] = $useragent;
+			}
+
 			$attributes = array(
 				'ssl_verify' => null,
 				'timeout' => null,
+				'curl_params' => empty($opts) ? null : $opts,
 			);
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');

@@ -90,6 +90,8 @@ return array(
 		'title_add' => 'Add an RSS feed',
 		'ttl' => 'Do not automatically refresh more often than',
 		'url' => 'Feed URL',
+		'useragent' => 'Set the user agent for fetching this feed',
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
 		'websub' => 'Instant notification with WebSub',
