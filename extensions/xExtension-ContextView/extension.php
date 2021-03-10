@@ -75,14 +75,6 @@ class ContextViewExtension extends Minz_Extension
             $imgHTML = "<img src=\"$imgSrc\" alt=\"error\">";
 
         }
-        else
-        {
-            // this image show up if the entry has no images.
-            $imgSrc = Minz_Url::display('/themes/icons/article-no-picture.png');
-            $imgHTML = "<img src=\"$imgSrc\" alt=\"error\">";
-
-        }
-
         return $imgHTML;
     }
 

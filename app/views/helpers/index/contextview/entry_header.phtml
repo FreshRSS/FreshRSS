@@ -48,12 +48,15 @@
 		<p class="item context" dir="auto"><?= ContextViewExtension::addABriefInEntryHeader($this->entry); ?></p>
 	</li>
 	
+<?php if (ContextViewExtension::imageInEntryHeader($this->entry))
+{?>
 	<li class="item image">
-	<a target="_blank" dir=auto rel="noreferrer" href="<?= $this->entry->link() ?>" 
-	<time datetime="<?= $this->entry->machineReadableDate() ?>">
-	<?=ContextViewExtension::humanTiming(strtotime($this->entry->machineReadableDate())).''?> 
-	</time><br>
 	<?=ContextViewExtension::imageInEntryHeader($this->entry);?>
-	</a></li>
-
+	</li>
+<?php
+}?>
 </ul>
+
+<div class="item date">
+<time datetime="<?= $this->entry->machineReadableDate() ?>"><?=ContextViewExtension::humanTiming(strtotime($this->entry->machineReadableDate())).'';?></time>
+</div>

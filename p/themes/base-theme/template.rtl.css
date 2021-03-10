@@ -1443,6 +1443,20 @@ input:checked + .slide-container .properties {
 	width: 90px;
 	text-align: center;
 	padding-left: 20px;
+	padding-right: 10px;
+	padding-top: 5px;
+	margin-bottom: 1px;
+}
+
+.contextview .flux .item.date {
+	width: initial;
+	margin-left: 2px;
+    position: relative;
+    margin-top: -5px;
+    margin-bottom: -2px;
+	padding-inline: 20px;
+	display: block;
+
 }
 
 .contextview .flux .item.context {
@@ -1457,11 +1471,13 @@ input:checked + .slide-container .properties {
 	filter: invert(30%);
 }
 
-@media screen and (min-width: 800px) {
+
+@media screen and (min-width: 840px) {
 	.contextview .flux .item {
 		margin-left: 25%;
 		line-height: 25px;
 	}
+	
 }
 
 @media only screen and (max-width: 600px) {
@@ -1469,11 +1485,32 @@ input:checked + .slide-container .properties {
 		text-align: start;
 		font-size: 0.85rem;
 		line-height: 25px;
+
+
+	}
+
+	.contextview .flux .item.title a {
+		display: block;
+		display: -webkit-box;
+		font-size: .95rem;
+		white-space: initial;
+		text-align: start;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		-webkit-line-clamp: 2; /* number of lines to show */
+		-webkit-box-orient: vertical; /* stylelint-disable-line property-no-vendor-prefix */
+
+	}
+	
+	.contextview .flux .item.image {
+		padding-left: 0px;
+
 	}
 
 	.contextview .flux .item {
 		margin-left: 5%;
 	}
+	
 }
 
 .contextview .horizontal-list .item {
