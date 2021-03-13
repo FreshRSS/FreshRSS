@@ -15,14 +15,6 @@ a, button.as-link {
 	outline: none;
 }
 
-/*=== Forms */
-.form-group {
-	display: inline-block;
-	float: right;
-	width: 100%;
-	height: auto;
-}
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
@@ -783,6 +775,10 @@ a.btn {
 .prompt form {
 	margin-top: 2rem;
 	margin-bottom: 3rem;
+	text-align: right;
+}
+
+.prompt label {
 	text-align: right;
 }
 
