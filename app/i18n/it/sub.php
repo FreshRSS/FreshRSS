@@ -26,7 +26,6 @@ return array(
 		'advanced' => 'Avanzate',
 		'archiving' => 'Archiviazione',
 		'auth' => array(
-			'configuration' => 'Autenticazione',
 			'help' => 'Accesso per feeds protetti',
 			'http' => 'Autenticazione HTTP',
 			'password' => 'HTTP password',	// TODO - Translation

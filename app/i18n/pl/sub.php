@@ -26,7 +26,6 @@ return array(
 		'advanced' => 'Zaawansowane',
 		'archiving' => 'Archiwizacja',
 		'auth' => array(
-			'configuration' => 'Uwierzytelnianie',
 			'help' => 'Pozwala na dostęp do kanałów chronionych hasłem HTTP',
 			'http' => 'HTTP Authentication',	// TODO - Translation
 			'password' => 'Hasło HTTP',
