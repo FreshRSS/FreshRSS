@@ -25,26 +25,9 @@ Server-side API compatible with Google Reader API layer 2
 
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require(LIB_PATH . '/lib_greader.php');
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
-
-if (PHP_INT_SIZE < 8) {	//32-bit
-	function dec2hex($dec) {
-		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
-	}
-	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return gmp_strval(gmp_init($hex, 16), 10);
-	}
-} else {	//64-bit
-	function dec2hex($dec) {	//http://code.google.com/p/google-reader-api/wiki/ItemId
-		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
-	}
-	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return hexdec($hex);
-	}
-}
 
 define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
@@ -520,9 +503,11 @@ function entriesToArray($entries) {
 		if (isset($arrayFeedCategoryNames[$f_id])) {
 			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
 			$f_name = $arrayFeedCategoryNames[$f_id]['name'];
+			$f_website = $arrayFeedCategoryNames[$f_id]['website'];
 		} else {
 			$c_name = '_';
 			$f_name = '_';
+			$f_website = '_';
 		}
 		$item = array(
 			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
@@ -544,7 +529,7 @@ function entriesToArray($entries) {
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
 				'title' => escapeToUnicodeAlternative($f_name, true),	//EasyRSS
-				//'htmlUrl' => $line['f_website'],
+				'htmlUrl' => htmlspecialchars_decode($f_website, ENT_QUOTES),
 			),
 		);
 		foreach ($entry->enclosures() as $enclosure) {

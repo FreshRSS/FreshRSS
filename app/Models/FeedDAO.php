@@ -318,7 +318,7 @@ SQL;
 
 	public function arrayFeedCategoryNames() {	//For API
 		$sql = <<<'SQL'
-SELECT f.id, f.name, c.name as c_name FROM `_feed` f
+SELECT f.id, f.name, f.url, f.website, c.name as c_name FROM `_feed` f
 INNER JOIN `_category` c ON c.id = f.category
 SQL;
 		$stm = $this->pdo->query($sql);
@@ -327,6 +327,8 @@ SQL;
 		foreach ($res as $line) {
 			$feedCategoryNames[$line['id']] = array(
 				'name' => $line['name'],
+				'url' => $line['url'],
+				'website' => $line['website'],
 				'c_name' => $line['c_name'],
 			);
 		}
