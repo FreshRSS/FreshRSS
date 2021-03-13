@@ -15,14 +15,6 @@ a, button.as-link {
 	outline: none;
 }
 
-/*=== Forms */
-.form-group {
-	display: inline-block;
-	float: right;
-	width: 100%;
-	height: auto;
-}
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
@@ -766,6 +758,7 @@ a.btn {
 	padding-right: .5rem;
 	padding-left: .5rem;
 	text-align: center;
+	text-shadow: 0 1px rgba(255,255,255,0.08);
 }
 
 .prompt form {
@@ -793,7 +786,6 @@ a.btn {
 .prompt input {
 	width: 100%;
 	box-sizing: border-box;
-
 }
 
 .prompt input#username,.prompt input#passwordPlain {

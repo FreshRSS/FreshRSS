@@ -26,7 +26,6 @@ return array(
 		'advanced' => 'Avancé',
 		'archiving' => 'Archivage',
 		'auth' => array(
-			'configuration' => 'Identification',
 			'help' => 'La connexion permet d’accéder aux flux protégés par une authentification HTTP.',
 			'http' => 'Authentification HTTP',
 			'password' => 'Mot de passe HTTP',
