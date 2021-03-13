@@ -13,7 +13,7 @@ $params = [
 $options = getopt('', $params);
 
 if (!validateOptions($argv, $params) || empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . ' --user username');
+	fail('Usage: ' . basename(__FILE__) . ' --user username | gzip > articles.jsonl.gz');
 }
 
 $username = cliInitUser($options['user']);
