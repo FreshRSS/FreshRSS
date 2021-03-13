@@ -64,7 +64,7 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="path_entries"><?= _t('sub.feed.useragent') ?></label>
+				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
 					<div class="stick">
 						<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
@@ -74,7 +74,7 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="path_entries"><?= _t('sub.feed.proxy') ?></label>
+				<label class="group-name" for="proxy_type"><?= _t('sub.feed.proxy') ?></label>
 				<div class="group-controls">
 					<select class="number" name="proxy_type" id="proxy_type"><?php
 						foreach(['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
