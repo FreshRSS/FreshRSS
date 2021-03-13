@@ -26,7 +26,6 @@ return array(
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
 		'auth' => array(
-			'configuration' => 'Prihlásenie',
 			'help' => 'Povoliť prístup do kanálov chránených cez HTTP.',
 			'http' => 'Prihlásenie cez HTTP',
 			'password' => 'Heslo pre HTTP',

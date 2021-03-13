@@ -26,7 +26,6 @@ return array(
 		'advanced' => '고급 설정',
 		'archiving' => '보관',
 		'auth' => array(
-			'configuration' => '로그인',
 			'help' => 'HTTP 접속이 제한되는 RSS 피드에 접근합니다',
 			'http' => 'HTTP 인증',
 			'password' => 'HTTP 암호',
