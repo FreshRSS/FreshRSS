@@ -4,8 +4,6 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
 
-require(LIB_PATH . '/lib_greader.php');
-
 $params = [
 	'user:',
 ];
@@ -18,8 +16,19 @@ if (!validateOptions($argv, $params) || empty($options['user']) || empty($option
 
 $username = cliInitUser($options['user']);
 
-//TODO
+echo 'FreshRSS importing JSON Lines for user “', $username, "”…\n";
+
+$importService = new FreshRSS_Import_Service($username);
+
+function readItems() {
+	while ($line = fgets(STDIN)) {
+		$item = json_decode($line, true);
+		yield $item;
+	}
+}
+
+importGReaderItems(readItems());
 
 invalidateHttpCache($username);
 
-done($ok);
+done();

@@ -218,4 +218,90 @@ class FreshRSS_Import_Service {
 
 		return !$error;
 	}
+
+	/**
+	 * Import a stream of items using Google Reader API format.
+	 * It works best if the corresponding OPML has been imported just before.
+	 */
+	public function importGReaderItems($items) {
+		require_once(LIB_PATH . '/lib_greader.php');
+
+		$this->catDAO->checkDefault();
+		$categories = [];
+		foreach ($catDAO->listCategories() as $c_id => $category) {
+			$c_name = htmlspecialchars_decode($category->name(), ENT_QUOTES);
+			$categories[$c_name] = $category->id();
+		}
+
+		$feeds = [];
+		foreach ($this->feedDAO->listFeeds() as $f_id => $feed) {
+			$f_url = htmlspecialchars_decode($feed->url(), ENT_QUOTES);
+			$feeds[$f_url] = $feed;
+		}
+
+		foreach ($items as $item) {
+			$isRead = false;
+			$isStarred = false;
+			$c_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			$labels = [];
+			$tags = [];
+
+			if (!empty($line['categories'])) {
+				foreach ($line['categories'] as $category) {
+					if (preg_match('#^user/[^/]+/state/com.google/read$#', $category)) {
+						$isRead = true;
+					} elseif (preg_match('#^user/[^/]+/state/com.google/starred$#', $category)) {
+						$isStarred = true;
+					} elseif (preg_match('#^user/-/label/(.+)$#', $category, $matches)) {
+						$label = htmlspecialchars($matches[1], ENT_NOQUOTES);
+						if (empty($categories[$label])) {
+							// If does not already exist as folder (category), assume tag (label)
+							$labels[] = $label;
+						} else {
+							$c_id = $categories[$label];
+						}
+					} elseif (!preg_match('#^user/#', $category)) {
+						// tag from source feed
+						$tags[] = htmlspecialchars($category, ENT_NOQUOTES);
+					}
+				}
+			}
+
+			$f_url = preg_replace('#^feed/#', '', $json['origin']['streamId']);
+			$f_url = htmlspecialchars($f_url, ENT_NOQUOTES);
+			$f_url = safe_ascii($f_url);
+
+			$f_url = Minz_ExtensionManager::callHook('check_url_before_add', $f_url);
+			if ($f_url == '') {
+				continue;
+			}
+
+			if (empty($feeds[$f_url])) {
+				// The feed does not already exist
+				$f_title = htmlspecialchars($json['origin']['title'], ENT_NOQUOTES);
+				$f_website = htmlspecialchars($json['origin']['htmlUrl'], ENT_NOQUOTES);
+				$values = [
+					'url' => $f_url,
+					'category' => $c_id,
+					'name' => $f_title,
+					'website' => $f_website,
+					'description' => '',
+					'lastUpdate' => 0,
+					'httpAuth' => '',
+				];
+
+				$f_id = $feedDAO->addFeed($values);
+				if (!$f_id) {
+					continue;
+				}
+				$values['id'] = $f_id;
+				$feed = FreshRSS_FeedDAO::daoToFeed($values);
+				$feeds[$f_url] = $feed;
+			}
+			$feed = $feeds[$f_url];
+
+			//TODO: Finalize
+		}
+	}
+
 }
