@@ -127,6 +127,7 @@ People are sorted by name so please keep this order.
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
 * [Thomas Guesnon](https://github.com/patjennings): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:patjennings), [Web](http://www.thomasguesnon.fr/)
 * [thomas-gt](https://github.com/thomas-gt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:thomas-gt)
+* [ThomasSmallert](https://github.com/ThomasSmallert): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ThomasSmallert)
 * [Ths2-9Y-LqJt6](https://github.com/Ths2-9Y-LqJt6): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Ths2-9Y-LqJt6)
 * [Tibor Repček](https://github.com/tiborepcek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tiborepcek)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
