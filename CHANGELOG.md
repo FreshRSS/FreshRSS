@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2021-03-XX FreshRSS 1.18.0-rc
+## 2021-03-14 FreshRSS 1.18.0
 
 * Features
 	* Allow parallel requests [#3096](https://github.com/FreshRSS/FreshRSS/pull/3096)
@@ -9,8 +9,7 @@
 	* New share article link to clipboard [#3330](https://github.com/FreshRSS/FreshRSS/pull/3330)
 	* Improved OPML import of feeds with multiple categories [#3286](https://github.com/FreshRSS/FreshRSS/pull/3286)
 	* Add a content action parameter to work with CSS selector [#3453](https://github.com/FreshRSS/FreshRSS/pull/3453)
-	* New cURL options per feed: proxy, cookie [#3367](https://github.com/FreshRSS/FreshRSS/pull/3367)
-	* New option to set a custom user-agent to retrieve a feed [#3494](https://github.com/FreshRSS/FreshRSS/pull/3494)
+	* New cURL options per feed: proxy, cookie, user-agent [#3367](https://github.com/FreshRSS/FreshRSS/pull/3367), [#3494](https://github.com/FreshRSS/FreshRSS/pull/3494), [#3516](https://github.com/FreshRSS/FreshRSS/pull/3516)
 	* Do not import feeds causing database errors (e.g. due to conflicting HTTP redirections) [##3347](https://github.com/FreshRSS/FreshRSS/pull/3347)
 * UI
 	* New option to remember open categories [#3185](https://github.com/FreshRSS/FreshRSS/pull/3185)
@@ -48,6 +47,7 @@
 	* Fix extensions when using CLI [#3443](https://github.com/FreshRSS/FreshRSS/pull/3443)
 	* Fix translation CLI [#3364](https://github.com/FreshRSS/FreshRSS/pull/3364)
 	* Allow searching for `+` sign [#3489](https://github.com/FreshRSS/FreshRSS/pull/3489)
+	* Fix cURL version detection in install script [#3519](https://github.com/FreshRSS/FreshRSS/pull/3519)
 * Compatibility
 	* Support PHP 8+ [#3186](https://github.com/FreshRSS/FreshRSS/pull/3186), [#3207](https://github.com/FreshRSS/FreshRSS/pull/3207), [#3459](https://github.com/FreshRSS/FreshRSS/pull/3459), [#3487](https://github.com/FreshRSS/FreshRSS/pull/3487)
 		* Note: needed for MySQL 8+ with default authentication settings
