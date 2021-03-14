@@ -8,13 +8,13 @@
  6. (optional): You can set a timeout for the feed request if the feed requires it.
  7. (optional): You can choose to ignore SSL certificate errors (such as with self-signed certificates) by setting "Verify SSL security" to "No". This is not recommended, and it is better to either add the root certificate to the FreshRSS server or to fix the SSL certificate problems on the feed hosting server.
 
-# Subscription management
+## Subscription management
 
 The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed's settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item. 
 
 ## Category Settings
 
-### Information 
+### Information
 
 * **Title:** Name of category
   * **Display position:** Defines the order of categories. Lower numbers get priority, non-numbered items come last, and equally numbered items will sort by alphabetical order.
@@ -24,7 +24,6 @@ The "Subscription management" submenu allows categories and feeds to be configur
 If "Purge Policy" has "By default" selected, then the [default purge policy](./05_Configuration.md) is used and the other options are not displayed. Category options will override the default policy, but they will not override feed-specific options.
 
 ## Feed Settings
-
 
 These fields will be auto-filled when adding a feed, but they can be modified later. **Visibility** will define if the feed is displayed in the main feed, only in specific categories, or not at all.
 
@@ -60,8 +59,10 @@ Here we find that the block that encompasses nothing but the content of the arti
 *  Phoronix: ```#main .content```
 
 ##### Combining CSS Classes
+
 Let's say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
-```
+
+```html
 <div id="article">
 <h2>wanted</h2>
 <p class="content">wanted content</p>
@@ -73,6 +74,7 @@ Let's say we have an article which contains ads, and we do not want to have thos
 <p class="content">wanted content</p>
 </div>
 ```
+
 In this case it's possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
 
 #### Retrieve a truncated feed with external tools
@@ -86,8 +88,9 @@ Complementary tools can be used to retrieve full article content, such as:
 
 Articles can be automatically marked as read based on some search terms. See [filtering](./03_Main_view.md#filtering-articles) for more information on how to create these filters.
 
-# Import / export
-See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/master/cli) as an alternative.
+## Import / export
+
+See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli) as an alternative.
 
 ## Export
 
@@ -101,7 +104,7 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/master/cli
  4. Click on “export”.
 
 ## Import
- 
+
   1. Go to the page “Import / export”.
   2. Click on “Browse” and select your OPML or archive file on your computer.
   3. Click on “Import”
@@ -109,11 +112,12 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/master/cli
 > **Important**: you can not import directly a list of feeds from a text file.
 > You need to convert it beforehand to _OPML_.
 > Here is some tools you could use :
-> - [Pandoc](https://pandoc.org/) available for most systems,
-> - [OPML generator](https://opml-gen.ovh/) available online,
-> - [txt2opml](https://alterfiles.com/convert/txt/opml) available online.
+>
+> * [Pandoc](https://pandoc.org/) available for most systems,
+> * [OPML generator](https://opml-gen.ovh/) available online,
+> * [txt2opml](https://alterfiles.com/convert/txt/opml) available online.
   
-# Use bookmarklet
+## Use bookmarklet
 
 Bookmarklets are little scripts that you can execute to perform various tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds.
 

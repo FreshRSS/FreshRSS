@@ -31,7 +31,7 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 1. Be sure the bug is associated to a ticket and say you work on it.
 2. [Fork this project repository](https://help.github.com/articles/fork-a-repo/).
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **master branch**.
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**.
 
 If you have to write code, please follow [our coding style recommendations](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html).
 
@@ -49,4 +49,4 @@ Learn how to contribute to translations in [the dedicated documentation](./docs/
 
 ## Contribute to documentation
 
-[The documentation](https://freshrss.github.io/FreshRSS/) always needs improvements in order to be more useful to newcomers. If you want to give some help, meet us on [the dedicated sub-folder](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!
+[The documentation](https://freshrss.github.io/FreshRSS/) always needs improvements in order to be more useful to newcomers. If you want to give some help, meet us on [the dedicated sub-folder](https://github.com/FreshRSS/FreshRSS/tree/edge/docs)!

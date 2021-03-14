@@ -1,6 +1,7 @@
 # Branching
 
 ## Basic
+
 If you are new to Git, here are some of the resources you might find useful:
 
 * [GitHub's blog post](https://github.com/blog/120-new-to-git)
@@ -9,30 +10,35 @@ If you are new to Git, here are some of the resources you might find useful:
 * <http://rogerdudler.github.io/git-guide/>
 
 ## Getting the latest code from the FreshRSS repository
+
 First you need to add the official repo to your remote repo list:
-```bash
+
+```sh
 git remote add upstream git@github.com:FreshRSS/FreshRSS.git
 ```
 
 You can verify the remote repo is successfully added by using:
-```bash
+
+```sh
 git remote -v show
 ```
 
 Now you can pull the latest development code:
-```bash
-git checkout master
-git pull upstream master
+
+```sh
+git checkout edge
+git pull upstream edge
 ```
 
 ## Starting a new development branch
-```bash
+
+```sh
 git checkout -b my-development-branch
 ```
 
-# Sending a patch
+## Sending a patch
 
-```bash
+```sh
 # Add the changed file, here actualize_script.php
 git add app/actualize_script.php
 # Commit the change and write a proper commit message

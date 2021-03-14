@@ -4,6 +4,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/freshrss/freshrss.svg)
 
 # Deploy FreshRSS with Docker
+
 * See also https://hub.docker.com/r/freshrss/freshrss/
 
 
@@ -16,11 +17,13 @@ sh get-docker.sh
 
 
 ## Create an isolated network
+
 ```sh
 docker network create freshrss-network
 ```
 
 ## Recommended: use [Træfik](https://traefik.io/) reverse proxy
+
 It is a good idea to use a reverse proxy on your host server, providing HTTPS.
 Here is the recommended configuration using automatic [Let’s Encrypt](https://letsencrypt.org/) HTTPS certificates and with a redirection from HTTP to HTTPS. See further below for alternatives.
 
@@ -49,6 +52,7 @@ See [more information about Docker and Let’s Encrypt in Træfik](https://docs.
 
 
 ## Run FreshRSS
+
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
@@ -82,6 +86,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
 ### [MySQL](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb)
+
 ```sh
 # If you already have a MySQL or MariaDB instance running, just attach it to the FreshRSS network:
 docker network connect freshrss-network mysql
@@ -99,6 +104,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 ```
 
 ### [PostgreSQL](https://hub.docker.com/_/postgres/)
+
 ```sh
 # If you already have a PostgreSQL instance running, just attach it to the FreshRSS network:
 docker network connect freshrss-network postgres
@@ -115,6 +121,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 ```
 
 ### Complete installation
+
 Browse to your server https://freshrss.example.net/ to complete the installation via the FreshRSS Web interface,
 or use the command line described below.
 
@@ -135,19 +142,23 @@ docker rm freshrss_old
 
 
 ## [Docker tags](https://hub.docker.com/r/freshrss/freshrss/tags)
+
 The tags correspond to FreshRSS branches and versions:
-* `:latest` (default) is the `master` branch, more stable
-* `:dev` is the `dev` branch, rolling release
+
+* `:latest` (default) is the latest stable release
+* `:edge` is the rolling release
 * `:x.y.z` are specific FreshRSS releases
 * `:arm` or `:*-arm` are the ARM versions (e.g. for Raspberry Pi)
 
 ### Linux: Debian vs. Alpine
+
 Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
 In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is faster,
 while Alpine is [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 
 
 ## Optional: Build Docker image of FreshRSS
+
 Building your own Docker image is optional because online images can be fetched automatically.
 Note that prebuilt images are less recent and only available for x64 (Intel, AMD) platforms.
 
@@ -189,10 +200,12 @@ ls /var/www/FreshRSS/
 
 
 ## Cron job to automatically refresh feeds
+
 We recommend a refresh rate of about twice per hour (see *WebSub* / *PubSubHubbub* for real-time updates).
 There are no less than 3 options. Pick a single one.
 
 ### Option 1) Cron inside the FreshRSS Docker image
+
 Easiest, built-in solution, also used already in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
@@ -206,6 +219,7 @@ docker run ... \
 ```
 
 ### Option 2) Cron on the host machine
+
 Traditional solution.
 Set a cron job up on your host machine, calling the `actualize_script.php` inside the FreshRSS Docker instance.
 Remember not pass the `CRON_MIN` environment variable to your Docker run, to avoid running the built-in cron daemon of option 1.
@@ -217,11 +231,13 @@ Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 ```
 
 ### Option 3) Cron as another instance of the same FreshRSS Docker image
+
 For advanced users. Offers good logging and monitoring with auto-restart on failure.
 Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
 See cron option 1 for customising the cron schedule.
 
 #### For the Ubuntu image (default)
+
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
@@ -233,6 +249,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 ```
 
 #### For the Alpine image
+
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
@@ -267,7 +284,7 @@ The `FRESHRSS_ENV=development` environment variable increases the level of loggi
 Changes in Apache `.htaccess` files are applied when restarting the container.
 In particular, if you want FreshRSS to use HTTP-based login (instead of the easier Web form login), you can mount your own `./FreshRSS/p/i/.htaccess`:
 
-```
+```sh
 docker run ...
   -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
   -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
@@ -276,7 +293,8 @@ docker run ...
 ```
 
 Example of `/your/.htaccess` referring to `/your/.htpasswd`:
-```
+
+```apache
 AuthUserFile /var/www/FreshRSS/data/.htpasswd
 AuthName "FreshRSS"
 AuthType Basic
@@ -286,6 +304,7 @@ Require valid-user
 ### Example with [docker-compose](https://docs.docker.com/compose/)
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
+
 - In the `postgresql` service:
     * `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
 	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
@@ -296,6 +315,7 @@ A [docker-compose.yml](docker-compose.yml) file is given as an example, using Po
 	* the `environment` section to adapt the strategy to update feeds.
 
 You can then launch the stack (FreshRSS + PostgreSQL) with:
+
 ```sh
 docker-compose up -d
 ```
@@ -306,7 +326,7 @@ docker-compose up -d
 
 Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as subdirectory).
 
-```
+```nginx
 upstream freshrss {
 	server 127.0.0.1:8080;
 	keepalive 64;
@@ -356,7 +376,7 @@ server {
 
 Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as domain root).
 
-```
+```nginx
 upstream freshrss {
 	server 127.0.0.1:8080;
 	keepalive 64;
@@ -402,7 +422,7 @@ server {
 Here is an example of a configuration file for running FreshRSS behind an Apache reverse proxy (as a subdirectory).
 You need a working SSL configuration and the Apache modules `proxy`, `proxy_http` and `headers` installed (depends on your distribution) and enabled (```a2enmod proxy proxy_http headers```).
 
-```
+```apache
 ProxyPreserveHost On
 
 <Location /freshrss/>
