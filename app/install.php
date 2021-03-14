@@ -403,7 +403,7 @@ function printStep1() {
 
 	<?php
 	if (function_exists('curl_version')) {
- 		$version = curl_version();
+		$version = curl_version();
 	} else {
 		$version['version'] = '';
 	}
