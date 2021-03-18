@@ -19,7 +19,7 @@
 		<div class="form-group">
 			<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 			<div class="group-controls">
-				<input type="text" id="query_search" name="query[search]"  class="extend" value="<?= urldecode($this->query->getSearch()) ?>"/>
+				<input type="text" id="query_search" name="query[search]"  class="extend" value="<?= htmlspecialchars($this->query->getSearch(), ENT_COMPAT, 'UTF-8') ?>"/>
 			</div>
 		</div>
 		<div class="form-group">

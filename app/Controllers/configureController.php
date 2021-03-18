@@ -347,7 +347,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$params = array_filter(Minz_Request::param('query', []));
 			if (!empty($params['search'])) {
-				$params['search'] = urldecode($params['search']);
+				$params['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
 			if (!empty($params['state'])) {
 				$params['state'] = array_sum($params['state']);
