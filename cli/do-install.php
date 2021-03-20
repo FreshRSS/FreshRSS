@@ -86,7 +86,7 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-FreshRSS_Context::initSystem();
+FreshRSS_Context::initSystem(true);
 
 Minz_Session::_param('currentUser', '_');	//Default user
 

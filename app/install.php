@@ -152,7 +152,7 @@ function saveStep2() {
 			opcache_reset();
 		}
 
-		FreshRSS_Context::initSystem();
+		FreshRSS_Context::initSystem(true);
 
 		$ok = false;
 		try {
