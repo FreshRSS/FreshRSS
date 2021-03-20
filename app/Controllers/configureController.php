@@ -177,15 +177,13 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$shortcuts = Minz_Request::param('shortcuts');
 			if (false !== Minz_Request::param('load_default_shortcuts')) {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
-				$shortcuts = $data['shortcuts'];
+				$shortcuts = $default['shortcuts'];
 			}
-			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList($shortcuts);
+			FreshRSS_Context::$user_conf->shortcuts = array_map('trim', $shortcuts);
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('feedback.conf.shortcuts_updated'), array('c' => 'configure', 'a' => 'shortcut'));
-		} else {
-			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
 		}
 
 		Minz_View::prependTitle(_t('conf.shortcut.title') . ' · ');

@@ -534,32 +534,17 @@ const SHORTCUT_KEYS = [
 			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
 		];
 
-function validateShortcutList($shortcuts) {
-	$legacy = array(
-			'down' => 'ArrowDown', 'left' => 'ArrowLeft', 'page_down' => 'PageDown', 'page_up' => 'PageUp',
-			'right' => 'ArrowRight', 'up' => 'ArrowUp',
-		);
-	$upper = null;
-	$shortcuts_ok = array();
+function getNonStandardShortcuts($shortcuts) {
+	$standard = strtolower(implode(' ', SHORTCUT_KEYS));
 
-	foreach ($shortcuts as $key => $value) {
-		if ('' === $value) {
-			$shortcuts_ok[$key] = $value;
-		} elseif (in_array($value, SHORTCUT_KEYS)) {
-			$shortcuts_ok[$key] = $value;
-		} elseif (isset($legacy[$value])) {
-			$shortcuts_ok[$key] = $legacy[$value];
-		} else {	//Case-insensitive search
-			if ($upper === null) {
-				$upper = array_map('strtoupper', SHORTCUT_KEYS);
-			}
-			$i = array_search(strtoupper($value), $upper);
-			if ($i !== false) {
-				$shortcuts_ok[$key] = SHORTCUT_KEYS[$i];
-			}
+	$nonStandard = array_filter($shortcuts, function ($shortcut) use ($standard) {
+		if (false !== strpos($shortcut, ' ')) {
+			return true;
 		}
-	}
-	return $shortcuts_ok;
+		return !preg_match("/${shortcut}/i", $standard);
+	});
+
+	return $nonStandard;
 }
 
 function errorMessage($errorTitle, $error = '') {

@@ -11,9 +11,15 @@
 
 	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
 
+	<legend><?= _t('conf.shortcut') ?></legend>
+	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
+		<p class="alert alert-error">
+			<?= _t('conf.shortcut.non_standard', implode('</kbd>, <kbd>', $nonStandard)) ?>
+		</p>
+	<?php endif; ?>
+
 	<form method="post" action="<?= _url('configure', 'shortcut') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('conf.shortcut') ?></legend>
 
 		<noscript><p class="alert alert-error"><?= _t('conf.shortcut.javascript') ?></p></noscript>
 
