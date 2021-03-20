@@ -173,9 +173,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$opts[CURLOPT_PROXY] = $proxy_address;
 				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
 			}
-			if ($cookie !== '') {
-				$opts[CURLOPT_COOKIE] = $cookie;
-			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
 			}
