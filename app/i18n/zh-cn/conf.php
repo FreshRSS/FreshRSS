@@ -191,6 +191,7 @@ return array(
 		'navigation_help' => '组合 <kbd>⇧ Shift</kbd> 键，浏览快捷键将生效于订阅源。<br/>组合 <kbd>Alt ⎇</kbd> 键，浏览快捷键将生效于分类。',
 		'navigation_no_mod_help' => '以下快捷键不支持组合键（Shift 或 Alt）',
 		'next_article' => '打开下一篇文章',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',
 		'previous_article' => '打开上一篇文章',

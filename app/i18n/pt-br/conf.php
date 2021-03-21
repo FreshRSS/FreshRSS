@@ -191,6 +191,7 @@ return array(
 		'navigation_help' => 'Com o modificador <kbd>⇧ Shift</kbd>, atalhos de navegação aplicam aos feeds.<br/>Com o <kbd>Alt ⎇</kbd> modificador, atalhos de navegação aplicam as categorias.',
 		'navigation_no_mod_help' => 'Os seguintes atalhos de navegação não suportam modificadores.',
 		'next_article' => 'Pule para o próximo artigo',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Mudar para a visualização normal',
 		'other_action' => 'Outras ações',
 		'previous_article' => 'Pule para o artigo anterior',
