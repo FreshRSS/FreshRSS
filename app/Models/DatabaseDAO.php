@@ -10,6 +10,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	const ER_BAD_TABLE_ERROR = '42S02';
 	const ER_DATA_TOO_LONG = '1406';
 
+	/**
+	 * Based on SQLite SQLITE_MAX_VARIABLE_NUMBER
+	 */
+	const MAX_VARIABLE_NUMBER = 998;
+
 	//MySQL InnoDB maximum index length for UTF8MB4
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
 	const LENGTH_INDEX_UNICODE = 191;

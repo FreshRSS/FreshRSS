@@ -989,8 +989,16 @@ SQL;
 	}
 
 	public function listHashForFeedGuids($id_feed, $guids) {
+		$result = [];
 		if (count($guids) < 1) {
-			return array();
+			return $result;
+		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			foreach ($guidsChunks as $guidsChunk) {
+				$result += $this->listHashForFeedGuids($id_feed, $guidsChunk);
+			}
+			return $result;
 		}
 		$guids = array_unique($guids);
 		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') .
@@ -999,7 +1007,6 @@ SQL;
 		$values = array($id_feed);
 		$values = array_merge($values, $guids);
 		if ($stm && $stm->execute($values)) {
-			$result = array();
 			$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($rows as $row) {
 				$result[$row['guid']] = $row['hex_hash'];
