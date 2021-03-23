@@ -24,7 +24,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Error::error(403);
 			}
 		}
-		$this->updateTTL();
 	}
 
 	/**
