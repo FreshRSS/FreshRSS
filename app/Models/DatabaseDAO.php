@@ -199,6 +199,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	const SQLITE_IMPORT = 2;
 
 	public function dbCopy($filename, $mode, $clearFirst = false) {
+		if (!extension_loaded('pdo_sqlite')) {
+			return self::stdError('PHP extension pdo_sqlite is missing!');
+		}
 		$error = '';
 
 		$userDAO = FreshRSS_Factory::createUserDao();
