@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'Avançat',
 		'archiving' => 'Archivar',
 		'auth' => array(
+			'configuration' => 'Identificacion',
 			'help' => 'Permet l’accès als fluxes protegits per una autentificacion HTTP',
 			'http' => 'Autentificacion HTTP',
 			'password' => 'Senhal HTTP',

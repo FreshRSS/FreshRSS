@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(
+			'configuration' => 'Login',
 			'help' => 'Allows access to HTTP protected RSS feeds',
 			'http' => 'HTTP Authentication',
 			'password' => 'HTTP password',

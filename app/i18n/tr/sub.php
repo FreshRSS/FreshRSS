@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'Gelişmiş',
 		'archiving' => 'Arşiv',
 		'auth' => array(
+			'configuration' => 'Giriş',
 			'help' => 'HTTP korumalı RSS akışlarına bağlantı izni sağlar',
 			'http' => 'HTTP Kimlik Doğrulama',
 			'password' => 'HTTP şifre',
