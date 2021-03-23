@@ -65,13 +65,7 @@ git status
 
 The command should tell you the tag that you're using. It must be the same as the one associated with [the latest release on GitHub](https://github.com/FreshRSS/FreshRSS/releases/latest). If you use the rolling release, it should tell you that your `edge` branch is up to date with `origin`.
 
-6. Delete the file that triggers the install wizard
-
-```sh
-rm data/do-install.txt
-```
-
-7. Re-set correct permissions so that your web server can access the files
+6. Re-set correct permissions so that your web server can access the files
 
 ```sh
 chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
@@ -112,6 +106,5 @@ chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
 
 ```sh
 rm -f freshrss.zip
-rm -f data/do-install.txt
 rm -rf FreshRSS-*/
 ```

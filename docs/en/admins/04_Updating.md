@@ -23,9 +23,8 @@ Generally, the update procedure via git works as follows:
 3. Perform a hard reset to discard local changes.
 4. Delete manual additions. Be sure to move your backup out of the directory before doing this step!
 5. Pull the new version.
-6. Remove `./data/do-install.txt`.
-7. Re-set group read (and write, if you wish) permissions on all files in `.`, and group write permissions on `./data/`.
+6. Re-set group read (and write, if you wish) permissions on all files in `.`, and group write permissions on `./data/`.
 
 ## Updating from a Zip Archive
 
-Updating to a new version from a zip archive is always an option. Begin by unzipping the archive into your FreshRSS directory, overwriting old files, remove `./data/do-install.txt`, and finally re-set group read (and write, if you wish) permissions on all files in `.` and group write permissions on `./data/`.
+Updating to a new version from a zip archive is always an option. Begin by unzipping the archive into your FreshRSS directory, overwriting old files, and finally re-set group read (and write, if you wish) permissions on all files in `.` and group write permissions on `./data/`.
