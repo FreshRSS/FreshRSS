@@ -57,13 +57,7 @@ CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.
 CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
-SQL;
 
-$SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
-CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
-SQL;
-
-$SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,

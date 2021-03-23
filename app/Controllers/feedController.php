@@ -24,7 +24,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Error::error(403);
 			}
 		}
-		$this->updateTTL();
 	}
 
 	/**
@@ -852,15 +851,5 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} catch (Exception $e) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');
 		}
-	}
-
-	/**
-	 * This method update TTL values for feeds if needed.
-	 * It changes the old default value (-2) to the new default value (0).
-	 * It changes the old disabled value (-1) to the default disabled value.
-	 */
-	private function updateTTL() {
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$feedDAO->updateTTL();
 	}
 }

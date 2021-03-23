@@ -337,7 +337,6 @@ SQL;
 	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
 	 */
 	public function listFeedsOrderUpdate($defaultCacheDuration = 3600, $limit = 0) {
-		$this->updateTTL();
 		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
@@ -505,24 +504,6 @@ SQL;
 		}
 
 		return $list;
-	}
-
-	public function updateTTL() {
-		$sql = 'UPDATE `_feed` SET ttl=:new_value WHERE ttl=:old_value';
-		$stm = $this->pdo->prepare($sql);
-		if (!($stm && $stm->execute(array(':new_value' => FreshRSS_Feed::TTL_DEFAULT, ':old_value' => -2)))) {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL warning updateTTL 1: ' . $info[2] . ' ' . $sql);
-
-			$sql2 = 'ALTER TABLE `_feed` ADD COLUMN ttl INT NOT NULL DEFAULT ' . FreshRSS_Feed::TTL_DEFAULT;	//v0.7.3
-			$stm = $this->pdo->query($sql2);
-			if ($stm === false) {
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error updateTTL 2: ' . $info[2] . ' ' . $sql2);
-			}
-		} else {
-			$stm->execute(array(':new_value' => -3600, ':old_value' => -1));
-		}
 	}
 
 	public function count() {

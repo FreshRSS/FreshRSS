@@ -22,26 +22,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
-	//TODO: Move the database auto-updates to DatabaseDAO
-	protected function createEntryTempTable() {
-		$ok = false;
-		$hadTransaction = $this->pdo->inTransaction();
-		if ($hadTransaction) {
-			$this->pdo->commit();
-		}
-		try {
-			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
-			$ok = $this->pdo->exec($SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_INDEX_ENTRY_1) !== false;
-		} catch (Exception $ex) {
-			Minz_Log::error(__method__ . ' error: ' . $ex->getMessage());
-		}
-		if ($hadTransaction) {
-			$this->pdo->beginTransaction();
-		}
-		return $ok;
-	}
-
 	private function updateToMediumBlob() {
 		if ($this->pdo->dbType() !== 'mysql') {
 			return false;
@@ -68,8 +48,6 @@ SQL;
 				if (stripos($errorInfo[2], 'tag') !== false) {
 					$tagDAO = FreshRSS_Factory::createTagDao();
 					return $tagDAO->createTagTable();	//v1.12.0
-				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
-					return $this->createEntryTempTable();	//v1.7.0
 				}
 			}
 		}

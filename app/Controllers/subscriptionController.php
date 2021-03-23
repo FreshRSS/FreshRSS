@@ -18,7 +18,6 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 
 		$catDAO->checkDefault();
-		$feedDAO->updateTTL();
 		$this->view->categories = $catDAO->listSortedCategories(false);
 		$this->view->default_category = $catDAO->getDefault();
 	}
