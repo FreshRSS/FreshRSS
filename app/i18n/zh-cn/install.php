@@ -111,7 +111,7 @@ return array(
 		'choose' => '为 FreshRSS 选择语言',
 		'defined' => '语言已指定',
 	),
-	'not_deleted' => '出现错误，你必须手动删除文件 <em>%s</em>',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => '安装成功',
 	'session' => array(
 		'nok' => 'Web 服务器似乎未正确配置 PHP 会话所需的 cookie！',
