@@ -23,10 +23,6 @@ foreach ($dirs as $dir) {
 	$ok &= touch(DATA_PATH . $dir . '/index.html');
 }
 
-if (!is_file(DATA_PATH . '/config.php')) {
-	$ok &= touch(DATA_PATH . '/do-install.txt');
-}
-
 file_put_contents(DATA_PATH . '/.htaccess',
 "# Apache 2.2\n" .
 "<IfModule !mod_authz_core.c>\n" .

@@ -113,12 +113,6 @@ function initDb() {
 	return $databaseDAO->testConnection();
 }
 
-function deleteInstall() {
-	$path = join_path(DATA_PATH, 'do-install.txt');
-	@unlink($path);
-	return !file_exists($path);
-}
-
 function setupMigrations() {
 	$migrations_path = APP_PATH . '/migrations';
 	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';

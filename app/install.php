@@ -611,7 +611,10 @@ function printStep4() {
 
 function printStep5() {
 ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.not_deleted', DATA_PATH . '/do-install.txt') ?></p>
+	<p class="alert alert-error">
+		<span class="alert-head"><?= _t('gen.short.damn') ?></span>
+		<?= _t('install.missing_applied_migrations', DATA_PATH . '/applied_migrations.txt') ?>
+	</p>
 <?php
 }
 
@@ -636,7 +639,7 @@ case 3:
 case 4:
 	break;
 case 5:
-	if (setupMigrations() && deleteInstall()) {
+	if (setupMigrations()) {
 		header('Location: index.php');
 	}
 	break;
