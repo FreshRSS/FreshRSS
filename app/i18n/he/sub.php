@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'מתקדם',
 		'archiving' => 'ארכוב',
 		'auth' => array(
+			'configuration' => 'כניסה לחשבון',
 			'help' => 'החיבור מתיר לגשת להזנות RSS מוגנות',
 			'http' => 'HTTP אימות',
 			'password' => 'HTTP סיסמה',

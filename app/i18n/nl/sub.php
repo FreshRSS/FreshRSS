@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'Geavanceerd',
 		'archiving' => 'Archiveren',
 		'auth' => array(
+			'configuration' => 'Log in',
 			'help' => 'Verbinding toestaan toegang te krijgen tot HTTP beveiligde RSS-feeds',
 			'http' => 'HTTP Authenticatie',
 			'password' => 'HTTP wachtwoord',

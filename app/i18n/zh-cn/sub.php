@@ -26,6 +26,7 @@ return array(
 		'advanced' => '高级',
 		'archiving' => '归档',
 		'auth' => array(
+			'configuration' => '认证',
 			'help' => '用于连接启用 HTTP 认证的订阅源',
 			'http' => 'HTTP 认证',
 			'password' => 'HTTP 密码',

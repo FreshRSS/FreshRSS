@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'Advanced',	// TODO - Translation
 		'archiving' => 'Archivage',
 		'auth' => array(
+			'configuration' => 'Login',	// TODO - Translation
 			'help' => 'Connection allows to access HTTP protected RSS feeds',
 			'http' => 'HTTP Authentication',	// TODO - Translation
 			'password' => 'HTTP password',	// TODO - Translation

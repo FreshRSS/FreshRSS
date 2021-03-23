@@ -26,6 +26,7 @@ return array(
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivace',
 		'auth' => array(
+			'configuration' => 'Přihlášení',
 			'help' => 'Umožní přístup k RSS kanálům chráneným HTTP autentizací',
 			'http' => 'HTTP přihlášení',
 			'password' => 'Heslo',

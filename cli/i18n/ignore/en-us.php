@@ -708,6 +708,7 @@ return array(
 	'sub.feed.add',
 	'sub.feed.advanced',
 	'sub.feed.archiving',
+	'sub.feed.auth.configuration',
 	'sub.feed.auth.help',
 	'sub.feed.auth.http',
 	'sub.feed.auth.password',
