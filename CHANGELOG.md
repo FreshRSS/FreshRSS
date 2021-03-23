@@ -1,7 +1,20 @@
 ﻿# FreshRSS changelog
 
-## 2021-XX-XX FreshRSS 1.18.1-dev
+## 2021-0X-XX FreshRSS 1.18.1-dev
 
+* UI
+	* Allow Unicode for shortcuts [#3548](https://github.com/FreshRSS/FreshRSS/pull/3548)
+* Bug fixing
+	* Fix database lock during refresh with MariaDB [#3559](https://github.com/FreshRSS/FreshRSS/pull/3559)
+	* Fix database creation from CLI [#3544](https://github.com/FreshRSS/FreshRSS/pull/3544)
+	* Fix: `pdo_sqlite` is optional except for export/import SQLite [#3545](https://github.com/FreshRSS/FreshRSS/pull/3545)
+	* Fix search param encoding in user query [#3541](https://github.com/FreshRSS/FreshRSS/pull/3541)
+	* Fix undefined variable & dead code when adding feed [#3546](https://github.com/FreshRSS/FreshRSS/pull/3546)
+	* Fix missing translation in feed configuration [#3554](https://github.com/FreshRSS/FreshRSS/pull/3554)
+* SimplePie
+	* Catch ValueError for loadHTML with PHP 8 [simplepie#673](https://github.com/simplepie/simplepie/pull/673)
+* Deployment
+	* Automatically apply `latest` tag in git for the latest FreshRSS release [#3524](https://github.com/FreshRSS/FreshRSS/pull/3524)
 
 
 ## 2021-03-14 FreshRSS 1.18.0
