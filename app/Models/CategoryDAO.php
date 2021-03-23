@@ -148,7 +148,7 @@ SQL;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->updateCategory($valuesTmp);
+				return $this->updateCategory($id, $valuesTmp);
 			}
 			Minz_Log::error('SQL error updateCategory: ' . json_encode($info));
 			return false;
