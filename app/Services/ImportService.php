@@ -67,8 +67,8 @@ class FreshRSS_Import_Service {
 		//Sort with categories first
 		usort($opml_elements, function ($a, $b) {
 			return strcmp(
-				(isset($a['xmlUrl']) ? 'Z' : 'A') . $a['text'],
-				(isset($b['xmlUrl']) ? 'Z' : 'A') . $b['text']);
+				(isset($a['xmlUrl']) ? 'Z' : 'A') . (isset($a['text']) ? $a['text'] : ''),
+				(isset($b['xmlUrl']) ? 'Z' : 'A') . (isset($b['text']) ? $b['text'] : ''));
 		});
 
 		foreach ($opml_elements as $elt) {
@@ -86,7 +86,7 @@ class FreshRSS_Import_Service {
 				} else {
 					$ok = false;
 				}
-			} else {
+			} elseif (!empty($elt['text'])) {
 				// No xmlUrl? It should be a category!
 				$limit_reached = ($nb_cats >= $limits['max_categories']);
 				if (!FreshRSS_Context::$isCli && $limit_reached) {

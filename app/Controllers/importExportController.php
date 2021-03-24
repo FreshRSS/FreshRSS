@@ -189,7 +189,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	private static function guessFileType($filename) {
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';
-		} elseif (substr_compare($filename, '.opml', -5) === 0) {
+		} elseif (stripos($filename, 'opml') !== false) {
 			return 'opml';
 		} elseif (substr_compare($filename, '.json', -5) === 0) {
 			if (strpos($filename, 'starred') !== false) {
@@ -208,11 +208,15 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	private function ttrssXmlToJson($xml) {
-		$table = (array)simplexml_load_string($xml, null, LIBXML_NOCDATA);
+		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = isset($table['article']) ? $table['article'] : array();
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
+			$item = array_filter($item, function ($v) {
+					// Filter out empty properties, potentially reported as empty objects
+					return (is_string($v) && trim($v) !== '') || !empty($v);
+				});
 			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
 			$item['published'] = $item['updated'];
 			$item['content'] = array('content' => isset($item['content']) ? $item['content'] : '');
@@ -274,8 +278,14 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($items as $item) {
-			if (!isset($item['origin'])) {
-				$item['origin'] = array('title' => 'Import');
+			if (empty($item['id'])) {
+				continue;
+			}
+			if (empty($item['origin'])) {
+				$item['origin'] = [];
+			}
+			if (empty($item['origin']['title']) || trim($item['origin']['title']) === '') {
+				$item['origin']['title'] = 'Import';
 			}
 			if (!empty($item['origin']['feedUrl'])) {
 				$feedUrl = $item['origin']['feedUrl'];
@@ -338,7 +348,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$newGuids = array();
 		$this->entryDAO->beginTransaction();
 		foreach ($items as $item) {
-			if (empty($article_to_feed[$item['id']])) {
+			if (empty($item['id']) || empty($article_to_feed[$item['id']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
 			}
@@ -349,7 +359,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$is_read = null;
 			$tags = empty($item['categories']) ? array() : $item['categories'];
 			$labels = array();
-			for ($i = count($tags) - 1; $i >= 0; $i --) {
+			for ($i = count($tags) - 1; $i >= 0; $i--) {
 				$tag = trim($tags[$i]);
 				if (strpos($tag, 'user/-/') !== false) {
 					if ($tag === 'user/-/state/com.google/starred') {
@@ -383,6 +393,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$url = '';
 			}
 
+			$title = empty($item['title']) ? $url : $item['title'];
+
 			if (!empty($item['content']['content'])) {
 				$content = $item['content']['content'];
 			} elseif (!empty($item['summary']['content'])) {
@@ -408,7 +420,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			$entry = new FreshRSS_Entry(
-				$feed_id, $item['id'], $item['title'], $author,
+				$feed_id, $item['id'], $title, $author,
 				$content, $url, $published, $is_read, $is_starred
 			);
 			$entry->_id(uTimeString());
@@ -493,7 +505,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		} elseif (!empty($origin['feedUrl'])) {
 			$website = $origin['feedUrl'];
 		}
-		$name = empty($origin['title']) ? '' : $origin['title'];
+		$name = empty($origin['title']) ? $website : $origin['title'];
 
 		try {
 			// Create a Feed object and add it in database.
