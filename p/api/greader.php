@@ -939,7 +939,16 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit('OK');
 }
 
-$pathInfo = empty($_SERVER['PATH_INFO']) ? '' : urldecode($_SERVER['PATH_INFO']);
+$pathInfo = '';
+if (empty($_SERVER['PATH_INFO'])) {
+	if (!empty($_SERVER['ORIG_PATH_INFO'])) {
+		// Compatibility https://php.net/reserved.variables.server
+		$pathInfo = $_SERVER['ORIG_PATH_INFO'];
+	}
+} else {
+	$pathInfo = $_SERVER['PATH_INFO'];
+}
+$pathInfo = urldecode($pathInfo);
 $pathInfo = preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
 if ($pathInfo == '') {
 	exit('OK');
