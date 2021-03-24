@@ -8,11 +8,15 @@
 	* Fix database lock during refresh with MariaDB [#3559](https://github.com/FreshRSS/FreshRSS/pull/3559)
 	* Fix database creation from CLI [#3544](https://github.com/FreshRSS/FreshRSS/pull/3544)
 	* Fix: `pdo_sqlite` is optional except for export/import SQLite [#3545](https://github.com/FreshRSS/FreshRSS/pull/3545)
+	* Fix import of JSON and TT-RSS files, especially with PHP 8 [#3553](https://github.com/FreshRSS/FreshRSS/pull/3553)
+		* Allow import of more than 999 favourites/labeled articles even with SQLite
 	* Fix search param encoding in user query [#3541](https://github.com/FreshRSS/FreshRSS/pull/3541)
 	* Fix undefined variable & dead code when adding feed [#3546](https://github.com/FreshRSS/FreshRSS/pull/3546)
 	* Fix missing translation in feed configuration [#3554](https://github.com/FreshRSS/FreshRSS/pull/3554)
 * SimplePie
 	* Catch ValueError for loadHTML with PHP 8 [simplepie#673](https://github.com/simplepie/simplepie/pull/673)
+* API
+	* Compatibility with Web servers providing `ORIG_PATH_INFO` [#3560](https://github.com/FreshRSS/FreshRSS/pull/3560)
 * Deployment
 	* Automatically apply `latest` tag in git for the latest FreshRSS release [#3524](https://github.com/FreshRSS/FreshRSS/pull/3524)
 
@@ -27,7 +31,7 @@
 	* Improved OPML import of feeds with multiple categories [#3286](https://github.com/FreshRSS/FreshRSS/pull/3286)
 	* Add a content action parameter to work with CSS selector [#3453](https://github.com/FreshRSS/FreshRSS/pull/3453)
 	* New cURL options per feed: proxy, cookie, user-agent [#3367](https://github.com/FreshRSS/FreshRSS/pull/3367), [#3494](https://github.com/FreshRSS/FreshRSS/pull/3494), [#3516](https://github.com/FreshRSS/FreshRSS/pull/3516)
-	* Do not import feeds causing database errors (e.g. due to conflicting HTTP redirections) [##3347](https://github.com/FreshRSS/FreshRSS/pull/3347)
+	* Do not import feeds causing database errors (e.g. due to conflicting HTTP redirections) [#3347](https://github.com/FreshRSS/FreshRSS/pull/3347)
 * UI
 	* New option to remember open categories [#3185](https://github.com/FreshRSS/FreshRSS/pull/3185)
 	* Remember the scroll position of the sidebar [#3231](https://github.com/FreshRSS/FreshRSS/pull/3231)
@@ -101,8 +105,8 @@
 * SimplePie
 	* SimplePie prevent cache pollution [#3502](https://github.com/FreshRSS/FreshRSS/pull/3502)
 	* Update to SimplePie 1.5.6 with PHP8 support [#3469](https://github.com/FreshRSS/FreshRSS/pull/3469), [#3206](https://github.com/FreshRSS/FreshRSS/pull/3206)
-	* Reduce memory consumption to handle very big feeds [#3416](https://github.com/FreshRSS/FreshRSS/pull/3416)
-	* Replace `ceil()` by `intval()` for edge cases with PHP8 [#3404](https://github.com/FreshRSS/FreshRSS/pull/3404)
+	* Reduce memory consumption to handle very big feeds [simplepie#672](https://github.com/simplepie/simplepie/pull/672)
+	* Replace `ceil()` by `intval()` for edge cases with PHP8 [simplepie#670](https://github.com/simplepie/simplepie/pull/670)
 	* Strip HTML comments in feeds [#3288](https://github.com/FreshRSS/FreshRSS/pull/3288)
 	* Minor fix of return type for broken feeds [#3423](https://github.com/FreshRSS/FreshRSS/pull/3423)
 	* Fix images in enclosures without MIME type [#3361](https://github.com/FreshRSS/FreshRSS/pull/3361)
