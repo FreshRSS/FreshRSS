@@ -431,6 +431,13 @@ class SimplePie
 	public $error;
 
 	/**
+	 * @var int HTTP status code
+	 * @see SimplePie::status_code()
+	 * @access private
+	 */
+	public $status_code;
+
+	/**
 	 * @var object Instance of SimplePie_Sanitize (or other class)
 	 * @see SimplePie::set_sanitize_class()
 	 * @access private
@@ -1677,6 +1684,7 @@ class SimplePie
 					}
 
 					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
+					$this->status_code = $file->status_code;
 
 					if ($file->success)
 					{
@@ -1733,6 +1741,8 @@ class SimplePie
 				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 			}
 		}
+		$this->status_code = $file->status_code;
+
 		// If the file connection has an error, set SimplePie::error to that and quit
 		if (!$file->success && !($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300)))
 		{
@@ -1840,6 +1850,16 @@ class SimplePie
 	public function error()
 	{
 		return $this->error;
+	}
+
+	/**
+	 * Get the last HTTP status code
+	 *
+	 * @return int Status code
+	 */
+	public function status_code()
+	{
+		return $this->status_code;
 	}
 
 	/**

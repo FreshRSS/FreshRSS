@@ -192,6 +192,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
+	public function mute($id, $value = true) {
+		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . intval($id);
+		return $this->pdo->exec($sql);
+	}
+
 	public function changeCategory($idOldCat, $idNewCat) {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);

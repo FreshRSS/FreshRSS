@@ -287,7 +287,8 @@ class FreshRSS_Feed extends Minz_Model {
 				if ((!$mtime) || $simplePie->error()) {
 					$errorMessage = $simplePie->error();
 					throw new FreshRSS_Feed_Exception(
-						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $this->url . ']'
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $this->url . ']',
+						$simplePie->status_code()
 					);
 				}
 
