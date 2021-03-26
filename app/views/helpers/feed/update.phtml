@@ -427,7 +427,7 @@
 			<div class="group-controls">
 				<textarea name="filteractions_read" id="filteractions_read"><?php
 					foreach ($this->feed->filtersAction('read') as $filterRead) {
-						echo htmlspecialchars($filterRead->getRawInput(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+						echo $filterRead->getRawInput(), PHP_EOL;
 					}
 				?></textarea>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
