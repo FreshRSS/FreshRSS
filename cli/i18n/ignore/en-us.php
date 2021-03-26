@@ -684,7 +684,6 @@ return array(
 	'install.language._',
 	'install.language.choose',
 	'install.language.defined',
-	'install.not_deleted',
 	'install.ok',
 	'install.session.nok',
 	'install.step',

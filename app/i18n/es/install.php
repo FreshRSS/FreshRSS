@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Selecciona el idioma para FreshRSS',
 		'defined' => 'Idioma seleccionado.',
 	),
-	'not_deleted' => 'Parece que ha habido un error. Debes eliminar el archivo <em>%s</em> de forma manual.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'La instalación se ha completado correctamente.',
 	'session' => array(
 		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation

@@ -44,7 +44,6 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$return = 1;
 		}
 		chdir($cwd);
-		deleteInstall();
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}

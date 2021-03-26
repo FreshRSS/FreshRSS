@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Choose a language for FreshRSS',	// TODO - Translation
 		'defined' => 'Language has been defined.',	// TODO - Translation
 	),
-	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'The installation process was successful.',	// TODO - Translation
 	'session' => array(
 		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation

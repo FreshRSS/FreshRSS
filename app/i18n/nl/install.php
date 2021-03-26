@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Kies een taal voor FreshRSS',
 		'defined' => 'Taal is bepaald.',
 	),
-	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'De installatieprocedure is geslaagd.',
 	'session' => array(
 		'nok' => 'De webserver lijkt niet goed te zijn geconfigureerd voor de cookies die voor PHP-sessies nodig zijn!',
