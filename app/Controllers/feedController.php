@@ -349,6 +349,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
+				if ($e->getCode() === 410) {
+					// HTTP 410 Gone
+					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
+					$feedDAO->mute($feed->id(), true);
+				}
 				$feed->unlock();
 				continue;
 			}
