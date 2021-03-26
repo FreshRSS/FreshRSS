@@ -90,24 +90,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				}
 			}
 
-			// ----
-
-			/* I don't remember what I was doing with the ASC sort case, I cared about SHUF.
-
-			$first_entry = $nb_entries > 0 ? $view->entries[0] : null;
-			FreshRSS_Context::$id_max = $first_entry === null ? (time() - 1) . '000000' : $first_entry->id();
-			if (FreshRSS_Context::$order === 'ASC') {
-				// In this case we do not know but we guess id_max
-				// I don't remember why I was modifying the 'ASC' sort case.
-				$id_max = (time() - 1) . '000000';
-				if (strcmp($id_max, FreshRSS_Context::$id_max) > 0) {
-					FreshRSS_Context::$id_max = $id_max;
-				}
-			}
-
-			*/
-			// ----
-
 			ob_end_flush();
 		};
 	}
