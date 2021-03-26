@@ -69,7 +69,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
 				ob_start();	//Buffer "one entry at a time"
-				$nb_entries = count($entries);
+				$nb_entries = count($view->entries);
 				if ($nb_entries > FreshRSS_Context::$number) {
 					// We have more elements for pagination
 					$last_entry = array_pop($entries);
@@ -89,8 +89,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 						FreshRSS_Context::$id_max = $id_max;
 					}
 				}
-
-				$view->entries = $entries;
 
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
