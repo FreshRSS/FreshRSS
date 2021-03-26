@@ -83,20 +83,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			if ($nbEntries >= FreshRSS_Context::$number) { // did this check exist before shuffle?
 				//We have enough entries: we discard the last one to use it for the next pagination
 				ob_clean();
-				FreshRSS_Context::$next_id = $lastEntry->id();
+				if (FreshRSS_Context::$order === 'SHUF') {
+					FreshRSS_Context::$next_id =  $lastEntry->shuffleOrderKey();
+				} else {
+					FreshRSS_Context::$next_id = $lastEntry->id();
+				}
 			}
 
 			// ----
-
-			if ($nb_entries > FreshRSS_Context::$number) {
-				// We have more elements for pagination
-				$last_entry = array_pop($entries);
-				if (FreshRSS_Context::$order === 'SHUF') {
-					FreshRSS_Context::$next_id = $last_entry->shuffleOrderKey();
-				} else {
-					FreshRSS_Context::$next_id = $last_entry->id();
-				}
-			}
 
 			/* I don't remember what I was doing with the ASC sort case, I cared about SHUF.
 
