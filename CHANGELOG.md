@@ -2,6 +2,8 @@
 
 ## 2021-0X-XX FreshRSS 1.18.1-dev
 
+* Features
+	* Support standard `HTTP 410 Gone` by disabling (muting) gone feeds [#3561](https://github.com/FreshRSS/FreshRSS/pull/3561)
 * UI
 	* Allow Unicode for shortcuts [#3548](https://github.com/FreshRSS/FreshRSS/pull/3548)
 * Bug fixing
@@ -9,12 +11,16 @@
 	* Fix database creation from CLI [#3544](https://github.com/FreshRSS/FreshRSS/pull/3544)
 	* Fix: `pdo_sqlite` is optional except for export/import SQLite [#3545](https://github.com/FreshRSS/FreshRSS/pull/3545)
 	* Fix import of JSON and TT-RSS files, especially with PHP 8 [#3553](https://github.com/FreshRSS/FreshRSS/pull/3553)
-		* Allow import of more than 999 favourites/labeled articles even with SQLite
+		* Allow import of more than 999 favourites/labelled articles even with SQLite
 	* Fix search param encoding in user query [#3541](https://github.com/FreshRSS/FreshRSS/pull/3541)
 	* Fix undefined variable & dead code when adding feed [#3546](https://github.com/FreshRSS/FreshRSS/pull/3546)
 	* Fix missing translation in feed configuration [#3554](https://github.com/FreshRSS/FreshRSS/pull/3554)
+	* Fix double escaping in feed filters [#3563](https://github.com/FreshRSS/FreshRSS/pull/3563)
 * SimplePie
+	* Fix regression about media attachments [#3565](https://github.com/FreshRSS/FreshRSS/pull/3565)
+	* Fix regression about forcing HTTPS for enclosures [#3568](https://github.com/FreshRSS/FreshRSS/pull/3568)
 	* Catch ValueError for loadHTML with PHP 8 [simplepie#673](https://github.com/simplepie/simplepie/pull/673)
+	* Provide access to latest HTTP status code [simplepie#674](https://github.com/simplepie/simplepie/pull/674)
 * API
 	* Compatibility with Web servers providing `ORIG_PATH_INFO` [#3560](https://github.com/FreshRSS/FreshRSS/pull/3560)
 * Deployment
