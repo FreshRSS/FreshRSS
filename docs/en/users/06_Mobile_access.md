@@ -55,6 +55,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 		* [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Commercial)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+		* [Newsboat 2.24+](https://newsboat.org/) (Open source)
 	* MacOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
