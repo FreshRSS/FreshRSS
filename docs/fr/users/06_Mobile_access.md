@@ -60,6 +60,7 @@ possibilité.
 		* [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Commercial)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+		* [Newsboat 2.24+](https://newsboat.org/) (Libre)
 	* MacOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
