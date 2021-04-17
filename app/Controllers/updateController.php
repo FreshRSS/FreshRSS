@@ -23,18 +23,36 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		}
 		chdir($cwd);
 		$line = is_array($output) ? implode('; ', $output) : '' . $output;
-		return strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false;
+		return strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false || strpos($line, '[gone') !== false;
 	}
 
 	public static function gitPull() {
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
-		$output = '';
+		$output = [];
 		$return = 1;
 		try {
-			exec('git fetch', $output, $return);
+			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
 				exec('git reset --hard FETCH_HEAD', $output, $return);
+			}
+
+			// Automatic change to the new name of edge branch since FreshRSS 1.18.0
+			exec('git branch --show-current', $output, $return);
+			if ($return == 0) {
+				$line = is_array($output) ? implode('', $output) : '' . $output;
+				if ($line === 'master' || $line === 'dev') {
+					Minz_Log::warning('git automatic change to renamed edge branch');
+					if ($return == 0) {
+						exec('git checkout edge --guess -f --theirs', $output, $return);
+					}
+					if ($return == 0) {
+						exec('git reset --hard FETCH_HEAD', $output, $return);
+					}
+					if ($return != 0) {
+						Minz_Log::warning('git error while changing to renamed edge branch! Please change branch manually.');
+					}
+				}
 			}
 		} catch (Exception $e) {
 			Minz_Log::warning('Git error:' . $e->getMessage());
