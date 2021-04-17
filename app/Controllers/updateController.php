@@ -11,7 +11,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		chdir(FRESHRSS_PATH);
 		$output = array();
 		try {
-			exec('git fetch', $output, $return);
+			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
 				exec('git status -sb --porcelain remote', $output, $return);
 			} else {
