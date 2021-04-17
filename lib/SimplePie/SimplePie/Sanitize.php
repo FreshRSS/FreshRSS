@@ -73,13 +73,12 @@ class SimplePie_Sanitize
 	var $replace_url_attributes = null;
 
 	/**
-	 * List of domains for which force HTTPS.
+	 * List of domains for which to force HTTPS.
 	 * @see SimplePie_Sanitize::set_https_domains()
-	 * Array is tree split at DNS levels. Example:
-	 * array('biz' => true, 'com' => array('example' => true), 'net' => array('example') => array('www' => true))
-	 * FreshRSS
+	 * Array is a tree split at DNS levels. Example:
+	 * array('biz' => true, 'com' => array('example' => true), 'net' => array('example' => array('www' => true)))
 	 */
-	var $https_domains = array('com' => array('dailymotion' => true, 'youtube' => true));
+	var $https_domains = array();
 
 	public function __construct()
 	{
@@ -251,10 +250,9 @@ class SimplePie_Sanitize
 	}
 
 	/**
-	 * Set the list of domains for which force HTTPS.
+	 * Set the list of domains for which to force HTTPS.
 	 * @see SimplePie_Misc::https_url()
 	 * Example array('biz', 'example.com', 'example.org', 'www.example.net');
-	 * FreshRSS
 	 */
 	public function set_https_domains($domains)
 	{
@@ -281,8 +279,7 @@ class SimplePie_Sanitize
 	}
 
 	/**
-	 * Check if the domain is in the list of forced HTTPS
-	 * FreshRSS
+	 * Check if the domain is in the list of forced HTTPS.
 	 */
 	protected function is_https_domain($domain)
 	{
@@ -304,8 +301,7 @@ class SimplePie_Sanitize
 	}
 
 	/**
-	 * Force HTTPS for selected Web sites
-	 * FreshRSS
+	 * Force HTTPS for selected Web sites.
 	 */
 	public function https_url($url)
 	{
@@ -516,9 +512,9 @@ class SimplePie_Sanitize
 					if ($element->hasAttribute($attribute))
 					{
 						$value = $this->registry->call('Misc', 'absolutize_url', array($element->getAttribute($attribute), $this->base));
-						$value = $this->https_url($value);	//FreshRSS
-						if ($value)
+						if ($value !== false)
 						{
+							$value = $this->https_url($value);
 							$element->setAttribute($attribute, $value);
 						}
 					}
