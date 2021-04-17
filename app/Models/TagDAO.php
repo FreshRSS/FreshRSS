@@ -340,6 +340,14 @@ SQL;
 
 		$values = array();
 		if (is_array($entries) && count($entries) > 0) {
+			if (count($entries) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+				// Split a query with too many variables parameters
+				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+				foreach ($idsChunks as $idsChunk) {
+					$values += $this->getTagsForEntries($idsChunk);
+				}
+				return $values;
+			}
 			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
 			if (is_array($entries[0])) {
 				foreach ($entries as $entry) {
