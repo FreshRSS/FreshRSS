@@ -13,16 +13,17 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		try {
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
+				unset($output);
 				exec('git status -sb --porcelain remote', $output, $return);
 			} else {
-				$line = is_array($output) ? implode('; ', $output) : '' . $output;
+				$line = is_array($output) ? implode('; ', $output) : $output;
 				Minz_Log::warning('git fetch warning:' . $line);
 			}
 		} catch (Exception $e) {
 			Minz_Log::warning('git fetch error:' . $e->getMessage());
 		}
 		chdir($cwd);
-		$line = is_array($output) ? implode('; ', $output) : '' . $output;
+		$line = is_array($output) ? implode('; ', $output) : $output;
 		return strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false || strpos($line, '[gone') !== false;
 	}
 
@@ -34,19 +35,23 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		try {
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
+				unset($output);
 				exec('git reset --hard FETCH_HEAD', $output, $return);
 			}
 
 			// Automatic change to the new name of edge branch since FreshRSS 1.18.0
-			exec('git branch --show-current', $output, $return);
 			if ($return == 0) {
-				$line = is_array($output) ? implode('', $output) : '' . $output;
+				unset($output);
+				exec('git branch --show-current', $output, $return);
+			}
+			if ($return == 0) {
+				$line = is_array($output) ? implode('', $output) : $output;
 				if ($line === 'master' || $line === 'dev') {
 					Minz_Log::warning('git automatic change to renamed edge branch');
+					unset($output);
+					exec('git checkout edge --guess -f --theirs', $output, $return);
 					if ($return == 0) {
-						exec('git checkout edge --guess -f --theirs', $output, $return);
-					}
-					if ($return == 0) {
+						unset($output);
 						exec('git reset --hard FETCH_HEAD', $output, $return);
 					}
 					if ($return != 0) {
@@ -62,7 +67,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$return = 1;
 		}
 		chdir($cwd);
-		$line = is_array($output) ? implode('; ', $output) : '' . $output;
+		$line = is_array($output) ? implode('; ', $output) : $output;
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
 
