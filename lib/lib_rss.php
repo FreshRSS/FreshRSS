@@ -557,11 +557,12 @@ function errorMessage($errorTitle, $error = '') {
 	return <<<MSG
 	<h1>{$errorTitle}</h1>
 	{$error}
-	<h2>Common problems</h2>
-	<p>A typical problem leading to this message is wrong file permissions in the <code>./FreshRSS/data/</code> folder
+	<h2>Check the logs</h2>
+	<p>FreshRSS logs are located in <code>./FreshRSS/data/users/*/log*.txt</code></p>
+	<p><em>N.B.:</em> A typical problem is wrong file permissions in the <code>./FreshRSS/data/</code> folder
 	so make sure the Web server can write there and in sub-directories.</p>
-	<h2>Common locations for additional logs</h2>
-	<p><strong>N.B.:</strong> Adapt names and paths according to your local setup.</p>
+	<h3>Common locations for additional logs</h3>
+	<p><em>N.B.:</em> Adapt names and paths according to your local setup.</p>
 	<ul>
 	<li>If using Docker: <code>docker logs -f freshrss</code></li>
 	<li>To check Web server logs on a Linux system using systemd: <code>journalctl -xeu apache2</code>
