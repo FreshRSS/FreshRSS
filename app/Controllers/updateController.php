@@ -49,7 +49,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				if ($line === 'master' || $line === 'dev') {
 					Minz_Log::warning('git automatic change to renamed edge branch');
 					unset($output);
-					exec('git checkout edge --guess -f --theirs', $output, $return);
+					exec('git checkout edge --guess -f', $output, $return);
 					if ($return == 0) {
 						unset($output);
 						exec('git reset --hard FETCH_HEAD', $output, $return);
