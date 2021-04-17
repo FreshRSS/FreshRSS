@@ -96,7 +96,7 @@ class Minz_FrontController {
 					true
 				);
 			} else {
-				$this->killApp();
+				$this->killApp($e->getMessage());
 			}
 		}
 	}
