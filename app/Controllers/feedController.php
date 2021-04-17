@@ -373,7 +373,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					}
 					$newGuids[$entry->guid()] = true;
 
-					$entry_date = $entry->date(true);
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
 						if (strcasecmp($existingHash, $entry->hash()) === 0) {
