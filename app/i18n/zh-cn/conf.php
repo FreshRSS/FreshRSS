@@ -138,7 +138,7 @@ return array(
 			'remember_categories' => '记住打开的分类',
 			'unread' => '只显示未读',
 		),
-		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
+		'show_fav_unread_help' => '同时应用于标签',
 		'sides_close_article' => '点击文章区域外以关闭',
 		'sort' => array(
 			'_' => '排列顺序',
@@ -191,7 +191,7 @@ return array(
 		'navigation_help' => '组合 <kbd>⇧ Shift</kbd> 键，浏览快捷键将生效于订阅源。<br/>组合 <kbd>Alt ⎇</kbd> 键，浏览快捷键将生效于分类。',
 		'navigation_no_mod_help' => '以下快捷键不支持组合键（Shift 或 Alt）',
 		'next_article' => '打开下一篇文章',
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'non_standard' => '这些键 (<kbd>%s</kbd>) 可能不能作为快捷键',
 		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',
 		'previous_article' => '打开上一篇文章',
