@@ -38,27 +38,6 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				unset($output);
 				exec('git reset --hard FETCH_HEAD', $output, $return);
 			}
-
-			// Automatic change to the new name of edge branch since FreshRSS 1.18.0
-			if ($return == 0) {
-				unset($output);
-				exec('git branch --show-current', $output, $return);
-			}
-			if ($return == 0) {
-				$line = is_array($output) ? implode('', $output) : $output;
-				if ($line === 'master' || $line === 'dev') {
-					Minz_Log::warning('git automatic change to renamed edge branch');
-					unset($output);
-					exec('git checkout edge --guess -f', $output, $return);
-					if ($return == 0) {
-						unset($output);
-						exec('git reset --hard FETCH_HEAD', $output, $return);
-					}
-					if ($return != 0) {
-						Minz_Log::warning('git error while changing to renamed edge branch! Please change branch manually.');
-					}
-				}
-			}
 		} catch (Exception $e) {
 			Minz_Log::warning('Git error:' . $e->getMessage());
 			if ($output == '') {
