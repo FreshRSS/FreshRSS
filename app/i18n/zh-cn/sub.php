@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>here</a>。 也可从左侧菜单或主页的 ✚ 图标访问。',
+	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>这里</a>。 也可从左侧菜单或主页的 ✚ 图标访问。',
 	'api' => array(
 		'documentation' => '复制以下地址，以供外部工具使用',
 		'title' => 'API',
@@ -90,8 +90,8 @@ return array(
 		'title_add' => '添加订阅源',
 		'ttl' => '最小自动更新间隔',
 		'url' => '源地址',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => '设置用于获取此源的 User Agent',
+		'useragent_help' => '例：<kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => '检查订阅源有效性',
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',
