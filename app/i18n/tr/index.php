@@ -3,7 +3,7 @@
 return array(
 	'about' => array(
 		'_' => 'Hakkında',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Hata raporu',
 		'credits' => 'Tanıtım',
 		'credits_content' => 'Bu frameworkü kullanmamasına rağmen FreshRSS bazı tasarım ögelerini <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> dan almıştır. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">İkonlar</a> <a href="https://www.gnome.org/">GNOME projesinden</a> alınmıştır. <em>Open Sans</em> yazı tipi <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> tarafından oluşturulmuştur. FreshRSS bir PHP framework olan <a href="https://github.com/marienfressinaud/MINZ">Minz</a> i temel alır.',
