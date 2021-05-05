@@ -12,8 +12,8 @@ return array(
 		'license' => 'Lisans',
 		'project_website' => 'Proje sayfası',
 		'title' => 'Hakkında',
-		'version' => 'Versiyon',
-		'website' => 'Website',	// TODO - Translation
+		'version' => 'Sürüm',
+		'website' => 'İnternet sitesi',
 	),
 	'feed' => array(
 		'add' => 'Akış ekleyebilirsin.',
@@ -21,7 +21,7 @@ return array(
 		'rss_of' => 'RSS feed of %s',	// TODO - Translation
 		'title' => 'Ana akış',
 		'title_fav' => 'Favoriler',
-		'title_global' => 'Global görünüm',
+		'title_global' => 'Evrensel görünüm',
 	),
 	'log' => array(
 		'_' => 'Log Kayıtları',
@@ -35,12 +35,12 @@ return array(
 		'before_one_week' => 'Bir hafta önce',
 		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
 		'favorites' => 'Favoriler (%s)',
-		'global_view' => 'Global görünüm',
+		'global_view' => 'Evrensel görünüm',
 		'main_stream' => 'Ana akış',
 		'mark_all_read' => 'Hepsini okundu olarak işaretle',
 		'mark_cat_read' => 'Kategoriyi okundu olarak işaretle',
 		'mark_feed_read' => 'Akışı okundu olarak işaretle',
-		'mark_selection_unread' => 'Mark selection as unread',	// TODO - Translation
+		'mark_selection_unread' => 'Seçilenleri okunmadı olarak işaretleMark selection as unread',
 		'newer_first' => 'Önce yeniler',
 		'non-starred' => 'Favori dışındakileri göster',
 		'normal_view' => 'Normal görünüm',
@@ -53,14 +53,14 @@ return array(
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',
 		'subscription' => 'Abonelik yönetimi',
-		'tags' => 'My labels',	// TODO - Translation
+		'tags' => 'Etiketlerim',
 		'unread' => 'Okunmamışları göster',
 	),
-	'share' => 'Share',	// TODO - Translation
+	'share' => 'Paylaş',
 	'tag' => array(
 		'related' => 'İlgili etiketler',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Hizmet Kullanım Şartları',
 	),
 );

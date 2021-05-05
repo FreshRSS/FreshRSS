@@ -1,15 +1,15 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
+	'add' => 'Akış ve kategori oluşturma menüsü <a href=\'%s\'>buraya</a> taşındı. Ayrıca sol menüden ve anasayfadaki ✚ simgesinden de ulaşılabilir.',
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
-		'title' => 'API',	// TODO - Translation
+		'documentation' => 'URL\'yi harici bir araçla kullanmak için kopyala.',
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
-		'label' => 'Subscribe',	// TODO - Translation
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'documentation' => 'Bu butonu yer imleri araç çubuğunuza sürükleyerek veya sağ tıklayıp "Bağlantıyı yer imlerine ekle" seçeneğini seçerek yer imlerine ekleyin. Eklemek istediğiniz sitedeyken oluşturulan bu "Abone Ol" butonu ile akış ekleyebilirsiniz.',
+		'label' => 'Abone ol',
+		'title' => 'Bookmarklet',
 	),
 	'category' => array(
 		'_' => 'Kategori',
@@ -17,8 +17,8 @@ return array(
 		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
+		'position' => 'Konumu göster',
+		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
 		'title' => 'Başlık',
 	),
 	'feed' => array(
@@ -32,78 +32,78 @@ return array(
 			'password' => 'HTTP şifre',
 			'username' => 'HTTP kullanıcı adı',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO - Translation
+		'clear_cache' => 'Önbelleği her zaman temizle',
 		'content_action' => array(
 			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'append' => 'Mevcut içeriğin sonrasına ekle',
+			'prepend' => 'Mevcut içeriğin öncesine ekle',
+			'replace' => 'Mevcut içerikle değiştir',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'css_cookie' => 'Makale içeriğini yüklerken çerez kullan',
+		'css_cookie_help' => 'Örnek: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Dikkat, daha çok zaman gerekir!',
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
 		'filteractions' => array(
-			'_' => 'Filter actions',	// TODO - Translation
-			'help' => 'Write one search filter per line.',	// TODO - Translation
+			'_' => 'Eylemi filtrele',
+			'help' => 'Her satıra tek arama filtresi yaz.',
 		),
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
+			'clear_cache' => 'Önbelleği temizle',
+			'clear_cache_help' => 'Bu akışın önbelleğini temizler.',
+			'reload_articles' => 'Makaleleri yeniden yükle',
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'title' => 'Bakım',
 		),
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
-		'mute' => 'mute',	// TODO - Translation
+		'mute' => 'sessize al',
 		'no_selected' => 'Hiçbir akış seçilmedi.',
 		'number_entries' => '%d makale',
 		'priority' => array(
-			'_' => 'Visibility',	// TODO - Translation
-			'archived' => 'Do not show (archived)',	// TODO - Translation
+			'_' => 'Görünürlük',
+			'archived' => 'Gösterme (arşivlenmiş)',
 			'main_stream' => 'Ana akışda göster',
-			'normal' => 'Show in its category',	// TODO - Translation
+			'normal' => 'Kendi kategorisinde göster',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Bu akışı güncellemek için vekil sunucu kullan',
+		'proxy_help' => 'Bir protokol seçin (ör: SOCKS5) vekil sunucu adresini girin (e.g: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Kaynak kodu göster',
+			'show_rendered' => 'İçeriği göster',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with errors',	// TODO - Translation
+			'all' => 'Tüm akışı göster',
+			'error' => 'Sadece hatalı akışları göster',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with errors',	// TODO - Translation
+			'error' => 'Sadece hatalı akışları gösteriliyor',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
+		'ssl_verify' => 'SSL güvenliğini doğrula',
 		'stats' => 'İstatistikler',
 		'think_to_add' => 'Akış ekleyebilirsiniz.',
-		'timeout' => 'Timeout in seconds',	// TODO - Translation
+		'timeout' => 'Zaman aşımı (saniye)',
 		'title' => 'Başlık',
 		'title_add' => 'RSS akışı ekle',
 		'ttl' => 'Şu kadar süreden fazla otomatik yenileme yapma',
 		'url' => 'Akış URL',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => 'Bu akışı yüklemek için user agent kullan',
+		'useragent_help' => 'Örnek: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Akış geçerliliğini kontrol edin',
 		'website' => 'Site URL',
 		'websub' => 'WebSub ile anlık bildirim',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
+		'documentation' => 'FreshRSS\'i Firefox akış okuma listesine eklemek için <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">buradaki</a> adımları takip edin.',
+		'obsolete_63' => 'Sürüm 63 itibari ile Firefox bağımsız uygulamaların aboneliklerinize olan izni kaldırdı.',
+		'title' => 'Firefox akış okuyucu',
 	),
 	'import_export' => array(
 		'export' => 'Dışa aktar',
-		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
+		'export_labelled' => 'Etiketli makaleleri dışarı aktar',
 		'export_opml' => 'Akış listesini dışarı aktar (OPML)',
 		'export_starred' => 'Favorileri dışarı aktar',
 		'feed_list' => '%s makalenin listesi',
@@ -114,28 +114,28 @@ return array(
 		'title' => 'İçe / dışa aktar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => 'Kategori veya akış ekle',
+		'add_feed' => 'Akış ekle',
 		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
 		'import_export' => 'İçe / dışa aktar',
-		'label_management' => 'Label management',	// TODO - Translation
+		'label_management' => 'Etiket yönetimi',
 		'subscription_management' => 'Abonelik yönetimi',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'subscription_tools' => 'Abonelik araçları',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'İsim',
+		'new_name' => 'Eski isim',
+		'old_name' => 'Yeni isim',
 	),
 	'title' => array(
 		'_' => 'Abonelik yönetimi',
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_label' => 'Add a label',	// TODO - Translation
-		'delete_label' => 'Delete a label',	// TODO - Translation
+		'add' => 'Kategori veya akış ekle',
+		'add_category' => 'Kategori ekle',
+		'add_feed' => 'Akış ekle',
+		'add_label' => 'Etiket ekle',
+		'delete_label' => 'Etiket sil',
 		'feed_management' => 'RSS akış yönetimi',
-		'rename_label' => 'Rename a label',	// TODO - Translation
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'rename_label' => 'Etiketi yeniden adlandır',
+		'subscription_tools' => 'Abonelik araçları',
 	),
 );
