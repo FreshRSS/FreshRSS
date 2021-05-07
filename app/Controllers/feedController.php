@@ -181,11 +181,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				'timeout' => null,
 				'curl_params' => empty($opts) ? null : $opts,
 			);
-			if (FreshRSS_Auth::hasAccess('admin')) {
-				$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
-				$timeout = intval(Minz_Request::param('timeout', 0));
-				$attributes['timeout'] = $timeout > 0 ? $timeout : null;
-			}
+			$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
+			$timeout = intval(Minz_Request::param('timeout', 0));
+			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
 			try {
 				$feed = self::addFeed($url, '', $cat, null, $http_auth, $attributes);
