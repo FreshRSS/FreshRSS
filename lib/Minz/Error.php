@@ -51,8 +51,7 @@ class Minz_Error {
 	 * Permet de retourner les logs de façon à n'avoir que
 	 * ceux que l'on veut réellement
 	 * @param $logs les logs rangés par catégories (error, warning, notice)
-	 * @return la liste des logs, sans catégorie,
-	 *       > en fonction de l'environment
+	 * @return array liste des logs, sans catégorie, en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {
 		$conf = Minz_Configuration::get('system');
