@@ -58,7 +58,7 @@ class Minz_Translate {
 
 	/**
 	 * Return the list of available languages.
-	 * @return an array containing langs found in different registered paths.
+	 * @return array containing langs found in different registered paths.
 	 */
 	public static function availableLanguages() {
 		$list_langs = array();
@@ -88,7 +88,7 @@ class Minz_Translate {
 	 * @param $user the connected user language (nullable)
 	 * @param $preferred an array of the preferred languages
 	 * @param $default the preferred language to use
-	 * @return a string containing the language to use
+	 * @return string containing the language to use
 	 */
 	public static function getLanguage($user, $preferred, $default) {
 		if (null !== $user) {
@@ -180,7 +180,7 @@ class Minz_Translate {
 	 * Translate a key into its corresponding value based on selected language.
 	 * @param $key the key to translate.
 	 * @param additional parameters for variable keys.
-	 * @return the value corresponding to the key.
+	 * @return string value corresponding to the key.
 	 *         If no value is found, return the key itself.
 	 */
 	public static function t($key) {

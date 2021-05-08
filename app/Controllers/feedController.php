@@ -32,7 +32,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 * @param int $cat_id
 	 * @param string $new_cat_name
 	 * @param string $http_auth
-	 * @return FreshRSS_Feed|the
+	 * @return FreshRSS_Feed
 	 * @throws FreshRSS_AlreadySubscribed_Exception
 	 * @throws FreshRSS_FeedNotAdded_Exception
 	 * @throws FreshRSS_Feed_Exception
