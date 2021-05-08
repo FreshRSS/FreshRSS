@@ -2,8 +2,8 @@
 
 class FreshRSS_Migration_20210424_GitMasterToEdge {
 	public static function migrate() {
-		if (!is_dir(FRESHRSS_PATH . '/.git/')) {
-			return true; // not a Git installation, nothing to do
+		if (!is_writable(FRESHRSS_PATH . '/.git/')) {
+			return true; // not a writeable Git installation, nothing to do
 		}
 
 		exec('git branch --show-current', $output, $return);

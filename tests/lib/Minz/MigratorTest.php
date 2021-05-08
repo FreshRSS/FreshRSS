@@ -313,6 +313,7 @@ class MigratorTest extends TestCase
 		$expected_result = 'A migration failed to be applied, please see previous logs.';
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		list($result, ) = explode("\n", $result, 2);
 
 		$this->assertSame($expected_result, $result);
 		$versions = file_get_contents($applied_migrations_path);

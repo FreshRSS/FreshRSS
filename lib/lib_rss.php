@@ -556,10 +556,8 @@ function errorMessage($errorTitle, $error = '') {
 	if ($error) {
 		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
 
-		// First line is the main message
-		$message = strtok($error, "\n");
-		// Other lines are the details
-		$details = strtok('');
+		// First line is the main message, other lines are the details
+		list($message, $details) = explode("\n", $error, 2);
 
 		$message = "<h2>{$message}</h2>";
 		$details = "<pre>{$details}</pre>";
