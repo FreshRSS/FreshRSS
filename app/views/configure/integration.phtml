@@ -6,7 +6,7 @@
 	<form method="post" action="<?= _url('configure', 'integration') ?>"
 		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick">
 			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="##label##" placeholder="<?= _t('conf.sharing.share_name') ?>" size="64" />
-			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled />
+			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?= _t('gen.short.not_applicable') ?>" size="64" disabled="disabled" />
 			<a href="#" class="remove btn btn-attention"><?= _i('close') ?></a></div>
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" /></div></div>'
 		data-advanced='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls">
