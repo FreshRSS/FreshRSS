@@ -296,7 +296,7 @@ class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name the hook to call.
 	 * @param additional parameters (for signature, please see self::$hook_list).
-	 * @return the final result of the called hook.
+	 * @return mixed final result of the called hook.
 	 */
 	public static function callHook($hook_name) {
 		if (!isset(self::$hook_list[$hook_name])) {
@@ -326,7 +326,7 @@ class Minz_ExtensionManager {
 	 *
 	 * @param $hook_name is the hook to call.
 	 * @param $arg is the argument to pass to the first extension hook.
-	 * @return the final chained result of the hooks. If nothing is changed,
+	 * @return mixed final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
 	private static function callOneToOne($hook_name, $arg) {
@@ -350,7 +350,7 @@ class Minz_ExtensionManager {
 	 * returned.
 	 *
 	 * @param string $hook_name is the hook to call.
-	 * @return a concatenated string, result of the call to all the hooks.
+	 * @return string concatenated result of the call to all the hooks.
 	 */
 	private static function callNoneToString($hook_name) {
 		$result = '';

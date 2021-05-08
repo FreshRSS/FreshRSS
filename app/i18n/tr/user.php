@@ -3,42 +3,42 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO - Translation
-			'required' => 'An email address is required.',	// TODO - Translation
+			'invalid' => 'Bu email adresi geçersiz.',
+			'required' => 'Bir email adresi gerekmektedir.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
+			'change_email' => '<a href="%s">Profil sayfasından</a> email adresinizi değiştirebilirsiniz.',
+			'email_sent_to' => '<strong>%s</strong> adresine doğrulama postası gönderdik. Lütfen yönergelere uyarak email adresinizi doğrulayın.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'Email address validation failed.',	// TODO - Translation
-				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'This email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'Sunucu hatasından dolayı email adresinize posta gönderilemedi.',
+				'email_sent' => 'Email adresinize posta gönderildi.',
+				'error' => 'Email adresi doğrulaması başarısız.',
+				'ok' => 'Bu email adresi doğrulandı.',
+				'unneccessary' => 'Bu email adresi zaten doğrulandı.',
+				'wrong_token' => 'Email doğrulaması yanlış anahtar sebebi ile başarısız oldu.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => '%s kullanımından önce email doğrulaması yapmalısınız.',
+			'resend_email' => 'Emaili yeniden gönder',
+			'title' => 'Email adres doğrulaması',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => '%s kaydınız yapıldı, fakat email dğrulaması yapmanız gerekmektedir. Aşağıdaki bağlantıyı takip edin:',
+			'title' => 'Hesabınızı doğrulamanız gerekmektedir',
+			'welcome' => 'Hoşgeldin %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'Parola geçersiz.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Kayıt için Hizmet Kullanım Koşullarını kabul etmek durumundasınız.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO - Translation
-		'taken' => 'This username, %s, is taken.',	// TODO - Translation
+		'invalid' => 'Kullanıcı adı geçersiz.',
+		'taken' => 'Kullanıcı adı %s alınmış.',
 	),
 );

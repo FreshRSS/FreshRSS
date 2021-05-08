@@ -57,9 +57,8 @@ SQL;
 
 	/**
 	 * Calculates entry count per day on a 30 days period.
-	 * Returns the result as a JSON object.
 	 *
-	 * @return JSON object
+	 * @return array
 	 */
 	public function calculateEntryCount() {
 		$count = $this->initEntryCountArray();
@@ -238,9 +237,7 @@ SQL;
 
 	/**
 	 * Calculates feed count per category.
-	 * Returns the result as a JSON object.
-	 *
-	 * @return JSON object
+	 * @return array
 	 */
 	public function calculateFeedByCategory() {
 		$sql = <<<SQL
@@ -259,9 +256,7 @@ SQL;
 
 	/**
 	 * Calculates entry count per category.
-	 * Returns the result as a JSON string.
-	 *
-	 * @return JSON object
+	 * @return array
 	 */
 	public function calculateEntryByCategory() {
 		$sql = <<<SQL
@@ -364,7 +359,7 @@ SQL;
 	 * Translates array content
 	 *
 	 * @param array $data
-	 * @return JSON object
+	 * @return array
 	 */
 	private function convertToTranslatedJson($data = array()) {
 		$translated = array_map(function($a) {

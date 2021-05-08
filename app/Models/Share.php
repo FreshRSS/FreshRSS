@@ -51,7 +51,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the list of sharing options.
-	 * @return an array of FreshRSS_Share objects.
+	 * @return array[FreshRSS_Share]
 	 */
 	public static function enum() {
 		return self::$list_sharing;
@@ -255,7 +255,7 @@ class FreshRSS_Share {
 	 * Transform a data with the given functions.
 	 * @param $data the data to transform.
 	 * @param $tranform an array containing a list of functions to apply.
-	 * @return the transformed data.
+	 * @return mixed the transformed data.
 	 */
 	private static function transform($data, $transform) {
 		if (!is_array($transform) || empty($transform)) {

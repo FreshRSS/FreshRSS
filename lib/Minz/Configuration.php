@@ -43,7 +43,7 @@ class Minz_Configuration {
 	 * Return the configuration related to a given namespace.
 	 *
 	 * @param $namespace the name of the configuration to get.
-	 * @return a Minz_Configuration object
+	 * @return Minz_Configuration object
 	 * @throws Minz_ConfigurationNamespaceException if the namespace does not exist.
 	 */
 	public static function get($namespace) {
@@ -152,7 +152,7 @@ class Minz_Configuration {
 	 *
 	 * @param $key the name of the param.
 	 * @param $default default value to return if key does not exist.
-	 * @return the value corresponding to the key.
+	 * @return mixed value corresponding to the key.
 	 * @throws Minz_ConfigurationParamException if the param does not exist
 	 */
 	public function param($key, $default = null) {

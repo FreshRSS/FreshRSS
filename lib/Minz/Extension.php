@@ -93,8 +93,7 @@ abstract class Minz_Extension {
 	/**
 	 * Return the content of the configure view for the current extension.
 	 *
-	 * @return the html content from ext_dir/configure.phtml, false if it does
-	 *         not exist.
+	 * @return string html content from ext_dir/configure.phtml, false if it does not exist.
 	 */
 	public function getConfigureView() {
 		$filename = $this->path . '/configure.phtml';
@@ -149,7 +148,7 @@ abstract class Minz_Extension {
 	 * @param $filename name of the file to serve.
 	 * @param $type the type (js or css) of the file to serve.
 	 * @param $isStatic indicates if the file is a static file or a user file. Default is static.
-	 * @return the url corresponding to the file.
+	 * @return string url corresponding to the file.
 	 */
 	public function getFileUrl($filename, $type, $isStatic = true) {
 		if ($isStatic) {

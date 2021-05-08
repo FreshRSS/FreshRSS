@@ -262,6 +262,15 @@ SQL;
 			return 0;
 		}
 		FreshRSS_UserDAO::touch();
+		if (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$affected = 0;
+			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			foreach ($idsChunks as $idsChunk) {
+				$affected += $this->markFavorite($idsChunk, $is_favorite);
+			}
+			return $affected;
+		}
 		$sql = 'UPDATE `_entry` '
 			. 'SET is_favorite=? '
 			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
@@ -342,6 +351,14 @@ SQL;
 				$affected = 0;
 				foreach ($ids as $id) {
 					$affected += $this->markRead($id, $is_read);
+				}
+				return $affected;
+			} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+				// Split a query with too many variables parameters
+				$affected = 0;
+				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+				foreach ($idsChunks as $idsChunk) {
+					$affected += $this->markRead($idsChunk, $is_read);
 				}
 				return $affected;
 			}
@@ -962,6 +979,15 @@ SQL;
 	public function listByIds($ids, $order = 'DESC') {
 		if (count($ids) < 1) {
 			yield false;
+		} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			foreach ($idsChunks as $idsChunk) {
+				foreach ($this->listByIds($idsChunk, $order) as $entry) {
+					yield $entry;
+				}
+			}
+			return;
 		}
 
 		$sql = 'SELECT id, guid, title, author, '
@@ -1026,6 +1052,14 @@ SQL;
 	public function updateLastSeen($id_feed, $guids, $mtime = 0) {
 		if (count($guids) < 1) {
 			return 0;
+		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$affected = 0;
+			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			foreach ($guidsChunks as $guidsChunk) {
+				$affected += $this->updateLastSeen($id_feed, $guidsChunk, $mtime);
+			}
+			return $affected;
 		}
 		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->pdo->prepare($sql);

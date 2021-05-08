@@ -4,7 +4,7 @@ class FreshRSS_ConfigurationSetter {
 	/**
 	 * Return if the given key is supported by this setter.
 	 * @param $key the key to test.
-	 * @return true if the key is supported, false else.
+	 * @return boolean true if the key is supported, false else.
 	 */
 	public function support($key) {
 		$name_setter = '_' . $key;
@@ -26,7 +26,7 @@ class FreshRSS_ConfigurationSetter {
 	 * A helper to set boolean values.
 	 *
 	 * @param $value the tested value.
-	 * @return true if value is true and different from no, false else.
+	 * @return boolean true if value is true and different from no, false else.
 	 */
 	private function handleBool($value) {
 		return ((bool)$value) && $value !== 'no';

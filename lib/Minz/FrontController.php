@@ -51,7 +51,7 @@ class Minz_FrontController {
 
 	/**
 	 * Retourne un tableau représentant l'url passée par la barre d'adresses
-	 * @return tableau représentant l'url
+	 * @return array représentant l'url
 	 */
 	private function buildUrl() {
 		$url = array();
