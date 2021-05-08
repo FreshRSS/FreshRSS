@@ -548,15 +548,27 @@ function getNonStandardShortcuts($shortcuts) {
 }
 
 function errorMessage($errorTitle, $error = '') {
-	// Prevent empty <h2> tags by checking if error isn't empty first
-	if ('' !== $error) {
-		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
-		$error = "<h2>{$error}</h2>";
-	}
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
+
+	$message = '';
+	$details = '';
+	// Prevent empty tags by checking if error isn not empty first
+	if ($error) {
+		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
+
+		// First line is the main message
+		$message = strtok($error, "\n");
+		// Other lines are the details
+		$details = strtok('');
+
+		$message = "<h2>{$message}</h2>";
+		$details = "<pre>{$details}</pre>";
+	}
+
 	return <<<MSG
 	<h1>{$errorTitle}</h1>
-	{$error}
+	{$message}
+	{$details}
 	<h2>Check the logs</h2>
 	<p>FreshRSS logs are located in <code>./FreshRSS/data/users/*/log*.txt</code></p>
 	<p><em>N.B.:</em> A typical problem is wrong file permissions in the <code>./FreshRSS/data/</code> folder

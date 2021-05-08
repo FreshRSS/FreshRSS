@@ -63,8 +63,8 @@ if (!file_exists($applied_migrations_path)) {
 	}
 
 	if ($error) {
-		Minz_Log::error($error);
-		errorMessage('Fatal error');
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
+		Minz_Log::error($error);
+		die(errorMessage('Fatal error', $error));
 	}
 }

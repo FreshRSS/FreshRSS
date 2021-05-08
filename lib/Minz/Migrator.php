@@ -103,7 +103,7 @@ class Minz_Migrator
 
 		if (!$migrator->upToDate()) {
 			// still not up to date? It means last migration failed.
-			return 'A migration failed to be applied, please see previous logs';
+			return 'A migration failed to be applied, please see previous logs.' . "\n" . implode("\n", $results);
 		}
 
 		return true;
