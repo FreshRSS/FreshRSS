@@ -310,7 +310,7 @@ class MigratorTest extends TestCase
 	public function testExecuteFailsIfAMigrationIsFailing() {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations_with_failing/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-		$expected_result = 'A migration failed to be applied, please see previous logs';
+		$expected_result = 'A migration failed to be applied, please see previous logs.';
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
