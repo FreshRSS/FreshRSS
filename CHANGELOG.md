@@ -1,32 +1,49 @@
 ﻿# FreshRSS changelog
 
-## 2021-0X-XX FreshRSS 1.18.1-dev
+## 2021-05-XX FreshRSS 1.18.1-dev
 
 * Features
 	* Support standard `HTTP 410 Gone` by disabling (muting) gone feeds [#3561](https://github.com/FreshRSS/FreshRSS/pull/3561)
+	* Make advanced feed options such as SSL available to non-admins [#3612](https://github.com/FreshRSS/FreshRSS/pull/3612)
 * API
 	* Supported by [Newsboat 2.24+](https://newsboat.org/) [#3574](https://github.com/FreshRSS/FreshRSS/pull/3574)
 * UI
 	* Allow Unicode for shortcuts [#3548](https://github.com/FreshRSS/FreshRSS/pull/3548)
 * Bug fixing
+	* Fix regression preventing showing startup errors [#3590](https://github.com/FreshRSS/FreshRSS/pull/3590)
 	* Fix database lock during refresh with MariaDB [#3559](https://github.com/FreshRSS/FreshRSS/pull/3559)
 	* Fix database creation from CLI [#3544](https://github.com/FreshRSS/FreshRSS/pull/3544)
 	* Fix: `pdo_sqlite` is optional except for export/import SQLite [#3545](https://github.com/FreshRSS/FreshRSS/pull/3545)
 	* Fix import of JSON and TT-RSS files, especially with PHP 8 [#3553](https://github.com/FreshRSS/FreshRSS/pull/3553)
 		* Allow import of more than 999 favourites/labelled articles even with SQLite
+	* Fix additional SQL limits, especially for SQLite [#3586](https://github.com/FreshRSS/FreshRSS/pull/3586)
 	* Fix search param encoding in user query [#3541](https://github.com/FreshRSS/FreshRSS/pull/3541)
 	* Fix undefined variable & dead code when adding feed [#3546](https://github.com/FreshRSS/FreshRSS/pull/3546)
 	* Fix missing translation in feed configuration [#3554](https://github.com/FreshRSS/FreshRSS/pull/3554)
 	* Fix double escaping in feed filters [#3563](https://github.com/FreshRSS/FreshRSS/pull/3563)
+	* Fix bugs in migration system [#3589]([#3589](https://github.com/FreshRSS/FreshRSS/pull/3589))
 * SimplePie
 	* Fix regression about media attachments [#3565](https://github.com/FreshRSS/FreshRSS/pull/3565)
 	* Fix regression about forcing HTTPS for enclosures [#3568](https://github.com/FreshRSS/FreshRSS/pull/3568)
 	* Catch ValueError for loadHTML with PHP 8 [simplepie#673](https://github.com/simplepie/simplepie/pull/673)
 	* Provide access to latest HTTP status code [simplepie#674](https://github.com/simplepie/simplepie/pull/674)
+	* Fix wrong SimplePie type hint [simplepie#678](https://github.com/simplepie/simplepie/pull/678)
+	* Merge details from upstream PRs [#3588](https://github.com/FreshRSS/FreshRSS/pull/3588), [#3614](https://github.com/FreshRSS/FreshRSS/pull/3614)
 * API
 	* Compatibility with Web servers providing `ORIG_PATH_INFO` [#3560](https://github.com/FreshRSS/FreshRSS/pull/3560)
+* i18n
+	* Improved Russian [#3579](https://github.com/FreshRSS/FreshRSS/pull/3579)
+	* Improved Turkish [#3604](https://github.com/FreshRSS/FreshRSS/pull/3604)
+	* Improved Chinese [#3600](https://github.com/FreshRSS/FreshRSS/pull/3600)
+* Code improvements:
+	* Friendly constant syntax for Intellisense [#3577](https://github.com/FreshRSS/FreshRSS/pull/3577)
+	* Fix several comments syntaxes [#3615](https://github.com/FreshRSS/FreshRSS/pull/3615)
+	* Minor uniform stricter HTML [#3616](https://github.com/FreshRSS/FreshRSS/pull/3616)
+	* Removed unused variable [#3587](https://github.com/FreshRSS/FreshRSS/pull/3587)
 * Deployment
 	* Automatically apply `latest` tag in git for the latest FreshRSS release [#3524](https://github.com/FreshRSS/FreshRSS/pull/3524)
+* Misc.
+	* If using built-in git updates, automatically change to git `edge` branch if using old `master` or `dev` branch names [#3589](https://github.com/FreshRSS/FreshRSS/pull/3589)
 
 
 ## 2021-03-14 FreshRSS 1.18.0
