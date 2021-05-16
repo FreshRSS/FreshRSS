@@ -10,7 +10,6 @@
 * UI
 	* Allow Unicode for shortcuts [#3548](https://github.com/FreshRSS/FreshRSS/pull/3548)
 * Bug fixing
-	* Fix regression preventing showing startup errors [#3590](https://github.com/FreshRSS/FreshRSS/pull/3590)
 	* Fix database lock during refresh with MariaDB [#3559](https://github.com/FreshRSS/FreshRSS/pull/3559)
 	* Fix database creation from CLI [#3544](https://github.com/FreshRSS/FreshRSS/pull/3544)
 	* Fix: `pdo_sqlite` is optional except for export/import SQLite [#3545](https://github.com/FreshRSS/FreshRSS/pull/3545)
@@ -21,7 +20,8 @@
 	* Fix undefined variable & dead code when adding feed [#3546](https://github.com/FreshRSS/FreshRSS/pull/3546)
 	* Fix missing translation in feed configuration [#3554](https://github.com/FreshRSS/FreshRSS/pull/3554)
 	* Fix double escaping in feed filters [#3563](https://github.com/FreshRSS/FreshRSS/pull/3563)
-	* Fix bugs in migration system [#3589]([#3589](https://github.com/FreshRSS/FreshRSS/pull/3589))
+	* Fix bugs in migration system [#3589](https://github.com/FreshRSS/FreshRSS/pull/3589)
+	* Fix regression preventing showing startup errors [#3590](https://github.com/FreshRSS/FreshRSS/pull/3590)
 * SimplePie
 	* Fix regression about media attachments [#3565](https://github.com/FreshRSS/FreshRSS/pull/3565)
 	* Fix regression about forcing HTTPS for enclosures [#3568](https://github.com/FreshRSS/FreshRSS/pull/3568)
@@ -40,6 +40,7 @@
 	* Fix several comments syntaxes [#3615](https://github.com/FreshRSS/FreshRSS/pull/3615)
 	* Minor uniform stricter HTML [#3616](https://github.com/FreshRSS/FreshRSS/pull/3616)
 	* Removed unused variable [#3587](https://github.com/FreshRSS/FreshRSS/pull/3587)
+	* Provide action name in Minz controller exception [#3624](https://github.com/FreshRSS/FreshRSS/pull/3624)
 * Deployment
 	* Automatically apply `latest` tag in git for the latest FreshRSS release [#3524](https://github.com/FreshRSS/FreshRSS/pull/3524)
 * Misc.
