@@ -342,7 +342,7 @@ SQL;
 		if (is_array($entries) && count($entries) > 0) {
 			if (count($entries) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 				// Split a query with too many variables parameters
-				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
 					$values += $this->getTagsForEntries($idsChunk);
 				}

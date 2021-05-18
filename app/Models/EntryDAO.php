@@ -265,7 +265,7 @@ SQL;
 		if (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
 			$affected = 0;
-			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
 				$affected += $this->markFavorite($idsChunk, $is_favorite);
 			}
@@ -981,7 +981,7 @@ SQL;
 			yield false;
 		} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
-			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
 				foreach ($this->listByIds($idsChunk, $order) as $entry) {
 					yield $entry;
@@ -1020,7 +1020,7 @@ SQL;
 			return $result;
 		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
-			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($guidsChunks as $guidsChunk) {
 				$result += $this->listHashForFeedGuids($id_feed, $guidsChunk);
 			}
@@ -1055,7 +1055,7 @@ SQL;
 		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
 			$affected = 0;
-			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($guidsChunks as $guidsChunk) {
 				$affected += $this->updateLastSeen($id_feed, $guidsChunk, $mtime);
 			}
