@@ -356,7 +356,7 @@ SQL;
 			} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 				// Split a query with too many variables parameters
 				$affected = 0;
-				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER, true);
+				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
 					$affected += $this->markRead($idsChunk, $is_read);
 				}
