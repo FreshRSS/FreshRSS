@@ -58,6 +58,19 @@ class Minz_Request {
 		}
 		return $value;
 	}
+	/**
+	 * Extract text lines to array.
+	 *
+	 * It will return an array where each cell contains one line of a text. The new line
+	 * character is used to break the text into lines. This method is well suited to use
+	 * to split textarea content.
+	 */
+	public static function paramTextToArray($key, $default = []) {
+		if (isset(self::$params[$key])) {
+			return preg_split('/\R/', self::$params[$key]);
+		}
+		return $default;
+	}
 	public static function defaultControllerName() {
 		return self::$default_controller_name;
 	}
