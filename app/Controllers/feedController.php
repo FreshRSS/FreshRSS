@@ -547,6 +547,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
 		$maxFeeds = (int)Minz_Request::param('maxFeeds');
+		$noredirect = (bool)Minz_Request::param('noredirect') ==1;
 		$noCommit = Minz_Request::fetchPOST('noCommit', 0) == 1;
 
 		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
@@ -571,6 +572,15 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			Minz_Request::setGoodNotification(_t('feedback.sub.feed.actualizeds'));
 			// No layout in ajax request.
 			$this->view->_layout(false);
+		} if ($noredirect) {
+			if ($updated_feeds === 1) {
+				echo(_t('feedback.sub.feed.actualized', $feed->name()));
+			} elseif ($updated_feeds > 1) {
+				echo(_t('feedback.sub.feed.n_actualized', $updated_feeds));
+			} else {
+				echo(_t('feedback.sub.feed.no_refresh'));
+			}	
+			exit(0);
 		} else {
 			// Redirect to the main page with correct notification.
 			if ($updated_feeds === 1) {
