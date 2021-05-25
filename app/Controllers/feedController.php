@@ -579,7 +579,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				echo(_t('feedback.sub.feed.n_actualized', $updated_feeds));
 			} else {
 				echo(_t('feedback.sub.feed.no_refresh'));
-			}	
+			}
 			exit(0);
 		} else {
 			// Redirect to the main page with correct notification.
