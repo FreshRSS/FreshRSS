@@ -48,7 +48,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		try {
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
-				unset($output);
+				$output = [];
 				exec('git status -sb --porcelain remote', $output, $return);
 			} else {
 				$line = is_array($output) ? implode('; ', $output) : $output;
@@ -71,14 +71,15 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		try {
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
-				unset($output);
+				$output = [];
 				exec('git reset --hard FETCH_HEAD', $output, $return);
 			}
 
+			$output = [];
 			self::migrateToGitEdge();
 		} catch (Exception $e) {
 			Minz_Log::warning('Git error: ' . $e->getMessage());
-			if ($output == '') {
+			if (empty($output)) {
 				$output = $e->getMessage();
 			}
 			$return = 1;
