@@ -13,111 +13,111 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 
 $today = @strtotime('today');
 ?>
+<main>
+    <div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
+        <div id="new-article">
+            <a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+        </div><?php
+        $lastEntry = null;
+        $nbEntries = 0;
+        foreach ($this->entries as $item):
+            $lastEntry = $item;
+            $nbEntries++;
+            ob_flush();
+            $this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+            if ($this->entry == null) {
+                continue;
+            }
 
-<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
-	<div id="new-article">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
-	</div><?php
-	$lastEntry = null;
-	$nbEntries = 0;
-	foreach ($this->entries as $item):
-		$lastEntry = $item;
-		$nbEntries++;
-		ob_flush();
-		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if ($this->entry == null) {
-			continue;
-		}
+            // We most likely already have the feed object in cache
+            $this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feed());
+            if ($this->feed == null) {
+                $this->feed = $this->entry->feed(true);
+                if ($this->feed == null) {
+                    $this->feed = FreshRSS_Feed::example();
+                }
+            }
 
-		// We most likely already have the feed object in cache
-		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feed());
-		if ($this->feed == null) {
-			$this->feed = $this->entry->feed(true);
-			if ($this->feed == null) {
-				$this->feed = FreshRSS_Feed::example();
-			}
-		}
+            if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
+                ?><div class="day" id="day_today"><?php
+                    echo _t('gen.date.today');
+                    ?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
+                    ?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
+                ?></div><?php
+                $display_today = false;
+            }
+            if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
+                ?><div class="day" id="day_yesterday"><?php
+                    echo _t('gen.date.yesterday');
+                    ?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
+                    ?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
+                ?></div><?php
+                $display_yesterday = false;
+            }
+            if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
+                ?><div class="day" id="day_before_yesterday"><?php
+                    echo _t('gen.date.before_yesterday');
+                    ?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
+                ?></div><?php
+                $display_others = false;
+            }
+        ?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
+            ?><?= $this->entry->isFavorite() ? ' favorite' : ''
+            ?>" id="flux_<?= $this->entry->id()
+            ?>" data-feed="<?= $this->feed->id()
+            ?>"><?php
 
-		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
-			?><div class="day" id="day_today"><?php
-				echo _t('gen.date.today');
-				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_today = false;
-		}
-		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
-			?><div class="day" id="day_yesterday"><?php
-				echo _t('gen.date.yesterday');
-				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_yesterday = false;
-		}
-		if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
-			?><div class="day" id="day_before_yesterday"><?php
-				echo _t('gen.date.before_yesterday');
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_others = false;
-		}
-	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
-		?><?= $this->entry->isFavorite() ? ' favorite' : ''
-		?>" id="flux_<?= $this->entry->id()
-		?>" data-feed="<?= $this->feed->id()
-		?>"><?php
+                $this->renderHelper('index/normal/entry_header');
 
-			$this->renderHelper('index/normal/entry_header');
+            ?><div class="flux_content" dir="auto">
+                <div class="content <?= $content_width ?>">
+                    <h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
+                    <div class="subtitle">
+                        <div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+                            <?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+                                <img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
+                            <?php endif; ?>
+                            <span><?= $this->feed->name() ?></span></a>
+                        </div>
+                        <div class="date"><?= $this->entry->date() ?></div>
+                        <?php
+                            $authors = $this->entry->authors();
+                            if (!empty($authors) && is_array($authors)):
+                                $first = true;
+                        ?>
+                        <div class="author"><?php
+                                foreach ($authors as $author):
+                                    echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+                                    $first = false;
+                        ?>
+        <em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
+                ['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
+            ) ?>"><?= $author ?></a></em>
+                        <?php	endforeach; ?>
+                        </div><?php endif; ?>
+                    </div>
+                    <div class="text"><?php
+                        echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
+                    ?></div>
+                </div><?php
 
-		?><div class="flux_content" dir="auto">
-			<div class="content <?= $content_width ?>">
-				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
-				<div class="subtitle">
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
-						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
-						<?php endif; ?>
-						<span><?= $this->feed->name() ?></span></a>
-					</div>
-					<div class="date"><?= $this->entry->date() ?></div>
-					<?php
-						$authors = $this->entry->authors();
-						if (!empty($authors) && is_array($authors)):
-							$first = true;
-					?>
-					<div class="author"><?php
-							foreach ($authors as $author):
-								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
-								$first = false;
-					?>
-	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
-			['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
-		) ?>"><?= $author ?></a></em>
-					<?php	endforeach; ?>
-					</div><?php endif; ?>
-				</div>
-				<div class="text"><?php
-					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
-				?></div>
-			</div><?php
+                $this->renderHelper('index/normal/entry_bottom');
 
-			$this->renderHelper('index/normal/entry_bottom');
+            ?></div>
+        </div><?php
+        endforeach;
 
-		?></div>
-	</div><?php
-	endforeach;
-
-	if ($nbEntries > 0):
-		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
-		$this->renderHelper('pagination');
-?></div><?php
-	else:
-		ob_end_clean();	//Discard the articles headers, as we have no articles
-?>
-<div id="stream" class="prompt alert alert-warn normal">
-	<h2><?= _t('index.feed.empty') ?></h2>
-	<a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
-</div>
-<?php endif; ?>
-
+        if ($nbEntries > 0):
+            call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
+            $this->renderHelper('pagination');
+    ?></div><?php
+        else:
+            ob_end_clean();	//Discard the articles headers, as we have no articles
+    ?>
+    <div id="stream" class="prompt alert alert-warn normal">
+        <h2><?= _t('index.feed.empty') ?></h2>
+        <a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
+    </div>
+    <?php endif; ?>
+</main>
 <?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>

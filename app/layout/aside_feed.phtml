@@ -10,7 +10,7 @@
 	$state_filter = FreshRSS_Context::$user_conf->show_fav_unread ? '&state=3' : '';
 ?>
 
-<div class="aside aside_feed<?= $class ?>" id="aside_feed">
+<nav class="aside aside_feed<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -111,7 +111,7 @@
 		<li class="tree-bottom"></li>
 	</ul>
 	</form>
-</div>
+</nav>
 
 <div id="first_load" class="loading"></div>
 <?php flush(); ?>
