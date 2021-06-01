@@ -5,6 +5,9 @@
 
 	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
+		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
+
 		<legend><?= _t('admin.user.create') ?></legend>
 
 		<div class="form-group">

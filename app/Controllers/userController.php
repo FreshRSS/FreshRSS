@@ -287,25 +287,29 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$new_user_name = Minz_Request::param('new_user_name');
 			$email = Minz_Request::param('new_user_email', '');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
+			$badRedirectUrl = [
+				'c' => Minz_Request::param('originController', 'auth'),
+				'a' => Minz_Request::param('originAction', 'register'),
+			];
 
 			if (!self::checkUsername($new_user_name)) {
 				Minz_Request::bad(
 					_t('user.username.invalid'),
-					array('c' => 'auth', 'a' => 'register')
+					$badRedirectUrl
 				);
 			}
 
 			if (FreshRSS_UserDAO::exists($new_user_name)) {
 				Minz_Request::bad(
 					_t('user.username.taken', $new_user_name),
-					array('c' => 'auth', 'a' => 'register')
+					$badRedirectUrl
 				);
 			}
 
 			if (!FreshRSS_password_Util::check($passwordPlain)) {
 				Minz_Request::bad(
 					_t('user.password.invalid'),
-					array('c' => 'auth', 'a' => 'register')
+					$badRedirectUrl
 				);
 			}
 
@@ -315,21 +319,21 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			if ($system_conf->force_email_validation && empty($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.required'),
-					array('c' => 'auth', 'a' => 'register')
+					$badRedirectUrl
 				);
 			}
 
 			if (!empty($email) && !validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
-					array('c' => 'auth', 'a' => 'register')
+					$badRedirectUrl
 				);
 			}
 
 			if ($tos_enabled && !$accept_tos) {
 				Minz_Request::bad(
 					_t('user.tos.feedback.invalid'),
-					array('c' => 'auth', 'a' => 'register')
+					$badRedirectUrl
 				);
 			}
 
