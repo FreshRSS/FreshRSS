@@ -6,7 +6,7 @@ FreshRSS is updated by the `./app/actualize_script.php` script. Knowing this, we
 
 **Note:** the following examples assume that FreshRSS is installed to `/usr/share/FreshRSS`. You'll need to modify the FreshRSS path to reflect your own system.
 
-**Note:** If you cannot configure a Cronjob, [look here for an alternative](../users/03_Main_view.md#online-cron).
+**Note:** If you cannot configure a local Cronjob, [see an alternative using online cron](../users/03_Main_view.md#online-cron).
 ## Cron as a trigger
 
 You'll need to check the Cron documentation for your specific distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora/CentOS](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron) ...) to make sure you set the Cron job correctly.
