@@ -16,7 +16,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			throw new Exception($errorMessage);
 		}
 
-		exec('git branch --show-current', $output, $return);
+		//Note `git branch --show-current` requires git 2.22+
+		exec('git symbolic-ref --short HEAD', $output, $return);
 		if ($return != 0) {
 			throw new Exception($errorMessage);
 		}
