@@ -18,8 +18,8 @@ jobs:
         - COMPOSER_BIN=$(composer global config --absolute bin-dir)
         - $COMPOSER_BIN/phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests
         - $COMPOSER_BIN/phpcs . -p -s
-    - name: "PHP 5.6 Syntax"
-      php: "5.6"
+    - name: "PHP 7.0 Syntax"
+      php: "7.0"
       script:
         - phpenv rehash
         - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
