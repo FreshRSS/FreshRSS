@@ -2,6 +2,9 @@
 
 ## 2021-XX-XX FreshRSS 1.18.2-dev
 
+* Compatibility
+	* Require PHP 7.0+ (drop support for PHP 5.x)
+	* Drop support for Microsoft Internet Explorer (IE11)
 
 
 ## 2021-06-06 FreshRSS 1.18.1
