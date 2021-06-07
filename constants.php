@@ -3,7 +3,7 @@
 
 //<Not customisable>
 define('FRESHRSS_MIN_PHP_VERSION', '5.6.0');
-define('FRESHRSS_VERSION', '1.18.1');
+define('FRESHRSS_VERSION', '1.18.2-dev');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
 

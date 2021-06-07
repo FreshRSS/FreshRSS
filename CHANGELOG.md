@@ -1,5 +1,9 @@
 ﻿# FreshRSS changelog
 
+## 2021-XX-XX FreshRSS 1.18.2-dev
+
+
+
 ## 2021-06-06 FreshRSS 1.18.1
 
 * Features
