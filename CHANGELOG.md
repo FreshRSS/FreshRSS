@@ -5,6 +5,8 @@
 * Compatibility
 	* Require PHP 7.0+ (drop support for PHP 5.x) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Drop support for Microsoft Internet Explorer (IE11) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+* Deployment
+	* The Docker development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 
 
 ## 2021-06-06 FreshRSS 1.18.1
