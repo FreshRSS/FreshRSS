@@ -38,6 +38,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php7 /usr/bin/php; else true; fi && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
