@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2021-XX-XX FreshRSS 1.18.2-dev
+## 2021-XX-XX FreshRSS 1.19.0-dev
 
 * Compatibility
 	* Require PHP 7.0+ (drop support for PHP 5.x) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
