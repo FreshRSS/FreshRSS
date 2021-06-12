@@ -124,8 +124,8 @@ return array(
 	),
 	'tag' => array(
 		'name' => 'Name',
-		'new_name' => 'Alter Name',
-		'old_name' => 'Neuer Name',
+		'new_name' => 'Neuer Name',
+		'old_name' => 'Alter Name',
 	),
 	'title' => array(
 		'_' => 'Abonnementverwaltung',

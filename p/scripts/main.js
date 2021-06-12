@@ -1093,7 +1093,7 @@ function init_nav_entries() {
 				return false;
 			};
 		nav_entries.querySelector('.up').onclick = function (e) {
-				const active_item = document.querySelector('.flux.current'),
+				const active_item = (document.querySelector('.flux.current') || document.querySelector('.flux')),
 					windowTop = document.scrollingElement.scrollTop,
 					item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 

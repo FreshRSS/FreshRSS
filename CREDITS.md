@@ -76,6 +76,7 @@ People are sorted by name so please keep this order.
 * [Lukas David Vacula](https://github.com/ldv8434): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ldv8434), [Web](https://lvacula.com/)
 * [Marc Ole Bulling](https://github.com/Forceu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Forceu)
 * [Marco Hinniger](https://github.com/rom-1): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rom-1), [Web](https://blog.rootdir.net/)
+* [marcohald](https://github.com/marcohald): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marcohald)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marcomrc)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mro), [Web](http://mro.name/~me)
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marienfressinaud), [Web](https://marienfressinaud.fr/)

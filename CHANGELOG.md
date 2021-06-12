@@ -1,12 +1,22 @@
 ﻿# FreshRSS changelog
 
-## 2021-05-XX FreshRSS 1.18.1-dev
+## 2021-XX-XX FreshRSS 1.19.0-dev
+
+* Compatibility
+	* Require PHP 7.0+ (drop support for PHP 5.x) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+	* Drop support for Microsoft Internet Explorer (IE11) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+* Deployment
+	* The Docker development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+
+
+## 2021-06-06 FreshRSS 1.18.1
 
 * Features
 	* Support standard `HTTP 410 Gone` by disabling (muting) gone feeds [#3561](https://github.com/FreshRSS/FreshRSS/pull/3561)
 	* Make advanced feed options such as SSL available to non-admins [#3612](https://github.com/FreshRSS/FreshRSS/pull/3612)
 * API
 	* Supported by [Newsboat 2.24+](https://newsboat.org/) [#3574](https://github.com/FreshRSS/FreshRSS/pull/3574)
+	* Supported by [RSS Guard](https://github.com/martinrotter/rssguard) [#3627](https://github.com/FreshRSS/FreshRSS/pull/3627)
 * UI
 	* Allow Unicode for shortcuts [#3548](https://github.com/FreshRSS/FreshRSS/pull/3548)
 * Bug fixing
@@ -22,6 +32,10 @@
 	* Fix double escaping in feed filters [#3563](https://github.com/FreshRSS/FreshRSS/pull/3563)
 	* Fix bugs in migration system [#3589](https://github.com/FreshRSS/FreshRSS/pull/3589)
 	* Fix regression preventing showing startup errors [#3590](https://github.com/FreshRSS/FreshRSS/pull/3590)
+	* Fix form redirection after erroneous user creation [#3656](https://github.com/FreshRSS/FreshRSS/pull/3656)
+	* Fix JavaScript error during navigation when no article is selected [#3655](https://github.com/FreshRSS/FreshRSS/pull/3655)
+	* Fix link to add feeds from the empty homepage [#3650](https://github.com/FreshRSS/FreshRSS/pull/3650)
+	* Fix git update error message [#3645](https://github.com/FreshRSS/FreshRSS/pull/3645)
 * SimplePie
 	* Fix regression about media attachments [#3565](https://github.com/FreshRSS/FreshRSS/pull/3565)
 	* Fix regression about forcing HTTPS for enclosures [#3568](https://github.com/FreshRSS/FreshRSS/pull/3568)
@@ -41,9 +55,11 @@
 	* Minor uniform stricter HTML [#3616](https://github.com/FreshRSS/FreshRSS/pull/3616)
 	* Removed unused variable [#3587](https://github.com/FreshRSS/FreshRSS/pull/3587)
 	* Provide action name in Minz controller exception [#3624](https://github.com/FreshRSS/FreshRSS/pull/3624)
+	* New convenience method to extract multiline GET parameters from e.g. `<textarea>` [#3629](https://github.com/FreshRSS/FreshRSS/pull/3629)
 * Deployment
 	* Automatically apply `latest` tag in git for the latest FreshRSS release [#3524](https://github.com/FreshRSS/FreshRSS/pull/3524)
 * Misc.
+	* Remove legacy `data/do-install.txt` for triggering install process [#3555](https://github.com/FreshRSS/FreshRSS/pull/3555)
 	* If using built-in git updates, automatically change to git `edge` branch if using old `master` or `dev` branch names [#3589](https://github.com/FreshRSS/FreshRSS/pull/3589)
 
 

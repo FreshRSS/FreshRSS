@@ -1,12 +1,12 @@
-FROM alpine:3.4
+FROM alpine:3.5
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --no-cache \
-	apache2 php5-apache2 \
-	php5 php5-curl php5-gmp php5-intl php5-xml php5-zip \
-	php5-ctype php5-dom php5-iconv php5-json php5-opcache php5-openssl php5-phar php5-xmlreader php5-zlib \
-	php5-pdo_sqlite php5-pdo_mysql php5-pdo_pgsql
+	apache2 php7-apache2 \
+	php7 php7-curl php7-gmp php7-intl php7-mbstring php7-xml php7-zip \
+	php7-ctype php7-dom php7-iconv php7-json php7-opcache php7-openssl php7-phar php7-session php7-xmlreader php7-zlib \
+	php7-pdo_sqlite php7-pdo_mysql php7-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
@@ -38,6 +38,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php7 /usr/bin/php; else true; fi && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
