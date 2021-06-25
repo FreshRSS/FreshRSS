@@ -656,6 +656,13 @@ if (_t('gen.dir') === 'rtl') {
 		<meta name="viewport" content="initial-scale=1.0" />
 		<script id="jsonVars" type="application/json">{}</script>
 		<title><?= _t('install.title') ?></title>
+        <link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
+        <link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
+        <link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
+        <meta name="msapplication-TileColor" content="#FFF" />
 		<link rel="stylesheet" href="../themes/base-theme/template.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
 		<meta name="robots" content="noindex,nofollow" />
