@@ -82,6 +82,7 @@ People are sorted by name so please keep this order.
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marienfressinaud), [Web](https://marienfressinaud.fr/)
 * [Martin](https://github.com/C0rn3j): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:C0rn3j), [Web](https://rys.pw/)
 * [Maurice Schleußinger](https://github.com/maurice-schleussinger): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:maurice-schleussinger)
+* [mathContao](https://github.com/mathContao): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mathContao)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](http://x2a.yt/)
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
