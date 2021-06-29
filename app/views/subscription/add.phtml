@@ -5,7 +5,7 @@
 
 	
 	<form action="<?= _url('category', 'create') ?>" method="post">
-        <legend><?= _t('sub.title.add_category') ?></legend>
+		<legend><?= _t('sub.title.add_category') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
@@ -23,7 +23,7 @@
 
 	
 	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
-        <legend><?= _t('sub.title.add_feed') ?></legend>
+		<legend><?= _t('sub.title.add_feed') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">

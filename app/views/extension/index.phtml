@@ -4,7 +4,7 @@
 	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
 	<h1><?= _t('admin.extensions.title') ?></h1>
-    <h2><?= _t('admin.extensions.system') ?></h2>
+	<h2><?= _t('admin.extensions.system') ?></h2>
 	<form id="form-extension" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<?php if (!empty($this->extension_list['system'])) {
