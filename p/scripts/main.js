@@ -1369,7 +1369,7 @@ function notifs_html5_show(nb) {
 	}
 
 	const notification = new window.Notification(context.i18n.notif_title_articles, {
-		icon: '../themes/icons/favicon-256.png',
+		icon: '../themes/icons/favicon-256-padding.png',
 		body: context.i18n.notif_body_articles.replace('%d', nb),
 		tag: 'freshRssNewArticles',
 	});
