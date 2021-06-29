@@ -11,7 +11,7 @@
 
 	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
 
-	<legend><?= _t('conf.shortcut') ?></legend>
+	<h2><?= _t('conf.shortcut') ?></h2>
 	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">
 			<?= _t('conf.shortcut.non_standard', implode('</kbd>, <kbd>', $nonStandard)) ?>
