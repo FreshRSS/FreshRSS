@@ -13,6 +13,7 @@ require(LIB_PATH . '/lib_install.php');
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
+Minz_ExtensionManager::init();
 Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
@@ -36,6 +37,9 @@ function cliInitUser($username) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
 
+	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+	Minz_ExtensionManager::enableByList($ext_list);
+
 	return $username;
 }
 
@@ -54,13 +58,13 @@ function done($ok = true) {
 function performRequirementCheck($databaseType) {
 	$requirements = checkRequirements($databaseType);
 	if ($requirements['all'] !== 'ok') {
-		$message = 'FreshRSS install failed requirements:' . "\n";
+		$message = 'FreshRSS failed requirements:' . "\n";
 		foreach ($requirements as $requirement => $check) {
 			if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
 				$message .= '• ' . $requirement . "\n";
 			}
 		}
-		if (!empty($requirements['message'])) {
+		if (!empty($requirements['message']) && $requirements['message'] !== 'ok') {
 			$message .= '• ' . $requirements['message'] . "\n";
 		}
 		fail($message);

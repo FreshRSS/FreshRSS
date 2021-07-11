@@ -125,7 +125,7 @@ précédé par des caractères blanc.
 Il est possible de vérifier la présence de caractères blancs en fin de ligne
 grâce à Git avec la commande suivante :
 
-```bash
+```sh
 # commande à lancer avant l'ajout des fichiers dans l'index
 git diff --check
 # commande à lancer après l'ajout des fichiers dans l'index mais avant le commit

@@ -70,10 +70,6 @@ return array(
 			'nok' => '找不到推荐的 Unicode 解析库（mbstring)',
 			'ok' => '已找到推荐的 Unicode 解析库（mbstring)',
 		),
-		'minz' => array(
-			'nok' => '找不到 Minz 框架',
-			'ok' => '已找到 Minz 框架',
-		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库（php-pcre）',
 			'ok' => '已找到正则表达式解析库（PCRE）',
@@ -176,7 +172,7 @@ return array(
 		'_' => '更新系统',
 		'apply' => '应用',
 		'check' => '检查更新',
-		'current_version' => '当前 FreshRSS 版本为 %s.',
+		'current_version' => '当前 FreshRSS 版本为 %s。',
 		'last' => '上一次检查：%s',
 		'none' => '没有可用更新',
 		'title' => '更新系统',
@@ -190,11 +186,11 @@ return array(
 		'database_size' => '数据库大小',
 		'delete_users' => '删除用户',
 		'email' => '邮箱地址',
-		'enabled' => 'Enabled',	// TODO - Translation
+		'enabled' => '已启用',
 		'feed_count' => '订阅源数',
 		'is_admin' => '管理员',
 		'language' => '语言',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'last_user_activity' => '上次用户活跃',
 		'list' => '用户列表',
 		'number' => '已有 %d 个用户',
 		'numbers' => '已有 %d 个用户',

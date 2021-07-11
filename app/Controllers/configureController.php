@@ -63,8 +63,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'),
-			                   array('c' => 'configure', 'a' => 'display'));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'display' ]);
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
@@ -127,8 +126,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'),
-			                   array('c' => 'configure', 'a' => 'reading'));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'reading' ]);
 		}
 
 		Minz_View::prependTitle(_t('conf.reading.title') . ' · ');
@@ -154,8 +152,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'),
-			                   array('c' => 'configure', 'a' => 'integration'));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'integration' ]);
 		}
 
 		Minz_View::prependTitle(_t('conf.sharing.title') . ' · ');
@@ -180,15 +177,13 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$shortcuts = Minz_Request::param('shortcuts');
 			if (false !== Minz_Request::param('load_default_shortcuts')) {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
-				$shortcuts = $data['shortcuts'];
+				$shortcuts = $default['shortcuts'];
 			}
-			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList($shortcuts);
+			FreshRSS_Context::$user_conf->shortcuts = array_map('trim', $shortcuts);
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('feedback.conf.shortcuts_updated'), array('c' => 'configure', 'a' => 'shortcut'));
-		} else {
-			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
 		}
 
 		Minz_View::prependTitle(_t('conf.shortcut.title') . ' · ');
@@ -236,8 +231,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'),
-			                   array('c' => 'configure', 'a' => 'archiving'));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'archiving' ]);
 		}
 
 		$volatile = [
@@ -300,8 +294,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'),
-			                   array('c' => 'configure', 'a' => 'queries'));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries' ]);
 		} else {
 			$this->view->queries = array();
 			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
@@ -352,7 +345,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$params = array_filter(Minz_Request::param('query', []));
 			if (!empty($params['search'])) {
-				$params['search'] = urldecode($params['search']);
+				$params['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
 			if (!empty($params['state'])) {
 				$params['state'] = array_sum($params['state']);
@@ -369,8 +362,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'),
-			                   array('c' => 'configure', 'a' => 'queries', 'params' => ['id' => $id]));
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => $id] ]);
 		}
 
 		Minz_View::prependTitle(_t('conf.query.title') . ' · ' . $query->getName() . ' · ');
@@ -391,8 +383,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		FreshRSS_Context::$user_conf->queries = $queries;
 		FreshRSS_Context::$user_conf->save();
 
-		Minz_Request::good(_t('feedback.conf.updated'),
-			               array('c' => 'configure', 'a' => 'queries'));
+		Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries' ]);
 	}
 
 	/**
@@ -419,8 +410,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		FreshRSS_Context::$user_conf->queries = $queries;
 		FreshRSS_Context::$user_conf->save();
 
-		Minz_Request::good(_t('feedback.conf.query_created', $params['name']),
-		                   array('c' => 'configure', 'a' => 'queries'));
+		Minz_Request::good(_t('feedback.conf.query_created', $params['name']), [ 'c' => 'configure', 'a' => 'queries' ]);
 	}
 
 	/**

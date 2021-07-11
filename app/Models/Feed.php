@@ -288,7 +288,8 @@ class FreshRSS_Feed extends Minz_Model {
 				if ((!$mtime) || $simplePie->error()) {
 					$errorMessage = $simplePie->error();
 					throw new FreshRSS_Feed_Exception(
-						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $this->url . ']'
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $this->url . ']',
+						$simplePie->status_code()
 					);
 				}
 
@@ -409,14 +410,14 @@ class FreshRSS_Feed extends Minz_Model {
 						$height = $enclosure->get_height();
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();
-						if (strpos($mime, 'image') === 0 || ($mime == '' && $length == null && ($width != 0 || $height != 0))) {
+						if ($medium === 'image' || strpos($mime, 'image') === 0 || ($mime == '' && $length == null && ($width != 0 || $height != 0))) {
 							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
-						} elseif (strpos($mime, 'audio') === 0) {
+						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
 								. ($length == null ? '' : '" data-length="' . intval($length))
 								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
 								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-						} elseif (strpos($mime, 'video') === 0) {
+						} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
 								. ($length == null ? '' : '" data-length="' . intval($length))
 								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
@@ -468,10 +469,8 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 			$entry->_tags($tags);
 			$entry->_feed($this);
-			if ($this->pathEntries != '') {
-				// Optionally load full content for truncated feeds
-				$entry->loadCompleteContent();
-			}
+			$entry->hash();	//Must be computed before loading full content
+			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 
 			yield $entry;
 		}
@@ -515,7 +514,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	protected function cacheFilename() {
-		return CACHE_PATH . '/' . md5($this->url) . '.spc';
+		$simplePie = customSimplePie($this->attributes());
+		$filename = $simplePie->get_cache_filename($this->url);
+		return CACHE_PATH . '/' . $filename . '.spc';
 	}
 
 	public function clearCache() {

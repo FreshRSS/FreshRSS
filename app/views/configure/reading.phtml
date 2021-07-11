@@ -10,7 +10,9 @@
 		<div class="form-group">
 			<label class="group-name" for="posts_per_page"><?= _t('conf.reading.articles_per_page') ?></label>
 			<div class="group-controls">
-				<input type="number" id="posts_per_page" name="posts_per_page" value="<?= FreshRSS_Context::$user_conf->posts_per_page ?>" min="5" max="500" data-leave-validation="<?= FreshRSS_Context::$user_conf->posts_per_page ?>"/>
+				<input type="number" id="posts_per_page" name="posts_per_page" value="<?=
+					FreshRSS_Context::$user_conf->posts_per_page ?>" min="5" max="500"
+					data-leave-validation="<?= FreshRSS_Context::$user_conf->posts_per_page ?>"/>
 				<p class="help"><?= _i('help') ?> <?= _t('conf.reading.number_divided_when_reader') ?></p>
 			</div>
 		</div>
@@ -51,10 +53,14 @@
 			<label class="group-name" for="default_view"><?= _t('conf.reading.display_categories_unfolded') ?></label>
 			<div class="group-controls">
 				<select name="display_categories" id="display_categories" data-leave-validation="<?= FreshRSS_Context::$user_conf->display_categories ?>">
-					<option value="active"<?= FreshRSS_Context::$user_conf->display_categories === 'active' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.active_category') ?></option>
-					<option value="remember"<?= FreshRSS_Context::$user_conf->display_categories === 'remember' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.remember_categories') ?></option>
-					<option value="all"<?= FreshRSS_Context::$user_conf->display_categories === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.all_categories') ?></option>
-					<option value="none"<?= FreshRSS_Context::$user_conf->display_categories === 'none' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.no_category') ?></option>
+					<option value="active"<?= FreshRSS_Context::$user_conf->display_categories === 'active' ? ' selected="selected"' : '' ?>><?=
+						_t('conf.reading.show.active_category') ?></option>
+					<option value="remember"<?= FreshRSS_Context::$user_conf->display_categories === 'remember' ? ' selected="selected"' : '' ?>><?=
+						_t('conf.reading.show.remember_categories') ?></option>
+					<option value="all"<?= FreshRSS_Context::$user_conf->display_categories === 'all' ? ' selected="selected"' : '' ?>><?=
+						_t('conf.reading.show.all_categories') ?></option>
+					<option value="none"<?= FreshRSS_Context::$user_conf->display_categories === 'none' ? ' selected="selected"' : '' ?>><?=
+						_t('conf.reading.show.no_category') ?></option>
 				</select>
 			</div>
 		</div>
@@ -62,7 +68,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="hide_read_feeds">
-					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?= FreshRSS_Context::$user_conf->hide_read_feeds ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->hide_read_feeds ?>"/>
+					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?=
+						FreshRSS_Context::$user_conf->hide_read_feeds ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->hide_read_feeds ?>"/>
 					<?= _t('conf.reading.hide_read_feeds') ?>
 				</label>
 			</div>
@@ -71,8 +79,11 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="show_fav_unread">
-					<input type="checkbox" name="show_fav_unread" id="show_fav_unread" value="1"<?= FreshRSS_Context::$user_conf->show_fav_unread ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->show_fav_unread ?>"/>
+					<input type="checkbox" name="show_fav_unread" id="show_fav_unread" value="1"<?=
+						FreshRSS_Context::$user_conf->show_fav_unread ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->show_fav_unread ?>"/>
 					<?= _t('conf.reading.always_show_favorites') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.show_fav_unread_help') ?></p>
 				</label>
 			</div>
 		</div>
@@ -80,7 +91,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="display_posts">
-					<input type="checkbox" name="display_posts" id="display_posts" value="1"<?= FreshRSS_Context::$user_conf->display_posts ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->display_posts ?>"/>
+					<input type="checkbox" name="display_posts" id="display_posts" value="1"<?=
+						FreshRSS_Context::$user_conf->display_posts ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->display_posts ?>"/>
 					<?= _t('conf.reading.display_articles_unfolded') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -90,7 +103,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="sticky_post">
-					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?= FreshRSS_Context::$user_conf->sticky_post ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->sticky_post ?>"/>
+					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?=
+						FreshRSS_Context::$user_conf->sticky_post ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->sticky_post ?>"/>
 					<?= _t('conf.reading.sticky_post') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -100,7 +115,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="auto_load_more">
-					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?= FreshRSS_Context::$user_conf->auto_load_more ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->auto_load_more ?>"/>
+					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?=
+						FreshRSS_Context::$user_conf->auto_load_more ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->auto_load_more ?>"/>
 					<?= _t('conf.reading.auto_load_more') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -110,7 +127,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="lazyload">
-					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?= FreshRSS_Context::$user_conf->lazyload ? ' checked="checked"' : '' ?>  data-leave-validation="<?= FreshRSS_Context::$user_conf->lazyload ?>"/>
+					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?=
+						FreshRSS_Context::$user_conf->lazyload ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->lazyload ?>"/>
 					<?= _t('conf.reading.img_with_lazyload') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -120,7 +139,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="sides_close_article">
-					<input type="checkbox" name="sides_close_article" id="sides_close_article" value="1"<?= FreshRSS_Context::$user_conf->sides_close_article ? ' checked="checked"' : '' ?>  data-leave-validation="<?= FreshRSS_Context::$user_conf->sides_close_article ?>"/>
+					<input type="checkbox" name="sides_close_article" id="sides_close_article" value="1"<?=
+						FreshRSS_Context::$user_conf->sides_close_article ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->sides_close_article ?>"/>
 					<?= _t('conf.reading.sides_close_article') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -130,7 +151,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="reading_confirm">
-					<input type="checkbox" name="reading_confirm" id="reading_confirm" value="1"<?= FreshRSS_Context::$user_conf->reading_confirm ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->reading_confirm ?>"/>
+					<input type="checkbox" name="reading_confirm" id="reading_confirm" value="1"<?=
+						FreshRSS_Context::$user_conf->reading_confirm ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->reading_confirm ?>"/>
 					<?= _t('conf.reading.confirm_enabled') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -140,7 +163,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="auto_remove_article">
-					<input type="checkbox" name="auto_remove_article" id="auto_remove_article" value="1"<?= FreshRSS_Context::$user_conf->auto_remove_article ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->auto_remove_article ?>"/>
+					<input type="checkbox" name="auto_remove_article" id="auto_remove_article" value="1"<?=
+						FreshRSS_Context::$user_conf->auto_remove_article ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->auto_remove_article ?>"/>
 					<?= _t('conf.reading.auto_remove_article') ?>
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</label>
@@ -150,7 +175,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="mark_updated_article_unread">
-					<input type="checkbox" name="mark_updated_article_unread" id="mark_updated_article_unread" value="1"<?= FreshRSS_Context::$user_conf->mark_updated_article_unread ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_updated_article_unread ?>"/>
+					<input type="checkbox" name="mark_updated_article_unread" id="mark_updated_article_unread" value="1"<?=
+						FreshRSS_Context::$user_conf->mark_updated_article_unread ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_updated_article_unread ?>"/>
 					<?= _t('conf.reading.mark_updated_article_unread') ?>
 				</label>
 			</div>
@@ -160,19 +187,27 @@
 			<label class="group-name"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="check_open_article">
-					<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?= FreshRSS_Context::$user_conf->mark_when['article'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['article'] ?>"/>
+					<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?=
+						FreshRSS_Context::$user_conf->mark_when['article'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['article'] ?>"/>
 					<?= _t('conf.reading.read.article_viewed') ?>
 				</label>
 				<label class="checkbox" for="check_open_site">
-					<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?= FreshRSS_Context::$user_conf->mark_when['site'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['site'] ?>"/>
+					<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?=
+						FreshRSS_Context::$user_conf->mark_when['site'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['site'] ?>"/>
 					<?= _t('conf.reading.read.article_open_on_website') ?>
 				</label>
 				<label class="checkbox" for="check_scroll">
-					<input type="checkbox" name="mark_scroll" id="check_scroll" value="1"<?= FreshRSS_Context::$user_conf->mark_when['scroll'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['scroll'] ?>"/>
+					<input type="checkbox" name="mark_scroll" id="check_scroll" value="1"<?=
+						FreshRSS_Context::$user_conf->mark_when['scroll'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['scroll'] ?>"/>
 					<?= _t('conf.reading.read.scroll') ?>
 				</label>
 				<label class="checkbox" for="check_reception">
-					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?= FreshRSS_Context::$user_conf->mark_when['reception'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['reception'] ?>"/>
+					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?=
+						FreshRSS_Context::$user_conf->mark_when['reception'] ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['reception'] ?>"/>
 					<?= _t('conf.reading.read.upon_reception') ?>
 				</label>
 			</div>
@@ -182,7 +217,9 @@
 			<label class="group-name"><?= _t('conf.reading.after_onread') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="onread_jump_next">
-					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="1"<?= FreshRSS_Context::$user_conf->onread_jump_next ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->onread_jump_next ?>"/>
+					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="1"<?=
+						FreshRSS_Context::$user_conf->onread_jump_next ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::$user_conf->onread_jump_next ?>"/>
 					<?= _t('conf.reading.jump_next') ?>
 				</label>
 			</div>

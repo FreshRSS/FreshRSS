@@ -1212,6 +1212,8 @@ a.btn,
 
 	.nav_menu .btn {
 		margin: 5px 10px;
+		padding: 3px 5px;
+		min-height: 0;
 	}
 
 	.nav_menu .stick {
@@ -1228,6 +1230,7 @@ a.btn,
 	}
 
 	.nav_menu .search input {
+		padding: 1px 5px;
 		max-width: 97%;
 		width: 90px;
 	}

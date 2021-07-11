@@ -6,46 +6,87 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		return is_dir(FRESHRSS_PATH . '/.git/');
 	}
 
+	/**
+	 * Automatic change to the new name of edge branch since FreshRSS 1.18.0.
+	 */
+	public static function migrateToGitEdge() {
+		$errorMessage = 'Error during git checkout to edge branch. Please change branch manually!';
+
+		if (!is_writable(FRESHRSS_PATH . '/.git/')) {
+			throw new Exception($errorMessage);
+		}
+
+		//Note `git branch --show-current` requires git 2.22+
+		exec('git symbolic-ref --short HEAD', $output, $return);
+		if ($return != 0) {
+			throw new Exception($errorMessage);
+		}
+		$line = is_array($output) ? implode('', $output) : $output;
+		if ($line !== 'master' && $line !== 'dev') {
+			return true;	// not on master or dev, nothing to do
+		}
+
+		Minz_Log::warning('Automatic migration to git edge branch');
+		unset($output);
+		exec('git checkout edge --guess -f', $output, $return);
+		if ($return != 0) {
+			throw new Exception($errorMessage);
+		}
+
+		unset($output);
+		exec('git reset --hard FETCH_HEAD', $output, $return);
+		if ($return != 0) {
+			throw new Exception($errorMessage);
+		}
+
+		return true;
+	}
+
 	public static function hasGitUpdate() {
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
 		$output = array();
 		try {
-			exec('git fetch', $output, $return);
+			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
+				$output = [];
 				exec('git status -sb --porcelain remote', $output, $return);
 			} else {
-				$line = is_array($output) ? implode('; ', $output) : '' . $output;
-				Minz_Log::warning('git fetch warning:' . $line);
+				$line = is_array($output) ? implode('; ', $output) : $output;
+				Minz_Log::warning('git fetch warning: ' . $line);
 			}
 		} catch (Exception $e) {
-			Minz_Log::warning('git fetch error:' . $e->getMessage());
+			Minz_Log::warning('git fetch error: ' . $e->getMessage());
 		}
 		chdir($cwd);
-		$line = is_array($output) ? implode('; ', $output) : '' . $output;
-		return strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false;
+		$line = is_array($output) ? implode('; ', $output) : $output;
+		return $line == '' ||
+			strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false || strpos($line, '[gone') !== false;
 	}
 
 	public static function gitPull() {
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
-		$output = '';
+		$output = [];
 		$return = 1;
 		try {
-			exec('git fetch', $output, $return);
+			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
+				$output = [];
 				exec('git reset --hard FETCH_HEAD', $output, $return);
 			}
+
+			$output = [];
+			self::migrateToGitEdge();
 		} catch (Exception $e) {
-			Minz_Log::warning('Git error:' . $e->getMessage());
-			if ($output == '') {
+			Minz_Log::warning('Git error: ' . $e->getMessage());
+			if (empty($output)) {
 				$output = $e->getMessage();
 			}
 			$return = 1;
 		}
 		chdir($cwd);
-		deleteInstall();
-		$line = is_array($output) ? implode('; ', $output) : '' . $output;
+		$line = is_array($output) ? implode('; ', $output) : $output;
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
 
@@ -193,8 +234,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
-				Minz_Request::bad(_t('feedback.update.error', $res),
-				                  array('c' => 'update', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
 			$res = false;
@@ -220,8 +260,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 					'params' => array('post_conf' => true)
 				), true);
 			} else {
-				Minz_Request::bad(_t('feedback.update.error', $res),
-				                  array('c' => 'update', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		}
 	}

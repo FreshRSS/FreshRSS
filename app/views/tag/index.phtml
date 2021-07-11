@@ -3,8 +3,8 @@
 <div class="post">
 	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 
-	<h2><?= _t('sub.title.add_tag') ?></h2>
-		<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
+	<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
+		<legend><?= _t('sub.title.add_label') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="category"><?= _t('sub.tag.name') ?></label>
@@ -20,8 +20,9 @@
 		</div>
 	</form>
 
-	<h2><?= _t('sub.title.rename_tag') ?></h2>
+	
 	<form id="rename_tag" method="post" action="<?= _url('tag', 'rename') ?>" autocomplete="off">
+		<legend><?= _t('sub.title.rename_label') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="category"><?= _t('sub.tag.old_name') ?></label>
@@ -47,8 +48,8 @@
 		</div>
 	</form>
 
-	<h2><?= _t('sub.title.delete_tag') ?></h2>
 	<form id="delete_tag" method="post" action="<?= _url('tag', 'delete') ?>" autocomplete="off">
+		<legend><?= _t('sub.title.delete_label') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="category"><?= _t('sub.tag.name') ?></label>

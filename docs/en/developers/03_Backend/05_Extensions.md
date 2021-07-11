@@ -300,6 +300,12 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
+* the `getSystemConfiguration` method retrieves the extension configuration for the system.
+* the `setSystemConfiguration` method stores the extension configuration for the system.
+* the `removeSystemConfiguration` method removes the extension configuration for the system.
+* the `getUserConfiguration` method retrieves the extension configuration for the current user.
+* the `setUserConfiguration` method stores the extension configuration for the current user.
+* the `removeUserConfiguration` method removes the extension configuration for the current user.
 
 > Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it's highly recommended to let those unmodified.
 
@@ -327,15 +333,16 @@ The following events are available:
 * `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
-* `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks
-* `js_vars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated
-* `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
-* `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
-* `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+* `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks.
+* `freshrss_user_maintenance` (`function() -> none`): will be executed for each user during the `actualize_script`, useful to run some maintenance tasks on the user.
+* `js_vars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated.
+* `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
+* `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
+* `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
 * `nav_menu` (`function() -> string`): will be executed if the navigation was built.
-* `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation
-* `post_update` (`function(none) -> none`): **TODO** add documentation
-* `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation
+* `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
+* `post_update` (`function(none) -> none`): **TODO** add documentation.
+* `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation.
 
 ### Writing your own configure.phtml
 

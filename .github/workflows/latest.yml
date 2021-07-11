@@ -1,0 +1,12 @@
+name: Add latest tag to new release
+on:
+  release:
+    types: [published]
+
+jobs:
+  run:
+    name: Run local action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run latest-tag
+        uses: EndBug/latest-tag@6d22a6738f5c33059e3a8c6ca5dcf8eaf8a14599

@@ -33,7 +33,7 @@ return array(
 		'about' => '关于 FreshRSS',
 		'before_one_day' => '一天前',
 		'before_one_week' => '一周前',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => '收藏当前查询',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全屏视图',
 		'main_stream' => '首页',

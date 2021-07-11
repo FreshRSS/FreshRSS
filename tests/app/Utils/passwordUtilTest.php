@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_password_UtilTest extends PHPUnit\Framework\TestCase {
+class passwordUtilTest extends PHPUnit\Framework\TestCase {
 	public function testCheck() {
 		$password = '1234567';
 

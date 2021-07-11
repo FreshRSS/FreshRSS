@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
+	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>这里</a>。 也可从左侧菜单或主页的 ✚ 图标访问。',
 	'api' => array(
 		'documentation' => '复制以下地址，以供外部工具使用',
 		'title' => 'API',
@@ -33,8 +33,14 @@ return array(
 			'username' => 'HTTP 用户名',
 		),
 		'clear_cache' => '总是清除缓存',
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'content_action' => array(
+			'_' => '获取原文后的操作',
+			'append' => '添加在现有内容后部',
+			'prepend' => '添加在现有内容前部',
+			'replace' => '替换现有内容',
+		),
+		'css_cookie' => '获取原文时的 Cookies',
+		'css_cookie_help' => '例：<kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
 		'description' => '描述',
@@ -51,7 +57,7 @@ return array(
 			'clear_cache_help' => '清除该feed的缓存',
 			'reload_articles' => '重载文章',
 			'reload_articles_help' => '重新加载文章并获取完整内容',
-			'title' => 'Maintenance',	// TODO - Translation
+			'title' => '维护',
 		),
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
@@ -63,8 +69,8 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => '获取原文时的代理',
+		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd>）',
 		'selector_preview' => array(
 			'show_raw' => '显示源码',
 			'show_rendered' => '显示内容',
@@ -84,6 +90,8 @@ return array(
 		'title_add' => '添加订阅源',
 		'ttl' => '最小自动更新间隔',
 		'url' => '源地址',
+		'useragent' => '设置用于获取此源的 User Agent',
+		'useragent_help' => '例：<kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => '检查订阅源有效性',
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',
@@ -106,28 +114,28 @@ return array(
 		'title' => '导入/导出',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
+		'add' => '添加订阅源或分类',
+		'add_feed' => '添加订阅源',
 		'bookmark' => '订阅（FreshRSS 书签）',
 		'import_export' => '导入/导出',
+		'label_management' => '标签管理',
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',
-		'tag_management' => 'Tag management',	// TODO - Translation
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => '名称',
+		'new_name' => '新名称',
+		'old_name' => '旧名称',
 	),
 	'title' => array(
 		'_' => '订阅管理',
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_tag' => 'Add a tag',	// TODO - Translation
-		'delete_tag' => 'Delete a tag',	// TODO - Translation
+		'add' => '添加订阅源或分类',
+		'add_category' => '添加分类',
+		'add_feed' => '添加订阅源',
+		'add_label' => '添加标签',
+		'delete_label' => '删除标签',
 		'feed_management' => '订阅源管理',
-		'rename_tag' => 'Rename a tag',	// TODO - Translation
+		'rename_label' => '重命名标签',
 		'subscription_tools' => '订阅工具',
 	),
 );

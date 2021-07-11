@@ -19,7 +19,7 @@ if (COPY_SYSLOG_TO_STDERR) {
  * Build a directory path by concatenating a list of directory names.
  *
  * @param $path_parts a list of directory names
- * @return a string corresponding to the final pathname
+ * @return string corresponding to the final pathname
  */
 function join_path() {
 	$path_parts = func_get_args();
@@ -124,7 +124,7 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
-	return str_replace(' ', ' ',  //Espace fine insécable
+	return str_replace(' ', ' ',	//Espace fine insécable
 		number_format($n, $precision, '.', ' ')
 	);
 }
@@ -173,6 +173,7 @@ function customSimplePie($attributes = array()) {
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
+	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 
@@ -332,7 +333,7 @@ function listUsers() {
  *
  * Note a max_regstrations of 0 means there is no limit.
  *
- * @return true if number of users >= max registrations, false else.
+ * @return boolean true if number of users >= max registrations, false else.
  */
 function max_registrations_reached() {
 	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
@@ -349,7 +350,7 @@ function max_registrations_reached() {
  * objects. If you need a long-time configuration, please don't use this function.
  *
  * @param $username the name of the user of which we want the configuration.
- * @return a Minz_Configuration object, null if the configuration cannot be loaded.
+ * @return Minz_Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -358,8 +359,8 @@ function get_user_configuration($username) {
 	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
-		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
+			USERS_PATH . '/' . $username . '/config.php',
+			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
 		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
@@ -393,23 +394,6 @@ function cryptAvailable() {
 	return false;
 }
 
-function is_referer_from_same_domain() {
-	if (empty($_SERVER['HTTP_REFERER'])) {
-		return true;	//Accept empty referer while waiting for good support of meta referrer same-origin policy in browsers
-	}
-	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
-		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
-	$referer = parse_url($_SERVER['HTTP_REFERER']);
-	if (empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
-		return false;
-	}
-	//TODO: check 'scheme', taking into account the case of a proxy
-	if ((isset($host['port']) ? $host['port'] : 0) !== (isset($referer['port']) ? $referer['port'] : 0)) {
-		return false;
-	}
-	return true;
-}
-
 
 /**
  * Check PHP and its extensions are well-installed.
@@ -422,7 +406,6 @@ function check_install_php() {
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
 		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
-		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
 		'pcre' => extension_loaded('pcre'),
@@ -516,7 +499,7 @@ function recursive_unlink($dir) {
  * Remove queries where $get is appearing.
  * @param $get the get attribute which should be removed.
  * @param $queries an array of queries.
- * @return the same array whithout those where $get is appearing.
+ * @return array whithout queries where $get is appearing.
  */
 function remove_query_by_get($get, $queries) {
 	$final_queries = array();
@@ -551,30 +534,54 @@ const SHORTCUT_KEYS = [
 			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
 		];
 
-function validateShortcutList($shortcuts) {
-	$legacy = array(
-			'down' => 'ArrowDown', 'left' => 'ArrowLeft', 'page_down' => 'PageDown', 'page_up' => 'PageUp',
-			'right' => 'ArrowRight', 'up' => 'ArrowUp',
-		);
-	$upper = null;
-	$shortcuts_ok = array();
+function getNonStandardShortcuts($shortcuts) {
+	$standard = strtolower(implode(' ', SHORTCUT_KEYS));
 
-	foreach ($shortcuts as $key => $value) {
-		if ('' === $value) {
-			$shortcuts_ok[$key] = $value;
-		} elseif (in_array($value, SHORTCUT_KEYS)) {
-			$shortcuts_ok[$key] = $value;
-		} elseif (isset($legacy[$value])) {
-			$shortcuts_ok[$key] = $legacy[$value];
-		} else {	//Case-insensitive search
-			if ($upper === null) {
-				$upper = array_map('strtoupper', SHORTCUT_KEYS);
-			}
-			$i = array_search(strtoupper($value), $upper);
-			if ($i !== false) {
-				$shortcuts_ok[$key] = SHORTCUT_KEYS[$i];
-			}
+	$nonStandard = array_filter($shortcuts, function ($shortcut) use ($standard) {
+		if (false !== strpos($shortcut, ' ')) {
+			return true;
 		}
+		return !preg_match("/${shortcut}/i", $standard);
+	});
+
+	return $nonStandard;
+}
+
+function errorMessage($errorTitle, $error = '') {
+	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
+
+	$message = '';
+	$details = '';
+	// Prevent empty tags by checking if error isn not empty first
+	if ($error) {
+		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
+
+		// First line is the main message, other lines are the details
+		list($message, $details) = explode("\n", $error, 2);
+
+		$message = "<h2>{$message}</h2>";
+		$details = "<pre>{$details}</pre>";
 	}
-	return $shortcuts_ok;
+
+	return <<<MSG
+	<h1>{$errorTitle}</h1>
+	{$message}
+	{$details}
+	<h2>Check the logs</h2>
+	<p>FreshRSS logs are located in <code>./FreshRSS/data/users/*/log*.txt</code></p>
+	<p><em>N.B.:</em> A typical problem is wrong file permissions in the <code>./FreshRSS/data/</code> folder
+	so make sure the Web server can write there and in sub-directories.</p>
+	<h3>Common locations for additional logs</h3>
+	<p><em>N.B.:</em> Adapt names and paths according to your local setup.</p>
+	<ul>
+	<li>If using Docker: <code>docker logs -f freshrss</code></li>
+	<li>To check Web server logs on a Linux system using systemd: <code>journalctl -xeu apache2</code>
+	and if you are using php-fpm: <code>journalctl -xeu php-fpm</code></li>
+	<li>Otherwise, Web server logs are typically located in <code>/var/log/apache2/</code> or similar</li>
+	<li>System logs may also contain relevant information in <code>/var/log/syslog</code>, or if using systemd: <code>sudo journalctl -xe</code></li>
+	</ul>
+	<p>More logs can be generated by enabling <code>'environment' => 'development',</code> in <code>./FreshRSS/data/config.php</code></p>
+	<p>Running the feed update script (with the same user and PHP version as your Web server) might provide other hints, e.g.:
+		<code>sudo -u www-data /usr/bin/php ./FreshRSS/app/actualize_script.php</code></p>
+MSG;
 }

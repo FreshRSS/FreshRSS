@@ -42,9 +42,13 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function addTag($valuesTmp) {
-		$sql = 'INSERT INTO `_tag`(name, attributes) '
-		     . 'SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2 '	//TRIM() gives a text type hint to PostgreSQL
-		     . 'WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))';	//No category of the same name
+		// TRIM() gives a text type hint to PostgreSQL
+		// No category of the same name
+		$sql = <<<'SQL'
+INSERT INTO `_tag`(name, attributes)
+SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2
+WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
+SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
@@ -79,8 +83,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateTag($id, $valuesTmp) {
-		$sql = 'UPDATE `_tag` SET name=?, attributes=? WHERE id=? '
-		     . 'AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)';	//No category of the same name
+		// No category of the same name
+		$sql = <<<'SQL'
+UPDATE `_tag` SET name=?, attributes=? WHERE id=?
+AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)
+SQL;
+
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
@@ -149,7 +157,11 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateEntryTag($oldTagId, $newTagId) {
-		$sql = 'DELETE FROM `_entrytag` WHERE EXISTS (SELECT 1 FROM `_entrytag` AS e WHERE e.id_entry = `_entrytag`.id_entry AND e.id_tag = ? AND `_entrytag`.id_tag = ?)';
+		$sql = <<<'SQL'
+DELETE FROM `_entrytag` WHERE EXISTS (
+	SELECT 1 FROM `_entrytag` AS e
+	WHERE e.id_entry = `_entrytag`.id_entry AND e.id_tag = ? AND `_entrytag`.id_tag = ?)
+SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		if (!($stm && $stm->execute([$newTagId, $oldTagId]))) {
@@ -259,12 +271,19 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0]['count'];
 	}
 
-	public function countNotRead($id) {
+	public function countNotRead($id = null) {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` et '
 			 . 'INNER JOIN `_entry` e ON et.id_entry=e.id '
-			 . 'WHERE et.id_tag=? AND e.is_read=0';
+			 . 'WHERE e.is_read=0';
+		$values = null;
+
+		if (null !== $id) {
+			$sql .= ' AND et.id_tag=?';
+			$values = [$id];
+		}
+
 		$stm = $this->pdo->prepare($sql);
-		$values = array($id);
+
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		return $res[0]['count'];
@@ -321,6 +340,14 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$values = array();
 		if (is_array($entries) && count($entries) > 0) {
+			if (count($entries) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+				// Split a query with too many variables parameters
+				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+				foreach ($idsChunks as $idsChunk) {
+					$values += $this->getTagsForEntries($idsChunk);
+				}
+				return $values;
+			}
 			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
 			if (is_array($entries[0])) {
 				foreach ($entries as $entry) {

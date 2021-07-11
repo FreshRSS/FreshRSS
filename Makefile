@@ -61,16 +61,16 @@ test: bin/phpunit ## Run the test suite
 
 .PHONY: lint
 lint: bin/phpcs ## Run the linter on the PHP files
-	$(PHP) ./bin/phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+	$(PHP) ./bin/phpcs . -p -s
 
 .PHONY: lint-fix
 lint-fix: bin/phpcbf ## Fix the errors detected by the linter
-	$(PHP) ./bin/phpcbf . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+	$(PHP) ./bin/phpcbf . -p -s
 
 bin/phpunit:
 	mkdir -p bin/
-	wget -O bin/phpunit https://phar.phpunit.de/phpunit-7.5.9.phar
-	echo '5404288061420c3921e53dd3a756bf044be546c825c5e3556dea4c51aa330f69 bin/phpunit' | sha256sum -c - || rm bin/phpunit
+	wget -O bin/phpunit https://phar.phpunit.de/phpunit-9.5.2.phar
+	echo 'bcf913565bc60dfb5356cf67cbbccec1d8888dbd595b0fbb8343a5019342c67c bin/phpunit' | sha256sum -c - || rm bin/phpunit
 
 bin/phpcs:
 	mkdir -p bin/

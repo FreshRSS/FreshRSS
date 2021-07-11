@@ -24,6 +24,7 @@ class Minz_ModelPdo {
 	private function dbConnect() {
 		$db = Minz_Configuration::get('system')->db;
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
+		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_SILENT;
 		$dbServer = parse_url('db://' . $db['host']);
 		$dsn = '';
 		$dsnParams = empty($db['connection_uri_params']) ? '' : (';' . $db['connection_uri_params']);

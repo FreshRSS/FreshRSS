@@ -19,7 +19,6 @@ function notice($message) {
 session_cache_limiter('');
 ob_implicit_flush(false);
 ob_start();
-echo 'Results: ', "\n";	//Buffered
 
 $begin_date = date_create('now');
 
@@ -39,7 +38,11 @@ define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_sys
 notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
+echo 'Failed requirements!', "\n";
 performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+ob_clean();
+
+echo 'Results: ', "\n";	//Buffered
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with default user
@@ -69,6 +72,9 @@ foreach ($users as $user) {
 	}
 
 	FreshRSS_Auth::giveAccess();
+
+	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+
 	$app->init();
 	notice('FreshRSS actualize ' . $user . '...');
 	echo $user, ' ';	//Buffered

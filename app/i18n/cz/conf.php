@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobrazit jen nepřečtené',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
 		'sort' => array(
 			'_' => 'Řazení',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'Pomocí přepínače <kbd>⇧ Shift</kbd> fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače <kbd>Alt ⎇</kbd> fungují v rámci kategorií.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Skočit na další článek',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
 		'other_action' => 'Ostatní akce',
 		'previous_article' => 'Skočit na předchozí článek',

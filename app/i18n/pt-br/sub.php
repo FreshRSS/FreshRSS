@@ -33,6 +33,12 @@ return array(
 			'username' => 'Usuário HTTP',
 		),
 		'clear_cache' => 'Sempre limpar o cache',
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',	// TODO - Translation
+			'append' => 'Add after existing content',	// TODO - Translation
+			'prepend' => 'Add before existing content',	// TODO - Translation
+			'replace' => 'Replace existing content',	// TODO - Translation
+		),
 		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => 'Retorna RSS feeds truncados (atenção, requer mais tempo!)',
@@ -84,6 +90,8 @@ return array(
 		'title_add' => 'Adicionar o RSS feed',
 		'ttl' => 'Não atualize automaticamente mais que',
 		'url' => 'URL do Feed',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'Verifique a validade do feed',
 		'website' => 'URL do site',
 		'websub' => 'Notificação instantânea com WebSub',
@@ -110,9 +118,9 @@ return array(
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => 'Inscreva-se (FreshRSS favoritos)',
 		'import_export' => 'Importar / exportar',
+		'label_management' => 'Label management',	// TODO - Translation
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',
-		'tag_management' => 'Tag management',	// TODO - Translation
 	),
 	'tag' => array(
 		'name' => 'Name',	// TODO - Translation
@@ -124,10 +132,10 @@ return array(
 		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_tag' => 'Add a tag',	// TODO - Translation
-		'delete_tag' => 'Delete a tag',	// TODO - Translation
+		'add_label' => 'Add a label',	// TODO - Translation
+		'delete_label' => 'Delete a label',	// TODO - Translation
 		'feed_management' => 'Gerenciamento dos RSS feeds',
-		'rename_tag' => 'Rename a tag',	// TODO - Translation
+		'rename_label' => 'Rename a label',	// TODO - Translation
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 );

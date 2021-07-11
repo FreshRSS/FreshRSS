@@ -51,7 +51,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the list of sharing options.
-	 * @return an array of FreshRSS_Share objects.
+	 * @return array[FreshRSS_Share]
 	 */
 	public static function enum() {
 		return self::$list_sharing;
@@ -97,8 +97,7 @@ class FreshRSS_Share {
 	 * @param $help_url is an optional url to give help on this option.
 	 * @param $method defines the sharing method (GET or POST)
 	 */
-	private function __construct($type, $url_transform, $transform,
-	                             $form_type, $help_url, $method, $field) {
+	private function __construct($type, $url_transform, $transform, $form_type, $help_url, $method, $field) {
 		$this->type = $type;
 		$this->name = _t('gen.share.' . $type);
 		$this->url_transform = $url_transform;
@@ -256,7 +255,7 @@ class FreshRSS_Share {
 	 * Transform a data with the given functions.
 	 * @param $data the data to transform.
 	 * @param $tranform an array containing a list of functions to apply.
-	 * @return the transformed data.
+	 * @return mixed the transformed data.
 	 */
 	private static function transform($data, $transform) {
 		if (!is_array($transform) || empty($transform)) {

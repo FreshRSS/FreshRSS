@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Mercés de verificar que modificatz pas vòstre HTTP REFERER.',
-			'ok' => 'Lo HTTP REFERER es conegut e sembla correspondre a vòstre servidor.',
-		),
 		'json' => array(
 			'nok' => 'Impossible de trobar l’extension recomandada JSON (paquet php-json).',
 			'ok' => 'Avètz l’exension recomandada JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
 			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Avètz pas la bibliotèca Minz.',
-			'ok' => 'Avètz la bibliotèca Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
@@ -90,9 +82,9 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Las permissions sul repertòri temporari son bonas.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'desconegut',
 		'users' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Causissètz la lenga per FreshRSS',
 		'defined' => 'La lenga es corrèctament definida.',
 	),
-	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'L’installacion s’es corrèctament passada.',
+	'session' => array(
+		'nok' => 'Sembla que lo servidor web siá pas corrèctament configurat pels cookies per las sessions PHP !',
+	),
 	'step' => 'etapa %d',
 	'steps' => 'Etapas',
 	'this_is_the_end' => 'Es la fin',

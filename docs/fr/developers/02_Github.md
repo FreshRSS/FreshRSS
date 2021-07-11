@@ -30,7 +30,7 @@ pas cet aspect "social" !
     français :)
  5. Merci de bien vouloir suivre les quelques conseils donnés plus bas pour
     faciliter la prise en compte de votre ticket.
- 
+
 ## De façon informelle
 
 Tout le monde n'aime pas ou n'utilise pas GitHub pour des raisons aussi
@@ -104,9 +104,10 @@ Pensez à donner les informations suivantes si vous les connaissez :
     version ?
  5. Quelle distribution sur le serveur ? Et… quelle version ?
 
-# Système de branches
+## Système de branches
 
-## Élémentaire
+### Élémentaire
+
 Si vous êtes novice dans Git, voici quelques ressources qui pourraient vous
 être utiles :
 
@@ -115,33 +116,38 @@ Si vous êtes novice dans Git, voici quelques ressources qui pourraient vous
 * <http://sixrevisions.com/resources/git-tutorials-beginners/>
 * <http://rogerdudler.github.io/git-guide/>
 
-## Obtenir le dernier code du répertoire FreshRSS
+### Obtenir le dernier code du répertoire FreshRSS
+
 Vous devez avant tout ajouter le repo officiel à votre liste de repo remote
 :
-```bash
+
+```sh
 git remote add upstream git@github.com:FreshRSS/FreshRSS.git
 ```
 
 Vous pouvez vérifier que le repo remote a été ajouté avec succès en
 utilisant :
-```bash
+
+```sh
 git remote -v show
 ```
 
 Vous pouvez maintenant pull le dernier code de développement :
-```bash
-git checkout master
-git pull upstream master
+
+```sh
+git checkout edge
+git pull upstream edge
 ```
 
-## Lancer une nouvelle branche de développement
-```bash
+### Lancer une nouvelle branche de développement
+
+```sh
 git checkout -b mon-branch-developpement
 ```
 
-# Proposer un patch
+## Proposer un patch
 
-```bash
+```sh
 # Ajoutez le fichier modifié, ici actualize_script.php
 git add app/actualize_script.php
 # Commitez le changement et écrivez un message de commit approprié.
@@ -154,7 +160,7 @@ git push
 
 Vous pouvez maintenant créer une PR en fonction de votre branche.
 
-## Comment écrire un message de commit
+### Comment écrire un message de commit
 
 Un message de commit devrait décrire succinctement les changements sur la
 première ligne. Par exemple :

@@ -60,10 +60,6 @@ return array(
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
 			'ok' => 'Dispones de la librería fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Por favor, comprueba que no estás alterando tu configuración HTTP REFERER.',
-			'ok' => 'La configuración HTTP REFERER es conocida y se corresponde con la de tu servidor.',
-		),
 		'json' => array(
 			'nok' => 'No se ha podido localizar la librería para procesar JSON.',
 			'ok' => 'Dispones de la librería recomendada para procesar JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'No se ha podido localizar el entorno Minz.',
-			'ok' => 'Dispones del entorno Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'No se ha podido encontrar la librería necesaria para las expresiones regulares (php-pcre).',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Selecciona el idioma para FreshRSS',
 		'defined' => 'Idioma seleccionado.',
 	),
-	'not_deleted' => 'Parece que ha habido un error. Debes eliminar el archivo <em>%s</em> de forma manual.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'La instalación se ha completado correctamente.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'paso %d',
 	'steps' => 'Pasos',
 	'this_is_the_end' => '¡Terminamos!',

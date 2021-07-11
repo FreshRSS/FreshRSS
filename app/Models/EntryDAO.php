@@ -18,6 +18,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'hex(' . $x . ')';
 	}
 
+	public function sqlIgnoreConflict($sql) {
+		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
+	}
+
 	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function createEntryTempTable() {
 		$ok = false;
@@ -83,14 +87,15 @@ SQL;
 
 	public function addEntry($valuesTmp, $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
-			$sql = 'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
+			$sql = $this->sqlIgnoreConflict(
+				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. ($this->isCompressed() ? 'content_bin' : 'content')
 				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
 				. $this->sqlHexDecode(':hash')
-				. ', :is_read, :is_favorite, :id_feed, :tags)';
+				. ', :is_read, :is_favorite, :id_feed, :tags)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared) {
@@ -182,45 +187,48 @@ SQL;
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
 				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
-				. ', link=:link, date=:date, `lastSeen`=:last_seen, '
-				. 'hash=' . $this->sqlHexDecode(':hash')
-				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
-				. 'tags=:tags '
+				. ', link=:link, date=:date, `lastSeen`=:last_seen'
+				. ', hash=' . $this->sqlHexDecode(':hash')
+				. ', is_read=COALESCE(:is_read, is_read)'
+				. ', tags=:tags '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
+		if ($this->updateEntryPrepared) {
+			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
+			$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
+			$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
+			$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
+			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
+			$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
+			$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
+			$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
+			$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
+			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
+			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
+			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
+			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+			$valuesTmp['lastSeen'] = time();
+			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			if ($valuesTmp['is_read'] === null) {
+				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
+			}
+			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
+			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
+			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
-		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
-		$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
-		$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-		$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
-		$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
-		$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
-		$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
-		$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
-		$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
-		$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
-		$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
-		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
-		$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
-		$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
-		$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
-		$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-		$valuesTmp['lastSeen'] = time();
-		$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-		if ($valuesTmp['is_read'] !== null) {
-			$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
-		}
-		$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-		$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
-		$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
-		$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
-
-		if ($this->hasNativeHex()) {
-			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
-		} else {
-			$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
-			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			if ($this->hasNativeHex()) {
+				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+			} else {
+				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
+				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			}
 		}
 
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute()) {
@@ -254,6 +262,15 @@ SQL;
 			return 0;
 		}
 		FreshRSS_UserDAO::touch();
+		if (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$affected = 0;
+			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			foreach ($idsChunks as $idsChunk) {
+				$affected += $this->markFavorite($idsChunk, $is_favorite);
+			}
+			return $affected;
+		}
 		$sql = 'UPDATE `_entry` '
 			. 'SET is_favorite=? '
 			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
@@ -334,6 +351,14 @@ SQL;
 				$affected = 0;
 				foreach ($ids as $id) {
 					$affected += $this->markRead($id, $is_read);
+				}
+				return $affected;
+			} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+				// Split a query with too many variables parameters
+				$affected = 0;
+				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+				foreach ($idsChunks as $idsChunk) {
+					$affected += $this->markRead($idsChunk, $is_read);
 				}
 				return $affected;
 			}
@@ -573,14 +598,14 @@ SQL;
 		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
 			//Double SELECT for MySQL workaround ERROR 1093 (HY000)
 			$sql .= ' AND `lastSeen` < (SELECT `lastSeen`'
-			      . ' FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
-			      . ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)';
+				. ' FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
+				. ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)';
 			$params[':id_feed2'] = $id_feed;
 			$params[':keep_min'] = (int)$options['keep_min'];
 		}
 		//Keep at least the articles seen at the last refresh
 		$sql .= ' AND `lastSeen` < (SELECT maxlastseen'
-		      . ' FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)';
+			. ' FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)';
 		$params[':id_feed3'] = $id_feed;
 
 		//==Inclusions==
@@ -593,8 +618,8 @@ SQL;
 		}
 		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
 			$sql .= ' OR `lastSeen` <= (SELECT `lastSeen`'
-			      . ' FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
-			      . ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)';
+				. ' FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
+				. ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)';
 			$params[':id_feed4'] = $id_feed;
 			$params[':keep_max'] = (int)$options['keep_max'];
 		}
@@ -665,7 +690,8 @@ SQL;
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	protected function sqlListEntriesWhere($alias = '', $filters = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
+	protected function sqlListEntriesWhere($alias = '', $filters = null, $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $firstId = '', $date_min = 0) {
 		$search = ' ';
 		$values = array();
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
@@ -826,13 +852,15 @@ SQL;
 
 				if ($filter->getSearch()) {
 					foreach ($filter->getSearch() as $search_value) {
-						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
+						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title',
+							$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
 						$values[] = "%{$search_value}%";
 					}
 				}
 				if ($filter->getNotSearch()) {
 					foreach ($filter->getNotSearch() as $search_value) {
-						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title',
+							$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
 						$values[] = "%{$search_value}%";
 					}
 				}
@@ -854,7 +882,8 @@ SQL;
 		return array($values, $search);
 	}
 
-	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -912,7 +941,8 @@ SQL;
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
+	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
@@ -934,7 +964,8 @@ SQL;
 		}
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
+	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -948,6 +979,15 @@ SQL;
 	public function listByIds($ids, $order = 'DESC') {
 		if (count($ids) < 1) {
 			yield false;
+		} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			foreach ($idsChunks as $idsChunk) {
+				foreach ($this->listByIds($idsChunk, $order) as $entry) {
+					yield $entry;
+				}
+			}
+			return;
 		}
 
 		$sql = 'SELECT id, guid, title, author, '
@@ -964,7 +1004,8 @@ SQL;
 		}
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
+	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
 		$stm = $this->pdo->prepare($sql);
@@ -974,16 +1015,24 @@ SQL;
 	}
 
 	public function listHashForFeedGuids($id_feed, $guids) {
+		$result = [];
 		if (count($guids) < 1) {
-			return array();
+			return $result;
+		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			foreach ($guidsChunks as $guidsChunk) {
+				$result += $this->listHashForFeedGuids($id_feed, $guidsChunk);
+			}
+			return $result;
 		}
 		$guids = array_unique($guids);
-		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') . ' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') .
+			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id_feed);
 		$values = array_merge($values, $guids);
 		if ($stm && $stm->execute($values)) {
-			$result = array();
 			$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($rows as $row) {
 				$result[$row['guid']] = $row['hex_hash'];
@@ -1003,6 +1052,14 @@ SQL;
 	public function updateLastSeen($id_feed, $guids, $mtime = 0) {
 		if (count($guids) < 1) {
 			return 0;
+		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			// Split a query with too many variables parameters
+			$affected = 0;
+			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			foreach ($guidsChunks as $guidsChunk) {
+				$affected += $this->updateLastSeen($id_feed, $guidsChunk, $mtime);
+			}
+			return $affected;
 		}
 		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->pdo->prepare($sql);

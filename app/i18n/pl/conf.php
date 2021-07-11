@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Tylko nieprzeczytane',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
 		'sort' => array(
 			'_' => 'Porządek sortowania',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'Z wykorzystaniem modyfikatora <kbd>⇧ Shift</kbd> skróty nawigacyjne stosowane są dla kanałów.<br/>Z wykorzystaniem modyfikatora <kbd>Alt ⎇</kbd> skróty nawigacyjne stosowane są dla kategorii.',
 		'navigation_no_mod_help' => 'Pozostałe skróty nawigacyjne nie wspierają modyfikatorów.',
 		'next_article' => 'Otworzenie następnej wiadomości',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Przełączenie na widok normalny',
 		'other_action' => 'Inne akcje',
 		'previous_article' => 'Otworzenie poprzedniej wiadomości',

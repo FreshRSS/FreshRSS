@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
 			'ok' => 'You have the fileinfo library.',	// TODO - Translation
 		),
-		'http_referer' => array(
-			'nok' => 'Please check that you are not altering your HTTP REFERER.',	// TODO - Translation
-			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',	// TODO - Translation
-		),
 		'json' => array(
 			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
 			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Cannot find the Minz framework.',	// TODO - Translation
-			'ok' => 'You have the Minz framework.',	// TODO - Translation
 		),
 		'pcre' => array(
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',	// TODO - Translation
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Choose a language for FreshRSS',	// TODO - Translation
 		'defined' => 'Language has been defined.',	// TODO - Translation
 	),
-	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'The installation process was successful.',	// TODO - Translation
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'step %d',	// TODO - Translation
 	'steps' => 'Steps',	// TODO - Translation
 	'this_is_the_end' => 'This is the end',	// TODO - Translation

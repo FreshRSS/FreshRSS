@@ -42,10 +42,10 @@
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
-			<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute': '' ?>"
-			    draggable="true"
-			    data-feed-id="<?= $feed->id() ?>"
-			    dropzone="move">
+			<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
+				draggable="true"
+				data-feed-id="<?= $feed->id() ?>"
+				dropzone="move">
 				<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
 				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 				<?= $feed->name() ?>

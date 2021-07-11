@@ -44,7 +44,9 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
 				</a>
 				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+						<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" />
+					<?php endif; ?>
 					<span><?= $feed->name() ?></span>
 				</a>
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $item->link() ?>"><?= $item->title() ?></a></h1>
@@ -57,7 +59,9 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 							$first = false;
 				?>
-<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])) ?>"><?= $author ?></a></em>
+<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
+		['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])
+	) ?>"><?= $author ?></a></em>
 				<?php
 						endforeach;
 						echo ' — ';
@@ -78,6 +82,6 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 ?>
 <div id="stream" class="prompt alert alert-warn reader">
 	<h2><?= _t('index.feed.empty') ?></h2>
-	<a href="<?= _url('subscription', 'index') ?>"><?= _t('index.feed.add') ?></a><br /><br />
+	<a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </div>
 <?php endif; ?>

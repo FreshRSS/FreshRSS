@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
 			'ok' => 'You have the fileinfo library.',
 		),
-		'http_referer' => array(
-			'nok' => 'Please check that you are not altering your HTTP REFERER.',
-			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',
-		),
 		'json' => array(
 			'nok' => 'Cannot find the recommended library to parse JSON.',
 			'ok' => 'You have the recommended library to parse JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
 			'ok' => 'You have the recommended library mbstring for Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Cannot find the Minz framework.',
-			'ok' => 'You have the Minz framework.',
 		),
 		'pcre' => array(
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Choose a language for FreshRSS',
 		'defined' => 'Language has been defined.',
 	),
-	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',
 	'ok' => 'The installation process was successful.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',
+	),
 	'step' => 'step %d',
 	'steps' => 'Steps',
 	'this_is_the_end' => 'This is the end',

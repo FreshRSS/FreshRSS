@@ -1,13 +1,46 @@
 <?php
-if (!isset($_GET['f']) ||
-		!isset($_GET['t'])) {
-	header('HTTP/1.1 400 Bad Request');
-	die();
-}
 
 require(__DIR__ . '/../constants.php');
 
-function is_valid_path_extension($path, $extensionPath) {
+// Supported types with their associated content type
+const SUPPORTED_TYPES = [
+	'css' => 'text/css; charset=UTF-8',
+	'js' => 'application/javascript; charset=UTF-8',
+	'png' => 'image/png',
+	'jpeg' => 'image/jpeg',
+	'jpg' => 'image/jpeg',
+	'gif' => 'image/gif',
+	'svg' => 'image/svg+xml',
+];
+
+/**
+ * @return string
+ */
+function get_absolute_filename(string $file_name) {
+	$core_extension = realpath(CORE_EXTENSIONS_PATH . '/' . $file_name);
+	if (false !== $core_extension) {
+		return $core_extension;
+	}
+
+	$extension = realpath(EXTENSIONS_PATH . '/' . $file_name);
+	if (false !== $extension) {
+		return $extension;
+	}
+
+	$third_party_extension = realpath(THIRDPARTY_EXTENSIONS_PATH . '/' . $file_name);
+	if (false !== $third_party_extension) {
+		return $third_party_extension;
+	}
+
+	$user = realpath(USERS_PATH . '/' . $file_name);
+	if (false !== $user) {
+		return $user;
+	}
+
+	return '';
+}
+
+function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
 	// It must be under the extension path.
 	$real_ext_path = realpath($extensionPath);
 
@@ -20,10 +53,15 @@ function is_valid_path_extension($path, $extensionPath) {
 		return false;
 	}
 
-	// File to serve must be under a `ext_dir/static/` directory.
+	// User files do not need further validations
+	if (!$isStatic) {
+		return true;
+	}
+
+	// Static files to serve must be under a `ext_dir/static/` directory.
 	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
-	$path_splitted = explode('/', $path_relative_to_ext);
-	if (count($path_splitted) < 3 || $path_splitted[1] !== 'static') {
+	list(,$static,$file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s');
+	if (null === $file || 'static' !== $static) {
 		return false;
 	}
 
@@ -41,54 +79,43 @@ function is_valid_path_extension($path, $extensionPath) {
  *
  */
 function is_valid_path($path) {
-	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH);
+	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH)
+		|| is_valid_path_extension($path, USERS_PATH, $false);
+}
+
+function sendBadRequestResponse(string $message = null) {
+	header('HTTP/1.1 400 Bad Request');
+	die($message);
+}
+
+function sendNotFoundResponse() {
+	header('HTTP/1.1 404 Not Found');
+	die();
+}
+
+if (!isset($_GET['f']) ||
+	!isset($_GET['t'])) {
+	sendBadRequestResponse('Query string is incomplete.');
 }
 
 $file_name = urldecode($_GET['f']);
 $file_type = $_GET['t'];
+if (empty(SUPPORTED_TYPES[$file_type])) {
+	sendBadRequestResponse('File type is not supported.');
+}
 
-$absolute_filename = realpath(EXTENSIONS_PATH . '/' . $file_name);
-
+$absolute_filename = get_absolute_filename($file_name);
 if (!is_valid_path($absolute_filename)) {
-	header('HTTP/1.1 400 Bad Request');
-	die();
+	sendBadRequestResponse('File is not supported.');
 }
 
-switch ($file_type) {
-case 'css':
-	header('Content-Type: text/css; charset=UTF-8');
-	header('Content-Disposition: inline; filename="' . $file_name . '"');
-	break;
-case 'js':
-	header('Content-Type: application/javascript; charset=UTF-8');
-	header('Content-Disposition: inline; filename="' . $file_name . '"');
-	break;
-case 'png':
-	header('Content-Type: image/png');
-	header('Content-Disposition: inline; filename="' . $file_name . '"');
-	break;
-case 'jpeg':
-case 'jpg':
-	header('Content-Type: image/jpeg');
-	header('Content-Disposition: inline; filename="' . $file_name . '"');
-	break;
-case 'gif':
-	header('Content-Type: image/gif');
-	header('Content-Disposition: inline; filename="' . $file_name . '"');
-	break;
-case 'svg':
-	header('Content-Type: image/svg+xml');
-	header('Content-Disposition: inline; filename="' . $file_name . '"');
-	break;
-default:
-	header('HTTP/1.1 400 Bad Request');
-	die();
-}
+$content_type = SUPPORTED_TYPES[$file_type];
+header("Content-Type: {$content_type}");
+header("Content-Disposition: inline; filename='{$file_name}'");
 
 $mtime = @filemtime($absolute_filename);
 if ($mtime === false) {
-	header('HTTP/1.1 404 Not Found');
-	die();
+	sendNotFoundResponse();
 }
 
 require(LIB_PATH . '/http-conditional.php');

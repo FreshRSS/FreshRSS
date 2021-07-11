@@ -17,8 +17,7 @@ class Minz_Configuration {
 	 * @param $default_filename a filename containing default values for the configuration
 	 * @param $configuration_setter an optional helper to set values in configuration
 	 */
-	public static function register($namespace, $config_filename, $default_filename = null,
-	                                $configuration_setter = null) {
+	public static function register($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		self::$config_list[$namespace] = new Minz_Configuration(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
@@ -44,7 +43,7 @@ class Minz_Configuration {
 	 * Return the configuration related to a given namespace.
 	 *
 	 * @param $namespace the name of the configuration to get.
-	 * @return a Minz_Configuration object
+	 * @return Minz_Configuration object
 	 * @throws Minz_ConfigurationNamespaceException if the namespace does not exist.
 	 */
 	public static function get($namespace) {
@@ -103,8 +102,7 @@ class Minz_Configuration {
 	 * @param $default_filename the file containing default values, null by default.
 	 * @param $configuration_setter an optional helper to set values in configuration
 	 */
-	private function __construct($namespace, $config_filename, $default_filename = null,
-	                             $configuration_setter = null) {
+	private function __construct($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 		$this->default_filename = $default_filename;
@@ -141,11 +139,20 @@ class Minz_Configuration {
 	}
 
 	/**
+	 * Check if a parameter is defined in the configuration
+	 *
+	 * @return bool
+	 */
+	public function hasParam(string $key) {
+		return isset($this->data[$key]);
+	}
+
+	/**
 	 * Return the value of the given param.
 	 *
 	 * @param $key the name of the param.
 	 * @param $default default value to return if key does not exist.
-	 * @return the value corresponding to the key.
+	 * @return mixed value corresponding to the key.
 	 * @throws Minz_ConfigurationParamException if the param does not exist
 	 */
 	public function param($key, $default = null) {
@@ -197,8 +204,7 @@ class Minz_Configuration {
 		@rename($this->config_filename, $back_filename);
 
 		if (file_put_contents($this->config_filename,
-		                      "<?php\nreturn " . var_export($this->data, true) . ';',
-		                      LOCK_EX) === false) {
+			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX) === false) {
 			return false;
 		}
 

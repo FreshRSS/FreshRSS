@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO - Translation
 		'sort' => array(
 			'_' => 'סדר המיון',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'בעזרת מקש השיפט קיצורי דרך חלים על הזנות .<br/>עם מקש האלט הם חלים על קטגוריות.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'דילוג למאמר הבא',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
 		'other_action' => 'פעולות אחרות',
 		'previous_article' => 'דילוג למאמר הקודם',

@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Não foi possível encontrar a biblioteca fileinfo do PHP (fileinfo).',
 			'ok' => 'Você tem a biblioteca fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Por favor verifique se você não está alterando o cabeçalho HTTP REFERER.',
-			'ok' => 'O cabeçalho HTTP REFERER é conhecido e corresponde ao seu servidor.',
-		),
 		'json' => array(
 			'nok' => 'Não foi possível encontrar JSON (php-json).',
 			'ok' => 'Você tem a extensão JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca recomendada para o Unicode (mbstring).',
 			'ok' => 'Você tem a biblioteca recomendada para o Unicode (mbstring).',
-		),
-		'minz' => array(
-			'nok' => 'Não foi possível encontrar o framework Minz.',
-			'ok' => 'Você tem o framework Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessário para expressões regulares (php-pcre).',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Escolha o idioma para o FreshRSS',
 		'defined' => 'O idioma foi definido.',
 	),
-	'not_deleted' => 'Algo deu errado; você deve deletar o arquivo <em>%s</em> manualmente.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'O processo de instalação foi um sucesso.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'passo %d',
 	'steps' => 'Passos',
 	'this_is_the_end' => 'Este é o final',

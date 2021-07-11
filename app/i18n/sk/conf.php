@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => 'Zobraziť iba neprečítané',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
 		'sort' => array(
 			'_' => 'Poradie',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'Po stlačení skratky s klávesou <kbd>⇧ Shift</kbd>, sa skratky navigácie vzťahujú na kanály.<br/>Po stlačení skratky s klávesou <kbd>Alt ⎇</kbd>, sa skratky navigácie vzťahujú na kategórie.',
 		'navigation_no_mod_help' => 'Tieto skratky navigácie nepodporujú klávesy "Shift" a "Alt".',
 		'next_article' => 'Otvorí ďalší článok',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Prepne do základného zobrazenia',
 		'other_action' => 'Ostatné akcie',
 		'previous_article' => 'Otvorí predošlý článok',

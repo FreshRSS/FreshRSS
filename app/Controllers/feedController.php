@@ -24,7 +24,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Error::error(403);
 			}
 		}
-		$this->updateTTL();
 	}
 
 	/**
@@ -33,7 +32,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 * @param int $cat_id
 	 * @param string $new_cat_name
 	 * @param string $http_auth
-	 * @return FreshRSS_Feed|the
+	 * @return FreshRSS_Feed
 	 * @throws FreshRSS_AlreadySubscribed_Exception
 	 * @throws FreshRSS_FeedNotAdded_Exception
 	 * @throws FreshRSS_Feed_Exception
@@ -150,8 +149,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
-			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']),
-			                  $url_redirect);
+			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']), $url_redirect);
 		}
 
 		if (Minz_Request::isPost()) {
@@ -166,15 +164,26 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$http_auth = $user . ':' . $pass;
 			}
 
+			$useragent = Minz_Request::param('curl_params_useragent', '');
+			$proxy_address = Minz_Request::param('curl_params', '');
+			$proxy_type = Minz_Request::param('proxy_type', '');
+			$opts = [];
+			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+				$opts[CURLOPT_PROXY] = $proxy_address;
+				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
+			}
+			if ($useragent !== '') {
+				$opts[CURLOPT_USERAGENT] = $useragent;
+			}
+
 			$attributes = array(
 				'ssl_verify' => null,
 				'timeout' => null,
+				'curl_params' => empty($opts) ? null : $opts,
 			);
-			if (FreshRSS_Auth::hasAccess('admin')) {
-				$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
-				$timeout = intval(Minz_Request::param('timeout', 0));
-				$attributes['timeout'] = $timeout > 0 ? $timeout : null;
-			}
+			$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
+			$timeout = intval(Minz_Request::param('timeout', 0));
+			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
 			try {
 				$feed = self::addFeed($url, '', $cat, null, $http_auth, $attributes);
@@ -338,6 +347,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
+				if ($e->getCode() === 410) {
+					// HTTP 410 Gone
+					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
+					$feedDAO->mute($feed->id(), true);
+				}
 				$feed->unlock();
 				continue;
 			}
@@ -366,7 +380,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					}
 					$newGuids[$entry->guid()] = true;
 
-					$entry_date = $entry->date(true);
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
 						if (strcasecmp($existingHash, $entry->hash()) === 0) {
@@ -386,6 +399,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 								// An extension has returned a null value, there is nothing to insert.
 								continue;
 							}
+
+							// If the entry has changed, there is a good chance for the full content to have changed as well.
+							$entry->loadCompleteContent(true);
 
 							if (!$entryDAO->inTransaction()) {
 								$entryDAO->beginTransaction();
@@ -748,10 +764,18 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
+		//TODO: Parameter to limit the number of articles to reload
 
-		//We need another DB connection in parallel
+		//We need another DB connection in parallel for unbuffered streaming
 		Minz_ModelPdo::$usesSharedPdo = false;
-		$entryDAO2 = FreshRSS_Factory::createEntryDao();
+		if (FreshRSS_Context::$system_conf->db['type'] === 'mysql') {
+			// Second parallel connection for unbuffered streaming: MySQL
+			$entryDAO2 = FreshRSS_Factory::createEntryDao();
+		} else {
+			// Single connection for buffered queries (in memory): SQLite, PostgreSQL
+			//TODO: Consider an unbuffered query for PostgreSQL
+			$entryDAO2 = $entryDAO;
+		}
 
 		foreach ($entries as $entry) {
 			if ($entry->loadCompleteContent(true)) {

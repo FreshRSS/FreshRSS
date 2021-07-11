@@ -2,11 +2,13 @@
 
 So you want to propose a patch to the community? It's time to open a [pull request](https://github.com/FreshRSS/FreshRSS/pulls)!
 
-When you open a PR, your message will be prefilled with a message based on [a template](https://github.com/FreshRSS/FreshRSS/blob/master/docs/pull_request_template.md). It contains a checklist to make sure you didn't forget anything. It is very important to verify you did everything mentioned so documentation is up-to-date, the commit history stays clear and the code is always stable.
+When you open a PR, your message will be prefilled with a message based on [a template](https://github.com/FreshRSS/FreshRSS/blob/edge/docs/pull_request_template.md). It contains a checklist to make sure you didn't forget anything. It is very important to verify you did everything mentioned so documentation is up-to-date, the commit history stays clear and the code is always stable.
 
 The rest of this document explains specific points.
 
-## How to rebase your branch on `master`
+## How to rebase your branch on `edge`
+
+**TODO:** Update this section. With GitHub’s *squash and merge*, rebasing (and other forms of history rewriting) is more dangerous and annoying (e.g. breaking review mechanism) than useful.
 
 Rebasing a branch is useful to make sure your code is based on the most recent version of FreshRSS and there are no conflicts. You have two ways to do that.
 
@@ -20,26 +22,26 @@ Note that you should never rebase a branch if someone else is working on it. Oth
 
 To rebase a branch:
 
-```console
-$ git checkout master      # go on master branch
-$ git pull upstream master # pull the last version of master
-$ git checkout -           # go back to your branch
-$ git rebase master        # rebase your branch on master
+```sh
+git checkout edge       # go on edge branch
+git pull upstream edge  # pull the last version of edge
+git checkout -          # go back to your branch
+git rebase edge         # rebase your branch on edge
 ```
 
-If you feel confident, you can use `git rebase -i master` to rewrite your history and make it clearer.
+If you feel confident, you can use `git rebase -i edge` to rewrite your history and make it clearer.
 
 ### Merging
 
-If you prefer, you can simply merge `master` into your own branch. Conflicts might be easier to resolve, but your Git history will be less readable. Don't worry, we'll take care of it before merging your PR back into `master`.
+If you prefer, you can simply merge `edge` into your own branch. Conflicts might be easier to resolve, but your Git history will be less readable. Don't worry, we'll take care of it before merging your PR back into `edge`.
 
-To merge `master`:
+To merge `edge`:
 
-```console
-$ git checkout master      # go on master branch
-$ git pull upstream master # pull the last version of master
-$ git checkout -           # go back to your branch
-$ git merge master         # merge master into your branch
+```sh
+git checkout edge       # go on edge branch
+git pull upstream edge  # pull the last version of edge
+git checkout -          # go back to your branch
+git merge edge          # merge edge into your branch
 ```
 
 ## How to write a Git commit message

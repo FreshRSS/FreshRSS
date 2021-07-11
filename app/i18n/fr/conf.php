@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Se souvenir des catégories dépliées',
 			'unread' => 'Afficher les non lus',
 		),
+		'show_fav_unread_help' => 'S’applique aussi aux étiquettes',
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'sort' => array(
 			'_' => 'Ordre de tri',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'Avec le modificateur <kbd>⇧ Maj</kbd>, les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur <kbd>Alt ⎇</kbd>, les raccourcis de navigation s’appliquent aux catégories.',
 		'navigation_no_mod_help' => 'Les raccourcis suivant ne supportent pas les modificateurs.',
 		'next_article' => 'Passer à l’article suivant',
+		'non_standard' => 'Certains raccourcis (<kbd>%s</kbd>) peuvent ne pas fonctionner.',
 		'normal_view' => 'Basculer vers la vue normale',
 		'other_action' => 'Autres actions',
 		'previous_article' => 'Passer à l’article précédent',

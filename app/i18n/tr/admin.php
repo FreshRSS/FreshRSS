@@ -67,12 +67,8 @@ return array(
 			'ok' => 'JSON eklentisi sorunsuz.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Minz framework eksik.',
-			'ok' => 'Minz framework sorunsuz.',
+			'nok' => 'Unicode için tavsiye edilen mbstring kütüphanesi bulunamadı.',
+			'ok' => 'Unicode için tavsiye edilen mbstring kütüphaneniz mevcut.',
 		),
 		'pcre' => array(
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
@@ -84,8 +80,8 @@ return array(
 		),
 		'php' => array(
 			'_' => 'PHP kurulumu',
-			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
-			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
+			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
+			'ok' => 'PHP sürümünüz %s, FreshRSS ile tam uyumlu.',
 		),
 		'tables' => array(
 			'nok' => 'Veritabanında bir veya daha fazla tablo eksik.',
@@ -106,23 +102,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Yazar',
+		'community' => 'Kullanılabilir topluluk eklentileri',
+		'description' => 'Açıklama',
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
 		'enabled' => 'Aktif',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Kuruldu',
+		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
 			'_' => 'Sistem eklentileri',
 			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 		),
 		'title' => 'Eklentiler',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Güncelleme mevcut',
 		'user' => 'Kullanıcı eklentileri',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Sürüm',
 	),
 	'stats' => array(
 		'_' => 'İstatistikler',
@@ -160,10 +156,10 @@ return array(
 		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => 'saniye',
+			'number' => 'Oturum açık kalma süresi',
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
+		'force_email_validation' => 'Email doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek isim',
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
@@ -182,27 +178,27 @@ return array(
 		'title' => 'Sistem güncelleme',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
+		'admin' => 'Yönetici',
+		'article_count' => 'Makaleler',
 		'articles_and_size' => '%s makale (%s)',
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'back_to_manage' => '← Kullanıcı listesine geri dön',
 		'create' => 'Yeni kullanıcı oluştur',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Veritabanı boyutu',
+		'delete_users' => 'Kuallnıcıyı sil',
+		'email' => 'Email adres',
+		'enabled' => 'Aktif',
+		'feed_count' => 'Akış',
+		'is_admin' => 'yöneticidir',
 		'language' => 'Dil',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
-		'number' => 'Oluşturulmuş %d hesap var',
-		'numbers' => 'Oluşturulmuş %d hesap var',
+		'last_user_activity' => 'Son kullanıcı hareketi',
+		'list' => 'Kullanıcı Listesi',
+		'number' => 'Oluşturulmuş %d hesap mevcut',
+		'numbers' => 'Oluşturulmuş %d hesap mevcut',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
-		'selected' => 'Selected user',	// TODO - Translation
+		'selected' => 'Seçili kullanıcı',
 		'title' => 'Kullanıcıları yönet',
-		'update_users' => 'Update user',	// TODO - Translation
+		'update_users' => 'Kullanıcıyı güncelle',
 		'user_list' => 'Kullanıcı listesi',
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',

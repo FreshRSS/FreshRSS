@@ -30,9 +30,7 @@ class Minz_Log {
 			}
 		}
 
-		if (! ($env === 'silent'
-		       || ($env === 'production'
-		       && ($level >= LOG_NOTICE)))) {
+		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
 			$username = Minz_Session::param('currentUser', '');
 			if ($username == '') {
 				$username = '_';
@@ -61,9 +59,7 @@ class Minz_Log {
 				$level_label = 'info';
 			}
 
-			$log = '[' . date('r') . ']'
-			     . ' [' . $level_label . ']'
-			     . ' --- ' . $information . "\n";
+			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
 
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
 				syslog($level, '[' . $username . '] ' . trim($log));

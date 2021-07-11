@@ -16,7 +16,8 @@
 
 		<div class="form-group">
 			<label for="new_user_name"><?= _t('gen.auth.username') ?></label>
-			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocapitalize="off" />
+			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off"
+				pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocapitalize="off" />
 			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.username.format') ?></p>
 		</div>
 
@@ -25,7 +26,7 @@
 				<label for="new_user_email">
 					<?= _t('gen.auth.email') ?>
 				</label>
-				<input id="new_user_email" name="new_user_email" type="email" required />
+				<input id="new_user_email" name="new_user_email" type="email" required="required" />
 			</div>
 		<?php } ?>
 
@@ -43,7 +44,7 @@
 		<?php if ($this->show_tos_checkbox) { ?>
 			<div class="form-group">
 				<label class="checkbox" for="accept-tos">
-					<input type="checkbox" name="accept_tos" id="accept-tos" value="1" required />
+					<input type="checkbox" name="accept_tos" id="accept-tos" value="1" required="required" />
 					<?= _t('gen.auth.accept_tos', _url('index', 'tos')) ?>
 				</label>
 			</div>

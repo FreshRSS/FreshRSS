@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Remember open categories',	// TODO - Translation
 			'unread' => '읽지 않은 글만 표시',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
 		'sort' => array(
 			'_' => '정렬 순서',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/><kbd>Alt ⎇</kbd> 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
 		'navigation_no_mod_help' => '아래 탐색 단축키에는 "Shift"와 "Alt" 키가 적용되지 않습니다.',
 		'next_article' => '다음 글 보기',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
 		'previous_article' => '이전 글 보기',

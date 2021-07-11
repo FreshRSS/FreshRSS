@@ -58,6 +58,19 @@ class Minz_Request {
 		}
 		return $value;
 	}
+	/**
+	 * Extract text lines to array.
+	 *
+	 * It will return an array where each cell contains one line of a text. The new line
+	 * character is used to break the text into lines. This method is well suited to use
+	 * to split textarea content.
+	 */
+	public static function paramTextToArray($key, $default = []) {
+		if (isset(self::$params[$key])) {
+			return preg_split('/\R/', self::$params[$key]);
+		}
+		return $default;
+	}
 	public static function defaultControllerName() {
 		return self::$default_controller_name;
 	}
@@ -133,7 +146,7 @@ class Minz_Request {
 	/**
 	 * Try to guess the base URL from $_SERVER information
 	 *
-	 * @return the base url (e.g. http://example.com/)
+	 * @return string base url (e.g. http://example.com/)
 	 */
 	public static function guessBaseUrl() {
 		$protocol = static::extractProtocol();
@@ -224,7 +237,7 @@ class Minz_Request {
 	/**
 	 * Return the base_url from configuration and add a suffix if given.
 	 *
-	 * @return the base_url with a suffix.
+	 * @return string base_url with a suffix.
 	 */
 	public static function getBaseUrl() {
 		$conf = Minz_Configuration::get('system');
@@ -239,7 +252,7 @@ class Minz_Request {
 	 * localhost address.
 	 *
 	 * @param $address the address to test, can be an IP or a URL.
-	 * @return true if server is accessible, false otherwise.
+	 * @return boolean true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
 	public static function serverIsPublic($address) {
@@ -363,7 +376,7 @@ class Minz_Request {
 	 * Permet de récupérer une variable de type $_GET
 	 * @param $param nom de la variable
 	 * @param $default valeur par défaut à attribuer à la variable
-	 * @return $_GET[$param]
+	 * @return string $_GET[$param]
 	 *         $_GET si $param = false
 	 *         $default si $_GET[$param] n'existe pas
 	 */
@@ -409,7 +422,7 @@ class Minz_Request {
 	 * Permet de récupérer une variable de type $_POST
 	 * @param $param nom de la variable
 	 * @param $default valeur par défaut à attribuer à la variable
-	 * @return $_POST[$param]
+	 * @return string $_POST[$param]
 	 *         $_POST si $param = false
 	 *         $default si $_POST[$param] n'existe pas
 	 */

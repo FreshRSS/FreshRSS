@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Nepodarilo sa nájsť knižniuc PHP fileinfo (balík fileinfo).',
 			'ok' => 'Našla sa knižnica fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Prosím, skontrolujte, či ste nezmenili váš HTTP REFERER.',
-			'ok' => 'Váš HTTP REFERER je OK.',
-		),
 		'json' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na spracovanie formátu JSON.',
 			'ok' => 'Našla sa požadovaná knižnica na spracovanie formátu JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu mbstring pre Unicode.',
 			'ok' => 'Našla sa požadovaná knižnica mbstring pre Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Nepodarilo sa nájsť framework Minz.',
-			'ok' => 'Našiel sa framework Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu pre regulárne výrazy (php-pcre).',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Vyberte jazyk pre FreshRSS',
 		'defined' => 'Jazyk bol nastavený.',
 	),
-	'not_deleted' => 'Niečo sa nepodarilo. Musíte ručne zmazať súbor <em>%s</em>.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'Inštalácia bola úspešná.',
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+	),
 	'step' => 'krok %d',
 	'steps' => 'Kroky',
 	'this_is_the_end' => 'Toto je koniec',

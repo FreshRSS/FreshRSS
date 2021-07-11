@@ -14,6 +14,10 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return $x;
 	}
 
+	public function sqlIgnoreConflict($sql) {
+		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
+	}
+
 	protected function autoUpdateDb($errorInfo) {
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
@@ -110,13 +114,13 @@ DROP TABLE IF EXISTS `tmp`;
 	public function markRead($ids, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
-			if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
+			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
 				$affected = 0;
 				foreach ($ids as $id) {
 					$affected += $this->markRead($id, $is_read);
 				}
 				return $affected;
-			}
+			//}
 		} else {
 			$this->pdo->beginTransaction();
 			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';

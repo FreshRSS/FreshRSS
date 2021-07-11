@@ -33,6 +33,12 @@ return array(
 			'username' => 'HTTP 사용자 이름',
 		),
 		'clear_cache' => '항상 캐시 지우기',
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',	// TODO - Translation
+			'append' => 'Add after existing content',	// TODO - Translation
+			'prepend' => 'Add before existing content',	// TODO - Translation
+			'replace' => 'Replace existing content',	// TODO - Translation
+		),
 		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
@@ -84,6 +90,8 @@ return array(
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'url' => '피드 URL',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => '피드 유효성 검사',
 		'website' => '웹사이트 URL',
 		'websub' => 'WebSub을 사용한 즉시 알림',
@@ -110,9 +118,9 @@ return array(
 		'add_feed' => 'Add a feed',	// TODO - Translation
 		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
+		'label_management' => 'Label management',	// TODO - Translation
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
-		'tag_management' => 'Tag management',	// TODO - Translation
 	),
 	'tag' => array(
 		'name' => 'Name',	// TODO - Translation
@@ -124,10 +132,10 @@ return array(
 		'add' => 'Add a feed or category',	// TODO - Translation
 		'add_category' => 'Add a category',	// TODO - Translation
 		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_tag' => 'Add a tag',	// TODO - Translation
-		'delete_tag' => 'Delete a tag',	// TODO - Translation
+		'add_label' => 'Add a label',	// TODO - Translation
+		'delete_label' => 'Delete a label',	// TODO - Translation
 		'feed_management' => 'RSS 피드 관리',
-		'rename_tag' => 'Rename a tag',	// TODO - Translation
+		'rename_label' => 'Rename a label',	// TODO - Translation
 		'subscription_tools' => '구독 도구',
 	),
 );

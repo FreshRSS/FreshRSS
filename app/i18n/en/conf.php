@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Remember open categories',
 			'unread' => 'Show only unread',
 		),
+		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
 		'sort' => array(
 			'_' => 'Sort order',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'With the <kbd>⇧ Shift</kbd> modifier, navigation shortcuts apply on feeds.<br/>With the <kbd>Alt ⎇</kbd> modifier, navigation shortcuts apply on categories.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',
 		'next_article' => 'Open the next article',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',
 		'normal_view' => 'Switch to normal view',
 		'other_action' => 'Other actions',
 		'previous_article' => 'Open the previous article',

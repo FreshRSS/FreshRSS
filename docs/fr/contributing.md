@@ -61,7 +61,7 @@ les collaborateurs, vous devrez suivre ces indications :
 Si vous devez écrire du code, veuillez suivre [nos recommandations de style
 de codage](developers/01_First_steps.md).
 
-**Conseil : **si vous cherchez des bugs faciles à corriger, jetez un coup d'oeil à la vignette "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)".
+**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d'oeil à la vignette "[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)".
 
 ## Soumettre une idée
 
@@ -86,5 +86,4 @@ mais n'hésitez pas à nous suggérer des idées !
 
 Il ne vous aura pas échappé que la documentation est encore un peu vide… il
 y a énormément de choses à faire ! Si vous souhaitez aider à écrire quelques
-pages, rendez-vous dans les principaux dépôts[fichier
-docs](https://github.com/FreshRSS/FreshRSS/tree/master/docs) !
+pages, rendez-vous dans les principaux dépôts [fichier docs](https://github.com/FreshRSS/FreshRSS/tree/edge/docs) !

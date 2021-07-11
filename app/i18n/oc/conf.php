@@ -67,20 +67,20 @@ return array(
 		'display' => 'Mostrar los resultats del filtre',
 		'filter' => array(
 			'_' => 'Filtres aplicats :',
-			'categories' => 'Display by category',	// TODO - Translation
-			'feeds' => 'Display by feed',	// TODO - Translation
-			'order' => 'Sort by date',	// TODO - Translation
-			'search' => 'Expression',	// TODO - Translation
-			'state' => 'State',	// TODO - Translation
-			'tags' => 'Display by tag',	// TODO - Translation
-			'type' => 'Type',	// TODO - Translation
+			'categories' => 'Afichatge per categoria',
+			'feeds' => 'Afichatge per flux',
+			'order' => 'Triar per data',
+			'search' => 'Expression',
+			'state' => 'Estat',
+			'tags' => 'Afichatge per etiqueta',
+			'type' => 'Tipe',
 		),
 		'get_all' => 'Mostrar totes los articles',
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'get_tag' => 'Mostrar etiqueta « %s »',
+		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
 		'none' => 'Avètz pas encara creat cap de filtre.',
 		'number' => 'Filtre n°%d',
@@ -140,6 +140,7 @@ return array(
 			'remember_categories' => 'Se remembrar de las categorias dobèrtas',
 			'unread' => 'Mostrar pas que los pas legits',
 		),
+		'show_fav_unread_help' => 'Aplicar tanben a las etiquetas',
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
 		'sort' => array(
 			'_' => 'Òrdre de tria',
@@ -192,6 +193,7 @@ return array(
 		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
+		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Passar a la vista normala',
 		'other_action' => 'Autras accions',
 		'previous_article' => 'Passar a l’article precedent',

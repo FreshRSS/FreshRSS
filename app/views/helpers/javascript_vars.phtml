@@ -1,6 +1,6 @@
 <?php
 $mark = FreshRSS_Context::$user_conf->mark_when;
-$s = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
+$s = FreshRSS_Context::$user_conf->shortcuts;
 $extData = Minz_ExtensionManager::callHook('js_vars', []);
 echo htmlspecialchars(json_encode(array(
 	'context' => array(

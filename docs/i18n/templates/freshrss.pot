@@ -244,7 +244,7 @@ msgid ""
 "The documentation needs a lot of improvements in order to be more useful to "
 "new contributors and we are working on it.  If you want to give some help, "
 "meet us in the main repositories [docs "
-"directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!"
+"directory](https://github.com/FreshRSS/FreshRSS/tree/edge/docs)!"
 msgstr ""
 
 #. type: Title #
@@ -1170,8 +1170,8 @@ msgstr ""
 #: en/./developers/02_Github.md:90
 #, no-wrap
 msgid ""
-"git checkout master\n"
-"git pull upstream master\n"
+"git checkout edge\n"
+"git pull upstream edge\n"
 msgstr ""
 
 #. type: Title ##
@@ -2408,7 +2408,7 @@ msgstr ""
 #: en/./developers/03_Running_tests.md:4
 msgid ""
 "FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be "
-"merged in `master` if the tests don't pass."
+"merged in `edge` if the tests don't pass."
 msgstr ""
 
 #. type: Title ##
@@ -2471,7 +2471,7 @@ msgstr ""
 #: en/./developers/03_Running_tests.md:25
 msgid ""
 "If you're interested in, you can take a look at [the configuration "
-"file](https://github.com/FreshRSS/FreshRSS/blob/master/.travis.yml)."
+"file](https://github.com/FreshRSS/FreshRSS/blob/edge/.travis.yml)."
 msgstr ""
 
 #. type: Title #
@@ -2528,7 +2528,7 @@ msgstr ""
 msgid ""
 "When you open a PR, your message will be prefilled with a message based on "
 "[a "
-"template](https://github.com/FreshRSS/FreshRSS/blob/master/docs/pull_request_template.md). "
+"template](https://github.com/FreshRSS/FreshRSS/blob/edge/docs/pull_request_template.md). "
 "It contains a checklist to make sure you didn't forget anything. It is very "
 "important to verify you did everything mentioned so documentation is "
 "up-to-date, the commit history stays clear and the code is always stable."
@@ -2542,7 +2542,7 @@ msgstr ""
 #. type: Title ##
 #: en/./developers/04_Pull_requests.md:9
 #, no-wrap
-msgid "How to rebase your branch on `master`"
+msgid "How to rebase your branch on `edge`"
 msgstr ""
 
 #. type: Plain text
@@ -2592,16 +2592,16 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:23
 #, no-wrap
 msgid ""
-"$ git checkout master      # go on master branch\n"
-"$ git pull upstream master # pull the last version of master\n"
-"$ git checkout -           # go back to your branch\n"
-"$ git rebase master        # rebase your branch on master\n"
+"$ git checkout edge       # go on edge branch\n"
+"$ git pull upstream edge  # pull the last version of edge\n"
+"$ git checkout -          # go back to your branch\n"
+"$ git rebase edge         # rebase your branch on edge\n"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:31
 msgid ""
-"If you feel confident, you can use `git rebase -i master` to rewrite your "
+"If you feel confident, you can use `git rebase -i edge` to rewrite your "
 "history and make it clearer."
 msgstr ""
 
@@ -2614,25 +2614,25 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:35
 msgid ""
-"If you prefer, you can simply merge `master` into your own branch. Conflicts "
+"If you prefer, you can simply merge `edge` into your own branch. Conflicts "
 "might be easier to resolve, but your Git history will be less "
 "readable. Don't worry, we'll take care of it before merging your PR back "
-"into `master`."
+"into `edge`."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:37
-msgid "To merge `master`:"
+msgid "To merge `edge`:"
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:38
 #, no-wrap
 msgid ""
-"$ git checkout master      # go on master branch\n"
-"$ git pull upstream master # pull the last version of master\n"
-"$ git checkout -           # go back to your branch\n"
-"$ git merge master         # merge master into your branch\n"
+"$ git checkout edge       # go on edge branch\n"
+"$ git pull upstream edge  # pull the last version of edge\n"
+"$ git checkout -          # go back to your branch\n"
+"$ git merge edge          # merge edge into your branch\n"
 msgstr ""
 
 #. type: Title ##
@@ -2799,7 +2799,7 @@ msgstr ""
 #: en/./developers/05_Release_new_version.md:15
 #, no-wrap
 msgid ""
-"$ git checkout master\n"
+"$ git checkout edge\n"
 "$ git pull\n"
 "$ vim constants.php\n"
 "# Update version number x.y.y.z of FRESHRSS_VERSION\n"
@@ -2842,7 +2842,7 @@ msgstr ""
 msgid ""
 "The scripts are located in the `./scripts/` directory and must take the form "
 "`update_to_x.y.z.z.php`. This directory also contains `update_to_dev.php` "
-"intended for updates of the `master` branch (this script must not include "
+"intended for updates of the `edge` branch (this script must not include "
 "code specific to a particular version!) and `update_util.php`, which "
 "contains a list of functions useful for all scripts."
 msgstr ""
@@ -2949,7 +2949,7 @@ msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:74
-msgid "the `x.y.z.z-dev` versions are **all** updated to `master`;"
+msgid "the `x.y.z.z-dev` versions are **all** updated to `edge`;"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -3068,7 +3068,7 @@ msgstr ""
 #: en/./developers/05_Release_new_version.md:101
 #, no-wrap
 msgid ""
-"$ git checkout master\n"
+"$ git checkout edge\n"
 "$ vim constants.php\n"
 "# Update the FRESHRSS_VERSION\n"
 "$ vim CHANGELOG.md\n"

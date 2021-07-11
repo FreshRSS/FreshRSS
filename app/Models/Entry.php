@@ -23,7 +23,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $tags;
 
 	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
-	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+			$link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -436,9 +436,9 @@ class FreshRSS_Entry extends Minz_Model {
 		$feed = $this->feed(true);
 		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
+			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 
-			if ($entry && !$force) {
+			if ($entry) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
@@ -449,8 +449,22 @@ class FreshRSS_Entry extends Minz_Model {
 						$feed->pathEntries(),
 						$feed->attributes()
 					);
-					if ($fullContent != '') {
-						$this->content = $fullContent;
+					if ('' !== $fullContent) {
+						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
+						$originalContent = preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content());
+						switch ($feed->attributes('content_action')) {
+							case 'prepend':
+								$this->content = $fullContent . $originalContent;
+								break;
+							case 'append':
+								$this->content = $originalContent . $fullContent;
+								break;
+							case 'replace':
+							default:
+								$this->content = $fullContent;
+								break;
+						}
+
 						return true;
 					}
 				} catch (Exception $e) {

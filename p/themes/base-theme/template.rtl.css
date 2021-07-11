@@ -16,6 +16,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	background: white;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
@@ -209,6 +210,15 @@ td.numeric {
 
 .form-group .group-controls .control {
 	display: block;
+}
+
+.form-advanced-title {
+	padding: 15px 0;
+	width: 200px;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-align: left;
+	cursor: pointer;
 }
 
 @supports (position: sticky) {
@@ -719,7 +729,7 @@ input[type="search"] {
 }
 
 .flux .item.title .author {
-	padding-left: 1rem;
+	padding-right: 1rem;
 	color: #555;
 	font-size: .9rem;
 	font-weight: normal;
@@ -1295,6 +1305,7 @@ input:checked + .slide-container .properties {
 
 	.aside:target {
 		width: 90%;
+		height: 100vh;
 	}
 
 	.aside_feed .configure-feeds {

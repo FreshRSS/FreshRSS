@@ -1,133 +1,141 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
+	'add' => 'Создание лент и категорий перемещено <a href=\'%s\'>сюда</a>. Оно также доступно из меню слева и по нажатию на иконку ✚ на главной странице.',
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
+		'documentation' => 'Скопируйте URL для использования во внешнем инструменте.',
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
-		'label' => 'Subscribe',	// TODO - Translation
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'documentation' => 'Перетяните эту кнопку на вашу панель закладок, или нажмите правой кнопкой мыши и выберите "Добавить ссылку в закладки". Нажимайте кнопку "Подписаться" на любой странице, на которую вы хотите подписаться.<br>',
+		'label' => 'Подписаться',
+		'title' => 'Букмарклет',
 	),
 	'category' => array(
-		'_' => 'Category',	// TODO - Translation
-		'add' => 'Add a category',	// TODO - Translation
-		'archiving' => 'Archivage',
-		'empty' => 'Empty category',	// TODO - Translation
-		'information' => 'Information',	// TODO - Translation
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
-		'title' => 'Title',	// TODO - Translation
+		'_' => 'Категория',
+		'add' => 'Добавить категорию',
+		'archiving' => 'Архивирование',
+		'empty' => 'Пустая категория',
+		'information' => 'Информация',
+		'position' => 'Положение отображения',
+		'position_help' => 'Влияет на порядок отображения категорий',
+		'title' => 'Заголовок',
 	),
 	'feed' => array(
-		'add' => 'Add a RSS feed',	// TODO - Translation
-		'advanced' => 'Advanced',	// TODO - Translation
-		'archiving' => 'Archivage',
+		'add' => 'Добавить RSS-ленту',
+		'advanced' => 'Дополнительно',
+		'archiving' => 'Архивирование',
 		'auth' => array(
-			'configuration' => 'Login',	// TODO - Translation
-			'help' => 'Connection allows to access HTTP protected RSS feeds',
-			'http' => 'HTTP Authentication',	// TODO - Translation
-			'password' => 'HTTP password',	// TODO - Translation
-			'username' => 'HTTP username',	// TODO - Translation
+			'configuration' => 'Логин',
+			'help' => 'Разрешить доступ к HTTP защищённым RSS-лентам',
+			'http' => 'HTTP аутентификация',
+			'password' => 'Пароль HTTP',
+			'username' => 'Имя пользователя HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO - Translation
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
-		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',	// TODO - Translation
-		'css_path' => 'Article CSS selector on original website',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
-		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO - Translation
-		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+		'clear_cache' => 'Всегда очищать кэш',
+		'content_action' => array(
+			'_' => 'Действие с содержимым, когда извлекается содержимое статьи',
+			'append' => 'Добавить после существующего содержимого',
+			'prepend' => 'Добавить перед существующим содержимым',
+			'replace' => 'Заменить существующее содержимое',
+		),
+		'css_cookie' => 'Использовать куки при извлечении содержимого статьи',
+		'css_cookie_help' => 'Пример: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
+		'css_help' => 'Получает усечённые RSS-ленты (осторожно, требует больше времени!)',
+		'css_path' => 'CSS селектор статьи на сайте',
+		'description' => 'Описание',
+		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
+		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова актуализируйте её.',
 		'filteractions' => array(
-			'_' => 'Filter actions',	// TODO - Translation
-			'help' => 'Write one search filter per line.',	// TODO - Translation
+			'_' => 'Действия фильтрации',
+			'help' => 'Введите по одному поисковому фильтру в строке.',
 		),
-		'information' => 'Information',	// TODO - Translation
-		'keep_min' => 'Minimum number of articles to keep',	// TODO - Translation
+		'information' => 'Информация',
+		'keep_min' => 'Оставлять статей не менее',
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Очистить кэш',
+			'clear_cache_help' => 'Очистить кэш для этой ленты.',
+			'reload_articles' => 'Снова загрузить статьи',
+			'reload_articles_help' => 'Снова загрузить статьи и извлечь полное содержимое, если задан селектор.',
+			'title' => 'Обслуживание',
 		),
-		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// TODO - Translation
-		'mute' => 'mute',	// TODO - Translation
-		'no_selected' => 'No feed selected.',	// TODO - Translation
-		'number_entries' => '%d articles',	// TODO - Translation
+		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
+		'mute' => 'заглушить',
+		'no_selected' => 'Ленты не выбраны.',
+		'number_entries' => '%d статей',
 		'priority' => array(
-			'_' => 'Visibility',	// TODO - Translation
-			'archived' => 'Do not show (archived)',	// TODO - Translation
-			'main_stream' => 'Show in main stream',	// TODO - Translation
-			'normal' => 'Show in its category',	// TODO - Translation
+			'_' => 'Видимость',
+			'archived' => 'Не показывать (архивировано)',
+			'main_stream' => 'Показывать в основном потоке',
+			'normal' => 'Показывать в категории ленты',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Указать прокси для извлечения этой ленты',
+		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Показать исходный код',
+			'show_rendered' => 'Показать содержимое',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with errors',	// TODO - Translation
+			'all' => 'Показать все ленты',
+			'error' => 'Показать только ленты с ошибками',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with errors',	// TODO - Translation
+			'error' => 'Показываются только ленты с ошибками',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
-		'stats' => 'Statistics',	// TODO - Translation
-		'think_to_add' => 'You may add some feeds.',	// TODO - Translation
-		'timeout' => 'Timeout in seconds',	// TODO - Translation
-		'title' => 'Title',	// TODO - Translation
-		'title_add' => 'Add an RSS feed',	// TODO - Translation
-		'ttl' => 'Do not automatically refresh more often than',	// TODO - Translation
-		'url' => 'Feed URL',	// TODO - Translation
-		'validator' => 'Check the validity of the feed',	// TODO - Translation
-		'website' => 'Website URL',	// TODO - Translation
-		'websub' => 'Instant notification with WebSub',	// TODO - Translation
+		'ssl_verify' => 'Проверять безопасность SSL',
+		'stats' => 'Статистика',
+		'think_to_add' => 'Вы можете добавить ленты.',
+		'timeout' => 'Таймаут в секундах',
+		'title' => 'Заголовок',
+		'title_add' => 'Добавить RSS-ленту',
+		'ttl' => 'Не актуализировать автоматически чаще чем',
+		'url' => 'URL ленты',
+		'useragent' => 'Указать юзерагент для извлечения лент',
+		'useragent_help' => 'Пример: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
+		'validator' => 'Проверить валидность ленты',
+		'website' => 'URL сайта',
+		'websub' => 'Моментальные оповещения посредством WebSub',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
+		'documentation' => 'Выполните шаги, описанные <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">здесь</a>, чтобы добавить FreshRSS в список читалок лент Firefox.',
+		'obsolete_63' => 'Начиная с версии 63, Firefox убрал возможность добавлять собственные сервисы подписок, которые не являются отдельными программами.',
+		'title' => 'Читалка лент Firefox',
 	),
 	'import_export' => array(
-		'export' => 'Export',	// TODO - Translation
-		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
-		'export_opml' => 'Export list of feeds (OPML)',	// TODO - Translation
-		'export_starred' => 'Export your favourites',	// TODO - Translation
-		'feed_list' => 'List of %s articles',	// TODO - Translation
-		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',	// TODO - Translation
-		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',	// TODO - Translation
-		'import' => 'Import',	// TODO - Translation
-		'starred_list' => 'List of favourite articles',	// TODO - Translation
-		'title' => 'Import / export',	// TODO - Translation
+		'export' => 'Экспорт',
+		'export_labelled' => 'Экспортировать ваши помеченные статьи',
+		'export_opml' => 'Экспортировать список лент (OPML)',
+		'export_starred' => 'Экспортировать ваше избранное',
+		'feed_list' => 'Список из %s статей',
+		'file_to_import' => 'Файл для импорта<br />(OPML, JSON or ZIP)',
+		'file_to_import_no_zip' => 'Файл для импорта<br />(OPML or JSON)',
+		'import' => 'Импорт',
+		'starred_list' => 'Список избранных статей',
+		'title' => 'Импорт / экспорт',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
-		'import_export' => 'Import / export',	// TODO - Translation
-		'subscription_management' => 'Subscription management',	// TODO - Translation
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'tag_management' => 'Tag management',	// TODO - Translation
+		'add' => 'Добавить ленту или категорию',
+		'add_feed' => 'Добавить ленту',
+		'bookmark' => 'Подписаться (закладка FreshRSS)',
+		'import_export' => 'Импорт / экспорт',
+		'label_management' => 'Управление метками',
+		'subscription_management' => 'Управление подписками',
+		'subscription_tools' => 'Инструменты подписки',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'Название',
+		'new_name' => 'Новое название',
+		'old_name' => 'Старое название',
 	),
 	'title' => array(
-		'_' => 'Subscription management',	// TODO - Translation
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_tag' => 'Add a tag',	// TODO - Translation
-		'delete_tag' => 'Delete a tag',	// TODO - Translation
-		'feed_management' => 'RSS feeds management',	// TODO - Translation
-		'rename_tag' => 'Rename a tag',	// TODO - Translation
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'_' => 'Управление подписками',
+		'add' => 'Добавить ленту или категорию',
+		'add_category' => 'Добавить категорию',
+		'add_feed' => 'Добавить ленту',
+		'add_label' => 'Добавить метку',
+		'delete_label' => 'Удалить метку',
+		'feed_management' => 'Управление RSS-лентами',
+		'rename_label' => 'Переименовать метку',
+		'subscription_tools' => 'Инструменты подписки',
 	),
 );

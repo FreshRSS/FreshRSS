@@ -147,7 +147,8 @@ function checkCompatibility() {
 }
 
 function authorizationToUser() {
-	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');	//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	http://php.net/language.variables.external
+	//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	http://php.net/language.variables.external
+	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');
 	if ($headerAuth != '') {
 		$headerAuthX = explode('/', $headerAuth, 2);
 		if (count($headerAuthX) === 2) {
@@ -268,6 +269,29 @@ function tagList() {
 
 	echo json_encode(array('tags' => $tags), JSON_OPTIONS), "\n";
 	exit();
+}
+
+function subscriptionExport() {
+	$user = Minz_Session::param('currentUser', '_');
+	$export_service = new FreshRSS_Export_Service($user);
+	list($filename, $content) = $export_service->generateOpml();
+	header('Content-Type: application/xml; charset=UTF-8');
+	header('Content-disposition: attachment; filename="' . $filename . '"');
+	echo $content;
+	exit();
+}
+
+function subscriptionImport($opml) {
+	$user = Minz_Session::param('currentUser', '_');
+	$importService = new FreshRSS_Import_Service($user);
+	$ok = $importService->importOpml($opml);
+	if ($ok) {
+		list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
+		invalidateHttpCache($user);
+		exit('OK');
+	} else {
+		badRequest();
+	}
 }
 
 function subscriptionList() {
@@ -841,7 +865,7 @@ function editTag($e_ids, $a, $r) {
 
 function renameTag($s, $dest) {
 	if ($s != '' && strpos($s, 'user/-/label/') === 0 &&
-		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
+		$dest != '' && strpos($dest, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
 		$s = htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 		$dest = substr($dest, 13);
@@ -915,7 +939,16 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit('OK');
 }
 
-$pathInfo = empty($_SERVER['PATH_INFO']) ? '' : urldecode($_SERVER['PATH_INFO']);
+$pathInfo = '';
+if (empty($_SERVER['PATH_INFO'])) {
+	if (!empty($_SERVER['ORIG_PATH_INFO'])) {
+		// Compatibility https://php.net/reserved.variables.server
+		$pathInfo = $_SERVER['ORIG_PATH_INFO'];
+	}
+} else {
+	$pathInfo = $_SERVER['PATH_INFO'];
+}
+$pathInfo = urldecode($pathInfo);
 $pathInfo = preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
 if ($pathInfo == '') {
 	exit('OK');
@@ -967,8 +1000,10 @@ if ($pathInfos[1] === 'accounts') {
 			 * request, but xt appears in other listing requests). */
 			$exclude_target = isset($_GET['xt']) ? $_GET['xt'] : '';
 			$filter_target = isset($_GET['it']) ? $_GET['it'] : '';
-			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;	//n=[integer] : The maximum number of results to return.
-			$order = isset($_GET['r']) ? $_GET['r'] : 'd';	//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
+			//n=[integer] : The maximum number of results to return.
+			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;
+			//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
+			$order = isset($_GET['r']) ? $_GET['r'] : 'd';
 			/* ot=[unix timestamp] : The time from which you want to retrieve
 			 * items. Only items that have been crawled by Google Reader after
 			 * this time will be returned. */
@@ -1007,7 +1042,8 @@ if ($pathInfos[1] === 'accounts') {
 							if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
 								if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
 									$include_target = '';
-									streamContents($pathInfos[10], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
+									streamContents($pathInfos[10], $include_target, $start_time, $stop_time, $count, $order,
+										$filter_target, $exclude_target, $continuation);
 								}
 							}
 						} elseif ($pathInfos[8] === 'label') {
@@ -1042,6 +1078,14 @@ if ($pathInfos[1] === 'accounts') {
 		case 'subscription':
 			if (isset($pathInfos[5])) {
 				switch ($pathInfos[5]) {
+					case 'export':
+						subscriptionExport();
+						break;
+					case 'import':
+						if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $ORIGINAL_INPUT != '') {
+							subscriptionImport($ORIGINAL_INPUT);
+						}
+						break;
 					case 'list':
 						$output = isset($_GET['output']) ? $_GET['output'] : '';
 						if ($output !== 'json') notImplemented();

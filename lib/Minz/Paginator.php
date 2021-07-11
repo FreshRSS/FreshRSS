@@ -60,47 +60,43 @@ class Minz_Paginator {
 	/**
 	 * Permet de retrouver la page d'un élément donné
 	 * @param $item l'élément à retrouver
-	 * @return la page à laquelle se trouve l'élément (false si non trouvé)
+	 * @return float|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
 	public function pageByItem ($item) {
-		$page = false;
 		$i = 0;
 
 		do {
 			if ($item == $this->items[$i]) {
-				$page = ceil (($i + 1) / $this->nbItemsPerPage);
+				return ceil(($i + 1) / $this->nbItemsPerPage);
 			}
-
 			$i++;
-		} while (!$page && $i < $this->nbItems ());
+		} while ($i < $this->nbItems());
 
-		return $page;
+		return false;
 	}
 
 	/**
 	 * Permet de retrouver la position d'un élément donné (à partir de 0)
 	 * @param $item l'élément à retrouver
-	 * @return la position à laquelle se trouve l'élément (false si non trouvé)
+	 * @return float|false la position à laquelle se trouve l’élément, false si non trouvé
 	 */
 	public function positionByItem ($item) {
-		$find = false;
 		$i = 0;
 
 		do {
 			if ($item == $this->items[$i]) {
-				$find = true;
-			} else {
-				$i++;
+				return $i;
 			}
-		} while (!$find && $i < $this->nbItems ());
+			$i++;
+		} while ($i < $this->nbItems ());
 
-		return $i;
+		return false;
 	}
 
 	/**
 	 * Permet de récupérer un item par sa position
 	 * @param $pos la position de l'élément
-	 * @return l'item situé à $pos (dernier item si $pos<0, 1er si $pos>=count($items))
+	 * @return mixed item situé à $pos (dernier item si $pos<0, 1er si $pos>=count($items))
 	 */
 	public function itemByPosition ($pos) {
 		if ($pos < 0) {
@@ -144,7 +140,7 @@ class Minz_Paginator {
 
 		return $array;
 	}
-	public function nbItemsPerPage  () {
+	public function nbItemsPerPage () {
 		return $this->nbItemsPerPage;
 	}
 	public function currentPage () {

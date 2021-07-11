@@ -15,14 +15,6 @@ a, button.as-link {
 	outline: none;
 }
 
-/*=== Forms */
-.form-group {
-	display: inline-block;
-	float: right;
-	width: 100%;
-	height: auto;
-}
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
@@ -398,8 +390,14 @@ a.btn {
 	transform: rotate(-45deg);
 }
 
-.dropdown-header {
+.configure .dropdown-header {
 	display: none;
+}
+
+.dropdown-header {
+	padding: 0 5px 5px;
+	color: #ccc;
+	font-weight: bold;
 }
 
 .dropdown-menu > .item > a,
@@ -780,6 +778,10 @@ a.btn {
 	text-align: right;
 }
 
+.prompt label {
+	text-align: right;
+}
+
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -798,7 +800,7 @@ a.btn {
 .prompt .stick,
 .prompt input {
 	width: 100%;
-	box-sizing: border-box;	
+	box-sizing: border-box;
 }
 
 .prompt input#username,.prompt input#passwordPlain {

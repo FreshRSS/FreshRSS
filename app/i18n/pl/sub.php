@@ -33,6 +33,12 @@ return array(
 			'username' => 'Użytkownik HTTP',
 		),
 		'clear_cache' => 'Zawsze czyść pamięć podręczną',
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',	// TODO - Translation
+			'append' => 'Add after existing content',	// TODO - Translation
+			'prepend' => 'Add before existing content',	// TODO - Translation
+			'replace' => 'Replace existing content',	// TODO - Translation
+		),
 		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
 		'css_help' => 'Pozwala na ograniczenie zawartości kanałów (uwaga, wymaga więcej czasu!)',
@@ -84,6 +90,8 @@ return array(
 		'title_add' => 'Dodaj kanał',
 		'ttl' => 'Nie odświeżaj automatycznie częściej niż',
 		'url' => 'Adres kanału',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'Sprawdź poprawność kanału',
 		'website' => 'Adres strony',
 		'websub' => 'Instant notification with WebSub',	// TODO - Translation
@@ -110,9 +118,9 @@ return array(
 		'add_feed' => 'Dodaj kanał',
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
 		'import_export' => 'Import / eksport',
+		'label_management' => 'Zarządzanie etykietami',
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',
-		'tag_management' => 'Zarządzanie etykietami',
 	),
 	'tag' => array(
 		'name' => 'Nazwa',
@@ -124,10 +132,10 @@ return array(
 		'add' => 'Dodaj kanał lub kategorię',
 		'add_category' => 'Dodaj kategorię',
 		'add_feed' => 'Dodaj kanał',
-		'add_tag' => 'Dodaj etykietę',
-		'delete_tag' => 'Usuń etykietę',
+		'add_label' => 'Dodaj etykietę',
+		'delete_label' => 'Usuń etykietę',
 		'feed_management' => 'RSS feeds management',	// TODO - Translation
-		'rename_tag' => 'Zmień nazwę etykiety',
+		'rename_label' => 'Zmień nazwę etykiety',
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),
 );

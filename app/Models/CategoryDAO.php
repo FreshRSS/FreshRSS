@@ -80,9 +80,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function addCategory($valuesTmp) {
-		$sql = 'INSERT INTO `_category`(name, attributes) '
-		     . 'SELECT * FROM (SELECT TRIM(?) AS name, TRIM(?) AS attributes) c2 '	//TRIM() to provide a type hint as text
-		     . 'WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))';	//No tag of the same name
+		// TRIM() to provide a type hint as text
+		// No tag of the same name
+		$sql = <<<'SQL'
+INSERT INTO `_category`(name, attributes)
+SELECT * FROM (SELECT TRIM(?) AS name, TRIM(?) AS attributes) c2
+WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))
+SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
@@ -121,8 +125,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function updateCategory($id, $valuesTmp) {
-		$sql = 'UPDATE `_category` SET name=?, attributes=? WHERE id=? '
-		     . 'AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = ?)';	//No tag of the same name
+		// No tag of the same name
+		$sql = <<<'SQL'
+UPDATE `_category` SET name=?, attributes=? WHERE id=?
+AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = ?)
+SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
@@ -141,7 +148,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->updateCategory($valuesTmp);
+				return $this->updateCategory($id, $valuesTmp);
 			}
 			Minz_Log::error('SQL error updateCategory: ' . json_encode($info));
 			return false;
@@ -240,12 +247,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.attributes AS c_attributes, '
-			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
-			     . 'FROM `_category` c '
-			     . 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
-			     . 'WHERE f.priority >= :priority_normal '
-			     . 'GROUP BY f.id, c_id '
-			     . 'ORDER BY c.name, f.name';
+				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
+				. 'FROM `_category` c '
+				. 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
+				. 'WHERE f.priority >= :priority_normal '
+				. 'GROUP BY f.id, c_id '
+				. 'ORDER BY c.name, f.name';
 			$stm = $this->pdo->prepare($sql);
 			$values = [ ':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL ];
 			if ($stm && $stm->execute($values)) {

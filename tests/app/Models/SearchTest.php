@@ -66,6 +66,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('intitle:"word1 word2\' word3"', array("word1 word2' word3"), null),
 			array("intitle:'word1 word2\" word3'", array('word1 word2" word3'), null),
 			array("intitle:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['intitle:word1+word2', ['word1+word2'], null],
 		);
 	}
 
@@ -102,6 +103,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('author:"word1 word2\' word3"', array("word1 word2' word3"), null),
 			array("author:'word1 word2\" word3'", array('word1 word2" word3'), null),
 			array("author:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['author:word1+word2', ['word1+word2'], null],
 		);
 	}
 
@@ -129,6 +131,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('inurl:"word1 word2"', array('"word1'), array('word2"')),
 			array('inurl:word1 word2 inurl:word3', array('word1', 'word3'), array('word2')),
 			array("inurl:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['inurl:word1+word2', ['word1+word2'], null],
 		);
 	}
 
@@ -208,6 +211,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('#"word1 word2"', array('"word1'), array('word2"')),
 			array('#word1 #word2', array('word1', 'word2'), null),
 			array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+			['#word1+word2', ['word1 word2'], null],
 		);
 	}
 
@@ -224,7 +228,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param array $tags_value
 	 * @param string|null $search_value
 	 */
-	public function test__construct_whenInputContainsMultipleKeywords_setsValues($input, $author_value, $min_date_value, $max_date_value, $intitle_value, $inurl_value, $min_pubdate_value, $max_pubdate_value, $tags_value, $search_value) {
+	public function test__construct_whenInputContainsMultipleKeywords_setsValues($input, $author_value, $min_date_value,
+			$max_date_value, $intitle_value, $inurl_value, $min_pubdate_value, $max_pubdate_value, $tags_value, $search_value) {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($author_value, $search->getAuthor());
 		$this->assertEquals($min_date_value, $search->getMinDate());
@@ -290,5 +295,4 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			),
 		);
 	}
-
 }

@@ -60,10 +60,6 @@ return array(
 			'nok' => '找不到 PHP fileinfo 库（fileinfo）',
 			'ok' => '已找到 fileinfo 库',
 		),
-		'http_referer' => array(
-			'nok' => '请检查你是否修改了 HTTP REFERER',
-			'ok' => '你的 HTTP REFERER 已知且与服务器一致',
-		),
 		'json' => array(
 			'nok' => '找不到推荐的 JSON 解析库',
 			'ok' => '已找到推荐的 JSON 解析库',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => '找不到推荐的 Unicode 解析库（mbstring)',
 			'ok' => '已找到推荐的 Unicode 解析库（mbstring)',
-		),
-		'minz' => array(
-			'nok' => '找不到 Minz 框架',
-			'ok' => '已找到 Minz 框架',
 		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库（php-pcre）',
@@ -90,9 +82,9 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => '缓存目录权限正常。',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => '未知',
 		'users' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'users 目录权限正常',
@@ -119,8 +111,11 @@ return array(
 		'choose' => '为 FreshRSS 选择语言',
 		'defined' => '语言已指定',
 	),
-	'not_deleted' => '出错！你必须手动删除文件 <em>%s</em>',
+	'missing_applied_migrations' => '出现错误，你需要手动创建一个空文件 <em>%s</em>。',
 	'ok' => '安装成功',
+	'session' => array(
+		'nok' => 'Web 服务器似乎未正确配置 PHP 会话所需的 cookie！',
+	),
 	'step' => '步骤 %d',
 	'steps' => '步骤',
 	'this_is_the_end' => '最后一步',

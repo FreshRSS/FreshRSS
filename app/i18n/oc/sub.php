@@ -33,8 +33,14 @@ return array(
 			'username' => 'Identificant HTTP',
 		),
 		'clear_cache' => 'Totjorn escafar lo cache',
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'content_action' => array(
+			'_' => 'Accion sul contengut en recuperant lo contengut de l’article',
+			'append' => 'Apondre aprèp lo contengut existent',
+			'prepend' => 'Apondre abans lo contengut existent',
+			'replace' => 'Remplaçar lo contengut existent',
+		),
+		'css_cookie' => 'Utilizar los cookies en recuperant lo contengut de l’article',
+		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
 		'description' => 'Descripcion',
@@ -63,8 +69,8 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
+		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Veire lo còdi font',
 			'show_rendered' => 'Veire lo contengut',
@@ -84,6 +90,8 @@ return array(
 		'title_add' => 'Ajustar un flux RSS',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 		'url' => 'Flux URL',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
 		'validator' => 'Verificar la validitat del flux',
 		'website' => 'URL del site',
 		'websub' => 'Notificaciones instantáneas amb WebSub',
@@ -110,9 +118,9 @@ return array(
 		'add_feed' => 'Ajustar un flux',
 		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
+		'label_management' => 'Gestion de las etiquetas',
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
-		'tag_management' => 'Gestion de las etiquetas',
 	),
 	'tag' => array(
 		'name' => 'Nom',
@@ -124,10 +132,10 @@ return array(
 		'add' => 'Apondon de flux o categoria',
 		'add_category' => 'Ajustar una categoria',
 		'add_feed' => 'Ajustar un flux',
-		'add_tag' => 'Ajustar una etiqueta',
-		'delete_tag' => 'Suprimir una etiqueta',
+		'add_label' => 'Ajustar una etiqueta',
+		'delete_label' => 'Suprimir una etiqueta',
 		'feed_management' => 'Gestion dels fluxes RSS',
-		'rename_tag' => 'Rennomenar una etiqueta',
+		'rename_label' => 'Rennomenar una etiqueta',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 );

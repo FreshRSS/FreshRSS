@@ -60,10 +60,6 @@ return array(
 			'nok' => 'U mist PHP fileinfo (fileinfo package).',
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
-		'http_referer' => array(
-			'nok' => 'Controleer a.u.b. dat u niet uw HTTP REFERER wijzigd.',
-			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',
-		),
 		'json' => array(
 			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'De voor Unicode aanbevolen bibliotheek mbstring kan niet worden gevonden.',
 			'ok' => 'De voor Unicode aanbevolen bibliotheek mbstring is gevonden.',
-		),
-		'minz' => array(
-			'nok' => 'U mist het Minz framework.',
-			'ok' => 'U hebt het Minz framework.',
 		),
 		'pcre' => array(
 			'nok' => 'U mist een benodigde bibliotheek voor regular expressions (php-pcre).',
@@ -90,9 +82,9 @@ return array(
 		),
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Permissies van de temp-map zijn goed.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'onbekend',
 		'users' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de users map zijn goed.',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Kies een taal voor FreshRSS',
 		'defined' => 'Taal is bepaald.',
 	),
-	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
 	'ok' => 'De installatieprocedure is geslaagd.',
+	'session' => array(
+		'nok' => 'De webserver lijkt niet goed te zijn geconfigureerd voor de cookies die voor PHP-sessies nodig zijn!',
+	),
 	'step' => 'stap %d',
 	'steps' => 'Stappen',
 	'this_is_the_end' => 'Dit is het einde',

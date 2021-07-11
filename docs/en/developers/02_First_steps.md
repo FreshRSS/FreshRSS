@@ -12,17 +12,17 @@ First, you need to install [Docker](https://docs.docker.com/install/linux/docker
 
 Once you're done, clone the repository with:
 
-```console
-$ git clone https://github.com/FreshRSS/FreshRSS.git
-$ cd FreshRSS
+```sh
+git clone https://github.com/FreshRSS/FreshRSS.git
+cd FreshRSS
 ```
 
 Note that, if you want to contribute, you have to fork the repository first and clone your fork instead of the "root" one. Adapt the commands in consequence.
 
 Then, the only command you need to know is the following:
 
-```console
-$ make start
+```sh
+make start
 ```
 
 This might take some time while Docker downloads the image. If your user isn't in the `docker` group, you'll need to prepend the command with `sudo`.
@@ -31,39 +31,39 @@ This might take some time while Docker downloads the image. If your user isn't i
 
 You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with the following command, in another terminal:
 
-```console
-$ make stop
+```sh
+make stop
 ```
 
 If you're interested in the configuration, the `make` commands are defined in the [`Makefile`](/Makefile).
 
 If you need to use a different tag image (default is `alpine`), you can set the `TAG` environment variable:
 
-```console
-$ TAG=arm make start
+```sh
+TAG=arm make start
 ```
 
 You can find the full list of available tags [on the Docker hub](https://hub.docker.com/r/freshrss/freshrss/tags).
 
 If you want to build the Docker image yourself, you can use the following command:
 
-```console
-$ make build
-$ # or
-$ TAG=arm make build
+```sh
+make build
+# or
+TAG=arm make build
 ```
 
 The `TAG` variable can be anything (e.g. `local`). You can target a specific architecture by adding `-alpine` or `-arm` at the end of the tag (e.g. `local-arm`).
 
-# Project architecture
+## Project architecture
 
 - the PHP framework: [Minz](Minz/index.md)
 
-# Extensions
+## Extensions
 
 If you want to create your own FreshRSS extension, take a look at the [extension documentation](03_Backend/05_Extensions.md).
 
-# Coding style
+## Coding style
 
 If you want to contribute to the source code, it's important to follow the project's coding style. The actual code doesn't always follow it throughout the project, but we should fix it every time an opportunity presents itself.
 
@@ -72,6 +72,7 @@ Contributions which don't follow the coding style will be rejected as long as th
 ## Spaces, tabs and other whitespace characters
 
 ### Indentation
+
 Code indentation must use tabs.
 
 ### Alignment
@@ -89,7 +90,7 @@ The newline character must be a line feed (LF), which is the default line ending
 
 You can verify if there is any unintended white space at the end of line with the following Git command:
 
-```bash
+```sh
 # command to check files before adding them in the Git index
 git diff --check
 # command to check files after adding them in the Git index
@@ -208,6 +209,7 @@ Please ensure that your code works with the oldest PHP version officially suppor
 ## Miscellaneous
 
 ### Operators
+
 Operators must be at the end of the line if a condition is split over more than one line.
 
 ```php

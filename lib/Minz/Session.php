@@ -57,7 +57,7 @@ class Minz_Session {
 	/**
 	 * Permet de récupérer une variable de session
 	 * @param $p le paramètre à récupérer
-	 * @return la valeur de la variable de session, false si n'existe pas
+	 * @return mixed|false la valeur de la variable de session, false si n'existe pas
 	 */
 	public static function param($p, $default = false) {
 		return isset($_SESSION[$p]) ? $_SESSION[$p] : $default;

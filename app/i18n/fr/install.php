@@ -60,10 +60,6 @@ return array(
 			'nok' => 'Vous ne disposez pas de PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Vous disposez de fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Veuillez vérifier que vous ne modifiez pas votre HTTP REFERER.',
-			'ok' => 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
-		),
 		'json' => array(
 			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
 			'ok' => 'Vous disposez de l’extension recommendée JSON.',
@@ -71,10 +67,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
 			'ok' => 'Vouz disposez de la librairie recommandée mbstring pour Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Vous ne disposez pas de la librairie Minz.',
-			'ok' => 'Vous disposez du framework Minz',
 		),
 		'pcre' => array(
 			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
@@ -119,8 +111,11 @@ return array(
 		'choose' => 'Choisissez la langue pour FreshRSS',
 		'defined' => 'La langue a bien été définie.',
 	),
-	'not_deleted' => 'Quelque chose s’est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
+	'missing_applied_migrations' => 'Quelque chose s’est mal passé, vous devriez créer le fichier <em>%s</em> à la main.',
 	'ok' => 'L’installation s’est bien passée.',
+	'session' => array(
+		'nok' => 'Le serveur Web semble mal configué pour les cookies nécessaires aux sessions PHP!',
+	),
 	'step' => 'étape %d',
 	'steps' => 'Étapes',
 	'this_is_the_end' => 'This is the end',

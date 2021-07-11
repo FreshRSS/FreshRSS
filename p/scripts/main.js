@@ -21,8 +21,11 @@ if (!Element.prototype.remove) Element.prototype.remove = function () { if (this
 function xmlHttpRequestJson(req) {
 	let json = req.response;
 	if (req.responseType !== 'json') {	//IE11
-		try { json = JSON.parse(req.responseText); }
-		catch (ex) { json = null; }
+		try {
+			json = JSON.parse(req.responseText);
+		} catch (ex) {
+			json = null;
+		}
 	}
 	return json;
 }
@@ -81,7 +84,7 @@ function numberFormat(nStr) {
 		rgx = /(\d+)(\d{3})/;
 	let x1 = x[0];
 	while (rgx.test(x1)) {
-		x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+		x1 = x1.replace(rgx, '$1 $2');
 	}
 	return x1 + x2;
 }
@@ -908,7 +911,7 @@ function init_shortcuts() {
 			if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); return false; }
 			if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); return false; }
 			if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); return false; }
-			if (k === s.toggle_media) { toggle_media(); return false;}
+			if (k === s.toggle_media) { toggle_media(); return false; }
 			return true;
 		};
 }
@@ -1090,7 +1093,7 @@ function init_nav_entries() {
 				return false;
 			};
 		nav_entries.querySelector('.up').onclick = function (e) {
-				const active_item = document.querySelector('.flux.current'),
+				const active_item = (document.querySelector('.flux.current') || document.querySelector('.flux')),
 					windowTop = document.scrollingElement.scrollTop,
 					item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
@@ -1366,7 +1369,7 @@ function notifs_html5_show(nb) {
 	}
 
 	const notification = new window.Notification(context.i18n.notif_title_articles, {
-		icon: '../themes/icons/favicon-256.png',
+		icon: '../themes/icons/favicon-256-padding.png',
 		body: context.i18n.notif_body_articles.replace('%d', nb),
 		tag: 'freshRssNewArticles',
 	});

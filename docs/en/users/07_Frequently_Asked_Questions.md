@@ -34,14 +34,17 @@ Since the [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0) rel
 Select a user, enter a password, and validate.
 
 Since the [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) release, admins can change user passwords using a terminal. It worth mentioning that you must have access to PHP CLI. Open a terminal, and type the following command:
+
 ```sh
 ./cli/update_user.php --user <username> --password <password>
 ```
-For more information on that matter, please refer to the [dedicated documentation](https://github.com/FreshRSS/FreshRSS/blob/master/cli/README.md).
+
+For more information on that matter, please refer to the [dedicated documentation](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md).
 
 ## Permissions under SELinux
 
 Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux enabled. This acts similar to a firewall application, so that applications can't write or modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process can't write to some data sub-directories. The following command should be executed as root to fix this problem:
+
 ```sh
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
@@ -55,8 +58,8 @@ If you are using a version prior to 1.16, you can disable your ad-blocker for Fr
 
 Examples with _uBlock_:
 
-- Whitelist your FreshRSS instance by adding it in _uBlock > Open the dashboard > Whitelist_.
-- Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the dashboard > My filters_
+* Whitelist your FreshRSS instance by adding it in _uBlock > Open the dashboard > Whitelist_.
+* Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the dashboard > My filters_
 
 ## Problems with firewalls
 
@@ -64,8 +67,8 @@ If you have the error "Blast! This feed has encountered a problem. Please verify
 
 To identify the problem, here are the steps to follow:
 
-- step 1: Try to reach the feed locally to discard a problem with the feed itself. You can use your browser to this purpose.
-- step 2: Try to reach the feed from the host in which FreshRSS is installed. Something like `time curl -v 'https://github.com/FreshRSS/FreshRSS/commits/master.atom'` should make the deal. If you are running FreshRSS within a Docker container, then you can check connectivity from within the container itself with something similar to `sudo docker exec freshrss php -r "readfile('https://github.com/FreshRSS/FreshRSS/commits/master.atom');"`. If none of this works, then it might be a problem with your firewall.
+* step 1: Try to reach the feed locally to discard a problem with the feed itself. You can use your browser to this purpose.
+* step 2: Try to reach the feed from the host in which FreshRSS is installed. Something like `time curl -v 'https://github.com/FreshRSS/FreshRSS/commits/edge.atom'` should make the deal. If you are running FreshRSS within a Docker container, then you can check connectivity from within the container itself with something similar to `sudo docker exec freshrss php -r "readfile('https://github.com/FreshRSS/FreshRSS/commits/edge.atom');"`. If none of this works, then it might be a problem with your firewall.
 
 Then to fix it, you need to do check your firewall configuration and ensure that you are not blocking connections to IPs and/or ports in which your feeds are located. If using iptables and you are blocking inbound connections to ports 80/443, check that the rules are properly configured and you are not also blocking outbound connections to the very same ports.
 

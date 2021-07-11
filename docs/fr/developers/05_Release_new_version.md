@@ -7,7 +7,7 @@ Ceci est à faire **au moins une semaine à l'avance**.
 
 Il est aussi recommandé de faire l'annonce sur mailing@freshrss.org.
 
-# S'assurer de l'état de dev
+## S'assurer de l'état de dev
 
 Avant de sortir une nouvelle version de FreshRSS, il faut vous assurer que
 le code est stable et ne présente pas de bugs majeurs. Idéalement, il
@@ -17,10 +17,10 @@ publication.
 Il faut aussi **vous assurer que le fichier CHANGELOG est à jour** avec les
 mises à jour de la version à sortir.
 
-# Processus Git
+## Processus Git
 
-```bash
-$ git checkout master
+```sh
+$ git checkout edge
 $ git pull
 $ vim constants.php
 # Mettre à jour le numéro de version x.y.z de FRESHRSS_VERSION
@@ -31,7 +31,7 @@ Version x.y.z
 $ git push && git push --tags
 ```
 
-# Mise à jour de update.freshrss.org
+## Mise à jour de update.freshrss.org
 
 Il est important de mettre à jour update.freshrss.org puisqu'il s'agit du
 service par défaut gérant les mises à jour automatiques de FreshRSS.
@@ -39,11 +39,11 @@ service par défaut gérant les mises à jour automatiques de FreshRSS.
 Le dépot gérant le code se trouve sur GitHub :
 [FreshRSS/update.freshrss.org](https://github.com/FreshRSS/update.freshrss.org/).
 
-## Écriture du script de mise à jour
+### Écriture du script de mise à jour
 
 Les scripts se trouvent dans le répertoire `./scripts/` et doivent être de
 la forme `update_to_x.y.z.php`. On trouve aussi dans ce répertoire
-`update_to_dev.php` destiné aux mises à jour de la branche `master` (ce
+`update_to_dev.php` destiné aux mises à jour de la branche `edge` (ce
 script ne doit pas inclure de code spécifique à une version particulière !)
 et `update_util.php` contenant une liste de fonctions utiles à tous les
 scripts.
@@ -98,7 +98,7 @@ return array(
 Et voici comment fonctionne cette table :
 
 * à gauche se trouve la version N, à droite la version N+1 ;
-* les versions `x.y.z-dev` sont **toutes** mises à jour vers `master` ;
+* les versions `x.y.z-dev` sont **toutes** mises à jour vers `edge` ;
 * les versions stables sont mises à jour vers des versions stables ;
 * il est possible de sauter plusieurs versions d'un coup à condition que les
   scripts de mise à jour le prennent en charge ;
@@ -121,7 +121,7 @@ déroule correctement.
 Lorsque vous serez satisfait, mettez à jour update.freshrss.org avec le
 nouveau script et en testant de nouveau puis passez à la suite.
 
-# Mise à jour des services FreshRSS
+## Mise à jour des services FreshRSS
 
 Deux services sont à mettre à jour immédiatement après la mise à jour de
 update.freshrss.org :
@@ -129,7 +129,7 @@ update.freshrss.org :
 * rss.freshrss.org ;
 * demo.freshrss.org (identifiants publics : `demo` / `demodemo`).
 
-# Annoncer publiquement la sortie
+## Annoncer publiquement la sortie
 
 Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 
@@ -141,10 +141,10 @@ Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 * sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;
 * et sur mailing@freshrss.org ;
 
-# Lancer la prochaine version de développement
+## Lancer la prochaine version de développement
 
-```bash
-$ git checkout master
+```sh
+$ git checkout edge
 $ vim constants.php
 # Mettre à jour le numéro de version de FRESHRSS_VERSION
 $ vim CHANGELOG.md
