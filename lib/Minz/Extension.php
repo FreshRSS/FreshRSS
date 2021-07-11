@@ -13,6 +13,7 @@ abstract class Minz_Extension {
 	private $type;
 	private $config_key = 'extensions';
 	private $user_configuration;
+	private $system_configuration;
 
 	public static $authorized_types = array(
 		'system',
@@ -203,40 +204,76 @@ abstract class Minz_Extension {
 	/**
 	 * @return bool
 	 */
-	private function isUserConfigurationEnabled() {
+	private function isConfigurationEnabled(string $type) {
 		if (!class_exists('FreshRSS_Context', false)) {
 			return false;
 		}
-		if (null === FreshRSS_Context::$user_conf) {
+
+		$conf = "{$type}_conf";
+		if (null === FreshRSS_Context::$$conf) {
 			return false;
 		}
+
 		return true;
 	}
 
 	/**
 	 * @return bool
 	 */
-	private function isExtensionConfigured() {
-		if (!FreshRSS_Context::$user_conf->hasParam($this->config_key)) {
+	private function isExtensionConfigured(string $type) {
+		$conf = "{$type}_conf";
+
+		if (!FreshRSS_Context::$$conf->hasParam($this->config_key)) {
 			return false;
 		}
 
-		$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
+		$extensions = FreshRSS_Context::$$conf->{$this->config_key};
 		return array_key_exists($this->getName(), $extensions);
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getUserConfiguration() {
-		if (!$this->isUserConfigurationEnabled()) {
-			return [];
-		}
-		if (!$this->isExtensionConfigured()) {
+	private function getConfiguration(string $type) {
+		if (!$this->isConfigurationEnabled($type)) {
 			return [];
 		}
 
-		return FreshRSS_Context::$user_conf->{$this->config_key}[$this->getName()];
+		if (!$this->isExtensionConfigured($type)) {
+			return [];
+		}
+
+		$conf = "{$type}_conf";
+		return FreshRSS_Context::$$conf->{$this->config_key}[$this->getName()];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSystemConfiguration() {
+		return $this->getConfiguration('system');
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getUserConfiguration() {
+		return $this->getConfiguration('user');
+	}
+
+	/**
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function getSystemConfigurationValue(string $key, $default = null) {
+		if (!is_array($this->system_configuration)) {
+			$this->system_configuration = $this->getSystemConfiguration();
+		}
+
+		if (array_key_exists($key, $this->system_configuration)) {
+			return $this->system_configuration[$key];
+		}
+		return $default;
 	}
 
 	/**
@@ -254,40 +291,57 @@ abstract class Minz_Extension {
 		return $default;
 	}
 
-	public function setUserConfiguration(array $configuration) {
-		if (!$this->isUserConfigurationEnabled()) {
-			return;
-		}
-		if (FreshRSS_Context::$user_conf->hasParam($this->config_key)) {
-			$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
+	private function setConfiguration(string $type, array $configuration) {
+		$conf = "{$type}_conf";
+
+		if (FreshRSS_Context::$$conf->hasParam($this->config_key)) {
+			$extensions = FreshRSS_Context::$$conf->{$this->config_key};
 		} else {
 			$extensions = [];
 		}
 		$extensions[$this->getName()] = $configuration;
 
-		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
-		FreshRSS_Context::$user_conf->save();
+		FreshRSS_Context::$$conf->{$this->config_key} = $extensions;
+		FreshRSS_Context::$$conf->save();
+	}
 
+	public function setSystemConfiguration(array $configuration) {
+		$this->setConfiguration('system', $configuration);
+		$this->system_configuration = $configuration;
+	}
+
+	public function setUserConfiguration(array $configuration) {
+		$this->setConfiguration('user', $configuration);
 		$this->user_configuration = $configuration;
 	}
 
-	public function removeUserConfiguration() {
-		if (!$this->isUserConfigurationEnabled()) {
-			return;
-		}
-		if (!$this->isExtensionConfigured()) {
+	private function removeConfiguration(string $type) {
+		if (!$this->isConfigurationEnabled($type)) {
 			return;
 		}
 
-		$extensions = FreshRSS_Context::$user_conf->{$this->config_key};
+		if (!$this->isExtensionConfigured($type)) {
+			return;
+		}
+
+		$conf = "{$type}_conf";
+		$extensions = FreshRSS_Context::$$conf->{$this->config_key};
 		unset($extensions[$this->getName()]);
 		if (empty($extensions)) {
 			$extensions = null;
 		}
 
-		FreshRSS_Context::$user_conf->{$this->config_key} = $extensions;
-		FreshRSS_Context::$user_conf->save();
+		FreshRSS_Context::$$conf->{$this->config_key} = $extensions;
+		FreshRSS_Context::$$conf->save();
+	}
 
+	public function removeSystemConfiguration() {
+		$this->removeConfiguration('system');
+		$this->system_configuration = null;
+	}
+
+	public function removeUserConfiguration() {
+		$this->removeConfiguration('user');
 		$this->user_configuration = null;
 	}
 
