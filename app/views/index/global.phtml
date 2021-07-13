@@ -9,46 +9,46 @@
 	}
 ?>
 <main id="stream" class="global<?= $class ?>">
-    <?php
-        $params = Minz_Request::fetchGET();
-        unset($params['c']);
-        unset($params['a']);
-        $url_base = array(
-            'c' => 'index',
-            'a' => 'normal',
-            'params' => $params,
-        );
+	<?php
+		$params = Minz_Request::fetchGET();
+		unset($params['c']);
+		unset($params['a']);
+		$url_base = array(
+			'c' => 'index',
+			'a' => 'normal',
+			'params' => $params,
+		);
 
-        foreach ($this->categories as $cat) {
-            $feeds = $cat->feeds();
-            $url_base['params']['get'] = 'c_' . $cat->id();
+		foreach ($this->categories as $cat) {
+			$feeds = $cat->feeds();
+			$url_base['params']['get'] = 'c_' . $cat->id();
 
-            if (!empty($feeds)) {
-    ?>
-    <div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
-        <div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
-            href="<?= Minz_Url::display($url_base) ?>"><?= $cat->name() ?></a></div>
+			if (!empty($feeds)) {
+	?>
+	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
+		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
+			href="<?= Minz_Url::display($url_base) ?>"><?= $cat->name() ?></a></div>
 
-        <ul class="box-content">
-            <?php
-                foreach ($feeds as $feed) {
-                    $nb_not_read = $feed->nbNotRead();
-                    $error = $feed->inError() ? ' error' : '';
-                    $empty = $feed->nbEntries() === 0 ? ' empty' : '';
-                    $url_base['params']['get'] = 'f_' . $feed->id();
-            ?>
-            <li id="f_<?= $feed->id() ?>" class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
-                data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
-                <?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-                <a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
-            </li>
-            <?php } ?>
-        </ul>
-    </div>
-    <?php
-            }
-        }
-    ?>
+		<ul class="box-content">
+			<?php
+				foreach ($feeds as $feed) {
+					$nb_not_read = $feed->nbNotRead();
+					$error = $feed->inError() ? ' error' : '';
+					$empty = $feed->nbEntries() === 0 ? ' empty' : '';
+					$url_base['params']['get'] = 'f_' . $feed->id();
+			?>
+			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
+				data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
+				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+				<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
+			</li>
+			<?php } ?>
+		</ul>
+	</div>
+	<?php
+			}
+		}
+	?>
 </main>
 
 <div id="overlay">
