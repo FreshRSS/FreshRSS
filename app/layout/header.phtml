@@ -12,7 +12,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 }
 ?>
 
-<div class="header">
+<header class="header">
 	<div class="item title">
 		<h1>
 			<a href="<?= _url('index', 'index') ?>">
@@ -51,7 +51,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 	</div>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
-	<div class="item configure">
+	<nav class="item configure">
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
@@ -96,10 +96,10 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<?php endif; ?>
 			</ul>
 		</div>
-	</div>
+	</nav>
 	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
 	<div class="item configure">
 		<?= _i('login') ?><a class="signin" href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a>
 	</div>
 	<?php } ?>
-</div>
+</header>

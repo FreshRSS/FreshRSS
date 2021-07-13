@@ -2,7 +2,7 @@
 	$actual_view = Minz_Request::actionName();
 ?>
 
-<div class="nav_menu">
+<nav class="nav_menu">
 	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
 	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
 	<?php } ?>
@@ -225,5 +225,5 @@
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
 	<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
 	<?php } ?>
-</div>
+</nav>
 <?php flush(); ?>
