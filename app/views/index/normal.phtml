@@ -119,4 +119,5 @@ $today = @strtotime('today');
 	<a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
 </main>
 <?php endif; ?>
+
 <?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>
