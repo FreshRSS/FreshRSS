@@ -19,9 +19,9 @@
 		'params' => $params,
 	);
 
-		foreach ($this->categories as $cat) {
-			$feeds = $cat->feeds();
-			$url_base['params']['get'] = 'c_' . $cat->id();
+	foreach ($this->categories as $cat) {
+		$feeds = $cat->feeds();
+		$url_base['params']['get'] = 'c_' . $cat->id();
 
 			if (!empty($feeds)) {
 	?>
