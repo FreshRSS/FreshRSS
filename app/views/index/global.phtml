@@ -23,8 +23,8 @@
 		$feeds = $cat->feeds();
 		$url_base['params']['get'] = 'c_' . $cat->id();
 
-			if (!empty($feeds)) {
-	?>
+		if (!empty($feeds)) {
+?>
 	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
 		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
 			href="<?= Minz_Url::display($url_base) ?>"><?= $cat->name() ?></a></div>
