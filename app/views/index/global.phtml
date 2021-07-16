@@ -10,14 +10,14 @@
 ?>
 <main id="stream" class="global<?= $class ?>">
 <?php
-		$params = Minz_Request::fetchGET();
-		unset($params['c']);
-		unset($params['a']);
-		$url_base = array(
-			'c' => 'index',
-			'a' => 'normal',
-			'params' => $params,
-		);
+	$params = Minz_Request::fetchGET();
+	unset($params['c']);
+	unset($params['a']);
+	$url_base = array(
+		'c' => 'index',
+		'a' => 'normal',
+		'params' => $params,
+	);
 
 		foreach ($this->categories as $cat) {
 			$feeds = $cat->feeds();
