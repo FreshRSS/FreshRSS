@@ -14,7 +14,7 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 $today = @strtotime('today');
 ?>
 
-<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
+<main id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
@@ -110,14 +110,14 @@ $today = @strtotime('today');
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('pagination');
-?></div><?php
+?></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<div id="stream" class="prompt alert alert-warn normal">
+<main id="stream" class="prompt alert alert-warn normal">
 	<h2><?= _t('index.feed.empty') ?></h2>
 	<a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
-</div>
+</main>
 <?php endif; ?>
 
 <?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>
