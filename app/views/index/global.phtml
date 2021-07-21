@@ -9,7 +9,7 @@
 	}
 ?>
 
-<div id="stream" class="global<?= $class ?>">
+<main id="stream" class="global<?= $class ?>">
 <?php
 	$params = Minz_Request::fetchGET();
 	unset($params['c']);
@@ -50,7 +50,7 @@
 		}
 	}
 ?>
-</div>
+</main>
 
 <div id="overlay">
 	<a class="close" href="#"><?= _i('close') ?></a>
