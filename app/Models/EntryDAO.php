@@ -751,6 +751,44 @@ SQL;
 					$sub_search .= ') ';
 				}
 
+				if ($filter->getLabelIds()) {
+					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+					foreach ($filter->getLabelIds() as $label_id) {
+						$sub_search .= '?,';
+						$values[] = $label_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
+				}
+				if ($filter->getNotLabelIds()) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+					foreach ($filter->getNotLabelIds() as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
+				}
+
+				if ($filter->getLabelNames()) {
+					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($filter->getLabelNames() as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
+				}
+				if ($filter->getNotLabelNames()) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($filter->getNotLabelNames() as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
+				}
+
 				if ($filter->getMinDate()) {
 					$sub_search .= 'AND ' . $alias . 'id >= ? ';
 					$values[] = "{$filter->getMinDate()}000000";
@@ -913,14 +951,14 @@ SQL;
 			$where .= 'e.id_feed=? ';
 			$values[] = intval($id);
 			break;
-		case 't':	//Tag
+		case 't':	//Tag (label)
 			$where .= 'et.id_tag=? ';
 			$values[] = intval($id);
 			break;
-		case 'T':	//Any tag
+		case 'T':	//Any tag (label)
 			$where .= '1=1 ';
 			break;
-		case 'ST':	//Starred or tagged
+		case 'ST':	//Starred or tagged (label)
 			$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `_entrytag` et2 WHERE et2.id_entry = e.id) ';
 			break;
 		default:
