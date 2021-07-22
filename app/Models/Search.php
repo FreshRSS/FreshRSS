@@ -252,7 +252,7 @@ class FreshRSS_Search {
 		return $input;
 	}
 
-		/**
+	/**
 	 * Parse the search string to find tags (labels) names.
 	 *
 	 * @param string $input
