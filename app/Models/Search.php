@@ -201,7 +201,7 @@ class FreshRSS_Search {
 			$ids_lists = self::removeEmptyValues($ids_lists);
 			if (!empty($ids_lists[0])) {
 				$this->feed_ids = explode(',', $ids_lists[0]);
-				array_filter($this->feed_ids, function($v) { $v != ''; });
+				$this->feed_ids = self::removeEmptyValues($this->feed_ids);
 			}
 		}
 		return $input;
@@ -214,7 +214,7 @@ class FreshRSS_Search {
 			$ids_lists = self::removeEmptyValues($ids_lists);
 			if (!empty($ids_lists[0])) {
 				$this->not_feed_ids = explode(',', $ids_lists[0]);
-				array_filter($this->not_feed_ids, function($v) { $v != ''; });
+				$this->not_feed_ids = self::removeEmptyValues($this->not_feed_ids);
 			}
 		}
 		return $input;
@@ -233,7 +233,7 @@ class FreshRSS_Search {
 			$ids_lists = self::removeEmptyValues($ids_lists);
 			if (!empty($ids_lists[0])) {
 				$this->label_ids = explode(',', $ids_lists[0]);
-				array_filter($this->label_ids, function ($v) { $v != ''; });
+				$this->label_ids = self::removeEmptyValues($this->label_ids);
 			}
 		}
 		return $input;
@@ -246,7 +246,7 @@ class FreshRSS_Search {
 			$ids_lists = self::removeEmptyValues($ids_lists);
 			if (!empty($ids_lists[0])) {
 				$this->not_label_ids = explode(',', $ids_lists[0]);
-				array_filter($this->not_label_ids, function ($v) { $v != ''; });
+				$this->not_label_ids = self::removeEmptyValues($this->not_label_ids);
 			}
 		}
 		return $input;
@@ -259,27 +259,53 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parseLabelNames($input) {
+		$names_lists = [];
 		if (preg_match_all('/\blabels?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$names_lists = self::removeEmptyValues($names_lists);
-			if (!empty($names_lists[0])) {
-				$this->label_names = explode(',', $names_lists[0]);
-				array_filter($this->label_names, function ($v) { $v != ''; });
+		}
+		if (preg_match_all('/\blabels:(?P<search>[^\s"]*)/', $input, $matches)) {
+			$names_lists = array_merge($names_lists, $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		$names_lists = self::removeEmptyValues($names_lists);
+		if (!empty($names_lists)) {
+			$this->label_names = [];
+			foreach ($names_lists as $names_list) {
+				$names_array = explode(',', $names_list);
+				$this->label_names = array_merge($this->label_names, $names_array);
 			}
+			$this->label_names = array_unique($this->label_names);
+			$this->label_names = self::removeEmptyValues($this->label_names);
 		}
 		return $input;
 	}
 
+	/**
+	 * Parse the search string to find tags (labels) names to exclude.
+	 *
+	 * @param string $input
+	 * @return string
+	 */
 	private function parseNotLabelNames($input) {
+		$names_lists = [];
 		if (preg_match_all('/[!-]labels?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$names_lists = self::removeEmptyValues($names_lists);
-			if (!empty($names_lists[0])) {
-				$this->not_label_names = explode(',', $names_lists[0]);
-				array_filter($this->not_label_names, function ($v) { $v != ''; });
+		}
+		if (preg_match_all('/[!-]labels:(?P<search>[^\s"]*)/', $input, $matches)) {
+			$names_lists = array_merge($names_lists, $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		$names_lists = self::removeEmptyValues($names_lists);
+		if (!empty($names_lists)) {
+			$this->not_label_names = [];
+			foreach ($names_lists as $names_list) {
+				$names_array = explode(',', $names_list);
+				$this->not_label_names = array_merge($this->not_label_names, $names_array);
 			}
+			$this->not_label_names = array_unique($this->not_label_names);
+			$this->not_label_names = self::removeEmptyValues($this->not_label_names);
 		}
 		return $input;
 	}

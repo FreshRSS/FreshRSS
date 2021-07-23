@@ -223,7 +223,7 @@ You can use the search field to further refine results:
 		* `date:P1DT1H/` (past one day and one hour)
 * by date of publication, using the same format: `pubdate:<date-interval>`
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14`
-* by custom label name `label:"my label"` or multiple label names: `labels:"my label,my other label"`
+* by custom label name `label:label`, `label:"my label"` or multiple label names: `labels:"my label,my other label"`
 
 Be careful not to enter a space between the operator and the search value.
 
