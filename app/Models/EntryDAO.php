@@ -806,24 +806,32 @@ SQL;
 
 				if ($filter->getLabelIds()) {
 					foreach ($filter->getLabelIds() as $label_ids) {
-						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-						foreach ($label_ids as $label_id) {
-							$sub_search .= '?,';
-							$values[] = $label_id;
+						if ($label_ids === '*') {
+							$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+						} else {
+							$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+							foreach ($label_ids as $label_id) {
+								$sub_search .= '?,';
+								$values[] = $label_id;
+							}
+							$sub_search = rtrim($sub_search, ',');
+							$sub_search .= ')) ';
 						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ')) ';
 					}
 				}
 				if ($filter->getNotLabelIds()) {
-					foreach ($filter->getNotLabelIds() as $feed_ids) {
-						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-						foreach ($feed_ids as $feed_id) {
-							$sub_search .= '?,';
-							$values[] = $feed_id;
+					foreach ($filter->getNotLabelIds() as $label_ids) {
+						if ($label_ids === '*') {
+							$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+						} else {
+							$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+							foreach ($label_ids as $label_id) {
+								$sub_search .= '?,';
+								$values[] = $label_id;
+							}
+							$sub_search = rtrim($sub_search, ',');
+							$sub_search .= ')) ';
 						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ')) ';
 					}
 				}
 

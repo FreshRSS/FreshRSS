@@ -222,7 +222,7 @@ You can use the search field to further refine results:
 		* `date:PT90S/` (past ninety seconds)
 		* `date:P1DT1H/` (past one day and one hour)
 * by date of publication, using the same format: `pubdate:<date-interval>`
-* by custom label ID `L:12` or multiple label IDs: `L:12,13,14`
+* by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
 

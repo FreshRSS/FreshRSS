@@ -233,11 +233,15 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parseLabelIds($input) {
-		if (preg_match_all('/\b[lL]:(?P<search>[0-9,]*)/', $input, $matches)) {
+		if (preg_match_all('/\b[lL]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$ids_lists = $matches['search'];
 			$this->label_ids = [];
 			foreach ($ids_lists as $ids_list) {
+				if ($ids_list === '*') {
+					$this->label_ids[] = '*';
+					break;
+				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
 				if (!empty($label_ids)) {
@@ -249,11 +253,15 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotLabelIds($input) {
-		if (preg_match_all('/[!-][lL]:(?P<search>[0-9,]*)/', $input, $matches)) {
+		if (preg_match_all('/[!-][lL]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$ids_lists = $matches['search'];
 			$this->not_label_ids = [];
 			foreach ($ids_lists as $ids_list) {
+				if ($ids_list === '*') {
+					$this->not_label_ids[] = '*';
+					break;
+				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
 				if (!empty($label_ids)) {
