@@ -207,7 +207,7 @@ the search field.
 Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 :
 
-* par ID de flux : `f:123` ou plusieurs flux : `f:123,234,345`
+* par ID de flux : `f:123` ou plusieurs flux (*ou*) : `f:123,234,345`
 * par auteur : `author:nom` or `author:'nom composé'`
 * par titre : `intitle:mot` or `intitle:'mot composé'`
 * par URL: `inurl:mot` or `inurl:'mot composé'`
@@ -247,7 +247,8 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 		* `date:P1DT1H/` (past one day and one hour)
 * par date de publication, avec la même syntaxe: `pubdate:<date-interval>`
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14`
-* par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou de plusieurs étiquettes : `labels:"mon étiquette,mon autre étiquette"`
+* par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmis une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
+* par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur
 recherchée.

@@ -196,12 +196,15 @@ class FreshRSS_Search {
 	 */
 	private function parseFeedIds($input) {
 		if (preg_match_all('/\bf:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$ids_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$ids_lists = self::removeEmptyValues($ids_lists);
-			if (!empty($ids_lists[0])) {
-				$this->feed_ids = explode(',', $ids_lists[0]);
-				$this->feed_ids = self::removeEmptyValues($this->feed_ids);
+			$ids_lists = $matches['search'];
+			$this->feed_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$feed_ids = explode(',', $ids_list);
+				$feed_ids = self::removeEmptyValues($feed_ids);
+				if (!empty($feed_ids)) {
+					$this->feed_ids[] = $feed_ids;
+				}
 			}
 		}
 		return $input;
@@ -209,12 +212,15 @@ class FreshRSS_Search {
 
 	private function parseNotFeedIds($input) {
 		if (preg_match_all('/[!-]f:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$ids_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$ids_lists = self::removeEmptyValues($ids_lists);
-			if (!empty($ids_lists[0])) {
-				$this->not_feed_ids = explode(',', $ids_lists[0]);
-				$this->not_feed_ids = self::removeEmptyValues($this->not_feed_ids);
+			$ids_lists = $matches['search'];
+			$this->not_feed_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$feed_ids = explode(',', $ids_list);
+				$feed_ids = self::removeEmptyValues($feed_ids);
+				if (!empty($feed_ids)) {
+					$this->not_feed_ids[] = $feed_ids;
+				}
 			}
 		}
 		return $input;
@@ -228,12 +234,15 @@ class FreshRSS_Search {
 	 */
 	private function parseLabelIds($input) {
 		if (preg_match_all('/\b[lL]:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$ids_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$ids_lists = self::removeEmptyValues($ids_lists);
-			if (!empty($ids_lists[0])) {
-				$this->label_ids = explode(',', $ids_lists[0]);
-				$this->label_ids = self::removeEmptyValues($this->label_ids);
+			$ids_lists = $matches['search'];
+			$this->label_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$label_ids = explode(',', $ids_list);
+				$label_ids = self::removeEmptyValues($label_ids);
+				if (!empty($label_ids)) {
+					$this->label_ids[] = $label_ids;
+				}
 			}
 		}
 		return $input;
@@ -241,12 +250,15 @@ class FreshRSS_Search {
 
 	private function parseNotLabelIds($input) {
 		if (preg_match_all('/[!-][lL]:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$ids_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$ids_lists = self::removeEmptyValues($ids_lists);
-			if (!empty($ids_lists[0])) {
-				$this->not_label_ids = explode(',', $ids_lists[0]);
-				$this->not_label_ids = self::removeEmptyValues($this->not_label_ids);
+			$ids_lists = $matches['search'];
+			$this->not_label_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$label_ids = explode(',', $ids_list);
+				$label_ids = self::removeEmptyValues($label_ids);
+				if (!empty($label_ids)) {
+					$this->not_label_ids[] = $label_ids;
+				}
 			}
 		}
 		return $input;
@@ -268,15 +280,15 @@ class FreshRSS_Search {
 			$names_lists = array_merge($names_lists, $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		$names_lists = self::removeEmptyValues($names_lists);
 		if (!empty($names_lists)) {
 			$this->label_names = [];
 			foreach ($names_lists as $names_list) {
 				$names_array = explode(',', $names_list);
-				$this->label_names = array_merge($this->label_names, $names_array);
+				$names_array = self::removeEmptyValues($names_array);
+				if (!empty($names_array)) {
+					$this->label_names[] = $names_array;
+				}
 			}
-			$this->label_names = array_unique($this->label_names);
-			$this->label_names = self::removeEmptyValues($this->label_names);
 		}
 		return $input;
 	}
@@ -297,15 +309,15 @@ class FreshRSS_Search {
 			$names_lists = array_merge($names_lists, $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		$names_lists = self::removeEmptyValues($names_lists);
 		if (!empty($names_lists)) {
 			$this->not_label_names = [];
 			foreach ($names_lists as $names_list) {
 				$names_array = explode(',', $names_list);
-				$this->not_label_names = array_merge($this->not_label_names, $names_array);
+				$names_array = self::removeEmptyValues($names_array);
+				if (!empty($names_array)) {
+					$this->not_label_names[] = $names_array;
+				}
 			}
-			$this->not_label_names = array_unique($this->not_label_names);
-			$this->not_label_names = self::removeEmptyValues($this->not_label_names);
 		}
 		return $input;
 	}

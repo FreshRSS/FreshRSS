@@ -732,63 +732,6 @@ SQL;
 				}
 				$sub_search = '';
 
-				if ($filter->getFeedIds()) {
-					$sub_search .= 'AND ' . $alias . 'id_feed IN (';
-					foreach ($filter->getFeedIds() as $feed_id) {
-						$sub_search .= '?,';
-						$values[] = $feed_id;
-					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ') ';
-				}
-				if ($filter->getNotFeedIds()) {
-					$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
-					foreach ($filter->getNotFeedIds() as $feed_id) {
-						$sub_search .= '?,';
-						$values[] = $feed_id;
-					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ') ';
-				}
-
-				if ($filter->getLabelIds()) {
-					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
-					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
-				}
-				if ($filter->getNotLabelIds()) {
-					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getNotLabelIds() as $feed_id) {
-						$sub_search .= '?,';
-						$values[] = $feed_id;
-					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
-				}
-
-				if ($filter->getLabelNames()) {
-					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-					foreach ($filter->getLabelNames() as $label_name) {
-						$sub_search .= '?,';
-						$values[] = $label_name;
-					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
-				}
-				if ($filter->getNotLabelNames()) {
-					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-					foreach ($filter->getNotLabelNames() as $label_name) {
-						$sub_search .= '?,';
-						$values[] = $label_name;
-					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
-				}
-
 				if ($filter->getMinDate()) {
 					$sub_search .= 'AND ' . $alias . 'id >= ? ';
 					$values[] = "{$filter->getMinDate()}000000";
@@ -836,6 +779,75 @@ SQL;
 						$values[] = $filter->getNotMaxPubdate();
 					}
 					$sub_search .= ') ';
+				}
+
+				if ($filter->getFeedIds()) {
+					foreach ($filter->getFeedIds() as $feed_ids) {
+						$sub_search .= 'AND ' . $alias . 'id_feed IN (';
+						foreach ($feed_ids as $feed_id) {
+							$sub_search .= '?,';
+							$values[] = $feed_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ') ';
+					}
+				}
+				if ($filter->getNotFeedIds()) {
+					foreach ($filter->getNotFeedIds() as $feed_ids) {
+						$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
+						foreach ($feed_ids as $feed_id) {
+							$sub_search .= '?,';
+							$values[] = $feed_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ') ';
+					}
+				}
+
+				if ($filter->getLabelIds()) {
+					foreach ($filter->getLabelIds() as $label_ids) {
+						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
+					}
+				}
+				if ($filter->getNotLabelIds()) {
+					foreach ($filter->getNotLabelIds() as $feed_ids) {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($feed_ids as $feed_id) {
+							$sub_search .= '?,';
+							$values[] = $feed_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
+					}
+				}
+
+				if ($filter->getLabelNames()) {
+					foreach ($filter->getLabelNames() as $label_names) {
+						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+						foreach ($label_names as $label_name) {
+							$sub_search .= '?,';
+							$values[] = $label_name;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
+					}
+				}
+				if ($filter->getNotLabelNames()) {
+					foreach ($filter->getNotLabelNames() as $label_names) {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+						foreach ($label_names as $label_name) {
+							$sub_search .= '?,';
+							$values[] = $label_name;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
+					}
 				}
 
 				if ($filter->getAuthor()) {
