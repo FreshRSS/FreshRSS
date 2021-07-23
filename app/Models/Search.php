@@ -284,7 +284,7 @@ class FreshRSS_Search {
 			$names_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/\blabels:(?P<search>[^\s"]*)/', $input, $matches)) {
+		if (preg_match_all('/\blabels?:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -313,7 +313,7 @@ class FreshRSS_Search {
 			$names_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/[!-]labels:(?P<search>[^\s"]*)/', $input, $matches)) {
+		if (preg_match_all('/[!-]labels?:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
