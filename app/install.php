@@ -676,31 +676,33 @@ if (_t('gen.dir') === 'rtl') {
 	<nav class="nav nav-list aside">
 		<div class="nav-header"><?= _t('install.steps') ?></div>
 		<ol>
-			<li class="item<?= STEP == 0 ? ' active' : '' ?>"><a href="?step=0"><?= _t('install.language') ?></a></li>
+			<li class="item<?= STEP == 0 ? ' active' : '' ?>">
+				<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
+			</li>
 			<li class="item<?= STEP == 1 ? ' active' : '' ?>">
 				<?php if (STEP > 0) {?>
-				<a href="?step=1"><?= _t('install.check') ?></a>
+				<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
 				<?php } else { ?>
 				<span><?= _t('install.check') ?></span>
 				<?php } ?>
 			</li>
 			<li class="item<?= STEP == 2 ? ' active' : '' ?>">
 				<?php if (STEP > 1) {?>
-				<a href="?step=2"><?= _t('install.bdd.conf') ?></a>
+				<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
 				<?php } else { ?>
 				<span><?= _t('install.bdd.conf') ?></span>
 				<?php } ?>
 			</li>
 			<li class="item<?= STEP == 3 ? ' active' : '' ?>">
 				<?php if (STEP > 2) {?>
-				<a href="?step=3"><?= _t('install.conf') ?></a>
+				<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
 				<?php } else { ?>
 				<span><?= _t('install.conf') ?></span>
 				<?php } ?>
 			</li>
 			<li class="item<?= STEP == 4 ? ' active' : '' ?>">
 				<?php if (STEP > 3) {?>
-				<a href="?step=4"><?= _t('install.this_is_the_end') ?></a>
+				<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
 				<?php } else { ?>
 				<span><?= _t('install.this_is_the_end') ?></span>
 				<?php } ?>
