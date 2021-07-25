@@ -271,6 +271,11 @@ a.btn {
 	padding: 0 10px;
 }
 
+.nav-list .item > span {
+	font-style: italic;
+	color: #888888;
+}
+
 .nav-list a:hover {
 	text-decoration: none;
 }
