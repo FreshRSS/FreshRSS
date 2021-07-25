@@ -666,8 +666,7 @@ if (_t('gen.dir') === 'rtl') {
 	<div class="item title">
 		<div id="logo-wrapper">
 			<a href="./">
-				<img class="logo" src="../themes/icons/icon.svg" alt="">
-				FreshRSS
+				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="">
 			</a>
 		</div>
 	</div>
