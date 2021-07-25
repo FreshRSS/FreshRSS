@@ -266,7 +266,8 @@ a.btn {
 	text-align: center;
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > span {
 	padding: 0 10px;
 }
 

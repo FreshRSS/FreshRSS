@@ -266,7 +266,8 @@ a.btn {
 }
 
 .nav-list .item,
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > span {
 	display: block;
 	overflow: hidden;
 	white-space: nowrap;
