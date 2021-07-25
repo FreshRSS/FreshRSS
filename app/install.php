@@ -674,8 +674,8 @@ if (_t('gen.dir') === 'rtl') {
 
 <main id="global">
 	<nav class="nav nav-list aside">
-		<ul>
-			<li class="nav-header"><?= _t('install.steps') ?></li>
+		<div class="nav-header"><?= _t('install.steps') ?></div>
+		<ol>
 			<li class="item<?= STEP == 0 ? ' active' : '' ?>"><a href="?step=0"><?= _t('install.language') ?></a></li>
 			<li class="item<?= STEP == 1 ? ' active' : '' ?>">
 				<?php if (STEP > 0) {?>
@@ -705,7 +705,7 @@ if (_t('gen.dir') === 'rtl') {
 				<span><?= _t('install.this_is_the_end') ?></span>
 				<?php } ?>
 			</li>
-		</ul>
+		</ol>
 	</nav>
 
 	<div class="post">
