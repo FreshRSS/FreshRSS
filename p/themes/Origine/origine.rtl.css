@@ -220,7 +220,7 @@ a.btn {
 
 .btn-attention {
 	background: #e95b57;
-	background: linear-gradient(to bottom, #e95b57, #bd362f);
+	background: linear-gradient(to bottom, #ea4a46, #911811);
 	color: #fff;
 	border: 1px solid #c44742;
 	text-shadow: 0px -1px 0px #666;
@@ -422,14 +422,14 @@ a.btn {
 }
 
 .alert-warn {
-	background: #ffe;
-	color: #c95;
+	background: #ffffe0;
+	color: #77501c;
 	border: 1px solid #eeb;
 }
 
 .alert-success {
-	background: #dfd;
-	color: #484;
+	background: #e8ffe8;
+	color: #2f602f;
 	border: 1px solid #cec;
 }
 
