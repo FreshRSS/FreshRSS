@@ -55,7 +55,8 @@ input:focus, select:focus, textarea:focus {
 	box-shadow: 0 2px 2px #ddf inset;
 }
 
-input:invalid, select:invalid {
+input:focus:invalid, select:focus:invalid,
+input:hover:invalid, select:hover:invalid {
 	border-color: #f00;
 	box-shadow: 0 0 2px 2px #fdd inset;
 }
