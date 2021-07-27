@@ -34,19 +34,13 @@ textarea {
 }
 
 input, select, textarea {
-	padding: 5px;
+	padding: 7px;
 	background: #fdfdfd;
 	color: #666;
 	border: 1px solid #bbb;
 	border-radius: 3px;
 	box-shadow: 0 2px 2px #eee inset;
-	min-height: 25px;
-	line-height: 25px;
 	vertical-align: middle;
-}
-
-select {
-	height: 37px;
 }
 
 option {
