@@ -743,6 +743,7 @@ a.btn {
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
+	padding: 1em;
 }
 
 #new-article:hover {
@@ -750,7 +751,6 @@ a.btn {
 }
 
 #new-article > a {
-	line-height: 3em;
 	color: #fff;
 	font-weight: bold;
 }
