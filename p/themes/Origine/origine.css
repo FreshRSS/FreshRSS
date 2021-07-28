@@ -740,10 +740,10 @@ a.btn {
 
 /*=== New article notification */
 #new-article {
+	padding: 1em;
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
-	padding: 1em;
 }
 
 #new-article:hover {
