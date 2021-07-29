@@ -175,7 +175,6 @@ form th {
 	border-radius: 3px;
 	min-height: 37px;
 	min-width: 15px;
-	line-height: 25px;
 	text-shadow: 0px -1px 0 #ddd;
 	vertical-align: middle;
 	cursor: pointer;
@@ -184,7 +183,6 @@ form th {
 
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
@@ -238,8 +236,7 @@ a.btn {
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+	padding: 8px 10px;
 	font-size: 0.9rem;
 }
 
@@ -266,10 +263,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-list .item > a {
-	padding: 0 10px;
-}
-
 .nav-list a:hover {
 	text-decoration: none;
 }
@@ -293,7 +286,6 @@ a.btn {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
 	background: #f4f4f4;
 	color: #888;
 	border-bottom: 1px solid #ddd;
@@ -315,9 +307,8 @@ a.btn {
 }
 
 .nav-head .item {
-	padding: 5px 10px;
+	padding: 8px 10px;
 	font-size: 0.9rem;
-	line-height: 1.5rem;
 }
 
 /*=== Horizontal-list */
@@ -366,8 +357,7 @@ a.btn {
 .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
-	padding: 0 22px;
-	line-height: 2.5em;
+	padding: 7px 22px;
 	font-size: 0.8rem;
 }
 
@@ -504,9 +494,8 @@ a.btn {
 }
 
 .box .box-content .item {
-	padding: 0 10px;
+	padding: 8px 10px;
 	font-size: 0.9rem;
-	line-height: 2.5em;
 }
 
 .box .box-title .configure,
@@ -526,9 +515,8 @@ a.btn {
 
 .tree-folder-title {
 	position: relative;
-	padding: 0 10px;
+	padding: 8px 10px;
 	background: #fff;
-	line-height: 2.5rem;
 	font-size: 1rem;
 }
 
@@ -556,9 +544,12 @@ a.btn {
 	border-bottom: 1px solid #ccc;
 }
 
+.aside_feed .tree-folder-items .item.feed {
+	padding: 11px 15px;
+}
+
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 2.5rem;
+	padding: 11px 10px;
 	font-size: 0.8rem;
 }
 
@@ -632,13 +623,11 @@ a.btn {
 
 /*=== Aside main page (categories) */
 .aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 10px 0;
 	padding: 0 10px;
 	background: inherit;
 	font-size: 0.9rem;
 	position: absolute;
 	right: 0;
-	line-height: 1.5rem;
 }
 
 /*=== Aside main page (feeds) */
@@ -763,7 +752,7 @@ a.btn {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
 	background: #fff;
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
@@ -781,6 +770,7 @@ a.btn {
 	text-shadow: 0px -1px 0px #666;
 	font-style: italic;
 	text-align: right;
+	line-height: 1.5;
 }
 
 /*=== Index menu */
@@ -911,14 +901,14 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
+	padding: 15px;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 1.3;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -936,8 +926,7 @@ a.btn {
 }
 
 .notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
+	padding: 15px 15px;
 }
 
 .notification.good a.close:hover {
@@ -949,7 +938,7 @@ a.btn {
 }
 
 .notification#actualizeProgress {
-	line-height: 2em;
+	line-height: 1.5;
 }
 
 /*=== "Load more" part */
@@ -977,7 +966,7 @@ a.btn {
 	background: #fff;
 	border-top: 1px solid #ddd;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 }
 
@@ -1148,12 +1137,11 @@ a.btn {
 
 	.aside .toggle_aside,
 	#panel .close {
+		padding: 13px;
 		background: #f6f6f6;
 		display: block;
 		width: 100%;
-		height: 50px;
 		border-bottom: 1px solid #ddd;
-		line-height: 50px;
 		text-align: center;
 	}
 
