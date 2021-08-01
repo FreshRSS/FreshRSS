@@ -92,6 +92,11 @@ class FreshRSS extends Minz_FrontController {
 		Minz_Translate::init($language);
 	}
 
+	private static function getThemeFileUrl($theme_id, $filename) {
+		$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
+		return '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
+	}
+
 	public static function loadStylesAndScripts() {
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
@@ -100,9 +105,7 @@ class FreshRSS extends Minz_FrontController {
 					case '.js':
 						$theme_id = $theme['id'];
 						$filename = $file;
-						$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
-						$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
-						Minz_View::prependScript(Minz_Url::display($url));
+						Minz_View::prependScript(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
 						break;
 					case '.css':
 					default:
@@ -117,9 +120,7 @@ class FreshRSS extends Minz_FrontController {
 							$filename = substr($filename, 0, -4);
 							$filename = $filename . '.rtl.css';
 						}
-						$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
-						$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
-						Minz_View::prependStyle(Minz_Url::display($url));
+						Minz_View::prependStyle(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
 				}
 			}
 		}
