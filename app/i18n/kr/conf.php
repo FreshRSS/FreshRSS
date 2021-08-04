@@ -165,6 +165,7 @@ return array(
 		'facebook' => 'Facebook',
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
+		'raindrop' => 'Raindrop.io',
 		'remove' => '공유 방법 삭제',
 		'shaarli' => 'Shaarli',
 		'share_name' => '표시할 이름',

@@ -198,6 +198,7 @@ return array(
 		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
 		'print' => 'Wydruk',
+		'raindrop' => 'Raindrop.io',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',

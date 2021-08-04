@@ -146,4 +146,10 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'raindrop' => array(
+		'url' => 'https://app.raindrop.io/add?link=~LINK~&title=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 );

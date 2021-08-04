@@ -165,6 +165,7 @@ return array(
 		'facebook' => 'Facebook',
 		'more_information' => 'Więcej informacji',
 		'print' => 'Wydruk',
+		'raindrop' => 'Raindrop.io',
 		'remove' => 'Usuń sposób na podanie dalej wiadomości',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Wyświetlana nazwa serwisu',

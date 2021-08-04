@@ -34,14 +34,12 @@ textarea {
 }
 
 input, select, textarea {
-	padding: 5px;
+	padding: 7px;
 	background: #fdfdfd;
 	color: #666;
 	border: 1px solid #bbb;
 	border-radius: 3px;
 	box-shadow: 0 2px 2px #eee inset;
-	min-height: 25px;
-	line-height: 25px;
 	vertical-align: middle;
 }
 
@@ -220,7 +218,7 @@ a.btn {
 
 .btn-attention {
 	background: #e95b57;
-	background: linear-gradient(to bottom, #e95b57, #bd362f);
+	background: linear-gradient(to bottom, #ea4a46, #911811);
 	color: #fff;
 	border: 1px solid #c44742;
 	text-shadow: 0px -1px 0px #666;
@@ -266,8 +264,14 @@ a.btn {
 	text-align: center;
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > span {
 	padding: 0 10px;
+}
+
+.nav-list .item > span {
+	font-style: italic;
+	color: #888888;
 }
 
 .nav-list a:hover {
@@ -422,14 +426,14 @@ a.btn {
 }
 
 .alert-warn {
-	background: #ffe;
-	color: #c95;
+	background: #ffffe0;
+	color: #77501c;
 	border: 1px solid #eeb;
 }
 
 .alert-success {
-	background: #dfd;
-	color: #484;
+	background: #e8ffe8;
+	color: #2f602f;
 	border: 1px solid #cec;
 }
 
@@ -740,6 +744,7 @@ a.btn {
 
 /*=== New article notification */
 #new-article {
+	padding: 1em;
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
@@ -750,7 +755,6 @@ a.btn {
 }
 
 #new-article > a {
-	line-height: 3em;
 	color: #fff;
 	font-weight: bold;
 }

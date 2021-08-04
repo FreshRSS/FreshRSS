@@ -183,7 +183,7 @@ It is possible to filter articles by their content by inputting a string in the 
 
 You can use the search field to further refine results:
 
-* by feed ID: `f:123` or multiple feed IDs: `f:123,234,345`
+* by feed ID: `f:123` or multiple feed IDs (*or*): `f:123,234,345`
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
@@ -222,6 +222,9 @@ You can use the search field to further refine results:
 		* `date:PT90S/` (past ninety seconds)
 		* `date:P1DT1H/` (past one day and one hour)
 * by date of publication, using the same format: `pubdate:<date-interval>`
+* by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
+* by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
+* by several label names (*and*): `label:"my label" label:"my other label"`
 
 Be careful not to enter a space between the operator and the search value.
 

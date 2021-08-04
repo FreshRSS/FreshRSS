@@ -165,6 +165,7 @@ return array(
 		'facebook' => 'Facebook',	// TODO - Translation
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
+		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',	// TODO - Translation
 		'shaarli' => 'Shaarli',	// TODO - Translation
 		'share_name' => 'Jméno pro zobrazení',

@@ -655,31 +655,63 @@ if (_t('gen.dir') === 'rtl') {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
 		<script id="jsonVars" type="application/json">{}</script>
-		<title><?= _t('install.title') ?></title>
+		<title><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/template.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
 
-<div class="header">
+<header class="header">
 	<div class="item title">
-		<h1><a href="index.php"><?= _t('install.title') ?></a></h1>
-		<h2><?= _t('install.step', STEP) ?></h2>
+		<div id="logo-wrapper">
+			<a href="./">
+				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="">
+			</a>
+		</div>
 	</div>
-</div>
+</header>
 
-<div id="global">
-	<ul class="nav nav-list aside">
-		<li class="nav-header"><?= _t('install.steps') ?></li>
-		<li class="item<?= STEP == 0 ? ' active' : '' ?>"><a href="?step=0"><?= _t('install.language') ?></a></li>
-		<li class="item<?= STEP == 1 ? ' active' : '' ?>"><a href="?step=1"><?= _t('install.check') ?></a></li>
-		<li class="item<?= STEP == 2 ? ' active' : '' ?>"><a href="?step=2"><?= _t('install.bdd.conf') ?></a></li>
-		<li class="item<?= STEP == 3 ? ' active' : '' ?>"><a href="?step=3"><?= _t('install.conf') ?></a></li>
-		<li class="item<?= STEP == 4 ? ' active' : '' ?>"><a href="?step=4"><?= _t('install.this_is_the_end') ?></a></li>
-	</ul>
+<main id="global">
+	<nav class="nav nav-list aside">
+		<div class="nav-header"><?= _t('install.steps') ?></div>
+		<ol>
+			<li class="item<?= STEP == 0 ? ' active' : '' ?>">
+				<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
+			</li>
+			<li class="item<?= STEP == 1 ? ' active' : '' ?>">
+				<?php if (STEP > 0) {?>
+				<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
+				<?php } else { ?>
+				<span><?= _t('install.check') ?></span>
+				<?php } ?>
+			</li>
+			<li class="item<?= STEP == 2 ? ' active' : '' ?>">
+				<?php if (STEP > 1) {?>
+				<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
+				<?php } else { ?>
+				<span><?= _t('install.bdd.conf') ?></span>
+				<?php } ?>
+			</li>
+			<li class="item<?= STEP == 3 ? ' active' : '' ?>">
+				<?php if (STEP > 2) {?>
+				<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
+				<?php } else { ?>
+				<span><?= _t('install.conf') ?></span>
+				<?php } ?>
+			</li>
+			<li class="item<?= STEP == 4 ? ' active' : '' ?>">
+				<?php if (STEP > 3) {?>
+				<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
+				<?php } else { ?>
+				<span><?= _t('install.this_is_the_end') ?></span>
+				<?php } ?>
+			</li>
+		</ol>
+	</nav>
 
 	<div class="post">
+		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
 		<?php
 		switch (STEP) {
 		case 0:
@@ -704,7 +736,7 @@ if (_t('gen.dir') === 'rtl') {
 		}
 		?>
 	</div>
-</div>
+</main>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>
 </html>

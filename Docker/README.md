@@ -245,7 +245,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -e 'CRON_MIN=17,47' \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
-  cron
+  cron -f
 ```
 
 #### For the Alpine image

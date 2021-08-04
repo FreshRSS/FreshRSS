@@ -165,6 +165,7 @@ return array(
 		'facebook' => 'Facebook',
 		'more_information' => 'Daha fazla bilgi',
 		'print' => 'Yazdır',
+		'raindrop' => 'Raindrop.io',
 		'remove' => 'Paylaşım türünü sil',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Paylaşım ismi',

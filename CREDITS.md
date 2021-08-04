@@ -110,6 +110,7 @@ People are sorted by name so please keep this order.
 * [Prashant Tholia](https://github.com/prashanttholia): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:prashanttholia)
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)
 * [printfuck](https://github.com/printfuck): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:printfuck), [Web](https://eris.cc)
+* [proletarius101](https://github.com/proletarius101): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:proletarius101)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
 * [Quent-in](https://github.com/Quent-in): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Quent-in)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:superboum), [Web](http://quentin.dufour.io/)

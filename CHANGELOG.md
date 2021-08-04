@@ -2,11 +2,27 @@
 
 ## 2021-XX-XX FreshRSS 1.19.0-dev
 
+* Features
+	* New search operator based on custom labels, or not [#3709](https://github.com/FreshRSS/FreshRSS/pull/3709)
+		* Search articles with label IDs: `L:12,13,14` or label names: `label:something` or `labels:"my label,my other label,🧪"`
+		* Search articles with any label: `L:*` or no label: `!L:*`
+* Bug fixing
+	* Fix marking as read a label with SQLite and PostgreSQL [#3711](https://github.com/FreshRSS/FreshRSS/pull/3711)
 * Compatibility
 	* Require PHP 7.0+ (drop support for PHP 5.x) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Drop support for Microsoft Internet Explorer (IE11) [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+	* Fix back-compatibility with Git 2.21- for automatic updates [#3669](https://github.com/FreshRSS/FreshRSS/pull/3669)
 * Deployment
-	* The Docker development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+	* Docker: development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
+	* Docker: Alpine image updated to 3.14 with PHP 8.0.8 and Apache 2.4.48 [#3715](https://github.com/FreshRSS/FreshRSS/pull/3715)
+	* Images on Docker Hub are automatically scanned for software vulnerabilities
+* Extensions
+	* Add system configuration for extension [#3626](https://github.com/FreshRSS/FreshRSS/pull/3626)
+* UI
+	* Use HTML5 tags with better semantics [#3651](https://github.com/FreshRSS/FreshRSS/pull/3651), [#3676](https://github.com/FreshRSS/FreshRSS/pull/3676), [#3713](https://github.com/FreshRSS/FreshRSS/pull/3713)
+	* Improved notification icon [#3678](https://github.com/FreshRSS/FreshRSS/pull/3678)
+* i18n
+	* Fix bug in French and German translations of new/old tags [#3703](https://github.com/FreshRSS/FreshRSS/pull/3703), [#3668](https://github.com/FreshRSS/FreshRSS/pull/3668)
 
 
 ## 2021-06-06 FreshRSS 1.18.1
