@@ -163,6 +163,7 @@ return array(
 		'facebook' => 'Facebook',	// TODO - Translation
 		'more_information' => 'Больше информации',
 		'print' => 'Распечатать',
+		'raindrop' => 'Raindrop.io',
 		'remove' => 'Удалить способ поделиться',
 		'shaarli' => 'Shaarli',	// TODO - Translation
 		'share_name' => 'Отображаемое имя',
