@@ -14,4 +14,4 @@ or a similar method to add their theme to their FreshRSS instance.
 
 # Creating themes
 
-Information on creating themes can be found in [the developer documentation.](../../developers/04_Frontend/02_Design.md)
+Information on creating themes can be found in [the developer documentation.](../developers/04_Frontend/02_Design.md)
