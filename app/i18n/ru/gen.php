@@ -198,6 +198,7 @@ return array(
 		'pinboard' => 'Pinboard',	// TODO - Translation
 		'pocket' => 'Pocket',	// TODO - Translation
 		'print' => 'Распечатать',
+		'raindrop' => 'Raindrop.io',
 		'shaarli' => 'Shaarli',	// TODO - Translation
 		'twitter' => 'Twitter',	// TODO - Translation
 		'wallabag' => 'wallabag v1',	// TODO - Translation

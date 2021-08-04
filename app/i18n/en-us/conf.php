@@ -163,6 +163,7 @@ return array(
 		'facebook' => 'Facebook',
 		'more_information' => 'More information',
 		'print' => 'Print',
+		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Share name to display',
