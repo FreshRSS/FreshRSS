@@ -163,6 +163,7 @@ return array(
 		'facebook' => '脸书',
 		'more_information' => '更多信息',
 		'print' => '打印',
+		'raindrop' => 'Raindrop.io',
 		'remove' => '删除分享方式',
 		'shaarli' => 'Shaarli',
 		'share_name' => '名称',

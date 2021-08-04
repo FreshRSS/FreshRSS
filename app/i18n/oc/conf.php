@@ -163,6 +163,7 @@ return array(
 		'facebook' => 'Facebook',
 		'more_information' => 'Mai d’informacions',
 		'print' => 'Imprimir',
+		'raindrop' => 'Raindrop.io',
 		'remove' => 'Suprimir lo metòde de partatge',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Nom del partatge de mostrar',
