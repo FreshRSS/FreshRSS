@@ -197,8 +197,8 @@ return array(
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',	// TODO - Translation
 		'pocket' => 'Pocket',
-		'raindrop' => 'Raindrop.io', // TODO - Translation
 		'print' => 'Imprimer',
+		'raindrop' => 'Raindrop.io',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
