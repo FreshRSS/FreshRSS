@@ -266,8 +266,14 @@ a.btn {
 	text-align: center;
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > span {
 	padding: 0 10px;
+}
+
+.nav-list .item > span {
+	font-style: italic;
+	color: #888888;
 }
 
 .nav-list a:hover {
