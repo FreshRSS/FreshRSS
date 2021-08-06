@@ -327,10 +327,6 @@ function listUsers() {
 	return $final_list;
 }
 
-function userExists($username) {
-	return @file_exists(USERS_PATH . '/' . $username . '/config.php');
-}
-
 /**
  * Return if the maximum number of registrations has been reached.
  *

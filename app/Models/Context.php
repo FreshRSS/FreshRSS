@@ -71,7 +71,7 @@ class FreshRSS_Context {
 			$username = Minz_Session::param('currentUser', '');
 		}
 		if (($username === '_' || FreshRSS_user_Controller::checkUsername($username)) &&
-			(!$userMustExist || userExists($username))) {
+			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
 			try {
 				//TODO: Keep in session what we need instead of always reloading from disk
 				Minz_Configuration::register('user',
