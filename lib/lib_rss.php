@@ -327,6 +327,7 @@ function listUsers() {
 	return $final_list;
 }
 
+
 /**
  * Return if the maximum number of registrations has been reached.
  *
