@@ -308,11 +308,16 @@ A [docker-compose.yml](docker-compose.yml) file is given as an example, using Po
 - In the `postgresql` service:
     * `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
 	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
-	* the `POSTGRES_PASSWORD` in the `environment` section;
+	* the `POSTGRES_PASSWORD` in the `.env` file;
+	* the `POSTGRES_DB ` in the `.env` file;
+	* the `POSTGRES_USER` in the `.env` file;
 - In the `freshrss` service:
 	* the `volumes` section;
 	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
 	* the `environment` section to adapt the strategy to update feeds.
+    * the `EXPOSED_PORT` variable in the `.env` file;
+
+If you don't want to use the `.env` file you can also directly edit the `docker-compose.yml` file. It's highly recommended to change the password. If you don't change it, it will use the default option.
 
 You can then launch the stack (FreshRSS + PostgreSQL) with:
 
