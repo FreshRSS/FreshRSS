@@ -315,7 +315,7 @@ A [docker-compose.yml](docker-compose.yml) file is given as an example, using Po
 	* the `volumes` section;
 	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
 	* the `environment` section to adapt the strategy to update feeds.
-    * the `EXPOSED_PORT` variable in the `.env` file;
+	* the `EXPOSED_PORT` variable in the `.env` file;
 
 If you don't want to use the `.env` file you can also directly edit the `docker-compose.yml` file. It's highly recommended to change the password. If you don't change it, it will use the default option.
 
