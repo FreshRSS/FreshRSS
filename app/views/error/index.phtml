@@ -3,7 +3,9 @@
 		<h1 class="alert-head"><?= $this->code ?></h1>
 		<p>
 			<?= htmlspecialchars($this->errorMessage, ENT_NOQUOTES, 'UTF-8') ?><br />
-			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+			<div class="backToFeeds">
+				<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+			</div>
 		</p>
 	</div>
 </div>

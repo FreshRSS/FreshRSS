@@ -1,7 +1,9 @@
 <?php $this->partial('aside_subscription'); ?>
 
 <div class="post ">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="backToFeeds">
+		<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
 	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />

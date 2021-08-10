@@ -1,7 +1,9 @@
 <?php $this->partial('aside_subscription'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="backToFeeds">
+		<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
 	<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
 		<legend><?= _t('sub.title.add_label') ?></legend>
