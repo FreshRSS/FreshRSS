@@ -93,6 +93,7 @@ return array(
 			'nok' => 'Impossible de trobar una bibliotèca necessària per XML.',
 			'ok' => 'Avètz la bibliotèca per percórrer los XML.',
 		),
+		'reload' => 'Revérifier',
 	),
 	'conf' => array(
 		'_' => 'Configuracion generala',

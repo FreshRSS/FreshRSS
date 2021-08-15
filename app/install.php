@@ -438,6 +438,9 @@ function printStep1() {
 	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?= _t('install.action.next_step') ?></a>
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
+	<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
+		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃">
+	</a>
 	<?php } ?>
 <?php
 }
