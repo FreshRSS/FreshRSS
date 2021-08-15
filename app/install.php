@@ -439,7 +439,7 @@ function printStep1() {
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
 	<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
-		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃">
+		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" />
 	</a>
 	<?php } ?>
 <?php
