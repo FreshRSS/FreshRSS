@@ -93,6 +93,7 @@ return array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na spracovanie formátu XML.',
 			'ok' => 'Našla sa požadovaná knižnica na spracovanie formátu XML.',
 		),
+		'reload' => 'Tekrar kontrol et',
 	),
 	'conf' => array(
 		'_' => 'Hlavné nastavenia',

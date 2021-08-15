@@ -93,6 +93,7 @@ return array(
 			'nok' => 'Não foi possível encontrar a biblioteca necessária para parse o XML.',
 			'ok' => 'Você tem a biblioteca necessária para parse o XML.',
 		),
+		'reload' => 'Verifique novamente',
 	),
 	'conf' => array(
 		'_' => 'Configurações gerais',

@@ -93,6 +93,7 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',
 		),
+		'reload' => 'Check again',
 	),
 	'conf' => array(
 		'_' => 'General configuration',
