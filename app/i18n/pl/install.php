@@ -93,6 +93,7 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
+		'reload' => 'Sprawdź ponownie',
 	),
 	'conf' => array(
 		'_' => 'General configuration',	// TODO - Translation

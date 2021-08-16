@@ -3,9 +3,11 @@
 		<h1 class="alert-head"><?= $this->code ?></h1>
 		<p>
 			<?= htmlspecialchars($this->errorMessage, ENT_NOQUOTES, 'UTF-8') ?><br />
-			<div class="backToFeeds">
-				<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-			</div>
+			<?php if (FreshRSS_Auth::hasAccess()) {?>
+			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+			<?php } else { ?>
+			<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a>
+			<?php } ?>
 		</p>
 	</div>
 </div>

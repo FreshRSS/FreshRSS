@@ -28,8 +28,7 @@ function cliInitUser($username) {
 		fail('FreshRSS error: invalid username: ' . $username . "\n");
 	}
 
-	$usernames = listUsers();
-	if (!in_array($username, $usernames)) {
+	if (!FreshRSS_user_Controller::userExists($username)) {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
