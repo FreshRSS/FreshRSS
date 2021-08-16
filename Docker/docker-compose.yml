@@ -9,9 +9,9 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: freshrss
-      POSTGRES_PASSWORD: freshrss
-      POSTGRES_DB: freshrss
+      POSTGRES_USER: ${POSTGRES_USER:-freshrss}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-freshrss}
+      POSTGRES_DB: ${POSTGRES_DB:-freshrss}
 
   freshrss-app:
     image: freshrss/freshrss:latest
@@ -19,7 +19,7 @@ services:
     hostname: freshrss-app
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "${EXPOSED_PORT:-8080}:80"
     depends_on:
       - freshrss-db
     volumes:

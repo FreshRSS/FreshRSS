@@ -14,6 +14,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
+	public static function userExists($username) {
+		return @file_exists(USERS_PATH . '/' . $username . '/config.php');
+	}
+
 	public static function updateUser($user, $email, $passwordPlain, $userConfigUpdated = array()) {
 		$userConfig = get_user_configuration($user);
 		if ($userConfig === null) {

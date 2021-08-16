@@ -93,6 +93,7 @@ return array(
 			'nok' => '找不到用于 XML 解析库',
 			'ok' => '已找到 XML 解析库',
 		),
+		'reload' => '再检查一遍',
 	),
 	'conf' => array(
 		'_' => '常规配置',
