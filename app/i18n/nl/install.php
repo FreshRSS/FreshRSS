@@ -93,6 +93,7 @@ return array(
 			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
 		),
+		'reload' => 'Controleer nog eens',
 	),
 	'conf' => array(
 		'_' => 'Algemene configuratie',

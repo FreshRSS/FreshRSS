@@ -93,6 +93,7 @@ return array(
 			'nok' => 'XML 해석을 위한 라이브러리르 찾을 수 없습니다.',
 			'ok' => 'XML 해석을 위한 라이브러리가 설치되어 있습니다.',
 		),
+		'reload' => 'Check again', // TODO - Translation
 	),
 	'conf' => array(
 		'_' => '일반 설정',

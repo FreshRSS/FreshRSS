@@ -93,6 +93,7 @@ return array(
 			'nok' => 'No se ha podido localizar la librería necesaria para procesar XML.',
 			'ok' => 'Dispones de la librería necesaria para procesar XML.',
 		),
+		'reload' => 'Revisar otra vez',
 	),
 	'conf' => array(
 		'_' => 'Configuración general',

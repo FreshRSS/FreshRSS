@@ -93,6 +93,7 @@ return array(
 			'nok' => 'Impossible de trouver une librairie requise pour XML.',
 			'ok' => 'Vouz disposez de la librairie requise pour XML.',
 		),
+		'reload' => 'Revérifier',
 	),
 	'conf' => array(
 		'_' => 'Configuration générale',
