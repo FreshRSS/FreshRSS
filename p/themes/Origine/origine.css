@@ -459,7 +459,6 @@ a.btn {
 	display: block;
 	color: #333;
 	font-style: italic;
-	line-height: 3;
 	text-decoration: none;
 }
 
@@ -760,7 +759,6 @@ a.btn {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3;
 	background: #fff;
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
@@ -916,7 +914,6 @@ a.btn {
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 1.3;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -974,7 +971,6 @@ a.btn {
 	background: #fff;
 	border-top: 1px solid #ddd;
 	text-align: center;
-	line-height: 3;
 	table-layout: fixed;
 }
 
