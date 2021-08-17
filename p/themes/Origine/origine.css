@@ -459,7 +459,7 @@ a.btn {
 	display: block;
 	color: #333;
 	font-style: italic;
-	line-height: 3em;
+	line-height: 3;
 	text-decoration: none;
 }
 
