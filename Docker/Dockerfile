@@ -1,4 +1,4 @@
-FROM debian:10-slim
+FROM debian:11-slim
 
 ENV TZ UTC
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
