@@ -199,7 +199,7 @@ function customSimplePie($attributes = array()) {
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
-		'link', 'input', 'marquee', 'meta', 'noscript',
+		'link', 'input', 'marquee', 'meta',
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
