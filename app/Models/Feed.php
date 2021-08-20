@@ -76,7 +76,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
 	}
 	public function name($raw = false) {
-		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://%i', '', $this->url);
+		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://(www[.])?%i', '', $this->url);
 	}
 	public function website() {
 		return $this->website;
