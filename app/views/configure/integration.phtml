@@ -1,7 +1,9 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
 	<form method="post" action="<?= _url('configure', 'integration') ?>"
 		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick">
