@@ -42,7 +42,7 @@ FreshRSS comes with absolutely no warranty.
 
 # Requirements
 
-* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
+* A recent browser like Firefox / IceCat, Edge, Chromium / Chrome, Opera, Safari.
 	* Works on mobile (except a few features)
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
