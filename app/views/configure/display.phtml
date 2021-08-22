@@ -4,7 +4,9 @@
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
+
 	<h1><?= _t('conf.display') ?></h1>
+	
 	<form method="post" action="<?= _url('configure', 'display') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 

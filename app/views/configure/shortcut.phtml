@@ -5,6 +5,8 @@
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
+	<h1><?= _t('conf.shortcut') ?></h1>
+
 	<datalist id="keys">
 		<?php foreach ($this->list_keys as $key) { ?>
 		<option value="<?= $key ?>">
@@ -13,7 +15,6 @@
 
 	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
 
-	<h2><?= _t('conf.shortcut') ?></h2>
 	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">
 			<?= _t('conf.shortcut.non_standard', implode('</kbd>, <kbd>', $nonStandard)) ?>
@@ -24,94 +25,98 @@
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<noscript><p class="alert alert-error"><?= _t('conf.shortcut.javascript') ?></p></noscript>
+		
+		<fieldset>
+			<legend><?= _t('conf.shortcut.views') ?></legend>
 
-		<legend><?= _t('conf.shortcut.views') ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="normal_view_shortcut"><?= _t('conf.shortcut.normal_view') ?></label>
-			<div class="group-controls">
-				<input type="text" id="normal_view_shortcut" name="shortcuts[normal_view]" list="keys" value="<?= $s['normal_view'] ?>"
-					data-leave-validation="<?= $s['normal_view'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="normal_view_shortcut"><?= _t('conf.shortcut.normal_view') ?></label>
+				<div class="group-controls">
+					<input type="text" id="normal_view_shortcut" name="shortcuts[normal_view]" list="keys" value="<?= $s['normal_view'] ?>"
+						data-leave-validation="<?= $s['normal_view'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="global_view_shortcut"><?= _t('conf.shortcut.global_view') ?></label>
-			<div class="group-controls">
-				<input type="text" id="global_view_shortcut" name="shortcuts[global_view]" list="keys" value="<?= $s['global_view'] ?>"
-					data-leave-validation="<?= $s['global_view'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="global_view_shortcut"><?= _t('conf.shortcut.global_view') ?></label>
+				<div class="group-controls">
+					<input type="text" id="global_view_shortcut" name="shortcuts[global_view]" list="keys" value="<?= $s['global_view'] ?>"
+						data-leave-validation="<?= $s['global_view'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="reading_view_shortcut"><?= _t('conf.shortcut.reading_view') ?></label>
-			<div class="group-controls">
-				<input type="text" id="reading_view_shortcut" name="shortcuts[reading_view]" list="keys" value="<?= $s['reading_view'] ?>"
-					data-leave-validation="<?= $s['reading_view'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="reading_view_shortcut"><?= _t('conf.shortcut.reading_view') ?></label>
+				<div class="group-controls">
+					<input type="text" id="reading_view_shortcut" name="shortcuts[reading_view]" list="keys" value="<?= $s['reading_view'] ?>"
+						data-leave-validation="<?= $s['reading_view'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="rss_view_shortcut"><?= _t('conf.shortcut.rss_view') ?></label>
-			<div class="group-controls">
-				<input type="text" id="rss_view_shortcut" name="shortcuts[rss_view]" list="keys" value="<?= $s['rss_view'] ?>"
-					data-leave-validation="<?= $s['rss_view'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="rss_view_shortcut"><?= _t('conf.shortcut.rss_view') ?></label>
+				<div class="group-controls">
+					<input type="text" id="rss_view_shortcut" name="shortcuts[rss_view]" list="keys" value="<?= $s['rss_view'] ?>"
+						data-leave-validation="<?= $s['rss_view'] ?>"/>
+				</div>
 			</div>
-		</div>
+		</fieldset
 
-		<legend><?= _t('conf.shortcut.navigation') ?></legend>
+		<fieldset>
+			<legend><?= _t('conf.shortcut.navigation') ?></legend>
 
-		<p class="alert alert-warn"><?= _t('conf.shortcut.navigation_help') ?></p>
+			<p class="alert alert-warn"><?= _t('conf.shortcut.navigation_help') ?></p>
 
-		<div class="form-group">
-			<label class="group-name" for="next_entry"><?= _t('conf.shortcut.next_article') ?></label>
-			<div class="group-controls">
-				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?= $s['next_entry'] ?>"
-					data-leave-validation="<?= $s['next_entry'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="next_entry"><?= _t('conf.shortcut.next_article') ?></label>
+				<div class="group-controls">
+					<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?= $s['next_entry'] ?>"
+						data-leave-validation="<?= $s['next_entry'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="prev_entry"><?= _t('conf.shortcut.previous_article') ?></label>
-			<div class="group-controls">
-				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?= $s['prev_entry'] ?>"
-					data-leave-validation="<?= $s['prev_entry'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="prev_entry"><?= _t('conf.shortcut.previous_article') ?></label>
+				<div class="group-controls">
+					<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?= $s['prev_entry'] ?>"
+						data-leave-validation="<?= $s['prev_entry'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="first_entry"><?= _t('conf.shortcut.first_article') ?></label>
-			<div class="group-controls">
-				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?= $s['first_entry'] ?>"
-					data-leave-validation="<?= $s['first_entry'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="first_entry"><?= _t('conf.shortcut.first_article') ?></label>
+				<div class="group-controls">
+					<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?= $s['first_entry'] ?>"
+						data-leave-validation="<?= $s['first_entry'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="last_entry"><?= _t('conf.shortcut.last_article') ?></label>
-			<div class="group-controls">
-				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?= $s['last_entry'] ?>"
-					data-leave-validation="<?= $s['last_entry'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="last_entry"><?= _t('conf.shortcut.last_article') ?></label>
+				<div class="group-controls">
+					<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?= $s['last_entry'] ?>"
+						data-leave-validation="<?= $s['last_entry'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<p class="alert alert-warn"><?= _t('conf.shortcut.navigation_no_mod_help') ?></p>
+			<p class="alert alert-warn"><?= _t('conf.shortcut.navigation_no_mod_help') ?></p>
 
-		<div class="form-group">
-			<label class="group-name" for="skip_next_entry"><?= _t('conf.shortcut.skip_next_article') ?></label>
-			<div class="group-controls">
-				<input type="text" id="skip_next_entry" name="shortcuts[skip_next_entry]" list="keys" value="<?= $s['skip_next_entry'] ?>"
-					data-leave-validation="<?= $s['skip_next_entry'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="skip_next_entry"><?= _t('conf.shortcut.skip_next_article') ?></label>
+				<div class="group-controls">
+					<input type="text" id="skip_next_entry" name="shortcuts[skip_next_entry]" list="keys" value="<?= $s['skip_next_entry'] ?>"
+						data-leave-validation="<?= $s['skip_next_entry'] ?>"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="skip_prev_entry"><?= _t('conf.shortcut.skip_previous_article') ?></label>
-			<div class="group-controls">
-				<input type="text" id="skip_prev_entry" name="shortcuts[skip_prev_entry]" list="keys" value="<?= $s['skip_prev_entry'] ?>"
-					data-leave-validation="<?= $s['skip_prev_entry'] ?>"/>
+			<div class="form-group">
+				<label class="group-name" for="skip_prev_entry"><?= _t('conf.shortcut.skip_previous_article') ?></label>
+				<div class="group-controls">
+					<input type="text" id="skip_prev_entry" name="shortcuts[skip_prev_entry]" list="keys" value="<?= $s['skip_prev_entry'] ?>"
+						data-leave-validation="<?= $s['skip_prev_entry'] ?>"/>
+				</div>
 			</div>
-		</div>
+		</fieldset>
 
 		<legend><?= _t('conf.shortcut.article_action') ?></legend>
 
