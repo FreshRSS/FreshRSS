@@ -183,9 +183,6 @@ input.extend {
 .form-group .group-controls .control {
 	line-height: 2em;
 }
-.form-group table {
-	margin: 10px 220px 0 0;
-}
 .form-group.form-actions {
 	margin: 15px 0 25px;
 	padding: 5px 0;
