@@ -75,8 +75,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$simplePie = $this->load(false, true);
 		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
 	}
-	public function name() {
-		return $this->name;
+	public function name($raw = false) {
+		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://(www[.])?%i', '', $this->url);
 	}
 	public function website() {
 		return $this->website;
@@ -198,7 +198,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->category = $value >= 0 ? $value : 0;
 	}
 	public function _name($value) {
-		$this->name = $value === null ? '' : $value;
+		$this->name = $value === null ? '' : trim($value);
 	}
 	public function _website($value, $validate = true) {
 		if ($validate) {
