@@ -54,7 +54,7 @@ return array(
 	'movim' => array(
 		'url' => '~URL~/?share/~LINK~',
 		'transform' => array('urlencode'),
-		'help' => 'https://github.com/edhelas/movim',
+		'help' => 'https://movim.eu/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
