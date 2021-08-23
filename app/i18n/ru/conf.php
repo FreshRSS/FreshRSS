@@ -157,7 +157,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Поделиться',
 		'add' => 'Добавить способ поделиться',
-		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'Электронная почта',
 		'facebook' => 'Facebook',	// TODO - Translation

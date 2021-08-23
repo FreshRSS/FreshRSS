@@ -184,7 +184,6 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basats sus Known',
-		'blogotext' => 'Blogotext',
 		'clipboard' => 'Quicha-papiers.',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Corrièl',

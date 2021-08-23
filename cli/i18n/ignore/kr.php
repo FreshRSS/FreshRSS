@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
 	'conf.sharing.facebook',
 	'conf.sharing.raindrop',
@@ -40,7 +39,6 @@ return array(
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
 	'gen.share.Known',
-	'gen.share.blogotext',
 	'gen.share.diaspora',
 	'gen.share.facebook',
 	'gen.share.gnusocial',
