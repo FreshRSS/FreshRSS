@@ -130,6 +130,7 @@ return array(
 	'lemmy' => array(
 		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
 		'transform' => array('rawurlencode'),
+		'help' => 'https://join-lemmy.org/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
