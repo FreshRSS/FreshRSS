@@ -105,6 +105,7 @@ return array(
 	'mastodon' => array(
 		'url' => '~URL~/share?title=~TITLE~&url=~LINK~',
 		'transform' => array('rawurlencode'),
+		'help' => 'https://joinmastodon.org/'
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
