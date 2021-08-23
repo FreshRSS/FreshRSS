@@ -165,7 +165,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
-		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

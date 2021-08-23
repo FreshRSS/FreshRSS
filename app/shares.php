@@ -30,13 +30,6 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
-	'blogotext' => array(
-		'url' => '~URL~/admin/links.php?url=~LINK~',
-		'transform' => array(),
-		'help' => 'http://lehollandaisvolant.net/blogotext/fr/',
-		'form' => 'advanced',
-		'method' => 'GET',
-	),
 	'wallabag' => array(
 		'url' => '~URL~?action=add&amp;url=~LINK~',
 		'transform' => array('rawurlencode'),

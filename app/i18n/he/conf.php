@@ -165,7 +165,6 @@ return array(
 	'sharing' => array(
 		'_' => 'שיתוף',
 		'add' => 'Add a sharing method',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
 		'diaspora' => 'Diaspora*',	// TODO - Translation
 		'email' => 'דואר אלקטרוני',
 		'facebook' => 'Facebook',	// TODO - Translation
