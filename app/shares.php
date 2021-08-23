@@ -15,7 +15,7 @@
  *     ~ID~ placeholder represents the id of the shared article (only useful
  *     for internal use)
  *   - transform is an array of transformation to apply on links and titles
- *   - help is a URL to a help page
+ *   - help is a URL to a help page (mandatory for form = 'advanced')
  *   - form is the type of form to display during configuration. It's either
  *     'simple' or 'advanced'. 'simple' is used when only the name is configurable,
  *     'advanced' is used when the name and the location are configurable.
