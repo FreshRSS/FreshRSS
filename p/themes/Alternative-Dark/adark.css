@@ -100,10 +100,6 @@ form th {
 	padding: 5px 0;
 }
 
-.form-group table {
-	margin: 10px 0 0 220px;
-}
-
 /*=== Buttons */
 .stick {
 	vertical-align: middle;
@@ -276,8 +272,8 @@ a.btn {
 .nav-head {
 	margin: 0;
 	background: #fff;
-	background: linear-gradient(to bottom, #fff, #f0f0f0);
-	border-bottom: 1px solid #ddd;
+	background: #262626;
+	border-bottom: 1px solid #333;
 	text-align: right;
 }
 
@@ -1125,11 +1121,11 @@ a.btn {
 
 	.aside .toggle_aside,
 	#panel .close {
-		background: #f6f6f6;
+		background: #262626;
 		display: block;
 		width: 100%;
 		height: 50px;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid #333;
 		line-height: 50px;
 		text-align: center;
 	}

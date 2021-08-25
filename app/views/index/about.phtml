@@ -1,5 +1,9 @@
 <div class="post content">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<?php if (FreshRSS_Auth::hasAccess()) {?>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
+	<?php } ?>
 
 	<h1><?= _t('index.about') ?></h1>
 
