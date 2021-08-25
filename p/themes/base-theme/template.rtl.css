@@ -965,6 +965,8 @@ br {
 
 .stat {
 	grid-column: 1 / span 2;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 .stat.half {
