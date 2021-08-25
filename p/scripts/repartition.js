@@ -13,7 +13,6 @@ function initStats() {
 	}
 	const jsonRepartition = document.getElementById('jsonRepartition'),
 		stats = JSON.parse(jsonRepartition.innerHTML);
-	jsonRepartition.outerHTML = '';
 	// Entry per hour
 	Flotr.draw(document.getElementById('statsEntryPerHour'),
 		[{
@@ -71,4 +70,6 @@ function initStats() {
 
 }
 initStats();
+
+window.addEventListener('resize', initStats);
 // @license-end
