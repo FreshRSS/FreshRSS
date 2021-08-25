@@ -21,5 +21,17 @@
 		<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'bookmarklet' ? ' active' : '' ?>">
 			<a href="<?= _url('subscription', 'bookmarklet') ?>"><?= _t('sub.menu.subscription_tools') ?></a>
 		</li>
+		<li class="nav-header"><?= _t('admin.stats') ?></li>
+		<li class="item<?= Minz_Request::controllerName() == 'stats' && Minz_Request::actionName() == 'index' ? ' active' : '' ?>">
+			<a href="<?= _url('stats', 'index') ?>"><?= _t('admin.stats.menu.main') ?></a>
+		</li>
+		<li class="item<?= Minz_Request::actionName() == 'idle' ? ' active' : '' ?>">
+			<a href="<?= _url('stats', 'idle') ?>"><?= _t('admin.stats.menu.idle') ?></a>
+		</li>
+		<li class="item<?= Minz_Request::actionName() == 'repartition' ? ' active' : '' ?>">
+			<a href="<?= _url('stats', 'repartition') ?>"><?= _t('admin.stats.menu.repartition') ?></a>
+		</li>
+
 	</ul>
+
 </nav>
