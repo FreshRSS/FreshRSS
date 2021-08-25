@@ -25,6 +25,8 @@ return array(
 		'_' => 'Отображение',
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Авторы',
 			'entry' => 'Иконки статей',
 			'publication_date' => 'Дата публикации',

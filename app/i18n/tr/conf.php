@@ -25,6 +25,8 @@ return array(
 		'_' => 'Görünüm',
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Yazarlar',
 			'entry' => 'Makale ikonları',
 			'publication_date' => 'Yayınlama Tarihi',

@@ -25,6 +25,8 @@ return array(
 		'_' => 'Wyświetlanie',
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autorzy',
 			'entry' => 'Ikony wiadomości',
 			'publication_date' => 'Data publikacji',

@@ -25,6 +25,8 @@ return array(
 		'_' => 'Display',
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
+			'thumbnail' => 'Thumbnail',
+			'summary' => 'Summary',
 			'display_authors' => 'Authors',
 			'entry' => 'Article icons',
 			'publication_date' => 'Date of publication',

@@ -1,6 +1,8 @@
 <?php
 	$topline_read = FreshRSS_Context::$user_conf->topline_read;
 	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_thumbnail = FreshRSS_Context::$user_conf->topline_thumbnail;
+	$topline_summary = FreshRSS_Context::$user_conf->topline_summary;
 	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
@@ -30,7 +32,19 @@
 	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
 		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 		<span><?= $this->feed->name() ?></span></a></li>
-	<li class="item title" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
+	<li class="item title<?= ($topline_thumbnail || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?php
+		$enclosures = $this->entry->enclosures();
+		if ($topline_thumbnail):
+			?><span class="thumbnail<?= $topline_summary ? '' : ' small' ?>"><?php
+			foreach ($enclosures as $enclosure):
+				if (!empty($enclosure) && !empty($enclosure['url'])):
+					?><img src="<?= $enclosure['url'] ?>"><?php
+					break;
+				endif;
+			endforeach;
+			?></span><?php
+		endif;
+		?><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?><span class="author"><?php
 			$authors = $this->entry->authors();
@@ -42,6 +56,11 @@
 				}
 			}
 			?></span><?php
+		endif;
+		if ($topline_summary):
+			?><div class="summary">
+				<?= substr(strip_tags($this->entry->content()), 0, 500) ?>
+			</div><?php
 		endif;
 	?></a></li>
 	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>

@@ -25,6 +25,8 @@ return array(
 		'_' => 'תצוגה',
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => 'סמלילי מאמרים',
 			'publication_date' => 'תאריך הפרסום',

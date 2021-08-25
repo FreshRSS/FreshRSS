@@ -25,6 +25,8 @@ return array(
 		'_' => '표시',
 		'icon' => array(
 			'bottom_line' => '하단',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => '문서 아이콘',
 			'publication_date' => '발행일',

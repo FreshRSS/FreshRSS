@@ -878,6 +878,25 @@ a.btn,
 	font-size: 0.8rem;
 }
 
+.flux .item.title.multiline a {
+	margin-top: 5px;
+}
+
+.flux .item.title .thumbnail {
+	margin: 0 5px 5px 5px;
+	width: 80px;
+	height: 50px;
+}
+
+.flux .item.title .thumbnail.small {
+	width: 48px;
+	height: 30px;
+}
+
+.flux .item.title .summary {
+        max-height: 1.5em;
+}
+
 .flux .website .favicon {
 	padding: 5px;
 }

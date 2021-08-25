@@ -723,9 +723,46 @@ input[type="search"] {
 	position: absolute;
 }
 
+.flux:not(.current):hover .item.title.multiline {
+	position: initial;
+}
+
 .flux .item.title a {
 	color: #000;
 	text-decoration: none;
+}
+
+.flux .item.title.multiline a {
+	margin-top: 10px;
+}
+
+.flux .item.title .thumbnail {
+	float: left;
+	margin: 0 10px 10px 10px;
+	width: 128px;
+	height: 80px;
+}
+
+.flux .item.title .thumbnail.small {
+	width: 64px;
+	height: 40px;
+}
+
+.flux .item.title .thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.flux .item.title .summary {
+	color: #666;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	font-weight: normal;
+	white-space: initial;
+	max-height: 3em;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .flux .item.title .author {

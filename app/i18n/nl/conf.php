@@ -25,6 +25,8 @@ return array(
 		'_' => 'Opmaak',
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Auteurs',
 			'entry' => 'Artikel pictogrammen',
 			'publication_date' => 'Publicatie datum',

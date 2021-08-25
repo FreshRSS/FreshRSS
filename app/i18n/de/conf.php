@@ -25,6 +25,8 @@ return array(
 		'_' => 'Anzeige',
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',

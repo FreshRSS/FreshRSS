@@ -25,6 +25,8 @@ return array(
 		'_' => 'Afichatge',
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autors',
 			'entry' => 'Icònas d’article',
 			'publication_date' => 'Data de publicacion',

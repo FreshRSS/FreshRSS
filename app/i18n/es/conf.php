@@ -25,6 +25,8 @@ return array(
 		'_' => 'Visualización',
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
+			'thumbnail' => 'Thumbnail', // TODO - Translation
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => 'Iconos de artículos',
 			'publication_date' => 'Fecha de publicación',
