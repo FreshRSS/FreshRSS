@@ -13,7 +13,6 @@ function initStats() {
 	}
 	const jsonStats = document.getElementById('jsonStats'),
 		stats = JSON.parse(jsonStats.innerHTML);
-	jsonStats.outerHTML = '';
 	// Entry per day
 	const avg = [];
 	for (let i = -31; i <= 0; i++) {
@@ -62,4 +61,7 @@ function initStats() {
 		});
 }
 initStats();
+
+window.addEventListener('resize', initStats);
+
 // @license-end
