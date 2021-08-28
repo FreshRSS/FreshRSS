@@ -911,12 +911,6 @@ a.btn,
 	width: 40px;
 }
 
-.flux .item.thumbnail img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
 .flux .item.title .summary {
         max-height: 1.5em;
 }
