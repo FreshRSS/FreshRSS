@@ -81,7 +81,7 @@ return array (
 	'show_favicons' => true,
 	'topline_read' => true,
 	'topline_favorite' => true,
-	'topline_thumbnail' => false,
+	'topline_thumbnail' => 'none',
 	'topline_summary' => false,
 	'topline_display_authors' => false,
 	'topline_date' => true,

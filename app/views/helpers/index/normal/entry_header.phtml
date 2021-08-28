@@ -6,6 +6,7 @@
 	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
+	$lazyload = FreshRSS_Context::$user_conf->lazyload;
 ?><ul class="horizontal-list flux_header"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
@@ -31,20 +32,23 @@
 	}
 	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
 		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-		<span><?= $this->feed->name() ?></span></a></li>
-	<li class="item title<?= ($topline_thumbnail || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?php
-		$enclosures = $this->entry->enclosures();
-		if ($topline_thumbnail):
-			?><span class="thumbnail<?= $topline_summary ? '' : ' small' ?>"><?php
-			foreach ($enclosures as $enclosure):
-				if (!empty($enclosure) && !empty($enclosure['url'])):
-					?><img src="<?= $enclosure['url'] ?>"><?php
-					break;
-				endif;
-			endforeach;
-			?></span><?php
-		endif;
-		?><?= $this->entry->title() ?><?php
+		<span><?= $this->feed->name() ?></span></a>
+	</li>
+
+	<?php
+	$enclosures = $this->entry->enclosures();
+	if ($topline_thumbnail !== 'none'):
+	?><li class="item thumbnail <?= $topline_thumbnail ?> <?= $topline_summary ? '' : 'small' ?>"><?php
+		foreach ($enclosures as $enclosure):
+			if (!empty($enclosure) && !empty($enclosure['url'])):
+				?><img src="<?= $enclosure['url'] ?>"<?= $lazyload ? ' loading="lazy"' : '' ?>><?php
+				break;
+			endif;
+		endforeach;
+	?></li><?php
+	endif; ?>
+
+	<li class="item title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?><span class="author"><?php
 			$authors = $this->entry->authors();

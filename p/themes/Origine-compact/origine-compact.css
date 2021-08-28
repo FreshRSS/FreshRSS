@@ -878,19 +878,43 @@ a.btn,
 	font-size: 0.8rem;
 }
 
-.flux .item.title.multiline a {
-	margin-top: 5px;
-}
-
-.flux .item.title .thumbnail {
-	margin: 0 5px 5px 5px;
-	width: 80px;
+.flux .item.thumbnail {
+	padding: 5px;
 	height: 50px;
 }
 
-.flux .item.title .thumbnail.small {
-	width: 48px;
+.flux .item.thumbnail.small {
 	height: 30px;
+}
+
+.flux .item.thumbnail.portrait {
+	width: 38px;
+}
+
+.flux .item.thumbnail.square {
+	width: 50px;
+}
+
+.flux .item.thumbnail.landscape {
+	width: 80px;
+}
+
+.flux .item.thumbnail.portrait.small {
+	width: 20px;
+}
+
+.flux .item.thumbnail.square.small {
+	width: 30px;
+}
+
+.flux .item.thumbnail.landscape.small {
+	width: 40px;
+}
+
+.flux .item.thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .flux .item.title .summary {

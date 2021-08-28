@@ -25,7 +25,6 @@ return array(
 		'_' => 'Opmaak',
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
-			'thumbnail' => 'Thumbnail', // TODO - Translation
 			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Auteurs',
 			'entry' => 'Artikel pictogrammen',
@@ -48,6 +47,13 @@ return array(
 			'medium' => 'Normaal',
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(

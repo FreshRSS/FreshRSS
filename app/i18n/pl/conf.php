@@ -25,7 +25,6 @@ return array(
 		'_' => 'Wyświetlanie',
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
-			'thumbnail' => 'Thumbnail', // TODO - Translation
 			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autorzy',
 			'entry' => 'Ikony wiadomości',
@@ -48,6 +47,13 @@ return array(
 			'medium' => 'Średnia',
 			'no_limit' => 'Pełna szerokość',
 			'thin' => 'Wąska',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(

@@ -732,23 +732,41 @@ input[type="search"] {
 	text-decoration: none;
 }
 
-.flux .item.title.multiline a {
-	margin-top: 10px;
-}
-
-.flux .item.title .thumbnail {
-	float: left;
-	margin: 0 10px 10px 10px;
-	width: 128px;
+.flux .item.thumbnail {
+	line-height: 0;
+	padding: 10px;
 	height: 80px;
 }
 
-.flux .item.title .thumbnail.small {
-	width: 64px;
+.flux .item.thumbnail.small {
 	height: 40px;
 }
 
-.flux .item.title .thumbnail img {
+.flux .item.thumbnail.portrait {
+	width: 60px;
+}
+
+.flux .item.thumbnail.square {
+	width: 80px;
+}
+
+.flux .item.thumbnail.landscape {
+	width: 128px;
+}
+
+.flux .item.thumbnail.portrait.small {
+	width: 30px;
+}
+
+.flux .item.thumbnail.square.small {
+	width: 40px;
+}
+
+.flux .item.thumbnail.landscape.small {
+	width: 64px;
+}
+
+.flux .item.thumbnail img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;

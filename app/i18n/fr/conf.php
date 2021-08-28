@@ -25,7 +25,6 @@ return array(
 		'_' => 'Affichage',
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
-			'thumbnail' => 'Miniature',
 			'summary' => 'Résumé',
 			'display_authors' => 'Auteurs',
 			'entry' => 'Icônes d’article',
@@ -48,6 +47,13 @@ return array(
 			'medium' => 'Moyenne',
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
+		),
+		'thumbnail' => array(
+			'label' => 'Miniature',
+			'none' => 'Sans',
+			'portrait' => 'Portrait',
+			'square' => 'Carrée',
+			'landscape' => 'Paysage',
 		),
 	),
 	'profile' => array(

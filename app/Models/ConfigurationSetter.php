@@ -255,7 +255,11 @@ class FreshRSS_ConfigurationSetter {
 		$data['topline_read'] = $this->handleBool($value);
 	}
 	private function _topline_thumbnail(&$data, $value) {
-		$data['topline_thumbnail'] = $this->handleBool($value);
+		$value = strtolower($value);
+		if (!in_array($value, array('none', 'portrait', 'square', 'landscape'))) {
+			$value = 'none';
+		}
+		$data['topline_thumbnail'] = $value;
 	}
 	private function _topline_summary(&$data, $value) {
 		$data['topline_summary'] = $this->handleBool($value);
