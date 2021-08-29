@@ -36,15 +36,12 @@
 	</li>
 
 	<?php
-	$enclosures = $this->entry->enclosures();
 	if ($topline_thumbnail !== 'none'):
 	?><li class="item thumbnail <?= $topline_thumbnail ?> <?= $topline_summary ? '' : 'small' ?>"><?php
-		foreach ($enclosures as $enclosure):
-			if (!empty($enclosure) && !empty($enclosure['url'])):
-				?><img src="<?= $enclosure['url'] ?>"<?= $lazyload ? ' loading="lazy"' : '' ?>><?php
-				break;
-			endif;
-		endforeach;
+		$thumbnail = $this->entry->thumbnail();
+		if ($thumbnail != null):
+			?><img src="<?= $thumbnail['url'] ?>"<?= $lazyload ? ' loading="lazy"' : '' ?> /><?php
+		endif;
 	?></li><?php
 	endif; ?>
 
@@ -63,7 +60,7 @@
 		endif;
 		if ($topline_summary):
 			?><div class="summary">
-				<?= substr(strip_tags($this->entry->content()), 0, 500) ?>
+				<?= mb_substr(strip_tags($this->entry->content()), 0, 500, 'UTF-8') ?>
 			</div><?php
 		endif;
 	?></a></li>
