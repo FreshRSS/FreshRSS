@@ -773,12 +773,12 @@ input[type="search"] {
 }
 
 .flux .item.title .summary {
+	max-height: 3em;
 	color: #666;
 	font-size: 0.9em;
 	line-height: 1.5em;
 	font-weight: normal;
 	white-space: initial;
-	max-height: 3em;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
