@@ -979,8 +979,8 @@ br {
 	height: 300px;
 }
 
-.stat .flotr-legend-label{
-	padding-left: 0;
+.stat .flotr-legend-label {
+	padding-right: 0;
 }
 
 /*=== LOGIN VIEW */
