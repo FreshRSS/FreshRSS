@@ -64,11 +64,11 @@ table {
 
 tr, th, td {
 	padding: 0.5em;
-	border: 1px solid #ddd;
+	border: 1px solid #333;
 }
 
 th {
-	background: #f6f6f6;
+	background: #262626;
 }
 
 form td,
@@ -271,7 +271,6 @@ a.btn {
 
 .nav-head {
 	margin: 0;
-	background: #fff;
 	background: #262626;
 	border-bottom: 1px solid #333;
 	text-align: right;
@@ -455,7 +454,7 @@ a.btn {
 .box .box-title {
 	margin: 0;
 	padding: 5px 10px;
-	background: #f6f6f6;
+	background: #262626;
 	border: 1px solid #292929;
 	border-radius: 5px 5px 0 0;
 }
