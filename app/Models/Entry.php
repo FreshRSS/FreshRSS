@@ -98,7 +98,6 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 			return $results;
 		} catch (Exception $ex) {
-			Minz_Log::warning($ex);
 			return $results;
 		}
 	}

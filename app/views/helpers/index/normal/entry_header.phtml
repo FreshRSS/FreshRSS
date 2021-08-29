@@ -40,7 +40,7 @@
 	?><li class="item thumbnail <?= $topline_thumbnail ?> <?= $topline_summary ? '' : 'small' ?>"><?php
 		$thumbnail = $this->entry->thumbnail();
 		if ($thumbnail != null):
-			?><img src="<?= $thumbnail['url'] ?>"<?= $lazyload ? ' loading="lazy"' : '' ?> /><?php
+			?><img src="<?= $thumbnail['url'] ?>"<?= $lazyload ? ' loading="lazy"' : '' ?><?= empty($thumbnail['alt']) ? '' : ' alt="' . $thumbnail['alt'] . '"' ?> /><?php
 		endif;
 	?></li><?php
 	endif; ?>
