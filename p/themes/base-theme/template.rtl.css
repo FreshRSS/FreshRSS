@@ -957,14 +957,18 @@ br {
 }
 
 /*=== Statistiques */
+.stat-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+}
+
 .stat {
-	margin: 15px 0;
+	grid-column: 1 / span 2;
 }
 
 .stat.half {
-	padding: 0 2%;
-	display: inline-block;
-	width: 46%;
+	grid-column: auto;
 }
 
 .stat > table {
@@ -973,6 +977,10 @@ br {
 
 .statGraph {
 	height: 300px;
+}
+
+.stat .flotr-legend-label{
+	padding-left: 0;
 }
 
 /*=== LOGIN VIEW */
@@ -1363,6 +1371,10 @@ input:checked + .slide-container .properties {
 		text-align: center;
 		line-height: 50px;
 		border-bottom: 1px solid #ddd;
+	}
+
+	.stat.half {
+		grid-column: 1 / span 2;
 	}
 }
 
