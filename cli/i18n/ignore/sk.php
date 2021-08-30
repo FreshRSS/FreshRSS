@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
 	'conf.sharing.email',
 	'conf.sharing.facebook',
@@ -46,6 +47,7 @@ return array(
 	'gen.lang.sk',
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
+	'gen.share.blogotext',
 	'gen.share.diaspora',
 	'gen.share.email',
 	'gen.share.facebook',

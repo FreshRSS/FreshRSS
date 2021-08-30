@@ -184,6 +184,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
+		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',	// TODO - Translation
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-mail',

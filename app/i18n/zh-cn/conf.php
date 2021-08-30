@@ -157,6 +157,7 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '添加分享方式',
+		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => '邮箱',
 		'facebook' => '脸书',

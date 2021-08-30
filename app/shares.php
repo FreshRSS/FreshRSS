@@ -23,6 +23,13 @@
  */
 
 return array(
+	'blogotext' => array(
+		'url' => '~URL~/admin/links.php?url=~LINK~',
+		'transform' => array(),
+		'help' => 'http://lehollandaisvolant.net/blogotext/fr/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	),
 	'clipboard' => array(
 		'url' => '~LINK~',
 		'transform' => array(),

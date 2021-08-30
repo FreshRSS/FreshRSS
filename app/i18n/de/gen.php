@@ -184,6 +184,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
+		'blogotext' => 'Blogotext',
 		'clipboard' => 'Zwischenablage',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-Mail',

@@ -184,6 +184,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Bilinen siteler',
+		'blogotext' => 'Blogotext',
 		'clipboard' => 'Kopyala',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',

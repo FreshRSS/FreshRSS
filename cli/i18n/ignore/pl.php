@@ -2,6 +2,7 @@
 
 return array(
 	'admin.user.admin',
+	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
 	'conf.sharing.facebook',
 	'conf.sharing.raindrop',
@@ -28,6 +29,7 @@ return array(
 	'gen.lang.sk',
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
+	'gen.share.blogotext',
 	'gen.share.diaspora',
 	'gen.share.facebook',
 	'gen.share.gnusocial',
