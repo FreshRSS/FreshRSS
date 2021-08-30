@@ -25,6 +25,7 @@ return array(
 		'_' => 'Görünüm',
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Yazarlar',
 			'entry' => 'Makale ikonları',
 			'publication_date' => 'Yayınlama Tarihi',
@@ -46,6 +47,13 @@ return array(
 			'medium' => 'Orta',
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
