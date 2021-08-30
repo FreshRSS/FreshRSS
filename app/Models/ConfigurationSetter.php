@@ -254,6 +254,16 @@ class FreshRSS_ConfigurationSetter {
 	private function _topline_read(&$data, $value) {
 		$data['topline_read'] = $this->handleBool($value);
 	}
+	private function _topline_thumbnail(&$data, $value) {
+		$value = strtolower($value);
+		if (!in_array($value, array('none', 'portrait', 'square', 'landscape'))) {
+			$value = 'none';
+		}
+		$data['topline_thumbnail'] = $value;
+	}
+	private function _topline_summary(&$data, $value) {
+		$data['topline_summary'] = $this->handleBool($value);
+	}
 	private function _topline_display_authors(&$data, $value) {
 		$data['topline_display_authors'] = $this->handleBool($value);
 	}

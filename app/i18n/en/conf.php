@@ -25,6 +25,7 @@ return array(
 		'_' => 'Display',
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
+			'summary' => 'Summary',
 			'display_authors' => 'Authors',
 			'entry' => 'Article icons',
 			'publication_date' => 'Date of publication',
@@ -46,6 +47,13 @@ return array(
 			'medium' => 'Medium',
 			'no_limit' => 'Full Width',
 			'thin' => 'Narrow',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail',
+			'none' => 'None',
+			'portrait' => 'Portrait',
+			'square' => 'Square',
+			'landscape' => 'Landscape',
 		),
 	),
 	'profile' => array(
