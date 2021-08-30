@@ -723,9 +723,64 @@ input[type="search"] {
 	position: absolute;
 }
 
+.flux:not(.current):hover .item.title.multiline {
+	position: initial;
+}
+
 .flux .item.title a {
 	color: #000;
 	text-decoration: none;
+}
+
+.flux .item.thumbnail {
+	line-height: 0;
+	padding: 10px;
+	height: 80px;
+}
+
+.flux .item.thumbnail.small {
+	height: 40px;
+}
+
+.flux .item.thumbnail.portrait {
+	width: 60px;
+}
+
+.flux .item.thumbnail.square {
+	width: 80px;
+}
+
+.flux .item.thumbnail.landscape {
+	width: 128px;
+}
+
+.flux .item.thumbnail.portrait.small {
+	width: 30px;
+}
+
+.flux .item.thumbnail.square.small {
+	width: 40px;
+}
+
+.flux .item.thumbnail.landscape.small {
+	width: 64px;
+}
+
+.flux .item.thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.flux .item.title .summary {
+	max-height: 3em;
+	color: #666;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	font-weight: normal;
+	white-space: initial;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .flux .item.title .author {
@@ -979,8 +1034,8 @@ br {
 	height: 300px;
 }
 
-.stat .flotr-legend-label{
-	padding-left: 0;
+.stat .flotr-legend-label {
+	padding-right: 0;
 }
 
 /*=== LOGIN VIEW */

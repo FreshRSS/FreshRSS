@@ -159,6 +159,8 @@ return array(
 	'conf.archiving.ttl',
 	'conf.display._',
 	'conf.display.icon.bottom_line',
+	'conf.display.icon.thumbnail',
+	'conf.display.icon.summary',
 	'conf.display.icon.display_authors',
 	'conf.display.icon.entry',
 	'conf.display.icon.publication_date',
