@@ -325,7 +325,7 @@ class FreshRSS_Entry extends Minz_Model {
 								$this->_isRead(true);
 								break;
 							case 'star':
-								$this->_is_favorite(true);
+								$this->_isFavorite(true);
 								break;
 							case 'label':
 								//TODO: Implement more actions
