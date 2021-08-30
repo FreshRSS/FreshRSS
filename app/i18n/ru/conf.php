@@ -25,6 +25,7 @@ return array(
 		'_' => 'Отображение',
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Авторы',
 			'entry' => 'Иконки статей',
 			'publication_date' => 'Дата публикации',
@@ -46,6 +47,13 @@ return array(
 			'medium' => 'Среднее',
 			'no_limit' => 'Во всю ширину',
 			'thin' => 'Узкое',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(

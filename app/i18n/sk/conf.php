@@ -25,6 +25,7 @@ return array(
 		'_' => 'Zobrazenie',
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autori',
 			'entry' => 'Ikony článku',
 			'publication_date' => 'Dátum zverejnenia',
@@ -46,6 +47,13 @@ return array(
 			'medium' => 'Stredná',
 			'no_limit' => 'Bez obmedzenia',
 			'thin' => 'Úzka',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
