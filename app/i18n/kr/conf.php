@@ -25,6 +25,7 @@ return array(
 		'_' => '표시',
 		'icon' => array(
 			'bottom_line' => '하단',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => '문서 아이콘',
 			'publication_date' => '발행일',
@@ -46,6 +47,13 @@ return array(
 			'medium' => '보통',
 			'no_limit' => '제한 없음',
 			'thin' => '얇음',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(

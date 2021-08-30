@@ -25,6 +25,7 @@ return array(
 		'_' => '显示',
 		'icon' => array(
 			'bottom_line' => '底栏',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => '作者',
 			'entry' => '文章图标',
 			'publication_date' => '更新日期',
@@ -46,6 +47,13 @@ return array(
 			'medium' => '中',
 			'no_limit' => '无限制',
 			'thin' => '窄',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
