@@ -64,11 +64,11 @@ table {
 
 tr, th, td {
 	padding: 0.5em;
-	border: 1px solid #ddd;
+	border: 1px solid #333;
 }
 
 th {
-	background: #f6f6f6;
+	background: #262626;
 }
 
 form td,
@@ -98,10 +98,6 @@ form th {
 .form-group .group-controls {
 	min-height: 25px;
 	padding: 5px 0;
-}
-
-.form-group table {
-	margin: 10px 220px 0 0;
 }
 
 /*=== Buttons */
@@ -275,9 +271,8 @@ a.btn {
 
 .nav-head {
 	margin: 0;
-	background: #fff;
-	background: linear-gradient(to bottom, #fff, #f0f0f0);
-	border-bottom: 1px solid #ddd;
+	background: #262626;
+	border-bottom: 1px solid #333;
 	text-align: left;
 }
 
@@ -459,7 +454,7 @@ a.btn {
 .box .box-title {
 	margin: 0;
 	padding: 5px 10px;
-	background: #f6f6f6;
+	background: #262626;
 	border: 1px solid #292929;
 	border-radius: 5px 5px 0 0;
 }
@@ -1125,11 +1120,11 @@ a.btn {
 
 	.aside .toggle_aside,
 	#panel .close {
-		background: #f6f6f6;
+		background: #262626;
 		display: block;
 		width: 100%;
 		height: 50px;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid #333;
 		line-height: 50px;
 		text-align: center;
 	}

@@ -25,6 +25,7 @@ return array(
 		'_' => 'Exibição',
 		'icon' => array(
 			'bottom_line' => 'Linha inferior',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autores',
 			'entry' => 'Ícones de artigos',
 			'publication_date' => 'Data da publicação',
@@ -46,6 +47,13 @@ return array(
 			'medium' => 'Médio',
 			'no_limit' => 'Sem limite',
 			'thin' => 'Fino',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(

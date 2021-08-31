@@ -8,6 +8,7 @@
 		* Search articles with any label: `L:*` or no label: `!L:*`
 * Bug fixing
 	* Fix marking as read a label with SQLite and PostgreSQL [#3711](https://github.com/FreshRSS/FreshRSS/pull/3711)
+	* Better fallback for feeds without title [#3787](https://github.com/FreshRSS/FreshRSS/pull/3787)
 * Security
 	* Better error handling when a user does not exist (especially for API) [#3751](https://github.com/FreshRSS/FreshRSS/pull/3751)
 * Compatibility
@@ -17,25 +18,31 @@
 * Deployment
 	* Docker: development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Docker: default image updated to Debian 11 Bullseye with PHP 7.4.21 and Apache 2.4.48 [#3782](https://github.com/FreshRSS/FreshRSS/pull/3782)
-	* Docker: alternative image updated to Alpine 3.14 with PHP 8.0.8 and Apache 2.4.48 [#3715](https://github.com/FreshRSS/FreshRSS/pull/3715)
+	* Docker: alternative image updated to Alpine 3.14 with PHP 8.0.10 and Apache 2.4.48 [#3715](https://github.com/FreshRSS/FreshRSS/pull/3715)
 	* Images on Docker Hub are automatically scanned for software vulnerabilities
-* Extensions
-	* Add system configuration for extension [#3626](https://github.com/FreshRSS/FreshRSS/pull/3626)
 * UI
+	* New thumbnail and/or summary options for the normal view [#3805](https://github.com/FreshRSS/FreshRSS/pull/3805)
 	* Use HTML5 tags with better semantics [#3651](https://github.com/FreshRSS/FreshRSS/pull/3651), [#3676](https://github.com/FreshRSS/FreshRSS/pull/3676), [#3713](https://github.com/FreshRSS/FreshRSS/pull/3713), [#3747](https://github.com/FreshRSS/FreshRSS/pull/3747)
 	* Allow JavaScript in themes [#3739](https://github.com/FreshRSS/FreshRSS/pull/3739)
-	* Fix *alternative-dark* theme to avoid bright elements [#3774](https://github.com/FreshRSS/FreshRSS/pull/3774)
+	* Improve layout of statistics [#3797](https://github.com/FreshRSS/FreshRSS/pull/3797), [#3799](https://github.com/FreshRSS/FreshRSS/pull/3799)
+		* Updated Flotr2 library [#3800](https://github.com/FreshRSS/FreshRSS/pull/3800)
+	* Only show *Back to RSS feeds* when logged-in [#3790](https://github.com/FreshRSS/FreshRSS/pull/3790)
+	* Improve style of install procedure [#3721](https://github.com/FreshRSS/FreshRSS/pull/3721)
+		* Add retry button when checking requirements during install [#3771](https://github.com/FreshRSS/FreshRSS/pull/3771)
+	* Improve notification icon [#3678](https://github.com/FreshRSS/FreshRSS/pull/3678)
+	* Add CSS class to back links [#3761](https://github.com/FreshRSS/FreshRSS/pull/3761)
+	* Misc. minor UI and style improvements [#3792](https://github.com/FreshRSS/FreshRSS/pull/3792), [#3795](https://github.com/FreshRSS/FreshRSS/pull/3795), [#3801](https://github.com/FreshRSS/FreshRSS/pull/3801), [#3802](https://github.com/FreshRSS/FreshRSS/pull/3802)
+* Themes
+	* Fix *alternative-dark* theme to avoid bright elements [#3774](https://github.com/FreshRSS/FreshRSS/pull/3774), [#3806](https://github.com/FreshRSS/FreshRSS/pull/3806)
 	* Improve the contrast of message boxes for the *Origine* theme [#3725](https://github.com/FreshRSS/FreshRSS/pull/3725)
 	* Uniformize the size of `input`and `select` elements for the *Origine* theme [#3727](https://github.com/FreshRSS/FreshRSS/pull/3727)
 	* Fix style of banner text for the *Origine* theme [#3731](https://github.com/FreshRSS/FreshRSS/pull/3731)
-	* Improve style of install procedure [#3721](https://github.com/FreshRSS/FreshRSS/pull/3721)
-	* Improved notification icon [#3678](https://github.com/FreshRSS/FreshRSS/pull/3678)
-	* Add CSS class to back links [#3761](https://github.com/FreshRSS/FreshRSS/pull/3761)
 * i18n
 	* Fix bug in French and German translations of new/old tags [#3703](https://github.com/FreshRSS/FreshRSS/pull/3703), [#3668](https://github.com/FreshRSS/FreshRSS/pull/3668)
 	* Improve German [#3720](https://github.com/FreshRSS/FreshRSS/pull/3720)
+* Extensions
+	* Add system configuration for extension [#3626](https://github.com/FreshRSS/FreshRSS/pull/3626)
 * Misc.
-	* Add retry button when checking requirements during install [#3771](https://github.com/FreshRSS/FreshRSS/pull/3771)
 	* Do not show back link on error pages if the user does not have access [#3765](https://github.com/FreshRSS/FreshRSS/pull/3765)
 	* Added Raindrop.io as sharing option [#3717](https://github.com/FreshRSS/FreshRSS/pull/3717)
 

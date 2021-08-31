@@ -25,6 +25,7 @@ return array(
 		'_' => 'תצוגה',
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
+			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => 'סמלילי מאמרים',
 			'publication_date' => 'תאריך הפרסום',
@@ -46,6 +47,13 @@ return array(
 			'medium' => 'בינוני',
 			'no_limit' => 'ללא הגבלה',
 			'thin' => 'צר',
+		),
+		'thumbnail' => array(
+			'label' => 'Thumbnail', // TODO - Translation
+			'none' => 'None', // TODO - Translation
+			'portrait' => 'Portrait', // TODO - Translation
+			'square' => 'Square', // TODO - Translation
+			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(

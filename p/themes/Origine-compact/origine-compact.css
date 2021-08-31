@@ -111,10 +111,6 @@ form th {
 	padding: 8px 0;
 }
 
-.form-group table {
-	margin: 10px 0 0 220px;
-}
-
 /*=== Buttons */
 .stick {
 	vertical-align: middle;
@@ -880,6 +876,43 @@ a.btn,
 
 .flux_header .title {
 	font-size: 0.8rem;
+}
+
+.flux .item.thumbnail {
+	padding: 5px;
+	height: 50px;
+}
+
+.flux .item.thumbnail.small {
+	height: 30px;
+}
+
+.flux .item.thumbnail.portrait {
+	width: 38px;
+}
+
+.flux .item.thumbnail.square {
+	width: 50px;
+}
+
+.flux .item.thumbnail.landscape {
+	width: 80px;
+}
+
+.flux .item.thumbnail.portrait.small {
+	width: 20px;
+}
+
+.flux .item.thumbnail.square.small {
+	width: 30px;
+}
+
+.flux .item.thumbnail.landscape.small {
+	width: 40px;
+}
+
+.flux .item.title .summary {
+	max-height: 1.5em;
 }
 
 .flux .website .favicon {
