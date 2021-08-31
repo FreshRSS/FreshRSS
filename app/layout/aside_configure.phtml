@@ -48,6 +48,7 @@
 		<?php } ?>
 		<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
 		<?php } ?>
+		<li class="nav-header"><!-- empty headline --></li>
 		<li class="item<?= Minz_Request::actionName() === 'about' ? ' active' : '' ?>">
 			<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
 		</li>
