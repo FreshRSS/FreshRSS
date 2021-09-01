@@ -80,6 +80,8 @@ kbd {
 	border: 1px solid #b4b4b4;
 	border-radius: 3px;
 	text-indent: -20px;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
 }
 
 /*=== Images */
