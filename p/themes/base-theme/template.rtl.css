@@ -74,12 +74,12 @@ sup {
 
 kbd {
 	background-color: #eee;
-	padding: 2px 4px;
+	padding: 2px 4px 2px 24px;
 	display: inline-block;
 	color: #333;
 	border: 1px solid #b4b4b4;
 	border-radius: 3px;
-	white-space: nowrap;
+	text-indent: -20px;
 }
 
 /*=== Images */
