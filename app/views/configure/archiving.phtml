@@ -125,7 +125,7 @@
 		</div>
 	</form>
 
-	<legend><?= _t('conf.archiving.maintenance') ?></legend>
+	<h2><?= _t('conf.archiving.maintenance') ?></h2>
 	<form method="post" action="<?= _url('entry', 'purge') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
