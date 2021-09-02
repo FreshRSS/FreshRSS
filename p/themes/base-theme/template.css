@@ -171,6 +171,10 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
+.table-wrapper {
+	overflow-x: auto;
+}
+
 table {
 	max-width: 100%;
 }
