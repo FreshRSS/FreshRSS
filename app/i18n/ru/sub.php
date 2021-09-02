@@ -96,11 +96,6 @@ return array(
 		'website' => 'URL сайта',
 		'websub' => 'Моментальные оповещения посредством WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Выполните шаги, описанные <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">здесь</a>, чтобы добавить FreshRSS в список читалок лент Firefox.',
-		'obsolete_63' => 'Начиная с версии 63, Firefox убрал возможность добавлять собственные сервисы подписок, которые не являются отдельными программами.',
-		'title' => 'Читалка лент Firefox',
-	),
 	'import_export' => array(
 		'export' => 'Экспорт',
 		'export_labelled' => 'Экспортировать ваши помеченные статьи',
