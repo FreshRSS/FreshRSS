@@ -96,11 +96,6 @@ return array(
 		'website' => 'Odkaz webovej stránky',
 		'websub' => 'Okamžité oznámenia cez WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Pridajte RSS kanály do Firefoxu <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">pomocou tohto návodu</a>.',
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'RSS čítačka vo Firefoxe',
-	),
 	'import_export' => array(
 		'export' => 'Exportovať',
 		'export_labelled' => 'Exportovať vaše označené články',
