@@ -96,11 +96,6 @@ return array(
 		'website' => 'Website-url',
 		'websub' => 'Directe notificaties met WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Volg de stappen die <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschreven worden om FreshRSS aan de Firefox-nieuwslezerlijst toe te voegen.',
-		'obsolete_63' => 'Vanaf versie 63 en nieuwer, heeft Firefox de mogelijkheid om zelf niewslezers toe te voegen verwijderd voor online diensten.',
-		'title' => 'Firefox-nieuwslezer',
-	),
 	'import_export' => array(
 		'export' => 'Exporteer',
 		'export_labelled' => 'Exporteer gelabelde artikels',

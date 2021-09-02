@@ -11,13 +11,6 @@
 		Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss='+encodeURIComponent(url);})();"><?= _t('sub.bookmarklet.label') ?></a></p>
 	<?= _t('sub.bookmarklet.documentation') ?>
 
-	<h2><?= _t('sub.firefox.title') ?></h2>
-	<p class="alert alert-warn">
-		<?= _t('sub.firefox.obsolete_63', $this->default_category->name()) ?>
-	</p>
-	<p><?= _t('sub.firefox.documentation') ?></p>
-	<kbd>browser.contentHandlers.types.number.uri → <?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</kbd>
-
 	<h2><?= _t('sub.api.title') ?></h2>
 	<p><?= _t('sub.api.documentation') ?></p>
 	<kbd><?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</kbd>
