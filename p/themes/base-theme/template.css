@@ -173,6 +173,10 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
+.table-wrapper {
+	overflow-x: auto;
+}
+
 table {
 	max-width: 100%;
 }
@@ -208,6 +212,7 @@ td.numeric {
 .form-group .group-controls {
 	min-width: 250px;
 	margin: 0 0 0 220px;
+	overflow-x: auto;
 }
 
 .form-group .group-controls .control {
