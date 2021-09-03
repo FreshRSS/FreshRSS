@@ -74,7 +74,7 @@ sup {
 
 kbd {
 	background-color: #eee;
-	padding: 2px 4px 2px 24px;
+	padding: 2px 24px 2px 4px;
 	display: inline-block;
 	color: #333;
 	border: 1px solid #b4b4b4;
@@ -173,6 +173,10 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
+.table-wrapper {
+	overflow-x: auto;
+}
+
 table {
 	max-width: 100%;
 }
