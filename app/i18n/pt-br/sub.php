@@ -96,11 +96,6 @@ return array(
 		'website' => 'URL do site',
 		'websub' => 'Notificação instantânea com WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Siga as instruções descritas em <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> para adicionar o FreshRSS para o seu leitor de Feed do Firefox.',
-		'obsolete_63' => 'A partir da versão 63, o Firefox removeu a capacidade de adicionar seus próprios serviços de assinatura que não são programas autônomos.',
-		'title' => 'Leitor de feed do Firefox',
-	),
 	'import_export' => array(
 		'export' => 'Exportar',
 		'export_labelled' => 'Exportar seus artigos etiquetados',

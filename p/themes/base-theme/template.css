@@ -74,12 +74,14 @@ sup {
 
 kbd {
 	background-color: #eee;
-	padding: 2px 4px;
+	padding: 2px 4px 2px 24px;
 	display: inline-block;
 	color: #333;
 	border: 1px solid #b4b4b4;
 	border-radius: 3px;
-	white-space: nowrap;
+	text-indent: -20px;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
 }
 
 /*=== Images */
@@ -171,6 +173,10 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
+.table-wrapper {
+	overflow-x: auto;
+}
+
 table {
 	max-width: 100%;
 }
@@ -206,6 +212,7 @@ td.numeric {
 .form-group .group-controls {
 	min-width: 250px;
 	margin: 0 0 0 220px;
+	overflow-x: auto;
 }
 
 .form-group .group-controls .control {
