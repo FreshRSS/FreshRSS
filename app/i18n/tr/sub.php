@@ -96,11 +96,6 @@ return array(
 		'website' => 'Site URL',
 		'websub' => 'WebSub ile anlık bildirim',
 	),
-	'firefox' => array(
-		'documentation' => 'FreshRSS\'i Firefox akış okuma listesine eklemek için <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">buradaki</a> adımları takip edin.',
-		'obsolete_63' => 'Sürüm 63 itibari ile Firefox bağımsız uygulamaların aboneliklerinize olan izni kaldırdı.',
-		'title' => 'Firefox akış okuyucu',
-	),
 	'import_export' => array(
 		'export' => 'Dışa aktar',
 		'export_labelled' => 'Etiketli makaleleri dışarı aktar',
