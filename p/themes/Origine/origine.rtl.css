@@ -107,7 +107,16 @@ form th {
 
 .form-group .group-controls {
 	min-height: 25px;
-	padding: 5px 0;
+	padding: 10px 0;
+}
+
+.form-group .group-controls label {
+	padding: 0;
+}
+
+.form-group .group-controls input,
+.form-group .group-controls select {
+	margin: -5px 0;
 }
 
 /*=== Buttons */
