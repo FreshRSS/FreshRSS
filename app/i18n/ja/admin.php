@@ -2,11 +2,11 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => '標準のユーザーの記事が誰でも読めるようにします。\' (%s)',	// TODO - Translation
+		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。\' (%s)',	// TODO - Translation
 		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',	// TODO - Translation
-		'api_enabled' => '許可する<abbr>API</abbr> アクセス <small>(モバイルアプリが必要です)</small>',	// TODO - Translation
+		'api_enabled' => '<abbr>API</abbr> アクセスを許可する <small>(モバイルアプリが必要です)</small>',	// TODO - Translation
 		'form' => 'ウェブフォーム (JavaScriptが必要です)',	// TODO - Translation
-		'http' => 'HTTP (HTTPSなれている方はご使用できます)',	// TODO - Translation
+		'http' => 'HTTP (上級者向けのHTTPS)',	// TODO - Translation
 		'none' => 'なし (危険)',	// TODO - Translation
 		'title' => '認証',	// TODO - Translation
 		'title_reset' => '認証し直します',	// TODO - Translation
@@ -17,7 +17,7 @@ return array(
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'パーミッション<em>./data/cache</em>ディレクトリを確かめます。HTTP serverはパーミッションが必要です。',	// TODO - Translation
+			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
 			'ok' => 'キャッシュディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
 		),
 		'categories' => array(
@@ -37,7 +37,7 @@ return array(
 			'ok' => 'cURLライブラリが見つかりました。',	// TODO - Translation
 		),
 		'data' => array(
-			'nok' => '<em>./data</em>ディレクトリのパーミッションを確認してください。 HTTP serverはパーミッションを必要としています。',	// TODO - Translation
+			'nok' => '<em>./data</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
 			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
 		),
 		'database' => 'データベースインストール',	// TODO - Translation
@@ -46,161 +46,161 @@ return array(
 			'ok' => 'DOMを検索するライブラリが見つかりました。',	// TODO - Translation
 		),
 		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// TODO - Translation
-			'ok' => 'Entry table is okay.',	// TODO - Translation
+			'nok' => 'エントリテーブルが不適切な設定をされています。',	// TODO - Translation
+			'ok' => 'エントリテーブルは正しく設定されています。',	// TODO - Translation
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the favicons directory are good.',	// TODO - Translation
+			'nok' => '<em>./data/favicons</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
+			'ok' => 'ファビコンディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
 		),
 		'feeds' => array(
-			'nok' => 'Feed table is improperly configured.',	// TODO - Translation
-			'ok' => 'Feed table is okay.',	// TODO - Translation
+			'nok' => 'フィードテーブルが不適切な設定をされています。',	// TODO - Translation
+			'ok' => 'フィードテーブルは正しく設定されています。',	// TODO - Translation
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',	// TODO - Translation
+			'ok' => 'fileinfoライブラリは正しく設定されています。',	// TODO - Translation
 		),
-		'files' => 'File installation',	// TODO - Translation
+		'files' => 'ファイルインストール',	// TODO - Translation
 		'json' => array(
-			'nok' => 'Cannot find JSON (php-json package).',	// TODO - Translation
-			'ok' => 'You have the JSON extension.',	// TODO - Translation
+			'nok' => 'JSONが見つかりませんでした。  (php-json package).',	// TODO - Translation
+			'ok' => 'JSONはインストールされています。',	// TODO - Translation
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'mbstringライブラリが見つかりませんでした。',	// TODO - Translation
+			'ok' => 'mbstringライブラリはインストールされています。',	// TODO - Translation
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// TODO - Translation
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO - Translation
+			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',	// TODO - Translation
+			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',	// TODO - Translation
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// TODO - Translation
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO - Translation
-			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO - Translation
+			'_' => 'PHPインストール',	// TODO - Translation
+			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',	// TODO - Translation
+			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',	// TODO - Translation
 		),
 		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',	// TODO - Translation
-			'ok' => 'The appropriate tables exist in the database.',	// TODO - Translation
+			'nok' => 'データベースには1つ以上の失われたテーブルが存在します。',	// TODO - Translation
+			'ok' => '適切なテーブルがデータベースに存在します。',	// TODO - Translation
 		),
-		'title' => 'Installation check',	// TODO - Translation
+		'title' => 'インストールチェック',	// TODO - Translation
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO - Translation
-			'ok' => 'Permissions on the tokens directory are good.',	// TODO - Translation
+			'nok' => '<em>./data/tokens</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
+			'ok' => 'tokensディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO - Translation
-			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
+			'nok' => '<em>./data/users</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
+			'ok' => 'usersディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
 		),
 		'zip' => array(
-			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// TODO - Translation
-			'ok' => 'You have the ZIP extension.',	// TODO - Translation
+			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',	// TODO - Translation
+			'ok' => 'ZIP拡張はインストールされています。',	// TODO - Translation
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
-		'disabled' => 'Disabled',	// TODO - Translation
-		'empty_list' => 'There are no installed extensions',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
-		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
+		'author' => '作者',	// TODO - Translation
+		'community' => 'コミュニティ製の拡張',	// TODO - Translation
+		'description' => '説明',	// TODO - Translation
+		'disabled' => '無効',	// TODO - Translation
+		'empty_list' => 'インストールされている拡張はありません',	// TODO - Translation
+		'enabled' => '有効',	// TODO - Translation
+		'latest' => 'インストール済み',	// TODO - Translation
+		'name' => '名前',	// TODO - Translation
+		'no_configure_view' => 'この拡張は設定できません.',	// TODO - Translation
 		'system' => array(
-			'_' => 'System extensions',	// TODO - Translation
-			'no_rights' => 'System extension (you do not have the required permissions)',	// TODO - Translation
+			'_' => 'システム拡張',	// TODO - Translation
+			'no_rights' => 'システム拡張 (あなたには権限がありません)',	// TODO - Translation
 		),
-		'title' => 'Extensions',	// TODO - Translation
-		'update' => 'Update available',	// TODO - Translation
-		'user' => 'User extensions',	// TODO - Translation
-		'version' => 'Version',	// TODO - Translation
+		'title' => '拡張',	// TODO - Translation
+		'update' => 'アップデート可能',	// TODO - Translation
+		'user' => 'ユーザー拡張',	// TODO - Translation
+		'version' => 'バージョン',	// TODO - Translation
 	),
 	'stats' => array(
-		'_' => 'Statistics',	// TODO - Translation
-		'all_feeds' => 'All feeds',	// TODO - Translation
-		'category' => 'Category',	// TODO - Translation
-		'entry_count' => 'Entry count',	// TODO - Translation
-		'entry_per_category' => 'Entries per category',	// TODO - Translation
-		'entry_per_day' => 'Entries per day (last 30 days)',	// TODO - Translation
-		'entry_per_day_of_week' => 'Per day of week (average: %.2f messages)',	// TODO - Translation
-		'entry_per_hour' => 'Per hour (average: %.2f messages)',	// TODO - Translation
-		'entry_per_month' => 'Per month (average: %.2f messages)',	// TODO - Translation
-		'entry_repartition' => 'Entries repartition',	// TODO - Translation
-		'feed' => 'Feed',	// TODO - Translation
-		'feed_per_category' => 'Feeds per category',	// TODO - Translation
-		'idle' => 'Idle feeds',	// TODO - Translation
-		'main' => 'Main statistics',	// TODO - Translation
-		'main_stream' => 'Main stream',	// TODO - Translation
+		'_' => '統計',	// TODO - Translation
+		'all_feeds' => 'すべてのフィード',	// TODO - Translation
+		'category' => 'カテゴリ',	// TODO - Translation
+		'entry_count' => 'エントリの統計',	// TODO - Translation
+		'entry_per_category' => 'カテゴリのエントリ',	// TODO - Translation
+		'entry_per_day' => '日にちあたりのエントリ (直近30日間)',	// TODO - Translation
+		'entry_per_day_of_week' => '週あたり (平均: %.2f メッセージ)',	// TODO - Translation
+		'entry_per_hour' => '時間当たり (平均: %.2f メッセージ)',	// TODO - Translation
+		'entry_per_month' => '月あたり (平均: %.2f メッセージ)',	// TODO - Translation
+		'entry_repartition' => 'エントリの仕切り',	// TODO - Translation
+		'feed' => 'フィード',	// TODO - Translation
+		'feed_per_category' => 'カテゴリごとのフィード',	// TODO - Translation
+		'idle' => '未使用のフィード',	// TODO - Translation
+		'main' => '主な統計',	// TODO - Translation
+		'main_stream' => '主なストリーム',	// TODO - Translation
 		'menu' => array(
-			'idle' => 'Idle feeds',	// TODO - Translation
-			'main' => 'Main statistics',	// TODO - Translation
-			'repartition' => 'Articles repartition',	// TODO - Translation
+			'idle' => '未使用のフィード',	// TODO - Translation
+			'main' => '主な統計',	// TODO - Translation
+			'repartition' => '記事の仕切り',	// TODO - Translation
 		),
-		'no_idle' => 'There are no idle feeds!',	// TODO - Translation
-		'number_entries' => '%d articles',	// TODO - Translation
-		'percent_of_total' => '%% of total',	// TODO - Translation
-		'repartition' => 'Articles repartition',	// TODO - Translation
-		'status_favorites' => 'Favourites',	// TODO - Translation
-		'status_read' => 'Read',	// TODO - Translation
-		'status_total' => 'Total',	// TODO - Translation
-		'status_unread' => 'Unread',	// TODO - Translation
-		'title' => 'Statistics',	// TODO - Translation
-		'top_feed' => 'Top ten feeds',	// TODO - Translation
+		'no_idle' => '未使用のフィードはありません!',	// TODO - Translation
+		'number_entries' => '%d 記事',	// TODO - Translation
+		'percent_of_total' => '%% 総計',	// TODO - Translation
+		'repartition' => '記事の仕切り',	// TODO - Translation
+		'status_favorites' => 'お気に入り',	// TODO - Translation
+		'status_read' => '既読',	// TODO - Translation
+		'status_total' => 'すべて',	// TODO - Translation
+		'status_unread' => '未読',	// TODO - Translation
+		'title' => '仕切り',	// TODO - Translation
+		'top_feed' => '上位10位のフィード',	// TODO - Translation
 	),
 	'system' => array(
-		'_' => 'System configuration',	// TODO - Translation
-		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'_' => 'システム設定',	// TODO - Translation
+		'auto-update-url' => '自動アップグレードするサーバーのURL',	// TODO - Translation
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => '秒',	// TODO - Translation
+			'number' => 'ログを残す間隔',	// TODO - Translation
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
-		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Max number of categories per user',	// TODO - Translation
-		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
+		'force_email_validation' => 'emailアドレスの検証を強制します',	// TODO - Translation
+		'instance-name' => 'インスタンス名',	// TODO - Translation
+		'max-categories' => '1ユーザーごとのカテゴリの最大値',	// TODO - Translation
+		'max-feeds' => '1ユーザーごとのフィードの最大値',	// TODO - Translation
 		'registration' => array(
-			'help' => '0 means that there is no account limit',	// TODO - Translation
-			'number' => 'Max number of accounts',	// TODO - Translation
+			'help' => '0 はアカウントの上限がないことを意味しています',	// TODO - Translation
+			'number' => 'アカウントの最大値',	// TODO - Translation
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// TODO - Translation
-		'apply' => 'Apply',	// TODO - Translation
-		'check' => 'Check for new updates',	// TODO - Translation
-		'current_version' => 'Your current version of FreshRSS is %s.',	// TODO - Translation
-		'last' => 'Last verification: %s',	// TODO - Translation
-		'none' => 'No update to apply',	// TODO - Translation
-		'title' => 'Update system',	// TODO - Translation
+		'_' => 'システムアップデート',	// TODO - Translation
+		'apply' => '適用',	// TODO - Translation
+		'check' => 'アップデートを確認する',	// TODO - Translation
+		'current_version' => 'FreshRSS の現在のバージョンは %s です。',	// TODO - Translation
+		'last' => '最近の検証: %s',	// TODO - Translation
+		'none' => '適用できないアップデート',	// TODO - Translation
+		'title' => 'アップデートシステム',	// TODO - Translation
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
-		'create' => 'Create new user',	// TODO - Translation
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
-		'language' => 'Language',	// TODO - Translation
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'admin' => '管理者',	// TODO - Translation
+		'article_count' => '記事',	// TODO - Translation
+		'articles_and_size' => '%s 記事 (%s)',	// TODO - Translation
+		'back_to_manage' => '← ユーザーリストに戻る',	// TODO - Translation
+		'create' => '新規ユーザーを作成',	// TODO - Translation
+		'database_size' => 'データベースサイズ',	// TODO - Translation
+		'delete_users' => 'ユーザーを消去',	// TODO - Translation
+		'email' => 'Emailアドレス',	// TODO - Translation
+		'enabled' => '有効',	// TODO - Translation
+		'feed_count' => 'フィード',	// TODO - Translation
+		'is_admin' => '管理者',	// TODO - Translation
+		'language' => '言語',	// TODO - Translation
+		'last_user_activity' => '最近のユーザーアクティビティ',	// TODO - Translation
 		'list' => 'User list',	// TODO - Translation
-		'number' => 'There is %d account created',	// TODO - Translation
-		'numbers' => 'There are %d accounts created',	// TODO - Translation
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO - Translation
-		'password_format' => 'At least 7 characters',	// TODO - Translation
-		'selected' => 'Selected user',	// TODO - Translation
-		'title' => 'Manage users',	// TODO - Translation
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'List of users',	// TODO - Translation
-		'username' => 'Username',	// TODO - Translation
-		'users' => 'Users',	// TODO - Translation
+		'number' => '%d 人のアカウントが作られました',	// TODO - Translation
+		'numbers' => '%d 人のアカウントが作られました',	// TODO - Translation
+		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',	// TODO - Translation
+		'password_format' => '最低限7文字必要です',	// TODO - Translation
+		'selected' => '選択されたユーザー',	// TODO - Translation
+		'title' => '管理するユーザー',	// TODO - Translation
+		'update_users' => '更新されるユーザー',	// TODO - Translation
+		'user_list' => 'ユーザーの人数',	// TODO - Translation
+		'username' => 'ユーザー名',	// TODO - Translation
+		'users' => 'ユーザー',	// TODO - Translation
 	),
 );
