@@ -22,37 +22,37 @@
 					<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
 				</div>
-				<div class="box-content">
+				<ul class="box-content">
 					<?php if (!$query->hasParameters()) { ?>
-					<div class="alert alert-warn">
-						<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
-					</div>
+					<li class="item">
+						<div class="alert alert-warn">
+							<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
+						</div>
+					</li>
 					<?php } elseif ($query->isDeprecated()) { ?>
-					<div class="alert alert-error">
-						<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
-					</div>
+					<li class="item">
+						<div class="alert alert-error">
+							<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
+						</div>
+					</li>
 					<?php } else { ?>
-					<div>
-						<ul>
-							<?php if ($query->hasSearch()) { ?>
-							<li class="item"><?= _i('next') ?> <?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
-							<?php } ?>
-
-							<?php if ($query->getState()) { ?>
-							<li class="item"><?= _i('next') ?> <?= _t('conf.query.state_' . $query->getState()) ?></li>
-							<?php } ?>
-
-							<?php if ($query->getOrder()) { ?>
-							<li class="item"><?= _i('next') ?> <?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
-							<?php } ?>
-
-							<?php if ($query->getGet()) { ?>
-							<li class="item"><?= _i('next') ?> <?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
-							<?php } ?>
-						</ul>
-					</div>
+					<?php if ($query->hasSearch()) { ?>
+					<li class="item"><?= _i('next') ?> <?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
 					<?php } ?>
-				</div>
+
+					<?php if ($query->getState()) { ?>
+					<li class="item"><?= _i('next') ?> <?= _t('conf.query.state_' . $query->getState()) ?></li>
+					<?php } ?>
+
+					<?php if ($query->getOrder()) { ?>
+					<li class="item"><?= _i('next') ?> <?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
+					<?php } ?>
+
+					<?php if ($query->getGet()) { ?>
+					<li class="item"><?= _i('next') ?> <?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
+					<?php } ?>
+					<?php } ?>
+					</ul>
 			</div>
 		</div>
 		<?php } ?>
