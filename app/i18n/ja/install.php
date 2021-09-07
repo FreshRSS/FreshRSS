@@ -2,123 +2,123 @@
 
 return array(
 	'action' => array(
-		'finish' => 'Complete installation',	// TODO - Translation
-		'fix_errors_before' => 'Please all fix errors before continuing to the next step.',	// TODO - Translation
-		'keep_install' => 'Keep previous configuration',	// TODO - Translation
-		'next_step' => 'Go to the next step',	// TODO - Translation
-		'reinstall' => 'Reinstall FreshRSS',	// TODO - Translation
+		'finish' => 'インストールが完了しました',
+		'fix_errors_before' => '次のステップへ移る前にエラーを修正してください。',
+		'keep_install' => '前の設定を保持する',
+		'next_step' => '次のステップへ進む',
+		'reinstall' => 'FreshRSSを再インストールする',
 	),
 	'auth' => array(
-		'form' => 'Web form (traditional, requires JavaScript)',	// TODO - Translation
-		'http' => 'HTTP (for advanced users with HTTPS)',	// TODO - Translation
-		'none' => 'None (dangerous)',	// TODO - Translation
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO - Translation
-		'password_format' => 'At least 7 characters',	// TODO - Translation
-		'type' => 'Authentication method',	// TODO - Translation
+		'form' => 'Webフォーム (Javascriptが必要です)',
+		'http' => 'HTTP (上級者向けのHTTPS)',
+		'none' => 'なし (危険)',
+		'password_form' => 'パスワード<br /><small>(fWeb-formログインメソッド)</small>',
+		'password_format' => '最低限7文字必要です',
+		'type' => '認証メソッド',
 	),
 	'bdd' => array(
-		'_' => 'Database',	// TODO - Translation
+		'_' => 'データベース',
 		'conf' => array(
-			'_' => 'Database configuration',	// TODO - Translation
-			'ko' => 'Verify your database configuration.',	// TODO - Translation
-			'ok' => 'Database configuration has been saved.',	// TODO - Translation
+			'_' => 'データベース設定',
+			'ko' => 'あなたのデータベース設定を確認します。',
+			'ok' => 'データベース設定は保存されました。',
 		),
-		'host' => 'Host',	// TODO - Translation
-		'password' => 'Database password',	// TODO - Translation
-		'prefix' => 'Table prefix',	// TODO - Translation
-		'type' => 'Type of database',	// TODO - Translation
-		'username' => 'Database username',	// TODO - Translation
+		'host' => 'ホスト',
+		'password' => 'データベースパスワード',
+		'prefix' => 'テーブルプレフィックス',
+		'type' => 'データベースの型',
+		'username' => 'データベースのユーザー名',
 	),
 	'check' => array(
-		'_' => 'Checks',	// TODO - Translation
-		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
+		'_' => '確かめる',
+		'already_installed' => 'FreshRSS が、インストールされていることを確認できました!',
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the cache directory are good.',	// TODO - Translation
+			'nok' => ' <em>%1$s</em> ディレクトリ <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーを書き込むには権限が必要です。',
+			'ok' => 'キャッシュディレクトリの権限は正しく設定されています。',
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find the required library for character type checking (php-ctype).',	// TODO - Translation
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO - Translation
+			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',
+			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO - Translation
-			'ok' => 'You have the cURL library.',	// TODO - Translation
+			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',
+			'ok' => 'cURLライブラリが見つかりました。',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the data directory are good.',	// TODO - Translation
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
+			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
 		'dom' => array(
-			'nok' => 'Cannot find the required library to browse the DOM.',	// TODO - Translation
-			'ok' => 'You have the required library to browse the DOM.',	// TODO - Translation
+			'nok' => 'DOMを検索するライブラリが見つかりませんでした。',
+			'ok' => 'DOMを検索するライブラリが見つかりました。',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the favicons directory are good.',	// TODO - Translation
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
+			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',
+			'ok' => 'fileinfoライブラリは正しく設定されています。',
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
-			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
+			'nok' => 'JSONをパースするライブラリが見つかりませんでした。',
+			'ok' => 'JSONをパースするライブラリはインストールされています。',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'mbstringライブラリが見つかりませんでした。',
+			'ok' => 'mbstringライブラリはインストールされています。',
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',	// TODO - Translation
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO - Translation
+			'nok' => '正規表現ライブラリが見つかりませんでした。  (php-pcre).',
+			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',	// TODO - Translation
-			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',	// TODO - Translation
+			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
+			'ok' => 'あなたのPHPのバージョンは, %s, でFreshRSSと互換性があるバージョンです。',
 		),
-		'reload' => 'Check again',	// TODO - Translation
+		'reload' => '再度確かめる',
 		'tmp' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
+			'ok' => 'tempディレクトリの権限は正しく設定されています。',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => '不明',
 		'users' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
-			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。 HTTPサーバーは編集権限を必要としています。',
+			'ok' => 'usersディレクトリの権限は正しく設定されています。',
 		),
 		'xml' => array(
-			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
-			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
+			'nok' => 'XMLをパースするライブラリが見つかりませんでした。',
+			'ok' => 'XMLをパースするライブラリが見つかりました。',
 		),
 	),
 	'conf' => array(
-		'_' => 'General configuration',	// TODO - Translation
-		'ok' => 'General configuration has been saved.',	// TODO - Translation
+		'_' => '一般設定',
+		'ok' => '一般設定は保存されました。',
 	),
-	'congratulations' => 'Congratulations!',	// TODO - Translation
-	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',	// TODO - Translation
-	'delete_articles_after' => 'Remove articles after',	// TODO - Translation
-	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// TODO - Translation
-	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// TODO - Translation
+	'congratulations' => 'おめでとうございます!',
+	'default_user' => 'デフォルトのユーザーのユーザー名 <small>(最大16文字の英数字)</small>',
+	'delete_articles_after' => '後で記事を消す',
+	'fix_errors_before' => 'エラーを次のステップへ移る前に修正してください。',
+	'javascript_is_better' => 'FreshRSS はJavascriptが有効だとより快適にご利用いただけます。',
 	'js' => array(
-		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO - Translation
+		'confirm_reinstall' => 'もし再インストールするとFreshRSSの設定は削除されます。それでも続けますか?',
 	),
 	'language' => array(
-		'_' => 'Language',	// TODO - Translation
-		'choose' => 'Choose a language for FreshRSS',	// TODO - Translation
-		'defined' => 'Language has been defined.',	// TODO - Translation
+		'_' => '言語',
+		'choose' => 'FreshRSSで使う言語を選んでください',
+		'defined' => '言語の設定ができました。',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
-	'ok' => 'The installation process was successful.',	// TODO - Translation
+	'missing_applied_migrations' => '何かが誤っています; 空のファイルを手動で作ることができます <em>%s</em>',
+	'ok' => 'インストールプロセスは成功しました。',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'webサーバーは、不正な設定がされておりPHPセッションが必要とされているクッキーの設定が誤っています!',
 	),
-	'step' => 'step %d',	// TODO - Translation
-	'steps' => 'Steps',	// TODO - Translation
-	'this_is_the_end' => 'This is the end',	// TODO - Translation
-	'title' => 'Installation · FreshRSS',	// TODO - Translation
+	'step' => 'ステップ %d',
+	'steps' => 'ステップ',
+	'this_is_the_end' => 'これにて終了',
+	'title' => 'インストール · FreshRSS',
 );

@@ -2,205 +2,205 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。\' (%s)',	// TODO - Translation
-		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',	// TODO - Translation
-		'api_enabled' => '<abbr>API</abbr> アクセスを許可する <small>(モバイルアプリが必要です)</small>',	// TODO - Translation
-		'form' => 'ウェブフォーム (JavaScriptが必要です)',	// TODO - Translation
-		'http' => 'HTTP (上級者向けのHTTPS)',	// TODO - Translation
-		'none' => 'なし (危険)',	// TODO - Translation
-		'title' => '認証',	// TODO - Translation
-		'title_reset' => '認証し直します',	// TODO - Translation
-		'token' => '認証トークン',	// TODO - Translation
-		'token_help' => '標準ユーザーが承認無しで、RSSを出力できることを許可します。:',	// TODO - Translation
-		'type' => '認証メソッド',	// TODO - Translation
+		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
+		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',
+		'api_enabled' => '<abbr>API</abbr> アクセスを許可する <small>(モバイルアプリが必要です)</small>',
+		'form' => 'ウェブフォーム (JavaScriptが必要です)',
+		'http' => 'HTTP (上級者向けのHTTPS)',
+		'none' => 'なし (危険)',
+		'title' => '認証',
+		'title_reset' => '認証し直します',
+		'token' => '認証トークン',
+		'token_help' => '標準ユーザーが承認無しで、RSSを出力できることを許可します。:',
+		'type' => '認証メソッド',
 		'unsafe_autologin' => '危険な自動ログインを有効にします:	-> todo',
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集権限を必要としています。',	// TODO - Translation
-			'ok' => 'キャッシュディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
+			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集権限を必要としています。',
+			'ok' => 'キャッシュディレクトリのパーミッションは正しく設定されています。',
 		),
 		'categories' => array(
-			'nok' => 'カテゴリテーブルが不適切な設定をされています。',	// TODO - Translation
-			'ok' => 'カテゴリテーブルは正しく設定されています。',	// TODO - Translation
+			'nok' => 'カテゴリテーブルが不適切な設定をされています。',
+			'ok' => 'カテゴリテーブルは正しく設定されています。',
 		),
 		'connection' => array(
-			'nok' => 'データベースへの接続ができませんでした。',	// TODO - Translation
-			'ok' => 'データベースへの接続が正しく行われました。',	// TODO - Translation
+			'nok' => 'データベースへの接続ができませんでした。',
+			'ok' => 'データベースへの接続が正しく行われました。',
 		),
 		'ctype' => array(
-			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',	// TODO - Translation
-			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',	// TODO - Translation
+			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',
+			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',
 		),
 		'curl' => array(
-			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',	// TODO - Translation
-			'ok' => 'cURLライブラリが見つかりました。',	// TODO - Translation
+			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',
+			'ok' => 'cURLライブラリが見つかりました。',
 		),
 		'data' => array(
-			'nok' => '<em>./data</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
-			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
+			'nok' => '<em>./data</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',
+			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
-		'database' => 'データベースインストール',	// TODO - Translation
+		'database' => 'データベースインストール',
 		'dom' => array(
-			'nok' => 'DOMを検索するライブラリが見つかりませんでした。 (php-xml package).',	// TODO - Translation
-			'ok' => 'DOMを検索するライブラリが見つかりました。',	// TODO - Translation
+			'nok' => 'DOMを検索するライブラリが見つかりませんでした。 (php-xml package).',
+			'ok' => 'DOMを検索するライブラリが見つかりました。',
 		),
 		'entries' => array(
-			'nok' => 'エントリテーブルが不適切な設定をされています。',	// TODO - Translation
-			'ok' => 'エントリテーブルは正しく設定されています。',	// TODO - Translation
+			'nok' => 'エントリテーブルが不適切な設定をされています。',
+			'ok' => 'エントリテーブルは正しく設定されています。',
 		),
 		'favicons' => array(
-			'nok' => '<em>./data/favicons</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
-			'ok' => 'ファビコンディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
+			'nok' => '<em>./data/favicons</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',
+			'ok' => 'ファビコンディレクトリのパーミッションは正しく設定されています。',
 		),
 		'feeds' => array(
-			'nok' => 'フィードテーブルが不適切な設定をされています。',	// TODO - Translation
-			'ok' => 'フィードテーブルは正しく設定されています。',	// TODO - Translation
+			'nok' => 'フィードテーブルが不適切な設定をされています。',
+			'ok' => 'フィードテーブルは正しく設定されています。',
 		),
 		'fileinfo' => array(
-			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',	// TODO - Translation
-			'ok' => 'fileinfoライブラリは正しく設定されています。',	// TODO - Translation
+			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',
+			'ok' => 'fileinfoライブラリは正しく設定されています。',
 		),
-		'files' => 'ファイルインストール',	// TODO - Translation
+		'files' => 'ファイルインストール',
 		'json' => array(
-			'nok' => 'JSONをパースするライブラリが見つかりませんでした。 (php-json package).',	// TODO - Translation
-			'ok' => 'JSONをパースするライブラリはインストールされています。',	// TODO - Translation
+			'nok' => 'JSONをパースするライブラリが見つかりませんでした。 (php-json package).',
+			'ok' => 'JSONをパースするライブラリはインストールされています。',
 		),
 		'mbstring' => array(
-			'nok' => 'mbstringライブラリが見つかりませんでした。',	// TODO - Translation
-			'ok' => 'mbstringライブラリはインストールされています。',	// TODO - Translation
+			'nok' => 'mbstringライブラリが見つかりませんでした。',
+			'ok' => 'mbstringライブラリはインストールされています。',
 		),
 		'pcre' => array(
-			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',	// TODO - Translation
-			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',	// TODO - Translation
+			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',
+			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
-			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHPインストール',	// TODO - Translation
-			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',	// TODO - Translation
-			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',	// TODO - Translation
+			'_' => 'PHPインストール',
+			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
+			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',
 		),
 		'tables' => array(
-			'nok' => 'データベースには1つ以上の失われたテーブルが存在します。',	// TODO - Translation
-			'ok' => '適切なテーブルがデータベースに存在します。',	// TODO - Translation
+			'nok' => 'データベースには1つ以上の失われたテーブルが存在します。',
+			'ok' => '適切なテーブルがデータベースに存在します。',
 		),
-		'title' => 'インストールチェック',	// TODO - Translation
+		'title' => 'インストールチェック',
 		'tokens' => array(
-			'nok' => '<em>./data/tokens</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
-			'ok' => 'tokensディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
+			'nok' => '<em>./data/tokens</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
+			'ok' => 'tokensディレクトリのパーミッションは正しく設定されています。',
 		),
 		'users' => array(
-			'nok' => '<em>./data/users</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
-			'ok' => 'usersディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
+			'nok' => '<em>./data/users</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
+			'ok' => 'usersディレクトリのパーミッションは正しく設定されています。',
 		),
 		'zip' => array(
-			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',	// TODO - Translation
-			'ok' => 'ZIP拡張はインストールされています。',	// TODO - Translation
+			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',
+			'ok' => 'ZIP拡張はインストールされています。',
 		),
 	),
 	'extensions' => array(
-		'author' => '作者',	// TODO - Translation
-		'community' => 'コミュニティ製の拡張',	// TODO - Translation
-		'description' => '説明',	// TODO - Translation
-		'disabled' => '無効',	// TODO - Translation
-		'empty_list' => 'インストールされている拡張はありません',	// TODO - Translation
-		'enabled' => '有効',	// TODO - Translation
-		'latest' => 'インストール済み',	// TODO - Translation
-		'name' => '名前',	// TODO - Translation
-		'no_configure_view' => 'この拡張は設定できません.',	// TODO - Translation
+		'author' => '作者',
+		'community' => 'コミュニティ製の拡張',
+		'description' => '説明',
+		'disabled' => '無効',
+		'empty_list' => 'インストールされている拡張はありません',
+		'enabled' => '有効',
+		'latest' => 'インストール済み',
+		'name' => '名前',
+		'no_configure_view' => 'この拡張は設定できません.',
 		'system' => array(
-			'_' => 'システム拡張',	// TODO - Translation
-			'no_rights' => 'システム拡張 (あなたには権限がありません)',	// TODO - Translation
+			'_' => 'システム拡張',
+			'no_rights' => 'システム拡張 (あなたには権限がありません)',
 		),
-		'title' => '拡張',	// TODO - Translation
-		'update' => 'アップデート可能',	// TODO - Translation
-		'user' => 'ユーザー拡張',	// TODO - Translation
-		'version' => 'バージョン',	// TODO - Translation
+		'title' => '拡張',
+		'update' => 'アップデート可能',
+		'user' => 'ユーザー拡張',
+		'version' => 'バージョン',
 	),
 	'stats' => array(
-		'_' => '統計',	// TODO - Translation
-		'all_feeds' => 'すべてのフィード',	// TODO - Translation
-		'category' => 'カテゴリ',	// TODO - Translation
-		'entry_count' => 'エントリの統計',	// TODO - Translation
-		'entry_per_category' => 'カテゴリのエントリ',	// TODO - Translation
-		'entry_per_day' => '日にちあたりのエントリ (直近30日間)',	// TODO - Translation
-		'entry_per_day_of_week' => '週あたり (平均: %.2f メッセージ)',	// TODO - Translation
-		'entry_per_hour' => '時間当たり (平均: %.2f メッセージ)',	// TODO - Translation
-		'entry_per_month' => '月あたり (平均: %.2f メッセージ)',	// TODO - Translation
-		'entry_repartition' => 'エントリの仕切り',	// TODO - Translation
-		'feed' => 'フィード',	// TODO - Translation
-		'feed_per_category' => 'カテゴリごとのフィード',	// TODO - Translation
-		'idle' => '未使用のフィード',	// TODO - Translation
-		'main' => '主な統計',	// TODO - Translation
-		'main_stream' => '主なストリーム',	// TODO - Translation
+		'_' => '統計',
+		'all_feeds' => 'すべてのフィード',
+		'category' => 'カテゴリ',
+		'entry_count' => 'エントリの統計',
+		'entry_per_category' => 'カテゴリのエントリ',
+		'entry_per_day' => '日にちあたりのエントリ (直近30日間)',
+		'entry_per_day_of_week' => '週あたり (平均: %.2f メッセージ)',
+		'entry_per_hour' => '時間当たり (平均: %.2f メッセージ)',
+		'entry_per_month' => '月あたり (平均: %.2f メッセージ)',
+		'entry_repartition' => 'エントリの仕切り',
+		'feed' => 'フィード',
+		'feed_per_category' => 'カテゴリごとのフィード',
+		'idle' => '未使用のフィード',
+		'main' => '主な統計',
+		'main_stream' => '主なストリーム',
 		'menu' => array(
-			'idle' => '未使用のフィード',	// TODO - Translation
-			'main' => '主な統計',	// TODO - Translation
-			'repartition' => '記事の仕切り',	// TODO - Translation
+			'idle' => '未使用のフィード',
+			'main' => '主な統計',
+			'repartition' => '記事の仕切り',
 		),
-		'no_idle' => '未使用のフィードはありません!',	// TODO - Translation
-		'number_entries' => '%d 記事',	// TODO - Translation
-		'percent_of_total' => '%% 総計',	// TODO - Translation
-		'repartition' => '記事の仕切り',	// TODO - Translation
-		'status_favorites' => 'お気に入り',	// TODO - Translation
-		'status_read' => '既読',	// TODO - Translation
-		'status_total' => 'すべて',	// TODO - Translation
-		'status_unread' => '未読',	// TODO - Translation
-		'title' => '仕切り',	// TODO - Translation
-		'top_feed' => '上位10位のフィード',	// TODO - Translation
+		'no_idle' => '未使用のフィードはありません!',
+		'number_entries' => '%d 記事',
+		'percent_of_total' => '%% 総計',
+		'repartition' => '記事の仕切り',
+		'status_favorites' => 'お気に入り',
+		'status_read' => '既読',
+		'status_total' => 'すべて',
+		'status_unread' => '未読',
+		'title' => '仕切り',
+		'top_feed' => '上位10位のフィード',
 	),
 	'system' => array(
-		'_' => 'システム設定',	// TODO - Translation
-		'auto-update-url' => '自動アップグレードするサーバーのURL',	// TODO - Translation
+		'_' => 'システム設定',
+		'auto-update-url' => '自動アップグレードするサーバーのURL',
 		'cookie-duration' => array(
-			'help' => '秒',	// TODO - Translation
-			'number' => 'ログを残す間隔',	// TODO - Translation
+			'help' => '秒',
+			'number' => 'ログを残す間隔',
 		),
-		'force_email_validation' => 'emailアドレスの検証を強制します',	// TODO - Translation
-		'instance-name' => 'インスタンス名',	// TODO - Translation
-		'max-categories' => '1ユーザーごとのカテゴリの最大値',	// TODO - Translation
-		'max-feeds' => '1ユーザーごとのフィードの最大値',	// TODO - Translation
+		'force_email_validation' => 'emailアドレスの検証を強制します',
+		'instance-name' => 'インスタンス名',
+		'max-categories' => '1ユーザーごとのカテゴリの最大値',
+		'max-feeds' => '1ユーザーごとのフィードの最大値',
 		'registration' => array(
-			'help' => '0 はアカウントの上限がないことを意味しています',	// TODO - Translation
-			'number' => 'アカウントの最大値',	// TODO - Translation
+			'help' => '0 はアカウントの上限がないことを意味しています',
+			'number' => 'アカウントの最大値',
 		),
 	),
 	'update' => array(
-		'_' => 'システムアップデート',	// TODO - Translation
-		'apply' => '適用',	// TODO - Translation
-		'check' => 'アップデートを確認する',	// TODO - Translation
-		'current_version' => 'FreshRSS の現在のバージョンは %s です。',	// TODO - Translation
-		'last' => '最近の検証: %s',	// TODO - Translation
-		'none' => '適用できないアップデート',	// TODO - Translation
-		'title' => 'アップデートシステム',	// TODO - Translation
+		'_' => 'システムアップデート',
+		'apply' => '適用',
+		'check' => 'アップデートを確認する',
+		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
+		'last' => '最近の検証: %s',
+		'none' => '適用できないアップデート',
+		'title' => 'アップデートシステム',
 	),
 	'user' => array(
-		'admin' => '管理者',	// TODO - Translation
-		'article_count' => '記事',	// TODO - Translation
-		'articles_and_size' => '%s 記事 (%s)',	// TODO - Translation
-		'back_to_manage' => '← ユーザーリストに戻る',	// TODO - Translation
-		'create' => '新規ユーザーを作成',	// TODO - Translation
-		'database_size' => 'データベースサイズ',	// TODO - Translation
-		'delete_users' => 'ユーザーを消去',	// TODO - Translation
-		'email' => 'Emailアドレス',	// TODO - Translation
-		'enabled' => '有効',	// TODO - Translation
-		'feed_count' => 'フィード',	// TODO - Translation
-		'is_admin' => '管理者',	// TODO - Translation
-		'language' => '言語',	// TODO - Translation
-		'last_user_activity' => '最近のユーザーアクティビティ',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
-		'number' => '%d 人のアカウントが作られました',	// TODO - Translation
-		'numbers' => '%d 人のアカウントが作られました',	// TODO - Translation
-		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',	// TODO - Translation
-		'password_format' => '最低限7文字必要です',	// TODO - Translation
-		'selected' => '選択されたユーザー',	// TODO - Translation
-		'title' => '管理するユーザー',	// TODO - Translation
-		'update_users' => '更新されるユーザー',	// TODO - Translation
-		'user_list' => 'ユーザーの人数',	// TODO - Translation
-		'username' => 'ユーザー名',	// TODO - Translation
-		'users' => 'ユーザー',	// TODO - Translation
+		'admin' => '管理者',
+		'article_count' => '記事',
+		'articles_and_size' => '%s 記事 (%s)',
+		'back_to_manage' => '← ユーザーリストに戻る',
+		'create' => '新規ユーザーを作成',
+		'database_size' => 'データベースサイズ',
+		'delete_users' => 'ユーザーを消去',
+		'email' => 'Emailアドレス',
+		'enabled' => '有効',
+		'feed_count' => 'フィード',
+		'is_admin' => '管理者',
+		'language' => '言語',
+		'last_user_activity' => '最近のユーザーアクティビティ',
+		'list' => 'User list',
+		'number' => '%d 人のアカウントが作られました',
+		'numbers' => '%d 人のアカウントが作られました',
+		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',
+		'password_format' => '最低限7文字必要です',
+		'selected' => '選択されたユーザー',
+		'title' => '管理するユーザー',
+		'update_users' => '更新されるユーザー',
+		'user_list' => 'ユーザーの人数',
+		'username' => 'ユーザー名',
+		'users' => 'ユーザー',
 	),
 );
