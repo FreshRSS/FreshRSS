@@ -196,7 +196,7 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
 		'print' => 'Print',	// TODO - Translation
 		'raindrop' => 'Raindrop.io',

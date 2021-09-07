@@ -38,6 +38,7 @@ return array(
 	'gen.share.linkedin',
 	'gen.share.mastodon',
 	'gen.share.movim',
+	'gen.share.pinboard',
 	'gen.share.pocket',
 	'gen.share.raindrop',
 	'gen.share.shaarli',
