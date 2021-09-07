@@ -96,6 +96,15 @@ img.favicon {
 	vertical-align: middle;
 }
 
+.content.thin figure,
+.content.medium figure {
+	margin: 8px 0px;
+}
+
+.content figure figcaption{
+	font-style: italic;
+}
+
 .feed.mute::before {
 	content: '🔇';
 }
