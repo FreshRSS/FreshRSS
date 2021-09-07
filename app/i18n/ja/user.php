@@ -3,42 +3,42 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO - Translation
-			'required' => 'An email address is required.',	// TODO - Translation
+			'invalid' => 'このemailアドレスは無効です。',	// TODO - Translation
+			'required' => 'このemailアドレスは必要です。',	// TODO - Translation
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
+			'change_email' => 'emailアドレスは <a href="%s">プロフィールページで変更できます</a>.',	// TODO - Translation
+			'email_sent_to' => 'あなたのメールボックス<strong>%s</strong>にメールを送りました。有効性を確認するためにメールを確かめてください。',	// TODO - Translation
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'Email address validation failed.',	// TODO - Translation
-				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'This email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'サーバー設定にエラーがあるためemailを送信できませんでした。',	// TODO - Translation
+				'email_sent' => 'emailはあなたのメールボックスに送信されました',	// TODO - Translation
+				'error' => 'Emailアドレスの確認は失敗しました。',	// TODO - Translation
+				'ok' => 'この email アドレスは確認されました。',	// TODO - Translation
+				'unneccessary' => 'この email アドレスは既に確認済みです。',	// TODO - Translation
+				'wrong_token' => 'この email アドレスのトークンは誤っています。',	// TODO - Translation
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => '%s が使えるようになるには、emailアドレスの認証が必要です。',	// TODO - Translation
+			'resend_email' => 'emailの再送',	// TODO - Translation
+			'title' => 'Email アドレス確認',	// TODO - Translation
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => 'あなたは %s で登録されましたが、emailアドレスを確認する必要があります。このリンクに従ってください:',	// TODO - Translation
+			'title' => 'あなたのアカウントを確認する必要があります',	// TODO - Translation
+			'welcome' => 'ようこそ %s,',	// TODO - Translation
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'このパスワードは無効です',	// TODO - Translation
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'あなたが使うには利用規約に同意する必要があります。',	// TODO - Translation
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO - Translation
-		'taken' => 'This username, %s, is taken.',	// TODO - Translation
+		'invalid' => 'このユーザー名は無効です。',	// TODO - Translation
+		'taken' => '%s は既に使われているユーザー名です。',	// TODO - Translation
 	),
 );
