@@ -404,7 +404,6 @@ form th {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 2px;
-	visibility: visible;
 	margin-left: 0.5rem;
 }
 .box .box-title:hover .configure .icon {
@@ -414,9 +413,6 @@ form th {
 }
 .box .box-title:hover .configure:hover {
 	background: url("icons/cog-white.svg") no-repeat 4px 4px #36c;
-}
-.box .box-title .configure {
-	visibility: hidden;
 }
 .box .box-title form input {
 	width: 85%;
@@ -451,7 +447,6 @@ form th {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 2px;
-	visibility: hidden;
 	margin-left: 0.5rem;
 }
 .box .box-content .item .configure .icon {
@@ -461,9 +456,6 @@ form th {
 }
 .box .box-content .item .configure:hover {
 	background: url("icons/cog-white.svg") no-repeat 4px 4px #36c;
-}
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 .box .box-content .item:last-child {
 	border-bottom: none;
@@ -1483,11 +1475,6 @@ form th {
 
 	.form-group .group-name {
 		text-align: right;
-	}
-
-	.box .box-title .configure,
-.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {
