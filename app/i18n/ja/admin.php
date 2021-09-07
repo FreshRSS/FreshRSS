@@ -17,7 +17,7 @@ return array(
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',	// TODO - Translation
+			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集権限を必要としています。',	// TODO - Translation
 			'ok' => 'キャッシュディレクトリのパーミッションは正しく設定されています。',	// TODO - Translation
 		),
 		'categories' => array(
@@ -29,11 +29,11 @@ return array(
 			'ok' => 'データベースへの接続が正しく行われました。',	// TODO - Translation
 		),
 		'ctype' => array(
-			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype).',	// TODO - Translation
-			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype).',	// TODO - Translation
+			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',	// TODO - Translation
+			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',	// TODO - Translation
 		),
 		'curl' => array(
-			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package).',	// TODO - Translation
+			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',	// TODO - Translation
 			'ok' => 'cURLライブラリが見つかりました。',	// TODO - Translation
 		),
 		'data' => array(
@@ -63,8 +63,8 @@ return array(
 		),
 		'files' => 'ファイルインストール',	// TODO - Translation
 		'json' => array(
-			'nok' => 'JSONが見つかりませんでした。  (php-json package).',	// TODO - Translation
-			'ok' => 'JSONはインストールされています。',	// TODO - Translation
+			'nok' => 'JSONをパースするライブラリが見つかりませんでした。 (php-json package).',	// TODO - Translation
+			'ok' => 'JSONをパースするライブラリはインストールされています。',	// TODO - Translation
 		),
 		'mbstring' => array(
 			'nok' => 'mbstringライブラリが見つかりませんでした。',	// TODO - Translation
