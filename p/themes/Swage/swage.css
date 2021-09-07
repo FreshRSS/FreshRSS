@@ -469,15 +469,9 @@ form th {
 	font-size: 0.9rem;
 	line-height: 2.5em;
 }
-.box .box-content .item .configure {
-	visibility: hidden;
-}
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
 	background-color: #e3e3e3;
-}
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 .box.category .box-title .title {
 	font-weight: normal;
@@ -920,12 +914,7 @@ form th {
 		padding-bottom: 0;
 		text-align: left;
 	}
-
-	.box .box-title .configure,
-.box .box-content .item .configure {
-		visibility: visible;
-	}
-
+	
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
