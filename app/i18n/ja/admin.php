@@ -13,7 +13,7 @@ return array(
 		'token' => '認証トークン',
 		'token_help' => '標準ユーザーが承認無しで、RSSを出力できることを許可します。:',
 		'type' => '認証メソッド',
-		'unsafe_autologin' => '危険な自動ログインを有効にします:	-> todo',
+		'unsafe_autologin' => '危険な自動ログインを有効にします',
 	),
 	'check_install' => array(
 		'cache' => array(
