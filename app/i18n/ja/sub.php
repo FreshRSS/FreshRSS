@@ -7,7 +7,7 @@ return array(
 		'title' => 'API',	// TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'このボタンをブックマークツールバーへドラッグするか、右クリックして、「このリンクをブックマークする」を選択します。そうすることで「購読」ボタンがどのページでも購読できるようになります。',	// TODO - Translation
+		'documentation' => 'このボタンをブックマークツールバーへドラッグするか、右クリックして、「このリンクをブックマークする」を選択します。そうすることでどのページでも購読できるようになります。',	// TODO - Translation
 		'label' => '購読',	// TODO - Translation
 		'title' => 'ブックマーク',	// TODO - Translation
 	),

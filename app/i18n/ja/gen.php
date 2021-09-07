@@ -18,20 +18,20 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',	// TODO - Translation
 		'manage' => '管理',	// TODO - Translation
 		'mark_favorite' => 'お気に入りとして目印をつける',	// TODO - Translation
-		'mark_read' => '既読として目印をつける',	// TODO - Translation
+		'mark_read' => '既読にする',	// TODO - Translation
 		'promote' => 'プロモート',	// TODO - Translation
 		'purge' => 'パージ',	// TODO - Translation
 		'remove' => '消去',	// TODO - Translation
 		'rename' => 'リネーム',	// TODO - Translation
 		'see_website' => 'websiteを閲覧してください',	// TODO - Translation
-		'submit' => '提出',	// TODO - Translation
+		'submit' => '保存',	// TODO - Translation
 		'truncate' => 'すべての記事を消去する',	// TODO - Translation
 		'update' => '更新',	// TODO - Translation
 	),
 	'auth' => array(
 		'accept_tos' => '私は <a href="%s">Terms of Service</a>を承認します。',	// TODO - Translation
 		'email' => 'Emailアドレス',	// TODO - Translation
-		'keep_logged_in' => 'ログインを保持する <small>(%s に置換)</small>',	// TODO - Translation
+		'keep_logged_in' => 'ログインを保持する <small>(%s)日後に失効</small>',	// TODO - Translation
 		'login' => 'ログイン',	// TODO - Translation
 		'logout' => 'ログアウト',	// TODO - Translation
 		'password' => array(
@@ -147,7 +147,7 @@ return array(
 		'zh-cn' => '简体中文',	// TODO - Translation
 	),
 	'menu' => array(
-		'about' => 'これについて',	// TODO - Translation
+		'about' => 'FreshRSSについて',	// TODO - Translation
 		'admin' => 'Administration',	// TODO - Translation
 		'archiving' => 'アーカイブ',	// TODO - Translation
 		'authentication' => '認証',	// TODO - Translation
@@ -171,7 +171,7 @@ return array(
 		'first' => '先頭',	// TODO - Translation
 		'last' => '最後',	// TODO - Translation
 		'load_more' => '記事をもっと読み込む',	// TODO - Translation
-		'mark_all_read' => 'すべてを既読として目印をつける',	// TODO - Translation
+		'mark_all_read' => 'すべての記事を既読にする',	// TODO - Translation
 		'next' => 'つぎへ',	// TODO - Translation
 		'nothing_to_load' => 'もう記事はありません',	// TODO - Translation
 		'previous' => '前へ',	// TODO - Translation

@@ -6,12 +6,12 @@ return array(
 		'delete_after' => '後で記事を消す',	// TODO - Translation
 		'exception' => '例外を除く',	// TODO - Translation
 		'help' => 'たくさんのオプションが非表示になっているフィードの\'設定にあります。',	// TODO - Translation
-		'keep_favourites' => 'お気に入りを決して消さない',	// TODO - Translation
-		'keep_labels' => 'ラベルを決して消さない',	// TODO - Translation
+		'keep_favourites' => 'お気に入りを消去しない',	// TODO - Translation
+		'keep_labels' => 'ラベルを消去しない',	// TODO - Translation
 		'keep_max' => '記事を保存する最大値',	// TODO - Translation
 		'keep_min_by_feed' => '記事をフィードあたりに残す最小値',	// TODO - Translation
 		'keep_period' => '記事を保存する最大時間',	// TODO - Translation
-		'keep_unreads' => '決して未読の記事を消さない',	// TODO - Translation
+		'keep_unreads' => '未読の記事を消去しない',	// TODO - Translation
 		'maintenance' => 'メンテナンス',	// TODO - Translation
 		'optimize' => 'データベースを整理する',	// TODO - Translation
 		'optimize_help' => '時々データベースサイズを減らすため実行します',	// TODO - Translation
@@ -19,7 +19,7 @@ return array(
 		'policy_warning' => 'すべての記事が、パージポリシーが選択されてないときに保存されます。',	// TODO - Translation
 		'purge_now' => '今パージする',	// TODO - Translation
 		'title' => 'アーカイブ',	// TODO - Translation
-		'ttl' => 'より頻繁に自動的にリフレッシュをしない',	// TODO - Translation
+		'ttl' => '自動的に更新される時間',	// TODO - Translation
 	),
 	'display' => array(
 		'_' => 'ディスプレイ',	// TODO - Translation
@@ -30,7 +30,7 @@ return array(
 			'publication_date' => '出版された日',	// TODO - Translation
 			'related_tags' => '記事のタグ',	// TODO - Translation
 			'sharing' => '共有',	// TODO - Translation
-			'summary' => 'ようやく',	// TODO - Translation
+			'summary' => '要約',	// TODO - Translation
 			'top_line' => '行の先頭',	// TODO - Translation
 		),
 		'language' => '言語',	// TODO - Translation
@@ -134,7 +134,7 @@ return array(
 			'article_viewed' => '記事を読んだとき',	// TODO - Translation
 			'scroll' => 'スクロールしているとき',	// TODO - Translation
 			'upon_reception' => '記事を受け取ったとき',	// TODO - Translation
-			'when' => '記事を既読として目印をつける…',	// TODO - Translation
+			'when' => '記事を既読にする…',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => '記事を表示する',	// TODO - Translation

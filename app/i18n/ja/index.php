@@ -2,7 +2,7 @@
 
 return array(
 	'about' => array(
-		'_' => 'これについて',	// TODO - Translation
+		'_' => 'FreshRSSについて',	// TODO - Translation
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
 		'bugs_reports' => 'バグレポート',	// TODO - Translation
 		'credits' => 'Credits',	// TODO - Translation
@@ -11,7 +11,7 @@ return array(
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',	// TODO - Translation
 		'license' => 'ライセンス',	// TODO - Translation
 		'project_website' => 'プロジェクトのwebsite',	// TODO - Translation
-		'title' => 'これについて',	// TODO - Translation
+		'title' => 'FreshRSSについて',	// TODO - Translation
 		'version' => 'バージョン',	// TODO - Translation
 		'website' => 'Website',	// TODO - Translation
 	),
@@ -19,7 +19,7 @@ return array(
 		'add' => 'フィードを追加してください。',	// TODO - Translation
 		'empty' => '表示できる記事がありません',	// TODO - Translation
 		'rss_of' => '%s のRSSフィード',	// TODO - Translation
-		'title' => 'メインストリーム',	// TODO - Translation
+		'title' => 'メイン',	// TODO - Translation
 		'title_fav' => 'お気に入り',	// TODO - Translation
 		'title_global' => 'グローバルビュー',	// TODO - Translation
 	),
@@ -36,7 +36,7 @@ return array(
 		'bookmark_query' => '現在のブックマーククエリ',	// TODO - Translation
 		'favorites' => 'お気に入り (%s)',	// TODO - Translation
 		'global_view' => 'グローバルビュー',	// TODO - Translation
-		'main_stream' => 'メインストリーム',	// TODO - Translation
+		'main_stream' => 'メイン',	// TODO - Translation
 		'mark_all_read' => 'すべての記事に既読をつける',	// TODO - Translation
 		'mark_cat_read' => 'カテゴリーに既読をつける',	// TODO - Translation
 		'mark_feed_read' => 'フィードに既読をつける',	// TODO - Translation
@@ -52,7 +52,7 @@ return array(
 		'search_short' => '検索',	// TODO - Translation
 		'starred' => 'お気に入りを表示する',	// TODO - Translation
 		'stats' => '統計',	// TODO - Translation
-		'subscription' => '購読したものの管理',	// TODO - Translation
+		'subscription' => '購読管理',	// TODO - Translation
 		'tags' => 'ラベル',	// TODO - Translation
 		'unread' => '未読のものを表示する',	// TODO - Translation
 	),
