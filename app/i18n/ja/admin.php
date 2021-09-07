@@ -191,7 +191,7 @@ return array(
 		'is_admin' => '管理者',
 		'language' => '言語',
 		'last_user_activity' => '最近のユーザーアクティビティ',
-		'list' => 'User list',
+		'list' => 'User list',	// TODO - Translation
 		'number' => '%d 人のアカウントが作られました',
 		'numbers' => '%d 人のアカウントが作られました',
 		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',

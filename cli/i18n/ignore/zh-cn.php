@@ -19,6 +19,7 @@ return array(
 	'gen.lang.fr',
 	'gen.lang.he',
 	'gen.lang.it',
+	'gen.lang.ja',
 	'gen.lang.kr',
 	'gen.lang.nl',
 	'gen.lang.oc',

@@ -148,7 +148,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
-		'admin' => 'Administration',
+		'admin' => 'Administration',	// TODO - Translation
 		'archiving' => 'アーカイブ',
 		'authentication' => '認証',
 		'check_install' => 'インストール時のチェック',
@@ -186,9 +186,9 @@ return array(
 	'share' => array(
 		'Known' => 'よく使われるサイト',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',
+		'clipboard' => 'Clipboard',	// TODO - Translation
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
+		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
@@ -196,9 +196,9 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
+		'pinboard' => 'Pinboard',	// TODO - Translation
 		'pocket' => 'Pocket',
-		'print' => 'Print',
+		'print' => 'Print',	// TODO - Translation
 		'raindrop' => 'Raindrop.io',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
@@ -208,11 +208,11 @@ return array(
 	'short' => array(
 		'attention' => '警告!',
 		'blank_to_disable' => '空白のままにすると無効になります',
-		'by_author' => 'By:',
+		'by_author' => 'By:',	// TODO - Translation
 		'by_default' => 'デフォルト',
-		'damn' => 'Blast!',
+		'damn' => 'Blast!',	// TODO - Translation
 		'default_category' => 'カテゴリーに登録されていない',
-		'no' => 'No',
+		'no' => 'No',	// TODO - Translation
 		'not_applicable' => '利用不可能',
 		'ok' => 'はい!',
 		'or' => 'あるいは',

@@ -167,7 +167,7 @@ return array(
 		'add' => '共有方法を追加する',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
+		'email' => 'Email',	// TODO - Translation
 		'facebook' => 'Facebook',
 		'more_information' => 'もっと多くの情報',
 		'print' => '印刷',
@@ -211,7 +211,7 @@ return array(
 		'skip_next_article' => '次を開かないで飛ばす',
 		'skip_previous_article' => '前の記事を開かないで飛ばす',
 		'title' => 'ショートカット',
-		'toggle_media' => 'Play/pause media',
+		'toggle_media' => 'Play/pause media',	// TODO - Translation
 		'user_filter' => 'ユーザーのクエリにアクセスする',
 		'user_filter_help' => '一つのユーザークエリしかないとき、それが使われます。さもなければ、番号によってクエリにアクセスできます。',
 		'views' => 'ビュー',

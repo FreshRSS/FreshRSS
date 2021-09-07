@@ -84,7 +84,7 @@ return array(
 		'feed' => array(
 			'actualized' => '<em>%s</em>は更新されました。',
 			'actualizeds' => 'RSSフィードは更新されました。',
-			'added' => 'RSS feed <em>%s</em> has been added',
+			'added' => 'RSS feed <em>%s</em> has been added',	// TODO - Translation
 			'already_subscribed' => 'すでにあなたは<em>%s</em>を購読しています',
 			'cache_cleared' => '<em>%s</em>キャッシュは作られました',
 			'deleted' => 'フィードは消去されました',
