@@ -233,7 +233,6 @@
 				width: 1.75rem;
 				height: 1.75rem;
 				border-radius: 2px;
-				visibility: visible;
 				margin-right: 0.5rem;
 
 				.icon {
@@ -246,10 +245,6 @@
 					background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
 				}
 			}
-		}
-
-		.configure {
-			visibility: hidden;
 		}
 
 		form {
@@ -296,7 +291,6 @@
 				width: 1.75rem;
 				height: 1.75rem;
 				border-radius: 2px;
-				visibility: hidden;
 				margin-right: 0.5rem;
 
 				.icon {
@@ -311,9 +305,6 @@
 				}
 			}
 
-			&:hover .configure {
-				visibility: visible;
-			}
 		}
 
 		.item:last-child {
