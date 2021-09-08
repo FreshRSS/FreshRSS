@@ -491,16 +491,6 @@ a.btn {
 	line-height: 2.5em;
 }
 
-.box .box-title .configure,
-.box .box-content .item .configure {
-	visibility: hidden;
-}
-
-.box .box-title:hover .configure,
-.box .box-content .item:hover .configure {
-	visibility: visible;
-}
-
 /*=== Tree */
 .tree {
 	margin: 10px 0;
@@ -1128,11 +1118,6 @@ a.btn {
 	.form-group .group-name {
 		padding-bottom: 0;
 		text-align: right;
-	}
-
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {
