@@ -233,7 +233,6 @@
 				width: 1.75rem;
 				height: 1.75rem;
 				border-radius: 2px;
-				visibility: visible;
 				margin-right: 0.5rem;
 
 				.icon {
@@ -248,9 +247,6 @@
 			}
 		}
 
-		.configure {
-			visibility: hidden;
-		}
 
 		form {
 			input {
@@ -296,7 +292,6 @@
 				width: 1.75rem;
 				height: 1.75rem;
 				border-radius: 2px;
-				visibility: hidden;
 				margin-right: 0.5rem;
 
 				.icon {
@@ -311,9 +306,6 @@
 				}
 			}
 
-			&:hover .configure {
-				visibility: visible;
-			}
 		}
 
 		.item:last-child {

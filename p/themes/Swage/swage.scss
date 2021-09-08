@@ -587,16 +587,10 @@ form {
 			line-height: 2.5em;
 
 			.configure {
-				visibility: hidden;
-
 				.icon {
 					vertical-align: middle;
 					background-color: darken( $color_light, 10%);
 				}
-			}
-
-			&:hover .configure {
-				visibility: visible;
 			}
 		}
 	}
@@ -1148,11 +1142,6 @@ form {
 	.form-group .group-name {
 		padding-bottom: 0;
 		text-align: left;
-	}
-
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.dropdown-header, .dropdown-menu > .item {

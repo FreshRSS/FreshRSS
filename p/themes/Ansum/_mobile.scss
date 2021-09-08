@@ -41,11 +41,6 @@
 		text-align: left;
 	}
 
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
-	}
-
 	.aside {
 
 		@include transition(all, 0.2s, ease-in-out);
