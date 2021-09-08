@@ -107,7 +107,16 @@ form th {
 
 .form-group .group-controls {
 	min-height: 25px;
-	padding: 5px 0;
+	padding: 10px 0;
+}
+
+.form-group .group-controls label {
+	padding: 0;
+}
+
+.form-group .group-controls input,
+.form-group .group-controls select {
+	margin: -5px 0;
 }
 
 /*=== Buttons */
@@ -508,16 +517,6 @@ a.btn {
 	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
-}
-
-.box .box-title .configure,
-.box .box-content .item .configure {
-	visibility: hidden;
-}
-
-.box .box-title:hover .configure,
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 
 /*=== Tree */
@@ -1132,11 +1131,6 @@ a.btn {
 		padding-bottom: 0;
 
 		text-align: left;
-	}
-
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {

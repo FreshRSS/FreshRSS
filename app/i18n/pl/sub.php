@@ -96,11 +96,6 @@ return array(
 		'website' => 'Adres strony',
 		'websub' => 'Instant notification with WebSub',	// TODO - Translation
 	),
-	'firefox' => array(
-		'documentation' => 'Wykonaj kroki opisane <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">tutaj</a>, by dodać FreshRSS do listy czytników kanałów w przeglądarce Firefox.',
-		'obsolete_63' => 'Możliwość dodawania własnych serwisów subskrypcji kanałów, które nie są osobnymi programami, została usunięta w Firefoksie 63.',
-		'title' => 'Czytnik kanałów w Firefoksie',
-	),
 	'import_export' => array(
 		'export' => 'Eksport',
 		'export_labelled' => 'Eksportuj wiadomości z etykietami',

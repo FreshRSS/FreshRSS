@@ -1,3 +1,7 @@
+<?php if (FreshRSS_Auth::hasAccess()) {?>
+<?php $this->partial('aside_configure'); ?>
+<?php } ?>
+
 <div class="post content">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 	<div class="link-back-wrapper">

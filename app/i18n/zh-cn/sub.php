@@ -96,11 +96,6 @@ return array(
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',
 	),
-	'firefox' => array(
-		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到火狐阅读器列表',
-		'obsolete_63' => '从火狐63版本开始取消了添加自己非独立程序的订阅服务功能',
-		'title' => '火狐 RSS 阅读器',
-	),
 	'import_export' => array(
 		'export' => '导出',
 		'export_labelled' => '导出有标签的文章',
