@@ -5,15 +5,15 @@ return array(
 		'_' => 'FreshRSSについて',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'バグレポート',
-		'credits' => 'Credits',	// TODO - Translation
-		'credits_content' => 'Some design elements come from <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> although FreshRSS doesn’t use this framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> come from <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police has been created by <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS is based on <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, a PHP framework.',	// TODO - Translation
-		'freshrss_description' => 'FreshRSS is a RSS feeds aggregator to self-host like <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> or <a href="https://github.com/LeedRSS/Leed">Leed</a>. It is light and easy to take in hand while being powerful and configurable tool.',	// TODO - Translation
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',	// TODO - Translation
+		'credits' => 'クレジット',
+		'credits_content' => 'いくつかのデザイン要素は <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>から来ています。しかしFreshRSSはこのフレームワークを使用していません。 <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">アイコン</a> は <a href="https://www.gnome.org/">GNOME プロジェクトから作られています</a>。 <em>Open Sans</em> フォントポリスは <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson によって作成されました</a>。 FreshRSS は<a href="https://github.com/marienfressinaud/MINZ">Minz</a>,PHP フレームワークをもとにしています。',
+		'freshrss_description' => 'FreshRSSは <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> や <a href="https://github.com/LeedRSS/Leed">Leed</a>のようなセルフホストできるRSSフィードアグリゲーターです。強力なツールになっており、軽量で簡単に使え豊富に設定ができます。',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Githubです</a>',
 		'license' => 'ライセンス',
-		'project_website' => 'プロジェクトのwebsite',
+		'project_website' => 'プロジェクトのwebサイト',
 		'title' => 'FreshRSSについて',
 		'version' => 'バージョン',
-		'website' => 'Website',	// TODO - Translation
+		'website' => 'Webサイト',
 	),
 	'feed' => array(
 		'add' => 'フィードを追加してください。',

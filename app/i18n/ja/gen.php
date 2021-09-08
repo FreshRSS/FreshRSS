@@ -23,14 +23,14 @@ return array(
 		'purge' => 'パージ',
 		'remove' => '消去',
 		'rename' => 'リネーム',
-		'see_website' => 'websiteを閲覧してください',
+		'see_website' => 'webサイトを閲覧してください',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',
 		'update' => '更新',
 	),
 	'auth' => array(
 		'accept_tos' => '私は <a href="%s">Terms of Service</a>を承認します。',
-		'email' => 'Emailアドレス',
+		'email' => 'Eメールアドレス',
 		'keep_logged_in' => 'ログインを保持する <small>(%s)日後に失効</small>',
 		'login' => 'ログイン',
 		'logout' => 'ログアウト',
@@ -46,7 +46,7 @@ return array(
 		'reset' => '認証リセット',
 		'username' => array(
 			'_' => 'ユーザー名',
-			'admin' => 'Administratorのユーザー名',
+			'admin' => '管理者のユーザー名',
 			'format' => '<small>最大16文字の英数字</small>',
 		),
 	),
@@ -148,7 +148,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
-		'admin' => 'Administration',	// TODO - Translation
+		'admin' => '管理者',
 		'archiving' => 'アーカイブ',
 		'authentication' => '認証',
 		'check_install' => 'インストール時のチェック',
@@ -186,9 +186,9 @@ return array(
 	'share' => array(
 		'Known' => 'よく使われるサイト',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',	// TODO - Translation
+		'email' => 'Eメール',
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
@@ -198,7 +198,7 @@ return array(
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
-		'print' => 'Print',	// TODO - Translation
+		'print' => '印刷',
 		'raindrop' => 'Raindrop.io',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
@@ -208,11 +208,11 @@ return array(
 	'short' => array(
 		'attention' => '警告!',
 		'blank_to_disable' => '空白のままにすると無効になります',
-		'by_author' => 'By:',	// TODO - Translation
+		'by_author' => '著者:',
 		'by_default' => 'デフォルト',
-		'damn' => 'Blast!',	// TODO - Translation
+		'damn' => '終了!',
 		'default_category' => 'カテゴリーに登録されていない',
-		'no' => 'No',	// TODO - Translation
+		'no' => 'いいえ',
 		'not_applicable' => '利用不可能',
 		'ok' => 'はい!',
 		'or' => 'あるいは',

@@ -84,7 +84,7 @@ return array(
 		'feed' => array(
 			'actualized' => '<em>%s</em>は更新されました。',
 			'actualizeds' => 'RSSフィードは更新されました。',
-			'added' => 'RSS feed <em>%s</em> has been added',	// TODO - Translation
+			'added' => 'RSS フィードの <em>%s</em> は更新されました',
 			'already_subscribed' => 'すでにあなたは<em>%s</em>を購読しています',
 			'cache_cleared' => '<em>%s</em>キャッシュは作られました',
 			'deleted' => 'フィードは消去されました',
@@ -99,7 +99,7 @@ return array(
 			'over_max' => 'フィードの最大値に達しました (%d)',
 			'reloaded' => '<em>%s</em> は再読み込みされました',
 			'selector_preview' => array(
-				'http_error' => 'websiteの読み込みに失敗しました',
+				'http_error' => 'webサイトの読み込みに失敗しました',
 				'no_entries' => 'このフィードには記事がありません。少なくともプレビュー表示を作成するには一つの記事が必要です。',
 				'no_feed' => '内部エラー (フィードが見つかりませんでした).',
 				'no_result' => '選択されたものはどれともマッチしませんでした。代わりにフォールバックとして、元のテキストが表示されます。',

@@ -2,9 +2,9 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
+		'allow_anonymous' => '標準ユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
 		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',
-		'api_enabled' => '<abbr>API</abbr> アクセスを許可する <small>(モバイルアプリが必要です)</small>',
+		'api_enabled' => '<abbr>API</abbr>からのアクセスを許可する <small>(モバイルアプリが必要です)</small>',
 		'form' => 'ウェブフォーム (JavaScriptが必要です)',
 		'http' => 'HTTP (上級者向けのHTTPS)',
 		'none' => 'なし (危険)',
@@ -159,7 +159,7 @@ return array(
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
 		),
-		'force_email_validation' => 'emailアドレスの検証を強制します',
+		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',
 		'max-feeds' => '1ユーザーごとのフィードの最大値',
@@ -185,13 +185,13 @@ return array(
 		'create' => '新規ユーザーを作成',
 		'database_size' => 'データベースサイズ',
 		'delete_users' => 'ユーザーを消去',
-		'email' => 'Emailアドレス',
+		'email' => 'Eメールアドレス',
 		'enabled' => '有効',
 		'feed_count' => 'フィード',
 		'is_admin' => '管理者',
 		'language' => '言語',
 		'last_user_activity' => '最近のユーザーアクティビティ',
-		'list' => 'User list',	// TODO - Translation
+		'list' => 'ユーザーリスト',
 		'number' => '%d 人のアカウントが作られました',
 		'numbers' => '%d 人のアカウントが作られました',
 		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',

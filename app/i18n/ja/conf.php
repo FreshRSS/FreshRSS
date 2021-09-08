@@ -63,7 +63,7 @@ return array(
 			'_' => 'アカウント消去',
 			'warn' => 'あなたのアカウントとそれに関連したデーターが消去されます。',
 		),
-		'email' => 'Emailアドレス',
+		'email' => 'Eメールアドレス',
 		'password_api' => 'APIのパスワード<br /><small>(モバイルアプリなど)</small>',
 		'password_form' => 'パスワード<br /><small>Web-formのログイン時の)</small>',
 		'password_format' => '最低限7文字必要です',
@@ -130,7 +130,7 @@ return array(
 		'mark_updated_article_unread' => '更新された記事を未読として目印をつける',
 		'number_divided_when_reader' => 'reading viewを二分割する',
 		'read' => array(
-			'article_open_on_website' => '記事を元のwebsiteで開いたとき',
+			'article_open_on_website' => '記事を元のwebサイトで開いたとき',
 			'article_viewed' => '記事を読んだとき',
 			'scroll' => 'スクロールしているとき',
 			'upon_reception' => '記事を受け取ったとき',
@@ -167,7 +167,7 @@ return array(
 		'add' => '共有方法を追加する',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',	// TODO - Translation
+		'email' => 'Eメール',
 		'facebook' => 'Facebook',
 		'more_information' => 'もっと多くの情報',
 		'print' => '印刷',
@@ -206,12 +206,12 @@ return array(
 		'previous_article' => '前の記事を表示する',
 		'reading_view' => 'リーディングビューに切り替える',
 		'rss_view' => 'RSSビューを新しいタブで開く',
-		'see_on_website' => '元のwebsiteを開く',
+		'see_on_website' => '元のwebサイトを開く',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd>で前の記事を既読にし、<br />+ <kbd>⇧ Shift</kbd>ですべての記事を既読にします。',
 		'skip_next_article' => '次を開かないで飛ばす',
 		'skip_previous_article' => '前の記事を開かないで飛ばす',
 		'title' => 'ショートカット',
-		'toggle_media' => 'Play/pause media',	// TODO - Translation
+		'toggle_media' => 'メディアの 再生/停止',
 		'user_filter' => 'ユーザーのクエリにアクセスする',
 		'user_filter_help' => '一つのユーザークエリしかないとき、それが使われます。さもなければ、番号によってクエリにアクセスできます。',
 		'views' => 'ビュー',
@@ -219,7 +219,7 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 記事 (%s)',
 		'current' => '現在のユーザー',
-		'is_admin' => 'はadministratorです',
+		'is_admin' => 'は管理者です',
 		'users' => 'ユーザー',
 	),
 );

@@ -93,8 +93,8 @@ return array(
 		'useragent' => 'フィードを読み込む際のユーザーエージェントを設定してください',
 		'useragent_help' => '例: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'フィードが有効であるかどうかを確認してください',
-		'website' => 'Website URL',	// TODO - Translation
-		'websub' => 'Instant notification with WebSub',	// TODO - Translation
+		'website' => 'WebサイトのURL',
+		'websub' => 'WebSubとの即時通知',
 	),
 	'import_export' => array(
 		'export' => 'エクスポート',
