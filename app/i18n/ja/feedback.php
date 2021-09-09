@@ -2,31 +2,31 @@
 
 return array(
 	'access' => array(
-		'denied' => 'あなたはこのページにアクセスする権限がありません。',
-		'not_found' => 'あなたが探しているページは存在しません。',
+		'denied' => 'このページにアクセスする権限がありません。',
+		'not_found' => 'お探しのページは見つかりません。',
 	),
 	'admin' => array(
 		'optimization_complete' => '最適化が完了しました',
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'あなたのパスワードは変更できません',
-			'updated' => 'あなたのパスワードは変更されました',
+			'failed' => 'パスワードは変更できません',
+			'updated' => 'パスワードは変更されました',
 		),
 	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => '認証システムを設定している間問題が発生しました。もう一度お試しください。',
-			'set' => 'デフォルトの認証システムが設定されました。',
+			'not_set' => '認証システムを設定している間、問題が発生しました。もう一度お試しください。',
+			'set' => '認証システムが設定されました。',
 		),
 		'login' => array(
 			'invalid' => 'ログインは無効です。',
-			'success' => 'あなたは接続されました。',
+			'success' => 'ログインしました。',
 		),
 		'logout' => array(
-			'success' => 'あなたは切断されました。',
+			'success' => 'ログアウトされました。',
 		),
-		'no_password_set' => '管理者のパスワードはまだ設定されていません。この機能は無効になっています。',
+		'no_password_set' => '管理者のパスワードはまだ設定されていませんので、この機能は無効になっています。',
 	),
 	'conf' => array(
 		'error' => '設定を保存するとき、エラーが発生しました。',
@@ -65,8 +65,8 @@ return array(
 	'sub' => array(
 		'actualize' => '更新中',
 		'articles' => array(
-			'marked_read' => '選択された記事は既読として目印がつけられます。',
-			'marked_unread' => '選択された記事は未読として目印がつけられます。',
+			'marked_read' => '選択された記事は既読になります。',
+			'marked_unread' => '選択された記事は未読になります。',
 		),
 		'category' => array(
 			'created' => '%sカテゴリは作成されました',
@@ -107,7 +107,7 @@ return array(
 			),
 			'updated' => 'フィードは更新されました。',
 		),
-		'purge_completed' => 'パージが完了されました (%d 記事は消去されました)',
+		'purge_completed' => '不要データの削除が完了されました (%d 記事は消去されました)',
 	),
 	'tag' => array(
 		'created' => '"%s" タグが作成されました',
