@@ -17,7 +17,7 @@ return array(
 		'import' => 'インポート',
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
-		'mark_favorite' => 'お気に入りとして目印をつける',
+		'mark_favorite' => 'お気に入りとする',
 		'mark_read' => '既読にする',
 		'promote' => 'プロモート',
 		'purge' => 'パージ',
@@ -173,7 +173,7 @@ return array(
 		'load_more' => '記事をもっと読み込む',
 		'mark_all_read' => 'すべての記事を既読にする',
 		'next' => 'つぎへ',
-		'nothing_to_load' => 'もう記事はありません',
+		'nothing_to_load' => 'これ以上の記事はありません',
 		'previous' => '前へ',
 	),
 	'period' => array(
