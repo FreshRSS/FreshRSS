@@ -805,21 +805,15 @@ form th {
 	width: 280px;
 	font-weight: 400;
 }
-.header .item.title h1 a {
-	text-decoration: none;
-	color: #363330;
-	font-size: 1rem;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-.header .item.title h1 a img {
-	margin-left: 0.5rem;
+.header .item.title a img {
+	margin: 0.6em 0 0.3em;
+	filter: invert(80%);
 }
 .header .item.search input {
 	width: 230px;
 	color: #363330;
 	border: none;
-	border-radius: 0 2px 2px 0;
+	border-radius: 2px 0 0 2px;
 	background-color: #f7f2ea;
 	-webkit-transition: all 0.15s ease-in-out;
 	-moz-transition: all 0.15s ease-in-out;
