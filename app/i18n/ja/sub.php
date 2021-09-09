@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'add' => 'フィードとカテゴリは移動されて <a href=\'%s\'>ここへ</a>。また左側のメニューや ✚ アイコンからフィードとカテゴリへ移動できます。',
+	'add' => '<a href=\'%s\'>ここへ</a>フィードとカテゴリは移動されました。また左側のメニューや ✚ アイコンからフィードとカテゴリへ移動できます。',
 	'api' => array(
 		'documentation' => '外部ツール内で使うURLをコピーします。',
 		'title' => 'API',
@@ -23,11 +23,11 @@ return array(
 	),
 	'feed' => array(
 		'add' => 'RSSフィードに追加する',
-		'advanced' => '応用',
+		'advanced' => '応用的な設定',
 		'archiving' => 'アーカイブ',
 		'auth' => array(
 			'configuration' => 'ログイン',
-			'help' => 'RSSフィードをHTTP経由でのアクセスを許可する',
+			'help' => 'RSSフィードへのHTTPアクセスを許可する',
 			'http' => 'HTTP認証',
 			'password' => 'HTTP パスワード',
 			'username' => 'HTTP ユーザー名',
@@ -64,12 +64,12 @@ return array(
 		'no_selected' => 'どのフィードも選択されていません',
 		'number_entries' => '%d 記事数',
 		'priority' => array(
-			'_' => '見ることのできる',
+			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',
 			'main_stream' => 'メインストリームで表示する',
 			'normal' => 'カテゴリで表示する',
 		),
-		'proxy' => 'フィードを読み込むためにproxyを設定してください',
+		'proxy' => 'フィードを読み込み時にproxyを設定してください',
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) proxyアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
@@ -82,13 +82,13 @@ return array(
 		'showing' => array(
 			'error' => 'エラーがあるフィードを表示する',
 		),
-		'ssl_verify' => 'SSL セキュリティを確認してください',
+		'ssl_verify' => 'SSL セキュリティを管理する',
 		'stats' => '統計',
 		'think_to_add' => 'あなたはフィードを追加できるでしょう。',
-		'timeout' => '秒でのタイムアウト',
+		'timeout' => 'タイムアウトする時間(秒)',
 		'title' => 'タイトル',
 		'title_add' => 'RSS フィードを追加する',
-		'ttl' => '自動更新の頻度を上げすぎないでください',
+		'ttl' => '自動更新の頻度',
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを読み込む際のユーザーエージェントを設定してください',
 		'useragent_help' => '例: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
@@ -114,7 +114,7 @@ return array(
 		'bookmark' => '購読 (FreshRSS ブックマーク)',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
-		'subscription_management' => '購読管理',
+		'subscription_management' => '購読されたものの管理',
 		'subscription_tools' => '購読ツール',
 	),
 	'tag' => array(
@@ -123,7 +123,7 @@ return array(
 		'old_name' => '古い名前',
 	),
 	'title' => array(
-		'_' => '購読管理',
+		'_' => '購読されたものの管理',
 		'add' => 'フィードあるいはカテゴリを追加します',
 		'add_category' => 'カテゴリの追加',
 		'add_feed' => 'フィードの追加',
