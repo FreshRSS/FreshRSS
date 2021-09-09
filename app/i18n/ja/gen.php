@@ -20,7 +20,7 @@ return array(
 		'mark_favorite' => 'お気に入りとする',
 		'mark_read' => '既読にする',
 		'promote' => 'プロモート',
-		'purge' => 'パージ',
+		'purge' => '不要なデータの削除',
 		'remove' => '消去',
 		'rename' => 'リネーム',
 		'see_website' => 'webサイトを閲覧してください',
@@ -116,8 +116,8 @@ return array(
 	),
 	'js' => array(
 		'category_empty' => '空白のカテゴリ',
-		'confirm_action' => '本当にこれを実行してもいいですか?それはキャンセルできません!',
-		'confirm_action_feed_cat' => '本当にこれを実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。それはキャンセルできません!',
+		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',
+		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
 		'feedback' => array(
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',

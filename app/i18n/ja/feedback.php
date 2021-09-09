@@ -107,7 +107,7 @@ return array(
 			),
 			'updated' => 'フィードは更新されました。',
 		),
-		'purge_completed' => 'パージが完了されました (%d 記事は消去されました)',
+		'purge_completed' => '不要データの削除が完了されました (%d 記事は消去されました)',
 	),
 	'tag' => array(
 		'created' => '"%s" タグが作成されました',
