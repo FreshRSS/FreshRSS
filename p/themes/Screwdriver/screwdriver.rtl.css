@@ -638,23 +638,13 @@ a.btn {
 }
 
 .header > .item.title .logo {
-	width: 60px;
+	margin: 0.5em 0;
 	height: 60px;
+	filter: invert(80%);
 }
 
 .header > .item.title {
 	width: 250px;
-}
-
-.header > .item.title h1 {
-	margin: 0.5em 0;
-}
-
-.header > .item.title h1 a {
-	color: #222;
-	font-size: 28px;
-	text-decoration: none;
-	text-shadow: 0 1px #fff;
 }
 
 .header > .item.search input {
