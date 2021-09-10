@@ -563,11 +563,12 @@ a.btn {
 	width: 230px;
 }
 
-.header > .item.title h1 {
+.header > .item.title .logo {
 	margin: 0.5em 0;
+	filter: grayscale(100%) brightness(2.5);
 }
 
-.header > .item.title h1 a, a.signin {
+a.signin {
 	text-decoration: none;
 	color: #c5c6ca;
 }
