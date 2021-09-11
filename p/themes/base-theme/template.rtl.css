@@ -96,6 +96,15 @@ img.favicon {
 	vertical-align: middle;
 }
 
+.content.thin figure,
+.content.medium figure {
+	margin: 8px 0px;
+}
+
+.content figure figcaption {
+	font-style: italic;
+}
+
 .feed.mute::before {
 	content: '🔇';
 }
@@ -110,6 +119,12 @@ audio {
 }
 
 /*=== Forms */
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
 legend {
 	display: block;
 	width: 100%;

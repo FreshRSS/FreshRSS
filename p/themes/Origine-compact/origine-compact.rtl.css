@@ -608,15 +608,6 @@ a.btn,
 	width: 230px;
 }
 
-.header > .item.title h1 {
-	margin: 0;
-	font-size: 1em;
-}
-
-.header > .item.title h1 a {
-	text-decoration: none;
-}
-
 .header .item.configure .btn,
 .header .item.search .btn {
 	min-height: 18px;
@@ -625,7 +616,6 @@ a.btn,
 }
 
 .header > .item.title .logo {
-	width: 25px;
 	height: 25px;
 }
 

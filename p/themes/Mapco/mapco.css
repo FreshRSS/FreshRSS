@@ -808,14 +808,11 @@ form th {
 	width: 280px;
 	font-weight: 400;
 }
-.header .item.title h1 a {
-	text-decoration: none;
-	color: #fff;
-	font-size: 1rem;
-	text-transform: uppercase;
-	letter-spacing: 1px;
+.header .logo {
+	margin: 11px 0 5px;
+	filter: grayscale(100%) brightness(100);
 }
-.header .item.title h1 a img {
+.header .item.title a img {
 	margin-right: 0.5rem;
 }
 .header .item.search input {

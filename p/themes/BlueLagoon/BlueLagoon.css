@@ -650,22 +650,16 @@ a.btn {
 }
 
 .header > .item.title .logo {
-	width: 40px;
+	margin: 10px 0;
 	height: 40px;
+	filter: grayscale(100%) brightness(0%);
 }
 
 .header > .item.title {
 	width: 250px;
 }
 
-.header > .item.title h1 {
-	margin: 10px 0;
-}
-
-.header > .item.title h1 a {
-	color: #222;
-	font-size: 28px;
-	text-decoration: none;
+.header > .item.title a {
 	text-shadow: 0 1px #fff;
 }
 

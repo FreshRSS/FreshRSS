@@ -550,12 +550,9 @@ a.btn {
 	width: 230px;
 }
 
-.header > .item.title h1 {
+.header > .item.title .logo {
 	margin: 0.5em 0;
-}
-
-.header > .item.title h1 a {
-	text-decoration: none;
+	filter: grayscale(100%) brightness(2.5);
 }
 
 .header > .item.search input {

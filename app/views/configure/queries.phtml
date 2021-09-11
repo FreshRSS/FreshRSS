@@ -7,7 +7,7 @@
 
 	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('conf.query') ?></legend>
+		<h1><?= _t('conf.query') ?></h1>
 
 		<?php foreach ($this->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">

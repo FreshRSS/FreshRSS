@@ -597,13 +597,8 @@ a.btn {
 	width: 230px;
 }
 
-.header > .item.title h1 {
+.header > .item.title .logo {
 	margin: 0.5em 0;
-	text-shadow: 1px -1px 0 #ccc;
-}
-
-.header > .item.title h1 a {
-	text-decoration: none;
 }
 
 .header > .item.search input {
