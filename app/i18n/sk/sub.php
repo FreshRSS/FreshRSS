@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'Odoberať (záložka FreshRSS)',
 		'import_export' => 'Import / export',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Neaktívne kanály',
+			'main' => 'Hlavné štatistiky',
+			'repartition' => 'Rozdelenie článkov',
+		),
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),

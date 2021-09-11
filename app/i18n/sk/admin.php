@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Neaktívne kanály',
 		'main' => 'Hlavné štatistiky',
 		'main_stream' => 'Všetky kanály',
-		'menu' => array(
-			'idle' => 'Neaktívne kanály',
-			'main' => 'Hlavné štatistiky',
-			'repartition' => 'Rozdelenie článkov',
-		),
 		'no_idle' => 'Žiadne neaktívne kanály!',
 		'number_entries' => 'Počet článkov: %d',
 		'percent_of_total' => 'Z celkového počtu: %%',
