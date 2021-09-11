@@ -136,11 +136,6 @@ return array(
 		'idle' => '유휴 피드',
 		'main' => '주요 통계',
 		'main_stream' => '메인 스트림',
-		'menu' => array(
-			'idle' => '유휴 피드',
-			'main' => '주요 통계',
-			'repartition' => '글 분류',
-		),
 		'no_idle' => '유휴 피드가 없습니다!',
 		'number_entries' => '%d 개의 글',
 		'percent_of_total' => '전체에서의 비율 (%%)',

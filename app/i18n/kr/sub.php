@@ -114,6 +114,11 @@ return array(
 		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => '유휴 피드',
+			'main' => '주요 통계',
+			'repartition' => '글 분류',
+		),
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
 	),
