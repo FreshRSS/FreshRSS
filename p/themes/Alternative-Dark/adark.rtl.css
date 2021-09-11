@@ -459,7 +459,12 @@ a.btn {
 	border-radius: 5px 5px 0 0;
 }
 
+.box .box-title .configure {
+	margin-right: 4px;
+}
+
 .box .box-content {
+	padding-right: 30px;
 	min-height: 2.5em;
 	max-height: 260px;
 }
