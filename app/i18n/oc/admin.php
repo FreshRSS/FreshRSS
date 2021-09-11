@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Fluxes inactius',
 		'main' => 'Estatisticas principalas',
 		'main_stream' => 'Flux màger',
-		'menu' => array(
-			'idle' => 'Fluxes inactius',
-			'main' => 'Estatisticas principalas',
-			'repartition' => 'Reparticion dels articles',
-		),
 		'no_idle' => 'I a pas cap d’article inactiu !',
 		'number_entries' => '%d articles',
 		'percent_of_total' => '%% del total',
