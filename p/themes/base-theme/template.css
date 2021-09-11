@@ -469,11 +469,12 @@ a.btn {
 }
 
 .box .box-content {
+	padding: 8px 8px 8px 16px;
 	display: block;
 	overflow: auto;
 }
 
-.box .box-content .item {
+.box .box-content .item.feed {
 	display: block;
 }
 
