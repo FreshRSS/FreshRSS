@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'S’abonner (bookmark FreshRSS)',
 		'import_export' => 'Importer / exporter',
 		'label_management' => 'Gestion des étiquettes',
+		'stats' => array(
+			'idle' => 'Flux inactifs',
+			'main' => 'Statistiques principales',
+			'repartition' => 'Répartition des articles',
+		),
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',
 	),

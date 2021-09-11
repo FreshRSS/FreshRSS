@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Flux inactifs',
 		'main' => 'Statistiques principales',
 		'main_stream' => 'Flux principal',
-		'menu' => array(
-			'idle' => 'Flux inactifs',
-			'main' => 'Statistiques principales',
-			'repartition' => 'Répartition des articles',
-		),
 		'no_idle' => 'Il n’y a aucun flux inactif !',
 		'number_entries' => '%d articles',
 		'percent_of_total' => '%% du total',
