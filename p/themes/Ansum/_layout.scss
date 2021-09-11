@@ -16,21 +16,12 @@
 		// flex-direction: row;
 		&.title {
 			width: 280px;
-
 			font-weight: 400;
 
-			h1 {
-				a {
-					text-decoration: none;
-					color: $sid-font-color;
-					font-size: 1rem;
-					text-transform: uppercase;
-					letter-spacing: 1px;
-
-					img {
-						margin-right: 0.5rem;
-
-					}
+			a {
+				img {
+					margin: 0.6em 0 0.3em;
+					filter: invert(80%);
 				}
 			}
 		}

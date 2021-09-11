@@ -192,7 +192,7 @@ return array(
 		'language' => '言語',
 		'last_user_activity' => '最近のユーザーアクティビティ',
 		'list' => 'ユーザーリスト',
-		'number' => '%d 人のアカウントが作られました',
+		'number' => '%d 人のアカウントがあります',
 		'numbers' => '%d 人のアカウントが作られました',
 		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',
 		'password_format' => '最低限7文字必要です',

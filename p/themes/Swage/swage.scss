@@ -702,16 +702,7 @@ form {
 
 			@extend %aside-width;
 			position: absolute;
-
-			h1 {
-				margin: 0;
-				display: block;
-
-				a {
-					text-decoration: none;
-					color: $color_light;
-				}
-			}
+			text-align: center;
 
 			.logo {
 				display: inline-block;
@@ -719,6 +710,7 @@ form {
 				vertical-align: top;
 				position: relative;
 				top: 5px;
+				filter: grayscale(100%) brightness(100);
 			}
 		}
 
@@ -740,11 +732,6 @@ form {
 		right: 0px;
 		z-index: 1000;
 		width: 35px;
-	}
-
-	h1 {
-		text-align: center;
-		font-size: 1.5em;
 	}
 }
 
@@ -1077,10 +1064,6 @@ form {
 				width: 200px;
 				position: unset;
 			}
-
-			&.title h1 {
-				display: unset;
-			}
 		}
 	}
 
@@ -1162,12 +1145,11 @@ form {
 		}
 	}
 
-	.header > .item.title h1 a {
+	.header > .item.title a {
 		display: block;
 		position: absolute;
 		top: -35px;
 		left: 10px;
-		font-size: 0.6em;
 	}
 
 	.header .item.configure,
