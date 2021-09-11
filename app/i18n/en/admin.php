@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Idle feeds',
 		'main' => 'Main statistics',
 		'main_stream' => 'Main stream',
-		'menu' => array(
-			'idle' => 'Idle feeds',
-			'main' => 'Main statistics',
-			'repartition' => 'Articles repartition',
-		),
 		'no_idle' => 'There are no idle feeds!',
 		'number_entries' => '%d articles',
 		'percent_of_total' => '%% of total',

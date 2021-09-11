@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',
 		'label_management' => 'Label management',
+		'stats' => array(
+			'idle' => 'Idle feeds',
+			'main' => 'Main statistics',
+			'repartition' => 'Articles repartition',
+		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
 	),
