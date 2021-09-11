@@ -135,12 +135,7 @@ return array(
 		'feed_per_category' => 'הזנות על פי קטגוריה',
 		'idle' => 'הזנות שלא עודכנו',
 		'main' => 'סטטיסטיקות ראשיות',
-		'main_stream' => 'הזנה ראשית',
-		'menu' => array(
-			'idle' => 'הזנות שלא עודכנו',
-			'main' => 'סטטיסטיקות ראשיות',
-			'repartition' => 'חלוקת המאמרים',
-		),
+		'main_stream' => 'הזנה ראשית',		
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
 		'percent_of_total' => '%% מסך הכל',

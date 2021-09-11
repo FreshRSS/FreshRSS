@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'הרשמה (FreshRSS סימניית)',
 		'import_export' => 'יבוא / יצוא ',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'הזנות שלא עודכנו',
+			'main' => 'סטטיסטיקות ראשיות',
+			'repartition' => 'חלוקת המאמרים',
+		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),
