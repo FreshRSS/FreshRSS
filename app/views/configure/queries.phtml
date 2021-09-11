@@ -13,8 +13,7 @@
 		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
 			<div class="box">
 				<div class="box-title">
-					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', $key) ?>"><?= _i('configure') ?></a>
-					<?= $query->getName() ?>
+					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', $key) ?>"><?= _i('configure') ?></a><?= $query->getName() ?>
 					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
@@ -22,34 +21,34 @@
 					<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
 				</div>
-				<ul class="box-content">
-					<?php if (!$query->hasParameters()) { ?>
-					<li class="item">
-						<div class="alert alert-warn">
-							<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
-						</div>
-					</li>
-					<?php } elseif ($query->isDeprecated()) { ?>
-					<li class="item">
-						<div class="alert alert-error">
-							<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
-						</div>
-					</li>
-					<?php } else { ?>
+				<?php if (!$query->hasParameters()) { ?>
+				<div class="box-content">
+					<div class="alert alert-warn">
+						<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
+					</div>
+				</div>
+				<?php } elseif ($query->isDeprecated()) { ?>
+				<div class="box-content">
+					<div class="alert alert-error">
+						<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
+					</div>
+				</div>
+				<?php } else { ?>
+					<ul class="box-content">
 					<?php if ($query->hasSearch()) { ?>
-					<li class="item"><?= _i('next') ?> <?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
+					<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
 					<?php } ?>
 
 					<?php if ($query->getState()) { ?>
-					<li class="item"><?= _i('next') ?> <?= _t('conf.query.state_' . $query->getState()) ?></li>
+					<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
 					<?php } ?>
 
 					<?php if ($query->getOrder()) { ?>
-					<li class="item"><?= _i('next') ?> <?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
+					<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
 					<?php } ?>
 
 					<?php if ($query->getGet()) { ?>
-					<li class="item"><?= _i('next') ?> <?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
+					<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
 					<?php } ?>
 					<?php } ?>
 					</ul>
