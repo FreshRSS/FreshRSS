@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Gepauzeerde feeds',
 		'main' => 'Hoofd statistieken',
 		'main_stream' => 'Overzicht',
-		'menu' => array(
-			'idle' => 'Gepauzeerde feeds',
-			'main' => 'Hoofd statistieken',
-			'repartition' => 'Artikelen verdeling',
-		),
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
 		'percent_of_total' => '%% van totaal',
