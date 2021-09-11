@@ -5,12 +5,14 @@
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
+	<h1><?= _t('gen.menu.user_management') ?></h1>
+	<h2><?= _t('admin.user.create') ?></h2>
 	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
 
-		<legend><?= _t('admin.user.create') ?></legend>
+		
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
@@ -73,7 +75,7 @@
 		</div>
 	</form>
 
-	<legend><?= _t('admin.user.list'); ?></legend>
+	<h2><?= _t('admin.user.list'); ?></h2>
 	<div class="table-wrapper">
 		<table id="user-list">
 			<thead>

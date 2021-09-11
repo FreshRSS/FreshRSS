@@ -562,14 +562,7 @@ form th {
 }
 .header > .item.title {
 	position: absolute;
-}
-.header > .item.title h1 {
-	margin: 0;
-	display: block;
-}
-.header > .item.title h1 a {
-	text-decoration: none;
-	color: #fcfcfc;
+	text-align: center;
 }
 .header > .item.title .logo {
 	display: inline-block;
@@ -577,6 +570,7 @@ form th {
 	vertical-align: top;
 	position: relative;
 	top: 5px;
+	filter: grayscale(100%) brightness(100);
 }
 .header > .item.search input {
 	width: 230px;
@@ -592,10 +586,6 @@ form th {
 	right: 0px;
 	z-index: 1000;
 	width: 35px;
-}
-.header h1 {
-	text-align: center;
-	font-size: 1.5em;
 }
 
 .aside {
@@ -859,9 +849,6 @@ form th {
 	width: 200px;
 	position: unset;
 }
-.formLogin .header > .item.title h1 {
-	display: unset;
-}
 .formLogin a.signin {
 	color: #fcfcfc;
 	padding-left: 5px;
@@ -932,12 +919,11 @@ form th {
 		display: none;
 	}
 
-	.header > .item.title h1 a {
+	.header > .item.title a {
 		display: block;
 		position: absolute;
 		top: -35px;
 		left: 10px;
-		font-size: 0.6em;
 	}
 
 	.header .item.configure,
