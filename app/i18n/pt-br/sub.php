@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'Inscreva-se (FreshRSS favoritos)',
 		'import_export' => 'Importar / exportar',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Feeds inativos',
+			'main' => 'Estatísticas principais',
+			'repartition' => 'Repartição de artigos',
+		),
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
