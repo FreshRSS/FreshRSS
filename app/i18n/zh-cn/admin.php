@@ -136,11 +136,6 @@ return array(
 		'idle' => '长期无更新订阅源',
 		'main' => '主要统计',
 		'main_stream' => '首页',
-		'menu' => array(
-			'idle' => '长期无更新订阅源',
-			'main' => '主要统计',
-			'repartition' => '文章分布',
-		),
 		'no_idle' => '订阅源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
 		'percent_of_total' => '%%',
