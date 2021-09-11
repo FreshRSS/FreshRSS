@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => '보관',
-		'delete_after' => '다음 기간보다 오래된 글 삭제',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => '더 자세한 옵션은 개별 피드 설정에 있습니다',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -25,12 +24,12 @@ return array(
 		'_' => '표시',
 		'icon' => array(
 			'bottom_line' => '하단',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => '문서 아이콘',
 			'publication_date' => '발행일',
 			'related_tags' => '관련 태그',
 			'sharing' => '공유',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => '상단',
 		),
 		'language' => '언어',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'theme' => '테마',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => '표시',
 		'width' => array(
 			'content' => '내용 표시 너비',
@@ -47,13 +53,6 @@ return array(
 			'medium' => '보통',
 			'no_limit' => '제한 없음',
 			'thin' => '얇음',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => '사용자 쿼리',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
-		'display' => '사용자 쿼리 결과 표시',
 		'filter' => array(
 			'_' => 'Filter applied:',	// TODO - Translation
 			'categories' => 'Display by category',	// TODO - Translation
@@ -87,14 +85,11 @@ return array(
 		'get_category' => '"%s" 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '"%s" 피드 표시',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => '필터가 없습니다',
-		'none' => '아직 사용자 쿼리를 만들지 않았습니다.',
 		'number' => '쿼리 #%d',
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
-		'remove' => '사용자 쿼리 삭제',
 		'search' => '"%s"의 검색 결과',
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',

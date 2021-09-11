@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => '認証システムを設定している間、問題が発生しました。もう一度お試しください。',
-			'set' => '認証システムが設定されました。',
-		),
 		'login' => array(
 			'invalid' => 'ログインは無効です。',
 			'success' => 'ログインしました。',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'ログアウトされました。',
 		),
-		'no_password_set' => '管理者のパスワードはまだ設定されていませんので、この機能は無効になっています。',
 	),
 	'conf' => array(
 		'error' => '設定を保存するとき、エラーが発生しました。',

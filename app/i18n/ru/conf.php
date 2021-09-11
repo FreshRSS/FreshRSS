@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Архивирование',
-		'delete_after' => 'Удалять статьи после',
 		'exception' => 'Исключения при очистке',
 		'help' => 'В индивидуальных настройках лент есть больше опций',
 		'keep_favourites' => 'Никогда не удалять избранное',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Отображение',
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Авторы',
 			'entry' => 'Иконки статей',
 			'publication_date' => 'Дата публикации',
 			'related_tags' => 'Связанные метки',
 			'sharing' => 'Поделиться',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Верхняя линия',
 		),
 		'language' => 'Язык',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
 		'theme' => 'Тема',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Отображение',
 		'width' => array(
 			'content' => 'Ширина содержимого',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Среднее',
 			'no_limit' => 'Во всю ширину',
 			'thin' => 'Узкое',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Пользовательские запросы',
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
-		'display' => 'Показать результаты пользовательского запроса',
 		'filter' => array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Показать категорию "%s"',
 		'get_favorite' => 'Показать избранные статьи',
 		'get_feed' => 'Показать ленту "%s"',
-		'get_tag' => 'Показать метку "%s"',
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
-		'none' => 'Вы ещё не создавали пользовательские запросы.',
 		'number' => 'Запрос №%d',
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
-		'remove' => 'Удалить пользовательский запрос',
 		'search' => 'Искать "%s"',
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
@@ -165,20 +160,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Поделиться',
 		'add' => 'Добавить способ поделиться',
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Электронная почта',
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'Больше информации',
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Удалить способ поделиться',
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
 		'title' => 'Sharing',	// TODO - Translation
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'Горячие клавиши',

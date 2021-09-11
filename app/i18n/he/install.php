@@ -80,6 +80,7 @@ return array(
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
+		'reload' => 'בדוק שוב',
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
@@ -93,7 +94,6 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'reload' => 'בדוק שוב',
 	),
 	'conf' => array(
 		'_' => 'הגדרות כלליות',
@@ -101,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'מזל טוב!',
 	'default_user' => 'שם המשתמש של משתמש ברירת המחדל <small>(לכל היותר 16 תווים אלפאנומריים)</small>',
-	'delete_articles_after' => 'מחיקת מאמרים לאחר',
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
 	'js' => array(

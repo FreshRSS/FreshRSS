@@ -3,7 +3,7 @@
 return array(
 	'about' => array(
 		'_' => 'אודות',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'דיווח באגים',
 		'credits' => 'קרדיטים',
 		'credits_content' => 'מאפייני עיצוב מסויימים הגיעו מ <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> אף על פי ש FreshRSS אינו משתמש בתשתית הזו. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">סמלילים</a> הגיעו מ <a href="https://www.gnome.org/"> פרוייקט GNOME </a>. <em>Open Sans</em> הגופן police נוצר על ידי <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Favicons נאספים בעזרת <a href="https://getfavicon.appspot.com/">getFavicon API</a>. FreshRSS מבוסס על <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, תשתית PHP.',
@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'אתר',
 		'title' => 'אודות',
 		'version' => 'גרסה',
-		'website' => 'אתר',
 	),
 	'feed' => array(
 		'add' => 'ניתן להוסיף הזנות חדשות.',

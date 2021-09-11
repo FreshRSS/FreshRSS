@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'An email has been sent to your address.',
 				'error' => 'Email address validation failed.',
 				'ok' => 'This email address has been validated.',
-				'unneccessary' => 'This email address was already validated.',
+				'unnecessary' => 'This email address was already validated.',
 				'wrong_token' => 'This email address failed to be validated due to a wrong token.',
 			),
 			'need_to' => 'You need to validate your email address before being able to use %s.',

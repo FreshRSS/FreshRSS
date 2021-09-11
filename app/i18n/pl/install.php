@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',	// TODO - Translation
 			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',	// TODO - Translation
 		),
+		'reload' => 'Sprawdź ponownie',
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
@@ -93,7 +94,6 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
 			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
 		),
-		'reload' => 'Sprawdź ponownie',
 	),
 	'conf' => array(
 		'_' => 'General configuration',	// TODO - Translation
@@ -101,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Congratulations!',	// TODO - Translation
 	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',	// TODO - Translation
-	'delete_articles_after' => 'Remove articles after',	// TODO - Translation
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// TODO - Translation
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// TODO - Translation
 	'js' => array(

@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
 		'none' => 'Nessuno (pericoloso)',
 		'title' => 'Autenticazione',
-		'title_reset' => 'Reset autenticazione',
 		'token' => 'Token di autenticazione',
 		'token_help' => 'Consenti accesso agli RSS dell utente predefinito senza autenticazione:',
 		'type' => 'Metodo di autenticazione',
@@ -180,11 +179,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s articoli (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Crea nuovo utente',
 		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Email address',	// TODO - Translation
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
@@ -196,11 +193,7 @@ return array(
 		'numbers' => 'Sono presenti %d profili utente',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Gestione utenti',
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'Lista utenti',
 		'username' => 'Nome utente',
-		'users' => 'Utenti',
 	),
 );

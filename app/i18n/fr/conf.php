@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivage',
-		'delete_after' => 'Supprimer les articles après',
 		'exception' => 'Exception de nettoyage',
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
 		'keep_favourites' => 'Ne jamais supprimer les articles favoris',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Affichage',
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
-			'summary' => 'Résumé',
 			'display_authors' => 'Auteurs',
 			'entry' => 'Icônes d’article',
 			'publication_date' => 'Date de publication',
 			'related_tags' => 'Tags de l’article',
 			'sharing' => 'Partage',
+			'summary' => 'Résumé',
 			'top_line' => 'Ligne du haut',
 		),
 		'language' => 'Langue',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'theme' => 'Thème',
+		'thumbnail' => array(
+			'label' => 'Miniature',
+			'landscape' => 'Paysage',
+			'none' => 'Sans',
+			'portrait' => 'Portrait',
+			'square' => 'Carrée',
+		),
 		'title' => 'Affichage',
 		'width' => array(
 			'content' => 'Largeur du contenu',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Moyenne',
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
-		),
-		'thumbnail' => array(
-			'label' => 'Miniature',
-			'none' => 'Sans',
-			'portrait' => 'Portrait',
-			'square' => 'Carrée',
-			'landscape' => 'Paysage',
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
-		'display' => 'Afficher les résultats du filtre',
 		'filter' => array(
 			'_' => 'Filtres appliqués :',
 			'categories' => 'Afficher par catégorie',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Afficher la catégorie "%s"',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux "%s"',
-		'get_tag' => 'Afficher l’étiquette "%s"',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
-		'none' => 'Vous n’avez pas encore créé de filtre.',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
-		'remove' => 'Supprimer le filtre',
 		'search' => 'Recherche de "%s"',
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',

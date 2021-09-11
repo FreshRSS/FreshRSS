@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivace',
-		'delete_after' => 'Smazat články starší než',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Zobrazení',
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => 'Ikony článků',
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Související tagy',
 			'sharing' => 'Sdílení',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Horní řádek',
 		),
 		'language' => 'Jazyk',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'Vzhled',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Zobrazení',
 		'width' => array(
 			'content' => 'Šířka obsahu',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Střední',
 			'no_limit' => 'Bez limitu',
 			'thin' => 'Tenká',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
-		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => array(
 			'_' => 'Filtr aplikován:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
-		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',
 		'number' => 'Dotaz n°%d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
-		'remove' => 'Remove user query',	// TODO - Translation
 		'search' => 'Hledat "%s"',
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
@@ -165,20 +160,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Sdílení',
 		'add' => 'Add a sharing method',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',	// TODO - Translation
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'Jméno pro zobrazení',
 		'share_url' => 'Jakou URL použít pro sdílení',
 		'title' => 'Sdílení',
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'Zkratky',

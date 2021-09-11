@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
-		'add' => 'Eine Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Feed oder Kategorie hinzufügen',
-		'add_feed' => 'Feed hinzufügen',
-		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
 		'label_management' => 'Labelverwaltung',
 		'subscription_management' => 'Abonnementverwaltung',

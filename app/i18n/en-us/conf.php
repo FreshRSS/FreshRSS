@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archiving',
-		'delete_after' => 'Remove articles after',
 		'exception' => 'Purge exception',
 		'help' => 'More options are available in the individual feed\'s settings',
 		'keep_favourites' => 'Never delete favorites',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Display',
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
-			'summary' => 'Summary',
 			'display_authors' => 'Authors',
 			'entry' => 'Article icons',
 			'publication_date' => 'Date of publication',
 			'related_tags' => 'Article tags',
 			'sharing' => 'Sharing',
+			'summary' => 'Summary',
 			'top_line' => 'Top line',
 		),
 		'language' => 'Language',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
 		'theme' => 'Theme',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',
+			'landscape' => 'Landscape',
+			'none' => 'None',
+			'portrait' => 'Portrait',
+			'square' => 'Square',
+		),
 		'title' => 'Display',
 		'width' => array(
 			'content' => 'Content width',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Medium',
 			'no_limit' => 'Full Width',
 			'thin' => 'Narrow',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail',
-			'none' => 'None',
-			'portrait' => 'Portrait',
-			'square' => 'Square',
-			'landscape' => 'Landscape',
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
-		'display' => 'Display user query results',
 		'filter' => array(
 			'_' => 'Filter applied:',
 			'categories' => 'Display by category',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Display "%s" category',
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display "%s" feed',
-		'get_tag' => 'Display "%s" label',
 		'name' => 'Name',
 		'no_filter' => 'No filter',
-		'none' => 'You haven’t created any user queries yet.',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
-		'remove' => 'Remove user query',
 		'search' => 'Search for "%s"',
 		'state_0' => 'Display all articles',
 		'state_1' => 'Display read articles',

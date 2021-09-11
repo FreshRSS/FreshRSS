@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'カテゴリ',
-		'add' => 'カテゴリに追加する',
 		'archiving' => 'アーカイブ',
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'フィード化カテゴリを追加します',
-		'add_feed' => 'フィードの追加',
-		'bookmark' => '購読 (FreshRSS ブックマーク)',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
 		'subscription_management' => '購読されたものの管理',

@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Email adresinize posta gönderildi.',
 				'error' => 'Email adresi doğrulaması başarısız.',
 				'ok' => 'Bu email adresi doğrulandı.',
-				'unneccessary' => 'Bu email adresi zaten doğrulandı.',
+				'unnecessary' => 'Bu email adresi zaten doğrulandı.',
 				'wrong_token' => 'Email doğrulaması yanlış anahtar sebebi ile başarısız oldu.',
 			),
 			'need_to' => '%s kullanımından önce email doğrulaması yapmalısınız.',
