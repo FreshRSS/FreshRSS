@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
 		'label_management' => 'Labelverwaltung',
+		'stats' => array(
+			'idle' => 'Inaktive Feeds',
+			'main' => 'Haupt-Statistiken',
+			'repartition' => 'Artikel-Verteilung',
+		),
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
 	),
