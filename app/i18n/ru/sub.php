@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'Подписаться (закладка FreshRSS)',
 		'import_export' => 'Импорт / экспорт',
 		'label_management' => 'Управление метками',
+		'stats' => array(
+			'idle' => 'Неактивные ленты',
+			'main' => 'Основная статистика',
+			'repartition' => 'Перерасределение статей',
+		),
 		'subscription_management' => 'Управление подписками',
 		'subscription_tools' => 'Инструменты подписки',
 	),
