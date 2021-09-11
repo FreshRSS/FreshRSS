@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
 		'main_stream' => 'Flusso principale',
-		'menu' => array(
-			'idle' => 'Feeds non aggiornati',
-			'main' => 'Statistiche principali',
-			'repartition' => 'Ripartizione articoli',
-		),
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
 		'percent_of_total' => '%% del totale',
