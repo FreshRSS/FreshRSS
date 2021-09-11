@@ -14,7 +14,7 @@ use PHPMailer\PHPMailer\Exception;
  * with, for instance:
  *
  * ```
- * $this->view->_path('user_mailer/email_need_validation.phtml')
+ * $this->view->_path('user_mailer/email_need_validation.txt.php')
  * ```
  *
  * Minz_Mailer uses the PHPMailer library under the hood. The latter requires
