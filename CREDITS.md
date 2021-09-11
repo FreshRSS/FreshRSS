@@ -8,6 +8,7 @@ People are sorted by name so please keep this order.
 
 ---
 
+* [312k](https://github.com/312k): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:312k)
 * [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Trim), [Web](https://adorsaz.ch/)
 * [Alexander Steinhöfer](https://github.com/lx-s): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:lx-s), [Web](https://lx-s.de/)
 * [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Alkarex), [Web](https://alexandre.alapetite.fr/)
