@@ -813,7 +813,7 @@ form th {
 	width: 230px;
 	color: #363330;
 	border: none;
-	border-radius: 2px 0 0 2px;
+	border-radius: 0 2px 2px 0;
 	background-color: #f7f2ea;
 	-webkit-transition: all 0.15s ease-in-out;
 	-moz-transition: all 0.15s ease-in-out;
