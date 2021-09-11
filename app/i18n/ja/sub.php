@@ -114,6 +114,11 @@ return array(
 		'bookmark' => '購読 (FreshRSS ブックマーク)',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
+		'stats' => array(
+			'idle' => '未使用のフィード',
+			'main' => '主な統計',
+			'repartition' => '記事の仕切り',
+		),
 		'subscription_management' => '購読されたものの管理',
 		'subscription_tools' => '購読ツール',
 	),
