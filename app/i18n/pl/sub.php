@@ -114,6 +114,11 @@ return array(
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
 		'import_export' => 'Import / eksport',
 		'label_management' => 'Zarządzanie etykietami',
+		'stats' => array(
+			'idle' => 'Bezczynne kanały',
+			'main' => 'Główne statystyki',
+			'repartition' => 'Podział wiadomości',
+		),
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),

@@ -136,11 +136,6 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
-		'menu' => array(
-			'idle' => 'Bezczynne kanały',
-			'main' => 'Główne statystyki',
-			'repartition' => 'Podział wiadomości',
-		),
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'percent_of_total' => '%% wszystkich',
