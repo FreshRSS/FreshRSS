@@ -578,7 +578,13 @@ form {
 		border-bottom: 1px solid darken( $color_light, 10%);
 	}
 
+	.configure {
+		margin-right: 4px;
+	}
+
+
 	.box-content {
+		padding-left: 30px;
 		max-height: 260px;
 
 		.item {
@@ -587,16 +593,10 @@ form {
 			line-height: 2.5em;
 
 			.configure {
-				visibility: hidden;
-
 				.icon {
 					vertical-align: middle;
 					background-color: darken( $color_light, 10%);
 				}
-			}
-
-			&:hover .configure {
-				visibility: visible;
 			}
 		}
 	}
@@ -708,16 +708,7 @@ form {
 
 			@extend %aside-width;
 			position: absolute;
-
-			h1 {
-				margin: 0;
-				display: block;
-
-				a {
-					text-decoration: none;
-					color: $color_light;
-				}
-			}
+			text-align: center;
 
 			.logo {
 				display: inline-block;
@@ -725,6 +716,7 @@ form {
 				vertical-align: top;
 				position: relative;
 				top: 5px;
+				filter: grayscale(100%) brightness(100);
 			}
 		}
 
@@ -746,11 +738,6 @@ form {
 		right: 0px;
 		z-index: 1000;
 		width: 35px;
-	}
-
-	h1 {
-		text-align: center;
-		font-size: 1.5em;
 	}
 }
 
@@ -1083,10 +1070,6 @@ form {
 				width: 200px;
 				position: unset;
 			}
-
-			&.title h1 {
-				display: unset;
-			}
 		}
 	}
 
@@ -1150,11 +1133,6 @@ form {
 		text-align: left;
 	}
 
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
-	}
-
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
@@ -1173,12 +1151,11 @@ form {
 		}
 	}
 
-	.header > .item.title h1 a {
+	.header > .item.title a {
 		display: block;
 		position: absolute;
 		top: -35px;
 		left: 10px;
-		font-size: 0.6em;
 	}
 
 	.header .item.configure,

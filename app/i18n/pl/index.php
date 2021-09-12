@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Strona projektu',
 		'title' => 'O serwisie',
 		'version' => 'Wersja',
-		'website' => 'Strona domowa',
 	),
 	'feed' => array(
 		'add' => 'Dodaj więcej kanałów.',

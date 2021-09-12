@@ -3,7 +3,7 @@
 return array(
 	'about' => array(
 		'_' => 'О проекте',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Баг репорты',
 		'credits' => 'Авторство',
 		'credits_content' => 'Некоторые элементы дизайна взяты из <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, хотя FreshRSS не использует этот фреймворк. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Иконки</a> взяты из <a href="https://www.gnome.org/">проекта GNOME</a>. Шрифт <em>Open Sans</em> создан <a href="https://fonts.google.com/specimen/Open+Sans">Стивом Мэттесоном</a>. FreshRSS основан на <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, PHP-фреймворке.',
@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Сайт проекта',
 		'title' => 'О проекте',
 		'version' => 'Версия',
-		'website' => 'Сайт',
 	),
 	'feed' => array(
 		'add' => 'Вы можете добавить ленты.',

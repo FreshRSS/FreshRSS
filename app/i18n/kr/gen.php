@@ -43,10 +43,8 @@ return array(
 			'ask' => '새 계정을 만들까요?',
 			'title' => '계정 생성',
 		),
-		'reset' => '인증 초기화',
 		'username' => array(
 			'_' => '사용자 이름',
-			'admin' => '관리자 이름',
 			'format' => '<small>알파벳과 숫자를 포함할 수 있고 최대 16 글자</small>',
 		),
 	),
@@ -135,6 +133,7 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
+		'ja' => '日本語',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',

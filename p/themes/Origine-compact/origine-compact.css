@@ -523,25 +523,19 @@ a.btn,
 	border-radius: 5px 5px 0 0;
 }
 
+.box .box-title .configure {
+	margin-right: 4px;
+}
+
 .box .box-content {
+	padding-left: 30px;
 	min-height: 2.5em;
 	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
-}
-
-.box .box-title .configure,
-.box .box-content .item .configure {
-	visibility: hidden;
-}
-
-.box .box-title:hover .configure,
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 
 /*=== Tree */
@@ -618,15 +612,6 @@ a.btn,
 	width: 230px;
 }
 
-.header > .item.title h1 {
-	margin: 0;
-	font-size: 1em;
-}
-
-.header > .item.title h1 a {
-	text-decoration: none;
-}
-
 .header .item.configure .btn,
 .header .item.search .btn {
 	min-height: 18px;
@@ -635,7 +620,6 @@ a.btn,
 }
 
 .header > .item.title .logo {
-	width: 25px;
 	height: 25px;
 }
 
@@ -1213,11 +1197,6 @@ a.btn,
 	.form-group .group-name {
 		padding-bottom: 0;
 		text-align: left;
-	}
-
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {

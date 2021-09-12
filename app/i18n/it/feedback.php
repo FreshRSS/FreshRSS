@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Si è verificato un problema alla configurazione del sistema di autenticazione. Per favore riprova più tardi.',
-			'set' => 'Sistema di autenticazione tramite Form impostato come predefinito.',
-		),
 		'login' => array(
 			'invalid' => 'Autenticazione non valida',
 			'success' => 'Autenticazione effettuata',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Disconnessione effettuata',
 		),
-		'no_password_set' => 'Password di amministrazione non impostata. Opzione non disponibile.',
 	),
 	'conf' => array(
 		'error' => 'Si è verificato un errore durante il salvataggio della configurazione',

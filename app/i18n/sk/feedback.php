@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Nastavl problém pri nastavovaní prihlasovacieho systému. Prosím, skúste to znova neskôr.',
-			'set' => 'Webový formulár je teraz váš prednastavený prihlasovací spôsob.',
-		),
 		'login' => array(
 			'invalid' => 'Nesprávne prihlasovacie údaje',
 			'success' => 'Úspešne ste sa prihlásili',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Boli ste odhlásený',
 		),
-		'no_password_set' => 'Heslo administrátora nebolo nastavené. Táto funkcia nie je dostupná.',
 	),
 	'conf' => array(
 		'error' => 'Vyskytla sa chyba počas ukladania nastavaní',

@@ -14,12 +14,9 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 
 <header class="header">
 	<div class="item title">
-		<h1>
-			<a href="<?= _url('index', 'index') ?>">
-				<img class="logo" src="<?= _i('icon', true) ?>" alt="" />
-				<?= FreshRSS_Context::$system_conf->title ?>
-			</a>
-		</h1>
+		<a href="<?= _url('index', 'index') ?>">
+			<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="" />
+		</a>
 	</div>
 
 	<div class="item search">
@@ -82,7 +79,6 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<?php } ?>
 
 				<li class="separator"></li>
-				<li class="item"><a href="<?= _url('stats', 'index') ?>"><?= _t('gen.menu.stats') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 				<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>

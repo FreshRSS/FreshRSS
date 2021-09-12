@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Un problèma es aparegut pendent la configuracion del sistèma d’autentificacion. Tonatz ensajar ai tard.',
-			'set' => 'Lo sistèma d’autentificacion per defaut es ara lo formulari.',
-		),
 		'login' => array(
 			'invalid' => 'L’identificant es invalid',
 			'success' => 'Sètz connectat',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Sètz desconnectat',
 		),
-		'no_password_set' => 'Pas de senhal es pas configurat. Aquesta foncionalitat es pas disponibla.',
 	),
 	'conf' => array(
 		'error' => 'Una error es apareguda pendent la salvagarda de la configuracion',

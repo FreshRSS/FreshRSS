@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Create an account?',	// TODO - Translation
 			'title' => 'Account creation',	// TODO - Translation
 		),
-		'reset' => 'Authentication reset',	// TODO - Translation
 		'username' => array(
 			'_' => 'Nazwa użytkownika',
-			'admin' => 'Administrator username',	// TODO - Translation
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
 		),
 	),
@@ -135,6 +133,7 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
+		'ja' => '日本語',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
