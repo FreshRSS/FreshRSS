@@ -29,7 +29,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
@@ -40,11 +40,11 @@ return array(
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 		'theme' => 'Erscheinungsbild',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => 'Vorschaubild',
+			'landscape' => 'Querformat',
+			'none' => 'Keins',
+			'portrait' => 'Hochformat',
+			'square' => 'Quadrat',
 		),
 		'title' => 'Anzeige',
 		'width' => array(
@@ -141,7 +141,7 @@ return array(
 			'remember_categories' => 'Geöffnete Kategorien merken',
 			'unread' => 'Nur ungelesene zeigen',
 		),
-		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
+		'show_fav_unread_help' => 'Auch auf Labels anwenden',
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'sort' => array(
 			'_' => 'Sortierreihenfolge',
@@ -195,7 +195,7 @@ return array(
 		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'non_standard' => 'Einige Tasten (<kbd>%s</kbd>) können nicht als Shortcut verwendet werden.',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',

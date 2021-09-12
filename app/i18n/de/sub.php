@@ -89,8 +89,8 @@ return array(
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 		'url' => 'Feed-URL',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => 'Browser User Agent für den Abruf des Feeds verwenden',
+		'useragent_help' => 'Beispiel: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Überprüfen Sie die Gültigkeit des Feeds',
 		'website' => 'Webseiten-URL',
 		'websub' => 'Sofortbenachrichtigung mit WebSub',
