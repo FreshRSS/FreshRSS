@@ -29,7 +29,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
