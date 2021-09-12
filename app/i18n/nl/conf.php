@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivering',
-		'delete_after' => 'Verwijder artikelen na',
 		'exception' => 'Zuiveringsuitzondering',
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
 		'keep_favourites' => 'Favorieten nooit verwijderen',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Opmaak',
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Auteurs',
 			'entry' => 'Artikel pictogrammen',
 			'publication_date' => 'Publicatie datum',
 			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Bovenaan',
 		),
 		'language' => 'Taal',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Opmaak',
 		'width' => array(
 			'content' => 'Inhoud breedte',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Normaal',
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
-		'display' => 'Queryresultaten weergeven',
 		'filter' => array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
-		'get_tag' => 'Toon "%s" label',
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
-		'none' => 'U hebt nog geen gebruikers query aangemaakt..',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
-		'remove' => 'Gebruikersquery verwijderen',
 		'search' => 'Zoek naar "%s"',
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',

@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
 		),
+		'reload' => 'Controleer nog eens',
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de temp-map zijn goed.',
@@ -93,7 +94,6 @@ return array(
 			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
 		),
-		'reload' => 'Controleer nog eens',
 	),
 	'conf' => array(
 		'_' => 'Algemene configuratie',
@@ -101,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
-	'delete_articles_after' => 'Verwijder artikelen na',
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
 	'js' => array(

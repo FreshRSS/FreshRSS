@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'אירעה שגיאה במהלך הגדרת מערכת האימיות. אנא נסו שוב מאוחר יותר.',
-			'set' => 'טופס הוא כרגע מערכת האימות כברירת מחדל.',
-		),
 		'login' => array(
 			'invalid' => 'הכניסה לחשבון שגויה',
 			'success' => 'You are connected',	// TODO - Translation
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'You are disconnected',	// TODO - Translation
 		),
-		'no_password_set' => 'לא הוגדרה סיסמת מנהל. תכונה זו אינה זמינה.',
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',	// TODO - Translation

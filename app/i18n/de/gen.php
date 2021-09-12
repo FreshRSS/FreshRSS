@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Erstelle einen Account?',
 			'title' => 'Accounterstellung',
 		),
-		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => array(
 			'_' => 'Nutzername',
-			'admin' => 'Administrator-Nutzername',
 			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
 		),
 	),

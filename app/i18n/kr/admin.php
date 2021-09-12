@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
-		'title_reset' => '인증 초기화',
 		'token' => '인증 토큰',
 		'token_help' => '기본 사용자의 RSS에 인증 없이 접근할 수 있도록 합니다:',
 		'type' => '인증',
@@ -180,11 +179,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s 개의 글 (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => '새 사용자 생성',
 		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => '사용자 삭제',
 		'email' => 'Email address',	// TODO - Translation
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
@@ -196,11 +193,7 @@ return array(
 		'numbers' => '%d 개의 계정이 생성되었습니다',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
-		'selected' => '선택된 사용자',
 		'title' => '사용자 관리',
-		'update_users' => '사용자 정보 변경',
-		'user_list' => '사용자 목록',
 		'username' => '사용자 이름',
-		'users' => '전체 사용자',
 	),
 );

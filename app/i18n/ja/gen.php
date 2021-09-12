@@ -43,10 +43,8 @@ return array(
 			'ask' => 'アカウントを作りますか?',
 			'title' => 'アカウント作成',
 		),
-		'reset' => '認証リセット',
 		'username' => array(
 			'_' => 'ユーザー名',
-			'admin' => '管理者のユーザー名',
 			'format' => '<small>最大16文字の英数字</small>',
 		),
 	),

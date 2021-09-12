@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
 		),
+		'reload' => 'Nochmal prüfen',
 		'tmp' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Temp Verzeichnisses sind in Ordnung.',
@@ -93,7 +94,6 @@ return array(
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
 			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
 		),
-		'reload' => 'Nochmal prüfen',
 	),
 	'conf' => array(
 		'_' => 'Allgemeine Konfiguration',
@@ -101,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Glückwunsch!',
 	'default_user' => 'Benutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
-	'delete_articles_after' => 'Entferne Artikel nach',
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
 	'js' => array(

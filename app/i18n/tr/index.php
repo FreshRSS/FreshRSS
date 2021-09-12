@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Proje sayfası',
 		'title' => 'Hakkında',
 		'version' => 'Sürüm',
-		'website' => 'İnternet sitesi',
 	),
 	'feed' => array(
 		'add' => 'Akış ekleyebilirsin.',

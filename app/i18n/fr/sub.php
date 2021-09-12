@@ -4,7 +4,7 @@ return array(
 	'add' => 'L\'ajout de flux et de catégories se fait désormais <a href=\'%s\'>ici</a>. Il est possible d\'y accéder depuis le menu de gauche ou depuis l\'icône ✚ présente sur la page principale.',
 	'api' => array(
 		'documentation' => 'Copier l’URL suivante dans l’outil qui utilisera l’API.',
-		'title' => 'API',	// TODO - Translation
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S’abonner" sur les pages auxquelles vous voulez vous abonner.',
@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Catégorie',
-		'add' => 'Ajouter une catégorie',
 		'archiving' => 'Archivage',
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Ajouter un flux/une catégorie',
-		'add_feed' => 'Ajouter un flux',
-		'bookmark' => 'S’abonner (bookmark FreshRSS)',
 		'import_export' => 'Importer / exporter',
 		'label_management' => 'Gestion des étiquettes',
 		'subscription_management' => 'Gestion des abonnements',

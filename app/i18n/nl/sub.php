@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categorie',
-		'add' => 'Voeg categorie toe',
 		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Feed of categorie toevoegen',
-		'add_feed' => 'Feed toevoegen',
-		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
 		'label_management' => 'Labelbeheer',
 		'subscription_management' => 'Abonnementenbeheer',

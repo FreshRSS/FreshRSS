@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Создать аккаунт?',
 			'title' => 'Создание аккаунта',
 		),
-		'reset' => 'Сброс аутентификации',
 		'username' => array(
 			'_' => 'Имя пользователя',
-			'admin' => 'Имя пользователя администратора',
 			'format' => '<small>Не более 16 буквенно-цифровых символов</small>',
 		),
 	),
@@ -185,25 +183,25 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
-		'blogotext' => 'Blogotext',	// TODO - Translation
+		'blogotext' => 'Blogotext',
 		'clipboard' => 'Буфер обмена',
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'diaspora' => 'Diaspora*',
 		'email' => 'Электронная почта',
-		'facebook' => 'Facebook',	// TODO - Translation
-		'gnusocial' => 'GNU social',	// TODO - Translation
-		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'lemmy' => 'Lemmy',	// TODO - Translation
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
-		'movim' => 'Movim',	// TODO - Translation
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
+		'facebook' => 'Facebook',
+		'gnusocial' => 'GNU social',
+		'jdh' => 'Journal du hacker',
+		'lemmy' => 'Lemmy',
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
+		'movim' => 'Movim',
+		'pinboard' => 'Pinboard',
+		'pocket' => 'Pocket',
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',	// TODO - Translation
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag v1',	// TODO - Translation
-		'wallabagv2' => 'wallabag v2',	// TODO - Translation
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 	),
 	'short' => array(
 		'attention' => 'Предупреждение!',

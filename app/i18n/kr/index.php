@@ -13,7 +13,6 @@ return array(
 		'project_website' => '프로젝트 웹사이트',
 		'title' => '정보',
 		'version' => '버전',
-		'website' => '웹사이트',
 	),
 	'feed' => array(
 		'add' => '피드를 추가하세요.',

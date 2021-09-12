@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Un problème est survenu lors de la configuration de votre système d’authentification. Veuillez réessayer plus tard.',
-			'set' => 'Le formulaire est désormais votre système d’authentification.',
-		),
 		'login' => array(
 			'invalid' => 'L’identifiant est invalide',
 			'success' => 'Vous êtes désormais connecté',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Vous avez été déconnecté',
 		),
-		'no_password_set' => 'Aucun mot de passe administrateur n’a été précisé. Cette fonctionnalité n’est pas disponible.',
 	),
 	'conf' => array(
 		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',

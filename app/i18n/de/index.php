@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Projekt-Website',
 		'title' => 'Über',
 		'version' => 'Version',
-		'website' => 'Website',
 	),
 	'feed' => array(
 		'add' => 'Sie können Feeds hinzufügen.',
