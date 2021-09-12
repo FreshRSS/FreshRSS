@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Категория',
-		'add' => 'Добавить категорию',
 		'archiving' => 'Архивирование',
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Добавить ленту или категорию',
-		'add_feed' => 'Добавить ленту',
-		'bookmark' => 'Подписаться (закладка FreshRSS)',
 		'import_export' => 'Импорт / экспорт',
 		'label_management' => 'Управление метками',
 		'stats' => array(

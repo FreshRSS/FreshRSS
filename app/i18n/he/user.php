@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
 				'error' => 'Email address validation failed.',	// TODO - Translation
 				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'This email address was already validated.',	// TODO - Translation
+				'unnecessary' => 'This email address was already validated.',	// TODO - Translation
 				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
 			),
 			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation

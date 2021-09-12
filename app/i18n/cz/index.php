@@ -3,7 +3,7 @@
 return array(
 	'about' => array(
 		'_' => 'O FreshRSS',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Hlášení chyb',
 		'credits' => 'Poděkování',
 		'credits_content' => 'Některé designové prvky pocházejí z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, FreshRSS ale tuto platformu nevyužívá. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ikony</a> pocházejí z <a href="https://www.gnome.org/">GNOME projektu</a>. Font <em>Open Sans</em> vytvořil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založen na PHP framework <a href="https://github.com/marienfressinaud/MINZ">Minz</a>.',
@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Stránka projektu',
 		'title' => 'O FreshRSS',
 		'version' => 'Verze',
-		'website' => 'Webové stránka',
 	),
 	'feed' => array(
 		'add' => 'Můžete přidat kanály.',

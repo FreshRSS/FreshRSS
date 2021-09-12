@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Přihlášení',
-		'title_reset' => 'Reset přihlášení',
 		'token' => 'Authentizační token',
 		'token_help' => 'Umožňuje přístup k RSS kanálu článků výchozího uživatele bez přihlášení:',
 		'type' => 'Způsob přihlášení',
@@ -175,11 +174,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s článků (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvořit nového uživatele',
 		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Email address',	// TODO - Translation
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
@@ -191,11 +188,7 @@ return array(
 		'numbers' => 'Zatím je vytvořeno %d účtů',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Správa uživatelů',
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'Seznam uživatelů',
 		'username' => 'Přihlašovací jméno',
-		'users' => 'Uživatelé',
 	),
 );

@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => '카테고리',
-		'add' => '카테고리 추가',
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
 		'label_management' => 'Label management',	// TODO - Translation
 		'stats' => array(

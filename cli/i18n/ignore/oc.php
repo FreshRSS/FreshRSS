@@ -7,7 +7,6 @@ return array(
 	'admin.stats.status_total',
 	'admin.user.admin',
 	'admin.user.article_count',
-	'admin.user.articles_and_size',
 	'conf.display.width.large',
 	'conf.query.filter.search',
 	'conf.sharing.blogotext',

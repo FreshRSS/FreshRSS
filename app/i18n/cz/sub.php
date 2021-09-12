@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
-		'add' => 'Přidat kategorii',
 		'archiving' => 'Archivace',
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Přihlásit (FreshRSS bookmark)',
 		'import_export' => 'Import / export',	// TODO - Translation
 		'label_management' => 'Label management',	// TODO - Translation
 		'stats' => array(

@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
-		'title_reset' => 'Reinicio de la identificación',
 		'token' => 'Clave de identificación',
 		'token_help' => 'Permite el acceso a la salida RSS del usuario por defecto sin necesidad de identificación:',
 		'type' => 'Método de identificación',
@@ -175,11 +174,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Crear nuevo usuario',
 		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Email address',	// TODO - Translation
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
@@ -191,11 +188,7 @@ return array(
 		'numbers' => 'Hay %d cuentas creadas',
 		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
 		'password_format' => 'Mínimo de 7 caracteres',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Administrar usuarios',
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'Lista de usuarios',
 		'username' => 'Nombre de usuario',
-		'users' => 'Usuarios',
 	),
 );

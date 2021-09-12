@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Er is een probleem opgetreden tijdens de controle van de systeemconfiguratie. Probeer het later nog eens.',
-			'set' => 'Formulier is nu uw standaard authenticatie systeem.',
-		),
 		'login' => array(
 			'invalid' => 'Login is ongeldig',
 			'success' => 'U bent ingelogd',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'U bent uitgelogd',
 		),
-		'no_password_set' => 'Beheerderswachtwoord is niet ingesteld. Deze mogelijkheid is niet beschikbaar.',
 	),
 	'conf' => array(
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',

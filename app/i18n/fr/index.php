@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Site du projet',
 		'title' => 'À propos',
 		'version' => 'Version',
-		'website' => 'Site Internet',
 	),
 	'feed' => array(
 		'add' => 'Vous pouvez ajouter des flux.',

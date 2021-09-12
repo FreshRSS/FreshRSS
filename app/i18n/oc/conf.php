@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archius',
-		'delete_after' => 'Levar los articles aprèp',
 		'exception' => 'Excepcion de purga',
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
 		'keep_favourites' => 'Jamai suprimir los favorits',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Afichatge',
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autors',
 			'entry' => 'Icònas d’article',
 			'publication_date' => 'Data de publicacion',
 			'related_tags' => 'Etiquetas ligadas',
 			'sharing' => 'Partatge',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Linha amont',
 		),
 		'language' => 'Lenga',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
 		'theme' => 'Tèma',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Afichatge',
 		'width' => array(
 			'content' => 'Largor del contengut',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Mejana',
 			'no_limit' => 'Cap de limit',
 			'thin' => 'Fina',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilizaires',
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
-		'display' => 'Mostrar los resultats del filtre',
 		'filter' => array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
-		'get_tag' => 'Mostrar etiqueta « %s »',
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
-		'none' => 'Avètz pas encara creat cap de filtre.',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Mostrar los articles mai ancians en primièr',
 		'order_desc' => 'Mostrar los articles mai recents en primièr',
-		'remove' => 'Levar lo filtre utilizaire',
 		'search' => 'Recèrca de « %s »',
 		'state_0' => 'Mostrar totes los articles',
 		'state_1' => 'Mostrar los articles pas legits',

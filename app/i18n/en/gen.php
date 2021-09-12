@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Create an account?',
 			'title' => 'Account creation',
 		),
-		'reset' => 'Authentication reset',
 		'username' => array(
 			'_' => 'Username',
-			'admin' => 'Administrator username',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',
 		),
 	),

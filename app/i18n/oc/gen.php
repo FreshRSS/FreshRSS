@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Crear un compte?',
 			'title' => 'Creacion de compte',
 		),
-		'reset' => 'Reïnicializacion de l’autentificacion',
 		'username' => array(
 			'_' => 'Nom d’utilizaire',
-			'admin' => 'Nom d’utilizaire administrator',
 			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
 		),
 	),

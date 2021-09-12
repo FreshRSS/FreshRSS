@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archiwizacja',
-		'delete_after' => 'Remove articles after',	// TODO - Translation
 		'exception' => 'Wyjątki od oczyszczania',
 		'help' => 'Więcej opcji dostępne jest w ustawieniach konkretnych kanałów',
 		'keep_favourites' => 'Nigdy nie usuwaj ulubionych',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Wyświetlanie',
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Autorzy',
 			'entry' => 'Ikony wiadomości',
 			'publication_date' => 'Data publikacji',
 			'related_tags' => 'Tagi',
 			'sharing' => 'Podaj dalej',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Górny margines',
 		),
 		'language' => 'Język',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
 		'theme' => 'Motyw',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Wyświetlanie',
 		'width' => array(
 			'content' => 'Rozmiar treści',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Średnia',
 			'no_limit' => 'Pełna szerokość',
 			'thin' => 'Wąska',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Zapisane zapytania',
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
-		'display' => 'Pokaż wyniki dla tego zapytania',
 		'filter' => array(
 			'_' => 'Zastosowane filtry:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Wyświetlenie kategorii "%s"',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału "%s"',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Brak filtrów',
-		'none' => 'Nie zapisałeś jeszcze żadnego zapytania.',
 		'number' => 'Zapytanie nr %d',
 		'order_asc' => 'Wyświetl najpierw najstarsze wiadomości',
 		'order_desc' => 'Wyświetl najpierw najnowsze wiadomości',
-		'remove' => 'Usuń zapisane zapytanie',
 		'search' => 'Szukaj "%s"',
 		'state_0' => 'Wyświetl wszystkie wiadomości',
 		'state_1' => 'Wyświetl przeczytane wiadomości',

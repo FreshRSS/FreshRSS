@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => '分类',
-		'add' => '添加分类',
 		'archiving' => '归档',
 		'empty' => '空分类',
 		'information' => '信息',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => '添加订阅源或分类',
-		'add_feed' => '添加订阅源',
-		'bookmark' => '订阅（FreshRSS 书签）',
 		'import_export' => '导入/导出',
 		'label_management' => '标签管理',
 		'stats' => array(

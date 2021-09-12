@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Ajustar una categoria',
 		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Ajustar un flux o una categoria',
-		'add_feed' => 'Ajustar un flux',
-		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
 		'label_management' => 'Gestion de las etiquetas',
 		'stats' => array(

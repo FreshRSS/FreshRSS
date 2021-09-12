@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Créer un compte ?',
 			'title' => 'Création de compte',
 		),
-		'reset' => 'Réinitialisation de l’authentification',
 		'username' => array(
 			'_' => 'Nom d’utilisateur',
-			'admin' => 'Nom d’utilisateur administrateur',
 			'format' => '<small>16 caractères alphanumériques maximum</small>',
 		),
 	),
@@ -196,7 +194,7 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
 		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',

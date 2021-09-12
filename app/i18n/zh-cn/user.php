@@ -14,7 +14,7 @@ return array(
 				'email_sent' => '邮件已发送到您的邮箱中',
 				'error' => '邮箱地址无法通过验证',
 				'ok' => '邮箱地址已成功通过验证',
-				'unneccessary' => '该邮箱地址已被验证',
+				'unnecessary' => '该邮箱地址已被验证',
 				'wrong_token' => '由于令牌错误，邮箱地址无法通过验证。',
 			),
 			'need_to' => '您需要先验证邮箱地址才能使用 %s',

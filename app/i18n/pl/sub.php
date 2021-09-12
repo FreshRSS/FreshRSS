@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategoria',
-		'add' => 'Dodaj kategorię',
 		'archiving' => 'Archiwizacja',
 		'empty' => 'Pusta kategoria',
 		'information' => 'Informacje',
@@ -110,8 +109,6 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Dodaj kanał lub kategorię',
-		'add_feed' => 'Dodaj kanał',
-		'bookmark' => 'Subscribe (FreshRSS bookmark)',	// TODO - Translation
 		'import_export' => 'Import / eksport',
 		'label_management' => 'Zarządzanie etykietami',
 		'stats' => array(
