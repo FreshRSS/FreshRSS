@@ -29,7 +29,7 @@ return array(
 			'publication_date' => 'Publicatie datum',
 			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => 'Samenvatting',
 			'top_line' => 'Bovenaan',
 		),
 		'language' => 'Taal',
@@ -40,11 +40,11 @@ return array(
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => 'Miniatuur',
+			'landscape' => 'Liggend',
+			'none' => 'Geen',
+			'portrait' => 'Staand',
+			'square' => 'Vierkant',
 		),
 		'title' => 'Opmaak',
 		'width' => array(
@@ -141,7 +141,7 @@ return array(
 			'remember_categories' => 'Open categorieën herinneren',
 			'unread' => 'Bekijk alleen ongelezen',
 		),
-		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
+		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'sort' => array(
 			'_' => 'Sorteer volgorde',
@@ -195,7 +195,7 @@ return array(
 		'navigation_help' => 'Met de <kbd>⇧ Shift</kbd> toets worden navigatieverwijzingen op feeds toegepast.<br/>Met de <kbd>Alt ⎇</kbd> toets worden navigatieverwijzingen op categorieën toegepast.',
 		'navigation_no_mod_help' => 'De volgende navigatiesnelkoppelingen ondersteunen geen toetsencombinaties.',
 		'next_article' => 'Spring naar volgende artikel',
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'non_standard' => 'Sommige toetsen (<kbd>%s</kbd>) werken wellicht niet als snelkoppelingen.',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',
 		'previous_article' => 'Spring naar vorige artikel',
