@@ -41,10 +41,10 @@ return array(
 		'theme' => 'Erscheinungsbild',
 		'thumbnail' => array(
 			'label' => 'Vorschaubild',
+			'landscape' => 'Querformat',
 			'none' => 'Keins',
 			'portrait' => 'Hochformat',
 			'square' => 'Quadrat',
-			'landscape' => 'Querformat',
 		),
 		'title' => 'Anzeige',
 		'width' => array(
