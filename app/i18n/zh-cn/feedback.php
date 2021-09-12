@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => '配置认证方式时出错，请稍后重试。',
-			'set' => '网页表单是你当前默认的认证方式。',
-		),
 		'login' => array(
 			'invalid' => '用户名或密码无效',
 			'success' => '登录成功',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => '登出成功',
 		),
-		'no_password_set' => '管理员密码尚未设置。此特性不可用。',
 	),
 	'conf' => array(
 		'error' => '保存配置时出错',

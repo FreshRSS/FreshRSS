@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivierung',
-		'delete_after' => 'Entferne Artikel nach',
 		'exception' => 'Archivierungsausnahmen',
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
 		'keep_favourites' => 'Lieblingsartikel behalten',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Anzeige',
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
-			'summary' => 'Zusammenfassung',
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 		'theme' => 'Erscheinungsbild',
+		'thumbnail' => array(
+			'label' => 'Vorschaubild',
+			'none' => 'Keins',
+			'portrait' => 'Hochformat',
+			'square' => 'Quadrat',
+			'landscape' => 'Querformat',
+		),
 		'title' => 'Anzeige',
 		'width' => array(
 			'content' => 'Inhaltsbreite',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Mittel',
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
-		),
-		'thumbnail' => array(
-			'label' => 'Vorschaubild',
-			'none' => 'Keins',
-			'portrait' => 'Hochformat',
-			'square' => 'Quadrat',
-			'landscape' => 'Querformat',
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
-		'display' => 'Zeige Abfrage Ergebnisse',
 		'filter' => array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
-		'get_tag' => 'Tag "%s" anzeigen',
 		'name' => 'Name',
 		'no_filter' => 'Kein Filter',
-		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
-		'remove' => 'Lösche Abfrage',
 		'search' => 'Suche nach "%s"',
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',

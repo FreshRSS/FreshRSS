@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoría',
-		'add' => 'Añadir a la categoría',
 		'archiving' => 'Archivo',
 		'empty' => 'Vaciar categoría',
 		'information' => 'Información',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Suscribirse (favorito FreshRSS)',
 		'import_export' => 'Importar / exportar',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Fuentes inactivas',
+			'main' => 'Estadísticas principañes',
+			'repartition' => 'Reparto de artículos',
+		),
 		'subscription_management' => 'Administración de suscripciones',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

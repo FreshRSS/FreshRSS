@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Site del projècte',
 		'title' => 'A prepaus',
 		'version' => 'Version',
-		'website' => 'Site internet',
 	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',

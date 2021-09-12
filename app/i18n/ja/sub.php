@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'カテゴリ',
-		'add' => 'カテゴリに追加する',
 		'archiving' => 'アーカイブ',
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'フィード化カテゴリを追加します',
-		'add_feed' => 'フィードの追加',
-		'bookmark' => '購読 (FreshRSS ブックマーク)',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
+		'stats' => array(
+			'idle' => '未使用のフィード',
+			'main' => '主な統計',
+			'repartition' => '記事の仕切り',
+		),
 		'subscription_management' => '購読されたものの管理',
 		'subscription_tools' => '購読ツール',
 	),

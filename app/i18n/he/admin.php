@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO - Translation
-		'title_reset' => 'איפוס אימות',
 		'token' => 'מחרוזת אימות',
 		'token_help' => 'Allows to access RSS output of the default user without authentication:',
 		'type' => 'שיטת אימות',
@@ -135,12 +134,7 @@ return array(
 		'feed_per_category' => 'הזנות על פי קטגוריה',
 		'idle' => 'הזנות שלא עודכנו',
 		'main' => 'סטטיסטיקות ראשיות',
-		'main_stream' => 'הזנה ראשית',
-		'menu' => array(
-			'idle' => 'הזנות שלא עודכנו',
-			'main' => 'סטטיסטיקות ראשיות',
-			'repartition' => 'חלוקת המאמרים',
-		),
+		'main_stream' => 'הזנה ראשית',		
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
 		'percent_of_total' => '%% מסך הכל',
@@ -180,11 +174,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'יצירת משתמש חדש',
 		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Email address',	// TODO - Translation
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
@@ -196,11 +188,7 @@ return array(
 		'numbers' => 'There are %d accounts created',	// TODO - Translation
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	// TODO - Translation
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Manage users',	// TODO - Translation
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'רשימת משתמשים',
 		'username' => 'שם משתמש',
-		'users' => 'משתמשים',
 	),
 );

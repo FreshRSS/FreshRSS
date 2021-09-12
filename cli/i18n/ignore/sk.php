@@ -54,6 +54,7 @@ return array(
 	'gen.share.facebook',
 	'gen.share.gnusocial',
 	'gen.share.jdh',
+	'gen.share.lemmy',
 	'gen.share.linkedin',
 	'gen.share.mastodon',
 	'gen.share.movim',

@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivo',
-		'delete_after' => 'Eliminar artículos tras',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Hay más opciones disponibles en los ajustes de la fuente',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Visualización',
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Authors',	// TODO - Translation
 			'entry' => 'Iconos de artículos',
 			'publication_date' => 'Fecha de publicación',
 			'related_tags' => 'Etiquetas relacionadas',
 			'sharing' => 'Compartir',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Línea superior',
 		),
 		'language' => 'Idioma',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'Tema',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Visualización',
 		'width' => array(
 			'content' => 'Ancho de contenido',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Mediano',
 			'no_limit' => 'Sin límite',
 			'thin' => 'Estrecho',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Consultas de usuario',
 		'deprecated' => 'Esta consulta ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
-		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -87,14 +85,11 @@ return array(
 		'get_category' => 'Mostrar la categoría "%s"',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente "%s"',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Sin filtro',
-		'none' => 'Todavía no has creado ninguna consulta de usuario.',
 		'number' => 'Consulta n° %d',
 		'order_asc' => 'Mostrar primero los artículos más antiguos',
 		'order_desc' => 'Mostrar primero los artículos más recientes',
-		'remove' => 'Remove user query',	// TODO - Translation
 		'search' => 'Buscar "%s"',
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',
@@ -165,20 +160,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartir',
 		'add' => 'Add a sharing method',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'Más información',
 		'print' => 'Print',	// TODO - Translation
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',	// TODO - Translation
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'Compartir nombre a mostrar',
 		'share_url' => 'Compatir URL a usar',
 		'title' => 'Compartir',
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'Atajos de teclado',

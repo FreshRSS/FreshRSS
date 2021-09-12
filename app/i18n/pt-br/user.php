@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Um email foi enviado para o seu endereço',
 				'error' => 'Falha na verificação do endereço de email',
 				'ok' => 'O endereço de email foi verificado com sucesso.',
-				'unneccessary' => 'Esse endereço de email já foi verificado.',
+				'unnecessary' => 'Esse endereço de email já foi verificado.',
 				'wrong_token' => 'A verificação do endereço de email falhou por causa do token incorreto.',
 			),
 			'need_to' => 'Para poder utilizar o %s, você deve verificar seu endereço de email.',
