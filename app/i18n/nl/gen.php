@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Maak een account?',
 			'title' => 'Account maken',
 		),
-		'reset' => 'Authenticatie reset',
 		'username' => array(
 			'_' => 'Gebruikersnaam',
-			'admin' => 'Beheerdersgebruikersnaam',
 			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
 		),
 	),

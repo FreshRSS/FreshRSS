@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Arşiv',
-		'delete_after' => 'Makelelerin tutulacağı süre',
 		'exception' => 'Temizlik ifadeleri',
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_favourites' => 'Favorileri asla silme',
@@ -25,12 +24,12 @@ return array(
 		'_' => 'Görünüm',
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => 'Yazarlar',
 			'entry' => 'Makale ikonları',
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',
 			'sharing' => 'Paylaşım',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Üst çizgi',
 		),
 		'language' => 'Dil',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
 		'theme' => 'Tema',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Görünüm',
 		'width' => array(
 			'content' => 'İçerik genişliği',
@@ -47,13 +53,6 @@ return array(
 			'medium' => 'Orta',
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
-		'display' => 'Kullanıcı sorgu sonuçlarını göster',
 		'filter' => array(
 			'_' => 'Filtre uygulandı:',
 			'categories' => 'Kategoriye göre göster',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
-		'get_tag' => '"%s" etiketini göster',
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
-		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
-		'remove' => 'Kullanıcı sorgusunu temizle',
 		'search' => '"%s" için arama',
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',

@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Webová stránka projektu',
 		'title' => 'O FreshRSS',
 		'version' => 'Verzia',
-		'website' => 'Webová stránka',
 	),
 	'feed' => array(
 		'add' => 'Môžete pridať kanály.',

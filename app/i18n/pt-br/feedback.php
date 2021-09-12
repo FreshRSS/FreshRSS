@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Um problema ocorreu durante o sistema de configuração para autenticação. Por favor tente mais tarde.',
-			'set' => 'Formulário é agora seu sistema de autenticação padrão.',
-		),
 		'login' => array(
 			'invalid' => 'Login está incorreto',
 			'success' => 'Você está conectado',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Você está desconectado',
 		),
-		'no_password_set' => 'A senha do administrador não foi definida. Este recurso não está disponível.',
 	),
 	'conf' => array(
 		'error' => 'Um erro ocorreu durante o salvamento das configurações',

@@ -43,10 +43,8 @@ return array(
 			'ask' => '创建新用户？',
 			'title' => '用户创建',
 		),
-		'reset' => '密码重置',
 		'username' => array(
 			'_' => '用户名',
-			'admin' => '管理员用户名',
 			'format' => '<small>最多 16 个数字或字母</small>',
 		),
 	),

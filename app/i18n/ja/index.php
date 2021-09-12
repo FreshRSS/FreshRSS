@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'プロジェクトのwebサイト',
 		'title' => 'FreshRSSについて',
 		'version' => 'バージョン',
-		'website' => 'Webサイト',
 	),
 	'feed' => array(
 		'add' => 'フィードを追加してください。',

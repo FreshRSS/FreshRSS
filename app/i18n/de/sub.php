@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
-		'add' => 'Eine Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Feed oder Kategorie hinzufügen',
-		'add_feed' => 'Feed hinzufügen',
-		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
 		'label_management' => 'Labelverwaltung',
+		'stats' => array(
+			'idle' => 'Inaktive Feeds',
+			'main' => 'Haupt-Statistiken',
+			'repartition' => 'Artikel-Verteilung',
+		),
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
 	),

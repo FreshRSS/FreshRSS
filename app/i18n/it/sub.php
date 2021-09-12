@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Aggiungi una categoria',
 		'archiving' => 'Archiviazione',
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Bookmark (trascina nei preferiti)',
 		'import_export' => 'Importa / esporta',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Feeds non aggiornati',
+			'main' => 'Statistiche principali',
+			'repartition' => 'Ripartizione articoli',
+		),
 		'subscription_management' => 'Gestione sottoscrizioni',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

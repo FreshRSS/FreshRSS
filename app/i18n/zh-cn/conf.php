@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => '归档',
-		'delete_after' => '文章保留',
 		'exception' => '清理例外策略',
 		'help' => '具体选项位于各订阅源的设置',
 		'keep_favourites' => '不清理已收藏的文章',
@@ -25,12 +24,12 @@ return array(
 		'_' => '显示',
 		'icon' => array(
 			'bottom_line' => '底栏',
-			'summary' => 'Summary', // TODO - Translation
 			'display_authors' => '作者',
 			'entry' => '文章图标',
 			'publication_date' => '更新日期',
 			'related_tags' => '相关标签',
 			'sharing' => '分享',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => '顶栏',
 		),
 		'language' => '语言',
@@ -40,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => '显示导航按钮',
 		'theme' => '主题',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => '显示',
 		'width' => array(
 			'content' => '内容宽度',
@@ -47,13 +53,6 @@ return array(
 			'medium' => '中',
 			'no_limit' => '无限制',
 			'thin' => '窄',
-		),
-		'thumbnail' => array(
-			'label' => 'Thumbnail', // TODO - Translation
-			'none' => 'None', // TODO - Translation
-			'portrait' => 'Portrait', // TODO - Translation
-			'square' => 'Square', // TODO - Translation
-			'landscape' => 'Landscape', // TODO - Translation
 		),
 	),
 	'profile' => array(
@@ -72,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
-		'display' => '显示查询结果',
 		'filter' => array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
@@ -87,14 +85,11 @@ return array(
 		'get_category' => '显示分类 "%s"',
 		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示订阅源 "%s"',
-		'get_tag' => '显示标签 "%s"',
 		'name' => '名称',
 		'no_filter' => '无过滤器',
-		'none' => '你未创建任何自定义查询。',
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧至新显示文章',
 		'order_desc' => '由新至旧显示文章',
-		'remove' => '删除查询',
 		'search' => '搜索 "%s"',
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',

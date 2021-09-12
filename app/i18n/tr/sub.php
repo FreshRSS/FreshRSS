@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategori',
-		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Kategori veya akış ekle',
-		'add_feed' => 'Akış ekle',
-		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
 		'import_export' => 'İçe / dışa aktar',
 		'label_management' => 'Etiket yönetimi',
+		'stats' => array(
+			'idle' => 'Boştaki akışlar',
+			'main' => 'Ana istatistikler',
+			'repartition' => 'Makale dağılımı',
+		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',
 	),

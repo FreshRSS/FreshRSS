@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'קטגוריה',
-		'add' => 'הוספת קטגוריה',
 		'archiving' => 'ארכוב',
 		'empty' => 'Empty category',	// TODO - Translation
 		'information' => 'מידע',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'הרשמה (FreshRSS סימניית)',
 		'import_export' => 'יבוא / יצוא ',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'הזנות שלא עודכנו',
+			'main' => 'סטטיסטיקות ראשיות',
+			'repartition' => 'חלוקת המאמרים',
+		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

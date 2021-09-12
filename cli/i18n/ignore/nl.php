@@ -61,7 +61,6 @@ return array(
 	'gen.short.ok',
 	'index.about.agpl3',
 	'index.about.version',
-	'index.about.website',
 	'install.bdd._',
 	'install.bdd.host',
 	'sub.api.title',

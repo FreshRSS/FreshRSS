@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategória',
-		'add' => 'Pridať kategóriu',
 		'archiving' => 'Archiving',	// TODO - Translation
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
@@ -110,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Odoberať (záložka FreshRSS)',
 		'import_export' => 'Import / export',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Neaktívne kanály',
+			'main' => 'Hlavné štatistiky',
+			'repartition' => 'Rozdelenie článkov',
+		),
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),

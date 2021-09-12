@@ -62,7 +62,6 @@ return array(
 	'gen.share.wallabagv2',
 	'index.about.agpl3',
 	'index.about.version',
-	'index.about.website',
 	'install.bdd.host',
 	'install.title',
 	'sub.api.title',

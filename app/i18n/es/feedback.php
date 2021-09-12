@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Hubo un problema durante la configuración del sistema de idenfificación. Por favor, inténtalo más tarde.',
-			'set' => 'El formulario será desde ahora tu sistema de identificación por defecto.',
-		),
 		'login' => array(
 			'invalid' => 'Identificación incorrecta',
 			'success' => 'Conexión',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Desconexión',
 		),
-		'no_password_set' => 'Esta opción no está disponible porque no se ha definido una contraseña de administrador.',
 	),
 	'conf' => array(
 		'error' => 'Hubo un error durante el guardado de la configuración.',
