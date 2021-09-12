@@ -111,6 +111,11 @@ return array(
 		'add' => 'Dodaj kanał lub kategorię',
 		'import_export' => 'Import / eksport',
 		'label_management' => 'Zarządzanie etykietami',
+		'stats' => array(
+			'idle' => 'Bezczynne kanały',
+			'main' => 'Główne statystyki',
+			'repartition' => 'Podział wiadomości',
+		),
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),

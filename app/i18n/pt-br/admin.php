@@ -135,11 +135,6 @@ return array(
 		'idle' => 'Feeds inativos',
 		'main' => 'Estatísticas principais',
 		'main_stream' => 'Stream principal',
-		'menu' => array(
-			'idle' => 'Feeds inativos',
-			'main' => 'Estatísticas principais',
-			'repartition' => 'Repartição de artigos',
-		),
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
 		'percent_of_total' => '%% do total',

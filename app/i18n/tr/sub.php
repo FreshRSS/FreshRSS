@@ -111,6 +111,11 @@ return array(
 		'add' => 'Kategori veya akış ekle',
 		'import_export' => 'İçe / dışa aktar',
 		'label_management' => 'Etiket yönetimi',
+		'stats' => array(
+			'idle' => 'Boştaki akışlar',
+			'main' => 'Ana istatistikler',
+			'repartition' => 'Makale dağılımı',
+		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',
 	),

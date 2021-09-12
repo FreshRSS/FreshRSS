@@ -111,6 +111,11 @@ return array(
 		'add' => '添加订阅源或分类',
 		'import_export' => '导入/导出',
 		'label_management' => '标签管理',
+		'stats' => array(
+			'idle' => '长期无更新订阅源',
+			'main' => '主要统计',
+			'repartition' => '文章分布',
+		),
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',
 	),

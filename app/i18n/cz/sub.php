@@ -111,6 +111,11 @@ return array(
 		'add' => 'Add a feed or category',	// TODO - Translation
 		'import_export' => 'Import / export',	// TODO - Translation
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Neaktivní kanály',
+			'main' => 'Přehled',
+			'repartition' => 'Rozdělení článků',
+		),
 		'subscription_management' => 'Správa subskripcí',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

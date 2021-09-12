@@ -111,6 +111,11 @@ return array(
 		'add' => 'Feed of categorie toevoegen',
 		'import_export' => 'Importeer / exporteer',
 		'label_management' => 'Labelbeheer',
+		'stats' => array(
+			'idle' => 'Gepauzeerde feeds',
+			'main' => 'Hoofd statistieken',
+			'repartition' => 'Artikelen verdeling',
+		),
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),

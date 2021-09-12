@@ -135,11 +135,6 @@ return array(
 		'idle' => 'Neaktivní kanály',
 		'main' => 'Přehled',
 		'main_stream' => 'Všechny kanály',
-		'menu' => array(
-			'idle' => 'Neaktivní kanály',
-			'main' => 'Přehled',
-			'repartition' => 'Rozdělení článků',
-		),
 		'no_idle' => 'Žádné neaktivní kanály!',
 		'number_entries' => '%d článků',
 		'percent_of_total' => '%% ze všech',

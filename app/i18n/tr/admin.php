@@ -135,11 +135,6 @@ return array(
 		'idle' => 'Boştaki akışlar',
 		'main' => 'Ana istatistikler',
 		'main_stream' => 'Ana akış',
-		'menu' => array(
-			'idle' => 'Boştaki akışlar',
-			'main' => 'Ana istatistikler',
-			'repartition' => 'Makale dağılımı',
-		),
 		'no_idle' => 'Boşta akış yok!',
 		'number_entries' => '%d makale',
 		'percent_of_total' => '%% toplamın yüzdesi',

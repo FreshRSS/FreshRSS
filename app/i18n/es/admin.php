@@ -135,11 +135,6 @@ return array(
 		'idle' => 'Fuentes inactivas',
 		'main' => 'Estadísticas principales',
 		'main_stream' => 'Salida principal',
-		'menu' => array(
-			'idle' => 'Fuentes inactivas',
-			'main' => 'Estadísticas principañes',
-			'repartition' => 'Reparto de artículos',
-		),
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
 		'percent_of_total' => '%% del total',

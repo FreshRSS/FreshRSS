@@ -79,7 +79,6 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<?php } ?>
 
 				<li class="separator"></li>
-				<li class="item"><a href="<?= _url('stats', 'index') ?>"><?= _t('gen.menu.stats') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 				<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>

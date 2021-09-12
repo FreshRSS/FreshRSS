@@ -135,11 +135,6 @@ return array(
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
-		'menu' => array(
-			'idle' => 'Inaktive Feeds',
-			'main' => 'Haupt-Statistiken',
-			'repartition' => 'Artikel-Verteilung',
-		),
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
 		'percent_of_total' => '%% Gesamt',
