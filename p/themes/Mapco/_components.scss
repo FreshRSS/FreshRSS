@@ -221,8 +221,8 @@
 		// border-bottom: 1px solid #ddd;
 		border-radius: 2px 2px 0 0;
 
-		img {
-			margin-right: 0.75rem;
+		.configure {
+			margin-right: 4px;
 		}
 
 		&:hover {
@@ -274,8 +274,10 @@
 
 	.box-content {
 		// max-height: 260px;
+		padding-left: 30px;
+
 		.item {
-			padding: 0.5rem 0.75rem;
+			padding: 0.5rem 0;
 			color: $main-font-color;
 			font-size: 1rem;
 			border-bottom: 1px solid $grey-light;
