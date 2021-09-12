@@ -535,12 +535,16 @@ a.btn {
 	font-weight: normal;
 }
 
+.box .box-title .configure {
+	margin-right: 4px;
+}
+
 .box .box-content {
+	padding-left: 30px;
 	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
 }

@@ -578,7 +578,13 @@ form {
 		border-bottom: 1px solid darken( $color_light, 10%);
 	}
 
+	.configure {
+		margin-right: 4px;
+	}
+
+
 	.box-content {
+		padding-left: 30px;
 		max-height: 260px;
 
 		.item {

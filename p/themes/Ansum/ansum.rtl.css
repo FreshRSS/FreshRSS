@@ -392,9 +392,6 @@ form th {
 	color: #363330;
 	border-radius: 2px 2px 0 0;
 }
-.box .box-title img {
-	margin-left: 0.75rem;
-}
 .box .box-title:hover .configure {
 	background: url("icons/cog.svg") no-repeat 4px 4px;
 	display: block;
@@ -428,8 +425,14 @@ form th {
 .box .box-title form .dropdown a.dropdown-toggle img {
 	display: none;
 }
+.box .box-title .configure {
+	margin-left: 4px;
+}
+.box .box-content {
+	padding-right: 30px;
+}
 .box .box-content .item {
-	padding: 0.5rem 0.75rem;
+	padding: 0.5rem 0;
 	color: #363330;
 	font-size: 1rem;
 	border-bottom: 1px solid #f5f0ec;
