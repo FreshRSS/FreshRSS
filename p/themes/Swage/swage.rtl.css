@@ -462,10 +462,10 @@ form th {
 	border-bottom: 1px solid #e3e3e3;
 }
 .box .box-title .configure {
-	margin-right: 4px;
+	margin-left: 4px;
 }
 .box .box-content {
-	padding-left: 30px;
+	padding-right: 30px;
 	max-height: 260px;
 }
 .box .box-content .item {

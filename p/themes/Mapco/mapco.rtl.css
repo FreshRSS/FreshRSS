@@ -395,7 +395,7 @@ form th {
 	border-radius: 2px 2px 0 0;
 }
 .box .box-title .configure {
-	margin-right: 4px;
+	margin-left: 4px;
 }
 .box .box-title:hover .configure {
 	background: url("icons/cog.svg") no-repeat 4px 4px;
@@ -431,7 +431,7 @@ form th {
 	display: none;
 }
 .box .box-content {
-	padding-left: 30px;
+	padding-right: 30px;
 }
 .box .box-content .item {
 	padding: 0.5rem 0;

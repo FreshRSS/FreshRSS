@@ -460,7 +460,7 @@ a.btn {
 }
 
 .box .box-title .configure {
-	margin-right: 4px;
+	margin-left: 4px;
 }
 
 .box .box-content {
@@ -470,7 +470,6 @@ a.btn {
 }
 
 .box .box-content .item {
-	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
 }

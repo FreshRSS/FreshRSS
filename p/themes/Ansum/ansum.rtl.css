@@ -426,10 +426,10 @@ form th {
 	display: none;
 }
 .box .box-title .configure {
-	margin-right: 4px;
+	margin-left: 4px;
 }
 .box .box-content {
-	padding-left: 30px;
+	padding-right: 30px;
 }
 .box .box-content .item {
 	padding: 0.5rem 0;
