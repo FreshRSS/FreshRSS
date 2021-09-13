@@ -430,6 +430,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 
 		if ($html) {
+			require_once(LIB_PATH . '/lib_phpQuery.php');
 			$doc = phpQuery::newDocument($html);
 
 			if ($maxRedirs > 0) {
