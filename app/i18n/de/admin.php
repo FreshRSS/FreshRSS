@@ -154,7 +154,7 @@ return array(
 			'number' => 'Eingeloggt bleiben für',
 		),
 		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
-		'instance-name' => 'Dein Reader Name',
+		'instance-name' => 'Bezeichnung',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
