@@ -60,7 +60,7 @@ return array(
 		'api' => 'API-Verwaltung',
 		'delete' => array(
 			'_' => 'Accountlöschung',
-			'warn' => 'Ihr Account und alle damit bezogenen Daten werden gelöscht.',
+			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
 		'password_api' => 'Passwort-API<br /><small>(z.B. für mobile Anwendungen)</small>',
