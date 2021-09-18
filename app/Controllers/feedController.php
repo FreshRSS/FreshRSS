@@ -484,10 +484,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			if ($simplePie != null) {
-				if (trim($feed->name()) == '') {
+				if ($feed->name(true) == '') {
 					//HTML to HTML-PRE	//ENT_COMPAT except '&'
 					$name = strtr(html_only_entity_decode($simplePie->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));
-					$feedProperties['name'] = $name == '' ? $feed->url() : $name;
+					$feed->_name($name);
+					$feedProperties['name'] = $feed->name(false);
 				}
 				if (trim($feed->website()) == '') {
 					$website = html_only_entity_decode($simplePie->get_link());

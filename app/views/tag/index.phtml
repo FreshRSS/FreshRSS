@@ -1,15 +1,19 @@
 <?php $this->partial('aside_subscription'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
+ 
+	<h1><?= _t('sub.menu.label_management') ?></h1>
 
+	<h2><?= _t('sub.title.add_label') ?></h2>
 	<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
-		<legend><?= _t('sub.title.add_label') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
-			<label class="group-name" for="category"><?= _t('sub.tag.name') ?></label>
+			<label class="group-name" for="new_label_name"><?= _t('sub.tag.name') ?></label>
 			<div class="group-controls">
-				<input id="name" name="name" type="text" autocomplete="off"/>
+				<input id="new_label_name" name="name" type="text" autocomplete="off"/>
 			</div>
 		</div>
 
@@ -20,12 +24,11 @@
 		</div>
 	</form>
 
-	
+	<h2><?= _t('sub.title.rename_label') ?></h2>
 	<form id="rename_tag" method="post" action="<?= _url('tag', 'rename') ?>" autocomplete="off">
-		<legend><?= _t('sub.title.rename_label') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
-			<label class="group-name" for="category"><?= _t('sub.tag.old_name') ?></label>
+			<label class="group-name" for="id_tag"><?= _t('sub.tag.old_name') ?></label>
 			<div class="group-controls">
 				<select name="id_tag" id="id_tag">
 					<?php foreach ($this->tags as $tag): ?>
@@ -35,9 +38,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="category"><?= _t('sub.tag.new_name') ?></label>
+			<label class="group-name" for="rename_new_name"><?= _t('sub.tag.new_name') ?></label>
 			<div class="group-controls">
-				<input id="name" name="name" type="text" autocomplete="off"/>
+				<input id="rename_new_name" name="name" type="text" autocomplete="off"/>
 			</div>
 		</div>
 
@@ -48,13 +51,13 @@
 		</div>
 	</form>
 
+	<h2><?= _t('sub.title.delete_label') ?></h2>
 	<form id="delete_tag" method="post" action="<?= _url('tag', 'delete') ?>" autocomplete="off">
-		<legend><?= _t('sub.title.delete_label') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
-			<label class="group-name" for="category"><?= _t('sub.tag.name') ?></label>
+			<label class="group-name" for="id_tag_delete"><?= _t('sub.tag.name') ?></label>
 			<div class="group-controls">
-				<select name="id_tag" id="id_tag">
+				<select name="id_tag" id="id_tag_delete">
 					<?php foreach ($this->tags as $tag): ?>
 						<option value="<?= $tag->id() ?>"><?= $tag->name() ?></option>
 					<?php endforeach; ?>

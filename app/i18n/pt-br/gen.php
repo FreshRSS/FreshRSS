@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Criar novoa conta?',
 			'title' => 'Criação de conta',
 		),
-		'reset' => 'Reset autenticação',
 		'username' => array(
 			'_' => 'Usuário',
-			'admin' => 'Usuário administrador',
 			'format' => '<small>Máximo 16 caracteres alphanumericos</small>',
 		),
 	),
@@ -135,6 +133,7 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
+		'ja' => '日本語',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',

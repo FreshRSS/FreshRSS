@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
 		),
+		'reload' => 'Controleer nog eens',
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de temp-map zijn goed.',
@@ -100,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
-	'delete_articles_after' => 'Verwijder artikelen na',
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
 	'js' => array(
@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Kies een taal voor FreshRSS',
 		'defined' => 'Taal is bepaald.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Er is iets misgegaan; u zal handmatig een leeg bestand <em>%s</em> aan moeten maken.',
 	'ok' => 'De installatieprocedure is geslaagd.',
 	'session' => array(
 		'nok' => 'De webserver lijkt niet goed te zijn geconfigureerd voor de cookies die voor PHP-sessies nodig zijn!',

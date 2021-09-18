@@ -1,11 +1,13 @@
 <?php $this->partial('aside_subscription'); ?>
 
 <div class="post drop-section">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
-	
+	<h1><?= _t('sub.menu.add') ?></h1>
+	<h2><?= _t('sub.title.add_category') ?></h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">
-		<legend><?= _t('sub.title.add_category') ?></legend>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
@@ -21,9 +23,9 @@
 		</div>
 	</form>
 
-	
+	<h2><?= _t('sub.title.add_feed') ?></h2>
 	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
-		<legend><?= _t('sub.title.add_feed') ?></legend>
+		
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">

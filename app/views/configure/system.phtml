@@ -1,11 +1,14 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
+
+	<h1><?= _t('admin.system') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'system') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('admin.system') ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="instance-name"><?= _t('admin.system.instance-name') ?></label>

@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Vaša verzia PHP je %s, ale FreshRSS vyžaduje minimálne verziu %s.',
 			'ok' => 'Vaša verzia PHP %s je kompatibilná s FreshRSS.',
 		),
+		'reload' => 'Tekrar kontrol et',
 		'tmp' => array(
 			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
@@ -100,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Nastavenia!',
 	'default_user' => 'Hlavné používateľské meno <small>(najviac 16 alfanumerických znakov)</small>',
-	'delete_articles_after' => 'Vymazať články po',
 	'fix_errors_before' => 'Prosím, pred pokračovaním opravte chyby.',
 	'javascript_is_better' => 'FreshRSS si užijete viac, keď povolíte JavaScript',
 	'js' => array(

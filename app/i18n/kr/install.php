@@ -80,6 +80,7 @@ return array(
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
 			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
 		),
+		'reload' => 'Check again',	// TODO - Translation
 		'tmp' => array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
@@ -100,7 +101,6 @@ return array(
 	),
 	'congratulations' => '축하합니다!',
 	'default_user' => '기본 사용자 이름<small>(알파벳과 숫자를 포함할 수 있고 최대 16 글자)</small>',
-	'delete_articles_after' => '다음 기간보다 오래된 글 삭제',
 	'fix_errors_before' => '다음 단계로 가기 전에 문제를 해결하세요.',
 	'javascript_is_better' => 'FreshRSS는 자바스크립트를 사용할 때 더욱 쾌적하고 강력합니다',
 	'js' => array(

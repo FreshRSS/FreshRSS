@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (pre pokročilých používateľov s HTTPS)',
 		'none' => 'Žiadny (nebezpečné)',
 		'title' => 'Prihlásenie',
-		'title_reset' => 'Reset prihlásenia',
 		'token' => 'Token prihlásenia',
 		'token_help' => 'Povoliť prístup k výstupu RSS prednastaveného používateľa bez prihlásenia:',
 		'type' => 'Spôsob prihlásenia',
@@ -136,11 +135,6 @@ return array(
 		'idle' => 'Neaktívne kanály',
 		'main' => 'Hlavné štatistiky',
 		'main_stream' => 'Všetky kanály',
-		'menu' => array(
-			'idle' => 'Neaktívne kanály',
-			'main' => 'Hlavné štatistiky',
-			'repartition' => 'Rozdelenie článkov',
-		),
 		'no_idle' => 'Žiadne neaktívne kanály!',
 		'number_entries' => 'Počet článkov: %d',
 		'percent_of_total' => 'Z celkového počtu: %%',
@@ -180,11 +174,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',	// TODO - Translation
 		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s článkov (%s)',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvoriť nového používateľa',
 		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Zmazať používateľa',
 		'email' => 'Email address',	// TODO - Translation
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
@@ -196,11 +188,7 @@ return array(
 		'numbers' => 'Je vytvorených používateľov: %d',
 		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',
 		'password_format' => 'Minimálne 7 znakov',
-		'selected' => 'Označený používateľ',
 		'title' => 'Správa používateľov',
-		'update_users' => 'Sktualizovať používateľov',
-		'user_list' => 'Zoznam používateľov',
 		'username' => 'Používateľské meno',
-		'users' => 'Používatelia',
 	),
 );

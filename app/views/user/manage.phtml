@@ -1,14 +1,18 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
+	<h1><?= _t('gen.menu.user_management') ?></h1>
+	<h2><?= _t('admin.user.create') ?></h2>
 	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
 
-		<legend><?= _t('admin.user.create') ?></legend>
+		
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
@@ -71,35 +75,37 @@
 		</div>
 	</form>
 
-	<legend><?= _t('admin.user.list'); ?></legend>
-	<table id="user-list">
-		<thead>
-			<tr>
-				<th><?= _t('admin.user.username') ?></th>
-				<th><?= _t('admin.user.enabled') ?></th>
-				<th><?= _t('admin.user.is_admin') ?></th>
-				<th><?= _t('admin.user.email') ?></th>
-				<th><?= _t('admin.user.language') ?></th>
-				<th><?= _t('admin.user.feed_count') ?></th>
-				<th><?= _t('admin.user.article_count') ?></th>
-				<th><?= _t('admin.user.database_size') ?></th>
-				<th><?= _t('admin.user.last_user_activity') ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach ($this->users as $username => $values) : ?>
-				<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>>
-					<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
-					<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
-					<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
-					<td><?= $values['mail_login'] ?></td>
-					<td><?= _t("gen.lang.{$values['language']}") ?></td>
-					<td><?= format_number($values['feed_count']) ?></td>
-					<td><?= format_number($values['article_count']) ?></td>
-					<td><?= format_bytes($values['database_size']) ?></td>
-					<td><?= $values['last_user_activity'] ?></td>
+	<h2><?= _t('admin.user.list'); ?></h2>
+	<div class="table-wrapper">
+		<table id="user-list">
+			<thead>
+				<tr>
+					<th><?= _t('admin.user.username') ?></th>
+					<th><?= _t('admin.user.enabled') ?></th>
+					<th><?= _t('admin.user.is_admin') ?></th>
+					<th><?= _t('admin.user.email') ?></th>
+					<th><?= _t('admin.user.language') ?></th>
+					<th><?= _t('admin.user.feed_count') ?></th>
+					<th><?= _t('admin.user.article_count') ?></th>
+					<th><?= _t('admin.user.database_size') ?></th>
+					<th><?= _t('admin.user.last_user_activity') ?></th>
 				</tr>
-			<?php endforeach ?>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<?php foreach ($this->users as $username => $values) : ?>
+					<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>>
+						<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
+						<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
+						<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
+						<td><?= $values['mail_login'] ?></td>
+						<td><?= _t("gen.lang.{$values['language']}") ?></td>
+						<td><?= format_number($values['feed_count']) ?></td>
+						<td><?= format_number($values['article_count']) ?></td>
+						<td><?= format_bytes($values['database_size']) ?></td>
+						<td><?= $values['last_user_activity'] ?></td>
+					</tr>
+				<?php endforeach ?>
+			</tbody>
+		</table>
+	</div>
 </div>

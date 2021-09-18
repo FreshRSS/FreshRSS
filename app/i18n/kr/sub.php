@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => '카테고리',
-		'add' => '카테고리 추가',
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
@@ -96,11 +95,6 @@ return array(
 		'website' => '웹사이트 URL',
 		'websub' => 'WebSub을 사용한 즉시 알림',
 	),
-	'firefox' => array(
-		'documentation' => 'FreshRSS를 Firefox 피드 리더에 추가하기 위해서는 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">여기</a>의 설명을 따르세요.',
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox 피드 리더',
-	),
 	'import_export' => array(
 		'export' => '내보내기',
 		'export_labelled' => '라벨이 표시된 글들 내보내기',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => '유휴 피드',
+			'main' => '주요 통계',
+			'repartition' => '글 분류',
+		),
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
 	),

@@ -80,6 +80,7 @@ return array(
 			'nok' => '你的 PHP 版本为 %s，但 FreshRSS 最低需要 %s',
 			'ok' => '你的 PHP 版本为 %s，与 FreshRSS 兼容',
 		),
+		'reload' => '再检查一遍',
 		'tmp' => array(
 			'nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => '缓存目录权限正常。',
@@ -100,7 +101,6 @@ return array(
 	),
 	'congratulations' => '恭喜！',
 	'default_user' => '默认用户名 <small>(最多 16 个数字或字母)</small>',
-	'delete_articles_after' => '保留文章',
 	'fix_errors_before' => '请在继续下一步前修复错误',
 	'javascript_is_better' => '启用 JavaScript 会使 FreshRSS 工作得更好',
 	'js' => array(

@@ -13,7 +13,6 @@ return array(
 		'project_website' => '项目网站',
 		'title' => '关于',
 		'version' => '版本',
-		'website' => '网站',
 	),
 	'feed' => array(
 		'add' => '你可以添加一些订阅源。',

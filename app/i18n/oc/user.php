@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Avèm enviat un corrièl a vòstra adreça.',
 				'error' => 'Fracàs de la validacion de l’adreça electronica.',
 				'ok' => 'L’adreça electronica es estada validada.',
-				'unneccessary' => 'L’adreça es ja estada validada.',
+				'unnecessary' => 'L’adreça es ja estada validada.',
 				'wrong_token' => 'Fracàs de la validacion de l’adreça a causa d’un marrit geton.',
 			),
 			'need_to' => 'Devèètz validar vòstra adreça electronica abans de poder utilizar %s.',

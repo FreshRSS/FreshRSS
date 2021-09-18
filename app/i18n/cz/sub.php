@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
-		'add' => 'Přidat kategorii',
 		'archiving' => 'Archivace',
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'URL webové stránky',
 		'websub' => 'Okamžité oznámení s WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
-	),
 	'import_export' => array(
 		'export' => 'Export',	// TODO - Translation
 		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Přihlásit (FreshRSS bookmark)',
 		'import_export' => 'Import / export',	// TODO - Translation
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Neaktivní kanály',
+			'main' => 'Přehled',
+			'repartition' => 'Rozdělení článků',
+		),
 		'subscription_management' => 'Správa subskripcí',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => '分类',
-		'add' => '添加分类',
 		'archiving' => '归档',
 		'empty' => '空分类',
 		'information' => '信息',
@@ -96,11 +95,6 @@ return array(
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',
 	),
-	'firefox' => array(
-		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到火狐阅读器列表',
-		'obsolete_63' => '从火狐63版本开始取消了添加自己非独立程序的订阅服务功能',
-		'title' => '火狐 RSS 阅读器',
-	),
 	'import_export' => array(
 		'export' => '导出',
 		'export_labelled' => '导出有标签的文章',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => '添加订阅源或分类',
-		'add_feed' => '添加订阅源',
-		'bookmark' => '订阅（FreshRSS 书签）',
 		'import_export' => '导入/导出',
 		'label_management' => '标签管理',
+		'stats' => array(
+			'idle' => '长期无更新订阅源',
+			'main' => '主要统计',
+			'repartition' => '文章分布',
+		),
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',
 	),

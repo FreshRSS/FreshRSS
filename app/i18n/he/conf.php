@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'ארכוב',
-		'delete_after' => 'מחיקת מאמרים לאחר',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'אפשרויות נוספות זמינות בזרמים ספציפיים',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'תאריך הפרסום',
 			'related_tags' => 'תגיות קשורות',
 			'sharing' => 'שיתוף',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'שורה עליונה',
 		),
 		'language' => 'שפה',
@@ -39,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'ערכת נושא',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'תצוגה',
 		'width' => array(
 			'content' => 'רוחב התוכן',
@@ -64,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'שאילתות',
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
-		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => array(
 			'_' => 'מסננים בשימוש:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -79,14 +85,11 @@ return array(
 		'get_category' => 'הצגת קטגוריה "%s"',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'ללא סינון',
-		'none' => 'אף שאילתה לא נוצרה עדיין.',
 		'number' => 'שאילתה מספר °%d',
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
-		'remove' => 'Remove user query',	// TODO - Translation
 		'search' => 'חיפוש "%s"',
 		'state_0' => 'הצגת כל המאמרים',
 		'state_1' => 'הצגת מאמרים שנקראו',
@@ -159,20 +162,20 @@ return array(
 	'sharing' => array(
 		'_' => 'שיתוף',
 		'add' => 'Add a sharing method',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'דואר אלקטרוני',
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'מידע נוסף',
 		'print' => 'הדפסה',
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',	// TODO - Translation
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'שיתוף שם לתצוגה',
 		'share_url' => 'לשימוש שתפו URL',
 		'title' => 'שיתוף',
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'קיצורי דרך',

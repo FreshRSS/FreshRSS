@@ -113,10 +113,6 @@ form th {
 	padding: 5px 0;
 }
 
-.form-group table {
-	margin: 10px 220px 0 0;
-}
-
 /*=== Buttons */
 button.as-link[disabled] {
 	color: #555 !important;
@@ -541,24 +537,18 @@ a.btn {
 	font-weight: normal;
 }
 
+.box .box-title .configure {
+	margin-left: 4px;
+}
+
 .box .box-content {
+	padding-right: 30px;
 	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
-}
-
-.box .box-title .configure,
-.box .box-content .item .configure {
-	visibility: hidden;
-}
-
-.box .box-title:hover .configure,
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 
 /*=== Tree */
@@ -664,22 +654,16 @@ a.btn {
 }
 
 .header > .item.title .logo {
-	width: 40px;
+	margin: 10px 0;
 	height: 40px;
+	filter: grayscale(100%) brightness(0%);
 }
 
 .header > .item.title {
 	width: 250px;
 }
 
-.header > .item.title h1 {
-	margin: 10px 0;
-}
-
-.header > .item.title h1 a {
-	color: #222;
-	font-size: 28px;
-	text-decoration: none;
+.header > .item.title a {
 	text-shadow: 0 1px #fff;
 }
 
@@ -1272,11 +1256,6 @@ a.btn {
 	.form-group .group-name {
 		padding-bottom: 0;
 		text-align: right;
-	}
-
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.header {

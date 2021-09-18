@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => '인증 시스템을 설정하는 동안 문제가 발생했습니다. 잠시 후 다시 시도하세요.',
-			'set' => '웹폼이 이제 기본 인증 시스템으로 설정되었습니다.',
-		),
 		'login' => array(
 			'invalid' => '유효하지 않은 로그인입니다',
 			'success' => '접속되었습니다',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => '접속이 해제되었습니다',
 		),
-		'no_password_set' => '관리자 암호가 설정되지 않았습니다. 이 기능은 사용할 수 없습니다.',
 	),
 	'conf' => array(
 		'error' => '설정을 저장하는 동안 문제가 발생했습니다',

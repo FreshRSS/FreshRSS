@@ -1,7 +1,11 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
+
+	<h1><?= _t('conf.sharing') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'integration') ?>"
 		data-simple='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls"><div class="stick">
@@ -20,7 +24,7 @@
 			<a target="_blank" rel="noreferrer" class="btn" title="<?= _t('conf.sharing.more_information') ?>" href="##help##"><?= _i('help') ?></a>
 			</div></div>' class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('conf.sharing') ?></legend>
+		
 		<?php
 			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
 				$share = FreshRSS_Share::get($share_options['type']);

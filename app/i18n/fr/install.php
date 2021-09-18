@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
 			'ok' => 'Votre version de PHP est la %s, qui est compatible avec FreshRSS.',
 		),
+		'reload' => 'Revérifier',
 		'tmp' => array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire temporaire sont bons.',
@@ -100,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Félicitations !',
 	'default_user' => 'Nom de l’utilisateur par défaut <small>(16 caractères alphanumériques maximum)</small>',
-	'delete_articles_after' => 'Supprimer les articles après',
 	'fix_errors_before' => 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 	'javascript_is_better' => 'FreshRSS est plus agréable à utiliser avec JavaScript activé',
 	'js' => array(

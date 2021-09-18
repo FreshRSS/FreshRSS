@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Er is een email naar het adres verzonden.',
 				'error' => 'Het emailadres kon niet worden gevalideerd.',
 				'ok' => 'Het emailadres is gevalideerd.',
-				'unneccessary' => 'Het emailadres is al eerder gevalideerd.',
+				'unnecessary' => 'Het emailadres is al eerder gevalideerd.',
 				'wrong_token' => 'Het emailadres kon niet worden gevalideerd vanwege een fout token.',
 			),
 			'need_to' => 'Het emailadres %1 moet worden gevalideerd voordat het kan worden gebruikt.',

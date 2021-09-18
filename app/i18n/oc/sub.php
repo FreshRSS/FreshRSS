@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Ajustar una categoria',
 		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'URL del site',
 		'websub' => 'Notificaciones instantáneas amb WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Seguissètz las etapas descrichas <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">aquí</a> per ajustar FreshRSS a la lista dels lectors de flux de Firefox.',
-		'obsolete_63' => 'A partir de la version 63 e las seguentas, Firefox permet pas mai d’ajustar vòstres pròpris servicis d’abonament.',
-		'title' => 'Lector de flux de Firefox',
-	),
 	'import_export' => array(
 		'export' => 'Exportar',
 		'export_labelled' => 'Exportar los articles etiquetats',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Ajustar un flux o una categoria',
-		'add_feed' => 'Ajustar un flux',
-		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
 		'label_management' => 'Gestion de las etiquetas',
+		'stats' => array(
+			'idle' => 'Fluxes inactius',
+			'main' => 'Estatisticas principalas',
+			'repartition' => 'Reparticion dels articles',
+		),
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),

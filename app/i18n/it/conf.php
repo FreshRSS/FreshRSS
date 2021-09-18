@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archiviazione',
-		'delete_after' => 'Rimuovi articoli dopo',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Data di pubblicazione',
 			'related_tags' => 'Tags correlati',
 			'sharing' => 'Condivisione',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Barra in alto',
 		),
 		'language' => 'Lingua',
@@ -39,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'Tema',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Visualizzazione',
 		'width' => array(
 			'content' => 'Larghezza contenuto',
@@ -64,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
-		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => array(
 			'_' => 'Filtro applicato:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -79,14 +85,11 @@ return array(
 		'get_category' => 'Mostra la categoria "%s" ',
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed "%s" ',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Nessun filtro',
-		'none' => 'Non hai creato nessuna ricerca personale.',
 		'number' => 'Ricerca n°%d',
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
-		'remove' => 'Remove user query',	// TODO - Translation
 		'search' => 'Cerca per "%s"',
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',
@@ -159,20 +162,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Condivisione',
 		'add' => 'Add a sharing method',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'Ulteriori informazioni',
 		'print' => 'Stampa',
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',	// TODO - Translation
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'Nome condivisione',
 		'share_url' => 'URL condivisione',
 		'title' => 'Condividi',
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'Comandi tastiera',

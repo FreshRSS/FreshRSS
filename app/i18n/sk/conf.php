@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivovanie',
-		'delete_after' => 'Vymazať články po',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Viac možností nájdete v nastaveniach kanála',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Dátum zverejnenia',
 			'related_tags' => 'Značky článku',
 			'sharing' => 'Zdieľanie',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Horný riadok',
 		),
 		'language' => 'Jazyk',
@@ -39,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
 		'theme' => 'Vzhľad',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Zobraziť',
 		'width' => array(
 			'content' => 'Šírka obsahu',
@@ -64,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Dopyty používateľa',
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
-		'display' => 'Zobraziť výsledky dopytu používateľa',
 		'filter' => array(
 			'_' => 'Použitý filter:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -79,14 +85,11 @@ return array(
 		'get_category' => 'Zobraziť kategóriu "%s"',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál "%s"',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Žiadny filter',
-		'none' => 'Zatiaľ ste nevytvorili používateľský dopyt.',
 		'number' => 'Dopyt číslo %d',
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
-		'remove' => 'Vymazať dopyt používateľa',
 		'search' => 'Vyhľadáva sa: "%s"',
 		'state_0' => 'Zobraziť všetky články',
 		'state_1' => 'Zobraziť prečítané články',

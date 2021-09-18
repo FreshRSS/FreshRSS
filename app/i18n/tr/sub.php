@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategori',
-		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'Site URL',
 		'websub' => 'WebSub ile anlık bildirim',
 	),
-	'firefox' => array(
-		'documentation' => 'FreshRSS\'i Firefox akış okuma listesine eklemek için <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">buradaki</a> adımları takip edin.',
-		'obsolete_63' => 'Sürüm 63 itibari ile Firefox bağımsız uygulamaların aboneliklerinize olan izni kaldırdı.',
-		'title' => 'Firefox akış okuyucu',
-	),
 	'import_export' => array(
 		'export' => 'Dışa aktar',
 		'export_labelled' => 'Etiketli makaleleri dışarı aktar',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Kategori veya akış ekle',
-		'add_feed' => 'Akış ekle',
-		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
 		'import_export' => 'İçe / dışa aktar',
 		'label_management' => 'Etiket yönetimi',
+		'stats' => array(
+			'idle' => 'Boştaki akışlar',
+			'main' => 'Ana istatistikler',
+			'repartition' => 'Makale dağılımı',
+		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',
 	),

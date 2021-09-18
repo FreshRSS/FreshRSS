@@ -13,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Adicionar uma categoria',
 		'archiving' => 'Arquivar',
 		'empty' => 'Categoria vazia',
 		'information' => 'Informações',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'URL do site',
 		'websub' => 'Notificação instantânea com WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Siga as instruções descritas em <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> para adicionar o FreshRSS para o seu leitor de Feed do Firefox.',
-		'obsolete_63' => 'A partir da versão 63, o Firefox removeu a capacidade de adicionar seus próprios serviços de assinatura que não são programas autônomos.',
-		'title' => 'Leitor de feed do Firefox',
-	),
 	'import_export' => array(
 		'export' => 'Exportar',
 		'export_labelled' => 'Exportar seus artigos etiquetados',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Inscreva-se (FreshRSS favoritos)',
 		'import_export' => 'Importar / exportar',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Feeds inativos',
+			'main' => 'Estatísticas principais',
+			'repartition' => 'Repartição de artigos',
+		),
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),

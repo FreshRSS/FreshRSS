@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Arquivar',
-		'delete_after' => 'Remover artigos depois',
 		'exception' => 'Regras de exceção da limpeza',
 		'help' => 'Mais opções estão disponíveis nas configurações individuais do Feed',
 		'keep_favourites' => 'Nunca deletar os favoritos',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Data da publicação',
 			'related_tags' => 'Tags relacionadas',
 			'sharing' => 'Compartilhar',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Linha superior',
 		),
 		'language' => 'Idioma',
@@ -39,6 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
 		'theme' => 'Tema',
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Exibição',
 		'width' => array(
 			'content' => 'Largura do conteúdo',
@@ -64,7 +71,6 @@ return array(
 	'query' => array(
 		'_' => 'Queries do usuário',
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
-		'display' => 'Exibir resultados da query do usuário',
 		'filter' => array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -79,14 +85,11 @@ return array(
 		'get_category' => 'Visualizar "%s" categoria',
 		'get_favorite' => 'Visualizar artigos favoritos',
 		'get_feed' => 'Visualizar "%s" feed',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Sem filtro',
-		'none' => 'Você não criou nenhuma query de usuário ainda.',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Exibir artigos mais antigos primeiro',
 		'order_desc' => 'Exibir artigos mais novos primeiro',
-		'remove' => 'Remover query do usuário',
 		'search' => 'Busca por "%s"',
 		'state_0' => 'Exibir todos os artigos',
 		'state_1' => 'Exibir artigos lidos',

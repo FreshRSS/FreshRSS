@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',
 		),
+		'reload' => 'Check again',
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the temp directory are good.',
@@ -100,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Congratulations!',
 	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
-	'delete_articles_after' => 'Remove articles after',
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',
 	'js' => array(
@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Choose a language for FreshRSS',
 		'defined' => 'Language has been defined.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',
 	'ok' => 'The installation process was successful.',
 	'session' => array(
 		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',

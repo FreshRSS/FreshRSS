@@ -1,7 +1,9 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
 	<h1><?= _t('admin.extensions.title') ?></h1>
 	<h2><?= _t('admin.extensions.system') ?></h2>
@@ -32,35 +34,37 @@
 
 	<?php if (!empty($this->available_extensions)) { ?>
 		<h2><?= _t('admin.extensions.community') ?></h2>
-		<table>
-			<tr>
-				<th><?= _t('admin.extensions.name') ?></th>
-				<th><?= _t('admin.extensions.version') ?></th>
-				<th><?= _t('admin.extensions.author') ?></th>
-				<th><?= _t('admin.extensions.description') ?></th>
-			</tr>
-			<?php foreach ($this->available_extensions as $ext) { ?>
+		<div class="table-wrapper">
+			<table>
 				<tr>
-					<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
-					<td><?= $ext['version'] ?></td>
-					<td><?= $ext['author'] ?></td>
-					<td>
-						<?= $ext['description'] ?>
-						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
-								<span class="alert alert-success">
-									<?= _t('admin.extensions.latest') ?>
-								</span>
-							<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
-								<span class="alert alert-warn">
-									<?= _t('admin.extensions.update') ?>
-								</span>
-							<?php } ?>
-						<?php } ?>
-					</td>
+					<th><?= _t('admin.extensions.name') ?></th>
+					<th><?= _t('admin.extensions.version') ?></th>
+					<th><?= _t('admin.extensions.author') ?></th>
+					<th><?= _t('admin.extensions.description') ?></th>
 				</tr>
-			<?php } ?>
-		</table>
+				<?php foreach ($this->available_extensions as $ext) { ?>
+					<tr>
+						<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
+						<td><?= $ext['version'] ?></td>
+						<td><?= $ext['author'] ?></td>
+						<td>
+							<?= $ext['description'] ?>
+							<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+								<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+									<span class="alert alert-success">
+										<?= _t('admin.extensions.latest') ?>
+									</span>
+								<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+									<span class="alert alert-warn">
+										<?= _t('admin.extensions.update') ?>
+									</span>
+								<?php } ?>
+							<?php } ?>
+						</td>
+					</tr>
+				<?php } ?>
+			</table>
+		</div>
 	<?php } ?>
 </div>
 

@@ -1,59 +1,57 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
 	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('conf.query') ?></legend>
+		<h1><?= _t('conf.query') ?></h1>
 
 		<?php foreach ($this->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
-			<label class="group-name" for="queries_<?= $key ?>_name">
-				<?= _t('conf.query.number', $key + 1) ?>
-			</label>
-
-			<div class="group-controls">
-				<?= $query->getName() ?>
-				<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', $key) ?>"><?= _i('configure') ?></a>
-				<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
-				<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
-				<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
-				<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
-				<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
-				<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
-
+			<div class="box">
+				<div class="box-title">
+					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', $key) ?>"><?= _i('configure') ?></a><?= $query->getName() ?>
+					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
+				</div>
 				<?php if (!$query->hasParameters()) { ?>
-				<div class="alert alert-warn">
-					<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
+				<div class="box-content">
+					<div class="alert alert-warn">
+						<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
+					</div>
 				</div>
 				<?php } elseif ($query->isDeprecated()) { ?>
-				<div class="alert alert-error">
-					<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
+				<div class="box-content">
+					<div class="alert alert-error">
+						<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
+					</div>
 				</div>
 				<?php } else { ?>
-				<div class="alert alert-success">
-					<div class="alert-head"><?= _t('conf.query.filter') ?></div>
+					<ul class="box-content">
+					<?php if ($query->hasSearch()) { ?>
+					<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
+					<?php } ?>
 
-					<ul>
-						<?php if ($query->hasSearch()) { ?>
-						<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
-						<?php } ?>
+					<?php if ($query->getState()) { ?>
+					<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
+					<?php } ?>
 
-						<?php if ($query->getState()) { ?>
-						<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
-						<?php } ?>
+					<?php if ($query->getOrder()) { ?>
+					<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
+					<?php } ?>
 
-						<?php if ($query->getOrder()) { ?>
-						<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
-						<?php } ?>
-
-						<?php if ($query->getGet()) { ?>
-						<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
-						<?php } ?>
+					<?php if ($query->getGet()) { ?>
+					<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
+					<?php } ?>
+					<?php } ?>
 					</ul>
-				</div>
-				<?php } ?>
 			</div>
 		</div>
 		<?php } ?>

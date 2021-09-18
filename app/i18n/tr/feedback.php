@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Sistem yapılandırma kimlik doğrulaması sırasında hata oldu. Lütfen daha sonra tekrar deneyin.',
-			'set' => 'Kimlik doğrulama sistemi tamamnaldı.',
-		),
 		'login' => array(
 			'invalid' => 'Giriş geçersiz',
 			'success' => 'Bağlantı kuruldu',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Bağlantı koptu',
 		),
-		'no_password_set' => 'Yönetici şifresi ayarlanmadı. Bu özellik kullanıma uygun değil.',
 	),
 	'conf' => array(
 		'error' => 'Yapılandırma ayarları kaydedilirken hata oluştu',

@@ -1,11 +1,15 @@
 <?php $this->partial('aside_subscription'); ?>
 
 <div class="post ">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
+	<h1><?= _t('sub.menu.import_export') ?></h1>
+
+	<h2><?= _t('sub.import_export.import') ?></h2>
 	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('sub.import_export.import') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="file">
 				<?= extension_loaded('zip') ? _t('sub.import_export.file_to_import') : _t('sub.import_export.file_to_import_no_zip') ?>
@@ -22,10 +26,10 @@
 		</div>
 	</form>
 
+	<h2><?= _t('sub.import_export.export') ?></h2>
 	<?php if (count($this->feeds) > 0) { ?>
 	<form method="post" action="<?= _url('importExport', 'export') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('sub.import_export.export') ?></legend>
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="export_opml">

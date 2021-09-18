@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Projectwebsite',
 		'title' => 'Over',
 		'version' => 'Versie',
-		'website' => 'Website',
 	),
 	'feed' => array(
 		'add' => 'U kunt wat feeds toevoegen.',
