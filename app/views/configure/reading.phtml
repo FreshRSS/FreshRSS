@@ -207,11 +207,31 @@
 						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['scroll'] ?>"/>
 					<?= _t('conf.reading.read.scroll') ?>
 				</label>
+
+				<label class="checkbox" for="keep_max_n_unread">
+					<input type="checkbox" name="enable_keep_max_n_unread" id="enable_keep_max_n_unread" value="1"<?=
+						empty(FreshRSS_Context::$user_conf->mark_when['max_n_unread']) ? '' : ' checked="checked"' ?>
+						data-leave-validation="<?= empty(FreshRSS_Context::$user_conf->mark_when['max_n_unread']) ? 0 : 1 ?>"/>
+					<?= _t('conf.reading.read.keep_max_n_unread') ?>
+					<?php $keep_max_n_unread = empty(FreshRSS_Context::$user_conf->mark_when['max_n_unread']) ? 1000 : FreshRSS_Context::$user_conf->mark_when['max_n_unread']; ?>
+					<input type="number" id="keep_max_n_unread" name="keep_max_n_unread" min="0" value="<?= $keep_max_n_unread ?>" data-leave-validation="<?= $keep_max_n_unread ?>" />
+				</label>
+
 				<label class="checkbox" for="check_reception">
 					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?=
 						FreshRSS_Context::$user_conf->mark_when['reception'] ? ' checked="checked"' : '' ?>
 						data-leave-validation="<?= FreshRSS_Context::$user_conf->mark_when['reception'] ?>"/>
 					<?= _t('conf.reading.read.upon_reception') ?>
+				</label>
+
+				<label class="checkbox" for="read_when_same_title_in_feed">
+					<input type="checkbox" name="enable_read_when_same_title_in_feed" id="enable_read_when_same_title_in_feed" value="1"<?=
+						empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? '' : ' checked="checked"' ?>
+						data-leave-validation="<?= empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? 0 : 1 ?>"/>
+					<?= _t('conf.reading.read.when_same_title') ?>
+					<?php $read_when_same_title_in_feed = empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? 25 : FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']; ?>
+					<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
+						value="<?= $read_when_same_title_in_feed ?>" data-leave-validation="<?= $read_when_same_title_in_feed ?>" />
 				</label>
 			</div>
 		</div>

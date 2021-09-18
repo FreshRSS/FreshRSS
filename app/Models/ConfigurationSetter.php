@@ -205,12 +205,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['lazyload'] = $this->handleBool($value);
 	}
 
-	private function _mark_when(&$data, $values) {
-		foreach ($values as $key => $value) {
-			$data['mark_when'][$key] = $this->handleBool($value);
-		}
-	}
-
 	private function _onread_jump_next(&$data, $value) {
 		$data['onread_jump_next'] = $this->handleBool($value);
 	}

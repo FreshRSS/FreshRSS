@@ -348,6 +348,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$this->_isRead(true);
 			}
 			if (isset($titlesAsRead[$this->title()])) {
+				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {

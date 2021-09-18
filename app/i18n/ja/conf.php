@@ -127,9 +127,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '記事を元のwebサイトで開いたとき',
 			'article_viewed' => '記事を読んだとき',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'スクロールしているとき',
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => '記事を表示する',

@@ -360,7 +360,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			if (count($newGuids) > 0) {
 				$titlesAsRead = [];
-				if ($feed->attributes('read_when_same_title_in_feed')) {
+				$readWhenSameTitleInFeed = $feed->attributes('read_when_same_title_in_feed');
+				if ($readWhenSameTitleInFeed == false) {
+					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
+				}
+				if ($readWhenSameTitleInFeed > 0) {
 					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $feed->attributes('read_when_same_title_in_feed')));
 				}
 
@@ -413,7 +417,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$entry->_id($id);
 
 						$entry->applyFilterActions($titlesAsRead);
-						if ($feed->attributes('read_when_same_title_in_feed')) {
+						if ($readWhenSameTitleInFeed > 0) {
 							$titlesAsRead[$entry->title()] = true;
 						}
 
