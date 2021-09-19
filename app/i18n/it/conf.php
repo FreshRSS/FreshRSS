@@ -127,9 +127,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'Quando un articolo è aperto nel suo sito di origine',
 			'article_viewed' => 'Quando un articolo viene letto',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'Scorrendo la pagina',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Articoli da visualizzare',

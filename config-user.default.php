@@ -49,9 +49,11 @@ return array (
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
-		'site' => true,
-		'scroll' => true,
+		'max_n_unread' => false,
 		'reception' => false,
+		'same_title_in_feed' => false,
+		'scroll' => true,
+		'site' => true,
 	),
 	'theme' => 'Origine',
 	'content_width' => 'thin',

@@ -359,6 +359,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$needFeedCacheRefresh = false;
 
 			if (count($newGuids) > 0) {
+				$titlesAsRead = [];
+				$readWhenSameTitleInFeed = $feed->attributes('read_when_same_title_in_feed');
+				if ($readWhenSameTitleInFeed == false) {
+					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
+				}
+				if ($readWhenSameTitleInFeed > 0) {
+					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $feed->attributes('read_when_same_title_in_feed')));
+				}
+
+				$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
+						$feed->attributes('mark_updated_article_unread')
+					) : FreshRSS_Context::$user_conf->mark_updated_article_unread;
+
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
 				$newGuids = array();
@@ -379,11 +392,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						} else {	//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
-							$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ?
-								$feed->attributes('mark_updated_article_unread') :
-								FreshRSS_Context::$user_conf->mark_updated_article_unread;
 							$needFeedCacheRefresh = $mark_updated_article_unread;
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							if ($mark_updated_article_unread) {
+								$feed->incPendingUnread();	//Maybe
+							}
 
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if ($entry === null) {
@@ -403,7 +416,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$id = uTimeString();
 						$entry->_id($id);
 
-						$entry->applyFilterActions();
+						$entry->applyFilterActions($titlesAsRead);
+						if ($readWhenSameTitleInFeed > 0) {
+							$titlesAsRead[$entry->title()] = true;
+						}
 
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 						if ($entry === null) {
@@ -424,6 +440,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							$entryDAO->beginTransaction();
 						}
 						$entryDAO->addEntry($entry->toArray());
+						$feed->incPendingUnread();
 						$nb_new_articles++;
 					}
 				}
@@ -445,6 +462,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
 			}
+			$feed->keepMaxUnread();
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}

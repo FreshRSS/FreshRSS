@@ -127,9 +127,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'kaydırma yapılırken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',

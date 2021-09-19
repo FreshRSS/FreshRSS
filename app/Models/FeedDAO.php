@@ -363,6 +363,19 @@ SQL;
 		}
 	}
 
+	public function listTitles($id, $limit = null) {
+		$sql = 'SELECT title FROM `_entry` WHERE id_feed=:id_feed ORDER BY id DESC'
+			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+
+		$stm = $this->pdo->prepare($sql);
+		$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
+
+		if ($stm && $stm->execute()) {
+			return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		}
+		return false;
+	}
+
 	public function listByCategory($cat) {
 		$sql = 'SELECT * FROM `_feed` WHERE category=?';
 		$stm = $this->pdo->prepare($sql);
@@ -416,6 +429,46 @@ SQL;
 			Minz_Log::error('SQL error updateCachedValue: ' . $info[2]);
 			return false;
 		}
+	}
+
+	public function keepMaxUnread($id, $n) {
+		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
+		$sql = <<<'SQL'
+UPDATE `_entry` SET is_read=1
+WHERE id_feed=:id_feed1 AND is_read=0 AND id <= (SELECT e3.id FROM (
+	SELECT e2.id FROM `_entry` e2
+	WHERE e2.id_feed=:id_feed2 AND e2.is_read=0
+	ORDER BY e2.id DESC
+	LIMIT 1
+	OFFSET :limit) e3)
+SQL;
+
+		$stm = $this->pdo->prepare($sql);
+		$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT);
+		$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT);
+		$stm->bindParam(':limit', $n, PDO::PARAM_INT);
+
+		if (!$stm || !$stm->execute()) {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error keepMaxUnread: ' . json_encode($info));
+			return false;
+		}
+		$affected = $stm->rowCount();
+
+		if ($affected > 0) {
+			$sql = 'UPDATE `_feed` '
+				 . 'SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
+				 . ' WHERE id=:id';
+			$stm = $this->pdo->prepare($sql);
+			$stm->bindParam(':id', $id_feed, PDO::PARAM_INT);
+			if (!($stm && $stm->execute())) {
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::error('SQL error keepMaxUnread cache: ' . json_encode($info));
+				return false;
+			}
+		}
+
+		return $affected;
 	}
 
 	public function truncate($id) {

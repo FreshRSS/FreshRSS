@@ -79,6 +79,43 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="ttl"><?= _t('sub.feed.ttl') ?></label>
+			<div class="group-controls">
+				<select class="number" name="ttl" id="ttl" required="required"><?php
+					$found = false;
+					foreach (array(FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
+							3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
+							36000 => '10h', 43200 => '12h', 64800 => '18h',
+							86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
+							604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo') as $v => $t) {
+						echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
+						if ($this->feed->ttl() == $v) {
+							$found = true;
+						}
+					}
+					if (!$found) {
+						echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
+					}
+				?></select>
+				<label for="mute">
+					<input type="checkbox" name="mute" id="mute" value="1"<?= $this->feed->mute() ? ' checked="checked"' : '' ?> />
+					<?= _t('sub.feed.mute') ?>
+				</label>
+			</div>
+		</div>
+
+		<?php if ($this->feed->pubSubHubbubEnabled()) { ?>
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="pubsubhubbub">
+						<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1" checked="checked" />
+						<?= _t('sub.feed.websub') ?>
+					</label>
+				</div>
+			</div>
+		<?php } ?>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
@@ -87,6 +124,104 @@
 					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
 					formaction="<?= _url('feed', 'delete', 'id', $this->feed->id()) ?>"
 					formmethod="post"><?= _t('gen.action.remove') ?></button>
+			</div>
+		</div>
+
+		<legend><?= _t('sub.feed.auth.configuration') ?></legend>
+		<?php $auth = $this->feed->httpAuth(false); ?>
+		<div class="form-group">
+			<label class="group-name" for="http_user_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.username') ?></label>
+			<div class="group-controls">
+				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?=
+					empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
+			</div>
+
+			<label class="group-name" for="http_pass_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.password') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
+						$auth['password'] ?>" autocomplete="new-password" />
+					<a class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+
+		<legend><?= _t('sub.feed.filteractions') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="mark_updated_article_unread"><?= _t('conf.reading.mark_updated_article_unread') ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="mark_updated_article_unread">
+					<select name="mark_updated_article_unread" id="mark_updated_article_unread">
+						<option value=""<?= $this->feed->attributes('mark_updated_article_unread') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $this->feed->attributes('mark_updated_article_unread') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $this->feed->attributes('mark_updated_article_unread') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
+			<div class="group-controls">
+				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="read_upon_reception"><?= _t('conf.reading.read.when') ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="read_upon_reception">
+					<select name="read_upon_reception" id="read_upon_reception">
+						<option value=""<?= $this->feed->attributes('read_upon_reception') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $this->feed->attributes('read_upon_reception') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $this->feed->attributes('read_upon_reception') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+					<?= _t('conf.reading.read.upon_reception') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="read_when_same_title_in_feed">
+					<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed">
+						<option value=""<?= $this->feed->attributes('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $this->feed->attributes('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="10"<?= $this->feed->attributes('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
+						<option value="25"<?= $this->feed->attributes('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
+						<option value="100"<?= $this->feed->attributes('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
+						<option value="1000"<?= $this->feed->attributes('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
+					</select>
+					<?= _t('conf.reading.read.when_same_title') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
+			<div class="group-controls">
+				<textarea name="filteractions_read" id="filteractions_read"><?php
+					foreach ($this->feed->filtersAction('read') as $filterRead) {
+						echo $filterRead->getRawInput(), PHP_EOL;
+					}
+				?></textarea>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 
@@ -220,75 +355,11 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="ttl"><?= _t('sub.feed.ttl') ?></label>
-			<div class="group-controls">
-				<select class="number" name="ttl" id="ttl" required="required"><?php
-					$found = false;
-					foreach (array(FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
-							3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
-							36000 => '10h', 43200 => '12h', 64800 => '18h',
-							86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
-							604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo') as $v => $t) {
-						echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
-						if ($this->feed->ttl() == $v) {
-							$found = true;
-						}
-					}
-					if (!$found) {
-						echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
-					}
-				?></select>
-				<label for="mute">
-					<input type="checkbox" name="mute" id="mute" value="1"<?= $this->feed->mute() ? ' checked="checked"' : '' ?> />
-					<?= _t('sub.feed.mute') ?>
-				</label>
-			</div>
-		</div>
-
-		<?php if ($this->feed->pubSubHubbubEnabled()) { ?>
-			<div class="form-group">
-				<div class="group-controls">
-					<label class="checkbox" for="pubsubhubbub">
-						<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1" checked="checked" />
-						<?= _t('sub.feed.websub') ?>
-					</label>
-				</div>
-			</div>
-		<?php } ?>
-
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 				<button class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
-			</div>
-		</div>
-
-		<legend><?= _t('sub.feed.auth.configuration') ?></legend>
-		<?php $auth = $this->feed->httpAuth(false); ?>
-		<div class="form-group">
-			<label class="group-name" for="http_user_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.username') ?></label>
-			<div class="group-controls">
-				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?=
-					empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
-			</div>
-
-			<label class="group-name" for="http_pass_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.password') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
-						$auth['password'] ?>" autocomplete="new-password" />
-					<a class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></a>
-				</div>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 
@@ -331,43 +402,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_updated_article_unread"><?= _t('conf.reading.mark_updated_article_unread') ?></label>
-			<div class="group-controls">
-				<label class="checkbox" for="mark_updated_article_unread">
-					<select name="mark_updated_article_unread" id="mark_updated_article_unread">
-						<option value=""<?= $this->feed->attributes('mark_updated_article_unread') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-						<option value="0"<?= $this->feed->attributes('mark_updated_article_unread') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-						<option value="1"<?= $this->feed->attributes('mark_updated_article_unread') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
-					</select>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="read_upon_reception"><?= _t('conf.reading.read.when') ?></label>
-			<div class="group-controls">
-				<label class="checkbox" for="read_upon_reception">
-					<select name="read_upon_reception" id="read_upon_reception">
-						<option value=""<?= $this->feed->attributes('read_upon_reception') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-						<option value="0"<?= $this->feed->attributes('read_upon_reception') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-						<option value="1"<?= $this->feed->attributes('read_upon_reception') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
-					</select>
-					<?= _t('conf.reading.read.upon_reception') ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="clear_cache">
-					<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributes('clear_cache') ? ' checked="checked"' : '' ?> />
-					<?= _t('sub.feed.clear_cache') ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="path_entries"><?= _t('sub.feed.useragent') ?></label>
+			<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="extend" value="<?=
@@ -380,7 +415,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="path_entries"><?= _t('sub.feed.proxy') ?></label>
+			<label class="group-name" for="proxy_type"><?= _t('sub.feed.proxy') ?></label>
 			<div class="group-controls">
 				<select class="number" name="proxy_type" id="proxy_type"><?php
 					$type = '';
@@ -422,22 +457,18 @@
 			</div>
 		</div>
 
-		<legend><?= _t('sub.feed.filteractions') ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
-				<textarea name="filteractions_read" id="filteractions_read"><?php
-					foreach ($this->feed->filtersAction('read') as $filterRead) {
-						echo $filterRead->getRawInput(), PHP_EOL;
-					}
-				?></textarea>
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				<label class="checkbox" for="clear_cache">
+					<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributes('clear_cache') ? ' checked="checked"' : '' ?> />
+					<?= _t('sub.feed.clear_cache') ?>
+				</label>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
