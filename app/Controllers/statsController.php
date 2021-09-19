@@ -58,6 +58,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.js')));
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
 		$entryCount = $statsDAO->calculateEntryCount();
 		$this->view->count = $this->convertToSerie($entryCount);
