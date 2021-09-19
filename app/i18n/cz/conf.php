@@ -127,9 +127,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je otevřen původní web s článkem',
 			'article_viewed' => 'během čtení článku',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'během skrolování',
 			'upon_reception' => 'po načtení článku',
 			'when' => 'Označit článek jako přečtený…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Počet zobrazených článků',

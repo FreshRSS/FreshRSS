@@ -121,9 +121,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->sort_order = Minz_Request::param('sort_order', 'DESC');
 			FreshRSS_Context::$user_conf->mark_when = array(
 				'article' => Minz_Request::param('mark_open_article', false),
-				'site' => Minz_Request::param('mark_open_site', false),
-				'scroll' => Minz_Request::param('mark_scroll', false),
+				'max_n_unread' => Minz_Request::paramBoolean('enable_keep_max_n_unread') ? Minz_Request::param('keep_max_n_unread', false) : false,
 				'reception' => Minz_Request::param('mark_upon_reception', false),
+				'same_title_in_feed' => Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') ?
+					Minz_Request::param('read_when_same_title_in_feed', false) : false,
+				'scroll' => Minz_Request::param('mark_scroll', false),
+				'site' => Minz_Request::param('mark_open_site', false),
 			);
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
@@ -210,7 +213,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			} elseif (!$keepMax = Minz_Request::param('keep_max')) {
 				$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
 			}
-			if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
+			if (Minz_Request::paramBoolean('enable_keep_period')) {
 				$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 				if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
 					$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));

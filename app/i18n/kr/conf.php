@@ -127,9 +127,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
 			'article_viewed' => '글을 읽었을 때',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => '스크롤을 하며 지나갈 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => '글 표시 방식',
