@@ -69,29 +69,168 @@
 
 		<div class="stat">
 			<h2><?= _t('admin.stats.entry_per_day') ?></h2>
-			<div id="statsEntryPerDay" class="statGraph"></div>
+			<div>
+				<canvas id="statsEntriesPerDay"></canvas>
+			</div>
 		</div>
 
 		<div class="stat half">
 			<h2><?= _t('admin.stats.feed_per_category') ?></h2>
-			<div id="statsFeedPerCategory" class="statGraph"></div>
-			<div id="statsFeedPerCategoryLegend"></div>
+			<div>
+				<canvas id="statsFeedsPerCategory"></canvas>
+			</div>
 		</div>
 
 		<div class="stat half">
 			<h2><?= _t('admin.stats.entry_per_category') ?></h2>
-			<div id="statsEntryPerCategory" class="statGraph"></div>
-			<div id="statsEntryPerCategoryLegend"></div>
+			<div>
+				<canvas id="statsEntriesPerCategory"></canvas>
+			</div>
 		</div>
 	</div>
 </div>
 
-<script id="jsonStats" type="application/json"><?php
+<script class="jsonData" type="application/json">
+<?php
 echo json_encode(array(
-	'average' => $this->average,
-	'dataCount' => $this->count,
-	'feedByCategory' => $this->feedByCategory,
-	'entryByCategory' => $this->entryByCategory,
+	'stats' => array (
+		'canvasID' => 'statsEntriesPerDay',
+		'config' => array(
+			'type' => 'scatter',
+			'data' => array(
+				'datasets' => array(
+					array(
+						'type' => 'bar',
+						'label' => _t('admin.stats.entry_per_day'),  // Todo: better i18n
+						'backgroundColor' => '#0062BD',
+						'borderColor' => '#0062BD',
+						'data' => $this->entryCount,
+						'barPercentage'=> 1.0,
+    					'categoryPercentage' => 1.0,
+						'order' => 2
+					),
+					array(
+						'type' => 'line',
+						'label' => 'Average ('.$this->average.')',  // Todo: i18n
+						'borderColor' => 'rgb(192,216,0)',
+						'data' => array (
+							-30 => $this->average,
+							-1 => $this->average,
+						),
+						'order' => 1
+					),
+				)
+			),
+			'options' => array(
+				'scales' => array(
+					'y' => array (
+						'beginAtZero' => true,
+					),
+				),
+				'elements' => array(
+					'point' => array (
+						'radius' => 0
+					)
+				)
+			)
+		)
+	)
 ), JSON_UNESCAPED_UNICODE);
 ?></script>
-<script src="../scripts/stats.js?<?= @filemtime(PUBLIC_PATH . '/scripts/stats.js') ?>"></script>
+
+<script class="jsonData" type="application/json">
+<?php
+echo json_encode(array(
+	'stats' => array (
+		'canvasID' => 'statsFeedsPerCategory',
+		'config' => array(
+			'type' => 'doughnut',
+			'data' => array(
+				'labels' => $this->feedByCategory['label'],
+				'datasets' => array(
+					array(
+						'label' => _t('admin.stats.feed_per_category'),
+						'backgroundColor' => array(
+							'#0b84a5',  //petrol
+							'#f6c85f', // sand
+							'#6f4e7c', //purple
+							'#9dd866', //green
+							'#ca472f', //red
+							'#ffa056', //orange
+							'#8dddd0', // turkis
+							'#f6c85f', // sand
+							'#6f4e7c', //purple
+							'#9dd866', //green
+							'#ca472f', //red
+							'#ffa056', //orange
+							'#8dddd0' // turkis
+						),
+						'data' => $this->feedByCategory['data'],
+					)
+				)
+			),
+			'options' => array(
+				'layout' => array(
+					'padding' => 20
+				),
+				'plugins' => array(
+					'legend' => array(
+						'position' => 'bottom',
+						'align' => 'start'
+					)
+				),
+			)
+		)
+	)
+), JSON_UNESCAPED_UNICODE);
+?></script>
+
+<script class="jsonData" type="application/json">
+<?php
+echo json_encode(array(
+	'stats' => array (
+		'canvasID' => 'statsEntriesPerCategory',
+		'config' => array(
+			'type' => 'doughnut',
+			'data' => array(
+				'labels' => $this->entryByCategory['label'],
+				'datasets' => array(
+					array(
+						'label' => _t('admin.stats.entry_per_category'),
+						'backgroundColor' => array(
+							'#0b84a5',  //petrol
+							'#f6c85f', // sand
+							'#6f4e7c', //purple
+							'#9dd866', //green
+							'#ca472f', //red
+							'#ffa056', //orange
+							'#8dddd0', // turkis
+							'#f6c85f', // sand
+							'#6f4e7c', //purple
+							'#9dd866', //green
+							'#ca472f', //red
+							'#ffa056', //orange
+							'#8dddd0' // turkis
+						),
+						'data' => $this->entryByCategory['data'],
+					)
+				)
+			),
+			'options' => array(
+				'layout' => array(
+					'padding' => 20
+				),
+				'plugins' => array(
+					'legend' => array(
+						'position' => 'bottom',
+						'align' => 'start'
+					)
+				),
+			)
+		)
+	)
+), JSON_UNESCAPED_UNICODE);
+?></script>
+
+
+<script src="../scripts/statsWithChartjs.js?<?= @filemtime(PUBLIC_PATH . '/scripts/statsWithChartjs.js') ?>"></script>

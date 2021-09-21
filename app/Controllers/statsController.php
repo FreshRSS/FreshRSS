@@ -49,22 +49,36 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 *
 	 * It displays the statistic main page.
 	 * The values computed to display the page are:
-	 *   - repartition of read/unread/favorite/not favorite
-	 *   - number of article per day
-	 *   - number of feed by category
-	 *   - number of article by category
-	 *   - list of most prolific feed
+	 *   - repartition of read/unread/favorite/not favorite (repartition)
+	 *   - number of article per day (entryCount)
+	 *   - number of feed by category (feedByCategory)
+	 *   - number of article by category (entryByCategory)
+	 *   - list of most prolific feed (topFeed)
 	 */
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.js')));
+		
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
+
 		$entryCount = $statsDAO->calculateEntryCount();
-		$this->view->count = $this->convertToSerie($entryCount);
+		$this->view->entryCount = $entryCount;
 		$this->view->average = round(array_sum(array_values($entryCount)) / count($entryCount), 2);
-		$this->view->feedByCategory = $this->convertToPieSerie($statsDAO->calculateFeedByCategory());
-		$this->view->entryByCategory = $this->convertToPieSerie($statsDAO->calculateEntryByCategory());
+		
+		$feedByCategory_calculated = $statsDAO->calculateFeedByCategory();
+		for ( $i = 0; $i < count($feedByCategory_calculated); $i++) {
+			$feedByCategory['label'][$i] 	= $feedByCategory_calculated[$i]['label'];
+			$feedByCategory['data'][$i] 	= $feedByCategory_calculated[$i]['data'];
+		}
+		$this->view->feedByCategory = $feedByCategory;
+
+		$entryByCategory_calculated = $statsDAO->calculateEntryByCategory();
+		for ( $i = 0; $i < count($entryByCategory_calculated); $i++) {
+			$entryByCategory['label'][$i] 	= $entryByCategory_calculated[$i]['label'];
+			$entryByCategory['data'][$i] 	= $entryByCategory_calculated[$i]['data'];
+		}
+		$this->view->entryByCategory = $entryByCategory;
+
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
 	}
 
