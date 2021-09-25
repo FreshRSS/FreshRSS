@@ -67,6 +67,9 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 								return val;
 							} 
 						}
+					},
+					grid: {
+						display: false
 					}
 				}
 			},
@@ -86,7 +89,7 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 				legend: {
 					display: false
 				}
-			},
+			}
 		}
 	}
 }
@@ -142,7 +145,7 @@ function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, data
 					data: dataBarChart,
 					barPercentage: 1.0,
 					categoryPercentage: 1.0,
-					order: 2,
+					order: 2
 				},
 				{
 					// average line chart
@@ -174,6 +177,9 @@ function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, data
 								return val;
 							} 
 						}
+					},
+					grid: {
+						display: false
 					}
 				}
 			},

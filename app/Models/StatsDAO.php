@@ -150,7 +150,7 @@ SQL;
 
 		switch ($period) {
 			case '%H':
-				$periodMax = 24;
+				$periodMax = 23;
 				break;
 			case '%w':
 				$periodMax = 7;

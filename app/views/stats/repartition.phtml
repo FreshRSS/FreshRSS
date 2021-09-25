@@ -61,7 +61,8 @@
 					'canvasID' => 'statsEntriesPerHour',
 					'charttype' => 'bar',
 					'data' => $this->repartitionHour,
-					'label' => _t('admin.stats.entry_count')
+					'label' => _t('admin.stats.entry_count'),
+					'xAxisLabels' => $this->hours24Labels
 				), JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>

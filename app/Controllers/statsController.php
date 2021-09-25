@@ -197,5 +197,11 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 
 		$this->view->repartitionMonth 		= $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
 		$this->view->averageMonth 			= $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
+
+		for ($i = 0; $i < 24; $i++) {
+			$hours24Labels[$i] = $i.":xx";
+		}
+
+		$this->view->hours24Labels = $hours24Labels;
 	}
 }
