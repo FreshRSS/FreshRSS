@@ -71,6 +71,18 @@
 			<h2><?= _t('admin.stats.entry_per_day') ?></h2>
 			<div>
 				<canvas id="statsEntriesPerDay"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsEntriesPerDay',
+					'charttype' 	=> 'barWithAverage',
+					'labelBarChart' => _t('admin.stats.entry_count'),
+					'dataBarChart' 	=> $this->entryCount,
+					'labelAverage' 	=> 'Average ('.$this->average.')',
+					'dataAverage' 	=> $this->average,
+					'xAxisLabels' 	=> $this->last30DaysLabels,
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
 			</div>
 		</div>
 
@@ -78,6 +90,15 @@
 			<h2><?= _t('admin.stats.feed_per_category') ?></h2>
 			<div>
 				<canvas id="statsFeedsPerCategory"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' => 'statsFeedsPerCategory',
+					'charttype' => 'doughnut',
+					'data' => $this->feedByCategory['data'],
+					'labels' => $this->feedByCategory['label'],
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
 			</div>
 		</div>
 
@@ -85,152 +106,18 @@
 			<h2><?= _t('admin.stats.entry_per_category') ?></h2>
 			<div>
 				<canvas id="statsEntriesPerCategory"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' => 'statsEntriesPerCategory',
+					'charttype' => 'doughnut',
+					'data' => $this->entryByCategory['data'],
+					'labels' => $this->entryByCategory['label'],
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
 			</div>
 		</div>
 	</div>
 </div>
-
-<script class="jsonData" type="application/json">
-<?php
-echo json_encode(array(
-	'stats' => array (
-		'canvasID' => 'statsEntriesPerDay',
-		'config' => array(
-			'type' => 'scatter',
-			'data' => array(
-				'datasets' => array(
-					array(
-						'type' => 'bar',
-						'label' => _t('admin.stats.entry_per_day'),  // Todo: better i18n
-						'backgroundColor' => '#0062BD',
-						'borderColor' => '#0062BD',
-						'data' => $this->entryCount,
-						'barPercentage'=> 1.0,
-    					'categoryPercentage' => 1.0,
-						'order' => 2
-					),
-					array(
-						'type' => 'line',
-						'label' => 'Average ('.$this->average.')',  // Todo: i18n
-						'borderColor' => 'rgb(192,216,0)',
-						'data' => array (
-							-30 => $this->average,
-							-1 => $this->average,
-						),
-						'order' => 1
-					),
-				)
-			),
-			'options' => array(
-				'scales' => array(
-					'y' => array (
-						'beginAtZero' => true,
-					),
-				),
-				'elements' => array(
-					'point' => array (
-						'radius' => 0
-					)
-				)
-			)
-		)
-	)
-), JSON_UNESCAPED_UNICODE);
-?></script>
-
-<script class="jsonData" type="application/json">
-<?php
-echo json_encode(array(
-	'stats' => array (
-		'canvasID' => 'statsFeedsPerCategory',
-		'config' => array(
-			'type' => 'doughnut',
-			'data' => array(
-				'labels' => $this->feedByCategory['label'],
-				'datasets' => array(
-					array(
-						'label' => _t('admin.stats.feed_per_category'),
-						'backgroundColor' => array(
-							'#0b84a5',  //petrol
-							'#f6c85f', // sand
-							'#6f4e7c', //purple
-							'#9dd866', //green
-							'#ca472f', //red
-							'#ffa056', //orange
-							'#8dddd0', // turkis
-							'#f6c85f', // sand
-							'#6f4e7c', //purple
-							'#9dd866', //green
-							'#ca472f', //red
-							'#ffa056', //orange
-							'#8dddd0' // turkis
-						),
-						'data' => $this->feedByCategory['data'],
-					)
-				)
-			),
-			'options' => array(
-				'layout' => array(
-					'padding' => 20
-				),
-				'plugins' => array(
-					'legend' => array(
-						'position' => 'bottom',
-						'align' => 'start'
-					)
-				),
-			)
-		)
-	)
-), JSON_UNESCAPED_UNICODE);
-?></script>
-
-<script class="jsonData" type="application/json">
-<?php
-echo json_encode(array(
-	'stats' => array (
-		'canvasID' => 'statsEntriesPerCategory',
-		'config' => array(
-			'type' => 'doughnut',
-			'data' => array(
-				'labels' => $this->entryByCategory['label'],
-				'datasets' => array(
-					array(
-						'label' => _t('admin.stats.entry_per_category'),
-						'backgroundColor' => array(
-							'#0b84a5',  //petrol
-							'#f6c85f', // sand
-							'#6f4e7c', //purple
-							'#9dd866', //green
-							'#ca472f', //red
-							'#ffa056', //orange
-							'#8dddd0', // turkis
-							'#f6c85f', // sand
-							'#6f4e7c', //purple
-							'#9dd866', //green
-							'#ca472f', //red
-							'#ffa056', //orange
-							'#8dddd0' // turkis
-						),
-						'data' => $this->entryByCategory['data'],
-					)
-				)
-			),
-			'options' => array(
-				'layout' => array(
-					'padding' => 20
-				),
-				'plugins' => array(
-					'legend' => array(
-						'position' => 'bottom',
-						'align' => 'start'
-					)
-				),
-			)
-		)
-	)
-), JSON_UNESCAPED_UNICODE);
-?></script>
-
 
 <script src="../scripts/statsWithChartjs.js?<?= @filemtime(PUBLIC_PATH . '/scripts/statsWithChartjs.js') ?>"></script>

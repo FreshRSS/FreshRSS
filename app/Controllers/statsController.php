@@ -80,6 +80,12 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->entryByCategory = $entryByCategory;
 
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
+
+		for ($i = 0; $i < 30; $i++) {
+			$last30DaysLabels[$i] = date("d.m.Y", strtotime((-30+$i)." days"));
+		}
+
+		$this->view->last30DaysLabels = $last30DaysLabels;
 	}
 
 	/**
@@ -168,21 +174,28 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 *       for the average.
 	 */
 	public function repartitionAction() {
-		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		$statsDAO 		= FreshRSS_Factory::createStatsDAO();
+		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
+		$feedDAO 		= FreshRSS_Factory::createFeedDao();
+		
+		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.js')));
+		
 		$id = Minz_Request::param('id', null);
-		$this->view->categories = $categoryDAO->listCategories();
-		$this->view->feed = $feedDAO->searchById($id);
-		$this->view->days = $statsDAO->getDays();
-		$this->view->months = $statsDAO->getMonths();
-		$this->view->repartition = $statsDAO->calculateEntryRepartitionPerFeed($id);
-		$this->view->repartitionHour = $this->convertToSerie($statsDAO->calculateEntryRepartitionPerFeedPerHour($id));
-		$this->view->averageHour = $statsDAO->calculateEntryAveragePerFeedPerHour($id);
-		$this->view->repartitionDayOfWeek = $this->convertToSerie($statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id));
-		$this->view->averageDayOfWeek = $statsDAO->calculateEntryAveragePerFeedPerDayOfWeek($id);
-		$this->view->repartitionMonth = $this->convertToSerie($statsDAO->calculateEntryRepartitionPerFeedPerMonth($id));
-		$this->view->averageMonth = $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
+
+		$this->view->categories 	= $categoryDAO->listCategories();
+		$this->view->feed 			= $feedDAO->searchById($id);
+		$this->view->days 			= $statsDAO->getDays();
+		$this->view->months 		= $statsDAO->getMonths();
+
+		$this->view->repartition 			= $statsDAO->calculateEntryRepartitionPerFeed($id);
+
+		$this->view->repartitionHour 		= $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
+		$this->view->averageHour 			= $statsDAO->calculateEntryAveragePerFeedPerHour($id);
+
+		$this->view->repartitionDayOfWeek 	= $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
+		$this->view->averageDayOfWeek 		= $statsDAO->calculateEntryAveragePerFeedPerDayOfWeek($id);
+
+		$this->view->repartitionMonth 		= $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
+		$this->view->averageMonth 			= $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 	}
 }
