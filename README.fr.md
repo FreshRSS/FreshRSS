@@ -235,9 +235,7 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 * [SimplePie](https://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
-* [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [flotr2](http://www.humblesoftware.com/flotr2)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
 ## Uniquement pour certaines options ou configurations
