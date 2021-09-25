@@ -137,6 +137,7 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+* [Chart.js](https://www.chartjs.org)
 
 ## Only for some options or configurations
 
