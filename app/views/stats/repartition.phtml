@@ -58,11 +58,11 @@
 				<script class="jsonData-stats" type="application/json">
 				<?php
 				echo json_encode(array(
-					'canvasID' => 'statsEntriesPerHour',
-					'charttype' => 'bar',
-					'data' => $this->repartitionHour,
-					'label' => _t('admin.stats.entry_count'),
-					'xAxisLabels' => $this->hours24Labels
+					'canvasID' 		=> 'statsEntriesPerHour',
+					'charttype' 	=> 'bar',
+					'data' 			=> $this->repartitionHour,
+					'label' 		=> _t('admin.stats.entry_count'),
+					'xAxisLabels' 	=> $this->hours24Labels
 				), JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
@@ -75,11 +75,11 @@
 				<script class="jsonData-stats" type="application/json">
 				<?php
 				echo json_encode(array(
-					'canvasID' => 'statsEntriesPerDayOfWeek',
-					'charttype' => 'bar',
-					'data' => $this->repartitionDayOfWeek,
-					'label' => _t('admin.stats.entry_count'), 
-					'xAxisLabels' => $this->days,
+					'canvasID' 		=> 'statsEntriesPerDayOfWeek',
+					'charttype' 	=> 'bar',
+					'data' 			=> $this->repartitionDayOfWeek,
+					'label' 		=> _t('admin.stats.entry_count'), 
+					'xAxisLabels' 	=> $this->days,
 				), JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
@@ -92,11 +92,11 @@
 				<script class="jsonData-stats" type="application/json">
 				<?php
 				echo json_encode(array(
-					'canvasID' => 'statsEntriesPerMonth',
-					'charttype' => 'bar',
-					'data' => $this->repartitionMonth,
-					'label' => _t('admin.stats.entry_count'),
-					'xAxisLabels' => $this->months,
+					'canvasID' 		=> 'statsEntriesPerMonth',
+					'charttype' 	=> 'bar',
+					'data' 			=> $this->repartitionMonth,
+					'label' 		=> _t('admin.stats.entry_count'),
+					'xAxisLabels' 	=> $this->months,
 				), JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>

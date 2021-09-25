@@ -93,10 +93,10 @@
 				<script class="jsonData-stats" type="application/json">
 				<?php
 				echo json_encode(array(
-					'canvasID' => 'statsFeedsPerCategory',
-					'charttype' => 'doughnut',
-					'data' => $this->feedByCategory['data'],
-					'labels' => $this->feedByCategory['label'],
+					'canvasID' 		=> 'statsFeedsPerCategory',
+					'charttype' 	=> 'doughnut',
+					'data' 			=> $this->feedByCategory['data'],
+					'labels' 		=> $this->feedByCategory['label'],
 				), JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
@@ -109,10 +109,10 @@
 				<script class="jsonData-stats" type="application/json">
 				<?php
 				echo json_encode(array(
-					'canvasID' => 'statsEntriesPerCategory',
-					'charttype' => 'doughnut',
-					'data' => $this->entryByCategory['data'],
-					'labels' => $this->entryByCategory['label'],
+					'canvasID' 		=> 'statsEntriesPerCategory',
+					'charttype' 	=> 'doughnut',
+					'data' 			=> $this->entryByCategory['data'],
+					'labels' 		=> $this->entryByCategory['label'],
 				), JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
