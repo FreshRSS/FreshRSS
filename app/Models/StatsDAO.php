@@ -153,10 +153,10 @@ SQL;
 				$periodMax = 23;
 				break;
 			case '%w':
-				$periodMax = 7;
+				$periodMax = 6;
 				break;
 			case '%m':
-				$periodMax = 12;
+				$periodMax = 11;
 				break;
 			default:
 			$periodMax = 30;
