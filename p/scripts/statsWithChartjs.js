@@ -213,3 +213,5 @@ function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, data
 }
 
 initCharts();
+
+// @license-end
