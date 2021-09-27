@@ -677,6 +677,8 @@ SQL;
 			$order = 'DESC', $firstId = '', $date_min = 0) {
 		$search = ' ';
 		$values = array();
+		$outerValues = array();
+		$outerSearch = ' ';
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
 			if (!($state & FreshRSS_Entry::STATE_READ)) {
 				$search .= 'AND ' . $alias . 'is_read=0 ';
@@ -706,10 +708,10 @@ SQL;
 		}
 		if ($firstId !== '' && $order === 'SHUF') {
 
-			/* might not need to repeat this if it were one level up */
-			$search .= 'AND e.shuffleOrderKey >= ? '; // used to be shuffleOrderKey
-				
-			$values[] = $firstId;
+			/* the window function condition must happen outside the subquery */
+			/* no logic here for prepending AND */
+			$outerSearch .= ' shuffleOrderKey >= ? '; // used to be shuffleOrderKey
+			$outerValues[] = $firstId;
 		}
 		if ($date_min > 0) {
 			$search .= 'AND ' . $alias . 'id >= ? ';
@@ -870,7 +872,7 @@ SQL;
 				$search .= ') ';
 			}
 		}
-		return array($values, $search);
+		return array($values, $search, $outerValues, $outerSearch);
 	}
 
 	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
@@ -918,44 +920,42 @@ SQL;
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state, $order, $firstId, $date_min);
+		list($searchValues, $search, $outerSearchValues, $outerSearch) = $this->sqlListEntriesWhere('e.', $filters, $state, $order, $firstId, $date_min);
 
-		// The subqueries are not ideal, but are used so shuffleOrderKey will be available in the where clause.
-		// e.title, e.content_bin slow it down quite a bit
-		return array(array_merge($values, $searchValues),
+		return array(array_merge($values, $searchValues, $outerSearchValues),
 			'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
-			. ' e.id '
-			. ($order === 'SHUF' ? ', e.shuffleOrderKey': '' )
-			. ' FROM (SELECT e.id, e.is_read, e.id_feed '
-			. ($search ? ', e.title, e.content_bin' : ' ' )
+			. 'e.id'
 			. ($order === 'SHUF' ? ', (((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) DIV 3) * 8693) + ((709*(e.id+CURDATE())) MOD 509) as shuffleOrderKey ' : ' ' )
-			. ' FROM `_entry` e '
+			. 'FROM `_entry` e '
 			. 'INNER JOIN `_feed` f ON e.id_feed = f.id '
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastSeen > UNIX_TIMESTAMP() - (24 * 60 * 60))' : '')
-			. ') e where true '
-			. $search );
-
+			. $search
+			. ' ORDER BY '
+			. ($order === 'SHUF' ? ' shuffleOrderKey ' : (' e.id ' . $order) )
+			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . intval($limit) : '') : ' '), // Limit can't work with SHUF's ranking.
+			$outerSearch);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
 	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
-		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
-
-		$sql = 'SELECT e0.id, e0.guid, '
-			. 'e0.title, '
-			. 'e0.author, '
-			. ($order === 'SHUF' ? 'e2.shuffleOrderKey, ' : ' ' )
+		list($values, $sql, $outerSearch) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+		// $values = array_merge($values, $outerSearchValues);
+		
+		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
+			. ($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' )
 			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags ' . "\n"
-			. 'FROM `_entry` e0 ' . "\n"
-			. 'INNER JOIN (' . "\n"
+			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
+			. 'FROM `_entry` e0 '
+			. 'INNER JOIN ('
 			. $sql
 			. ') e2 ON e2.id=e0.id '
-			. ($order === 'SHUF' ? 'ORDER BY shuffleOrderKey ' : 'ORDER BY e0.id ' . $order )
-			. ($limit > 0 ? ' LIMIT ' . intval($limit) : '');	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
-
+			. ($outerSearch != ' ' ? ' WHERE ' . $outerSearch : ' ' )
+			. ' ORDER BY '
+			. ($order === 'SHUF' ? ' shuffleOrderKey ' : (' e0.id ' . $order))
+			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '') // When SHUF, move limit down here.
+			. '' ;
 
 		$stm = $this->pdo->prepare($sql);
 		if ($stm && $stm->execute($values)) {
@@ -1002,7 +1002,9 @@ SQL;
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
-		$stm = $this->pdo->prepare($sql);
+		$stm = $this->pdo->prepare($sql
+			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '') // When SHUF, move limit down here.
+		);
 		$stm->execute($values);
 
 		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
