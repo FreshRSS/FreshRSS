@@ -411,7 +411,7 @@ class FreshRSS_Feed extends Minz_Model {
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();
 						if ($medium === 'image' || strpos($mime, 'image') === 0 ||
-							($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](gif|jpe?g|png|svg)$/i', $elink)))) {
+							($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
 							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
 						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
