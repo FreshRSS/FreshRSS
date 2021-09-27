@@ -707,13 +707,8 @@ SQL;
 		if ($firstId !== '' && $order === 'SHUF') {
 
 			/* might not need to repeat this if it were one level up */
-			$search .= 'AND
-				CAST(CONV(
-					CONCAT(
-						HEX( (FIND_IN_SET(' . $alias . 'id, grouped_entries)-1) DIV 3 ),
-						LEFT((SHA1(CONCAT(' . $alias . 'id, CURDATE()))),15)
-					),
-				16, 10) AS UNSIGNED) >= ? ';
+			$search .= 'AND e.shuffleOrderKey >= ? '; // used to be shuffleOrderKey
+				
 			$values[] = $firstId;
 		}
 		if ($date_min > 0) {
@@ -925,33 +920,21 @@ SQL;
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state, $order, $firstId, $date_min);
 
+		// The subqueries are not ideal, but are used so shuffleOrderKey will be available in the where clause.
+		// e.title, e.content_bin slow it down quite a bit
 		return array(array_merge($values, $searchValues),
 			'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
-			. ($order === 'SHUF' ? ' grouped_entries, ' : ' ')
-			. ($order === 'SHUF' ? '
-				CAST(CONV(
-					CONCAT(
-						HEX( (FIND_IN_SET(e.id, grouped_entries)-1) DIV 3 ), /* 1 hex digit because of BETWEEN */
-						LEFT((SHA1(CONCAT(e.id, CURDATE()))),15) /* leave room for 1 hex digit */
-					),
-				16, 10) AS UNSIGNED) shuffleOrderKey,
-				' : ' ' )
-				. 'e.id FROM `_entry` e '
-				. 'INNER JOIN `_feed` f ON e.id_feed = f.id '
-				. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
-			. ($order === 'SHUF' ? '
-				INNER JOIN (
-					SELECT
-						e0.id_feed,
-						GROUP_CONCAT(e0.id ORDER BY e0.id DESC) grouped_entries
-					FROM `_entry` e0
-					WHERE e0.is_read=0 /*OR e0.lastSeen > UNIX_TIMESTAMP() - (8 * 60 * 60)*/
-					GROUP BY id_feed
-				) mostRecentFromEach ON mostRecentFromEach.id_feed = e.id_feed AND FIND_IN_SET(e.id, mostRecentFromEach.grouped_entries) BETWEEN 1 and 48 /* 1 hex digit after DIV 3 */
-				' : ' ' )
+			. ' e.id '
+			. ($order === 'SHUF' ? ', e.shuffleOrderKey': '' )
+			. ' FROM (SELECT e.id, e.is_read, e.id_feed '
+			. ($search ? ', e.title, e.content_bin' : ' ' )
+			. ($order === 'SHUF' ? ', (((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) DIV 3) * 8693) + ((709*(e.id+CURDATE())) MOD 509) as shuffleOrderKey ' : ' ' )
+			. ' FROM `_entry` e '
+			. 'INNER JOIN `_feed` f ON e.id_feed = f.id '
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
-			. 'WHERE ' . $where
+			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastSeen > UNIX_TIMESTAMP() - (24 * 60 * 60))' : '')
+			. ') e where true '
 			. $search );
 
 	}
@@ -961,18 +944,13 @@ SQL;
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, '
-			. /* for debugging */ ($order === 'SHUF' && false ? ' CONCAT(FIND_IN_SET(e0.id, grouped_entries)," ",LPAD(HEX(CAST(CONV(
-					CONCAT(
-						HEX( (FIND_IN_SET(e0.id, grouped_entries)-1) DIV 3 ), /* 1 hex digit because of BETWEEN */
-						LEFT((SHA1(CONCAT(e0.id, CURDATE()))),15) /* leave room for 1 hex digit */
-					),
-				16, 10) AS UNSIGNED)),16,"0")," ",e0.title) AS title,' : 'e0.title, ')
+			. 'e0.title, '
 			. 'e0.author, '
-			. ($order === 'SHUF' ? 'shuffleOrderKey, ' : ' ' )
+			. ($order === 'SHUF' ? 'e2.shuffleOrderKey, ' : ' ' )
 			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
-			. 'FROM `_entry` e0 '
-			. 'INNER JOIN ('
+			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags ' . "\n"
+			. 'FROM `_entry` e0 ' . "\n"
+			. 'INNER JOIN (' . "\n"
 			. $sql
 			. ') e2 ON e2.id=e0.id '
 			. ($order === 'SHUF' ? 'ORDER BY shuffleOrderKey ' : 'ORDER BY e0.id ' . $order )
@@ -984,7 +962,7 @@ SQL;
 			return $stm;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
+			Minz_Log::error('SQL error listWhereRaw: ' . $info[2] . '...' . $sql);
 			return false;
 		}
 	}
