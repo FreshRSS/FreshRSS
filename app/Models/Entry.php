@@ -23,8 +23,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private $feed;
 	private $tags;
 
-	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
-	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '', $shuffleOrderKey = '') {
+	public function __construct(	$feedId = '', $guid = '', $title = '', $authors = '', $content = '',
+								$link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '', $shuffleOrderKey = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);

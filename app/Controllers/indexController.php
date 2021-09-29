@@ -70,7 +70,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				FreshRSS_Context::$number--;
 				ob_start();	//Buffer "one entry at a time"
 
-
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
@@ -84,7 +83,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				//We have enough entries: we discard the last one to use it for the next pagination
 				ob_clean();
 				if (FreshRSS_Context::$order === 'SHUF') {
-					FreshRSS_Context::$next_id =  $lastEntry->shuffleOrderKey();
+					FreshRSS_Context::$next_id = $lastEntry->shuffleOrderKey();
 				} else {
 					FreshRSS_Context::$next_id = $lastEntry->id();
 				}

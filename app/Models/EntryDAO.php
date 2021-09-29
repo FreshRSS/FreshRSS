@@ -942,7 +942,7 @@ SQL;
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql, $outerSearch) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		// $values = array_merge($values, $outerSearchValues);
-		
+
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
 			. ($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' )
 			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -955,7 +955,7 @@ SQL;
 			. ' ORDER BY '
 			. ($order === 'SHUF' ? ' shuffleOrderKey ' : (' e0.id ' . $order))
 			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '') // When SHUF, move limit down here.
-			. '' ;
+			. '';
 
 		$stm = $this->pdo->prepare($sql);
 		if ($stm && $stm->execute($values)) {
