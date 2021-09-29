@@ -962,7 +962,7 @@ SQL;
 			return $stm;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error listWhereRaw: ' . $info[2] . '...' . $sql);
+			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
 			return false;
 		}
 	}
