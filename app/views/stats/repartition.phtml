@@ -104,12 +104,4 @@
 	</div>
 </div>
 
-
-<script id="jsonRepartition" type="application/json"><?php
-echo htmlspecialchars(json_encode(array(
-	'days' => $this->days,
-	'months' => $this->months,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
-?></script>
-
 <script src="../scripts/statsWithChartjs.js?<?= @filemtime(PUBLIC_PATH . '/scripts/statsWithChartjs.js') ?>"></script>
