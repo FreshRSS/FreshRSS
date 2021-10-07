@@ -19,6 +19,7 @@ function initCharts() {
 
 	for (var i = 0; i < jsonData.length; i++) {
 		jsonDataParsed = JSON.parse(jsonData[i].innerHTML);
+		
 		switch(jsonDataParsed.charttype) {
 			case 'bar':
 				chartConfig = jsonChartBar(jsonDataParsed.label, jsonDataParsed.data, jsonDataParsed.xAxisLabels);
@@ -45,6 +46,7 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 	return {
 		type: 'bar',
 		data: {
+			labels: xAxisLabels,
 			datasets: [{
 				label: label,
 				backgroundColor: '#0062BD',
@@ -61,32 +63,12 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 					beginAtZero: true
 				},
 				x: {
-					ticks: {
-						callback: function(val){
-							if (xAxisLabels.length > 0) {
-								return xAxisLabels[val];
-							} else {
-								return val;
-							}
-						}
-					},
 					grid: {
 						display: false,
 					}
 				}
 			},
 			plugins: {
-				tooltip: {
-					callbacks: {
-						title: function(tooltipitem) {
-							if (xAxisLabels.length > 0) {
-								return xAxisLabels[tooltipitem[0].label];
-							} else {
-								return tooltipitem[0].label;
-							}
-						}
-					}
-				},
 				legend: {
 					display: false,
 				}

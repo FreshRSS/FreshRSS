@@ -58,20 +58,19 @@ SQL;
 
 		switch ($period) {
 			case 'hour':
-				$periodMax = 23;
+				$periodMax = 24;
 				break;
 			case 'day':
-				$periodMax = 6;
+				$periodMax = 7;
 				break;
 			case 'month':
 				$periodMax = 12;
 				break;
 			default:
-			$periodMax = 29;
+			$periodMax = 30;
 		}
 
-		$repartition = array_fill(1,$periodMax,0);
-		$repartition[0] = 0;
+		$repartition = array_fill(0,$periodMax,0);
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}

@@ -121,12 +121,7 @@ SQL;
 	 * @return array
 	 */
 	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
-		$result = $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
-		for ($i = 1; $i < count($result)-1; $i++) {
-			$result2[$i] = $result[$i+1];
-		}
-		$result2[0] = $result[1];
-		return $result2;
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
 	}
 
 	/**
@@ -155,10 +150,10 @@ SQL;
 
 		switch ($period) {
 			case '%H':
-				$periodMax = 23;
+				$periodMax = 24;
 				break;
 			case '%w':
-				$periodMax = 6;
+				$periodMax = 7;
 				break;
 			case '%m':
 				$periodMax = 12;
@@ -167,8 +162,7 @@ SQL;
 			$periodMax = 30;
 		}
 
-		$repartition = array_fill(1,$periodMax,0);
-		$repartition[0] = 0;
+		$repartition = array_fill(0,$periodMax,0);
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
