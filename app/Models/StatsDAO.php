@@ -121,7 +121,12 @@ SQL;
 	 * @return string
 	 */
 	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+		$result = $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+		for ($i = 1; $i < count($result)-1; $i++) {
+			$result2[$i] = $result[$i+1];
+		}
+		$result2[0] = $result[1];
+		return $result2;
 	}
 
 	/**
@@ -156,13 +161,14 @@ SQL;
 				$periodMax = 6;
 				break;
 			case '%m':
-				$periodMax = 11;
+				$periodMax = 12;
 				break;
 			default:
 			$periodMax = 30;
 		}
 
-		$repartition = $this->initStatsArray(1, $periodMax);
+		$repartition = array_fill(1,$periodMax,0);
+		$repartition[0] = 0;
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}

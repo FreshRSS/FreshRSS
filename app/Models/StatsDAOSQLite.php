@@ -24,7 +24,23 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
-		$repartition = array();
+
+		switch ($period) {
+			case '%H':
+				$periodMax = 23;
+				break;
+			case '%w':
+				$periodMax = 6;
+				break;
+			case '%m':
+				$periodMax = 12;
+				break;
+			default:
+			$periodMax = 29;
+		}
+
+		$repartition = array_fill(1,$periodMax,0);
+		$repartition[0] = 0;
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
