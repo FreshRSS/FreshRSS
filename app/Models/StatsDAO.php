@@ -121,8 +121,12 @@ SQL;
 	 * @return array
 	 */
 	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+		$monthRepartition = $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+		// cut out the 0th month (Jan=1, Dec=12)
+		\array_splice($monthRepartition,0,1);
+		return $monthRepartition;
 	}
+
 
 	/**
 	 * Calculates the number of article per period per feed
