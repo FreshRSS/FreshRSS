@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 		'theme' => 'Erscheinungsbild',
+		'theme_not_available' => 'Fehler. Das Erscheinungsbild "%s" ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
 		'thumbnail' => array(
 			'label' => 'Vorschaubild',
 			'landscape' => 'Querformat',

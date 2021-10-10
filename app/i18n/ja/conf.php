@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
 		'theme' => 'テーマ',
+		'theme_not_available' => 'Error. The theme "%s" is not available anymore. Please chose another theme.', // TODO - Translation
 		'thumbnail' => array(
 			'label' => 'サムネイル',
 			'landscape' => 'ランドスケープ',

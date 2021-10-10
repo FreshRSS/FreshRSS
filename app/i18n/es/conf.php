@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'Tema',
+		'theme_not_available' => 'Error. The theme "%s" is not available anymore. Please chose another theme.', // TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation

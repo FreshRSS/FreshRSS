@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'theme' => '테마',
+		'theme_not_available' => 'Error. The theme "%s" is not available anymore. Please chose another theme.', // TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
