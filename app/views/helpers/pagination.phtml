@@ -25,8 +25,7 @@
 		<a id="load_more" href="<?= Minz_Url::display($url_next) ?>">
 			<?= _t('gen.pagination.load_more') ?>
 		</a>
-	<?php } elseif ($url_mark_read) { 
-		if ( FreshRSS_Auth::hasAccess()) { ?>
+	<?php } elseif ($url_mark_read && FreshRSS_Auth::hasAccess()) { ?>
 		<button id="bigMarkAsRead"
 			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
 			form="mark-read-pagination"
@@ -36,15 +35,10 @@
 			<span class="bigTick">✓</span><br />
 			<?= _t('gen.pagination.mark_all_read') ?>
 		</button>
-		<?php } else { ?>
-		<div id="bigMarkAsRead">
-			<?= _t('gen.pagination.nothing_to_load') ?>
-		</a>
-		<?php } ?>
 	<?php } else { ?>
-		<a id="bigMarkAsRead" href=".">
+		<div id="bigMarkAsRead" href=".">
 			<?= _t('gen.pagination.nothing_to_load') ?><br />
-		</a>
+		</div>
 	<?php } ?>
 	</li>
 </ul>
