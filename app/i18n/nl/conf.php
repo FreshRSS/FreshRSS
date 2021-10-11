@@ -39,7 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
-		'theme_not_available' => 'The "%s" theme is not available anymore. Please choose another theme.', // TODO - Translation
+		'theme_not_available' => 'Het "%s" thema is niet meer beschikbaar. Kies een ander thema.',
 		'thumbnail' => array(
 			'label' => 'Miniatuur',
 			'landscape' => 'Liggend',
