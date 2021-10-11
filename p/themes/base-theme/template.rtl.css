@@ -1324,10 +1324,12 @@ input:checked + .slide-container .properties {
 
 .reader .aside {
 	width: 0;
+	display: none;
 }
 
 .reader .aside:target {
 	width: 300px;
+	display: table-cell;
 }
 
 .reader .aside .stick {
