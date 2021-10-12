@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
+		'account' => 'Account', // Todo: Transation
 		'admin' => 'Administrácia',
 		'archiving' => 'Archivácia',
 		'authentication' => 'Prihlásenie',

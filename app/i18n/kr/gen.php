@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => '정보',
+		'account' => 'Account', // Todo: Transation
 		'admin' => '관리',
 		'archiving' => '보관',
 		'authentication' => '인증',
