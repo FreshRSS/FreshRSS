@@ -70,12 +70,13 @@
 		padding: 0.5rem;
 
 		.item {
-			* {
-				display: inherit;
-			}
 			&.search {
 				display: block;
 
+				form {
+					display: inherit;
+				}
+				
 				.stick {
 					display: flex;
 				}

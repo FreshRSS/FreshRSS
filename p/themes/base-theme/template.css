@@ -1359,7 +1359,7 @@ input:checked + .slide-container .properties {
 	}
 
 
-	.item.search * {
+	.item.search form {
 		display: none;
 	}
 

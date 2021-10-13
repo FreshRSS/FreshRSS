@@ -1494,7 +1494,7 @@ form th {
 	.header {
 		padding: 0.5rem;
 	}
-	.header .item.search * {
+	.header .item.search form {
 		display: inherit;
 	}
 	.header .item.search {
