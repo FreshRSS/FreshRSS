@@ -520,30 +520,35 @@ a.btn {
 /*=== Scrollbar */
 
 @supports (scrollbar-width: thin) {
-	#sidebar {
+	#sidebar,
+	.scrollbar-thin {
 		overflow-y: auto;
 		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
 		scrollbar-width: thin;
 	}
 
-	#sidebar:hover {
+	#sidebar:hover,
+	.scrollbar-thin {
 		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
 	}
 }
 
 @supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar {
+	#sidebar::-webkit-scrollbar,
+	.scrollbar-thin {
 		background: rgba(0, 0, 0, 0.05);
 		width: 8px;
 	}
 
-	#sidebar::-webkit-scrollbar-thumb {
+	#sidebar::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.1);
 		display: unset;
 		border-radius: 5px;
 	}
 
-	#sidebar:hover::-webkit-scrollbar-thumb {
+	#sidebar:hover::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.3);
 	}
 }
@@ -1338,11 +1343,14 @@ input:checked + .slide-container .properties {
 /*===========*/
 
 @media (max-width: 840px) {
-	.header,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
+		display: none;
+	}
+
+	.item.search {
 		display: none;
 	}
 
@@ -1363,6 +1371,24 @@ input:checked + .slide-container .properties {
 		border-radius: 0;
 		bottom: 0;
 		position: fixed;
+	}
+
+	.configure .dropdown .dropdown-menu {
+		width: 90%;
+		height: 100vh;
+		overflow: auto;
+		box-shadow: -3px 0 3px #aaa;
+	}
+
+	.dropdown-target ~ .dropdown-menu {
+		width: 0;
+		
+	}
+
+	.dropdown-target:target ~ .dropdown-menu {
+		display: table-cell;
+		z-index: 1000;
+		
 	}
 
 	.dropdown-menu::after {
