@@ -56,7 +56,8 @@
 
 	.aside .toggle_aside,
 	#panel .close,
-	#close-slider.active {
+	#close-slider.active,
+	.dropdown-menu .toggle_aside {
 		background: $main-first-alt;
 		display: block;
 		width: 100%;
@@ -69,10 +70,9 @@
 		padding: 0.5rem;
 
 		.item {
-			&.title {
-				display: none;
+			* {
+				display: inherit;
 			}
-
 			&.search {
 				display: block;
 
@@ -94,10 +94,6 @@
 					min-height: 49px;
 					padding: 0.5rem 2rem;
 				}
-			}
-
-			&.configure {
-				display: none;
 			}
 		}
 	}
