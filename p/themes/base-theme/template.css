@@ -1350,7 +1350,16 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
-	.item.search {
+	.header > .item {
+		padding: 5px;
+	}
+
+	.header > .item.title .logo {
+		height: 24px;
+	}
+
+
+	.item.search * {
 		display: none;
 	}
 
