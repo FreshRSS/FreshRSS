@@ -1158,7 +1158,6 @@ form {
 		left: 10px;
 	}
 
-	.header .item.configure,
 	button.read_all.btn {
 		display: none;
 	}
@@ -1230,7 +1229,8 @@ form {
 		margin: 0 0 3.5em;
 	}
 
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: $color_aside;
 		display: block;
 		height: 50px;
