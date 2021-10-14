@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'Administrace',
 		'archiving' => 'Archivace',
 		'authentication' => 'Přihlášení',
