@@ -55,7 +55,8 @@
 
 	.aside .toggle_aside,
 	#panel .close,
-	#close-slider.active {
+	#close-slider.active,
+	.dropdown-menu .toggle_aside {
 		background: $main-first-alt;
 		display: block;
 		width: 100%;
@@ -68,12 +69,13 @@
 		padding: 0.5rem;
 
 		.item {
-			&.title {
-				display: none;
-			}
 
 			&.search {
 				display: block;
+				
+				form {
+					display: inherit;
+				}
 
 				.stick {
 					display: flex;
@@ -95,9 +97,6 @@
 				}
 			}
 
-			&.configure {
-				display: none;
-			}
 		}
 	}
 
