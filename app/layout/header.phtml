@@ -41,6 +41,14 @@
 			<ul class="dropdown-menu scrollbar-thin">
 				<li><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
 				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<li class="dropdown-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?></li>
+				<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
+				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
+				<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
+				<?php else: ?>
+				<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
+				<?php endif; ?>
+				<li class="separator"></li>
 				<li class="dropdown-header"><?= _t('gen.menu.configuration') ?></li>
 				<li class="item"><a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a></li>
 				<li class="item"><a href="<?= _url('configure', 'reading') ?>"><?= _t('gen.menu.reading') ?></a></li>
@@ -48,7 +56,6 @@
 				<li class="item"><a href="<?= _url('configure', 'integration') ?>"><?= _t('gen.menu.sharing') ?></a></li>
 				<li class="item"><a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a></li>
 				<li class="item"><a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a></li>
-				<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 				<li class="item"><a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a></li>
 				<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
 
@@ -69,14 +76,6 @@
 				<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 				<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
-
-				<li class="separator"></li>
-				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
-				<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?php
-					echo _i('logout') . ' ' . _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li>
-				<?php else: ?>
-				<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
-				<?php endif; ?>
 			</ul>
 		</div>
 	</nav>
