@@ -58,7 +58,7 @@ class FreshRSS_Import_Service {
 	 * @return boolean false if an error occured, true otherwise.
 	 */
 	private function addOpmlElements($opml_elements, $parent_cat = null) {
-		$ok = true;
+		$isOkStatus = true;
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
 		$nb_cats = count($this->catDAO->listCategories(false));
@@ -77,14 +77,14 @@ class FreshRSS_Import_Service {
 				if (FreshRSS_Context::$isCli && $nb_feeds >= $limits['max_feeds']) {
 					Minz_Log::warning(_t('feedback.sub.feed.over_max',
 									  $limits['max_feeds']));
-					$ok = false;
+					$isOkStatus = false;
 					continue;
 				}
 
 				if ($this->addFeedOpml($elt, $parent_cat)) {
 					$nb_feeds++;
 				} else {
-					$ok = false;
+					$isOkStatus = false;
 				}
 			} elseif (!empty($elt['text'])) {
 				// No xmlUrl? It should be a category!
@@ -92,19 +92,19 @@ class FreshRSS_Import_Service {
 				if (!FreshRSS_Context::$isCli && $limit_reached) {
 					Minz_Log::warning(_t('feedback.sub.category.over_max',
 									  $limits['max_categories']));
-					$ok = false;
+					$isOkStatus = false;
 					continue;
 				}
 
 				if ($this->addCategoryOpml($elt, $parent_cat, $limit_reached)) {
 					$nb_cats++;
 				} else {
-					$ok = false;
+					$isOkStatus = false;
 				}
 			}
 		}
 
-		return $ok;
+		return $isOkStatus;
 	}
 
 	/**

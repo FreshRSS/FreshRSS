@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'À propos',
+		'account' => 'Compte',
 		'admin' => 'Administration',
 		'archiving' => 'Archivage',
 		'authentication' => 'Authentification',
