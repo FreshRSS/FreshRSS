@@ -929,8 +929,7 @@ form th {
 		left: 10px;
 	}
 
-	.header .item.configure,
-button.read_all.btn {
+	button.read_all.btn {
 		display: none;
 	}
 
@@ -992,7 +991,8 @@ button.read_all.btn {
 		margin: 0 0 3.5em;
 	}
 
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #22303d;
 		display: block;
 		height: 50px;
