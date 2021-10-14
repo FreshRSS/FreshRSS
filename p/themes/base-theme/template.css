@@ -1299,7 +1299,8 @@ input:checked + .slide-container .properties {
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,
-.nav_menu .toggle_aside {
+.nav_menu .toggle_aside,
+.configure .dropdown-header-close {
 	display: none;
 }
 
@@ -1407,6 +1408,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.aside .toggle_aside,
+	.configure .dropdown-header-close,
 	.nav-login {
 		display: block;
 	}

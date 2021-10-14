@@ -39,7 +39,7 @@
 			<div id="dropdown-configure" class="dropdown-target"></div>
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
 			<ul class="dropdown-menu scrollbar-thin">
-				<li><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+				<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<li class="dropdown-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?></li>
 				<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
