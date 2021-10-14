@@ -10,7 +10,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 * underlying framework.
 	 */
 	public function firstAction() {
-		if (!FreshRSS_Auth::hasAccess()) {
+		if (false !== FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 
