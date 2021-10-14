@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'אודות',
+		'account' => 'Account', // Todo: Transation
 		'admin' => 'ניהול',
 		'archiving' => 'ארכוב',
 		'authentication' => 'Authentication',	// TODO - Translation

@@ -1,5 +1,14 @@
 <nav class="nav nav-list aside">
 	<ul>
+		<li class="nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></li>	
+		<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
+			<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
+		</li>
+		<li class="item">
+			<a class="signout" href="<?= _url('auth', 'logout') ?>">
+				<?php
+				echo _t('gen.auth.logout'); ?> <?= _i('logout') ?></a>
+		</li>
 		<li class="nav-header"><?= _t('gen.menu.configuration') ?></li>
 		<li class="item<?= Minz_Request::actionName() === 'display' ? ' active' : '' ?>">
 			<a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a>
@@ -18,9 +27,6 @@
 		</li>
 		<li class="item<?= Minz_Request::actionName() === 'queries' ? ' active' : '' ?>">
 			<a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
-			<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
 		</li>
 		<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
 			<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
