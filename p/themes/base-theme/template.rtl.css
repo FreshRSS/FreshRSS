@@ -1323,13 +1323,13 @@ input:checked + .slide-container .properties {
 }
 
 .reader .aside {
-	width: 0;
 	display: none;
+	width: 0;
 }
 
 .reader .aside:target {
-	width: 300px;
 	display: table-cell;
+	width: 300px;
 }
 
 .reader .aside .stick {

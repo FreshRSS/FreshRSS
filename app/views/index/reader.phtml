@@ -37,7 +37,7 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 						$readUrl['params']['is_read'] = 0;
 					}
 				?>
-				<? if (FreshRSS_Auth::hasAccess()) { ?>
+				<?php if (FreshRSS_Auth::hasAccess()) { ?>
 				<a class="read" href="<?= Minz_Url::display($readUrl) ?>">
 					<?= _i($item->isRead() ? 'read' : 'unread') ?>
 				</a>

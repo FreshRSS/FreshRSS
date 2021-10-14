@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
-		'account' => 'Account', // Todo: Transation
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'Amministrazione',
 		'archiving' => 'Archiviazione',
 		'authentication' => 'Autenticazione',

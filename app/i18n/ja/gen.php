@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
-		'account' => 'Account', // Todo: Transation
+		'account' => 'Account',	// TODO - Translation
 		'admin' => '管理者',
 		'archiving' => 'アーカイブ',
 		'authentication' => '認証',
