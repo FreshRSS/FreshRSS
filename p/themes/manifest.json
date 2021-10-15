@@ -11,9 +11,9 @@
       "type": "image/png"
     },
     {
-      "src": "/favicon.ico",
+      "src": "icons/favicon-16-32-48-64.ico",
       "type": "image/x-icon",
-      "sizes": "16x16 64x64"
+      "sizes": "16x16 32x32 48x48 64x64"
     },
     {
       "src": "icons/apple-touch-icon.png",
