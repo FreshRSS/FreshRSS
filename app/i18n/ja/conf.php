@@ -197,6 +197,7 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd>キーを使うと, フィードにショートカットナビが表示されます。<br/><kbd>Alt ⎇</kbd> キーを使うと、カテゴリにショートカットナビが表示されます。',
 		'navigation_no_mod_help' => '次のショートカットナビは、キーボードショートカットには対応していません。',
 		'next_article' => '次の記事を開く',
+		'next_unread_article' => 'Open the next unread article',  // TODO - Translation
 		'non_standard' => '(<kbd>%s</kbd>)のキーはショートカットにはなりません。',
 		'normal_view' => 'ノーマルビューに切り替える',
 		'other_action' => 'ほかのアクション',

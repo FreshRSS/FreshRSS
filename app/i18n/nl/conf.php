@@ -197,6 +197,7 @@ return array(
 		'navigation_help' => 'Met de <kbd>⇧ Shift</kbd> toets worden navigatieverwijzingen op feeds toegepast.<br/>Met de <kbd>Alt ⎇</kbd> toets worden navigatieverwijzingen op categorieën toegepast.',
 		'navigation_no_mod_help' => 'De volgende navigatiesnelkoppelingen ondersteunen geen toetsencombinaties.',
 		'next_article' => 'Spring naar volgende artikel',
+		'next_unread_article' => 'Spring naar volgende ongelezene artikel',
 		'non_standard' => 'Sommige toetsen (<kbd>%s</kbd>) werken wellicht niet als snelkoppelingen.',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',

@@ -470,6 +470,21 @@ function next_entry(skipping) {
 	toggleContent(new_active, old_active, skipping);
 }
 
+function next_unread_entry(skipping) {
+	const old_active = document.querySelector('.flux.current');
+	let new_active = old_active;
+	if (new_active) {
+		do new_active = new_active.nextElementSibling;
+		while (new_active && !new_active.classList.contains('not_read'));
+		if (!new_active) {
+			next_feed();
+		}
+	} else {
+		new_active = document.querySelector('.not_read');
+	}
+	toggleContent(new_active, old_active, skipping);
+}
+
 function prev_feed() {
 	let found = false;
 	let adjacent = null;
@@ -560,6 +575,20 @@ function next_category() {
 		let cat = active_cat;
 		do cat = cat.nextElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
+		if (cat) {
+			delayedClick(cat.querySelector('a.title'));
+		}
+	} else {
+		first_category();
+	}
+}
+
+function next_unread_category() {
+	const active_cat = document.querySelector('#aside_feed .category.active');
+	if (active_cat) {
+		let cat = active_cat;
+		do cat = cat.nextElementSibling;
+		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
 			delayedClick(cat.querySelector('a.title'));
 		}
@@ -828,6 +857,16 @@ function init_shortcuts() {
 					next_feed();
 				} else {
 					next_entry(false);
+				}
+				return false;
+			}
+			if (k === s.next_unread_entry) {
+				if (ev.altKey) {
+					next_unread_category();
+				} else if (ev.shiftKey) {
+					next_feed();
+				} else {
+					next_unread_entry(false);
 				}
 				return false;
 			}

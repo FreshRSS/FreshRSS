@@ -197,6 +197,7 @@ return array(
 		'navigation_help' => 'Avec le modificateur <kbd>⇧ Maj</kbd>, les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur <kbd>Alt ⎇</kbd>, les raccourcis de navigation s’appliquent aux catégories.',
 		'navigation_no_mod_help' => 'Les raccourcis suivant ne supportent pas les modificateurs.',
 		'next_article' => 'Passer à l’article suivant',
+		'next_unread_article' => 'Passer à l’article non lu suivant',
 		'non_standard' => 'Certains raccourcis (<kbd>%s</kbd>) peuvent ne pas fonctionner.',
 		'normal_view' => 'Basculer vers la vue normale',
 		'other_action' => 'Autres actions',

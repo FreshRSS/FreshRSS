@@ -197,6 +197,7 @@ return array(
 		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
+		'next_unread_article' => 'Zum nächsten ungelesenen Artikel springen',
 		'non_standard' => 'Einige Tasten (<kbd>%s</kbd>) können nicht als Shortcut verwendet werden.',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',

@@ -197,6 +197,7 @@ return array(
 		'navigation_help' => 'Con el modificador <kbd>⇧ Mayúsculas</kbd> es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador <kbd>Alt ⎇</kbd> es posible aplicar los atajos de teclado en las categorías.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Saltar al siguiente artículo',
+		'next_unread_article' => 'Open the next unread article',  // TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
 		'other_action' => 'Otras acciones',
