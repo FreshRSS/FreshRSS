@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Die Erstellung von Kategorien und Feeds wurde verschoben und findet sich ab sofort <a href=\'%s\'>hier</a>. Zusätzlich ist ein Zugriff über den linken Menüpunkt oder über das ✚ Symbol auf der Hauptseite möglich.',
 	'api' => array(
 		'documentation' => 'Kopieren Sie die folgende URL, um sie in einem externen Tool zu verwenden.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
+		'add' => 'Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',
@@ -58,7 +58,6 @@ return array(
 			'reload_articles_help' => 'Artikel neuladen und komplette Inhalte holen, wenn ein Selektor festgelegt wurde.',
 			'title' => 'Wartung',
 		),
-		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
 		'mute' => 'Stumm schalten',
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',

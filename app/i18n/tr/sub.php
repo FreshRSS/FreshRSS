@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Akış ve kategori oluşturma menüsü <a href=\'%s\'>buraya</a> taşındı. Ayrıca sol menüden ve anasayfadaki ✚ simgesinden de ulaşılabilir.',
 	'api' => array(
 		'documentation' => 'URL\'yi harici bir araçla kullanmak için kopyala.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategori',
+		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
@@ -58,7 +58,6 @@ return array(
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Bakım',
 		),
-		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'sessize al',
 		'no_selected' => 'Hiçbir akış seçilmedi.',
 		'number_entries' => '%d makale',

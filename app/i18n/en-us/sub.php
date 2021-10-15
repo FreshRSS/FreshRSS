@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Category',
+		'add' => 'Add a category',
 		'archiving' => 'Archiving',
 		'empty' => 'Empty category',
 		'information' => 'Information',
@@ -58,7 +58,6 @@ return array(
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',
 			'title' => 'Maintenance',
 		),
-		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',
 		'number_entries' => '%d articles',

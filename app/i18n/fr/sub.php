@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'L\'ajout de flux et de catégories se fait désormais <a href=\'%s\'>ici</a>. Il est possible d\'y accéder depuis le menu de gauche ou depuis l\'icône ✚ présente sur la page principale.',
 	'api' => array(
 		'documentation' => 'Copier l’URL suivante dans l’outil qui utilisera l’API.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Catégorie',
+		'add' => 'Ajouter catégorie',
 		'archiving' => 'Archivage',
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
@@ -58,7 +58,6 @@ return array(
 			'reload_articles_help' => 'Recharge les articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',
 		),
-		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',
