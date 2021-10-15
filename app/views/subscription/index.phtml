@@ -17,6 +17,12 @@
 	
 	<?php endif; ?>
 
+	<?php if (!$this->onlyFeedsWithError && $this->signalError){ ?>
+		<div>
+			<a class="btn" href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
+		</div>
+	<?php } ?>
+
 	<form id="controller-category" method="post" aria-hidden="true">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	</form>
@@ -40,10 +46,6 @@
 						}
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
-
-						if ($feed->inError() == true) {
-							$signalError = true;
-						}
 			?>
 			<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
 				draggable="true"
@@ -70,12 +72,6 @@
 		<ul class="box-content">
 		</ul>
 	</div>
-		<?php if (!$this->onlyFeedsWithError && $signalError){
-			?>
-			<div>
-				<a class="btn" href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
-			</div>
-		<?php } ?>
 
 </div>
 
