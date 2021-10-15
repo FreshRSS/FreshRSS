@@ -1,0 +1,16 @@
+{
+  "name": "FreshRSS feed aggregator",
+  "short_name": "FreshRSS",
+  "start_url": "..",
+  "icons": [
+    {
+      "src": "icons/favicon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#0062be",
+  "description": "FreshRSS is a self-hosted RSS feed aggregator such as Leed or Kriss Feed."
+}
