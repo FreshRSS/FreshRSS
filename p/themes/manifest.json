@@ -2,15 +2,31 @@
   "name": "FreshRSS feed aggregator",
   "short_name": "FreshRSS",
   "start_url": "..",
+  "scope": "/",
+  "orientation": "any",
   "icons": [
     {
       "src": "icons/favicon-256.png",
       "sizes": "256x256",
       "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 64x64"
+    },
+    {
+      "src": "icons/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon"
     }
   ],
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#0062be",
-  "description": "FreshRSS is a self-hosted RSS feed aggregator such as Leed or Kriss Feed."
+  "description": "FreshRSS is a self-hosted RSS feed aggregator."
 }
