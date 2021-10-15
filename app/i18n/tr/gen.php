@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',
 		'authentication' => 'Kimlik doğrulama',
