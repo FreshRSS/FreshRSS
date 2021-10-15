@@ -1,0 +1,8 @@
+{
+  "name": "Chrome is Stupid",
+  "short_name": "chromeisstupid",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Chrome is stupid."
+}
