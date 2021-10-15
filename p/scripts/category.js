@@ -24,8 +24,8 @@ function dragend_process(t) {
 		const p = t.parentElement;
 		t.remove();
 
-		if (p.childElementCount <= 0) {
-			p.insertAdjacentHTML('beforeend', '<li class="item disabled" dropzone="move">' + context.i18n.category_empty + '</li>');
+		if (p.childElementCount <= 1) {
+			p.insertAdjacentHTML('afterbegin', '<li class="item disabled" dropzone="move">' + context.i18n.category_empty + '</li>');
 		}
 	}
 }

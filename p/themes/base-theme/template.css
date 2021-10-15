@@ -473,6 +473,11 @@ a.btn {
 	vertical-align: top;
 }
 
+.box.visible-semi {
+	border-style: dashed;
+	opacity: 0.5;
+}
+
 .box .box-title {
 	position: relative;
 	font-size: 1.2rem;
