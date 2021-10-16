@@ -1,3 +1,12 @@
+FROM node:bullseye-slim AS serviceWorkerBuilder
+
+RUN npm install workbox-cli --global
+
+COPY . /var/www/FreshRSS
+WORKDIR /var/www/FreshRSS
+
+RUN workbox generateSW workbox-config.js
+
 FROM debian:11-slim
 
 ENV TZ UTC
@@ -15,6 +24,7 @@ RUN apt-get update && \
 RUN mkdir -p /var/www/FreshRSS/ /run/apache2/
 WORKDIR /var/www/FreshRSS
 
+COPY --from=serviceWorkerBuilder /var/www/FreshRSS/p/sw.js /var/www/FreshRSS/p/sw.js.map /var/www/FreshRSS/p/workbox-*.js /var/www/FreshRSS/p/workbox-*.js.map p/
 COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
