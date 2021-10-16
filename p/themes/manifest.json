@@ -1,8 +1,8 @@
 {
   "name": "FreshRSS feed aggregator",
   "short_name": "FreshRSS",
-  "start_url": "/i/",
-  "scope": "/",
+  "start_url": "../i/",
+  "scope": "../",
   "orientation": "any",
   "icons": [
     {
