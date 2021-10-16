@@ -1057,10 +1057,6 @@ br {
 	height: 300px;
 }
 
-.stat .flotr-legend-label {
-	padding-left: 0;
-}
-
 /*=== LOGIN VIEW */
 /*================*/
 .formLogin .header > .item {
@@ -1323,10 +1319,12 @@ input:checked + .slide-container .properties {
 }
 
 .reader .aside {
+	display: none;
 	width: 0;
 }
 
 .reader .aside:target {
+	display: table-cell;
 	width: 300px;
 }
 
@@ -1389,7 +1387,8 @@ input:checked + .slide-container .properties {
 		z-index: 100;
 	}
 
-	.aside:target {
+	.aside:target,
+	.reader .aside:target {
 		width: 90%;
 		height: 100vh;
 	}
