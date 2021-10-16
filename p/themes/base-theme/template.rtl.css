@@ -1062,10 +1062,6 @@ br {
 	height: 300px;
 }
 
-.stat .flotr-legend-label {
-	padding-right: 0;
-}
-
 /*=== LOGIN VIEW */
 /*================*/
 .formLogin .header > .item {
