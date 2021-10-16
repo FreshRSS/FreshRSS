@@ -135,10 +135,9 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 * [SimplePie](https://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
-* [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [flotr2](http://www.humblesoftware.com/flotr2)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+* [Chart.js](https://www.chartjs.org)
 
 ## Only for some options or configurations
 
