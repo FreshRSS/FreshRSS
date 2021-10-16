@@ -1,29 +1,25 @@
 {
   "name": "FreshRSS feed aggregator",
   "short_name": "FreshRSS",
-  "start_url": "..",
+  "start_url": "/i/",
   "scope": "/",
   "orientation": "any",
   "icons": [
     {
-      "src": "icons/favicon-256.png",
-      "sizes": "256x256",
-      "type": "image/png"
+      "src": "icons/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "150x150",
+      "purpose": "any"
     },
     {
-      "src": "icons/favicon-16-32-48-64.ico",
-      "type": "image/x-icon",
-      "sizes": "16x16 32x32 48x48 64x64"
-    },
-    {
-      "src": "icons/apple-touch-icon.png",
+      "src": "icons/favicon-512-padding.png",
       "type": "image/png",
-      "sizes": "152x152"
-    },
-    {
-      "src": "/favicon.ico",
-      "type": "image/x-icon"
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
+  ],
+  "categories": [
+    "news"
   ],
   "display": "standalone",
   "background_color": "#fff",
