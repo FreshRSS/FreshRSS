@@ -3,7 +3,6 @@
   "short_name": "FreshRSS",
   "start_url": "../i/",
   "scope": "../",
-  "orientation": "any",
   "icons": [
     {
       "src": "icons/favicon.svg",
