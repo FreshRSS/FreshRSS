@@ -25,7 +25,7 @@ function dragend_process(t) {
 		t.remove();
 
 		if (p.childElementCount <= 1) {
-			p.insertAdjacentHTML('afterbegin', '<li class="item disabled" dropzone="move">' + context.i18n.category_empty + '</li>');
+			p.insertAdjacentHTML('afterbegin', '<li class="item feed disabled" dropzone="move"><div class="alert-warn">' + context.i18n.category_empty + '</div></li>');
 		}
 	}
 }
