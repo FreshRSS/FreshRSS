@@ -1,4 +1,3 @@
 node_modules
 p/scripts/bcrypt.min.js
-p/scripts/flotr2.min.js
-p/scripts/jquery.min.js
+p/scripts/vendor/
