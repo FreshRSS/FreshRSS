@@ -1,6 +1,9 @@
 module.exports = {
   globDirectory: "./p/",
-  globPatterns: ["**/*.{ico,html,js,css,scss,woff,woff2}"],
+  globPatterns: [
+    "**/*.{ico,png,jpg,jpeg,svg,gif,html,js,css,scss,woff,woff2}",
+    "themes/manifest.json",
+  ],
   globStrict: true,
   ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
   swDest: "./p/sw.js",
@@ -11,17 +14,13 @@ module.exports = {
   },
   runtimeCaching: [
     {
-      urlPattern: /\.(?:json)$/,
-      handler: "CacheFirst",
-      options: {
-        cacheName: "manifests",
-      },
-    },
-    {
       urlPattern: /\.(?:png|jpg|jpeg|svg|gif)$/,
       handler: "CacheFirst",
       options: {
         cacheName: "images",
+        expiration: {
+          maxEntries: 10,
+        },
       },
     },
     {
