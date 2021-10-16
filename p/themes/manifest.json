@@ -12,15 +12,19 @@
       "purpose": "any"
     },
     {
+      "src": "icons/favicon-96-padding.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
       "src": "icons/favicon-512-padding.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
-  "categories": [
-    "news"
-  ],
+  "categories": ["news"],
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#0062be",
