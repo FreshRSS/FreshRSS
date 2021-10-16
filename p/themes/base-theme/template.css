@@ -465,7 +465,7 @@ a.btn {
 
 /*=== Boxes */
 .box {
-	margin: 20px 10px;
+	margin: 20px 20px 20px 0;
 	display: inline-block;
 	max-width: 95%;
 	width: 20rem;
