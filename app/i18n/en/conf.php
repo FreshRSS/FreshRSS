@@ -39,7 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
 		'theme' => 'Theme',
-		'theme_not_available' => 'The "%s" theme is not available anymore. Please choose another theme.',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',
 		'thumbnail' => array(
 			'label' => 'Thumbnail',
 			'landscape' => 'Landscape',

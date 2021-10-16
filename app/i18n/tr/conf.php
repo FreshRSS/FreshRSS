@@ -39,7 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
 		'theme' => 'Tema',
-		'theme_not_available' => 'The "%s" theme is not available anymore. Please choose another theme.', // TODO - Translation
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation

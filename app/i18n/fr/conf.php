@@ -39,7 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'theme' => 'Thème',
-		'theme_not_available' => 'The "%s" theme is not available anymore. Please choose another theme.', // TODO - Translation
+		'theme_not_available' => 'Le thème “%s” n’est plus disponible. Veuillez choisir un autre thème.',
 		'thumbnail' => array(
 			'label' => 'Miniature',
 			'landscape' => 'Paysage',
