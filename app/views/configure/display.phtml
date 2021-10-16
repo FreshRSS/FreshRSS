@@ -42,10 +42,10 @@
 							</div>
 							<div class="nav">
 								<?php if ($i !== 1) {?>
-									<label for="img-<?= $i - 1 ?>" class="prev">&#x2039;</label>
+									<label for="img-<?= $i - 1 ?>" class="prev">‹</label>
 								<?php } ?>
 								<?php if ($i !== $slides) {?>
-									<label for="img-<?= $i + 1 ?>" class="next">&#x203a;</label>
+									<label for="img-<?= $i + 1 ?>" class="next">›</label>
 								<?php } ?>
 							</div>
 							<div class="properties">
@@ -62,7 +62,7 @@
 							<div class="slide">
 							</div>
 							<div class="nav">
-								<label for="img-<?= $i - 1 ?>" class="prev">&#x2039;</label>
+								<label for="img-<?= $i - 1 ?>" class="prev">‹</label>
 							</div>
 							<div class="properties alert-error">
 								<div><?= _t('conf.display.theme_not_available', FreshRSS_Context::$user_conf->theme)?></div>
