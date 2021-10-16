@@ -69,29 +69,55 @@
 
 		<div class="stat">
 			<h2><?= _t('admin.stats.entry_per_day') ?></h2>
-			<div id="statsEntryPerDay" class="statGraph"></div>
+			<div>
+				<canvas id="statsEntriesPerDay"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsEntriesPerDay',
+					'charttype' 	=> 'barWithAverage',
+					'labelBarChart' => _t('admin.stats.entry_count'),
+					'dataBarChart' 	=> $this->entryCount,
+					'labelAverage' 	=> 'Average ('.$this->average.')',
+					'dataAverage' 	=> $this->average,
+					'xAxisLabels' 	=> $this->last30DaysLabels,
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
+			</div>
 		</div>
 
 		<div class="stat half">
 			<h2><?= _t('admin.stats.feed_per_category') ?></h2>
-			<div id="statsFeedPerCategory" class="statGraph"></div>
-			<div id="statsFeedPerCategoryLegend"></div>
+			<div>
+				<canvas id="statsFeedsPerCategory"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsFeedsPerCategory',
+					'charttype' 	=> 'doughnut',
+					'data' 			=> $this->feedByCategory['data'],
+					'labels' 		=> $this->feedByCategory['label'],
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
+			</div>
 		</div>
 
 		<div class="stat half">
 			<h2><?= _t('admin.stats.entry_per_category') ?></h2>
-			<div id="statsEntryPerCategory" class="statGraph"></div>
-			<div id="statsEntryPerCategoryLegend"></div>
+			<div>
+				<canvas id="statsEntriesPerCategory"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsEntriesPerCategory',
+					'charttype' 	=> 'doughnut',
+					'data' 			=> $this->entryByCategory['data'],
+					'labels' 		=> $this->entryByCategory['label'],
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
+			</div>
 		</div>
 	</div>
 </div>
 
-<script id="jsonStats" type="application/json"><?php
-echo json_encode(array(
-	'average' => $this->average,
-	'dataCount' => $this->count,
-	'feedByCategory' => $this->feedByCategory,
-	'entryByCategory' => $this->entryByCategory,
-), JSON_UNESCAPED_UNICODE);
-?></script>
-<script src="../scripts/stats.js?<?= @filemtime(PUBLIC_PATH . '/scripts/stats.js') ?>"></script>
+<script src="../scripts/statsWithChartjs.js?<?= @filemtime(PUBLIC_PATH . '/scripts/statsWithChartjs.js') ?>"></script>
