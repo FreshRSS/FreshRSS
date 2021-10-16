@@ -173,7 +173,6 @@ function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, data
 				tooltip: {
 					callbacks: {
 						title: function(tooltipitem) {
-							console.log(tooltipitem);
 							if (xAxisLabels.length > 0) {
 								return xAxisLabels[tooltipitem[0].dataIndex];
 							} else {
