@@ -19,7 +19,7 @@ function initCharts() {
 
 	for (var i = 0; i < jsonData.length; i++) {
 		jsonDataParsed = JSON.parse(jsonData[i].innerHTML);
-		
+
 		switch(jsonDataParsed.charttype) {
 			case 'bar':
 				chartConfig = jsonChartBar(jsonDataParsed.label, jsonDataParsed.data, jsonDataParsed.xAxisLabels);

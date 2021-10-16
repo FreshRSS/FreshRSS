@@ -123,7 +123,7 @@ SQL;
 	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
 		$monthRepartition = $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
 		// cut out the 0th month (Jan=1, Dec=12)
-		\array_splice($monthRepartition,0,1);
+		\array_splice($monthRepartition, 0, 1);
 		return $monthRepartition;
 	}
 
@@ -166,7 +166,7 @@ SQL;
 			$periodMax = 30;
 		}
 
-		$repartition = array_fill(0,$periodMax,0);
+		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}

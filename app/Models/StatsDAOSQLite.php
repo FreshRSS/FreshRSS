@@ -24,7 +24,6 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
-
 		switch ($period) {
 			case '%H':
 				$periodMax = 24;
@@ -39,7 +38,7 @@ SQL;
 			$periodMax = 30;
 		}
 
-		$repartition = array_fill(0,$periodMax,0);
+		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
