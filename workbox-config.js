@@ -1,7 +1,9 @@
 module.exports = {
   globDirectory: "./p/",
   globPatterns: [
-    "**/*.{ico,png,jpg,jpeg,svg,gif,html,js,css,scss,woff,woff2}",
+    "**/*.{ico,html,js}",
+    "themes/*.{png,jpg,jpeg,svg,gif,css}",
+    "themes/base-theme/*.{png,jpg,jpeg,svg,gif,css}",
     "themes/manifest.json",
   ],
   globStrict: true,
@@ -24,10 +26,40 @@ module.exports = {
       },
     },
     {
-      urlPattern: /\.(?:php).*$/,
+      urlPattern: /\.(?:woff|woff2)$/,
       handler: "CacheFirst",
       options: {
-        cacheName: "php",
+        cacheName: "fonts",
+        expiration: {
+          maxEntries: 10,
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:css)$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "styles",
+        expiration: {
+          maxEntries: 10,
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:js)$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "scripts",
+        expiration: {
+          maxEntries: 10,
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:php|html).*$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "index",
         expiration: {
           maxEntries: 10,
         },
