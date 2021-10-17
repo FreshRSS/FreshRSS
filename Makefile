@@ -41,6 +41,18 @@ start: ## Start the development environment (use Docker)
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
 	docker run \
 		--rm \
+		--volume freshrss-service-worker-builder-node-dev:/home/node/.npm-global \
+		--volume $(shell pwd):/var/www/FreshRSS:z \
+		$(volumes) \
+		--name freshrss-service-worker-builder-dev \
+		--workdir /var/www/FreshRSS \
+		--env NPM_CONFIG_PREFIX=/home/node/.npm-global \
+		node:alpine \
+		/bin/sh -c \
+		"npm ci workbox-cli --global \
+		&& /home/node/.npm-global/bin/workbox generateSW workbox-config.js"
+	docker run \
+		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
 		--publish $(PORT):80 \
