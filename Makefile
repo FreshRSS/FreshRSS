@@ -49,7 +49,7 @@ start: ## Start the development environment (use Docker)
 		--env NPM_CONFIG_PREFIX=/home/node/.npm-global \
 		node:alpine \
 		/bin/sh -c \
-		"npm ci workbox-cli --global \
+		"npm install workbox-cli --global \
 		&& /home/node/.npm-global/bin/workbox generateSW workbox-config.js"
 	docker run \
 		--rm \
