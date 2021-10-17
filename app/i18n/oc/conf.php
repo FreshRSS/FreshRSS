@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
 		'theme' => 'Tèma',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
