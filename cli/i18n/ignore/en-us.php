@@ -266,6 +266,7 @@ return array(
 	'conf.sharing.twitter',
 	'conf.sharing.wallabag',
 	'conf.shortcut._',
+	'conf.shortcut.actualize',
 	'conf.shortcut.article_action',
 	'conf.shortcut.auto_share',
 	'conf.shortcut.auto_share_help',

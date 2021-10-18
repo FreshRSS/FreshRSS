@@ -178,6 +178,14 @@
 			<legend><?= _t('conf.shortcut.other_action') ?></legend>
 
 			<div class="form-group">
+				<label class="group-name" for="actualize"><?= _t('conf.shortcut.actualize') ?></label>
+				<div class="group-controls">
+					<input type="text" id="actualize" name="shortcuts[actualize]" list="keys" value="<?= $s['actualize'] ?>"
+						data-leave-validation="<?= $s['actualize'] ?>"/>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name" for="load_more_shortcut"><?= _t('conf.shortcut.load_more') ?></label>
 				<div class="group-controls">
 					<input type="text" id="load_more_shortcut" name="shortcuts[load_more]" list="keys" value="<?= $s['load_more'] ?>"

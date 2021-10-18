@@ -821,6 +821,10 @@ function init_shortcuts() {
 					return false;
 				}
 			}
+			if (k === s.actualize) {
+				document.getElementById('actualize').click()
+				return false;
+			}
 			if (k === s.next_entry) {
 				if (ev.altKey) {
 					next_category();
