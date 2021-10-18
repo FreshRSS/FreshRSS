@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => '快捷键',
+		'actualize' => 'Update feeds', // TODO - Translation
 		'article_action' => '文章操作',
 		'auto_share' => '分享',
 		'auto_share_help' => '如果有多种分享方式，则会按照它们的序号依次访问。',

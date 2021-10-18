@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'ショートカット',
+		'actualize' => 'Update feeds', // TODO - Translation
 		'article_action' => '記事のアクション',
 		'auto_share' => '共有',
 		'auto_share_help' => 'もしも、共有方法が一つしかないとき、それが使われます。さもなければ、番号によって共有方法にアクセスできます。',

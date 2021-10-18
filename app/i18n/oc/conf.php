@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Acorchis',
+		'actualize' => 'Actualizar flux',
 		'article_action' => 'Accions ligadas a l’article',
 		'auto_share' => 'Partejar',
 		'auto_share_help' => 'S’i a pas qu’un mòde de partatge, aquel serà utilizat. Autrament los mòdes son accessibles per lor numèro.',

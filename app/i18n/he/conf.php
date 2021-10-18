@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'קיצורי דרך',
+		'actualize' => 'Update feeds', // TODO - Translation
 		'article_action' => 'פעולות על מאמרים',
 		'auto_share' => 'שיתוף',
 		'auto_share_help' => 'אם יש רק מצב שיתוף אחד, הוא מופעל. אחרת המצבים נבחרים על בסיס המספר שלהם.',

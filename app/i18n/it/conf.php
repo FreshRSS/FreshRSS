@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Comandi tastiera',
+		'actualize' => 'Aggiorna feeds',
 		'article_action' => 'Azioni sugli articoli',
 		'auto_share' => 'Condividi',
 		'auto_share_help' => 'Se è presente un solo servizio di condivisione verrà usato quello, altrimenti usare anche il numero associato.',

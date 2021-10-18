@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Kısayollar',
+		'actualize' => 'Yenile akış',
 		'article_action' => 'Makale eylemleri',
 		'auto_share' => 'Paylaş',
 		'auto_share_help' => 'Sadece 1 paylaşım modu varsa bu kullanılır. Yoksa kendi paylaşım numaraları ile kullanılır.',

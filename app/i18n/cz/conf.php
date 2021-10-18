@@ -180,6 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Zkratky',
+		'actualize' => 'Aktualizovat kanál',
 		'article_action' => 'Články - akce',
 		'auto_share' => 'Sdílet',
 		'auto_share_help' => 'Je-li nastavena pouze jedna možnost sdílení, bude použita. Další možnosti jsou dostupné pomocí jejich čísla.',
