@@ -822,7 +822,10 @@ function init_shortcuts() {
 				}
 			}
 			if (k === s.actualize) {
-				document.getElementById('actualize').click()
+				var btn = document.getElementById('actualize');
+				if (btn) {
+					btn.click();
+				}
 				return false;
 			}
 			if (k === s.next_entry) {
