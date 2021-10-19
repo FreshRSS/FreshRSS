@@ -9,6 +9,7 @@ if (_t('gen.dir') === 'rtl') {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
 		<?= self::headStyle() ?>
+		<script type="module" src="<?= Minz_Url::display('/scripts/pwabuilder-sw-register.js?' . @filemtime(PUBLIC_PATH . '/scripts/pwabuilder-sw-register.js')) ?>"></script>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
