@@ -204,7 +204,7 @@ return array(
 		'other_action' => 'Ostatné akcie',
 		'previous_article' => 'Otvorí predošlý článok',
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
-		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
+		'rss_view' => 'Otvoriť ako kanál RSS',
 		'see_on_website' => 'Zobrazí na webovej stránke',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',

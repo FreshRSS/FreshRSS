@@ -204,7 +204,7 @@ return array(
 		'other_action' => 'Other actions',
 		'previous_article' => 'Open the previous article',
 		'reading_view' => 'Switch to reading view',
-		'rss_view' => 'Open RSS view in a new tab',
+		'rss_view' => 'Open as RSS feed',
 		'see_on_website' => 'See on original website',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',
 		'skip_next_article' => 'Focus next without opening',

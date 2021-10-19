@@ -204,7 +204,7 @@ return array(
 		'other_action' => '其他操作',
 		'previous_article' => '打开上一篇文章',
 		'reading_view' => '切换到阅读视图',
-		'rss_view' => '在新标签中打开 RSS 视图',
+		'rss_view' => 'Open as RSS feed', // TODO - Translation
 		'see_on_website' => '在原网站中查看',
 		'shift_for_all_read' => '组合 <kbd>Alt ⎇</kbd>键 将上方的文章标记为已读<br />组合 <kbd>⇧ Shift</kbd>按键 可以将全部文章设为已读',
 		'skip_next_article' => '跳转到下一篇文章而不打开',

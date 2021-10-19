@@ -796,7 +796,7 @@ function init_shortcuts() {
 			context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
 		});
 
-	document.body.onkeydown = function (ev) {
+	document.addEventListener('keydown', ev => {
 			if (ev.target.closest('input, textarea') ||
 				ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey)) {
 				return true;
@@ -920,7 +920,7 @@ function init_shortcuts() {
 			if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); return false; }
 			if (k === s.toggle_media) { toggle_media(); return false; }
 			return true;
-		};
+		});
 }
 
 function init_stream(stream) {
