@@ -180,7 +180,7 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Raccourcis',
-		'actualize' => 'Actualiser flux',
+		'actualize' => 'Actualiser les flux',
 		'article_action' => 'Actions associées à l’article courant',
 		'auto_share' => 'Partager',
 		'auto_share_help' => 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
