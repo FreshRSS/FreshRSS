@@ -198,12 +198,13 @@ return array(
 		'navigation_help' => 'Con il tasto <kbd>⇧ Shift</kbd> i comandi di navigazione verranno applicati ai feeds.<br/>Con il tasto <kbd>Alt ⎇</kbd> i comandi di navigazione verranno applicati alle categorie.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Salta al contenuto successivo',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
 		'other_action' => 'Altre azioni',
 		'previous_article' => 'Salta al contenuto precedente',
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
-		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => 'Vai al sito fonte',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation
