@@ -7,25 +7,28 @@
 
 	<h1><?= _t('sub.title') ?></h1>
 
-	<p class="alert alert-warn">
-		<?= _t('sub.feed.moved_category_deleted', $this->default_category->name()) ?>
-	</p>
-
-	<p class="alert alert-warn">
-		<?= _t('sub.add', _url('subscription', 'add')) ?>
-	</p>
-
 	<?php if ($this->onlyFeedsWithError): ?>
-	<p class="alert alert-warn">
+	<div class="link-showAllFeeds-wrapper">
+		<a href="<?= _url('subscription', 'index') ?>">← <?= _t('sub.feed.show.all') ?></a>
+	</div>
+		<p class="alert alert-warn">
 		<?= _t('sub.feed.showing.error') ?>
 	</p>
+	
 	<?php endif; ?>
+
+	<?php if (!$this->onlyFeedsWithError && $this->signalError){ ?>
+		<div>
+			<a class="btn" href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
+		</div>
+	<?php } ?>
 
 	<form id="controller-category" method="post" aria-hidden="true">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	</form>
 
 	<?php
+		$signalError = false;
 		foreach ($this->categories as $cat) {
 			$feeds = $cat->feeds();
 	?>
@@ -57,17 +60,19 @@
 			?>
 			<li class="item feed disabled" dropzone="move"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
 			<?php } ?>
+			<li class="item feed">✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.feed.add') ?></a></li>
 		</ul>
 	</div>
 	<?php } ?>
 
-	<ul>
-		<?php if ($this->onlyFeedsWithError): ?>
-		<li><a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.feed.show.all') ?></a></li>
-		<?php else: ?>
-		<li><a href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _t('sub.feed.show.error') ?></a></li>
-		<?php endif; ?>
-	</ul>
+	<div class="box visible-semi">
+		<div class="box-title">
+			✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.category.add') ?></a>
+		</div>
+		<ul class="box-content">
+		</ul>
+	</div>
+
 </div>
 
 <?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
