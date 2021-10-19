@@ -21,9 +21,9 @@ if (_t('gen.dir') === 'rtl') {
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
+		<meta name="theme-color" content="#FFF" />
 <?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
-		<meta name="theme-color" content="#FFFFFF"/>
 <?php } ?>
 		<?= self::headTitle() ?>
 <?php
