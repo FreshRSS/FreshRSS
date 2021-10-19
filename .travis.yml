@@ -45,12 +45,9 @@ jobs:
       env:
         - HADOLINT="$HOME/hadolint"
       install:
-        - npm install --save-dev jshint stylelint stylelint-order stylelint-scss stylelint-config-recommended-scss
+        - npm install
         - curl -sL -o ${HADOLINT} "https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ${HADOLINT}
       script:
-        - node_modules/jshint/bin/jshint .
-        # check SCSS separately
-        - stylelint --syntax scss "**/*.scss"
-        - stylelint "**/*.css"
+        - npm test
         - bash tests/shellchecks.sh
         - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
