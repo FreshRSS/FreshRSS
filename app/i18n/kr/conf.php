@@ -198,6 +198,7 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/><kbd>Alt ⎇</kbd> 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
 		'navigation_no_mod_help' => '아래 탐색 단축키에는 "Shift"와 "Alt" 키가 적용되지 않습니다.',
 		'next_article' => '다음 글 보기',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
