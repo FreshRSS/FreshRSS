@@ -78,7 +78,10 @@ function init_close_panel() {
 		if (k === 'ESC') {
 			k = 'ESCAPE';
 		}
-		document.querySelector('#overlay .close').click();
+		if (k == 'ESCAPE') {
+			document.querySelector('#overlay .close').click();
+		}
+		return false;
 	}
 }
 
