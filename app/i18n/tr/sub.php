@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Akış ve kategori oluşturma menüsü <a href=\'%s\'>buraya</a> taşındı. Ayrıca sol menüden ve anasayfadaki ✚ simgesinden de ulaşılabilir.',
 	'api' => array(
 		'documentation' => 'URL\'yi harici bir araçla kullanmak için kopyala.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategori',
+		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
