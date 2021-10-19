@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 		'theme' => 'Erscheinungsbild',
+		'theme_not_available' => 'Das Erscheinungsbild “%s” ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
 		'thumbnail' => array(
 			'label' => 'Vorschaubild',
 			'landscape' => 'Querformat',
@@ -202,7 +203,7 @@ return array(
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',
 		'reading_view' => 'Wechsle zur Lese-Ansicht',
-		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
+		'rss_view' => 'Öffne als RSS-Feed',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> um vorherige Artikel als gelesen zu markieren<br />+ <kbd>⇧ Shift</kbd> um alle Artikel als gelesen zu markieren',
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',

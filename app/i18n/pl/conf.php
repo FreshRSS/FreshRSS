@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
 		'theme' => 'Motyw',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -202,7 +203,7 @@ return array(
 		'other_action' => 'Inne akcje',
 		'previous_article' => 'Otworzenie poprzedniej wiadomości',
 		'reading_view' => 'Przełączenie na widok czytania',
-		'rss_view' => 'Otworzenie kanału RSS w nowej karcie',
+		'rss_view' => 'Otwórz jako kanał RSS',
 		'see_on_website' => 'Otwórz wiadomość na pierwotnej stronie',
 		'shift_for_all_read' => 'Użycie modyfikatora <kbd>Alt ⎇</kbd> powoduje zmianę wszystkich poprzednich wiadomości<br />Użycie modyfikatora <kbd>⇧ Shift</kbd> powoduje zmianę wszystkich wiadomości',
 		'skip_next_article' => 'Przejdź do następnej wiadomości bez otwierania',

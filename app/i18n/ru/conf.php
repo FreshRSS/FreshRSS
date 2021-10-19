@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
 		'theme' => 'Тема',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -202,7 +203,7 @@ return array(
 		'other_action' => 'Другие действия',
 		'previous_article' => 'Открыть предыдущую статью',
 		'reading_view' => 'Переключиться на вид для чтения',
-		'rss_view' => 'Открыть вид RSS в новой вкладке',
+		'rss_view' => 'Открыть как RSS-канал ',
 		'see_on_website' => 'Посмотреть на сайте',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd>, чтобы отметить предыдущие статьи прочитанными<br />+ <kbd>⇧ Shift</kbd>, чтобы отметить все статьи прочитанными',
 		'skip_next_article' => 'Перейти к следующей, не раскрывая',

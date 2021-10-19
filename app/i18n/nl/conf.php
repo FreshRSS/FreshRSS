@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
+		'theme_not_available' => 'Het “%s” thema is niet meer beschikbaar. Kies een ander thema.',
 		'thumbnail' => array(
 			'label' => 'Miniatuur',
 			'landscape' => 'Liggend',
@@ -202,7 +203,7 @@ return array(
 		'other_action' => 'Andere acties',
 		'previous_article' => 'Spring naar vorige artikel',
 		'reading_view' => 'Schakel naar leesaanzicht',
-		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
+		'rss_view' => 'Open als RSS-feed',
 		'see_on_website' => 'Bekijk op originale website',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> om voorgaande artikelen als gelezen te markeren<br />+ <kbd>⇧ Shift</kbd> om alle artikelen als gelezen te markeren',
 		'skip_next_article' => 'Volgend artikel focusen zonder openen',

@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'theme' => '테마',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -202,7 +203,7 @@ return array(
 		'other_action' => '다른 동작',
 		'previous_article' => '이전 글 보기',
 		'reading_view' => '읽기 모드로 전환',
-		'rss_view' => '새 탭에서 RSS 피드 열기',
+		'rss_view' => 'Open as RSS feed', // TODO - Translation
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => '다음 글로 커서 이동',
