@@ -203,7 +203,7 @@ return array(
 		'other_action' => 'Autras accions',
 		'previous_article' => 'Passar a l’article precedent',
 		'reading_view' => 'Passar a la vista lectura',
-		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
+		'rss_view' => 'Open as RSS feed', // TODO - Translation
 		'see_on_website' => 'Veire al site d’origina',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> per marcar l’article precedent coma legit<br />+ <kbd>⇧ Shift</kbd> per marcar los articles coma legits',
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',

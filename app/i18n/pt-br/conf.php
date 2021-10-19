@@ -203,7 +203,7 @@ return array(
 		'other_action' => 'Outras ações',
 		'previous_article' => 'Pule para o artigo anterior',
 		'reading_view' => 'Mudar para o modo de leitura',
-		'rss_view' => 'Abrir visualização de RSS em uma nova aba',
+		'rss_view' => 'Abrir como feed RSS ',
 		'see_on_website' => 'Visualize o site original',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
