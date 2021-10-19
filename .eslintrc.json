@@ -12,7 +12,7 @@
 		"eqeqeq": "off",
 		"indent": ["warn", "tab", { "SwitchCase": 1 }],
 		"linebreak-style": ["error", "unix"],
-		"max-len":	["warn", 165],
+		"max-len": ["warn", 165],
 		"no-tabs": "off",
 		"semi": ["warn", "always"],
 		"space-before-function-paren": ["warn", {

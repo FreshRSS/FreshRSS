@@ -1,6 +1,5 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* jshint esversion:6, strict:global */
 
 // <Polyfills>
 if (!document.scrollingElement) document.scrollingElement = document.documentElement;
@@ -66,9 +65,10 @@ function needsScroll(elem) {
 	const winBottom = document.scrollingElement.scrollTop + document.scrollingElement.clientHeight;
 	const elemTop = elem.offsetParent.offsetTop + elem.offsetTop;
 	const elemBottom = elemTop + elem.offsetHeight;
-	return (elemTop < document.scrollingElement.scrollTop || elemBottom > winBottom)
-		? elemTop - (document.scrollingElement.clientHeight / 2)
-		: 0;
+	if (elemTop < document.scrollingElement.scrollTop || elemBottom > winBottom) {
+		return elemTop - (document.scrollingElement.clientHeight / 2);
+	}
+	return 0;
 }
 
 function str2int(str) {
