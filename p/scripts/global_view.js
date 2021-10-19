@@ -73,7 +73,7 @@ function init_close_panel() {
 			document.getElementById('overlay').classList.remove('visible');
 			return false;
 		};
-	document.body.onkeydown = function (ev) {
+	document.addEventListener('keydown', ev => {
 		let k = (ev.key.trim() || ev.code).toUpperCase();
 		if (k === 'ESC') {
 			k = 'ESCAPE';
