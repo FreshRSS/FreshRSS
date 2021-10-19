@@ -203,7 +203,7 @@ return array(
 		'other_action' => 'Autres actions',
 		'previous_article' => 'Passer à l’article précédent',
 		'reading_view' => 'Basculer vers la vue lecture',
-		'rss_view' => 'Ouvrir le flux RSS dans un nouvel onglet',
+		'rss_view' => 'Ouvrir en tant que flux RSS ',
 		'see_on_website' => 'Voir sur le site d’origine',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> pour marquer les articles précédents comme lus<br />+ <kbd>⇧ Maj</kbd> pour marquer tous les articles comme lus',
 		'skip_next_article' => 'Passer au suivant sans ouvrir',
