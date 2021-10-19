@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
 		'title' => 'API',	// TODO - Translation
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
-		'add' => 'Přidat kategorie',
 		'archiving' => 'Archivace',
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
+		'moved_category_deleted' => 'Po smazání kategorie budou v ní obsažené kanály automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'mute',	// TODO - Translation
 		'no_selected' => 'Nejsou označeny žádné kanály.',
 		'number_entries' => '%d článků',

@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
 		'title' => 'API',	// TODO - Translation
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'קטגוריה',
-		'add' => 'Add a category', // TODO - Translation
 		'archiving' => 'ארכוב',
 		'empty' => 'Empty category',	// TODO - Translation
 		'information' => 'מידע',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
+		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
 		'mute' => 'mute',	// TODO - Translation
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',

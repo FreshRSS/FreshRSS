@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'La creacion de flux e categoria es desplaçada <a href=\'%s\'>aquí</a>. I avètz tanben accès del menú a man esquèrra e de l’icòna ✚ sus la pagina principala.',
 	'api' => array(
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
 		'title' => 'API',
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Ajustar categoria',
 		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',
 			'title' => 'Mantenença',
 		),
+		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',
 		'number_entries' => '%d articles',

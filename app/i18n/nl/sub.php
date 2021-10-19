@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Het toevoegen van feeds en categorieën is <a href=\'%s\'>hierheen</a> verplaatst. Deze functionaliteit is ook toegankelijk via het menu links en via het ✚ icoon op de hoofdpagina.',
 	'api' => array(
 		'documentation' => 'Kopieer de volgende URL om deze in een externe toepassing te gebruiken.',
 		'title' => 'API',
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categorie',
-		'add' => 'Voeg categorie',
 		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',
 			'title' => 'Onderhoud',
 		),
+		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',

@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
 		'title' => 'API',
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => '카테고리',
-		'add' => 'Add a category', // TODO - Translation
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
 			'title' => 'Maintenance',	// TODO - Translation
 		),
+		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',

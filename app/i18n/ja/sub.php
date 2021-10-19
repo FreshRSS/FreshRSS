@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => '<a href=\'%s\'>ここへ</a>フィードとカテゴリは移動されました。また左側のメニューや ✚ アイコンからフィードとカテゴリへ移動できます。',
 	'api' => array(
 		'documentation' => '外部ツール内で使うURLをコピーします。',
 		'title' => 'API',
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => 'カテゴリ',
-		'add' => 'Add a category', // TODO - Translation
 		'archiving' => 'アーカイブ',
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => '記事を再読み込みして、セレクターが定義したコンテンツを完全に取得します。',
 			'title' => 'メンテナンス',
 		),
+		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
 		'mute' => 'ミュート',
 		'no_selected' => 'どのフィードも選択されていません',
 		'number_entries' => '%d 記事数',

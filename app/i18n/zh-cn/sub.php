@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>这里</a>。 也可从左侧菜单或主页的 ✚ 图标访问。',
 	'api' => array(
 		'documentation' => '复制以下地址，以供外部工具使用',
 		'title' => 'API',
@@ -12,7 +13,6 @@ return array(
 	),
 	'category' => array(
 		'_' => '分类',
-		'add' => 'Add a category', // TODO - Translation
 		'archiving' => '归档',
 		'empty' => '空分类',
 		'information' => '信息',
@@ -58,6 +58,7 @@ return array(
 			'reload_articles_help' => '重新加载文章并获取完整内容',
 			'title' => '维护',
 		),
+		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',
 		'number_entries' => '%d 篇文章',
