@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
 		'theme' => 'Tema',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -203,7 +204,7 @@ return array(
 		'other_action' => 'Diğer eylemler',
 		'previous_article' => 'Önceki makaleye geç',
 		'reading_view' => 'Okuma görünümüne geç',
-		'rss_view' => 'RSS görünümünü yeni sekmede aç',
+		'rss_view' => 'RSS beslemesi olarak aç',
 		'see_on_website' => 'Orijinal sitede göster',
 		'shift_for_all_read' => 'Önceki makaleyi okundu olarak işaretlemek için + <kbd>Alt ⎇</kbd> kısayolu<br />Tüm makaleleri okundu işaretlemek için + <kbd>⇧ Shift</kbd>kısayolu',
 		'skip_next_article' => 'Açmadan bir sonraki makaleye geç',

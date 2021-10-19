@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'ערכת נושא',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -203,7 +204,7 @@ return array(
 		'other_action' => 'פעולות אחרות',
 		'previous_article' => 'דילוג למאמר הקודם',
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
-		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => 'ראו את המקור באתר',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation

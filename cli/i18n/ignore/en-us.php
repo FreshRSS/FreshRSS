@@ -160,6 +160,7 @@ return array(
 	'conf.display.notif_html5.timeout',
 	'conf.display.show_nav_buttons',
 	'conf.display.theme',
+	'conf.display.theme_not_available',
 	'conf.display.thumbnail.label',
 	'conf.display.thumbnail.landscape',
 	'conf.display.thumbnail.none',

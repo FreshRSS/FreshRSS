@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
 		'theme' => 'Vzhľad',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -203,7 +204,7 @@ return array(
 		'other_action' => 'Ostatné akcie',
 		'previous_article' => 'Otvorí predošlý článok',
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
-		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
+		'rss_view' => 'Otvoriť ako kanál RSS',
 		'see_on_website' => 'Zobrazí na webovej stránke',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
