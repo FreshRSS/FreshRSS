@@ -82,7 +82,7 @@ function init_close_panel() {
 			document.querySelector('#overlay .close').click();
 		}
 		return false;
-	}
+	});
 }
 
 function init_global_view() {
