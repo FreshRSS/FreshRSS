@@ -47,4 +47,6 @@ return array(
 	'gen.share.wallabag',
 	'gen.share.wallabagv2',
 	'index.about.agpl3',
+	'gen.freshrss._',
+	'sub.api.title'
 );
