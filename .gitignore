@@ -19,3 +19,6 @@ constants.local.php
 *.autosave
 *.sass-cache
 sass.sh
+
+app/i18n/ru/sub.php
+app/i18n/ru/gen.php
