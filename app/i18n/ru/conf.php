@@ -29,7 +29,7 @@ return array(
 			'publication_date' => 'Дата публикации',
 			'related_tags' => 'Связанные метки',
 			'sharing' => 'Поделиться',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => 'Резюме',
 			'top_line' => 'Верхняя линия',
 		),
 		'language' => 'Язык',
@@ -39,13 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
 		'theme' => 'Тема',
-		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => 'Миниатюра',
+			'landscape' => 'Альбомная ориентация',
+			'none' => 'Пусто',
+			'portrait' => 'Книжная ориентация',
+			'square' => 'Площадь',
 		),
 		'title' => 'Отображение',
 		'width' => array(
@@ -128,11 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',
 			'article_viewed' => 'когда статья просматривается',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
 			'scroll' => 'во время прокрутки',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',
 		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',
@@ -174,7 +174,7 @@ return array(
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
-		'title' => 'Sharing',	// TODO - Translation
+		'title' => 'Поделиться',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
 	),
