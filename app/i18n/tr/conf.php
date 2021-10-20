@@ -199,6 +199,7 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> tuşu ile kısayollar akışlar için geçerli olur.<br/><kbd>Alt ⎇</kbd> tuşu ile kısayollar kategoriler için geçerli olur.',
 		'navigation_no_mod_help' => 'Aşağıdaki kısayollar değiştiricileri desteklenmemektedir.',
 		'next_article' => 'Sonraki makaleye geç',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Bazı tuşlar (<kbd>%s</kbd>) kullanılamayabilir.',
 		'normal_view' => 'Normal görünüme geç',
 		'other_action' => 'Diğer eylemler',

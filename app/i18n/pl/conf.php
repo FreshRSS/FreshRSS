@@ -199,6 +199,7 @@ return array(
 		'navigation_help' => 'Z wykorzystaniem modyfikatora <kbd>⇧ Shift</kbd> skróty nawigacyjne stosowane są dla kanałów.<br/>Z wykorzystaniem modyfikatora <kbd>Alt ⎇</kbd> skróty nawigacyjne stosowane są dla kategorii.',
 		'navigation_no_mod_help' => 'Pozostałe skróty nawigacyjne nie wspierają modyfikatorów.',
 		'next_article' => 'Otworzenie następnej wiadomości',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Przełączenie na widok normalny',
 		'other_action' => 'Inne akcje',

@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => '<a href=\'%s\'>ここへ</a>フィードとカテゴリは移動されました。また左側のメニューや ✚ アイコンからフィードとカテゴリへ移動できます。',
 	'api' => array(
 		'documentation' => '外部ツール内で使うURLをコピーします。',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'カテゴリ',
+		'add' => 'Add a category', // TODO - Translation
 		'archiving' => 'アーカイブ',
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',

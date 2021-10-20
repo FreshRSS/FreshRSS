@@ -199,6 +199,7 @@ return array(
 		'navigation_help' => 'With the <kbd>⇧ Shift</kbd> modifier, navigation shortcuts apply on feeds.<br/>With the <kbd>Alt ⎇</kbd> modifier, navigation shortcuts apply on categories.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',
 		'next_article' => 'Open the next article',
+		'next_unread_article' => 'Open the next unread article',
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',
 		'normal_view' => 'Switch to normal view',
 		'other_action' => 'Other actions',

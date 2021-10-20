@@ -284,6 +284,7 @@ return array(
 	'conf.shortcut.navigation_help',
 	'conf.shortcut.navigation_no_mod_help',
 	'conf.shortcut.next_article',
+	'conf.shortcut.next_unread_article',
 	'conf.shortcut.non_standard',
 	'conf.shortcut.normal_view',
 	'conf.shortcut.other_action',

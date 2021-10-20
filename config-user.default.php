@@ -63,6 +63,7 @@ return array (
 		'mark_favorite' => 'f',
 		'go_website' => 'space',
 		'next_entry' => 'j',
+		'next_unread_entry' => 'h',
 		'prev_entry' => 'k',
 		'skip_next_entry' => 'n',
 		'skip_prev_entry' => 'p',
