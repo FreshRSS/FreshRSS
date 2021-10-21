@@ -31,7 +31,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s já está habilitado',
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'cannot_remove' => '%s não pode ser removido',
 		'disable' => array(
 			'ko' => '%s não pode ser desabilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está desabilitado',
@@ -43,7 +43,7 @@ return array(
 		'no_access' => 'Você não tem acesso ao %s',
 		'not_enabled' => '%s não está habilitado',
 		'not_found' => '%s não existe',
-		'removed' => '%s removed',	// TODO - Translation
+		'removed' => '%s removido',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'extensão ZIP não está presente em seu servidor. Por favor tente exportar os arquivos um por vez.',
@@ -97,7 +97,7 @@ return array(
 				'http_error' => 'Falha ao carregar o conteúdo do site.',
 				'no_entries' => 'Não há nenhuma entrada nesse feed. Você precisa de pelo menos um artigo para criar uma pré-visualização',
 				'no_feed' => 'Erro interno (nenhum feed para verificar).',
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
+				'no_result' => 'O seletor não teve correspondência. Por isso foi exibido o texto do feed original.',
 				'selector_empty' => 'O seletor está vazio. Você precisa definir um para criar uma pré-visualização.',
 			),
 			'updated' => 'Os feeds foram atualizados',
@@ -105,9 +105,9 @@ return array(
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'A tag "%s" foi criada.',
+		'name_exists' => 'O nome da tag já existe.',	
+		'renamed' => 'A tag "%s" foi renomeada para "%s".',
 	),
 	'update' => array(
 		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',

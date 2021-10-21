@@ -8,7 +8,7 @@ return array(
 	'bookmarklet' => array(
 		'documentation' => 'Arraste este botão para sua barra de favoritos ou clique com o botão direito e escolha "Adicionar este link aos favoritos". Depois clique no no link da barra de favoritos "Inscrever-se" em qualquer página que você queira se inscrever.',
 		'label' => 'Inscrever-se',
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'title' => 'Bookmarklet',
 	),
 	'category' => array(
 		'_' => 'Categoria',
@@ -33,13 +33,13 @@ return array(
 		),
 		'clear_cache' => 'Sempre limpar o cache',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'_' => 'Ações ao buscar pelo conteúdo de artigos',	
+			'append' => 'Adicionar depois conteúdo existente',	
+			'prepend' => 'Adicionar antes do conteúdo existente',	
+			'replace' => 'Substituir o conteúdo existente',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'css_cookie' => 'Usar cookies ao buscar pelo conteúdo de artigos',
+		'css_cookie_help' => 'Exemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retorna RSS feeds truncados (atenção, requer mais tempo!)',
 		'css_path' => 'Caminho do CSS do artigo no site original',
 		'description' => 'Descrição',
@@ -68,8 +68,8 @@ return array(
 			'main_stream' => 'Mostrar na tela principal',
 			'normal' => 'Mostrar na sua categoria',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Defina um proxy para buscar esse feed',
+		'proxy_help' => 'Selecione um protocolo (e.g: SOCKS5) e digite o endereço do proxy (e.g: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar fonte',
 			'show_rendered' => 'Mostrar conteúdo',
@@ -89,8 +89,8 @@ return array(
 		'title_add' => 'Adicionar o RSS feed',
 		'ttl' => 'Não atualize automaticamente mais que',
 		'url' => 'URL do Feed',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => 'Defina um usuário para buscar este feed',
+		'useragent_help' => 'Exemplo: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Verifique a validade do feed',
 		'website' => 'URL do site',
 		'websub' => 'Notificação instantânea com WebSub',
@@ -108,9 +108,9 @@ return array(
 		'title' => 'Importar / exportar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
+		'add' => 'Adicionar um feed ou categoria',
 		'import_export' => 'Importar / exportar',
-		'label_management' => 'Label management',	// TODO - Translation
+		'label_management' => 'Gerenciar etiquetas',
 		'stats' => array(
 			'idle' => 'Feeds inativos',
 			'main' => 'Estatísticas principais',
@@ -120,19 +120,19 @@ return array(
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'Nome',
+		'new_name' => 'Nome novo',	
+		'old_name' => 'Nome antigo',	
 	),
 	'title' => array(
 		'_' => 'Gerenciamento de inscrições',
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_label' => 'Add a label',	// TODO - Translation
-		'delete_label' => 'Delete a label',	// TODO - Translation
+		'add' => 'Adicionar um feed ou categoria',
+		'add_category' => 'Adicionar uma categoria',
+		'add_feed' => 'Adicionar um feed',	
+		'add_label' => 'Adicionar uma etiqueta',	
+		'delete_label' => 'Deletar uma etiqueta',
 		'feed_management' => 'Gerenciamento dos RSS feeds',
-		'rename_label' => 'Rename a label',	// TODO - Translation
+		'rename_label' => 'Renomear uma etiqueta',	
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 );
