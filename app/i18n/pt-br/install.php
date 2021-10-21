@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Escolha o idioma para o FreshRSS',
 		'defined' => 'O idioma foi definido.',
 	),
-	'missing_applied_migrations' => 'Algo de errado ocorreu; você tem que criar um arquivo vazio <em>%s</em> manualmente.',	
+	'missing_applied_migrations' => 'Algo de errado ocorreu; você tem que criar um arquivo vazio <em>%s</em> manualmente.',
 	'ok' => 'O processo de instalação foi um sucesso.',
 	'session' => array(
 		'nok' => 'O servidor parece ter sido configurado incorretamente para os cookies necessários para sessões PHP!',

@@ -106,7 +106,7 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'A tag "%s" foi criada.',
-		'name_exists' => 'O nome da tag já existe.',	
+		'name_exists' => 'O nome da tag já existe.',
 		'renamed' => 'A tag "%s" foi renomeada para "%s".',
 	),
 	'update' => array(

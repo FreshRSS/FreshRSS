@@ -178,7 +178,7 @@ return array(
 		'create' => 'Criar novo usuário',
 		'database_size' => 'Tamanho do banco de dados',
 		'email' => 'Endereço de email',
-		'enabled' => 'Habilitado',	
+		'enabled' => 'Habilitado',
 		'feed_count' => 'Feeds',
 		'is_admin' => 'É administrador',
 		'language' => 'Idioma',
