@@ -74,7 +74,7 @@ function init_close_panel() {
 			return false;
 		};
 	document.addEventListener('keydown', ev => {
-		let k = (ev.key.trim() || ev.code).toUpperCase();
+		const k = (ev.key.trim() || ev.code).toUpperCase();
 		if (k === 'ESCAPE' || k === 'ESC') {
 			document.querySelector('#overlay .close').click();
 		}
