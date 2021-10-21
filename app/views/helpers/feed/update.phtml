@@ -133,7 +133,7 @@
 			<label class="group-name" for="http_user_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?=
-					empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
+					empty($auth['username']) ? '' : $auth['username'] ?>" autocomplete="off" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 
