@@ -465,12 +465,17 @@ a.btn {
 
 /*=== Boxes */
 .box {
-	margin: 20px 10px;
+	margin: 20px 0 20px 20px;
 	display: inline-block;
 	max-width: 95%;
 	width: 20rem;
 	border: 1px solid #ccc;
 	vertical-align: top;
+}
+
+.box.visible-semi {
+	border-style: dashed;
+	opacity: 0.5;
 }
 
 .box .box-title {
@@ -874,7 +879,7 @@ input[type="search"] {
 }
 
 .subtitle > div:not(:first-of-type)::before {
-	content: ' · ';
+	content: ' · ';
 }
 
 br {
@@ -1114,7 +1119,7 @@ br {
 	display: none;
 	position: fixed;
 	top: 2%; bottom: 2%;
-	left: 3%; right: 3%;
+	right: 3%; left: 3%;
 	overflow: auto;
 }
 

@@ -879,7 +879,7 @@ input[type="search"] {
 }
 
 .subtitle > div:not(:first-of-type)::before {
-	content: ' · ';
+	content: ' · ';
 }
 
 br {
