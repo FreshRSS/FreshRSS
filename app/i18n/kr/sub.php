@@ -12,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => '카테고리',
-		'add' => 'Add a category', // TODO - Translation
+		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',

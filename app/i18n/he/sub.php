@@ -12,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'קטגוריה',
-		'add' => 'Add a category', // TODO - Translation
+		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => 'ארכוב',
 		'empty' => 'Empty category',	// TODO - Translation
 		'information' => 'מידע',
