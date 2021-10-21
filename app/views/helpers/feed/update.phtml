@@ -139,8 +139,11 @@
 
 			<label class="group-name" for="http_pass_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" class="extend" value="<?=
-					$auth['password'] ?>" autocomplete="new-password" />
+				<div class="stick">
+					<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
+						$auth['password'] ?>" autocomplete="new-password" />
+					<a class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></a>
+				</div>
 			</div>
 		</div>
 

@@ -150,6 +150,7 @@ function init_slider_observers() {
 					closer.classList.add('active');
 					context.ajax_loading = false;
 					fix_popup_preview_selector();
+					init_extra();
 				};
 				req.send();
 				return false;
