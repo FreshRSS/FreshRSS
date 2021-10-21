@@ -1,6 +1,5 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
-"use strict";
-/* jshint esversion:6, strict:global */
+'use strict';
 
 function show_password(ev) {
 	const button = ev.currentTarget;
@@ -13,7 +12,7 @@ function hide_password(ev) {
 	const button = ev.currentTarget;
 	const passwordField = document.getElementById(button.getAttribute('data-toggle'));
 	passwordField.setAttribute('type', 'password');
-	button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
+	button.className = button.className.replace(/(?:^|\s)active(?!\S)/g, '');
 	return false;
 }
 const toggles = document.getElementsByClassName('toggle-password');
@@ -25,8 +24,8 @@ for (let i = 0; i < toggles.length; i++) {
 const auth_type = document.getElementById('auth_type');
 function auth_type_change() {
 	if (auth_type) {
-		const auth_value = auth_type.value,
-			password_input = document.getElementById('passwordPlain');
+		const auth_value = auth_type.value;
+		const password_input = document.getElementById('passwordPlain');
 
 		if (auth_value === 'form') {
 			password_input.required = true;

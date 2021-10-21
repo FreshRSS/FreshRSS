@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'theme' => '테마',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -197,12 +198,13 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/><kbd>Alt ⎇</kbd> 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
 		'navigation_no_mod_help' => '아래 탐색 단축키에는 "Shift"와 "Alt" 키가 적용되지 않습니다.',
 		'next_article' => '다음 글 보기',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
 		'previous_article' => '이전 글 보기',
 		'reading_view' => '읽기 모드로 전환',
-		'rss_view' => '새 탭에서 RSS 피드 열기',
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => '다음 글로 커서 이동',

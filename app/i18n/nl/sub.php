@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Het toevoegen van feeds en categorieën is <a href=\'%s\'>hierheen</a> verplaatst. Deze functionaliteit is ook toegankelijk via het menu links en via het ✚ icoon op de hoofdpagina.',
 	'api' => array(
 		'documentation' => 'Kopieer de volgende URL om deze in een externe toepassing te gebruiken.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categorie',
+		'add' => 'Voeg categorie',
 		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',

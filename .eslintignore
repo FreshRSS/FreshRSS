@@ -1,0 +1,3 @@
+*.min.js
+node_modules/
+p/scripts/vendor/

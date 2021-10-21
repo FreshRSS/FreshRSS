@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => '카테고리',
+		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
