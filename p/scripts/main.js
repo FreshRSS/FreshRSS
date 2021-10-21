@@ -35,7 +35,9 @@ function xmlHttpRequestJson(req) {
 // </Utils>
 
 // <Global context>
-let context;
+/* eslint-disable no-var */
+var context;
+/* eslint-enable no-var */
 
 (function parseJsonVars() {
 	const jsonVars = document.getElementById('jsonVars');
