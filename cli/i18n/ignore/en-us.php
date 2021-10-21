@@ -506,6 +506,7 @@ return array(
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
 	'gen.menu.about',
+	'gen.menu.account',
 	'gen.menu.admin',
 	'gen.menu.archiving',
 	'gen.menu.authentication',
