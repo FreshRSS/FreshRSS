@@ -73,6 +73,13 @@ function init_close_panel() {
 			document.getElementById('overlay').classList.remove('visible');
 			return false;
 		};
+	document.addEventListener('keydown', ev => {
+		const k = (ev.key.trim() || ev.code).toUpperCase();
+		if (k === 'ESCAPE' || k === 'ESC') {
+			document.querySelector('#overlay .close').click();
+		}
+		return false;
+	});
 }
 
 function init_global_view() {
