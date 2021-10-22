@@ -128,11 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
 			'scroll' => 'beim Scrollen bzw. Überspringen',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',
 		),
 		'show' => array(
 			'_' => 'Artikel zum Anzeigen',
