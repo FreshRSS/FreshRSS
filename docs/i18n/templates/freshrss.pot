@@ -3957,7 +3957,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:13
 msgid ""
-"Available languages are: cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, "
+"Available languages are: cz, de, en, es, fr, he, it, ko, nl, oc, pt-br, ru, "
 "tr, zh-cn."
 msgstr ""
 
