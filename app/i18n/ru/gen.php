@@ -109,7 +109,7 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO - Translation
+		'_' => 'FreshRSS',
 		'about' => 'О FreshRSS',
 	),
 	'js' => array(
@@ -134,7 +134,7 @@ return array(
 		'he' => 'עברית',
 		'it' => 'Italiano',
 		'ja' => '日本語',
-		'kr' => '한국어',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'О проекте',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Аккаунт',
 		'admin' => 'Администрирование',
 		'archiving' => 'Архивирование',
 		'authentication' => 'Аутентификация',

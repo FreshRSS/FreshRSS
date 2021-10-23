@@ -1,9 +1,10 @@
 # Apache/Nginx Configuration Files
 
 ## Apache configuration
+
 This is an example Apache virtual hosts configuration file. It covers HTTP and HTTPS configuration.
 
-```
+```apache
 <VirtualHost *:80>
 	DocumentRoot /var/www/html/
 
@@ -62,7 +63,8 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 This is an example nginx configuration file. It covers HTTP, HTTPS, and php-fpm configuration.
 
 You can find simpler config file but they may be incompatible with FreshRSS API.
-```
+
+```nginx
 server {
 	listen 80;
 	listen 443 ssl;

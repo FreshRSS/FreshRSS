@@ -1,10 +1,12 @@
 {
 	"default": true,
+	"blanks-around-fences": false,
+	"blanks-around-lists": false,
 	"first-line-heading": false,
 	"line-length": false,
 	"no-hard-tabs": false,
 	"no-inline-html": {
-		"allowed_elements": [ "kbd" ]
+		"allowed_elements": ["br", "kbd"]
 	},
 	"no-multiple-blanks": {
 		"maximum": 2

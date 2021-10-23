@@ -21,6 +21,21 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		$feedDAO->updateTTL();
 		$this->view->categories = $catDAO->listSortedCategories(false);
 		$this->view->default_category = $catDAO->getDefault();
+
+		$signalError = false;
+		foreach ($this->view->categories as $cat) {
+			$feeds = $cat->feeds();
+			foreach ($feeds as $feed) {
+				if ($feed->inError()) {
+					$signalError = true;
+				}
+			}
+			if ($signalError) {
+				break;
+			}
+		}
+
+		$this->view->signalError = $signalError;
 	}
 
 	/**

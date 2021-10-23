@@ -1,6 +1,7 @@
 # Preparing the release
 
-In order to get as much feedback as possible before a release, it's preferable to announce it on GitHub by creating a dedicated ticket ([see examples] (https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
+In order to get as much feedback as possible before a release, it's preferable to announce it on GitHub by creating a dedicated ticket
+([see examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
 
 It's also recommended to make the announcement on mailing@freshrss.org.
 
@@ -12,7 +13,7 @@ You must also **make sure that the CHANGELOG file is up to date** with the updat
 
 ## Git process
 
-```sh
+```console
 $ git checkout edge
 $ git pull
 $ vim constants.php
@@ -98,7 +99,7 @@ When everything's working, it's time to announce the release to the world!
 
 ## Starting the next development version
 
-```sh
+```console
 $ git checkout edge
 $ vim constants.php
 # Update the FRESHRSS_VERSION

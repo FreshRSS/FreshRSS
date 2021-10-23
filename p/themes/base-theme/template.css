@@ -465,12 +465,17 @@ a.btn {
 
 /*=== Boxes */
 .box {
-	margin: 20px 10px;
+	margin: 20px 20px 20px 0;
 	display: inline-block;
 	max-width: 95%;
 	width: 20rem;
 	border: 1px solid #ccc;
 	vertical-align: top;
+}
+
+.box.visible-semi {
+	border-style: dashed;
+	opacity: 0.5;
 }
 
 .box .box-title {
@@ -874,7 +879,7 @@ input[type="search"] {
 }
 
 .subtitle > div:not(:first-of-type)::before {
-	content: ' · ';
+	content: ' · ';
 }
 
 br {
@@ -1090,7 +1095,7 @@ br {
 }
 
 #global > #panel.visible {
-	bottom: 1em;
+	bottom: 2%;
 	visibility: visible;
 }
 /*=== Panel */
@@ -1098,7 +1103,7 @@ br {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	background: rgba(0, 0, 0, 0.9);
+	background: rgba(0, 0, 0, 0.5);
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
@@ -1113,8 +1118,8 @@ br {
 	background: #fff;
 	display: none;
 	position: fixed;
-	top: 1em; bottom: 1em;
-	left: 2em; right: 2em;
+	top: 2%; bottom: 2%;
+	left: 3%; right: 3%;
 	overflow: auto;
 }
 

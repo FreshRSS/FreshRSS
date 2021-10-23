@@ -78,14 +78,14 @@ return array(
 		),
 		'php' => array(
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
-			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
+			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환 가능합니다.',
 		),
-		'reload' => 'Check again',	// TODO - Translation
+		'reload' => '다시 확인',
 		'tmp' => array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'temp 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => '알 수 없음',
 		'users' => array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'users 디렉토리의 권한이 올바르게 설정되어 있습니다.',
@@ -111,10 +111,10 @@ return array(
 		'choose' => 'FreshRSS에서 사용할 언어를 고르세요',
 		'defined' => '언어가 설정되었습니다.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => '무언가 잘못 되었습니다; 수동으로 빈 파일 <em>%s</em> 을(를) 만들어야 합니다',
 	'ok' => '설치 과정이 성공적으로 끝났습니다.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => '웹 서버가 PHP 세션에 필요한 쿠키 잘못 구성한 것 같습니다!',
 	),
 	'step' => '단계 %d',
 	'steps' => '단계',

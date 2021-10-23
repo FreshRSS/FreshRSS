@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Dodawanie nowych kanałów i kategorii zostało przeniesione <a href=\'%s\'>tutaj</a>. Jest również dostępne w menu po lewej stronie, a także za pomocą ikony ✚ dostępnej na głównej stronie.',
 	'api' => array(
 		'documentation' => 'Skopiuj następujący URL, by wykorzystać go w zewnętrznym narzędziu.',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategoria',
+		'add' => 'Dodaj kategoria',
 		'archiving' => 'Archiwizacja',
 		'empty' => 'Pusta kategoria',
 		'information' => 'Informacje',

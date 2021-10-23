@@ -1,27 +1,29 @@
-# Modèles
+# Minz
 
-**À FAIRE**
+## Modèles
 
-# Contrôleurs et actions
+> **À FAIRE**
 
-**À FAIRE**
+## Contrôleurs et actions
 
-# Vues
+> **À FAIRE**
 
-**À FAIRE**
+## Vues
 
-# Routage
+> **À FAIRE**
 
-**À FAIRE**
+## Routage
 
-# Écriture des URL
+> **À FAIRE**
 
-**À FAIRE**
+## Écriture des URL
 
-# Internationalisation
+> **À FAIRE**
 
-**À FAIRE**
+## Internationalisation
 
-# Comprendres les mécanismes internes
+> **À FAIRE**
 
-**À FAIRE**
+## Comprendres les mécanismes internes
+
+> **À FAIRE**

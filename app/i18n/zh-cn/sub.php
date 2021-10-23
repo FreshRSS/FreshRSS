@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => '订阅源和分类的创建已被移至 <a href=\'%s\'>这里</a>。 也可从左侧菜单或主页的 ✚ 图标访问。',
 	'api' => array(
 		'documentation' => '复制以下地址，以供外部工具使用',
 		'title' => 'API',
@@ -13,6 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => '分类',
+		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => '归档',
 		'empty' => '空分类',
 		'information' => '信息',

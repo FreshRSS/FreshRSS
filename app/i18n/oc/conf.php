@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
 		'theme' => 'Tèma',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -197,12 +198,13 @@ return array(
 		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Passar a la vista normala',
 		'other_action' => 'Autras accions',
 		'previous_article' => 'Passar a l’article precedent',
 		'reading_view' => 'Passar a la vista lectura',
-		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => 'Veire al site d’origina',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> per marcar l’article precedent coma legit<br />+ <kbd>⇧ Shift</kbd> per marcar los articles coma legits',
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
