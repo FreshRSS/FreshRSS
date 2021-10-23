@@ -1394,7 +1394,7 @@ input:checked + .slide-container .properties {
 		width: 90%;
 		height: 100vh;
 		overflow: auto;
-		box-shadow: -3px 0 3px #aaa;
+		box-shadow: 3px 0 3px #aaa;
 	}
 
 	.dropdown-target ~ .dropdown-menu {

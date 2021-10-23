@@ -1399,13 +1399,13 @@ input:checked + .slide-container .properties {
 
 	.dropdown-target ~ .dropdown-menu {
 		width: 0;
-		
+
 	}
 
 	.dropdown-target:target ~ .dropdown-menu {
 		display: table-cell;
 		z-index: 1000;
-		
+
 	}
 
 	.dropdown-menu::after {

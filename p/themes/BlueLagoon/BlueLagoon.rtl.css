@@ -1258,6 +1258,14 @@ a.btn {
 		text-align: right;
 	}
 
+	.header {
+		display: table;
+	}
+
+	.header > .item.title .logo {
+		height: 24px;
+	}
+
 	.nav-login {
 		display: none;
 	}
