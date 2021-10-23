@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Atualizar',
-		'add' => 'Add',	// TODO - Translation
+		'add' => 'Adicionar',
 		'back' => '← Voltar',
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
@@ -15,14 +15,14 @@ return array(
 		'export' => 'Exportar',
 		'filter' => 'Filtrar',
 		'import' => 'Importar',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Carregar mais atalhos',
 		'manage' => 'Gerenciar',
 		'mark_favorite' => 'Marcar como favorito',
 		'mark_read' => 'Marcar como lido',
 		'promote' => 'Promover',
 		'purge' => 'Limpar',
 		'remove' => 'Remover',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Renomear',
 		'see_website' => 'Ver o site',
 		'submit' => 'Enviar',
 		'truncate' => 'Deletar todos os artigos',
@@ -79,10 +79,10 @@ return array(
 		'july' => 'Jul',
 		'jun' => 'jun',
 		'june' => 'Jun',
-		'last_2_year' => 'Last two years',	// TODO - Translation
+		'last_2_year' => 'Últimos dois anos',
 		'last_3_month' => 'Últimos três meses',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
+		'last_3_year' => 'Últimos três anos',
+		'last_5_year' => 'Últimos cinco anos',
 		'last_6_month' => 'Últimos seis meses',
 		'last_month' => 'Últimos mês',
 		'last_week' => 'Última semana',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Sobre',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Conta',
 		'admin' => 'Administração',
 		'archiving' => 'Arquivar',
 		'authentication' => 'Autenticação',
@@ -183,11 +183,11 @@ return array(
 		'years' => 'anos',
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO - Translation
+		'Known' => 'Sites no Known',
 		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',	// TODO - Translation
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',	// TODO - Translation
+		'email' => 'E-mail',
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',

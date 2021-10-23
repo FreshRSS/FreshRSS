@@ -56,4 +56,5 @@ return array(
 	'index.log.title',
 	'install.bdd.host',
 	'sub.api.title',
+	'sub.bookmarklet.title',
 );

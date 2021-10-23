@@ -178,11 +178,11 @@ return array(
 		'create' => 'Criar novo usuário',
 		'database_size' => 'Tamanho do banco de dados',
 		'email' => 'Endereço de email',
-		'enabled' => 'Enabled',	// TODO - Translation
+		'enabled' => 'Habilitado',
 		'feed_count' => 'Feeds',
 		'is_admin' => 'É administrador',
 		'language' => 'Idioma',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'last_user_activity' => 'Última Atividade do Usuário',
 		'list' => 'Lista de usuários',
 		'number' => 'Há %d conta criada',
 		'numbers' => 'Há %d contas criadas',
