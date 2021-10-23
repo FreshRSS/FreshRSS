@@ -1660,28 +1660,7 @@ function init_normal() {
 	};
 }
 
-function init_selectInputChanger() {
-	const select = document.getElementsByClassName("select-input-changer");
-	
-	for (var i = 0; i<select.length; i++){
-		select[i].addEventListener("click", function(){onchange_selectInputChanger(this)})
-		onchange_selectInputChanger(select[i]);
-	}
 
-
-}
-
-function onchange_selectInputChanger(elem){
-	const formGroup = document.getElementById(elem.dataset.name+"-block");
-	const input = document.getElementById(elem.dataset.name+"-input");
-	if (elem.selectedOptions[0].dataset.inputVisible == "false") {
-		formGroup.style.display = 'none';
-		input.name = "";
-	} else {
-		formGroup.style.display = '';
-		input.name = elem.name;
-	}
-}
 
 function init_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
@@ -1695,7 +1674,6 @@ function init_afterDOM() {
 	init_notifications();
 	init_popup();
 	init_confirm_action();
-	init_selectInputChanger();
 	const stream = document.getElementById('stream');
 	if (stream) {
 		init_load_more(stream);
