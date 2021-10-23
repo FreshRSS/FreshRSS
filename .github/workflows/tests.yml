@@ -1,4 +1,4 @@
-name: Automatic tests
+name: Automated tests
 
 on:
   push:
@@ -14,12 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Check PHP syntax
       run: find . -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null
+
     - name: Check PHTML syntax
       run: find . -name '*.phtml' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null
+
     - name: Check translations syntax
       run: cli/manipulate.translation.php -a format && git diff --exit-code
+
     - name: Use Composer cache
       id: composer-cache
       uses: actions/cache@v2
@@ -28,22 +32,70 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+
     - run: composer install --prefer-dist --no-progress
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+
     - name: Run PHP tests
       run: composer run-script test
+
 
   npm:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Uses Node.js
       uses: actions/setup-node@v2
       with:
         # https://nodejs.org/en/about/releases/
         node-version: '14'
         cache: 'npm'
+
     - run: npm install
-    - run: npm run eslint
-    - run: npm run markdownlint
-    - run: npm run rtlcss && git diff --exit-code
-    - run: npm run stylelint
+
+    - name: Check JavaScript syntax
+      run: npm run eslint
+
+    - name: Check Markdown syntax
+      run: npm run markdownlint
+
+    - name: Check Right-to-left CSS
+      run: npm run rtlcss && git diff --exit-code
+
+    - name: Check CSS syntax
+      run: npm run stylelint
+
+
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use shell cache
+      id: shell-cache
+      uses: actions/cache@v2
+      with:
+        path: bin
+        key: ${{ runner.os }}-bin-shfmt@v3.4.0-hadolint@v2.7.0
+        restore-keys: |
+          ${{ runner.os }}-bin-
+
+    - run: mkdir -p bin/
+
+    - run: PATH=${PWD}/bin/:$PATH
+
+    - name: Install shfmt
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.4.0
+      # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+
+    - name: Check shell script syntax
+      run: ./tests/shellchecks.sh
+
+    - name: Install hadolint
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      run: curl -sL -o ${PWD}/bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ${PWD}/bin/hadolint
+
+    - name: Check Dockerfile syntax
+      run: git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 hadolint
