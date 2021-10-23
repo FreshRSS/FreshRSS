@@ -99,6 +99,11 @@ jobs:
       run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.4.0
       # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
 
+    - run: echo ${PWD}/bin/ && ls -alh ${PWD}/bin/
+    - run: echo ${GOBIN} && ls -alh ${GOBIN}
+    - run: echo ${GOROOT} && ls -alh ${GOROOT}
+    - run: echo $PATH
+
     - name: Check shell script syntax
       run: ./tests/shellchecks.sh
 
