@@ -43,6 +43,7 @@ return array(
 	'gen.lang.sk',
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
+	'gen.menu.account',
 	'gen.menu.admin',
 	'gen.share.blogotext',
 	'gen.share.diaspora',
