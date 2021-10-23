@@ -15,7 +15,7 @@ vocation à l'être. Pour le moment, les logs visibles dans l'application
 ainsi que celle générées par le script de mise à jour automatique en font
 partie.
 
-Les langues disponibles sont : cz, de, en, es, fr, he, it, kr, nl, oc,
+Les langues disponibles sont : cz, de, en, es, fr, he, it, ko, nl, oc,
 pt-br, ru, tr, zh-cn.
 
 ## Thème
