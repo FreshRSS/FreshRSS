@@ -81,33 +81,27 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-bin-
 
-    - run: mkdir -p bin/
-
-    - run: echo "${PWD}/bin" >> $GITHUB_PATH
+    - name: Add ./bin/ to $PATH
+      run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
 
     - name: Setup Go
-      # Multiple Go versions are pre-installed but the default is 1.15
+      # Multiple Go versions are pre-installed but the default 1.15 is too old
       # https://github.com/actions/setup-go
       uses: actions/setup-go@v2
       with:
-        go-version: '^1.17.2'
-
-    - run: go version
+        go-version: '1.17'
 
     - name: Install shfmt
       if: steps.shell-cache.outputs.cache-hit != 'true'
       run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.4.0
-      # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
-
-    - run: echo ${PWD}/bin/ && ls -alh ${PWD}/bin/
-    - run: echo $PATH
 
     - name: Check shell script syntax
+      # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
       run: ./tests/shellchecks.sh
 
     - name: Install hadolint
       if: steps.shell-cache.outputs.cache-hit != 'true'
-      run: curl -sL -o ${PWD}/bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ${PWD}/bin/hadolint
+      run: curl -sL -o ./bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ./bin/hadolint
 
     - name: Check Dockerfile syntax
-      run: git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 hadolint
+      run: find . -name 'Dockerfile*' -print0 | xargs -0 -n1 ./bin/hadolint --failure-threshold warning
