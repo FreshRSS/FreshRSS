@@ -21,8 +21,8 @@ Finally, it supports [extensions](#extensions) for further tuning.
 Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 We are a friendly community.
 
-* Official website: https://freshrss.org
-* Demo: https://demo.freshrss.org/
+* Official website: <https://freshrss.org>
+* Demo: <https://demo.freshrss.org/>
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
 ![FreshRSS logo](docs/img/FreshRSS-logo.png)
@@ -90,7 +90,7 @@ More detailed information about installation and server configuration can be fou
 	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
 
 
-# F.A.Q.
+# FAQ
 
 * The date and time in the right-hand column is the date declared by the feed, not the time at which the article was received by FreshRSS, and it is not used for sorting.
 	* In particular, when importing a new feed, all of its articles will appear at the top of the feed list regardless of their declared date.
@@ -135,10 +135,9 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 * [SimplePie](https://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
-* [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [flotr2](http://www.humblesoftware.com/flotr2)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+* [Chart.js](https://www.chartjs.org)
 
 ## Only for some options or configurations
 

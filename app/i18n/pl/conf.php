@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
 		'theme' => 'Motyw',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -197,12 +198,13 @@ return array(
 		'navigation_help' => 'Z wykorzystaniem modyfikatora <kbd>⇧ Shift</kbd> skróty nawigacyjne stosowane są dla kanałów.<br/>Z wykorzystaniem modyfikatora <kbd>Alt ⎇</kbd> skróty nawigacyjne stosowane są dla kategorii.',
 		'navigation_no_mod_help' => 'Pozostałe skróty nawigacyjne nie wspierają modyfikatorów.',
 		'next_article' => 'Otworzenie następnej wiadomości',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Przełączenie na widok normalny',
 		'other_action' => 'Inne akcje',
 		'previous_article' => 'Otworzenie poprzedniej wiadomości',
 		'reading_view' => 'Przełączenie na widok czytania',
-		'rss_view' => 'Otworzenie kanału RSS w nowej karcie',
+		'rss_view' => 'Otwórz jako kanał RSS',
 		'see_on_website' => 'Otwórz wiadomość na pierwotnej stronie',
 		'shift_for_all_read' => 'Użycie modyfikatora <kbd>Alt ⎇</kbd> powoduje zmianę wszystkich poprzednich wiadomości<br />Użycie modyfikatora <kbd>⇧ Shift</kbd> powoduje zmianę wszystkich wiadomości',
 		'skip_next_article' => 'Przejdź do następnej wiadomości bez otwierania',

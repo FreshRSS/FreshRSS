@@ -39,6 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
 		'theme' => 'テーマ',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
 		'thumbnail' => array(
 			'label' => 'サムネイル',
 			'landscape' => 'ランドスケープ',
@@ -197,12 +198,13 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd>キーを使うと, フィードにショートカットナビが表示されます。<br/><kbd>Alt ⎇</kbd> キーを使うと、カテゴリにショートカットナビが表示されます。',
 		'navigation_no_mod_help' => '次のショートカットナビは、キーボードショートカットには対応していません。',
 		'next_article' => '次の記事を開く',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => '(<kbd>%s</kbd>)のキーはショートカットにはなりません。',
 		'normal_view' => 'ノーマルビューに切り替える',
 		'other_action' => 'ほかのアクション',
 		'previous_article' => '前の記事を表示する',
 		'reading_view' => 'リーディングビューに切り替える',
-		'rss_view' => 'RSSビューを新しいタブで開く',
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => '元のwebサイトを開く',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd>で前の記事を既読にし、<br />+ <kbd>⇧ Shift</kbd>ですべての記事を既読にします。',
 		'skip_next_article' => '次を開かないで飛ばす',

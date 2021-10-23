@@ -134,7 +134,7 @@ return array(
 		'he' => 'עברית',
 		'it' => 'Italiano',
 		'ja' => '日本語',
-		'kr' => '한국어',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'Administrace',
 		'archiving' => 'Archivace',
 		'authentication' => 'Přihlášení',

@@ -38,7 +38,8 @@ Minz relies on and imposes an MVC architecture on projects using it. This archit
 
 ### Routing
 
-In order to link a URL to a controller, first you have to go through a "routing" phase. In FreshRSS, this is particularly simple because it suffices to specify the name of the controller to load into the URL using a `c` parameter. For example, the address http://exemple.com?c=hello will execute the code contained in the `hello` controller.
+In order to link a URL to a controller, first you have to go through a "routing" phase. In FreshRSS, this is particularly simple because it suffices to specify the name of the controller to load into the URL using a `c` parameter.
+For example, the address <http://exemple.com?c=hello> will execute the code contained in the `hello` controller.
 
 One concept that has not yet been discussed is the "actions" system. An action is executed *on* a controller. Concretely, a controller is represented by a class and its actions by methods. To execute an action, it is necessary to specify an `a` parameter in the URL.
 
@@ -60,9 +61,10 @@ class FreshRSS_hello_Controller extends Minz_ActionController {
 ?>
 ```
 
-When loading the address http://exemple.com?c=hello&a=world, the `world` action is executed on the `hello` controller.
+When loading the address <http://exemple.com?c=hello&a=world>, the `world` action is executed on the `hello` controller.
 
-Note: if `c` or `a` is not specified, the default value for each of these variables is `index`. So the address http://exemple.com?c=hello will execute the `index` action of the `hello` controller.
+Note: if `c` or `a` is not specified, the default value for each of these variables is `index`.
+So the address <http://exemple.com?c=hello> will execute the `index` action of the `hello` controller.
 
 From now on, the `hello/world` naming convention will be used to refer to a controller/action pair.
 
@@ -123,7 +125,7 @@ To take full advantage of the Minz routing system, it is strongly discouraged to
 </p>
 ```
 
-If one day it was decided to use a "url rewriting" system to have addresses in a http://exemple.com/controller/action format, all previous addresses would become ineffective!
+If one day it was decided to use a "url rewriting" system to have addresses in a <http://exemple.com/controller/action> format, all previous addresses would become ineffective!
 
 So use the `Minz_Url` class and its `display()` method instead. `Minz_Url::display()` takes an array of the following form as its argument:
 
@@ -219,7 +221,7 @@ An extension allows you to easily add functionality to FreshRSS without having t
 ### Make it work in Docker
 
 When working on an extension, it's easier to see it working directly in its environment. With Docker, you can leverage the use of the ```volume``` option when starting the container. Hopefully, you can use it without Docker-related knowledge by using the Makefile rule:
-```
+```sh
 make start extensions="/full/path/to/extension/1 /full/path/to/extension/2"
 ```
 
@@ -239,13 +241,14 @@ but you should follow our best practice:
 If you want to write a `HelloWorld` extension, the directory name should be `xExtension-HelloWorld` and the base class name `HelloWorldExtension`.
 
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you need the structure:
-```html
+```php
 class HelloWorldExtension extends Minz_Extension {
 	public function init() {
 		// your code here
 	}
 }
 ```
+
 There is an example HelloWorld extension that you can download from [our GitHub repo](https://github.com/FreshRSS/xExtension-HelloWorld).
 
 You may also need additional files or subdirectories depending on your needs:
@@ -254,9 +257,9 @@ You may also need additional files or subdirectories depending on your needs:
 * A `static/` directory containing CSS and JavaScript files that you will need for your extension (note that if you need to write a lot of CSS it may be more interesting to write a complete theme)
 * A `Controllers` directory containing additional controllers
 * An `i18n` directory containing additional translations
-* `layout` and` views` directories to define new views or to overwrite the current views
+* `layout` and `views` directories to define new views or to overwrite the current views
 
-In addition, it is good to have a `LICENSE` file indicating the license under which your extension is distributed and a` README` file giving a detailed description of it.
+In addition, it is good to have a `LICENSE` file indicating the license under which your extension is distributed and a `README` file giving a detailed description of it.
 
 ### The metadata.json file
 
@@ -266,10 +269,11 @@ The `metadata.json` file defines your extension through a number of important el
 * `author`: your name, your e-mail address ... but there is no specific format to adopt
 * `description`: a description of your extension
 * `version`: the current version number of the extension
-* `entrypoint`: Indicates the entry point of your extension. It must match the name of the class contained in the file `extension.php` without the suffix` Extension` (so if the entry point is `HelloWorld`, your class will be called` HelloWorldExtension`)
-* `type`: Defines the type of your extension. There are two types: `system` and` user`. We will study this difference right after.
+* `entrypoint`: Indicates the entry point of your extension. It must match the name of the class contained in the file `extension.php` without the suffix `Extension`
+(so if the entry point is `HelloWorld`, your class will be called `HelloWorldExtension`)
+* `type`: Defines the type of your extension. There are two types: `system` and `user`. We will study this difference right after.
 
-Only the `name` and` entrypoint` fields are required.
+Only the `name` and `entrypoint` fields are required.
 
 ### Choosing between `system` and `user`
 
@@ -296,7 +300,7 @@ The `Minz_Extension` abstract class defines a set of methods that can be overrid
 The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
 * the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
 * the `getFileUrl` returns the URL of the selected file. The file must exist in the `static` folder of the extension.
-* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension _Controllers_ folder, its file name must be _<name>Controller.php_, and its class name must be *FreshExtension\_<name>\_Controller*.
+* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension _Controllers_ folder, its file name must be _\<name\>Controller.php_, and its class name must be *FreshExtension_\<name\>_Controller*.
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
@@ -348,4 +352,4 @@ The following events are available:
 
 When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file.
 
-**TODO**
+> **TODO**
