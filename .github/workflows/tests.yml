@@ -78,8 +78,6 @@ jobs:
       with:
         path: bin
         key: ${{ runner.os }}-bin-shfmt@v3.4.0c-hadolint@v2.7.0
-        restore-keys: |
-          ${{ runner.os }}-bin-
 
     - name: Add ./bin/ to $PATH
       run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
