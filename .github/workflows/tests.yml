@@ -1,0 +1,49 @@
+name: Automatic tests
+
+on:
+  push:
+    branches: [ edge ]
+  pull_request:
+    branches: [ edge ]
+
+jobs:
+
+  composer:
+    # https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check PHP syntax
+      run: find . -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null
+    - name: Check PHTML syntax
+      run: find . -name '*.phtml' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null
+    - name: Check translations syntax
+      run: cli/manipulate.translation.php -a format && git diff --exit-code
+    - name: Use Composer cache
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    - run: composer install --prefer-dist --no-progress
+    - name: Run PHP tests
+      run: composer run-script test
+
+  npm:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Uses Node.js
+      uses: actions/setup-node@v2
+      with:
+        # https://nodejs.org/en/about/releases/
+        node-version: '14'
+        cache: 'npm'
+    - run: npm install
+    - run: npm run eslint
+    - run: npm run markdownlint
+    - run: npm run rtlcss && git diff --exit-code
+    - run: npm run stylelint
