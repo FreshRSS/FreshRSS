@@ -198,12 +198,13 @@ return array(
 		'navigation_help' => 'Pomocí přepínače <kbd>⇧ Shift</kbd> fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače <kbd>Alt ⎇</kbd> fungují v rámci kategorií.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Skočit na další článek',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
 		'other_action' => 'Ostatní akce',
 		'previous_article' => 'Skočit na předchozí článek',
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
-		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation

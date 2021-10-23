@@ -1,12 +1,10 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
-"use strict";
-/* jshint esversion:6, strict:global */
+'use strict';
 
-let rendered_node = null,
-	rendered_view = null,
-	raw_node = null,
-	raw_view = null;
-
+let rendered_node = null;
+let rendered_view = null;
+let raw_node = null;
+let raw_view = null;
 
 function update_ui() {
 	if (rendered_node.checked && !raw_node.checked) {
@@ -28,7 +26,6 @@ function init_afterDOM() {
 	rendered_node.addEventListener('click', update_ui);
 	raw_node.addEventListener('click', update_ui);
 }
-
 
 if (document.readyState && document.readyState !== 'loading') {
 	init_afterDOM();

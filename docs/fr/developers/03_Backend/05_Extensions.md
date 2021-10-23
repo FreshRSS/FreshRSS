@@ -14,8 +14,7 @@ FreshRSS est limité dans ses possibilités techniques par différents facteurs
 
 * La disponibilité des développeurs principaux ;
 * La volonté d'intégrer certains changements ;
-* Le niveau de « hack » nécessaire pour intégrer des fonctionnalités à la
-  marge.
+* Le niveau de « hack » nécessaire pour intégrer des fonctionnalités à la marge.
 
 Si la première limitation peut, en théorie, être levée par la participation
 de nouveaux contributeurs au projet, elle est en réalité conditionnée par la
@@ -27,11 +26,10 @@ Une autre solution consiste à passer par un système d'extensions. En
 permettant à des utilisateurs d'écrire leur propre extension sans avoir à
 s'intéresser au cœur même du logiciel de base, on permet :
 
-1. De réduire la quantité de code source à assimiler pour un nouveau
-   contributeur ;
+1. De réduire la quantité de code source à assimiler pour un nouveau contributeur ;
 2. De permettre d'intégrer des nouveautés de façon non-officielles ;
 3. De se passer des développeurs principaux pour d'éventuelles améliorations
-   sans passer par la case « fork ».
+	sans passer par la case « fork ».
 
 Note : il est tout à fait imaginable que les fonctionnalités d'une extension
 puissent par la suite être intégrées dans le code initial de FreshRSS de
@@ -57,26 +55,26 @@ Minz repose et impose une architecture MVC pour les projets l'utilisant. On
 distingue dans cette architecture trois composants principaux :
 
 * Le Modèle : c'est l'objet de base que l'on va manipuler. Dans FreshRSS,
-  les catégories, les flux et les articles sont des modèles. La partie du
-  code qui permet de les manipuler en base de données fait aussi partie du
-  modèle mais est séparée du modèle de base : on parle de DAO (pour « Data
-  Access Object »). Les modèles sont stockés dans un répertoire `Models`.
+	les catégories, les flux et les articles sont des modèles. La partie du
+	code qui permet de les manipuler en base de données fait aussi partie du
+	modèle mais est séparée du modèle de base : on parle de DAO (pour « Data
+	Access Object »). Les modèles sont stockés dans un répertoire `Models`.
 * La Vue : c'est ce qui représente ce que verra l'utilisateur. La vue est
-  donc simplement du code HTML que l'on mixe avec du PHP pour afficher les
-  informations dynamiques. Les vues sont stockées dans un répertoire
-  `views`.
+	donc simplement du code HTML que l'on mixe avec du PHP pour afficher les
+	informations dynamiques. Les vues sont stockées dans un répertoire
+	`views`.
 * Le Contrôleur : c'est ce qui permet de lier modèles et vues entre
-  eux. Typiquement, un contrôleur va charger des modèles à partir de la base
-  de données (une liste d'articles par exemple) pour les « passer » à une
-  vue afin qu'elle les affiche. Les contrôleurs sont stockés dans un
-  répertoire `Controllers`.
+	eux. Typiquement, un contrôleur va charger des modèles à partir de la base
+	de données (une liste d'articles par exemple) pour les « passer » à une
+	vue afin qu'elle les affiche. Les contrôleurs sont stockés dans un
+	répertoire `Controllers`.
 
 ### Routage
 
 Afin de lier une URL à un contrôleur, on doit passer par une phase dite de «
 routage ». Dans FreshRSS, cela est particulièrement simple car il suffit
-d'indiquer le nom du contrôleur à charger dans l'URL à l'aide d'un paramètre
-`c`. Par exemple, l'adresse http://exemple.com?c=hello va exécuter le code
+d'indiquer le nom du contrôleur à charger dans l'URL à l'aide d'un paramètre `c`.
+Par exemple, l'adresse <http://exemple.com?c=hello> va exécuter le code
 contenu dans le contrôleur `hello`.
 
 Une notion qui n'a pas encore été évoquée est le système d'« actions ». Une
@@ -102,11 +100,11 @@ class FreshRSS_hello_Controller extends Minz_ActionController {
 ?>
 ```
 
-Si l'on charge l'adresse http://exemple.com?c=hello&a=world, l'action
+Si l'on charge l'adresse <http://exemple.com?c=hello&a=world>, l'action
 `world` va donc être exécutée sur le contrôleur `hello`.
 
 Note : si `c` ou `a` n'est pas précisée, la valeur par défaut de chacune de
-ces variables est `index`. Ainsi l'adresse http://exemple.com?c=hello va
+ces variables est `index`. Ainsi l'adresse <http://exemple.com?c=hello> va
 exécuter l'action `index` du contrôleur `hello`.
 
 Plus loin, sera utilisée la convention `hello/world` pour évoquer un couple
@@ -183,7 +181,7 @@ suivante doit être évitée :
 ```
 
 Si un jour il est décidé d'utiliser un système d'« url rewriting » pour
-avoir des adresses au format http://exemple.com/controller/action, toutes
+avoir des adresses au format <http://exemple.com/controller/action>, toutes
 les adresses précédentes deviendraient ineffectives !
 
 Préférez donc l'utilisation de la classe `Minz_Url` et de sa méthode
@@ -300,12 +298,9 @@ Français sont situés dans `i18n/fr/`. Il existe sept fichiers différents :
 * `conf.php` pour l'aspect configuration ;
 * `feedback.php` contient les traductions des messages de feedback ;
 * `gen.php` stocke ce qui est global à FreshRSS (gen pour « general ») ;
-* `index.php` pour la page principale qui liste les flux et la page « À
-  propos » ;
-* `install.php` contient les phrases relatives à l'installation de FreshRSS
-  ;
-* `sub.php` pour l'aspect gestion des abonnements (sub pour « subscription
-  »).
+* `index.php` pour la page principale qui liste les flux et la page « À propos » ;
+* `install.php` contient les phrases relatives à l'installation de FreshRSS ;
+* `sub.php` pour l'aspect gestion des abonnements (sub pour « subscription »).
 
 Cette organisation permet de ne pas avoir un unique énorme fichier de
 traduction.
@@ -377,7 +372,7 @@ FreshRSS sans avoir à toucher au cœur du projet directement.
 ### Travailler dans Docker
 
 Quand on travaille sur une extension, c'est toujours plus facile de la travailler directement dans son environnement. Avec Docker, on peut exploiter l'option ```volume``` quand on démarre le conteneur. Heureusement, on peut l'utiliser sans avoir de connaissances particulières de Docker en utilisant la règle du Makefile :
-```
+```sh
 make start extensions="/chemin/complet/de/l/extension/1 /chemin/complet/de/l/extension/2"
 ```
 
@@ -394,7 +389,7 @@ Le répertoire principal d'une extension doit comporter au moins deux
 fichiers **obligatoire** :
 
 * Un fichier `metadata.json` qui contient une description de l'extension. Ce
-  fichier est écrit en JSON ;
+	fichier est écrit en JSON ;
 * Un fichier `extension.php` contenant le point d'entrée de l'extension.
 
 Please note that there is a not a required link between the directory name
@@ -419,17 +414,17 @@ You may also need additional files or subdirectories depending on your
 needs:
 
 * `configure.phtml` est le fichier contenant le formulaire pour paramétrer
-  votre extension
+	votre extension
 * A `static/` directory containing CSS and JavaScript files that you will
-  need for your extension (note that if you need to write a lot of CSS it
-  may be more interesting to write a complete theme)
+	need for your extension (note that if you need to write a lot of CSS it
+	may be more interesting to write a complete theme)
 * A `Controllers` directory containing additional controllers
 * An `i18n` directory containing additional translations
-* `layout` and` views` directories to define new views or to overwrite the
-  current views
+* `layout` and `views` directories to define new views or to overwrite the
+	current views
 
 In addition, it is good to have a `LICENSE` file indicating the license
-under which your extension is distributed and a` README` file giving a
+under which your extension is distributed and a `README` file giving a
 detailed description of it.
 
 ### The metadata.json file
@@ -440,15 +435,15 @@ following entries:
 
 * `name` : le nom de votre extension ;
 * `author` : votre nom, éventuellement votre adresse mail mais il n'y a pas
-  de format spécifique à adopter ;
+	de format spécifique à adopter ;
 * `description` : une description de votre extension ;
 * `version` : le numéro de version actuel de l'extension ;
 * `entrypoint` : indique le point d'entrée de votre extension. Il doit
-  correspondre au nom de la classe contenue dans le fichier `extension.php`
-  sans le suffixe `Extension` (donc si le point d'entrée est `HelloWorld`,
-  votre classe s'appellera `HelloWorldExtension`) ;
+	correspondre au nom de la classe contenue dans le fichier `extension.php`
+	sans le suffixe `Extension` (donc si le point d'entrée est `HelloWorld`,
+	votre classe s'appellera `HelloWorldExtension`) ;
 * `type` : définit le type de votre extension. Il existe deux types :
-  `system` et `user`. Nous étudierons cette différence juste après.
+	`system` et `user`. Nous étudierons cette différence juste après.
 
 Seuls les champs `name` et `entrypoint` sont requis.
 
@@ -463,46 +458,45 @@ A __system__ extension in comparison is enabled for every account.
 
 This file is the entry point of your extension. It must contain a specific
 class to function.  As mentioned above, the name of the class must be your
-`entrypoint` suffixed by` Extension` (`HelloWorldExtension` for example).
+`entrypoint` suffixed by `Extension` (`HelloWorldExtension` for example).
 In addition, this class must be inherited from the `Minz_Extension` class to
 benefit from extensions-specific methods.
 
 Your class will benefit from four methods to redefine:
 
 * `install()` is called when a user clicks the button to activate your
-  extension. It allows, for example, to update the database of a user in
-  order to make it compatible with the extension. It returns `true` if
-  everything went well or, if not, a string explaining the problem.
+	extension. It allows, for example, to update the database of a user in
+	order to make it compatible with the extension. It returns `true` if
+	everything went well or, if not, a string explaining the problem.
 * `uninstall()` is called when a user clicks the button to disable your
-  extension. This will allow you to undo the database changes you
-  potentially made in `install ()`. It returns `true` if everything went
-  well or, if not, a string explaining the problem.
+	extension. This will allow you to undo the database changes you
+	potentially made in `install ()`. It returns `true` if everything went
+	well or, if not, a string explaining the problem.
 * `init()` is called for every page load *if the extension is enabled*. It
-  will therefore initialize the behavior of the extension. This is the most
-  important method.
+	will therefore initialize the behavior of the extension. This is the most
+	important method.
 * `handleConfigureAction()` is called when a user loads the extension
-  management panel. Specifically, it is called when the
-  `?c=extension&a=configured&e=name-of-your-extension` URL is loaded. You
-  should also write here the behavior you want when validating the form in
-  your `configure.phtml` file.
+	management panel. Specifically, it is called when the
+	`?c=extension&a=configured&e=name-of-your-extension` URL is loaded. You
+	should also write here the behavior you want when validating the form in
+	your `configure.phtml` file.
 
-In addition, you will have a number of methods directly inherited from
-`Minz_Extension` that you should not redefine:
+	In addition, you will have a number of methods directly inherited from
+	`Minz_Extension` that you should not redefine:
 
 * The "getters" first: most are explicit enough not to detail them here -
-  `getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the
-  path to your extension), `getAuthor()`, `getDescription()`,
-  `getVersion()`, `getType()`.
+	`getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the
+	path to your extension), `getAuthor()`, `getDescription()`,
+	`getVersion()`, `getType()`.
 * `getFileUrl($filename, $type)` will return the URL to a file in the
-  `static` directory. The first parameter is the name of the file (without
-  `static /`), the second is the type of file to be used (`css` or` js`).
+	`static` directory. The first parameter is the name of the file (without
+	`static /`), the second is the type of file to be used (`css` or `js`).
 * `registerController($base_name)` will tell Minz to take into account the
-  given controller in the routing system. The controller must be located in
-  your `Controllers` directory, the name of the file must be`
-  <base_name>Controller.php` and the name of the
-  `FreshExtension_<base_name>_Controller` class.
+	given controller in the routing system. The controller must be located in
+	your `Controllers` directory, the name of the file must be `<base_name>Controller.php` and the name of the
+	`FreshExtension_<base_name>_Controller` class.
 
-**À FAIRE**
+> **À FAIRE**
 
 * `registerViews()`
 * `registerTranslates()`
@@ -529,44 +523,44 @@ class HelloWorldExtension extends Minz_Extension
 The following events are available:
 
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed
-  every time a URL is added. The URL itself will be passed as
-  parameter. This way a website known to have feeds which doesn't advertise
-  it in the header can still be automatically supported.
+	every time a URL is added. The URL itself will be passed as
+	parameter. This way a website known to have feeds which doesn't advertise
+	it in the header can still be automatically supported.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be
-  executed every time an entry is rendered. The entry itself (instance of
-  FreshRSS\_Entry) will be passed as parameter.
+	executed every time an entry is rendered. The entry itself (instance of
+	FreshRSS\_Entry) will be passed as parameter.
 * `entry_before_insert` (`function($entry) -> Entry | null`): will be
-  executed when a feed is refreshed and new entries will be imported into
-  the database. The new entry (instance of FreshRSS\_Entry) will be passed
-  as parameter.
+	executed when a feed is refreshed and new entries will be imported into
+	the database. The new entry (instance of FreshRSS\_Entry) will be passed
+	as parameter.
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
-  executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
-  will be passed as parameter.
+	executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
+	will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed
-  when a new feed is imported into the database. The new feed (instance of
-  FreshRSS\_Feed) will be passed as parameter.
+	when a new feed is imported into the database. The new feed (instance of
+	FreshRSS\_Feed) will be passed as parameter.
 * `freshrss_init` (`function() -> none`): will be executed at the end of the
-  initialization of FreshRSS, useful to initialize components or to do
-  additional access checks
+	initialization of FreshRSS, useful to initialize components or to do
+	additional access checks
 * `menu_admin_entry` (`function() -> string`): add an entry at the end of
-  the "Administration" menu, the returned string must be valid HTML
-  (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+	the "Administration" menu, the returned string must be valid HTML
+	(e.g. `<li class="item active"><a href="url">New entry</a></li>`)
 * `menu_configuration_entry` (`function() -> string`): add an entry at the
-  end of the "Configuration" menu, the returned string must be valid HTML
-  (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+	end of the "Configuration" menu, the returned string must be valid HTML
+	(e.g. `<li class="item active"><a href="url">New entry</a></li>`)
 * `menu_other_entry` (`function() -> string`): add an entry at the end of
-  the header dropdown menu (i.e. after the "About" entry), the returned
-  string must be valid HTML (e.g. `<li class="item active"><a href="url">New
-  entry</a></li>`)
+	the header dropdown menu (i.e. after the "About" entry), the returned
+	string must be valid HTML (e.g. `<li class="item active"><a href="url">New
+	entry</a></li>`)
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO**
-  add documentation
+	add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO**
-  add documentation
+	add documentation
 
 ### Writing your own configure.phtml
 
 When you want to support user configurations for your extension or simply
 display some information, you have to create the `configure.phtml` file.
 
-**À FAIRE**
+> **À FAIRE**

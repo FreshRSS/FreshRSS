@@ -12,6 +12,7 @@ Start by creating your development environment. A guide to setting up FreshRSS's
 * [Releasing a new version](05_Release_new_version.md)
 * [Reporting bugs](06_Reporting_Bugs.md)
 * [Fever API](06_Fever_API.md)
+* [GoogleReader API](06_GoogleReader_API.md)
 
 ## Backend Development
 
@@ -26,4 +27,5 @@ Start by creating your development environment. A guide to setting up FreshRSS's
 * [Design (Themes/Theming)](04_Frontend/02_Design.md)
 
 ## Minz
+
 Minz is the homemade PHP framework used by FreshRSS. More information can be found [here](Minz/index.md).

@@ -1,7 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
-"use strict";
+'use strict';
 /* globals Chart */
-/* jshint esversion:6, strict:global */
 
 function initCharts() {
 	if (!window.Chart) {
@@ -14,13 +13,13 @@ function initCharts() {
 
 	const jsonData = document.getElementsByClassName('jsonData-stats');
 
-	var jsonDataParsed;
-	var chartConfig;
+	let jsonDataParsed;
+	let chartConfig;
 
-	for (var i = 0; i < jsonData.length; i++) {
+	for (let i = 0; i < jsonData.length; i++) {
 		jsonDataParsed = JSON.parse(jsonData[i].innerHTML);
 
-		switch(jsonDataParsed.charttype) {
+		switch (jsonDataParsed.charttype) {
 			case 'bar':
 				chartConfig = jsonChartBar(jsonDataParsed.label, jsonDataParsed.data, jsonDataParsed.xAxisLabels);
 				break;
@@ -28,13 +27,13 @@ function initCharts() {
 				chartConfig = jsonChartDoughnut(jsonDataParsed.labels, jsonDataParsed.data);
 				break;
 			case 'barWithAverage':
-				chartConfig = jsonChartBarWithAvarage(jsonDataParsed.labelBarChart, jsonDataParsed.dataBarChart, jsonDataParsed.labelAverage, jsonDataParsed.dataAverage, jsonDataParsed.xAxisLabels);
+				chartConfig = jsonChartBarWithAvarage(jsonDataParsed.labelBarChart, jsonDataParsed.dataBarChart,
+					jsonDataParsed.labelAverage, jsonDataParsed.dataAverage, jsonDataParsed.xAxisLabels);
 		}
 
-		new Chart(
-			document.getElementById(jsonDataParsed.canvasID),
-			chartConfig
-		);
+		/* eslint-disable no-new */
+		new Chart(document.getElementById(jsonDataParsed.canvasID), chartConfig);
+		/* eslint-enable no-new */
 	}
 
 	if (window.console) {
@@ -55,25 +54,25 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 				barPercentage: 1.0,
 				categoryPercentage: 1.0,
 				order: 2,
-			}]
+			}],
 		},
 		options: {
 			scales: {
 				y: {
-					beginAtZero: true
+					beginAtZero: true,
 				},
 				x: {
 					grid: {
 						display: false,
-					}
-				}
+					},
+				},
 			},
 			plugins: {
 				legend: {
 					display: false,
-				}
-			}
-		}
+				},
+			},
+		},
 	};
 }
 
@@ -84,22 +83,22 @@ function jsonChartDoughnut(labels, data) {
 			labels: labels,
 			datasets: [{
 				backgroundColor: [
-					'#0b84a5',  //petrol
+					'#0b84a5', // petrol
 					'#f6c85f', // sand
-					'#6f4e7c', //purple
-					'#9dd866', //green
-					'#ca472f', //red
-					'#ffa056', //orange
+					'#6f4e7c', // purple
+					'#9dd866', // green
+					'#ca472f', // red
+					'#ffa056', // orange
 					'#8dddd0', // turkis
 					'#f6c85f', // sand
-					'#6f4e7c', //purple
-					'#9dd866', //green
-					'#ca472f', //red
-					'#ffa056', //orange
+					'#6f4e7c', // purple
+					'#9dd866', // green
+					'#ca472f', // red
+					'#ffa056', // orange
 					'#8dddd0', // turkis
 				],
 				data: data,
-			}]
+			}],
 		},
 		options: {
 			layout: {
@@ -109,9 +108,9 @@ function jsonChartDoughnut(labels, data) {
 				legend: {
 					position: 'bottom',
 					align: 'start',
-				}
-			}
-		}
+				},
+			},
+		},
 	};
 }
 
@@ -133,15 +132,15 @@ function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, data
 				{
 					// average line chart
 					type: 'line',
-					label: labelAverage,  // Todo: i18n
+					label: labelAverage, // Todo: i18n
 					borderColor: 'rgb(192,216,0)',
 					data: {
-						'-30' : dataAverage,
-						'-1' : dataAverage,
+						'-30': dataAverage,
+						'-1': dataAverage,
 					},
 					order: 1,
-				}
-			]
+				},
+			],
 		},
 
 		options: {
@@ -151,41 +150,41 @@ function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, data
 				},
 				x: {
 					ticks: {
-						callback: function(val){
+						callback: function (val) {
 							if (xAxisLabels.length > 0) {
 								return xAxisLabels[val];
 							} else {
 								return val;
 							}
-						}
+						},
 					},
 					grid: {
 						display: false,
-					}
-				}
+					},
+				},
 			},
 			elements: {
 				point: {
 					radius: 0,
-				}
+				},
 			},
 			plugins: {
 				tooltip: {
 					callbacks: {
-						title: function(tooltipitem) {
+						title: function (tooltipitem) {
 							if (xAxisLabels.length > 0) {
 								return xAxisLabels[tooltipitem[0].dataIndex];
 							} else {
 								return tooltipitem[0].label;
 							}
-						}
-					}
+						},
+					},
 				},
 				legend: {
 					display: false,
-				}
-			}
-		}
+				},
+			},
+		},
 	};
 }
 

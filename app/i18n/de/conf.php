@@ -128,11 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
 			'scroll' => 'beim Scrollen bzw. Überspringen',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',
 		),
 		'show' => array(
 			'_' => 'Artikel zum Anzeigen',
@@ -198,12 +198,13 @@ return array(
 		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
+		'next_unread_article' => 'Zum nächsten ungelesenen Artikel springen',
 		'non_standard' => 'Einige Tasten (<kbd>%s</kbd>) können nicht als Shortcut verwendet werden.',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',
 		'reading_view' => 'Wechsle zur Lese-Ansicht',
-		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
+		'rss_view' => 'Öffne als RSS-Feed',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> um vorherige Artikel als gelesen zu markieren<br />+ <kbd>⇧ Shift</kbd> um alle Artikel als gelesen zu markieren',
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',

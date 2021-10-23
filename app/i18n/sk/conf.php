@@ -198,12 +198,13 @@ return array(
 		'navigation_help' => 'Po stlačení skratky s klávesou <kbd>⇧ Shift</kbd>, sa skratky navigácie vzťahujú na kanály.<br/>Po stlačení skratky s klávesou <kbd>Alt ⎇</kbd>, sa skratky navigácie vzťahujú na kategórie.',
 		'navigation_no_mod_help' => 'Tieto skratky navigácie nepodporujú klávesy "Shift" a "Alt".',
 		'next_article' => 'Otvorí ďalší článok',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Prepne do základného zobrazenia',
 		'other_action' => 'Ostatné akcie',
 		'previous_article' => 'Otvorí predošlý článok',
 		'reading_view' => 'Prepne do zobrazenia na čítanie',
-		'rss_view' => 'Otvorí zobrazenie RSS v novej záložke',
+		'rss_view' => 'Otvoriť ako kanál RSS',
 		'see_on_website' => 'Zobrazí na webovej stránke',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',

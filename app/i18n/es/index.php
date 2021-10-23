@@ -32,14 +32,14 @@ return array(
 		'about' => 'Acerca de FreshRSS',
 		'before_one_day' => 'Con más de 1 día',
 		'before_one_week' => 'Con más de una semana',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Marcar consulta actual',
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Vista Global',
 		'main_stream' => 'Salida Principal',
 		'mark_all_read' => 'Marcar todo como leído',
 		'mark_cat_read' => 'Marcar categoría como leída',
 		'mark_feed_read' => 'Marcar fuente como leída',
-		'mark_selection_unread' => 'Mark selection as unread',	// TODO - Translation
+		'mark_selection_unread' => 'Marcar la selección como no leída',
 		'newer_first' => 'Nuevos primero',
 		'non-starred' => 'Mostrar todos menos los favoritos',
 		'normal_view' => 'Vista normal',
@@ -52,7 +52,7 @@ return array(
 		'starred' => 'Mostrar solo los favoritos',
 		'stats' => 'Estadísticas',
 		'subscription' => 'Administración de suscripciones',
-		'tags' => 'My labels',	// TODO - Translation
+		'tags' => 'Mis etiquetas',
 		'unread' => 'Mostar solo no leídos',
 	),
 	'share' => 'Compartir',
@@ -60,6 +60,6 @@ return array(
 		'related' => 'Etiquetas relacionadas',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Términos de servicio',
 	),
 );
