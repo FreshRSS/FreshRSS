@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
-		'add' => 'Add',	// TODO - Translation
+		'add' => 'Añadir',
 		'back' => '← Volver',
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
@@ -15,14 +15,14 @@ return array(
 		'export' => 'Exportar',
 		'filter' => 'Filtrar',
 		'import' => 'Importar',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_favorite' => 'Marcar como favorita',
 		'mark_read' => 'Marcar como leído',
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
 		'remove' => 'Borrar',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Cambiar el nombre a',
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',
 		'truncate' => 'Borrar todos los artículos',
@@ -79,10 +79,10 @@ return array(
 		'july' => 'julio',
 		'jun' => 'jun',
 		'june' => 'junio',
-		'last_2_year' => 'Last two years',	// TODO - Translation
+		'last_2_year' => 'Últimos dos años',
 		'last_3_month' => 'Últimos tres meses',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
+		'last_3_year' => 'Últimos tres años',
+		'last_5_year' => 'Últimos cinco años',
 		'last_6_month' => 'Últimos seis meses',
 		'last_month' => 'Mes pasado',
 		'last_week' => 'Semana pasada',
@@ -109,7 +109,7 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO - Translation
+		'_' => 'FreshRSS',
 		'about' => 'Acerca de FreshRSS',
 	),
 	'js' => array(
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Acerca de',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Cuenta',
 		'admin' => 'Administración',
 		'archiving' => 'Archivo',
 		'authentication' => 'Identificación',
@@ -183,11 +183,11 @@ return array(
 		'years' => 'años',
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO - Translation
+		'Known' => 'Sitios basados en conocidos',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => 'Portapapeles',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',	// TODO - Translation
+		'email' => 'Email',
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
@@ -197,7 +197,7 @@ return array(
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
-		'print' => 'Print',	// TODO - Translation
+		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
