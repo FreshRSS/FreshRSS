@@ -1292,6 +1292,10 @@ input:checked + .slide-container .properties {
 	background: inherit;
 }
 
+.nav_mobile {
+	display: none;
+}
+
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,
@@ -1381,6 +1385,10 @@ input:checked + .slide-container .properties {
 	.nav_menu .search,
 	#panel .close img {
 		display: inline-block;
+	}
+
+	.nav_mobile {
+		display: block;
 	}
 
 	.aside {
