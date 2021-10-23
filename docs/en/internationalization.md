@@ -48,8 +48,8 @@ You should not have to write the array by yourself and we provide several comman
 
 If you want to add support for a language which isn't supported by FreshRSS yet, you can run this command:
 
-```console
-$ make i18n-add-language lang=[your language code]
+```sh
+make i18n-add-language lang=[your language code]
 ```
 
 You must replace `[your language code]` by the language tag of your language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. You can target a specific region with a subtag, for instance `pt-br` for Brazilian Portuguese. If you're not sure of the code, Wikipedia might be a good start to find it or you can ask us for help too.
@@ -62,24 +62,24 @@ You might have noticed some strings are not yet translated from English even tho
 
 To update a string, you just have to open its file, find the string, and change it (without removing the quotes around it!) You might want to remove the comment at the end of the line, but you should prefer to use the following command:
 
-```console
-$ make i18n-format
+```sh
+make i18n-format
 ```
 
 It will remove the comments on the lines that you've changed, and will reformat the file correctly. If you've made any mistakes, it will fix them automatically or it will tell you it can't (well… the command will dramatically fail without any damage, don't worry).
 
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
-```console
-$ git grep TODO app/i18n/he
+```sh
+git grep TODO app/i18n/he
 ```
 
 ## Acknowledge a false-positive
 
 Our tool detects if a string needs to be translated if it equals to the English version. For instance, the word “version” is the same in English and French. Thus, our tool would mark the French word to be translated. This is, in fact, the case for the `index.about.version` key. This case is considered as a false-positive because the word _is_ actually translated. To aknowledge such translations, you can run:
 
-```console
-$ make i18n-ignore-key lang=fr key=index.about.version
+```sh
+make i18n-ignore-key lang=fr key=index.about.version
 ```
 
 This command adds an entry in the [`cli/i18n/ignore/fr.php` file](/cli/i18n/ignore/fr.php) so the key can be considered as translated.
@@ -88,22 +88,22 @@ This command adds an entry in the [`cli/i18n/ignore/fr.php` file](/cli/i18n/igno
 
 If you're developping a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don't do that, it's very painful. We provide another command:
 
-```console
-$ make i18n-add-key key=the.key.to.add value='Your string in English'
+```sh
+make i18n-add-key key=the.key.to.add value='Your string in English'
 ```
 
 This adds the key to all the files. It’ll be in English, waiting for other translators.
 
 Conversely, you may want to remove a key that is no longer used in the application with:
 
-```console
-$ make i18n-remove-key key=the.key.to.remove
+```sh
+make i18n-remove-key key=the.key.to.remove
 ```
 
 Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change doesn't impact the meaning of the sentence, and therefore other languages don't need to change (e.g. to fix a typo), you should make the change manually in the file. In any other case, you should use the following command:
 
-```console
-$ make i18n-update-key key=the.key.to.change value='The new string in English'
+```sh
+make i18n-update-key key=the.key.to.change value='The new string in English'
 ```
 
 The key will simply be removed and added back with the new value.
@@ -126,7 +126,7 @@ For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me 
 
 ```php
 <label>
-    <input type="checkbox" name="keep_logged_in" />
-    <?= _t('gen.auth.keep_logged_in', 30) ?>
+	<input type="checkbox" name="keep_logged_in" />
+	<?= _t('gen.auth.keep_logged_in', 30) ?>
 </label>
 ```

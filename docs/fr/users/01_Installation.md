@@ -4,13 +4,13 @@ FreshRSS est un logiciel développé en PHP reposant sur le modèle client - ser
 
 Il est toutefois de votre responsabilité de vérifier que votre hébergement permettra de faire tourner FreshRSS avant de nous taper dessus. Dans le cas où les informations listées ci-dessous ne seraient pas à jour, vous pourrez.
 
- | Logiciel         | Recommandé                                                                                                     | Fonctionne aussi avec          |
- | --------         | -----------                                                                                                    | ---------------------          |
- | Serveur web      | **Apache 2**                                                                                                   | Nginx                          |
- | PHP              | **PHP 7+**                                                                                                     |                                |
- | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
- | Base de données  | **MySQL 5.5.3+**                                                                                               | SQLite 3.7.4+, PostgreSQL 9.5+   |
- | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or Edge   |
+| Logiciel         | Recommandé                                                                                                     | Fonctionne aussi avec          |
+| --------         | -----------                                                                                                    | ---------------------          |
+| Serveur web      | **Apache 2**                                                                                                   | Nginx                          |
+| PHP              | **PHP 7+**                                                                                                     |                                |
+| Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
+| Base de données  | **MySQL 5.5.3+**                                                                                               | SQLite 3.7.4+, PostgreSQL 9.5+   |
+| Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or Edge   |
 
 ## Choisir la bonne version de FreshRSS
 
@@ -137,4 +137,4 @@ Pour un tutoriel pas à pas, vous pouvez suivre [cet article dédié](http://www
 
 ## Conseils de sécurité
 
-**TODO**
+> **TODO**

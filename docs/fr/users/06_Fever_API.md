@@ -3,7 +3,7 @@
 Voir la page [sur notre API compatible Google Reader](06_Mobile_access.md)
 pour une autre possibilité et des généralités sur l’accès par API.
 
-## Clients compatibles
+## Clients compatibles GReader
 
 De nombreux clients RSS prennent en charge l'API Fever, mais ils semblent
 comprendre l'API Fever un peu différemment. Si votre client préféré ne
@@ -21,7 +21,7 @@ réinitialisez ensuite le mot de passe API de l'utilisateur.
 Connectez ensuite votre application mobile en utilisant l'adresse de l'API
 (e.g. `https://freshrss.example.net/api/fever.php`).
 
-## Clients compatibles
+## Clients compatibles Fever
 
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
@@ -37,8 +37,7 @@ Les fonctionnalités suivantes sont implémentées :
 
 * récupération des catégories
 * récupération des flux
-* récupération des entrées (new, favorites, unread, by_id, by_feed,
-  by_category,since)
+* récupération des entrées (new, favorites, unread, by_id, by_feed, by_category,since)
 * récupération des favicons
 * marquage des entrées comme lues
 * marquage des entrées comme favoris
@@ -49,7 +48,7 @@ Les fonctionnalités suivantes sont implémentées :
 Les fonctionnalités suivantes ne sont pas implémentées :
 
 * « Hot Links » car il n'y a encore rien dans FreshRSS qui soit similaire ou
-  qui puisse être utilisé pour le simuler.
+	qui puisse être utilisé pour le simuler.
 
 ## Tester et déboguer
 
@@ -58,7 +57,7 @@ de la tester manuellement avec un outil tel que
 [Postman](https://www.getpostman.com/).
 
 Envoyer une requête POST à l'adresse
-https://freshrss.example.net/api/fever.php?api devrait vous renvoyer le
+<https://freshrss.example.net/api/fever.php?api> devrait vous renvoyer le
 résultat suivant :
 ```json
 {
@@ -101,15 +100,15 @@ supportées. Pour plus d'information, veuillez vous référer à la
 
 Voici quelques exemples simples d'appels réalisables :
 
-* https://freshrss.example.net/api/fever.php?api&items
-* https://freshrss.example.net/api/fever.php?api&feeds
-* https://freshrss.example.net/api/fever.php?api&groups
-* https://freshrss.example.net/api/fever.php?api&unread_item_ids
-* https://freshrss.example.net/api/fever.php?api&saved_item_ids
-* https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
-* https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
-* https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
-* https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
+* <https://freshrss.example.net/api/fever.php?api&items>
+* <https://freshrss.example.net/api/fever.php?api&feeds>
+* <https://freshrss.example.net/api/fever.php?api&groups>
+* <https://freshrss.example.net/api/fever.php?api&unread_item_ids>
+* <https://freshrss.example.net/api/fever.php?api&saved_item_ids>
+* <https://freshrss.example.net/api/fever.php?api&items&since_id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&items&max_id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id>
 
 Remplacez `some_id` par un identifiant réel de votre base de données
 `freshrss_username_entry`.

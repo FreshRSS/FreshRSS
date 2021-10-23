@@ -1,27 +1,29 @@
-# La vue normale
+# La page principale
 
-**À FAIRE**
+## La vue normale
 
-# La vue globale
+> **À FAIRE**
 
-**À FAIRE**
+## La vue globale
 
-# La vue lecture
+> **À FAIRE**
 
-**À FAIRE**
+## La vue lecture
 
-# Rafraîchir les flux
+> **À FAIRE**
+
+## Rafraîchir les flux
 
 Pour profiter pleinement de FreshRSS, il faut qu’il récupère les nouveaux
 articles disponibles des flux auxquels vous avez souscrit. Pour cela, il
 existe plusieurs méthodes.
 
-## Mise à jour automatique
+### Mise à jour automatique
 
 C’est la méthode recommandée car il n’y a pas besoin d’y penser, elle se
 fait toute seule, à la fréquence que vous avez choisi.
 
-### Par le script actualize_script.php
+#### Par le script actualize_script.php
 
 Cette méthode n’est possible que si vous avez accès aux tâches planifiées de
 la machine sur laquelle est installée votre instance de FreshRSS.
@@ -43,34 +45,34 @@ toutes les heures.
 « Paramètres de configuration du script; Ils sont utilisables simultanément
 : »
 
-- Parameter "force"
-https://freshrss.example.net/i/?c=feed&a=actualize&force=1 If *force* is set
+* Parameter "force"
+<https://freshrss.example.net/i/?c=feed&a=actualize&force=1> If *force* is set
 to 1 all feeds will be refreshed at once.
 
-- Parameter "ajax" https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1
+* Parameter "ajax" <https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1>
 Only a status site is returned and not a complete website. Example: "OK"
 
-- Parameter "maxFeeds"
-https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30 If *maxFeeds*
+* Parameter "maxFeeds"
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30> If *maxFeeds*
 is set the configured amount of feeds is refreshed at once. The default
 setting is "10".
 
-- Parameter "token"
-https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734
+* Parameter "token"
+<https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed
 Documentation see "Form authentication".
 
-### Online cron
+#### Online cron
 
 If you do not have access to the installation server scheduled task, you can
 still automate the update process.
 
 To do so, you need to create a scheduled task, which need to call a specific
-URL: https://freshrss.example.net/i/?c=feed&a=actualize (it could be
+URL: <https://freshrss.example.net/i/?c=feed&a=actualize> (it could be
 different depending on your installation). Depending on your application
 authentication method, you need to adapt the scheduled task.
 
-#### Aucune authentification
+##### Aucune authentification
 
 C’est le cas le plus simple, puisque votre instance est publique, vous
 n’avez rien de particulier à préciser :
@@ -79,7 +81,7 @@ n’avez rien de particulier à préciser :
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
-### Authentification par formulaire
+##### Authentification par formulaire
 
 Dans ces cas-là, si vous avez autorisé la lecture anonyme des articles, vous
 pouvez aussi permettre à n’importe qui de rafraîchir vos flux (« Autoriser
@@ -108,7 +110,7 @@ string, with `&user=insert-username`:
 0 * * * * curl 'https://freshrss.exemple.net/i/?c=feed&a=actualize&user=quelquun&token=mon-token'
 ```
 
-### Authentification HTTP
+##### Authentification HTTP
 
 Dans ce cas-là, le token et les permissions “anonymes” sont inutilisables et
 il vous sera nécessaire d’indiquer vos identifiants dans la tâche
@@ -119,13 +121,13 @@ implique que vos identifiants seront visibles en clair !**
 0 * * * * curl -u alice:motdepasse123 'https://freshrss.exemple.net/i/?c=feed&a=actualize'
 ```
 
-## Mise à jour manuelle
+### Mise à jour manuelle
 
 Si vous ne pouvez pas ou ne voulez pas utiliser la méthode automatique, vous
 pouvez le faire de façon manuelle. Il existe deux méthodes qui permettent de
 mettre à jour tout ou partie des flux.
 
-### Mise à jour complète
+#### Mise à jour complète
 
 Cette mise à jour se fait pour l’ensemble des flux de l’instance. Pour
 initier cette mise à jour, il suffit de cliquer sur le lien de mise à jour
@@ -138,7 +140,7 @@ s’actualise au fur et à mesure de la récupération des articles.
 
 ![Barre de progression](../img/users/refresh.5.png)
 
-### Mise à jour partielle
+#### Mise à jour partielle
 
 Cette mise à jour se fait pour le flux sélectionné uniquement. Pour initier
 cette mise à jour, il suffit de cliquer sur le lien de mise à jour
@@ -146,36 +148,36 @@ disponible dans le menu du flux.
 
 ![Menu du flux](../img/users/refresh.2.png)
 
-# Filtrer les articles
+## Filtrer les articles
 
 Avec le nombre croissant d’articles stockés par FreshRSS, il devient
 important d’avoir des filtres efficaces pour n’afficher qu’une partie des
 articles. Il existe plusieurs méthodes qui filtrent selon des critères
 différents. Ces méthodes peuvent être combinées dans la plus part des cas.
 
-## Par catégorie
+### Par catégorie
 
 C’est la méthode la plus simple. Il suffit de cliquer sur le titre d’une
 catégorie dans le panneau latéral. Il existe deux catégories spéciales qui
 sont placées en haut dudit panneau :
 
-  * *Flux principal* qui affiche uniquement les articles des flux marqués
-    comme visible dans cette catégorie
-  * *Favoris* qui affiche uniquement les articles, tous flux confondus,
-    marqués comme favoris
+* *Flux principal* qui affiche uniquement les articles des flux marqués
+	comme visible dans cette catégorie
+* *Favoris* qui affiche uniquement les articles, tous flux confondus,
+	marqués comme favoris
 
-## Par flux
+### Par flux
 
 Il existe plusieurs méthodes pour filtrer les articles par flux :
 
-  * en cliquant sur le titre du flux dans le panneau latéral
-  * en cliquant sur le titre du flux dans le détail de l’article
-  * en filtrant dans les options du flux dans le panneau latéral
-  * en filtrant dans la configuration du flux
+* en cliquant sur le titre du flux dans le panneau latéral
+* en cliquant sur le titre du flux dans le détail de l’article
+* en filtrant dans les options du flux dans le panneau latéral
+* en filtrant dans la configuration du flux
 
 ![Filtrer par flux](../img/users/feed.filter.1.png)
 
-## Par statut
+### Par statut
 
 Chaque article possède deux attributs qui peuvent être combinés. Le premier
 attribut indique si l’article a été lu ou non. Le second attribut indique si
@@ -197,12 +199,12 @@ as no filter selected.
 
 By default, this filter displays only unread articles
 
-## By content
+### By content
 
 It is possible to filter articles by their content by inputting a string in
 the search field.
 
-## Grâce au champ de recherche
+### Grâce au champ de recherche
 
 Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 :
@@ -261,5 +263,5 @@ Il est également possible de combiner les mots-clefs pour faire un filtrage
 encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 `f:`, `author:`, `intitle:`, `inurl:`, `#`, et texte libre.
 
-Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR`
+Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
 peut être utiliser pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`

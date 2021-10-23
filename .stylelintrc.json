@@ -33,11 +33,9 @@
     "no-eol-whitespace": true,
     "property-no-vendor-prefix": true,
     "rule-empty-line-before": [
-      "always",
-      "except": [
-        "after-single-line-comment",
-        "first-nested"
-      ]
+      "always", {
+        "except": ["after-single-line-comment","first-nested"]
+      }
     ],
     "order/properties-order": [
       "margin",

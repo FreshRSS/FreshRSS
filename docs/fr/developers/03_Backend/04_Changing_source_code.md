@@ -1,15 +1,17 @@
-# Accès à la base de données
+# Éditer le code source
 
-**À FAIRE**
+## Accès à la base de données
 
-# Écrire une action et sa vue associée
+> **À FAIRE**
 
-**À FAIRE**
+## Écrire une action et sa vue associée
 
-# Gestion de l'authentification
+> **À FAIRE**
 
-**À FAIRE**
+## Gestion de l'authentification
 
-# Gestion des logs
+> **À FAIRE**
 
-**À FAIRE**
+## Gestion des logs
+
+> **À FAIRE**

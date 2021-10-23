@@ -1,8 +1,7 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
-"use strict";
-/* jshint esversion:6, strict:global */
+'use strict';
 
-const init_draggable_list = function() {
+const init_draggable_list = function () {
 	if (!window.context) {
 		if (window.console) {
 			console.log('FreshRSS draggable list waiting for JS…');

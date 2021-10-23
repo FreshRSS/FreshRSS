@@ -95,7 +95,7 @@ Some commands display information on standard error; cron will send an email wit
 
 To avoid cron sending email on success:
 
-```sh
+```text
 @daily /usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log 2>/var/log/cron-freshrss-stderr.log || cat /var/log/cron-freshrss-stderr.log
 ```
 

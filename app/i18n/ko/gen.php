@@ -3,33 +3,33 @@
 return array(
 	'action' => array(
 		'actualize' => '새 글 가져오기',
-		'add' => 'Add',	// TODO - Translation
-		'back' => '← Go back',	// TODO - Translation
+		'add' => '추가',
+		'back' => '← 돌아가기',
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => '목록 수준 내리기',
 		'disable' => '비활성화',
 		'empty' => '비우기',
 		'enable' => '활성화',
 		'export' => '내보내기',
 		'filter' => '해당하는 글 보기',
 		'import' => '불러오기',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_favorite' => '즐겨찾기에 등록',
 		'mark_read' => '읽음으로 표시',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
+		'promote' => '목록 수준 올리기',
+		'purge' => '제거',
 		'remove' => '삭제',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => '이름 바꾸기',
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',
 		'update' => '변경',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => '<a href="%s">서비스 약관</a>에 동의합니다.',
 		'email' => '메일 주소',
 		'keep_logged_in' => '로그인 유지 <small>(%s 일)</small>',
 		'login' => '로그인',
@@ -49,29 +49,29 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',
-		'Aug' => '\\A\\u\\g\\u\\s\\t',
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',
-		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',
-		'Jul' => '\\J\\u\\l\\y',
-		'Jun' => '\\J\\u\\n\\e',
-		'Mar' => '\\M\\a\\r\\c\\h',
-		'May' => '\\M\\a\\y',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
-		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
+		'Apr' => '\\4\\월',
+		'Aug' => '\\8\\월',
+		'Dec' => '\\1\\2\\월',
+		'Feb' => '\\2\\월',
+		'Jan' => '\\1\\월',
+		'Jul' => '\\7\\월',
+		'Jun' => '\\6\\월',
+		'Mar' => '\\3\\월',
+		'May' => '\\5\\월',
+		'Nov' => '\\1\\1\\월',
+		'Oct' => '\\1\\0\\월',
+		'Sep' => '\\9\\월',
 		'apr' => '4월',
 		'april' => '4월',
 		'aug' => '8월',
 		'august' => '8월',
-		'before_yesterday' => '어제 이전',
+		'before_yesterday' => '그저께',
 		'dec' => '12월',
 		'december' => '12월',
 		'feb' => '2월',
 		'february' => '2월',
-		'format_date' => 'Y년 m월 d일',
-		'format_date_hour' => 'Y년 m월 d일 H시 i분',
+		'format_date' => 'Y\\년 n\\월 j\\일',
+		'format_date_hour' => 'Y\\년 n\\월 j\\일 H\\:i',
 		'fri' => '금',
 		'jan' => '1월',
 		'january' => '1월',
@@ -79,11 +79,11 @@ return array(
 		'july' => '7월',
 		'jun' => '6월',
 		'june' => '6월',
-		'last_2_year' => 'Last two years',	// TODO - Translation
-		'last_3_month' => '최근 3 개월',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
-		'last_6_month' => '최근 6 개월',
+		'last_2_year' => '최근 2년',
+		'last_3_month' => '최근 3개월',
+		'last_3_year' => '최근 3년',
+		'last_5_year' => '최근 5년',
+		'last_6_month' => '최근 6개월',
 		'last_month' => '최근 한 달',
 		'last_week' => '최근 한 주',
 		'last_year' => '최근 일 년',
@@ -134,7 +134,7 @@ return array(
 		'he' => 'עברית',
 		'it' => 'Italiano',
 		'ja' => '日本語',
-		'kr' => '한국어',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -146,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => '정보',
+		'account' => '계정',
 		'admin' => '관리',
 		'archiving' => '보관',
 		'authentication' => '인증',
@@ -175,16 +176,16 @@ return array(
 		'previous' => '이전',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => '일',
+		'hours' => '시',
+		'months' => '월',
+		'weeks' => '주',
+		'years' => '년',
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => '클립보드',
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
 		'facebook' => 'Facebook',
