@@ -5,21 +5,21 @@ Additionally [page about our Fever compatible API](06_Fever_API.md) for another 
 
 ## RSS clients
 
-There are many RSS clients that support the Fever API, but they seem to understand the Fever API a bit differently.
+There are many RSS clients that support the Fever API, but they might understand the API a bit differently.
 If your favourite client doesn't work properly with this API, please create an issue and we'll have a look.
 But we can **only** do that for free clients.
 
-### Usage & Authentication
+## Usage & Authentication
 
 Before you can start using this API, you have to enable and setup API access, which is [documented here](../users/06_Mobile_access.md),
 and then reset the user’s API password.
 
 Then point your mobile application to the `greader.php` address (e.g. `https://freshrss.example.net/api/greader.php`).
 
-# Compatible clients
+## Compatible clients
 
-6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
-	* Type the API address in a client, together with your FreshRSS username, and the corresponding special API password.
+1. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
+2. Type the API address in a client, together with your FreshRSS username, and the corresponding special API password.
 
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
@@ -34,7 +34,7 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 |[Reeder](https://www.reederapp.com/)                           |MacOS, iOS                |Closed Source                                              |
 |[FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/)                           |Firefox                |Open Source                                              |
 
-# Google Reader compatible API
+## Google Reader compatible API
 
 Examples of basic queries:
 

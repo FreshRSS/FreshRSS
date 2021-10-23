@@ -5,7 +5,7 @@
 
 # Deploy FreshRSS with Docker
 
-* See also https://hub.docker.com/r/freshrss/freshrss/
+* See also <https://hub.docker.com/r/freshrss/freshrss/>
 
 
 ## Install Docker
@@ -122,7 +122,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 ### Complete installation
 
-Browse to your server https://freshrss.example.net/ to complete the installation via the FreshRSS Web interface,
+Browse to your server <https://freshrss.example.net/> to complete the installation via the FreshRSS Web interface,
 or use the command line described below.
 
 
@@ -226,7 +226,7 @@ Remember not pass the `CRON_MIN` environment variable to your Docker run, to avo
 
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
-```
+```text
 7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
@@ -305,13 +305,13 @@ Require valid-user
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 
-- In the `postgresql` service:
-    * `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
+* In the `postgresql` service:
+	* `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
 	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
 	* the `POSTGRES_PASSWORD` in the `.env` file;
-	* the `POSTGRES_DB ` in the `.env` file;
+	* the `POSTGRES_DB` in the `.env` file;
 	* the `POSTGRES_USER` in the `.env` file;
-- In the `freshrss` service:
+* In the `freshrss` service:
 	* the `volumes` section;
 	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
 	* the `environment` section to adapt the strategy to update feeds.
@@ -431,11 +431,11 @@ You need a working SSL configuration and the Apache modules `proxy`, `proxy_http
 ProxyPreserveHost On
 
 <Location /freshrss/>
-  ProxyPass http://127.0.0.1:8080/
-  ProxyPassReverse http://127.0.0.1:8080/
-  RequestHeader set X-Forwarded-Prefix "/freshrss"
-  RequestHeader set X-Forwarded-Proto "https"
-  Require all granted
-  Options none
+	ProxyPass http://127.0.0.1:8080/
+	ProxyPassReverse http://127.0.0.1:8080/
+	RequestHeader set X-Forwarded-Prefix "/freshrss"
+	RequestHeader set X-Forwarded-Proto "https"
+	Require all granted
+	Options none
 </Location>
 ```

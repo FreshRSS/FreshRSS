@@ -1,4 +1,6 @@
-# Configurer son environnement (Docker)
+# Premier pas
+
+## Configurer son environnement (Docker)
 
 FreshRSS est construit en PHP et utilise le framework Minz. Les
 dépendancessont directement incluses dans le code source, donc vous n'avez
@@ -27,9 +29,9 @@ Tout d'abord, vous devez installer
 
 Une fois que c'est fait, clonez le dépôt de code de la manière suivante :
 
-```console
-$ git clone https://github.com/FreshRSS/FreshRSS.git
-$ cd FreshRSS
+```sh
+git clone https://github.com/FreshRSS/FreshRSS.git
+cd FreshRSS
 ```
 
 Notez que, pour contribuer, vous devrez d'abord « forker » ce dépôt de code
@@ -38,8 +40,8 @@ dépôt. Adaptez les commandes en conséquence.
 
 Ensuite, la seule commande que vous devez connaître est la suivante :
 
-```console
-$ make start
+```sh
+make start
 ```
 
 Cela peut prendre un certain temps pour que Docker télécharge l'image
@@ -51,8 +53,8 @@ commande en la préfixant par `sudo`.
 
 Vous pouvez arrêter les conteneurs en tapant <kbd>Control</kbd> + <kbd>c</kbd> ou avec la commande suivante, dans un autre terminal:
 
-```console
-$ make stop
+```sh
+make stop
 ```
 
 Si la configuration vous intéresse, les commandes `make' sont définies dans
@@ -63,8 +65,8 @@ différent (par défaut `alpine`), vous pouvez surcharger de la manière
 suivante la variable d'environnement `TAG` au moment de l'exécution de la
 commande :
 
-```console
-$ TAG=arm make start
+```sh
+TAG=arm make start
 ```
 
 Vous pouvez trouver la liste complète des tags disponibles [sur le hub
@@ -73,26 +75,26 @@ Docker](https://hub.docker.com/r/freshrss/freshrss/tags).
 Si vous voulez construire l'image Docker, vous pouvez lancer la commande
 suivante :
 
-```console
-$ make build
-$ # ou
-$ TAG=arm make build
+```sh
+make build
+# ou
+TAG=arm make build
 ```
 
 La valeur de la variable `TAG` peut contenir n'importe quelle valeur (par
 exemple `local`). Vous pouvez cibler une architecture spécifique en ajoutant
 `-alpine` ou `-arm` à la fin du tag (par exemple `local-arm`).
 
-# Architecture du projet
+## Architecture du projet
 
-**À FAIRE**
+> **À FAIRE**
 
-# Extensions
+## Extensions
 
 Si vous souhaitez créer votre propre extension FreshRSS, consultez la
 [documentation de l'extension](03_Backend/05_Extensions.md).
 
-# Style de codage
+## Style de codage
 
 Si vous désirez contribuer au code, il est important de respecter le style
 de codage suivant. Le code actuel ne le respecte pas entièrement mais il est
@@ -101,12 +103,13 @@ de notre devoir à tous de le changer dès que l'occasion se présente.
 Aucune nouvelle contribution ne respectant pas ces règles ne sera acceptée
 tant que les corrections nécessaires ne sont pas appliquées.
 
-## Espaces, tabulations et autres caractères blancs
+### Espaces, tabulations et autres caractères blancs
 
-### Indentation
+#### Indentation
+
 L'indentation du code doit être faite impérativement avec des tabulations.
 
-### Alignement
+#### Alignement
 
 Une fois l'indentation faite, il peut être nécessaire de faire un alignement
 pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
@@ -116,7 +119,7 @@ $resultat = une_fonction_avec_un_nom_long($param1, $param2,
                                           $param3, $param4);
 ```
 
-### Fin de ligne
+#### Fin de ligne
 
 Le caractère de fin de ligne doit être un saut de ligne (LF) qui est le
 caractère de fin de ligne des systèmes *NIX. Ce caractère ne doit pas être
@@ -132,15 +135,15 @@ git diff --check
 git diff --check --cached
 ```
 
-### Fin de fichier
+#### Fin de fichier
 
 Chaque fichier doit se terminer par une ligne vide.
 
-### Le cas de la virgule, du point et du point-virgule
+#### Le cas de la virgule, du point et du point-virgule
 
 Il n'y a pas d'espace avant ces caractères, il y en a un après.
 
-### Le cas des opérateurs
+#### Le cas des opérateurs
 
 Chaque opérateur est entouré d'espaces.
 
@@ -152,7 +155,7 @@ if ($a == 10) {
 echo $a ? 1 : 0;
 ```
 
-### Le cas des parenthèses
+#### Le cas des parenthèses
 
 Il n'y a pas d'espaces entre des parenthèses. Il n'y a pas d'espaces avant
 une parenthèse ouvrante sauf si elle est précédée d'un mot-clé. Il n'y a pas
@@ -169,7 +172,7 @@ if ((int)$a == 10) {
 }
 ```
 
-### Le cas des fonctions chainées
+#### Le cas des fonctions chainées
 
 Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions
 chainées, des fonctions anonymes ainsi que des fonctions de rappels, il est
@@ -192,7 +195,7 @@ shortcut.add("shift+" + shortcuts.mark_read, function () {
 	});
 ```
 
-## Longueur des lignes
+### Longueur des lignes
 
 Les lignes ne doivent pas dépasser 80 caractères. Il est cependant autorisé
 exceptionnellement de dépasser cette limite s'il n'est pas possible de la
@@ -209,12 +212,12 @@ function ma_fonction($param_1, $param_2,
 }
 ```
 
-## Nommage
+### Nommage
 
 L'ensemble des éléments du code (fonctions, classes, méthodes et variables)
 doivent être nommés de manière à décrire leur usage de façon concise.
 
-### Fonctions et variables
+#### Fonctions et variables
 
 Les fonctions et les variables doivent suivre la convention "snake case".
 
@@ -227,7 +230,7 @@ function nom_de_la_fontion() {
 $nom_de_la_variable;
 ```
 
-### Méthodes
+#### Méthodes
 
 Les méthodes doivent suivre la convention "lower camel case".
 
@@ -237,7 +240,7 @@ private function nomDeLaMethode() {
 }
 ```
 
-### Classes
+#### Classes
 
 Les classes doivent suivre la convention "upper camel case".
 
@@ -245,18 +248,19 @@ Les classes doivent suivre la convention "upper camel case".
 abstract class NomDeLaClasse {}
 ```
 
-## Encodage
+### Encodage
 
 Les fichiers doivent être encodés en UTF-8.
 
-## Compatibilité PHP
+### Compatibilité PHP
 
 Assurez-vous que votre code fonctionne avec une version de PHP aussi
 ancienne que celle que FreshRSS supporte officiellement.
 
-## Divers
+### Divers
 
-### Le cas des opérateurs
+#### Le cas des opérateurs sur plusieurs lignes
+
 Les opérateurs doivent être en fin de ligne dans le cas de conditions sur
 plusieurs lignes.
 
@@ -267,12 +271,12 @@ if ($a == 10 ||
 }
 ```
 
-### Fin de fichier
+#### Fin de fichier PHP
 
 Si le fichier ne contient que du PHP, il ne doit pas comporter de balise
 fermante.
 
-### Tableaux
+#### Tableaux
 
 Lors de l'écriture de tableaux sur plusieurs lignes, tous les éléments
 doivent être suivis d'une virgule (même le dernier).
