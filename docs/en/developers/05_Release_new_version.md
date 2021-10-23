@@ -13,7 +13,7 @@ You must also **make sure that the CHANGELOG file is up to date** with the updat
 
 ## Git process
 
-```sh
+```console
 $ git checkout edge
 $ git pull
 $ vim constants.php
@@ -99,7 +99,7 @@ When everything's working, it's time to announce the release to the world!
 
 ## Starting the next development version
 
-```sh
+```console
 $ git checkout edge
 $ vim constants.php
 # Update the FRESHRSS_VERSION

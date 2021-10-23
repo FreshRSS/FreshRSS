@@ -19,7 +19,7 @@ mises à jour de la version à sortir.
 
 ## Processus Git
 
-```sh
+```console
 $ git checkout edge
 $ git pull
 $ vim constants.php
@@ -143,7 +143,7 @@ Lorsque tout fonctionne, il est temps d'annoncer la sortie au monde entier !
 
 ## Lancer la prochaine version de développement
 
-```sh
+```console
 $ git checkout edge
 $ vim constants.php
 # Mettre à jour le numéro de version de FRESHRSS_VERSION
