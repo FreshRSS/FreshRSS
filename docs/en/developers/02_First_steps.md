@@ -208,7 +208,7 @@ Please ensure that your code works with the oldest PHP version officially suppor
 
 ## Miscellaneous
 
-### Operators
+### Operators on multiple lines
 
 Operators must be at the end of the line if a condition is split over more than one line.
 
@@ -219,7 +219,7 @@ if ($a == 10 ||
 }
 ```
 
-### End of file
+### End of PHP file
 
 If the file contains only PHP code, the PHP closing tag must be omitted.
 

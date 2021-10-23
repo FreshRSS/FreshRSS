@@ -65,8 +65,8 @@ return array(
 			'ok' => 'Dispones de la librería recomendada para procesar JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'No se puede encontrar la mbstring de biblioteca recomendada para Unicode.',
+			'ok' => 'Tiene la biblioteca mbstring recomendada para Unicode.',
 		),
 		'pcre' => array(
 			'nok' => 'No se ha podido encontrar la librería necesaria para las expresiones regulares (php-pcre).',
@@ -83,9 +83,9 @@ return array(
 		'reload' => 'Revisar otra vez',
 		'tmp' => array(
 			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Los permisos en el directorio temp son buenos.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'desconocido',
 		'users' => array(
 			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio users son correctos.',
@@ -111,10 +111,10 @@ return array(
 		'choose' => 'Selecciona el idioma para FreshRSS',
 		'defined' => 'Idioma seleccionado.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Algo salió mal; Debe crear un archivo vacío <em>%s</em> manualmente.',
 	'ok' => 'La instalación se ha completado correctamente.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => '¡El servidor web parece estar configurado incorrectamente para las cookies requeridas para las sesiones de PHP!',
 	),
 	'step' => 'paso %d',
 	'steps' => 'Pasos',

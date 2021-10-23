@@ -1,23 +1,23 @@
 # Adding a feed
 
- 1. To add a feed, copy the URL of its RSS or Atom file (for instance, the Framablog RSS URL is `https://framablog.org/feed/`). FreshRSS is able to automatically find the address of the feed for websites that are declaring it in a standard way.
- 2. In FreshRSS, click the "**+**" button next to “Subscriptions management”.
- 3. Paste the URL in the “Feed URL” field.
- 4. (optional): You can select the category for your feed. By default, it will be in “Uncategorized”.
- 5. (optional): If the subscription requires credentials, you can enter them in the "HTTP username" and "HTTP password" fields. 
- 6. (optional): You can set a timeout for the feed request if the feed requires it.
- 7. (optional): You can choose to ignore SSL certificate errors (such as with self-signed certificates) by setting "Verify SSL security" to "No". This is not recommended, and it is better to either add the root certificate to the FreshRSS server or to fix the SSL certificate problems on the feed hosting server.
+1. To add a feed, copy the URL of its RSS or Atom file (for instance, the Framablog RSS URL is `https://framablog.org/feed/`). FreshRSS is able to automatically find the address of the feed for websites that are declaring it in a standard way.
+2. In FreshRSS, click the "**+**" button next to “Subscriptions management”.
+3. Paste the URL in the “Feed URL” field.
+4. (optional): You can select the category for your feed. By default, it will be in “Uncategorized”.
+5. (optional): If the subscription requires credentials, you can enter them in the "HTTP username" and "HTTP password" fields.
+6. (optional): You can set a timeout for the feed request if the feed requires it.
+7. (optional): You can choose to ignore SSL certificate errors (such as with self-signed certificates) by setting "Verify SSL security" to "No". This is not recommended, and it is better to either add the root certificate to the FreshRSS server or to fix the SSL certificate problems on the feed hosting server.
 
 ## Subscription management
 
-The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed's settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item. 
+The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed's settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
 
 ## Category Settings
 
 ### Information
 
 * **Title:** Name of category
-  * **Display position:** Defines the order of categories. Lower numbers get priority, non-numbered items come last, and equally numbered items will sort by alphabetical order.
+* **Display position:** Defines the order of categories. Lower numbers get priority, non-numbered items come last, and equally numbered items will sort by alphabetical order.
 
 ### Archiving
 
@@ -47,16 +47,19 @@ The  "Article CSS selector on original website" corresponds to the "path" consis
 
 ##### Example: Rue89
 
-To find this path, you have to go to the address of one of the truncated articles (for example, http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
+To find this path, you have to go to the address of one of the truncated articles.
+You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
 
 Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We'll only use the `.content` class here. Nevertheless, as said above, it's best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
 
-##### Add the corresponding classes to the article CSS path on the feed configuration page. Examples:
+##### Add the corresponding classes to the article CSS path on the feed configuration page
 
-*  Rue89: ```#article .content```
-*  PCINpact: ```#actu_content```
-*  Lesnumériques: ```article#body div.text.clearfix```
-*  Phoronix: ```#main .content```
+Examples:
+
+* Rue89: ```#article .content```
+* PCINpact: ```#actu_content```
+* Lesnumériques: ```article#body div.text.clearfix```
+* Phoronix: ```#main .content```
 
 ##### Combining CSS Classes
 
@@ -94,20 +97,20 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli) 
 
 ## Export
 
- 1. To export your list of feeds, go to “Subscriptions management”.
- 2. Click on “Import / export”
- 3. You can select for your export:
-    1. the list of feeds
-    2. labelled articles
-    3. favourite articles
-    4. and finally, you can select feeds you want to export (by default, all feeds are selected)
- 4. Click on “export”.
+1. To export your list of feeds, go to “Subscriptions management”.
+2. Click on “Import / export”
+3. You can select for your export:
+	1. the list of feeds
+	2. labelled articles
+	3. favourite articles
+	4. and finally, you can select feeds you want to export (by default, all feeds are selected)
+4. Click on “export”.
 
 ## Import
 
-  1. Go to the page “Import / export”.
-  2. Click on “Browse” and select your OPML or archive file on your computer.
-  3. Click on “Import”
+1. Go to the page “Import / export”.
+2. Click on “Browse” and select your OPML or archive file on your computer.
+3. Click on “Import”
 
 > **Important**: you can not import directly a list of feeds from a text file.
 > You need to convert it beforehand to _OPML_.
@@ -116,11 +119,11 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli) 
 > * [Pandoc](https://pandoc.org/) available for most systems,
 > * [OPML generator](https://opml-gen.ovh/) available online,
 > * [txt2opml](https://alterfiles.com/convert/txt/opml) available online.
-  
+
 ## Use bookmarklet
 
 Bookmarklets are little scripts that you can execute to perform various tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds.
 
- 1. Open “Subscriptions management”.
- 2. Click on “Subscription tools”.
- 3. Drag the “Subscribe” button to your bookmark toolbar or right click and choose your browser’s “Bookmark link” action.
+1. Open “Subscriptions management”.
+2. Click on “Subscription tools”.
+3. Drag the “Subscribe” button to your bookmark toolbar or right click and choose your browser’s “Bookmark link” action.

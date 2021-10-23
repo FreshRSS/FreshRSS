@@ -1,15 +1,17 @@
-# Accessing the database
+# Changing the source code
 
-**TODO**
+## Accessing the database
 
-# Writing an action and its related view
+> **TODO**
 
-**TODO**
+## Writing an action and its related view
 
-# Authentication
+> **TODO**
 
-**TODO**
+## Authentication
 
-# Logs
+> **TODO**
 
-**TODO**
+## Logs
+
+> **TODO**

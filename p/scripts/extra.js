@@ -1,7 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
-"use strict";
+'use strict';
 /* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
-/* jshint esversion:6, strict:global */
 
 function fix_popup_preview_selector() {
 	const link = document.getElementById('popup-preview-selector');
@@ -20,8 +19,8 @@ function fix_popup_preview_selector() {
 	});
 }
 
-//<crypto form (Web login)>
-function poormanSalt() {	//If crypto.getRandomValues is not available
+// <crypto form (Web login)>
+function poormanSalt() {	// If crypto.getRandomValues is not available
 	const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
 	let text = '$2a$04$';
 	for (let i = 22; i > 0; i--) {
@@ -61,8 +60,8 @@ function init_crypto_form() {
 		const req = new XMLHttpRequest();
 		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, false);
 		req.onerror = function () {
-				openNotification('Communication error!', 'bad');
-			};
+			openNotification('Communication error!', 'bad');
+		};
 		req.send();
 		if (req.status == 200) {
 			const json = xmlHttpRequestJson(req);
@@ -70,9 +69,9 @@ function init_crypto_form() {
 				openNotification('Invalid user!', 'bad');
 			} else {
 				try {
-					const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-						s = dcodeIO.bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1),
-						c = dcodeIO.bcrypt.hashSync(json.nonce + s, strong ? dcodeIO.bcrypt.genSaltSync(4) : poormanSalt());
+					const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
+					const s = dcodeIO.bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1);
+					const c = dcodeIO.bcrypt.hashSync(json.nonce + s, strong ? dcodeIO.bcrypt.genSaltSync(4) : poormanSalt());
 					document.getElementById('challenge').value = c;
 					if (!s || !c) {
 						openNotification('Crypto error!', 'bad');
@@ -91,83 +90,84 @@ function init_crypto_form() {
 		return success;
 	};
 }
-//</crypto form (Web login)>
+// </crypto form (Web login)>
 
 function init_password_observers() {
 	document.querySelectorAll('.toggle-password').forEach(function (a) {
-			a.onmousedown = function (ev) {
-					const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-					passwordField.setAttribute('type', 'text');
-					this.classList.add('active');
-					return false;
-				};
-			a.onmouseup = function (ev) {
-					const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-					passwordField.setAttribute('type', 'password');
-					this.classList.remove('active');
-					return false;
-				};
-		});
+		a.onmousedown = function (ev) {
+			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+			passwordField.setAttribute('type', 'text');
+			this.classList.add('active');
+			return false;
+		};
+		a.onmouseup = function (ev) {
+			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+			passwordField.setAttribute('type', 'password');
+			this.classList.remove('active');
+			return false;
+		};
+	});
 }
 
 function init_select_observers() {
 	document.querySelectorAll('.select-change').forEach(function (s) {
-			s.onchange = function (ev) {
-					const opt = s.options[s.selectedIndex],
-						url = opt.getAttribute('data-url');
-					if (url) {
-						s.disabled = true;
-						s.value = '';
-						if (s.form) {
-							s.form.querySelectorAll('[type=submit]').forEach(function (b) {
-									b.disabled = true;
-								});
-						}
-						location.href = url;
-					}
-				};
-		});
+		s.onchange = function (ev) {
+			const opt = s.options[s.selectedIndex];
+			const url = opt.getAttribute('data-url');
+			if (url) {
+				s.disabled = true;
+				s.value = '';
+				if (s.form) {
+					s.form.querySelectorAll('[type=submit]').forEach(function (b) {
+						b.disabled = true;
+					});
+				}
+				location.href = url;
+			}
+		};
+	});
 }
 
 function init_slider_observers() {
-	const slider = document.getElementById('slider'),
-		closer = document.getElementById('close-slider');
+	const slider = document.getElementById('slider');
+	const closer = document.getElementById('close-slider');
 	if (!slider) {
 		return;
 	}
 
 	document.querySelector('.post').onclick = function (ev) {
-			const a = ev.target.closest('.open-slider');
-			if (a) {
-				if (!context.ajax_loading) {
-					context.ajax_loading = true;
+		const a = ev.target.closest('.open-slider');
+		if (a) {
+			if (!context.ajax_loading) {
+				context.ajax_loading = true;
 
-					const req = new XMLHttpRequest();
-					req.open('GET', a.href + '&ajax=1', true);
-					req.responseType = 'document';
-					req.onload = function (e) {
-							slider.innerHTML = this.response.body.innerHTML;
-							slider.classList.add('active');
-							closer.classList.add('active');
-							context.ajax_loading = false;
-							fix_popup_preview_selector();
-						};
-					req.send();
-					return false;
-				}
-			}
-		};
-
-	closer.onclick = function (ev) {
-			if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-				slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-				closer.classList.remove('active');
-				slider.classList.remove('active');
-				return true;
-			} else {
+				const req = new XMLHttpRequest();
+				req.open('GET', a.href + '&ajax=1', true);
+				req.responseType = 'document';
+				req.onload = function (e) {
+					slider.innerHTML = this.response.body.innerHTML;
+					slider.classList.add('active');
+					closer.classList.add('active');
+					context.ajax_loading = false;
+					fix_popup_preview_selector();
+					init_extra();
+				};
+				req.send();
 				return false;
 			}
-		};
+		}
+	};
+
+	closer.onclick = function (ev) {
+		if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
+			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+			closer.classList.remove('active');
+			slider.classList.remove('active');
+			return true;
+		} else {
+			return false;
+		}
+	};
 }
 
 function data_leave_validation() {
@@ -187,16 +187,16 @@ function data_leave_validation() {
 
 function init_configuration_alert() {
 	window.onsubmit = function (e) {
-			window.hasSubmit = true;
-		};
+		window.hasSubmit = true;
+	};
 	window.onbeforeunload = function (e) {
-			if (window.hasSubmit) {
-				return;
-			}
-			if (!data_leave_validation()) {
-				return false;
-			}
-		};
+		if (window.hasSubmit) {
+			return;
+		}
+		if (!data_leave_validation()) {
+			return false;
+		}
+	};
 }
 
 function init_extra() {
@@ -204,7 +204,7 @@ function init_extra() {
 		if (window.console) {
 			console.log('FreshRSS extra waiting for JS…');
 		}
-		window.setTimeout(init_extra, 50);	//Wait for all js to be loaded
+		window.setTimeout(init_extra, 50);	// Wait for all js to be loaded
 		return;
 	}
 	init_crypto_form();
@@ -219,10 +219,10 @@ if (document.readyState && document.readyState !== 'loading') {
 	init_extra();
 } else {
 	document.addEventListener('DOMContentLoaded', function () {
-			if (window.console) {
-				console.log('FreshRSS extra waiting for DOMContentLoaded…');
-			}
-			init_extra();
-		}, false);
+		if (window.console) {
+			console.log('FreshRSS extra waiting for DOMContentLoaded…');
+		}
+		init_extra();
+	}, false);
 }
 // @license-end

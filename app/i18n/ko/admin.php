@@ -153,7 +153,7 @@ return array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
+		'force_email_validation' => '이메일 주소 확인 강제화',
 		'instance-name' => '인스턴스 이름',
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
@@ -172,18 +172,18 @@ return array(
 		'title' => '업데이트',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => '관리자',
+		'article_count' => '글 개수',
+		'back_to_manage' => '← 사용자 목록으로 돌아가기',
 		'create' => '새 사용자 생성',
-		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => '데이터 베이스 크기',
+		'email' => '이메일 주소',
+		'enabled' => '사용 가능',
+		'feed_count' => '피드',
+		'is_admin' => '관리자 유무',
 		'language' => '언어',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => '마지막 사용자 활동',
+		'list' => '사용자 목록',
 		'number' => '%d 개의 계정이 생성되었습니다',
 		'numbers' => '%d 개의 계정이 생성되었습니다',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
