@@ -87,7 +87,7 @@ jobs:
 
     - name: Install shfmt
       if: steps.shell-cache.outputs.cache-hit != 'true'
-      run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.4.0
+      run: GO111MODULE=on GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.4.0
       # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
 
     - name: Check shell script syntax
