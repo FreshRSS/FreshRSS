@@ -15,14 +15,14 @@ Available languages are: cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, tr, 
 
 There's no accounting for tastes, which is why FreshRSS offers eight official themes:
 
- * *Blue Lagoon* by **Mister aiR**
- * *Dark* by **AD**
- * *Flat design* by **Marien Fressinaud**
- * *Origine* by **Marien Fressinaud**
- * *Origine-compact* by **Kevin Papst**
- * *Pafat* by **Plopoyop**
- * *Screwdriver* by **Mister aiR**
- * *Swage* by **Patrick Crandol**
+* *Blue Lagoon* by **Mister aiR**
+* *Dark* by **AD**
+* *Flat design* by **Marien Fressinaud**
+* *Origine* by **Marien Fressinaud**
+* *Origine-compact* by **Kevin Papst**
+* *Pafat* by **Plopoyop**
+* *Screwdriver* by **Mister aiR**
+* *Swage* by **Patrick Crandol**
 
 If you can't find any themes you like, it's always possible to [create your own](../developers/04_Frontend/02_Design.md).
 
@@ -32,10 +32,10 @@ To select a theme, simply scroll through the themes and select one that strikes 
 
 Some people prefer short lines of text, while others prefer to maximize the available screen space. To satisfy the maximum number of people, it's possible to customize the width of the displayed content. There are four settings available:
 
- * **Fine** displays content up to a maximum width of 550 pixels
- * **Medium** displays content up to a maximum width of 800 pixels
- * **Large** displays content up to a maximum width of 1000 pixels
- * **No limit** displays the content on 100% of the available space
+* **Fine** displays content up to a maximum width of 550 pixels
+* **Medium** displays content up to a maximum width of 800 pixels
+* **Large** displays content up to a maximum width of 1000 pixels
+* **No limit** displays the content on 100% of the available space
 
 ## Article icons
 
@@ -68,11 +68,11 @@ If you don't use those buttons because you never browse on mobile or because you
 
 ## Number of articles per page
 
-This setting defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the list. 
+This setting defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the list.
 
 ## Articles to display
 
-The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show. 
+The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show.
 
 ## Use "lazy load" mode to load images
 
@@ -84,9 +84,9 @@ This will set images to load as they are viewed. This can save data, but will ca
 
 These are the global options for fetching and retaining articles from feeds. They can be overwridden by individual feed's settings.
 
-## Maintenance 
+## Maintenance
 
-This allows for purging/optimizing the current user's articles in the database. 
+This allows for purging/optimizing the current user's articles in the database.
 
 # Sharing
 
@@ -99,16 +99,15 @@ By default, the sharing list is empty.
 
 To add a new item to the list, please follow the following simple steps:
 
- 1. Select the desired sharing method in the drop-down list.
- 1. Press the ```✚``` button to add it to the list.
- 1. Configure the method in the list. All  names can be modified in the display. Some methods need the sharing URL to be able to work properly (ex: Shaarli).
- 1. Submit your changes.
+1. Select the desired sharing method in the drop-down list.
+1. Press the ```✚``` button to add it to the list.
+1. Configure the method in the list. All  names can be modified in the display. Some methods need the sharing URL to be able to work properly (ex: Shaarli).
+1. Submit your changes.
 
 To remove an item from the list, follow those simple steps:
 
- 1. Press the ```❌``` button next to the share method you want to remove.
- 1. Submit your changes.
-
+1. Press the ```❌``` button next to the share method you want to remove.
+1. Submit your changes.
 
 
 # Shortcuts
@@ -120,10 +119,10 @@ Of course, if you're not satisfied with the key mapping, you can change you conf
 
 There are 4 types of shortcuts:
 
- 1. Views: they allow switching views with ease.
- 1. Navigation: they allow navigation through articles, feeds, and categories.
- 1. Article actions: they allow interactions with an article, like sharing or opening it on the original web-site.
- 1. Other actions: they allow other interactions with the application, like opening the user queries menu or accessing the documentation.
+1. Views: they allow switching views with ease.
+1. Navigation: they allow navigation through articles, feeds, and categories.
+1. Article actions: they allow interactions with an article, like sharing or opening it on the original web-site.
+1. Other actions: they allow other interactions with the application, like opening the user queries menu or accessing the documentation.
 
 It's worth noting that the share article action has two levels. Once you press the shortcut, a menu containing all the share options opens.
 To choose one share option, you need to select it by its number. When there is only one option, it's selected automatically though.
@@ -142,26 +141,26 @@ At the moment, there is no helper to build a user query from here.
 
 # Profile
 
-You can change your email address or password here. The authentication token is required for accessing the aggregated RSS feed for a user. A blank token will disable accessing the RSS feed without being logged in. 
+You can change your email address or password here. The authentication token is required for accessing the aggregated RSS feed for a user. A blank token will disable accessing the RSS feed without being logged in.
 
 # Extensions
 
-Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it. 
+Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it.
 
 # Users
 
-**TODO**
+> **TODO**
 
 ## Authentication methods
 
 ### HTTP Authentication (Apache)
 
- 1. User control is based on the `.htaccess` file.
- 2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
- 3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that WebSub and API will not work!
- 4. Example `.htaccess` file for a user "marie":
+1. User control is based on the `.htaccess` file.
+2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
+3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that WebSub and API will not work!
+4. Example `.htaccess` file for a user "marie":
 
-```
+```apache
 AuthUserFile /home/marie/repertoire/.htpasswd
 AuthGroupFile /dev/null
 AuthName "Chez Marie"

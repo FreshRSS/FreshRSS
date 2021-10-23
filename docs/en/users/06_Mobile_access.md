@@ -13,8 +13,8 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 
 # Testing
 
-3. Under the section “Profile”, click on the link like `https://rss.example.net/api/` next to the field “API password”.
-4. Click on first link “Check full server configuration”:
+1. Under the section “Profile”, click on the link like `https://rss.example.net/api/` next to the field “API password”.
+2. Click on first link “Check full server configuration”:
 	* If you get *PASS* then you are done, all is good: you may proceed to step 6.
 	* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`. Proceed to step 5.
 	* If you get any other error message, proceed to step 5.
@@ -22,7 +22,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 
 # Fix server configuration
 
-5. Click on the second link “Check partial server configuration (without `%2F` support)”:
+* Click on the second link “Check partial server configuration (without `%2F` support)”:
 	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
 		* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
 		* Or use a client that does not escape slashes (such as EasyRSS), in which case proceed to step 6.
@@ -43,10 +43,10 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 
 # Compatible clients
 
-6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
+1. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
 	* Type the API address in a client, together with your FreshRSS username, and the corresponding special API password.
 
-7. Pick a client supporting a Google Reader-like API. Selection:
+2. Pick a client supporting a Google Reader-like API. Selection:
 	* Android
 		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)

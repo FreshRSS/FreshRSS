@@ -4,11 +4,10 @@ S'il vous manque des informations, n'hésitez pas à fouiller un peu la
 documentation ou venir nous poser directement vos questions sur [la mailing
 list des développeurs](https://freshrss.org/mailman/listinfo/dev).
 
-* Le premier mailing est destiné à l'information générique, il doit être
-  adapté aux utilisateurs. [Rejoignez
-  mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
-* Le deuxième mailing s'adresse principalement aux développeurs. [Rejoignez
-  dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
+* Le premier mailing est destiné à l'information générique, il doit être adapté aux utilisateurs.
+	[Rejoignez mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
+* Le deuxième mailing s'adresse principalement aux développeurs.
+	[Rejoignez dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
 
 ## Signaler un bug
 
@@ -16,47 +15,39 @@ Avez-vous trouvé un bogue ? Ne paniquez pas, voici quelques étapes pour le
 signaler facilement :
 
 1. Cherche sur [le bug tracker](https://github.com/FreshRSS/FreshRSS/issues)
-   (n'oubliez pas d'utiliser la barre de recherche).
+	(n'oubliez pas d'utiliser la barre de recherche).
 2. Si vous constatez un bogue similaire, n'hésitez pas à poster un
-   commentaire pour ajouter de l'importance au ticket correspondant.
-3. Si vous ne l'avez pas trouvé, [ouvrez un nouveau
-   ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
+	commentaire pour ajouter de l'importance au ticket correspondant.
+3. Si vous ne l'avez pas trouvé,
+	[ouvrez un nouveau ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
 Si vous devez créer un nouveau ticket, essayez de garder les conseils
 suivants :
 
-* Donnez un titre explicite au ticket pour le retrouver plus facilement plus
-  tard.
-* Soyez aussi exhaustif que possible dans la description : qu'avez-vous fait
-  ? Quel est le bogue ? Quelles sont les étapes pour reproduire le bogue ?
+* Donnez un titre explicite au ticket pour le retrouver plus facilement plus tard.
+* Soyez aussi exhaustif que possible dans la description : qu'avez-vous fait ?
+	Quel est le bogue ? Quelles sont les étapes pour reproduire le bogue ?
 
 Nous avons aussi besoin de quelques informations :
 
-* Votre version de FreshRSS (sur la page A propos) ou le fichier
-  `constants.php`)
+* Votre version de FreshRSS (sur la page A propos) ou le fichier `constants.php`)
 * Votre configuration de serveur : type d'hébergement, version PHP
-* Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle
-  version ?
-* Si possible, les logs associés (logs PHP et logs FreshRSS sous
-  `data/users/your_user/log.txt`)
+* Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle version ?
+* Si possible, les logs associés (logs PHP et logs FreshRSS sous `data/users/your_user/log.txt`)
 
 ## Corriger un bogue
 
 Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre
 les collaborateurs, vous devrez suivre ces indications :
 
-1. Assurez-vous que le bogue est associé à un ticket et indiquez que vous
-   allez travailler sur le bogue.
-2. [Fork du répertoire de
-   projet](https://help.github.com/articles/fork-a-repo/).
-3. [Créez une nouvelle
-   branche](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
-   Le nom de la branche doit être clair, et idéalement préfixé par
-   l'identifiant du ticket correspondant. Par exemple,
-   `783-contributing-file` pour réparer [ticket
-   #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Ajoutez vos modifications à votre fork et [ouvrez une demande de pull
-   request](https://help.github.com/articles/using-pull-requests/).
+1. Assurez-vous que le bogue est associé à un ticket et indiquez que vous allez travailler sur le bogue.
+2. [Fork du répertoire de projet](https://help.github.com/articles/fork-a-repo/).
+3. [Créez une nouvelle branche](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
+	Le nom de la branche doit être clair, et idéalement préfixé par l'identifiant du ticket correspondant.
+	Par exemple, `783-contributing-file` pour réparer
+	[ticket	#783](https://github.com/FreshRSS/FreshRSS/issues/783).
+4. Ajoutez vos modifications à votre fork et
+	[ouvrez une demande de pull request](https://help.github.com/articles/using-pull-requests/).
 
 Si vous devez écrire du code, veuillez suivre [nos recommandations de style
 de codage](developers/01_First_steps.md).

@@ -48,7 +48,7 @@ The following features are not supported:
 
 If this API does not work as expected in your RSS reader, you can test it manually with a tool like [Postman](https://www.getpostman.com/).
 
-Configure a POST request to the URL https://freshrss.example.net/api/fever.php?api which should give you the result:
+Configure a POST request to the URL <https://freshrss.example.net/api/fever.php?api> which should give you the result:
 ```json
 {
 	"api_version": 3,
@@ -82,15 +82,15 @@ Perfect, you're now authenticated and you can start testing the more advanced fe
 
 Some basic calls are:
 
-* https://freshrss.example.net/api/fever.php?api&items
-* https://freshrss.example.net/api/fever.php?api&feeds
-* https://freshrss.example.net/api/fever.php?api&groups
-* https://freshrss.example.net/api/fever.php?api&unread_item_ids
-* https://freshrss.example.net/api/fever.php?api&saved_item_ids
-* https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
-* https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
-* https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
-* https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
+* <https://freshrss.example.net/api/fever.php?api&items>
+* <https://freshrss.example.net/api/fever.php?api&feeds>
+* <https://freshrss.example.net/api/fever.php?api&groups>
+* <https://freshrss.example.net/api/fever.php?api&unread_item_ids>
+* <https://freshrss.example.net/api/fever.php?api&saved_item_ids>
+* <https://freshrss.example.net/api/fever.php?api&items&since_id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&items&max_id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id>
 
 Replace `some_id` with a real ID from your `freshrss_username_entry` database.
 
