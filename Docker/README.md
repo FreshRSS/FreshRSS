@@ -153,7 +153,7 @@ The tags correspond to FreshRSS branches and versions:
 ### Linux: Debian vs. Alpine
 
 Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
-In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is faster,
+In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Alpine is slower,
 while Alpine is [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 
 
@@ -236,7 +236,7 @@ For advanced users. Offers good logging and monitoring with auto-restart on fail
 Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
 See cron option 1 for customising the cron schedule.
 
-#### For the Ubuntu image (default)
+#### For the Debian image (default)
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \

@@ -83,9 +83,9 @@ return array(
 		'reload' => 'Verifique novamente',
 		'tmp' => array(
 			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'As permissões para o diretório temporário estão certas.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'Desconhecido',
 		'users' => array(
 			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório users estão corretos.',
@@ -111,10 +111,10 @@ return array(
 		'choose' => 'Escolha o idioma para o FreshRSS',
 		'defined' => 'O idioma foi definido.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Algo de errado ocorreu; você tem que criar um arquivo vazio <em>%s</em> manualmente.',
 	'ok' => 'O processo de instalação foi um sucesso.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'O servidor parece ter sido configurado incorretamente para os cookies necessários para sessões PHP!',
 	),
 	'step' => 'passo %d',
 	'steps' => 'Passos',
