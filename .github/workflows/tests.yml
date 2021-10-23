@@ -83,10 +83,10 @@ jobs:
 
     - run: mkdir -p bin/
 
-    - run: PATH=${PWD}/bin/:$PATH
+    - run: echo "${PWD}/bin" >> $GITHUB_PATH
 
     - name: Setup Go
-      # Mutliple Go versions are pre-installed but the default is 1.15
+      # Multiple Go versions are pre-installed but the default is 1.15
       # https://github.com/actions/setup-go
       uses: actions/setup-go@v2
       with:
@@ -100,8 +100,6 @@ jobs:
       # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
 
     - run: echo ${PWD}/bin/ && ls -alh ${PWD}/bin/
-    - run: echo ${GOBIN} && ls -alh ${GOBIN}
-    - run: echo ${GOROOT} && ls -alh ${GOROOT}
     - run: echo $PATH
 
     - name: Check shell script syntax
