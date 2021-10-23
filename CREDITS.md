@@ -96,6 +96,7 @@ People are sorted by name so please keep this order.
 * [Nicolas Frandeboeuf](https://github.com/nicofrand): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nicofrand), [Web](https://nicofrand.ey)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:nicosomb), [Web](http://www.loeuillet.org/)
 * [No Name Pro](https://github.com/NoNamePro0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NoNamePro0)
+* [OctopusET](https://github.com/OctopusET): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:OctopusET)
 * [Offerel](https://github.com/Offerel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Offerel)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:blankoworld), [Web](https://olivier.dossmann.net)
 * [Pablo Caro](https://github.com/pcaro90): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pcaro90), [Web](https://pcaro.es/)
