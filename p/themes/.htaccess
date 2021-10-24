@@ -8,6 +8,7 @@
 <IfModule mod_expires.c>
 	ExpiresActive	on
 	ExpiresByType	application/font-woff	"access plus 1 month"
+	ExpiresByType	application/json	"access plus 1 month"
 	ExpiresByType	image/gif	"access plus 1 month"
 	ExpiresByType	image/png	"access plus 1 month"
 	ExpiresByType	image/svg+xml	"access plus 1 month"

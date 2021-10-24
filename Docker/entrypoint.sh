@@ -20,7 +20,8 @@ if [ -n "$CRON_MIN" ]; then
 		echo "export COPY_SYSLOG_TO_STDERR=$COPY_SYSLOG_TO_STDERR"
 		echo "export FRESHRSS_ENV=$FRESHRSS_ENV"
 	) >/var/www/FreshRSS/Docker/env.txt
-	crontab -l | sed -r "\\#FreshRSS#s#^[^ ]+ #$CRON_MIN #" | crontab -
+	sed </var/www/FreshRSS/Docker/crontab.default \
+		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi
 
 if [ -n "$FRESHRSS_INSTALL" ]; then

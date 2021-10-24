@@ -89,6 +89,7 @@ People are sorted by name so please keep this order.
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
+* [Natalie Stroud](https://github.com/natastro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:natastro)
 * [Nick Cross](https://github.com/rnc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rnc)
 * [Nico B](https://github.com/youknow0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:youknow0)
 * [Nicola Spanti](https://github.com/RyDroid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RyDroid), [Web](http://www.nicola-spanti.info/)
@@ -149,3 +150,4 @@ People are sorted by name so please keep this order.
 * [wtoscer](https://github.com/wtoscer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wtoscer)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
+* [Zoredache](https://github.com/zoredache): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zoredache)
