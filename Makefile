@@ -159,7 +159,7 @@ endif
 ###########
 .PHONY: rtl
 rtl: ## Generate RTL CSS files
-	rtlcss -d p/themes && find . -type f -name '*.rtl.rtl.css' -delete
+	rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete
 
 .PHONY: pot
 pot: ## Generate POT templates for docs
@@ -168,6 +168,37 @@ pot: ## Generate POT templates for docs
 .PHONY: refresh
 refresh: ## Refresh feeds by fetching new messages
 	@$(PHP) ./app/actualize_script.php
+
+###############################
+## New commands aligned on CI #
+##     Work in progress       #
+###############################
+
+# TODO: Add composer install
+.PHONY: composer-test
+composer-test:
+	composer run-script test
+
+.PHONY: composer-fix
+composer-fix:
+	composer run-script fix
+
+# TODO: Add npm install
+.PHONY: npm-test
+npm-test:
+	npm test
+
+.PHONY: npm-fix
+npm-fix:
+	npm run fix
+
+# TODO: Add shellcheck, shfmt, hadolint
+.PHONY: test-all
+test-all: composer-test npm-test
+
+.PHONY: fix-all
+fix-all: composer-fix npm-fix
+
 
 ##########
 ## HELP ##

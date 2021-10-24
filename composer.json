@@ -24,14 +24,20 @@
         "squizlabs/php_codesniffer": "^3.6"
     },
     "scripts": {
-        "phpcs": "phpcs . -p -s",
+        "php-lint": "find . -type d -name 'vendor' -prune -o -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",
+        "phtml-lint": "find . -type d -name 'vendor' -prune -o -name '*.phtml' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",
+        "phpcs": "phpcs . -s",
         "phpcbf": "phpcbf . -p -s",
         "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests",
+        "translations": "cli/manipulate.translation.php -a format",
         "test": [
+            "@php-lint",
+            "@phtml-lint",
             "@phpunit",
             "@phpcs"
         ],
         "fix": [
+            "@translations",
             "@phpcbf"
         ]
     }
