@@ -51,15 +51,15 @@
 			</div>
 		</div>
 
-		<legend>Public user registration form</legend>
+		<legend><?= _t('admin.system.registration.title') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="max-registrations-select">Registration form</label>	
+			<label class="group-name" for="max-registrations-select"><?= _t('admin.system.registration.select.label') ?></label>	
 			<div class="group-controls">
 				<select class="select-input-changer" name="" data-name="max-registrations">
-					<option value="1" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 1 ? 'selected = "selected"' : ''; ?> data-input-visible="false">Disabled: No registration form</option>
-					<option value="0" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 0 ? 'selected = "selected"' : ''; ?> data-input-visible="false">Enabled: No limit of accounts</option>
-					<option value="2" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? 'selected = "selected"' : ''; ?> data-input-visible="true">Set max. number of accounts</option>
+					<option value="1" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 1 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.noform') ?></option>
+					<option value="0" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 0 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.nolimit') ?></option>
+					<option value="2" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? 'selected = "selected"' : ''; ?> data-input-visible="true"><?= _t('admin.system.registration.select.option.setaccountsnumber') ?></option>
 				</select>
 			</div>
 		</div>

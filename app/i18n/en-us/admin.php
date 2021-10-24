@@ -158,8 +158,17 @@ return array(
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
+			'title' => 'User registration form',
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
+			'select' => array(
+				'label' => 'Registration form',
+				'option' => array(
+					'noform' => 'Disabled: No registration form',
+					'nolimit' => 'Enabled: No limit of accounts',
+					'setaccountsnumber' => 'Set max. number of accounts'
+				)
+			)
 		),
 	),
 	'update' => array(
