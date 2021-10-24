@@ -131,6 +131,7 @@ People are sorted by name so please keep this order.
 * [skrlet13](https://github.com/skrlet13): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrlet13), [Web](https://www.skrlet13.cl/)
 * [Sp3r4z](https://github.com/Sp3r4z): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sp3r4z)
 * [Strubbl](https://github.com/Strubbl): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Strubbl)
+* [Stunkymonkey](https://github.com/Stunkymonkey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Stunkymonkey)
 * [stysebae](https://github.com/stysebae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stysebae)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:subic)
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Tets42)
