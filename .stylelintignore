@@ -1,3 +1,6 @@
+node_modules/
+p/scripts/vendor/
+vendor/
 # ignore SASS-generated CSS
 p/themes/Ansum/*.css
 p/themes/Mapco/*.css
