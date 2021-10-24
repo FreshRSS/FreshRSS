@@ -40,6 +40,7 @@ return array(
 	'gen.lang.sk',
 	'gen.lang.tr',
 	'gen.lang.zh-cn',
+	'gen.menu.account',
 	'gen.share.blogotext',
 	'gen.share.diaspora',
 	'gen.share.email',

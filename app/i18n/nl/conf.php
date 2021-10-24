@@ -128,11 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',
 			'article_viewed' => 'als het artikel wordt bekeken',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
 			'scroll' => 'tijdens het scrollen',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',
