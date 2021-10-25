@@ -66,7 +66,7 @@ return array(
 			'ok' => 'Estensione JSON presente.',
 		),
 		'mbstring' => array(
-			'nok' => 'Non è possibile trovare la libreria mbstring raccomandata per Unicode..',
+			'nok' => 'Non è possibile trovare la libreria mbstring raccomandata per Unicode.',
 			'ok' => 'Ha la libreria mbstring raccomandata per Unicode.',
 		),
 		'pcre' => array(
