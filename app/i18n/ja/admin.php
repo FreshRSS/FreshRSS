@@ -160,6 +160,15 @@ return array(
 		'registration' => array(
 			'help' => '0 はアカウントの上限がないことを意味しています',
 			'number' => 'アカウントの最大値',
+			'select' => array(
+				'label' => 'Registration form',	// TODO - Translation
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO - Translation
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO - Translation
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO - Translation
+				),
+			),
+			'title' => 'User registration form',	// TODO - Translation
 		),
 	),
 	'update' => array(

@@ -160,6 +160,15 @@ return array(
 		'registration' => array(
 			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Registration form',	// TODO - Translation
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO - Translation
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO - Translation
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO - Translation
+				),
+			),
+			'title' => 'User registration form',	// TODO - Translation
 		),
 	),
 	'update' => array(

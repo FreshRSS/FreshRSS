@@ -160,6 +160,15 @@ return array(
 		'registration' => array(
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
+			'select' => array(
+				'label' => 'Registration form',
+				'option' => array(
+					'noform' => 'Disabled: No registration form',
+					'nolimit' => 'Enabled: No limit of accounts',
+					'setaccountsnumber' => 'Set max. number of accounts',
+				),
+			),
+			'title' => 'User registration form',
 		),
 	),
 	'update' => array(

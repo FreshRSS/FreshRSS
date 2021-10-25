@@ -160,6 +160,15 @@ return array(
 		'registration' => array(
 			'help' => '0 means that there is no account limit',	// TODO - Translation
 			'number' => 'Max number of accounts',	// TODO - Translation
+			'select' => array(
+				'label' => 'Registration form',	// TODO - Translation
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO - Translation
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO - Translation
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO - Translation
+				),
+			),
+			'title' => 'User registration form',	// TODO - Translation
 		),
 	),
 	'update' => array(

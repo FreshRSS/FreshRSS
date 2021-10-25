@@ -160,6 +160,15 @@ return array(
 		'registration' => array(
 			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Registration form',	// TODO - Translation
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO - Translation
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO - Translation
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO - Translation
+				),
+			),
+			'title' => 'User registration form',	// TODO - Translation
 		),
 	),
 	'update' => array(
