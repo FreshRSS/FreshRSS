@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'A prepaus',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Compte',
 		'admin' => 'Administracion',
 		'archiving' => 'Archivar',
 		'authentication' => 'Autentificacion',

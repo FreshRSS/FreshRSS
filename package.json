@@ -23,7 +23,7 @@
     "eslint_fix": "eslint --fix --ext .js .",
     "markdownlint": "markdownlint '**/*.md'",
     "markdownlint_fix": "markdownlint --fix '**/*.md'",
-    "rtlcss": "rtlcss -d p/themes && find . -type f -name '*.rtl.rtl.css' -delete",
+    "rtlcss": "rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete",
     "stylelint": "stylelint '**/*.css' && stylelint --syntax scss '**/*.scss'",
     "stylelint_fix": "stylelint --fix '**/*.css' && stylelint --fix --syntax scss '**/*.scss'",
     "test": "npm run eslint && npm run stylelint && npm run markdownlint",
@@ -41,5 +41,6 @@
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.21.0"
-  }
+  },
+  "rtlcssConfig": {}
 }

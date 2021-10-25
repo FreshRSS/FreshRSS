@@ -8,21 +8,24 @@ on:
 
 jobs:
 
-  composer:
+  tests:
     # https://github.com/actions/virtual-environments
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Git checkout source code
+      uses: actions/checkout@v2
+
+    # Composer tests
 
     - name: Check PHP syntax
-      run: find . -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null
+      run: composer run-script php-lint
 
     - name: Check PHTML syntax
-      run: find . -name '*.phtml' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null
+      run: composer run-script phtml-lint
 
     - name: Check translations syntax
-      run: cli/manipulate.translation.php -a format && git diff --exit-code
+      run: composer run-script translations && git diff --exit-code
 
     - name: Use Composer cache
       id: composer-cache
@@ -33,17 +36,17 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - run: composer install --prefer-dist --no-progress
+    - name: Run Composer install
+      run: composer install --prefer-dist --no-progress
       if: steps.composer-cache.outputs.cache-hit != 'true'
 
-    - name: Run PHP tests
-      run: composer run-script test
+    - name: Run PHP unit tests
+      run: composer run-script phpunit
 
+    - name: PHP_CodeSniffer
+      run: composer run-script phpcs
 
-  npm:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
+    # NPM tests
 
     - name: Uses Node.js
       uses: actions/setup-node@v2
@@ -66,11 +69,7 @@ jobs:
     - name: Check CSS syntax
       run: npm run stylelint
 
-
-  shell:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
+    # Shell tests
 
     - name: Use shell cache
       id: shell-cache
@@ -83,6 +82,7 @@ jobs:
       run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
 
     - name: Setup Go
+      if: steps.shell-cache.outputs.cache-hit != 'true'
       # Multiple Go versions are pre-installed but the default 1.15 is too old
       # https://github.com/actions/setup-go
       uses: actions/setup-go@v2

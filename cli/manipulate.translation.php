@@ -119,36 +119,36 @@ DESCRIPTION
 	-r revert the action (only for ignore action)
 	-o=LANG select the origin language (only for add language action)
 
-EXEMPLE
-Exemple 1: add a language. It adds a new language by duplicating the referential.
+EXAMPLES
+Example 1: add a language. It adds a new language by duplicating the referential.
 	php %1\$s -a add -l my_lang
 	php %1\$s -a add -l my_lang -o ref_lang
 
-Exemple 2: add a new key. It adds the key for all supported languages.
+Example 2: add a new key. It adds the key for all supported languages.
 	php %1\$s -a add -k my_key -v my_value
 
-Exemple 3: add a new value. It adds a new value for the selected key in the selected language.
+Example 3: add a new value. It adds a new value for the selected key in the selected language.
 	php %1\$s -a add -k my_key -v my_value -l my_lang
 
-Exemple 4: delete a key. It deletes the selected key from all supported languages.
+Example 4: delete a key. It deletes the selected key from all supported languages.
 	php %1\$s -a delete -k my_key
 
-Exemple 5: format i18n files.
+Example 5: format i18n files.
 	php %1\$s -a format
 
-Exemple 6: ignore a key. It adds the key in the ignore file to mark it as translated.
+Example 6: ignore a key. It adds the key in the ignore file to mark it as translated.
 	php %1\$s -a ignore -k my_key -l my_lang
 
-Exemple 7: revert ignore a key. It removes the key from the ignore file.
+Example 7: revert ignore a key. It removes the key from the ignore file.
 	php %1\$s -a ignore -r -k my_key -l my_lang
 
-Exemple 8: ignore all unmodified keys. It adds all modified keys in the ignore file to mark it as translated.
+Example 8: ignore all unmodified keys. It adds all modified keys in the ignore file to mark it as translated.
 	php %1\$s -a ignore_unmodified -l my_lang
 
-Exemple 9: revert ignore of all unmodified keys. It removes the unmodified keys from the ignore file.  Warning, this will also revert keys added individually.
+Example 9: revert ignore of all unmodified keys. It removes the unmodified keys from the ignore file.  Warning, this will also revert keys added individually.
 	php %1\$s -a ignore_unmodified -r -l my_lang
 
-Exemple 10: check if a key exist.
+Example 10: check if a key exist.
 	php %1\$s -a exist -k my_key\n\n
 
 HELP;

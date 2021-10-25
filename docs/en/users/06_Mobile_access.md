@@ -7,8 +7,8 @@ This page assumes you have completed the [server setup](../admins/03_Installatio
 	* Every user must define an API password.
 	* The reason for an API-specific password is that it may be used in less safe situations than the main password, and does not grant access to as many things.
 
-See the [page about the Google Reader compatible API](../developers/06_GoogleReader_API.md.md) for more details.
-See the [page about the Fever compatible API](../developers/06_Fever_API.md.md) for more details.
+See the [page about the Google Reader compatible API](../developers/06_GoogleReader_API.md) for more details.
+See the [page about the Fever compatible API](../developers/06_Fever_API.md) for more details.
 
 
 # Testing
