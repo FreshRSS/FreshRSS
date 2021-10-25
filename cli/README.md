@@ -114,7 +114,7 @@ cd /usr/share/FreshRSS
 # --o selects the origin language (only for add language action)
 ```
 
-### Note about cron
+## Note about cron
 
 Some commands display information on standard error; cron will send an email with this information every time the command will be executed (exited zero or non-zero).
 
