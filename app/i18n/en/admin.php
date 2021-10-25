@@ -168,6 +168,10 @@ return array(
 					'setaccountsnumber' => 'Set max. number of accounts',
 				),
 			),
+			'status' => array(
+				'disabled' => 'Form disabled',
+				'enabled' => 'Form enabled',
+			),
 			'title' => 'User registration form',
 		),
 	),
