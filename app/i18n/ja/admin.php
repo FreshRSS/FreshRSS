@@ -158,7 +158,6 @@ return array(
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',
 		'max-feeds' => '1ユーザーごとのフィードの最大値',
 		'registration' => array(
-			'help' => '0 はアカウントの上限がないことを意味しています',
 			'number' => 'アカウントの最大値',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

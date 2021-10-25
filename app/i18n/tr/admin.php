@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
 		'registration' => array(
-			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

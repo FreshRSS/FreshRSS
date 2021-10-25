@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'registration' => array(
-			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

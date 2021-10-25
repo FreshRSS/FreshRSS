@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
 		'registration' => array(
-			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
 			'number' => 'Nombre max de comptes',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

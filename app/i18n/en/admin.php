@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
-			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
 			'select' => array(
 				'label' => 'Registration form',

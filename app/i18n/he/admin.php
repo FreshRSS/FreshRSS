@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Max number of categories per user',	// TODO - Translation
 		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
 		'registration' => array(
-			'help' => '0 means that there is no account limit',	// TODO - Translation
 			'number' => 'Max number of accounts',	// TODO - Translation
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

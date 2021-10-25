@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
 		'registration' => array(
-			'help' => '0 znamená žiadny limit počtu účtov',
 			'number' => 'Maximálny počt účtov',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

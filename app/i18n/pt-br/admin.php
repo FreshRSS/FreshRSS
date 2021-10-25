@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
 		'registration' => array(
-			'help' => '0 significa que não há limite para a conta',
 			'number' => 'Máximo número de contas',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

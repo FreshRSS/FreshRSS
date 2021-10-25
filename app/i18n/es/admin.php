@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
 		'registration' => array(
-			'help' => '0 significa que no hay límite en la cuenta',
 			'number' => 'Número máximo de cuentas',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

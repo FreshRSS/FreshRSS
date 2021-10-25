@@ -158,7 +158,6 @@ return array(
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
 		'registration' => array(
-			'help' => '0: 제한 없음',
 			'number' => '계정 최대 개수',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

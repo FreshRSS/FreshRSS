@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
 		'registration' => array(
-			'help' => '0 означает неограниченное количество пользователей',
 			'number' => 'Максимальное количество пользователей',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

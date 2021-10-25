@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Max number of categories per user',	// TODO - Translation
 		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
 		'registration' => array(
-			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

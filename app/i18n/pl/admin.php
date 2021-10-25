@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
 		'registration' => array(
-			'help' => '0 oznacza brak limitu liczby kont',
 			'number' => 'Maksymalna liczba kont',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

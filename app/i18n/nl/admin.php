@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
 		'registration' => array(
-			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

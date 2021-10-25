@@ -158,7 +158,6 @@ return array(
 		'max-categories' => '各用户分类数限制',
 		'max-feeds' => '各用户订阅源数限制',
 		'registration' => array(
-			'help' => '0 表示无用户数限制',
 			'number' => '最大用户数',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation

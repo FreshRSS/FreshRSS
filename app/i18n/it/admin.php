@@ -158,7 +158,6 @@ return array(
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
 		'registration' => array(
-			'help' => '0 significa che non esiste limite sui profili',
 			'number' => 'Numero massimo di profili',
 			'select' => array(
 				'label' => 'Registration form',	// TODO - Translation
