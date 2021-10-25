@@ -29,6 +29,7 @@ sudo chmod -R g+w ./data/
 Options in parenthesis are optional.
 
 ### System
+
 ```sh
 cd /usr/share/FreshRSS
 
@@ -49,6 +50,7 @@ cd /usr/share/FreshRSS
 ```
 
 ### User
+
 ```sh
 cd /usr/share/FreshRSS
 
@@ -92,6 +94,7 @@ cd /usr/share/FreshRSS
 ```
 
 ### Database
+
 ```sh
 cd /usr/share/FreshRSS
 
@@ -100,6 +103,7 @@ cd /usr/share/FreshRSS
 ```
 
 ### Translation
+
 ```sh
 cd /usr/share/FreshRSS
 
