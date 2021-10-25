@@ -42,7 +42,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
-		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /var/www/FreshRSS/Docker/crontab.default
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
 
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On

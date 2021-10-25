@@ -111,7 +111,7 @@ return array(
 		'choose' => 'Causissètz la lenga per FreshRSS',
 		'defined' => 'La lenga es corrèctament definida.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Quicòm a trucat ; devètz crear un fichièr <em>%s</em> void manualament.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
 	'session' => array(
 		'nok' => 'Sembla que lo servidor web siá pas corrèctament configurat pels cookies per las sessions PHP !',
