@@ -5,7 +5,7 @@ function init_selectInputChanger() {
 	const select = document.getElementsByClassName('select-input-changer');
 
 	for (let i = 0; i < select.length; i++) {
-		select[i].addEventListener('click', function() { onchange_selectInputChanger(this); });
+		select[i].addEventListener('click', function () { onchange_selectInputChanger(this); });
 		onchange_selectInputChanger(select[i]);
 	}
 }
@@ -27,7 +27,7 @@ function onchange_selectInputChanger(elem) {
 function init_maxNumbersOfAccountsStatus() {
 	const input = document.getElementById('max-registrations-input');
 	if (input) {
-		input.addEventListener('click', function() { onchange_maxNumbersOfAccounts(this); });
+		input.addEventListener('click', function () { onchange_maxNumbersOfAccounts(this); });
 		onchange_maxNumbersOfAccounts(input);
 	}
 }
@@ -43,6 +43,6 @@ function onchange_maxNumbersOfAccounts(elem) {
 }
 
 init_selectInputChanger();
-init_maxNumbersOfAccountsStatus()
+init_maxNumbersOfAccountsStatus();
 
 // @license-end
