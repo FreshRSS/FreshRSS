@@ -168,8 +168,8 @@ return array(
 				),
 			),
 			'status' => array(
-				'disabled' => 'Formular deaktivert',
-				'enabled' => 'Formular aktivert',
+				'disabled' => 'Formular deaktiviert',
+				'enabled' => 'Formular aktiviert',
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
