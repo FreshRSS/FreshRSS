@@ -134,7 +134,7 @@ return array(
 		'he' => 'עברית',
 		'it' => 'Italiano',
 		'ja' => '日本語',
-		'kr' => '한국어',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Over',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Account',
 		'admin' => 'Administratie',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',

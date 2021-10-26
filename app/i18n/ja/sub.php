@@ -12,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'カテゴリ',
-		'add' => 'Add a category', // TODO - Translation
+		'add' => 'Add a category',	// TODO - Translation
 		'archiving' => 'アーカイブ',
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',

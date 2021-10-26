@@ -10,8 +10,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Su contraseña no se puede modificar',
+			'updated' => 'Su contraseña ha sido modificada',
 		),
 	),
 	'auth' => array(
@@ -31,7 +31,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s ya está activado',
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'cannot_remove' => '%s no se puede quitar',
 		'disable' => array(
 			'ko' => '%s no se puede desactivar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado desactivado',
@@ -43,7 +43,7 @@ return array(
 		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
-		'removed' => '%s removed',	// TODO - Translation
+		'removed' => '%s eliminado',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor. Por favor, exporta estos archivos uno a uno.',
@@ -60,8 +60,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Actualización',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
+			'marked_read' => 'Los artículos seleccionados han sido marcados como leídos.',
+			'marked_unread' => 'Los artículos han sido marcados como no leídos.',
 		),
 		'category' => array(
 			'created' => 'Se ha creado la categoría %s.',
@@ -81,7 +81,7 @@ return array(
 			'actualizeds' => 'Las fuentes RSS se han actualizado',
 			'added' => 'Fuente RSS agregada <em>%s</em>',
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> se ha borrado la caché',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',
@@ -90,24 +90,24 @@ return array(
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
 			'no_refresh' => 'No hay fuente a actualizar…',
 			'not_added' => '<em>%s</em> no ha podido se añadida',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => 'No se puede encontrar el feed',
 			'over_max' => 'Has alcanzado tu límite de fuentes (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> se ha vuelto a cargar',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => 'Error al cargar el contenido del sitio web.',
+				'no_entries' => 'No hay artículos en este feed. Necesitas al menos un artículo para crear una vista previa.',
+				'no_feed' => 'Error interno (no se puede encontrar el feed).',
+				'no_result' => 'El selector no coincidyó con nada. Como reserva, se mostrará el texto original del feed en su lugar.',
+				'selector_empty' => 'El selector está vacío. Debe definir uno para crear una vista previa.',
 			),
 			'updated' => 'Fuente actualizada',
 		),
 		'purge_completed' => 'Limpieza completada (se han eliminado %d artículos)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'Se ha creado la etiqueta "%s".',
+		'name_exists' => 'El nombre de la etiqueta ya existe.',
+		'renamed' => 'La etiqueta "%s" ha sido renombrada a "%s".',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS se va a actualizar a la <strong>versión %s</strong>.',
@@ -127,8 +127,8 @@ return array(
 			'error' => 'El usuario %s no ha podido ser eliminado',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	// TODO - Translation
-			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'Se ha actualizado el usuario %s',
+			'error' => 'El usuario %s no se ha actualizado',
 		),
 	),
 );

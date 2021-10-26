@@ -19,7 +19,7 @@ RTL (right-to-left) support for languages such as Hebrew and Arabic is handled t
 
 ## Overriding icons
 
-To replace the default icons, add an "icons" folder to your theme's folder. Use files with the same name as the default icon to override them. 
+To replace the default icons, add an "icons" folder to your theme's folder. Use files with the same name as the default icon to override them.
 
 ## Template file
 
@@ -27,11 +27,11 @@ To replace the default icons, add an "icons" folder to your theme's folder. Use 
 
 ```json
 {
-  "name": "Theme name",
-  "author": "Theme author",
-  "description": "Theme description",
-  "version": 0.1,
-  "files": ["_template.css", "file1.css", "file2.css"]
+	"name": "Theme name",
+	"author": "Theme author",
+	"description": "Theme description",
+	"version": 0.1,
+	"files": ["_template.css", "file1.css", "file2.css"]
 }
 ```
 

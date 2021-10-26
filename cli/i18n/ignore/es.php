@@ -1,8 +1,11 @@
 <?php
 
 return array(
+	'admin.stats.status_total',
+	'admin.user.feed_count',
 	'conf.sharing.blogotext',
 	'conf.sharing.diaspora',
+	'conf.sharing.email',
 	'conf.sharing.facebook',
 	'conf.sharing.raindrop',
 	'conf.sharing.shaarli',
@@ -11,6 +14,7 @@ return array(
 	'gen.date.format_date',
 	'gen.date.format_date_hour',
 	'gen.dir',
+	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',
 	'gen.lang.en',
@@ -20,7 +24,7 @@ return array(
 	'gen.lang.he',
 	'gen.lang.it',
 	'gen.lang.ja',
-	'gen.lang.kr',
+	'gen.lang.ko',
 	'gen.lang.nl',
 	'gen.lang.oc',
 	'gen.lang.pl',
@@ -31,6 +35,7 @@ return array(
 	'gen.lang.zh-cn',
 	'gen.share.blogotext',
 	'gen.share.diaspora',
+	'gen.share.email',
 	'gen.share.facebook',
 	'gen.share.gnusocial',
 	'gen.share.jdh',
@@ -47,4 +52,6 @@ return array(
 	'gen.share.wallabagv2',
 	'gen.short.no',
 	'index.about.agpl3',
+	'sub.api.title',
+	'sub.bookmarklet.title',
 );

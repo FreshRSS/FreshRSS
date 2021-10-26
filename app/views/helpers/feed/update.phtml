@@ -133,14 +133,18 @@
 			<label class="group-name" for="http_user_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user_feed<?= $this->feed->id() ?>" id="http_user_feed<?= $this->feed->id() ?>" class="extend" value="<?=
-					empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
+					empty($auth['username']) ? '' : $auth['username'] ?>" autocomplete="off" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
-
+		</div>
+		<div class="form-group">
 			<label class="group-name" for="http_pass_feed<?= $this->feed->id() ?>"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" class="extend" value="<?=
-					$auth['password'] ?>" autocomplete="new-password" />
+				<div class="stick">
+					<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
+						$auth['password'] ?>" autocomplete="new-password" />
+					<a class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></a>
+				</div>
 			</div>
 		</div>
 

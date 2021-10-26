@@ -29,7 +29,7 @@ return array(
 			'publication_date' => 'Data de publicacion',
 			'related_tags' => 'Etiquetas ligadas',
 			'sharing' => 'Partatge',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => 'Resumit',
 			'top_line' => 'Linha amont',
 		),
 		'language' => 'Lenga',
@@ -39,13 +39,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
 		'theme' => 'Tèma',
-		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'theme_not_available' => 'Lo tèma « %s » es pas pus disponible. Causissètz un autre tèma.',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => 'Vinheta',
+			'landscape' => 'Païsatge',
+			'none' => 'Cap',
+			'portrait' => 'Retrach',
+			'square' => 'Carrat',
 		),
 		'title' => 'Afichatge',
 		'width' => array(
@@ -128,11 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
 			'scroll' => 'en davalar la pagina',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',
@@ -199,13 +199,13 @@ return array(
 		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
-		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'next_unread_article' => 'Dobrir l’article pas legit seguent',
+		'non_standard' => 'D’unas claus (<kbd>%s</kbd>) poirián pas foncionar coma acorchi clavièr.',
 		'normal_view' => 'Passar a la vista normala',
 		'other_action' => 'Autras accions',
 		'previous_article' => 'Passar a l’article precedent',
 		'reading_view' => 'Passar a la vista lectura',
-		'rss_view' => 'Open as RSS feed', // TODO - Translation
+		'rss_view' => 'Dobrir coma flux RSS',
 		'see_on_website' => 'Veire al site d’origina',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> per marcar l’article precedent coma legit<br />+ <kbd>⇧ Shift</kbd> per marcar los articles coma legits',
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',

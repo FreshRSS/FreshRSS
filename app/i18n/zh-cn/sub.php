@@ -12,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => '分类',
-		'add' => 'Add a category', // TODO - Translation
+		'add' => '添加分类',
 		'archiving' => '归档',
 		'empty' => '空分类',
 		'information' => '信息',

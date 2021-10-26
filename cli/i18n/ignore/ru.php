@@ -12,6 +12,7 @@ return array(
 	'gen.date.format_date',
 	'gen.date.format_date_hour',
 	'gen.dir',
+	'gen.freshrss._',
 	'gen.lang.cz',
 	'gen.lang.de',
 	'gen.lang.en',
@@ -21,7 +22,7 @@ return array(
 	'gen.lang.he',
 	'gen.lang.it',
 	'gen.lang.ja',
-	'gen.lang.kr',
+	'gen.lang.ko',
 	'gen.lang.nl',
 	'gen.lang.oc',
 	'gen.lang.pl',
@@ -47,4 +48,5 @@ return array(
 	'gen.share.wallabag',
 	'gen.share.wallabagv2',
 	'index.about.agpl3',
+	'sub.api.title',
 );

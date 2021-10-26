@@ -7,6 +7,7 @@ FreshRSS is updated by the `./app/actualize_script.php` script. Knowing this, we
 **Note:** the following examples assume that FreshRSS is installed to `/usr/share/FreshRSS`. You'll need to modify the FreshRSS path to reflect your own system.
 
 **Note:** If you cannot configure a local Cronjob, [see an alternative using online cron](../users/03_Main_view.md#online-cron).
+
 ## Cron as a trigger
 
 You'll need to check the Cron documentation for your specific distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora/CentOS](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron) ...) to make sure you set the Cron job correctly.
@@ -14,10 +15,11 @@ You'll need to check the Cron documentation for your specific distribution ([Deb
 It's advisable that you run the Cron job as your Web server user (often `www-data`).
 
 ### Example on Debian/Ubuntu
+
 To run the updater script every hour, and 10 minutes past the hour:
 
 Run `sudo crontab -e` and copy the following line into the crontab:
-```
+```text
 10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
@@ -27,7 +29,7 @@ Some systems can't use a Cron job, but they can use systemd. It's easy to config
 
 First you need to add a `freshrss.timer` file in `/etc/systemd/system/` with the following content:
 
-```
+```ini
 [Unit]
 Description=FreshRSS get new content
 
@@ -43,7 +45,7 @@ This timer will start 30 seconds after boot and it will trigger the service ever
 
 Then you need to add a `freshrss.service` file in the same directory. This will be the description of the service triggered by the aforementioned timer.
 
-```
+```ini
 [Unit]
 Description=FreshRSS get new content
 Wants=freshrss.timer

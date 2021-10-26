@@ -28,6 +28,7 @@ sudo chmod -R g+w ./data/
 
 Options in parenthesis are optional.
 
+### System
 
 ```sh
 cd /usr/share/FreshRSS
@@ -46,6 +47,12 @@ cd /usr/share/FreshRSS
 
 ./cli/reconfigure.php
 # Same parameters as for do-install.php. Used to update an existing installation.
+```
+
+### User
+
+```sh
+cd /usr/share/FreshRSS
 
 ./cli/create-user.php --user username [ --password 'password' --api_password 'api_password' --language en --email user@example.net --token 'longRandomString' --no_default_feeds --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600 --since_hours_posts_per_rss 168 --max_posts_per_rss 400 ]
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
@@ -84,18 +91,40 @@ cd /usr/share/FreshRSS
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 
 ./cli/export-zip-for-user.php --user username [ --max-feed-entries 100 ] > /path/to/file.zip
+```
+
+### Database
+
+```sh
+cd /usr/share/FreshRSS
 
 ./cli/db-optimize.php --user username
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
 ```
 
-### Note about cron
+### Translation
+
+```sh
+cd /usr/share/FreshRSS
+
+./cli/manipulate.translation.php  --a [-h --a --k --v --l --o]
+# manipulate the i18n language files
+# -h is to use a human-readable format
+# --a selects the action to perform. (can be: add, delete, exist, format, and ignore.
+# --k selects the key to work on.
+# --v selects the value to set.
+# --l selects the language to work on.
+# --r revert the action (only for ignore action)
+# --o selects the origin language (only for add language action)
+```
+
+## Note about cron
 
 Some commands display information on standard error; cron will send an email with this information every time the command will be executed (exited zero or non-zero).
 
 To avoid cron sending email on success:
 
-```sh
+```text
 @daily /usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log 2>/var/log/cron-freshrss-stderr.log || cat /var/log/cron-freshrss-stderr.log
 ```
 
