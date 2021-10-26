@@ -66,8 +66,8 @@ return array(
 			'ok' => 'Estensione JSON presente.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'Non è possibile trovare la libreria mbstring raccomandata per Unicode.',
+			'ok' => 'Ha la libreria mbstring raccomandata per Unicode.',
 		),
 		'pcre' => array(
 			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
@@ -101,23 +101,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Autore',
+		'community' => 'Estensioni della community disponibili',
+		'description' => 'Descrizione',
 		'disabled' => 'Disabilitata',
 		'empty_list' => 'Non ci sono estensioni installate',
 		'enabled' => 'Abilitata',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Installato',
+		'name' => 'Nome',
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
 		'system' => array(
 			'_' => 'Estensioni di sistema',
 			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 		),
 		'title' => 'Estensioni',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Aggiornamento disponibile',
 		'user' => 'Estensioni utente',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Versione',
 	),
 	'stats' => array(
 		'_' => 'Statistiche',
@@ -184,17 +184,17 @@ return array(
 		'title' => 'Aggiorna sistema',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
+		'admin' => 'Amministratore',
+		'article_count' => 'Articoli',
 		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Crea nuovo utente',
 		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
+		'email' => 'Indirizzo e-mail',
 		'enabled' => 'Enabled',	// TODO - Translation
 		'feed_count' => 'Feeds',	// TODO - Translation
 		'is_admin' => 'Is admin',	// TODO - Translation
 		'language' => 'Lingua',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'last_user_activity' => 'Ultime attività degli utenti',
 		'list' => 'User list',	// TODO - Translation
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
