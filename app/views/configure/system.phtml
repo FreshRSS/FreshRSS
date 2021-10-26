@@ -70,8 +70,7 @@
 				<?php $number = count(listUsers()); ?>
 				<input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? FreshRSS_Context::$system_conf->limits['max_registrations'] : $number + 1; ?>" min="2"
 					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] ?>" data-number="<?= $number ?>"/>
-				<!-- <p class="help"><?= _i('help') ?> <?= _t('admin.system.registration.help') ?></p> -->
-				<span id="max-registrations-status-disabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span><span id="max-registrations-status-enabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span>
+				<span id="max-registrations-status-disabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span><span id="max-registrations-status-enabled">(= <?= _t('admin.system.registration.status.enabled') ?>)</span>
 			</div>
 		</div>
 
