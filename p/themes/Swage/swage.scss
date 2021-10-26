@@ -576,12 +576,13 @@ form {
 		background: darken( $color_light, 10%);
 		color: darken( $color_light, 40% );
 		border-bottom: 1px solid darken( $color_light, 10%);
+
 		.configure {
 			margin-right: 4px;
 		}
 	}
 
-	
+
 
 
 	.box-content {
@@ -927,6 +928,7 @@ form {
 			background: $color_unread;
 		}
 	}
+
 	.item {
 		&.date {
 			color: darken( $color_light, 40% );
