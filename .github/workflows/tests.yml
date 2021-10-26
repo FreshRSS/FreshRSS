@@ -58,16 +58,16 @@ jobs:
     - run: npm install
 
     - name: Check JavaScript syntax
-      run: npm run eslint
+      run: npm run --silent eslint
 
     - name: Check Markdown syntax
-      run: npm run markdownlint
+      run: npm run --silent markdownlint
 
     - name: Check Right-to-left CSS
-      run: npm run rtlcss && git diff --exit-code
+      run: npm run --silent rtlcss && git diff --exit-code
 
     - name: Check CSS syntax
-      run: npm run stylelint
+      run: npm run --silent stylelint
 
     # Shell tests
 
