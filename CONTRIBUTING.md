@@ -31,7 +31,7 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 1. Be sure the bug is associated to a ticket and say you work on it.
 2. [Fork this project repository](https://help.github.com/articles/fork-a-repo/).
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**.
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**. Don't forget to add your name to CREDITS.md if you're contributing to FreshRSS for the very first time.
 
 If you have to write code, please follow [our coding style recommendations](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html).
 
