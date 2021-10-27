@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Shortcuts',
-		'actualize' => 'Update feeds',
 		'article_action' => 'Article actions',
 		'auto_share' => 'Share',
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',

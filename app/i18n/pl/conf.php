@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Skróty klawiszowe',
-		'actualize' => 'Aktualizuj kanału',
 		'article_action' => 'Akcje wiadomości',
 		'auto_share' => 'Podaj dalej',
 		'auto_share_help' => 'Gdy jest dostępna tylko jedna metoda podawania dalej jest ona od razu wykorzystywana. W pozostałych przypadkach poszczególne metody są dostępne przez wybranie ich numeru.',

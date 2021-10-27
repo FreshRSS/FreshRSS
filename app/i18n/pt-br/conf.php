@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Atalhos',
-		'actualize' => 'Atualizar feeds',
 		'article_action' => 'Ações no artigo',
 		'auto_share' => 'Compartilhar',
 		'auto_share_help' => 'Se há apenas um modo de compartilhamento, ele é usado. Caso contrário, serão acessíveis pelo seu número.',

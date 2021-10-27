@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Skratky',
-		'actualize' => 'Aktualizovať kanály',
 		'article_action' => 'Akcie článku',
 		'auto_share' => 'Zdieľať',
 		'auto_share_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',

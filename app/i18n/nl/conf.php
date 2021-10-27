@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Snelkoppelingen',
-		'actualize' => 'Actualiseren feeds',
 		'article_action' => 'Artikelacties',
 		'auto_share' => 'Delen',
 		'auto_share_help' => 'Als er slechts één deelmethode is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',

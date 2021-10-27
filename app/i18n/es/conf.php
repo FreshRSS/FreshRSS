@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Atajos de teclado',
-		'actualize' => 'Actualizar fuente',
 		'article_action' => 'Acciones de artículo',
 		'auto_share' => 'Compartir',
 		'auto_share_help' => 'Si solo hay un modo para compartir, ese será el que se use. En caso contrario los modos quedarán accesibles por su numeración.',

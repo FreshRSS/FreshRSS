@@ -180,7 +180,6 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Tastenkombination',
-		'actualize' => 'Feeds aktualisieren',
 		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
