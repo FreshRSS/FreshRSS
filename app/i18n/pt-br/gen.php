@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Atualizar',
+		'actualize' => 'Atualizar feeds',
 		'add' => 'Adicionar',
 		'back' => '← Voltar',
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
