@@ -66,12 +66,12 @@ function load_panel(link) {
 
 function init_close_panel() {
 	const panel = document.getElementById('panel');
-	document.querySelector('#overlay .close').onclick = function (ev) {
+	document.querySelector('#overlay .close').addEventListener('click', function () {
 		panel.innerHTML = '';
 		panel.classList.remove('visible');
 		document.getElementById('overlay').classList.remove('visible');
 		return false;
-	};
+	});
 	document.addEventListener('keydown', ev => {
 		const k = (ev.key.trim() || ev.code).toUpperCase();
 		if (k === 'ESCAPE' || k === 'ESC') {
@@ -84,10 +84,10 @@ function init_close_panel() {
 function init_global_view() {
 	// TODO: should be based on generic classes
 	document.querySelectorAll('.box a').forEach(function (a) {
-		a.onclick = function (ev) {
+		a.addEventListener('click', function () {
 			load_panel(a.href);
 			return false;
-		};
+		});
 	});
 
 	document.querySelectorAll('.nav_menu #nav_menu_read_all, .nav_menu .toggle_aside').forEach(function (el) {
