@@ -1532,11 +1532,12 @@ function load_more_posts() {
 		formPagination.replaceChild(paginationNew, paginationOld);
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
-		if (bigMarkAsRead) {
+		const readAll = document.querySelector('#nav_menu_read_all .read_all');
+		if (bigMarkAsRead.tagName.toLowerCase == 'button' && readAll) {
 			if (context.display_order === 'ASC') {
-				document.querySelector('#nav_menu_read_all .read_all').formAction = bigMarkAsRead.formAction;
+				readAll.formAction = bigMarkAsRead.formAction;
 			} else {
-				bigMarkAsRead.formAction = document.querySelector('#nav_menu_read_all .read_all').formAction;
+				bigMarkAsRead.formAction = readAll.formAction;
 			}
 		}
 
