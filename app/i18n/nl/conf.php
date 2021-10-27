@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivering',
-		'delete_after' => 'Verwijder artikelen na',
 		'exception' => 'Zuiveringsuitzondering',
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
 		'keep_favourites' => 'Favorieten nooit verwijderen',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Publicatie datum',
 			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',
+			'summary' => 'Samenvatting',
 			'top_line' => 'Bovenaan',
 		),
 		'language' => 'Taal',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
+		'theme_not_available' => 'Het “%s” thema is niet meer beschikbaar. Kies een ander thema.',
+		'thumbnail' => array(
+			'label' => 'Miniatuur',
+			'landscape' => 'Liggend',
+			'none' => 'Geen',
+			'portrait' => 'Staand',
+			'square' => 'Vierkant',
+		),
 		'title' => 'Opmaak',
 		'width' => array(
 			'content' => 'Inhoud breedte',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
-		'display' => 'Queryresultaten weergeven',
 		'filter' => array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
@@ -79,14 +86,11 @@ return array(
 		'get_category' => 'Toon "%s" categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon "%s" feed',
-		'get_tag' => 'Toon "%s" label',
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
-		'none' => 'U hebt nog geen gebruikers query aangemaakt..',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
-		'remove' => 'Gebruikersquery verwijderen',
 		'search' => 'Zoek naar "%s"',
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',
 			'article_viewed' => 'als het artikel wordt bekeken',
+			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
 			'scroll' => 'tijdens het scrollen',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
+			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',
@@ -138,7 +144,7 @@ return array(
 			'remember_categories' => 'Open categorieën herinneren',
 			'unread' => 'Bekijk alleen ongelezen',
 		),
-		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
+		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'sort' => array(
 			'_' => 'Sorteer volgorde',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => 'Met de <kbd>⇧ Shift</kbd> toets worden navigatieverwijzingen op feeds toegepast.<br/>Met de <kbd>Alt ⎇</kbd> toets worden navigatieverwijzingen op categorieën toegepast.',
 		'navigation_no_mod_help' => 'De volgende navigatiesnelkoppelingen ondersteunen geen toetsencombinaties.',
 		'next_article' => 'Spring naar volgende artikel',
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'next_unread_article' => 'Spring naar volgende ongelezene artikel',
+		'non_standard' => 'Sommige toetsen (<kbd>%s</kbd>) werken wellicht niet als snelkoppelingen.',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',
 		'previous_article' => 'Spring naar vorige artikel',
 		'reading_view' => 'Schakel naar leesaanzicht',
-		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
+		'rss_view' => 'Open als RSS-feed',
 		'see_on_website' => 'Bekijk op originale website',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> om voorgaande artikelen als gelezen te markeren<br />+ <kbd>⇧ Shift</kbd> om alle artikelen als gelezen te markeren',
 		'skip_next_article' => 'Volgend artikel focusen zonder openen',

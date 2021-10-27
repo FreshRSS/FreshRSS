@@ -5,20 +5,14 @@
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
+	<h1><?= _t('sub.menu.subscription_tools') ?></h1>
 	<h2><?= _t('sub.bookmarklet.title') ?></h2>
 	<p><a class="btn btn-important"
 		href="javascript:(function(){var%20url%20=%20location.href;var%20otherWindow=window.open('about:blank','_blank');otherWindow.opener=null;otherWindow.location='<?=
 		Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss='+encodeURIComponent(url);})();"><?= _t('sub.bookmarklet.label') ?></a></p>
 	<?= _t('sub.bookmarklet.documentation') ?>
 
-	<h2><?= _t('sub.firefox.title') ?></h2>
-	<p class="alert alert-warn">
-		<?= _t('sub.firefox.obsolete_63', $this->default_category->name()) ?>
-	</p>
-	<p><?= _t('sub.firefox.documentation') ?></p>
-	<pre>browser.contentHandlers.types.number.uri → <?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</pre>
-
 	<h2><?= _t('sub.api.title') ?></h2>
 	<p><?= _t('sub.api.documentation') ?></p>
-	<pre><?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</pre>
+	<kbd><?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</kbd>
 </div>

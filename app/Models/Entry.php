@@ -59,13 +59,19 @@ class FreshRSS_Entry extends Minz_Model {
 	public function content() {
 		return $this->content;
 	}
-	public function enclosures() {
+
+	public function enclosures($searchBodyImages = false) {
 		$results = [];
 		try {
-			if (strpos($this->content, '<p class="enclosure-content') !== false) {
+			$searchEnclosures = strpos($this->content, '<p class="enclosure-content') !== false;
+			$searchBodyImages &= (stripos($this->content, '<img') !== false);
+			$xpath = null;
+			if ($searchEnclosures || $searchBodyImages) {
 				$dom = new DOMDocument();
-				$dom->loadHTML($this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+				$dom->loadHTML('<?xml version="1.0" encoding="UTF-8" ?>' . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 				$xpath = new DOMXpath($dom);
+			}
+			if ($searchEnclosures) {
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
 					$results[] = [
@@ -75,10 +81,34 @@ class FreshRSS_Entry extends Minz_Model {
 					];
 				}
 			}
+			if ($searchBodyImages) {
+				$images = $xpath->query('//img');
+				foreach ($images as $img) {
+					$src = $img->getAttribute('src');
+					if ($src == null) {
+						$src = $img->getAttribute('data-src');
+					}
+					if ($src != null) {
+						$results[] = [
+							'url' => $src,
+							'alt' => $img->getAttribute('alt'),
+						];
+					}
+				}
+			}
 			return $results;
 		} catch (Exception $ex) {
 			return $results;
 		}
+	}
+
+	public function thumbnail() {
+		foreach ($this->enclosures(true) as $enclosure) {
+			if (!empty($enclosure['url']) && empty($enclosure['type'])) {
+				return $enclosure;
+			}
+		}
+		return null;
 	}
 
 	public function link() {
@@ -311,10 +341,14 @@ class FreshRSS_Entry extends Minz_Model {
 		return false;
 	}
 
-	public function applyFilterActions() {
+	public function applyFilterActions($titlesAsRead = []) {
 		if ($this->feed != null) {
 			if ($this->feed->attributes('read_upon_reception') ||
 				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
+				$this->_isRead(true);
+			}
+			if (isset($titlesAsRead[$this->title()])) {
+				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {
@@ -325,7 +359,7 @@ class FreshRSS_Entry extends Minz_Model {
 								$this->_isRead(true);
 								break;
 							case 'star':
-								$this->_is_favorite(true);
+								$this->_isFavorite(true);
 								break;
 							case 'label':
 								//TODO: Implement more actions

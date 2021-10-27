@@ -538,10 +538,8 @@ function getNonStandardShortcuts($shortcuts) {
 	$standard = strtolower(implode(' ', SHORTCUT_KEYS));
 
 	$nonStandard = array_filter($shortcuts, function ($shortcut) use ($standard) {
-		if (false !== strpos($shortcut, ' ')) {
-			return true;
-		}
-		return !preg_match("/${shortcut}/i", $standard);
+		$shortcut = trim($shortcut);
+		return $shortcut !== '' & stripos($standard, $shortcut) === false;
 	});
 
 	return $nonStandard;

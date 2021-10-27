@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Während der Konfiguration des Authentifikationssystems trat ein Fehler auf. Bitte versuchen Sie es später erneut.',
-			'set' => 'Formular ist ab sofort ihr Standard-Authentifikationssystem.',
-		),
 		'login' => array(
 			'invalid' => 'Anmeldung ist ungültig',
 			'success' => 'Sie sind angemeldet',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Sie sind abgemeldet',
 		),
-		'no_password_set' => 'Administrator-Passwort ist nicht gesetzt worden. Dieses Feature ist nicht verfügbar.',
 	),
 	'conf' => array(
 		'error' => 'Während der Speicherung der Konfiguration trat ein Fehler auf',

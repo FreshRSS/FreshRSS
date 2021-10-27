@@ -21,8 +21,8 @@ Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de per
 Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 Nous sommes une communauté amicale.
 
-* Site officiel : https://freshrss.org
-* Démo : http://demo.freshrss.org/
+* Site officiel : <https://freshrss.org>
+* Démo : <http://demo.freshrss.org/>
 * Licence : [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.fr.html)
 
 ![Logo de FreshRSS](docs/img/FreshRSS-logo.png)
@@ -141,15 +141,15 @@ Consultez la documentation de Cron de votre système d’exploitation ([Debian/U
 C’est une bonne idée d’utiliser le même utilisateur que votre serveur Web (souvent “www-data”).
 Par exemple, pour exécuter le script toutes les heures :
 
-```
+```text
 8 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-### Exemple pour Debian / Ubuntu
+## Exemple pour Debian / Ubuntu
 
 Créer `/etc/cron.d/FreshRSS` avec :
 
-```
+```text
 7,37 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
@@ -162,7 +162,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 	* Le répertoire spécial `./data/users/_/` contient la partie des logs partagés par tous les utilisateurs.
 
 
-# F.A.Q. :
+# FAQ
 
 * La date et l’heure dans la colonne de droite sont celles déclarées par le flux, pas l’heure à laquelle les articles ont été reçus par FreshRSS, et cette colonne n’est pas utilisée pour le tri.
 	* En particulier, lors de l’import d’un nouveau flux, ses articles sont importés en tête de liste.
@@ -172,31 +172,43 @@ Créer `/etc/cron.d/FreshRSS` avec :
 
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/users/*/config.php`
 * Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](cli/README.md)
-* Pour sauvegarder les articles eux-mêmes :
-    * **Dans le cas où vous utilisez MySQL**  
-	Vous pouvez utiliser [phpMyAdmin](https://www.phpmyadmin.net) ou les outils de MySQL :
-		```sh
-		mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
-		```
-	* **Pour toutes les bases supportées**  
-	Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre base de données vers une base de données au format SQLite :
-		```
-		./cli/export-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
-		```
-		> Il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
 
-		Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer la base de données au format SQLite dans votre base de données:
-		```
-		./cli/import-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
-		```
-		> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+Pour sauvegarder les articles eux-mêmes :
 
-		Le processus d'import/export à l'aide d'une base de données SQLite est utile quand vous devez :
-		- exporter complètement les données d'un utilisateur,
-		- sauvegarder votre service,
-		- migrer votre service sur un autre serveur,
-		- changer de type de base de données,
-		- corriger des erreurs de base de données.
+## Dans le cas où vous utilisez MySQL
+
+Vous pouvez utiliser [phpMyAdmin](https://www.phpmyadmin.net) ou les outils de MySQL :
+
+```sh
+mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
+```
+
+## Pour toutes les bases supportées
+
+Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre base de données vers une base de données au format SQLite :
+
+```sh
+./cli/export-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
+```
+
+> Il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`.
+Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+
+Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer la base de données au format SQLite dans votre base de données:
+
+```sh
+./cli/import-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
+```
+
+> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+
+Le processus d'import/export à l'aide d'une base de données SQLite est utile quand vous devez :
+
+* exporter complètement les données d'un utilisateur,
+* sauvegarder votre service,
+* migrer votre service sur un autre serveur,
+* changer de type de base de données,
+* corriger des erreurs de base de données.
 
 # Extensions
 
@@ -221,8 +233,8 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 | [ChristopheHenry](https://git.feneas.org/christophehenry/freshrss-android)            | Android     | [✔️](https://git.feneas.org/christophehenry/freshrss-android) | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
 | [Fluent Reader](https://hyliu.me/fluent-reader/)                             | Windows, Linux, MacOS| [✔️](https://github.com/yang991178/fluent-reader)             | ✔️✔️                   | Fever            | ✔️            | ⭐         | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
 | [FeedReader](https://jangernert.github.io/FeedReader/)                                | GNU/Linux   | [✔️](https://jangernert.github.io/FeedReader/)                | ✔️                     | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ✔️           |
-| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | En développement       | Fever, GReader   | ➖            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
-| [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, MacOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | ✔️✔️                   | Fever   | ➖            | ⭐⭐        | ✔️                           | ✔️                | ✔️       | ➖    | ➖      | ➖          |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk) |            GNU/Linux            | [✔️](https://gitlab.com/news-flash/news_flash_gtk) | En développement | GReader | ➖ | ❔ | ❔ | ❔ | ❔ | ❔ | ➖ | ❔ || [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, MacOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
 | [Vienna RSS](http://www.vienna-rss.com/)                                              | MacOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
 | [Reeder](https://www.reederapp.com/)                                                  | iOS, MacOS  | ➖                                                            | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐       | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ✔️           |
 | [Unread](https://apps.apple.com/app/unread-2/id1363637349)                            | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ➖       | ➖           |
@@ -235,10 +247,9 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 * [SimplePie](https://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
-* [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [flotr2](http://www.humblesoftware.com/flotr2)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+* [Chart.js](https://www.chartjs.org)
 
 ## Uniquement pour certaines options ou configurations
 

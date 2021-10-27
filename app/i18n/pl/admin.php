@@ -9,7 +9,6 @@ return array(
 		'http' => 'HTTP (dla zaawansowanych użytkowników, z wykorzystaniem HTTPS)',
 		'none' => 'Brak (niebezpieczna)',
 		'title' => 'Uwierzytelnianie',
-		'title_reset' => 'Authentication reset',	// TODO - Translation
 		'token' => 'Token uwierzytelniania',
 		'token_help' => 'Pozwala na dostęp do treści RSS domyślnego użytkownika bez uwierzytelnienia:',
 		'type' => 'Metoda uwierzytelniania',
@@ -136,11 +135,6 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
-		'menu' => array(
-			'idle' => 'Bezczynne kanały',
-			'main' => 'Główne statystyki',
-			'repartition' => 'Podział wiadomości',
-		),
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'percent_of_total' => '%% wszystkich',
@@ -180,11 +174,9 @@ return array(
 	'user' => array(
 		'admin' => 'Administrator',
 		'article_count' => 'Liczba wiadomości',
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
 		'back_to_manage' => '← Powrót do listy użytkowników',
 		'create' => 'Dodaj nowego użytkownika',
 		'database_size' => 'Rozmiar bazy danych',
-		'delete_users' => 'Delete user',	// TODO - Translation
 		'email' => 'Adres e-mail',
 		'enabled' => 'Aktywne',
 		'feed_count' => 'Kanały',
@@ -196,11 +188,7 @@ return array(
 		'numbers' => 'Liczba aktywnych kont: %d',
 		'password_form' => 'Hasło<br /><small>(dla logowania przez formularz na stronie)</small>',
 		'password_format' => 'Przynajmniej 7 znaków',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Zarządzanie użytkownikami',
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'List of users',	// TODO - Translation
 		'username' => 'Nazwa użytkownika',
-		'users' => 'Users',	// TODO - Translation
 	),
 );

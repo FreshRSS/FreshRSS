@@ -14,7 +14,7 @@ return array(
 				'email_sent' => 'Wir haben Ihnen eine E-Mail geschickt.',
 				'error' => 'Die E-Mail Adresse konnte nicht verifiziert werden.',
 				'ok' => 'Die E-Mail-Adresse wurde verifiziert',
-				'unneccessary' => 'Die E-Mail-Adresse wurde bereits verifiziert.',
+				'unnecessary' => 'Die E-Mail-Adresse wurde bereits verifiziert.',
 				'wrong_token' => 'Die E-Mail-Adresse konnte aufgrund eines ungültigen Sicherheitstokens nicht verifiziert werden.',
 			),
 			'need_to' => 'Sie müssen zuerst Ihre E-Mail-Adresse verifizieren, bevor Sie %s nutzen können.',

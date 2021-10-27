@@ -1,3 +1,7 @@
+<?php if (FreshRSS_Auth::hasAccess()) {?>
+<?php $this->partial('aside_configure'); ?>
+<?php } ?>
+
 <div class="post content">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 	<div class="link-back-wrapper">
@@ -6,25 +10,22 @@
 	<?php } ?>
 
 	<h1><?= _t('index.about') ?></h1>
-
-	<dl class="infos">
-		<dt><?= _t('index.about.project_website') ?></dt>
-		<dd><a href="<?= FRESHRSS_WEBSITE ?>"><?= FRESHRSS_WEBSITE ?></a></dd>
-
-		<dt><?= _t('index.about.bugs_reports') ?></dt>
-		<dd><?= _t('index.about.github') ?></dd>
-
-		<dt><?= _t('index.about.license') ?></dt>
-		<dd><?= _t('index.about.agpl3') ?></dd>
-
-		<?php if (FreshRSS_Auth::hasAccess()): ?>
-		<dt><?= _t('index.about.version') ?></dt>
-		<dd><?= FRESHRSS_VERSION ?></dd>
-		<?php endif; ?>
-	</dl>
-
 	<p><?= _t('index.about.freshrss_description') ?></p>
 
-	<h1><?= _t('index.about.credits') ?></h1>
+	<h2><?= _t('index.about.project_website') ?></h2>
+	<a href="<?= FRESHRSS_WEBSITE ?>"><?= FRESHRSS_WEBSITE ?></a>
+
+	<h2><?= _t('index.about.bugs_reports') ?></h2>
+	<?= _t('index.about.github') ?>
+
+	<h2><?= _t('index.about.license') ?></h2>
+	<?= _t('index.about.agpl3') ?>
+
+	<?php if (FreshRSS_Auth::hasAccess()): ?>
+	<h2><?= _t('index.about.version') ?></h2>
+	<?= FRESHRSS_VERSION ?>
+	<?php endif; ?>
+
+	<h2><?= _t('index.about.credits') ?></h2>
 	<p><?= _t('index.about.credits_content') ?></p>
 </div>

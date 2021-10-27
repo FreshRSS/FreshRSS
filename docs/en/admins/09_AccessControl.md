@@ -4,7 +4,8 @@ FreshRSS offers three methods of Access control: Form Authentication using JavaS
 
 ## Form Authentication
 
-Form Authentication requires the use of JavaScript. It will work on any supported version of PHP, but version 5.5 or newer is recommended (see footnote 1 in [prerequisites](02_Prerequisites.md) for the reason why).
+Form Authentication requires the use of JavaScript. It will work on any supported version of PHP,
+but version 5.5 or newer is recommended (see footnote 1 in [prerequisites](02_Prerequisites.md) for the reason why).
 
 This option requires nothing more than selecting Form Authentication during installation.
 
@@ -22,7 +23,9 @@ When using auto-registration, you can optionally use the `http_auth_auto_registe
 variable containing the email address of the authenticated user (e.g. `REMOTE_USER_EMAIL`).
 
 ## No Authentication
-Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin. It is never advisable to not use any form of authentication, but **never** chose this option on a server that is able to be accessed outside of your home network.
+
+Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.
+It is never advisable to not use any form of authentication, but **never** chose this option on a server that is able to be accessed outside of your home network.
 
 ## Hints
 

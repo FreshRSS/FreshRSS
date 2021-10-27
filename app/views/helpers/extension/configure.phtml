@@ -1,8 +1,8 @@
 <div class="post">
-	<h1>
+	<h2>
 		<?= $this->extension->getName() ?> (<?= $this->extension->getVersion() ?>) —
 		<?= $this->extension->isEnabled() ? _t('admin.extensions.enabled') : _t('admin.extensions.disabled') ?>
-	</h1>
+	</h2>
 
 	<p class="alert alert-warn"><?= $this->extension->getDescription() ?> — <?= _t('gen.short.by_author'), ' ', $this->extension->getAuthor() ?></p>
 

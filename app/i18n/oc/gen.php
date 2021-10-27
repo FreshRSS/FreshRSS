@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Crear un compte?',
 			'title' => 'Creacion de compte',
 		),
-		'reset' => 'Reïnicializacion de l’autentificacion',
 		'username' => array(
 			'_' => 'Nom d’utilizaire',
-			'admin' => 'Nom d’utilizaire administrator',
 			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'A prepaus',
+		'account' => 'Compte',
 		'admin' => 'Administracion',
 		'archiving' => 'Archivar',
 		'authentication' => 'Autentificacion',

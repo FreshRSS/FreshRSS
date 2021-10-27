@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Arşiv',
-		'delete_after' => 'Makelelerin tutulacağı süre',
 		'exception' => 'Temizlik ifadeleri',
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_favourites' => 'Favorileri asla silme',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',
 			'sharing' => 'Paylaşım',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Üst çizgi',
 		),
 		'language' => 'Dil',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
 		'theme' => 'Tema',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Görünüm',
 		'width' => array(
 			'content' => 'İçerik genişliği',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
-		'display' => 'Kullanıcı sorgu sonuçlarını göster',
 		'filter' => array(
 			'_' => 'Filtre uygulandı:',
 			'categories' => 'Kategoriye göre göster',
@@ -79,14 +86,11 @@ return array(
 		'get_category' => '"%s" kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '"%s" akışını göster',
-		'get_tag' => '"%s" etiketini göster',
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
-		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
-		'remove' => 'Kullanıcı sorgusunu temizle',
 		'search' => '"%s" için arama',
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'kaydırma yapılırken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> tuşu ile kısayollar akışlar için geçerli olur.<br/><kbd>Alt ⎇</kbd> tuşu ile kısayollar kategoriler için geçerli olur.',
 		'navigation_no_mod_help' => 'Aşağıdaki kısayollar değiştiricileri desteklenmemektedir.',
 		'next_article' => 'Sonraki makaleye geç',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Bazı tuşlar (<kbd>%s</kbd>) kullanılamayabilir.',
 		'normal_view' => 'Normal görünüme geç',
 		'other_action' => 'Diğer eylemler',
 		'previous_article' => 'Önceki makaleye geç',
 		'reading_view' => 'Okuma görünümüne geç',
-		'rss_view' => 'RSS görünümünü yeni sekmede aç',
+		'rss_view' => 'RSS beslemesi olarak aç',
 		'see_on_website' => 'Orijinal sitede göster',
 		'shift_for_all_read' => 'Önceki makaleyi okundu olarak işaretlemek için + <kbd>Alt ⎇</kbd> kısayolu<br />Tüm makaleleri okundu işaretlemek için + <kbd>⇧ Shift</kbd>kısayolu',
 		'skip_next_article' => 'Açmadan bir sonraki makaleye geç',

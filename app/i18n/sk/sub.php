@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Skopírujte tento odkaz a použite ho v inom programe.',
 		'title' => 'API',
@@ -13,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategória',
-		'add' => 'Pridať kategóriu',
+		'add' => 'Pridať kategória',
 		'archiving' => 'Archiving',	// TODO - Translation
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'Odkaz webovej stránky',
 		'websub' => 'Okamžité oznámenia cez WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Pridajte RSS kanály do Firefoxu <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">pomocou tohto návodu</a>.',
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'RSS čítačka vo Firefoxe',
-	),
 	'import_export' => array(
 		'export' => 'Exportovať',
 		'export_labelled' => 'Exportovať vaše označené články',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Odoberať (záložka FreshRSS)',
 		'import_export' => 'Import / export',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Neaktívne kanály',
+			'main' => 'Hlavné štatistiky',
+			'repartition' => 'Rozdelenie článkov',
+		),
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),

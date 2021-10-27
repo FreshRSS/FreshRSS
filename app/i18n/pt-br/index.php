@@ -13,7 +13,6 @@ return array(
 		'project_website' => 'Site do projeto',
 		'title' => 'Sobre',
 		'version' => 'Versão',
-		'website' => 'Site',
 	),
 	'feed' => array(
 		'add' => 'Você pode adicionar alguns feeds.',
@@ -33,7 +32,7 @@ return array(
 		'about' => 'Sobre o FreshRSS',
 		'before_one_day' => 'Antes de um dia',
 		'before_one_week' => 'Antes de uma semana',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Salvar pesquisa atual',
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Visualização global',
 		'main_stream' => 'Stream principal',

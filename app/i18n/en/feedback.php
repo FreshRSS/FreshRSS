@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'A problem occurred during authentication system configuration. Please try again later.',
-			'set' => 'Form is now your default authentication system.',
-		),
 		'login' => array(
 			'invalid' => 'Login is invalid',
 			'success' => 'You are connected',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'You are disconnected',
 		),
-		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',

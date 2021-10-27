@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
 		'title' => 'API',	// TODO - Translation
@@ -13,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Aggiungi una categoria',
+		'add' => 'Aggiungi categoria',
 		'archiving' => 'Archiviazione',
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'URL del sito',
 		'websub' => 'Notifica istantanea con WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
-	),
 	'import_export' => array(
 		'export' => 'Esporta',
 		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Bookmark (trascina nei preferiti)',
 		'import_export' => 'Importa / esporta',
 		'label_management' => 'Label management',	// TODO - Translation
+		'stats' => array(
+			'idle' => 'Feeds non aggiornati',
+			'main' => 'Statistiche principali',
+			'repartition' => 'Ripartizione articoli',
+		),
 		'subscription_management' => 'Gestione sottoscrizioni',
 		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 	),

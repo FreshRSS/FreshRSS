@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Maak een account?',
 			'title' => 'Account maken',
 		),
-		'reset' => 'Authenticatie reset',
 		'username' => array(
 			'_' => 'Gebruikersnaam',
-			'admin' => 'Beheerdersgebruikersnaam',
 			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Over',
+		'account' => 'Account',
 		'admin' => 'Administratie',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',

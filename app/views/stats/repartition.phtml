@@ -1,4 +1,4 @@
-<?php $this->partial('aside_stats'); ?>
+<?php $this->partial('aside_subscription'); ?>
 
 <div class="post ">
 	<div class="link-back-wrapper">
@@ -33,46 +33,75 @@
 		</a>
 	<?php }?>
 
-	<div class="stat">
-		<table>
-		<tr>
-			<th><?= _t('admin.stats.status_total') ?></th>
-			<th><?= _t('admin.stats.status_read') ?></th>
-			<th><?= _t('admin.stats.status_unread') ?></th>
-			<th><?= _t('admin.stats.status_favorites') ?></th>
-		</tr>
-		<tr>
-			<td class="numeric"><?= $this->repartition['total'] ?></td>
-			<td class="numeric"><?= $this->repartition['count_reads'] ?></td>
-			<td class="numeric"><?= $this->repartition['count_unreads'] ?></td>
-			<td class="numeric"><?= $this->repartition['count_favorites'] ?></td>
-		</tr>
-		</table>
-	</div>
+	<div class="stat-grid">
+		<div class="stat">
+			<table>
+			<tr>
+				<th><?= _t('admin.stats.status_total') ?></th>
+				<th><?= _t('admin.stats.status_read') ?></th>
+				<th><?= _t('admin.stats.status_unread') ?></th>
+				<th><?= _t('admin.stats.status_favorites') ?></th>
+			</tr>
+			<tr>
+				<td class="numeric"><?= $this->repartition['total'] ?></td>
+				<td class="numeric"><?= $this->repartition['count_reads'] ?></td>
+				<td class="numeric"><?= $this->repartition['count_unreads'] ?></td>
+				<td class="numeric"><?= $this->repartition['count_favorites'] ?></td>
+			</tr>
+			</table>
+		</div>
 
-	<div class="stat">
-		<h2><?= _t('admin.stats.entry_per_hour', $this->averageHour) ?></h2>
-		<div id="statsEntryPerHour" class="statGraph"></div>
-	</div>
+		<div class="stat">
+			<h2><?= _t('admin.stats.entry_per_hour', $this->averageHour) ?></h2>
+			<div>
+				<canvas id="statsEntriesPerHour"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsEntriesPerHour',
+					'charttype' 	=> 'bar',
+					'data' 			=> $this->repartitionHour,
+					'label' 		=> _t('admin.stats.entry_count'),
+					'xAxisLabels' 	=> $this->hours24Labels
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
+			</div>
+		</div>
 
-	<div class="stat half">
-		<h2><?= _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek) ?></h2>
-		<div id="statsEntryPerDayOfWeek" class="statGraph"></div>
-	</div>
+		<div class="stat half">
+			<h2><?= _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek) ?></h2>
+			<div>
+				<canvas id="statsEntriesPerDayOfWeek"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsEntriesPerDayOfWeek',
+					'charttype' 	=> 'bar',
+					'data' 			=> $this->repartitionDayOfWeek,
+					'label' 		=> _t('admin.stats.entry_count'),
+					'xAxisLabels' 	=> $this->days,
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
+			</div>
+		</div>
 
-	<div class="stat half">
-		<h2><?= _t('admin.stats.entry_per_month', $this->averageMonth) ?></h2>
-		<div id="statsEntryPerMonth" class="statGraph"></div>
+		<div class="stat half">
+			<h2><?= _t('admin.stats.entry_per_month', $this->averageMonth) ?></h2>
+			<div>
+				<canvas id="statsEntriesPerMonth"></canvas>
+				<script class="jsonData-stats" type="application/json">
+				<?php
+				echo json_encode(array(
+					'canvasID' 		=> 'statsEntriesPerMonth',
+					'charttype' 	=> 'bar',
+					'data' 			=> $this->repartitionMonth,
+					'label' 		=> _t('admin.stats.entry_count'),
+					'xAxisLabels' 	=> $this->months,
+				), JSON_UNESCAPED_UNICODE);
+				?></script>
+			</div>
+		</div>
 	</div>
 </div>
 
-<script id="jsonRepartition" type="application/json"><?php
-echo htmlspecialchars(json_encode(array(
-	'repartitionHour' => $this->repartitionHour,
-	'repartitionDayOfWeek' => $this->repartitionDayOfWeek,
-	'days' => $this->days,
-	'repartitionMonth' => $this->repartitionMonth,
-	'months' => $this->months,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
-?></script>
-<script src="../scripts/repartition.js?<?= @filemtime(PUBLIC_PATH . '/scripts/repartition.js') ?>"></script>
+<script src="../scripts/statsWithChartjs.js?<?= @filemtime(PUBLIC_PATH . '/scripts/statsWithChartjs.js') ?>"></script>

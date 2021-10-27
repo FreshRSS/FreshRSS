@@ -179,7 +179,6 @@ form th {
 .form-group .group-controls .control {
 	line-height: 2em;
 }
-
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -462,23 +461,20 @@ form th {
 	color: #969696;
 	border-bottom: 1px solid #e3e3e3;
 }
+.box .box-title .configure {
+	margin-left: 4px;
+}
 .box .box-content {
+	padding-right: 30px;
 	max-height: 260px;
 }
 .box .box-content .item {
-	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
-}
-.box .box-content .item .configure {
-	visibility: hidden;
 }
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
 	background-color: #e3e3e3;
-}
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 .box.category .box-title .title {
 	font-weight: normal;
@@ -569,14 +565,7 @@ form th {
 }
 .header > .item.title {
 	position: absolute;
-}
-.header > .item.title h1 {
-	margin: 0;
-	display: block;
-}
-.header > .item.title h1 a {
-	text-decoration: none;
-	color: #fcfcfc;
+	text-align: center;
 }
 .header > .item.title .logo {
 	display: inline-block;
@@ -584,6 +573,7 @@ form th {
 	vertical-align: top;
 	position: relative;
 	top: 5px;
+	filter: grayscale(100%) brightness(100);
 }
 .header > .item.search input {
 	width: 230px;
@@ -599,10 +589,6 @@ form th {
 	left: 0px;
 	z-index: 1000;
 	width: 35px;
-}
-.header h1 {
-	text-align: center;
-	font-size: 1.5em;
 }
 
 .aside {
@@ -866,9 +852,6 @@ form th {
 	width: 200px;
 	position: unset;
 }
-.formLogin .header > .item.title h1 {
-	display: unset;
-}
 .formLogin a.signin {
 	color: #fcfcfc;
 	padding-right: 5px;
@@ -922,11 +905,6 @@ form th {
 		text-align: right;
 	}
 
-	.box .box-title .configure,
-.box .box-content .item .configure {
-		visibility: visible;
-	}
-
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
@@ -944,12 +922,11 @@ form th {
 		display: none;
 	}
 
-	.header > .item.title h1 a {
+	.header > .item.title a {
 		display: block;
 		position: absolute;
 		top: -35px;
 		right: 10px;
-		font-size: 0.6em;
 	}
 
 	.header .item.configure,

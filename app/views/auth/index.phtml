@@ -5,9 +5,9 @@
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
+	<h1><?= _t('gen.menu.authentication') ?></h1>
 	<form method="post" action="<?= _url('auth', 'index') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('admin.auth.type') ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>

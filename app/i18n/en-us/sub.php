@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',
 		'title' => 'API',
@@ -96,11 +95,6 @@ return array(
 		'website' => 'Website URL',
 		'websub' => 'Instant notification with WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',
-		'title' => 'Firefox feed reader',
-	),
 	'import_export' => array(
 		'export' => 'Export',
 		'export_labelled' => 'Export your labeled articles',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Add a feed or category',
-		'add_feed' => 'Add a feed',
-		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',
 		'label_management' => 'Label management',
+		'stats' => array(
+			'idle' => 'Idle feeds',
+			'main' => 'Main statistics',
+			'repartition' => 'Articles repartition',
+		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
 	),

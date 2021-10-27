@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'Die Erstellung von Kategorien und Feeds wurde verschoben und findet sich ab sofort <a href=\'%s\'>hier</a>. Zusätzlich ist ein Zugriff über den linken Menüpunkt oder über das ✚ Symbol auf der Hauptseite möglich.',
 	'api' => array(
 		'documentation' => 'Kopieren Sie die folgende URL, um sie in einem externen Tool zu verwenden.',
 		'title' => 'API',
@@ -13,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Kategorie',
-		'add' => 'Eine Kategorie hinzufügen',
+		'add' => 'Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',
@@ -90,16 +89,11 @@ return array(
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 		'url' => 'Feed-URL',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => 'Browser User Agent für den Abruf des Feeds verwenden',
+		'useragent_help' => 'Beispiel: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Überprüfen Sie die Gültigkeit des Feeds',
 		'website' => 'Webseiten-URL',
 		'websub' => 'Sofortbenachrichtigung mit WebSub',
-	),
-	'firefox' => array(
-		'documentation' => 'Folge den <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschriebenen Schritten um FreshRSS zu Deiner Firefox RSS-Reader Liste hinzuzufügen.',
-		'obsolete_63' => 'Seit Version 63 hat Firefox die Möglichkeit entfernt, Dienste hinzuzufügen, die keine eigenständigen Anwendungen sind.',
-		'title' => 'Firefox RSS-Reader',
 	),
 	'import_export' => array(
 		'export' => 'Exportieren',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Feed oder Kategorie hinzufügen',
-		'add_feed' => 'Feed hinzufügen',
-		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
 		'label_management' => 'Labelverwaltung',
+		'stats' => array(
+			'idle' => 'Inaktive Feeds',
+			'main' => 'Haupt-Statistiken',
+			'repartition' => 'Artikel-Verteilung',
+		),
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
 	),

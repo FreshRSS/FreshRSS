@@ -23,7 +23,8 @@ return array(
 	'gen.lang.fr',
 	'gen.lang.he',
 	'gen.lang.it',
-	'gen.lang.kr',
+	'gen.lang.ja',
+	'gen.lang.ko',
 	'gen.lang.nl',
 	'gen.lang.oc',
 	'gen.lang.pl',
@@ -55,4 +56,5 @@ return array(
 	'index.log.title',
 	'install.bdd.host',
 	'sub.api.title',
+	'sub.bookmarklet.title',
 );

@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
-		'add' => 'Add',	// TODO - Translation
+		'add' => 'Añadir',
 		'back' => '← Volver',
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
@@ -15,14 +15,14 @@ return array(
 		'export' => 'Exportar',
 		'filter' => 'Filtrar',
 		'import' => 'Importar',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_favorite' => 'Marcar como favorita',
 		'mark_read' => 'Marcar como leído',
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
 		'remove' => 'Borrar',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Cambiar el nombre a',
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',
 		'truncate' => 'Borrar todos los artículos',
@@ -43,10 +43,8 @@ return array(
 			'ask' => '¿Crear una cuenta?',
 			'title' => 'Creación de cuenta',
 		),
-		'reset' => 'Reinicar identificación',
 		'username' => array(
 			'_' => 'Nombre de usuario',
-			'admin' => 'Nombre de usuario del Administrador',
 			'format' => '<small>Máximo 16 caracteres alfanuméricos</small>',
 		),
 	),
@@ -81,10 +79,10 @@ return array(
 		'july' => 'julio',
 		'jun' => 'jun',
 		'june' => 'junio',
-		'last_2_year' => 'Last two years',	// TODO - Translation
+		'last_2_year' => 'Últimos dos años',
 		'last_3_month' => 'Últimos tres meses',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
+		'last_3_year' => 'Últimos tres años',
+		'last_5_year' => 'Últimos cinco años',
 		'last_6_month' => 'Últimos seis meses',
 		'last_month' => 'Mes pasado',
 		'last_week' => 'Semana pasada',
@@ -111,7 +109,7 @@ return array(
 	),
 	'dir' => 'ltr',
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO - Translation
+		'_' => 'FreshRSS',
 		'about' => 'Acerca de FreshRSS',
 	),
 	'js' => array(
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Acerca de',
+		'account' => 'Cuenta',
 		'admin' => 'Administración',
 		'archiving' => 'Archivo',
 		'authentication' => 'Identificación',
@@ -183,26 +183,26 @@ return array(
 		'years' => 'años',
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'clipboard' => 'Clipboard',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
-		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',	// TODO - Translation
-		'gnusocial' => 'GNU social',	// TODO - Translation
-		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'lemmy' => 'Lemmy',	// TODO - Translation
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
-		'movim' => 'Movim',	// TODO - Translation
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
-		'print' => 'Print',	// TODO - Translation
+		'Known' => 'Sitios basados en conocidos',
+		'blogotext' => 'Blogotext',
+		'clipboard' => 'Portapapeles',
+		'diaspora' => 'Diaspora*',
+		'email' => 'Email',
+		'facebook' => 'Facebook',
+		'gnusocial' => 'GNU social',
+		'jdh' => 'Journal du hacker',
+		'lemmy' => 'Lemmy',
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
+		'movim' => 'Movim',
+		'pinboard' => 'Pinboard',
+		'pocket' => 'Pocket',
+		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',	// TODO - Translation
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag v1',	// TODO - Translation
-		'wallabagv2' => 'wallabag v2',	// TODO - Translation
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 	),
 	'short' => array(
 		'attention' => '¡Aviso!',

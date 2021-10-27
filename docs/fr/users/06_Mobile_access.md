@@ -4,11 +4,12 @@ serveur](01_Installation.md).
 # Activer l’API dans FreshRSS
 
 1. Dans la section “Authentification”, cocher l’option “Autoriser l’accès
-   par API (nécessaire pour les applis mobiles)”.
+	par API (nécessaire pour les applis mobiles)”.
 2. Dans la section “Profil”, remplir le champ “Mot de passe API (ex. : pour applis mobiles)”.
 	* Chaque utilisateur doit choisir son mot de passe API.
 	* La raison d’être d’un mot de passe API
- différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
+		différent du mot de passe principal est que le mot de passe API est
+		potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
 
 Le reste de cette page concerne l’API compatible Google Reader. Voir la
 [page sur l’API compatible Fever](06_Fever_API.md) pour une autre
@@ -17,9 +18,9 @@ possibilité.
 
 # Tester
 
-3. Dans la section “Profil”, cliquer sur le lien de la forme
-   `https://rss.example.net/api/` à côté du champ “Mot de passe API”.
-4. Cliquer sur le premier lien “Check full server configuration”:
+1. Dans la section “Profil”, cliquer sur le lien de la forme
+	`https://rss.example.net/api/` à côté du champ “Mot de passe API”.
+2. Cliquer sur le premier lien “Check full server configuration”:
 	* Si vous obtenez `PASS`, tout est bon : passer à l’étape 6.
 	* Si vous obtenez *Bad Request!* ou *Not Found*, alors votre serveur ne semble pas accepter les slashs `/` qui sont encodés `%2F`. Passer à l’étape 5.
 	* Si vous obtenez un autre message d’erreur, passer à l’étape 5.
@@ -27,7 +28,7 @@ possibilité.
 
 # Déboguer la configuration du serveur
 
-5. Cliquer sur le second lien “Check partial server configuration (without `%2F` support)”:
+* Cliquer sur le second lien “Check partial server configuration (without `%2F` support)”:
 	* Si vous obtenez `PASS`, alors le problème est bien que votre serveur n’accepte pas les slashs `/` qui sont encodés `%2F`.
 		* Avec Apache, vérifiez la directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
 		* Ou utilisez un client qui n’encode pas les slashs (comme EasyRSS), auquel cas passer à l’étape 6.
@@ -48,10 +49,10 @@ possibilité.
 
 # Clients compatibles
 
-6. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
+1. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
 	* Saisissez l'adresse de l'API dans le client sélectionné puis votre nom d'utilisateur et votre mot de passe spécialement créé pour l'API.
 
-7. Vous pouvez maintenant tester sur une application mobile:
+2. Vous pouvez maintenant tester sur une application mobile:
 	* Android
 		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)

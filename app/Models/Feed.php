@@ -15,6 +15,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $category = 1;
 	private $nbEntries = -1;
 	private $nbNotRead = -1;
+	private $nbPendingNotRead = 0;
 	private $name = '';
 	private $website = '';
 	private $description = '';
@@ -141,13 +142,13 @@ class FreshRSS_Feed extends Minz_Model {
 
 		return $this->nbEntries;
 	}
-	public function nbNotRead() {
+	public function nbNotRead($includePending = false) {
 		if ($this->nbNotRead < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead($this->id());
 		}
 
-		return $this->nbNotRead;
+		return $this->nbNotRead + ($includePending ? $this->nbPendingNotRead : 0);
 	}
 	public function faviconPrepare() {
 		require_once(LIB_PATH . '/favicons.php');
@@ -409,7 +410,8 @@ class FreshRSS_Feed extends Minz_Model {
 						$height = $enclosure->get_height();
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();
-						if ($medium === 'image' || strpos($mime, 'image') === 0 || ($mime == '' && $length == null && ($width != 0 || $height != 0))) {
+						if ($medium === 'image' || strpos($mime, 'image') === 0 ||
+							($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
 							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
 						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
@@ -472,6 +474,24 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 
 			yield $entry;
+		}
+	}
+
+	/**
+	 * To keep track of some new potentially unread articles since last commit+fetch from database
+	 */
+	public function incPendingUnread($n = 1) {
+		$this->nbPendingNotRead += $n;
+	}
+
+	public function keepMaxUnread() {
+		$keepMaxUnread = $this->attributes('keep_max_n_unread');
+		if ($keepMaxUnread == false) {
+			$keepMaxUnread = FreshRSS_Context::$user_conf->mark_when['max_n_unread'];
+		}
+		if ($keepMaxUnread > 0 && $this->nbNotRead(false) + $this->nbPendingNotRead > $keepMaxUnread) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
 		}
 	}
 

@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Create an account?',
 			'title' => 'Account creation',
 		),
-		'reset' => 'Authentication reset',
 		'username' => array(
 			'_' => 'Username',
-			'admin' => 'Administrator username',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'About',
+		'account' => 'Account',
 		'admin' => 'Administration',
 		'archiving' => 'Archiving',
 		'authentication' => 'Authentication',

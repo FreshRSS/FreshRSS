@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivace',
-		'delete_after' => 'Smazat články starší než',
 		'exception' => 'Purge exception',	// TODO - Translation
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_favourites' => 'Never delete favourites',	// TODO - Translation
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Související tagy',
 			'sharing' => 'Sdílení',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => 'Horní řádek',
 		),
 		'language' => 'Jazyk',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO - Translation
 		'theme' => 'Vzhled',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => 'Zobrazení',
 		'width' => array(
 			'content' => 'Šířka obsahu',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
-		'display' => 'Display user query results',	// TODO - Translation
 		'filter' => array(
 			'_' => 'Filtr aplikován:',
 			'categories' => 'Display by category',	// TODO - Translation
@@ -79,14 +86,11 @@ return array(
 		'get_category' => 'Zobrazit "%s" kategorii',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit "%s" článkek',
-		'get_tag' => 'Display "%s" label',	// TODO - Translation
 		'name' => 'Name',	// TODO - Translation
 		'no_filter' => 'Zrušit filtr',
-		'none' => 'Ještě jste nevytvořil žádný uživatelský dotaz.',
 		'number' => 'Dotaz n°%d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
-		'remove' => 'Remove user query',	// TODO - Translation
 		'search' => 'Hledat "%s"',
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je otevřen původní web s článkem',
 			'article_viewed' => 'během čtení článku',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => 'během skrolování',
 			'upon_reception' => 'po načtení článku',
 			'when' => 'Označit článek jako přečtený…',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => 'Počet zobrazených článků',
@@ -157,20 +163,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Sdílení',
 		'add' => 'Add a sharing method',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Remove sharing method',	// TODO - Translation
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'Jméno pro zobrazení',
 		'share_url' => 'Jakou URL použít pro sdílení',
 		'title' => 'Sdílení',
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'Zkratky',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => 'Pomocí přepínače <kbd>⇧ Shift</kbd> fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače <kbd>Alt ⎇</kbd> fungují v rámci kategorií.',
 		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO - Translation
 		'next_article' => 'Skočit na další článek',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
 		'normal_view' => 'Switch to normal view',	// TODO - Translation
 		'other_action' => 'Ostatní akce',
 		'previous_article' => 'Skočit na předchozí článek',
 		'reading_view' => 'Switch to reading view',	// TODO - Translation
-		'rss_view' => 'Open RSS view in a new tab',	// TODO - Translation
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO - Translation
 		'skip_next_article' => 'Focus next without opening',	// TODO - Translation

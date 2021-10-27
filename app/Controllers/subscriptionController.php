@@ -21,6 +21,21 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		$feedDAO->updateTTL();
 		$this->view->categories = $catDAO->listSortedCategories(false);
 		$this->view->default_category = $catDAO->getDefault();
+
+		$signalError = false;
+		foreach ($this->view->categories as $cat) {
+			$feeds = $cat->feeds();
+			foreach ($feeds as $feed) {
+				if ($feed->inError()) {
+					$signalError = true;
+				}
+			}
+			if ($signalError) {
+				break;
+			}
+		}
+
+		$this->view->signalError = $signalError;
 	}
 
 	/**
@@ -111,6 +126,20 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
+
+			$keep_max_n_unread = intval(Minz_Request::param('keep_max_n_unread', 0));
+			$feed->_attributes('keep_max_n_unread', $keep_max_n_unread > 0 ? $keep_max_n_unread : null);
+
+			$read_when_same_title_in_feed = Minz_Request::param('read_when_same_title_in_feed', '');
+			if ($read_when_same_title_in_feed === '') {
+				$read_when_same_title_in_feed = null;
+			} else {
+				$read_when_same_title_in_feed = intval($read_when_same_title_in_feed);
+				if ($read_when_same_title_in_feed <= 0) {
+					$read_when_same_title_in_feed = false;
+				}
+			}
+			$feed->_attributes('read_when_same_title_in_feed', $read_when_same_title_in_feed);
 
 			$cookie = Minz_Request::param('curl_params_cookie', '');
 			$useragent = Minz_Request::param('curl_params_useragent', '');

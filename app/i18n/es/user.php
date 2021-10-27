@@ -3,42 +3,42 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO - Translation
-			'required' => 'An email address is required.',	// TODO - Translation
+			'invalid' => 'Esta dirección de correo electrónico no es válida.',
+			'required' => 'Se requiere una dirección de correo electrónico.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
+			'change_email' => 'Puedes cambiar tu dirección de correo electrónico <a href="%s">en la página de perfil</a>.',
+			'email_sent_to' => 'Te enviamos un correo electrónico a <strong>%s</strong>. Siga sus instrucciones para validar su dirección.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'Email address validation failed.',	// TODO - Translation
-				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'This email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'No pudimos enviarle un correo electrónico debido a un error de configuración del servidor.',
+				'email_sent' => 'Se ha enviado un correo electrónico a su dirección.',
+				'error' => 'Error en la validación de la dirección de correo electrónico.',
+				'ok' => 'Esta dirección de correo electrónico ha sido validada.',
+				'unnecessary' => 'Esta dirección de correo electrónico ya fue validada.',
+				'wrong_token' => 'Esta dirección de correo electrónico no se pudo validar debido a un token incorrecto.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => 'Debe validar su dirección de correo electrónico antes de poder usar %s.',
+			'resend_email' => 'Volver a enviar el correo electrónico',
+			'title' => 'Validación de direcciones de correo electrónico',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => 'Acabas de registrarte en %s, pero aún necesitas validar tu dirección de correo electrónico. Para eso, solo sigue el enlace:',
+			'title' => 'Necesitas validar tu cuenta',
+			'welcome' => 'Bienvenido %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'La contraseña no es válida.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Debe aceptar los Términos de Servicio para poder registrarse.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO - Translation
-		'taken' => 'This username, %s, is taken.',	// TODO - Translation
+		'invalid' => 'Este nombre de usuario no es válido.',
+		'taken' => 'Se toma este nombre de usuario, %s.',
 	),
 );

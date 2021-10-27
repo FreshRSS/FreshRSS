@@ -11,6 +11,8 @@
 	<exclude-pattern>./data/config.php</exclude-pattern>
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
 	<exclude-pattern>./extensions/</exclude-pattern>
+	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
+	<exclude-pattern>./vendor/</exclude-pattern>
 	<exclude-pattern>*.min.js$</exclude-pattern>
 	<!-- Duplicate class names are not allowed -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>

@@ -19,18 +19,9 @@
 
 			font-weight: 400;
 
-			h1 {
-				a {
-					text-decoration: none;
-					color: $sid-font-color;
-					font-size: 1rem;
-					text-transform: uppercase;
-					letter-spacing: 1px;
-
-					img {
-						margin-right: 0.5rem;
-
-					}
+			a {
+				img {
+					margin-right: 0.5rem;
 				}
 			}
 		}
@@ -107,6 +98,10 @@
 		}
 	}
 
+	.logo {
+		margin: 11px 0 5px;
+		filter: grayscale(100%) brightness(100);
+	}
 
 }
 

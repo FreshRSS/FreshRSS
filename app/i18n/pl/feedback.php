@@ -15,10 +15,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'A problem occurred during authentication system configuration. Please try again later.',	// TODO - Translation
-			'set' => 'Form is now your default authentication system.',	// TODO - Translation
-		),
 		'login' => array(
 			'invalid' => 'Niepoprawne dane logowania',
 			'success' => 'Zalogowałeś się',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => 'Zostałeś wylogowany',
 		),
-		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',	// TODO - Translation
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',	// TODO - Translation

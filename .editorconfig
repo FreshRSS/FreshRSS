@@ -1,18 +1,30 @@
-# Copying and distribution of this file, with or without modification,
-# are permitted in any medium without royalty provided this notice is
-# preserved.  This file is offered as-is, without any warranty.
-# Names of contributors must not be used to endorse or promote products
-# derived from this file without specific prior written permission.
-
-# EditorConfig
 # http://EditorConfig.org
 
 [*]
+charset = utf-8
 end_of_line = lf
 insert_final_newline = true
-charset = utf-8
+trim_trailing_whitespace = true
 
-[*.php]
+[*.{css,scss}]
 indent_style = tab
+
+[*.{html,php,phtml}]
+indent_style = tab
+
+[*.js]
+indent_style = tab
+
+[*.md]
 indent_size = 4
-insert_final_newline = true
+indent_style = tab
+
+[*.xml]
+indent_style = tab
+
+[*.yml]
+indent_size = 2
+indent_style = space
+
+[Makefile]
+indent_style = tab

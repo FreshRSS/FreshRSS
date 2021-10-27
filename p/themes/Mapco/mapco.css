@@ -394,8 +394,8 @@ form th {
 	color: #303136;
 	border-radius: 2px 2px 0 0;
 }
-.box .box-title img {
-	margin-right: 0.75rem;
+.box .box-title .configure {
+	margin-right: 4px;
 }
 .box .box-title:hover .configure {
 	background: url("icons/cog.svg") no-repeat 4px 4px;
@@ -404,7 +404,6 @@ form th {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 2px;
-	visibility: visible;
 	margin-right: 0.5rem;
 }
 .box .box-title:hover .configure .icon {
@@ -414,9 +413,6 @@ form th {
 }
 .box .box-title:hover .configure:hover {
 	background: url("icons/cog-white.svg") no-repeat 4px 4px #36c;
-}
-.box .box-title .configure {
-	visibility: hidden;
 }
 .box .box-title form input {
 	width: 85%;
@@ -434,8 +430,11 @@ form th {
 .box .box-title form .dropdown a.dropdown-toggle img {
 	display: none;
 }
+.box .box-content {
+	padding-left: 30px;
+}
 .box .box-content .item {
-	padding: 0.5rem 0.75rem;
+	padding: 0.5rem 0;
 	color: #303136;
 	font-size: 1rem;
 	border-bottom: 1px solid #eff0f2;
@@ -451,7 +450,6 @@ form th {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 2px;
-	visibility: hidden;
 	margin-right: 0.5rem;
 }
 .box .box-content .item .configure .icon {
@@ -461,9 +459,6 @@ form th {
 }
 .box .box-content .item .configure:hover {
 	background: url("icons/cog-white.svg") no-repeat 4px 4px #36c;
-}
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 .box .box-content .item:last-child {
 	border-bottom: none;
@@ -816,14 +811,11 @@ form th {
 	width: 280px;
 	font-weight: 400;
 }
-.header .item.title h1 a {
-	text-decoration: none;
-	color: #fff;
-	font-size: 1rem;
-	text-transform: uppercase;
-	letter-spacing: 1px;
+.header .logo {
+	margin: 11px 0 5px;
+	filter: grayscale(100%) brightness(100);
 }
-.header .item.title h1 a img {
+.header .item.title a img {
 	margin-right: 0.5rem;
 }
 .header .item.search input {
@@ -1483,11 +1475,6 @@ form th {
 
 	.form-group .group-name {
 		text-align: left;
-	}
-
-	.box .box-title .configure,
-.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {

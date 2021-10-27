@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Créer un compte ?',
 			'title' => 'Création de compte',
 		),
-		'reset' => 'Réinitialisation de l’authentification',
 		'username' => array(
 			'_' => 'Nom d’utilisateur',
-			'admin' => 'Nom d’utilisateur administrateur',
 			'format' => '<small>16 caractères alphanumériques maximum</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'À propos',
+		'account' => 'Compte',
 		'admin' => 'Administration',
 		'archiving' => 'Archivage',
 		'authentication' => 'Authentification',
@@ -195,7 +195,7 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',	// TODO - Translation
+		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
 		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',

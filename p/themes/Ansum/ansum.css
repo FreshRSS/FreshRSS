@@ -392,9 +392,6 @@ form th {
 	color: #363330;
 	border-radius: 2px 2px 0 0;
 }
-.box .box-title img {
-	margin-right: 0.75rem;
-}
 .box .box-title:hover .configure {
 	background: url("icons/cog.svg") no-repeat 4px 4px;
 	display: block;
@@ -402,7 +399,6 @@ form th {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 2px;
-	visibility: visible;
 	margin-right: 0.5rem;
 }
 .box .box-title:hover .configure .icon {
@@ -412,9 +408,6 @@ form th {
 }
 .box .box-title:hover .configure:hover {
 	background: url("icons/cog-white.svg") no-repeat 4px 4px #ca7227;
-}
-.box .box-title .configure {
-	visibility: hidden;
 }
 .box .box-title form input {
 	width: 85%;
@@ -432,8 +425,14 @@ form th {
 .box .box-title form .dropdown a.dropdown-toggle img {
 	display: none;
 }
+.box .box-title .configure {
+	margin-right: 4px;
+}
+.box .box-content {
+	padding-left: 30px;
+}
 .box .box-content .item {
-	padding: 0.5rem 0.75rem;
+	padding: 0.5rem 0;
 	color: #363330;
 	font-size: 1rem;
 	border-bottom: 1px solid #f5f0ec;
@@ -449,7 +448,6 @@ form th {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 2px;
-	visibility: hidden;
 	margin-right: 0.5rem;
 }
 .box .box-content .item .configure .icon {
@@ -459,9 +457,6 @@ form th {
 }
 .box .box-content .item .configure:hover {
 	background: url("icons/cog-white.svg") no-repeat 4px 4px #ca7227;
-}
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 .box .box-content .item:last-child {
 	border-bottom: none;
@@ -813,15 +808,9 @@ form th {
 	width: 280px;
 	font-weight: 400;
 }
-.header .item.title h1 a {
-	text-decoration: none;
-	color: #363330;
-	font-size: 1rem;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-.header .item.title h1 a img {
-	margin-right: 0.5rem;
+.header .item.title a img {
+	margin: 0.6em 0 0.3em;
+	filter: invert(80%);
 }
 .header .item.search input {
 	width: 230px;
@@ -1475,11 +1464,6 @@ form th {
 
 	.form-group .group-name {
 		text-align: left;
-	}
-
-	.box .box-title .configure,
-.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {

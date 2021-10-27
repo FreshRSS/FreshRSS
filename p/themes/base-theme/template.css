@@ -74,12 +74,14 @@ sup {
 
 kbd {
 	background-color: #eee;
-	padding: 2px 4px;
+	padding: 2px 4px 2px 24px;
 	display: inline-block;
 	color: #333;
 	border: 1px solid #b4b4b4;
 	border-radius: 3px;
-	white-space: nowrap;
+	text-indent: -20px;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
 }
 
 /*=== Images */
@@ -92,6 +94,15 @@ img.favicon {
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;
+}
+
+.content.thin figure,
+.content.medium figure {
+	margin: 8px 0px;
+}
+
+.content figure figcaption {
+	font-style: italic;
 }
 
 .feed.mute::before {
@@ -108,6 +119,12 @@ audio {
 }
 
 /*=== Forms */
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
 legend {
 	display: block;
 	width: 100%;
@@ -171,6 +188,10 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
+.table-wrapper {
+	overflow-x: auto;
+}
+
 table {
 	max-width: 100%;
 }
@@ -206,6 +227,7 @@ td.numeric {
 .form-group .group-controls {
 	min-width: 250px;
 	margin: 0 0 0 220px;
+	overflow-x: auto;
 }
 
 .form-group .group-controls .control {
@@ -443,12 +465,17 @@ a.btn {
 
 /*=== Boxes */
 .box {
-	margin: 20px 10px;
+	margin: 20px 20px 20px 0;
 	display: inline-block;
 	max-width: 95%;
 	width: 20rem;
 	border: 1px solid #ccc;
 	vertical-align: top;
+}
+
+.box.visible-semi {
+	border-style: dashed;
+	opacity: 0.5;
 }
 
 .box .box-title {
@@ -462,11 +489,12 @@ a.btn {
 }
 
 .box .box-content {
+	padding: 8px 8px 8px 16px;
 	display: block;
 	overflow: auto;
 }
 
-.box .box-content .item {
+.box .box-content .item.feed {
 	display: block;
 }
 
@@ -723,9 +751,64 @@ input[type="search"] {
 	position: absolute;
 }
 
+.flux:not(.current):hover .item.title.multiline {
+	position: initial;
+}
+
 .flux .item.title a {
 	color: #000;
 	text-decoration: none;
+}
+
+.flux .item.thumbnail {
+	line-height: 0;
+	padding: 10px;
+	height: 80px;
+}
+
+.flux .item.thumbnail.small {
+	height: 40px;
+}
+
+.flux .item.thumbnail.portrait {
+	width: 60px;
+}
+
+.flux .item.thumbnail.square {
+	width: 80px;
+}
+
+.flux .item.thumbnail.landscape {
+	width: 128px;
+}
+
+.flux .item.thumbnail.portrait.small {
+	width: 30px;
+}
+
+.flux .item.thumbnail.square.small {
+	width: 40px;
+}
+
+.flux .item.thumbnail.landscape.small {
+	width: 64px;
+}
+
+.flux .item.thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.flux .item.title .summary {
+	max-height: 3em;
+	color: #666;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	font-weight: normal;
+	white-space: initial;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .flux .item.title .author {
@@ -796,7 +879,7 @@ input[type="search"] {
 }
 
 .subtitle > div:not(:first-of-type)::before {
-	content: ' · ';
+	content: ' · ';
 }
 
 br {
@@ -957,14 +1040,18 @@ br {
 }
 
 /*=== Statistiques */
+.stat-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+}
+
 .stat {
-	margin: 15px 0;
+	grid-column: 1 / span 2;
 }
 
 .stat.half {
-	padding: 0 2%;
-	display: inline-block;
-	width: 46%;
+	grid-column: auto;
 }
 
 .stat > table {
@@ -1008,7 +1095,7 @@ br {
 }
 
 #global > #panel.visible {
-	bottom: 1em;
+	bottom: 2%;
 	visibility: visible;
 }
 /*=== Panel */
@@ -1016,7 +1103,7 @@ br {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	background: rgba(0, 0, 0, 0.9);
+	background: rgba(0, 0, 0, 0.5);
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
@@ -1031,8 +1118,8 @@ br {
 	background: #fff;
 	display: none;
 	position: fixed;
-	top: 1em; bottom: 1em;
-	left: 2em; right: 2em;
+	top: 2%; bottom: 2%;
+	left: 3%; right: 3%;
 	overflow: auto;
 }
 
@@ -1117,7 +1204,7 @@ br {
 .nav label {
 	padding: 0;
 	display: none;
-	width: 10%;
+	width: 65px;
 	height: 100%;
 	color: #fff;
 	font-family: "Varela Round", sans-serif;
@@ -1205,6 +1292,10 @@ input:checked + .slide-container .properties {
 	background: inherit;
 }
 
+.nav_mobile {
+	display: none;
+}
+
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,
@@ -1237,10 +1328,12 @@ input:checked + .slide-container .properties {
 }
 
 .reader .aside {
+	display: none;
 	width: 0;
 }
 
 .reader .aside:target {
+	display: table-cell;
 	width: 300px;
 }
 
@@ -1294,6 +1387,10 @@ input:checked + .slide-container .properties {
 		display: inline-block;
 	}
 
+	.nav_mobile {
+		display: block;
+	}
+
 	.aside {
 		position: fixed;
 		top: 0; bottom: 0;
@@ -1303,7 +1400,8 @@ input:checked + .slide-container .properties {
 		z-index: 100;
 	}
 
-	.aside:target {
+	.aside:target,
+	.reader .aside:target {
 		width: 90%;
 		height: 100vh;
 	}
@@ -1363,6 +1461,10 @@ input:checked + .slide-container .properties {
 		text-align: center;
 		line-height: 50px;
 		border-bottom: 1px solid #ddd;
+	}
+
+	.stat.half {
+		grid-column: 1 / span 2;
 	}
 }
 

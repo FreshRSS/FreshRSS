@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Архивирование',
-		'delete_after' => 'Удалять статьи после',
 		'exception' => 'Исключения при очистке',
 		'help' => 'В индивидуальных настройках лент есть больше опций',
 		'keep_favourites' => 'Никогда не удалять избранное',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Дата публикации',
 			'related_tags' => 'Связанные метки',
 			'sharing' => 'Поделиться',
+			'summary' => 'Резюме',
 			'top_line' => 'Верхняя линия',
 		),
 		'language' => 'Язык',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
 		'theme' => 'Тема',
+		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
+		'thumbnail' => array(
+			'label' => 'Миниатюра',
+			'landscape' => 'Альбомная ориентация',
+			'none' => 'Пусто',
+			'portrait' => 'Книжная ориентация',
+			'square' => 'Площадь',
+		),
 		'title' => 'Отображение',
 		'width' => array(
 			'content' => 'Ширина содержимого',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => 'Пользовательские запросы',
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
-		'display' => 'Показать результаты пользовательского запроса',
 		'filter' => array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
@@ -79,14 +86,11 @@ return array(
 		'get_category' => 'Показать категорию "%s"',
 		'get_favorite' => 'Показать избранные статьи',
 		'get_feed' => 'Показать ленту "%s"',
-		'get_tag' => 'Показать метку "%s"',
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
-		'none' => 'Вы ещё не создавали пользовательские запросы.',
 		'number' => 'Запрос №%d',
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
-		'remove' => 'Удалить пользовательский запрос',
 		'search' => 'Искать "%s"',
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',
 			'article_viewed' => 'когда статья просматривается',
+			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
 			'scroll' => 'во время прокрутки',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
+			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',
 		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',
@@ -157,20 +163,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Поделиться',
 		'add' => 'Добавить способ поделиться',
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
 		'email' => 'Электронная почта',
-		'facebook' => 'Facebook',	// TODO - Translation
+		'facebook' => 'Facebook',
 		'more_information' => 'Больше информации',
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',
 		'remove' => 'Удалить способ поделиться',
-		'shaarli' => 'Shaarli',	// TODO - Translation
+		'shaarli' => 'Shaarli',
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
-		'title' => 'Sharing',	// TODO - Translation
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag',	// TODO - Translation
+		'title' => 'Поделиться',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'shortcut' => array(
 		'_' => 'Горячие клавиши',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => 'С модификатором <kbd>⇧ Shift</kbd> навигационные горячие клавиши применяются к лентам.<br/>С модификатором <kbd>Alt ⎇</kbd> навигационные горячие клавиши применяются к категориям.',
 		'navigation_no_mod_help' => 'Следующие навигационные горячие клавиши не поддерживают модификаторы.',
 		'next_article' => 'Открыть следующую статью',
+		'next_unread_article' => 'Открыть следующую непрочитанную статью',
 		'non_standard' => 'Некоторые клавиши (<kbd>%s</kbd>) не могут быть использованы как горячие клавиши.',
 		'normal_view' => 'Переключиться на обычный вид',
 		'other_action' => 'Другие действия',
 		'previous_article' => 'Открыть предыдущую статью',
 		'reading_view' => 'Переключиться на вид для чтения',
-		'rss_view' => 'Открыть вид RSS в новой вкладке',
+		'rss_view' => 'Открыть как RSS-канал',
 		'see_on_website' => 'Посмотреть на сайте',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd>, чтобы отметить предыдущие статьи прочитанными<br />+ <kbd>⇧ Shift</kbd>, чтобы отметить все статьи прочитанными',
 		'skip_next_article' => 'Перейти к следующей, не раскрывая',

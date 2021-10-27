@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'add' => 'La creacion de flux e categoria es desplaçada <a href=\'%s\'>aquí</a>. I avètz tanben accès del menú a man esquèrra e de l’icòna ✚ sus la pagina principala.',
 	'api' => array(
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
 		'title' => 'API',
@@ -13,7 +12,7 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Categoria',
-		'add' => 'Ajustar una categoria',
+		'add' => 'Ajustar categoria',
 		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
@@ -90,16 +89,11 @@ return array(
 		'title_add' => 'Ajustar un flux RSS',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 		'url' => 'Flux URL',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => 'Definir un user agent per recuperar aqueste flux',
+		'useragent_help' => 'Exemple : <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Verificar la validitat del flux',
 		'website' => 'URL del site',
-		'websub' => 'Notificaciones instantáneas amb WebSub',
-	),
-	'firefox' => array(
-		'documentation' => 'Seguissètz las etapas descrichas <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">aquí</a> per ajustar FreshRSS a la lista dels lectors de flux de Firefox.',
-		'obsolete_63' => 'A partir de la version 63 e las seguentas, Firefox permet pas mai d’ajustar vòstres pròpris servicis d’abonament.',
-		'title' => 'Lector de flux de Firefox',
+		'websub' => 'Notificacions instantanèas amb WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Exportar',
@@ -115,10 +109,13 @@ return array(
 	),
 	'menu' => array(
 		'add' => 'Ajustar un flux o una categoria',
-		'add_feed' => 'Ajustar un flux',
-		'bookmark' => 'Sabonar (marcapagina FreshRSS)',
 		'import_export' => 'Importar / Exportar',
 		'label_management' => 'Gestion de las etiquetas',
+		'stats' => array(
+			'idle' => 'Fluxes inactius',
+			'main' => 'Estatisticas principalas',
+			'repartition' => 'Reparticion dels articles',
+		),
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
@@ -135,7 +132,7 @@ return array(
 		'add_label' => 'Ajustar una etiqueta',
 		'delete_label' => 'Suprimir una etiqueta',
 		'feed_management' => 'Gestion dels fluxes RSS',
-		'rename_label' => 'Rennomenar una etiqueta',
+		'rename_label' => 'Renomenar una etiqueta',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 );

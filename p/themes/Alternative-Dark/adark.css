@@ -64,11 +64,11 @@ table {
 
 tr, th, td {
 	padding: 0.5em;
-	border: 1px solid #ddd;
+	border: 1px solid #333;
 }
 
 th {
-	background: #f6f6f6;
+	background: #262626;
 }
 
 form td,
@@ -271,7 +271,6 @@ a.btn {
 
 .nav-head {
 	margin: 0;
-	background: #fff;
 	background: #262626;
 	border-bottom: 1px solid #333;
 	text-align: right;
@@ -455,30 +454,24 @@ a.btn {
 .box .box-title {
 	margin: 0;
 	padding: 5px 10px;
-	background: #f6f6f6;
+	background: #262626;
 	border: 1px solid #292929;
 	border-radius: 5px 5px 0 0;
 }
 
+.box .box-title .configure {
+	margin-right: 4px;
+}
+
 .box .box-content {
+	padding-left: 30px;
 	min-height: 2.5em;
 	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
-}
-
-.box .box-title .configure,
-.box .box-content .item .configure {
-	visibility: hidden;
-}
-
-.box .box-title:hover .configure,
-.box .box-content .item:hover .configure {
-	visibility: visible;
 }
 
 /*=== Tree */
@@ -561,12 +554,9 @@ a.btn {
 	width: 230px;
 }
 
-.header > .item.title h1 {
+.header > .item.title .logo {
 	margin: 0.5em 0;
-}
-
-.header > .item.title h1 a {
-	text-decoration: none;
+	filter: grayscale(100%) brightness(2.5);
 }
 
 .header > .item.search input {
@@ -1107,11 +1097,6 @@ a.btn {
 	.form-group .group-name {
 		padding-bottom: 0;
 		text-align: left;
-	}
-
-	.box .box-title .configure,
-	.box .box-content .item .configure {
-		visibility: visible;
 	}
 
 	.aside {

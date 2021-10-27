@@ -10,15 +10,11 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => '비밀번호가 변경될 수 없습니다',
+			'updated' => '비밀번호가 변경되었습니다',
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => '인증 시스템을 설정하는 동안 문제가 발생했습니다. 잠시 후 다시 시도하세요.',
-			'set' => '웹폼이 이제 기본 인증 시스템으로 설정되었습니다.',
-		),
 		'login' => array(
 			'invalid' => '유효하지 않은 로그인입니다',
 			'success' => '접속되었습니다',
@@ -26,7 +22,6 @@ return array(
 		'logout' => array(
 			'success' => '접속이 해제되었습니다',
 		),
-		'no_password_set' => '관리자 암호가 설정되지 않았습니다. 이 기능은 사용할 수 없습니다.',
 	),
 	'conf' => array(
 		'error' => '설정을 저장하는 동안 문제가 발생했습니다',
@@ -36,7 +31,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s 확장 기능은 이미 활성화되어 있습니다',
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'cannot_remove' => '%s 은(는) 삭제될 수 없습니다',
 		'disable' => array(
 			'ko' => '%s 확장 기능을 비활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'ok' => '%s 확장 기능이 비활성화되었습니다',
@@ -48,7 +43,7 @@ return array(
 		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
 		'not_enabled' => '%s 확장 기능이 활성화되지 않았습니다',
 		'not_found' => '%s 확장 기능이 존재하지 않습니다',
-		'removed' => '%s removed',	// TODO - Translation
+		'removed' => '%s 삭제 됨',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',
@@ -86,7 +81,7 @@ return array(
 			'actualizeds' => 'RSS 피드에서 새 글을 가져왔습니다',
 			'added' => '<em>%s</em> 피드가 추가되었습니다',
 			'already_subscribed' => '이미 <em>%s</em> 피드를 구독 중입니다',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> 캐쉬 지움',
 			'deleted' => '피드가 삭제되었습니다',
 			'error' => '피드를 변경할 수 없습니다',
 			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
@@ -95,24 +90,24 @@ return array(
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',
 			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
 			'not_added' => '<em>%s</em> 피드를 추가할 수 없습니다',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => '피드를 찾을 수 없습니다',
 			'over_max' => '피드 개수 제한에 다다랐습니다 (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> 이(가) 다시 로드 되었습니다',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => '웹사이트 콘텐츠 로드 실패.',
+				'no_entries' => '이 피드에는 아무런 글이 없습니다. 미리보기를 하려면 최소한 하나의 글이 필요합니다.',
+				'no_feed' => '내부 오류 (피드를 찾을 수 없습니다).',
+				'no_result' => '셀렉터와 일치하는 항목이 없습니다. 대체로 원본 피드 텍스트가 대신 표시됩니다.',
+				'selector_empty' => '셀렉터가 비어있습니다. 미리보기를 생성하려면 셀렉터를 정의 해주세요.',
 			),
 			'updated' => '피드가 변경되었습니다',
 		),
 		'purge_completed' => '삭제 완료 (%d 개의 글을 삭제했습니다)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => '"%s" 태그가 생성되었습니다.',
+		'name_exists' => '같은 이름의 태그가 이미 존재합니다.',
+		'renamed' => '"%s" 태그가 "%s" (으)로 이름이 변경되었습니다.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS가 <strong>%s</strong> 버전으로 업데이트됩니다.',

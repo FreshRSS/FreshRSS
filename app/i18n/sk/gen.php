@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Vytvoriť účet?',
 			'title' => 'Vytvorenie účtu',
 		),
-		'reset' => 'Reset prihlásenia',
 		'username' => array(
 			'_' => 'Používateľské meno',
-			'admin' => 'Administrátorské používateľské meno',
 			'format' => '<small>Maximálne 16 alfanumerických znakov</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'Administrácia',
 		'archiving' => 'Archivácia',
 		'authentication' => 'Prihlásenie',
@@ -191,7 +191,7 @@ return array(
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',	// TODO - Translation
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

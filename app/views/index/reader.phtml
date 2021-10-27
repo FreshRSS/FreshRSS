@@ -37,12 +37,14 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 						$readUrl['params']['is_read'] = 0;
 					}
 				?>
+				<?php if (FreshRSS_Auth::hasAccess()) { ?>
 				<a class="read" href="<?= Minz_Url::display($readUrl) ?>">
 					<?= _i($item->isRead() ? 'read' : 'unread') ?>
 				</a>
 				<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>">
 					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
 				</a>
+				<?php } ?>
 				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
 						<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" />

@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Erstelle einen Account?',
 			'title' => 'Accounterstellung',
 		),
-		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => array(
 			'_' => 'Nutzername',
-			'admin' => 'Administrator-Nutzername',
 			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Über',
+		'account' => 'Account',
 		'admin' => 'Administration',
 		'archiving' => 'Archivierung',
 		'authentication' => 'Authentifizierung',

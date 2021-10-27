@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Create an account?',	// TODO - Translation
 			'title' => 'Account creation',	// TODO - Translation
 		),
-		'reset' => 'איפוס אימות',
 		'username' => array(
 			'_' => 'שם משתמש',
-			'admin' => 'שם משתמש של המנהל',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'אודות',
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'ניהול',
 		'archiving' => 'ארכוב',
 		'authentication' => 'Authentication',	// TODO - Translation
@@ -184,25 +184,25 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
+		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
+		'diaspora' => 'Diaspora*',
 		'email' => 'דואר אלקטרוני',
-		'facebook' => 'Facebook',	// TODO - Translation
-		'gnusocial' => 'GNU social',	// TODO - Translation
-		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'lemmy' => 'Lemmy',	// TODO - Translation
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
-		'movim' => 'Movim',	// TODO - Translation
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
+		'facebook' => 'Facebook',
+		'gnusocial' => 'GNU social',
+		'jdh' => 'Journal du hacker',
+		'lemmy' => 'Lemmy',
+		'linkedin' => 'LinkedIn',
+		'mastodon' => 'Mastodon',
+		'movim' => 'Movim',
+		'pinboard' => 'Pinboard',
+		'pocket' => 'Pocket',
 		'print' => 'הדפסה',
 		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',	// TODO - Translation
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag v1',	// TODO - Translation
-		'wallabagv2' => 'wallabag v2',	// TODO - Translation
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 	),
 	'short' => array(
 		'attention' => 'זהירות!',

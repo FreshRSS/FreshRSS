@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivierung',
-		'delete_after' => 'Entferne Artikel nach',
 		'exception' => 'Archivierungsausnahmen',
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
 		'keep_favourites' => 'Lieblingsartikel behalten',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
+			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 		'theme' => 'Erscheinungsbild',
+		'theme_not_available' => 'Das Erscheinungsbild “%s” ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
+		'thumbnail' => array(
+			'label' => 'Vorschaubild',
+			'landscape' => 'Querformat',
+			'none' => 'Keins',
+			'portrait' => 'Hochformat',
+			'square' => 'Quadrat',
+		),
 		'title' => 'Anzeige',
 		'width' => array(
 			'content' => 'Inhaltsbreite',
@@ -53,7 +61,7 @@ return array(
 		'api' => 'API-Verwaltung',
 		'delete' => array(
 			'_' => 'Accountlöschung',
-			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
+			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
 		'password_api' => 'Passwort-API<br /><small>(z.B. für mobile Anwendungen)</small>',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
-		'display' => 'Zeige Abfrage Ergebnisse',
 		'filter' => array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
@@ -79,14 +86,11 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
-		'get_tag' => 'Tag "%s" anzeigen',
 		'name' => 'Name',
 		'no_filter' => 'Kein Filter',
-		'none' => 'Sie haben bisher keine Benutzerabfrage erstellt.',
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
-		'remove' => 'Lösche Abfrage',
 		'search' => 'Suche nach "%s"',
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
+			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
 			'scroll' => 'beim Scrollen bzw. Überspringen',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
+			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',
 		),
 		'show' => array(
 			'_' => 'Artikel zum Anzeigen',
@@ -138,7 +144,7 @@ return array(
 			'remember_categories' => 'Geöffnete Kategorien merken',
 			'unread' => 'Nur ungelesene zeigen',
 		),
-		'show_fav_unread_help' => 'Applies also on labels',	// TODO - Translation
+		'show_fav_unread_help' => 'Auch auf Labels anwenden',
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'sort' => array(
 			'_' => 'Sortierreihenfolge',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'next_unread_article' => 'Zum nächsten ungelesenen Artikel springen',
+		'non_standard' => 'Einige Tasten (<kbd>%s</kbd>) können nicht als Shortcut verwendet werden.',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',
 		'reading_view' => 'Wechsle zur Lese-Ansicht',
-		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
+		'rss_view' => 'Öffne als RSS-Feed',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> um vorherige Artikel als gelesen zu markieren<br />+ <kbd>⇧ Shift</kbd> um alle Artikel als gelesen zu markieren',
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',

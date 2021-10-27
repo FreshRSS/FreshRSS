@@ -8,6 +8,7 @@ People are sorted by name so please keep this order.
 
 ---
 
+* [312k](https://github.com/312k): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:312k)
 * [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Trim), [Web](https://adorsaz.ch/)
 * [Alexander Steinhöfer](https://github.com/lx-s): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:lx-s), [Web](https://lx-s.de/)
 * [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Alkarex), [Web](https://alexandre.alapetite.fr/)
@@ -63,6 +64,7 @@ People are sorted by name so please keep this order.
 * [Jules Bertholet](https://github.com/Jules-Bertholet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jules-Bertholet)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:j8r), [Web](https://blog.jrei.ch/)
 * [Julien-Pierre Avérous](https://github.com/javerous): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:javerous), [Web](https://www.sourcemac.com/)
+* [Kaibin Yang](https://github.com/SkyYkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SkyYkb), [Web](https://kaibinyang.com/)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kevinpapst), [Web](http://www.kevinpapst.de/)
 * [Kiblyn11](https://github.com/Kiblyn11): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Kiblyn11)
 * [kinoushe](https://github.com/kinoushe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kinoushe)
@@ -88,6 +90,7 @@ People are sorted by name so please keep this order.
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
+* [Natalie Stroud](https://github.com/natastro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:natastro)
 * [Nick Cross](https://github.com/rnc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rnc)
 * [Nico B](https://github.com/youknow0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:youknow0)
 * [Nicola Spanti](https://github.com/RyDroid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RyDroid), [Web](http://www.nicola-spanti.info/)
@@ -95,6 +98,7 @@ People are sorted by name so please keep this order.
 * [Nicolas Frandeboeuf](https://github.com/nicofrand): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nicofrand), [Web](https://nicofrand.ey)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:nicosomb), [Web](http://www.loeuillet.org/)
 * [No Name Pro](https://github.com/NoNamePro0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NoNamePro0)
+* [OctopusET](https://github.com/OctopusET): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:OctopusET)
 * [Offerel](https://github.com/Offerel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Offerel)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:blankoworld), [Web](https://olivier.dossmann.net)
 * [Pablo Caro](https://github.com/pcaro90): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pcaro90), [Web](https://pcaro.es/)
@@ -128,6 +132,8 @@ People are sorted by name so please keep this order.
 * [skrlet13](https://github.com/skrlet13): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrlet13), [Web](https://www.skrlet13.cl/)
 * [Sp3r4z](https://github.com/Sp3r4z): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sp3r4z)
 * [Strubbl](https://github.com/Strubbl): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Strubbl)
+* [Stunkymonkey](https://github.com/Stunkymonkey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Stunkymonkey)
+* [stysebae](https://github.com/stysebae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stysebae)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:subic)
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Tets42)
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
@@ -146,3 +152,4 @@ People are sorted by name so please keep this order.
 * [wtoscer](https://github.com/wtoscer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wtoscer)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
+* [Zoredache](https://github.com/zoredache): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zoredache)

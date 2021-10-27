@@ -80,6 +80,7 @@ return array(
 			'nok' => 'Vòstra version PHP es la %s mas FreshRSS demanda almens la version %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
 		),
+		'reload' => 'Revérifier',
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Las permissions sul repertòri temporari son bonas.',
@@ -93,7 +94,6 @@ return array(
 			'nok' => 'Impossible de trobar una bibliotèca necessària per XML.',
 			'ok' => 'Avètz la bibliotèca per percórrer los XML.',
 		),
-		'reload' => 'Revérifier',
 	),
 	'conf' => array(
 		'_' => 'Configuracion generala',
@@ -101,7 +101,6 @@ return array(
 	),
 	'congratulations' => 'Òsca !',
 	'default_user' => 'Nom d’utilizaire per defaut <small>16 caractèrs alfanumerics maximum)</small>',
-	'delete_articles_after' => 'Levar los articles aprèp',
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',
 	'js' => array(
@@ -112,7 +111,7 @@ return array(
 		'choose' => 'Causissètz la lenga per FreshRSS',
 		'defined' => 'La lenga es corrèctament definida.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Quicòm a trucat ; devètz crear un fichièr <em>%s</em> void manualament.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
 	'session' => array(
 		'nok' => 'Sembla que lo servidor web siá pas corrèctament configurat pels cookies per las sessions PHP !',

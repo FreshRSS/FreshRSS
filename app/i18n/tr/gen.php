@@ -43,10 +43,8 @@ return array(
 			'ask' => 'Yeni bir hesap oluştur',
 			'title' => 'Hesap oluşturma',
 		),
-		'reset' => 'Kimlik doğrulama sıfırla',
 		'username' => array(
 			'_' => 'Kullancı adı',
-			'admin' => 'Yönetici kullanıcı adı',
 			'format' => '<small>En fazla 16 alfanümerik karakter</small>',
 		),
 	),
@@ -135,7 +133,8 @@ return array(
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -147,6 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
+		'account' => 'Account',	// TODO - Translation
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',
 		'authentication' => 'Kimlik doğrulama',

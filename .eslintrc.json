@@ -1,0 +1,26 @@
+{
+	"env": {
+		"browser": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"standard"
+	],
+	"rules": {
+		"camelcase": "off",
+		"comma-dangle": ["warn", "always-multiline"],
+		"eqeqeq": "off",
+		"indent": ["warn", "tab", { "SwitchCase": 1 }],
+		"linebreak-style": ["error", "unix"],
+		"max-len": ["warn", 165],
+		"no-tabs": "off",
+		"semi": ["warn", "always"],
+		"space-before-function-paren": ["warn", {
+			"anonymous": "always",
+			"named": "never",
+			"asyncArrow": "always"
+		}],
+		"yoda": "off"
+	},
+	"root": true
+}

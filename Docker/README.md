@@ -5,7 +5,7 @@
 
 # Deploy FreshRSS with Docker
 
-* See also https://hub.docker.com/r/freshrss/freshrss/
+* See also <https://hub.docker.com/r/freshrss/freshrss/>
 
 
 ## Install Docker
@@ -122,7 +122,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 ### Complete installation
 
-Browse to your server https://freshrss.example.net/ to complete the installation via the FreshRSS Web interface,
+Browse to your server <https://freshrss.example.net/> to complete the installation via the FreshRSS Web interface,
 or use the command line described below.
 
 
@@ -153,7 +153,7 @@ The tags correspond to FreshRSS branches and versions:
 ### Linux: Debian vs. Alpine
 
 Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
-In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is faster,
+In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Alpine is slower,
 while Alpine is [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 
 
@@ -226,7 +226,7 @@ Remember not pass the `CRON_MIN` environment variable to your Docker run, to avo
 
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
-```
+```text
 7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
@@ -236,13 +236,28 @@ For advanced users. Offers good logging and monitoring with auto-restart on fail
 Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
 See cron option 1 for customising the cron schedule.
 
-#### For the Ubuntu image (default)
+#### For the Debian image (default)
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
   -v freshrss-extensions:/var/www/FreshRSS/extensions \
   -e 'CRON_MIN=17,47' \
+  --net freshrss-network \
+  --name freshrss_cron freshrss/freshrss \
+  cron -f
+```
+
+#### For the Debian image (default) using a custom cron.d fragment
+
+This method gives you the most flexibility most flexiblity to
+execute various freshrss cli commands.
+
+```sh
+docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss-extensions:/var/www/FreshRSS/extensions \
+  -v ./freshrss_crontab:/etc/cron.d/freshrss \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
   cron -f
@@ -305,13 +320,13 @@ Require valid-user
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 
-- In the `postgresql` service:
-    * `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
+* In the `postgresql` service:
+	* `container_name` directive. Whatever you set this to will be the value you put in the "Host" field during the "Database Configuration" step of installation;
 	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
 	* the `POSTGRES_PASSWORD` in the `.env` file;
-	* the `POSTGRES_DB ` in the `.env` file;
+	* the `POSTGRES_DB` in the `.env` file;
 	* the `POSTGRES_USER` in the `.env` file;
-- In the `freshrss` service:
+* In the `freshrss` service:
 	* the `volumes` section;
 	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
 	* the `environment` section to adapt the strategy to update feeds.
@@ -431,11 +446,11 @@ You need a working SSL configuration and the Apache modules `proxy`, `proxy_http
 ProxyPreserveHost On
 
 <Location /freshrss/>
-  ProxyPass http://127.0.0.1:8080/
-  ProxyPassReverse http://127.0.0.1:8080/
-  RequestHeader set X-Forwarded-Prefix "/freshrss"
-  RequestHeader set X-Forwarded-Proto "https"
-  Require all granted
-  Options none
+	ProxyPass http://127.0.0.1:8080/
+	ProxyPassReverse http://127.0.0.1:8080/
+	RequestHeader set X-Forwarded-Prefix "/freshrss"
+	RequestHeader set X-Forwarded-Proto "https"
+	Require all granted
+	Options none
 </Location>
 ```

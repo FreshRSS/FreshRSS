@@ -1,5 +1,5 @@
 <div class="post">
-	<h1><?= $this->category->name() ?></h1>
+	<h2><?= $this->category->name() ?></h2>
 
 	<div>
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
@@ -7,6 +7,7 @@
 
 	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id()) ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
 		<legend><?= _t('sub.category.information') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('sub.category.title') ?></label>
@@ -28,16 +29,8 @@
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button class="btn btn-attention confirm"
-					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-					formaction="<?= _url('category', 'empty', 'id', $this->category->id()) ?>"
-					formmethod="post"><?= _t('gen.action.empty') ?></button>
-				<?php if (!$this->category->isDefault()): ?>
-				<button class="btn btn-attention confirm"
-					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-					formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
-					formmethod="post"><?= _t('gen.action.remove') ?></button>
-				<?php endif;?>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				
 			</div>
 		</div>
 
@@ -163,6 +156,26 @@
 			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+
+		<?php if (!$this->category->isDefault()): ?>
+		<p class="alert alert-warn">
+			<?= _t('sub.feed.moved_category_deleted', $this->default_category->name()) ?>
+		</p>
+		<?php endif;?>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button class="btn btn-attention confirm"
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('category', 'empty', 'id', $this->category->id()) ?>"
+					formmethod="post"><?= _t('gen.action.empty') ?></button>
+				<?php if (!$this->category->isDefault()): ?>
+				<button class="btn btn-attention confirm"
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
+					formmethod="post"><?= _t('gen.action.remove') ?></button>
+				<?php endif;?>
 			</div>
 		</div>
 	</form>

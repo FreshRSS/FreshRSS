@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archius',
-		'delete_after' => 'Levar los articles aprèp',
 		'exception' => 'Excepcion de purga',
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
 		'keep_favourites' => 'Jamai suprimir los favorits',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => 'Data de publicacion',
 			'related_tags' => 'Etiquetas ligadas',
 			'sharing' => 'Partatge',
+			'summary' => 'Resumit',
 			'top_line' => 'Linha amont',
 		),
 		'language' => 'Lenga',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
 		'theme' => 'Tèma',
+		'theme_not_available' => 'Lo tèma « %s » es pas pus disponible. Causissètz un autre tèma.',
+		'thumbnail' => array(
+			'label' => 'Vinheta',
+			'landscape' => 'Païsatge',
+			'none' => 'Cap',
+			'portrait' => 'Retrach',
+			'square' => 'Carrat',
+		),
 		'title' => 'Afichatge',
 		'width' => array(
 			'content' => 'Largor del contengut',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilizaires',
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
-		'display' => 'Mostrar los resultats del filtre',
 		'filter' => array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
@@ -79,14 +86,11 @@ return array(
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
-		'get_tag' => 'Mostrar etiqueta « %s »',
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
-		'none' => 'Avètz pas encara creat cap de filtre.',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Mostrar los articles mai ancians en primièr',
 		'order_desc' => 'Mostrar los articles mai recents en primièr',
-		'remove' => 'Levar lo filtre utilizaire',
 		'search' => 'Recèrca de « %s »',
 		'state_0' => 'Mostrar totes los articles',
 		'state_1' => 'Mostrar los articles pas legits',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
+			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
 			'scroll' => 'en davalar la pagina',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
+			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO - Translation
+		'next_unread_article' => 'Dobrir l’article pas legit seguent',
+		'non_standard' => 'D’unas claus (<kbd>%s</kbd>) poirián pas foncionar coma acorchi clavièr.',
 		'normal_view' => 'Passar a la vista normala',
 		'other_action' => 'Autras accions',
 		'previous_article' => 'Passar a l’article precedent',
 		'reading_view' => 'Passar a la vista lectura',
-		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
+		'rss_view' => 'Dobrir coma flux RSS',
 		'see_on_website' => 'Veire al site d’origina',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> per marcar l’article precedent coma legit<br />+ <kbd>⇧ Shift</kbd> per marcar los articles coma legits',
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',

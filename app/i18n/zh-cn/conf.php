@@ -3,7 +3,6 @@
 return array(
 	'archiving' => array(
 		'_' => '归档',
-		'delete_after' => '文章保留',
 		'exception' => '清理例外策略',
 		'help' => '具体选项位于各订阅源的设置',
 		'keep_favourites' => '不清理已收藏的文章',
@@ -30,6 +29,7 @@ return array(
 			'publication_date' => '更新日期',
 			'related_tags' => '相关标签',
 			'sharing' => '分享',
+			'summary' => 'Summary',	// TODO - Translation
 			'top_line' => '顶栏',
 		),
 		'language' => '语言',
@@ -39,6 +39,14 @@ return array(
 		),
 		'show_nav_buttons' => '显示导航按钮',
 		'theme' => '主题',
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'thumbnail' => array(
+			'label' => 'Thumbnail',	// TODO - Translation
+			'landscape' => 'Landscape',	// TODO - Translation
+			'none' => 'None',	// TODO - Translation
+			'portrait' => 'Portrait',	// TODO - Translation
+			'square' => 'Square',	// TODO - Translation
+		),
 		'title' => '显示',
 		'width' => array(
 			'content' => '内容宽度',
@@ -64,7 +72,6 @@ return array(
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
-		'display' => '显示查询结果',
 		'filter' => array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
@@ -79,14 +86,11 @@ return array(
 		'get_category' => '显示分类 "%s"',
 		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示订阅源 "%s"',
-		'get_tag' => '显示标签 "%s"',
 		'name' => '名称',
 		'no_filter' => '无过滤器',
-		'none' => '你未创建任何自定义查询。',
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧至新显示文章',
 		'order_desc' => '由新至旧显示文章',
-		'remove' => '删除查询',
 		'search' => '搜索 "%s"',
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',
@@ -124,9 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
 			'scroll' => '在滚动浏览后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
 		),
 		'show' => array(
 			'_' => '文章显示',
@@ -192,12 +198,13 @@ return array(
 		'navigation_help' => '组合 <kbd>⇧ Shift</kbd> 键，浏览快捷键将生效于订阅源。<br/>组合 <kbd>Alt ⎇</kbd> 键，浏览快捷键将生效于分类。',
 		'navigation_no_mod_help' => '以下快捷键不支持组合键（Shift 或 Alt）',
 		'next_article' => '打开下一篇文章',
+		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
 		'non_standard' => '这些键 (<kbd>%s</kbd>) 可能不能作为快捷键',
 		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',
 		'previous_article' => '打开上一篇文章',
 		'reading_view' => '切换到阅读视图',
-		'rss_view' => '在新标签中打开 RSS 视图',
+		'rss_view' => 'Open as RSS feed',	// TODO - Translation
 		'see_on_website' => '在原网站中查看',
 		'shift_for_all_read' => '组合 <kbd>Alt ⎇</kbd>键 将上方的文章标记为已读<br />组合 <kbd>⇧ Shift</kbd>按键 可以将全部文章设为已读',
 		'skip_next_article' => '跳转到下一篇文章而不打开',
