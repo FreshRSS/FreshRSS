@@ -30,7 +30,7 @@ Similarly to PHPUnit, it downloads a [PHP\_CodeSniffer](https://github.com/squiz
 ## GitHub Actions for Continuous Integration
 
 Tests are automatically run when you open a pull request on GitHub.
-They are done with [GitHub Actions](https://github.com/FreshRSS/FreshRSS/actions).
+They are performed with [GitHub Actions](https://github.com/FreshRSS/FreshRSS/actions).
 This is done to ensure there is no regressions in your code. We cannot merge a PR if the tests fail so we will ask you to fix bugs before to review your code.
 
 If you are interested, you can take a look at [the configuration file](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/workflows/tests.yml).
