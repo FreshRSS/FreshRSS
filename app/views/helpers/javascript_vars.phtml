@@ -23,6 +23,7 @@ echo htmlspecialchars(json_encode(array(
 		'csrf' => FreshRSS_Auth::csrfToken(),
 	),
 	'shortcuts' => array(
+		'actualize' => @$s['actualize'],
 		'mark_read' => @$s['mark_read'],
 		'mark_favorite' => @$s['mark_favorite'],
 		'go_website' => @$s['go_website'],

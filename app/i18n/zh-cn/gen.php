@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => '获取',
+		'actualize' => '更新提要',
 		'add' => '添加',
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
