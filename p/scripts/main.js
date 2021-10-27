@@ -953,10 +953,10 @@ function init_shortcuts() {
 		if (k === s.close_dropdown) { location.hash = null; return false; }
 		if (k === s.help) { window.open(context.urls.help); return false; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); return false; }
-		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); return false; }
-		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); return false; }
-		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); return false; }
-		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); return false; }
+		if (k === s.normal_view) { document.querySelector('#nav_menu_views .view-normal').click(); return false; }
+		if (k === s.reading_view) { document.querySelector('#nav_menu_views .view-reader').click(); return false; }
+		if (k === s.global_view) { document.querySelector('#nav_menu_views .view-global').click(); return false; }
+		if (k === s.rss_view) { document.querySelector('#nav_menu_views .view-rss').click(); return false; }
 		if (k === s.toggle_media) { toggle_media(); return false; }
 		return true;
 	});
