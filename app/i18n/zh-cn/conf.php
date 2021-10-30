@@ -29,7 +29,7 @@ return array(
 			'publication_date' => '更新日期',
 			'related_tags' => '相关标签',
 			'sharing' => '分享',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => '摘要',
 			'top_line' => '顶栏',
 		),
 		'language' => '语言',
@@ -39,7 +39,7 @@ return array(
 		),
 		'show_nav_buttons' => '显示导航按钮',
 		'theme' => '主题',
-		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO - Translation
 			'landscape' => 'Landscape',	// TODO - Translation
@@ -128,7 +128,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => '在超过N条后',
 			'scroll' => '在滚动浏览后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
@@ -198,7 +198,7 @@ return array(
 		'navigation_help' => '组合 <kbd>⇧ Shift</kbd> 键，浏览快捷键将生效于订阅源。<br/>组合 <kbd>Alt ⎇</kbd> 键，浏览快捷键将生效于分类。',
 		'navigation_no_mod_help' => '以下快捷键不支持组合键（Shift 或 Alt）',
 		'next_article' => '打开下一篇文章',
-		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
+		'next_unread_article' => '打开下一篇未读文章',
 		'non_standard' => '这些键 (<kbd>%s</kbd>) 可能不能作为快捷键',
 		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',
