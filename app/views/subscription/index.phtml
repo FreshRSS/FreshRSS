@@ -37,7 +37,7 @@
 			<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
 			<?= $cat->name() ?>
 		</div>
-		<ul class="box-content" data-cat-id="<?= $cat->id() ?>">
+		<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 			<?php if (!empty($feeds)) { ?>
 			<?php
 					foreach ($feeds as $feed) {
@@ -50,7 +50,7 @@
 			<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
 				draggable="true"
 				data-feed-id="<?= $feed->id() ?>"
-				dropzone="move">
+				>
 				<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
 				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 				<?= $feed->name() ?>

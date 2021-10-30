@@ -3,6 +3,14 @@
 /*=== GENERAL */
 /*============*/
 
+[draggable]:hover {
+	cursor: move;
+}
+
+.dragging {
+	background-color: khaki;
+}
+
 @font-face {
 	font-family: 'OpenSans';
 	font-style: normal;
@@ -513,14 +521,40 @@ a.btn {
 }
 
 /*=== Draggable */
-.drag-hover {
+.drag-active .drop-zone:not(.disallowDragging) {
+	background: repeating-linear-gradient( 45deg, #fff, #fff 40px, lightgoldenrodyellow 40px, lightgoldenrodyellow 60px );
+}
+
+.drag-active ul.drag-hover.drop-zone {
+	background: lightgoldenrodyellow;
+	transition: background 0.5s;
+}
+
+li.drag-hover {
 	margin: 0 0 5px;
 	border-bottom: 2px solid #ccc;
 }
 
+.drag-drop {
+	animation-name: drop;
+  	animation-duration: 0.7s;
+}
+
+@keyframes drop {
+	0%   {background-color: lightgoldenrodyellow;;}
+	50%  {background-color: yellow;}
+	100% {background-color: none;}
+  }
+
 [draggable=true] {
 	cursor: grab;
 }
+
+.disallowDragging {
+	opacity: 0.5;
+}
+
+
 
 /*=== Scrollbar */
 
