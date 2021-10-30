@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Aktualizuj',
+		'actualize' => 'Aktualizuj kanałów',
 		'add' => 'Dodaj',
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Wróć do subskrybowanych kanałów RSS',

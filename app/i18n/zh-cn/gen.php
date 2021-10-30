@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => '获取',
+		'actualize' => '更新提要',
 		'add' => '添加',
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => '关于',
-		'account' => 'Account',	// TODO - Translation
+		'account' => '账户',
 		'admin' => '管理',
 		'archiving' => '归档',
 		'authentication' => '认证',
