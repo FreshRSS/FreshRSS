@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => '关于',
-		'account' => 'Account',	// TODO - Translation
+		'account' => '账户',
 		'admin' => '管理',
 		'archiving' => '归档',
 		'authentication' => '认证',
