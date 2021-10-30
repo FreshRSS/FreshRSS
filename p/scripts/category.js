@@ -74,7 +74,7 @@ function init_draggable() {
 		}
 	};
 
-	dropSection.onddragleave = function (ev) {
+	dropSection.ondragleave = function (ev) {
 		const li = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (li) {
 			const scroll_top = document.documentElement.scrollTop;
