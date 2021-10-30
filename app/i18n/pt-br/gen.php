@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Atualizar',
+		'actualize' => 'Atualizar feeds',
 		'add' => 'Adicionar',
 		'back' => '← Voltar',
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
@@ -185,7 +185,7 @@ return array(
 	'share' => array(
 		'Known' => 'Sites no Known',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => 'Área de transferência',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',

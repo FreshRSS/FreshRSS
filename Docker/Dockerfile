@@ -45,7 +45,7 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "7,37 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
-		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
 
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On

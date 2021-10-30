@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Actualizar',
+		'actualize' => 'Actualizar flux',
 		'add' => 'Ajustar',
 		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'A prepaus',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Compte',
 		'admin' => 'Administracion',
 		'archiving' => 'Archivar',
 		'authentication' => 'Autentificacion',

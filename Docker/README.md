@@ -248,6 +248,21 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   cron -f
 ```
 
+#### For the Debian image (default) using a custom cron.d fragment
+
+This method gives you the most flexibility most flexiblity to
+execute various freshrss cli commands.
+
+```sh
+docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss-extensions:/var/www/FreshRSS/extensions \
+  -v ./freshrss_crontab:/etc/cron.d/freshrss \
+  --net freshrss-network \
+  --name freshrss_cron freshrss/freshrss \
+  cron -f
+```
+
 #### For the Alpine image
 
 ```sh

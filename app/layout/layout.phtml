@@ -13,6 +13,7 @@ if (_t('gen.dir') === 'rtl') {
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
 		<?= self::headScript() ?>
+		<link rel="manifest" href="<?= Minz_Url::display('/themes/manifest.json') ?>" />
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
 		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
@@ -20,6 +21,7 @@ if (_t('gen.dir') === 'rtl') {
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
+		<meta name="theme-color" content="#FFF" />
 <?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
 <?php } ?>

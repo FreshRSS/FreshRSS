@@ -21,6 +21,7 @@
 	* Docker: development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Docker: default image updated to Debian 11 Bullseye with PHP 7.4.21 and Apache 2.4.48 [#3782](https://github.com/FreshRSS/FreshRSS/pull/3782)
 	* Docker: alternative image updated to Alpine 3.14 with PHP 8.0.10 and Apache 2.4.48 [#3715](https://github.com/FreshRSS/FreshRSS/pull/3715)
+	* Docker: only add the crontab when CRON_MIN is set.
 	* Images on Docker Hub are automatically scanned for software vulnerabilities
 * UI
 	* New thumbnail and/or summary options for the normal view [#3805](https://github.com/FreshRSS/FreshRSS/pull/3805)

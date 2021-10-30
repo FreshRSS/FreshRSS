@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Actualiseren',
+		'actualize' => 'Feeds actualiseren',
 		'add' => 'Toevoegen',
 		'back' => '← Terug',
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Over',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Account',
 		'admin' => 'Administratie',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',
