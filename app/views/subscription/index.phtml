@@ -35,25 +35,25 @@
 				<?= $cat->name() ?>
 			</div>
 			<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
-				<?php if (!empty($feeds)) { ?>
 				<?php
-						foreach ($feeds as $feed) {
-							if ($this->onlyFeedsWithError && !$feed->inError()) {
-								continue;
-							}
-							$error = $feed->inError() ? ' error' : '';
-							$empty = $feed->nbEntries() == 0 ? ' empty' : '';
+				if (!empty($feeds)) {
+					foreach ($feeds as $feed) {
+						if ($this->onlyFeedsWithError && !$feed->inError()) {
+							continue;
+						}
+						$error = $feed->inError() ? ' error' : '';
+						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 				?>
 				<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
 					draggable="true"
-					data-feed-id="<?= $feed->id() ?>"
-					>
+					data-feed-id="<?= $feed->id() ?>">
 					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<?= $feed->name() ?>
 				</li>
-				<?php 	}
-					} else {
+				<?php
+					}
+				} else {
 				?>
 				<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
 				<?php } ?>
@@ -70,7 +70,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
