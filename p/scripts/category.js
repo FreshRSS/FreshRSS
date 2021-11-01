@@ -74,8 +74,7 @@ function init_draggable() {
 		for ( let i = 0; i < disallowDragging.length; i++) {
 			disallowDragging[i].setAttribute('dropzone', 'move');
 			disallowDragging[i].classList.remove('disallowDragging');
-			
-		} 
+		}
 		li_draggable.closest('.drag-active').classList.remove('drag-active');
 	};
 
@@ -114,7 +113,6 @@ function init_draggable() {
 			ev.dataTransfer.dropEffect = 'move';
 			return false;
 		}
-		
 	};
 
 	dropSection.ondrop = function (ev) {
@@ -131,7 +129,7 @@ function init_draggable() {
 					ul_dropzone.firstChild.classList.add('moved');
 					ul_dropzone.scrollTop = 0;
 					const disabledElement = ul_dropzone.getElementsByClassName('disabled');
-					if (ul_dropzone.childElementCount <= 3 && disabledElement.length>0) {
+					if (ul_dropzone.childElementCount <= 3 && disabledElement.length > 0) {
 						disabledElement[0].remove();
 					}
 					dnd_successful = true;
@@ -149,10 +147,8 @@ function init_draggable() {
 				_csrf: context.csrf,
 			}));
 
-			
 			ul_dropzone.closest('ul').classList.add('drag-drop');
 			ul_dropzone.closest('ul').classList.remove('drag-hover');
-			//li.closest('ul').classList.remove('drag-drop');
 			return false;
 		}
 	};
