@@ -506,6 +506,10 @@ a.btn {
 	display: block;
 }
 
+.box .box-content .item.feed.moved .favicon {
+	opacity: 0.4;
+}
+
 .box .box-content .item.disabled {
 	text-align: center;
 	font-style: italic;
@@ -522,7 +526,7 @@ a.btn {
 
 /*=== Draggable */
 .drag-active .drop-zone:not(.disallowDragging) {
-	background: repeating-linear-gradient( 45deg, #fff, #fff 40px, lightgoldenrodyellow 40px, lightgoldenrodyellow 60px );
+	background: repeating-linear-gradient( 45deg, transparent, transparent 40px, lightgoldenrodyellow 40px, lightgoldenrodyellow 60px );
 }
 
 .drag-active ul.drag-hover.drop-zone {

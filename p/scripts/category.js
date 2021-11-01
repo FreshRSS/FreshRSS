@@ -52,13 +52,11 @@ function init_draggable() {
 		if (li) {
 			const ulClosest = li.closest('ul');
 			ulClosest.classList.add('disallowDragging');
-			const liTags = ulClosest.getElementsByTagName('li');
-			for (let i = 0; i < liTags.length; i++) {
-				liTags[i].removeAttribute('dropzone', '')
-			}
+			ulClosest.removeAttribute('dropzone', '')
 			const drag = ev.target.closest('[draggable]');
 			ev.dataTransfer.effectAllowed = 'move';
 			dragHtml = drag.outerHTML;
+			console.log(dragHtml);
 			dragFeedId = drag.getAttribute('data-feed-id');
 			ev.dataTransfer.setData('text', dragFeedId);
 			drag.style.opacity = 0.5;
@@ -78,15 +76,15 @@ function init_draggable() {
 		li.classList.remove('dragging');
 		const disallowDragging = document.getElementsByClassName('disallowDragging')
 		for ( let i = 0; i < disallowDragging.length; i++) {
-
-
-
+			/*
 			const liTags = disallowDragging[i].getElementsByTagName('li');
 			for (let i = 0; i < liTags.length; i++) {
 				//liTags[i].setAttribute('dropzone', 'move')
 			}
-
+			*/
+			disallowDragging[i].setAttribute('dropzone', 'move');
 			disallowDragging[i].classList.remove('disallowDragging');
+			
 		} 
 		li.closest('.drag-active').classList.remove('drag-active');
 	};
@@ -102,7 +100,7 @@ function init_draggable() {
 
 	dropSection.ondragleave = function (ev) {
 		console.log('onddragleave');
-		console.log(ev.target);
+		//console.log(ev.target);
 		const li = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (li) {
 			const scroll_top = document.documentElement.scrollTop;
@@ -136,8 +134,8 @@ function init_draggable() {
 
 	dropSection.ondrop = function (ev) {
 		console.log('ondrop');
-		const li = ev.target.closest ? ev.target.closest(dropzone) : null;
-		if (li) {
+		const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
+		if (ul_dropzone) {
 			loading = true;
 
 			const req = new XMLHttpRequest();
@@ -145,9 +143,12 @@ function init_draggable() {
 			req.responseType = 'json';
 			req.onload = function (e) {
 				if (this.status == 200) {
-					li.insertAdjacentHTML('afterbegin', dragHtml);
-					if (li.classList.contains('disabled')) {
-						li.remove();
+					ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
+					ul_dropzone.firstChild.classList.add('moved');
+					ul_dropzone.scrollTop = 0;
+					const disabledElement = ul_dropzone.getElementsByClassName('disabled');
+					if (ul_dropzone.childElementCount <= 3 && disabledElement.length>0) {
+						disabledElement[0].remove();
 					}
 					dnd_successful = true;
 				}
@@ -160,13 +161,13 @@ function init_draggable() {
 			req.setRequestHeader('Content-Type', 'application/json');
 			req.send(JSON.stringify({
 				f_id: dragFeedId,
-				c_id: li.getAttribute('data-cat-id'),
+				c_id: ul_dropzone.getAttribute('data-cat-id'),
 				_csrf: context.csrf,
 			}));
 
 			
-			li.closest('ul').classList.add('drag-drop');
-			li.closest('ul').classList.remove('drag-hover');
+			ul_dropzone.closest('ul').classList.add('drag-drop');
+			ul_dropzone.closest('ul').classList.remove('drag-hover');
 			//li.closest('ul').classList.remove('drag-drop');
 			return false;
 		}
