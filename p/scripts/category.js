@@ -51,7 +51,7 @@ function init_draggable() {
 		if (li_draggable) {
 			const ulClosest = li_draggable.closest('ul');
 			ulClosest.classList.add('disallowDragging');
-			ulClosest.removeAttribute('dropzone', '')
+			ulClosest.removeAttribute('dropzone', '');
 			const drag = ev.target.closest('[draggable]');
 			ev.dataTransfer.effectAllowed = 'move';
 			dragHtml = drag.outerHTML;
@@ -70,8 +70,8 @@ function init_draggable() {
 			dragend_process(li_draggable);
 		}
 		li_draggable.classList.remove('dragging');
-		const disallowDragging = document.getElementsByClassName('disallowDragging')
-		for ( let i = 0; i < disallowDragging.length; i++) {
+		const disallowDragging = document.getElementsByClassName('disallowDragging');
+		for (let i = 0; i < disallowDragging.length; i++) {
 			disallowDragging[i].setAttribute('dropzone', 'move');
 			disallowDragging[i].classList.remove('disallowDragging');
 		}
