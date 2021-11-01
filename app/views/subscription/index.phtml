@@ -1,6 +1,6 @@
 <?php $this->partial('aside_subscription'); ?>
 
-<div class="post drop-section">
+<div class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -23,50 +23,52 @@
 		</div>
 	<?php } ?>
 	
-	<?php
-		$signalError = false;
-		foreach ($this->categories as $cat) {
-			$feeds = $cat->feeds();
-	?>
-	<div class="box">
-		<div class="box-title">
-			<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
-			<?= $cat->name() ?>
+	<div class="drop-section">
+		<?php
+			$signalError = false;
+			foreach ($this->categories as $cat) {
+				$feeds = $cat->feeds();
+		?>
+		<div class="box">
+			<div class="box-title">
+				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
+				<?= $cat->name() ?>
+			</div>
+			<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
+				<?php if (!empty($feeds)) { ?>
+				<?php
+						foreach ($feeds as $feed) {
+							if ($this->onlyFeedsWithError && !$feed->inError()) {
+								continue;
+							}
+							$error = $feed->inError() ? ' error' : '';
+							$empty = $feed->nbEntries() == 0 ? ' empty' : '';
+				?>
+				<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
+					draggable="true"
+					data-feed-id="<?= $feed->id() ?>"
+					>
+					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
+					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+					<?= $feed->name() ?>
+				</li>
+				<?php 	}
+					} else {
+				?>
+				<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
+				<?php } ?>
+				<li class="item feed">✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.feed.add') ?></a></li>
+			</ul>
 		</div>
-		<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
-			<?php if (!empty($feeds)) { ?>
-			<?php
-					foreach ($feeds as $feed) {
-						if ($this->onlyFeedsWithError && !$feed->inError()) {
-							continue;
-						}
-						$error = $feed->inError() ? ' error' : '';
-						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
-			?>
-			<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
-				draggable="true"
-				data-feed-id="<?= $feed->id() ?>"
-				>
-				<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
-				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-				<?= $feed->name() ?>
-			</li>
-			<?php 	}
-				} else {
-			?>
-			<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
-			<?php } ?>
-			<li class="item feed">✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.feed.add') ?></a></li>
-		</ul>
-	</div>
-	<?php } ?>
+		<?php } ?>
 
-	<div class="box visible-semi">
-		<div class="box-title">
-			✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.category.add') ?></a>
+		<div class="box visible-semi">
+			<div class="box-title">
+				✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.category.add') ?></a>
+			</div>
+			<div class="box-content">
+			</div>
 		</div>
-		<ul class="box-content">
-		</ul>
 	</div>
 
 </div>
