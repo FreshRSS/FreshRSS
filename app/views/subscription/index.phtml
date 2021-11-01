@@ -22,11 +22,7 @@
 			<a class="btn" href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
 		</div>
 	<?php } ?>
-
-	<form id="controller-category" method="post" aria-hidden="true">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	</form>
-
+	
 	<?php
 		$signalError = false;
 		foreach ($this->categories as $cat) {
