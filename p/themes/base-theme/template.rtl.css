@@ -2,6 +2,7 @@
 
 /*=== GENERAL */
 /*============*/
+
 @font-face {
 	font-family: 'OpenSans';
 	font-style: normal;
@@ -568,6 +569,7 @@ li.drag-hover {
 }
 
 /*=== Scrollbar */
+
 @supports (scrollbar-width: thin) {
 	#sidebar {
 		overflow-y: auto;
