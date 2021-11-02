@@ -532,11 +532,11 @@ a.btn {
 	visibility: hidden;
 }
 
-.disallowDragging {
+.drag-disallowed {
 	opacity: 0.5;
 }
 
-.drag-active .drop-zone:not(.disallowDragging) {
+.drag-active .drop-zone:not(.drag-disallowed) {
 	background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(250,250,210, 0.7) 40px, rgba(250,250,210, 0.7) 60px);
 }
 
