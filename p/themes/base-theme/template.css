@@ -2,6 +2,7 @@
 
 /*=== GENERAL */
 /*============*/
+
 @font-face {
 	font-family: 'OpenSans';
 	font-style: normal;
@@ -556,12 +557,16 @@ li.drag-hover {
 }
 
 @keyframes droppedKeyframe {
+	
 	0% {background-color: rgba(250,250,210, 0.7);}
-	50% {background-color: yellow;}
+	50% {
+		background-color: yellow;
+	}
 	100% {background-color: none;}
 }
 
 /*=== Scrollbar */
+
 @supports (scrollbar-width: thin) {
 	#sidebar {
 		overflow-y: auto;
