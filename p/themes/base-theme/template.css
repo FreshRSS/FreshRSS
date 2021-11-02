@@ -560,9 +560,11 @@ li.drag-hover {
 	0% {
 		background-color: rgba(250,250,210, 0.7);
 	}
+
 	50% {
 		background-color: yellow;
 	}
+	
 	100% {
 		background-color: none;
 	}
