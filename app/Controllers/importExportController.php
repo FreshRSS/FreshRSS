@@ -347,6 +347,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		// Then, articles are imported.
 		$newGuids = array();
 		$this->entryDAO->beginTransaction();
+
+		//TODO: Mutualize with FreshRSS_Import_Service::importGReaderItems()
 		foreach ($items as $item) {
 			if (empty($item['id']) || empty($article_to_feed[$item['id']])) {
 				// Related feed does not exist for this entry, do nothing.

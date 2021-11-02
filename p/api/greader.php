@@ -25,26 +25,9 @@ Server-side API compatible with Google Reader API layer 2
 
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require_once(LIB_PATH . '/lib_greader.php');
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
-
-if (PHP_INT_SIZE < 8) {	//32-bit
-	function dec2hex($dec) {
-		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
-	}
-	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return gmp_strval(gmp_init($hex, 16), 10);
-	}
-} else {	//64-bit
-	function dec2hex($dec) {	//http://code.google.com/p/google-reader-api/wiki/ItemId
-		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
-	}
-	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return hexdec($hex);
-	}
-}
 
 define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
@@ -498,85 +481,19 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	exit();
 }
 
-function entriesToArray($entries) {
-	if (empty($entries)) {
-		return array();
-	}
-	$feedDAO = FreshRSS_Factory::createFeedDao();
-	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
-	$tagDAO = FreshRSS_Factory::createTagDao();
-	$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
-	if ($entryIdsTagNames == false) {
-		$entryIdsTagNames = array();
-	}
+function entriesToGReaderItems($entries) {
 
-	$items = array();
-	foreach ($entries as $item) {
-		$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if ($entry == null) {
-			continue;
-		}
-		$f_id = $entry->feed();
-		if (isset($arrayFeedCategoryNames[$f_id])) {
-			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
-			$f_name = $arrayFeedCategoryNames[$f_id]['name'];
-		} else {
-			$c_name = '_';
-			$f_name = '_';
-		}
-		$item = array(
-			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
-			'crawlTimeMsec' => substr($entry->dateAdded(true, true), 0, -3),
-			'timestampUsec' => '' . $entry->dateAdded(true, true), //EasyRSS & Reeder
-			'published' => $entry->date(true),
-			'title' => escapeToUnicodeAlternative($entry->title(), false),
-			'summary' => array('content' => $entry->content()),
-			'canonical' => array(
-				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
-			),
-			'alternate' => array(
-				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
-			),
-			'categories' => array(
-				'user/-/state/com.google/reading-list',
-				'user/-/label/' . htmlspecialchars_decode($c_name, ENT_QUOTES),
-			),
-			'origin' => array(
-				'streamId' => 'feed/' . $f_id,
-				'title' => escapeToUnicodeAlternative($f_name, true),	//EasyRSS
-				//'htmlUrl' => $line['f_website'],
-			),
-		);
-		foreach ($entry->enclosures() as $enclosure) {
-			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
-				$media = [
-						'href' => $enclosure['url'],
-						'type' => $enclosure['type'],
-					];
-				if (!empty($enclosure['length'])) {
-					$media['length'] = intval($enclosure['length']);
-				}
-				$item['enclosure'][] = $media;
+	function entryFilter($entries) {
+		foreach ($entries as $entry) {
+			$entry = Minz_ExtensionManager::callHook('entry_before_display', $entry);
+			if ($entry != null) {
+				yield $entry;
 			}
 		}
-		$author = $entry->authors(true);
-		$author = trim($author, '; ');
-		if ($author != '') {
-			$item['author'] = escapeToUnicodeAlternative($author, false);
-		}
-		if ($entry->isRead()) {
-			$item['categories'][] = 'user/-/state/com.google/read';
-		}
-		if ($entry->isFavorite()) {
-			$item['categories'][] = 'user/-/state/com.google/starred';
-		}
-		$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
-		foreach ($tagNames as $tagName) {
-			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
-		}
-		$items[] = $item;
 	}
-	return $items;
+
+	$export_service = new FreshRSS_Export_Service($username);
+	return $export_service->entriesToGReaderItems(entryFilter($entries), false);
 }
 
 function streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time) {
@@ -683,9 +600,9 @@ function streamContents($path, $include_target, $start_time, $stop_time, $count,
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
-	$entries = iterator_to_array($entries);	//TODO: Improve
 
-	$items = entriesToArray($entries);
+	$items = entriesToGReaderItems($entries);
+	$items = iterator_to_array($items);	//TODO: Improve
 
 	if ($continuation != '') {
 		array_shift($items);	//Discard first element that was already sent in the previous response
@@ -776,9 +693,9 @@ function streamContentsItems($e_ids, $order) {
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
-	$entries = iterator_to_array($entries);	//TODO: Improve
 
-	$items = entriesToArray($entries);
+	$items = entriesToGReaderItems($entries);
+	$items = iterator_to_array($entries);	//TODO: Improve
 
 	$response = array(
 		'id' => 'user/-/state/com.google/reading-list',

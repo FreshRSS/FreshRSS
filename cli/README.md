@@ -88,6 +88,13 @@ cd /usr/share/FreshRSS
 # Import the user’s database from an SQLite file.
 # --force-overwrite will clear the target user database before import (import only works on an empty user database)
 
+./cli/export-jsonl-for-user.php --user username [ --filter "date:P30d search query" ] | gzip -9 > articles.jsonl.gz
+# Export in JSON Line format, one article per line using GReader API JSON format
+
+zcat articles.jsonl.gz | ./cli/import-jsonl-for-user.php --user username
+# Import in JSON Line format, one article per line using GReader API JSON format
+# N.B.: It is a good idea to import the corresponding OPML first, e.g. to create categories
+
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 
 ./cli/export-zip-for-user.php --user username [ --max-feed-entries 100 ] > /path/to/file.zip
@@ -156,7 +163,7 @@ Example to get the number of feeds of a given user:
 
 ```sh
 ./cli/user-info.php --user alex | cut -f6
-#or
+# or
 ./cli/user-info.php --user alex --json | jq '.[] | .feeds'
 ```
 

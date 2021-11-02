@@ -955,6 +955,9 @@ SQL;
 		case 'A':	//All except PRIORITY_ARCHIVED
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			break;
+		case 'AA':	//All
+			$where .= '1=1 ';
+			break;
 		case 's':	//Starred. Deprecated: use $state instead
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND e.is_favorite=1 ';

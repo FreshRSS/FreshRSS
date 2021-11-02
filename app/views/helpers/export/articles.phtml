@@ -17,6 +17,7 @@ if (empty($this->entryIdsTagNames)) {
 	$this->entryIdsTagNames = array();
 }
 
+//TODO: Use FreshRSS_Export_Service::entriesToGReaderItems
 foreach ($this->entriesRaw as $entryRaw) {
 	if ($entryRaw == null) {
 		continue;
