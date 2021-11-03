@@ -861,6 +861,13 @@ function init_shortcuts() {
 				return false;
 			}
 		}
+		if (k === s.actualize) {
+			const btn = document.getElementById('actualize');
+			if (btn) {
+				btn.click();
+			}
+			return false;
+		}
 		if (k === s.next_entry) {
 			if (ev.altKey) {
 				next_category();
