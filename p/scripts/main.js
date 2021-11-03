@@ -282,7 +282,11 @@ const delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
 	if (a) {
-		delayedFunction(function () { a.click(); });
+		if (context.anonymous) {
+			a.click();
+		} else {
+			delayedFunction(function () { a.click(); });
+		}
 	}
 }
 
