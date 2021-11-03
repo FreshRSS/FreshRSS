@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Aktualizovať',
+		'actualize' => 'Aktualizovať kanály',
 		'add' => 'Add',	// TODO - Translation
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',

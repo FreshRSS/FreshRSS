@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Aggiorna',
+		'actualize' => 'Aggiorna feeds',
 		'add' => 'Add',	// TODO - Translation
 		'back' => '← Go back',	// TODO - Translation
 		'back_to_rss_feeds' => '← Indietro',
