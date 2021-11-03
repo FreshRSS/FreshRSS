@@ -1,4 +1,3 @@
-[![Build Status][travis-badge]][travis-link]
 [![Liberapay donations](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 * Read this document on [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/edge/README.md) to get the correct links and pictures.
@@ -144,6 +143,3 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
-
-[travis-badge]:https://travis-ci.org/FreshRSS/FreshRSS.svg?branch=edge
-[travis-link]:https://travis-ci.org/FreshRSS/FreshRSS
