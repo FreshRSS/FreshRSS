@@ -129,7 +129,7 @@ function init_draggable() {
 					ul_dropzone.firstChild.classList.add('moved');
 					ul_dropzone.scrollTop = 0;
 					const disabledElement = ul_dropzone.getElementsByClassName('disabled');
-					if (ul_dropzone.childElementCount <= 3 && disabledElement.length > 0) {
+					if (disabledElement.length > 0) {
 						disabledElement[0].remove();
 					}
 					dnd_successful = true;
