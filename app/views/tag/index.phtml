@@ -25,12 +25,17 @@
 	</form>
 
 	<h2><?= _t('sub.title.rename_label') ?></h2>
+	<?php
+	$disabled = '';
+	if (count($this->tags) < 1) {
+		$disabled = ' disabled';
+	} ?>
 	<form id="rename_tag" method="post" action="<?= _url('tag', 'rename') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="id_tag"><?= _t('sub.tag.old_name') ?></label>
 			<div class="group-controls">
-				<select name="id_tag" id="id_tag">
+				<select name="id_tag" id="id_tag"<?= $disabled?>>
 					<?php foreach ($this->tags as $tag): ?>
 						<option value="<?= $tag->id() ?>"><?= $tag->name() ?></option>
 					<?php endforeach; ?>
@@ -40,13 +45,15 @@
 		<div class="form-group">
 			<label class="group-name" for="rename_new_name"><?= _t('sub.tag.new_name') ?></label>
 			<div class="group-controls">
-				<input id="rename_new_name" name="name" type="text" autocomplete="off"/>
+				<input id="rename_new_name" name="name" type="text" autocomplete="off"<?= $disabled?>/>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
+				<?php if (!$disabled) { ?>
 				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.rename') ?></button>
+				<?php } ?>
 			</div>
 		</div>
 	</form>
@@ -57,7 +64,7 @@
 		<div class="form-group">
 			<label class="group-name" for="id_tag_delete"><?= _t('sub.tag.name') ?></label>
 			<div class="group-controls">
-				<select name="id_tag" id="id_tag_delete">
+				<select name="id_tag" id="id_tag_delete"<?= $disabled?>>
 					<?php foreach ($this->tags as $tag): ?>
 						<option value="<?= $tag->id() ?>"><?= $tag->name() ?></option>
 					<?php endforeach; ?>
@@ -67,7 +74,9 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
+				<?php if (!$disabled) { ?>
 				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
+				<?php } ?>
 			</div>
 		</div>
 	</form>
