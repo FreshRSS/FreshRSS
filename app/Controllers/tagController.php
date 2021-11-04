@@ -90,7 +90,7 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 
 		$name = Minz_Request::param('name');
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		if (null === $tagDAO->searchByName($name)) {
+		if (null === $tagDAO->searchByName($name) && strlen($name) > 0) {
 			$tagDAO->addTag(['name' => $name]);
 			Minz_Request::good(_t('feedback.tag.created', $name), ['c' => 'tag', 'a' => 'index'], true);
 		}
