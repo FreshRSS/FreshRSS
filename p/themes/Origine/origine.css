@@ -121,6 +121,11 @@ form th {
 	margin: -5px 0;
 }
 
+.form-group .group-controls .stick .btn {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 /*=== Buttons */
 .stick {
 	vertical-align: middle;
@@ -165,11 +170,6 @@ form th {
 .stick .btn + .dropdown > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
-}
-
-.stick .btn.toggle-password {
-	padding-top: 2px;
-	padding-bottom: 2px;
 }
 
 .btn {
