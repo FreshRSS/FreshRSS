@@ -41,11 +41,11 @@ return array(
 		'theme' => '主题',
 		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => '普通',
+			'landscape' => '风景',
+			'none' => '无',
+			'portrait' => '肖像',
+			'square' => '方块',
 		),
 		'title' => '显示',
 		'width' => array(
@@ -128,11 +128,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
-			'keep_max_n_unread' => '在超过N条后',
+			'keep_max_n_unread' => '未读最多保留 n 条',
 			'scroll' => '在滚动浏览后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => '已存在 n 条相同标题文章',
 		),
 		'show' => array(
 			'_' => '文章显示',
@@ -204,7 +204,7 @@ return array(
 		'other_action' => '其他操作',
 		'previous_article' => '打开上一篇文章',
 		'reading_view' => '切换到阅读视图',
-		'rss_view' => 'Open as RSS feed',	// TODO - Translation
+		'rss_view' => '切换到 RSS 视图',
 		'see_on_website' => '在原网站中查看',
 		'shift_for_all_read' => '组合 <kbd>Alt ⎇</kbd>键 将上方的文章标记为已读<br />组合 <kbd>⇧ Shift</kbd>按键 可以将全部文章设为已读',
 		'skip_next_article' => '跳转到下一篇文章而不打开',
