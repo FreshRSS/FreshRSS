@@ -201,6 +201,12 @@ const pending_entries = {};
 let mark_read_queue = [];
 
 function send_mark_read_queue(queue, asRead, callback) {
+	if (!queue || queue.length === 0) {
+		if (callback) {
+			callback();
+		}
+		return;
+	}
 	const req = new XMLHttpRequest();
 	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
 	req.responseType = 'json';
@@ -856,6 +862,13 @@ function init_shortcuts() {
 				}
 				return false;
 			}
+		}
+		if (k === s.actualize) {
+			const btn = document.getElementById('actualize');
+			if (btn) {
+				btn.click();
+			}
+			return false;
 		}
 		if (k === s.next_entry) {
 			if (ev.altKey) {
