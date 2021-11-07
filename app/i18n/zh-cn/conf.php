@@ -41,7 +41,7 @@ return array(
 		'theme' => '主题',
 		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
 		'thumbnail' => array(
-			'label' => '普通',
+			'label' => '缩略图',
 			'landscape' => '风景',
 			'none' => '无',
 			'portrait' => '肖像',
