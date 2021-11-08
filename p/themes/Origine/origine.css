@@ -47,7 +47,7 @@ option {
 	padding: 0 .5em;
 }
 
-input:focus, select:focus, textarea:focus, input[type="password"]:focus + a.toggle-password {
+input:focus, select:focus, textarea:focus, input[type="password"]:focus + .toggle-password {
 	color: #0062be;
 	border-color: #3bf;
 	box-shadow: 0 2px 2px #ddf inset;
