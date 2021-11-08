@@ -28,7 +28,7 @@
 	<?php
 	$disabled = '';
 	if (count($this->tags) < 1) {
-		$disabled = ' disabled';
+		$disabled = ' disabled="disabled"';
 	} ?>
 	<form id="rename_tag" method="post" action="<?= _url('tag', 'rename') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
