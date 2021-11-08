@@ -59,7 +59,7 @@
 				<div class="stick">
 					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
 						pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
-					<a class="btn toggle-password" data-toggle="password-<?= $this->username; ?>"><?= _i('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
 			</div>
