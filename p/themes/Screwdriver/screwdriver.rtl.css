@@ -1263,7 +1263,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #171717;
 		display: block;
 		width: 100%;
@@ -1344,10 +1345,6 @@ a.btn {
 }
 
 @media (max-width: 700px) {
-	.header {
-		display: none;
-	}
-
 	.nav-login {
 		display: inline-block;
 		width: 100%;
