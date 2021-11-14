@@ -81,7 +81,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
 * You may remove the `--label traefik.*` lines if you do not use Træfik.
 * Add `-p 8080:80 \` if you want to expose FreshRSS locally, e.g. on port `8080`.
-* Replace `freshrss/freshrss` by a more specific tag (see below) such as `freshrss/freshrss:dev` for the development version, or `freshrss/freshrss:arm` for a Raspberry Pi version.
+* Replace `freshrss/freshrss` by a more specific tag (see below) such as `freshrss/freshrss:edge` for the development version, or `freshrss/freshrss:arm` for a Raspberry Pi version.
 
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
@@ -284,7 +284,7 @@ while reading the source code from your local (git) directory, like the followin
 cd /path-to-local/FreshRSS/
 docker run --rm -p 8080:80 -e TZ=Europe/Paris -e FRESHRSS_ENV=development \
   -v $(pwd):/var/www/FreshRSS \
-  freshrss/freshrss:dev
+  freshrss/freshrss:edge
 ```
 
 This will start a server on port 8080, based on your local PHP code, which will show the logs directly in your terminal.

@@ -1392,23 +1392,24 @@ function closePopup() {
 function init_popup() {
 	// Fetch elements.
 	popup = document.getElementById('popup');
+	if (popup) {
+		popup_iframe_container = document.getElementById('popup-iframe-container');
+		popup_iframe = document.getElementById('popup-iframe');
 
-	popup_iframe_container = document.getElementById('popup-iframe-container');
-	popup_iframe = document.getElementById('popup-iframe');
+		popup_txt = document.getElementById('popup-txt');
 
-	popup_txt = document.getElementById('popup-txt');
-
-	// Configure close button.
-	document.getElementById('popup-close').addEventListener('click', function (ev) {
-		closePopup();
-	});
-
-	// Configure close-on-click.
-	window.addEventListener('click', function (ev) {
-		if (ev.target == popup) {
+		// Configure close button.
+		document.getElementById('popup-close').addEventListener('click', function (ev) {
 			closePopup();
-		}
-	});
+		});
+
+		// Configure close-on-click.
+		window.addEventListener('click', function (ev) {
+			if (ev.target == popup) {
+				closePopup();
+			}
+		});
+	}
 }
 // </popup>
 
