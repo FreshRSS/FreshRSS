@@ -583,10 +583,6 @@ a.btn {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header {
-	height: 85px;
-}
-
 .header > .item {
 	padding: 10px;
 	vertical-align: middle;
@@ -599,7 +595,6 @@ a.btn {
 }
 
 .header > .item.title .logo {
-	margin: 0.5em 0;
 	filter: grayscale(60%) brightness(1.1);
 }
 
@@ -1136,7 +1131,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #111;
 		display: block;
 		width: 100%;
