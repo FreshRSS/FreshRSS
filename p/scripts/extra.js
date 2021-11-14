@@ -55,8 +55,6 @@ function init_crypto_form() {
 		submit_button.disabled = false;
 	}
 
-	
-
 	crypto_form.onsubmit = function (e) {
 		if (submit_button) {
 			submit_button.disabled = true;
