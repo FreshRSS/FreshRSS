@@ -51,10 +51,16 @@ function init_crypto_form() {
 	forgetOpenCategories();
 
 	const submit_button = document.getElementById('loginButton');
-	submit_button.disabled = false;
+	if (submit_button) {
+		submit_button.disabled = false;
+	}
+
+	
 
 	crypto_form.onsubmit = function (e) {
-		submit_button.disabled = true;
+		if (submit_button) {
+			submit_button.disabled = true;
+		}
 		let success = false;
 
 		const req = new XMLHttpRequest();
@@ -86,7 +92,9 @@ function init_crypto_form() {
 			req.onerror();
 		}
 
-		submit_button.disabled = false;
+		if (submit_button) {
+			submit_button.disabled = false;
+		}
 		return success;
 	};
 }
