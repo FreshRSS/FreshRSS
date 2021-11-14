@@ -69,7 +69,7 @@ return array(
 
 	# Allow or not the use of an unsafe login,
 	#	by providing username and password in the login URL:
-	#	http://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
+	#	https://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
 	'unsafe_autologin_enabled' => false,
 
 	# Enable or not the use of syslog to log the activity of
@@ -116,7 +116,7 @@ return array(
 	),
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# http://php.net/manual/function.curl-setopt
+	# https://php.net/manual/function.curl-setopt
 	'curl_options' => array(
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
@@ -167,7 +167,7 @@ return array(
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#
-	# See http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties
+	# See https://phpmailer.github.io/PHPMailer/classes/PHPMailer-PHPMailer-PHPMailer.html#properties
 	'mailer' => 'mail', // 'mail' or 'smtp'
 	'smtp' => array(
 		'hostname' => '', // the domain used in the Message-ID header
