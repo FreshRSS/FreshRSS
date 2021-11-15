@@ -553,7 +553,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #41444f;
-	height: 85px;
 }
 
 .header > .item {
@@ -1134,7 +1133,8 @@ a.signin {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #f6f6f6;
 		display: block;
 		width: 100%;

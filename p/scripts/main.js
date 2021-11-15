@@ -201,6 +201,12 @@ const pending_entries = {};
 let mark_read_queue = [];
 
 function send_mark_read_queue(queue, asRead, callback) {
+	if (!queue || queue.length === 0) {
+		if (callback) {
+			callback();
+		}
+		return;
+	}
 	const req = new XMLHttpRequest();
 	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
 	req.responseType = 'json';
@@ -857,6 +863,13 @@ function init_shortcuts() {
 				return false;
 			}
 		}
+		if (k === s.actualize) {
+			const btn = document.getElementById('actualize');
+			if (btn) {
+				btn.click();
+			}
+			return false;
+		}
 		if (k === s.next_entry) {
 			if (ev.altKey) {
 				next_category();
@@ -1379,23 +1392,24 @@ function closePopup() {
 function init_popup() {
 	// Fetch elements.
 	popup = document.getElementById('popup');
+	if (popup) {
+		popup_iframe_container = document.getElementById('popup-iframe-container');
+		popup_iframe = document.getElementById('popup-iframe');
 
-	popup_iframe_container = document.getElementById('popup-iframe-container');
-	popup_iframe = document.getElementById('popup-iframe');
+		popup_txt = document.getElementById('popup-txt');
 
-	popup_txt = document.getElementById('popup-txt');
-
-	// Configure close button.
-	document.getElementById('popup-close').addEventListener('click', function (ev) {
-		closePopup();
-	});
-
-	// Configure close-on-click.
-	window.addEventListener('click', function (ev) {
-		if (ev.target == popup) {
+		// Configure close button.
+		document.getElementById('popup-close').addEventListener('click', function (ev) {
 			closePopup();
-		}
-	});
+		});
+
+		// Configure close-on-click.
+		window.addEventListener('click', function (ev) {
+			if (ev.target == popup) {
+				closePopup();
+			}
+		});
+	}
 }
 // </popup>
 

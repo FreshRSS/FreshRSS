@@ -35,7 +35,7 @@ class SMTP
      *
      * @var string
      */
-    const VERSION = '6.3.0';
+    const VERSION = '6.5.1';
 
     /**
      * SMTP line break constant.
@@ -186,6 +186,7 @@ class SMTP
         'Amazon_SES' => '/[\d]{3} Ok (.*)/',
         'SendGrid' => '/[\d]{3} Ok: queued as (.*)/',
         'CampaignMonitor' => '/[\d]{3} 2.0.0 OK:([a-zA-Z\d]{48})/',
+        'Haraka' => '/[\d]{3} Message Queued \((.*)\)/',
     ];
 
     /**
@@ -553,6 +554,8 @@ class SMTP
                 }
                 //Send encoded username and password
                 if (
+                    //Format from https://tools.ietf.org/html/rfc4616#section-2
+                    //We skip the first field (it's forgery), so the string starts with a null byte
                     !$this->sendCommand(
                         'User & Password',
                         base64_encode("\0" . $username . "\0" . $password),

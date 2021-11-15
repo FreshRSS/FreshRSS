@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Актуализировать',
+		'actualize' => 'Актуализировать ленту',
 		'add' => 'Добавить',
 		'back' => '← Вернуться',
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',

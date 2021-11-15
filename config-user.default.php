@@ -58,6 +58,7 @@ return array (
 	'theme' => 'Origine',
 	'content_width' => 'thin',
 	'shortcuts' => array (
+		'actualize' => 'q',
 		'mark_read' => 'r',
 		'mark_favorite' => 'f',
 		'go_website' => 'space',

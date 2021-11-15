@@ -47,10 +47,11 @@ option {
 	padding: 0 .5em;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus, select:focus, textarea:focus, input[type="password"]:focus + .toggle-password {
 	color: #0062be;
 	border-color: #3bf;
 	box-shadow: 0 2px 2px #ddf inset;
+	outline: none;
 }
 
 input:invalid, select:invalid {
@@ -114,9 +115,15 @@ form th {
 	padding: 0;
 }
 
-.form-group .group-controls input,
-.form-group .group-controls select {
+.form-group .group-controls > input,
+.form-group .group-controls > select,
+.form-group .group-controls .stick {
 	margin: -5px 0;
+}
+
+.form-group .group-controls .stick .btn {
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 /*=== Buttons */
@@ -583,7 +590,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #f4f4f4;
-	height: 85px;
 }
 
 .header > .item {
@@ -595,10 +601,6 @@ a.btn {
 
 .header > .item.title {
 	width: 230px;
-}
-
-.header > .item.title .logo {
-	margin: 0.5em 0;
 }
 
 .header > .item.search input {
@@ -1141,7 +1143,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #f6f6f6;
 		display: block;
 		width: 100%;
