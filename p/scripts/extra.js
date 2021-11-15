@@ -142,6 +142,7 @@ function init_slider_observers() {
 	}
 
 	document.querySelector('.post').addEventListener('click', function (ev) {
+		ev.preventDefault();
 		const a = ev.target.closest('.open-slider');
 		if (a) {
 			if (!context.ajax_loading) {
@@ -165,6 +166,7 @@ function init_slider_observers() {
 	});
 
 	closer.addEventListener('click', function (ev) {
+		ev.preventDefault();
 		if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
 			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
 			closer.classList.remove('active');

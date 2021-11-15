@@ -66,7 +66,8 @@ function load_panel(link) {
 
 function init_close_panel() {
 	const panel = document.getElementById('panel');
-	document.querySelector('#overlay .close').addEventListener('click', function () {
+	document.querySelector('#overlay .close').addEventListener('click', function (ev) {
+		ev.preventDefault();
 		panel.innerHTML = '';
 		panel.classList.remove('visible');
 		document.getElementById('overlay').classList.remove('visible');
@@ -84,7 +85,8 @@ function init_close_panel() {
 function init_global_view() {
 	// TODO: should be based on generic classes
 	document.querySelectorAll('.box a').forEach(function (a) {
-		a.addEventListener('click', function () {
+		a.addEventListener('click', function (ev) {
+			ev.preventDefault();
 			load_panel(a.href);
 			return false;
 		});

@@ -775,6 +775,7 @@ function init_column_categories() {
 	}
 
 	document.getElementById('aside_feed').addEventListener('click', function (ev) {
+		ev.preventDefault();
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
 		if (a) {
 			const img = a.querySelector('img');
@@ -977,6 +978,7 @@ function init_shortcuts() {
 
 function init_stream(stream) {
 	stream.addEventListener('click', function (ev) {
+		ev.preventDefault();
 		let el = ev.target.closest('.flux a.read');
 		if (el) {
 			mark_read(el.closest('.flux'), false, false);
@@ -1143,15 +1145,18 @@ function init_stream(stream) {
 function init_nav_entries() {
 	const nav_entries = document.getElementById('nav_entries');
 	if (nav_entries) {
-		nav_entries.querySelector('.previous_entry').addEventListener('click', function () {
+		nav_entries.querySelector('.previous_entry').addEventListener('click', function (ev) {
+			ev.preventDefault();
 			prev_entry(false);
 			return false;
 		});
-		nav_entries.querySelector('.next_entry').addEventListener('click', function () {
+		nav_entries.querySelector('.next_entry').addEventListener('click', function (ev) {
+			ev.preventDefault();
 			next_entry(false);
 			return false;
 		});
-		nav_entries.querySelector('.up').addEventListener('click', function () {
+		nav_entries.querySelector('.up').addEventListener('click', function (ev) {
+			ev.preventDefault();
 			const active_item = (document.querySelector('.flux.current') || document.querySelector('.flux'));
 			const windowTop = document.scrollingElement.scrollTop;
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
@@ -1245,6 +1250,7 @@ function init_actualize() {
 	}
 
 	actualize.addEventListener('click', function () {
+		ev.preventDefault();
 		if (context.ajax_loading) {
 			return false;
 		}
@@ -1332,6 +1338,7 @@ function init_notifications() {
 	notification = document.getElementById('notification');
 
 	notification.querySelector('a.close').addEventListener('click', function () {
+		ev.preventDefault();
 		closeNotification();
 		return false;
 	});
@@ -1437,7 +1444,8 @@ function notifs_html5_show(nb) {
 		tag: 'freshRssNewArticles',
 	});
 
-	notification.addEventListener('click', function () {
+	notification.addEventListener('click', function (ev) {
+		ev.preventDefault();
 		delayedFunction(function () {
 			location.reload();
 			window.focus();
@@ -1592,7 +1600,8 @@ function init_load_more(box) {
 
 	url_load_more = next_link.href;
 
-	next_link.addEventListener('click', function (e) {
+	next_link.addEventListener('click', function (ev) {
+		ev.preventDefault();
 		load_more_posts();
 		return false;
 	});
@@ -1601,6 +1610,7 @@ function init_load_more(box) {
 
 function init_confirm_action() {
 	document.addEventListener('click', function (ev) {
+		ev.preventDefault();
 		const b = ev.target.closest('.confirm');
 		if (b) {
 			let str_confirmation = this.getAttribute('data-str-confirm');
