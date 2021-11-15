@@ -1547,7 +1547,7 @@ function load_more_posts() {
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
 		const readAll = document.querySelector('#nav_menu_read_all .read_all');
-		if (bigMarkAsRead.tagName.toLowerCase == 'button' && readAll) {
+		if (readAll && bigMarkAsRead && bigMarkAsRead.formAction) {
 			if (context.display_order === 'ASC') {
 				readAll.formAction = bigMarkAsRead.formAction;
 			} else {
