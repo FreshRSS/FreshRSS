@@ -1412,7 +1412,7 @@ class SimplePie
 			}
 			else
 			{
-				$ret .= " ";
+				$ret .= sprintf('U+%06X', $current);
 			}
 		}
 		return $ret;
