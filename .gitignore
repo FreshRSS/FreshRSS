@@ -2,6 +2,7 @@
 /node_modules/
 /vendor/
 /constants.local.php
+/.idea
 
 # Temp files
 *~
