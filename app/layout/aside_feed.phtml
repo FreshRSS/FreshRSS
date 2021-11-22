@@ -9,9 +9,9 @@
 
 	$state_filter = FreshRSS_Context::$user_conf->show_fav_unread ? '&state=3' : '';
 
-	$urlParamState= Minz_Request::param('state','');
+	$urlParamState = Minz_Request::param('state', '');
 	if ($urlParamState) {
-		$urlParamState= '&state='.$urlParamState;
+		$urlParamState = '&state=' . $urlParamState;
 	}
 ?>
 <nav class="aside aside_feed<?= $class ?>" id="aside_feed">
