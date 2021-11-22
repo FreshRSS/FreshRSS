@@ -8,8 +8,12 @@
 	}
 
 	$state_filter = FreshRSS_Context::$user_conf->show_fav_unread ? '&state=3' : '';
-?>
 
+	$urlParamState= Minz_Request::param('state','');
+	if ($urlParamState) {
+		$urlParamState= '&state='.$urlParamState;
+	}
+?>
 <nav class="aside aside_feed<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
@@ -28,7 +32,7 @@
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
 				<?= _i('all') ?> <a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
-					_url('index', $actual_view) ?>"><?= _t('index.menu.main_stream') ?></a>
+					_url('index', $actual_view) . $urlParamState ?>"><?= _t('index.menu.main_stream') ?></a>
 			</div>
 		</li>
 
@@ -81,7 +85,7 @@
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
-					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) ?>"><?= $cat->name() ?></a>
+					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $urlParamState?>"><?= $cat->name() ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
@@ -99,7 +103,7 @@
 					</div>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
-						_url('index', $actual_view, 'get', 'f_' . $feed->id()) ?>"><?= $feed->name() ?></a>
+						_url('index', $actual_view, 'get', 'f_' . $feed->id()). $urlParamState?>"><?= $feed->name() ?></a>
 				</li>
 				<?php } ?>
 			</ul>
