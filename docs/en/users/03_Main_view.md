@@ -239,7 +239,10 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
 
-When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you'll need to consider [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws). See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460) for more details on the usage of `AND` vs `OR` when using combining multiple negative operators.
+When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you'll need
+to consider the order of logic. See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460)
+for more details on the usage of `AND` vs `OR` when combining multiple negative operators.
+Addtional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
 ### By sorting by date
 
