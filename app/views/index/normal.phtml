@@ -114,9 +114,11 @@ $today = @strtotime('today');
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<main id="stream" class="prompt alert alert-warn normal">
-	<h2><?= _t('index.feed.empty') ?></h2>
-	<a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
+<main id="stream" class="normal">
+	<div class="prompt alert alert-warn">
+		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+	</div>
 </main>
 <?php endif; ?>
 
