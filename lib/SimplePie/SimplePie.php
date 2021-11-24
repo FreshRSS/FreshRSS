@@ -1383,13 +1383,15 @@ class SimplePie
 	}
 
 	/**
-	 * Removes invalid utf-8 characters.
+	 * Removes invalid xml 1.0 characters.
 	 *
+	 * link: https://stackoverflow.com/questions/730133/what-are-invalid-characters-in-xml
+	 * xml 1.0 valid charsets: https://www.w3.org/TR/xml/#charsets
 	 * @access public
 	 * @param string $value
 	 * @return string all valid utf-8 characters
 	 */
-	public static function stripInvalidUtf8($value)
+	public static function stripInvalidXmlCharaters($value)
 	{
 		$ret = "";
 		if (empty($value))
@@ -1596,10 +1598,10 @@ class SimplePie
 			{
 				// Create new parser
 				$parser = $this->registry->create('Parser');
-				$utf8_data = self::stripInvalidUtf8($utf8_data);
+				$validXml = self::stripInvalidXmlCharaters($utf8_data);
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8', $this->permanent_url))	//FreshRSS
+				if ($parser->parse($validXml, empty($encoding) ? '' : 'UTF-8', $this->permanent_url))	//FreshRSS
 				{
 					$this->data = $parser->get_data();
 					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))
