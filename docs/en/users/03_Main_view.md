@@ -7,7 +7,7 @@ Normal view will allow you to view articles in a compressed view. They can be se
 ## Article List
 
 By default, the normal view includes six items per article. From left to right:
-* **Read status:** An envalope icon to show if the article has been read or not. Closed envalopes are unread, open envalopes are read. Clicking on the icon will toggle the read status.
+* **Read status:** An envelope icon to show if the article has been read or not. Closed envelopes are unread, open envelopes are read. Clicking on the icon will toggle the read status.
 * **Favourite status:** A star icon to show if the article has been favourited or not. Filled stars are favourited, empty stars are not. Clicking on the icon will toggle the favourite status.
 * **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed's view in normal view.
 * **Article title:** The title of the article. Clicking will open the article for viewing within FreshRSS.
@@ -238,6 +238,8 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
+
+When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you'll need to consider [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws). See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460) for more details on the usage of `AND` vs `OR` when using combining multiple negative operators.
 
 ### By sorting by date
 
