@@ -731,7 +731,8 @@ input[type="search"] {
 }
 
 .flux .item {
-	line-height: 40px;
+	line-height: 1.5;
+	padding: 0.5em 0;
 	white-space: nowrap;
 }
 
@@ -753,16 +754,12 @@ input[type="search"] {
 .flux:not(.current):hover .item.title {
 	background: #fff;
 	max-width: calc(100% - 320px);
-	position: absolute;
-}
-
-.flux:not(.current):hover .item.title.multiline {
-	position: initial;
 }
 
 .flux .item.title a {
 	color: #000;
 	text-decoration: none;
+	white-space: normal;
 }
 
 .flux .item.thumbnail {
@@ -1454,7 +1451,6 @@ input:checked + .slide-container .properties {
 	.flux:not(.current):hover .item.title {
 		position: relative;
 		width: auto;
-		white-space: nowrap;
 	}
 
 	.notification {
