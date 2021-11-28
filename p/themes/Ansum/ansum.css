@@ -121,8 +121,8 @@ label {
 }
 
 textarea {
-	width: 360px;
 	max-width: 100%;
+	width: 360px;
 	height: 100px;
 }
 
@@ -274,6 +274,9 @@ form th {
 .dropdown-menu .item:hover a, .dropdown-menu .item:hover button {
 	text-decoration: none;
 	color: #fff;
+}
+.dropdown-menu .item:hover .icon {
+	filter: grayscale(100%) brightness(2.5);
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 0 0 -14px;
