@@ -4,7 +4,7 @@
    width="16"
    version="1.1"
    id="svg8"
-   sodipodi:docname="bookmark-add.svg"
+   sodipodi:docname="bookmark-tag.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,18 +23,13 @@
      showgrid="false"
      inkscape:current-layer="svg8" />
   <g
-     transform="translate(-141.5,-805.5)"
+     transform="translate(-139,-805.5)"
      fill="#bebebe"
-     id="g6"
-     style="fill:#666666">
+     id="g6">
     <path
-       d="m 143,807 v 13 l 4,-4 4,4 v -4 -0.5 h -2.5 v -5 H 151 V 807 Z"
+       d="m 143,807 v 13 l 4,-4 4,4 v -13 z"
        id="path2"
-       style="fill:#666666"
-       sodipodi:nodetypes="ccccccccccc" />
-    <path
-       d="m 152,810 v 2 h -2 v 2 h 2 v 2 h 2 v -2 h 2 v -2 h -2 v -2 z"
-       id="path4"
+       sodipodi:nodetypes="cccccc"
        style="fill:#666666" />
   </g>
 </svg>
