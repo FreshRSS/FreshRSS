@@ -743,6 +743,7 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+	padding-right: 10px;
 }
 
 .flux.not_read .item.title,
@@ -831,10 +832,13 @@ input[type="search"] {
 
 .flux .item > a {
 	display: block;
-	text-decoration: none;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+.flux .item.website a:hover .favicon {
+	filter: grayscale(100%);
 }
 
 .flux .item.share > a,
