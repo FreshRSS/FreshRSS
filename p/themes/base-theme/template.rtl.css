@@ -743,7 +743,7 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
-	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .flux.not_read .item.title,
