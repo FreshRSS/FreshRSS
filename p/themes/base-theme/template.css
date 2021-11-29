@@ -539,7 +539,7 @@ a.btn {
 
 @supports not (scrollbar-width: thin) {
 	#sidebar::-webkit-scrollbar,
-	.scrollbar-thin {
+	.scrollbar-thin::-webkit-scrollbar {
 		background: rgba(0, 0, 0, 0.05);
 		width: 8px;
 	}
