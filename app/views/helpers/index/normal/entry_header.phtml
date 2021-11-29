@@ -30,9 +30,10 @@
 			?></li><?php
 		}
 	}
-	?><li class="item website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-		<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-		<span><?= $this->feed->name() ?></span></a>
+	?><li class="item website">
+		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
+			<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><span><?= $this->feed->name() ?></span>
+		</a>
 	</li>
 
 	<?php
