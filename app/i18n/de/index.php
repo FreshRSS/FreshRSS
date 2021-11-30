@@ -57,7 +57,7 @@ return array(
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Verwandte Tags',
+		'related' => 'Hashtags',
 	),
 	'tos' => array(
 		'title' => 'Nutzungsbedingungen',
