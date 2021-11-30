@@ -1,0 +1,20 @@
+<form action="<?php echo _url('extension', 'configure', 'e', urlencode($this->getName())); ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+	<div class="form-group">
+		<label class="group-name" for="css-rules"><?php echo _t('ext.custom_css.write_css'); ?></label>
+		<div class="group-controls">
+			<textarea name="css-rules" id="css-rules"><?php echo $this->css_rules; ?></textarea>
+		</div>
+	</div>
+
+	<div class="form-group form-actions">
+		<?php if (isset($this->permission_problem)) { ?>
+			<p class="alert alert-error"><?php echo _t('ext.custom_css.permission_problem', $this->permission_problem); ?></p>
+		<?php } else { ?>
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+			</div>
+		<?php } ?>
+	</div>
+</form>
