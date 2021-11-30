@@ -115,6 +115,9 @@ $today = @strtotime('today');
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
 <main id="stream" class="normal">
+	<div id="new-article">
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+	</div>
 	<div class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
 		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
