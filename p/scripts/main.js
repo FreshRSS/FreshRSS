@@ -843,6 +843,7 @@ function init_shortcuts() {
 				ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey)) {
 			return true;
 		}
+		ev.preventDefault();
 
 		const s = context.shortcuts;
 		let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
