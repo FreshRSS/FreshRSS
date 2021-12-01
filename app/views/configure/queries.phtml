@@ -57,16 +57,16 @@
 		<?php } ?>
 	</form>
 
-<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>>
-	<?= _i('close') ?>
-</a>
-<div id="slider"<?= $class ?>>
-<?php
-	if (isset($this->query)) {
-		$this->renderHelper('configure/query');
-	}
-?>
-</div>
+	<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
+	<a href="#" id="close-slider"<?= $class ?>>
+		<?= _i('close') ?>
+	</a>
+	<div id="slider"<?= $class ?>>
+	<?php
+		if (isset($this->query)) {
+			$this->renderHelper('configure/query');
+		}
+	?>
+	</div>
 
 </main>

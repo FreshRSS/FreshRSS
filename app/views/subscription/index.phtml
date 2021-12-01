@@ -73,18 +73,18 @@
 		</ul>
 	</div>
 
-<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>>
-	<?= _i('close') ?>
-</a>
-<div id="slider"<?= $class ?>>
-<?php
-	if (isset($this->feed)) {
-		$this->renderHelper('feed/update');
-	} elseif (isset($this->category)) {
-		$this->renderHelper('category/update');
-	}
-?>
-</div>
+	<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
+	<a href="#" id="close-slider"<?= $class ?>>
+		<?= _i('close') ?>
+	</a>
+	<div id="slider"<?= $class ?>>
+	<?php
+		if (isset($this->feed)) {
+			$this->renderHelper('feed/update');
+		} elseif (isset($this->category)) {
+			$this->renderHelper('category/update');
+		}
+	?>
+	</div>
 
 </main>
