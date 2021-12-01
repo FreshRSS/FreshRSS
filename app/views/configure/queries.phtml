@@ -1,6 +1,6 @@
 <?php $this->partial('aside_configure'); ?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -56,7 +56,7 @@
 		</div>
 		<?php } ?>
 	</form>
-</div>
+</main>
 
 <?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
 <a href="#" id="close-slider"<?= $class ?>>

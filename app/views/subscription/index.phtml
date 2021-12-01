@@ -1,6 +1,6 @@
 <?php $this->partial('aside_subscription'); ?>
 
-<div class="post drop-section">
+<main class="post drop-section">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -73,7 +73,7 @@
 		</ul>
 	</div>
 
-</div>
+</main>
 
 <?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
 <a href="#" id="close-slider"<?= $class ?>>

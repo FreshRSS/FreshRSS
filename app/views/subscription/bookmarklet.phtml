@@ -1,6 +1,6 @@
 <?php $this->partial('aside_subscription'); ?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -15,4 +15,4 @@
 	<h2><?= _t('sub.api.title') ?></h2>
 	<p><?= _t('sub.api.documentation') ?></p>
 	<kbd><?= Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true) ?>&amp;url_rss=%s</kbd>
-</div>
+</main>

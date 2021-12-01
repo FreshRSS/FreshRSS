@@ -48,7 +48,7 @@ if (_t('gen.dir') === 'rtl') {
 	$this->partial('header');
 ?>
 
-<main id="global">
+<div id="global">
 	<?php
 		flush();
 		if (isset($this->callbackBeforeFeeds)) {
@@ -56,7 +56,7 @@ if (_t('gen.dir') === 'rtl') {
 		}
 		$this->render();
 	?>
-</main>
+</div>
 
 <?php
 	$msg = '';

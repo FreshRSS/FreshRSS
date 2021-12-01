@@ -1,6 +1,6 @@
 <?php $this->partial('aside_configure'); ?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -47,4 +47,4 @@
 	<?php if ($this->update_to_apply) { ?>
 	<a class="btn btn-important" href="<?= _url('update', 'apply') ?>"><?= _t('admin.update.apply') ?></a>
 	<?php } ?>
-</div>
+	</main>
