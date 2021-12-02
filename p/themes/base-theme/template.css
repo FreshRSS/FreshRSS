@@ -746,6 +746,11 @@ input[type="search"] {
 	padding-right: 10px;
 }
 
+.website a:hover .favicon,
+a.website:hover .favicon {
+	filter: grayscale(100%);
+}
+
 .flux.not_read .item.title,
 .flux.current .item.title {
 	font-weight: bold;
@@ -835,10 +840,6 @@ input[type="search"] {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-}
-
-.flux .item.website a:hover .favicon {
-	filter: grayscale(100%);
 }
 
 .flux .item.share > a,
