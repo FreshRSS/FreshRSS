@@ -18,7 +18,7 @@ return array(
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
 		'mark_favorite' => 'Als Favorit auswählen/entfernen',
-		'mark_read' => 'Als (un-)gelesen markieren',
+		'mark_read' => 'Als gelesen markieren',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',
 		'remove' => 'Entfernen',
