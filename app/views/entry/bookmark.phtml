@@ -4,7 +4,7 @@ header('Content-Type: application/json; charset=UTF-8');
 $url = array(
 	'c' => Minz_Request::controllerName(),
 	'a' => Minz_Request::actionName(),
-	'params' => Minz_Request::fetchGET(),
+	'params' => $_GET,
 );
 
 $url['params']['is_favorite'] = Minz_Request::param('is_favorite', true) ? '0' : '1';
