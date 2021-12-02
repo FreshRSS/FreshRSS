@@ -1,0 +1,17 @@
+parameters:
+	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
+	level: 1
+	paths:
+		- .
+	excludePaths:
+		- lib/lib_phpQuery.php
+		- lib/SimplePie/*
+		- node_modules/*
+		- vendor/*
+	scanDirectories:
+		- lib/SimplePie/
+	bootstrapFiles:
+		- constants.php
+		- lib/lib_rss.php
+		- lib/SimplePie/SimplePie.php
+		- app/SQL/install.sql.sqlite.php

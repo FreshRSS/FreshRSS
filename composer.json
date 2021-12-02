@@ -20,6 +20,7 @@
         "php": ">=7.0.0"
     },
     "require-dev": {
+        "phpstan/phpstan": "^1.2.0",
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.6"
     },
@@ -28,6 +29,7 @@
         "phtml-lint": "find . -type d -name 'vendor' -prune -o -name '*.phtml' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",
         "phpcs": "phpcs . -s",
         "phpcbf": "phpcbf . -p -s",
+        "phpstan": "phpstan analyse .",
         "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests",
         "translations": "cli/manipulate.translation.php -a format",
         "test": [
