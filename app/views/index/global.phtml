@@ -11,7 +11,7 @@
 
 <main id="stream" class="global<?= $class ?>">
 <?php
-	$params = Minz_Request::fetchGET();
+	$params = $_GET;
 	unset($params['c']);
 	unset($params['a']);
 	$url_base = array(

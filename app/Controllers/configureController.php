@@ -152,7 +152,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		if (Minz_Request::isPost()) {
-			$params = Minz_Request::fetchPOST();
+			$params = $_POST;
 			FreshRSS_Context::$user_conf->sharing = $params['share'];
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
@@ -406,7 +406,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
 			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 		}
-		$params = Minz_Request::fetchGET();
+		$params = $_GET;
 		unset($params['rid']);
 		$params['url'] = Minz_Url::display(array('params' => $params));
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
