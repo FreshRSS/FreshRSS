@@ -678,7 +678,7 @@ if (_t('gen.dir') === 'rtl') {
 	</div>
 </header>
 
-<main id="global">
+<div id="global">
 	<nav class="nav nav-list aside">
 		<div class="nav-header"><?= _t('install.steps') ?></div>
 		<ol>
@@ -716,7 +716,7 @@ if (_t('gen.dir') === 'rtl') {
 		</ol>
 	</nav>
 
-	<div class="post">
+	<main class="post">
 		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
 		<?php
 		switch (STEP) {
@@ -741,8 +741,8 @@ if (_t('gen.dir') === 'rtl') {
 			break;
 		}
 		?>
-	</div>
-</main>
+	</main>
+</div>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>
 </html>
