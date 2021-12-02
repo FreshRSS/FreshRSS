@@ -460,7 +460,7 @@ SQL;
 				 . 'SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
 				 . ' WHERE id=:id';
 			$stm = $this->pdo->prepare($sql);
-			$stm->bindParam(':id', $id_feed, PDO::PARAM_INT);
+			$stm->bindParam(':id', $id, PDO::PARAM_INT);
 			if (!($stm && $stm->execute())) {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error keepMaxUnread cache: ' . json_encode($info));

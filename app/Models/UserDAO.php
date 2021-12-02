@@ -14,7 +14,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		if ($ok) {
 			return true;
 		} else {
-			$info = empty($stm) ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $this->pdo->errorInfo();
 			Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			return false;
 		}
@@ -31,8 +31,8 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		if ($ok) {
 			return true;
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error(__METHOD__ . ' error: ' . $info[2]);
+			$info = $this->pdo->errorInfo();
+			Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			return false;
 		}
 	}
