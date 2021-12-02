@@ -2707,13 +2707,19 @@ class SimplePie
 			}
 		}
 
-		if (isset($this->data['headers']['link']) &&
-		    preg_match('/<([^>]+)>; rel='.preg_quote($rel).'/',
-		               $this->data['headers']['link'], $match))
+		if (isset($this->data['headers']['link']))
 		{
-			return array($match[1]);
+			$link_headers = $this->data['headers']['link'];
+			if (is_string($link_headers)) {
+				$link_headers = array($link_headers);
+			}
+			$matches = preg_filter('/<([^>]+)>; rel='.preg_quote($rel).'/', '$1', $link_headers);
+			if (!empty($matches)) {
+				return $matches;
+			}
 		}
-		else if (isset($this->data['links'][$rel]))
+
+		if (isset($this->data['links'][$rel]))
 		{
 			return $this->data['links'][$rel];
 		}

@@ -165,7 +165,7 @@ function html_only_entity_decode($text) {
 			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
 		));
 	}
-	return strtr($text, $htmlEntitiesOnly);
+	return $text == '' ? '' : strtr($text, $htmlEntitiesOnly);
 }
 
 function customSimplePie($attributes = array()) {

@@ -415,7 +415,7 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractContentType() {
-		return strtolower(trim(static::getHeader('CONTENT_TYPE')));
+		return strtolower(trim(static::getHeader('CONTENT_TYPE', '')));
 	}
 
 	/**
@@ -454,7 +454,7 @@ class Minz_Request {
 	 * @return array
 	 */
 	public static function getPreferredLanguages() {
-		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', static::getHeader('HTTP_ACCEPT_LANGUAGE'), $matches)) {
+		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', static::getHeader('HTTP_ACCEPT_LANGUAGE', ''), $matches)) {
 			return $matches['lang'];
 		}
 		return array('en');
