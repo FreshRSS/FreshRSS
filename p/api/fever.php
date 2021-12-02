@@ -491,6 +491,7 @@ class FeverAPI
 					/** @var FreshRSS_Category $category */
 					$category = $categoryDAO->searchById($id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
 					/** @var FreshRSS_Feed $feed */
+					$feeds = [];
 					foreach ($category->feeds() as $feed) {
 						$feeds[] = $feed->id();
 					}

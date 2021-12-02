@@ -287,6 +287,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$params = Minz_Request::param('queries', array());
 
+			$queries = [];
 			foreach ($params as $key => $query) {
 				if (!$query['name']) {
 					$query['name'] = _t('conf.query.number', $key + 1);

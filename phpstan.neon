@@ -5,13 +5,18 @@ parameters:
 		- .
 	excludePaths:
 		- lib/lib_phpQuery.php
+		- lib/PHPMailer/*
 		- lib/SimplePie/*
 		- node_modules/*
+		# TODO: include tests
+		- tests/*
 		- vendor/*
 	scanDirectories:
+		- lib/PHPMailer/
 		- lib/SimplePie/
 	bootstrapFiles:
-		- constants.php
-		- lib/lib_rss.php
+		- cli/_cli.php
+		- lib/favicons.php
+		- lib/lib_phpQuery.php
 		- lib/SimplePie/SimplePie.php
 		- app/SQL/install.sql.sqlite.php

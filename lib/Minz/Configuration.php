@@ -79,7 +79,12 @@ class Minz_Configuration {
 	/**
 	 * An object which help to set good values in configuration.
 	 */
-	private $configuration_setter = null;
+	private static $configuration_setter = null;
+
+	/**
+	 * List of enabled extensions.
+	 */
+	private static $extensions_enabled = [];
 
 	public function removeExtension($ext_name) {
 		unset(self::$extensions_enabled[$ext_name]);

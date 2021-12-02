@@ -277,6 +277,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
 				$tagFrom = $tagDAOSQLite; $tagTo = $tagDAO;
 				break;
+			default:
+				return;
 		}
 
 		$idMaps = [];

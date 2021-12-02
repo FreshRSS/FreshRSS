@@ -17,7 +17,9 @@ $params = array(
 		'max_posts_per_rss:',
 	);
 
-if (!$isUpdate) {
+if (!isset($isUpdate)) {
+	$isUpdate = false;
+} elseif (!$isUpdate) {
 	$params[] = 'no_default_feeds';	//Only for creating new users
 }
 

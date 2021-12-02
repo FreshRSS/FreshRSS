@@ -227,6 +227,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		$ok = self::checkUsername($new_user_name);
 		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
+		$configPath = '';
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
@@ -429,11 +430,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		} elseif (FreshRSS_Auth::hasAccess()) {
 			$user_config = FreshRSS_Context::$user_conf;
 		} else {
-			Minz_Error::error(403);
+			return Minz_Error::error(403);
 		}
 
 		if (!FreshRSS_UserDAO::exists($username) || $user_config === null) {
-			Minz_Error::error(404);
+			return Minz_Error::error(404);
 		}
 
 		if ($user_config->email_validation_token === '') {

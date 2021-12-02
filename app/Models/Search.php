@@ -521,7 +521,6 @@ class FreshRSS_Search {
 	 * Supported delimiters are single quote (') and double quotes (").
 	 *
 	 * @param string $input
-	 * @return string
 	 */
 	private function parseSearch($input) {
 		$input = self::cleanSearch($input);
