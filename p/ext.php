@@ -80,7 +80,7 @@ function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
  */
 function is_valid_path($path) {
 	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH)
-		|| is_valid_path_extension($path, USERS_PATH, $false);
+		|| is_valid_path_extension($path, USERS_PATH, false);
 }
 
 function sendBadRequestResponse(string $message = null) {
