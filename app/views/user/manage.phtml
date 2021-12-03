@@ -1,4 +1,7 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var Minz_View $this */
+	$this->partial('aside_configure');
+?>
 
 <main class="post">
 	<div class="link-back-wrapper">
@@ -12,7 +15,7 @@
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
 
-		
+
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>

@@ -1,6 +1,9 @@
 parameters:
 	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
 	level: 1
+	fileExtensions:
+		- php
+		- phtml
 	paths:
 		- .
 	excludePaths:

@@ -1,6 +1,9 @@
-<?php if (FreshRSS_Auth::hasAccess()) {?>
-<?php $this->partial('aside_configure'); ?>
-<?php } ?>
+<?php
+	/** @var Minz_View $this */
+	if (FreshRSS_Auth::hasAccess()) {
+		$this->partial('aside_configure');
+	}
+?>
 
 <main class="post content">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>

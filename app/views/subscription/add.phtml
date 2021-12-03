@@ -1,4 +1,7 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	/** @var Minz_View $this */
+	$this->partial('aside_subscription');
+?>
 
 <main class="post drop-section">
 	<div class="link-back-wrapper">
@@ -25,7 +28,7 @@
 
 	<h2><?= _t('sub.title.add_feed') ?></h2>
 	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
-		
+
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
