@@ -23,7 +23,7 @@ if (!isset($isUpdate)) {
 	$params[] = 'no_default_feeds';	//Only for creating new users
 }
 
-$options = getopt('', $params);
+$GLOBALS['options'] = getopt('', $params);
 
 if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename($_SERVER['SCRIPT_FILENAME']) .
