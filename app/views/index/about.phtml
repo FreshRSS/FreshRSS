@@ -2,7 +2,7 @@
 <?php $this->partial('aside_configure'); ?>
 <?php } ?>
 
-<div class="post content">
+<main class="post content">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -28,4 +28,4 @@
 
 	<h2><?= _t('index.about.credits') ?></h2>
 	<p><?= _t('index.about.credits_content') ?></p>
-</div>
+</main>
