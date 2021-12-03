@@ -368,10 +368,10 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($item == null) {
 				continue;
 			}
-			$title = html_only_entity_decode(strip_tags($item->get_title()));
+			$title = html_only_entity_decode(strip_tags($item->get_title() ?? ''));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
-			$date = @strtotime($item->get_date());
+			$date = @strtotime($item->get_date() ?? '');
 
 			//Tag processing (tag == category)
 			$categories = $item->get_categories();
@@ -405,8 +405,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 						$enclosureContent = '';
 						$elinks[$elink] = true;
-						$mime = strtolower($enclosure->get_type());
-						$medium = strtolower($enclosure->get_medium());
+						$mime = strtolower($enclosure->get_type() ?? '');
+						$medium = strtolower($enclosure->get_medium() ?? '');
 						$height = $enclosure->get_height();
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();

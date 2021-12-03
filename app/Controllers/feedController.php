@@ -566,7 +566,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
 		$maxFeeds = (int)Minz_Request::param('maxFeeds');
-		$noCommit = Minz_Request::fetchPOST('noCommit', 0) == 1;
+		$noCommit = ($_POST['noCommit'] ?? 0) == 1;
 
 		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
 			$updated_feeds = 0;
