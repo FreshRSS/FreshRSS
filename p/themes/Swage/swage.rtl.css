@@ -779,7 +779,7 @@ form th {
 	top: auto;
 }
 .notification.good,
-.notification .bad {
+.notification.bad {
 	color: #fcfcfc;
 }
 .notification.good {
