@@ -1344,10 +1344,11 @@ function closeNotification() {
 function init_notifications() {
 	notification = document.getElementById('notification');
 
-	notification.querySelector('a.close').onclick = function () {
+	notification.querySelector('a.close').addEventListener('click',function (ev) {
 		closeNotification();
+		ev.preventDefault();
 		return false;
-	};
+	});
 
 	notification.addEventListener('mouseenter',function(){
 		clearInterval(notification_interval);
