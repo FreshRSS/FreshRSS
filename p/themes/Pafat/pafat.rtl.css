@@ -1169,6 +1169,7 @@ a.signin {
 	.nav_menu .search input {
 		max-width: 97%;
 		width: 90px;
+		line-height: 25px;
 	}
 
 	.nav_menu .search input:focus {
