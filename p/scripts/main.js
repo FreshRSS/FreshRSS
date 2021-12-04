@@ -1352,11 +1352,11 @@ function init_notifications() {
 
 	notification.addEventListener('mouseenter',function(){
 		clearInterval(notification_interval);
-	})
+	});
 
 	notification.addEventListener('mouseleave',function(){
 		notification_interval = setTimeout(closeNotification, 1000);
-	})
+	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
