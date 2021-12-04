@@ -1349,6 +1349,10 @@ function init_notifications() {
 		return false;
 	};
 
+	notification.addEventListener('mouseenter',function(){
+		clearInterval(notification_interval);
+	})
+
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
 		if (notification.classList.contains('good')) {
