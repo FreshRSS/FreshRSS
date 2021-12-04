@@ -1353,6 +1353,10 @@ function init_notifications() {
 		clearInterval(notification_interval);
 	})
 
+	notification.addEventListener('mouseleave',function(){
+		notification_interval = setTimeout(closeNotification, 1000);
+	})
+
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
 		if (notification.classList.contains('good')) {
