@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
-			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
+			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
 			'n_actualized' => '%d feeds aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',

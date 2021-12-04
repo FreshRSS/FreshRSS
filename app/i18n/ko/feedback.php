@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> 캐쉬 지움',
 			'deleted' => '피드가 삭제되었습니다',
 			'error' => '피드를 변경할 수 없습니다',
-			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
+			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',

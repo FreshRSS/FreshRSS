@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> se ha borrado la caché',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
