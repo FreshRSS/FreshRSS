@@ -876,13 +876,11 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -897,6 +895,10 @@ a.btn {
 	background: #fdd;
 	color: #844;
 	border: 1px solid #ecc;
+}
+
+.notification a{
+	color: #0062be;
 }
 
 .notification a.close {
