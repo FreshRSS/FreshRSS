@@ -892,6 +892,7 @@ br {
 
 /*=== Notification and actualize notification */
 .notification {
+	padding: 10px 10px 10px 50px;
 	position: absolute;
 	top: 1em;
 	right: 25%; left: 25%;
@@ -899,6 +900,7 @@ br {
 	background: #fff;
 	border: 1px solid #aaa;
 	opacity: 1;
+	line-height: 2;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
 }
@@ -913,6 +915,14 @@ br {
 	top: 0; bottom: 0;
 	left: 0;
 	display: inline-block;
+}
+
+.notification a.close:hover {
+	background: rgba(10,10,10,0.05);
+}
+
+.notification a.close:hover .icon {
+	filter: brightness(2);
 }
 
 #actualizeProgress {
