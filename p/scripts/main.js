@@ -1327,7 +1327,7 @@ function openNotification(msg, status) {
 	notification.querySelector('.msg').innerHTML = msg;
 	notification.className = 'notification';
 	notification.classList.add(status);
-	if (status = 'good') {
+	if (status == 'good') {
 		notification_interval = setTimeout(closeNotification, 4000);
 	} else {
 		// no status or f.e. status = 'bad', give some more time to read
@@ -1344,17 +1344,17 @@ function closeNotification() {
 function init_notifications() {
 	notification = document.getElementById('notification');
 
-	notification.querySelector('a.close').addEventListener('click',function (ev) {
+	notification.querySelector('a.close').addEventListener('click', function (ev) {
 		closeNotification();
 		ev.preventDefault();
 		return false;
 	});
 
-	notification.addEventListener('mouseenter',function(){
+	notification.addEventListener('mouseenter', function (){
 		clearInterval(notification_interval);
 	});
 
-	notification.addEventListener('mouseleave',function(){
+	notification.addEventListener('mouseleave', function (){
 		notification_interval = setTimeout(closeNotification, 1000);
 	});
 
