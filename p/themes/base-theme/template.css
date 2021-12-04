@@ -1366,7 +1366,7 @@ input:checked + .slide-container .properties {
 	}
 
 
-	.item.search form {
+	header .item.search form {
 		display: none;
 	}
 
