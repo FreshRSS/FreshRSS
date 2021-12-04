@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> önbelleği temizlendi',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
 			'n_actualized' => '%d akışları güncellendi',
 			'n_entries_deleted' => '%d makaleleri silindi',
