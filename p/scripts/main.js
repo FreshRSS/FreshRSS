@@ -1355,7 +1355,7 @@ function init_notifications() {
 	});
 
 	notification.addEventListener('mouseleave', function () {
-		notification_interval = setTimeout(closeNotification, 1000);
+		notification_interval = setTimeout(closeNotification, 3000);
 	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
