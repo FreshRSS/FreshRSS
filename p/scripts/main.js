@@ -1350,11 +1350,11 @@ function init_notifications() {
 		return false;
 	});
 
-	notification.addEventListener('mouseenter', function (){
+	notification.addEventListener('mouseenter', function () {
 		clearInterval(notification_interval);
 	});
 
-	notification.addEventListener('mouseleave', function (){
+	notification.addEventListener('mouseleave', function () {
 		notification_interval = setTimeout(closeNotification, 1000);
 	});
 
