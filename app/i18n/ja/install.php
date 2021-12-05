@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'finish' => 'インストールが完了しました',
+		'finish' => 'インストール作業を終わりにする',
 		'fix_errors_before' => '次のステップへ移る前にエラーを修正してください。',
 		'keep_install' => '前の設定を保持する',
 		'next_step' => '次のステップへ進む',
@@ -30,8 +30,8 @@ return array(
 		'username' => 'データベースのユーザー名',
 	),
 	'check' => array(
-		'_' => '確かめる',
-		'already_installed' => 'FreshRSS が、インストールされていることを確認できました!',
+		'_' => '環境確認',
+		'already_installed' => 'FreshRSS が、すでにインストールされています!',
 		'cache' => array(
 			'nok' => ' <em>%1$s</em> ディレクトリ <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーを書き込むには権限が必要です。',
 			'ok' => 'キャッシュディレクトリの権限は正しく設定されています。',
@@ -78,7 +78,7 @@ return array(
 		),
 		'php' => array(
 			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
-			'ok' => 'あなたのPHPのバージョンは, %s, でFreshRSSと互換性があるバージョンです。',
+			'ok' => 'あなたのPHPのバージョンは、 %s でFreshRSSと互換性があるバージョンです。',
 		),
 		'reload' => '再度確かめる',
 		'tmp' => array(
@@ -100,7 +100,7 @@ return array(
 		'ok' => '一般設定は保存されました。',
 	),
 	'congratulations' => 'おめでとうございます!',
-	'default_user' => 'デフォルトのユーザーのユーザー名 <small>(最大16文字の英数字)</small>',
+	'default_user' => 'デフォルトのユーザー名 <small>(最大16文字の英数字)</small>',
 	'fix_errors_before' => 'エラーを次のステップへ移る前に修正してください。',
 	'javascript_is_better' => 'FreshRSS はJavascriptが有効だとより快適にご利用いただけます。',
 	'js' => array(
@@ -112,12 +112,12 @@ return array(
 		'defined' => '言語の設定ができました。',
 	),
 	'missing_applied_migrations' => '何かが誤っています; 空のファイルを手動で作ることができます <em>%s</em>',
-	'ok' => 'インストールプロセスは成功しました。',
+	'ok' => 'インストール作業は成功しました。',
 	'session' => array(
 		'nok' => 'webサーバーは、不正な設定がされておりPHPセッションが必要とされているクッキーの設定が誤っています!',
 	),
 	'step' => 'ステップ %d',
 	'steps' => 'ステップ',
-	'this_is_the_end' => 'これにて終了',
+	'this_is_the_end' => '終了',
 	'title' => 'インストール · FreshRSS',
 );
