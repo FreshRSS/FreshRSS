@@ -31,7 +31,7 @@ return array(
 	'auth' => array(
 		'accept_tos' => '私は <a href="%s">Terms of Service</a>を承認します。',
 		'email' => 'Eメールアドレス',
-		'keep_logged_in' => 'ログインを保持する <small>(%s)日後に失効</small>',
+		'keep_logged_in' => 'ログインを保持する <small>%s日後にログアウトする</small>',
 		'login' => 'ログイン',
 		'logout' => 'ログアウト',
 		'password' => array(
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'アカウント',
 		'admin' => '管理者',
 		'archiving' => 'アーカイブ',
 		'authentication' => '認証',
@@ -211,10 +211,10 @@ return array(
 		'by_default' => 'デフォルト',
 		'damn' => '終了!',
 		'default_category' => 'カテゴリーに登録されていない',
-		'no' => 'いいえ',
+		'no' => 'NO',
 		'not_applicable' => '利用不可能',
-		'ok' => 'はい!',
-		'or' => 'あるいは',
-		'yes' => 'はい',
+		'ok' => 'OK!',
+		'or' => 'または',
+		'yes' => 'OK',
 	),
 );
