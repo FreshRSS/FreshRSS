@@ -7,38 +7,38 @@ return array(
 			'required' => 'Wymagane jest podanie adresu e-mail.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
+			'change_email' => 'Możesz zmienić używany adres e-mail w <a href="%s">ustawieniach swojego profilu</a>.',
+			'email_sent_to' => 'Na adres e-mail <strong>%s</strong> została wysłana wiadomość zawierająca instrukcję weryfikacji. Prosimy się z nią zapoznać.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'Email address validation failed.',	// TODO - Translation
-				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unnecessary' => 'This email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'Nie udało się wysłać wiadomości e-mail z powodu błędu konfiguracji serwera.',
+				'email_sent' => 'Wiadomośc e-mail została wysłana na podany adres.',
+				'error' => 'Weryfikacja adresu poczty e-mail nie powiodła się.',
+				'ok' => 'Adres poczty e-mail został potwierdzony.',
+				'unnecessary' => 'Podany adres poczty e-mail został już wcześniej potwierdzony.',
+				'wrong_token' => 'Nie udało się zweryfikować adresu poczty e-mail z powodu niewłaściwego tokena.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => 'Musisz zweryfikować swój adres e-mail zanim będziesz mógł zacząć używać serwis %s.',
+			'resend_email' => 'Wyślij ponownie wiadomość e-mail',
+			'title' => 'Potwierdzenie adresu e-mail',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => 'Właśnie zarejestrowałeś się w serwisie %s. Aby uzyskać pełen dostęp musisz jeszcze potwierdzić ważność swojego adresu e-mail. Możesz to zrobić klikając na niniejszy odnośnik:',
+			'title' => 'Musisz zweryfikować swoje konto',
+			'welcome' => 'Cześć, %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'Hasło nie jest prawidłowe.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Aby się zarejestrować, należy zgodzić się na Warunki użytkowania.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO - Translation
-		'taken' => 'This username, %s, is taken.',	// TODO - Translation
+		'invalid' => 'Ta nazwa użytkownika nie jest prawidłowa.',
+		'taken' => 'Użytkownik %s już istnieje.',
 	),
 );
