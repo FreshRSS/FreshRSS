@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importeren',
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
-		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',

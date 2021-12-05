@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importovať',
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'Spravovať',
-		'mark_favorite' => 'Označiť ako obľúbené',
 		'mark_read' => 'Označiť ako prečítané',
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation

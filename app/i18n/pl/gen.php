@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importuj',
 		'load_default_shortcuts' => 'Ustaw domyślne skróty',
 		'manage' => 'Ustawienia',
-		'mark_favorite' => 'Oznacz jako ulubione',
 		'mark_read' => 'Oznacz jako przeczytane',
 		'promote' => 'Awansuj',
 		'purge' => 'Oczyść',

@@ -17,7 +17,6 @@ return array(
 		'import' => 'インポート',
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
-		'mark_favorite' => 'お気に入りとする',
 		'mark_read' => '既読にする',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
