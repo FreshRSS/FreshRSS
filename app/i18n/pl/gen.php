@@ -4,7 +4,7 @@ return array(
 	'action' => array(
 		'actualize' => 'Aktualizuj kanałów',
 		'add' => 'Dodaj',
-		'back' => '← Go back',	// TODO - Translation
+		'back' => '← Wróć',
 		'back_to_rss_feeds' => '← Wróć do subskrybowanych kanałów RSS',
 		'cancel' => 'Anuluj',
 		'create' => 'Stwórz',
@@ -29,7 +29,7 @@ return array(
 		'update' => 'Aktualizuj',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => 'Akceptuję <a href="%s">Warunki użytkowania</a>.',
 		'email' => 'Adres e-mail',
 		'keep_logged_in' => 'Nie pytaj ponownie o logowanie <small>(przez %s dni)</small>',
 		'login' => 'Logowanie',
@@ -39,13 +39,13 @@ return array(
 			'format' => '<small>Przynajmniej 7 znaków</small>',
 		),
 		'registration' => array(
-			'_' => 'New account',	// TODO - Translation
-			'ask' => 'Create an account?',	// TODO - Translation
-			'title' => 'Account creation',	// TODO - Translation
+			'_' => 'Nowe konto',
+			'ask' => 'Stworzyć nowe konto?',
+			'title' => 'Tworzenie konta',
 		),
 		'username' => array(
 			'_' => 'Nazwa użytkownika',
-			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO - Translation
+			'format' => '<small>Nie więcej niż 16 znaków alfanumerycznych</small>',
 		),
 	),
 	'date' => array(
@@ -92,7 +92,7 @@ return array(
 		'may' => 'Maj',
 		'may_' => 'Maj',
 		'mon' => 'Pon.',
-		'month' => 'months',	// TODO - Translation
+		'month' => 'miesięcy',
 		'nov' => 'Lis.',
 		'november' => 'Listopad',
 		'oct' => 'Paź',
@@ -115,10 +115,10 @@ return array(
 	'js' => array(
 		'category_empty' => 'Pusta kategoria',
 		'confirm_action' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Nie można cofnąć jej rezultatów!',
-		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',	// TODO - Translation
+		'confirm_action_feed_cat' => 'czy jesteś pewien, że chcesz przeprowadzić daną operację? Stracisz powiązane zapytania i ulubione wiadomości. Tych zmian nie można wycofać!',
 		'feedback' => array(
 			'body_new_articles' => 'Na FreshRSS znajduje się %%d wiadomości do przeczytania.',
-			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO - Translation
+			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',
 		),
 		'new_article' => 'Dostępne są nowe wiadomości. Kliknij, aby odświeżyć stronę.',
@@ -146,7 +146,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O serwisie',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Konto',
 		'admin' => 'Administracja',
 		'archiving' => 'Archiwizacja',
 		'authentication' => 'Uwierzytelnianie',
@@ -167,13 +167,13 @@ return array(
 		'user_profile' => 'Profil',
 	),
 	'pagination' => array(
-		'first' => 'First',	// TODO - Translation
-		'last' => 'Last',	// TODO - Translation
+		'first' => 'Początek',
+		'last' => 'Koniec',
 		'load_more' => 'Załaduj więcej wiadomości',
 		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
-		'next' => 'Next',	// TODO - Translation
+		'next' => 'Następne',
 		'nothing_to_load' => 'Koniec listy wiadomości',
-		'previous' => 'Previous',	// TODO - Translation
+		'previous' => 'Poprzednie',
 	),
 	'period' => array(
 		'days' => 'dni',
@@ -185,7 +185,7 @@ return array(
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => 'Schowek',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',
