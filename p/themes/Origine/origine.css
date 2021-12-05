@@ -1186,7 +1186,7 @@ a.btn {
 		padding: 3px 5px;
 		max-width: 97%;
 		width: 90px;
-		line-height: 25px;
+		line-height: 2;
 	}
 
 	.nav_menu .search input:focus {
