@@ -3,32 +3,32 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovať kanály',
-		'add' => 'Add',	// TODO - Translation
-		'back' => '← Go back',	// TODO - Translation
+		'add' => 'Pridať',
+		'back' => '← Späť',
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
 		'create' => 'Vytvoriť',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => 'Degradovať',
 		'disable' => 'Zakázať',
 		'empty' => 'Vyprázdniť',
 		'enable' => 'Povoliť',
 		'export' => 'Exportovať',
 		'filter' => 'Filtrovať',
 		'import' => 'Importovať',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
+		'promote' => 'Podporiť',
+		'purge' => 'Vymazať',
 		'remove' => 'Odstrániť',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Premenovať',
 		'see_website' => 'Zobraziť webovú stránku',
 		'submit' => 'Poslať',
 		'truncate' => 'Vymazať všetky články',
 		'update' => 'Aktualizovať',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => 'Prijímam <a href="%s">Podmienky služby</a>.',
 		'email' => 'E-mailová adresa',
 		'keep_logged_in' => 'Zostať prihlásený <small>(počet dní: %s)</small>',
 		'login' => 'Prihlásiť',
@@ -78,10 +78,10 @@ return array(
 		'july' => 'Júl',
 		'jun' => 'Jún',
 		'june' => 'Jún',
-		'last_2_year' => 'Last two years',	// TODO - Translation
+		'last_2_year' => 'Posledné 2 roky',
 		'last_3_month' => 'Posledné 3 mesiace',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
+		'last_3_year' => 'Posledné 3 roky',
+		'last_5_year' => 'Posledných 5 rokov',
 		'last_6_month' => 'Posledných 6 mesiacov',
 		'last_month' => 'Posledný mesiac',
 		'last_week' => 'Posledný týždeň',
@@ -145,7 +145,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Konto',
 		'admin' => 'Administrácia',
 		'archiving' => 'Archivácia',
 		'authentication' => 'Prihlásenie',
@@ -175,16 +175,16 @@ return array(
 		'previous' => 'Predošlý',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => 'dni',
+		'hours' => 'hodiny',
+		'months' => 'mesiace',
+		'weeks' => 'týždne',
+		'years' => 'roky',
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
 		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
+		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',
