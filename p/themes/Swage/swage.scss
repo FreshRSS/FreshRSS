@@ -845,10 +845,6 @@ form {
 
 	@extend %aside-width;
 
-	&:hover {
-		background: darken( $color_nav, 10%);
-	}
-
 	> a {
 		line-height: 1.5em;
 		font-weight: bold;
@@ -856,6 +852,7 @@ form {
 
 		&:hover {
 			text-decoration: none;
+			background: darken( $color_nav, 10%);
 		}
 	}
 }

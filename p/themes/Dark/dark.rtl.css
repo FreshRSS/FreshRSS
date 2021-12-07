@@ -744,10 +744,6 @@ a.btn {
 	text-align: center;
 }
 
-#new-article:hover {
-	background: #4a5d7a;
-}
-
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -756,6 +752,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #4a5d7a;
 }
 
 /*=== Day indication */

@@ -670,9 +670,6 @@ form th {
 	left: 0;
 	line-height: 1.5em;
 }
-#new-article:hover {
-	background: #00488b;
-}
 #new-article > a {
 	line-height: 1.5em;
 	font-weight: bold;
@@ -680,6 +677,7 @@ form th {
 }
 #new-article > a:hover {
 	text-decoration: none;
+	background: #00488b;
 }
 
 .day {
