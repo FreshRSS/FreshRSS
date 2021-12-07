@@ -84,7 +84,9 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 	</div>
 	<div class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		<?php if(FreshRSS_Context::$user_conf->no_article_add_feed_link) {?>
 		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+		<?php } ?>
 	</div>
 </main>
 <?php endif; ?>
