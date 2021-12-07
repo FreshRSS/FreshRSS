@@ -35,6 +35,7 @@ return array (
 	'display_categories' => 'active',	//{ active, remember, all, none }
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
+	'no_article_add_feed_link' => true,
 	'lazyload' => true,
 	'sides_close_article' => true,
 	'sticky_post' => true,
