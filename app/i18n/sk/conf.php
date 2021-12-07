@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť "lazy load"',
 		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
 		'mark_updated_article_unread' => 'Označiť aktualizované články ako neprečítané',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'V režime čítania predeliť na dve časti.',
 		'read' => array(
 			'article_open_on_website' => 'keď je článok otvorený na svojej webovej stránke',

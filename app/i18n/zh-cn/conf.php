@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
 		'mark_updated_article_unread' => '将更新的文章设为未读',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => '阅读视图中显示一半',
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',

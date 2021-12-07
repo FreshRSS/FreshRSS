@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Использовать режим "ленивой загрузки" для загрузки картинок',
 		'jump_next' => 'перейти к следующей ленте или категории',
 		'mark_updated_article_unread' => 'Отмечать обновлённые статьи непрочитанными',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Делится на 2 в виде для чтения.',
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',

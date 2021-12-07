@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
 		'mark_updated_article_unread' => 'Markieren Sie aktualisierte Artikel als ungelesen',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',

@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => '"lazy load"を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'reading viewを二分割する',
 		'read' => array(
 			'article_open_on_website' => '記事を元のwebサイトで開いたとき',

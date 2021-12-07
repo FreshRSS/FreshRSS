@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
 		'read' => array(
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',

@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'שימוש ב "טעינה עצלה" על מנת לטעון תמונות',
 		'jump_next' => 'קפיצה לפריט הבא שלא נקרא (הזנה או קטגוריה)',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO - Translation
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'חלוקה ב2 במצב קריאה.',
 		'read' => array(
 			'article_open_on_website' => 'כאשר מאמר נפתח באתר המקורי',

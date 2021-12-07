@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(
 			'article_open_on_website' => 'lorsque l’article est ouvert sur le site d’origine',

@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
 		'read' => array(
 			'article_open_on_website' => 'cuando el artículo se abra en su web original',

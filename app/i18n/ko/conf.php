@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',
 		'mark_updated_article_unread' => '갱신 된 글을 읽지 않음으로 표시',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => '읽기 모드에서는 절반만 표시됩니다.',
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',

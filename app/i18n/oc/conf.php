@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
 		'mark_updated_article_unread' => 'Marcar los articles actualizats coma pas legits',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Devisat per 2 dins la vista de lectura.',
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',

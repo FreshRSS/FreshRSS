@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
 		'mark_updated_article_unread' => 'Güncellenen makaleleri okundu olarak işaretle',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Okuma modunda ikiye bölünecek.',
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',

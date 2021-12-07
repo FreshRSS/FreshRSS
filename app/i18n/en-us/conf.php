@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
 		'jump_next' => 'jump to next unread sibling (feed or category)',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',

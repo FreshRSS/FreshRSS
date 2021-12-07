@@ -124,6 +124,10 @@ return array(
 		'img_with_lazyload' => 'Opóźnij ładowanie obrazów dopóki nie będą widoczne',
 		'jump_next' => 'przejdź do następnego nieprzeczytanego kanału bądź kategorii',
 		'mark_updated_article_unread' => 'Oznacz zaktualizowane wiadomości jako nieprzeczytane',
+		'no_article_add_feed_link' => array(
+			'description' => 'Show "Please add some feeds" link',	// TODO - Translation
+			'label' => 'If no articles to show',	// TODO - Translation
+		),
 		'number_divided_when_reader' => 'Dzielone przez 2 w widoku czytania.',
 		'read' => array(
 			'article_open_on_website' => 'gdy wiadomość jest otworzona na pierwotnej stronie',
