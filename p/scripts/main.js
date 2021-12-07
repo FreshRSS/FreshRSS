@@ -1481,9 +1481,11 @@ function refreshUnreads() {
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
+		let nbUnreadFeeds = 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
+			nbUnreadFeeds += nbUnreads;
 			feed_id = 'f_' + feed_id;
 			const elem = document.getElementById(feed_id);
 			const feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
@@ -1496,6 +1498,11 @@ function refreshUnreads() {
 				new_articles = true;
 			}
 		});
+
+		let noArticlesToShow_div = document.getElementById('noArticlesToShow');
+		if (nbUnreadFeeds > 0 && noArticlesToShow_div) {
+			noArticlesToShow_div.classList.add('hide');
+		}
 
 		let nbUnreadTags = 0;
 
