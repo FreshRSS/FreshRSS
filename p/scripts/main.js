@@ -1499,7 +1499,7 @@ function refreshUnreads() {
 			}
 		});
 
-		let noArticlesToShow_div = document.getElementById('noArticlesToShow');
+		const noArticlesToShow_div = document.getElementById('noArticlesToShow');
 		if (nbUnreadFeeds > 0 && noArticlesToShow_div) {
 			noArticlesToShow_div.classList.add('hide');
 		}
