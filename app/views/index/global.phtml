@@ -20,11 +20,14 @@
 		'params' => $params,
 	);
 
+	$unreadArticles = 0;
+
 	foreach ($this->categories as $cat) {
 		$feeds = $cat->feeds();
 		$url_base['params']['get'] = 'c_' . $cat->id();
 
 		if (!empty($feeds)) {
+			$unreadArticles += $cat->nbNotRead();
 ?>
 	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
 		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
@@ -49,7 +52,14 @@
 <?php
 		}
 	}
-?>
+
+	if ($unreadArticles < 1) {
+		?>
+	<div id="noArticlesToShow" class="prompt alert alert-warn">
+		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+	</div>
+	<?php } ?>
 </main>
 
 <div id="overlay">
