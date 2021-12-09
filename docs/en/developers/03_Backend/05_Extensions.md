@@ -347,6 +347,9 @@ The following events are available:
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
 * `post_update` (`function(none) -> none`): **TODO** add documentation.
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation.
+* `entry_favorite` (`function(array($id, $is_favorite)) -> true | false | null`): will be executed, when the favorite status of an entry is changed
+* `entry_read` (`function(array($id, $type_get, $is_read)) -> true | false | null`): will be executed, when the read status of a single element is changed
+* `entry_read_multiple` (`function(array($id_max, $is_read)) -> true | false | null`): will be executed, when the read status of multiple elements is changed
 
 ### Writing your own configure.phtml
 

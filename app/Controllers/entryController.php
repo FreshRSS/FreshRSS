@@ -64,11 +64,21 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 
 			if (!$get) {
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("id_max" => $id_max, "read" => $is_read));
+				if ($extensionResult !== null && is_bool($extensionResult)) {
+					$is_read = $extensionResult;
+				}
+
 				// No get? Mark all entries as read (from $id_max)
 				$entryDAO->markReadEntries($id_max, $is_read);
 			} else {
 				$type_get = $get[0];
 				$get = substr($get, 2);
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id" => $id, "type" => $type_get, "status" => $is_read));
+				if ($extensionResult !== null && is_bool($extensionResult)) {
+					$is_read = $extensionResult;
+				}
+
 				switch($type_get) {
 				case 'c':
 					$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
@@ -131,6 +141,10 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$is_favourite = (bool)Minz_Request::param('is_favorite', true);
 		if ($id !== false) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array($id, $is_favourite));
+			if ($extensionResult !== null && is_bool($extensionResult)) {
+				$is_favourite = $extensionResult;
+			}
 			$entryDAO->markFavorite($id, $is_favourite);
 		}
 
