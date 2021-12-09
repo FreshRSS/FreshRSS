@@ -8,7 +8,7 @@ This section will guide you to the pages you need to get started. The order is t
 2. [Import an OPML or JSON file](04_Subscriptions.md#import-and-export)
 3. [Use the bookmarklet](04_Subscriptions.md#use-bookmarklet)
 
-Once you have added your feeds to FreshRSS, it is time to read them. There are three availalbe reading modes:
+Once you have added your feeds to FreshRSS, it is time to read them. There are three available reading modes:
 
 1. [The normal view](03_Main_view.md#normal-view) enables you to quickly read new articles
 2. [The global view](03_Main_view.md#global-view) shows you an overview of the status of your feeds in one glance
