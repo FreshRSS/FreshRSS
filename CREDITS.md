@@ -22,6 +22,7 @@ People are sorted by name so please keep this order.
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ASMfreaK)
 * [Bartosz Taudul](https://github.com/wolfpld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wolfpld), [Web](https://wolf.nereid.pl/)
 * [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
+* [Jonas Born](https://github.com/jonasborn): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jonasborn), [Web](https://jonasborn.de/)
 * [bpatath](https://github.com/bpatath): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bpatath)
 * [Brewal Bouvet](https://github.com/Jucgshu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jucgshu), [Web](https://dizolo.eu/)
 * [Brooke.](https://github.com/BrookeDot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BrookeDot), [Web](https://brooke.codes/)
