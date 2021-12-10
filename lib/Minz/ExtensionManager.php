@@ -75,6 +75,18 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'PassArguments',
 		),
+		'entry_read' => array(	// function(array($id, $type_get, $is_read)) -> true | false | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'entry_read_multiple' => array(	// function(array($id_max, $is_read)) -> true | false | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'entry_favorite' => array(	// function(array($id, $is_favorite)) -> true | false | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		)
 	);
 	private static $ext_to_hooks = array();
 
