@@ -27,6 +27,18 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
+		'entry_favorite' => array(	// function(array($id, $is_favorite)) -> true | false | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'entry_read' => array(	// function(array($id, $type_get, $is_read)) -> true | false | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'entry_read_multiple' => array(	// function(array($id_max, $is_read)) -> true | false | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
 		'feed_before_actualize' => array(	// function($feed) -> Feed | null
 			'list' => array(),
 			'signature' => 'OneToOne',
@@ -74,18 +86,6 @@ class Minz_ExtensionManager {
 		'simplepie_before_init' => array(	// function($simplePie, $feed) -> none
 			'list' => array(),
 			'signature' => 'PassArguments',
-		),
-		'entry_read' => array(	// function(array($id, $type_get, $is_read)) -> true | false | null
-			'list' => array(),
-			'signature' => 'OneToOne',
-		),
-		'entry_read_multiple' => array(	// function(array($id_max, $is_read)) -> true | false | null
-			'list' => array(),
-			'signature' => 'OneToOne',
-		),
-		'entry_favorite' => array(	// function(array($id, $is_favorite)) -> true | false | null
-			'list' => array(),
-			'signature' => 'OneToOne',
 		)
 	);
 	private static $ext_to_hooks = array();
