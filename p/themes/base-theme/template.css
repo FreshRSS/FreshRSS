@@ -579,15 +579,11 @@ a.btn {
 
 .tree-folder-title .title {
 	display: inline-block;
+	width: 100%;
+	vertical-align: middle;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-}
-
-.tree-folder-title .title {
-	display: inline-block;
-	width: 100%;
-	vertical-align: middle;
 }
 
 .tree-folder-items > .item {
