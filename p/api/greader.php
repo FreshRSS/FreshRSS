@@ -802,10 +802,20 @@ function editTag($e_ids, $a, $r) {
 
 	switch ($a) {
 		case 'user/-/state/com.google/read':
-			$entryDAO->markRead($e_ids, true);
+			$is_read = true;
+			$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("ids" => $e_ids, "is_read" => $is_read));
+			if ($extensionResult !== null && is_bool($extensionResult)) {
+				$is_read = $extensionResult;
+			}
+			$entryDAO->markRead($e_ids, $is_read);
 			break;
 		case 'user/-/state/com.google/starred':
-			$entryDAO->markFavorite($e_ids, true);
+			$is_favorite = true;
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite_multiple', array("ids" => $e_ids, "is_favorite" => $is_favorite));
+			if ($extensionResult !== null && is_bool($extensionResult)) {
+				$is_favorite = $extensionResult;
+			}
+			$entryDAO->markFavorite($e_ids, $is_favorite);
 			break;
 		/*case 'user/-/state/com.google/tracking-kept-unread':
 			break;
@@ -841,10 +851,20 @@ function editTag($e_ids, $a, $r) {
 	}
 	switch ($r) {
 		case 'user/-/state/com.google/read':
-			$entryDAO->markRead($e_ids, false);
+			$is_read = false;
+			$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("ids" => $e_ids, "is_read" => $is_read));
+			if ($extensionResult !== null && is_bool($extensionResult)) {
+				$is_read = $extensionResult;
+			}
+			$entryDAO->markRead($e_ids, $is_read);
 			break;
 		case 'user/-/state/com.google/starred':
-			$entryDAO->markFavorite($e_ids, false);
+			$is_favorite = false;
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite_multiple', array("ids" => $e_ids, "is_favorite" => $is_favorite));
+			if ($extensionResult !== null && is_bool($extensionResult)) {
+				$is_favorite = $extensionResult;
+			}
+			$entryDAO->markFavorite($e_ids, $is_favorite);
 			break;
 		default:
 			if (strpos($r, 'user/-/label/') === 0) {

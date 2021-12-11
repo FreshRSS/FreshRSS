@@ -64,7 +64,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 
 			if (!$get) {
-				$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("id_max" => $id_max, "read" => $is_read));
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("id_max" => $id_max, "is_read" => $is_read));
 				if ($extensionResult !== null && is_bool($extensionResult)) {
 					$is_read = $extensionResult;
 				}
@@ -74,7 +74,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			} else {
 				$type_get = $get[0];
 				$get = substr($get, 2);
-				$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id" => $id, "type" => $type_get, "status" => $is_read));
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id_max" => $id_max, "type" => $type_get, "is_read" => $is_read));
 				if ($extensionResult !== null && is_bool($extensionResult)) {
 					$is_read = $extensionResult;
 				}
@@ -108,6 +108,11 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 		} else {
 			$ids = is_array($id) ? $id : array($id);
+			$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("ids" => $ids, "is_read" => $is_read));
+			if ($extensionResult !== null && is_bool($extensionResult)) {
+				$is_read = $extensionResult;
+			}
+
 			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
 			$tagsForEntries = $tagDAO->getTagsForEntries($ids);
@@ -138,14 +143,14 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 */
 	public function bookmarkAction() {
 		$id = Minz_Request::param('id');
-		$is_favourite = (bool)Minz_Request::param('is_favorite', true);
+		$is_favorite = (bool)Minz_Request::param('is_favorite', true);
 		if ($id !== false) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array($id, $is_favourite));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("id" => $id, "is_favorite" => $is_favorite));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
-				$is_favourite = $extensionResult;
+				$is_favorite = $extensionResult;
 			}
-			$entryDAO->markFavorite($id, $is_favourite);
+			$entryDAO->markFavorite($id, $is_favorite);
 		}
 
 		if (!$this->ajax) {
