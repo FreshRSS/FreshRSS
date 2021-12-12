@@ -14,6 +14,7 @@ class FreshRSS_Search {
 	private $raw_input = '';
 
 	// The following properties are extracted from the raw input
+	private $entry_ids;
 	private $feed_ids;
 	private $label_ids;
 	private $label_names;
@@ -27,6 +28,7 @@ class FreshRSS_Search {
 	private $tags;
 	private $search;
 
+	private $not_entry_ids;
 	private $not_feed_ids;
 	private $not_label_ids;
 	private $not_label_names;
@@ -48,6 +50,7 @@ class FreshRSS_Search {
 
 		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
 
+		$input = $this->parseNotEntryIds($input);
 		$input = $this->parseNotFeedIds($input);
 		$input = $this->parseNotLabelIds($input);
 		$input = $this->parseNotLabelNames($input);
@@ -60,6 +63,7 @@ class FreshRSS_Search {
 		$input = $this->parseNotInurlSearch($input);
 		$input = $this->parseNotTagsSearch($input);
 
+		$input = $this->parseEntryIds($input);
 		$input = $this->parseFeedIds($input);
 		$input = $this->parseLabelIds($input);
 		$input = $this->parseLabelNames($input);
@@ -82,6 +86,13 @@ class FreshRSS_Search {
 
 	public function getRawInput() {
 		return $this->raw_input;
+	}
+
+	public function getEntryIds() {
+		return $this->feed_ids;
+	}
+	public function getNotEntryIds() {
+		return $this->not_feed_ids;
 	}
 
 	public function getFeedIds() {
@@ -186,6 +197,44 @@ class FreshRSS_Search {
 			$value = trim(str_replace('+', ' ', $value));
 		}
 		return $value;
+	}
+
+	/**
+	 * Parse the search string to find feed IDs.
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	private function parseEntryIds($input) {
+		if (preg_match_all('/\be:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->entry_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$entry_ids = explode(',', $ids_list);
+				$entry_ids = self::removeEmptyValues($entry_ids);
+				if (!empty($entry_ids)) {
+					$this->entry_ids[] = $entry_ids;
+				}
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotEntryIds($input) {
+		if (preg_match_all('/[!-]e:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->not_feed_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$entry_ids = explode(',', $ids_list);
+				$entry_ids = self::removeEmptyValues($entry_ids);
+				if (!empty($entry_ids)) {
+					$this->not_feed_ids[] = $entry_ids;
+				}
+			}
+		}
+		return $input;
 	}
 
 	/**
