@@ -89,10 +89,10 @@ class FreshRSS_Search {
 	}
 
 	public function getEntryIds() {
-		return $this->feed_ids;
+		return $this->entry_ids;
 	}
 	public function getNotEntryIds() {
-		return $this->not_feed_ids;
+		return $this->not_entry_ids;
 	}
 
 	public function getFeedIds() {
@@ -200,7 +200,7 @@ class FreshRSS_Search {
 	}
 
 	/**
-	 * Parse the search string to find feed IDs.
+	 * Parse the search string to find entry (article) IDs.
 	 *
 	 * @param string $input
 	 * @return string
@@ -225,12 +225,12 @@ class FreshRSS_Search {
 		if (preg_match_all('/[!-]e:(?P<search>[0-9,]*)/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$ids_lists = $matches['search'];
-			$this->not_feed_ids = [];
+			$this->not_entry_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				$entry_ids = explode(',', $ids_list);
 				$entry_ids = self::removeEmptyValues($entry_ids);
 				if (!empty($entry_ids)) {
-					$this->not_feed_ids[] = $entry_ids;
+					$this->not_entry_ids[] = $entry_ids;
 				}
 			}
 		}
