@@ -27,15 +27,11 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
-		'entry_favorite' => array(	// function(array($id, $is_favorite)) -> true | false | null
+		'entry_favorite' => array(	// function(array($ids, $is_favorite)) -> true | false | null
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
-		'entry_read' => array(	// function(array($id, $type_get, $is_read)) -> true | false | null
-			'list' => array(),
-			'signature' => 'OneToOne',
-		),
-		'entry_read_multiple' => array(	// function(array($id_max, $is_read)) -> true | false | null
+		'entry_read' => array(	// function(array($ids_max, $is_read)) -> true | false | null | function(array($id_max, [$type], $is_read)) -> true | false | null
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),

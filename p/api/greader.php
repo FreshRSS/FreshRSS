@@ -803,7 +803,7 @@ function editTag($e_ids, $a, $r) {
 	switch ($a) {
 		case 'user/-/state/com.google/read':
 			$is_read = true;
-			$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("ids" => $e_ids, "is_read" => $is_read));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("ids" => $e_ids, "is_read" => $is_read));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
 				$is_read = $extensionResult;
 			}
@@ -811,7 +811,7 @@ function editTag($e_ids, $a, $r) {
 			break;
 		case 'user/-/state/com.google/starred':
 			$is_favorite = true;
-			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite_multiple', array("ids" => $e_ids, "is_favorite" => $is_favorite));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("ids" => $e_ids, "is_favorite" => $is_favorite));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
 				$is_favorite = $extensionResult;
 			}
@@ -852,7 +852,7 @@ function editTag($e_ids, $a, $r) {
 	switch ($r) {
 		case 'user/-/state/com.google/read':
 			$is_read = false;
-			$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("ids" => $e_ids, "is_read" => $is_read));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("ids" => $e_ids, "is_read" => $is_read));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
 				$is_read = $extensionResult;
 			}
@@ -860,7 +860,7 @@ function editTag($e_ids, $a, $r) {
 			break;
 		case 'user/-/state/com.google/starred':
 			$is_favorite = false;
-			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite_multiple', array("ids" => $e_ids, "is_favorite" => $is_favorite));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("ids" => $e_ids, "is_favorite" => $is_favorite));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
 				$is_favorite = $extensionResult;
 			}

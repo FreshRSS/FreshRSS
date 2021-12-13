@@ -278,4 +278,32 @@ DROP TABLE IF EXISTS `tmp`;
 		}
 		return $affected;
 	}
+
+	public function listIds($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
+		if ($idMax == 0) {
+			$idMax = time() . '000000';
+			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
+		}
+
+		$sql = 'SELECT `id` FROM entry WHERE is_read <> ? AND id <= ?';
+		if ($onlyFavorites) {
+			$sql .= ' AND is_favorite=1';
+		} elseif ($priorityMin >= 0) {
+			$sql .= ' AND id_feed IN (SELECT f.id FROM `feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
+		}
+		$values = array($is_read ? 1 : 0, $idMax);
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
+		print_r($sql . $search);
+		$stm = $this->pdo->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			print_r($info);
+			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
+			return false;
+		}
+
+		print_r($stm->fetch());
+	}
 }

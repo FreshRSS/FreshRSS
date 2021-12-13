@@ -1062,6 +1062,10 @@ SQL;
 		}
 	}
 
+	public function listIds($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+		//TODO Add
+	}
+
 	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);

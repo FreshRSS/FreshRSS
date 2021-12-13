@@ -64,17 +64,19 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 
 			if (!$get) {
-				$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("id_max" => $id_max, "is_read" => $is_read));
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id_max" => $id_max, "is_read" => $is_read));
 				if ($extensionResult !== null && is_bool($extensionResult)) {
 					$is_read = $extensionResult;
 				}
 
 				// No get? Mark all entries as read (from $id_max)
-				$entryDAO->markReadEntries($id_max, $is_read);
+				if ($is_read) {
+					$entryDAO->markReadEntries($id_max);
+				}
 			} else {
 				$type_get = $get[0];
 				$get = substr($get, 2);
-				$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("id_max" => $id_max, "type" => $type_get, "is_read" => $is_read));
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id_max" => $id_max, "type" => $type_get, "is_read" => $is_read));
 				if ($extensionResult !== null && is_bool($extensionResult)) {
 					$is_read = $extensionResult;
 				}
@@ -108,7 +110,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 		} else {
 			$ids = is_array($id) ? $id : array($id);
-			$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("ids" => $ids, "is_read" => $is_read));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("ids" => $ids, "is_read" => $is_read));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
 				$is_read = $extensionResult;
 			}
@@ -146,7 +148,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$is_favorite = (bool)Minz_Request::param('is_favorite', true);
 		if ($id !== false) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("id" => $id, "is_favorite" => $is_favorite));
+			$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("ids" => [$id], "is_favorite" => $is_favorite));
 			if ($extensionResult !== null && is_bool($extensionResult)) {
 				$is_favorite = $extensionResult;
 			}

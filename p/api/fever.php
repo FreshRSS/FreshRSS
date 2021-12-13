@@ -452,7 +452,7 @@ class FeverAPI
 	protected function setItemAsRead($id)
 	{
 		$is_read  = true;
-		$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id" => $id, "is_read" => $is_read));
+		$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("ids" => [$id], "is_read" => $is_read));
 		if ($extensionResult !== null && is_bool($extensionResult)) {
 			$is_read = $extensionResult;
 		}
@@ -462,7 +462,7 @@ class FeverAPI
 	protected function setItemAsUnread($id)
 	{
 		$is_read  = false;
-		$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id" => $id, "is_read" => $is_read));
+		$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("ids" => [$id], "is_read" => $is_read));
 		if ($extensionResult !== null && is_bool($extensionResult)) {
 			$is_read = $extensionResult;
 		}
@@ -472,7 +472,7 @@ class FeverAPI
 	protected function setItemAsSaved($id)
 	{
 		$is_favorite = true;
-		$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("id" => $id, "is_favorite" => $is_favorite));
+		$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("ids" => [$id], "is_favorite" => $is_favorite));
 		if ($extensionResult !== null && is_bool($extensionResult)) {
 			$is_favorite = $extensionResult;
 		}
@@ -482,7 +482,7 @@ class FeverAPI
 	protected function setItemAsUnsaved($id)
 	{
 		$is_favorite = false;
-		$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("id" => $id, "is_favorite" => $is_favorite));
+		$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("ids" => [$id], "is_favorite" => $is_favorite));
 		if ($extensionResult !== null && is_bool($extensionResult)) {
 			$is_favorite = $extensionResult;
 		}
