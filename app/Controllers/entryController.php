@@ -74,7 +74,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			} else {
 				$type_get = $get[0];
 				$get = substr($get, 2);
-				$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id_max" => $id_max, "type" => $type_get, "is_read" => $is_read));
+				$extensionResult = Minz_ExtensionManager::callHook('entry_read_multiple', array("id_max" => $id_max, "type" => $type_get, "is_read" => $is_read));
 				if ($extensionResult !== null && is_bool($extensionResult)) {
 					$is_read = $extensionResult;
 				}

@@ -451,22 +451,42 @@ class FeverAPI
 
 	protected function setItemAsRead($id)
 	{
-		return $this->entryDAO->markRead($id, true);
+		$is_read  = true;
+		$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id" => $id, "is_read" => $is_read));
+		if ($extensionResult !== null && is_bool($extensionResult)) {
+			$is_read = $extensionResult;
+		}
+		return $this->entryDAO->markRead($id, $is_read);
 	}
 
 	protected function setItemAsUnread($id)
 	{
-		return $this->entryDAO->markRead($id, false);
+		$is_read  = false;
+		$extensionResult = Minz_ExtensionManager::callHook('entry_read', array("id" => $id, "is_read" => $is_read));
+		if ($extensionResult !== null && is_bool($extensionResult)) {
+			$is_read = $extensionResult;
+		}
+		return $this->entryDAO->markRead($id, $is_read);
 	}
 
 	protected function setItemAsSaved($id)
 	{
-		return $this->entryDAO->markFavorite($id, true);
+		$is_favorite = true;
+		$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("id" => $id, "is_favorite" => $is_favorite));
+		if ($extensionResult !== null && is_bool($extensionResult)) {
+			$is_favorite = $extensionResult;
+		}
+		return $this->entryDAO->markFavorite($id, $is_favorite);
 	}
 
 	protected function setItemAsUnsaved($id)
 	{
-		return $this->entryDAO->markFavorite($id, false);
+		$is_favorite = false;
+		$extensionResult = Minz_ExtensionManager::callHook('entry_favorite', array("id" => $id, "is_favorite" => $is_favorite));
+		if ($extensionResult !== null && is_bool($extensionResult)) {
+			$is_favorite = $extensionResult;
+		}
+		return $this->entryDAO->markFavorite($id, $is_favorite);
 	}
 
 	/**
