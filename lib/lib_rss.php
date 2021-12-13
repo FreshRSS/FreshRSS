@@ -376,6 +376,8 @@ function get_user_configuration($username) {
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_REMOTE_USER'])) {
+		return $_SERVER['HTTP_REMOTE_USER'];
 	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
 	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
