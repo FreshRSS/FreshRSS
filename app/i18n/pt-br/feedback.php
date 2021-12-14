@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => 'O cache do feed <em>%s</em> foi limpo',
 			'deleted' => 'o Feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
-			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. You can try force adding by appending <code>#force_feed</code> to the URL.',
+			'internal_problem' => 'The newsfeed could not be added. <a href=%s>Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> é inválida',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',

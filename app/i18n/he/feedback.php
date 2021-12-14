@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'ההזנה נמחקה',
 			'error' => 'Feed cannot be updated',	// TODO - Translation
-			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים. You can try force adding by appending <code>#force_feed</code> to the URL.',
+			'internal_problem' => 'The newsfeed could not be added. <a href=%s>Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
 			'n_actualized' => '%d הזנות עודכנו',
 			'n_entries_deleted' => '%d המאמרים נמחקו',
