@@ -20,6 +20,7 @@ People are sorted by name so please keep this order.
 * [Anton Smirnov](https://github.com/arokettu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:arokettu), [Web](https://sandfox.me/)
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ASMfreaK)
+* [Bartosz Taudul](https://github.com/wolfpld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wolfpld), [Web](https://wolf.nereid.pl/)
 * [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
 * [bpatath](https://github.com/bpatath): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bpatath)
 * [Brewal Bouvet](https://github.com/Jucgshu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jucgshu), [Web](https://dizolo.eu/)

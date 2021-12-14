@@ -434,6 +434,10 @@ a.btn {
 	margin: 5px 20px;
 }
 
+.alert.hide {
+	display: none;
+}
+
 /*=== Icons */
 .icon {
 	display: inline-block;
@@ -1366,7 +1370,7 @@ input:checked + .slide-container .properties {
 	}
 
 
-	.item.search form {
+	header .item.search form {
 		display: none;
 	}
 
