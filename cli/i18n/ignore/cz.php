@@ -47,4 +47,5 @@ return array(
 	'gen.share.wallabag',
 	'gen.share.wallabagv2',
 	'index.about.agpl3',
+	'feedback.sub.feed.internal_problem',
 );

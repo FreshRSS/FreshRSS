@@ -84,7 +84,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
 			'deleted' => 'Kanál byl smazán',
 			'error' => 'Kanál nelze aktualizovat',
-			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>. You can try force adding by appending <code>#force_feed</code> to the URL.',
+			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> není platné',
 			'n_actualized' => '%d kanálů bylo aktualizováno',
 			'n_entries_deleted' => '%d článků bylo smazáno',
