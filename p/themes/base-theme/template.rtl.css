@@ -1380,6 +1380,7 @@ input:checked + .slide-container .properties {
 
 	.form-group .group-name {
 		float: none;
+		width: auto;
 	}
 
 	.form-group .group-controls {
