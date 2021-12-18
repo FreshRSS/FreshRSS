@@ -31,9 +31,9 @@ This documentation is split into different sections:
 
 ## Demo
 
-The official demo of FreshRSS is available under [https://demo.freshrss.org/](https://demo.freshrss.org/). 
+The official demo of FreshRSS is available under [https://demo.freshrss.org/](https://demo.freshrss.org/).
 
-Login credentials: 
+Login credentials:
 
 * Username: demo
 * Password: demodemo
