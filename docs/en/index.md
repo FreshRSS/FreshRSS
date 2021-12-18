@@ -31,7 +31,12 @@ This documentation is split into different sections:
 
 ## Demo
 
-The official demo of FreshRSS is available under [https://demo.freshrss.org/](https://demo.freshrss.org/).
+The official demo of FreshRSS is available under [https://demo.freshrss.org/](https://demo.freshrss.org/). 
+
+Login credentials: 
+
+* Username: demo
+* Password: demodemo
 
 Another chance to try out, but not official supported by FreshRSS: The application is listed on Softaculous [https://www.softaculous.com/apps/rss/FreshRSS](https://www.softaculous.com/apps/rss/FreshRSS).
 
