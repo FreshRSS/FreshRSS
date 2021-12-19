@@ -22,6 +22,15 @@ You can disable auto-registration of new users by setting `http_auth_auto_regist
 When using auto-registration, you can optionally use the `http_auth_auto_register_email_field` to specify the name of a web server
 variable containing the email address of the authenticated user (e.g. `REMOTE_USER_EMAIL`).
 
+## External Authentication
+
+You may also use the `HTTP_REMOTE_USER` header to integrate with a your reverse-proxy's authentication.
+
+To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
+To allow only one IP, you can use a `/32` like this: `trusted_sources => array('192.168.1.10/32')`.
+
+WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn't properly secured, an attacker could simply attach this header and get admin access.
+
 ## No Authentication
 
 Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.

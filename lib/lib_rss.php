@@ -372,11 +372,42 @@ function get_user_configuration($username) {
 	return Minz_Configuration::get($namespace);
 }
 
+/**
+ * Check if an ip belongs to the provided range (in CIDR format)
+ * 
+ * @param $ip the IP that we want to verify (ex: 192.168.16.1)
+ * @param $range the range to check against (ex: 192.168.16.0/24)
+ * @return boolean true if the IP is in the range, else false
+ */
+function checkCIDR($ip, $range) {
+	list ($subnet, $bits) = explode('/', $range);
+	$ip = ip2long($ip);
+	$subnet = ip2long($subnet);
+	$mask = -1 << (32 - $bits);
+	$subnet &= $mask; // in case the supplied subnet was not correctly aligned
+	return ($ip & $mask) == $subnet;
+}
+
+/**
+ * Check if the client is allowed to send unsafe headers
+ * This uses the REMOTE_ADDR header to determine the sender's IP
+ * and the configuration option "trusted_sources" to get an array of the authorized ranges
+ * 
+ * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ */
+function checkTrustedIP() {
+	foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+		if (checkCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
+			return true;
+		}
+	}
+	return false;
+}
 
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_REMOTE_USER'])) {
+	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
 		return $_SERVER['HTTP_REMOTE_USER'];
 	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
