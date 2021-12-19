@@ -7,10 +7,7 @@ AddDefaultCharset	UTF-8
 
 <IfModule mod_mime.c>
 	AddType application/json .map
-	AddType application/font-woff .woff
-	AddType application/font-woff2 .woff2
 
-	AddCharset	UTF-8	.css
 	AddCharset	UTF-8	.html
 	AddCharset	UTF-8	.js
 </IfModule>
