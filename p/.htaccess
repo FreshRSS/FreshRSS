@@ -6,6 +6,7 @@ FileETag	None
 AddDefaultCharset	UTF-8
 
 <IfModule mod_mime.c>
+	AddType application/javascript .js
 	AddType application/json .map
 
 	AddCharset	UTF-8	.html
@@ -13,19 +14,18 @@ AddDefaultCharset	UTF-8
 </IfModule>
 
 <IfModule mod_deflate.c>
-	AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json application/xhtml+xml image/svg+xml text/css text/html text/javascript
+	AddOutputFilterByType DEFLATE application/javascript application/json application/xhtml+xml image/svg+xml text/css text/html
 </IfModule>
 
 <IfModule mod_expires.c>
 	ExpiresActive	on
+	ExpiresDefault	"access plus 1 month"
 	ExpiresByType	application/font-woff	"access plus 1 month"
 	ExpiresByType	application/font-woff2	"access plus 1 month"
 	ExpiresByType	application/javascript	"access plus 1 month"
-	ExpiresByType	application/x-javascript	"access plus 1 month"
 	ExpiresByType	application/xhtml+xml	"access plus 1 month"
 	ExpiresByType	image/x-icon	"access plus 1 month"
 	ExpiresByType	text/html	"access plus 1 month"
-	ExpiresByType	text/javascript	"access plus 1 month"
 	<FilesMatch "\.php$">
 		ExpiresActive	Off
 	</FilesMatch>
