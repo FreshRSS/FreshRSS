@@ -125,7 +125,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 			FreshRSS_Context::initUser($username);
 			if (FreshRSS_Context::$user_conf == null) {
-				//We do not test here whether the user exists, so most likely an internal error.
+				// Initialise the default user to be able to display the error page
+				FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
 				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 				return;
 			}
