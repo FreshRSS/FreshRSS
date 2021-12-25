@@ -4,7 +4,7 @@
 
 Settings page: `Administation` -> `Manage Users`.
 
-The `[default user](13_Default_user.md)` is marked with italic letters.
+The [default user](13_Default_user.md) is marked with italic letters.
 
 ## Create new user
 
