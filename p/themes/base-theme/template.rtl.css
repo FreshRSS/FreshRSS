@@ -807,7 +807,7 @@ input[type="search"] {
 	height: 100%;
 	display: inline-block;
 	overflow: hidden;
-	background: repeating-linear-gradient( -45deg, #ddd, #ddd 5px, transparent 5px, transparent 10px );
+	background: repeating-linear-gradient( 45deg, #ddd, #ddd 5px, transparent 5px, transparent 10px );
 	object-fit: cover;
 }
 
