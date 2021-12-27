@@ -374,7 +374,7 @@ function get_user_configuration($username) {
 
 /**
  * Converts an IP (v4 or v6) to a binary representation using inet_pton
- * 
+ *
  * @param $ip the IP to convert
  * @return string a binary representation of the specified ip
  */
@@ -389,7 +389,7 @@ function ipToBits($ip)
 
 /**
  * Check if an ip belongs to the provided range (in CIDR format)
- * 
+ *
  * @param $ip the IP that we want to verify (ex: 192.168.16.1)
  * @param $range the range to check against (ex: 192.168.16.0/24)
  * @return boolean true if the IP is in the range, else false
@@ -409,7 +409,7 @@ function checkCIDR($ip, $range) {
  * Check if the client is allowed to send unsafe headers
  * This uses the REMOTE_ADDR header to determine the sender's IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
- * 
+ *
  * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP() {

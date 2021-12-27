@@ -193,5 +193,5 @@ return array(
 	# Trusted IPs that are allowed to send unsafe headers
 	# Please read the documentation, before configuring this
 	'trusted_sources' => array(
-  	)
+	)
 );
