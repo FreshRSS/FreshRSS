@@ -373,6 +373,21 @@ function get_user_configuration($username) {
 }
 
 /**
+ * Converts an IP (v4 or v6) to a binary representation using inet_pton
+ * 
+ * @param $ip the IP to convert
+ * @return string a binary representation of the specified ip
+ */
+function ipToBits($ip)
+{
+	$binaryip = '';
+	foreach (str_split(inet_pton($ip)) as $char) {
+		$binaryip .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+	}
+	return $binaryip;
+}
+
+/**
  * Check if an ip belongs to the provided range (in CIDR format)
  * 
  * @param $ip the IP that we want to verify (ex: 192.168.16.1)
@@ -380,12 +395,14 @@ function get_user_configuration($username) {
  * @return boolean true if the IP is in the range, else false
  */
 function checkCIDR($ip, $range) {
-	list ($subnet, $bits) = explode('/', $range);
-	$ip = ip2long($ip);
-	$subnet = ip2long($subnet);
-	$mask = -1 << (32 - $bits);
-	$subnet &= $mask; // in case the supplied subnet was not correctly aligned
-	return ($ip & $mask) == $subnet;
+	$binary_ip = ipToBits($ip);
+	list($subnet, $mask_bits) = explode('/', $range);
+	$binary_subnet = ipToBits($subnet);
+
+	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
+	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
+
+	return $ip_net_bits == $subnet_bits;
 }
 
 /**
@@ -411,7 +428,7 @@ function httpAuthUser() {
 		return $_SERVER['HTTP_REMOTE_USER'];
 	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
 		return $_SERVER['HTTP_X_WEBAUTH_USER'];
 	}
 	return '';
