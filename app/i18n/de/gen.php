@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importieren',
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
-		'mark_favorite' => 'Als Favorit markieren',
 		'mark_read' => 'Als gelesen markieren',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',

@@ -38,18 +38,14 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 					}
 				?>
 				<?php if (FreshRSS_Auth::hasAccess()) { ?>
-				<a class="read" href="<?= Minz_Url::display($readUrl) ?>">
-					<?= _i($item->isRead() ? 'read' : 'unread') ?>
-				</a>
-				<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>">
-					<?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?>
-				</a>
+				<a class="read" href="<?= Minz_Url::display($readUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i($item->isRead() ? 'read' : 'unread') ?></a>
+				<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?></a>
 				<?php } ?>
-				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>">
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-						<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" />
-					<?php endif; ?>
-					<span><?= $feed->name() ?></span>
+				<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>"><?php
+				if (FreshRSS_Context::$user_conf->show_favicons):
+				?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+				endif;
+				?><span><?= $feed->name() ?></span>
 				</a>
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $item->link() ?>"><?= $item->title() ?></a></h1>
 
@@ -83,9 +79,14 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
 <main id="stream" class="reader">
+	<div id="new-article">
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+	</div>
 	<div class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+		<?php } ?>
 	</div>
 </main>
 <?php endif; ?>

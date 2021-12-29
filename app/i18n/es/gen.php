@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importar',
 		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
-		'mark_favorite' => 'Marcar como favorita',
 		'mark_read' => 'Marcar como leído',
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',

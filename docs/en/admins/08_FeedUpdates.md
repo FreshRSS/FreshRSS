@@ -18,7 +18,7 @@ It's advisable that you run the Cron job as your Web server user (often `www-dat
 
 To run the updater script every hour, and 10 minutes past the hour:
 
-Run `sudo crontab -e` and copy the following line into the crontab:
+Edit `/etc/crontab` and append the following line:
 ```text
 10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```

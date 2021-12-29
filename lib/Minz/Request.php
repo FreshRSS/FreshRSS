@@ -136,11 +136,11 @@ class Minz_Request {
 	 * @return boolean
 	 */
 	public static function isHttps() {
-		$header = static::getHeader('HTTP_X_FORWARDED_PROTO');
-		if (null !== $header) {
+		$header = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
+		if ('' != $header) {
 			return 'https' === strtolower($header);
 		}
-		return 'on' === static::getHeader('HTTPS');
+		return 'on' === ($_SERVER['HTTPS'] ?? '');
 	}
 
 	/**
@@ -172,14 +172,14 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractHost() {
-		if (null !== $host = static::getHeader('HTTP_X_FORWARDED_HOST')) {
+		if ('' != $host = ($_SERVER['HTTP_X_FORWARDED_HOST'] ?? '')) {
 			return parse_url("http://{$host}", PHP_URL_HOST);
 		}
-		if (null !== $host = static::getHeader('HTTP_HOST')) {
+		if ('' != $host = ($_SERVER['HTTP_HOST'] ?? '')) {
 			// Might contain a port number, and mind IPv6 addresses
 			return parse_url("http://{$host}", PHP_URL_HOST);
 		}
-		if (null !== $host = static::getHeader('SERVER_NAME')) {
+		if ('' != $host = ($_SERVER['SERVER_NAME'] ?? '')) {
 			return $host;
 		}
 		return 'localhost';
@@ -189,13 +189,13 @@ class Minz_Request {
 	 * @return integer
 	 */
 	private static function extractPort() {
-		if (null !== $port = static::getHeader('HTTP_X_FORWARDED_PORT')) {
+		if ('' != $port = ($_SERVER['HTTP_X_FORWARDED_PORT'] ?? '')) {
 			return intval($port);
 		}
-		if (null !== $proto = static::getHeader('HTTP_X_FORWARDED_PROTO')) {
+		if ('' != $proto = ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) {
 			return 'https' === strtolower($proto) ? 443 : 80;
 		}
-		if (null !== $port = static::getHeader('SERVER_PORT')) {
+		if ('' != $port = ($_SERVER['SERVER_PORT'] ?? '')) {
 			return intval($port);
 		}
 		return static::isHttps() ? 443 : 80;
@@ -218,7 +218,7 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractPrefix() {
-		if (null !== $prefix = static::getHeader('HTTP_X_FORWARDED_PREFIX')) {
+		if ('' != $prefix = ($_SERVER['HTTP_X_FORWARDED_PREFIX'] ?? '')) {
 			return rtrim($prefix, '/ ');
 		}
 		return '';
@@ -228,7 +228,7 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractPath() {
-		if (null !== $path = static::getHeader('REQUEST_URI')) {
+		if ('' != $path = ($_SERVER['REQUEST_URI'] ?? '')) {
 			return '/' === substr($path, -1) ? substr($path, 0, -1) : dirname($path);
 		}
 		return '';
@@ -371,25 +371,6 @@ class Minz_Request {
 		Minz_Request::forward($url, true);
 	}
 
-
-	/**
-	 * Permet de récupérer une variable de type $_GET
-	 * @param $param nom de la variable
-	 * @param $default valeur par défaut à attribuer à la variable
-	 * @return string $_GET[$param]
-	 *         $_GET si $param = false
-	 *         $default si $_GET[$param] n'existe pas
-	 */
-	public static function fetchGET($param = false, $default = false) {
-		if (false === $param) {
-			return $_GET;
-		}
-		if (isset($_GET[$param])) {
-			return $_GET[$param];
-		}
-		return $default;
-	}
-
 	/**
 	 * Allows receiving POST data as application/json
 	 */
@@ -415,46 +396,21 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractContentType() {
-		return strtolower(trim(static::getHeader('CONTENT_TYPE')));
-	}
-
-	/**
-	 * Permet de récupérer une variable de type $_POST
-	 * @param $param nom de la variable
-	 * @param $default valeur par défaut à attribuer à la variable
-	 * @return string $_POST[$param]
-	 *         $_POST si $param = false
-	 *         $default si $_POST[$param] n'existe pas
-	 */
-	public static function fetchPOST($param = false, $default = false) {
-		if (false === $param) {
-			return $_POST;
-		}
-		if (isset($_POST[$param])) {
-			return $_POST[$param];
-		}
-		return $default;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public static function getHeader($header, $default = null) {
-		return isset($_SERVER[$header]) ? $_SERVER[$header] : $default;
+		return strtolower(trim($_SERVER['CONTENT_TYPE'] ?? ''));
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public static function isPost() {
-		return 'POST' === static::getHeader('REQUEST_METHOD');
+		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
 	}
 
 	/**
 	 * @return array
 	 */
 	public static function getPreferredLanguages() {
-		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', static::getHeader('HTTP_ACCEPT_LANGUAGE'), $matches)) {
+		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) {
 			return $matches['lang'];
 		}
 		return array('en');

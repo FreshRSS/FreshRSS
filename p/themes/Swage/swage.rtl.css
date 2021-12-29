@@ -71,7 +71,7 @@ img.icon:hover {
 	background: none;
 }
 
-div#stream {
+main#stream {
 	margin-top: 35px;
 }
 
@@ -1160,5 +1160,5 @@ button.as-link {
 	min-height: initial;
 }
 #slider .form-group:hover {
-	background: inital;
+	background: initial;
 }

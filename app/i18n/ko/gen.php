@@ -17,7 +17,6 @@ return array(
 		'import' => '불러오기',
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
-		'mark_favorite' => '즐겨찾기에 등록',
 		'mark_read' => '읽음으로 표시',
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',

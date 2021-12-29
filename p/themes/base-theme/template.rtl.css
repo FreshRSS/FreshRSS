@@ -434,6 +434,10 @@ a.btn {
 	margin: 5px 20px;
 }
 
+.alert.hide {
+	display: none;
+}
+
 /*=== Icons */
 .icon {
 	display: inline-block;
@@ -527,7 +531,6 @@ a.btn {
 @supports (scrollbar-width: thin) {
 	#sidebar,
 	.scrollbar-thin {
-		overflow-y: auto;
 		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
 		scrollbar-width: thin;
 	}
@@ -540,7 +543,7 @@ a.btn {
 
 @supports not (scrollbar-width: thin) {
 	#sidebar::-webkit-scrollbar,
-	.scrollbar-thin {
+	.scrollbar-thin::-webkit-scrollbar {
 		background: rgba(0, 0, 0, 0.05);
 		width: 8px;
 	}
@@ -1367,7 +1370,7 @@ input:checked + .slide-container .properties {
 	}
 
 
-	.item.search form {
+	header .item.search form {
 		display: none;
 	}
 
