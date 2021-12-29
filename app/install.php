@@ -540,6 +540,10 @@ function printStep2() {
 <?php
 }
 
+function no_auth($auth_type) {
+	return !in_array($auth_type, array('form', 'http_auth', 'none'));
+}
+
 function printStep3() {
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
@@ -565,9 +569,6 @@ function printStep3() {
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="4">
 					<?php
-						function no_auth($auth_type) {
-							return !in_array($auth_type, array('form', 'http_auth', 'none'));
-						}
 						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 					?>
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
