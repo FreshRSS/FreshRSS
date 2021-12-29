@@ -153,7 +153,7 @@ return array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
+		'force_email_validation' => 'Vynútiť overenie e-mailovej adresy',
 		'instance-name' => 'Názov inštancie',
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
@@ -172,18 +172,18 @@ return array(
 		'title' => 'Aktualizácia systému',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrátor',
+		'article_count' => 'Články',
+		'back_to_manage' => '← Späť na zoznam používateľov',
 		'create' => 'Vytvoriť nového používateľa',
-		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Veľkosť databázy',
+		'email' => 'E-mailová adresa',
+		'enabled' => 'Povolené',
+		'feed_count' => 'Kanály',
+		'is_admin' => 'Je admin',
 		'language' => 'Jazyk',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Posledná aktivita používateľa',
+		'list' => 'Zoznam používateľov',
 		'number' => 'Je vytvorený používateľ: %d',
 		'numbers' => 'Je vytvorených používateľov: %d',
 		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',

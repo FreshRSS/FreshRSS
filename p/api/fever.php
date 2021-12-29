@@ -509,7 +509,7 @@ class FeverAPI
 			}
 		} elseif (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
-		} else {
+		} elseif (isset($_REQUEST['since_id'])) {
 			// use the since_id argument to request the next $item_limit items
 			$since_id = '' . $_REQUEST['since_id'];
 			if (!ctype_digit($since_id)) {

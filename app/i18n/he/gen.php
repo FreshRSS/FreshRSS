@@ -17,7 +17,6 @@ return array(
 		'import' => 'ייבוא',
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
 		'manage' => 'ניהול',
-		'mark_favorite' => 'סימון כמועדף',
 		'mark_read' => 'סימון כנקרא',
 		'promote' => 'Promote',	// TODO - Translation
 		'purge' => 'Purge',	// TODO - Translation

@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importar',
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
-		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',

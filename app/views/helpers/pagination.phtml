@@ -23,6 +23,8 @@ $hasAccess = FreshRSS_Auth::hasAccess();
 if ($url_mark_read && $hasAccess) { ?>
 <form id="mark-read-pagination" method="post">
 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+<?php } else { ?>
+<div id="mark-read-pagination">
 <?php }?>
 <ul class="pagination">
 	<li class="item pager-next">
@@ -49,4 +51,6 @@ if ($url_mark_read && $hasAccess) { ?>
 </ul>
 <?php if ($url_mark_read && $hasAccess) { ?>
 </form>
+<?php } else {?>
+</div>
 <?php }?>
