@@ -545,6 +545,7 @@ function no_auth($auth_type) {
 }
 
 function printStep3() {
+	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
@@ -568,9 +569,6 @@ function printStep3() {
 			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="4">
-					<?php
-						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
-					?>
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
