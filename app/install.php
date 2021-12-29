@@ -446,7 +446,7 @@ function printStep1() {
 
 function printStep2() {
 	$system_default_config = Minz_Configuration::get('default_system');
-	$s2 = checkStep2(); 
+	$s2 = checkStep2();
 	if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
@@ -546,7 +546,7 @@ function no_auth($auth_type) {
 
 function printStep3() {
 	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
-	$s3 = checkStep3(); 
+	$s3 = checkStep3();
 	if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
 	<?php } elseif (!empty($_POST)) { ?>
