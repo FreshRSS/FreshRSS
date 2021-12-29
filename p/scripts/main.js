@@ -1662,7 +1662,7 @@ function faviconNbUnread(n) {
 			}
 			link.href = canvas.toDataURL('image/png');
 			// Check if data URI has generated a real favicon and if not, fallback to standard icon
-			if(link.href.length > 180) {
+			if (link.href.length > 180) {
 				document.querySelector('link[rel~=icon]').remove();
 				document.head.appendChild(link);
 			}
