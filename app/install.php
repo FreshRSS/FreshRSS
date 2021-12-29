@@ -183,7 +183,6 @@ function saveStep2() {
 }
 
 function saveStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
 		Minz_Session::_params([
@@ -542,7 +541,6 @@ function printStep2() {
 }
 
 function printStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
