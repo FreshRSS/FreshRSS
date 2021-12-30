@@ -69,41 +69,54 @@ $today = @strtotime('today');
 
 			$this->renderHelper('index/normal/entry_header');
 
-		?><div class="flux_content" dir="auto">
+		?><article class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
-				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
-				<div class="subtitle">
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+				<header>
+					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
-						<?php endif; ?>
-						<span><?= $this->feed->name() ?></span></a>
+							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+						endif; ?><span><?= $this->feed->name() ?></span></a>
 					</div>
-					<div class="date"><?= $this->entry->date() ?></div>
-					<?php
+					<div class="tags">
+						<?php
+						$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
+						if (!empty($tags)) {
+							?><?= _i('tag') ?><ul class="list-tags"><?php
+							foreach ($tags as $tag) {
+								?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+							} ?>
+							</ul><?php 
+						} ?>
+					</div>
+					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?><span class="extern-link-icon"><?= _i('link') ?></span></a></h1>
+					<div class="subtitle">
+						<?php
 						$authors = $this->entry->authors();
 						if (!empty($authors) && is_array($authors)):
 							$first = true;
-					?>
-					<div class="author"><?php
+						?>
+						<div class="author"><?php
 							foreach ($authors as $author):
 								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 								$first = false;
-					?>
-	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
-			['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
-		) ?>"><?= $author ?></a></em>
-					<?php	endforeach; ?>
-					</div><?php endif; ?>
-				</div>
+						?>
+		<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
+				['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
+			) ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a></em>
+						<?php	endforeach; ?>
+						</div><?php endif; ?>
+						<div class="date"><?= $this->entry->date() ?></div>
+						
+					</div>
+				</header>
 				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>
-			</div><?php
+			</div><footer><?php
 
 			$this->renderHelper('index/normal/entry_bottom');
 
-		?></div>
+		?></footer></article>
 	</div><?php
 	endforeach;
 

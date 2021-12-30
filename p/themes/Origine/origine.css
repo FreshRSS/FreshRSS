@@ -860,7 +860,7 @@ a.btn {
 	padding: 20px 10px;
 }
 
-.content > h1.title > a {
+.content h1.title > a {
 	color: #000;
 }
 

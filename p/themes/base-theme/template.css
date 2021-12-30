@@ -847,6 +847,24 @@ input[type="search"] {
 	list-style-type: decimal;
 }
 
+.flux .item.collapse {
+	width: 40px;
+	display: none;
+	text-align: center;
+}
+
+.flux.current.active .item.collapse {
+	display: table-cell;
+}
+
+.flux.current.active .flux_header .item.website,
+.flux.current.active .flux_header .item.thumbnail,
+.flux.current.active .flux_header .item.title,
+.flux.current.active .flux_header .item.date,
+.flux.current.active .flux_header .item.link {
+	visibility: hidden;
+}
+
 /*=== Feed article content */
 .hide_posts > .flux:not(.active) > .flux_content {
 	display: none;
@@ -869,6 +887,54 @@ input[type="search"] {
 
 .content.thin {
 	max-width: 550px;
+}
+
+.content header {
+	font-size: 90%;
+	color: #666;
+}
+
+.content header a {
+	color: #666;
+	text-decoration: none;
+}
+
+.content header a:hover {
+	color: #0062be;
+	text-decoration: underline;
+}
+
+.content header .tags .icon {
+	padding-right: 10px;
+}
+
+.content header .tags .list-tags {
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+	list-style: none;
+}
+
+.content header .tags .list-tags .item{
+	display: inline-block;
+	line-height: normal;
+}
+
+.content header .tags .list-tags .item a{
+	display: inline;
+	padding-right: 0.5em;
+}
+
+.content header h1 {
+	margin: 0.5em 0;
+}
+
+.content header h1 .extern-link-icon{
+	padding-left: 10px;
+}
+
+.content header h1 a:hover img{
+	filter: contrast(0);
 }
 
 .content ul,
