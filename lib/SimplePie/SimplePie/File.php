@@ -65,7 +65,7 @@ class SimplePie_File
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
 	var $permanent_url;
 
-	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $curl_options = array(), $syslog_enabled = SIMPLEPIE_SYSLOG)
+	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $curl_options = array())
 	{
 		if (class_exists('idna_convert'))
 		{
@@ -78,10 +78,6 @@ class SimplePie_File
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
-			if ($syslog_enabled)
-			{
-				syslog(LOG_INFO, 'SimplePie GET ' . SimplePie_Misc::url_remove_credentials($url));	//FreshRSS
-			}
 			if ($useragent === null)
 			{
 				$useragent = ini_get('user_agent');
@@ -148,7 +144,7 @@ class SimplePie_File
 							$this->redirects++;
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 							$previousStatusCode = $this->status_code;
-							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options, $syslog_enabled);
+							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
 							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 							return;
 						}
@@ -233,7 +229,7 @@ class SimplePie_File
 								$this->redirects++;
 								$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 								$previousStatusCode = $this->status_code;
-								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options, $syslog_enabled);
+								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
 								$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 								return;
 							}

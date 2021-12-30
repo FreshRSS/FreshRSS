@@ -108,7 +108,9 @@ class SimplePie_Content_Type_Sniffer
 			{
 				return $this->unknown();
 			}
-			elseif (substr($official, -4) === '+xml')
+			elseif (substr($official, -4) === '+xml'
+				|| $official === 'text/xml'
+				|| $official === 'application/xml')
 			{
 				return $official;
 			}
@@ -121,9 +123,7 @@ class SimplePie_Content_Type_Sniffer
 
 				return $official;
 			}
-			elseif ($official === 'text/html'
-				|| $official === 'text/xml'	//FreshRSS
-				|| $official === 'application/xml')	//FreshRSS
+			elseif ($official === 'text/html')
 			{
 				return $this->feed_or_html();
 			}

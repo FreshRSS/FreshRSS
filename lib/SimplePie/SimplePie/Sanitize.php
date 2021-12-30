@@ -71,6 +71,7 @@ class SimplePie_Sanitize
 	var $useragent = '';
 	var $force_fsockopen = false;
 	var $replace_url_attributes = null;
+	var $registry;
 
 	/**
 	 * List of domains for which to force HTTPS.
@@ -318,7 +319,6 @@ class SimplePie_Sanitize
 		{
 			if ($type & SIMPLEPIE_CONSTRUCT_MAYBE_HTML)
 			{
-				$data = htmlspecialchars_decode($data, ENT_QUOTES);	//FreshRSS
 				if (preg_match('/(&(#(x[0-9a-fA-F]+|[0-9]+)|[a-zA-Z0-9]+)|<\/[A-Za-z][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E]*' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . '>)/', $data))
 				{
 					$type |= SIMPLEPIE_CONSTRUCT_HTML;

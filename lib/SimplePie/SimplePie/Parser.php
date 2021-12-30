@@ -76,86 +76,69 @@ class SimplePie_Parser
 
 	public function parse(&$data, $encoding, $url = '')
 	{
-		$xmlEncoding = '';
-
-		if (!empty($encoding))
-		{
-			// Use UTF-8 if we get passed US-ASCII, as every US-ASCII character is a UTF-8 character
-			if (strtoupper($encoding) === 'US-ASCII')
-			{
-				$this->encoding = 'UTF-8';
-			}
-			else
-			{
-				$this->encoding = $encoding;
-			}
-
-			// Strip BOM:
-			// UTF-32 Big Endian BOM
-			if (substr($data, 0, 4) === "\x00\x00\xFE\xFF")
-			{
-				$data = substr($data, 4);
-			}
-			// UTF-32 Little Endian BOM
-			elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00")
-			{
-				$data = substr($data, 4);
-			}
-			// UTF-16 Big Endian BOM
-			elseif (substr($data, 0, 2) === "\xFE\xFF")
-			{
-				$data = substr($data, 2);
-			}
-			// UTF-16 Little Endian BOM
-			elseif (substr($data, 0, 2) === "\xFF\xFE")
-			{
-				$data = substr($data, 2);
-			}
-			// UTF-8 BOM
-			elseif (substr($data, 0, 3) === "\xEF\xBB\xBF")
-			{
-				$data = substr($data, 3);
-			}
-
-			if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false)
-			{
-				$declaration = $this->registry->create('XML_Declaration_Parser', array(substr($data, 5, $pos - 5)));
-				if ($declaration->parse())
-				{
-					$xmlEncoding = strtoupper($declaration->encoding);	//FreshRSS
-					$data = substr($data, $pos + 2);
-					$data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' . $data;
-				}
-				else
-				{
-					$this->error_string = 'SimplePie bug! Please report this!';
-					return false;
-				}
+		if (class_exists('DOMXpath') && function_exists('Mf2\parse')) {
+			$doc = new DOMDocument();
+			@$doc->loadHTML($data);
+			$xpath = new DOMXpath($doc);
+			// Check for both h-feed and h-entry, as both a feed with no entries
+			// and a list of entries without an h-feed wrapper are both valid.
+			$query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
+				'contains(concat(" ", @class, " "), " h-entry ")]';
+			$result = $xpath->query($query);
+			if ($result->length !== 0) {
+				return $this->parse_microformats($data, $url);
 			}
 		}
 
-		if ($xmlEncoding === '' || $xmlEncoding === 'UTF-8')	//FreshRSS: case of no explicit HTTP encoding, and lax UTF-8
+		// Use UTF-8 if we get passed US-ASCII, as every US-ASCII character is a UTF-8 character
+		if (strtoupper($encoding) === 'US-ASCII')
 		{
-			try
+			$this->encoding = 'UTF-8';
+		}
+		else
+		{
+			$this->encoding = $encoding;
+		}
+
+		// Strip BOM:
+		// UTF-32 Big Endian BOM
+		if (substr($data, 0, 4) === "\x00\x00\xFE\xFF")
+		{
+			$data = substr($data, 4);
+		}
+		// UTF-32 Little Endian BOM
+		elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00")
+		{
+			$data = substr($data, 4);
+		}
+		// UTF-16 Big Endian BOM
+		elseif (substr($data, 0, 2) === "\xFE\xFF")
+		{
+			$data = substr($data, 2);
+		}
+		// UTF-16 Little Endian BOM
+		elseif (substr($data, 0, 2) === "\xFF\xFE")
+		{
+			$data = substr($data, 2);
+		}
+		// UTF-8 BOM
+		elseif (substr($data, 0, 3) === "\xEF\xBB\xBF")
+		{
+			$data = substr($data, 3);
+		}
+
+		if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false)
+		{
+			$declaration = $this->registry->create('XML_Declaration_Parser', array(substr($data, 5, $pos - 5)));
+			if ($declaration->parse())
 			{
-				$dom = new DOMDocument();
-				$dom->recover = true;
-				$dom->strictErrorChecking = false;
-				@$dom->loadXML($data, LIBXML_NOERROR | LIBXML_NOWARNING);
-				$this->encoding = $encoding = $dom->encoding = 'UTF-8';
-				$data2 = $dom->saveXML();
-				if (function_exists('mb_convert_encoding'))
-				{
-					$data2 = mb_convert_encoding($data2, 'UTF-8', 'UTF-8');
-				}
-				if (strlen($data2) > (strlen($data) / 2.0))
-				{
-					$data = $data2;
-				}
-				unset($data2);
+				$data = substr($data, $pos + 2);
+				$data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' ."\n". $this->declare_html_entities() . $data;
 			}
-			catch (Exception $e)
+			else
 			{
+				$this->error_string = 'SimplePie bug! Please report this!';
+				return false;
 			}
 		}
 

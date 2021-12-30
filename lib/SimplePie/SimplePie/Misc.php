@@ -78,10 +78,6 @@ class SimplePie_Misc
 
 	public static function absolutize_url($relative, $base)
 	{
-		if (substr($relative, 0, 2) === '//')
-		{//Protocol-relative URLs "//www.example.net"
-			return 'https:' . $relative;
-		}
 		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
 		if ($iri === false)
 		{
@@ -1919,18 +1915,9 @@ class SimplePie_Misc
 
 	public static function atom_10_content_construct_type($attribs)
 	{
-		$type = '';
 		if (isset($attribs['']['type']))
 		{
-			$type = trim($attribs['']['type']);
-		}
-		elseif (isset($attribs[SIMPLEPIE_NAMESPACE_ATOM_10]['type']))
-		{//FreshRSS
-			$type = trim($attribs[SIMPLEPIE_NAMESPACE_ATOM_10]['type']);
-		}
-		if ($type != '')
-		{
-			$type = strtolower($type);
+			$type = strtolower(trim($attribs['']['type']));
 			switch ($type)
 			{
 				case 'text':
@@ -2194,8 +2181,29 @@ function embed_wmedia(width, height, link) {
 	 */
 	public static function get_build()
 	{
-		$mtime = @filemtime(dirname(dirname(__FILE__)) . '/SimplePie.php');	//FreshRSS
-		return $mtime ? $mtime : filemtime(__FILE__);
+		$root = dirname(dirname(__FILE__));
+		if (file_exists($root . '/.git/index'))
+		{
+			return filemtime($root . '/.git/index');
+		}
+		elseif (file_exists($root . '/SimplePie'))
+		{
+			$time = 0;
+			foreach (glob($root . '/SimplePie/*.php') as $file)
+			{
+				if (($mtime = filemtime($file)) > $time)
+				{
+					$time = $mtime;
+				}
+			}
+			return $time;
+		}
+		elseif (file_exists(dirname(__FILE__) . '/Core.php'))
+		{
+			return filemtime(dirname(__FILE__) . '/Core.php');
+		}
+
+		return filemtime(__FILE__);
 	}
 
 	/**
