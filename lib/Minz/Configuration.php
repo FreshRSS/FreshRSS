@@ -79,23 +79,23 @@ class Minz_Configuration {
 	/**
 	 * An object which help to set good values in configuration.
 	 */
-	private static $configuration_setter = null;
+	private $configuration_setter = null;
 
 	/**
 	 * List of enabled extensions.
 	 */
-	private static $extensions_enabled = [];
+	private $extensions_enabled = [];
 
 	public function removeExtension($ext_name) {
-		unset(self::$extensions_enabled[$ext_name]);
-		$legacyKey = array_search($ext_name, self::$extensions_enabled, true);
+		unset($this->extensions_enabled[$ext_name]);
+		$legacyKey = array_search($ext_name, $this->extensions_enabled, true);
 		if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
-			unset(self::$extensions_enabled[$legacyKey]);
+			unset($this->extensions_enabled[$legacyKey]);
 		}
 	}
 	public function addExtension($ext_name) {
-		if (!isset(self::$extensions_enabled[$ext_name])) {
-			self::$extensions_enabled[$ext_name] = true;
+		if (!isset($this->extensions_enabled[$ext_name])) {
+			$this->extensions_enabled[$ext_name] = true;
 		}
 	}
 
