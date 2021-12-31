@@ -81,6 +81,11 @@ class Minz_Configuration {
 	 */
 	private $configuration_setter = null;
 
+	/**
+	 * List of enabled extensions.
+	 */
+	private $extensions_enabled = [];
+
 	public function removeExtension($ext_name) {
 		unset(self::$extensions_enabled[$ext_name]);
 		$legacyKey = array_search($ext_name, self::$extensions_enabled, true);
