@@ -5,9 +5,10 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
-			$sql = $SQL_CREATE_TABLES . $SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_TABLE_TAGS;
+			$sql = $GLOBALS['$SQL_CREATE_TABLES'] . $GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] . $GLOBALS['SQL_CREATE_TABLE_TAGS'];
 			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 		} catch (Exception $e) {
+			$ok = false;
 			Minz_Log::error('Error while creating database for user ' . $this->current_user . ': ' . $e->getMessage());
 		}
 
@@ -26,7 +27,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		}
 
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		$ok = $this->pdo->exec($SQL_DROP_TABLES) !== false;
+		$ok = $this->pdo->exec($GLOBALS['SQL_DROP_TABLES']) !== false;
 
 		if ($ok) {
 			return true;

@@ -47,7 +47,7 @@ class Minz_Paginator {
 	/**
 	 * Permet d'afficher la pagination
 	 * @param $view nom du fichier de vue situé dans /app/views/helpers/
-	 * @param $getteur variable de type $_GET[] permettant de retrouver la page
+	 * @param int $getteur variable de type $_GET[] permettant de retrouver la page
 	 */
 	public function render ($view, $getteur) {
 		$view = APP_PATH . '/views/helpers/'.$view;
@@ -176,7 +176,7 @@ class Minz_Paginator {
 	}
 	public function _currentPage ($page) {
 		if($page < 1 || ($page > $this->nbPage && $this->nbPage > 0)) {
-			throw new CurrentPagePaginationException ($page);
+			throw new Minz_CurrentPagePaginationException($page);
 		}
 
 		$this->currentPage = $page;

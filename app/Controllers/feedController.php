@@ -190,19 +190,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
-				Minz_Request::bad(_t('feedback.sub.feed.invalid_url', $url), $url_redirect);
+				return Minz_Request::bad(_t('feedback.sub.feed.invalid_url', $url), $url_redirect);
 			} catch (FreshRSS_Feed_Exception $e) {
 				// Something went bad (timeout, server not found, etc.)
 				Minz_Log::warning($e->getMessage());
-				Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
+				return Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
 			} catch (Minz_FileNotExistException $e) {
 				// Cache directory doesn't exist!
 				Minz_Log::error($e->getMessage());
-				Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
+				return Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
 			} catch (FreshRSS_AlreadySubscribed_Exception $e) {
-				Minz_Request::bad(_t('feedback.sub.feed.already_subscribed', $e->feedName()), $url_redirect);
+				return Minz_Request::bad(_t('feedback.sub.feed.already_subscribed', $e->feedName()), $url_redirect);
 			} catch (FreshRSS_FeedNotAdded_Exception $e) {
-				Minz_Request::bad(_t('feedback.sub.feed.not_added', $e->feedName()), $url_redirect);
+				return Minz_Request::bad(_t('feedback.sub.feed.not_added', $e->feedName()), $url_redirect);
 			}
 
 			// Entries are in DB, we redirect to feed configuration page.
@@ -211,10 +211,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			Minz_Request::good(_t('feedback.sub.feed.added', $feed->name()), $url_redirect);
 		} else {
 			// GET request: we must ask confirmation to user before adding feed.
-			Minz_View::prependTitle(_t('sub.feed.title_add') . ' · ');
+			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
-			$this->catDAO = FreshRSS_Factory::createCategoryDao();
-			$this->view->categories = $this->catDAO->listCategories(false);
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$this->view->categories = $catDAO->listCategories(false);
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
 				// We try to get more information about the feed.
@@ -567,6 +567,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$force = Minz_Request::param('force');
 		$maxFeeds = (int)Minz_Request::param('maxFeeds');
 		$noCommit = ($_POST['noCommit'] ?? 0) == 1;
+		$feed = null;
 
 		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
 			$updated_feeds = 0;

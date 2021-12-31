@@ -83,7 +83,6 @@ class Minz_Dispatcher {
 
 		if (!class_exists ($controller_name)) {
 			throw new Minz_ControllerNotExistException (
-				$controller_name,
 				Minz_Exception::ERROR
 			);
 		}
