@@ -11,7 +11,10 @@
 		<button type="submit" class="btn"><?= _t('index.log.clear') ?></button>
 	</p></form>
 
-	<?php $items = $this->logsPaginator->items(); ?>
+	<?php
+		/** @var array<FreshRSS_Log> $items */
+		$items = $this->logsPaginator->items();
+	?>
 
 	<?php if (!empty($items)) { ?>
 	<div class="loglist">

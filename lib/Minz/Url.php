@@ -6,12 +6,13 @@
 class Minz_Url {
 	/**
 	 * Affiche une Url formatée
-	 * @param $url l'url à formater définie comme un tableau :
+	 * @param array<string,string> $url l'url à formater définie comme un tableau :
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
 	 *             ou comme une chaîne de caractère
-	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
+	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
+	 * @param bool $absolute
 	 * @return string url formatée
 	 */
 	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
@@ -55,8 +56,8 @@ class Minz_Url {
 
 	/**
 	 * Construit l'URI d'une URL
-	 * @param l'url sous forme de tableau
-	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
+	 * @param array<string,mixed> $url l'url sous forme de tableau
+	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
 	private static function printUri($url, $encodage) {
@@ -95,7 +96,7 @@ class Minz_Url {
 
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
-	 * @param array|string $url sous forme de tableau (sinon renverra directement $url)
+	 * @param array<string,string>|string $url sous forme de tableau (sinon renverra directement $url)
 	 * @return string url vérifié
 	 */
 	public static function checkUrl ($url) {
