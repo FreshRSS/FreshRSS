@@ -1661,8 +1661,11 @@ function faviconNbUnread(n) {
 				ctx.fillText(text, 0, canvas.height - 1);
 			}
 			link.href = canvas.toDataURL('image/png');
-			document.querySelector('link[rel~=icon]').remove();
-			document.head.appendChild(link);
+			// Check if data URI has generated a real favicon and if not, fallback to standard icon
+			if (link.href.length > 180) {
+				document.querySelector('link[rel~=icon]').remove();
+				document.head.appendChild(link);
+			}
 		};
 		img.src = '../favicon.ico';
 	}

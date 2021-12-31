@@ -732,6 +732,29 @@ SQL;
 				}
 				$sub_search = '';
 
+				if ($filter->getEntryIds()) {
+					foreach ($filter->getEntryIds() as $entry_ids) {
+						$sub_search .= 'AND ' . $alias . 'id IN (';
+						foreach ($entry_ids as $entry_id) {
+							$sub_search .= '?,';
+							$values[] = $entry_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ') ';
+					}
+				}
+				if ($filter->getNotEntryIds()) {
+					foreach ($filter->getNotEntryIds() as $entry_ids) {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (';
+						foreach ($entry_ids as $entry_id) {
+							$sub_search .= '?,';
+							$values[] = $entry_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ') ';
+					}
+				}
+
 				if ($filter->getMinDate()) {
 					$sub_search .= 'AND ' . $alias . 'id >= ? ';
 					$values[] = "{$filter->getMinDate()}000000";
