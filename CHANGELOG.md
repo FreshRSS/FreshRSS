@@ -1,6 +1,6 @@
 # FreshRSS changelog
 
-## 2021-12-XX FreshRSS 1.19.0-dev
+## 2021-12-31 FreshRSS 1.19.0
 
 * Features
 	* New thumbnail and/or summary options for the normal view [#3805](https://github.com/FreshRSS/FreshRSS/pull/3805)
