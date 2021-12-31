@@ -577,17 +577,13 @@ a.btn {
 	transition: max-height .3s linear;
 }
 
-.tree-folder-title {
-	display: block;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
 .tree-folder-title .title {
 	display: inline-block;
 	width: 100%;
 	vertical-align: middle;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .tree-folder-items > .item {
@@ -671,6 +667,10 @@ input[type="search"] {
 /*=== Aside main page */
 .aside_feed .category .title {
 	width: calc(100% - 35px);
+}
+
+.aside_feed .category .title:not([data-unread="0"]) {
+	width: calc(100% - 35px - 20px);
 }
 
 .aside_feed .tree-folder-title .icon {
