@@ -664,6 +664,10 @@ input[type="search"] {
 	vertical-align: top;
 }
 
+.aside + .close-aside {
+	display: none;
+}
+
 /*=== Aside main page */
 .aside_feed .category .title {
 	width: calc(100% - 35px);
@@ -1429,6 +1433,19 @@ input:checked + .slide-container .properties {
 	.nav_menu .search,
 	#panel .close img {
 		display: inline-block;
+	}
+
+	.aside:target + .close-aside {
+		background: rgba(0, 0, 0, 0.2);
+		display: block;
+		font-size: 0;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		cursor: pointer;
+		z-index: 99;
 	}
 
 	.nav_mobile {

@@ -14,7 +14,7 @@
 		$state_filter_cat = '&state=' . $state_filter_cat;
 	}
 ?>
-<nav class="aside aside_feed<?= $class ?>" id="aside_feed">
+<nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -116,6 +116,7 @@
 	</ul>
 	</form>
 </nav>
+<a class="close-aside" href="#close">❌</a>
 
 <div id="first_load" class="loading"></div>
 <?php flush(); ?>
