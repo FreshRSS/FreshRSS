@@ -5,6 +5,8 @@
  */
 class FreshRSS_User_Mailer extends Minz_Mailer {
 	public function send_email_need_validation($username, $user_config) {
+		Minz_Translate::reset($user_config->language);
+
 		$this->view->_path('user_mailer/email_need_validation.txt.php');
 
 		$this->view->username = $username;

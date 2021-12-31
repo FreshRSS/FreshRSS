@@ -260,27 +260,35 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		foreach ($booleanSearch->searches() as $filter) {
 			$ok = true;
-			if ($ok && $filter->getMinPubdate()) {
-				$ok &= $this->date >= $filter->getMinPubdate();
-			}
-			if ($ok && $filter->getMaxPubdate()) {
-				$ok &= $this->date <= $filter->getMaxPubdate();
-			}
 			if ($ok && $filter->getMinDate()) {
 				$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
+			}
+			if ($ok && $filter->getNotMinDate()) {
+				$ok &= strnatcmp($this->id, $filter->getNotMinDate() . '000000') < 0;
 			}
 			if ($ok && $filter->getMaxDate()) {
 				$ok &= strnatcmp($this->id, $filter->getMaxDate() . '000000') <= 0;
 			}
-			if ($ok && $filter->getInurl()) {
-				foreach ($filter->getInurl() as $url) {
-					$ok &= stripos($this->link, $url) !== false;
-				}
+			if ($ok && $filter->getNotMaxDate()) {
+				$ok &= strnatcmp($this->id, $filter->getNotMaxDate() . '000000') > 0;
 			}
-			if ($ok && $filter->getNotInurl()) {
-				foreach ($filter->getNotInurl() as $url) {
-					$ok &= stripos($this->link, $url) === false;
-				}
+			if ($ok && $filter->getMinPubdate()) {
+				$ok &= $this->date >= $filter->getMinPubdate();
+			}
+			if ($ok && $filter->getNotMinPubdate()) {
+				$ok &= $this->date < $filter->getNotMinPubdate();
+			}
+			if ($ok && $filter->getMaxPubdate()) {
+				$ok &= $this->date <= $filter->getMaxPubdate();
+			}
+			if ($ok && $filter->getNotMaxPubdate()) {
+				$ok &= $this->date > $filter->getNotMaxPubdate();
+			}
+			if ($ok && $filter->getFeedIds()) {
+				$ok &= in_array($this->feedId, $filter->getFeedIds());
+			}
+			if ($ok && $filter->getNotFeedIds()) {
+				$ok &= !in_array($this->feedId, $filter->getFeedIds());
 			}
 			if ($ok && $filter->getAuthor()) {
 				foreach ($filter->getAuthor() as $author) {
@@ -322,6 +330,16 @@ class FreshRSS_Entry extends Minz_Model {
 						}
 					}
 					$ok &= !$found;
+				}
+			}
+			if ($ok && $filter->getInurl()) {
+				foreach ($filter->getInurl() as $url) {
+					$ok &= stripos($this->link, $url) !== false;
+				}
+			}
+			if ($ok && $filter->getNotInurl()) {
+				foreach ($filter->getNotInurl() as $url) {
+					$ok &= stripos($this->link, $url) === false;
 				}
 			}
 			if ($ok && $filter->getSearch()) {
