@@ -20,7 +20,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			'style-src' => "'self' 'unsafe-inline'",
 		]);
 
-		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
 	private function convertToSerie($data) {
@@ -57,7 +57,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
 
@@ -181,7 +181,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
 		$feedDAO 		= FreshRSS_Factory::createFeedDao();
 
-		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
 		$id = Minz_Request::param('id', null);
 

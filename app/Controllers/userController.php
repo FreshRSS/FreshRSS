@@ -95,9 +95,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$this->view->disable_aside = true;
 		}
 
-		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('conf.profile.title') . ' · ');
 
-		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		if (Minz_Request::isPost()) {
 			$system_conf = FreshRSS_Context::$system_conf;
@@ -173,7 +173,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('admin.user.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.user.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$action = Minz_Request::param('action');
@@ -419,7 +419,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		Minz_View::prependTitle(_t('user.email.validation.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('user.email.validation.title') . ' · ');
 		$this->view->_layout('simple');
 
 		$username = Minz_Request::param('username');

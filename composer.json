@@ -36,7 +36,8 @@
             "@php-lint",
             "@phtml-lint",
             "@phpunit",
-            "@phpcs"
+            "@phpcs",
+            "@phpstan"
         ],
         "fix": [
             "@translations",

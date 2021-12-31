@@ -1,11 +1,11 @@
 <?php
-	/** @var Minz_View $this */
+	/** @var FreshRSS_View $this */
 	FreshRSS::preLayout();
 ?>
 <!DOCTYPE html>
 <html class="preview_background" lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
 	<head>
-		<?= Minz_View::headStyle() ?>
+		<?= FreshRSS_View::headStyle() ?>
 		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>
 	</head>
 	<body class="preview_background">

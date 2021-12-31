@@ -1,5 +1,5 @@
 <?php
-	/** @var Minz_View $this */
+	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
 
@@ -10,5 +10,8 @@
 
 	<h1><?= _t('admin.update') ?></h1>
 
-	<?php ask_info_update(); ?>
+	<?php
+		// @phpstan-ignore-next-line
+		ask_info_update();
+	?>
 </main>
