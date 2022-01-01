@@ -3,7 +3,7 @@
 /**
  * Manage configuration for the application.
  * @property-read string $base_url
- * @property array<string> $db
+ * @property array<string|array<int,string>> $db
  * @property-read string $disable_update
  * @property-read string $environment
  * @property-read array<string> $extensions_enabled
@@ -66,6 +66,8 @@ class Minz_Configuration {
 
 	/**
 	 * The namespace of the current configuration.
+	 * Unused.
+	 * @phpstan-ignore-next-line
 	 */
 	private $namespace = '';
 

@@ -14,7 +14,7 @@
  * @property string $content_width
  * @property-read string $default_state
  * @property string $default_view
- * @property string $display_categories
+ * @property string|bool $display_categories
  * @property bool $display_posts
  * @property string $email_validation_token
  * @property-read string $enabled
@@ -53,7 +53,7 @@
  * @property bool $topline_link
  * @property bool $topline_read
  * @property bool $topline_summary
- * @property bool $topline_thumbnail
+ * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode

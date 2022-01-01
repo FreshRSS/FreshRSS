@@ -61,6 +61,7 @@ class Minz_Log {
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
 
+			// @phpstan-ignore-next-line
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
 				syslog($level, '[' . $username . '] ' . trim($log));
 			}
@@ -84,6 +85,7 @@ class Minz_Log {
 	 */
 	protected static function ensureMaxLogSize($file_name) {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
+		// @phpstan-ignore-next-line
 		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
 			$fp = fopen($file_name, 'c+');
 			if ($fp && flock($fp, LOCK_EX)) {
@@ -98,6 +100,7 @@ class Minz_Log {
 			} else {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
+			// @phpstan-ignore-next-line
 			if ($fp) {
 				fclose($fp);
 			}

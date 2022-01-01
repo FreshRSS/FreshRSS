@@ -85,7 +85,7 @@ class Minz_Translate {
 	 * Return the language to use in the application.
 	 * It returns the connected language if it exists then returns the first match from the
 	 * preferred languages then returns the default language
-	 * @param string $user the connected user language (nullable)
+	 * @param string|null $user the connected user language (nullable)
 	 * @param array<string> $preferred an array of the preferred languages
 	 * @param string $default the preferred language to use
 	 * @return string containing the language to use

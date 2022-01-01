@@ -260,7 +260,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		foreach ($booleanSearch->searches() as $filter) {
 			$ok = true;
-			if ($ok && $filter->getMinDate()) {
+			if ($filter->getMinDate()) {
 				$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
 			}
 			if ($ok && $filter->getNotMinDate()) {

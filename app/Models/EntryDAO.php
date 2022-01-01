@@ -310,7 +310,7 @@ SQL;
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' f.id=?';
 			$values[] = $feedId;

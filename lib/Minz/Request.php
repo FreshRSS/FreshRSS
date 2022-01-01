@@ -43,6 +43,7 @@ class Minz_Request {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			$tp = trim($p);
+			// @phpstan-ignore-next-line
 			if ($p === null || $tp === '' || $tp === 'null') {
 				return null;
 			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {

@@ -9,6 +9,7 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+// @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 } else {
@@ -429,8 +430,11 @@ function check_install_php() {
  */
 function check_install_files() {
 	return array(
+		// @phpstan-ignore-next-line
 		'data' => DATA_PATH && is_writable(DATA_PATH),
+		// @phpstan-ignore-next-line
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		// @phpstan-ignore-next-line
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),

@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' id=?';
 			$values[] = $feedId;

@@ -536,7 +536,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
-			if ($ok && $self_deletion) {
+			if ($self_deletion) {
 				// We check the password if it's a self-destruction
 				$nonce = Minz_Session::param('nonce');
 				$challenge = Minz_Request::param('challenge', '');

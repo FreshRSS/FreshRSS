@@ -5,7 +5,6 @@
  */
 class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
-	private $catDAO;
 	private $entryDAO;
 	private $feedDAO;
 
@@ -21,7 +20,6 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		require_once(LIB_PATH . '/lib_opml.php');
 
-		$this->catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
 	}
@@ -54,7 +52,6 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	public function importFile($name, $path, $username = null) {
 		self::minimumMemory(256);
 
-		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 

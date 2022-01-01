@@ -15,7 +15,6 @@ class Minz_ModelPdo {
 	 */
 	public static $usesSharedPdo = true;
 	private static $sharedPdo = null;
-	private static $sharedPrefix;
 	private static $sharedCurrentUser;
 
 	protected $pdo;
