@@ -451,7 +451,7 @@ class FreshRSS_Entry extends Minz_Model {
 			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		}
 
-		if ($html) {
+		if (is_string($html) && strlen($html) > 0) {
 			require_once(LIB_PATH . '/lib_phpQuery.php');
 			/**
 			 * @var phpQueryObject @doc

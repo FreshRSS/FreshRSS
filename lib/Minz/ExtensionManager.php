@@ -210,7 +210,7 @@ class Minz_ExtensionManager {
 	 *
 	 * The extension init() method will be called.
 	 *
-	 * @param Minz_Extension $ext_name is the name of a valid extension present in $ext_list.
+	 * @param string $ext_name is the name of a valid extension present in $ext_list.
 	 */
 	public static function enable($ext_name) {
 		if (isset(self::$ext_list[$ext_name])) {

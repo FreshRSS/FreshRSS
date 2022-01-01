@@ -249,7 +249,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			$volatile = [
 				'enable_keep_period' => true,
 				'keep_period_count' => $matches['count'],
-				'keep_period_unit' => str_replace($matches['count'], 1, $keepPeriod),
+				'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
 			];
 		}
 		FreshRSS_Context::$user_conf->volatile = $volatile;

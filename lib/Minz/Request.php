@@ -329,7 +329,7 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param array<string,array<string,string>> $url l'url vers laquelle est relancée la requête
+	 * @param array<string,string|array<string,string>> $url l'url vers laquelle est relancée la requête
 	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
@@ -360,7 +360,7 @@ class Minz_Request {
 	/**
 	 * Wrappers good notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,string>> $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
 		Minz_Request::setGoodNotification($msg);

@@ -175,7 +175,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace(1, Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
@@ -244,7 +244,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace(1, Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
