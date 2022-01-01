@@ -49,7 +49,13 @@ class FreshRSS_View extends Minz_View {
 	public $list_keys;
 
 	// User queries
+	/**
+	 * @var array<int,FreshRSS_UserQuery>
+	 */
 	public $queries;
+	/**
+	 * @var FreshRSS_UserQuery|null
+	 */
 	public $query;
 
 	// Export / Import
