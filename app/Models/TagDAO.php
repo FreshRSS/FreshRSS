@@ -70,6 +70,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @param FreshRSS_Tag $tag
+	 */
 	public function addTagObject($tag) {
 		$tag = $this->searchByName($tag->name());
 		if (!$tag) {
@@ -82,6 +85,9 @@ SQL;
 		return $tag->id();
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function updateTag($id, $valuesTmp) {
 		// No category of the same name
 		$sql = <<<'SQL'
@@ -111,6 +117,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function updateTagAttribute($tag, $key, $value) {
 		if ($tag instanceof FreshRSS_Tag) {
 			$tag->_attributes($key, $value);
@@ -122,6 +131,9 @@ SQL;
 		return false;
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function deleteTag($id) {
 		if ($id <= 0) {
 			return false;
@@ -156,6 +168,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function updateEntryTag($oldTagId, $newTagId) {
 		$sql = <<<'SQL'
 DELETE FROM `_entrytag` WHERE EXISTS (
@@ -182,6 +197,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @return FreshRSS_Tag
+	 */
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `_tag` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
@@ -192,6 +210,9 @@ SQL;
 		return isset($tag[0]) ? $tag[0] : null;
 	}
 
+	/**
+	 * @return FreshRSS_Tag
+	 */
 	public function searchByName($name) {
 		$sql = 'SELECT * FROM `_tag` WHERE name=?';
 		$stm = $this->pdo->prepare($sql);

@@ -9,33 +9,33 @@
  */
 class Minz_Paginator {
 	/**
-	 * $items tableau des éléments à afficher/gérer
+	 * @var array<Minz_Model> tableau des éléments à afficher/gérer
 	 */
 	private $items = array ();
 
 	/**
-	 * $nbItemsPerPage le nombre d'éléments par page
+	 * @var int le nombre d'éléments par page
 	 */
 	private $nbItemsPerPage = 10;
 
 	/**
-	 * $currentPage page actuelle à gérer
+	 * @var int page actuelle à gérer
 	 */
 	private $currentPage = 1;
 
 	/**
-	 * $nbPage le nombre de pages de pagination
+	 * @var int le nombre de pages de pagination
 	 */
 	private $nbPage = 1;
 
 	/**
-	 * $nbItems le nombre d'éléments
+	 * @var int le nombre d'éléments
 	 */
 	private $nbItems = 0;
 
 	/**
 	 * Constructeur
-	 * @param $items les éléments à gérer
+	 * @param array<Minz_Model> $items les éléments à gérer
 	 */
 	public function __construct ($items) {
 		$this->_items ($items);
@@ -46,11 +46,11 @@ class Minz_Paginator {
 
 	/**
 	 * Permet d'afficher la pagination
-	 * @param $view nom du fichier de vue situé dans /app/views/helpers/
+	 * @param string $view nom du fichier de vue situé dans /app/views/helpers/
 	 * @param int $getteur variable de type $_GET[] permettant de retrouver la page
 	 */
 	public function render ($view, $getteur) {
-		$view = APP_PATH . '/views/helpers/'.$view;
+		$view = APP_PATH . '/views/helpers/' . $view;
 
 		if (file_exists ($view)) {
 			include ($view);
@@ -59,7 +59,7 @@ class Minz_Paginator {
 
 	/**
 	 * Permet de retrouver la page d'un élément donné
-	 * @param $item l'élément à retrouver
+	 * @param Minz_Model $item l'élément à retrouver
 	 * @return float|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
 	public function pageByItem ($item) {
@@ -77,7 +77,7 @@ class Minz_Paginator {
 
 	/**
 	 * Permet de retrouver la position d'un élément donné (à partir de 0)
-	 * @param $item l'élément à retrouver
+	 * @param Minz_Model $item l'élément à retrouver
 	 * @return float|false la position à laquelle se trouve l’élément, false si non trouvé
 	 */
 	public function positionByItem ($item) {
@@ -95,7 +95,7 @@ class Minz_Paginator {
 
 	/**
 	 * Permet de récupérer un item par sa position
-	 * @param $pos la position de l'élément
+	 * @param int $pos la position de l'élément
 	 * @return mixed item situé à $pos (dernier item si $pos<0, 1er si $pos>=count($items))
 	 */
 	public function itemByPosition ($pos) {
@@ -113,7 +113,8 @@ class Minz_Paginator {
 	 * GETTEURS
 	 */
 	/**
-	 * @param $all si à true, retourne tous les éléments sans prendre en compte la pagination
+	 * @param bool $all si à true, retourne tous les éléments sans prendre en compte la pagination
+	 * @return array<Minz_Model>
 	 */
 	public function items ($all = false) {
 		$array = array ();
@@ -175,7 +176,7 @@ class Minz_Paginator {
 		$this->_nbPage ();
 	}
 	public function _currentPage ($page) {
-		if($page < 1 || ($page > $this->nbPage && $this->nbPage > 0)) {
+		if ($page < 1 || ($page > $this->nbPage && $this->nbPage > 0)) {
 			throw new Minz_CurrentPagePaginationException($page);
 		}
 

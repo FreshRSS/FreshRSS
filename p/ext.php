@@ -74,8 +74,8 @@ function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
  *
  * You should sanitize path by using the realpath() function.
  *
- * @param $path the path to the file we want to serve.
- * @return true if it can be served, false otherwise.
+ * @param string $path the path to the file we want to serve.
+ * @return bool true if it can be served, false otherwise.
  *
  */
 function is_valid_path($path) {

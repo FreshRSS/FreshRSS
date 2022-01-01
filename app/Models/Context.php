@@ -125,6 +125,7 @@ class FreshRSS_Context {
 
 	/**
 	 * Returns if the current state includes $state parameter.
+	 * @param int $state
 	 */
 	public static function isStateEnabled($state) {
 		return self::$state & $state;
@@ -132,6 +133,7 @@ class FreshRSS_Context {
 
 	/**
 	 * Returns the current state with or without $state parameter.
+	 * @param int $state
 	 */
 	public static function getRevertState($state) {
 		if (self::$state & $state) {

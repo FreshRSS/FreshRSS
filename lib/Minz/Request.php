@@ -149,11 +149,11 @@ class Minz_Request {
 	 * @return string base url (e.g. http://example.com/)
 	 */
 	public static function guessBaseUrl() {
-		$protocol = static::extractProtocol();
-		$host = static::extractHost();
-		$port = static::extractPortForUrl();
-		$prefix = static::extractPrefix();
-		$path = static::extractPath();
+		$protocol = self::extractProtocol();
+		$host = self::extractHost();
+		$port = self::extractPortForUrl();
+		$prefix = self::extractPrefix();
+		$path = self::extractPath();
 
 		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL);
 	}
@@ -162,7 +162,7 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractProtocol() {
-		if (static::isHttps()) {
+		if (self::isHttps()) {
 			return 'https';
 		}
 		return 'http';
@@ -198,17 +198,17 @@ class Minz_Request {
 		if ('' != $port = ($_SERVER['SERVER_PORT'] ?? '')) {
 			return intval($port);
 		}
-		return static::isHttps() ? 443 : 80;
+		return self::isHttps() ? 443 : 80;
 	}
 
 	/**
 	 * @return string
 	 */
 	private static function extractPortForUrl() {
-		if (static::isHttps() && 443 !== $port = static::extractPort()) {
+		if (self::isHttps() && 443 !== $port = self::extractPort()) {
 			return ":{$port}";
 		}
-		if (!static::isHttps() && 80 !== $port = static::extractPort()) {
+		if (!self::isHttps() && 80 !== $port = self::extractPort()) {
 			return ":{$port}";
 		}
 		return '';
@@ -251,7 +251,7 @@ class Minz_Request {
 	 * Note: for the moment it tests only if address is corresponding to a
 	 * localhost address.
 	 *
-	 * @param $address the address to test, can be an IP or a URL.
+	 * @param string $address the address to test, can be an IP or a URL.
 	 * @return boolean true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
@@ -328,8 +328,8 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param $url l'url vers laquelle est relancée la requête
-	 * @param $redirect si vrai, force la redirection http
+	 * @param array<string,string> $url l'url vers laquelle est relancée la requête
+	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
 	public static function forward($url = array(), $redirect = false) {
@@ -358,14 +358,19 @@ class Minz_Request {
 
 	/**
 	 * Wrappers good notifications + redirection
-	 * @param $msg notification content
-	 * @param $url url array to where we should be forwarded
+	 * @param string $msg notification content
+	 * @param array<string,string> $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
 		Minz_Request::setGoodNotification($msg);
 		Minz_Request::forward($url, true);
 	}
 
+	/**
+	 * Wrappers bad notifications + redirection
+	 * @param string $msg notification content
+	 * @param array<string,string> $url url array to where we should be forwarded
+	 */
 	public static function bad($msg, $url = array()) {
 		Minz_Request::setBadNotification($msg);
 		Minz_Request::forward($url, true);
@@ -375,7 +380,7 @@ class Minz_Request {
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON() {
-		if ('application/json' !== static::extractContentType()) {
+		if ('application/json' !== self::extractContentType()) {
 			return;
 		}
 		if ('' === $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576)) {
@@ -407,7 +412,7 @@ class Minz_Request {
 	}
 
 	/**
-	 * @return array
+	 * @return array<string>
 	 */
 	public static function getPreferredLanguages() {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) {

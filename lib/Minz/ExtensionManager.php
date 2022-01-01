@@ -324,8 +324,8 @@ class Minz_ExtensionManager {
 	 *
 	 * If a hook return a null value, the method is stopped and return null.
 	 *
-	 * @param $hook_name is the hook to call.
-	 * @param $arg is the argument to pass to the first extension hook.
+	 * @param string $hook_name is the hook to call.
+	 * @param mixed $arg is the argument to pass to the first extension hook.
 	 * @return mixed final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
@@ -366,7 +366,7 @@ class Minz_ExtensionManager {
 	 * This case is simpler than callOneToOne because hooks are called one by
 	 * one, without any consideration of argument nor result.
 	 *
-	 * @param $hook_name is the hook to call.
+	 * @param string $hook_name is the hook to call.
 	 */
 	private static function callNoneToNone($hook_name) {
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
