@@ -1,4 +1,5 @@
 <?php
+/** @var FreshRSS_View $this */
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
@@ -120,7 +121,9 @@ $today = @strtotime('today');
 	</div>
 	<div class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
-		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+			<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+		<?php } ?>
 	</div>
 </main>
 <?php endif; ?>

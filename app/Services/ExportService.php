@@ -41,7 +41,7 @@ class FreshRSS_Export_Service {
 	public function generateOpml() {
 		require_once(LIB_PATH . '/lib_opml.php');
 
-		$view = new Minz_View();
+		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
 		$categories = [];
 
@@ -72,7 +72,7 @@ class FreshRSS_Export_Service {
 	 * @return array First item is the filename, second item is the content
 	 */
 	public function generateStarredEntries($type) {
-		$view = new Minz_View();
+		$view = new FreshRSS_View();
 		$view->categories = $this->category_dao->listCategories();
 		$day = date('Y-m-d');
 
@@ -108,7 +108,7 @@ class FreshRSS_Export_Service {
 			return null;
 		}
 
-		$view = new Minz_View();
+		$view = new FreshRSS_View();
 		$view->categories = $this->category_dao->listCategories();
 		$view->feed = $feed;
 		$day = date('Y-m-d');

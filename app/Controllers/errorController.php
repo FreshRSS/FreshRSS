@@ -63,6 +63,6 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 			$this->view->errorMessage = $error_message;
 		}
 
-		Minz_View::prependTitle($this->view->code . ' · ');
+		FreshRSS_View::prependTitle($this->view->code . ' · ');
 	}
 }

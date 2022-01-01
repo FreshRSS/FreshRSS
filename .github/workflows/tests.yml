@@ -46,6 +46,9 @@ jobs:
     - name: PHP_CodeSniffer
       run: composer run-script phpcs
 
+    - name: PHPStan
+      run: composer run-script phpstan
+
     # NPM tests
 
     - name: Uses Node.js

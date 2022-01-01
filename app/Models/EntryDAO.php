@@ -32,7 +32,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
-			$ok = $this->pdo->exec($SQL_CREATE_TABLE_ENTRYTMP . $SQL_CREATE_INDEX_ENTRY_1) !== false;
+			$ok = $this->pdo->exec($GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] . $GLOBALS['SQL_CREATE_INDEX_ENTRY_1']) !== false;
 		} catch (Exception $ex) {
 			Minz_Log::error(__method__ . ' error: ' . $ex->getMessage());
 		}
@@ -546,7 +546,7 @@ SQL;
 	 * @param integer $idMax max article ID
 	 * @return integer affected rows
 	 */
-	public function markReadTag($id = '', $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadTag($id = 0, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -556,10 +556,10 @@ SQL;
 		$sql = 'UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id '
 			 . 'SET e.is_read = ? '
 			 . 'WHERE '
-			 . ($id == '' ? '' : 'et.id_tag = ? AND ')
+			 . ($id == 0 ? '' : 'et.id_tag = ? AND ')
 			 . 'e.is_read <> ? AND e.id <= ?';
 		$values = array($is_read ? 1 : 0);
-		if ($id != '') {
+		if ($id != 0) {
 			$values[] = $id;
 		}
 		$values[] = $is_read ? 1 : 0;
@@ -731,6 +731,29 @@ SQL;
 					continue;
 				}
 				$sub_search = '';
+
+				if ($filter->getEntryIds()) {
+					foreach ($filter->getEntryIds() as $entry_ids) {
+						$sub_search .= 'AND ' . $alias . 'id IN (';
+						foreach ($entry_ids as $entry_id) {
+							$sub_search .= '?,';
+							$values[] = $entry_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ') ';
+					}
+				}
+				if ($filter->getNotEntryIds()) {
+					foreach ($filter->getNotEntryIds() as $entry_ids) {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (';
+						foreach ($entry_ids as $entry_id) {
+							$sub_search .= '?,';
+							$values[] = $entry_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ') ';
+					}
+				}
 
 				if ($filter->getMinDate()) {
 					$sub_search .= 'AND ' . $alias . 'id >= ? ';

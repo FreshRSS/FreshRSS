@@ -15,6 +15,8 @@ class Minz_PdoSqlite extends Minz_Pdo {
 		return 'sqlite';
 	}
 
+	// PHP8+: PDO::lastInsertId(?string $name = null): string|false
+	#[\ReturnTypeWillChange]
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}

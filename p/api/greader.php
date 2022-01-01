@@ -1116,8 +1116,7 @@ if ($pathInfos[1] === 'accounts') {
 		case 'unread-count':
 			$output = isset($_GET['output']) ? $_GET['output'] : '';
 			if ($output !== 'json') notImplemented();
-			$all = isset($_GET['all']) ? $_GET['all'] : '';
-			unreadCount($all);
+			unreadCount();
 			break;
 		case 'edit-tag':	//http://blog.martindoms.com/2010/01/20/using-the-google-reader-api-part-3/
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
