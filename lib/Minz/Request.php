@@ -329,7 +329,7 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param array<string,string> $url l'url vers laquelle est relancée la requête
+	 * @param array<string,array<string,string>> $url l'url vers laquelle est relancée la requête
 	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */

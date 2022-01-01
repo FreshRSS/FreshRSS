@@ -96,8 +96,8 @@ class Minz_Url {
 
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
-	 * @param array<string,string>|string $url sous forme de tableau (sinon renverra directement $url)
-	 * @return array<string,string>|string url vérifié
+	 * @param array<string,array<string,string>> $url sous forme de tableau
+	 * @return array<string,array<string,string>> url vérifié
 	 */
 	public static function checkUrl ($url) {
 		$url_checked = $url;
