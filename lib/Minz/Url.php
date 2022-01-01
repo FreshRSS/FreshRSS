@@ -6,7 +6,7 @@
 class Minz_Url {
 	/**
 	 * Affiche une Url formatée
-	 * @param string|array<string,string> $url l'url à formater définie comme un tableau :
+	 * @param string|array<string,string|array<string,mixed>> $url l'url à formater définie comme un tableau :
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
@@ -97,7 +97,7 @@ class Minz_Url {
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
 	 * @param array<string,string>|string $url sous forme de tableau (sinon renverra directement $url)
-	 * @return string url vérifié
+	 * @return array<string,string>|string url vérifié
 	 */
 	public static function checkUrl ($url) {
 		$url_checked = $url;

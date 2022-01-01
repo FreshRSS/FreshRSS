@@ -77,7 +77,7 @@ function checkRequirements($dbType = '') {
 }
 
 function generateSalt() {
-	return sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
+	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__)));
 }
 
 function initDb() {

@@ -360,7 +360,7 @@ class Minz_Request {
 	/**
 	 * Wrappers good notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
 		Minz_Request::setGoodNotification($msg);
@@ -370,7 +370,7 @@ class Minz_Request {
 	/**
 	 * Wrappers bad notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
 	 */
 	public static function bad($msg, $url = array()) {
 		Minz_Request::setBadNotification($msg);

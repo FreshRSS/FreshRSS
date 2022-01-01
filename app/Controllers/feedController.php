@@ -186,7 +186,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
 			try {
-				$feed = self::addFeed($url, '', $cat, null, $http_auth, $attributes);
+				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
