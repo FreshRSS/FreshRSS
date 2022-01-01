@@ -18,7 +18,7 @@ if (COPY_SYSLOG_TO_STDERR) {
 /**
  * Build a directory path by concatenating a list of directory names.
  *
- * @param array<string> $path_parts a list of directory names
+ * @param string $path_parts a list of directory names
  * @return string corresponding to the final pathname
  */
 function join_path(...$path_parts) {
@@ -276,7 +276,7 @@ function sanitizeHTML($data, $base = '', $maxLength = false) {
  */
 function validateEmailAddress($email) {
 	$mailer = new PHPMailer\PHPMailer\PHPMailer();
-	$mailer->Charset = 'utf-8';
+	$mailer->CharSet = 'utf-8';
 	$punyemail = $mailer->punyencodeAddress($email);
 	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
 }
@@ -349,7 +349,7 @@ function max_registrations_reached() {
  * objects. If you need a long-time configuration, please don't use this function.
  *
  * @param string $username the name of the user of which we want the configuration.
- * @return Minz_Configuration|null object, or null if the configuration cannot be loaded.
+ * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -368,7 +368,11 @@ function get_user_configuration($username) {
 		return null;
 	}
 
-	return Minz_Configuration::get($namespace);
+	/**
+	 * @var FreshRSS_UserConfiguration $user_conf
+	 */
+	$user_conf = Minz_Configuration::get($namespace);
+	return $user_conf;
 }
 
 
@@ -497,8 +501,8 @@ function recursive_unlink($dir) {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<string,string> $queries an array of queries.
- * @return array<string,string> whithout queries where $get is appearing.
+ * @param array<string,array<string,string>> $queries an array of queries.
+ * @return array<string,array<string,string>> whithout queries where $get is appearing.
  */
 function remove_query_by_get($get, $queries) {
 	$final_queries = array();

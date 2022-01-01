@@ -2,6 +2,14 @@
 
 /**
  * Manage configuration for the application.
+ * @property-read string $base_url
+ * @property array<string> $db
+ * @property-read string $disable_update
+ * @property-read string $environment
+ * @property-read array<string> $extensions_enabled
+ * @property-read string $mailer
+ * @property-read string $smtp
+ * @property string $title
  */
 class Minz_Configuration {
 	/**

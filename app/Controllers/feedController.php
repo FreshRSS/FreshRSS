@@ -3,7 +3,7 @@
 /**
  * Controller to handle every feed actions.
  */
-class FreshRSS_feed_Controller extends Minz_ActionController {
+class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the

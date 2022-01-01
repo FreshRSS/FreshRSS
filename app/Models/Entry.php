@@ -453,10 +453,16 @@ class FreshRSS_Entry extends Minz_Model {
 
 		if ($html) {
 			require_once(LIB_PATH . '/lib_phpQuery.php');
+			/**
+			 * @var phpQueryObject @doc
+			 */
 			$doc = phpQuery::newDocument($html);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
+				/**
+				 * @var phpQueryObject @metas
+				 */
 				$metas = $doc->find('meta[http-equiv][content]');
 				foreach ($metas as $meta) {
 					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
@@ -470,6 +476,9 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 
+			/**
+			 * @var phpQueryObject @content
+			 */
 			$content = $doc->find($path);
 			$html = trim(sanitizeHTML($content->__toString(), $url));
 			phpQuery::unloadDocuments();

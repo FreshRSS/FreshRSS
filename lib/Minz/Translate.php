@@ -179,7 +179,7 @@ class Minz_Translate {
 	/**
 	 * Translate a key into its corresponding value based on selected language.
 	 * @param string $key the key to translate.
-	 * @param array<string> $args additional parameters for variable keys.
+	 * @param string $args additional parameters for variable keys.
 	 * @return string value corresponding to the key.
 	 *         If no value is found, return the key itself.
 	 */
@@ -247,7 +247,7 @@ class Minz_Translate {
 /**
  * Alias for Minz_Translate::t()
  * @param string $key
- * @param array<string> $args
+ * @param string $args
  */
 function _t($key, ...$args) {
 	return Minz_Translate::t($key, ...$args);

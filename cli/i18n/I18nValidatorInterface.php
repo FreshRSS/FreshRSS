@@ -19,7 +19,7 @@ interface I18nValidatorInterface {
 	/**
 	 * Display the validation report.
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function displayReport();
 

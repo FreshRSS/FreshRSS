@@ -3,7 +3,7 @@
 /**
  * Controller to handle user actions.
  */
-class FreshRSS_user_Controller extends Minz_ActionController {
+class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	/**
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.

@@ -4,9 +4,11 @@ class FreshRSS_View extends Minz_View {
 
 	// Main views
 	public $callbackBeforeEntries;
+	public $callbackBeforeFeeds;
 	public $callbackBeforePagination;
 	public $categories;
 	public $category;
+	public $current_user;
 	public $entries;
 	public $entry;
 	public $feed;
@@ -33,6 +35,7 @@ class FreshRSS_View extends Minz_View {
 	public $status_files;
 	public $status_php;
 	public $update_to_apply;
+	public $status_database;
 
 	// Archiving
 	public $nb_total;
@@ -52,6 +55,7 @@ class FreshRSS_View extends Minz_View {
 	// Export / Import
 	public $content;
 	public $entriesRaw;
+	public $entriesId;
 	public $entryIdsTagNames;
 	public $list_title;
 	public $queryId;
@@ -87,6 +91,7 @@ class FreshRSS_View extends Minz_View {
 	public $selectorSuccess;
 
 	// Extensions
+	public $available_extensions;
 	public $ext_details;
 	public $extension_list;
 	public $extension;
@@ -95,6 +100,7 @@ class FreshRSS_View extends Minz_View {
 	// Errors
 	public $code;
 	public $errorMessage;
+	public $message;
 
 	// Statistics
 	public $average;
