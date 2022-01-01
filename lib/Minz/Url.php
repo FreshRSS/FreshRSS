@@ -118,16 +118,20 @@ class Minz_Url {
 	}
 }
 
-function _url ($controller, $action) {
-	$nb_args = func_num_args ();
+/**
+ * @param string $controller
+ * @param string $action
+ * @param array<string,string> $args
+ */
+function _url ($controller, $action, ...$args) {
+	$nb_args = count($args);
 
-	if($nb_args < 2 || $nb_args % 2 != 0) {
+	if ($nb_args % 2 !== 0) {
 		return false;
 	}
 
-	$args = func_get_args ();
 	$params = array ();
-	for($i = 2; $i < $nb_args; $i = $i + 2) {
+	for ($i = 0; $i < $nb_args; $i += 2) {
 		$params[$args[$i]] = $args[$i + 1];
 	}
 

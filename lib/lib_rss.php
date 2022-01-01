@@ -18,11 +18,10 @@ if (COPY_SYSLOG_TO_STDERR) {
 /**
  * Build a directory path by concatenating a list of directory names.
  *
- * @param $path_parts a list of directory names
+ * @param array<string> $path_parts a list of directory names
  * @return string corresponding to the final pathname
  */
-function join_path() {
-	$path_parts = func_get_args();
+function join_path(...$path_parts) {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
