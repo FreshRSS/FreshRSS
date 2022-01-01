@@ -295,23 +295,25 @@ class Minz_ExtensionManager {
 	 * array keys.
 	 *
 	 * @param string $hook_name the hook to call.
-	 * @param additional parameters (for signature, please see self::$hook_list).
+	 * @param array<mixed> $args additional parameters (for signature, please see self::$hook_list).
 	 * @return mixed final result of the called hook.
 	 */
-	public static function callHook($hook_name) {
+	public static function callHook($hook_name, ...$args) {
 		if (!isset(self::$hook_list[$hook_name])) {
 			return;
 		}
 
 		$signature = self::$hook_list[$hook_name]['signature'];
-		$args = func_get_args();
-		if ($signature === 'PassArguments') {
-			array_shift($args);
+		if ($signature === 'OneToOne') {
+			return self::callOneToOne($hook_name, $args[0] ?? null);
+		} elseif ($signature === 'PassArguments') {
 			foreach (self::$hook_list[$hook_name]['list'] as $function) {
-				call_user_func_array($function, $args);
+				call_user_func($function, ...$args);
 			}
-		} else {
-			return call_user_func_array('self::call' . $signature, $args);
+		} elseif ($signature === 'NoneToString') {
+			return self::callNoneToString($hook_name);
+		} elseif ($signature === 'NoneToNone') {
+			return self::callNoneToNone($hook_name);
 		}
 	}
 
