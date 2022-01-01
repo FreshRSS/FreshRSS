@@ -30,6 +30,9 @@ Minz_Session::init('FreshRSS', true);
 // <Debug>
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 
+/**
+ * @return string
+ */
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();

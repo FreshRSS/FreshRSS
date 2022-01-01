@@ -463,10 +463,10 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$hasBadGuids ? '' : $guid,
-				$title === null ? '' : $title,
+				$title == '' ? '' : $title,
 				$author_names,
-				$content === null ? '' : $content,
-				$link === null ? '' : $link,
+				$content == '' ? '' : $content,
+				$link == '' ? '' : $link,
 				$date ? $date : time()
 			);
 			$entry->_tags($tags);

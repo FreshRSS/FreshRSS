@@ -29,20 +29,36 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 
 if (PHP_INT_SIZE < 8) {	//32-bit
+	/**
+	 * @param string|int $dec
+	 * @return string
+	 */
 	function dec2hex($dec) {
 		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
 	}
+	/**
+	 * @param string $hex
+	 * @return string
+	 */
 	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
+		if (!ctype_xdigit($hex)) return '0';
 		return gmp_strval(gmp_init($hex, 16), 10);
 	}
 } else {	//64-bit
+	/**
+	 * @param string|int $dec
+	 * @return string
+	 */
 	function dec2hex($dec) {	//http://code.google.com/p/google-reader-api/wiki/ItemId
 		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
 	}
+	/**
+	 * @param string $hex
+	 * @return string
+	 */
 	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return hexdec($hex);
+		if (!ctype_xdigit($hex)) return '0';
+		return '' . hexdec($hex);
 	}
 }
 
@@ -79,6 +95,9 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
+/**
+ * @return string
+ */
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
