@@ -1,4 +1,7 @@
-<?php FreshRSS::preLayout(); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	FreshRSS::preLayout();
+?>
 <!DOCTYPE html>
 <html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>"<?php
 if (_t('gen.dir') === 'rtl') {
@@ -8,11 +11,11 @@ if (_t('gen.dir') === 'rtl') {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
-		<?= self::headStyle() ?>
+		<?= FreshRSS_View::headStyle() ?>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
-		<?= self::headScript() ?>
+		<?= FreshRSS_View::headScript() ?>
 		<link rel="manifest" href="<?= Minz_Url::display('/themes/manifest.json') ?>" />
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
@@ -25,7 +28,7 @@ if (_t('gen.dir') === 'rtl') {
 <?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
 <?php } ?>
-		<?= self::headTitle() ?>
+		<?= FreshRSS_View::headTitle() ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
 	if (isset($this->rss_title)) {

@@ -4,6 +4,11 @@
  * Controller to handle every import and export actions.
  */
 class FreshRSS_importExport_Controller extends Minz_ActionController {
+
+	private $catDAO;
+	private $entryDAO;
+	private $feedDAO;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -26,7 +31,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		$this->view->feeds = $this->feedDAO->listFeeds();
-		Minz_View::prependTitle(_t('sub.import_export.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
 	private static function megabytes($size_str) {
@@ -504,6 +509,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$website = $origin['htmlUrl'];
 		} elseif (!empty($origin['feedUrl'])) {
 			$website = $origin['feedUrl'];
+		} else {
+			$website = '';
 		}
 		$name = empty($origin['title']) ? $website : $origin['title'];
 

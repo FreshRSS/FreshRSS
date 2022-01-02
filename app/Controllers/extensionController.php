@@ -19,7 +19,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 * This action lists all the extensions available to the current user.
 	 */
 	public function indexAction() {
-		Minz_View::prependTitle(_t('admin.extensions.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.extensions.title') . ' · ');
 		$this->view->extension_list = array(
 			'system' => array(),
 			'user' => array(),

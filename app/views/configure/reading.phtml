@@ -1,15 +1,18 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
-	
+
 	<h1><?= _t('conf.reading') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'reading') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		
+
 		<div class="form-group">
 			<label class="group-name" for="posts_per_page"><?= _t('conf.reading.articles_per_page') ?></label>
 			<div class="group-controls">

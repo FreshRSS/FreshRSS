@@ -12,12 +12,12 @@ class Minz_Error {
 
 	/**
 	* Permet de lancer une erreur
-	* @param $code le type de l'erreur, par défaut 404 (page not found)
-	* @param $logs logs d'erreurs découpés de la forme
+	* @param int $code le type de l'erreur, par défaut 404 (page not found)
+	* @param array<string> $logs logs d'erreurs découpés de la forme
 	*      > $logs['error']
 	*      > $logs['warning']
 	*      > $logs['notice']
-	* @param $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
+	* @param bool $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
 	*/
 	public static function error ($code = 404, $logs = array (), $redirect = true) {
 		$logs = self::processLogs ($logs);
@@ -50,8 +50,8 @@ class Minz_Error {
 	/**
 	 * Permet de retourner les logs de façon à n'avoir que
 	 * ceux que l'on veut réellement
-	 * @param $logs les logs rangés par catégories (error, warning, notice)
-	 * @return array liste des logs, sans catégorie, en fonction de l'environment
+	 * @param array<string> $logs les logs rangés par catégories (error, warning, notice)
+	 * @return array<string> liste des logs, sans catégorie, en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {
 		$conf = Minz_Configuration::get('system');

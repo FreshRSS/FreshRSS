@@ -24,7 +24,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$db = FreshRSS_Context::$system_conf->db;
 
 		try {
-			$sql = sprintf($SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
+			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
 			return $this->pdo->exec($sql) === false ? 'Error during CREATE DATABASE' : '';
 		} catch (Exception $e) {
 			syslog(LOG_DEBUG, __method__ . ' notice: ' . $e->getMessage());
@@ -176,7 +176,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 			$ok = false;
 			try {
-				$ok = $this->pdo->exec($SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
+				$ok = $this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) !== false;	//FreshRSS 1.12
 			} catch (Exception $e) {
 				$ok = false;
 				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
@@ -277,6 +277,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
 				$tagFrom = $tagDAOSQLite; $tagTo = $tagDAO;
 				break;
+			default:
+				return;
 		}
 
 		$idMaps = [];

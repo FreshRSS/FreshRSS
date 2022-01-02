@@ -1065,18 +1065,13 @@ a.btn,
 
 /*=== GLOBAL VIEW */
 /*================*/
-.box.category .box-title .title {
-	font-weight: normal;
-	text-decoration: none;
-	text-align: right;
-}
-
 .box.category:not([data-unread="0"]) .box-title {
 	background: #0084cc;
 }
 
-.box.category:not([data-unread="0"]) .box-title:active {
-	background: #3498db;
+.box.category .box-title .title {
+	display: block;
+	font-weight: normal;
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {

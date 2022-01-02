@@ -1,4 +1,7 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
 <main class="post">
 	<div class="link-back-wrapper">
@@ -24,7 +27,7 @@
 			<a target="_blank" rel="noreferrer" class="btn" title="<?= _t('conf.sharing.more_information') ?>" href="##help##"><?= _i('help') ?></a>
 			</div></div>' class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		
+
 		<?php
 			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
 				$share = FreshRSS_Share::get($share_options['type']);
