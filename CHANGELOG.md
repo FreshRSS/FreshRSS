@@ -43,7 +43,7 @@
 * Deployment
 	* Docker: development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Docker: default image updated to Debian 11 Bullseye with PHP 7.4.25 and Apache 2.4.51 [#3782](https://github.com/FreshRSS/FreshRSS/pull/3782)
-	* Docker: alternative image updated to Alpine 3.15 with PHP 8.0.13 and Apache 2.4.51 [#3996](https://github.com/FreshRSS/FreshRSS/pull/3996)
+	* Docker: alternative image updated to Alpine 3.15 with PHP 8.0.14 and Apache 2.4.52 [#3996](https://github.com/FreshRSS/FreshRSS/pull/3996)
 	* Docker: fix inclusion of `.htaccess` for `./p/themes/` folder [#4074](https://github.com/FreshRSS/FreshRSS/pull/4074)
 	* Docker: only add the crontab when `CRON_MIN` is set [#3927](https://github.com/FreshRSS/FreshRSS/pull/3927)
 	* Docker: move logic to disable FreshRSS updates [#3973](https://github.com/FreshRSS/FreshRSS/pull/3973)
