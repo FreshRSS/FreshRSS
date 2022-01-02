@@ -71,6 +71,7 @@ class SimplePie_Sanitize
 	var $useragent = '';
 	var $force_fsockopen = false;
 	var $replace_url_attributes = null;
+	var $registry;
 
 	/**
 	 * List of domains for which to force HTTPS.
