@@ -68,7 +68,7 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 		),
-		'proxy' => '获取原文时的代理',
+		'proxy' => '获取订阅源时的代理',
 		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd>）',
 		'selector_preview' => array(
 			'show_raw' => '显示源码',

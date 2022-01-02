@@ -1,3 +1,4 @@
+<?php /** @var FreshRSS_View $this */ ?>
 <?php
 	if (!$this->disable_aside) {
 		$this->partial('aside_configure');
@@ -103,7 +104,7 @@
 
 	<form id="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		
+
 		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('conf.profile.delete.warn') ?></p>
 
 		<div class="form-group">

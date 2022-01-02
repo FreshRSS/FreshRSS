@@ -14,9 +14,9 @@ class Minz_Log {
 	 * 	- environment = SILENT
 	 * 	- level = LOG_WARNING et environment = PRODUCTION
 	 * 	- level = LOG_NOTICE et environment = PRODUCTION
-	 * @param $information message d'erreur / information à enregistrer
-	 * @param $level niveau d'erreur https://php.net/function.syslog
-	 * @param $file_name fichier de log
+	 * @param string $information message d'erreur / information à enregistrer
+	 * @param int $level niveau d'erreur https://php.net/function.syslog
+	 * @param string $file_name fichier de log
 	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
@@ -79,7 +79,7 @@ class Minz_Log {
 	 * This method can be called multiple times for one script execution, but its result will not change unless
 	 * you call clearstatcache() in between. We won't due do that for performance reasons.
 	 *
-	 * @param $file_name
+	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize($file_name) {
@@ -108,7 +108,7 @@ class Minz_Log {
 	 * Automatise le log des variables globales $_GET et $_POST
 	 * Fait appel à la fonction record(...)
 	 * Ne fonctionne qu'en environnement "development"
-	 * @param $file_name fichier de log
+	 * @param string $file_name fichier de log
 	 */
 	public static function recordRequest($file_name = null) {
 		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));

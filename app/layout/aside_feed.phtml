@@ -1,4 +1,5 @@
 <?php
+	/** @var FreshRSS_View $this */
 	$actual_view = Minz_Request::actionName();
 	$class = '';
 	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
@@ -14,7 +15,7 @@
 		$state_filter_cat = '&state=' . $state_filter_cat;
 	}
 ?>
-<nav class="aside aside_feed<?= $class ?>" id="aside_feed">
+<nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -49,7 +50,7 @@
 			$t_active = FreshRSS_Context::isCurrentGet('T');
 			$t_show = ($t_active && in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember' ])) || FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
-		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>">
+		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($t_active ? 'up' : 'down') ?></a>
 				<a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_fav ?>"><?= _t('index.menu.tags') ?></a>
@@ -116,6 +117,7 @@
 	</ul>
 	</form>
 </nav>
+<a class="close-aside" href="#close">❌</a>
 
 <div id="first_load" class="loading"></div>
 <?php flush(); ?>

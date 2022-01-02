@@ -3,7 +3,7 @@
 $isUpdate = false;
 require(__DIR__ . '/_update-or-create-user.php');
 
-$username = $options['user'];
+$username = $GLOBALS['options']['user'];
 if (!FreshRSS_user_Controller::checkUsername($username)) {
 	fail('FreshRSS error: invalid username “' . $username .
 		'”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
@@ -20,7 +20,7 @@ $ok = FreshRSS_user_Controller::createUser(
 	$username,
 	empty($options['mail_login']) ? '' : $options['mail_login'],
 	empty($options['password']) ? '' : $options['password'],
-	$values,
+	$GLOBALS['values'],
 	!isset($options['no_default_feeds'])
 );
 
