@@ -71,7 +71,7 @@ img.icon:hover {
 	background: none;
 }
 
-div#stream {
+main#stream {
 	margin-top: 35px;
 }
 
@@ -179,6 +179,7 @@ form th {
 .form-group .group-controls .control {
 	line-height: 2em;
 }
+
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -469,6 +470,7 @@ form th {
 	max-height: 260px;
 }
 .box .box-content .item {
+	padding: 0 10px;
 	font-size: 0.9rem;
 	line-height: 2.5em;
 }
@@ -586,7 +588,7 @@ form th {
 }
 .header .item.configure {
 	position: fixed;
-	right: 0px;
+	right: 0;
 	z-index: 1000;
 	width: 35px;
 }
@@ -921,6 +923,11 @@ form th {
 	.header .item.title .logo {
 		display: none;
 	}
+	.header .item.configure {
+		padding: 0;
+		position: absolute;
+		right: 77px;
+	}
 
 	.header > .item.title a {
 		display: block;
@@ -929,8 +936,7 @@ form th {
 		left: 10px;
 	}
 
-	.header .item.configure,
-button.read_all.btn {
+	button.read_all.btn {
 		display: none;
 	}
 
@@ -971,18 +977,21 @@ button.read_all.btn {
 		height: 71px;
 	}
 	.nav_menu .btn {
-		margin: 5px 10px;
+		margin: 0;
 	}
 	.nav_menu .stick {
-		margin: 0 10px;
+		margin: 0;
 	}
 	.nav_menu .stick .btn {
-		margin: 5px 0;
+		margin: 0;
 	}
 	.nav_menu .search {
 		position: absolute !important;
-		top: 35px;
-		left: 55px;
+		top: 3px;
+		left: 37px;
+	}
+	.nav_menu .search form {
+		display: block;
 	}
 	.nav_menu .search input {
 		width: 85%;
@@ -992,7 +1001,8 @@ button.read_all.btn {
 		margin: 0 0 3.5em;
 	}
 
-	#panel .close {
+	#panel .close,
+.dropdown-menu .toggle_aside {
 		background: #22303d;
 		display: block;
 		height: 50px;
@@ -1035,7 +1045,7 @@ button.read_all.btn {
 
 	a.btn.toggle_aside {
 		position: absolute;
-		top: 29px;
+		top: 0;
 	}
 
 	form#mark-read-menu,
@@ -1047,24 +1057,23 @@ div#nav_menu_views {
 	}
 
 	form#mark-read-menu {
-		right: 46px;
-		top: 30px;
-		z-index: 1100;
+		right: 38px;
+		top: 0;
 	}
 
 	a#actualize,
 a#toggle-order {
-		right: 0px;
+		right: 0;
 	}
 
 	a#actualize {
-		top: 29px;
+		top: 0;
 	}
 
 	a#toggle-order,
 div#nav_menu_actions,
 div#nav_menu_views {
-		top: 65px;
+		top: 36px;
 	}
 
 	div#nav_menu_actions {
@@ -1151,7 +1160,5 @@ button.as-link {
 	min-height: initial;
 }
 #slider .form-group:hover {
-	background: inital;
+	background: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

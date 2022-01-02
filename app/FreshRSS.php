@@ -24,6 +24,8 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
+		Minz_ActionController::$viewType = 'FreshRSS_View';
+
 		FreshRSS_Context::initSystem();
 		if (FreshRSS_Context::$system_conf == null) {
 			$message = 'Error during context system init!';
@@ -105,7 +107,7 @@ class FreshRSS extends Minz_FrontController {
 					case '.js':
 						$theme_id = $theme['id'];
 						$filename = $file;
-						Minz_View::prependScript(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
+						FreshRSS_View::prependScript(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
 						break;
 					case '.css':
 					default:
@@ -120,21 +122,21 @@ class FreshRSS extends Minz_FrontController {
 							$filename = substr($filename, 0, -4);
 							$filename = $filename . '.rtl.css';
 						}
-						Minz_View::prependStyle(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
+						FreshRSS_View::prependStyle(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
 				}
 			}
 		}
 		//Use prepend to insert before extensions. Added in reverse order.
 		if (Minz_Request::controllerName() !== 'index') {
-			Minz_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
+			FreshRSS_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
 		}
-		Minz_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+		FreshRSS_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 	}
 
 	private static function loadNotifications() {
 		$notif = Minz_Request::getNotification();
 		if ($notif) {
-			Minz_View::_param('notification', $notif);
+			FreshRSS_View::_param('notification', $notif);
 		}
 	}
 

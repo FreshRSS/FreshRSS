@@ -1,12 +1,16 @@
 <?php
+	/** @var FreshRSS_View $this */
 	$c = Minz_Request::controllerName();
 	$a = Minz_Request::actionName();
-	$params = Minz_Request::fetchGET();
+	$params = $_GET;
 ?>
 
 <?php if ($this->nbPage > 1) { ?>
 <ul class="pagination">
-	<?php $params[$getteur] = 1; ?>
+	<?php
+		/** @var int $getteur */
+		$params[$getteur] = 1;
+	?>
 	<li class="item pager-first">
 		<?php if ($this->currentPage > 1) { ?>
 		<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">« <?= _t('gen.pagination.first') ?></a>

@@ -2,7 +2,7 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => '標準ユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
+		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
 		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',
 		'api_enabled' => '<abbr>API</abbr>からのアクセスを許可する <small>(モバイルアプリが必要です)</small>',
 		'form' => 'ウェブフォーム (JavaScriptが必要です)',

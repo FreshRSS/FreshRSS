@@ -1262,6 +1262,10 @@ a.btn {
 		display: table;
 	}
 
+	.header > .item.title .logo {
+		height: 24px;
+	}
+
 	.nav-login {
 		display: none;
 	}
@@ -1278,7 +1282,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #171717;
 		display: block;
 		width: 100%;
@@ -1355,15 +1360,6 @@ a.btn {
 }
 
 @media (max-width: 700px) {
-	.header {
-		display: none;
-	}
-
-	.nav-login {
-		display: inline-block;
-		width: 100%;
-	}
-
 	.nav_menu .search {
 		display: inline-block;
 	}

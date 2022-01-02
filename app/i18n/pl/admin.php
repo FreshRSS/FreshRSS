@@ -104,9 +104,9 @@ return array(
 		'author' => 'Autor',
 		'community' => 'Rozszerzenia stworzone przez społeczność',
 		'description' => 'Opis',
-		'disabled' => 'Disabled',	// TODO - Translation
-		'empty_list' => 'There are no installed extensions',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
+		'disabled' => 'Wyłączone',
+		'empty_list' => 'Brak zainstalowanych rozszerzeń',
+		'enabled' => 'Włączone',
 		'latest' => 'Zainstalowane',
 		'name' => 'Nazwa',
 		'no_configure_view' => 'To rozszerzenie nie jest konfigurowalne.',
@@ -115,7 +115,7 @@ return array(
 			'no_rights' => 'Rozszerzenie systemowe (brak uprawnień)',
 		),
 		'title' => 'Rozszerzenia',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Dostępna jest aktualizacja',
 		'user' => 'Rozszerzenia użytkownika',
 		'version' => 'Wersja',
 	),

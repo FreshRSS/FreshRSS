@@ -11,7 +11,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Register a new sharing option.
-	 * @param $share_options is an array defining the share option.
+	 * @param array<string,string> $share_options is an array defining the share option.
 	 */
 	public static function register($share_options) {
 		$type = $share_options['type'];
@@ -31,7 +31,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Register sharing options in a file.
-	 * @param $filename the name of the file to load.
+	 * @param string $filename the name of the file to load.
 	 */
 	public static function load($filename) {
 		$shares_from_file = @include($filename);
@@ -51,7 +51,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the list of sharing options.
-	 * @return array[FreshRSS_Share]
+	 * @return array<FreshRSS_Share>
 	 */
 	public static function enum() {
 		return self::$list_sharing;
@@ -59,7 +59,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return FreshRSS_Share object related to the given type.
-	 * @param $type the share type, null if $type is not registered.
+	 * @param string $type the share type, null if $type is not registered.
 	 */
 	public static function get($type) {
 		if (!isset(self::$list_sharing[$type])) {
@@ -88,14 +88,14 @@ class FreshRSS_Share {
 
 	/**
 	 * Create a FreshRSS_Share object.
-	 * @param $type is a unique string defining the kind of share option.
-	 * @param $url_transform defines the url format to use in order to share.
-	 * @param $transform is an array of transformations to apply on link and title.
-	 * @param $form_type defines which form we have to use to complete. "simple"
+	 * @param string $type is a unique string defining the kind of share option.
+	 * @param string $url_transform defines the url format to use in order to share.
+	 * @param array<string> $transform is an array of transformations to apply on link and title.
+	 * @param string $form_type defines which form we have to use to complete. "simple"
 	 *        is typically for a centralized service while "advanced" is for
 	 *        decentralized ones.
-	 * @param $help_url is an optional url to give help on this option.
-	 * @param $method defines the sharing method (GET or POST)
+	 * @param string $help_url is an optional url to give help on this option.
+	 * @param string $method defines the sharing method (GET or POST)
 	 */
 	private function __construct($type, $url_transform, $transform, $form_type, $help_url, $method, $field) {
 		$this->type = $type;
@@ -121,7 +121,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Update a FreshRSS_Share object with information from an array.
-	 * @param $options is a list of informations to update where keys should be
+	 * @param array<string,string> $options is a list of informations to update where keys should be
 	 *        in this list: name, url, id, title, link.
 	 */
 	public function update($options) {
@@ -217,7 +217,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the id.
-	 * @param $raw true if we should get the id without transformations.
+	 * @param bool $raw true if we should get the id without transformations.
 	 */
 	public function id($raw = false) {
 		if ($raw) {
@@ -229,7 +229,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the title.
-	 * @param $raw true if we should get the title without transformations.
+	 * @param bool $raw true if we should get the title without transformations.
 	 */
 	public function title($raw = false) {
 		if ($raw) {
@@ -241,7 +241,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the link.
-	 * @param $raw true if we should get the link without transformations.
+	 * @param bool $raw true if we should get the link without transformations.
 	 */
 	public function link($raw = false) {
 		if ($raw) {
@@ -253,8 +253,8 @@ class FreshRSS_Share {
 
 	/**
 	 * Transform a data with the given functions.
-	 * @param $data the data to transform.
-	 * @param $tranform an array containing a list of functions to apply.
+	 * @param string $data the data to transform.
+	 * @param array<string> $transform an array containing a list of functions to apply.
 	 * @return mixed the transformed data.
 	 */
 	private static function transform($data, $transform) {
@@ -273,8 +273,8 @@ class FreshRSS_Share {
 
 	/**
 	 * Get the list of transformations for the given attribute.
-	 * @param $attr the attribute of which we want the transformations.
-	 * @return an array containing a list of transformations to apply.
+	 * @param string $attr the attribute of which we want the transformations.
+	 * @return array<string> containing a list of transformations to apply.
 	 */
 	private function getTransform($attr) {
 		if (array_key_exists($attr, $this->transform)) {

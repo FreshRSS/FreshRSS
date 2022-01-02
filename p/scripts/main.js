@@ -201,6 +201,12 @@ const pending_entries = {};
 let mark_read_queue = [];
 
 function send_mark_read_queue(queue, asRead, callback) {
+	if (!queue || queue.length === 0) {
+		if (callback) {
+			callback();
+		}
+		return;
+	}
 	const req = new XMLHttpRequest();
 	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
 	req.responseType = 'json';
@@ -835,7 +841,7 @@ function init_shortcuts() {
 	document.addEventListener('keydown', ev => {
 		if (ev.target.closest('input, textarea') ||
 				ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey)) {
-			return true;
+			return;
 		}
 
 		const s = context.shortcuts;
@@ -854,8 +860,17 @@ function init_shortcuts() {
 				} else {
 					auto_share(n);
 				}
-				return false;
+				ev.preventDefault();
+				return;
 			}
+		}
+		if (k === s.actualize) {
+			const btn = document.getElementById('actualize');
+			if (btn) {
+				btn.click();
+			}
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.next_entry) {
 			if (ev.altKey) {
@@ -865,7 +880,8 @@ function init_shortcuts() {
 			} else {
 				next_entry(false);
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.next_unread_entry) {
 			if (ev.altKey) {
@@ -875,7 +891,8 @@ function init_shortcuts() {
 			} else {
 				next_unread_entry(false);
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.prev_entry) {
 			if (ev.altKey) {
@@ -885,7 +902,8 @@ function init_shortcuts() {
 			} else {
 				prev_entry(false);
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.mark_read) {
 			if (ev.altKey) {
@@ -895,7 +913,8 @@ function init_shortcuts() {
 			} else {	// Toggle the read state
 				mark_read(document.querySelector('.flux.current'), false, false);
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.first_entry) {
 			if (ev.altKey) {
@@ -909,7 +928,8 @@ function init_shortcuts() {
 					toggleContent(first, old_active, false);
 				}
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.last_entry) {
 			if (ev.altKey) {
@@ -923,15 +943,17 @@ function init_shortcuts() {
 					toggleContent(last, old_active, false);
 				}
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
 
 		if (ev.altKey || ev.shiftKey) {
-			return true;
+			return;
 		}
 		if (k === s.mark_favorite) {	// Toggle the favorite state
 			mark_favorite(document.querySelector('.flux.current'));
-			return false;
+			ev.preventDefault();
+			return;
 		}
 		if (k === s.go_website) {
 			if (context.auto_mark_site) {
@@ -942,23 +964,23 @@ function init_shortcuts() {
 				newWindow.opener = null;
 				newWindow.location = document.querySelector('.flux.current a.go_website').href;
 			}
-			return false;
+			ev.preventDefault();
+			return;
 		}
-		if (k === s.skip_next_entry) { next_entry(true); return false; }
-		if (k === s.skip_prev_entry) { prev_entry(true); return false; }
-		if (k === s.collapse_entry) { collapse_entry(); return false; }
-		if (k === s.auto_share) { auto_share(); return false; }
-		if (k === s.user_filter) { user_filter(); return false; }
-		if (k === s.load_more) { load_more_posts(); return false; }
-		if (k === s.close_dropdown) { location.hash = null; return false; }
-		if (k === s.help) { window.open(context.urls.help); return false; }
-		if (k === s.focus_search) { document.getElementById('search').focus(); return false; }
-		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); return false; }
-		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); return false; }
-		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); return false; }
-		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); return false; }
-		if (k === s.toggle_media) { toggle_media(); return false; }
-		return true;
+		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
+		if (k === s.skip_prev_entry) { prev_entry(true); ev.preventDefault(); return; }
+		if (k === s.collapse_entry) { collapse_entry(); ev.preventDefault(); return; }
+		if (k === s.auto_share) { auto_share(); ev.preventDefault(); return; }
+		if (k === s.user_filter) { user_filter(); ev.preventDefault(); return; }
+		if (k === s.load_more) { load_more_posts(); ev.preventDefault(); return; }
+		if (k === s.close_dropdown) { location.hash = null; ev.preventDefault(); return; }
+		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
+		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
+		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
+		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
+		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
+		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); ev.preventDefault(); return; }
+		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 	});
 }
 
@@ -1379,23 +1401,24 @@ function closePopup() {
 function init_popup() {
 	// Fetch elements.
 	popup = document.getElementById('popup');
+	if (popup) {
+		popup_iframe_container = document.getElementById('popup-iframe-container');
+		popup_iframe = document.getElementById('popup-iframe');
 
-	popup_iframe_container = document.getElementById('popup-iframe-container');
-	popup_iframe = document.getElementById('popup-iframe');
+		popup_txt = document.getElementById('popup-txt');
 
-	popup_txt = document.getElementById('popup-txt');
-
-	// Configure close button.
-	document.getElementById('popup-close').addEventListener('click', function (ev) {
-		closePopup();
-	});
-
-	// Configure close-on-click.
-	window.addEventListener('click', function (ev) {
-		if (ev.target == popup) {
+		// Configure close button.
+		document.getElementById('popup-close').addEventListener('click', function (ev) {
 			closePopup();
-		}
-	});
+		});
+
+		// Configure close-on-click.
+		window.addEventListener('click', function (ev) {
+			if (ev.target == popup) {
+				closePopup();
+			}
+		});
+	}
 }
 // </popup>
 
@@ -1458,9 +1481,11 @@ function refreshUnreads() {
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
+		let nbUnreadFeeds = 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
+			nbUnreadFeeds += nbUnreads;
 			feed_id = 'f_' + feed_id;
 			const elem = document.getElementById(feed_id);
 			const feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
@@ -1473,6 +1498,11 @@ function refreshUnreads() {
 				new_articles = true;
 			}
 		});
+
+		const noArticlesToShow_div = document.getElementById('noArticlesToShow');
+		if (nbUnreadFeeds > 0 && noArticlesToShow_div) {
+			noArticlesToShow_div.classList.add('hide');
+		}
 
 		let nbUnreadTags = 0;
 
@@ -1532,11 +1562,12 @@ function load_more_posts() {
 		formPagination.replaceChild(paginationNew, paginationOld);
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
-		if (bigMarkAsRead) {
+		const readAll = document.querySelector('#nav_menu_read_all .read_all');
+		if (readAll && bigMarkAsRead && bigMarkAsRead.formAction) {
 			if (context.display_order === 'ASC') {
-				document.querySelector('#nav_menu_read_all .read_all').formAction = bigMarkAsRead.formAction;
+				readAll.formAction = bigMarkAsRead.formAction;
 			} else {
-				bigMarkAsRead.formAction = document.querySelector('#nav_menu_read_all .read_all').formAction;
+				bigMarkAsRead.formAction = readAll.formAction;
 			}
 		}
 
@@ -1630,8 +1661,11 @@ function faviconNbUnread(n) {
 				ctx.fillText(text, 0, canvas.height - 1);
 			}
 			link.href = canvas.toDataURL('image/png');
-			document.querySelector('link[rel~=icon]').remove();
-			document.head.appendChild(link);
+			// Check if data URI has generated a real favicon and if not, fallback to standard icon
+			if (link.href.length > 180) {
+				document.querySelector('link[rel~=icon]').remove();
+				document.head.appendChild(link);
+			}
 		};
 		img.src = '../favicon.ico';
 	}

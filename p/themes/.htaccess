@@ -1,5 +1,6 @@
 <IfModule mod_mime.c>
 	AddType application/font-woff .woff
+	AddType application/font-woff2 .woff2
 
 	AddCharset	UTF-8	.css
 	AddCharset	UTF-8	.svg

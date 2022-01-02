@@ -741,8 +741,12 @@ form th {
 }
 
 /*=== Aside main page (categories) */
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]) {
+	width: calc(100% - 35px - 35px);
+}
+
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: -0.5rem 1rem 0 0;
+	margin: -0.25rem 1rem 0 0;
 	padding: 0 0.75rem;
 	background: rgba(35, 35, 0, 0.15);
 	border-radius: 12px;
@@ -1480,8 +1484,9 @@ form th {
 	}
 
 	.aside .toggle_aside,
-#panel .close,
-#close-slider.active {
+	#panel .close,
+	#close-slider.active,
+	.dropdown-menu .toggle_aside {
 		background: #b7641d;
 		display: block;
 		width: 100%;
@@ -1493,8 +1498,8 @@ form th {
 	.header {
 		padding: 0.5rem;
 	}
-	.header .item.title {
-		display: none;
+	.header .item.search form {
+		display: inherit;
 	}
 	.header .item.search {
 		display: block;
@@ -1512,9 +1517,6 @@ form th {
 	.header .item.search .btn {
 		min-height: 49px;
 		padding: 0.5rem 2rem;
-	}
-	.header .item.configure {
-		display: none;
 	}
 
 	.post {

@@ -1,6 +1,9 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -103,6 +106,6 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>
 
 <script src="../scripts/config.js?<?= @filemtime(PUBLIC_PATH . '/scripts/config.js') ?>"></script>

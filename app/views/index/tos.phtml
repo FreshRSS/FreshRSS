@@ -1,4 +1,5 @@
-<div class="post content">
+<?php /** @var FreshRSS_View $this */ ?>
+<main class="post content">
 	<?php if ($this->can_register) { ?>
 		<a href="<?= _url('auth', 'register') ?>">
 			<?= _t('gen.action.back') ?>
@@ -10,4 +11,4 @@
 	<?php } ?>
 
 	<?= $this->terms_of_service ?>
-</div>
+</main>

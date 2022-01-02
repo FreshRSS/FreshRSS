@@ -17,7 +17,6 @@ return array(
 		'import' => 'Importar',
 		'load_default_shortcuts' => 'Carregar mais atalhos',
 		'manage' => 'Gerenciar',
-		'mark_favorite' => 'Marcar como favorito',
 		'mark_read' => 'Marcar como lido',
 		'promote' => 'Promover',
 		'purge' => 'Limpar',

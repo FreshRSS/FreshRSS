@@ -4,6 +4,13 @@
  * Controller to handle every entry actions.
  */
 class FreshRSS_entry_Controller extends Minz_ActionController {
+
+	/**
+	 * JavaScript request or not.
+	 * @var bool
+	 */
+	private $ajax = false;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -114,7 +121,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				'c' => 'index',
 				'a' => 'index',
 				'params' => $params,
-			), true);
+			));
 		}
 	}
 

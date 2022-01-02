@@ -74,13 +74,13 @@ function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
  *
  * You should sanitize path by using the realpath() function.
  *
- * @param $path the path to the file we want to serve.
- * @return true if it can be served, false otherwise.
+ * @param string $path the path to the file we want to serve.
+ * @return bool true if it can be served, false otherwise.
  *
  */
 function is_valid_path($path) {
 	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH)
-		|| is_valid_path_extension($path, USERS_PATH, $false);
+		|| is_valid_path_extension($path, USERS_PATH, false);
 }
 
 function sendBadRequestResponse(string $message = null) {

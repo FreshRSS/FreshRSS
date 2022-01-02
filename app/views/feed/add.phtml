@@ -1,5 +1,6 @@
+<?php /** @var FreshRSS_View $this */ ?>
 <?php if ($this->feed) { ?>
-<div class="post">
+<main class="post">
 	<h1><?= _t('sub.feed.add') ?></h1>
 
 	<?php if (!$this->load_ok) { ?>
@@ -76,7 +77,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" name="http_pass" id="http_pass" class="extend" value="<?= $auth['password'] ?>" autocomplete="new-password" />
-					<a class="btn toggle-password" data-toggle="http_user"><?= _i('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="http_user"><?= _i('key') ?></button>
 				</div>
 			</div>
 		</div>
@@ -88,5 +89,5 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>
 <?php } ?>

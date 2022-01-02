@@ -18,11 +18,10 @@ if (COPY_SYSLOG_TO_STDERR) {
 /**
  * Build a directory path by concatenating a list of directory names.
  *
- * @param $path_parts a list of directory names
+ * @param array<string> $path_parts a list of directory names
  * @return string corresponding to the final pathname
  */
-function join_path() {
-	$path_parts = func_get_args();
+function join_path(...$path_parts) {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
@@ -165,7 +164,7 @@ function html_only_entity_decode($text) {
 			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
 		));
 	}
-	return strtr($text, $htmlEntitiesOnly);
+	return $text == '' ? '' : strtr($text, $htmlEntitiesOnly);
 }
 
 function customSimplePie($attributes = array()) {
@@ -285,7 +284,7 @@ function validateEmailAddress($email) {
 /**
  * Add support of image lazy loading
  * Move content from src attribute to data-original
- * @param content is the text we want to parse
+ * @param string $content is the text we want to parse
  */
 function lazyimg($content) {
 	return preg_replace(
@@ -349,8 +348,8 @@ function max_registrations_reached() {
  * Note this function has been created to generate temporary configuration
  * objects. If you need a long-time configuration, please don't use this function.
  *
- * @param $username the name of the user of which we want the configuration.
- * @return Minz_Configuration object, null if the configuration cannot be loaded.
+ * @param string $username the name of the user of which we want the configuration.
+ * @return Minz_Configuration|null object, or null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -398,7 +397,7 @@ function cryptAvailable() {
 /**
  * Check PHP and its extensions are well-installed.
  *
- * @return array of tested values.
+ * @return array<string,bool> of tested values.
  */
 function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -422,7 +421,7 @@ function check_install_php() {
 /**
  * Check different data files and directories exist.
  *
- * @return array of tested values.
+ * @return array<string,bool> of tested values.
  */
 function check_install_files() {
 	return array(
@@ -438,7 +437,7 @@ function check_install_files() {
 /**
  * Check database is well-installed.
  *
- * @return array of tested values.
+ * @return array<string,bool> of tested values.
  */
 function check_install_database() {
 	$status = array(
@@ -474,7 +473,7 @@ function check_install_database() {
  *
  * From http://php.net/rmdir#110489
  *
- * @param $dir the directory to remove
+ * @param string $dir the directory to remove
  */
 function recursive_unlink($dir) {
 	if (!is_dir($dir)) {
@@ -497,9 +496,9 @@ function recursive_unlink($dir) {
 
 /**
  * Remove queries where $get is appearing.
- * @param $get the get attribute which should be removed.
- * @param $queries an array of queries.
- * @return array whithout queries where $get is appearing.
+ * @param string $get the get attribute which should be removed.
+ * @param array<string,string> $queries an array of queries.
+ * @return array<string,string> whithout queries where $get is appearing.
  */
 function remove_query_by_get($get, $queries) {
 	$final_queries = array();

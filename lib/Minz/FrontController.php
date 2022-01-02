@@ -38,7 +38,7 @@ class Minz_FrontController {
 			$url = $this->buildUrl();
 			$url['params'] = array_merge (
 				$url['params'],
-				Minz_Request::fetchPOST ()
+				$_POST
 			);
 			Minz_Request::forward ($url);
 		} catch (Minz_Exception $e) {
@@ -56,15 +56,9 @@ class Minz_FrontController {
 	private function buildUrl() {
 		$url = array();
 
-		$url['c'] = Minz_Request::fetchGET(
-			'c',
-			Minz_Request::defaultControllerName()
-		);
-		$url['a'] = Minz_Request::fetchGET(
-			'a',
-			Minz_Request::defaultActionName()
-		);
-		$url['params'] = Minz_Request::fetchGET();
+		$url['c'] = $_GET['c'] ?? Minz_Request::defaultControllerName();
+		$url['a'] = $_GET['a'] ?? Minz_Request::defaultActionName();
+		$url['params'] = $_GET;
 
 		// post-traitement
 		unset($url['params']['c']);

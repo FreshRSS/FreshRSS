@@ -32,7 +32,7 @@ return array(
 		'about' => 'O FreshRSS',
 		'before_one_day' => 'Pred 1 dňom',
 		'before_one_week' => 'Pred 1 týždňom',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Pridať aktuálny dopyt do obľúbených',
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',
 		'main_stream' => 'Všetky kanály',
@@ -60,6 +60,6 @@ return array(
 		'related' => 'Značky článku',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Podmienky služby',
 	),
 );

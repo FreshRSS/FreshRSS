@@ -1,6 +1,9 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
 
-<div class="post drop-section">
+<main class="post drop-section">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -25,7 +28,7 @@
 
 	<h2><?= _t('sub.title.add_feed') ?></h2>
 	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
-		
+
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
@@ -65,7 +68,7 @@
 				<div class="group-controls">
 					<div class="stick">
 						<input id="http_pass" name="http_pass" type="password" value="" autocomplete="new-password" />
-						<a class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></a>
+						<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
 					</div>
 				</div>
 			</div>
@@ -123,4 +126,4 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>

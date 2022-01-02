@@ -10,8 +10,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Vaše heslo sa nepodarilo zmeniť',
+			'updated' => 'Vaše heslo bolo zmenené',
 		),
 	),
 	'auth' => array(
@@ -31,7 +31,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s už je povolené',
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'cannot_remove' => '%s sa nepodarilo odstrániť',
 		'disable' => array(
 			'ko' => '%s sa nepodarilo nainštalovať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz zakázaný',
@@ -43,7 +43,7 @@ return array(
 		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
-		'removed' => '%s removed',	// TODO - Translation
+		'removed' => '%s odstránené',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
@@ -81,7 +81,7 @@ return array(
 			'actualizeds' => 'RSS kanál bol aktualizovaný',
 			'added' => 'RSS kanál <em>%s</em> bol pridaný',
 			'already_subscribed' => 'Tento RSS kanál už odoberáte: <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> vyrovnávacia pamäť bola vymazaná',
 			'deleted' => 'Kanál bol vymazaný',
 			'error' => 'Kanál sa nepodarilo aktualizovať',
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
@@ -90,24 +90,24 @@ return array(
 			'n_entries_deleted' => 'Počet vymazaných článkov: %d',
 			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
 			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => 'Kanál sa nepodarilo nájsť',
 			'over_max' => 'Dosiahli ste limit počtu kanálov (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> bol obnovený',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => 'Nepodarilo sa načítať obsah stránky.',
+				'no_entries' => 'V tomto kanáli nie sú články. Na vytvorenie náhľadu je potrebný aspoň jeden článok.',
+				'no_feed' => 'Vnútorná chyba (kanál sa nepodarilo nájsť).',
+				'no_result' => 'Selektor nič neoznačil. Bude sa zobrazovať pôvodný text kanála.',
+				'selector_empty' => 'Selektor je prázdny. Na vytvorenie náhľadu je potrebné definovať selektor.',
 			),
 			'updated' => 'Kanál bol aktualizovaný',
 		),
 		'purge_completed' => 'Čistenie ukončené. Počet vymazaných článkov: %d',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'Štítok "%s" bol vytvorený.',
+		'name_exists' => 'Názov štítku už existuje.',
+		'renamed' => 'Štítok "%s" bol premenovaný na "%s".',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS sa teraz aktualizuje <strong>na verziu %s</strong>.',

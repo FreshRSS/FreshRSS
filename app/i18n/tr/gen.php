@@ -17,7 +17,6 @@ return array(
 		'import' => 'İçe Aktar',
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
-		'mark_favorite' => 'Favoriye ekle',
 		'mark_read' => 'Okundu olarak işaretle',
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',

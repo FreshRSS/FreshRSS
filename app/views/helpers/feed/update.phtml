@@ -1,3 +1,4 @@
+<?php /** @var FreshRSS_View $this */ ?>
 <div class="post">
 	<h1><?= $this->feed->name() ?></h1>
 
@@ -143,7 +144,7 @@
 				<div class="stick">
 					<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
 						$auth['password'] ?>" autocomplete="new-password" />
-					<a class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></button>
 				</div>
 			</div>
 		</div>

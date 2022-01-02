@@ -192,7 +192,7 @@ class Minz_Migrator
 	/**
 	 * Set the applied versions of the application.
 	 *
-	 * @param string[] $applied_versions
+	 * @param array<string> $versions
 	 *
 	 * @throws DomainException if there is no migrations corresponding to a version
 	 */

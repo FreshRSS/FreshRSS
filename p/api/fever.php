@@ -491,6 +491,7 @@ class FeverAPI
 					/** @var FreshRSS_Category $category */
 					$category = $categoryDAO->searchById($id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
 					/** @var FreshRSS_Feed $feed */
+					$feeds = [];
 					foreach ($category->feeds() as $feed) {
 						$feeds[] = $feed->id();
 					}
@@ -508,7 +509,7 @@ class FeverAPI
 			}
 		} elseif (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
-		} else {
+		} elseif (isset($_REQUEST['since_id'])) {
 			// use the since_id argument to request the next $item_limit items
 			$since_id = '' . $_REQUEST['since_id'];
 			if (!ctype_digit($since_id)) {
