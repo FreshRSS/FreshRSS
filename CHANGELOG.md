@@ -6,7 +6,6 @@
 ## 2022-01-02 FreshRSS 1.19.1
 
 * Bug fixing
-	* Fix regression when creating a new user (only with PostgreSQL, MariaDB/MySQL) [#4116](https://github.com/FreshRSS/FreshRSS/pull/4116)
 	* Fix some filters for automatic article actions (e.g., `!pubdate:P3d`) [#4092](https://github.com/FreshRSS/FreshRSS/pull/4092)
 * Features
 	* New search operator on article IDs (useful to show a single article, extensions) [#4058](https://github.com/FreshRSS/FreshRSS/pull/4058)
