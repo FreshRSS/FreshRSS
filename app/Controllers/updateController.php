@@ -108,7 +108,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
-		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
@@ -224,6 +224,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				$res = !self::hasGitUpdate();
 			} else {
 				require(UPDATE_FILENAME);
+				// @phpstan-ignore-next-line
 				$res = do_post_update();
 			}
 
@@ -244,9 +245,12 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			} else {
 				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
+					// @phpstan-ignore-next-line
 					save_info_update();
 				}
+				// @phpstan-ignore-next-line
 				if (!need_info_update()) {
+					// @phpstan-ignore-next-line
 					$res = apply_update();
 				} else {
 					return;
@@ -269,7 +273,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	 * This action displays information about installation.
 	 */
 	public function checkInstallAction() {
-		Minz_View::prependTitle(_t('admin.check_install.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.check_install.title') . ' · ');
 
 		$this->view->status_php = check_install_php();
 		$this->view->status_files = check_install_files();

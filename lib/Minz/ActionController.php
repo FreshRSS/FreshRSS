@@ -13,11 +13,18 @@ class Minz_ActionController {
 		'default-src' => "'self'",
 	);
 
+	// Gives the possibility to override the default View type.
+	public static $viewType = 'Minz_View';
+
 	/**
 	 * Constructeur
 	 */
 	public function __construct () {
-		$this->view = new Minz_View();
+		if (class_exists(self::$viewType)) {
+			$this->view = new self::$viewType();
+		} else {
+			$this->view = new Minz_View();
+		}
 		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
 		$this->view->attributeParams ();

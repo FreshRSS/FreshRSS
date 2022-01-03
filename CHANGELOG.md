@@ -1,6 +1,29 @@
 # FreshRSS changelog
 
-## 2021-12-XX FreshRSS 1.19.0-dev
+## 2022-0X-XX FreshRSS 1.19.2-dev
+
+
+## 2022-01-02 FreshRSS 1.19.1
+
+* Bug fixing
+	* Fix regression when creating a new user (only with PostgreSQL, MariaDB/MySQL) [#4116](https://github.com/FreshRSS/FreshRSS/pull/4116)
+	* Fix some filters for automatic article actions (e.g., `!pubdate:P3d`) [#4092](https://github.com/FreshRSS/FreshRSS/pull/4092)
+* Features
+	* New search operator on article IDs (useful to show a single article, extensions) [#4058](https://github.com/FreshRSS/FreshRSS/pull/4058)
+		* Entry (article) ID: `e:1639310674957894` or multiple entry IDs (*or*): `e:1639310674957894,1639310674957893`
+* UI
+	* Fix left navigation with long category names [#4055](https://github.com/FreshRSS/FreshRSS/pull/4055)
+	* Show *My labels* menu also when empty [#4065](https://github.com/FreshRSS/FreshRSS/pull/4065)
+	* Improve category titles on global view [#4059](https://github.com/FreshRSS/FreshRSS/pull/4059)
+	* Disable dynamic favicon for browser / extensions blocking canvas [#4098](https://github.com/FreshRSS/FreshRSS/pull/4098)
+	* Minor UI and style improvements [#4061](https://github.com/FreshRSS/FreshRSS/pull/4061), [#4067](https://github.com/FreshRSS/FreshRSS/pull/4067), [#4085](https://github.com/FreshRSS/FreshRSS/pull/4085)
+* SimplePie
+	* Manual update to SimplePie 1.5.8 [#4113](https://github.com/FreshRSS/FreshRSS/pull/4113)
+* Code improvements
+	* Add PHPStan [level 1](https://phpstan.org/user-guide/rule-levels) for code quality [#4021](https://github.com/FreshRSS/FreshRSS/pull/4021)
+
+
+## 2021-12-31 FreshRSS 1.19.0
 
 * Features
 	* New thumbnail and/or summary options for the normal view [#3805](https://github.com/FreshRSS/FreshRSS/pull/3805)
@@ -39,7 +62,7 @@
 * Deployment
 	* Docker: development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Docker: default image updated to Debian 11 Bullseye with PHP 7.4.25 and Apache 2.4.51 [#3782](https://github.com/FreshRSS/FreshRSS/pull/3782)
-	* Docker: alternative image updated to Alpine 3.15 with PHP 8.0.13 and Apache 2.4.51 [#3996](https://github.com/FreshRSS/FreshRSS/pull/3996)
+	* Docker: alternative image updated to Alpine 3.15 with PHP 8.0.14 and Apache 2.4.52 [#3996](https://github.com/FreshRSS/FreshRSS/pull/3996)
 	* Docker: fix inclusion of `.htaccess` for `./p/themes/` folder [#4074](https://github.com/FreshRSS/FreshRSS/pull/4074)
 	* Docker: only add the crontab when `CRON_MIN` is set [#3927](https://github.com/FreshRSS/FreshRSS/pull/3927)
 	* Docker: move logic to disable FreshRSS updates [#3973](https://github.com/FreshRSS/FreshRSS/pull/3973)

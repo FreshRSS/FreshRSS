@@ -183,7 +183,6 @@ function saveStep2() {
 }
 
 function saveStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
 		Minz_Session::_params([
@@ -447,8 +446,8 @@ function printStep1() {
 
 function printStep2() {
 	$system_default_config = Minz_Configuration::get('default_system');
-?>
-	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
+	$s2 = checkStep2();
+	if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
@@ -541,10 +540,14 @@ function printStep2() {
 <?php
 }
 
+function no_auth($auth_type) {
+	return !in_array($auth_type, array('form', 'http_auth', 'none'));
+}
+
 function printStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
-?>
-	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
+	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
+	$s3 = checkStep3();
+	if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
 	<?php } elseif (!empty($_POST)) { ?>
 	<p class="alert alert-error"><?= _t('install.fix_errors_before') ?></p>
@@ -566,12 +569,6 @@ function printStep3() {
 			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="4">
-					<?php
-						function no_auth($auth_type) {
-							return !in_array($auth_type, array('form', 'http_auth', 'none'));
-						}
-						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
-					?>
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',

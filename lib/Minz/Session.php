@@ -56,7 +56,7 @@ class Minz_Session {
 
 	/**
 	 * Permet de récupérer une variable de session
-	 * @param $p le paramètre à récupérer
+	 * @param string $p le paramètre à récupérer
 	 * @return mixed|false la valeur de la variable de session, false si n'existe pas
 	 */
 	public static function param($p, $default = false) {
@@ -66,8 +66,8 @@ class Minz_Session {
 
 	/**
 	 * Permet de créer ou mettre à jour une variable de session
-	 * @param $p le paramètre à créer ou modifier
-	 * @param $v la valeur à attribuer, false pour supprimer
+	 * @param string $p le paramètre à créer ou modifier
+	 * @param mixed|false $v la valeur à attribuer, false pour supprimer
 	 */
 	public static function _param($p, $v = false) {
 		if (!self::$volatile && !self::$locked) {
@@ -101,7 +101,7 @@ class Minz_Session {
 
 	/**
 	 * Permet d'effacer une session
-	 * @param $force si à false, n'efface pas le paramètre de langue
+	 * @param bool $force si à false, n'efface pas le paramètre de langue
 	 */
 	public static function unset_session($force = false) {
 		$language = self::param('language');
@@ -132,12 +132,11 @@ class Minz_Session {
 
 	/**
 	 * Spécifie la durée de vie des cookies
-	 * @param $l la durée de vie
+	 * @param int $l la durée de vie
 	 */
 	public static function keepCookie($l) {
 		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
-
 
 	/**
 	 * Régénère un id de session.
