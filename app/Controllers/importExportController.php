@@ -3,9 +3,8 @@
 /**
  * Controller to handle every import and export actions.
  */
-class FreshRSS_importExport_Controller extends Minz_ActionController {
+class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
-	private $catDAO;
 	private $entryDAO;
 	private $feedDAO;
 
@@ -21,7 +20,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		require_once(LIB_PATH . '/lib_opml.php');
 
-		$this->catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
 	}
@@ -54,7 +52,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	public function importFile($name, $path, $username = null) {
 		self::minimumMemory(256);
 
-		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 
@@ -492,9 +489,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	/**
 	 * This method import a JSON-based feed (Google Reader format).
 	 *
-	 * @param array $origin represents a feed.
-	 * @return FreshRSS_Feed if feed is in database at the end of the process,
-	 *         else null.
+	 * @param array<string,string> $origin represents a feed.
+	 * @return FreshRSS_Feed|null if feed is in database at the end of the process, else null.
 	 */
 	private function addFeedJson($origin) {
 		$return = null;

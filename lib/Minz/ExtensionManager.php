@@ -210,7 +210,7 @@ class Minz_ExtensionManager {
 	 *
 	 * The extension init() method will be called.
 	 *
-	 * @param Minz_Extension $ext_name is the name of a valid extension present in $ext_list.
+	 * @param string $ext_name is the name of a valid extension present in $ext_list.
 	 */
 	public static function enable($ext_name) {
 		if (isset(self::$ext_list[$ext_name])) {
@@ -295,8 +295,8 @@ class Minz_ExtensionManager {
 	 * array keys.
 	 *
 	 * @param string $hook_name the hook to call.
-	 * @param array<mixed> $args additional parameters (for signature, please see self::$hook_list).
-	 * @return mixed final result of the called hook.
+	 * @param mixed $args additional parameters (for signature, please see self::$hook_list).
+	 * @return mixed|null final result of the called hook.
 	 */
 	public static function callHook($hook_name, ...$args) {
 		if (!isset(self::$hook_list[$hook_name])) {
@@ -328,7 +328,7 @@ class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name is the hook to call.
 	 * @param mixed $arg is the argument to pass to the first extension hook.
-	 * @return mixed final chained result of the hooks. If nothing is changed,
+	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
 	private static function callOneToOne($hook_name, $arg) {

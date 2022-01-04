@@ -1,14 +1,14 @@
 <?php
 
 class FreshRSS_FeedNotAdded_Exception extends Exception {
-	private $feedName = '';
+	private $url = '';
 
-	public function __construct($url, $feedName) {
+	public function __construct($url) {
 		parent::__construct('Feed not added! ' . $url, 2147);
-		$this->feedName = $feedName;
+		$this->url = $url;
 	}
 
-	public function feedName() {
-		return $this->feedName;
+	public function url() {
+		return $this->url;
 	}
 }

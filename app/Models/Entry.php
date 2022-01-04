@@ -260,7 +260,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		foreach ($booleanSearch->searches() as $filter) {
 			$ok = true;
-			if ($ok && $filter->getMinDate()) {
+			if ($filter->getMinDate()) {
 				$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
 			}
 			if ($ok && $filter->getNotMinDate()) {
@@ -451,12 +451,18 @@ class FreshRSS_Entry extends Minz_Model {
 			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		}
 
-		if ($html) {
+		if (is_string($html) && strlen($html) > 0) {
 			require_once(LIB_PATH . '/lib_phpQuery.php');
+			/**
+			 * @var phpQueryObject @doc
+			 */
 			$doc = phpQuery::newDocument($html);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
+				/**
+				 * @var phpQueryObject @metas
+				 */
 				$metas = $doc->find('meta[http-equiv][content]');
 				foreach ($metas as $meta) {
 					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
@@ -470,6 +476,9 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 
+			/**
+			 * @var phpQueryObject @content
+			 */
 			$content = $doc->find($path);
 			$html = trim(sanitizeHTML($content->__toString(), $url));
 			phpQuery::unloadDocuments();

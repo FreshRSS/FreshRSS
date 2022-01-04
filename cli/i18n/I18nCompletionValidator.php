@@ -23,6 +23,9 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 		return $this->result;
 	}
 
+	/**
+	 * @param array<string>|null $ignore
+	 */
 	public function validate($ignore) {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $key => $value) {

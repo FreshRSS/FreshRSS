@@ -3,7 +3,7 @@
 /**
  * This class handles main actions of FreshRSS.
  */
-class FreshRSS_index_Controller extends Minz_ActionController {
+class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action only redirect on the default view mode (normal or global)

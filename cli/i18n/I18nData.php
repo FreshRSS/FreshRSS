@@ -130,7 +130,7 @@ class I18nData {
 		if (array_key_exists($language, $this->data)) {
 			throw new Exception('The selected language already exist.');
 		}
-		if (!is_string($reference) && !array_key_exists($reference, $this->data)) {
+		if (!is_string($reference) || !array_key_exists($reference, $this->data)) {
 			$reference = static::REFERENCE_LANGUAGE;
 		}
 		$this->data[$language] = $this->data[$reference];

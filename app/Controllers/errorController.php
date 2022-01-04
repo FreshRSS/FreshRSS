@@ -3,7 +3,7 @@
 /**
  * Controller to handle error page.
  */
-class FreshRSS_error_Controller extends Minz_ActionController {
+class FreshRSS_error_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is the default one for the controller.
 	 *

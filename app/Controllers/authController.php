@@ -3,7 +3,7 @@
 /**
  * This controller handles action about authentication.
  */
-class FreshRSS_auth_Controller extends Minz_ActionController {
+class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action handles authentication management page.
 	 *

@@ -93,12 +93,14 @@ function httpConditional($UnixTimeStamp,$cacheSeconds=0,$cachePrivacy=0,$feedMod
 	}
 	$etagServer='"'.md5($scriptName.$myQuery.'#'.$dateLastModif).'"';
 
+	// @phpstan-ignore-next-line
 	if ((!$is412)&&isset($_SERVER['HTTP_IF_MATCH']))
 	{//rfc2616-sec14.html#sec14.24
 		$etagsClient=stripslashes($_SERVER['HTTP_IF_MATCH']);
 		$etagsClient=str_ireplace('-gzip','',$etagsClient);
 		$is412=(($etagsClient!=='*')&&(strpos($etagsClient,$etagServer)===false));
 	}
+	// @phpstan-ignore-next-line
 	if ($is304&&isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
 	{//rfc2616-sec14.html#sec14.25 //rfc1945.txt
 		$nbCond++;

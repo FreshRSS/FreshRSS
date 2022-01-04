@@ -3,7 +3,7 @@
 /**
  * Controller to handle every configuration options.
  */
-class FreshRSS_configure_Controller extends Minz_ActionController {
+class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -249,7 +249,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$volatile = [
 				'enable_keep_period' => true,
 				'keep_period_count' => $matches['count'],
-				'keep_period_unit' => str_replace($matches['count'], 1, $keepPeriod),
+				'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
 			];
 		}
 		FreshRSS_Context::$user_conf->volatile = $volatile;
@@ -295,7 +295,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				if ($query['search']) {
 					$query['search'] = urldecode($query['search']);
 				}
-				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
+				$queries[intval($key)] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
@@ -304,7 +304,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		} else {
 			$this->view->queries = array();
 			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
+				$this->view->queries[intval($key)] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 		}
 
@@ -315,6 +315,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$id = Minz_Request::param('id');
 		$this->view->displaySlider = false;
 		if (false !== $id) {
+			$id = intval($id);
 			$this->view->displaySlider = true;
 			$this->view->query = $this->view->queries[$id];
 			$this->view->queryId = $id;

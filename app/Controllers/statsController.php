@@ -3,7 +3,7 @@
 /**
  * Controller to handle application statistics.
  */
-class FreshRSS_stats_Controller extends Minz_ActionController {
+class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is

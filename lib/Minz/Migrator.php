@@ -160,7 +160,7 @@ class Minz_Migrator
 	 *
 	 * @param string $version The version of the migration (be careful, migrations
 	 *                        are sorted with the `strnatcmp` function)
-	 * @param callback $callback The migration function to execute, it should
+	 * @param callable $callback The migration function to execute, it should
 	 *                           return true on success and must return false
 	 *                           on error
 	 *

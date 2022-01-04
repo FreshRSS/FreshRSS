@@ -310,7 +310,7 @@ SQL;
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' f.id=?';
 			$values[] = $feedId;
@@ -342,7 +342,7 @@ SQL;
 	 *
 	 * @param integer|array $ids
 	 * @param boolean $is_read
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markRead($ids, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -415,7 +415,7 @@ SQL;
 	 * @param integer $idMax fail safe article ID
 	 * @param boolean $onlyFavorites
 	 * @param integer $priorityMin
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -458,7 +458,7 @@ SQL;
 	 *
 	 * @param integer $id category ID
 	 * @param integer $idMax fail safe article ID
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -496,7 +496,7 @@ SQL;
 	 *
 	 * @param integer $id_feed feed ID
 	 * @param integer $idMax fail safe article ID
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -544,7 +544,7 @@ SQL;
 	 * Mark all the articles in a tag as read.
 	 * @param integer $id tag ID, or empty for targetting any tag
 	 * @param integer $idMax max article ID
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markReadTag($id = 0, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
