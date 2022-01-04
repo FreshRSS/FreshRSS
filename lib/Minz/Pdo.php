@@ -14,8 +14,12 @@ abstract class Minz_Pdo extends PDO {
 	abstract public function dbType();
 
 	private $prefix = '';
-	public function prefix() { return $this->prefix; }
-	public function setPrefix($prefix) { $this->prefix = $prefix; }
+	public function prefix() {
+		return $this->prefix;
+	}
+	public function setPrefix($prefix) {
+		$this->prefix = $prefix;
+	}
 
 	private function autoPrefix($sql) {
 		return str_replace('`_', '`' . $this->prefix, $sql);

@@ -174,7 +174,10 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
-	public function updateLastUpdate($id, $inError = false, $mtime = 0) {	//See also updateCachedValue()
+	/**
+	 * @see updateCachedValue()
+	 */
+	public function updateLastUpdate($id, $inError = false, $mtime = 0) {
 		$sql = 'UPDATE `_feed` SET `lastUpdate`=?, error=? WHERE id=?';
 		$values = array(
 			$mtime <= 0 ? time() : $mtime,
@@ -321,7 +324,8 @@ SQL;
 		return $newestItemUsec;
 	}
 
-	public function arrayFeedCategoryNames() {	//For API
+	public function arrayFeedCategoryNames() {
+	//For API
 		$sql = <<<'SQL'
 SELECT f.id, f.name, c.name as c_name FROM `_feed` f
 INNER JOIN `_category` c ON c.id = f.category
