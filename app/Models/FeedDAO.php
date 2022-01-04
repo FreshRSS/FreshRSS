@@ -324,8 +324,10 @@ SQL;
 		return $newestItemUsec;
 	}
 
+	/**
+	 * For API
+	 */
 	public function arrayFeedCategoryNames() {
-	//For API
 		$sql = <<<'SQL'
 SELECT f.id, f.name, c.name as c_name FROM `_feed` f
 INNER JOIN `_category` c ON c.id = f.category
