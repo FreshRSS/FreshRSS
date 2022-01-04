@@ -49,7 +49,8 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	 * @param string|int $dec
 	 * @return string
 	 */
-	function dec2hex($dec) {	//http://code.google.com/p/google-reader-api/wiki/ItemId
+	function dec2hex($dec) {
+		//http://code.google.com/p/google-reader-api/wiki/ItemId
 		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
 	}
 	/**
@@ -81,7 +82,8 @@ function headerVariable($headerName, $varName) {
 	return isset($pairs[$varName]) ? $pairs[$varName] : null;
 }
 
-function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
+function multiplePosts($name) {
+	//https://bugs.php.net/bug.php?id=51633
 	global $ORIGINAL_INPUT;
 	$inputs = explode('&', $ORIGINAL_INPUT);
 	$result = array();
@@ -197,7 +199,8 @@ function authorizationToUser() {
 	return '';
 }
 
-function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
+function clientLogin($email, $pass) {
+	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
 		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
@@ -247,7 +250,8 @@ function checkToken($conf, $token) {
 	unauthorized();
 }
 
-function userInfo() {	//https://github.com/theoldreader/api#user-info
+function userInfo() {
+	//https://github.com/theoldreader/api#user-info
 	$user = Minz_Session::param('currentUser', '_');
 	exit(json_encode(array(
 			'userId' => $user,
@@ -459,7 +463,8 @@ function quickadd($url) {
 	}
 }
 
-function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
+function unreadCount() {
+	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$totalUnreads = 0;

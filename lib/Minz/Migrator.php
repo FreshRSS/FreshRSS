@@ -126,8 +126,7 @@ class Minz_Migrator
 	 * @throws BadFunctionCallException if a callback isn't callable (i.e.
 	 *                                  cannot call a migrate method).
 	 */
-	public function __construct($directory = null)
-	{
+	public function __construct($directory = null) {
 		$this->applied_versions = [];
 
 		if ($directory == null || !is_dir($directory)) {
@@ -166,8 +165,7 @@ class Minz_Migrator
 	 *
 	 * @throws BadFunctionCallException if the callback isn't callable.
 	 */
-	public function addMigration($version, $callback)
-	{
+	public function addMigration($version, $callback) {
 		if (!is_callable($callback)) {
 			throw new BadFunctionCallException("{$version} migration cannot be called.");
 		}
@@ -182,8 +180,7 @@ class Minz_Migrator
 	 *
 	 * @return array
 	 */
-	public function migrations()
-	{
+	public function migrations() {
 		$migrations = $this->migrations;
 		uksort($migrations, 'strnatcmp');
 		return $migrations;
@@ -196,8 +193,7 @@ class Minz_Migrator
 	 *
 	 * @throws DomainException if there is no migrations corresponding to a version
 	 */
-	public function setAppliedVersions($versions)
-	{
+	public function setAppliedVersions($versions) {
 		foreach ($versions as $version) {
 			$version = trim($version);
 			if (!isset($this->migrations[$version])) {
@@ -210,8 +206,7 @@ class Minz_Migrator
 	/**
 	 * @return string[]
 	 */
-	public function appliedVersions()
-	{
+	public function appliedVersions() {
 		$versions = $this->applied_versions;
 		usort($versions, 'strnatcmp');
 		return $versions;
@@ -224,8 +219,7 @@ class Minz_Migrator
 	 *
 	 * @return string[]
 	 */
-	public function versions()
-	{
+	public function versions() {
 		$migrations = $this->migrations();
 		return array_keys($migrations);
 	}
@@ -235,8 +229,7 @@ class Minz_Migrator
 	 *                 otherwise. If no migrations are registered, it always
 	 *                 returns true.
 	 */
-	public function upToDate()
-	{
+	public function upToDate() {
 		// Counting versions is enough since we cannot apply a version which
 		// doesn't exist (see setAppliedVersions method).
 		return count($this->versions()) === count($this->applied_versions);
@@ -256,8 +249,7 @@ class Minz_Migrator
 	 *               exception was raised in a migration, its result is set to
 	 *               the exception message.
 	 */
-	public function migrate()
-	{
+	public function migrate() {
 		$result = [];
 		foreach ($this->migrations() as $version => $callback) {
 			if (in_array($version, $this->applied_versions)) {
