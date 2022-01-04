@@ -77,7 +77,7 @@ class Minz_ModelPdo {
 	/**
 	 * Create the connection to the database using the variables
 	 * HOST, BASE, USER and PASS variables defined in the configuration file
-	 * @param Minz_Session|null $currentUser
+	 * @param string|null $currentUser
 	 * @param PDO|null $currentPdo
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
