@@ -2,11 +2,12 @@ FROM alpine:edge
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN apk add --no-cache \
-	apache2 php8-apache2 \
-	php8 php8-curl php8-gmp php8-intl php8-mbstring php8-xml php8-zip \
-	php8-ctype php8-dom php8-fileinfo php8-iconv php8-json php8-opcache php8-phar php8-session php8-simplexml php8-xmlreader php8-xmlwriter php8-tokenizer php8-zlib \
-	php8-pdo_sqlite php8-pdo_mysql php8-pdo_pgsql
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
+	apk add --no-cache \
+	apache2 php81-apache2 \
+	php81 php81-curl php81-gmp php81-intl php81-mbstring php81-xml php81-zip \
+	php81-ctype php81-dom php81-fileinfo php81-iconv php81-json php81-opcache php81-phar php81-session php81-simplexml php81-xmlreader php81-xmlwriter php81-tokenizer php81-zlib \
+	php81-pdo_sqlite php81-pdo_mysql php81-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
@@ -38,7 +39,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8 /usr/bin/php; else true; fi && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php81 /usr/bin/php; else true; fi && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
