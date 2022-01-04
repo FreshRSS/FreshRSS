@@ -6,7 +6,7 @@
  */
 
 /**
- * La classe Model_sql représente le modèle interragissant avec les bases de données
+ * La classe Model_sql représente le modèle interagissant avec les bases de données
  */
 class Minz_ModelPdo {
 
@@ -14,14 +14,19 @@ class Minz_ModelPdo {
 	 * Partage la connexion à la base de données entre toutes les instances.
 	 */
 	public static $usesSharedPdo = true;
-	private static $sharedPdo = null;
-	private static $sharedPrefix;
+	private static $sharedPdo;
 	private static $sharedCurrentUser;
 
 	protected $pdo;
 	protected $current_user;
 
-	private function dbConnect() {
+	/**
+	 * @return void
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	private function dbConnect()
+	{
 		$db = Minz_Configuration::get('system')->db;
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
 		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_SILENT;
@@ -70,20 +75,25 @@ class Minz_ModelPdo {
 	/**
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
+	 * @param Minz_Session|null $currentUser
+	 * @param PDO|null $currentPdo
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
 	 */
-	public function __construct($currentUser = null, $currentPdo = null) {
+	public function __construct($currentUser = null, $currentPdo = null)
+	{
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser');
 		}
-		if ($currentPdo != null) {
+		if ($currentPdo !== null) {
 			$this->pdo = $currentPdo;
 			return;
 		}
-		if ($currentUser == '') {
+		if ($currentUser === '') {
 			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
 		}
-		if (self::$usesSharedPdo && self::$sharedPdo != null &&
-			($currentUser == '' || $currentUser === self::$sharedCurrentUser)) {
+		if (self::$usesSharedPdo && self::$sharedPdo !== null &&
+			($currentUser === self::$sharedCurrentUser)) {
 			$this->pdo = self::$sharedPdo;
 			$this->current_user = self::$sharedCurrentUser;
 			return;
@@ -100,7 +110,7 @@ class Minz_ModelPdo {
 			} catch (PDOException $e) {
 				$ex = $e;
 				if (empty($e->errorInfo[0]) || $e->errorInfo[0] !== '08006') {
-					//We are only only interested in: SQLSTATE connection exception / connection failure
+					//We are only interested in: SQLSTATE connection exception / connection failure
 					break;
 				}
 			}
@@ -115,20 +125,43 @@ class Minz_ModelPdo {
 			);
 	}
 
-	public function beginTransaction() {
+	/**
+	 * @return void
+	 */
+	public function beginTransaction()
+	{
 		$this->pdo->beginTransaction();
 	}
-	public function inTransaction() {
+
+	/**
+	 * @return void
+	 */
+	public function inTransaction()
+	{
 		return $this->pdo->inTransaction();
 	}
-	public function commit() {
+
+	/**
+	 * @return void
+	 */
+	public function commit()
+	{
 		$this->pdo->commit();
 	}
-	public function rollBack() {
+
+	/**
+	 * @return void
+	 */
+	public function rollBack()
+	{
 		$this->pdo->rollBack();
 	}
 
-	public static function clean() {
+	/**
+	 * @return void
+	 */
+	public static function clean()
+	{
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
 	}
