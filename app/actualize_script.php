@@ -3,7 +3,7 @@
 require(__DIR__ . '/../cli/_cli.php');
 
 session_cache_limiter('');
-ob_implicit_flush(0);
+ob_implicit_flush(false);
 ob_start();
 
 $begin_date = date_create('now');
