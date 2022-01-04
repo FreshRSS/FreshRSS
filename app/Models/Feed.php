@@ -496,7 +496,10 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	/**
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	 */
+	public function cleanOldEntries() {
 		$archiving = $this->attributes('archiving');
 		if ($archiving == null) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();

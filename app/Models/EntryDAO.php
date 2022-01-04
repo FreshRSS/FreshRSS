@@ -580,7 +580,10 @@ SQL;
 		return $affected;
 	}
 
-	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	/**
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 */
+	public function cleanOldEntries($id_feed, $options = []) {
 		$sql = 'DELETE FROM `_entry` WHERE id_feed = :id_feed1';	//No alias for MySQL / MariaDB
 		$params = [];
 		$params[':id_feed1'] = $id_feed;
@@ -1085,8 +1088,11 @@ SQL;
 		}
 	}
 
+	/**
+	 * For API
+	 */
 	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
-			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
 		$stm = $this->pdo->prepare($sql);
