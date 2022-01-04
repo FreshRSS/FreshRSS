@@ -109,9 +109,9 @@ class Minz_ModelPdo {
 			try {
 				$this->dbConnect();
 				return;
-			} catch (PDOException $e) {
+			} catch (Minz_PDOConnectionException $e) {
 				$ex = $e;
-				if (empty($e->errorInfo[0]) || $e->errorInfo[0] !== '08006') {
+				if ($e->getCode() === Minz_Exception::ERROR) {
 					//We are only interested in: SQLSTATE connection exception / connection failure
 					break;
 				}
@@ -136,9 +136,9 @@ class Minz_ModelPdo {
 	}
 
 	/**
-	 * @return void
+	 * @return bool
 	 */
-	public function inTransaction()
+	public function inTransaction(): bool
 	{
 		return $this->pdo->inTransaction();
 	}

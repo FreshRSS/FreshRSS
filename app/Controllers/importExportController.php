@@ -209,7 +209,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return 'unknown';
 	}
 
-	private function ttrssXmlToJson($xml) {
+	private function ttrssXmlToJson(string $xml) {
 		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = isset($table['article']) ? $table['article'] : array();
 		unset($table['article']);
