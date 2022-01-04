@@ -6,7 +6,7 @@
  */
 
 /**
- * The Model_sql class represents the model interacting with the databases
+ * The Model_sql class represents the model for interacting with databases.
  */
 class Minz_ModelPdo {
 
