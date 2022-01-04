@@ -6,12 +6,12 @@
  */
 
 /**
- * La classe Model_sql représente le modèle interagissant avec les bases de données
+ * The Model_sql class represents the model interacting with the databases
  */
 class Minz_ModelPdo {
 
 	/**
-	 * Partage la connexion à la base de données entre toutes les instances.
+	 * Shares the connection to the database between all instances.
 	 */
 	public static $usesSharedPdo = true;
 	private static $sharedPdo;
@@ -73,8 +73,8 @@ class Minz_ModelPdo {
 	}
 
 	/**
-	 * Créé la connexion à la base de données à l'aide des variables
-	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
+	 * Create the connection to the database using the variables
+	 * HOST, BASE, USER and PASS variables defined in the configuration file
 	 * @param Minz_Session|null $currentUser
 	 * @param PDO|null $currentPdo
 	 * @throws Minz_ConfigurationNamespaceException
