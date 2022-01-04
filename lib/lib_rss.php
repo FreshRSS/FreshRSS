@@ -115,19 +115,25 @@ if (function_exists('mb_convert_encoding')) {
 	 * @param string $text
 	 * @return string
 	 */
-	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+	function safe_utf8($text) {
+		return mb_convert_encoding($text, 'UTF-8', 'UTF-8');
+	}
 } elseif (function_exists('iconv')) {
 	/**
 	 * @param string $text
 	 * @return string
 	 */
-	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+	function safe_utf8($text) {
+		return iconv('UTF-8', 'UTF-8//IGNORE', $text);
+	}
 } else {
 	/**
 	 * @param string $text
 	 * @return string
 	 */
-	function safe_utf8($text) { return $text; }
+	function safe_utf8($text) {
+		return $text;
+	}
 }
 
 /**

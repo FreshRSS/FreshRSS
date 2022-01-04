@@ -105,6 +105,8 @@
 	<rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
 		<exclude-pattern>.phtml$</exclude-pattern>
 	</rule>
+	<!-- Opening brace on same line as function declaration -->
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
 	<!-- Newline required after opening brace -->
 	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
 		<exclude-pattern>.phtml$</exclude-pattern>
