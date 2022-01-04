@@ -259,6 +259,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
+			// @phpstan-ignore-next-line
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
 					'CACHE_PATH',
@@ -462,10 +463,10 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$hasBadGuids ? '' : $guid,
-				$title === null ? '' : $title,
+				$title == '' ? '' : $title,
 				$author_names,
-				$content === null ? '' : $content,
-				$link === null ? '' : $link,
+				$content == '' ? '' : $content,
+				$link == '' ? '' : $link,
 				$date ? $date : time()
 			);
 			$entry->_tags($tags);

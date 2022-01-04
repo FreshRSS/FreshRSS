@@ -276,6 +276,9 @@ function freshrss_already_installed() {
 	$system_conf = null;
 	try {
 		Minz_Configuration::register('system', $conf_path);
+		/**
+		 * @var FreshRSS_SystemConfiguration $system_conf
+		 */
 		$system_conf = Minz_Configuration::get('system');
 	} catch (Minz_FileNotExistException $e) {
 		return false;

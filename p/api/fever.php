@@ -30,6 +30,9 @@ Minz_Session::init('FreshRSS', true);
 // <Debug>
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 
+/**
+ * @return string
+ */
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -503,18 +506,12 @@ class FeverAPI
 
 		if (isset($_REQUEST['max_id'])) {
 			// use the max_id argument to request the previous $item_limit items
-			$max_id = '' . $_REQUEST['max_id'];
-			if (!ctype_digit($max_id)) {
-				$max_id = null;
-			}
+			$max_id = ctype_digit('' . $_REQUEST['max_id']) ? intval($_REQUEST['max_id']) : null;
 		} elseif (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
 		} elseif (isset($_REQUEST['since_id'])) {
 			// use the since_id argument to request the next $item_limit items
-			$since_id = '' . $_REQUEST['since_id'];
-			if (!ctype_digit($since_id)) {
-				$since_id = null;
-			}
+			$since_id = ctype_digit('' . $_REQUEST['since_id']) ? intval($_REQUEST['since_id']) : null;
 		}
 
 		$items = array();

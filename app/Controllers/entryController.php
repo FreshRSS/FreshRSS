@@ -3,7 +3,7 @@
 /**
  * Controller to handle every entry actions.
  */
-class FreshRSS_entry_Controller extends Minz_ActionController {
+class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.

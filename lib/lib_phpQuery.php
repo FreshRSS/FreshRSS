@@ -4642,7 +4642,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocument($markup = null, $contentType = null) {
@@ -4655,7 +4655,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentHTML($markup = null, $charset = null) {
@@ -4668,7 +4668,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentXML($markup = null, $charset = null) {
@@ -4681,7 +4681,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentXHTML($markup = null, $charset = null) {
@@ -4694,7 +4694,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentPHP($markup = null, $contentType = "text/html") {
@@ -4784,7 +4784,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFileHTML($file, $charset = null) {
@@ -4797,7 +4797,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFileXML($file, $charset = null) {
@@ -4810,7 +4810,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFileXHTML($file, $charset = null) {
@@ -4823,7 +4823,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFilePHP($file, $contentType = null) {

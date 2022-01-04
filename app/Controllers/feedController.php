@@ -3,7 +3,7 @@
 /**
  * Controller to handle every feed actions.
  */
-class FreshRSS_feed_Controller extends Minz_ActionController {
+class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -46,10 +46,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$url = trim($url);
 
-		/** @var string $url */
+		/** @var string|null $url */
 		$url = Minz_ExtensionManager::callHook('check_url_before_add', $url);
 		if (null === $url) {
-			throw new FreshRSS_FeedNotAdded_Exception($url, $title);
+			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
 
 		$cat = null;
@@ -77,10 +77,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			throw new FreshRSS_AlreadySubscribed_Exception($url, $feed->name());
 		}
 
-		/** @var FreshRSS_Feed $feed */
+		/** @var FreshRSS_Feed|null $feed */
 		$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
 		if ($feed === null) {
-			throw new FreshRSS_FeedNotAdded_Exception($url, $feed->name());
+			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
 
 		$values = array(
@@ -97,7 +97,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$id = $feedDAO->addFeed($values);
 		if (!$id) {
 			// There was an error in database... we cannot say what here.
-			throw new FreshRSS_FeedNotAdded_Exception($url, $feed->name());
+			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
 		$feed->_id($id);
 
@@ -186,7 +186,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
 			try {
-				$feed = self::addFeed($url, '', $cat, null, $http_auth, $attributes);
+				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
@@ -202,7 +202,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			} catch (FreshRSS_AlreadySubscribed_Exception $e) {
 				return Minz_Request::bad(_t('feedback.sub.feed.already_subscribed', $e->feedName()), $url_redirect);
 			} catch (FreshRSS_FeedNotAdded_Exception $e) {
-				return Minz_Request::bad(_t('feedback.sub.feed.not_added', $e->feedName()), $url_redirect);
+				return Minz_Request::bad(_t('feedback.sub.feed.not_added', $e->url()), $url_redirect);
 			}
 
 			// Entries are in DB, we redirect to feed configuration page.
@@ -296,7 +296,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$updated_feeds = 0;
 		$nb_new_articles = 0;
 		foreach ($feeds as $feed) {
-			/** @var FreshRSS_Feed $feed */
+			/** @var FreshRSS_Feed|null $feed */
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
 			if (null === $feed) {
 				continue;
@@ -873,15 +873,5 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} catch (Exception $e) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');
 		}
-	}
-
-	/**
-	 * This method update TTL values for feeds if needed.
-	 * It changes the old default value (-2) to the new default value (0).
-	 * It changes the old disabled value (-1) to the default disabled value.
-	 */
-	private function updateTTL() {
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$feedDAO->updateTTL();
 	}
 }

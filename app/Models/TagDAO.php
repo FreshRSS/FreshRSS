@@ -74,8 +74,8 @@ SQL;
 	 * @param FreshRSS_Tag $tag
 	 */
 	public function addTagObject($tag) {
-		$tag = $this->searchByName($tag->name());
-		if (!$tag) {
+		$tag0 = $this->searchByName($tag->name());
+		if (!$tag0) {
 			$values = array(
 				'name' => $tag->name(),
 				'attributes' => $tag->attributes(),
@@ -198,7 +198,7 @@ SQL;
 	}
 
 	/**
-	 * @return FreshRSS_Tag
+	 * @return FreshRSS_Tag|null
 	 */
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `_tag` WHERE id=?';
@@ -211,7 +211,7 @@ SQL;
 	}
 
 	/**
-	 * @return FreshRSS_Tag
+	 * @return FreshRSS_Tag|null
 	 */
 	public function searchByName($name) {
 		$sql = 'SELECT * FROM `_tag` WHERE name=?';

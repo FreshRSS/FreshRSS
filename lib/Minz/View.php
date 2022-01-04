@@ -146,7 +146,7 @@ class Minz_View {
 
 	/**
 	 * Choose the current view layout.
-	 * @param string $layout the layout name to use, false to use no layouts.
+	 * @param string|false $layout the layout name to use, false to use no layouts.
 	 */
 	public function _layout($layout) {
 		if ($layout) {

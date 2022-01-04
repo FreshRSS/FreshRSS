@@ -43,6 +43,7 @@ class Minz_Request {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			$tp = trim($p);
+			// @phpstan-ignore-next-line
 			if ($p === null || $tp === '' || $tp === 'null') {
 				return null;
 			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
@@ -328,7 +329,7 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param array<string,string> $url l'url vers laquelle est relancée la requête
+	 * @param array<string,string|array<string,string>> $url l'url vers laquelle est relancée la requête
 	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
@@ -359,7 +360,7 @@ class Minz_Request {
 	/**
 	 * Wrappers good notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,string>> $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
 		Minz_Request::setGoodNotification($msg);
@@ -369,7 +370,7 @@ class Minz_Request {
 	/**
 	 * Wrappers bad notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
 	 */
 	public static function bad($msg, $url = array()) {
 		Minz_Request::setBadNotification($msg);

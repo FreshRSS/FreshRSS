@@ -184,7 +184,7 @@ class Minz_Paginator {
 	}
 	private function _nbPage () {
 		if ($this->nbItemsPerPage > 0) {
-			$this->nbPage = ceil ($this->nbItems () / $this->nbItemsPerPage);
+			$this->nbPage = (int)ceil($this->nbItems() / $this->nbItemsPerPage);
 		}
 	}
 	public function _nbItems ($value) {

@@ -3,7 +3,7 @@
 /**
  * Controller to handle user actions.
  */
-class FreshRSS_user_Controller extends Minz_ActionController {
+class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	/**
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.
@@ -29,7 +29,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			if (FreshRSS_Context::$system_conf->force_email_validation) {
 				$salt = FreshRSS_Context::$system_conf->salt;
-				$userConfig->email_validation_token = sha1($salt . uniqid(mt_rand(), true));
+				$userConfig->email_validation_token = sha1($salt . uniqid('' . mt_rand(), true));
 				$mailer = new FreshRSS_User_Mailer();
 				$mailer->send_email_need_validation($user, $userConfig);
 			}
@@ -536,7 +536,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
-			if ($ok && $self_deletion) {
+			if ($self_deletion) {
 				// We check the password if it's a self-destruction
 				$nonce = Minz_Session::param('nonce');
 				$challenge = Minz_Request::param('challenge', '');

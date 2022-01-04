@@ -11,7 +11,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Register a new sharing option.
-	 * @param array<string,string> $share_options is an array defining the share option.
+	 * @param array<string,string|array<string>> $share_options is an array defining the share option.
 	 */
 	public static function register($share_options) {
 		$type = $share_options['type'];

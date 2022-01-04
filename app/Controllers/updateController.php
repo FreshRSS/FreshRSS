@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_update_Controller extends Minz_ActionController {
+class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	public static function isGit() {
 		return is_dir(FRESHRSS_PATH . '/.git/');
@@ -261,7 +261,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				Minz_Request::forward(array(
 					'c' => 'update',
 					'a' => 'apply',
-					'params' => array('post_conf' => true)
+					'params' => array('post_conf' => '1')
 				), true);
 			} else {
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
