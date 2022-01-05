@@ -429,7 +429,7 @@ class FreshRSS_Search {
 	 * Parse the search string to find inurl keyword and the search related to it.
 	 * The search is the first word following the keyword.
 	 */
-	private function parseInurlSearch($input) {
+	private function parseInurlSearch(string $input): string {
 		if (preg_match_all('/\binurl:(?P<search>[^\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -573,7 +573,7 @@ class FreshRSS_Search {
 	/**
 	 * Remove all unnecessary spaces in the search
 	 */
-	private static function cleanSearch($input): string {
+	private static function cleanSearch(string $input): string {
 		$input = preg_replace('/\s+/', ' ', $input);
 		return trim($input);
 	}
