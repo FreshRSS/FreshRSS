@@ -295,7 +295,7 @@ class Minz_ExtensionManager {
 	 * array keys.
 	 *
 	 * @param string $hook_name the hook to call.
-	 * @param mixed $args additional parameters (for signature, please see self::$hook_list).
+	 * @param mixed ...$args additional parameters (for signature, please see self::$hook_list).
 	 * @return mixed|null final result of the called hook.
 	 */
 	public static function callHook($hook_name, ...$args) {
