@@ -447,6 +447,15 @@ a.btn {
 	line-height: 16px;
 }
 
+/* === stream-footer **/
+#stream-footer {
+	padding: 1em 0;
+	margin: 0 0 5em;
+	width: 100%;
+	border-top: 1px solid #aaa;
+	text-align: center;
+}
+
 /*=== Pagination */
 .pagination {
 	margin: 0;
@@ -1538,6 +1547,7 @@ input:checked + .slide-container .properties {
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
+	#stream-footer,
 	#nav_entries {
 		display: none;
 	}

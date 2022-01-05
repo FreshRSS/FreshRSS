@@ -494,8 +494,9 @@ a.btn {
 	border-top: 1px solid #aaa;
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more:hover.loading {
+	padding: 10px 20px;
 	background: url("loader.gif") center center no-repeat #fff;
 	font-size: 0;
 }
