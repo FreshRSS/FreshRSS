@@ -4068,9 +4068,11 @@ class phpQueryObject
 
 	// ITERATOR INTERFACE
 	/**
-   * @access private
+	 * @return void
+	 * @access private
 	 */
-	public function rewind(): void {
+	#[\ReturnTypeWillChange]
+	public function rewind() {
 		$this->debug('iterating foreach');
 //		phpQuery::selectDocument($this->getDocumentID());
 		$this->elementsBackup = $this->elements;
@@ -4083,15 +4085,19 @@ class phpQueryObject
 		$this->current = 0;
 	}
 	/**
-   * @access private
+	 * @return DOMElement
+	 * @access private
 	 */
-	public function current(): mixed {
+	#[\ReturnTypeWillChange]
+	public function current() {
 		return $this->elementsInterator[ $this->current ];
 	}
 	/**
-   * @access private
+	 * @return mixed
+	 * @access private
 	 */
-	public function key(): mixed {
+	#[\ReturnTypeWillChange]
+	public function key() {
 		return $this->current;
 	}
 	/**
@@ -4144,16 +4150,20 @@ class phpQueryObject
 		return $this->find($offset);
 	}
 	/**
-   * @access private
+	 * @return void
+	 * @access private
 	 */
-	public function offsetSet($offset, $value): void {
+	#[\ReturnTypeWillChange]
+	public function offsetSet($offset, $value) {
 //		$this->find($offset)->replaceWith($value);
 		$this->find($offset)->html($value);
 	}
 	/**
-   * @access private
+	 * @return void
+	 * @access private
 	 */
-	public function offsetUnset($offset): void {
+	#[\ReturnTypeWillChange]
+	public function offsetUnset($offset) {
 		// empty
 		throw new Exception("Can't do unset, use array interface only for calling queries and replacing HTML.");
 	}

@@ -529,8 +529,9 @@ class FreshRSS_Search {
 	 * Parse the search string to find search values.
 	 * Every word is a distinct search value, except when using a delimiter.
 	 * Supported delimiters are single quote (') and double quotes (").
+	 * @return void
 	 */
-	private function parseSearch(string $input): void {
+	private function parseSearch(string $input) {
 		$input = self::cleanSearch($input);
 		if ($input == '') {
 			return;
