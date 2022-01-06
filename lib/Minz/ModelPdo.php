@@ -26,6 +26,7 @@ class Minz_ModelPdo {
 	 * @return void
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
+	 * @throws PDOException
 	 */
 	private function dbConnect() {
 		$db = Minz_Configuration::get('system')->db;
@@ -107,12 +108,14 @@ class Minz_ModelPdo {
 			try {
 				$this->dbConnect();
 				return;
-			} catch (Minz_PDOConnectionException $e) {
+			} catch (PDOException $e) {
 				$ex = $e;
-				if ($e->getCode() === Minz_Exception::ERROR) {
+				if (empty($e->errorInfo[0]) || $e->errorInfo[0] !== '08006') {
 					//We are only interested in: SQLSTATE connection exception / connection failure
 					break;
 				}
+			} catch (Exception $e) {
+				$ex = $e;
 			}
 			sleep(2);
 		}
