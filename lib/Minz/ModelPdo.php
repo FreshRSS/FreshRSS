@@ -27,8 +27,7 @@ class Minz_ModelPdo {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	private function dbConnect()
-	{
+	private function dbConnect() {
 		$db = Minz_Configuration::get('system')->db;
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
 		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_SILENT;
@@ -82,8 +81,7 @@ class Minz_ModelPdo {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public function __construct($currentUser = null, $currentPdo = null)
-	{
+	public function __construct($currentUser = null, $currentPdo = null) {
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser');
 		}
@@ -130,40 +128,35 @@ class Minz_ModelPdo {
 	/**
 	 * @return void
 	 */
-	public function beginTransaction()
-	{
+	public function beginTransaction() {
 		$this->pdo->beginTransaction();
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function inTransaction(): bool
-	{
+	public function inTransaction(): bool {
 		return $this->pdo->inTransaction();
 	}
 
 	/**
 	 * @return void
 	 */
-	public function commit()
-	{
+	public function commit() {
 		$this->pdo->commit();
 	}
 
 	/**
 	 * @return void
 	 */
-	public function rollBack()
-	{
+	public function rollBack() {
 		$this->pdo->rollBack();
 	}
 
 	/**
 	 * @return void
 	 */
-	public static function clean()
-	{
+	public static function clean() {
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
 	}
