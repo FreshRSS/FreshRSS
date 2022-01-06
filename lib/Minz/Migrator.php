@@ -129,7 +129,7 @@ class Minz_Migrator
 	public function __construct($directory = null) {
 		$this->applied_versions = [];
 
-		if (!is_dir($directory)) {
+		if ($directory == null || !is_dir($directory)) {
 			return;
 		}
 
