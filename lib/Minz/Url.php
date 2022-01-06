@@ -121,7 +121,7 @@ class Minz_Url {
 /**
  * @param string $controller
  * @param string $action
- * @param string $args
+ * @param string ...$args
  */
 function _url ($controller, $action, ...$args) {
 	$nb_args = count($args);
