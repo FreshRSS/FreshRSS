@@ -15,11 +15,24 @@ class Minz_ModelPdo {
 	 */
 	public static $usesSharedPdo = true;
 
+	/**
+	 * @var Minz_Pdo|null
+	 */
 	private static $sharedPdo;
 
+	/**
+	 * @var string|null
+	 */
 	private static $sharedCurrentUser;
 
+	/**
+	 * @var Minz_Pdo|null
+	 */
 	protected $pdo;
+
+	/**
+	 * @var string|null
+	 */
 	protected $current_user;
 
 	/**
@@ -78,7 +91,7 @@ class Minz_ModelPdo {
 	 * Create the connection to the database using the variables
 	 * HOST, BASE, USER and PASS variables defined in the configuration file
 	 * @param string|null $currentUser
-	 * @param PDO|null $currentPdo
+	 * @param Minz_Pdo|null $currentPdo
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
@@ -93,8 +106,7 @@ class Minz_ModelPdo {
 		if ($currentUser == '') {
 			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
 		}
-		if (self::$usesSharedPdo && self::$sharedPdo !== null &&
-			($currentUser === self::$sharedCurrentUser)) {
+		if (self::$usesSharedPdo && self::$sharedPdo !== null && $currentUser === self::$sharedCurrentUser) {
 			$this->pdo = self::$sharedPdo;
 			$this->current_user = self::$sharedCurrentUser;
 			return;
@@ -135,9 +147,6 @@ class Minz_ModelPdo {
 		$this->pdo->beginTransaction();
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function inTransaction(): bool {
 		return $this->pdo->inTransaction();
 	}
