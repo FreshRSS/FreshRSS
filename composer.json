@@ -17,9 +17,7 @@
         "WebSub"
     ],
     "require": {
-        "php": ">=7.0.0",
-        "ext-pdo": "*",
-        "ext-simplexml": "*"
+        "php": ">=7.0.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.2.0",
