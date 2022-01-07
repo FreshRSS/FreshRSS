@@ -6,7 +6,7 @@
  */
 
 abstract class Minz_Pdo extends PDO {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
+	public function __construct(string $dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	}
@@ -14,18 +14,18 @@ abstract class Minz_Pdo extends PDO {
 	abstract public function dbType();
 
 	private $prefix = '';
-	public function prefix() {
+	public function prefix(): string {
 		return $this->prefix;
 	}
-	public function setPrefix($prefix) {
+	public function setPrefix(string $prefix) {
 		$this->prefix = $prefix;
 	}
 
-	private function autoPrefix($sql) {
+	private function autoPrefix(string $sql): string {
 		return str_replace('`_', '`' . $this->prefix, $sql);
 	}
 
-	protected function preSql($statement) {
+	protected function preSql(string $statement): string {
 		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
 			invalidateHttpCache();
 		}
@@ -43,14 +43,14 @@ abstract class Minz_Pdo extends PDO {
 
 	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
 	#[\ReturnTypeWillChange]
-	public function prepare($statement, $driver_options = array()) {
+	public function prepare(string $statement, array $driver_options = []) {
 		$statement = $this->preSql($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
 	// PHP8+: PDO::exec(string $statement): int|false
 	#[\ReturnTypeWillChange]
-	public function exec($statement) {
+	public function exec(string $statement) {
 		$statement = $this->preSql($statement);
 		return parent::exec($statement);
 	}
