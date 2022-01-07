@@ -3,7 +3,7 @@
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
+class FreshRSS_DatabaseDAO extends Minz_ModelPdo implements DatabaseDAOInterface {
 
 	//MySQL error codes
 	const ER_BAD_FIELD_ERROR = '42S22';
@@ -44,7 +44,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function tablesAreCorrect() {
+	public function tablesAreCorrect(): bool {
 		$stm = $this->pdo->query('SHOW TABLES');
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -63,7 +63,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	public function getSchema($table) {
+	public function getSchema(string $table): array {
 		$sql = 'DESC `_' . $table . '`';
 		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
@@ -120,7 +120,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		));
 	}
 
-	public function daoToSchema($dao) {
+	public function daoToSchema(array $dao): array {
 		return array(
 			'name' => $dao['Field'],
 			'type' => strtolower($dao['Type']),
@@ -153,7 +153,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $res[0];
 	}
 
-	public function optimize() {
+	public function optimize(): bool {
 		$ok = true;
 		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
 

@@ -3,8 +3,12 @@
 /**
  * This class is used to test database is well-constructed (SQLite).
  */
-class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
-	public function tablesAreCorrect() {
+class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO implements DatabaseDAOInterface {
+
+	/**
+	 * @inheritdoc
+	 */
+	public function tablesAreCorrect(): bool {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table"';
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +28,10 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	public function getSchema($table) {
+	/**
+	 * @inheritdoc
+	 */
+	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
@@ -44,13 +51,16 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		));
 	}
 
-	public function daoToSchema($dao) {
-		return array(
-			'name' => $dao['name'],
-			'type' => strtolower($dao['type']),
+	/**
+	 * @inheritdoc
+	 */
+	public function daoToSchema(array $dao): array {
+		return [
+			'name'    => $dao['name'],
+			'type'    => strtolower($dao['type']),
 			'notnull' => $dao['notnull'] === '1' ? true : false,
 			'default' => $dao['dflt_value'],
-		);
+		];
 	}
 
 	public function size($all = false) {
@@ -65,7 +75,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		return $sum;
 	}
 
-	public function optimize() {
+	public function optimize(): bool {
 		$ok = $this->pdo->exec('VACUUM') !== false;
 		if (!$ok) {
 			$info = $this->pdo->errorInfo();

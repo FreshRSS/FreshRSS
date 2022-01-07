@@ -3,13 +3,16 @@
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
+class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite implements DatabaseDAOInterface {
 
 	//PostgreSQL error codes
 	const UNDEFINED_COLUMN = '42703';
 	const UNDEFINED_TABLE = '42P01';
 
-	public function tablesAreCorrect() {
+	/**
+	 * @inheritdoc
+	 */
+	public function tablesAreCorrect(): bool {
 		$db = FreshRSS_Context::$system_conf->db;
 		$dbowner = $db['user'];
 		$sql = 'SELECT * FROM pg_catalog.pg_tables where tableowner=?';
@@ -33,14 +36,17 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	public function getSchema($table) {
+	/**
+	 * @inheritdoc
+	 */
+	public function getSchema(string $table): array {
 		$sql = 'select column_name as field, data_type as type, column_default as default, is_nullable as null from INFORMATION_SCHEMA.COLUMNS where table_name = ?';
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute(array($this->pdo->prefix() . $table));
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function daoToSchema($dao) {
+	public function daoToSchema(array $dao): array {
 		return array(
 			'name' => $dao['field'],
 			'type' => strtolower($dao['type']),
@@ -75,7 +81,8 @@ SQL;
 		return $res[0];
 	}
 
-	public function optimize() {
+
+	public function optimize(): bool {
 		$ok = true;
 		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
 
