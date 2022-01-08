@@ -5,7 +5,7 @@ encore. Le projet est jeune et le développement dynamique, aussi celui-ci
 pourra être corrigé rapidement. Il se peut aussi que vous ayez en tête une
 fonctionnalité qui n’existe pas encore. Que celle-ci vous paraisse idiote,
 farfelue, inutile ou trop spécifique, il ne faut surtout pas hésiter à nous
-la proposer ! Très souvent des "idées en l’air" ont trouvé une oreille
+la proposer ! Très souvent des « idées en l’air » ont trouvé une oreille
 attentive. Ce sont les regards externes qui font le plus évoluer le projet.
 
 Si vous êtes convaincus qu’il faut vous faire entendre, voici la marche à
@@ -16,7 +16,7 @@ suivre.
 GitHub est la plate-forme à privilégier pour vos demandes. En effet, cela
 nous permet de pouvoir discuter à plusieurs sur un problème ou une
 suggestion et de faire émerger, souvent, des idées nouvelles. Ne négligeons
-pas cet aspect "social" !
+pas cet aspect « social » !
 
 1. [Rendez-vous sur le gestionnaire de tickets de
 	bugs](https://github.com/FreshRSS/FreshRSS/issues)

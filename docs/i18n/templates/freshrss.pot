@@ -972,7 +972,7 @@ msgstr ""
 msgid ""
 "**One request = one ticket.** You may have lots of ideas while being afraid "
 "to spam the bug manager: it does’nt matter. It’s better to have a few too "
-"many tickets than too many requests in one. We will close and consolidate "
+"many tickets than too many requests in one. We’ll close and consolidate "
 "requests when possible."
 msgstr ""
 
@@ -2556,7 +2556,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:14
 msgid ""
-"If you have any doubt, please let us know and we will help you! We all began "
+"If you have any doubt, please let us know and we’ll help you! We all began "
 "with Git one day and it’s not an easy thing to work with."
 msgstr ""
 
@@ -3581,7 +3581,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:100
 msgid ""
-"If you cannot or don’t want to use the automatic method, you can update "
+"If you can’t or don’t want to use the automatic method, you can update "
 "manually. There are two methods for updating all or some of the feeds."
 msgstr ""
 
@@ -4017,7 +4017,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:28
 msgid ""
-"If you cannot find any themes you like, it’s always possible to [create your "
+"If you can’t find any themes you like, it’s always possible to [create your "
 "own](../developers/04_Frontend/02_Design.md)."
 msgstr ""
 
@@ -5235,7 +5235,7 @@ msgstr ""
 msgid ""
 "Some Linux distribution, like Fedora or RedHat Enterprise Linux, have "
 "SELinux enabled. This acts similar to a firewall application, so that "
-"applications cannot write or modify files under certain conditions. While "
+"applications can’t write or modify files under certain conditions. While "
 "installing FreshRSS, step 2 can fail if the httpd process cannot write to "
 "some data sub-directories. The following command should be executed as root "
 "to fix this problem:"

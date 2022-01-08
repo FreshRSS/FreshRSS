@@ -1,12 +1,12 @@
 # Reporting a bug or a suggestion
 
-Despite the care given to FreshRSS, it’s still possible that bugs occur. Development is dynamic, so issues can be corrected quickly. You might also have a feature in mind that doesn’t yet exist. Regardless whether your idea seems silly, far-fetched, useless or too specific, please don’t hesitate to propose it to us! "Ideas in the air" often find an attentive ear. It’s new external perspectives that make the project evolve the most.
+Despite the care given to FreshRSS, it’s still possible that bugs occur. Development is dynamic, so issues can be corrected quickly. You might also have a feature in mind that doesn’t yet exist. Regardless whether your idea seems silly, far-fetched, useless or too specific, please don’t hesitate to propose it to us! “Ideas in the air” often find an attentive ear. It’s new external perspectives that make the project evolve the most.
 
 If you’re convinced that you should be heard, here’s how you can go about it.
 
 ## On GitHub
 
-GitHub is the ideal platform to submit your requests. It allows us to discuss a problem or suggestion with others and it often generates new ideas. Let’s not neglect this "social" aspect!
+GitHub is the ideal platform to submit your requests. It allows us to discuss a problem or suggestion with others and it often generates new ideas. Let’s not neglect this “social” aspect!
 
 1. [Go to the bug ticket manager](https://github.com/FreshRSS/FreshRSS/issues)
 2. Start by checking if a similar request hasn’t already been made. If so, please feel free to add your voice to the request.
@@ -31,7 +31,7 @@ Here are some tips to help you present your bug report or suggestion:
 
 * **Pay attention to spelling**. Even if it’s not always easy, try your best!
 * **Give an explicit title to your request**, even if it’s a bit long. This not only helps us understand your request, but also to find your ticket later.
-* **One request = one ticket.** You may have lots of ideas while being afraid to spam the bug manager: it doesn’t matter. It’s better to have a few too many tickets than too many requests in one. We will close and consolidate requests when possible.
+* **One request = one ticket.** You may have lots of ideas while being afraid to spam the bug manager: it doesn’t matter. It’s better to have a few too many tickets than too many requests in one. We’ll close and consolidate requests when possible.
 * If you report a bug, think about **providing us with the FreshRSS logs** (accessible in the FreshRSS `data/log/` folder) and the **PHP logs** (the location may vary by distribution, but consider searching in `/var/log/httpd` or `/var/log/apache`).
 * If you can’t find the log files, specify it in your ticket so we know you’ve already searched.
 * Not all bugs require logs, but if you have any doubts, it is better to provide them to us. Logs are important and very useful for debugging!

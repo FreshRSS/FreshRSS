@@ -511,7 +511,7 @@ method, to manipulate data when some of the core functions are executed.
 class HelloWorldExtension extends Minz_Extension
 {
 	public function init() {
-		$this->registerHook('entry_before_display', array($this, ’renderEntry'));
+		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
 	}
 	public function renderEntry($entry) {
 		$entry->_content('<h1>Hello World</h1>' . $entry->content());

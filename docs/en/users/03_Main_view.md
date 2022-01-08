@@ -119,7 +119,7 @@ When using HTTP authentication, the syntax in the two previous sections is unusa
 
 ## Manual update
 
-If you cannot or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
+If you can’t or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
 
 ### Complete update
 

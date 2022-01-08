@@ -1472,7 +1472,7 @@
 * I18n
 	* Introduce a new system for i18n keys (not finished yet)
 * Misc.
-	* Fix global view (didn’t work anymore)
+	* Fix global view (did not work anymore)
 	* Add do_post_update for update system
 	* Introduce ```checkInstallAction``` to test if FreshRSS installation is ok
 

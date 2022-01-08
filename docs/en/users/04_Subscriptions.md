@@ -63,7 +63,7 @@ Examples:
 
 ##### Combining CSS Classes
 
-Let’s say we have an article which contains ads, and we don’t want to have those ads retrieved by FreshRSS. Example HTML:
+Let’s say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
 
 ```html
 <div id="article">

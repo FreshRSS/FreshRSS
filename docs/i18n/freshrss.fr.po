@@ -250,7 +250,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./contributing.md:46
-msgid "If your idea is nice, we will have a look at it."
+msgid "If your idea is nice, we’ll have a look at it."
 msgstr "Si votre idée est bonne, nous y jetterons un coup d’oeil."
 
 #. type: Title ##
@@ -1079,7 +1079,7 @@ msgid ""
 "project is young and development is dynamic, so it can be corrected quickly. "
 "You might also have a feature in mind that doesn’t yet exist. Regardless "
 "whether your idea seems silly, far-fetched, useless or too specific, please "
-"don’t hesitate to propose it to us! \"Ideas in the air\" often find an "
+"don’t hesitate to propose it to us! “Ideas in the air” often find an "
 "attentive ear. It’s new external perspectives that make the project evolve "
 "the most."
 msgstr ""
@@ -1088,7 +1088,7 @@ msgstr ""
 "pourra être corrigé rapidement. Il se peut aussi que vous ayez en tête une "
 "fonctionnalité qui n’existe pas encore. Que celle-ci vous paraisse idiote, "
 "farfelue, inutile ou trop spécifique, il ne faut surtout pas hésiter à nous "
-"la proposer ! Très souvent des \"idées en l’air\" ont trouvé une oreille "
+"la proposer ! Très souvent des « idées en l’air » ont trouvé une oreille "
 "attentive. Ce sont les regards externes qui font le plus évoluer le projet."
 
 #. type: Plain text
@@ -1110,12 +1110,12 @@ msgstr "Sur GitHub"
 msgid ""
 "GitHub is the ideal platform to submit your requests. It allows us to "
 "discuss a problem or suggestion with others and it often generates new "
-"ideas. Let’s not neglect this \"social\" aspect!"
+"ideas. Let’s not neglect this “social” aspect!"
 msgstr ""
 "GitHub est la plate-forme à privilégier pour vos demandes. En effet, cela "
 "nous permet de pouvoir discuter à plusieurs sur un problème ou une "
 "suggestion et de faire émerger, souvent, des idées nouvelles. Ne négligeons "
-"pas cet aspect \"social\" !"
+"pas cet aspect « social » !"
 
 #. type: Bullet: ' 1. '
 #: en/./developers/02_Github.md:16
@@ -1247,7 +1247,7 @@ msgstr ""
 msgid ""
 "**One request = one ticket.** You may have lots of ideas while being afraid "
 "to spam the bug manager: it doesn’t matter. It’s better to have a few too "
-"many tickets than too many requests in one. We will close and consolidate "
+"many tickets than too many requests in one. We’ll close and consolidate "
 "requests when possible."
 msgstr ""
 "**Une demande = un ticket.** Vous pouvez avoir des tas d’idées mais vous "
@@ -3175,7 +3175,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:14
 msgid ""
-"If you have any doubt, please let us know and we will help you! We all began "
+"If you have any doubt, please let us know and we’ll help you! We all began "
 "with Git one day and it’s not an easy thing to work with."
 msgstr ""
 
@@ -4381,7 +4381,7 @@ msgstr "Mise à jour manuelle"
 #. type: Plain text
 #: en/./users/03_Main_view.md:100
 msgid ""
-"If you cannot or don’t want to use the automatic method, you can update "
+"If you can’t or don’t want to use the automatic method, you can update "
 "manually. There are two methods for updating all or some of the feeds."
 msgstr ""
 "Si vous ne pouvez pas ou ne voulez pas utiliser la méthode automatique, vous "
@@ -4879,7 +4879,7 @@ msgstr "*Swage* par **Patrick Crandol**"
 #. type: Plain text
 #: en/./users/05_Configuration.md:28
 msgid ""
-"If you cannot find any themes you like, it’s always possible to [create your "
+"If you can’t find any themes you like, it’s always possible to [create your "
 "own](../developers/04_Frontend/02_Design.md)."
 msgstr ""
 "Si aucun de ceux proposés ne convient, il est toujours possible de [créer "
@@ -6285,7 +6285,7 @@ msgstr "Gérer les permissions sous SELinux"
 msgid ""
 "Some Linux distribution, like Fedora or RedHat Enterprise Linux, have "
 "SELinux enabled. This acts similar to a firewall application, so that "
-"applications cannot write or modify files under certain conditions. While "
+"applications can’t write or modify files under certain conditions. While "
 "installing FreshRSS, step 2 can fail if the httpd process cannot write to "
 "some data sub-directories. The following command should be executed as root "
 "to fix this problem:"

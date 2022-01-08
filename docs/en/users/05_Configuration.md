@@ -24,7 +24,7 @@ There’s no accounting for tastes, which is why FreshRSS offers eight official 
 * *Screwdriver* by **Mister aiR**
 * *Swage* by **Patrick Crandol**
 
-If you cannot find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
+If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
 
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
 

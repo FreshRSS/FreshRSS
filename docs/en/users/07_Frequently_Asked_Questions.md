@@ -44,7 +44,7 @@ For more information on that matter, please refer to the [dedicated documentatio
 
 ## Permissions under SELinux
 
-Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux enabled. This acts similar to a firewall application, so that applications cannot write or modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process cannot write to some data sub-directories. The following command should be executed as root to fix this problem:
+Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux enabled. This acts similar to a firewall application, so that applications can’t write or modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process can’t write to some data sub-directories. The following command should be executed as root to fix this problem:
 
 ```sh
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'

@@ -321,7 +321,7 @@ You can register at the FreshRSS event system in an extensions `init()` method, 
 class HelloWorldExtension extends Minz_Extension
 {
 	public function init() {
-		$this->registerHook('entry_before_display', array($this, ’renderEntry'));
+		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
 	}
 	public function renderEntry($entry) {
 		$entry->_content('<h1>Hello World</h1>' . $entry->content());

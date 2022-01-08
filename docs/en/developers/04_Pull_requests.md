@@ -12,7 +12,7 @@ The rest of this document explains specific points.
 
 Rebasing a branch is useful to make sure your code is based on the most recent version of FreshRSS and there are no conflicts. You have two ways to do that.
 
-If you have any doubt, please let us know and we will help you! We all began with Git one day and it’s not an easy thing to work with.
+If you have any doubt, please let us know and we’ll help you! We all began with Git one day and it’s not an easy thing to work with.
 
 ### Rebasing
 

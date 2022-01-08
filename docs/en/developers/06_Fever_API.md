@@ -7,7 +7,7 @@ Additionally [page about our Google Reader compatible API](06_GoogleReader_API.m
 ## RSS clients
 
 There are many RSS clients that support the Fever API, but they seem to understand the Fever API a bit differently.
-If your favourite client doesn’t work properly with this API, please create an issue and we will have a look.
+If your favourite client doesn’t work properly with this API, please create an issue and we’ll have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
