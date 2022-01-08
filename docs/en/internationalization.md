@@ -66,7 +66,7 @@ To update a string, you just have to open its file, find the string, and change 
 make i18n-format
 ```
 
-it’ll remove the comments on the lines that you’ve changed, and will reformat the file correctly. If you’ve made any mistakes, it will fix them automatically or it’ll tell you it can’t (well… the command will dramatically fail without any damage, don’t worry).
+It will remove the comments on the lines that you’ve changed, and will reformat the file correctly. If you’ve made any mistakes, it will fix them automatically or it will tell you it can’t (well… the command will dramatically fail without any damage, don’t worry).
 
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
