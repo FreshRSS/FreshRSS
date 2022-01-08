@@ -80,7 +80,7 @@ return array(
 		'title' => 'Profiel',
 	),
 	'query' => array(
-		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
+		'_' => 'Gebruikersquery’s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
 		'filter' => array(
 			'_' => 'Filter toegepast:',
@@ -118,7 +118,7 @@ return array(
 		'state_13' => 'Toon gelezen artikelen',
 		'state_14' => 'Toon ongelezen artikelen',
 		'state_15' => 'Toon alle artikelen',
-		'title' => 'Gebruikersquery\'s',
+		'title' => 'Gebruikersquery’s',
 	),
 	'reading' => array(
 		'_' => 'Lezen',

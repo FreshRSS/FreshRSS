@@ -490,18 +490,18 @@ class FreshRSS_Entry extends Minz_Model {
 
 	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
-		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
+		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed(true);
 		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 
 			if ($entry) {
-				// l'article existe déjà en BDD, en se contente de recharger ce contenu
+				// l’article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
 				try {
-					// l'article n'est pas en BDD, on va le chercher sur le site
+					// l’article n’est pas en BDD, on va le chercher sur le site
 					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
 						$feed->pathEntries(),
@@ -526,7 +526,7 @@ class FreshRSS_Entry extends Minz_Model {
 						return true;
 					}
 				} catch (Exception $e) {
-					// rien à faire, on garde l'ancien contenu(requête a échoué)
+					// rien à faire, on garde l’ancien contenu(requête a échoué)
 					Minz_Log::warning($e->getMessage());
 				}
 			}

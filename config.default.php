@@ -35,7 +35,7 @@ return array(
 
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
-	# feed if they didn't access this URL.
+	# feed if they didn’t access this URL.
 	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
 	# sent).
 	'force_email_validation' => false,
@@ -64,7 +64,7 @@ return array(
 
 	# Allow or not the use of the API, used for mobile apps.
 	#	End-point is https://freshrss.example.net/api/greader.php
-	#	You need to set the user's API password.
+	#	You need to set the user’s API password.
 	'api_enabled' => false,
 
 	# Allow or not the use of an unsafe login,

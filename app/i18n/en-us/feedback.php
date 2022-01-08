@@ -107,7 +107,7 @@ return array(
 				'http_error' => 'Failed to load website content.',	// IGNORE
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// IGNORE
 				'no_feed' => 'Internal error (feed cannot be found).',	// IGNORE
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// IGNORE
+				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// IGNORE
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// IGNORE
 			),
 			'updated' => 'Feed has been updated',	// IGNORE

@@ -190,7 +190,7 @@ class FreshRSS_Auth {
 			break;
 		case 'http_auth':
 		case 'none':
-			// Nothing to do...
+			// Nothing to do…
 			break;
 		default:
 			// TODO: extensions

@@ -78,7 +78,7 @@ foreach ($users as $user) {
 	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
 
 	$app->init();
-	notice('FreshRSS actualize ' . $user . '...');
+	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	$app->run();
 

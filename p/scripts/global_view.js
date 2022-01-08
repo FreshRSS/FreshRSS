@@ -35,7 +35,7 @@ function load_panel(link) {
 		panel.classList.add('visible');
 
 		// force le démarrage du scroll en haut.
-		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
+		// Sans ça, si l’on scroll en lisant une catégorie par exemple,
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
 		panel.scrollTop = 0;
 		document.documentElement.scrollTop = 0;

@@ -221,7 +221,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action gives possibility to a user to create an account.
 	 *
-	 * The user is redirected to the home if he's connected.
+	 * The user is redirected to the home when logged in.
 	 *
 	 * A 403 is sent if max number of registrations is reached.
 	 */

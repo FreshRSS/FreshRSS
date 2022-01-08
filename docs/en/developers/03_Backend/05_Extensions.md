@@ -26,7 +26,7 @@ Note: it is quite conceivable that the functionalities of an extension can later
 
 **TODO** : move to 02_Minz.md
 
-This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation does not yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you don't need to use a feature in your extension (if you don't need to translate your extension, no need to know more about the `Minz_Translate` module for example).
+This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation does not yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you don’t need to use a feature in your extension (if you don’t need to translate your extension, no need to know more about the `Minz_Translate` module for example).
 
 ### MVC Architecture
 
@@ -214,13 +214,13 @@ This part [is explained here](/docs/en/internationalization.md).
 
 ## Write an extension for FreshRSS
 
-Here we are! We've talked about the most useful features of Minz and how to run FreshRSS correctly and it's about time to address the extensions themselves.
+Here we are! We’ve talked about the most useful features of Minz and how to run FreshRSS correctly and it’s about time to address the extensions themselves.
 
 An extension allows you to easily add functionality to FreshRSS without having to touch the core of the project directly.
 
 ### Make it work in Docker
 
-When working on an extension, it's easier to see it working directly in its environment. With Docker, you can leverage the use of the ```volume``` option when starting the container. Hopefully, you can use it without Docker-related knowledge by using the Makefile rule:
+When working on an extension, it’s easier to see it working directly in its environment. With Docker, you can leverage the use of the ```volume``` option when starting the container. Hopefully, you can use it without Docker-related knowledge by using the Makefile rule:
 ```sh
 make start extensions="/full/path/to/extension/1 /full/path/to/extension/2"
 ```
@@ -266,7 +266,7 @@ In addition, it is good to have a `LICENSE` file indicating the license under wh
 The `metadata.json` file defines your extension through a number of important elements. It must contain a valid JSON array containing the following entries:
 
 * `name`: the name of your extension
-* `author`: your name, your e-mail address ... but there is no specific format to adopt
+* `author`: your name, your e-mail address … but there is no specific format to adopt
 * `description`: a description of your extension
 * `version`: the current version number of the extension
 * `entrypoint`: Indicates the entry point of your extension. It must match the name of the class contained in the file `extension.php` without the suffix `Extension`
@@ -291,11 +291,11 @@ It must define some key elements to be loaded by the extension system:
 1. The class must define the `init` method. This method is called **only** if the extension is loaded. Its purpose is to initialize the extension and its behavior during every page load.
 
 The `Minz_Extension` abstract class defines a set of methods that can be overridden to fit your needs:
-* the `install` method is called when the user enables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to prepare FreshRSS for the extension (adding a table to the database, creating a folder tree, ...).
-* the `uninstall` method is called when the user disables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to clean FreshRSS (removing a table from the database, deleting a folder tree, ...). Usually it reverts changes introduced by the `install` method.
+* the `install` method is called when the user enables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to prepare FreshRSS for the extension (adding a table to the database, creating a folder tree, …).
+* the `uninstall` method is called when the user disables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to clean FreshRSS (removing a table from the database, deleting a folder tree, …). Usually it reverts changes introduced by the `install` method.
 * the `handleConfigureAction` method is called when a user loads the extension configuration panel. It contains the logic to validate and store the submitted values defined in the `configure.phtml` file.
 
-> If your extension code is scattered in different classes, you need to load their source before using them. Of course you could include the files manually, but it's more efficient to load them automatically. To do so, you just need to define the `autoload` method which will include them when needed. This method will be registered automatically when the extension is enabled.
+> If your extension code is scattered in different classes, you need to load their source before using them. Of course you could include the files manually, but it’s more efficient to load them automatically. To do so, you just need to define the `autoload` method which will include them when needed. This method will be registered automatically when the extension is enabled.
 
 The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
 * the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
@@ -311,7 +311,7 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 * the `setUserConfiguration` method stores the extension configuration for the current user.
 * the `removeUserConfiguration` method removes the extension configuration for the current user.
 
-> Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it's highly recommended to let those unmodified.
+> Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it’s highly recommended to let those unmodified.
 
 ### The "hooks" system
 
@@ -332,7 +332,7 @@ class HelloWorldExtension extends Minz_Extension
 
 The following events are available:
 
-* `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn't advertise it in the header can still be automatically supported.
+* `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
 * `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.

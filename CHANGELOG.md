@@ -1369,7 +1369,7 @@
 	* Generate `base_url` during the installation and add a `pubsubhubbub_enabled` configuration key. [#865](https://github.com/FreshRSS/FreshRSS/issues/865)
 	* Load configuration by recursion to overwrite array values. [#923](https://github.com/FreshRSS/FreshRSS/issues/923)
 	* Cast `$limits` configuration values in integer. [#925](https://github.com/FreshRSS/FreshRSS/issues/925)
-	* Don't hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
+	* Don’t hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)
@@ -1402,7 +1402,7 @@
 	* Add some indications on password format
 * Bug fixing
 	* Some shortcuts was never saved
-	* Global view didn't work if set by default
+	* Global view didn’t work if set by default
 	* Minz_Error was badly raised
 	* Feed update failed if nothing had changed (MySQL only)
 	* CRON task failed with multiple users
@@ -1586,7 +1586,7 @@
 * UI
 	* Séparation des descriptions des raccourcis par groupes
 	* Revue rapide de la page de connexion
-	* Amélioration de l'affichage des notifications sur mobile
+	* Amélioration de l’affichage des notifications sur mobile
 * Revue du système de rafraîchissement des flux
 	* Meilleure gestion de la file de flux à rafraîchir en JSON
 	* Rafraîchissement uniquement pour les flux non rafraîchis récemment
@@ -1596,12 +1596,12 @@
 	* Corrige fuite de mémoire
 	* Meilleure tolérance aux flux invalides
 * Corrections divers
-	* Ne déplie plus l'article lors du clic sur l'icône lien externe
+	* Ne déplie plus l’article lors du clic sur l’icône lien externe
 	* Ne boucle plus à la fin de la navigation dans les articles
 	* Suppression du champ category.color inutile
 	* Corrige bug redirection infinie (Persona)
 	* Amélioration vérification de la requête POST
-	* Ajout d'un verrou lorsqu'une action mark_read ou mark_favorite est en cours
+	* Ajout d’un verrou lorsqu’une action mark_read ou mark_favorite est en cours
 
 
 ## 2014-01-29 FreshRSS 0.7
