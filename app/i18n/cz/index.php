@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'O FreshRSS',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Hlášení chyb',
 		'credits' => 'Poděkování',
 		'credits_content' => 'Některé designové prvky pocházejí z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, FreshRSS ale tuto platformu nevyužívá. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ikony</a> pocházejí z <a href="https://www.gnome.org/">GNOME projektu</a>. Font <em>Open Sans</em> vytvořil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založen na PHP framework <a href="https://github.com/marienfressinaud/MINZ">Minz</a>.',
@@ -32,14 +42,14 @@ return array(
 		'about' => 'O FreshRSS',
 		'before_one_day' => 'Den nazpět',
 		'before_one_week' => 'Před týdnem',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Bookmark current query',	// TODO
 		'favorites' => 'Oblíbené (%s)',
 		'global_view' => 'Přehled',
 		'main_stream' => 'Všechny kanály',
 		'mark_all_read' => 'Označit vše jako přečtené',
 		'mark_cat_read' => 'Označit kategorii jako přečtenou',
 		'mark_feed_read' => 'Označit kanál jako přečtený',
-		'mark_selection_unread' => 'Mark selection as unread',	// TODO - Translation
+		'mark_selection_unread' => 'Mark selection as unread',	// TODO
 		'newer_first' => 'Nové nejdříve',
 		'non-starred' => 'Zobrazit vše vyjma oblíbených',
 		'normal_view' => 'Normální',
@@ -52,7 +62,7 @@ return array(
 		'starred' => 'Zobrazit oblíbené',
 		'stats' => 'Statistika',
 		'subscription' => 'Správa subskripcí',
-		'tags' => 'My labels',	// TODO - Translation
+		'tags' => 'My labels',	// TODO
 		'unread' => 'Zobrazovat nepřečtené',
 	),
 	'share' => 'Sdílet',
@@ -60,6 +70,6 @@ return array(
 		'related' => 'Související tagy',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Terms of Service',	// TODO
 	),
 );

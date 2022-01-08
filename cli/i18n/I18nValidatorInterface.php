@@ -11,10 +11,9 @@ interface I18nValidatorInterface {
 	public function displayResult();
 
 	/**
-	 * @param array $ignore Keys to ignore for validation
 	 * @return bool
 	 */
-	public function validate($ignore);
+	public function validate();
 
 	/**
 	 * Display the validation report.

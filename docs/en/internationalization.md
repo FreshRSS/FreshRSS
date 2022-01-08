@@ -82,7 +82,7 @@ Our tool detects if a string needs to be translated if it equals to the English 
 make i18n-ignore-key lang=fr key=index.about.version
 ```
 
-This command adds an entry in the [`cli/i18n/ignore/fr.php` file](/cli/i18n/ignore/fr.php) so the key can be considered as translated.
+This command adds an IGNORE comment on the translation so the key can be considered as translated.
 
 ## Add/remove/update a key
 
