@@ -2,7 +2,7 @@ Il est possible que nous n’ayons pas répondu à toutes vos questions dans les
 parties précédentes. La FAQ regroupe certaines interrogations qui n’ont pas
 trouvé leur réponse ailleurs.
 
-## c’est quoi ce `/i` à la fin de l’URL ?
+## C’est quoi ce `/i` à la fin de l’URL ?
 
 Bien entendu, le ```/i``` n’est pas là pour faire joli ! Il s’agit d’une
 question de performances et de praticité :
