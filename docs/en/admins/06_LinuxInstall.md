@@ -105,7 +105,7 @@ ln -s /usr/share/FreshRSS/p /var/www/html/
 
 ## Part 3: Creating a Database for FreshRSS
 
-Start a MySQL session. running this command will ask you for the MySQL password you set earler, and then put you into a prompt that should look like `MariaDB [(none)]>`
+Start a MySQL session. running this command will ask you for the MySQL password you set earlier, and then put you into a prompt that should look like `MariaDB [(none)]>`
 
 ```sh
 mysql -u root -p

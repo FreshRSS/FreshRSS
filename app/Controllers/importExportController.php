@@ -255,7 +255,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *
 	 * @param string $article_file the JSON file content.
 	 * @param boolean $starred true if articles from the file must be starred.
-	 * @return boolean false if an error occured, true otherwise.
+	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	private function importJson($article_file, $starred = false) {
 		$article_object = json_decode($article_file, true);

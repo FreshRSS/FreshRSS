@@ -1005,7 +1005,7 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.title > a');
-		if (el) {	// Allow default control-click behaviour such as open in backround-tab
+		if (el) {	// Allow default control-click behaviour such as open in background-tab
 			return ev.ctrlKey;
 		}
 

@@ -11,7 +11,7 @@ class I18nData {
 		$this->data = $data;
 		$this->ignore = $ignore;
 
-		$this->synchonizeKeys();
+		$this->synchronizeKeys();
 	}
 
 	public function getData() {
@@ -51,7 +51,7 @@ class I18nData {
 		return $ignore;
 	}
 
-	private function synchonizeKeys() {
+	private function synchronizeKeys() {
 		$this->addMissingKeysFromReference();
 		$this->removeExtraKeysFromOtherLanguages();
 		$this->removeUnknownIgnoreKeys();
