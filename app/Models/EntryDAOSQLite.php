@@ -242,7 +242,7 @@ DROP TABLE IF EXISTS `tmp`;
 
 	/**
 	 * Mark all the articles in a tag as read.
-	 * @param integer $id tag ID, or empty for targetting any tag
+	 * @param integer $id tag ID, or empty for targeting any tag
 	 * @param integer $idMax max article ID
 	 * @return integer|false affected rows
 	 */

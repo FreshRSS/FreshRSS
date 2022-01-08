@@ -336,7 +336,7 @@ class DOMDocumentWrapper {
 			phpQuery::debug('Full markup load (XML): '.substr($markup, 0, 250));
 		$this->loadMarkupReset();
 		$this->isXML = true;
-		// check agains XHTML in contentType or markup
+		// check against XHTML in contentType or markup
 		$isContentTypeXHTML = $this->isXHTML();
 		$isMarkupXHTML = $this->isXHTML($markup);
 		if ($isContentTypeXHTML || $isMarkupXHTML) {
@@ -1184,7 +1184,7 @@ class phpQueryObject
 	/**
 	 * Indicated if doument is just a fragment (no <html> tag).
 	 *
-	 * Every document is realy a full document, so even documentFragments can
+	 * Every document is really a full document, so even documentFragments can
 	 * be queried against <html>, but getDocument(id)->htmlOuter() will return
 	 * only contents of <body>.
 	 *
@@ -1195,7 +1195,7 @@ class phpQueryObject
 	 * Iterator interface helper
 	 * @access private
 	 */
-	protected $elementsInterator = array();
+	protected $elementsIterator = array();
 	/**
 	 * Iterator interface helper
 	 * @var bool
@@ -1340,7 +1340,7 @@ class phpQueryObject
 	/**
 	 * Unloads whole document from memory.
 	 * CAUTION! None further operations will be possible on this document.
-	 * All objects refering to it will be useless.
+	 * All objects referring to it will be useless.
 	 *
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
@@ -1883,7 +1883,7 @@ class phpQueryObject
 					// strip side brackets
 					$attr = trim($s, '][');
 					$execute = false;
-					// attr with specifed value
+					// attr with specified value
 					if (mb_strpos($s, '=')) {
 						$value = null;
 						list($attr, $value) = explode('=', $attr);
@@ -4076,7 +4076,7 @@ class phpQueryObject
 		$this->debug('iterating foreach');
 //		phpQuery::selectDocument($this->getDocumentID());
 		$this->elementsBackup = $this->elements;
-		$this->elementsInterator = $this->elements;
+		$this->elementsIterator = $this->elements;
 		$this->valid = isset( $this->elements[0] )
 			? 1 : 0;
 // 		$this->elements = $this->valid
@@ -4090,7 +4090,7 @@ class phpQueryObject
 	 */
 	#[\ReturnTypeWillChange]
 	public function current() {
-		return $this->elementsInterator[ $this->current ];
+		return $this->elementsIterator[ $this->current ];
 	}
 	/**
 	 * @return mixed
@@ -4115,11 +4115,11 @@ class phpQueryObject
 	public function next($cssSelector = null){
 //		if ($cssSelector || $this->valid)
 //			return $this->_next($cssSelector);
-		$this->valid = isset( $this->elementsInterator[ $this->current+1 ] )
+		$this->valid = isset( $this->elementsIterator[ $this->current+1 ] )
 			? true
 			: false;
-		if (! $this->valid && $this->elementsInterator) {
-			$this->elementsInterator = null;
+		if (! $this->valid && $this->elementsIterator) {
+			$this->elementsIterator = null;
 		} else if ($this->valid) {
 			$this->current++;
 		} else {
@@ -4918,7 +4918,7 @@ abstract class phpQuery {
 	 * @param string $file Filename to include. Defaults to "{$class}.php".
 	 */
 	public static function plugin($class, $file = null) {
-		// TODO $class checked agains phpQuery_$class
+		// TODO $class checked against phpQuery_$class
 //		if (strpos($class, 'phpQuery') === 0)
 //			$class = substr($class, 8);
 		if (in_array($class, self::$pluginsLoaded))

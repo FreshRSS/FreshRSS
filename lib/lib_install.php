@@ -106,7 +106,7 @@ function initDb() {
 		$db['base'] = $dbBase;
 		$conf->db = $db;
 		if ($databaseDAO != null) {
-			//Perfom database auto-creation
+			//Perform database auto-creation
 			$databaseDAO->create();
 		}
 	}

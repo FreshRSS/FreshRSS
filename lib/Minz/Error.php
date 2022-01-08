@@ -33,7 +33,7 @@ class Minz_Error {
 				'c' => 'error'
 			), $redirect);
 		} else {
-			echo '<h1>An error occured</h1>' . "\n";
+			echo '<h1>An error occurred</h1>' . "\n";
 
 			if (!empty ($logs)) {
 				echo '<ul>' . "\n";

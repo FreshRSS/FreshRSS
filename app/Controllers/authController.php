@@ -149,7 +149,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				]);
 				FreshRSS_Auth::giveAccess();
 
-				// Set cookie parameter if nedded.
+				// Set cookie parameter if needed.
 				if (Minz_Request::param('keep_logged_in')) {
 					FreshRSS_FormAuth::makeCookie($username, FreshRSS_Context::$user_conf->passwordHash);
 				} else {

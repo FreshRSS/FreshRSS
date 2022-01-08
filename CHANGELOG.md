@@ -100,7 +100,7 @@
 	* Fix bug in French and German translations of new/old tags [#3703](https://github.com/FreshRSS/FreshRSS/pull/3703), [#3668](https://github.com/FreshRSS/FreshRSS/pull/3668)
 	* Fix name of keyboard shortcut to open in new tab [#3899](https://github.com/FreshRSS/FreshRSS/pull/3899)
 	* Add Japanese [#3828](https://github.com/FreshRSS/FreshRSS/pull/3828), [#3834](https://github.com/FreshRSS/FreshRSS/pull/3834)
-	* Improve Chineese [#3926](https://github.com/FreshRSS/FreshRSS/pull/3926), [#3947](https://github.com/FreshRSS/FreshRSS/pull/3947), [#3963](https://github.com/FreshRSS/FreshRSS/pull/3963), [#4084](https://github.com/FreshRSS/FreshRSS/pull/4084)
+	* Improve Chinese [#3926](https://github.com/FreshRSS/FreshRSS/pull/3926), [#3947](https://github.com/FreshRSS/FreshRSS/pull/3947), [#3963](https://github.com/FreshRSS/FreshRSS/pull/3963), [#4084](https://github.com/FreshRSS/FreshRSS/pull/4084)
 	* Improve Dutch [#3844](https://github.com/FreshRSS/FreshRSS/pull/3844), [#3928](https://github.com/FreshRSS/FreshRSS/pull/3928)
 	* Improve German [#3720](https://github.com/FreshRSS/FreshRSS/pull/3720), [#3846](https://github.com/FreshRSS/FreshRSS/pull/3846), [#3913](https://github.com/FreshRSS/FreshRSS/pull/3913), [#4008](https://github.com/FreshRSS/FreshRSS/pull/4008)
 	* Improve Italian [#3939](https://github.com/FreshRSS/FreshRSS/pull/3939)

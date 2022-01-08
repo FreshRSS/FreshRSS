@@ -39,7 +39,7 @@ Minz relies on and imposes an MVC architecture on projects using it. This archit
 ### Routing
 
 In order to link a URL to a controller, first you have to go through a "routing" phase. In FreshRSS, this is particularly simple because it suffices to specify the name of the controller to load into the URL using a `c` parameter.
-For example, the address <http://exemple.com?c=hello> will execute the code contained in the `hello` controller.
+For example, the address <http://example.com?c=hello> will execute the code contained in the `hello` controller.
 
 One concept that has not yet been discussed is the "actions" system. An action is executed *on* a controller. Concretely, a controller is represented by a class and its actions by methods. To execute an action, it is necessary to specify an `a` parameter in the URL.
 
@@ -61,10 +61,10 @@ class FreshRSS_hello_Controller extends FreshRSS_ActionController {
 ?>
 ```
 
-When loading the address <http://exemple.com?c=hello&a=world>, the `world` action is executed on the `hello` controller.
+When loading the address <http://example.com?c=hello&a=world>, the `world` action is executed on the `hello` controller.
 
 Note: if `c` or `a` is not specified, the default value for each of these variables is `index`.
-So the address <http://exemple.com?c=hello> will execute the `index` action of the `hello` controller.
+So the address <http://example.com?c=hello> will execute the `index` action of the `hello` controller.
 
 From now on, the `hello/world` naming convention will be used to refer to a controller/action pair.
 
@@ -125,7 +125,7 @@ To take full advantage of the Minz routing system, it is strongly discouraged to
 </p>
 ```
 
-If one day it was decided to use a "url rewriting" system to have addresses in a <http://exemple.com/controller/action> format, all previous addresses would become ineffective!
+If one day it was decided to use a "url rewriting" system to have addresses in a <http://example.com/controller/action> format, all previous addresses would become ineffective!
 
 So use the `Minz_Url` class and its `display()` method instead. `Minz_Url::display()` takes an array of the following form as its argument:
 

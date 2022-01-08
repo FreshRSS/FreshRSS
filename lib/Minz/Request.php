@@ -313,7 +313,7 @@ class Minz_Request {
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
-			//Delete abandonned notifications
+			//Delete abandoned notifications
 			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
