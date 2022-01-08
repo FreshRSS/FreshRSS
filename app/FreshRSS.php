@@ -4,7 +4,7 @@ class FreshRSS extends Minz_FrontController {
 	/**
 	 * Initialize the different FreshRSS / Minz components.
 	 *
-	 * PLEASE DO NOT CHANGE THE ORDER OF INITIALIZATIONS UNLESS YOU KNOW WHAT YOU DO!!
+	 * PLEASE DON’T CHANGE THE ORDER OF INITIALIZATIONS UNLESS YOU KNOW WHAT YOU DO!!
 	 *
 	 * Here is the list of components:
 	 * - Create a configuration setter and register it to system conf

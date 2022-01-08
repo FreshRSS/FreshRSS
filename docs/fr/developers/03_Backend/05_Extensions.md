@@ -524,7 +524,7 @@ The following events are available:
 
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed
 	every time a URL is added. The URL itself will be passed as
-	parameter. This way a website known to have feeds which does not advertise
+	parameter. This way a website known to have feeds which doesn’t advertise
 	it in the header can still be automatically supported.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be
 	executed every time an entry is rendered. The entry itself (instance of

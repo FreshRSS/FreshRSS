@@ -64,7 +64,7 @@ service apache2 restart
 
 ## Part 2: Installing FreshRSS
 
-Begin by installing git, if you do not already have it installed.
+Begin by installing git, if you don’t already have it installed.
 
 ```sh
 apt install git

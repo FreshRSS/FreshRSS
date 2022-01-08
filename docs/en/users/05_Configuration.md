@@ -46,7 +46,7 @@ Please note that this section only affects normal view.
 Each article is rendered with a header (top line) and a footer (bottom line).
 In that section, you can choose what will be displayed in those.
 
-If you disable every item in the top line, you will still be able to see it since
+If you disable every item in the top line, you’ll still be able to see it since
 it contains the feed name and the article title. But if you do the same thing for
 the bottom line, it will be empty.
 
@@ -62,7 +62,7 @@ By default, FreshRSS displays buttons to ease the article navigation when browsi
 
 ![navigation button configuration](../img/users/configuration.navigation.button.png)
 
-If you do not use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
+If you don’t use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
 
 # Reading
 
@@ -130,7 +130,7 @@ To choose one share option, you need to select it by its number. When there is o
 The same process applies to the user queries.
 
 Be aware that there is no validation on the selected shortcuts.
-This means that if you assign a shortcut to more than one action, you will end up with some unexpected behavior.
+This means that if you assign a shortcut to more than one action, you’ll end up with some unexpected behavior.
 
 # User queries
 

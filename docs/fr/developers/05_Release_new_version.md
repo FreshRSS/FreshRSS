@@ -87,7 +87,7 @@ return array(
 	// STABLE
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
-	'1.0.0' => '1.0.1',  // does not exist (yet)
+	'1.0.0' => '1.0.1',  // doesn’t exist (yet)
 	// DEV
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',

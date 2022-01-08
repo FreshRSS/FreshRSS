@@ -48,7 +48,7 @@ git merge edge          # merge edge into your branch
 
 It’s important to have proper commit messages in order to facilitate later debugging, so please read the following advice. Commit messages should explain the choices made in the past (the “why?”)
 
-The first line should start with a verb (e.g., "Add") and explain the objective of the commit in few words. It’s usually less than 50 characters so it remains concise. You can consider this line the subject of your commit. Think of it as the second part of a sentence that starts with the words "This commit will."
+The first line should start with a verb (e.g., “Add”) and explain the objective of the commit in few words. It’s usually less than 50 characters so it remains concise. You can consider this line the subject of your commit. Think of it as the second part of a sentence that starts with the words “This commit will.”
 
 * This commit will *add feature X*
 
@@ -66,10 +66,10 @@ We use [PHPUnit](https://phpunit.de/) version 7.5 ([documentation](https://phpun
 
 You’ll find more information on how to run tests [in this document](03_Running_tests.md).
 
-Feel free to ask us for assistance. Not everything will be easy to test, so do not spend too much time on this.
+Feel free to ask us for assistance. Not everything will be easy to test, so don’t spend too much time on this.
 
 ## Why you should write documentation
 
-A friendly project should have correct and complete documentation, so newcomers do not have to ask too many questions, and users can find answers to their problems. The documentation should not be written “later” or chances are it will never be.
+A friendly project should have correct and complete documentation, so newcomers don’t have to ask too many questions, and users can find answers to their problems. The documentation should not be written “later” or chances are it’ll never be.
 
 Our documentation can still be improved quite a bit, so you’re very welcome if you want to help.

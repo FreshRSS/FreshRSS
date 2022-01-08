@@ -1,14 +1,14 @@
 # Configuring the email address validation
 
 FreshRSS can verify that users give a valid email address. It is not configured
-by default so you will have to follow these few steps to verify email addresses.
+by default so you’ll have to follow these few steps to verify email addresses.
 
 It is intended to administrators who host users and want to be sure to be able
 to contact them.
 
 ## Force email validation
 
-In your `data/config.php` file, you will find a `force_email_validation` item:
+In your `data/config.php` file, you’ll find a `force_email_validation` item:
 set it to `true`. An email field now appears on the registration page and
 emails are sent when users change their email.
 
@@ -19,10 +19,10 @@ You can also enable this feature directly in FreshRSS: `Administration` >
 
 By default, FreshRSS will attempt to send emails with the [`mail`](https://www.php.net/manual/en/function.mail.php)
 function of PHP. It is the simpler solution but it might not work as expected.
-For example, we do not support (yet?) sending emails from inside our official
+For example, we don’t support (yet?) sending emails from inside our official
 Docker images. We recommend to use a proper SMTP server.
 
-To configure a SMTP server, you will have to modify the `data/config.php` file.
+To configure a SMTP server, you’ll have to modify the `data/config.php` file.
 
 First, change the `mailer` item to `smtp` (instead of the default `mail`).
 
@@ -39,15 +39,15 @@ need to change your email address on the profile page and check that an email
 arrives on the new address.
 
 If it fails, you can change the environment (in `data/config.php` file, change
-`production` to `development`). PHPMailer will become more verbose and you will
-be able to see what happens in the PHP logs. If something’s wrong here, you will
+`production` to `development`). PHPMailer will become more verbose and you’ll
+be able to see what happens in the PHP logs. If something’s wrong here, you’ll
 probably better served by asking to your favorite search engine than asking us.
-If you think that something’s wrong in FreshRSS code, do not hesitate to open a
+If you think that something’s wrong in FreshRSS code, don’t hesitate to open a
 ticket though.
 
 Also, make sure the email didn’t arrive in your spam.
 
-Once you’re done, do not forget to reconfigure your environment to `production`.
+Once you’re done, don’t forget to reconfigure your environment to `production`.
 
 ## Access the validation URL during development
 
@@ -57,7 +57,7 @@ no easy way to access the validation URL unless forging it. You’ll need to
 information:
 
 - the username of the user to validate (you should know it)
-- its validation token, that you will find in its configuration file:
+- its validation token, that you’ll find in its configuration file:
 
 ```console
 $ # For instance, for a user called `alice`

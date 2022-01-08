@@ -62,14 +62,14 @@ msgstr ""
 #: en/./contributing.md:15
 msgid ""
 "Search for it on [the bug "
-"tracker](https://github.com/FreshRSS/FreshRSS/issues) (do not forget to use "
+"tracker](https://github.com/FreshRSS/FreshRSS/issues) (don’t forget to use "
 "the search bar)."
 msgstr ""
 
 #. type: Bullet: '2. '
 #: en/./contributing.md:15
 msgid ""
-"If you find a similar bug, do not hesitate to post a comment to add more "
+"If you find a similar bug, don’t hesitate to post a comment to add more "
 "importance to the related ticket."
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 #. type: Bullet: '1. '
 #: en/./contributing.md:36
 msgid ""
-"Be sure the bug is associated with a ticket and indicate that you will work on "
+"Be sure the bug is associated with a ticket and indicate that you’ll work on "
 "it."
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:54
 msgid ""
-"We’re working on a better way to handle internationalization, but do not "
+"We’re working on a better way to handle internationalization, but don’t "
 "hesitate to suggest any ideas!"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:4
 msgid ""
 "FreshRSS is built with PHP and uses a homemade framework, Minz. The "
-"dependencies are directly included in the source code, so you do not need "
+"dependencies are directly included in the source code, so you don’t need "
 "Composer."
 msgstr ""
 
@@ -267,14 +267,14 @@ msgid ""
 "There are various ways to configure your development environment. The "
 "easiest and most supported method is based on Docker, which is the solution "
 "documented below. If you already have a working PHP environment, you "
-"probably do not need it."
+"probably don’t need it."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:8
 msgid ""
 "We assume here that you use a GNU/Linux distribution, capable of running "
-"Docker. Otherwise, you will have to adapt the commands accordingly."
+"Docker. Otherwise, you’ll have to adapt the commands accordingly."
 msgstr ""
 
 #. type: Plain text
@@ -282,7 +282,7 @@ msgstr ""
 msgid ""
 "The commands that follow have to be executed in a console. They start by `$` "
 "when commands need to be executed as normal user, and by `#` when they need "
-"to be executed as root user. You do not have to type these characters. A path "
+"to be executed as root user. You don’t have to type these characters. A path "
 "may be indicated before these characters to help you identify where they "
 "need to be executed. For instance, `app$ echo 'Hello World'` indicates that "
 "you have to execute `echo` command in the `app/` directory."
@@ -337,7 +337,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:29
 msgid ""
 "This might take some time while Docker downloads the image. If your user "
-"isn’t in the `docker` group, you will need to prepend the command with `sudo`."
+"isn’t in the `docker` group, you’ll need to prepend the command with `sudo`."
 msgstr ""
 
 #. type: Plain text
@@ -449,14 +449,14 @@ msgstr ""
 #: en/./developers/01_First_steps.md:69
 msgid ""
 "If you want to contribute to the source code, it’s important to follow the "
-"project’s coding style. The actual code does not always follow it throughout "
+"project’s coding style. The actual code doesn’t always follow it throughout "
 "the project, but we should fix it every time an opportunity presents itself."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:71
 msgid ""
-"Contributions which do not follow the coding style will be rejected as long "
+"Contributions which don’t follow the coding style will be rejected as long "
 "as the coding style is not fixed."
 msgstr ""
 
@@ -844,7 +844,7 @@ msgid ""
 "project is young and development is dynamic, so it can be corrected "
 "quickly. You might also have a feature in mind that does not yet "
 "exist. Regardless whether your idea seems silly, far-fetched, useless or too "
-"specific, please do not hesitate to propose it to us! \"Ideas in the air\" "
+"specific, please don’t hesitate to propose it to us! \"Ideas in the air\" "
 "often find an attentive ear. It’s new external perspectives that make the "
 "project evolve the most."
 msgstr ""
@@ -971,7 +971,7 @@ msgstr ""
 #: en/./developers/02_Github.md:39
 msgid ""
 "**One request = one ticket.** You may have lots of ideas while being afraid "
-"to spam the bug manager: it does not matter. It’s better to have a few too "
+"to spam the bug manager: it does’nt matter. It’s better to have a few too "
 "many tickets than too many requests in one. We will close and consolidate "
 "requests when possible."
 msgstr ""
@@ -988,7 +988,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/02_Github.md:39
 msgid ""
-"If you cannot find the log files, specify it in your ticket so we know you’ve "
+"If you can’t find the log files, specify it in your ticket so we know you’ve "
 "already searched."
 msgstr ""
 
@@ -1414,7 +1414,7 @@ msgid ""
 "(the PHP framework on which FreshRSS is based). Unfortunately, this "
 "documentation does not yet exist. In a few words, here are the main things "
 "you should know. It is not necessary to read all the chapters in this "
-"section if you do not need to use a feature in your extension (if you do not "
+"section if you don’t need to use a feature in your extension (if you don’t "
 "need to translate your extension, no need to know more about the "
 "`Minz_Translate` module for example)."
 msgstr ""
@@ -2408,7 +2408,7 @@ msgstr ""
 #: en/./developers/03_Running_tests.md:4
 msgid ""
 "FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be "
-"merged in `edge` if the tests do not pass."
+"merged in `edge` if the tests don’t pass."
 msgstr ""
 
 #. type: Title ##
@@ -2442,7 +2442,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:16
 msgid ""
-"Then, it executes PHPUnit in a Docker container. If you do not use Docker, "
+"Then, it executes PHPUnit in a Docker container. If you don’t use Docker, "
 "you can run the command directly with:"
 msgstr ""
 
@@ -2722,7 +2722,7 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:68
 msgid ""
 "Feel free to ask us for assistance. Not everything will be easy to test, so "
-"do not spend too much time on this."
+"don’t spend too much time on this."
 msgstr ""
 
 #. type: Title ##
@@ -2735,7 +2735,7 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:72
 msgid ""
 "A friendly project should have correct and complete documentation, so "
-"newcomers do not have to ask too many questions, and users can find answers "
+"newcomers don’t have to ask too many questions, and users can find answers "
 "to their problems. The documentation should not be written “later” or "
 "chances are it’ll never be."
 msgstr ""
@@ -3581,7 +3581,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:100
 msgid ""
-"If you cannot or do not want to use the automatic method, you can update "
+"If you cannot or don’t want to use the automatic method, you can update "
 "manually. There are two methods for updating all or some of the feeds."
 msgstr ""
 
@@ -4090,7 +4090,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:52
 msgid ""
-"If you disable every item in the top line, you will still be able to see it "
+"If you disable every item in the top line, you’ll still be able to see it "
 "since it contains the feed name and the article title. But if you do the "
 "same thing for the bottom line, it will be empty."
 msgstr ""
@@ -4136,7 +4136,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:66
 msgid ""
-"If you do not use those buttons because you never browse on mobile or because "
+"If you don’t use those buttons because you never browse on mobile or because "
 "you browse with gestures, you can disable them from the interface."
 msgstr ""
 
@@ -4284,7 +4284,7 @@ msgstr ""
 #: en/./users/05_Configuration.md:117
 msgid ""
 "Be aware that there is no validation on the selected shortcuts.  This means "
-"that if you assign a shortcut to more than one action, you will end up with "
+"that if you assign a shortcut to more than one action, you’ll end up with "
 "some unexpected behavior."
 msgstr ""
 
@@ -4409,9 +4409,9 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:169
 msgid ""
-"Please be aware that this way you will generate much more traffic to the "
+"Please be aware that this way you’ll generate much more traffic to the "
 "originating sites, and they might block you accordingly. FreshRSS "
-"performance is also negatively affected, because you will have to fetch the "
+"performance is also negatively affected, because you’ll have to fetch the "
 "full article content one by one. So it’s a feature to use sparingly!"
 msgstr ""
 
@@ -4446,7 +4446,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "Here we find that the block that encompasses nothing but the content of the "
-"article is ```<div class=\"content clearfix\">```. We will only use the "
+"article is ```<div class=\"content clearfix\">```. We’ll only use the "
 "`.content` class here. Nevertheless, as said above, it’s best to start the "
 "path with an id. If we go back to the parent block, we find ```<div "
 "id=\"article\">``` and that’s perfect! The path will be ```#article "

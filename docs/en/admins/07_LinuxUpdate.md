@@ -2,7 +2,7 @@
 
 This tutorial demonstrates commands for updating FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you have installed it somewhere else, substitute your path as necessary.
 
-**Note that FreshRSS contains a built-in update system.** It’s easier to use if you do not understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
+**Note that FreshRSS contains a built-in update system.** It’s easier to use if you don’t understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
 
 ## Pausing automatic feed updates
 
@@ -24,7 +24,7 @@ You may wish to run the cron task or systemd unit (`freshrss.service`) immediate
 
 **You must have used git to install FreshRSS to use this update method.**
 
-If your local user does not have write access to the FreshRSS folder, use a sudo shell (`sudo -s`), prefix the following commands with `sudo`, or switch to an account that does have write access to the folder.
+If your local user doesn’t have write access to the FreshRSS folder, use a sudo shell (`sudo -s`), prefix the following commands with `sudo`, or switch to an account that does have write access to the folder.
 
 1. Change to your FreshRSS directory
 	```sh
@@ -67,7 +67,7 @@ If your local user does not have write access to the FreshRSS folder, use a sudo
 
 ## Using the Zip archive
 
-If your local user does not have write access to the FreshRSS folder, use a sudo shell (`sudo -s`), prefix the following commands with `sudo`, or switch to an account that does have write access to the folder.
+If your local user doesn’t have write access to the FreshRSS folder, use a sudo shell (`sudo -s`), prefix the following commands with `sudo`, or switch to an account that does have write access to the folder.
 
 1. Change to your FreshRSS directory
 	```sh

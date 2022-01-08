@@ -26,7 +26,7 @@ Note: it is quite conceivable that the functionalities of an extension can later
 
 **TODO** : move to 02_Minz.md
 
-This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation does not yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you do not need to use a feature in your extension (if you do not need to translate your extension, no need to know more about the `Minz_Translate` module for example).
+This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation doesn’t yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you don’t need to use a feature in your extension (if you don’t need to translate your extension, no need to know more about the `Minz_Translate` module for example).
 
 ### MVC Architecture
 
@@ -332,7 +332,7 @@ class HelloWorldExtension extends Minz_Extension
 
 The following events are available:
 
-* `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which does not advertise it in the header can still be automatically supported.
+* `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
 * `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.

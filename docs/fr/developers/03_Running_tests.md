@@ -1,7 +1,7 @@
 # Running tests
 
 FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be
-merged in `edge` if the tests do not pass.
+merged in `edge` if the tests don’t pass.
 
 ## Locally
 
@@ -17,7 +17,7 @@ verification fails, the file is deleted. In this case, you should [open an
 issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let
 maintainers know about the problem.
 
-Then, it executes PHPUnit in a Docker container. If you do not use Docker,
+Then, it executes PHPUnit in a Docker container. If you don’t use Docker,
 you can run the command directly with:
 
 ```sh

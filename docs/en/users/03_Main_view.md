@@ -119,7 +119,7 @@ When using HTTP authentication, the syntax in the two previous sections is unusa
 
 ## Manual update
 
-If you cannot or do not want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
+If you cannot or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
 
 ### Complete update
 
@@ -240,7 +240,7 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
 
-When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you will need to consider [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws). See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460) for more details on the usage of `AND` vs `OR` when using combining multiple negative operators.
+When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you’ll need to consider [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws). See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460) for more details on the usage of `AND` vs `OR` when using combining multiple negative operators.
 
 ### By sorting by date
 

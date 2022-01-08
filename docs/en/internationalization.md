@@ -54,7 +54,7 @@ make i18n-add-language lang=[your language code]
 
 You must replace `[your language code]` by the language tag of your language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. You can target a specific region with a subtag, for instance `pt-br` for Brazilian Portuguese. If you are not sure of the code, Wikipedia might be a good start to find it or you can ask us for help too.
 
-The command will create a new subfolder under `app/i18n/` and copy the strings from the reference language (i.e. English). It will also mark all the translations with a special tag represented by a comment: `// TODO - Translation`. We will see in the next section how to translate the strings.
+The command will create a new subfolder under `app/i18n/` and copy the strings from the reference language (i.e. English). it’ll also mark all the translations with a special tag represented by a comment: `// TODO - Translation`. We will see in the next section how to translate the strings.
 
 ## Translate the interface
 
@@ -66,7 +66,7 @@ To update a string, you just have to open its file, find the string, and change 
 make i18n-format
 ```
 
-It will remove the comments on the lines that you’ve changed, and will reformat the file correctly. If you have made any mistakes, it will fix them automatically or it will tell you it can’t (well… the command will dramatically fail without any damage, don’t worry).
+it’ll remove the comments on the lines that you’ve changed, and will reformat the file correctly. If you have made any mistakes, it’ll fix them automatically or it’ll tell you it can’t (well… the command will dramatically fail without any damage, don’t worry).
 
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
@@ -100,7 +100,7 @@ Conversely, you may want to remove a key that is no longer used in the applicati
 make i18n-remove-key key=the.key.to.remove
 ```
 
-Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change does not impact the meaning of the sentence, and therefore other languages do not need to change (e.g. to fix a typo), you should make the change manually in the file. In any other case, you should use the following command:
+Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change doesn’t impact the meaning of the sentence, and therefore other languages don’t need to change (e.g. to fix a typo), you should make the change manually in the file. In any other case, you should use the following command:
 
 ```sh
 make i18n-update-key key=the.key.to.change value='The new string in English'
@@ -122,7 +122,7 @@ The function expects a translation key, but there’s a special case that someti
 
 `_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/manual/function.sprintf).
 
-For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it does not matter). For instance:
+For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it doesn’t matter). For instance:
 
 ```php
 <label>

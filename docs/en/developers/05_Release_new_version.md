@@ -57,7 +57,7 @@ return array(
 	// STABLE
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
-	'1.0.0' => '1.0.1',  // does not exist (yet)
+	'1.0.0' => '1.0.1',  // doesn’t exist (yet)
 	// DEV
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
@@ -71,7 +71,7 @@ And here’s how this table works:
 * the `x.y.z.z-dev` versions are **all** updated to `edge`;
 * stable versions are updated to stable versions;
 * it’s possible to skip several versions at once, provided that the update scripts support it;
-* it’s advisable to indicate the correspondence of the current version to its potential future version by specifying that this version does not yet exist. As long as the corresponding script does not exist, nothing will happen.
+* it’s advisable to indicate the correspondence of the current version to its potential future version by specifying that this version doesn’t yet exist. As long as the corresponding script doesn’t exist, nothing will happen.
 
 It’s**very strongly** recommended to keep this file organized according to version numbers by separating stable and dev versions.
 

@@ -1402,7 +1402,7 @@
 	* Add some indications on password format
 * Bug fixing
 	* Some shortcuts was never saved
-	* Global view did not work if set by default
+	* Global view didn’t work if set by default
 	* Minz_Error was badly raised
 	* Feed update failed if nothing had changed (MySQL only)
 	* CRON task failed with multiple users
@@ -1472,7 +1472,7 @@
 * I18n
 	* Introduce a new system for i18n keys (not finished yet)
 * Misc.
-	* Fix global view (did not work anymore)
+	* Fix global view (didn’t work anymore)
 	* Add do_post_update for update system
 	* Introduce ```checkInstallAction``` to test if FreshRSS installation is ok
 

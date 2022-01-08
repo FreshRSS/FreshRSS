@@ -1,12 +1,12 @@
 # Environment configuration (Docker)
 
-FreshRSS is built with PHP and uses a homemade framework, Minz. The dependencies are directly included in the source code, so you do not need Composer.
+FreshRSS is built with PHP and uses a homemade framework, Minz. The dependencies are directly included in the source code, so you don’t need Composer.
 
-There are various ways to configure your development environment. The easiest and most supported method is based on Docker, which is the solution documented below. If you already have a working PHP environment, you probably do not need it.
+There are various ways to configure your development environment. The easiest and most supported method is based on Docker, which is the solution documented below. If you already have a working PHP environment, you probably don’t need it.
 
-We assume here that you use a GNU/Linux distribution, capable of running Docker. Otherwise, you will have to adapt the commands accordingly.
+We assume here that you use a GNU/Linux distribution, capable of running Docker. Otherwise, you’ll have to adapt the commands accordingly.
 
-The commands that follow have to be executed in a console. They start by `$` when commands need to be executed as normal user, and by `#` when they need to be executed as root user. You do not have to type these characters. A path may be indicated before these characters to help you identify where they need to be executed. For instance, `app$ echo 'Hello World'` indicates that you have to execute `echo` command in the `app/` directory.
+The commands that follow have to be executed in a console. They start by `$` when commands need to be executed as normal user, and by `#` when they need to be executed as root user. You don’t have to type these characters. A path may be indicated before these characters to help you identify where they need to be executed. For instance, `app$ echo 'Hello World'` indicates that you have to execute `echo` command in the `app/` directory.
 
 First, you need to install [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
@@ -25,7 +25,7 @@ Then, the only command you need to know is the following:
 make start
 ```
 
-This might take some time while Docker downloads the image. If your user isn’t in the `docker` group, you will need to prepend the command with `sudo`.
+This might take some time while Docker downloads the image. If your user isn’t in the `docker` group, you’ll need to prepend the command with `sudo`.
 
 **You can now access FreshRSS at [http://localhost:8080](http://localhost:8080).** Just follow the install process and select the SQLite database.
 
@@ -65,9 +65,9 @@ If you want to create your own FreshRSS extension, take a look at the [extension
 
 ## Coding style
 
-If you want to contribute to the source code, it’s important to follow the project’s coding style. The actual code does not always follow it throughout the project, but we should fix it every time an opportunity presents itself.
+If you want to contribute to the source code, it’s important to follow the project’s coding style. The actual code doesn’t always follow it throughout the project, but we should fix it every time an opportunity presents itself.
 
-Contributions which do not follow the coding style will be rejected as long as the coding style is not fixed.
+Contributions which don’t follow the coding style will be rejected as long as the coding style is not fixed.
 
 ## Spaces, tabs and other whitespace characters
 

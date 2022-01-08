@@ -83,7 +83,7 @@ browsing on mobile. The drawback is that they eat up some precious space.
 ![navigation button
 configuration](../img/users/configuration.navigation.button.png)
 
-If you do not use those buttons because you never browse on mobile or because
+If you don’t use those buttons because you never browse on mobile or because
 you browse with gestures, you can disable them from the interface.
 
 # Reading
@@ -148,7 +148,7 @@ only one option, it’s selected automatically though.
 The same process applies to the user queries.
 
 Be aware that there is no validation on the selected shortcuts.  This means
-that if you assign a shortcut to more than one action, you will end up with
+that if you assign a shortcut to more than one action, you’ll end up with
 some unexpected behavior.
 
 # User queries

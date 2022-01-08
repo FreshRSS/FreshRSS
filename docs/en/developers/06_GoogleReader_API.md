@@ -6,7 +6,7 @@ Additionally [page about our Fever compatible API](06_Fever_API.md) for another 
 ## RSS clients
 
 There are many RSS clients that support the Fever API, but they might understand the API a bit differently.
-If your favourite client does not work properly with this API, please create an issue and we will have a look.
+If your favourite client doesn’t work properly with this API, please create an issue and we will have a look.
 But we can **only** do that for free clients.
 
 ## Usage & Authentication

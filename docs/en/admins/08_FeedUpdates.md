@@ -2,7 +2,7 @@
 
 FreshRSS is updated by the `./app/actualize_script.php` script. Knowing this, we can periodically trigger it to ensure up-to-date feeds.
 
-**Note:** the update script won’t update any particular feed more often than once every twenty minutes, so it does not make sense to trigger it much more frequently than that.
+**Note:** the update script won’t update any particular feed more often than once every twenty minutes, so it doesn’t make sense to trigger it much more frequently than that.
 
 **Note:** the following examples assume that FreshRSS is installed to `/usr/share/FreshRSS`. You’ll need to modify the FreshRSS path to reflect your own system.
 
