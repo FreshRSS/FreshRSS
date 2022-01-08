@@ -329,7 +329,7 @@ msgid ""
 msgstr ""
 "Il existe plusieurs façons de configurer votre environnement "
 "dedéveloppement. La méthode la plus simple et la plus supportée est basée "
-"surDocker. c’est la solution qui est documentée ci-dessous. Si vous avez "
+"surDocker. C’est la solution qui est documentée ci-dessous. Si vous avez "
 "déjà unenvironnement PHP fonctionnel, vous n’en avez probablement pas besoin."
 
 #. type: Plain text
@@ -1174,7 +1174,7 @@ msgid ""
 "is why you can also contact us in a more informal way."
 msgstr ""
 "Tout le monde n’aime pas ou n’utilise pas GitHub pour des raisons aussi "
-"diverses que légitimes. c’est pourquoi vous pouvez aussi nous contacter de "
+"diverses que légitimes. C’est pourquoi vous pouvez aussi nous contacter de "
 "façon plus informelle."
 
 #. type: Bullet: '* '
@@ -2506,7 +2506,7 @@ msgstr ""
 "Il existe un petit cas particulier qui permet parfois de se simplifier la "
 "vie : le cas de l’identifiant `_`. Celui-ci doit nécessairement être présent "
 "en bout de chaîne et permet de donner une valeur à l’identifiant de niveau "
-"supérieur. c’est assez dur à expliquer mais très simple à comprendre. Dans "
+"supérieur. C’est assez dur à expliquer mais très simple à comprendre. Dans "
 "l’exemple donné plus haut, un `_` est associé à la valeur `FreshRSS` : cela "
 "signifie qu’il n’y a pas besoin d’écrire `_t('gen.freshrss._')` mais "
 "`_t('gen.freshrss')` suffit."
@@ -4833,7 +4833,7 @@ msgid ""
 "There’s no accounting for tastes, which is why FreshRSS offers eight "
 "official themes:"
 msgstr ""
-"Les goûts et les couleurs, ça ne se discute pas. c’est pourquoi FreshRSS "
+"Les goûts et les couleurs, ça ne se discute pas. C’est pourquoi FreshRSS "
 "propose huit thèmes officiels :"
 
 #. type: Bullet: ' * '
@@ -5315,7 +5315,7 @@ msgstr ""
 "Sachez aussi que par cette manière vous générez beaucoup plus de trafic vers "
 "les sites d’origines et qu’ils peuvent vous bloquer par conséquent. Les "
 "performances de FreshRSS sont aussi moins bonnes car vous devez alors aller "
-"chercher le contenu des articles un par un. c’est donc une fonctionnalité à "
+"chercher le contenu des articles un par un. C’est donc une fonctionnalité à "
 "utiliser avec parcimonie !"
 
 #. type: Plain text
@@ -6073,7 +6073,7 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:3
 #, no-wrap
 msgid "What is `/i` at the end of the application URL?"
-msgstr "c’est quoi ce `/i` à la fin de l’URL ?"
+msgstr "C’est quoi ce `/i` à la fin de l’URL ?"
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:6

@@ -353,7 +353,7 @@ traduction.
 Il existe un petit cas particulier qui permet parfois de se simplifier la
 vie : le cas de l’identifiant `_`. Celui-ci doit nécessairement être présent
 en bout de chaîne et permet de donner une valeur à l’identifiant de niveau
-supérieur. c’est assez dur à expliquer mais très simple à comprendre. Dans
+supérieur. C’est assez dur à expliquer mais très simple à comprendre. Dans
 l’exemple donné plus haut, un `_` est associé à la valeur `FreshRSS` : cela
 signifie qu’il n’y a pas besoin d’écrire `_t('gen.freshrss._')` mais
 `_t('gen.freshrss')` suffit.

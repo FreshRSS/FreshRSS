@@ -20,7 +20,7 @@ pt-br, ru, tr, zh-cn.
 
 ## Thème
 
-Les goûts et les couleurs, ça ne se discute pas. c’est pourquoi FreshRSS
+Les goûts et les couleurs, ça ne se discute pas. C’est pourquoi FreshRSS
 propose huit thèmes officiels :
 
 * *Blue Lagoon* par **Mister aiR**
@@ -212,7 +212,7 @@ fonctionne. :)
 Sachez aussi que par cette manière vous générez beaucoup plus de trafic vers
 les sites d’origines et qu’ils peuvent vous bloquer par conséquent. Les
 performances de FreshRSS sont aussi moins bonnes car vous devez alors aller
-chercher le contenu des articles un par un. c’est donc une fonctionnalité à
+chercher le contenu des articles un par un. C’est donc une fonctionnalité à
 utiliser avec parcimonie !
 
 Ce que j’entends par "Chemin CSS des articles sur le site d’origine"

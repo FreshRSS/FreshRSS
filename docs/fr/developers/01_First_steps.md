@@ -8,7 +8,7 @@ pas besoin d’utiliser Composer.
 
 Il existe plusieurs façons de configurer votre environnement
 dedéveloppement. La méthode la plus simple et la plus supportée est basée
-surDocker. c’est la solution qui est documentée ci-dessous. Si vous avez
+surDocker. C’est la solution qui est documentée ci-dessous. Si vous avez
 déjà unenvironnement PHP fonctionnel, vous n’en avez probablement pas
 besoin.
 

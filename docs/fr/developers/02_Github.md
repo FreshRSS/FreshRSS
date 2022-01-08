@@ -34,7 +34,7 @@ pas cet aspect "social" !
 ## De façon informelle
 
 Tout le monde n’aime pas ou n’utilise pas GitHub pour des raisons aussi
-diverses que légitimes. c’est pourquoi vous pouvez aussi nous contacter de
+diverses que légitimes. C’est pourquoi vous pouvez aussi nous contacter de
 façon plus informelle.
 
 * Sur [notre chat
