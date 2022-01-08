@@ -88,7 +88,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		// TODO: not sure if we should write this method in DAO since DAO
 		// should not be aware about feed class
 
-		// Add feed only if we don't find it in DB
+		// Add feed only if we do not find it in DB
 		$feed_search = $this->searchByUrl($feed->url());
 		if (!$feed_search) {
 			$values = array(

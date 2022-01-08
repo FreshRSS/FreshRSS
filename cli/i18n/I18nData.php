@@ -95,7 +95,7 @@ class I18nData {
 	}
 
 	/**
-	 * Add a new language. It's a copy of the reference language.
+	 * Add a new language. It’s a copy of the reference language.
 	 *
 	 * @param string $language
 	 * @param string $reference

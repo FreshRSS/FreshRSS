@@ -61,7 +61,7 @@ class FreshRSS_Export_Service {
 	/**
 	 * Generate the starred and labelled entries file content.
 	 *
-	 * Both starred and labelled entries are put into a "starred" file, that's
+	 * Both starred and labelled entries are put into a "starred" file, that’s
 	 * why there is only one method for both.
 	 *
 	 * @param string $type must be one of:
@@ -100,7 +100,7 @@ class FreshRSS_Export_Service {
 	 * @param integer $max_number_entries
 	 *
 	 * @return array|null First item is the filename, second item is the content.
-	 *                    It also can return null if the feed doesn't exist.
+	 *                    It also can return null if the feed does not exist.
 	 */
 	public function generateFeedEntries($feed_id, $max_number_entries) {
 		$feed = $this->feed_dao->searchById($feed_id);

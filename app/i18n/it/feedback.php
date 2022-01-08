@@ -107,7 +107,7 @@ return array(
 				'http_error' => 'Failed to load website content.',	// TODO
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO
 				'no_feed' => 'Internal error (feed cannot be found).',	// TODO
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
+				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO
 			),
 			'updated' => 'Feed aggiornato',

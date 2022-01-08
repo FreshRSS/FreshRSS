@@ -157,7 +157,7 @@ class FreshRSS_Share {
 	}
 
 	/**
-	 * Return the current field of the share option. It's null for shares
+	 * Return the current field of the share option. It’s null for shares
 	 * using the GET method.
 	 */
 	public function field() {

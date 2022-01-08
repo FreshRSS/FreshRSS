@@ -12,7 +12,7 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'URL\'yi harici bir araçla kullanmak için kopyala.',
+		'documentation' => 'URL’yi harici bir araçla kullanmak için kopyala.',
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(

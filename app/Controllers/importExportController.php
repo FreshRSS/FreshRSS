@@ -185,8 +185,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	/**
 	 * This method tries to guess the file type based on its name.
 	 *
-	 * Itis a *very* basic guess file type function. Only based on filename.
-	 * That's could be improved but should be enough for what we have to do.
+	 * It is a *very* basic guess file type function. Only based on filename.
+	 * That could be improved but should be enough for what we have to do.
 	 */
 	private static function guessFileType($filename) {
 		if (substr_compare($filename, '.zip', -4) === 0) {
@@ -594,7 +594,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		foreach ($export_feeds as $feed_id) {
 			$result = $export_service->generateFeedEntries($feed_id, $max_number_entries);
 			if (!$result) {
-				// It means the actual feed_id doesn't correspond to any existing feed
+				// It means the actual feed_id does not correspond to any existing feed
 				continue;
 			}
 
@@ -604,7 +604,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$nb_files = count($exported_files);
 		if ($nb_files <= 0) {
-			// There's nothing to do, there're no files to export
+			// There’s nothing to do, there’re no files to export
 			return Minz_Request::forward(
 				array('c' => 'importExport', 'a' => 'index'),
 				true
@@ -616,7 +616,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$filename = key($exported_files);
 			$content = $exported_files[$filename];
 		} else {
-			// More files? Let's compress them in a Zip archive
+			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
 				// Oops, there is no ZIP extension!
 				return Minz_Request::bad(

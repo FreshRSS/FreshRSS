@@ -16,7 +16,7 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Zgłaszanie problemów',
 		'credits' => 'Uznanie autorstwa',
-		'credits_content' => 'Niektóre elementy designu pochodzą z <a href="http://twitter.github.io/bootstrap/">Bootstrapa</a>, przy czym FreshRSS nie używa tego frameworku. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ikony</a> zostały pierwotnie stworzone dla <a href="https://www.gnome.org/">projektu GNOME</a>. Font <em>Open Sans</em> jest autorstwa <a href="https://fonts.google.com/specimen/Open+Sans">Steve\'a Mattesona</a>. FreshRSS opiera się na <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, frameworku PHP.',
+		'credits_content' => 'Niektóre elementy designu pochodzą z <a href="http://twitter.github.io/bootstrap/">Bootstrapa</a>, przy czym FreshRSS nie używa tego frameworku. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ikony</a> zostały pierwotnie stworzone dla <a href="https://www.gnome.org/">projektu GNOME</a>. Font <em>Open Sans</em> jest autorstwa <a href="https://fonts.google.com/specimen/Open+Sans">Steve’a Mattesona</a>. FreshRSS opiera się na <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, frameworku PHP.',
 		'freshrss_description' => 'FreshRSS jest agregatorem kanałów RSS przeznaczonym do zainstalowania na własnym serwerze, podobnie jak <a href="http://tontof.net/kriss/feed/">Kriss Feed</a>, bądź <a href="https://github.com/LeedRSS/Leed">Leed</a>. Jest lekki i łatwy do schowania w kieszeni, pozostając przy tym potężnym i konfigurowalnym narzędziem.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na Githubie</a>',
 		'license' => 'Licencja',

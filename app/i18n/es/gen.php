@@ -123,7 +123,7 @@ return array(
 	),
 	'js' => array(
 		'category_empty' => 'Vaciar categoría',
-		'confirm_action' => '¿Seguyro que quieres hacerlo? No hay marcha atrás...',
+		'confirm_action' => '¿Seguyro que quieres hacerlo? No hay marcha atrás…',
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las peticiones de usuario. ¡Y no hay marcha atrás!',
 		'feedback' => array(
 			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',

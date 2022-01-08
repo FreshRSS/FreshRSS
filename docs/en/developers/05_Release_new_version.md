@@ -1,9 +1,9 @@
 # Preparing the release
 
-In order to get as much feedback as possible before a release, it's preferable to announce it on GitHub by creating a dedicated ticket
+In order to get as much feedback as possible before a release, it’s preferable to announce it on GitHub by creating a dedicated ticket
 ([see examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
 
-It's also recommended to make the announcement on mailing@freshrss.org.
+It’s also recommended to make the announcement on mailing@freshrss.org.
 
 ## Check the dev status
 
@@ -27,7 +27,7 @@ $ git push && git push --tags
 
 ## Updating `update.freshrss.org`
 
-It's important to update update.freshrss.org since this is the default service for automatic FreshRSS updates.
+It’s important to update update.freshrss.org since this is the default service for automatic FreshRSS updates.
 
 The repository managing the code is located on GitHub: [FreshRSS/update.freshrss.org](https://github.com/FreshRSS/update.freshrss.org/).
 
@@ -35,7 +35,7 @@ The repository managing the code is located on GitHub: [FreshRSS/update.freshrss
 
 The scripts are located in the `./scripts/` directory and must take the form `update_to_x.y.z.z.php`. This directory  also contains `update_to_dev.php` intended for updates of the `edge` branch (this script must not include code specific to a particular version!) and `update_util.php`, which contains a list of functions useful for all scripts.
 
-In order to write a new script, it's better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form  of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
+In order to write a new script, it’s better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form  of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
 
 There are then 5 functions that have to be executed:
 
@@ -47,9 +47,9 @@ There are then 5 functions that have to be executed:
 
 ## Updating the versions file
 
-Once the script has been written and versioned, it's necessary to update the `./versions.php' file which contains a mapping table indicating which versions are updated to which other versions.
+Once the script has been written and versioned, it’s necessary to update the `./versions.php' file which contains a mapping table indicating which versions are updated to which other versions.
 
-Here's an example of a `versions.php` file:
+Here’san example of a `versions.php` file:
 
 ```php
 <?php
@@ -57,7 +57,7 @@ return array(
 	// STABLE
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
-	'1.0.0' => '1.0.1',  // doesn't exist (yet)
+	'1.0.0' => '1.0.1',  // does not exist (yet)
 	// DEV
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
@@ -65,21 +65,21 @@ return array(
 );
 ```
 
-And here's how this table works:
+And here’show this table works:
 
 * on the left you can find the N version, on the right the N+1 version;
 * the `x.y.z.z-dev` versions are **all** updated to `edge`;
 * stable versions are updated to stable versions;
-* it's possible to skip several versions at once, provided that the update scripts support it;
-* it's advisable to indicate the correspondence of the current version to its potential future version by specifying that this version does not yet exist. As long as the corresponding script does not exist, nothing will happen.
+* it’s possible to skip several versions at once, provided that the update scripts support it;
+* it’s advisable to indicate the correspondence of the current version to its potential future version by specifying that this version does not yet exist. As long as the corresponding script does not exist, nothing will happen.
 
-It's **very strongly** recommended to keep this file organized according to version numbers by separating stable and dev versions.
+It’s**very strongly** recommended to keep this file organized according to version numbers by separating stable and dev versions.
 
 ## Deployment
 
-Before updating update.freshrss.org, it's better to test with dev.update.freshrss.org, which corresponds to pre-production. So update dev.update.freshrss.org and change the `FRESHRSS_UPDATE_WEBSITE` URL of your FreshRSS instance. Start the update and check that it's running correctly.
+Before updating update.freshrss.org, it’s better to test with dev.update.freshrss.org, which corresponds to pre-production. So update dev.update.freshrss.org and change the `FRESHRSS_UPDATE_WEBSITE` URL of your FreshRSS instance. Start the update and check that it’s running correctly.
 
-When you're satisfied, update update.freshrss.org with the new script, test it again, and then move on.
+When you’re satisfied, update update.freshrss.org with the new script, test it again, and then move on.
 
 ## Updating the FreshRSS services
 
@@ -90,7 +90,7 @@ Two services need to be updated immediately after the update.
 
 ## Publicly announce the release
 
-When everything's working, it's time to announce the release to the world!
+When everything’sworking, it’s time to announce the release to the world!
 
 * on GitHub by creating[a new release](https://github.com/FreshRSS/FreshRSS/releases/new)
 * on the freshrss.org blog, at least for stable versions (write the article on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))

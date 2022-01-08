@@ -96,7 +96,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$id = $feedDAO->addFeed($values);
 		if (!$id) {
-			// There was an error in database... we cannot say what here.
+			// There was an error in database… we cannot say what here.
 			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
 		$feed->_id($id);
@@ -196,7 +196,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				Minz_Log::warning($e->getMessage());
 				return Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
 			} catch (Minz_FileNotExistException $e) {
-				// Cache directory doesn't exist!
+				// Cache directory does not exist!
 				Minz_Log::error($e->getMessage());
 				return Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
 			} catch (FreshRSS_AlreadySubscribed_Exception $e) {

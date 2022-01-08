@@ -7,7 +7,7 @@ Additionally [page about our Google Reader compatible API](06_GoogleReader_API.m
 ## RSS clients
 
 There are many RSS clients that support the Fever API, but they seem to understand the Fever API a bit differently.
-If your favourite client doesn't work properly with this API, please create an issue and we'll have a look.
+If your favourite client does not work properly with this API, please create an issue and we will have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
@@ -80,7 +80,7 @@ This should give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you're now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
+Perfect, you’re now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
 
 Some basic calls are:
 

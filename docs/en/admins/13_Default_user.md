@@ -16,7 +16,7 @@ The default user is used for the anonymous reading.
 
 How to enable the anonymous reading mode:
 * go to settings `Administration` → `Authentication`
-* enable the checkbox of `Allow anonymous reading of the default user's articles`
+* enable the checkbox of `Allow anonymous reading of the default user’sarticles`
 * when no user is logged in then the feeds of the default user is shown
 
 ## Change the default user

@@ -12,7 +12,7 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the default user\'s articles (%s)',	// IGNORE
+		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// IGNORE
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// IGNORE
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// IGNORE
 		'form' => 'Web form (traditional, requires JavaScript)',	// IGNORE

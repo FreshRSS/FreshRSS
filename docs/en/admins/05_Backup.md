@@ -1,6 +1,6 @@
 # Backup
 
-This tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you've installed it somewhere else, substitute your path as necessary.
+This tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you have installed it somewhere else, substitute your path as necessary.
 
 ## Installation Backup
 
@@ -8,19 +8,19 @@ Do this before an upgrade.
 
 ### Creating a Backup
 
-First, Enter the directory you wish to save your backup to. Here, for example, we'll save the backup to the user home directory
+First, Enter the directory you wish to save your backup to. Here, for example, we will save the backup to the user home directory
 
 ```sh
 cd ~
 ```
 
-Next, we'll create a gzipped tar archive of the FreshRSS directory. The following command will archive the entire contents of your FreshRSS installation in it's current state.
+Next, we will create a gzipped tar archive of the FreshRSS directory. The following command will archive the entire contents of your FreshRSS installation in it’s current state.
 
 ```sh
 tar -czf FreshRSS-backup.tgz -C /usr/share/FreshRSS/ .
 ```
 
-And you're done!
+And you’re done!
 
 ### Restoring from a Backup
 
@@ -56,14 +56,14 @@ You can export your feed list in OPML format either from the web interface, or f
 
 ### Saving Articles
 
-**If you are using MySQL**  
+**If you are using MySQL**
 You can use [phpMyAdmin](https://www.phpmyadmin.net/) or MySQL tools, where `<db_user>` is your database username, `<db_host>` is the hostname of your web server containing your FreshRSS database, and `<freshrss_db>` is the database used by FreshRSS:
 
 ```sh
 mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
 ```
 
-**From any database**  
+**From any database**
 You can use the [Command-Line Interface](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md) to export your database to a SQLite database file:
 
 ```sh

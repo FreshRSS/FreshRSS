@@ -2,7 +2,7 @@ We may not have answered all of your questions in the previous sections. The FAQ
 
 ## What is `/i` at the end of the application URL?
 
-Of course, ```/i``` has a purpose! It's used for performance and usability:
+Of course, ```/i``` has a purpose! It’s used for performance and usability:
 
 * It allows for serving icons, images, styles and scripts without cookies. Without that trick, those files would be downloaded more often, especially when form authentication is used. Also, HTTP requests would be heavier.
 * The ```./p/``` public root can be served without any HTTP access restrictions. Whereas it could be implemented in ```./p/i/```.
@@ -13,7 +13,7 @@ Of course, ```/i``` has a purpose! It's used for performance and usability:
 
 To increase security, FreshRSS is hosted in two sections. The first section is public (the `./p` folder) and the second section is private (everything else). Therefore the `robots.txt` file is located in the `./p` sub-folder.
 
-As explained in the [security section](../admins/09_AccessControl.html), it's highly recommended to make only the public section available at the domain level.
+As explained in the [security section](../admins/09_AccessControl.html), it’s highly recommended to make only the public section available at the domain level.
 With that configuration, `./p` is the root folder for <https://demo.freshrss.org/>, thus making `robots.txt` available at the root of the application.
 
 The same principle applies to `favicon.ico` and `.htaccess`.
@@ -25,9 +25,9 @@ The feed syntax can be invalid, it can be unrecognized by the SimplePie library,
 The first step is to identify what causes the problem.
 Here are the steps to follow:
 
-1. __Verify if the feed syntax is valid__ with the [W3C on-line tool](https://validator.w3.org/feed/ "RSS and Atom feed validator"). If it's not valid, there's nothing we can do.
-1. __Verify SimplePie validation__ with the [SimplePie on-line tool](https://simplepie.org/demo/ "SimplePie official demo"). If it's not recognized, there's nothing we can do.
-1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "FreshRSS official demo"). If it's not working, you need to [create an issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create an issue for FreshRSS") so we can have a look at it. If it's working, there's probably something fishy with the hosting server.
+1. __Verify if the feed syntax is valid__ with the [W3C on-line tool](https://validator.w3.org/feed/ "RSS and Atom feed validator"). If it’s not valid, there’snothing we can do.
+1. __Verify SimplePie validation__ with the [SimplePie on-line tool](https://simplepie.org/demo/ "SimplePie official demo"). If it’s not recognized, there’snothing we can do.
+1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "FreshRSS official demo"). If it’s not working, you need to [create an issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create an issue for FreshRSS") so we can have a look at it. If it’s working, there’sprobably something fishy with the hosting server.
 
 ## How can you change a forgotten password?
 
@@ -44,7 +44,7 @@ For more information on that matter, please refer to the [dedicated documentatio
 
 ## Permissions under SELinux
 
-Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux enabled. This acts similar to a firewall application, so that applications can't write or modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process can't write to some data sub-directories. The following command should be executed as root to fix this problem:
+Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux enabled. This acts similar to a firewall application, so that applications cannot write or modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process cannot write to some data sub-directories. The following command should be executed as root to fix this problem:
 
 ```sh
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'

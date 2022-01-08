@@ -14,7 +14,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Archiving',	// IGNORE
 		'exception' => 'Purge exception',	// IGNORE
-		'help' => 'More options are available in the individual feed\'s settings',	// IGNORE
+		'help' => 'More options are available in the individual feed’s settings',	// IGNORE
 		'keep_favourites' => 'Never delete favorites',
 		'keep_labels' => 'Never delete labels',	// IGNORE
 		'keep_max' => 'Maximum number of articles to keep',	// IGNORE

@@ -7,7 +7,7 @@
 The easiest way to create a theme is by copying and modifying the base theme (or another of the pre-installed themes). The base theme can be found in [/p/themes/base-theme](https://github.com/FreshRSS/FreshRSS/tree/edge/p/themes/base-theme). Themes require:
 
 - a **metadata.json** file to describe the theme.
-- a **loader.gif** file to use as a loading icon (assuming .loading's background has not been overridden)
+- a **loader.gif** file to use as a loading icon (assuming .loading’sbackground has not been overridden)
 - an **icons** folder containing .svg, .ico, and .png files to override existing icons
 - a **thumbs** folder containing a file, **original.png** that will be used as the preview for the theme
 
@@ -19,7 +19,7 @@ RTL (right-to-left) support for languages such as Hebrew and Arabic is handled t
 
 ## Overriding icons
 
-To replace the default icons, add an "icons" folder to your theme's folder. Use files with the same name as the default icon to override them.
+To replace the default icons, add an "icons" folder to your theme’sfolder. Use files with the same name as the default icon to override them.
 
 ## Template file
 
