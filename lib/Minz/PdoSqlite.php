@@ -6,12 +6,12 @@
  */
 
 class Minz_PdoSqlite extends Minz_Pdo {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
+	public function __construct(string $dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->exec('PRAGMA foreign_keys = ON;');
 	}
 
-	public function dbType() {
+	public function dbType(): string {
 		return 'sqlite';
 	}
 

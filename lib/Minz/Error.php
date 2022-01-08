@@ -13,7 +13,7 @@ class Minz_Error {
 	/**
 	* Permet de lancer une erreur
 	* @param int $code le type de l'erreur, par défaut 404 (page not found)
-	* @param array<string> $logs logs d'erreurs découpés de la forme
+	* @param array<string>|array<string,array<string>> $logs logs d'erreurs découpés de la forme
 	*      > $logs['error']
 	*      > $logs['warning']
 	*      > $logs['notice']
@@ -33,7 +33,7 @@ class Minz_Error {
 				'c' => 'error'
 			), $redirect);
 		} else {
-			echo '<h1>An error occured</h1>' . "\n";
+			echo '<h1>An error occurred</h1>' . "\n";
 
 			if (!empty ($logs)) {
 				echo '<ul>' . "\n";
@@ -50,7 +50,7 @@ class Minz_Error {
 	/**
 	 * Permet de retourner les logs de façon à n'avoir que
 	 * ceux que l'on veut réellement
-	 * @param array<string> $logs les logs rangés par catégories (error, warning, notice)
+	 * @param array<string,string>|string $logs les logs rangés par catégories (error, warning, notice)
 	 * @return array<string> liste des logs, sans catégorie, en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {

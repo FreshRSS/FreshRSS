@@ -3,16 +3,16 @@
 /**
  * This class handles main actions of FreshRSS.
  */
-class FreshRSS_index_Controller extends Minz_ActionController {
+class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action only redirect on the default view mode (normal or global)
 	 */
 	public function indexAction() {
-		$prefered_output = FreshRSS_Context::$user_conf->view_mode;
+		$preferred_output = FreshRSS_Context::$user_conf->view_mode;
 		Minz_Request::forward(array(
 			'c' => 'index',
-			'a' => $prefered_output
+			'a' => $preferred_output
 		));
 	}
 

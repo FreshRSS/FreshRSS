@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archiwizacja',
@@ -163,20 +173,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Więcej informacji',
 		'print' => 'Wydruk',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Usuń sposób na podanie dalej wiadomości',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Wyświetlana nazwa serwisu',
 		'share_url' => 'Adres API serwisu',
 		'title' => 'Podawanie dalej',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Skróty klawiszowe',

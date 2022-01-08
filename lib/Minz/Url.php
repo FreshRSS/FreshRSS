@@ -6,13 +6,13 @@
 class Minz_Url {
 	/**
 	 * Affiche une Url formatée
-	 * @param array<string,string> $url l'url à formater définie comme un tableau :
+	 * @param string|array<string,string|array<string,mixed>> $url l'url à formater définie comme un tableau :
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
 	 *             ou comme une chaîne de caractère
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
-	 * @param bool $absolute
+	 * @param bool|string $absolute
 	 * @return string url formatée
 	 */
 	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
@@ -96,8 +96,8 @@ class Minz_Url {
 
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
-	 * @param array<string,string>|string $url sous forme de tableau (sinon renverra directement $url)
-	 * @return string url vérifié
+	 * @param array<string,array<string,string>> $url sous forme de tableau
+	 * @return array<string,array<string,string>> url vérifié
 	 */
 	public static function checkUrl ($url) {
 		$url_checked = $url;
@@ -121,7 +121,7 @@ class Minz_Url {
 /**
  * @param string $controller
  * @param string $action
- * @param array<string,string> $args
+ * @param string ...$args
  */
 function _url ($controller, $action, ...$args) {
 	$nb_args = count($args);
@@ -132,7 +132,8 @@ function _url ($controller, $action, ...$args) {
 
 	$params = array ();
 	for ($i = 0; $i < $nb_args; $i += 2) {
-		$params[$args[$i]] = $args[$i + 1];
+		$arg = $args[$i];
+		$params[$arg] = $args[$i + 1];
 	}
 
 	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));

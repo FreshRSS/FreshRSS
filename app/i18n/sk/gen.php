@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovať kanály',
@@ -49,30 +59,30 @@ return array(
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\í\\l',
-		'Aug' => '\\A\\u\\g\\u\\s\\t',
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',
+		'Aug' => '\\A\\u\\g\\u\\s\\t',	// IGNORE
+		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// IGNORE
 		'Feb' => '\\F\\e\\b\\r\\u\\á\\r',
 		'Jan' => '\\J\\a\\n\\u\\á\\r',
 		'Jul' => '\\J\\ú\\l',
 		'Jun' => '\\J\\ú\\n',
 		'Mar' => '\\M\\a\\r\\e\\c',
 		'May' => '\\M\\á\\j',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// IGNORE
 		'Oct' => '\\O\\k\\t\\ó\\b\\e\\r',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
-		'apr' => 'Apr.',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// IGNORE
+		'apr' => 'Apr.',	// IGNORE
 		'april' => 'Apríl',
-		'aug' => 'Aug.',
-		'august' => 'August',
+		'aug' => 'Aug.',	// IGNORE
+		'august' => 'August',	// IGNORE
 		'before_yesterday' => 'Predvčerom',
-		'dec' => 'Dec.',
-		'december' => 'December',
-		'feb' => 'Feb.',
+		'dec' => 'Dec.',	// IGNORE
+		'december' => 'December',	// IGNORE
+		'feb' => 'Feb.',	// IGNORE
 		'february' => 'Február',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
+		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// IGNORE
+		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// IGNORE
 		'fri' => 'Pi',
-		'jan' => 'Jan.',
+		'jan' => 'Jan.',	// IGNORE
 		'january' => 'Január',
 		'jul' => 'Júl',
 		'july' => 'Júl',
@@ -86,19 +96,19 @@ return array(
 		'last_month' => 'Posledný mesiac',
 		'last_week' => 'Posledný týždeň',
 		'last_year' => 'Posledný rok',
-		'mar' => 'Mar.',
+		'mar' => 'Mar.',	// IGNORE
 		'march' => 'Marec',
 		'may' => 'Máj',
 		'may_' => 'Máj',
 		'mon' => 'Po',
 		'month' => 'mesiace',
-		'nov' => 'Nov.',
-		'november' => 'November',
+		'nov' => 'Nov.',	// IGNORE
+		'november' => 'November',	// IGNORE
 		'oct' => 'Okt.',
 		'october' => 'Október',
 		'sat' => 'So',
-		'sep' => 'Sept.',
-		'september' => 'September',
+		'sep' => 'Sept.',	// IGNORE
+		'september' => 'September',	// IGNORE
 		'sun' => 'Ne',
 		'thu' => 'Št',
 		'today' => 'Dnes',
@@ -106,9 +116,9 @@ return array(
 		'wed' => 'St',
 		'yesterday' => 'Včera',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
 	'js' => array(
@@ -124,24 +134,24 @@ return array(
 		'should_be_activated' => 'Musíte povoliť JavaScript',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
@@ -183,25 +193,25 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
-		'blogotext' => 'Blogotext',
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Schránka',
-		'diaspora' => 'Diaspora*',
-		'email' => 'E-mail',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'E-mail',	// IGNORE
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
+		'print' => 'Print',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Upozornenie!',

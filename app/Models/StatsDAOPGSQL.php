@@ -6,7 +6,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * Calculates the number of article per hour of the day per feed
 	 *
 	 * @param integer $feed id
-	 * @return string
+	 * @return array
 	 */
 	public function calculateEntryRepartitionPerFeedPerHour($feed = null) {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('hour', $feed);
@@ -16,7 +16,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * Calculates the number of article per day of week per feed
 	 *
 	 * @param integer $feed id
-	 * @return string
+	 * @return array
 	 */
 	public function calculateEntryRepartitionPerFeedPerDayOfWeek($feed = null) {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('day', $feed);
@@ -26,7 +26,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * Calculates the number of article per month per feed
 	 *
 	 * @param integer $feed
-	 * @return string
+	 * @return array
 	 */
 	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('month', $feed);
@@ -37,7 +37,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 *
 	 * @param string $period format string to use for grouping
 	 * @param integer $feed id
-	 * @return string
+	 * @return array<int,int>
 	 */
 	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
 		$restrict = '';

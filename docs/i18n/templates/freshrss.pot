@@ -26,7 +26,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:4
 msgid ""
-"Do you want to ask us some questions? Do you want to discuss with us? Don't "
+"Do you want to ask us some questions? Do you want to discuss with us? Don’t "
 "hesitate to subscribe to our mailing lists!"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:11
 msgid ""
-"Have you found a bug? Don't panic, here are some steps to report it with "
+"Have you found a bug? Don’t panic, here are some steps to report it with "
 "ease:"
 msgstr ""
 
@@ -62,21 +62,21 @@ msgstr ""
 #: en/./contributing.md:15
 msgid ""
 "Search for it on [the bug "
-"tracker](https://github.com/FreshRSS/FreshRSS/issues) (don't forget to use "
+"tracker](https://github.com/FreshRSS/FreshRSS/issues) (don’t forget to use "
 "the search bar)."
 msgstr ""
 
 #. type: Bullet: '2. '
 #: en/./contributing.md:15
 msgid ""
-"If you find a similar bug, don't hesitate to post a comment to add more "
+"If you find a similar bug, don’t hesitate to post a comment to add more "
 "importance to the related ticket."
 msgstr ""
 
 #. type: Bullet: '3. '
 #: en/./contributing.md:15
 msgid ""
-"If you didn't find it, [open a new "
+"If you didn’t find it, [open a new "
 "ticket](https://github.com/FreshRSS/FreshRSS/issues/new)."
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 #. type: Bullet: '1. '
 #: en/./contributing.md:36
 msgid ""
-"Be sure the bug is associated with a ticket and indicate that you'll work on "
+"Be sure the bug is associated with a ticket and indicate that you’ll work on "
 "it."
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 #: en/./contributing.md:40
 #, no-wrap
 msgid ""
-"**Tip:** if you're searching for easy-to-fix bugs, please have a look at the "
+"**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the "
 "\"[good first "
 "issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\" "
 "ticket label.\n"
@@ -196,7 +196,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:44
 msgid ""
-"You have great ideas, yes! Don't be shy and open [a new "
+"You have great ideas, yes! Don’t be shy and open [a new "
 "ticket](https://github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker "
 "to ask if we can implement it. The greatest ideas often come from the shyest "
 "suggestions!"
@@ -204,7 +204,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./contributing.md:46
-msgid "If your idea is nice, we'll have a look at it."
+msgid "If your idea is nice, we’ll have a look at it."
 msgstr ""
 
 #. type: Title ##
@@ -228,7 +228,7 @@ msgstr ""
 #. type: Plain text
 #: en/./contributing.md:54
 msgid ""
-"We're working on a better way to handle internationalization, but don't "
+"We’re working on a better way to handle internationalization, but don’t "
 "hesitate to suggest any ideas!"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:4
 msgid ""
 "FreshRSS is built with PHP and uses a homemade framework, Minz. The "
-"dependencies are directly included in the source code, so you don't need "
+"dependencies are directly included in the source code, so you don’t need "
 "Composer."
 msgstr ""
 
@@ -267,14 +267,14 @@ msgid ""
 "There are various ways to configure your development environment. The "
 "easiest and most supported method is based on Docker, which is the solution "
 "documented below. If you already have a working PHP environment, you "
-"probably don't need it."
+"probably don’t need it."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:8
 msgid ""
 "We assume here that you use a GNU/Linux distribution, capable of running "
-"Docker. Otherwise, you'll have to adapt the commands accordingly."
+"Docker. Otherwise, you’ll have to adapt the commands accordingly."
 msgstr ""
 
 #. type: Plain text
@@ -282,7 +282,7 @@ msgstr ""
 msgid ""
 "The commands that follow have to be executed in a console. They start by `$` "
 "when commands need to be executed as normal user, and by `#` when they need "
-"to be executed as root user. You don't have to type these characters. A path "
+"to be executed as root user. You don’t have to type these characters. A path "
 "may be indicated before these characters to help you identify where they "
 "need to be executed. For instance, `app$ echo 'Hello World'` indicates that "
 "you have to execute `echo` command in the `app/` directory."
@@ -297,7 +297,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:14
-msgid "Once you're done, clone the repository with:"
+msgid "Once you’re done, clone the repository with:"
 msgstr ""
 
 #. type: Code fence info string
@@ -337,7 +337,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:29
 msgid ""
 "This might take some time while Docker downloads the image. If your user "
-"isn't in the `docker` group, you'll need to prepend the command with `sudo`."
+"isn’t in the `docker` group, you’ll need to prepend the command with `sudo`."
 msgstr ""
 
 #. type: Plain text
@@ -366,7 +366,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:39
 msgid ""
-"If you're interested in the configuration, the `make` commands are defined "
+"If you’re interested in the configuration, the `make` commands are defined "
 "in the [`Makefile`](/Makefile)."
 msgstr ""
 
@@ -448,15 +448,15 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/01_First_steps.md:69
 msgid ""
-"If you want to contribute to the source code, it's important to follow the "
-"project's coding style. The actual code doesn't always follow it throughout "
+"If you want to contribute to the source code, it’s important to follow the "
+"project’s coding style. The actual code doesn’t always follow it throughout "
 "the project, but we should fix it every time an opportunity presents itself."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/01_First_steps.md:71
 msgid ""
-"Contributions which don't follow the coding style will be rejected as long "
+"Contributions which don’t follow the coding style will be rejected as long "
 "as the coding style is not fixed."
 msgstr ""
 
@@ -596,8 +596,8 @@ msgstr ""
 #: en/./developers/01_First_steps.md:122
 msgid ""
 "There should be no spaces in between brackets. There should be no spaces "
-"before the opening bracket, except if it's after a keyword. There shouldn't "
-"be any spaces after the closing bracket, except if it's followed by a curly "
+"before the opening bracket, except if it’s after a keyword. There shouldn’t "
+"be any spaces after the closing bracket, except if it’s followed by a curly "
 "bracket."
 msgstr ""
 
@@ -624,7 +624,7 @@ msgstr ""
 #: en/./developers/01_First_steps.md:136
 msgid ""
 "It happens most of the time in Javascript files. When there are chained "
-"functions with closures and callback functions, it's hard to understand the "
+"functions with closures and callback functions, it’s hard to understand the "
 "code if not properly formatted. In those cases, we add a new indent level "
 "for the complete instruction and reset the indent for a new instruction on "
 "the same level."
@@ -840,19 +840,19 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/02_Github.md:4
 msgid ""
-"Despite the care given to FreshRSS, it's still possible that bugs occur. The "
+"Despite the care given to FreshRSS, it’s still possible that bugs occur. The "
 "project is young and development is dynamic, so it can be corrected "
-"quickly. You might also have a feature in mind that doesn't yet "
+"quickly. You might also have a feature in mind that does not yet "
 "exist. Regardless whether your idea seems silly, far-fetched, useless or too "
-"specific, please don't hesitate to propose it to us! \"Ideas in the air\" "
-"often find an attentive ear. It's new external perspectives that make the "
+"specific, please don’t hesitate to propose it to us! \"Ideas in the air\" "
+"often find an attentive ear. It’s new external perspectives that make the "
 "project evolve the most."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/02_Github.md:6
 msgid ""
-"If you're convinced that you should be heard, here's how you can go about "
+"If you’re convinced that you should be heard, here’s how you can go about "
 "it."
 msgstr ""
 
@@ -867,7 +867,7 @@ msgstr ""
 msgid ""
 "GitHub is the ideal platform to submit your requests. It allows us to "
 "discuss a problem or suggestion with others and it often generates new "
-"ideas. Let's not neglect this \"social\" aspect!"
+"ideas. Let’s not neglect this \"social\" aspect!"
 msgstr ""
 
 #. type: Bullet: ' 1. '
@@ -878,7 +878,7 @@ msgstr ""
 #. type: Bullet: ' 2. '
 #: en/./developers/02_Github.md:16
 msgid ""
-"Start by checking if a similar request hasn't already been made. If so, "
+"Start by checking if a similar request hasn’t already been made. If so, "
 "please feel free to add your voice to the request."
 msgstr ""
 
@@ -892,7 +892,7 @@ msgstr ""
 #. type: Bullet: ' 4. '
 #: en/./developers/02_Github.md:16
 msgid ""
-"Finally, write your request. If you're fluent in English, it's the preferred "
+"Finally, write your request. If you’re fluent in English, it’s the preferred "
 "language because it allows for discussion with the largest number of people."
 msgstr ""
 
@@ -956,13 +956,13 @@ msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/02_Github.md:39
-msgid "**Pay attention to spelling**. Even if it's not always easy, try your best!"
+msgid "**Pay attention to spelling**. Even if it’s not always easy, try your best!"
 msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/02_Github.md:39
 msgid ""
-"**Give an explicit title to your request**, even if it's a bit long. This "
+"**Give an explicit title to your request**, even if it’s a bit long. This "
 "not only helps us understand your request, but also to find your ticket "
 "later."
 msgstr ""
@@ -971,8 +971,8 @@ msgstr ""
 #: en/./developers/02_Github.md:39
 msgid ""
 "**One request = one ticket.** You may have lots of ideas while being afraid "
-"to spam the bug manager: it doesn't matter. It's better to have a few too "
-"many tickets than too many requests in one. We'll close and consolidate "
+"to spam the bug manager: it does’nt matter. It’s better to have a few too "
+"many tickets than too many requests in one. We’ll close and consolidate "
 "requests when possible."
 msgstr ""
 
@@ -988,7 +988,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/02_Github.md:39
 msgid ""
-"If you can't find the log files, specify it in your ticket so we know you've "
+"If you can’t find the log files, specify it in your ticket so we know you’ve "
 "already searched."
 msgstr ""
 
@@ -1009,7 +1009,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/02_Github.md:41
 msgid ""
-"In addition, when facing a bug, you're encouraged to follow this message "
+"In addition, when facing a bug, you’re encouraged to follow this message "
 "format (from the [Sam & Max "
 "website](http://sametmax.com/template-de-demande-daide-en-informatique/):"
 msgstr ""
@@ -1017,7 +1017,7 @@ msgstr ""
 #. type: Title ###
 #: en/./developers/02_Github.md:42
 #, no-wrap
-msgid "What's my goal?"
+msgid "What’s my goal?"
 msgstr ""
 
 #. type: Plain text
@@ -1045,7 +1045,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/02_Github.md:53
 msgid ""
-"The bug: what you see that shouldn't have happened. Here you can provide the "
+"The bug: what you see that shouldn’t have happened. Here you can provide the "
 "logs."
 msgstr ""
 
@@ -1093,7 +1093,7 @@ msgstr ""
 
 #. type: Bullet: ' 5. '
 #: en/./developers/02_Github.md:67
-msgid "Which distribution runs on the server? And... which version?"
+msgid "Which distribution runs on the server? And… which version?"
 msgstr ""
 
 #. type: Title #
@@ -1115,7 +1115,7 @@ msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/02_Github.md:77
-msgid "[GitHub's blog post](https://github.com/blog/120-new-to-git)"
+msgid "[GitHub’s blog post](https://github.com/blog/120-new-to-git)"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -1414,7 +1414,7 @@ msgid ""
 "(the PHP framework on which FreshRSS is based). Unfortunately, this "
 "documentation does not yet exist. In a few words, here are the main things "
 "you should know. It is not necessary to read all the chapters in this "
-"section if you don't need to use a feature in your extension (if you don't "
+"section if you don’t need to use a feature in your extension (if you don’t "
 "need to translate your extension, no need to know more about the "
 "`Minz_Translate` module for example)."
 msgstr ""
@@ -1489,7 +1489,7 @@ msgstr ""
 msgid ""
 "<?php\n"
 "\n"
-"class FreshRSS_hello_Controller extends Minz_ActionController {\n"
+"class FreshRSS_hello_Controller extends FreshRSS_ActionController {\n"
 "\tpublic function indexAction() {\n"
 "\t\t$this->view->a_variable = 'FooBar';\n"
 "\t}\n"
@@ -1796,7 +1796,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:210
 msgid ""
-"It is common (and that's an understatement) to want to show some text to the "
+"It is common (and that’s an understatement) to want to show some text to the "
 "user. In the previous example, for example, we display feedback to the user "
 "based on the result of form validation. The problem is that FreshRSS has "
 "users of different nationalities. It is therefore necessary to be able to "
@@ -1858,8 +1858,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:224
 msgid ""
-"The translation files are quite simple: it's only a matter of returning a "
-"PHP table containing the translations. As an example, here's an extract from "
+"The translation files are quite simple: it’s only a matter of returning a "
+"PHP table containing the translations. As an example, here’s an extract from "
 "`app/i18n/fr/gen.php`:"
 msgstr ""
 
@@ -1922,7 +1922,7 @@ msgstr ""
 msgid ""
 "There is a small special case that sometimes makes life easier: the `_` "
 "identifier. This must necessarily be present at the end of the chain and "
-"gives a value to the higher-level identifier. It's pretty hard to explain "
+"gives a value to the higher-level identifier. It’s pretty hard to explain "
 "but very simple to understand. In the example given above, a `_` is "
 "associated with the value `FreshRSS`: this means that there is no need to "
 "write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices."
@@ -1943,8 +1943,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Backend/05_Extensions.md:265
 msgid ""
-"Here we are! We've talked about the most useful features of Minz and how to "
-"run FreshRSS correctly and it's about time to address the extensions "
+"Here we are! We’ve talked about the most useful features of Minz and how to "
+"run FreshRSS correctly and it’s about time to address the extensions "
 "themselves."
 msgstr ""
 
@@ -2097,7 +2097,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/03_Backend/05_Extensions.md:313
 msgid ""
-"`author`: your name, your e-mail address ... but there is no specific format "
+"`author`: your name, your e-mail address … but there is no specific format "
 "to adopt"
 msgstr ""
 
@@ -2296,7 +2296,7 @@ msgstr ""
 msgid ""
 "`check_url_before_add` (`function($url) -> Url | null`): will be executed "
 "every time a URL is added. The URL itself will be passed as parameter. This "
-"way a website known to have feeds which doesn't advertise it in the header "
+"way a website known to have feeds which does not advertise it in the header "
 "can still be automatically supported."
 msgstr ""
 
@@ -2408,7 +2408,7 @@ msgstr ""
 #: en/./developers/03_Running_tests.md:4
 msgid ""
 "FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be "
-"merged in `edge` if the tests don't pass."
+"merged in `edge` if the tests don’t pass."
 msgstr ""
 
 #. type: Title ##
@@ -2442,7 +2442,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:16
 msgid ""
-"Then, it executes PHPUnit in a Docker container. If you don't use Docker, "
+"Then, it executes PHPUnit in a Docker container. If you don’t use Docker, "
 "you can run the command directly with:"
 msgstr ""
 
@@ -2464,13 +2464,13 @@ msgid ""
 "Tests are automatically run when you open a pull request on GitHub. It is "
 "done with [Travis CI](https://travis-ci.org/FreshRSS/FreshRSS/). This is "
 "done to ensure there is no regressions in your code. We cannot merge a PR if "
-"the tests fail so we'll ask you to fix bugs before to review your code."
+"the tests fail so we will ask you to fix bugs before to review your code."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/03_Running_tests.md:25
 msgid ""
-"If you're interested in, you can take a look at [the configuration "
+"If you’re interested in, you can take a look at [the configuration "
 "file](https://github.com/FreshRSS/FreshRSS/blob/edge/.travis.yml)."
 msgstr ""
 
@@ -2519,7 +2519,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:4
 msgid ""
-"So you want to propose a patch to the community? It's time to open a [pull "
+"So you want to propose a patch to the community? It’s time to open a [pull "
 "request](https://github.com/FreshRSS/FreshRSS/pulls)!"
 msgstr ""
 
@@ -2529,7 +2529,7 @@ msgid ""
 "When you open a PR, your message will be prefilled with a message based on "
 "[a "
 "template](https://github.com/FreshRSS/FreshRSS/blob/edge/docs/pull_request_template.md). "
-"It contains a checklist to make sure you didn't forget anything. It is very "
+"It contains a checklist to make sure you didn’t forget anything. It is very "
 "important to verify you did everything mentioned so documentation is "
 "up-to-date, the commit history stays clear and the code is always stable."
 msgstr ""
@@ -2556,8 +2556,8 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:14
 msgid ""
-"If you have any doubt, please let us know and we'll help you! We all began "
-"with Git one day and it's not an easy thing to work with."
+"If you have any doubt, please let us know and we’ll help you! We all began "
+"with Git one day and it’s not an easy thing to work with."
 msgstr ""
 
 #. type: Title ###
@@ -2571,7 +2571,7 @@ msgstr ""
 msgid ""
 "Rebasing is the cleanest method because the Git history will be completely "
 "linear and consequently easier to read and navigate. It might also be more "
-"difficult if you're not at ease with Git since conflicts are harder to "
+"difficult if you’re not at ease with Git since conflicts are harder to "
 "resolve."
 msgstr ""
 
@@ -2616,7 +2616,7 @@ msgstr ""
 msgid ""
 "If you prefer, you can simply merge `edge` into your own branch. Conflicts "
 "might be easier to resolve, but your Git history will be less "
-"readable. Don't worry, we'll take care of it before merging your PR back "
+"readable. Don’t worry, we will take care of it before merging your PR back "
 "into `edge`."
 msgstr ""
 
@@ -2644,7 +2644,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:48
 msgid ""
-"It's important to have proper commit messages in order to facilitate later "
+"It’s important to have proper commit messages in order to facilitate later "
 "debugging, so please read the following advice. Commit messages should "
 "explain the choices made in the past (the “why?”)"
 msgstr ""
@@ -2653,7 +2653,7 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:50
 msgid ""
 "The first line should start with a verb (e.g., \"Add\") and explain the "
-"objective of the commit in few words. It's usually less than 50 characters "
+"objective of the commit in few words. It’s usually less than 50 characters "
 "so it remains concise. You can consider this line the subject of your "
 "commit. Think of it as the second part of a sentence that starts with the "
 "words \"This commit will.\""
@@ -2667,7 +2667,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:54
 msgid ""
-"Then, insert a blank line, and start to write the body. It's usually wrapped "
+"Then, insert a blank line, and start to write the body. It’s usually wrapped "
 "at 72 characters, but you are pretty free in the tone of the message. The "
 "body is the place where you can clarify the context of your patch. For "
 "instance, you can explain what you were doing when you identified a bug, or "
@@ -2699,7 +2699,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:62
 msgid ""
-"FreshRSS has few tests for now, but we're working on it. We added this point "
+"FreshRSS has few tests for now, but we’re working on it. We added this point "
 "to the checklist to help us to write more tests, and we would really "
 "appreciate it if you wrote a test that ensures your patch is working."
 msgstr ""
@@ -2714,7 +2714,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:66
 msgid ""
-"You'll find more information on how to run tests [in this "
+"You’ll find more information on how to run tests [in this "
 "document](03_Running_tests.md)."
 msgstr ""
 
@@ -2722,7 +2722,7 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:68
 msgid ""
 "Feel free to ask us for assistance. Not everything will be easy to test, so "
-"don't spend too much time on this."
+"don’t spend too much time on this."
 msgstr ""
 
 #. type: Title ##
@@ -2735,15 +2735,15 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:72
 msgid ""
 "A friendly project should have correct and complete documentation, so "
-"newcomers don't have to ask too many questions, and users can find answers "
+"newcomers don’t have to ask too many questions, and users can find answers "
 "to their problems. The documentation should not be written “later” or "
-"chances are it'll never be."
+"chances are it’ll never be."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/04_Pull_requests.md:73
 msgid ""
-"Our documentation can still be improved quite a bit, so you're very welcome "
+"Our documentation can still be improved quite a bit, so you’re very welcome "
 "if you want to help."
 msgstr ""
 
@@ -2756,7 +2756,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:4
 msgid ""
-"In order to get as much feedback as possible before a release, it's "
+"In order to get as much feedback as possible before a release, it’s "
 "preferable to announce it on GitHub by creating a dedicated ticket ([see "
 "examples] "
 "(https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). "
@@ -2765,7 +2765,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:6
-msgid "It's also recommended to make the announcement on mailing@freshrss.org."
+msgid "It’s also recommended to make the announcement on mailing@freshrss.org."
 msgstr ""
 
 #. type: Title #
@@ -2819,7 +2819,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:30
 msgid ""
-"It's important to update update.freshrss.org since this is the default "
+"It’s important to update update.freshrss.org since this is the default "
 "service for automatic FreshRSS updates."
 msgstr ""
 
@@ -2850,7 +2850,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:38
 msgid ""
-"In order to write a new script, it's better to copy/paste the last version "
+"In order to write a new script, it’s better to copy/paste the last version "
 "or to start from `update_to_dev.php`. The first thing to do is to define the "
 "URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The "
 "URL is in the form of "
@@ -2910,14 +2910,14 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:50
 msgid ""
-"Once the script has been written and versioned, it's necessary to update the "
+"Once the script has been written and versioned, it’s necessary to update the "
 "`./versions.php' file which contains a mapping table indicating which "
 "versions are updated to which other versions."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:52
-msgid "Here's an example of a `versions.php` file:"
+msgid "Here’s an example of a `versions.php` file:"
 msgstr ""
 
 #. type: Plain text
@@ -2929,7 +2929,7 @@ msgid ""
 "\t// STABLE\n"
 "\t'0.8.0' => '1.0.0',\n"
 "\t'0.8.1' => '1.0.0',\n"
-"\t'1.0.0' => '1.0.1',  // doesn't exist (yet)\n"
+"\t'1.0.0' => '1.0.1',  // does not exist (yet)\n"
 "\t// DEV\n"
 "\t'1.1.2-dev' => 'dev',\n"
 "\t'1.1.3-dev' => 'dev',\n"
@@ -2939,7 +2939,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:68
-msgid "And here's how this table works:"
+msgid "And here’s how this table works:"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -2960,14 +2960,14 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:74
 msgid ""
-"it's possible to skip several versions at once, provided that the update "
+"it’s possible to skip several versions at once, provided that the update "
 "scripts support it;"
 msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:74
 msgid ""
-"it's advisable to indicate the correspondence of the current version to its "
+"it’s advisable to indicate the correspondence of the current version to its "
 "potential future version by specifying that this version does not yet "
 "exist. As long as the corresponding script does not exist, nothing will "
 "happen."
@@ -2976,7 +2976,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:76
 msgid ""
-"It's **very strongly** recommended to keep this file organized according to "
+"It’s **very strongly** recommended to keep this file organized according to "
 "version numbers by separating stable and dev versions."
 msgstr ""
 
@@ -2989,16 +2989,16 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:80
 msgid ""
-"Before updating update.freshrss.org, it's better to test with "
+"Before updating update.freshrss.org, it’s better to test with "
 "dev.update.freshrss.org, which corresponds to pre-production. So update "
 "dev.update.freshrss.org and change the `FRESHRSS_UPDATE_WEBSITE` URL of your "
-"FreshRSS instance. Start the update and check that it's running correctly."
+"FreshRSS instance. Start the update and check that it’s running correctly."
 msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:82
 msgid ""
-"When you're satisfied, update update.freshrss.org with the new script, test "
+"When you’re satisfied, update update.freshrss.org with the new script, test "
 "it again, and then move on."
 msgstr ""
 
@@ -3031,7 +3031,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:93
-msgid "When everything's working, it's time to announce the release to the world!"
+msgid "When everything’s working, it’s time to announce the release to the world!"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -3196,7 +3196,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/02_First_steps.md:2
 msgid ""
-"Learning how to handle a new application is not always easy. We've tried to "
+"Learning how to handle a new application is not always easy. We’ve tried to "
 "make FreshRSS as intuitive as possible, but you might still need a little "
 "help to master the program."
 msgstr ""
@@ -3261,8 +3261,8 @@ msgstr ""
 #. type: Plain text
 #: en/./users/02_First_steps.md:18
 msgid ""
-"Now that you've mastered basic use, it's time to configure FreshRSS to "
-"improve your reading experience. It's highly configurable, so it's "
+"Now that you’ve mastered basic use, it’s time to configure FreshRSS to "
+"improve your reading experience. It’s highly configurable, so it’s "
 "recommended to play around with them to find a configuration that suits you "
 "well. Here are a few resources to help you improve your daily FreshRSS "
 "experience:"
@@ -3559,7 +3559,7 @@ msgstr ""
 #: en/./users/03_Main_view.md:92
 msgid ""
 "When using HTTP authentication, the syntax in the two previous sections is "
-"unusable. You'll need to provide your credentials to the scheduled "
+"unusable. You’ll need to provide your credentials to the scheduled "
 "task. **Note that this method is highly discouraged since it means that your "
 "credentials will be in plain sight!**"
 msgstr ""
@@ -3581,7 +3581,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:100
 msgid ""
-"If you can't or don't want to use the automatic method, you can update "
+"If you can’t or don’t want to use the automatic method, you can update "
 "manually. There are two methods for updating all or some of the feeds."
 msgstr ""
 
@@ -3642,7 +3642,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/03_Main_view.md:120
 msgid ""
-"When the number of articles stored by FreshRSS inevitably grows larger, it's "
+"When the number of articles stored by FreshRSS inevitably grows larger, it’s "
 "important to use efficient filters to display only a subset of the "
 "articles. There are several methods that filter with different "
 "criteria. Usually those methods can be combined."
@@ -3727,8 +3727,8 @@ msgstr ""
 #: en/./users/03_Main_view.md:144
 msgid ""
 "In version 0.7, attribute filters are available in the article display "
-"dropdown list. With this version, it's not possible to combine filters. For "
-"instance, it's not possible to display only read and favorite articles."
+"dropdown list. With this version, it’s not possible to combine filters. For "
+"instance, it’s not possible to display only read and favorite articles."
 msgstr ""
 
 #. type: Plain text
@@ -3913,7 +3913,7 @@ msgstr ""
 #: en/./users/04_Subscriptions.md:16
 msgid ""
 "Drag the \"Subscribe\" button to your bookmark toolbar or right click and "
-"choose your browser's \"Bookmark link\" action."
+"choose your browser’s \"Bookmark link\" action."
 msgstr ""
 
 #. type: Title #
@@ -3940,7 +3940,7 @@ msgid ""
 "FreshRSS is currently available in 14 languages. After confirming your "
 "choice, the interface will be displayed in your preferred language.  "
 "Depending on the language chosen, parts of the interface may not be not "
-"translated yet. If you're willing to help translate the missing bits or "
+"translated yet. If you’re willing to help translate the missing bits or "
 "would like to add a new language, please take a look at how you can "
 "[contribute to the "
 "project](../contributing.md#contribute-to-internationalization-i18n)."
@@ -3949,7 +3949,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:11
 msgid ""
-"Some parts of FreshRSS aren't translated and aren't intended to be "
+"Some parts of FreshRSS aren’t translated and aren’t intended to be "
 "translated either. For now, this includes the logs visible in the "
 "application as well as the log generated by automatic update scripts."
 msgstr ""
@@ -3970,7 +3970,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:17
 msgid ""
-"There's no accounting for tastes, which is why FreshRSS offers eight "
+"There’s no accounting for tastes, which is why FreshRSS offers eight "
 "official themes:"
 msgstr ""
 
@@ -4017,7 +4017,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:28
 msgid ""
-"If you can't find any themes you like, it's always possible to [create your "
+"If you can’t find any themes you like, it’s always possible to [create your "
 "own](../developers/04_Frontend/02_Design.md)."
 msgstr ""
 
@@ -4039,7 +4039,7 @@ msgstr ""
 #: en/./users/05_Configuration.md:34
 msgid ""
 "Some people prefer short lines of text, while others prefer to maximize the "
-"available screen space. To satisfy the maximum number of people, it's "
+"available screen space. To satisfy the maximum number of people, it’s "
 "possible to customize the width of the displayed content. There are four "
 "settings available:"
 msgstr ""
@@ -4090,7 +4090,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:52
 msgid ""
-"If you disable every item in the top line, you'll still be able to see it "
+"If you disable every item in the top line, you’ll still be able to see it "
 "since it contains the feed name and the article title. But if you do the "
 "same thing for the bottom line, it will be empty."
 msgstr ""
@@ -4136,7 +4136,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:66
 msgid ""
-"If you don't use those buttons because you never browse on mobile or because "
+"If you don’t use those buttons because you never browse on mobile or because "
 "you browse with gestures, you can disable them from the interface."
 msgstr ""
 
@@ -4233,7 +4233,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:102
 msgid ""
-"Of course, if you're not satisfied with the key mapping, you can change you "
+"Of course, if you’re not satisfied with the key mapping, you can change you "
 "configuration to fit your needs."
 msgstr ""
 
@@ -4269,10 +4269,10 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:112
 msgid ""
-"It's worth noting that the share article action has two levels. Once you "
+"It’s worth noting that the share article action has two levels. Once you "
 "press the shortcut, a menu containing all the share options opens.  To "
 "choose one share option, you need to select it by its number. When there is "
-"only one option, it's selected automatically though."
+"only one option, it’s selected automatically though."
 msgstr ""
 
 #. type: Plain text
@@ -4284,7 +4284,7 @@ msgstr ""
 #: en/./users/05_Configuration.md:117
 msgid ""
 "Be aware that there is no validation on the selected shortcuts.  This means "
-"that if you assign a shortcut to more than one action, you'll end up with "
+"that if you assign a shortcut to more than one action, you’ll end up with "
 "some unexpected behavior."
 msgstr ""
 
@@ -4401,7 +4401,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:167
 msgid ""
-"This question comes up regularly, so we'll try to clarify how one can "
+"This question comes up regularly, so we will try to clarify how one can "
 "retrieve a truncated RSS feed with FreshRSS. Please note that the process is "
 "absolutely not user friendly, but it works. :)"
 msgstr ""
@@ -4409,16 +4409,16 @@ msgstr ""
 #. type: Plain text
 #: en/./users/05_Configuration.md:169
 msgid ""
-"Please be aware that this way you'll generate much more traffic to the "
+"Please be aware that this way you’ll generate much more traffic to the "
 "originating sites, and they might block you accordingly. FreshRSS "
-"performance is also negatively affected, because you'll have to fetch the "
-"full article content one by one. So it's a feature to use sparingly!"
+"performance is also negatively affected, because you’ll have to fetch the "
+"full article content one by one. So it’s a feature to use sparingly!"
 msgstr ""
 
 #. type: Plain text
 #: en/./users/05_Configuration.md:171
 msgid ""
-"What's meant by \"CSS path of articles on the original site\" actually "
+"What’s meant by \"CSS path of articles on the original site\" actually "
 "corresponds to the \"path\" consisting of IDs and classes (which in HTML, "
 "matches the id and class attributes) to retrieve only the interesting part "
 "that corresponds to the article. Ideally, this path starts with an id (which "
@@ -4446,10 +4446,10 @@ msgstr ""
 #, no-wrap
 msgid ""
 "Here we find that the block that encompasses nothing but the content of the "
-"article is ```<div class=\"content clearfix\">```. We'll only use the "
-"`.content` class here. Nevertheless, as said above, it's best to start the "
+"article is ```<div class=\"content clearfix\">```. We’ll only use the "
+"`.content` class here. Nevertheless, as said above, it’s best to start the "
 "path with an id. If we go back to the parent block, we find ```<div "
-"id=\"article\">``` and that's perfect! The path will be ```#article "
+"id=\"article\">``` and that’s perfect! The path will be ```#article "
 ".content```.\n"
 msgstr ""
 
@@ -4526,7 +4526,7 @@ msgstr ""
 msgid ""
 "There are many RSS clients that support the Fever API, but they seem to "
 "understand the Fever API a bit differently.  If your favourite client "
-"doesn't work properly with this API, please create an issue and we'll have a "
+"does not work properly with this API, please create an issue and we will have a "
 "look.  But we can **only** do that for free clients."
 msgstr ""
 
@@ -4762,7 +4762,7 @@ msgstr ""
 #. type: Plain text
 #: en/./users/06_Fever_API.md:88
 msgid ""
-"Perfect, you're now authenticated and you can start testing the more "
+"Perfect, you’re now authenticated and you can start testing the more "
 "advanced features. To do so, change the URL and append the possible API "
 "actions to your request parameters. Please refer to the [original Fever "
 "documentation](https://feedafever.com/api) for more information."
@@ -5083,7 +5083,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/./users/07_Frequently_Asked_Questions.md:6
-msgid "Of course, ```/i``` has a purpose! It's used for performance and usability:"
+msgid "Of course, ```/i``` has a purpose! It’s used for performance and usability:"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -5134,7 +5134,7 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:17
 msgid ""
 "As explained in the [security "
-"section](/en/User_documentation/Installation/Security), it's highly "
+"section](/en/User_documentation/Installation/Security), it’s highly "
 "recommended to make only the public section available at the domain "
 "level. With that configuration, `./p` is the root folder for "
 "http://demo.freshrss.org/, thus making `robots.txt` available at the root of "
@@ -5166,24 +5166,24 @@ msgstr ""
 msgid ""
 "__Verify if the feed syntax is valid__ with the [W3C on-line "
 "tool](https://validator.w3.org/feed/ \"RSS and Atom feed validator\"). If "
-"it's not valid, there's nothing we can do."
+"it’s not valid, there’s nothing we can do."
 msgstr ""
 
 #. type: Bullet: '1. '
 #: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify SimplePie validation__ with the [SimplePie on-line "
-"tool](https://simplepie.org/demo/ \"SimplePie official demo\"). If it's not "
-"recognized, there's nothing we can do."
+"tool](https://simplepie.org/demo/ \"SimplePie official demo\"). If it’s not "
+"recognized, there’s nothing we can do."
 msgstr ""
 
 #. type: Bullet: '1. '
 #: en/./users/07_Frequently_Asked_Questions.md:30
 msgid ""
 "__Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "
-"\"FreshRSS official demo\"). If it's not working, you need to [create an "
+"\"FreshRSS official demo\"). If it’s not working, you need to [create an "
 "issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
-"issue for FreshRSS\") so we can have a look at it. If it's working, there's "
+"issue for FreshRSS\") so we can have a look at it. If it’s working, there’s "
 "probably something fishy with the hosting server."
 msgstr ""
 
@@ -5235,8 +5235,8 @@ msgstr ""
 msgid ""
 "Some Linux distribution, like Fedora or RedHat Enterprise Linux, have "
 "SELinux enabled. This acts similar to a firewall application, so that "
-"applications can't write or modify files under certain conditions. While "
-"installing FreshRSS, step 2 can fail if the httpd process can't write to "
+"applications can’t write or modify files under certain conditions. While "
+"installing FreshRSS, step 2 can fail if the httpd process cannot write to "
 "some data sub-directories. The following command should be executed as root "
 "to fix this problem:"
 msgstr ""

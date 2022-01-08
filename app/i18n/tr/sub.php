@@ -1,14 +1,24 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
-		'documentation' => 'URL\'yi harici bir araçla kullanmak için kopyala.',
-		'title' => 'API',
+		'documentation' => 'URL’yi harici bir araçla kullanmak için kopyala.',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Bu butonu yer imleri araç çubuğunuza sürükleyerek veya sağ tıklayıp "Bağlantıyı yer imlerine ekle" seçeneğini seçerek yer imlerine ekleyin. Eklemek istediğiniz sitedeyken oluşturulan bu "Abone Ol" butonu ile akış ekleyebilirsiniz.',
 		'label' => 'Abone ol',
-		'title' => 'Bookmarklet',
+		'title' => 'Bookmarklet',	// IGNORE
 	),
 	'category' => array(
 		'_' => 'Kategori',
@@ -33,7 +43,7 @@ return array(
 		),
 		'clear_cache' => 'Önbelleği her zaman temizle',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
+			'_' => 'Content action when fetching the article content',	// TODO
 			'append' => 'Mevcut içeriğin sonrasına ekle',
 			'prepend' => 'Mevcut içeriğin öncesine ekle',
 			'replace' => 'Mevcut içerikle değiştir',
@@ -55,7 +65,7 @@ return array(
 			'clear_cache' => 'Önbelleği temizle',
 			'clear_cache_help' => 'Bu akışın önbelleğini temizler.',
 			'reload_articles' => 'Makaleleri yeniden yükle',
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
+			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO
 			'title' => 'Bakım',
 		),
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',

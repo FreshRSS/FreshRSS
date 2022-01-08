@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'A prepaus',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Senhalament de problèmas',
 		'credits' => 'Crèdits',
 		'credits_content' => 'Unes elements de l’estil venon del <a href="http://twitter.github.io/bootstrap/">projècte Bootstrap</a> encara que FreshRSS utilize pas aqueste framework. Las <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icònas</a> venon del <a href="https://www.gnome.org/">projècte GNOME</a>. La polissa <em>Open Sans</em> utilizada foguèt creada per en <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS es basat sus <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
@@ -12,7 +22,7 @@ return array(
 		'license' => 'Licéncia',
 		'project_website' => 'Site del projècte',
 		'title' => 'A prepaus',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',
@@ -23,10 +33,10 @@ return array(
 		'title_global' => 'Vista generala',
 	),
 	'log' => array(
-		'_' => 'Jornals d’audit',
+		'_' => 'Jornals d’audit',	// IGNORE
 		'clear' => 'Escafar los jornals',
 		'empty' => 'Los jornals son voids',
-		'title' => 'Jornals d’audit',
+		'title' => 'Jornals d’audit',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'A prepaus de FreshRSS',

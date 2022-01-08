@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Arşiv',
@@ -29,7 +39,7 @@ return array(
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',
 			'sharing' => 'Paylaşım',
-			'summary' => 'Summary',	// TODO - Translation
+			'summary' => 'Summary',	// TODO
 			'top_line' => 'Üst çizgi',
 		),
 		'language' => 'Dil',
@@ -39,13 +49,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
 		'theme' => 'Tema',
-		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => 'Thumbnail',	// TODO
+			'landscape' => 'Landscape',	// TODO
+			'none' => 'None',	// TODO
+			'portrait' => 'Portrait',	// TODO
+			'square' => 'Square',	// TODO
 		),
 		'title' => 'Görünüm',
 		'width' => array(
@@ -128,11 +138,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
 			'scroll' => 'kaydırma yapılırken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
 		),
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',
@@ -163,20 +173,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Daha fazla bilgi',
 		'print' => 'Yazdır',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Paylaşım türünü sil',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Paylaşım ismi',
 		'share_url' => 'Paylaşım URL si',
 		'title' => 'Paylaşım',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Kısayollar',
@@ -198,7 +208,7 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> tuşu ile kısayollar akışlar için geçerli olur.<br/><kbd>Alt ⎇</kbd> tuşu ile kısayollar kategoriler için geçerli olur.',
 		'navigation_no_mod_help' => 'Aşağıdaki kısayollar değiştiricileri desteklenmemektedir.',
 		'next_article' => 'Sonraki makaleye geç',
-		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
+		'next_unread_article' => 'Open the next unread article',	// TODO
 		'non_standard' => 'Bazı tuşlar (<kbd>%s</kbd>) kullanılamayabilir.',
 		'normal_view' => 'Normal görünüme geç',
 		'other_action' => 'Diğer eylemler',
