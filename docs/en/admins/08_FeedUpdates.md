@@ -25,7 +25,7 @@ Edit `/etc/crontab` and append the following line:
 
 ## Systemd as a trigger
 
-Some systems cannot use a Cron job, but they can use systemd. It’s easy to configure it to mimic Cron’s features.
+Some systems can’t use a Cron job, but they can use systemd. It’s easy to configure it to mimic Cron’s features.
 
 First you need to add a `freshrss.timer` file in `/etc/systemd/system/` with the following content:
 

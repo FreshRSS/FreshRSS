@@ -594,7 +594,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		foreach ($export_feeds as $feed_id) {
 			$result = $export_service->generateFeedEntries($feed_id, $max_number_entries);
 			if (!$result) {
-				// It means the actual feed_id does not correspond to any existing feed
+				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
 			}
 

@@ -1,6 +1,6 @@
 # Updating on Linux
 
-This tutorial demonstrates commands for updating FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you have installed it somewhere else, substitute your path as necessary.
+This tutorial demonstrates commands for updating FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you’ve installed it somewhere else, substitute your path as necessary.
 
 **Note that FreshRSS contains a built-in update system.** It’s easier to use if you don’t understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
 

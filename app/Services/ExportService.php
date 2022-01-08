@@ -100,7 +100,7 @@ class FreshRSS_Export_Service {
 	 * @param integer $max_number_entries
 	 *
 	 * @return array|null First item is the filename, second item is the content.
-	 *                    It also can return null if the feed does not exist.
+	 *                    It also can return null if the feed doesn’t exist.
 	 */
 	public function generateFeedEntries($feed_id, $max_number_entries) {
 		$feed = $this->feed_dao->searchById($feed_id);

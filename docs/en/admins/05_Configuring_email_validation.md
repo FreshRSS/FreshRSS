@@ -34,7 +34,7 @@ PHPMailer documentation](http://phpmailer.github.io/PHPMailer/classes/PHPMailer.
 
 ## Check your SMTP server is correctly configured
 
-To do so, once you have enabled the `force_email_validation` option, you only
+To do so, once you’ve enabled the `force_email_validation` option, you only
 need to change your email address on the profile page and check that an email
 arrives on the new address.
 

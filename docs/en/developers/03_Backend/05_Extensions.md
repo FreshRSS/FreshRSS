@@ -26,7 +26,7 @@ Note: it is quite conceivable that the functionalities of an extension can later
 
 **TODO** : move to 02_Minz.md
 
-This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation doesn’t yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you don’t need to use a feature in your extension (if you don’t need to translate your extension, no need to know more about the `Minz_Translate` module for example).
+This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation does not yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you don’t need to use a feature in your extension (if you don’t need to translate your extension, no need to know more about the `Minz_Translate` module for example).
 
 ### MVC Architecture
 
@@ -214,7 +214,7 @@ This part [is explained here](/docs/en/internationalization.md).
 
 ## Write an extension for FreshRSS
 
-Here we are! We have talked about the most useful features of Minz and how to run FreshRSS correctly and it’s about time to address the extensions themselves.
+Here we are! We’ve talked about the most useful features of Minz and how to run FreshRSS correctly and it’s about time to address the extensions themselves.
 
 An extension allows you to easily add functionality to FreshRSS without having to touch the core of the project directly.
 

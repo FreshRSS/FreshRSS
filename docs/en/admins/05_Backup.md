@@ -1,6 +1,6 @@
 # Backup
 
-This tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you have installed it somewhere else, substitute your path as necessary.
+This tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you’ve installed it somewhere else, substitute your path as necessary.
 
 ## Installation Backup
 
@@ -8,13 +8,13 @@ Do this before an upgrade.
 
 ### Creating a Backup
 
-First, Enter the directory you wish to save your backup to. Here, for example, we will save the backup to the user home directory
+First, Enter the directory you wish to save your backup to. Here, for example, we’ll save the backup to the user home directory
 
 ```sh
 cd ~
 ```
 
-Next, we will create a gzipped tar archive of the FreshRSS directory. The following command will archive the entire contents of your FreshRSS installation in it’s current state.
+Next, we’ll create a gzipped tar archive of the FreshRSS directory. The following command will archive the entire contents of your FreshRSS installation in it’s current state.
 
 ```sh
 tar -czf FreshRSS-backup.tgz -C /usr/share/FreshRSS/ .

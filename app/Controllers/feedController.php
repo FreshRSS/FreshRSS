@@ -196,7 +196,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				Minz_Log::warning($e->getMessage());
 				return Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
 			} catch (Minz_FileNotExistException $e) {
-				// Cache directory does not exist!
+				// Cache directory doesn’t exist!
 				Minz_Log::error($e->getMessage());
 				return Minz_Request::bad(_t('feedback.sub.feed.internal_problem', _url('index', 'logs')), $url_redirect);
 			} catch (FreshRSS_AlreadySubscribed_Exception $e) {

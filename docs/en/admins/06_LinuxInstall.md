@@ -31,7 +31,7 @@ Install the PHP module for Apache
 apt install libapache2-mod-php
 ```
 
-Next, we will need to install and configure MySQL. Install MySQL components like so:
+Next, we’ll need to install and configure MySQL. Install MySQL components like so:
 
 ```sh
 sudo apt install mysql-server mysql-client php-mysql
@@ -43,8 +43,8 @@ MySQL must now be started:
 service mysql-server start
 ```
 
-We will need to configure MySQL.
-**Note:** As you have just installed mysql, there will be no root password; simply hit enter on the first step
+We’ll need to configure MySQL.
+**Note:** As you’ve just installed mysql, there will be no root password; simply hit enter on the first step
 
 ```sh
 mysql_secure_installation
@@ -85,7 +85,7 @@ chown -R :www-data .
 sudo chmod -R g+r .
 ```
 
-We will also need to allow the data folder to be written to, like so:
+We’ll also need to allow the data folder to be written to, like so:
 
 ```sh
 chmod -R g+w ./data/

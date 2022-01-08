@@ -4,7 +4,7 @@ Have you found a bug? Don’t panic, here are some steps to report it with ease:
 
 1. Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/issues) (don’t forget to use the search bar).
 2. If you find a similar bug, don’t hesitate to post a comment to add more importance to the related ticket.
-3. If you did not find it, [open a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
+3. If you did’nt find it, [open a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
 If you have to create a new ticket, please try to keep in mind the following advice:
 
