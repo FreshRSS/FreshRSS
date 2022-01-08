@@ -490,7 +490,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
-		// On cherche à récupérer les articles en entier même si le flux ne le propose pas
+		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed(true);
 		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
