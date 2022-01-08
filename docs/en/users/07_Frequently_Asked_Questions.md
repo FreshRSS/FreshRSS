@@ -25,9 +25,9 @@ The feed syntax can be invalid, it can be unrecognized by the SimplePie library,
 The first step is to identify what causes the problem.
 Here are the steps to follow:
 
-1. __Verify if the feed syntax is valid__ with the [W3C on-line tool](https://validator.w3.org/feed/ "RSS and Atom feed validator"). If it’s not valid, there’snothing we can do.
-1. __Verify SimplePie validation__ with the [SimplePie on-line tool](https://simplepie.org/demo/ "SimplePie official demo"). If it’s not recognized, there’snothing we can do.
-1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "FreshRSS official demo"). If it’s not working, you need to [create an issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create an issue for FreshRSS") so we can have a look at it. If it’s working, there’sprobably something fishy with the hosting server.
+1. __Verify if the feed syntax is valid__ with the [W3C on-line tool](https://validator.w3.org/feed/ "RSS and Atom feed validator"). If it’s not valid, there’s nothing we can do.
+1. __Verify SimplePie validation__ with the [SimplePie on-line tool](https://simplepie.org/demo/ "SimplePie official demo"). If it’s not recognized, there’s nothing we can do.
+1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "FreshRSS official demo"). If it’s not working, you need to [create an issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create an issue for FreshRSS") so we can have a look at it. If it’s working, there’s probably something fishy with the hosting server.
 
 ## How can you change a forgotten password?
 

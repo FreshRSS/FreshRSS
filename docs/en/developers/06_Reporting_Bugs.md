@@ -2,11 +2,11 @@
 
 Despite the care given to FreshRSS, it’s still possible that bugs occur. Development is dynamic, so issues can be corrected quickly. You might also have a feature in mind that does not yet exist. Regardless whether your idea seems silly, far-fetched, useless or too specific, please do not hesitate to propose it to us! "Ideas in the air" often find an attentive ear. It’s new external perspectives that make the project evolve the most.
 
-If you’re convinced that you should be heard, here’show you can go about it.
+If you’re convinced that you should be heard, here’s how you can go about it.
 
 ## On GitHub
 
-GitHub is the ideal platform to submit your requests. It allows us to discuss a problem or suggestion with others and it often generates new ideas. Let’snot neglect this "social" aspect!
+GitHub is the ideal platform to submit your requests. It allows us to discuss a problem or suggestion with others and it often generates new ideas. Let’s not neglect this "social" aspect!
 
 1. [Go to the bug ticket manager](https://github.com/FreshRSS/FreshRSS/issues)
 2. Start by checking if a similar request hasn’t already been made. If so, please feel free to add your voice to the request.
@@ -39,7 +39,7 @@ Here are some tips to help you present your bug report or suggestion:
 
 In addition, when facing a bug, you’re encouraged to follow this message format (from the [Sam & Max website](http://sametmax.com/template-de-demande-daide-en-informatique/):
 
-### What’smy goal?
+### What’s my goal?
 
 Give the general context of what you were trying to do.
 

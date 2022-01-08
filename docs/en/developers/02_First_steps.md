@@ -65,7 +65,7 @@ If you want to create your own FreshRSS extension, take a look at the [extension
 
 ## Coding style
 
-If you want to contribute to the source code, it’s important to follow the project’scoding style. The actual code does not always follow it throughout the project, but we should fix it every time an opportunity presents itself.
+If you want to contribute to the source code, it’s important to follow the project’s coding style. The actual code does not always follow it throughout the project, but we should fix it every time an opportunity presents itself.
 
 Contributions which do not follow the coding style will be rejected as long as the coding style is not fixed.
 

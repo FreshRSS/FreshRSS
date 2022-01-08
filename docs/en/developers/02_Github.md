@@ -4,7 +4,7 @@
 
 If you are new to Git, here are some of the resources you might find useful:
 
-* [GitHub’sblog post](https://github.com/blog/120-new-to-git)
+* [GitHub’s blog post](https://github.com/blog/120-new-to-git)
 * <http://try.github.com/>
 * <http://sixrevisions.com/resources/git-tutorials-beginners/>
 * <http://rogerdudler.github.io/git-guide/>

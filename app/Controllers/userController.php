@@ -410,7 +410,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * it’s ok.
 	 *
 	 * It returns 404 error if `force_email_validation` is disabled or if the
-	 * user does’t exist.
+	 * user doesn’t exist.
 	 *
 	 * It returns 403 if user isn’t logged in and `username` param isn’t passed.
 	 */

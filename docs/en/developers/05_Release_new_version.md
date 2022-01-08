@@ -49,7 +49,7 @@ There are then 5 functions that have to be executed:
 
 Once the script has been written and versioned, it’s necessary to update the `./versions.php' file which contains a mapping table indicating which versions are updated to which other versions.
 
-Here’san example of a `versions.php` file:
+Here’s an example of a `versions.php` file:
 
 ```php
 <?php
@@ -65,7 +65,7 @@ return array(
 );
 ```
 
-And here’show this table works:
+And here’s how this table works:
 
 * on the left you can find the N version, on the right the N+1 version;
 * the `x.y.z.z-dev` versions are **all** updated to `edge`;
@@ -90,7 +90,7 @@ Two services need to be updated immediately after the update.
 
 ## Publicly announce the release
 
-When everything’sworking, it’s time to announce the release to the world!
+When everything’s working, it’s time to announce the release to the world!
 
 * on GitHub by creating[a new release](https://github.com/FreshRSS/FreshRSS/releases/new)
 * on the freshrss.org blog, at least for stable versions (write the article on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))

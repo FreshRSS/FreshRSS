@@ -13,7 +13,7 @@ Available languages are: cz, de, en, es, fr, he, it, ko, nl, oc, pt-br, ru, tr, 
 
 ## Theme
 
-There’sno accounting for tastes, which is why FreshRSS offers eight official themes:
+There’s no accounting for tastes, which is why FreshRSS offers eight official themes:
 
 * *Blue Lagoon* by **Mister aiR**
 * *Dark* by **AD**
@@ -82,11 +82,11 @@ This will set images to load as they are viewed. This can save data, but will ca
 
 ## Archiving
 
-These are the global options for fetching and retaining articles from feeds. They can be overwridden by individual feed’ssettings.
+These are the global options for fetching and retaining articles from feeds. They can be overwridden by individual feed’s settings.
 
 ## Maintenance
 
-This allows for purging/optimizing the current user’sarticles in the database.
+This allows for purging/optimizing the current user’s articles in the database.
 
 # Sharing
 

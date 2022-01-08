@@ -2,14 +2,14 @@ FreshRSS has three primary viewing modes: Normal, Global, and Reader view.
 
 # Normal view
 
-Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed’sview.
+Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed’s view.
 
 ## Article List
 
 By default, the normal view includes six items per article. From left to right:
 * **Read status:** An envelope icon to show if the article has been read or not. Closed envelopes are unread, open envelopes are read. Clicking on the icon will toggle the read status.
 * **Favourite status:** A star icon to show if the article has been favourited or not. Filled stars are favourited, empty stars are not. Clicking on the icon will toggle the favourite status.
-* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed’sview in normal view.
+* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed’s view in normal view.
 * **Article title:** The title of the article. Clicking will open the article for viewing within FreshRSS.
 * **Article date/time:** The time the article was posted.
 * **Link to original article:** A globe icon that can be clicked to go to the article on the original website.
@@ -19,14 +19,14 @@ By default, the normal view includes six items per article. From left to right:
 Clicking the gear icon next to an individual feed will display additional options for that feed.
 * **Filter:** Run the defined filter to mark articles as read
 * **Statistics:** View statistics about the feed
-* **See website:** Open the feed’swebsite in another tab
+* **See website:** Open the feed’s website in another tab
 * **Manage:** Configure the feed
 * **Actualize:** Force-update the feed
 * **Mark as read:** Mark all items in the feed as read
 
 # Global view
 
-Global view allows quick views of feed’sstatuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed’sname will open it in a view similar to normal view.
+Global view allows quick views of feed’s statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed’s name will open it in a view similar to normal view.
 
 # Reader view
 
@@ -240,7 +240,7 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
 
-When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you will need to consider [De Morgan’slaws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws). See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460) for more details on the usage of `AND` vs `OR` when using combining multiple negative operators.
+When combining multiple negative operators (e.g. `!intitle:'thing1' AND !intitle:'thing2'`), you will need to consider [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws). See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460) for more details on the usage of `AND` vs `OR` when using combining multiple negative operators.
 
 ### By sorting by date
 

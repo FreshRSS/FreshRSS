@@ -40,9 +40,9 @@ arrives on the new address.
 
 If it fails, you can change the environment (in `data/config.php` file, change
 `production` to `development`). PHPMailer will become more verbose and you will
-be able to see what happens in the PHP logs. If something’swrong here, you will
+be able to see what happens in the PHP logs. If something’s wrong here, you will
 probably better served by asking to your favorite search engine than asking us.
-If you think that something’swrong in FreshRSS code, do not hesitate to open a
+If you think that something’s wrong in FreshRSS code, do not hesitate to open a
 ticket though.
 
 Also, make sure the email didn’t arrive in your spam.

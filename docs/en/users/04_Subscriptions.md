@@ -10,7 +10,7 @@
 
 ## Subscription management
 
-The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed’ssettings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
+The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed’s settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
 
 ## Category Settings
 
@@ -50,7 +50,7 @@ The  "Article CSS selector on original website" corresponds to the "path" consis
 To find this path, you have to go to the address of one of the truncated articles.
 You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
 
-Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We will only use the `.content` class here. Nevertheless, as said above, it’s best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that’sperfect! The path will be ```#article .content```.
+Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We will only use the `.content` class here. Nevertheless, as said above, it’s best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that’s perfect! The path will be ```#article .content```.
 
 ##### Add the corresponding classes to the article CSS path on the feed configuration page
 
@@ -63,7 +63,7 @@ Examples:
 
 ##### Combining CSS Classes
 
-Let’ssay we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
+Let’s say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
 
 ```html
 <div id="article">
