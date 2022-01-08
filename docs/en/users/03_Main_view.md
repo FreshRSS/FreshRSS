@@ -271,4 +271,4 @@ Display the user queries drop-down by clicking the button next to the state butt
 Then click on the bookmarked query, the previously stored query will be applied.
 
 > Note that only the query is stored, not the articles.
-> The results you are seing now could be different from the results on the day you've created the query.
+> The results you are seeing now could be different from the results on the day you've created the query.

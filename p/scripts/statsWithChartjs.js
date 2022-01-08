@@ -27,7 +27,7 @@ function initCharts() {
 				chartConfig = jsonChartDoughnut(jsonDataParsed.labels, jsonDataParsed.data);
 				break;
 			case 'barWithAverage':
-				chartConfig = jsonChartBarWithAvarage(jsonDataParsed.labelBarChart, jsonDataParsed.dataBarChart,
+				chartConfig = jsonChartBarWithAverage(jsonDataParsed.labelBarChart, jsonDataParsed.dataBarChart,
 					jsonDataParsed.labelAverage, jsonDataParsed.dataAverage, jsonDataParsed.xAxisLabels);
 		}
 
@@ -114,7 +114,7 @@ function jsonChartDoughnut(labels, data) {
 	};
 }
 
-function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, dataAverage, xAxisLabels = '') {
+function jsonChartBarWithAverage(labelBarChart, dataBarChart, labelAverage, dataAverage, xAxisLabels = '') {
 	return {
 		type: 'bar',
 		data: {
