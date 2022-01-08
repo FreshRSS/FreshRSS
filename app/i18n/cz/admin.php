@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Umožnit anonymně číst články výchozího uživatele (%s)',
@@ -66,8 +76,8 @@ return array(
 			'ok' => 'Máte rozšíření JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO
 		),
 		'pcre' => array(
 			'nok' => 'Nemáte požadovanou knihovnu pro regulární výrazy (php-pcre).',
@@ -101,23 +111,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Author',	// TODO
+		'community' => 'Available community extensions',	// TODO
+		'description' => 'Description',	// TODO
 		'disabled' => 'Vypnuto',
 		'empty_list' => 'Není naistalováno žádné rozšíření',
 		'enabled' => 'Zapnuto',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Installed',	// TODO
+		'name' => 'Name',	// TODO
 		'no_configure_view' => 'Toto rozšíření nemá žádné možnosti nastavení.',
 		'system' => array(
 			'_' => 'Systémová rozšíření',
 			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 		),
 		'title' => 'Rozšíření',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Update available',	// TODO
 		'user' => 'Uživatelská rozšíření',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Version',	// TODO
 	),
 	'stats' => array(
 		'_' => 'Statistika',
@@ -147,16 +157,16 @@ return array(
 		'top_feed' => 'Top ten kanálů',
 	),
 	'system' => array(
-		'_' => 'System configuration',	// TODO - Translation
-		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'_' => 'System configuration',	// TODO
+		'auto-update-url' => 'Auto-update server URL',	// TODO
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => 'in seconds',	// TODO
+			'number' => 'Duration to keep logged in',	// TODO
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
-		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Max number of categories per user',	// TODO - Translation
-		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO
+		'instance-name' => 'Instance name',	// TODO
+		'max-categories' => 'Max number of categories per user',	// TODO
+		'max-feeds' => 'Max number of feeds per user',	// TODO
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
@@ -172,18 +182,18 @@ return array(
 		'title' => 'Aktualizovat systém',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrator',	// TODO
+		'article_count' => 'Articles',	// TODO
+		'back_to_manage' => '← Return to user list',	// TODO
 		'create' => 'Vytvořit nového uživatele',
-		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Database size',	// TODO
+		'email' => 'Email address',	// TODO
+		'enabled' => 'Enabled',	// TODO
+		'feed_count' => 'Feeds',	// TODO
+		'is_admin' => 'Is admin',	// TODO
 		'language' => 'Jazyk',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Last user activity',	// TODO
+		'list' => 'User list',	// TODO
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',

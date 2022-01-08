@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Anonymes Lesen der Artikel des Standardbenutzers (%s) erlauben',
@@ -108,7 +118,7 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'enabled' => 'Aktiviert',
 		'latest' => 'Installiert',
-		'name' => 'Name',
+		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
 		'system' => array(
 			'_' => 'System-Erweiterungen',
@@ -117,7 +127,7 @@ return array(
 		'title' => 'Erweiterungen',
 		'update' => 'Update verfügbar',
 		'user' => 'Benutzer-Erweiterungen',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
 		'_' => 'Statistiken',
@@ -130,7 +140,7 @@ return array(
 		'entry_per_hour' => 'Pro Stunde (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_month' => 'Pro Monat (Durchschnitt: %.2f Nachrichten)',
 		'entry_repartition' => 'Einträge-Verteilung',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds pro Kategorie',
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
@@ -172,14 +182,14 @@ return array(
 		'title' => 'System aktualisieren',
 	),
 	'user' => array(
-		'admin' => 'Administrator',
+		'admin' => 'Administrator',	// IGNORE
 		'article_count' => 'Artikel',
 		'back_to_manage' => '← Zurück zur Benutzerliste',
 		'create' => 'Neuen Benutzer erstellen',
 		'database_size' => 'Datenbankgröße',
 		'email' => 'E-Mail-Adresse',
 		'enabled' => 'Aktiviert',
-		'feed_count' => 'Feeds',
+		'feed_count' => 'Feeds',	// IGNORE
 		'is_admin' => 'Ist Administrator',
 		'language' => 'Sprache',
 		'last_user_activity' => 'Letzte Benutzeraktivität',

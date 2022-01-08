@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Skopiuj następujący URL, by wykorzystać go w zewnętrznym narzędziu.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Przeciągnij ten guzik na pasek zakładek, albo kliknij go prawym przyciskiem myszy i wybierz opcję dodania odnośnika do listy zakładek. Dzięki temu będziesz mógł kliknąć w guzik „Subskrybuj” na dowolnej stronie, którą będziesz chciał zasubskrybować.',
@@ -103,7 +113,7 @@ return array(
 		'feed_list' => 'Lista wiadomości z kanału %s',
 		'file_to_import' => 'Plik do zaimportowania<br />(formaty OPML, JSON lub ZIP)',
 		'file_to_import_no_zip' => 'Plik do zaimportowania<br />(OPML lub JSON)',
-		'import' => 'Import',
+		'import' => 'Import',	// IGNORE
 		'starred_list' => 'Lista ulubionych wiadomości',
 		'title' => 'Import / eksport',
 	),
