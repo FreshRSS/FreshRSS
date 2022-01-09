@@ -192,7 +192,12 @@ npm-test:
 npm-fix:
 	npm run fix
 
-# TODO: Add shellcheck, shfmt, hadolint
+# TODO: Install typos
+.PHONY: typos-fix
+typos-test:
+	bin/typos
+
+# TODO: Add shellcheck, shfmt, hadolint, typos
 .PHONY: test-all
 test-all: composer-test npm-test
 
