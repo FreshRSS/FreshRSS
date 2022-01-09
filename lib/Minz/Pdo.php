@@ -43,14 +43,14 @@ abstract class Minz_Pdo extends PDO {
 
 	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
 	#[\ReturnTypeWillChange]
-	public function prepare(string $statement, array $driver_options = []) {
+	public function prepare($statement, $driver_options = []) {
 		$statement = $this->preSql($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
 	// PHP8+: PDO::exec(string $statement): int|false
 	#[\ReturnTypeWillChange]
-	public function exec(string $statement) {
+	public function exec($statement) {
 		$statement = $this->preSql($statement);
 		return parent::exec($statement);
 	}
