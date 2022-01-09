@@ -1428,7 +1428,7 @@ input:checked + .slide-container .properties {
 		position: absolute;
 		left: 8px;
 		bottom: -17px;
-		transform: rotate(45deg);
+		transform: rotate(-45deg);
 		z-index: 9999;
 		cursor: default;
 	}
