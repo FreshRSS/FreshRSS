@@ -1303,6 +1303,12 @@ a.btn {
 		width: 90px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #222;;
+		border-top: 1px solid #171717;
+		border-right: 1px solid #171717;
+	}
+
 	.nav_menu .search input:focus {
 		width: 400px;
 	}
