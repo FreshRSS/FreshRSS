@@ -1,21 +1,21 @@
 <?php
 
 /**
- * La classe Url permet de gérer les URL à travers MINZ
+ * The Minz_Url class handles URLs across the MINZ framework
  */
 class Minz_Url {
 	/**
-	 * Affiche une Url formatée
-	 * @param string|array<string,string|array<string,mixed>> $url l'url à formater définie comme un tableau :
+	 * Display a formatted URL
+	 * @param string|array<string,string|array<string,mixed>> $url The URL to format, defined as an array:
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
-	 *                    $url['params'] = tableau des paramètres supplémentaires
-	 *             ou comme une chaîne de caractère
-	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
+	 *                    $url['params'] = array of additional parameters
+	 *             or as a string
+	 * @param string $encoding how to encode & (& ou &amp; pour html)
 	 * @param bool|string $absolute
-	 * @return string url formatée
+	 * @return string Formatted URL
 	 */
-	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
+	public static function display ($url = array (), $encoding = 'html', $absolute = false) {
 		$isArray = is_array($url);
 
 		if ($isArray) {
@@ -44,8 +44,8 @@ class Minz_Url {
 		}
 
 		if ($isArray) {
-			$url_string .= '/' . self::printUri($url, $encodage);
-		} elseif ($encodage === 'html') {
+			$url_string .= '/' . self::printUri($url, $encoding);
+		} elseif ($encoding === 'html') {
 			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
 		} else {
 			$url_string .= $url;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * La classe Session gère la session utilisateur
+ * The Minz_Session class handles user’s session
  */
 class Minz_Session {
 	private static $volatile = false;
