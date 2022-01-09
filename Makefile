@@ -82,6 +82,15 @@ bin/phpcbf:
 	wget -O bin/phpcbf https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcbf.phar
 	echo '6f64fe00dee53fa7b256f63656dc0154f5964666fc7e535fac86d0078e7dea41 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
 
+bin/typos:
+	mkdir -p bin/
+	cd bin ; \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' && \
+	tar -xvf *.tar.gz './typos' && \
+	chmod +x typos && \
+	rm *.tar.gz ; \
+	cd ..
+
 ##########
 ## I18N ##
 ##########
@@ -192,14 +201,13 @@ npm-test:
 npm-fix:
 	npm run fix
 
-# TODO: Install typos
-.PHONY: typos-fix
-typos-test:
+.PHONY: typos-test
+typos-test: bin/typos
 	bin/typos
 
-# TODO: Add shellcheck, shfmt, hadolint, typos
+# TODO: Add shellcheck, shfmt, hadolint
 .PHONY: test-all
-test-all: composer-test npm-test
+test-all: composer-test npm-test typos-test
 
 .PHONY: fix-all
 fix-all: composer-fix npm-fix
