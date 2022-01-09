@@ -34,9 +34,9 @@ function load_panel(link) {
 		document.getElementById('overlay').classList.add('visible');
 		panel.classList.add('visible');
 
-		// force le démarrage du scroll en haut.
-		// Sans ça, si l’on scroll en lisant une catégorie par exemple,
-		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
+		// Force the initial scroll to the top.
+		// Without it, if one scrolls down in a category (for instance)
+		// and then open another one, we risk being at the same scroll position
 		panel.scrollTop = 0;
 		document.documentElement.scrollTop = 0;
 

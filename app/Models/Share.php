@@ -121,7 +121,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Update a FreshRSS_Share object with information from an array.
-	 * @param array<string,string> $options is a list of informations to update where keys should be
+	 * @param array<string,string> $options is a list of information to update where keys should be
 	 *        in this list: name, url, id, title, link.
 	 */
 	public function update($options) {
