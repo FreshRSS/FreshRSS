@@ -20,7 +20,7 @@
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: $grey-lighter;
 	font-size: 1rem;
@@ -30,13 +30,14 @@
 	text-align: left;
 
 	&::after {
-		background: white;
+		background: $grey-lighter;
 		width: 10px;
 		height: 10px;
 		content: "";
 		position: absolute;
 		top: -4px;
-		right: 13px;
+		right: 18px;
+		bottom: -14px;
 		z-index: -10;
 		transform: rotate(45deg);
 		// border-top: 1px solid #95a5a6;
