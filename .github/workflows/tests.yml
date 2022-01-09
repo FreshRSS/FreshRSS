@@ -111,7 +111,7 @@ jobs:
       if: steps.shell-cache.outputs.cache-hit != 'true'
       run: |
         cd bin &&
-        wget 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' &&
+        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' &&
         tar -xvf *.tar.gz './typos' &&
         chmod +x typos &&
         rm *.tar.gz &&
