@@ -1394,24 +1394,64 @@ input:checked + .slide-container .properties {
 		margin-left: 0;
 	}
 
+	.dropdown {
+		position: inherit;
+	}
+
 	.dropdown .dropdown-menu {
-		width: 100%;
+		width: 94%;
 		border-radius: 0;
-		bottom: 0;
-		position: fixed;
+		left: 3%;
+		right: 3%;
+		position: absolute;
+	}
+
+	.dropdown .dropdown-menu .item {
+		margin: 2px 0;
+	}
+
+	.dropdown .dropdown-menu .item button.as-link, 
+	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
+		width: 100%;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle {
+		position: relative;
+		overflow: visible;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		width: 10px;
+		height: 10px;
+		content: "";
+		position: absolute;
+		right: 8px;
+		bottom: -17px;
+		transform: rotate(45deg);
+		z-index: 9999;
+		cursor: default;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
 	}
 
 	.configure .dropdown .dropdown-menu {
 		width: 90%;
 		height: 100vh;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: auto;
+		position: fixed;
+		padding-top: 0;
+		margin-top: 0;
 		overflow: auto;
 		box-shadow: -3px 0 3px #aaa;
 	}
 
-	.dropdown-target ~ .dropdown-menu {
-		width: 0;
-
-	}
+	
 
 	.dropdown-target:target ~ .dropdown-menu {
 		display: table-cell;
