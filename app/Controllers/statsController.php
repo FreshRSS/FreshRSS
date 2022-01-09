@@ -23,25 +23,25 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
-	private function convertToSerie($data) {
-		$serie = array();
+	private function convertToSeries($data) {
+		$series = array();
 
 		foreach ($data as $key => $value) {
-			$serie[] = array($key, $value);
+			$series[] = array($key, $value);
 		}
 
-		return $serie;
+		return $series;
 	}
 
-	private function convertToPieSerie($data) {
-		$serie = array();
+	private function convertToPieSeries($data) {
+		$series = array();
 
 		foreach ($data as $value) {
 			$value['data'] = array(array(0, (int) $value['data']));
-			$serie[] = $value;
+			$series[] = $value;
 		}
 
-		return $serie;
+		return $series;
 	}
 
 	/**
