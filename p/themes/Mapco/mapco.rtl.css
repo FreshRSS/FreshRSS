@@ -228,7 +228,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0 0 9px 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: #f9fafb;
 	font-size: 1rem;
