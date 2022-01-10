@@ -1410,7 +1410,7 @@ input:checked + .slide-container .properties {
 		margin: 2px 0;
 	}
 
-	.dropdown .dropdown-menu .item button.as-link, 
+	.dropdown .dropdown-menu .item button.as-link,
 	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
 		width: 100%;
 	}
@@ -1450,8 +1450,6 @@ input:checked + .slide-container .properties {
 		overflow: auto;
 		box-shadow: -3px 0 3px #aaa;
 	}
-
-	
 
 	.dropdown-target:target ~ .dropdown-menu {
 		display: table-cell;

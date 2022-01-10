@@ -1410,7 +1410,7 @@ input:checked + .slide-container .properties {
 		margin: 2px 0;
 	}
 
-	.dropdown .dropdown-menu .item button.as-link, 
+	.dropdown .dropdown-menu .item button.as-link,
 	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
 		width: 100%;
 	}
