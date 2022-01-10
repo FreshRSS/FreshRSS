@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Log permet de logger des erreurs
+ * The Minz_Log class is used to log errors and warnings
  */
 class Minz_Log {
 	/**
@@ -105,20 +105,6 @@ class Minz_Log {
 				fclose($fp);
 			}
 		}
-	}
-
-	/**
-	 * Automatise le log des variables globales $_GET et $_POST
-	 * Fait appel à la fonction record(...)
-	 * Ne fonctionne qu'en environnement "development"
-	 * @param string $file_name fichier de log
-	 */
-	public static function recordRequest($file_name = null) {
-		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));
-		$msg_post = str_replace("\n", '', '$_POST content : ' . print_r($_POST, true));
-
-		self::record($msg_get, LOG_DEBUG, $file_name);
-		self::record($msg_post, LOG_DEBUG, $file_name);
 	}
 
 	/**

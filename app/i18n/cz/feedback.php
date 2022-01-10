@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Nemáte oprávnění přistupovat na tuto stránku',
@@ -10,8 +20,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Your password cannot be modified',	// TODO
+			'updated' => 'Your password has been modified',	// TODO
 		),
 	),
 	'auth' => array(
@@ -31,7 +41,7 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s je již zapnut',
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'cannot_remove' => '%s cannot be removed',	// TODO
 		'disable' => array(
 			'ko' => '%s nelze vypnout. Pro více detailů <a href="%s">zkontrolujte logy FreshRSS</a>.',
 			'ok' => '%s je nyní vypnut',
@@ -43,7 +53,7 @@ return array(
 		'no_access' => 'Nemáte přístup k %s',
 		'not_enabled' => '%s není ještě zapnut',
 		'not_found' => '%s neexistuje',
-		'removed' => '%s removed',	// TODO - Translation
+		'removed' => '%s removed',	// TODO
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Na serveru není naistalována podpora ZIP. Zkuste prosím exportovat soubory jeden po druhém.',
@@ -60,8 +70,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Aktualizovat',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
+			'marked_read' => 'The selected articles have been marked as read.',	// TODO
+			'marked_unread' => 'The articles have been marked as unread.',	// TODO
 		),
 		'category' => array(
 			'created' => 'Kategorie %s byla vytvořena.',
@@ -81,7 +91,7 @@ return array(
 			'actualizeds' => 'RSS kanály byly aktualizovány',
 			'added' => 'RSS kanál <em>%s</em> byl přidán',
 			'already_subscribed' => 'Již jste přihlášen k odběru <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
+			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO
 			'deleted' => 'Kanál byl smazán',
 			'error' => 'Kanál nelze aktualizovat',
 			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>.',
@@ -90,24 +100,24 @@ return array(
 			'n_entries_deleted' => '%d článků bylo smazáno',
 			'no_refresh' => 'Nelze obnovit žádné kanály…',
 			'not_added' => '<em>%s</em> nemůže být přidán',
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
+			'not_found' => 'Feed cannot be found',	// TODO
 			'over_max' => 'Dosáhl jste maximálního počtu kanálů (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'reloaded' => '<em>%s</em> has been reloaded',	// TODO
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO - Translation
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO - Translation
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO - Translation
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',	// TODO - Translation
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO - Translation
+				'http_error' => 'Failed to load website content.',	// TODO
+				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO
+				'no_feed' => 'Internal error (feed cannot be found).',	// TODO
+				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
+				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO
 			),
 			'updated' => 'Kanál byl aktualizován',
 		),
 		'purge_completed' => 'Vyprázdněno (smazáno %d článků)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'Tag "%s" has been created.',	// TODO
+		'name_exists' => 'Tag name already exists.',	// TODO
+		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS bude nyní upgradováno na <strong>verzi %s</strong>.',
@@ -127,8 +137,8 @@ return array(
 			'error' => 'Uživatele %s nelze smazat',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	// TODO - Translation
-			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'User %s has been updated',	// TODO
+			'error' => 'User %s has not been updated',	// TODO
 		),
 	),
 );

@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe View représente la vue de l'application
+ * The Minz_View represents a view in the MVC paradigm
  */
 class Minz_View {
 	const VIEWS_PATH_NAME = '/views';

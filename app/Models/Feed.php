@@ -300,7 +300,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->hubUrl = isset($links[0]) ? $links[0] : null;
 
 				if ($loadDetails) {
-					// si on a utilisé l'auto-discover, notre url va avoir changé
+					// si on a utilisé l’auto-discover, notre url va avoir changé
 					$subscribe_url = $simplePie->subscribe_url(false);
 
 					//HTML to HTML-PRE	//ENT_COMPAT except '&'

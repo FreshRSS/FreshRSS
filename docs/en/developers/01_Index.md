@@ -2,7 +2,7 @@
 
 ## First Steps
 
-Start by creating your development environment. A guide to setting up FreshRSS's development environment can be found on [the appropriate page](02_First_steps.md).
+Start by creating your development environment. A guide to setting up FreshRSS’s development environment can be found on [the appropriate page](02_First_steps.md).
 
 ## After That
 

@@ -1120,7 +1120,7 @@ if ($pathInfos[1] === 'accounts') {
 							//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
 							$streamNames = empty($_POST['s']) && isset($_GET['s']) ? array($_GET['s']) : multiplePosts('s');
 							/* Title to use for the subscription. For the `subscribe` action,
-							 * if not specified then the feed's current title will be used. Can
+							 * if not specified then the feed’s current title will be used. Can
 							 * be used with the `edit` action to rename a subscription */
 							$titles = empty($_POST['t']) && isset($_GET['t']) ? array($_GET['t']) : multiplePosts('t');
 							$action = $_REQUEST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`

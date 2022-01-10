@@ -351,8 +351,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
 
-			// If the user has admin access, it means he's already logged in
-			// and we don't want to login with the new account. Otherwise, the
+			// If the user has admin access, it means he’s already logged in
+			// and we don’t want to login with the new account. Otherwise, the
 			// user just created its account himself so he probably wants to
 			// get started immediately.
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
@@ -407,12 +407,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 *
 	 * This route works with GET requests since the URL is provided by email.
 	 * The security risks (e.g. forged URL by an attacker) are not very high so
-	 * it's ok.
+	 * it’s ok.
 	 *
 	 * It returns 404 error if `force_email_validation` is disabled or if the
-	 * user doesn't exist.
+	 * user doesn’t exist.
 	 *
-	 * It returns 403 if user isn't logged in and `username` param isn't passed.
+	 * It returns 403 if user isn’t logged in and `username` param isn’t passed.
 	 */
 	public function validateEmailAction() {
 		if (!FreshRSS_Context::$system_conf->force_email_validation) {
@@ -470,7 +470,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action resends a validation email to the current user.
 	 *
-	 * It only acts on POST requests but doesn't require any param (except the
+	 * It only acts on POST requests but doesn’t require any param (except the
 	 * CSRF token).
 	 *
 	 * It returns 403 error if the user is not logged in or 404 if request is
@@ -537,7 +537,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 			if ($self_deletion) {
-				// We check the password if it's a self-destruction
+				// We check the password if it’s a self-destruction
 				$nonce = Minz_Session::param('nonce');
 				$challenge = Minz_Request::param('challenge', '');
 

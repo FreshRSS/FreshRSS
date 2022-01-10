@@ -72,7 +72,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 *
 	 * It displays the feed configuration page.
 	 * If this action is reached through a POST request, it stores all new
-	 * configuraiton values then sends a notification to the user.
+	 * configuration values then sends a notification to the user.
 	 *
 	 * The options available on the page are:
 	 *   - name
