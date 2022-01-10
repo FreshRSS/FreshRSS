@@ -1173,7 +1173,7 @@ a.btn {
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {
-		background-color: #1a1a1a;;
+		background-color: #1a1a1a;
 		border-top: 1px solid #888;
 		border-right: 1px solid #888;
 	}
