@@ -12,7 +12,7 @@ make test
 
 This command downloads the PHPUnit binary and verifies its checksum. If the verification fails, the file is deleted. In this case, you should [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let maintainers know about the problem.
 
-Then, it executes PHPUnit in a Docker container. If you don't use Docker, you can run the command directly with:
+Then, it executes PHPUnit in a Docker container. If you don’t use Docker, you can run the command directly with:
 
 ```sh
 NO_DOCKER=true make test

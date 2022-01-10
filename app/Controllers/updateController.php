@@ -137,7 +137,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		$this->view->_path('update/index.phtml');
 
 		if (file_exists(UPDATE_FILENAME)) {
-			// There is already an update file to apply: we don't need to check
+			// There is already an update file to apply: we don’t need to check
 			// the webserver!
 			// Or if already check during the last hour, do nothing.
 			Minz_Request::forward(array('c' => 'update'), true);

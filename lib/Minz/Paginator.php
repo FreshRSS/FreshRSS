@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Paginator permet de gérer la pagination de l'application facilement
+ * The Minz_Paginator is used to handle paging
  */
 class Minz_Paginator {
 	/**

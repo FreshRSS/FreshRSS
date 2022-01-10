@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Dokončit instalaci',
@@ -65,8 +75,8 @@ return array(
 			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO
 		),
 		'pcre' => array(
 			'nok' => 'Nemáte požadovanou knihovnu pro regulární výrazy (php-pcre).',
@@ -80,12 +90,12 @@ return array(
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
 			'ok' => 'Vaše verze PHP je %s a je kompatibilní s FreshRSS.',
 		),
-		'reload' => 'Check again',	// TODO - Translation
+		'reload' => 'Check again',	// TODO
 		'tmp' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Permissions on the temp directory are good.',	// TODO
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu.',
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
@@ -111,10 +121,10 @@ return array(
 		'choose' => 'Vyberte jazyk FreshRSS',
 		'defined' => 'Jazyk byl nastaven.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO
 	'ok' => 'Instalace byla úspěšná.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO
 	),
 	'step' => 'krok %d',
 	'steps' => 'Kroky',

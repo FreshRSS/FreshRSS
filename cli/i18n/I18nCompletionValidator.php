@@ -23,23 +23,22 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 		return $this->result;
 	}
 
-	/**
-	 * @param array<string>|null $ignore
-	 */
-	public function validate($ignore) {
+	public function validate() {
 		foreach ($this->reference as $file => $data) {
-			foreach ($data as $key => $value) {
+			foreach ($data as $refKey => $refValue) {
 				$this->totalEntries++;
-				if (is_array($ignore) && in_array($key, $ignore)) {
+				if (!array_key_exists($refKey, $this->language[$file])) {
+					$this->result .= "Missing key $refKey" . PHP_EOL;
+					continue;
+				}
+
+				$value = $this->language[$file][$refKey];
+				if ($value->isIgnore()) {
 					$this->passEntries++;
 					continue;
 				}
-				if (!array_key_exists($key, $this->language[$file])) {
-					$this->result .= sprintf('Missing key %s', $key) . PHP_EOL;
-					continue;
-				}
-				if ($value === $this->language[$file][$key]) {
-					$this->result .= sprintf('Untranslated key %s - %s', $key, $value) . PHP_EOL;
+				if ($refValue->equal($value)) {
+					$this->result .= "Untranslated key $refKey - $refValue" . PHP_EOL;
 					continue;
 				}
 				$this->passEntries++;

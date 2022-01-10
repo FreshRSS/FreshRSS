@@ -16,9 +16,9 @@
   [Implied] $cacheSeconds=0: Lifetime in seconds of the document. If $cacheSeconds<0, cache is disabled. If $cacheSeconds==0, the document will be revalidated each time it is accessed. If $cacheSeconds>0, the document will be cashed and not revalidated against the server for this delay.
   [Implied] $cachePrivacy=0: 0=private, 1=normal (public), 2=forced public. When public, it allows a cashed document ($cacheSeconds>0) to be shared by several users.
   [Implied] $feedMode=false: Special RSS/ATOM feeds. When true, it sets $cachePrivacy to 0 (private), does not use the modification time of the script itself, and puts the date of the client's cache (or a old date from 1980) in the global variable $clientCacheDate.
-  [implied] $compression=false: Enable the compression and allows persistant connections (automatic detection of the capacities of the client).
+  [implied] $compression=false: Enable the compression and allows persistent connections (automatic detection of the capacities of the client).
   [implied] $session=false: To be turned on when sessions are used. Checks if the data contained in $_SESSION has been modified during the last generation the document.
-  Returns: True if the connection can be closed (e.g.: the client has already the lastest version), false if the new content has to be send to the client.
+  Returns: True if the connection can be closed (e.g.: the client has already the latest version), false if the new content has to be send to the client.
 
  Typical use:
  <?php
@@ -189,7 +189,7 @@ function _httpConditionalCallBack($buffer,$mode=5)
 		if (strlen($buffer2)>1) //When ob_gzhandler succeeded
 			$buffer=$buffer2;
 	}
-	header('Content-Length: '.strlen($buffer)); //Allows persistant connections //rfc2616-sec14.html#sec14.13
+	header('Content-Length: '.strlen($buffer)); //Allows persistent connections //rfc2616-sec14.html#sec14.13
 	return $buffer;
 }
 

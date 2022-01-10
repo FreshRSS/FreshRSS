@@ -843,7 +843,7 @@ class SimplePie_Enclosure
 	 *
 	 * @deprecated Use the second parameter to {@see embed} instead
 	 *
-	 * @param array|string $options See first paramter to {@see embed}
+	 * @param array|string $options See first parameter to {@see embed}
 	 * @return string HTML string to output
 	 */
 	public function native_embed($options='')

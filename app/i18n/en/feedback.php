@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'You don’t have permission to access this page',
@@ -97,7 +107,7 @@ return array(
 				'http_error' => 'Failed to load website content.',
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',
 				'no_feed' => 'Internal error (feed cannot be found).',
-				'no_result' => 'The selector didn\'t match anything. As a fallback the original feed text will be displayed instead.',
+				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',
 			),
 			'updated' => 'Feed has been updated',

@@ -45,7 +45,7 @@ class Minz_Migrator
 			return basename($filename, '.php');
 		}, $migration_files);
 
-		// We apply a "low-cost" comparaison to avoid to include the migration
+		// We apply a "low-cost" comparison to avoid to include the migration
 		// files at each run. It is equivalent to the upToDate method.
 		if (count($applied_migrations) === count($migration_versions) &&
 			empty(array_diff($applied_migrations, $migration_versions))) {
@@ -239,7 +239,7 @@ class Minz_Migrator
 	 * Migrate the system to the latest version.
 	 *
 	 * It only executes migrations AFTER the current version. If a migration
-	 * returns false or fails, it immediatly stops the process.
+	 * returns false or fails, it immediately stops the process.
 	 *
 	 * If the migration doesn't return false nor raise an exception, it is
 	 * considered as successful. It is considered as good practice to return

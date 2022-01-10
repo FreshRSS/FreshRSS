@@ -435,7 +435,7 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 
 		if (skipping) {
-			// when skipping, this feels more natural if it's not so near the top
+			// when skipping, this feels more natural if it’s not so near the top
 			new_pos -= document.body.clientHeight / 4;
 		}
 		if (relative_move) {
@@ -1005,7 +1005,7 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.title > a');
-		if (el) {	// Allow default control-click behaviour such as open in backround-tab
+		if (el) {	// Allow default control-click behaviour such as open in background-tab
 			return ev.ctrlKey;
 		}
 

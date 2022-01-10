@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Model_array représente le modèle interragissant avec les fichiers de type texte gérant des tableaux php
+ * The Minz_ModelArray class is the model to interact with text files containing a PHP array
  */
 class Minz_ModelArray {
 	/**
