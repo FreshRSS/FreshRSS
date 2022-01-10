@@ -155,12 +155,14 @@
 			right: 21px;
 			bottom: -14px;
 		}
-		~ a.dropdown-toggle{
+
+		~ a.dropdown-toggle {
 			&:not(.btn) {
 				~ .dropdown-menu {
 					margin-top: 0;
 				}
-				&::after{
+				
+				&::after {
 					bottom: -17px;
 				}
 			}
