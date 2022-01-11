@@ -4,8 +4,7 @@ class FreshRSS extends Minz_FrontController {
 	/**
 	 * Initialize the different FreshRSS / Minz components.
 	 *
-	 * PLEASE DON'T CHANGE THE ORDER OF INITIALIZATIONS UNLESS YOU KNOW WHAT
-	 * YOU DO!!
+	 * PLEASE DON’T CHANGE THE ORDER OF INITIALIZATIONS UNLESS YOU KNOW WHAT YOU DO!!
 	 *
 	 * Here is the list of components:
 	 * - Create a configuration setter and register it to system conf
@@ -37,7 +36,7 @@ class FreshRSS extends Minz_FrontController {
 		Minz_ExtensionManager::init();
 
 		// Auth has to be initialized before using currentUser session parameter
-		// because it's this part which create this parameter.
+		// because it’s this part which create this parameter.
 		self::initAuth();
 		if (FreshRSS_Context::$user_conf == null) {
 			FreshRSS_Context::initUser();

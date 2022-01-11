@@ -371,6 +371,7 @@ class FreshRSS_ConfigurationSetter {
 
 			$value = intval($value);
 			$limits = $limits_keys[$key];
+			// @phpstan-ignore-next-line
 			if ((!isset($limits['min']) || $value >= $limits['min']) &&
 				(!isset($limits['max']) || $value <= $limits['max'])
 			) {

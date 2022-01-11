@@ -3,7 +3,7 @@
 /**
  * Controller to handle every entry actions.
  */
-class FreshRSS_entry_Controller extends Minz_ActionController {
+class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.
@@ -152,7 +152,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	/**
 	 * This action optimizes database to reduce its size.
 	 *
-	 * This action shouldbe reached by a POST request.
+	 * This action should be reached by a POST request.
 	 *
 	 * @todo move this action in configure controller.
 	 * @todo call this action through web-cron when available

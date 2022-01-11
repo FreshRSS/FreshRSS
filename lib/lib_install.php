@@ -41,9 +41,13 @@ function checkRequirements($dbType = '') {
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
 	$mbstring = extension_loaded('mbstring');
+	// @phpstan-ignore-next-line
 	$data = DATA_PATH && is_writable(DATA_PATH);
+	// @phpstan-ignore-next-line
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
+	// @phpstan-ignore-next-line
 	$tmp = TMP_PATH && is_writable(TMP_PATH);
+	// @phpstan-ignore-next-line
 	$users = USERS_PATH && is_writable(USERS_PATH);
 	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
 
@@ -73,7 +77,7 @@ function checkRequirements($dbType = '') {
 }
 
 function generateSalt() {
-	return sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
+	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__)));
 }
 
 function initDb() {
@@ -102,7 +106,7 @@ function initDb() {
 		$db['base'] = $dbBase;
 		$conf->db = $db;
 		if ($databaseDAO != null) {
-			//Perfom database auto-creation
+			//Perform database auto-creation
 			$databaseDAO->create();
 		}
 	}

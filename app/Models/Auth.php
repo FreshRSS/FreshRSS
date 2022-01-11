@@ -190,7 +190,7 @@ class FreshRSS_Auth {
 			break;
 		case 'http_auth':
 		case 'none':
-			// Nothing to do...
+			// Nothing to do…
 			break;
 		default:
 			// TODO: extensions
@@ -215,7 +215,7 @@ class FreshRSS_Auth {
 		$csrf = Minz_Session::param('csrf');
 		if ($csrf == '') {
 			$salt = FreshRSS_Context::$system_conf->salt;
-			$csrf = sha1($salt . uniqid(mt_rand(), true));
+			$csrf = sha1($salt . uniqid('' . mt_rand(), true));
 			Minz_Session::_param('csrf', $csrf);
 		}
 		return $csrf;
