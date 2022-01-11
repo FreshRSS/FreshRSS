@@ -1,6 +1,9 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -25,7 +28,7 @@
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<noscript><p class="alert alert-error"><?= _t('conf.shortcut.javascript') ?></p></noscript>
-		
+
 		<fieldset>
 			<legend><?= _t('conf.shortcut.views') ?></legend>
 
@@ -243,4 +246,4 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>

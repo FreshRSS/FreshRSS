@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => '关于',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => '报告错误',
 		'credits' => '致谢',
 		'credits_content' => '某些设计元素来自于 <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> ，尽管 FreshRSS 并没有使用此框架。<a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">图标</a> 来自于 <a href="https://www.gnome.org/">GNOME 项目</a>。<em>Open Sans</em> 字体出自 <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> 之手。FreshRSS 基于 PHP 框架 <a href="https://github.com/marienfressinaud/MINZ">Minz</a>。',

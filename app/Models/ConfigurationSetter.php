@@ -3,8 +3,8 @@
 class FreshRSS_ConfigurationSetter {
 	/**
 	 * Return if the given key is supported by this setter.
-	 * @param $key the key to test.
-	 * @return boolean true if the key is supported, false else.
+	 * @param string $key the key to test.
+	 * @return boolean true if the key is supported, false otherwise.
 	 */
 	public function support($key) {
 		$name_setter = '_' . $key;
@@ -13,9 +13,9 @@ class FreshRSS_ConfigurationSetter {
 
 	/**
 	 * Set the given key in data with the current value.
-	 * @param $data an array containing the list of all configuration data.
-	 * @param $key the key to update.
-	 * @param $value the value to set.
+	 * @param array $data an array containing the list of all configuration data.
+	 * @param string $key the key to update.
+	 * @param mixed $value the value to set.
 	 */
 	public function handle(&$data, $key, $value) {
 		$name_setter = '_' . $key;
@@ -25,7 +25,7 @@ class FreshRSS_ConfigurationSetter {
 	/**
 	 * A helper to set boolean values.
 	 *
-	 * @param $value the tested value.
+	 * @param mixed $value the tested value.
 	 * @return boolean true if value is true and different from no, false else.
 	 */
 	private function handleBool($value) {
@@ -371,6 +371,7 @@ class FreshRSS_ConfigurationSetter {
 
 			$value = intval($value);
 			$limits = $limits_keys[$key];
+			// @phpstan-ignore-next-line
 			if ((!isset($limits['min']) || $value >= $limits['min']) &&
 				(!isset($limits['max']) || $value <= $limits['max'])
 			) {

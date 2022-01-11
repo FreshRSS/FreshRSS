@@ -191,7 +191,7 @@ Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre b
 ```
 
 > Il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`.
-Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+Si ce n’est pas le cas, la commande ne fonctionnera pas correctement.
 
 Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer la base de données au format SQLite dans votre base de données:
 
@@ -199,11 +199,11 @@ Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer 
 ./cli/import-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
 ```
 
-> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n’est pas le cas, la commande ne fonctionnera pas correctement.
 
-Le processus d'import/export à l'aide d'une base de données SQLite est utile quand vous devez :
+Le processus d’import/export à l’aide d’une base de données SQLite est utile quand vous devez :
 
-* exporter complètement les données d'un utilisateur,
+* exporter complètement les données d’un utilisateur,
 * sauvegarder votre service,
 * migrer votre service sur un autre serveur,
 * changer de type de base de données,

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This is a configuration file. You shouldn't modify it unless you know what
+ * This is a configuration file. You shouldn’t modify it unless you know what
  * you are doing. If you want to add a share type, this is where you need to do
  * it.
  *
@@ -16,7 +16,7 @@
  *     for internal use)
  *   - transform is an array of transformation to apply on links and titles
  *   - help is a URL to a help page (mandatory for form = 'advanced')
- *   - form is the type of form to display during configuration. It's either
+ *   - form is the type of form to display during configuration. It’s either
  *     'simple' or 'advanced'. 'simple' is used when only the name is configurable,
  *     'advanced' is used when the name and the location are configurable.
  *   - method is the HTTP method (POST or GET) used to share a link.

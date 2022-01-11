@@ -1,20 +1,21 @@
 <?php
 
 /**
- * La classe Url permet de gérer les URL à travers MINZ
+ * The Minz_Url class handles URLs across the MINZ framework
  */
 class Minz_Url {
 	/**
-	 * Affiche une Url formatée
-	 * @param $url l'url à formater définie comme un tableau :
+	 * Display a formatted URL
+	 * @param string|array<string,string|array<string,mixed>> $url The URL to format, defined as an array:
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
-	 *                    $url['params'] = tableau des paramètres supplémentaires
-	 *             ou comme une chaîne de caractère
-	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
-	 * @return string url formatée
+	 *                    $url['params'] = array of additional parameters
+	 *             or as a string
+	 * @param string $encoding how to encode & (& ou &amp; pour html)
+	 * @param bool|string $absolute
+	 * @return string Formatted URL
 	 */
-	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
+	public static function display ($url = array (), $encoding = 'html', $absolute = false) {
 		$isArray = is_array($url);
 
 		if ($isArray) {
@@ -43,8 +44,8 @@ class Minz_Url {
 		}
 
 		if ($isArray) {
-			$url_string .= '/' . self::printUri($url, $encodage);
-		} elseif ($encodage === 'html') {
+			$url_string .= '/' . self::printUri($url, $encoding);
+		} elseif ($encoding === 'html') {
 			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
 		} else {
 			$url_string .= $url;
@@ -55,8 +56,8 @@ class Minz_Url {
 
 	/**
 	 * Construit l'URI d'une URL
-	 * @param l'url sous forme de tableau
-	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
+	 * @param array<string,mixed> $url l'url sous forme de tableau
+	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
 	private static function printUri($url, $encodage) {
@@ -95,8 +96,8 @@ class Minz_Url {
 
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
-	 * @param array|string $url sous forme de tableau (sinon renverra directement $url)
-	 * @return string url vérifié
+	 * @param array<string,array<string,string>> $url sous forme de tableau
+	 * @return array<string,array<string,string>> url vérifié
 	 */
 	public static function checkUrl ($url) {
 		$url_checked = $url;
@@ -117,17 +118,22 @@ class Minz_Url {
 	}
 }
 
-function _url ($controller, $action) {
-	$nb_args = func_num_args ();
+/**
+ * @param string $controller
+ * @param string $action
+ * @param string ...$args
+ */
+function _url ($controller, $action, ...$args) {
+	$nb_args = count($args);
 
-	if($nb_args < 2 || $nb_args % 2 != 0) {
+	if ($nb_args % 2 !== 0) {
 		return false;
 	}
 
-	$args = func_get_args ();
 	$params = array ();
-	for($i = 2; $i < $nb_args; $i = $i + 2) {
-		$params[$args[$i]] = $args[$i + 1];
+	for ($i = 0; $i < $nb_args; $i += 2) {
+		$arg = $args[$i];
+		$params[$arg] = $args[$i + 1];
 	}
 
 	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));

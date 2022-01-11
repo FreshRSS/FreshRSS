@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_update_Controller extends Minz_ActionController {
+class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	public static function isGit() {
 		return is_dir(FRESHRSS_PATH . '/.git/');
@@ -108,7 +108,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
-		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
@@ -137,7 +137,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		$this->view->_path('update/index.phtml');
 
 		if (file_exists(UPDATE_FILENAME)) {
-			// There is already an update file to apply: we don't need to check
+			// There is already an update file to apply: we don’t need to check
 			// the webserver!
 			// Or if already check during the last hour, do nothing.
 			Minz_Request::forward(array('c' => 'update'), true);
@@ -224,6 +224,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				$res = !self::hasGitUpdate();
 			} else {
 				require(UPDATE_FILENAME);
+				// @phpstan-ignore-next-line
 				$res = do_post_update();
 			}
 
@@ -244,9 +245,12 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			} else {
 				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
+					// @phpstan-ignore-next-line
 					save_info_update();
 				}
+				// @phpstan-ignore-next-line
 				if (!need_info_update()) {
+					// @phpstan-ignore-next-line
 					$res = apply_update();
 				} else {
 					return;
@@ -257,7 +261,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				Minz_Request::forward(array(
 					'c' => 'update',
 					'a' => 'apply',
-					'params' => array('post_conf' => true)
+					'params' => array('post_conf' => '1')
 				), true);
 			} else {
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
@@ -269,7 +273,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	 * This action displays information about installation.
 	 */
 	public function checkInstallAction() {
-		Minz_View::prependTitle(_t('admin.check_install.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.check_install.title') . ' · ');
 
 		$this->view->status_php = check_install_php();
 		$this->view->status_files = check_install_files();

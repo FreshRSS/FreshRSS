@@ -45,7 +45,7 @@ class Minz_Migrator
 			return basename($filename, '.php');
 		}, $migration_files);
 
-		// We apply a "low-cost" comparaison to avoid to include the migration
+		// We apply a "low-cost" comparison to avoid to include the migration
 		// files at each run. It is equivalent to the upToDate method.
 		if (count($applied_migrations) === count($migration_versions) &&
 			empty(array_diff($applied_migrations, $migration_versions))) {
@@ -126,11 +126,10 @@ class Minz_Migrator
 	 * @throws BadFunctionCallException if a callback isn't callable (i.e.
 	 *                                  cannot call a migrate method).
 	 */
-	public function __construct($directory = null)
-	{
+	public function __construct($directory = null) {
 		$this->applied_versions = [];
 
-		if (!is_dir($directory)) {
+		if ($directory == null || !is_dir($directory)) {
 			return;
 		}
 
@@ -160,14 +159,13 @@ class Minz_Migrator
 	 *
 	 * @param string $version The version of the migration (be careful, migrations
 	 *                        are sorted with the `strnatcmp` function)
-	 * @param callback $callback The migration function to execute, it should
+	 * @param callable $callback The migration function to execute, it should
 	 *                           return true on success and must return false
 	 *                           on error
 	 *
 	 * @throws BadFunctionCallException if the callback isn't callable.
 	 */
-	public function addMigration($version, $callback)
-	{
+	public function addMigration($version, $callback) {
 		if (!is_callable($callback)) {
 			throw new BadFunctionCallException("{$version} migration cannot be called.");
 		}
@@ -182,8 +180,7 @@ class Minz_Migrator
 	 *
 	 * @return array
 	 */
-	public function migrations()
-	{
+	public function migrations() {
 		$migrations = $this->migrations;
 		uksort($migrations, 'strnatcmp');
 		return $migrations;
@@ -192,12 +189,11 @@ class Minz_Migrator
 	/**
 	 * Set the applied versions of the application.
 	 *
-	 * @param string[] $applied_versions
+	 * @param array<string> $versions
 	 *
 	 * @throws DomainException if there is no migrations corresponding to a version
 	 */
-	public function setAppliedVersions($versions)
-	{
+	public function setAppliedVersions($versions) {
 		foreach ($versions as $version) {
 			$version = trim($version);
 			if (!isset($this->migrations[$version])) {
@@ -210,8 +206,7 @@ class Minz_Migrator
 	/**
 	 * @return string[]
 	 */
-	public function appliedVersions()
-	{
+	public function appliedVersions() {
 		$versions = $this->applied_versions;
 		usort($versions, 'strnatcmp');
 		return $versions;
@@ -224,8 +219,7 @@ class Minz_Migrator
 	 *
 	 * @return string[]
 	 */
-	public function versions()
-	{
+	public function versions() {
 		$migrations = $this->migrations();
 		return array_keys($migrations);
 	}
@@ -235,8 +229,7 @@ class Minz_Migrator
 	 *                 otherwise. If no migrations are registered, it always
 	 *                 returns true.
 	 */
-	public function upToDate()
-	{
+	public function upToDate() {
 		// Counting versions is enough since we cannot apply a version which
 		// doesn't exist (see setAppliedVersions method).
 		return count($this->versions()) === count($this->applied_versions);
@@ -246,7 +239,7 @@ class Minz_Migrator
 	 * Migrate the system to the latest version.
 	 *
 	 * It only executes migrations AFTER the current version. If a migration
-	 * returns false or fails, it immediatly stops the process.
+	 * returns false or fails, it immediately stops the process.
 	 *
 	 * If the migration doesn't return false nor raise an exception, it is
 	 * considered as successful. It is considered as good practice to return
@@ -256,8 +249,7 @@ class Minz_Migrator
 	 *               exception was raised in a migration, its result is set to
 	 *               the exception message.
 	 */
-	public function migrate()
-	{
+	public function migrate() {
 		$result = [];
 		foreach ($this->migrations() as $version => $callback) {
 			if (in_array($version, $this->applied_versions)) {

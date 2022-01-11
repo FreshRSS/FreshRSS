@@ -1,13 +1,16 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
 	<h1><?= _t('conf.archiving') ?></h1>
 	<p class="help"><?= _i('help') ?> <?= _t('conf.archiving.help') ?></p>
-	
+
 	<form method="post" action="<?= _url('configure', 'archiving') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
@@ -162,4 +165,4 @@
 		</div>
 	</div>
 	<?php endif; ?>
-</div>
+</main>

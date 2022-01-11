@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'O FreshRSS',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Nahlásiť chybu',
 		'credits' => 'Poďakovanie',
 		'credits_content' => 'Niektoré časti vzhľadu pochádzajú z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>u, aj keď FreshRSS tento framework nepoužíva. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ikony</a> sú z <a href="https://www.gnome.org/">GNOME project</a>. Font <em>Open Sans</em> zabezpečil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založený na PHP frameworku <a href="https://github.com/marienfressinaud/MINZ">Minz</a>.',
@@ -32,7 +42,7 @@ return array(
 		'about' => 'O FreshRSS',
 		'before_one_day' => 'Pred 1 dňom',
 		'before_one_week' => 'Pred 1 týždňom',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Pridať aktuálny dopyt do obľúbených',
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',
 		'main_stream' => 'Všetky kanály',
@@ -60,6 +70,6 @@ return array(
 		'related' => 'Značky článku',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Podmienky služby',
 	),
 );

@@ -1,9 +1,9 @@
 <?php
-$SQL_CREATE_DB = <<<'SQL'
+$GLOBALS['SQL_CREATE_DB'] = <<<'SQL'
 CREATE DATABASE "%1$s" ENCODING 'UTF8';
 SQL;
 
-$SQL_CREATE_TABLES = <<<'SQL'
+$GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(255) UNIQUE NOT NULL,
@@ -59,11 +59,11 @@ INSERT INTO `_category` (id, name)
 	RETURNING nextval('`_category_id_seq`');
 SQL;
 
-$SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+$GLOBALS['SQL_CREATE_INDEX_ENTRY_1'] = <<<'SQL'
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 SQL;
 
-$SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
+$GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"id" BIGINT NOT NULL PRIMARY KEY,
 	"guid" VARCHAR(760) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
 SQL;
 
-$SQL_CREATE_TABLE_TAGS = <<<'SQL'
+$GLOBALS['SQL_CREATE_TABLE_TAGS'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(63) UNIQUE NOT NULL,
@@ -100,6 +100,6 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (
 CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry");
 SQL;
 
-$SQL_DROP_TABLES = <<<'SQL'
+$GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;

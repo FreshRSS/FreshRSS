@@ -38,7 +38,7 @@
 
 				<li class="dropdown-header">
 					<?= _t('index.menu.queries') ?>
-					<a class="no-mobile" href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
+					<a href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
 				</li>
 
 				<?php foreach (FreshRSS_Context::$user_conf->queries as $query) { ?>
@@ -48,7 +48,7 @@
 				<?php } ?>
 
 				<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
-				<li class="separator no-mobile"></li>
+				<li class="separator"></li>
 				<?php } ?>
 
 				<?php
@@ -56,7 +56,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item no-mobile"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
 			</ul>
 		</div>
 	</div>

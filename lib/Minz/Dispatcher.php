@@ -31,7 +31,7 @@ class Minz_Dispatcher {
 	/**
 	 * Lance le controller indiqué dans Request
 	 * Remplit le body de Response à partir de la Vue
-	 * @exception Minz_Exception
+	 * @throws Minz_Exception
 	 */
 	public function run () {
 		do {
@@ -41,6 +41,7 @@ class Minz_Dispatcher {
 				$this->createController (Minz_Request::controllerName ());
 				$this->controller->init ();
 				$this->controller->firstAction ();
+				// @phpstan-ignore-next-line
 				if (!self::$needsReset) {
 					$this->launchAction (
 						Minz_Request::actionName ()
@@ -49,6 +50,7 @@ class Minz_Dispatcher {
 				}
 				$this->controller->lastAction ();
 
+				// @phpstan-ignore-next-line
 				if (!self::$needsReset) {
 					$this->controller->declareCspHeader();
 					$this->controller->view ()->build ();
@@ -56,6 +58,7 @@ class Minz_Dispatcher {
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
+			// @phpstan-ignore-next-line
 		} while (self::$needsReset);
 	}
 
@@ -68,10 +71,9 @@ class Minz_Dispatcher {
 
 	/**
 	 * Instancie le Controller
-	 * @param $base_name le nom du controller à instancier
-	 * @exception ControllerNotExistException le controller n'existe pas
-	 * @exception ControllerNotActionControllerException controller n'est
-	 *          > pas une instance de ActionController
+	 * @param string $base_name le nom du controller à instancier
+	 * @throws Minz_ControllerNotExistException le controller n'existe pas
+	 * @throws Minz_ControllerNotActionControllerException controller n'est pas une instance de ActionController
 	 */
 	private function createController ($base_name) {
 		if (self::isRegistered($base_name)) {
@@ -83,7 +85,6 @@ class Minz_Dispatcher {
 
 		if (!class_exists ($controller_name)) {
 			throw new Minz_ControllerNotExistException (
-				$controller_name,
 				Minz_Exception::ERROR
 			);
 		}
@@ -99,9 +100,8 @@ class Minz_Dispatcher {
 
 	/**
 	 * Lance l'action sur le controller du dispatcher
-	 * @param $action_name le nom de l'action
-	 * @exception ActionException si on ne peut pas exécuter l'action sur
-	 *  le controller
+	 * @param string $action_name le nom de l'action
+	 * @throws Minz_ActionException si on ne peut pas exécuter l'action sur le controller
 	 */
 	private function launchAction ($action_name) {
 		if (!is_callable (array (
@@ -123,8 +123,8 @@ class Minz_Dispatcher {
 	/**
 	 * Register a controller file.
 	 *
-	 * @param $base_name the base name of the controller (i.e. ./?c=<base_name>)
-	 * @param $base_path the base path where we should look into to find info.
+	 * @param string $base_name the base name of the controller (i.e. ./?c=<base_name>)
+	 * @param string $base_path the base path where we should look into to find info.
 	 */
 	public static function registerController($base_name, $base_path) {
 		if (!self::isRegistered($base_name)) {
@@ -135,8 +135,8 @@ class Minz_Dispatcher {
 	/**
 	 * Return if a controller is registered.
 	 *
-	 * @param $base_name the base name of the controller.
-	 * @return true if the controller has been registered, false else.
+	 * @param string $base_name the base name of the controller.
+	 * @return boolean true if the controller has been registered, false else.
 	 */
 	public static function isRegistered($base_name) {
 		return isset(self::$registrations[$base_name]);
@@ -145,7 +145,7 @@ class Minz_Dispatcher {
 	/**
 	 * Load a controller file (include).
 	 *
-	 * @param $base_name the base name of the controller.
+	 * @param string $base_name the base name of the controller.
 	 */
 	private static function loadController($base_name) {
 		$base_path = self::$registrations[$base_name];

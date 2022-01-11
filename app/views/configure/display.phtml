@@ -1,12 +1,15 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
 	<h1><?= _t('conf.display') ?></h1>
-	
+
 	<form method="post" action="<?= _url('configure', 'display') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
@@ -122,8 +125,8 @@
 					<thead>
 						<tr>
 							<th> </th>
-							<th title="<?= _t('gen.action.mark_read') ?>"><?= _i('read') ?></th>
-							<th title="<?= _t('gen.action.mark_favorite') ?>"><?= _i('bookmark') ?></th>
+							<th title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i('read') ?></th>
+							<th title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i('bookmark') ?></th>
 							<th><?= _t('conf.display.icon.related_tags') ?></th>
 							<th><?= _t('conf.display.icon.sharing') ?></th>
 							<th><?= _t('conf.display.icon.summary') ?></th>
@@ -209,4 +212,4 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>

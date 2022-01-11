@@ -1,10 +1,13 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
- 
+
 	<h1><?= _t('sub.menu.label_management') ?></h1>
 
 	<h2><?= _t('sub.title.add_label') ?></h2>
@@ -80,4 +83,4 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>

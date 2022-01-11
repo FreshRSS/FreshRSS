@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivierung',
@@ -27,7 +37,7 @@ return array(
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
-			'related_tags' => 'Verwandte Tags',
+			'related_tags' => 'Hashtags',
 			'sharing' => 'Teilen',
 			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
@@ -86,7 +96,7 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
-		'name' => 'Name',
+		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
@@ -163,20 +173,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-Mail',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Weitere Informationen',
 		'print' => 'Drucken',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Entferne Teilen-Dienst',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Anzuzeigender Teilen-Name',
 		'share_url' => 'Zu verwendende Teilen-URL',
 		'title' => 'Teilen',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Tastenkombination',
@@ -192,9 +202,9 @@ return array(
 		'javascript' => 'JavaScript muss aktiviert sein, um Tastaturkürzel benutzen zu können',
 		'last_article' => 'Zum letzten Artikel springen',
 		'load_more' => 'Weitere Artikel laden',
-		'mark_favorite' => 'Als Favorit markieren',
-		'mark_read' => 'Als gelesen markieren',
-		'navigation' => 'Navigation',
+		'mark_favorite' => 'Als Favorit auswählen/entfernen',
+		'mark_read' => 'Als (un-)gelesen markieren',
+		'navigation' => 'Navigation',	// IGNORE
 		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
