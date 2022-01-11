@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => '归档',
@@ -163,20 +173,20 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '添加分享方式',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => '邮箱',
-		'facebook' => '脸书',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => '邮箱',	// IGNORE
+		'facebook' => '脸书',	// IGNORE
 		'more_information' => '更多信息',
 		'print' => '打印',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '删除分享方式',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '名称',
 		'share_url' => '地址',
 		'title' => '分享',
-		'twitter' => '推特',
-		'wallabag' => 'Wallabag',
+		'twitter' => '推特',	// IGNORE
+		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => '快捷键',

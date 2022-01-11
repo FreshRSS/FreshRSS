@@ -35,7 +35,7 @@ return array(
 
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
-	# feed if they didn't access this URL.
+	# feed if they didn’t access this URL.
 	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
 	# sent).
 	'force_email_validation' => false,
@@ -50,7 +50,7 @@ return array(
 	# Login method:
 	#	`none` is without password and shows only the default user;
 	#	`form` is a conventional Web login form;
-	#	`http_auth` is an access controled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
+	#	`http_auth` is an access controlled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
 	#		if you use `http_auth`, remember to protect only `/FreshRSS/p/i/`,
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
 	'auth_type' => 'form',
@@ -64,7 +64,7 @@ return array(
 
 	# Allow or not the use of the API, used for mobile apps.
 	#	End-point is https://freshrss.example.net/api/greader.php
-	#	You need to set the user's API password.
+	#	You need to set the user’s API password.
 	'api_enabled' => false,
 
 	# Allow or not the use of an unsafe login,

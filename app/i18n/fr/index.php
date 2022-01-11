@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'À propos',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Rapports de bugs',
 		'credits' => 'Crédits',
 		'credits_content' => 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n’utilise pas ce framework. Les <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS repose sur <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
@@ -12,7 +22,7 @@ return array(
 		'license' => 'Licence',
 		'project_website' => 'Site du projet',
 		'title' => 'À propos',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
 		'add' => 'Vous pouvez ajouter des flux.',
@@ -23,10 +33,10 @@ return array(
 		'title_global' => 'Vue globale',
 	),
 	'log' => array(
-		'_' => 'Logs',
+		'_' => 'Logs',	// IGNORE
 		'clear' => 'Effacer les logs',
 		'empty' => 'Les logs sont vides.',
-		'title' => 'Logs',
+		'title' => 'Logs',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'À propos de FreshRSS',

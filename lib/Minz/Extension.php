@@ -192,7 +192,7 @@ abstract class Minz_Extension {
 	 * Register a new hook.
 	 *
 	 * @param string $hook_name the hook name (must exist).
-	 * @param callable-string $hook_function the function name to call (must be callable).
+	 * @param callable-string|array<string> $hook_function the function name to call (must be callable).
 	 */
 	public function registerHook($hook_name, $hook_function) {
 		Minz_ExtensionManager::addHook($hook_name, $hook_function, $this);

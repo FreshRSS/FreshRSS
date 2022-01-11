@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => '정보',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => '버그 제보하기',
 		'credits' => '크레딧',
 		'credits_content' => 'FreshRSS는 <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> 프레임워크를 사용하진 않지만, 일부 디자인 요소를 가져왔습니다. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">아이콘들</a>은 <a href="https://www.gnome.org/">GNOME 프로젝트</a>에서 가져왔습니다. <em>Open Sans</em> 글꼴은 <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>가 제작하였습니다. FreshRSS는 PHP 프레임워크인 <a href="https://github.com/marienfressinaud/MINZ">Minz</a>에 기반하고 있습니다.',

@@ -145,7 +145,7 @@ class DOMDocumentWrapper {
 	public $id;
 	/**
 	 * @todo Rewrite as method and quess if null.
-	 * @var unknown_type
+	 * @var string
 	 */
 	public $contentType = '';
 	public $xpath;
@@ -157,7 +157,6 @@ class DOMDocumentWrapper {
 	public $eventsGlobal = array();
 	/**
 	 * @TODO iframes support http://code.google.com/p/phpquery/issues/detail?id=28
-	 * @var unknown_type
 	 */
 	public $frames = array();
 	/**
@@ -337,7 +336,7 @@ class DOMDocumentWrapper {
 			phpQuery::debug('Full markup load (XML): '.substr($markup, 0, 250));
 		$this->loadMarkupReset();
 		$this->isXML = true;
-		// check agains XHTML in contentType or markup
+		// check against XHTML in contentType or markup
 		$isContentTypeXHTML = $this->isXHTML();
 		$isMarkupXHTML = $this->isXHTML($markup);
 		if ($isContentTypeXHTML || $isMarkupXHTML) {
@@ -475,7 +474,7 @@ class DOMDocumentWrapper {
 		return $contentType[1];
 	}
 	protected function charsetFromXML($markup) {
-		$matches;
+		$matches = array();
 		// find declaration
 		preg_match('@<'.'?xml[^>]+encoding\\s*=\\s*(["|\'])(.*?)\\1@i',
 			$markup, $matches
@@ -817,8 +816,8 @@ abstract class phpQueryEvents {
 	 * Trigger a type of event on every matched element.
 	 *
 	 * @param DOMNode|phpQueryObject|string $document
-	 * @param unknown_type $type
-	 * @param unknown_type $data
+	 * @param string $type
+	 * @param array<DOMEvent> $data
 	 *
 	 * @TODO exclusive events (with !)
 	 * @TODO global events (test)
@@ -1185,7 +1184,7 @@ class phpQueryObject
 	/**
 	 * Indicated if doument is just a fragment (no <html> tag).
 	 *
-	 * Every document is realy a full document, so even documentFragments can
+	 * Every document is really a full document, so even documentFragments can
 	 * be queried against <html>, but getDocument(id)->htmlOuter() will return
 	 * only contents of <body>.
 	 *
@@ -1196,9 +1195,10 @@ class phpQueryObject
 	 * Iterator interface helper
 	 * @access private
 	 */
-	protected $elementsInterator = array();
+	protected $elementsIterator = array();
 	/**
 	 * Iterator interface helper
+	 * @var bool
 	 * @access private
 	 */
 	protected $valid = false;
@@ -1340,7 +1340,7 @@ class phpQueryObject
 	/**
 	 * Unloads whole document from memory.
 	 * CAUTION! None further operations will be possible on this document.
-	 * All objects refering to it will be useless.
+	 * All objects referring to it will be useless.
 	 *
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
@@ -1709,12 +1709,11 @@ class phpQueryObject
 	 *
 	 * In the future, when PHP will support XLS 2.0, then we would do that this way:
 	 * contains(tokenize(@class, '\s'), "something")
-	 * @param unknown_type $class
-	 * @param unknown_type $node
-	 * @return boolean
+	 * @param string $class
+	 * @param DOMElement $node
 	 * @access private
 	 */
-	protected function matchClasses($class, $node) {
+	protected function matchClasses(string $class, object $node): bool {
 		// multi-class
 		if ( mb_strpos($class, '.', 1)) {
 			$classes = explode('.', substr($class, 1));
@@ -1884,7 +1883,7 @@ class phpQueryObject
 					// strip side brackets
 					$attr = trim($s, '][');
 					$execute = false;
-					// attr with specifed value
+					// attr with specified value
 					if (mb_strpos($s, '=')) {
 						$value = null;
 						list($attr, $value) = explode('=', $attr);
@@ -1904,7 +1903,7 @@ class phpQueryObject
 					if ($execute) {
 						$this->runQuery($XQuery, $s, 'is');
 						$XQuery = '';
-						if (! $this->length())
+						if (!$this->size())
 							break;
 					}
 				// CLASSES
@@ -1916,7 +1915,7 @@ class phpQueryObject
 					$XQuery .= '[@class]';
 					$this->runQuery($XQuery, $s, 'matchClasses');
 					$XQuery = '';
-					if (! $this->length() )
+					if (!$this->size() )
 						break;
 				// ~ General Sibling Selector
 				} else if ($s[0] == '~') {
@@ -1926,7 +1925,7 @@ class phpQueryObject
 						->siblings(
 							substr($s, 1)
 						)->elements;
-					if (! $this->length() )
+					if (!$this->size() )
 						break;
 				// + Adjacent sibling selectors
 				} else if ($s[0] == '+') {
@@ -1944,7 +1943,7 @@ class phpQueryObject
 						if ($test && $this->is($subSelector, $test))
 							$this->elements[] = $test;
 					}
-					if (! $this->length() )
+					if (!$this->size() )
 						break;
 				// PSEUDO CLASSES
 				} else if ($s[0] == ':') {
@@ -1953,10 +1952,10 @@ class phpQueryObject
 						$this->runQuery($XQuery);
 						$XQuery = '';
 					}
-					if (! $this->length())
+					if (!$this->size())
 						break;
 					$this->pseudoClasses($s);
-					if (! $this->length())
+					if (!$this->size())
 						break;
 				// DIRECT DESCENDANDS
 				} else if ($s == '>') {
@@ -2438,12 +2437,9 @@ class phpQueryObject
 		}
 	}
 	/**
-	 *
-	 * @param $value
-	 * @return unknown_type
 	 * @TODO implement in all methods using passed parameters
 	 */
-	protected static function unQuote($value) {
+	protected static function unQuote(string $value): string {
 		return $value[0] == '\'' || $value[0] == '"'
 			? substr($value, 1, -1)
 			: $value;
@@ -2619,7 +2615,7 @@ class phpQueryObject
 	 */
 	public function wrapAllOld($wrapper) {
 		$wrapper = pq($wrapper)->_clone();
-		if (! $wrapper->length() || ! $this->length() )
+		if (!$wrapper->size() || !$this->size() )
 			return $this;
 		$wrapper->insertBefore($this->elements[0]);
 		$deepest = $wrapper->elements[0];
@@ -2636,7 +2632,7 @@ class phpQueryObject
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public function wrapAll($wrapper) {
-		if (! $this->length())
+		if (!$this->size())
 			return $this;
 		return phpQuery::pq($wrapper, $this->getDocumentID())
 			->clone()
@@ -2785,12 +2781,8 @@ class phpQueryObject
 			$this->elements[] = $oldStack[$num];
 		return $this->newInstance();
 	}
-	/**
-	 * Enter description here...
-	 *
-	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
-	 */
-	public function size() {
+
+	public function size(): int {
 		return count($this->elements);
 	}
 	/**
@@ -2802,7 +2794,7 @@ class phpQueryObject
 	public function length() {
 		return $this->size();
 	}
-	public function count() {
+	public function count(): int {
 		return $this->size();
 	}
 	/**
@@ -3346,15 +3338,10 @@ class phpQueryObject
 		return $index;
 	}
 	/**
-	 * Enter description here...
-	 *
-	 * @param unknown_type $start
-	 * @param unknown_type $end
-	 *
-	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
+	 * @return phpQueryObject
 	 * @testme
 	 */
-	public function slice($start, $end = null) {
+	public function slice(int $start, $end = null): object {
 //		$last = count($this->elements)-1;
 //		$end = $end
 //			? min($end, $last)
@@ -3370,11 +3357,9 @@ class phpQueryObject
 		);
 	}
 	/**
-	 * Enter description here...
-	 *
-	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
+	 * @return phpQueryObject
 	 */
-	public function reverse() {
+	public function reverse(): object {
 		$this->elementsBackup = $this->elements;
 		$this->elements = array_reverse($this->elements);
 		return $this->newInstance();
@@ -3418,7 +3403,7 @@ class phpQueryObject
 	 * @return unknown_type
 	 */
 	public static function extend($class, $file = null) {
-		return $this->plugin($class, $file);
+		return phpQuery::plugin($class, $file);
 	}
 	/**
 	 *
@@ -4083,13 +4068,15 @@ class phpQueryObject
 
 	// ITERATOR INTERFACE
 	/**
-   * @access private
+	 * @return void
+	 * @access private
 	 */
-	public function rewind(){
+	#[\ReturnTypeWillChange]
+	public function rewind() {
 		$this->debug('iterating foreach');
 //		phpQuery::selectDocument($this->getDocumentID());
 		$this->elementsBackup = $this->elements;
-		$this->elementsInterator = $this->elements;
+		$this->elementsIterator = $this->elements;
 		$this->valid = isset( $this->elements[0] )
 			? 1 : 0;
 // 		$this->elements = $this->valid
@@ -4098,15 +4085,19 @@ class phpQueryObject
 		$this->current = 0;
 	}
 	/**
-   * @access private
+	 * @return DOMElement
+	 * @access private
 	 */
-	public function current(){
-		return $this->elementsInterator[ $this->current ];
+	#[\ReturnTypeWillChange]
+	public function current() {
+		return $this->elementsIterator[ $this->current ];
 	}
 	/**
-   * @access private
+	 * @return mixed
+	 * @access private
 	 */
-	public function key(){
+	#[\ReturnTypeWillChange]
+	public function key() {
 		return $this->current;
 	}
 	/**
@@ -4120,14 +4111,15 @@ class phpQueryObject
 	 * @see phpQueryObject::_next()
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
+	#[\ReturnTypeWillChange]
 	public function next($cssSelector = null){
 //		if ($cssSelector || $this->valid)
 //			return $this->_next($cssSelector);
-		$this->valid = isset( $this->elementsInterator[ $this->current+1 ] )
+		$this->valid = isset( $this->elementsIterator[ $this->current+1 ] )
 			? true
 			: false;
-		if (! $this->valid && $this->elementsInterator) {
-			$this->elementsInterator = null;
+		if (! $this->valid && $this->elementsIterator) {
+			$this->elementsIterator = null;
 		} else if ($this->valid) {
 			$this->current++;
 		} else {
@@ -4137,7 +4129,7 @@ class phpQueryObject
 	/**
    * @access private
 	 */
-	public function valid(){
+	public function valid(): bool {
 		return $this->valid;
 	}
 	// ITERATOR INTERFACE END
@@ -4145,25 +4137,32 @@ class phpQueryObject
 	/**
    * @access private
 	 */
-	public function offsetExists($offset) {
+	public function offsetExists($offset): bool {
 		return $this->find($offset)->size() > 0;
 	}
 	/**
-   * @access private
+	 * @access private
+	 * @param mixed $offset
+	 * @return mixed
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($offset) {
 		return $this->find($offset);
 	}
 	/**
-   * @access private
+	 * @return void
+	 * @access private
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet($offset, $value) {
 //		$this->find($offset)->replaceWith($value);
 		$this->find($offset)->html($value);
 	}
 	/**
-   * @access private
+	 * @return void
+	 * @access private
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset($offset) {
 		// empty
 		throw new Exception("Can't do unset, use array interface only for calling queries and replacing HTML.");
@@ -4277,7 +4276,7 @@ class phpQueryObject
 		$debug = phpQuery::$debug;
 		phpQuery::$debug = false;
 //		print __FILE__.':'.__LINE__."\n";
-		var_dump('length', $this->length());
+		var_dump('length', $this->size());
 		phpQuery::$debug = $debug;
 		return $this;
 	}
@@ -4437,8 +4436,6 @@ abstract class phpQuery {
 	public static $plugins = array();
 	/**
 	 * List of loaded plugins.
-	 *
-	 * @var unknown_type
 	 */
 	public static $pluginsLoaded = array();
 	public static $pluginsMethods = array();
@@ -4642,7 +4639,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocument($markup = null, $contentType = null) {
@@ -4655,7 +4652,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentHTML($markup = null, $charset = null) {
@@ -4668,7 +4665,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentXML($markup = null, $charset = null) {
@@ -4681,7 +4678,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentXHTML($markup = null, $charset = null) {
@@ -4694,7 +4691,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentPHP($markup = null, $contentType = "text/html") {
@@ -4721,7 +4718,7 @@ abstract class phpQuery {
 		$php = preg_replace($regex, '\\1<php><!-- \\3 --></php>', $php);
 		return $php;
 	}
-	public static function _phpToMarkupCallback($php, $charset = 'utf-8') {
+	public static function _phpToMarkupCallback($m, $charset = 'utf-8') {
 		return $m[1].$m[2]
 			.htmlspecialchars("<"."?php".$m[4]."?".">", ENT_QUOTES|ENT_NOQUOTES, $charset)
 			.$m[5].$m[2];
@@ -4784,7 +4781,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFileHTML($file, $charset = null) {
@@ -4797,7 +4794,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFileXML($file, $charset = null) {
@@ -4810,7 +4807,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFileXHTML($file, $charset = null) {
@@ -4823,7 +4820,7 @@ abstract class phpQuery {
 	 * Creates new document from markup.
 	 * Chainable.
 	 *
-	 * @param unknown_type $markup
+	 * @param string $markup
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFilePHP($file, $contentType = null) {
@@ -4921,7 +4918,7 @@ abstract class phpQuery {
 	 * @param string $file Filename to include. Defaults to "{$class}.php".
 	 */
 	public static function plugin($class, $file = null) {
-		// TODO $class checked agains phpQuery_$class
+		// TODO $class checked against phpQuery_$class
 //		if (strpos($class, 'phpQuery') === 0)
 //			$class = substr($class, 8);
 		if (in_array($class, self::$pluginsLoaded))
@@ -5011,7 +5008,6 @@ abstract class phpQuery {
 	/**
 	 * Checks if $input is HTML string, which has to start with '<'.
 	 *
-	 * @deprecated
 	 * @param String $input
 	 * @return Bool
 	 * @todo still used ?
@@ -5226,7 +5222,7 @@ abstract class phpQuery {
 	 *
 	 */
 	public static function param($data) {
-		return http_build_query($data, null, '&');
+		return http_build_query($data, '', '&');
 	}
 	public static function get($url, $data = null, $callback = null, $type = null) {
 		if (!is_array($data)) {
@@ -5354,8 +5350,8 @@ abstract class phpQuery {
 	public static function getDOMDocument($source) {
 		if ($source instanceof DOMDOCUMENT)
 			return $source;
-		$source = self::getDocumentID($source);
-		return $source
+		$id = self::getDocumentID($source);
+		return $id
 			? self::$documents[$id]['document']
 			: null;
 	}
@@ -5368,7 +5364,7 @@ abstract class phpQuery {
 	 * @return unknown_type
 	 * @link http://docs.jquery.com/Utilities/jQuery.makeArray
 	 */
-	public static function makeArray($obj) {
+	public static function makeArray($object) {
 		$array = array();
 		if (is_object($object) && $object instanceof DOMNODELIST) {
 			foreach($object as $value)
@@ -5467,12 +5463,12 @@ abstract class phpQuery {
 	}
 	/**
 	 * Merge 2 phpQuery objects.
-	 * @param array $one
-	 * @param array $two
+	 * @param phpQueryObject $one
+	 * @param phpQueryObject $two
 	 * @protected
 	 * @todo node lists, phpQueryObject
 	 */
-	public static function merge($one, $two) {
+	public static function merge(object $one, object $two): array {
 		$elements = $one->elements;
 		foreach($two->elements as $node) {
 			$exists = false;

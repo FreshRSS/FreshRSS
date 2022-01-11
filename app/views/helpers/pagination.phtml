@@ -20,7 +20,7 @@
 
 <?php
 $hasAccess = FreshRSS_Auth::hasAccess();
-if ($url_mark_read && $hasAccess) { ?>
+if ($hasAccess) { ?>
 <form id="stream-footer" method="post">
 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 <?php } else { ?>
@@ -29,7 +29,7 @@ if ($url_mark_read && $hasAccess) { ?>
 	<div class="stream-footer-inner">
 	<?php if (FreshRSS_Context::$next_id) { ?>
 		<button id="load_more" type="button" class="btn" data-href="<?= Minz_Url::display($url_next) ?>"><?= _t('gen.pagination.load_more') ?></button>
-	<?php } elseif ($url_mark_read && $hasAccess) { ?>
+	<?php } elseif ($hasAccess) { ?>
 		<button id="bigMarkAsRead"
 			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
 			form="stream-footer"
@@ -45,7 +45,7 @@ if ($url_mark_read && $hasAccess) { ?>
 		</div>
 	<?php } ?>
 	</div>
-<?php if ($url_mark_read && $hasAccess) { ?>
+<?php if ($hasAccess) { ?>
 </form>
 <?php } else {?>
 </div>

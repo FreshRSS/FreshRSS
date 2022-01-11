@@ -101,7 +101,7 @@
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu {
-	// tout ça sert à restaurer l'apparence du dropdown dans un contexte de sidebar sombre
+	// to reset the appearance of the dropdown in the case of a dark sidebar
 	.item {
 		padding: 0;
 
@@ -148,7 +148,7 @@
 .alert-warn {
 	background: $warning-light;
 	color: $warning-text;
-	border: 1px solid unquote($warning-text+'33'); // on ajoute l'opacité à la fin
+	border: 1px solid unquote($warning-text+'33'); // on ajoute l’opacité à la fin
 }
 
 .alert-success {

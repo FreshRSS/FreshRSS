@@ -3,12 +3,10 @@
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
-require_once __DIR__ . '/i18n/I18nIgnoreFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 
 $i18nFile = new I18nFile();
-$i18nIgnoreFile = new I18nIgnoreFile();
-$i18nData = new I18nData($i18nFile->load(), $i18nIgnoreFile->load());
+$i18nData = new I18nData($i18nFile->load());
 
 $options = getopt("dhl:r");
 
@@ -30,14 +28,10 @@ $report = array();
 foreach ($languages as $language) {
 	if ($language === $i18nData::REFERENCE_LANGUAGE) {
 		$i18nValidator = new I18nUsageValidator($i18nData->getReferenceLanguage(), findUsedTranslations());
-		$isValidated = $i18nValidator->validate(include __DIR__ . '/i18n/ignore/' . $language . '.php') && $isValidated;
+		$isValidated = $i18nValidator->validate() && $isValidated;
 	} else {
 		$i18nValidator = new I18nCompletionValidator($i18nData->getReferenceLanguage(), $i18nData->getLanguage($language));
-		if (file_exists(__DIR__ . '/i18n/ignore/' . $language . '.php')) {
-			$isValidated = $i18nValidator->validate(include __DIR__ . '/i18n/ignore/' . $language . '.php') && $isValidated;
-		} else {
-			$isValidated = $i18nValidator->validate(null) && $isValidated;
-		}
+		$isValidated = $i18nValidator->validate() && $isValidated;
 	}
 
 	$report[$language] = sprintf('%-5s - %s', $language, $i18nValidator->displayReport());
@@ -87,12 +81,14 @@ function findUsedTranslations() {
  * Output help message.
  */
 function help() {
-	$help = <<<HELP
+	$file = str_replace(__DIR__ . '/', '', __FILE__);
+
+	echo <<<HELP
 NAME
-	%s
+	$file
 
 SYNOPSIS
-	php %s [OPTION]...
+	php $file [OPTION]...
 
 DESCRIPTION
 	Check if translation files have missing keys or missing translations.
@@ -103,7 +99,5 @@ DESCRIPTION
 	-r	display completion report.
 
 HELP;
-	$file = str_replace(__DIR__ . '/', '', __FILE__);
-	echo sprintf($help, $file, $file);
 	exit;
 }

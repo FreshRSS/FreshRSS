@@ -2,6 +2,14 @@
 
 /**
  * Manage configuration for the application.
+ * @property-read string $base_url
+ * @property array<string|array<int,string>> $db
+ * @property-read string $disable_update
+ * @property-read string $environment
+ * @property-read array<string> $extensions_enabled
+ * @property-read string $mailer
+ * @property-read string $smtp
+ * @property string $title
  */
 class Minz_Configuration {
 	/**
@@ -58,6 +66,8 @@ class Minz_Configuration {
 
 	/**
 	 * The namespace of the current configuration.
+	 * Unused.
+	 * @phpstan-ignore-next-line
 	 */
 	private $namespace = '';
 

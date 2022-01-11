@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => '보관',
@@ -163,20 +173,20 @@ return array(
 	'sharing' => array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '공유 방법 삭제',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '표시할 이름',
 		'share_url' => '사용할 공유 URL',
 		'title' => '공유',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => '단축키',
