@@ -1188,6 +1188,12 @@ a.btn {
 		width: 400px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		border-top: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+	}
+
 	.form-group.form-actions {
 		margin-right: -15px;
 		margin-left: -15px;
