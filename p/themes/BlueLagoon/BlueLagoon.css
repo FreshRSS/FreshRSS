@@ -1326,6 +1326,13 @@ a.btn {
 		width: 400px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #222;
+		border-top: 1px solid #171717;
+		border-left: 1px solid #171717;
+		right: 13px;
+	}
+
 	.day .name {
 		display: none;
 	}

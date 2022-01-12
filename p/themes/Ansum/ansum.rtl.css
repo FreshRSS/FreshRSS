@@ -227,7 +227,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: #fcfaf8;
 	font-size: 1rem;
@@ -237,13 +237,14 @@ form th {
 	text-align: right;
 }
 .dropdown-menu::after {
-	background: white;
+	background: #fcfaf8;
 	width: 10px;
 	height: 10px;
 	content: "";
 	position: absolute;
 	top: -4px;
-	left: 13px;
+	left: 18px;
+	bottom: -14px;
 	z-index: -10;
 	transform: rotate(-45deg);
 }
@@ -1041,7 +1042,6 @@ form th {
 
 #dropdown-query ~ .dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
-	background-color: #ba9;
 	border-radius: 3px;
 }
 
@@ -1555,6 +1555,20 @@ form th {
 
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fcfaf8;
+		border-top: 1px solid #f5f0ec;
+		border-right: 1px solid #f5f0ec;
+		left: 21px;
+		bottom: -14px;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
+		bottom: -17px;
 	}
 
 	.day {

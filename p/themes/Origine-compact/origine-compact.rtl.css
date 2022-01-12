@@ -1251,6 +1251,16 @@ a.btn,
 		width: 400px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		border-top: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 5px;
+	}
+
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
