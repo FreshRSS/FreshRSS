@@ -224,7 +224,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: #f9fafb;
 	font-size: 1rem;
@@ -234,13 +234,14 @@ form th {
 	text-align: left;
 }
 .dropdown-menu::after {
-	background: white;
+	background: #f9fafb;
 	width: 10px;
 	height: 10px;
 	content: "";
 	position: absolute;
 	top: -4px;
-	right: 13px;
+	right: 18px;
+	bottom: -14px;
 	z-index: -10;
 	transform: rotate(45deg);
 }
@@ -1516,6 +1517,20 @@ form th {
 
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #f9fafb;
+		border-top: 1px solid #eff0f2;
+		border-left: 1px solid #eff0f2;
+		right: 21px;
+		bottom: -14px;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
+		bottom: -17px;
 	}
 
 	.day {

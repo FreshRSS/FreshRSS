@@ -1176,6 +1176,11 @@ a.signin {
 		width: 400px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		border-top: 1px solid #aaa;
+		border-right: 1px solid #aaa;
+	}
+
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
