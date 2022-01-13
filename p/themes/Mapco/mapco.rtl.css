@@ -234,13 +234,14 @@ form th {
 	text-align: right;
 }
 .dropdown-menu::after {
-	background: white;
+	background: #f9fafb;
 	width: 10px;
 	height: 10px;
 	content: "";
 	position: absolute;
 	top: -4px;
 	left: 18px;
+	bottom: -14px;
 	z-index: -10;
 	transform: rotate(-45deg);
 }
