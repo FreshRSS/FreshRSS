@@ -1011,6 +1011,10 @@ form th {
 		padding-left: 10px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle.btn::after {
+		display: none;
+	}
+
 	.day .name {
 		font-size: 1.1rem;
 	}

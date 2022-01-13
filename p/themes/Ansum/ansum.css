@@ -121,8 +121,8 @@ label {
 }
 
 textarea {
-	width: 360px;
 	max-width: 100%;
+	width: 360px;
 	height: 100px;
 }
 
@@ -227,7 +227,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: #fcfaf8;
 	font-size: 1rem;
@@ -237,13 +237,14 @@ form th {
 	text-align: left;
 }
 .dropdown-menu::after {
-	background: white;
+	background: #fcfaf8;
 	width: 10px;
 	height: 10px;
 	content: "";
 	position: absolute;
 	top: -4px;
-	right: 13px;
+	right: 18px;
+	bottom: -14px;
 	z-index: -10;
 	transform: rotate(45deg);
 }
@@ -274,6 +275,9 @@ form th {
 .dropdown-menu .item:hover a, .dropdown-menu .item:hover button {
 	text-decoration: none;
 	color: #fff;
+}
+.dropdown-menu .item:hover .icon {
+	filter: grayscale(100%) brightness(2.5);
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 0 0 -14px;
@@ -1038,7 +1042,6 @@ form th {
 
 #dropdown-query ~ .dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
-	background-color: #ba9;
 	border-radius: 3px;
 }
 
@@ -1552,6 +1555,20 @@ form th {
 
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fcfaf8;
+		border-top: 1px solid #f5f0ec;
+		border-left: 1px solid #f5f0ec;
+		right: 21px;
+		bottom: -14px;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
+		bottom: -17px;
 	}
 
 	.day {
