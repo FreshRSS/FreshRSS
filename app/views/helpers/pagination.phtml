@@ -21,14 +21,14 @@
 <?php
 $hasAccess = FreshRSS_Auth::hasAccess();
 if ($hasAccess) { ?>
-<form id="stream-footer" method="post">
+<form id="stream-footer" action="" method="post">
 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 <?php } else { ?>
 <div id="stream-footer">
 <?php }?>
 	<div class="stream-footer-inner">
 	<?php if (FreshRSS_Context::$next_id) { ?>
-		<button id="load_more" type="button" class="btn" data-href="<?= Minz_Url::display($url_next) ?>"><?= _t('gen.pagination.load_more') ?></button>
+		<button id="load_more" type="submit" class="btn" formaction="<?= Minz_Url::display($url_next) ?>"><?= _t('gen.pagination.load_more') ?></button>
 	<?php } elseif ($hasAccess) { ?>
 		<button id="bigMarkAsRead"
 			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"

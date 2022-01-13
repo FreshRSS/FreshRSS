@@ -1607,7 +1607,7 @@ function init_load_more(box) {
 		return;
 	}
 
-	url_load_more = next_button.getAttribute('data-href');
+	url_load_more = next_button.getAttribute('formaction');
 
 	next_button.onclick = function (e) {
 		load_more_posts();
