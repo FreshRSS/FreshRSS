@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => '처음으로',
 		'last' => '마지막으로',
-		'load_more' => '글 더 불러오기',
-		'mark_all_read' => '모두 읽음으로 표시',
 		'next' => '다음',
-		'nothing_to_load' => '더 이상 글이 없습니다',
 		'previous' => '이전',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => '좋습니다!',
 		'or' => '또는',
 		'yes' => '네',
+	),
+	'stream' => array (
+		'load_more' => '글 더 불러오기',
+		'mark_all_read' => '모두 읽음으로 표시',
+		'nothing_to_load' => '더 이상 글이 없습니다',
 	),
 );

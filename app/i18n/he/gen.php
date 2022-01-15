@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'הראשון',
 		'last' => 'אחרון',
-		'load_more' => 'טעינת מאמרים נוספים',
-		'mark_all_read' => 'סימון הכל כנקרא',
 		'next' => 'הבא',
-		'nothing_to_load' => 'אין מאמרים נוספים',
 		'previous' => 'הקודם',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',
+	),
+	'stream' => array (
+		'load_more' => 'טעינת מאמרים נוספים',
+		'mark_all_read' => 'סימון הכל כנקרא',
+		'nothing_to_load' => 'אין מאמרים נוספים',
 	),
 );

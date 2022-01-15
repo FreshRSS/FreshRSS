@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'Początek',
 		'last' => 'Koniec',
-		'load_more' => 'Załaduj więcej wiadomości',
-		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
 		'next' => 'Następne',
-		'nothing_to_load' => 'Koniec listy wiadomości',
 		'previous' => 'Poprzednie',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'Okay!',	// IGNORE
 		'or' => 'lub',
 		'yes' => 'Tak',
+	),
+	'stream' => array (
+		'load_more' => 'Załaduj więcej wiadomości',
+		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
+		'nothing_to_load' => 'Koniec listy wiadomości',
 	),
 );

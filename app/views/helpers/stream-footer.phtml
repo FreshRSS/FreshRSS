@@ -28,20 +28,20 @@ if ($hasAccess) { ?>
 <?php }?>
 	<div class="stream-footer-inner">
 	<?php if (FreshRSS_Context::$next_id) { ?>
-		<button id="load_more" type="submit" class="btn" formaction="<?= Minz_Url::display($url_next) ?>"><?= _t('gen.pagination.load_more') ?></button>
+		<button id="load_more" type="submit" class="btn" formaction="<?= Minz_Url::display($url_next) ?>"><?= _t('gen.stream.load_more') ?></button>
 	<?php } elseif ($hasAccess) { ?>
 		<button id="bigMarkAsRead"
 			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
 			form="stream-footer"
 			formaction="<?= Minz_Url::display($url_mark_read) ?>"
 			type="submit">
-			<?= _t('gen.pagination.nothing_to_load') ?><br />
+			<?= _t('gen.stream.nothing_to_load') ?><br />
 			<span class="bigTick">✓</span><br />
-			<?= _t('gen.pagination.mark_all_read') ?>
+			<?= _t('gen.stream.mark_all_read') ?>
 		</button>
 	<?php } else { ?>
 		<div id="bigMarkAsRead">
-			<?= _t('gen.pagination.nothing_to_load') ?><br />
+			<?= _t('gen.stream.nothing_to_load') ?><br />
 		</div>
 	<?php } ?>
 	</div>

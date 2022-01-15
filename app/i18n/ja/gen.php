@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => '先頭',
 		'last' => '最後',
-		'load_more' => '記事をもっと読み込む',
-		'mark_all_read' => 'すべての記事を既読にする',
 		'next' => 'つぎへ',
-		'nothing_to_load' => 'これ以上の記事はありません',
 		'previous' => '前へ',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'または',
 		'yes' => 'OK',
+	),
+	'stream' => array (
+		'load_more' => '記事をもっと読み込む',
+		'mark_all_read' => 'すべての記事を既読にする',
+		'nothing_to_load' => 'これ以上の記事はありません',
 	),
 );

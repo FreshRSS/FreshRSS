@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'First',	// IGNORE
 		'last' => 'Last',	// IGNORE
-		'load_more' => 'Load more articles',	// IGNORE
-		'mark_all_read' => 'Mark all as read',	// IGNORE
 		'next' => 'Next',	// IGNORE
-		'nothing_to_load' => 'There are no more articles',	// IGNORE
 		'previous' => 'Previous',	// IGNORE
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'Okay!',	// IGNORE
 		'or' => 'or',	// IGNORE
 		'yes' => 'Yes',	// IGNORE
+	),
+	'stream' => array (
+		'load_more' => 'Load more articles',	// IGNORE
+		'mark_all_read' => 'Mark all as read',	// IGNORE
+		'nothing_to_load' => 'There are no more articles',	// IGNORE
 	),
 );

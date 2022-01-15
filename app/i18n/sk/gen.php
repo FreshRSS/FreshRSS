@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'Prvý',
 		'last' => 'Posledný',
-		'load_more' => 'Načítať viac článkov',
-		'mark_all_read' => 'Označiť všetko prečítané',
 		'next' => 'Ďalší',
-		'nothing_to_load' => 'Žiadne nové články',
 		'previous' => 'Predošlý',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'OK',
 		'or' => 'alebo',
 		'yes' => 'Áno',
+	),
+	'stream' => array (
+		'load_more' => 'Načítať viac článkov',
+		'mark_all_read' => 'Označiť všetko prečítané',
+		'nothing_to_load' => 'Žiadne nové články',
 	),
 );

@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => '首页',
 		'last' => '末页',
-		'load_more' => '载入更多文章',
-		'mark_all_read' => '全部设为已读',
 		'next' => '下一页',
-		'nothing_to_load' => '没有更多文章',
 		'previous' => '上一页',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => '正常！',
 		'or' => '或',
 		'yes' => '是',
+	),
+	'stream' => array (
+		'load_more' => '载入更多文章',
+		'mark_all_read' => '全部设为已读',
+		'nothing_to_load' => '没有更多文章',
 	),
 );

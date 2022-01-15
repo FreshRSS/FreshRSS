@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'First',
 		'last' => 'Last',
-		'load_more' => 'Load more articles',
-		'mark_all_read' => 'Mark all as read',
 		'next' => 'Next',
-		'nothing_to_load' => 'There are no more articles',
 		'previous' => 'Previous',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'Okay!',
 		'or' => 'or',
 		'yes' => 'Yes',
+	),
+	'stream' => array (
+		'load_more' => 'Load more articles',
+		'mark_all_read' => 'Mark all as read',
+		'nothing_to_load' => 'There are no more articles',
 	),
 );

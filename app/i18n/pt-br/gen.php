@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'Primeiro',
 		'last' => 'Último',
-		'load_more' => 'Carregar mais artigos',
-		'mark_all_read' => 'Marcar todos como lidos',
 		'next' => 'Próximo',
-		'nothing_to_load' => 'Não há mais artigos',
 		'previous' => 'Anterior',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'ou',
 		'yes' => 'Sim',
+	),
+	'stream' => array (
+		'load_more' => 'Carregar mais artigos',
+		'mark_all_read' => 'Marcar todos como lidos',
+		'nothing_to_load' => 'Não há mais artigos',
 	),
 );

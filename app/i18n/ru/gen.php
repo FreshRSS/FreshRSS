@@ -178,10 +178,7 @@ return array(
 	'pagination' => array(
 		'first' => 'Первая',
 		'last' => 'Последняя',
-		'load_more' => 'Загрузить больше статей',
-		'mark_all_read' => 'Отметить всё прочитанным',
 		'next' => 'Следующая',
-		'nothing_to_load' => 'Больше нет статей',
 		'previous' => 'Предыдущая',
 	),
 	'period' => array(
@@ -225,5 +222,10 @@ return array(
 		'ok' => 'Отлично!',
 		'or' => 'или',
 		'yes' => 'Да',
+	),
+	'stream' => array (
+		'load_more' => 'Загрузить больше статей',
+		'mark_all_read' => 'Отметить всё прочитанным',
+		'nothing_to_load' => 'Больше нет статей',
 	),
 );
