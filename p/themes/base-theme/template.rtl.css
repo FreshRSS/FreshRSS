@@ -476,13 +476,6 @@ a.btn {
 	width: 100px;
 }
 
-#load_more.loading,
-#load_more.loading:hover {
-	padding: 10px 20px;
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
-}
-
 /*=== Boxes */
 .box {
 	margin: 20px 0 20px 20px;
