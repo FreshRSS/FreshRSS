@@ -712,9 +712,9 @@ function onScroll() {
 		});
 	}
 	if (context.auto_load_more) {
-		const pagination = document.getElementById('stream-footer');
-		if (pagination && box_to_follow.offsetHeight > 0 &&
-			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= pagination.offsetTop) {
+		const streamFooter = document.getElementById('stream-footer');
+		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			load_more_posts();
 		}
 	}
