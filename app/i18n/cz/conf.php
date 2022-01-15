@@ -16,7 +16,7 @@ return array(
 		'exception' => 'Výjimka vymazání',
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_favourites' => 'Nikdy neodstraňovat oblíbené',
-		'keep_labels' => 'Nikdy neodstraňovat popisky',	// TODO
+		'keep_labels' => 'Nikdy neodstraňovat popisky',
 		'keep_max' => 'Maximální počet článků k ponechání',
 		'keep_min_by_feed' => 'Minimální počet článků k ponechání na kanál',
 		'keep_period' => 'Maximální stáří článků k ponechání',
@@ -51,11 +51,11 @@ return array(
 		'theme' => 'Motiv',
 		'theme_not_available' => 'Motiv „%s“ již není dostupný. Zvolte jiný motiv, prosím.',
 		'thumbnail' => array(
-			'label' => 'Náhled',	// TODO
-			'landscape' => 'Na šířku',	// TODO
-			'none' => 'Žádný',	// TODO
-			'portrait' => 'Na výšku',	// TODO
-			'square' => 'Čtverec',	// TODO
+			'label' => 'Náhled',
+			'landscape' => 'Na šířku',
+			'none' => 'Žádný',
+			'portrait' => 'Na výšku',
+			'square' => 'Čtverec',
 		),
 		'title' => 'Zobrazení',
 		'width' => array(
