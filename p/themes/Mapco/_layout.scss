@@ -8,6 +8,11 @@
 	width: auto;
 	table-layout: none;
 
+	.logo {
+		margin: 11px 0 5px;
+		filter: grayscale(100%) brightness(100);
+	}
+
 	.item {
 		vertical-align: middle;
 		// text-align: center;
@@ -97,12 +102,6 @@
 			}
 		}
 	}
-
-	.logo {
-		margin: 11px 0 5px;
-		filter: grayscale(100%) brightness(100);
-	}
-
 }
 
 /*=== Body */
@@ -372,7 +371,6 @@
 	code {
 		padding: 2px 5px;
 		background: $grey-lighter;
-		color: $grey-light;
 		border: 1px solid $grey-light;
 		border-radius: 3px;
 	}
