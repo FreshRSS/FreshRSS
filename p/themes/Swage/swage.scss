@@ -502,13 +502,13 @@ form {
 			}
 		}
 	}
-
-	.loading,
-	a:hover.loading {
-		background: url(loader.gif) center center no-repeat $color_aside;
-		font-size: 0;
-	}
 }
+
+#load_more.loading,
+#load_more.loading:hover {
+	background: url(loader.gif) center center no-repeat $color_aside;
+}
+
 
 .content {
 	padding: 20px 10px;

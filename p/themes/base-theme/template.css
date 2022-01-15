@@ -1044,6 +1044,13 @@ br {
 	min-height: 40px;
 }
 
+#load_more.loading,
+#load_more.loading:hover {
+	padding: 10px 20px;
+	background: url("loader.gif") center center no-repeat #fff;
+	font-size: 0;
+}
+
 .loading {
 	background: url("loader.gif") center center no-repeat;
 	font-size: 0;
