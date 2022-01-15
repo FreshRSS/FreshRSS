@@ -449,8 +449,8 @@ a.btn {
 
 /* === stream-footer **/
 #stream-footer {
-	padding: 1em 0;
 	margin: 0 0 5em;
+	padding: 1em 0;
 	width: 100%;
 	border-top: 1px solid #aaa;
 	text-align: center;
