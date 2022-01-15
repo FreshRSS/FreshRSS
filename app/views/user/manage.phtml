@@ -1,6 +1,9 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -12,7 +15,7 @@
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
 
-		
+
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
@@ -108,4 +111,4 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+</main>

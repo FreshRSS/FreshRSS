@@ -1,6 +1,9 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
 
-<div class="post drop-section">
+<main class="post drop-section">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -14,12 +17,12 @@
 		<p class="alert alert-warn">
 		<?= _t('sub.feed.showing.error') ?>
 	</p>
-	
+
 	<?php endif; ?>
 
 	<?php if (!$this->onlyFeedsWithError && $this->signalError){ ?>
 		<div>
-			<a class="btn" href="<?= _url('subscription', 'index', 'error', 1) ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
+			<a class="btn" href="<?= _url('subscription', 'index', 'error', '1') ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
 		</div>
 	<?php } ?>
 
@@ -73,18 +76,18 @@
 		</ul>
 	</div>
 
-</div>
+	<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
+	<a href="#" id="close-slider"<?= $class ?>>
+		<?= _i('close') ?>
+	</a>
+	<div id="slider"<?= $class ?>>
+	<?php
+		if (isset($this->feed)) {
+			$this->renderHelper('feed/update');
+		} elseif (isset($this->category)) {
+			$this->renderHelper('category/update');
+		}
+	?>
+	</div>
 
-<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>>
-	<?= _i('close') ?>
-</a>
-<div id="slider"<?= $class ?>>
-<?php
-	if (isset($this->feed)) {
-		$this->renderHelper('feed/update');
-	} elseif (isset($this->category)) {
-		$this->renderHelper('category/update');
-	}
-?>
-</div>
+</main>

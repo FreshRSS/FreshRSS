@@ -396,6 +396,10 @@ a.btn {
 	font-weight: bold;
 }
 
+.dropdown-menu .icon {
+	filter: grayscale(100%) brightness(2.5);
+}
+
 .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
@@ -1320,6 +1324,13 @@ a.btn {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #222;
+		border-top: 1px solid #171717;
+		border-left: 1px solid #171717;
+		right: 13px;
 	}
 
 	.day .name {

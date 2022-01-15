@@ -2,6 +2,14 @@
 
 /**
  * Manage configuration for the application.
+ * @property-read string $base_url
+ * @property array<string|array<int,string>> $db
+ * @property-read string $disable_update
+ * @property-read string $environment
+ * @property-read array<string> $extensions_enabled
+ * @property-read string $mailer
+ * @property-read string $smtp
+ * @property string $title
  */
 class Minz_Configuration {
 	/**
@@ -12,10 +20,10 @@ class Minz_Configuration {
 	/**
 	 * Add a new configuration to the list of configuration.
 	 *
-	 * @param $namespace the name of the current configuration
-	 * @param $config_filename the filename of the configuration
-	 * @param $default_filename a filename containing default values for the configuration
-	 * @param $configuration_setter an optional helper to set values in configuration
+	 * @param string $namespace the name of the current configuration
+	 * @param string $config_filename the filename of the configuration
+	 * @param string $default_filename a filename containing default values for the configuration
+	 * @param object $configuration_setter an optional helper to set values in configuration
 	 */
 	public static function register($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		self::$config_list[$namespace] = new Minz_Configuration(
@@ -26,8 +34,8 @@ class Minz_Configuration {
 	/**
 	 * Parse a file and return its data.
 	 *
-	 * @param $filename the name of the file to parse.
-	 * @return an array of values
+	 * @param string $filename the name of the file to parse.
+	 * @return array of values
 	 * @throws Minz_FileNotExistException if the file does not exist or is invalid.
 	 */
 	public static function load($filename) {
@@ -42,7 +50,7 @@ class Minz_Configuration {
 	/**
 	 * Return the configuration related to a given namespace.
 	 *
-	 * @param $namespace the name of the configuration to get.
+	 * @param string $namespace the name of the configuration to get.
 	 * @return Minz_Configuration object
 	 * @throws Minz_ConfigurationNamespaceException if the namespace does not exist.
 	 */
@@ -58,6 +66,8 @@ class Minz_Configuration {
 
 	/**
 	 * The namespace of the current configuration.
+	 * Unused.
+	 * @phpstan-ignore-next-line
 	 */
 	private $namespace = '';
 
@@ -81,26 +91,31 @@ class Minz_Configuration {
 	 */
 	private $configuration_setter = null;
 
+	/**
+	 * List of enabled extensions.
+	 */
+	private $extensions_enabled = [];
+
 	public function removeExtension($ext_name) {
-		unset(self::$extensions_enabled[$ext_name]);
-		$legacyKey = array_search($ext_name, self::$extensions_enabled, true);
+		unset($this->extensions_enabled[$ext_name]);
+		$legacyKey = array_search($ext_name, $this->extensions_enabled, true);
 		if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
-			unset(self::$extensions_enabled[$legacyKey]);
+			unset($this->extensions_enabled[$legacyKey]);
 		}
 	}
 	public function addExtension($ext_name) {
-		if (!isset(self::$extensions_enabled[$ext_name])) {
-			self::$extensions_enabled[$ext_name] = true;
+		if (!isset($this->extensions_enabled[$ext_name])) {
+			$this->extensions_enabled[$ext_name] = true;
 		}
 	}
 
 	/**
 	 * Create a new Minz_Configuration object.
 	 *
-	 * @param $namespace the name of the current configuration.
-	 * @param $config_filename the file containing configuration values.
-	 * @param $default_filename the file containing default values, null by default.
-	 * @param $configuration_setter an optional helper to set values in configuration
+	 * @param string $namespace the name of the current configuration.
+	 * @param string $config_filename the file containing configuration values.
+	 * @param string $default_filename the file containing default values, null by default.
+	 * @param object $configuration_setter an optional helper to set values in configuration
 	 */
 	private function __construct($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		$this->namespace = $namespace;
@@ -125,7 +140,7 @@ class Minz_Configuration {
 
 	/**
 	 * Set a configuration setter for the current configuration.
-	 * @param $configuration_setter the setter to call when modifying data. It
+	 * @param object $configuration_setter the setter to call when modifying data. It
 	 *        must implement an handle($key, $value) method.
 	 */
 	public function _configurationSetter($configuration_setter) {
@@ -150,8 +165,8 @@ class Minz_Configuration {
 	/**
 	 * Return the value of the given param.
 	 *
-	 * @param $key the name of the param.
-	 * @param $default default value to return if key does not exist.
+	 * @param string $key the name of the param.
+	 * @param mixed $default default value to return if key does not exist.
 	 * @return mixed value corresponding to the key.
 	 * @throws Minz_ConfigurationParamException if the param does not exist
 	 */
@@ -176,8 +191,8 @@ class Minz_Configuration {
 	/**
 	 * Set or remove a param.
 	 *
-	 * @param $key the param name to set.
-	 * @param $value the value to set. If null, the key is removed from the configuration.
+	 * @param string $key the param name to set.
+	 * @param mixed $value the value to set. If null, the key is removed from the configuration.
 	 */
 	public function _param($key, $value = null) {
 		if (!is_null($this->configuration_setter) && $this->configuration_setter->support($key)) {

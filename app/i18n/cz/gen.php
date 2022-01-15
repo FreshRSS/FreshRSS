@@ -1,38 +1,47 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'Aktualizovat',
-		'add' => 'Add',	// TODO - Translation
-		'back' => '← Go back',	// TODO - Translation
+		'add' => 'Add',	// TODO
+		'back' => '← Go back',	// TODO
 		'back_to_rss_feeds' => '← Zpět na seznam RSS kanálů',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
-		'demote' => 'Demote',	// TODO - Translation
+		'demote' => 'Demote',	// TODO
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
 		'enable' => 'Povolit',
-		'export' => 'Export',	// TODO - Translation
+		'export' => 'Export',	// TODO
 		'filter' => 'Filtrovat',
-		'import' => 'Import',	// TODO - Translation
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'import' => 'Import',	// TODO
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'Spravovat',
-		'mark_favorite' => 'Označit jako oblíbené',
 		'mark_read' => 'Označit jako přečtené',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
+		'promote' => 'Promote',	// TODO
+		'purge' => 'Purge',	// TODO
 		'remove' => 'Odstranit',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Rename',	// TODO
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Smazat všechny články',
-		'update' => 'Update',	// TODO - Translation
+		'update' => 'Update',	// TODO
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
 		'email' => 'Email',
 		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dny)</small>',
-		'login' => 'Login',	// TODO - Translation
+		'login' => 'Login',	// TODO
 		'logout' => 'Odhlášení',
 		'password' => array(
 			'_' => 'Heslo',
@@ -70,8 +79,8 @@ return array(
 		'december' => 'Pro',
 		'feb' => 'úno',
 		'february' => 'Úno',
-		'format_date' => 'j\\. %s Y',
-		'format_date_hour' => 'j\\. %s Y \\v H\\:i',
+		'format_date' => 'j\\. %s Y',	// IGNORE
+		'format_date_hour' => 'j\\. %s Y \\v H\\:i',	// IGNORE
 		'fri' => 'Pá',
 		'jan' => 'led',
 		'january' => 'Led',
@@ -79,10 +88,10 @@ return array(
 		'july' => 'Čvn',
 		'jun' => 'čer',
 		'june' => 'Čer',
-		'last_2_year' => 'Last two years',	// TODO - Translation
+		'last_2_year' => 'Last two years',	// TODO
 		'last_3_month' => 'Minulé tři měsíce',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
+		'last_3_year' => 'Last three years',	// TODO
+		'last_5_year' => 'Last five years',	// TODO
 		'last_6_month' => 'Minulých šest měsíců',
 		'last_month' => 'Minulý měsíc',
 		'last_week' => 'Minulý týden',
@@ -107,9 +116,9 @@ return array(
 		'wed' => 'St',
 		'yesterday' => 'Včera',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO - Translation
+		'_' => 'FreshRSS',	// TODO
 		'about' => 'O FreshRSS',
 	),
 	'js' => array(
@@ -125,28 +134,28 @@ return array(
 		'should_be_activated' => 'JavaScript musí být povolen',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Account',	// TODO
 		'admin' => 'Administrace',
 		'archiving' => 'Archivace',
 		'authentication' => 'Přihlášení',
@@ -161,7 +170,7 @@ return array(
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
-		'system' => 'System configuration',	// TODO - Translation
+		'system' => 'System configuration',	// TODO
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
@@ -176,33 +185,33 @@ return array(
 		'previous' => 'Předchozí',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => 'days',	// TODO
+		'hours' => 'hours',	// TODO
+		'months' => 'months',	// TODO
+		'weeks' => 'weeks',	// TODO
+		'years' => 'years',	// TODO
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO - Translation
-		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'Known' => 'Known based sites',	// TODO
+		'blogotext' => 'Blogotext',	// IGNORE
+		'clipboard' => 'Clipboard',	// TODO
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// TODO
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Tisk',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
@@ -212,8 +221,8 @@ return array(
 		'damn' => 'Sakra!',
 		'default_category' => 'Nezařazeno',
 		'no' => 'Ne',
-		'not_applicable' => 'Not available',	// TODO - Translation
-		'ok' => 'Okay!',	// TODO - Translation
+		'not_applicable' => 'Not available',	// TODO
+		'ok' => 'Okay!',	// TODO
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),

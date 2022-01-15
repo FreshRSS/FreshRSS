@@ -71,7 +71,7 @@ img.icon:hover {
 	background: none;
 }
 
-div#stream {
+main#stream {
 	margin-top: 35px;
 }
 
@@ -1011,6 +1011,10 @@ form th {
 		padding-left: 10px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle.btn::after {
+		display: none;
+	}
+
 	.day .name {
 		font-size: 1.1rem;
 	}
@@ -1160,5 +1164,5 @@ button.as-link {
 	min-height: initial;
 }
 #slider .form-group:hover {
-	background: inital;
+	background: initial;
 }

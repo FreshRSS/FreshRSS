@@ -260,27 +260,35 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		foreach ($booleanSearch->searches() as $filter) {
 			$ok = true;
-			if ($ok && $filter->getMinPubdate()) {
-				$ok &= $this->date >= $filter->getMinPubdate();
-			}
-			if ($ok && $filter->getMaxPubdate()) {
-				$ok &= $this->date <= $filter->getMaxPubdate();
-			}
-			if ($ok && $filter->getMinDate()) {
+			if ($filter->getMinDate()) {
 				$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
+			}
+			if ($ok && $filter->getNotMinDate()) {
+				$ok &= strnatcmp($this->id, $filter->getNotMinDate() . '000000') < 0;
 			}
 			if ($ok && $filter->getMaxDate()) {
 				$ok &= strnatcmp($this->id, $filter->getMaxDate() . '000000') <= 0;
 			}
-			if ($ok && $filter->getInurl()) {
-				foreach ($filter->getInurl() as $url) {
-					$ok &= stripos($this->link, $url) !== false;
-				}
+			if ($ok && $filter->getNotMaxDate()) {
+				$ok &= strnatcmp($this->id, $filter->getNotMaxDate() . '000000') > 0;
 			}
-			if ($ok && $filter->getNotInurl()) {
-				foreach ($filter->getNotInurl() as $url) {
-					$ok &= stripos($this->link, $url) === false;
-				}
+			if ($ok && $filter->getMinPubdate()) {
+				$ok &= $this->date >= $filter->getMinPubdate();
+			}
+			if ($ok && $filter->getNotMinPubdate()) {
+				$ok &= $this->date < $filter->getNotMinPubdate();
+			}
+			if ($ok && $filter->getMaxPubdate()) {
+				$ok &= $this->date <= $filter->getMaxPubdate();
+			}
+			if ($ok && $filter->getNotMaxPubdate()) {
+				$ok &= $this->date > $filter->getNotMaxPubdate();
+			}
+			if ($ok && $filter->getFeedIds()) {
+				$ok &= in_array($this->feedId, $filter->getFeedIds());
+			}
+			if ($ok && $filter->getNotFeedIds()) {
+				$ok &= !in_array($this->feedId, $filter->getFeedIds());
 			}
 			if ($ok && $filter->getAuthor()) {
 				foreach ($filter->getAuthor() as $author) {
@@ -322,6 +330,16 @@ class FreshRSS_Entry extends Minz_Model {
 						}
 					}
 					$ok &= !$found;
+				}
+			}
+			if ($ok && $filter->getInurl()) {
+				foreach ($filter->getInurl() as $url) {
+					$ok &= stripos($this->link, $url) !== false;
+				}
+			}
+			if ($ok && $filter->getNotInurl()) {
+				foreach ($filter->getNotInurl() as $url) {
+					$ok &= stripos($this->link, $url) === false;
 				}
 			}
 			if ($ok && $filter->getSearch()) {
@@ -433,12 +451,18 @@ class FreshRSS_Entry extends Minz_Model {
 			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		}
 
-		if ($html) {
+		if (is_string($html) && strlen($html) > 0) {
 			require_once(LIB_PATH . '/lib_phpQuery.php');
+			/**
+			 * @var phpQueryObject @doc
+			 */
 			$doc = phpQuery::newDocument($html);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
+				/**
+				 * @var phpQueryObject @metas
+				 */
 				$metas = $doc->find('meta[http-equiv][content]');
 				foreach ($metas as $meta) {
 					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
@@ -452,6 +476,9 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 
+			/**
+			 * @var phpQueryObject @content
+			 */
 			$content = $doc->find($path);
 			$html = trim(sanitizeHTML($content->__toString(), $url));
 			phpQuery::unloadDocuments();
@@ -463,18 +490,18 @@ class FreshRSS_Entry extends Minz_Model {
 
 	public function loadCompleteContent($force = false) {
 		// Gestion du contenu
-		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
+		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed(true);
 		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 
 			if ($entry) {
-				// l'article existe déjà en BDD, en se contente de recharger ce contenu
+				// l’article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
 				try {
-					// l'article n'est pas en BDD, on va le chercher sur le site
+					// l’article n’est pas en BDD, on va le chercher sur le site
 					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
 						$feed->pathEntries(),
@@ -499,7 +526,7 @@ class FreshRSS_Entry extends Minz_Model {
 						return true;
 					}
 				} catch (Exception $e) {
-					// rien à faire, on garde l'ancien contenu(requête a échoué)
+					// rien à faire, on garde l’ancien contenu(requête a échoué)
 					Minz_Log::warning($e->getMessage());
 				}
 			}

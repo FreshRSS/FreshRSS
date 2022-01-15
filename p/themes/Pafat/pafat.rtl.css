@@ -1169,10 +1169,16 @@ a.signin {
 	.nav_menu .search input {
 		max-width: 97%;
 		width: 90px;
+		line-height: 2;
 	}
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		border-top: 1px solid #aaa;
+		border-right: 1px solid #aaa;
 	}
 
 	.day .name {

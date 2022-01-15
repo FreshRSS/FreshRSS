@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.5.6
+ * @version 1.5.8
  * @copyright 2004-2017 Ryan Parman, Sam Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Sam Sneddon
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.5.6');
+define('SIMPLEPIE_VERSION', '1.5.8');
 
 /**
  * SimplePie Build
@@ -1389,7 +1389,7 @@ class SimplePie
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
-	 * @return positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
+	 * @return boolean|integer positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
 	 */
 	public function init()
 	{
@@ -1845,7 +1845,7 @@ class SimplePie
 	}
 
 	/**
-	 * Get the error message for the occured error
+	 * Get the error message for the occurred error
 	 *
 	 * @return string|array Error message, or array of messages for multifeeds
 	 */
@@ -2707,13 +2707,19 @@ class SimplePie
 			}
 		}
 
-		if (isset($this->data['headers']['link']) &&
-		    preg_match('/<([^>]+)>; rel='.preg_quote($rel).'/',
-		               $this->data['headers']['link'], $match))
+		if (isset($this->data['headers']['link']))
 		{
-			return array($match[1]);
+			$link_headers = $this->data['headers']['link'];
+			if (is_string($link_headers)) {
+				$link_headers = array($link_headers);
+			}
+			$matches = preg_filter('/<([^>]+)>; rel='.preg_quote($rel).'/', '$1', $link_headers);
+			if (!empty($matches)) {
+				return $matches;
+			}
 		}
-		else if (isset($this->data['links'][$rel]))
+
+		if (isset($this->data['links'][$rel]))
 		{
 			return $this->data['links'][$rel];
 		}
