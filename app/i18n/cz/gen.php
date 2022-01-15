@@ -223,7 +223,7 @@ return array(
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Načíst více článků',
 		'mark_all_read' => 'Označit vše jako přečtené',
 		'nothing_to_load' => 'Žádné nové články',

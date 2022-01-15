@@ -223,7 +223,7 @@ return array(
 		'or' => 'או',
 		'yes' => 'כן',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'טעינת מאמרים נוספים',
 		'mark_all_read' => 'סימון הכל כנקרא',
 		'nothing_to_load' => 'אין מאמרים נוספים',

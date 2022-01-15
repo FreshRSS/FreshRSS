@@ -223,7 +223,7 @@ return array(
 		'or' => 'ya da',
 		'yes' => 'Evet',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Daha fazla makale yükle',
 		'mark_all_read' => 'Tümünü okundu say',
 		'nothing_to_load' => 'Başka makale yok',

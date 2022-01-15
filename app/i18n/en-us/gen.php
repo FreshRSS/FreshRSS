@@ -223,7 +223,7 @@ return array(
 		'or' => 'or',	// IGNORE
 		'yes' => 'Yes',	// IGNORE
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Load more articles',	// IGNORE
 		'mark_all_read' => 'Mark all as read',	// IGNORE
 		'nothing_to_load' => 'There are no more articles',	// IGNORE

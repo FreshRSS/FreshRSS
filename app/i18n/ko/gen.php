@@ -223,7 +223,7 @@ return array(
 		'or' => '또는',
 		'yes' => '네',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => '글 더 불러오기',
 		'mark_all_read' => '모두 읽음으로 표시',
 		'nothing_to_load' => '더 이상 글이 없습니다',

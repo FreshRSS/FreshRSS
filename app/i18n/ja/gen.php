@@ -223,7 +223,7 @@ return array(
 		'or' => 'または',
 		'yes' => 'OK',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => '記事をもっと読み込む',
 		'mark_all_read' => 'すべての記事を既読にする',
 		'nothing_to_load' => 'これ以上の記事はありません',

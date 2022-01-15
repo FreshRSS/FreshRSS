@@ -223,7 +223,7 @@ return array(
 		'or' => 'o',
 		'yes' => 'Si',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Carica altri articoli',
 		'mark_all_read' => 'Segna tutto come letto',
 		'nothing_to_load' => 'Non ci sono altri articoli',

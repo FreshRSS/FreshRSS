@@ -223,7 +223,7 @@ return array(
 		'or' => 'или',
 		'yes' => 'Да',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Загрузить больше статей',
 		'mark_all_read' => 'Отметить всё прочитанным',
 		'nothing_to_load' => 'Больше нет статей',

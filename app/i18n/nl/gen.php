@@ -223,7 +223,7 @@ return array(
 		'or' => 'of',
 		'yes' => 'Ja',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Laad meer artikelen',
 		'mark_all_read' => 'Markeer alle als gelezen',
 		'nothing_to_load' => 'Er zijn geen artikelen meer',

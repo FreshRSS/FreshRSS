@@ -223,7 +223,7 @@ return array(
 		'or' => 'alebo',
 		'yes' => 'Áno',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Načítať viac článkov',
 		'mark_all_read' => 'Označiť všetko prečítané',
 		'nothing_to_load' => 'Žiadne nové články',

@@ -223,7 +223,7 @@ return array(
 		'or' => 'o',
 		'yes' => 'Òc',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Cargar mai d’articles',
 		'mark_all_read' => 'O marcar tot coma legit',
 		'nothing_to_load' => 'I a pas mai d’articles',

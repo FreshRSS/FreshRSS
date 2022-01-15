@@ -223,7 +223,7 @@ return array(
 		'or' => 'lub',
 		'yes' => 'Tak',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => 'Załaduj więcej wiadomości',
 		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
 		'nothing_to_load' => 'Koniec listy wiadomości',

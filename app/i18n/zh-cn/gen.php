@@ -223,7 +223,7 @@ return array(
 		'or' => '或',
 		'yes' => '是',
 	),
-	'stream' => array (
+	'stream' => array(
 		'load_more' => '载入更多文章',
 		'mark_all_read' => '全部设为已读',
 		'nothing_to_load' => '没有更多文章',
