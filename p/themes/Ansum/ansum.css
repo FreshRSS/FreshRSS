@@ -72,9 +72,6 @@
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .btn.btn-important {
@@ -257,9 +254,6 @@ form th {
 	letter-spacing: 1px;
 }
 .dropdown-menu .item {
-	-webkit-transition: all 0.075s ease-in-out;
-	-moz-transition: all 0.075s ease-in-out;
-	-o-transition: all 0.075s ease-in-out;
 	transition: all 0.075s ease-in-out;
 }
 .dropdown-menu .item a, .dropdown-menu .item span, .dropdown-menu .item .as-link {
@@ -471,9 +465,6 @@ form th {
 	text-decoration: none;
 	background: #fdf6ef;
 	color: #ca7227;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 #bigMarkAsRead:hover {
@@ -578,9 +569,6 @@ form th {
 	line-height: 2.5rem;
 	font-size: 1rem;
 	font-weight: 400;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .tree .tree-folder .tree-folder-items .item.active {
@@ -665,9 +653,6 @@ form th {
 }
 .nav-list .item {
 	background: #fbf9f6;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav-list .item a {
@@ -825,9 +810,6 @@ form th {
 	border: none;
 	border-radius: 2px 0 0 2px;
 	background-color: #f7f2ea;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .header .item.search input:hover {
@@ -963,9 +945,6 @@ form th {
 	background-color: #fcfaf8;
 	background-position: center;
 	background-repeat: no-repeat;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav_menu .stick .btn:hover {
@@ -1005,9 +984,6 @@ form th {
 	padding: 5px 16px;
 	color: #363330;
 	background-color: #fcfaf8;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav_menu .stick .btn.read_all:hover {
@@ -1168,9 +1144,6 @@ form th {
 /*=== Feed articles */
 .flux {
 	background: #fff;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .flux:hover {
@@ -1200,9 +1173,6 @@ form th {
 }
 .flux.favorite {
 	border-left-color: #ffc300;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .flux.favorite:not(.current) {
@@ -1457,9 +1427,6 @@ form th {
 		display: inline-block;
 		width: 100%;
 		color: #363330;
-		-webkit-transition: all 0.2s ease-in-out;
-		-moz-transition: all 0.2s ease-in-out;
-		-o-transition: all 0.2s ease-in-out;
 		transition: all 0.2s ease-in-out;
 	}
 	ul.nav .item a:hover, ul.nav .item a:active {
@@ -1473,9 +1440,6 @@ form th {
 	}
 
 	.aside {
-		-webkit-transition: all 0.2s ease-in-out;
-		-moz-transition: all 0.2s ease-in-out;
-		-o-transition: all 0.2s ease-in-out;
 		transition: all 0.2s ease-in-out;
 	}
 	.aside.aside_feed {
@@ -1486,9 +1450,9 @@ form th {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
-	#close-slider.active,
-	.dropdown-menu .toggle_aside {
+#panel .close,
+#close-slider.active,
+.dropdown-menu .toggle_aside {
 		background: #b7641d;
 		display: block;
 		width: 100%;
@@ -1500,11 +1464,11 @@ form th {
 	.header {
 		padding: 0.5rem;
 	}
-	.header .item.search form {
-		display: inherit;
-	}
 	.header .item.search {
 		display: block;
+	}
+	.header .item.search form {
+		display: inherit;
 	}
 	.header .item.search .stick {
 		display: flex;
