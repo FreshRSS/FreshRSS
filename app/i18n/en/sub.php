@@ -31,7 +31,7 @@ return array(
 		'title' => 'Title',
 	),
 	'feed' => array(
-		'add' => 'Add a RSS feed',
+		'add' => 'Add an RSS feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(
