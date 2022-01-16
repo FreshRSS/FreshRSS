@@ -17,7 +17,7 @@ return array(
 		'bugs_reports' => 'Bug reports',
 		'credits' => 'Credits',
 		'credits_content' => 'Some design elements come from <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> although FreshRSS doesn’t use this framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> come from <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police has been created by <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS is based on <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, a PHP framework.',
-		'freshrss_description' => 'FreshRSS is an RSS feeds aggregator to self-host like <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> or <a href="https://github.com/LeedRSS/Leed">Leed</a>. It is light and easy to take in hand while being powerful and configurable tool.',
+		'freshrss_description' => 'FreshRSS is an RSS feed aggregator to self-host like <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> or <a href="https://github.com/LeedRSS/Leed">Leed</a>. It is light and easy to take in hand while being powerful and configurable tool.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',
 		'license' => 'License',
 		'project_website' => 'Project website',
