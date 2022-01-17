@@ -13,42 +13,42 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO
-			'required' => 'An email address is required.',	// TODO
+			'invalid' => 'Tato e-mailová adresa je neplatná.',
+			'required' => 'Je vyžadována e-mailová adresa.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO
+			'change_email' => 'Svou e-mailovou adresu můžete změnit <a href="%s">na stránce profilu</a>.',
+			'email_sent_to' => 'Odeslali jsme vám e-mail na <strong>%s</strong>. Postupujte podle jeho pokynů pro ověření vaší adresy.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO
-				'email_sent' => 'An email has been sent to your address.',	// TODO
-				'error' => 'Email address validation failed.',	// TODO
-				'ok' => 'This email address has been validated.',	// TODO
-				'unnecessary' => 'This email address was already validated.',	// TODO
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO
+				'email_failed' => 'Nemohli jsme vám odeslat e-mail kvůli chybně nastavenému serveru.',
+				'email_sent' => 'Na vaši adresu byl odeslán e-mail.',
+				'error' => 'Ověření e-mailové adresy selhalo.',
+				'ok' => 'Tato e-mailová adresa byla ověřena.',
+				'unnecessary' => 'Tato e-mailová adresa již byla ověřena.',
+				'wrong_token' => 'Tuto e-mailovou adresu se nepodařilo ověřit kvůli špatnému tokenu.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO
-			'resend_email' => 'Resend the email',	// TODO
-			'title' => 'Email address validation',	// TODO
+			'need_to' => 'Než budete moci používat %s, musíte ověřit svou e-mailovou adresu.',
+			'resend_email' => 'Znovu odeslat e-mail',
+			'title' => 'Ověření e-mailové adresy',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO
-			'title' => 'You need to validate your account',	// TODO
-			'welcome' => 'Welcome %s,',	// TODO
+			'body' => 'Právě jste se zaregistrovali na %s, ale ještě musíte ověřit svou e-mailovou adresu. Přejděte na následující odkaz:',
+			'title' => 'Musíte ověřit svůj účet',
+			'welcome' => 'Vítejt, %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO
+		'invalid' => 'Heslo je neplatné.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO
+			'invalid' => 'Musíte přijmout Podmínky služby, abyste se mohli zaregistrovat.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO
-		'taken' => 'This username, %s, is taken.',	// TODO
+		'invalid' => 'Toto uživatelské jméno je neplatné.',
+		'taken' => 'Toto uživatelské jméno, %s, je zabráno.',
 	),
 );

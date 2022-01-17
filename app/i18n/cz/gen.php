@@ -12,37 +12,37 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Aktualizovat',
-		'add' => 'Add',	// TODO
-		'back' => '← Go back',	// TODO
-		'back_to_rss_feeds' => '← Zpět na seznam RSS kanálů',
+		'actualize' => 'Aktualizovat kanály',
+		'add' => 'Přidat',
+		'back' => '← Jít zpět',
+		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
-		'demote' => 'Demote',	// TODO
+		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
 		'enable' => 'Povolit',
-		'export' => 'Export',	// TODO
+		'export' => 'Exportovat',
 		'filter' => 'Filtrovat',
-		'import' => 'Import',	// TODO
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
+		'import' => 'Importovat',
+		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
-		'promote' => 'Promote',	// TODO
-		'purge' => 'Purge',	// TODO
-		'remove' => 'Odstranit',
-		'rename' => 'Rename',	// TODO
-		'see_website' => 'Navštívit WWW stránku',
+		'promote' => 'Zvýšit úroveň',
+		'purge' => 'Vymazat',
+		'remove' => 'Odebrat',
+		'rename' => 'Přejmenovat',
+		'see_website' => 'Zobrazit webovou stránku',
 		'submit' => 'Odeslat',
-		'truncate' => 'Smazat všechny články',
-		'update' => 'Update',	// TODO
+		'truncate' => 'Odstranit všechny články',
+		'update' => 'Aktualizovat',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
-		'email' => 'Email',
-		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dny)</small>',
-		'login' => 'Login',	// TODO
-		'logout' => 'Odhlášení',
+		'accept_tos' => 'Přijímám <a href="%s">Podmínky služby</a>.',
+		'email' => 'E-mail',
+		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dní)</small>',
+		'login' => 'Přihlásit se',
+		'logout' => 'Odhlásit se',
 		'password' => array(
 			'_' => 'Heslo',
 			'format' => '<small>Alespoň 7 znaků</small>',
@@ -53,7 +53,7 @@ return array(
 			'title' => 'Vytvoření účtu',
 		),
 		'username' => array(
-			'_' => 'Uživatel',
+			'_' => 'Uživatelské jméno',
 			'format' => '<small>Maximálně 16 alfanumerických znaků</small>',
 		),
 	),
@@ -71,44 +71,44 @@ return array(
 		'Oct' => '\\Ř\\í\\j\\e\\n',
 		'Sep' => '\\Z\\á\\ř\\í',
 		'apr' => 'dub',
-		'april' => 'Dub',
+		'april' => 'Duben',
 		'aug' => 'srp',
-		'august' => 'Srp',
+		'august' => 'Srpen',
 		'before_yesterday' => 'Předevčírem',
 		'dec' => 'pro',
-		'december' => 'Pro',
+		'december' => 'Prosinec',
 		'feb' => 'úno',
-		'february' => 'Úno',
+		'february' => 'Únor',
 		'format_date' => 'j\\. %s Y',	// IGNORE
 		'format_date_hour' => 'j\\. %s Y \\v H\\:i',	// IGNORE
 		'fri' => 'Pá',
 		'jan' => 'led',
-		'january' => 'Led',
+		'january' => 'Leden',
 		'jul' => 'čvn',
-		'july' => 'Čvn',
+		'july' => 'Červenec',
 		'jun' => 'čer',
-		'june' => 'Čer',
-		'last_2_year' => 'Last two years',	// TODO
-		'last_3_month' => 'Minulé tři měsíce',
-		'last_3_year' => 'Last three years',	// TODO
-		'last_5_year' => 'Last five years',	// TODO
-		'last_6_month' => 'Minulých šest měsíců',
-		'last_month' => 'Minulý měsíc',
-		'last_week' => 'Minulý týden',
-		'last_year' => 'Minulý rok',
+		'june' => 'Červen',
+		'last_2_year' => 'Poslední dva roky',
+		'last_3_month' => 'Poslední tři měsíce',
+		'last_3_year' => 'Poslední tři roky',
+		'last_5_year' => 'Posledních pět let',
+		'last_6_month' => 'Posledních šest měsíců',
+		'last_month' => 'Poslední měsíc',
+		'last_week' => 'Poslední týden',
+		'last_year' => 'Poslední rok',
 		'mar' => 'bře',
-		'march' => 'Bře',
+		'march' => 'Březen',
 		'may' => 'Květen',
 		'may_' => 'Kvě',
 		'mon' => 'Po',
 		'month' => 'měsíce',
 		'nov' => 'lis',
-		'november' => 'Lis',
+		'november' => 'Listopad',
 		'oct' => 'říj',
-		'october' => 'Říj',
+		'october' => 'Říjen',
 		'sat' => 'So',
 		'sep' => 'zář',
-		'september' => 'Zář',
+		'september' => 'Září',
 		'sun' => 'Ne',
 		'thu' => 'Čt',
 		'today' => 'Dnes',
@@ -118,19 +118,19 @@ return array(
 	),
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Prázdná kategorie',
-		'confirm_action' => 'Jste si jist, že chcete provést tuto akci? Změny nelze vrátit zpět!',
-		'confirm_action_feed_cat' => 'Jste si jist, že chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Změny nelze vrátit zpět!',
+		'confirm_action' => 'Opravdu chcete provést tuto akci? Toto nelze zrušit!',
+		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'feedback' => array(
-			'body_new_articles' => 'Je %%d nových článků k přečtení v FreshRSS.',
-			'request_failed' => 'Požadavek selhal, což může být způsobeno problémy s připojení k internetu.',
+			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
+			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
-		'new_article' => 'Jsou k dispozici nové články, stránku obnovíte kliknutím zde.',
+		'new_article' => 'Jsou dostupné nové články, klikněte pro obnovení stránky.',
 		'should_be_activated' => 'JavaScript musí být povolen',
 	),
 	'lang' => array(
@@ -155,22 +155,22 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
-		'account' => 'Account',	// TODO
+		'account' => 'Účet',
 		'admin' => 'Administrace',
 		'archiving' => 'Archivace',
-		'authentication' => 'Přihlášení',
-		'check_install' => 'Ověření instalace',
+		'authentication' => 'Ověřování',
+		'check_install' => 'Kontrola instalace',
 		'configuration' => 'Nastavení',
 		'display' => 'Zobrazení',
 		'extensions' => 'Rozšíření',
-		'logs' => 'Logy',
+		'logs' => 'Protokoly',
 		'queries' => 'Uživatelské dotazy',
 		'reading' => 'Čtení',
-		'search' => 'Hledat výraz nebo #tagy',
+		'search' => 'Hledat slova nebo #štítky',
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
-		'system' => 'System configuration',	// TODO
+		'system' => 'Nastavení systému',
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
@@ -182,18 +182,18 @@ return array(
 		'previous' => 'Předchozí',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO
-		'hours' => 'hours',	// TODO
-		'months' => 'months',	// TODO
-		'weeks' => 'weeks',	// TODO
-		'years' => 'years',	// TODO
+		'days' => 'dní',
+		'hours' => 'hodin',
+		'months' => 'měsíců',
+		'weeks' => 'týdnů',
+		'years' => 'let',
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO
+		'Known' => 'Známé základní stránky',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'clipboard' => 'Clipboard',	// TODO
+		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Email',	// TODO
+		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
@@ -203,29 +203,29 @@ return array(
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
-		'print' => 'Tisk',
+		'print' => 'Tisknout',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'wallabag v1',	// IGNORE
-		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'wallabag' => 'Wallabag v1',
+		'wallabagv2' => 'Wallabag v2',
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
-		'blank_to_disable' => 'Zakázat - ponechte prázdné',
+		'blank_to_disable' => 'Ponechte prázdné pro zakázání',
 		'by_author' => 'Od:',
 		'by_default' => 'Výchozí',
 		'damn' => 'Sakra!',
 		'default_category' => 'Nezařazeno',
 		'no' => 'Ne',
-		'not_applicable' => 'Not available',	// TODO
-		'ok' => 'Okay!',	// TODO
+		'not_applicable' => 'Nedostupné',
+		'ok' => 'Dobře!',
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),
 	'stream' => array(
 		'load_more' => 'Načíst více článků',
 		'mark_all_read' => 'Označit vše jako přečtené',
-		'nothing_to_load' => 'Žádné nové články',
+		'nothing_to_load' => 'Nejsou zde žádné další články',
 	),
 );
