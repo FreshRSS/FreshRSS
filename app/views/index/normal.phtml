@@ -86,7 +86,7 @@ $today = @strtotime('today');
 								?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
 							} ?>
 							</ul><?php 
-						} ?>
+						}?>
 					</div>
 					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?><span class="extern-link-icon"><?= _i('link') ?></span></a></h1>
 					<div class="subtitle">
