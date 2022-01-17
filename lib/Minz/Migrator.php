@@ -39,7 +39,8 @@ class Minz_Migrator
 
 		$migration_files = scandir($migrations_path);
 		$migration_files = array_filter($migration_files, function ($filename) {
-			return $filename[0] !== '.';
+			$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+			return $file_extension === 'php';
 		});
 		$migration_versions = array_map(function ($filename) {
 			return basename($filename, '.php');
@@ -135,7 +136,8 @@ class Minz_Migrator
 		}
 
 		foreach (scandir($directory) as $filename) {
-			if ($filename[0] === '.') {
+			$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+			if ($file_extension !== 'php') {
 				continue;
 			}
 
