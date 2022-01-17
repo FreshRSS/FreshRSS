@@ -872,8 +872,8 @@ input[type="search"] {
 }
 
 .content header {
-	font-size: 90%;
 	color: #666;
+	font-size: 90%;
 }
 
 .content header a {
@@ -891,18 +891,18 @@ input[type="search"] {
 }
 
 .content header .tags .list-tags {
-	padding: 0;
 	margin: 0;
+	padding: 0;
 	display: inline-block;
 	list-style: none;
 }
 
-.content header .tags .list-tags .item{
+.content header .tags .list-tags .item {
 	display: inline-block;
 	line-height: normal;
 }
 
-.content header .tags .list-tags .item a{
+.content header .tags .list-tags .item a {
 	display: inline;
 	padding-right: 0.5em;
 }
@@ -911,11 +911,11 @@ input[type="search"] {
 	margin: 0.5em 0;
 }
 
-.content header h1 .extern-link-icon{
+.content header h1 .extern-link-icon {
 	padding-left: 10px;
 }
 
-.content header h1 a:hover img{
+.content header h1 a:hover img {
 	filter: contrast(0);
 }
 
