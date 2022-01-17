@@ -847,24 +847,6 @@ input[type="search"] {
 	list-style-type: decimal;
 }
 
-.flux .item.collapse {
-	width: 40px;
-	display: none;
-	text-align: center;
-}
-
-.flux.current.active .item.collapse {
-	display: table-cell;
-}
-
-.flux.current.active .flux_header .item.website,
-.flux.current.active .flux_header .item.thumbnail,
-.flux.current.active .flux_header .item.title,
-.flux.current.active .flux_header .item.date,
-.flux.current.active .flux_header .item.link {
-	visibility: hidden;
-}
-
 /*=== Feed article content */
 .hide_posts > .flux:not(.active) > .flux_content {
 	display: none;
