@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Helper représente une aide pour des tâches récurrentes
+ * The Minz_Helper class contains some misc. help functions
  */
 class Minz_Helper {
 

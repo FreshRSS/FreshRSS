@@ -251,6 +251,7 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14` ou avec n’importe quelle étiquette : `L:*`
 * par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmis une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
+* par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*): `e:1639310674957894,1639310674957893`
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur
 recherchée.

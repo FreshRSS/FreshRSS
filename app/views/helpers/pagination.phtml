@@ -1,4 +1,5 @@
 <?php
+	/** @var FreshRSS_View $this */
 	$url_next = Minz_Request::currentRequest();
 	$url_next['params']['next'] = FreshRSS_Context::$next_id;
 	$url_next['params']['state'] = FreshRSS_Context::$state;
@@ -19,7 +20,7 @@
 
 <?php
 $hasAccess = FreshRSS_Auth::hasAccess();
-if ($url_mark_read && $hasAccess) { ?>
+if ($hasAccess) { ?>
 <form id="mark-read-pagination" method="post">
 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 <?php } else { ?>
@@ -31,7 +32,7 @@ if ($url_mark_read && $hasAccess) { ?>
 		<a id="load_more" href="<?= Minz_Url::display($url_next) ?>">
 			<?= _t('gen.pagination.load_more') ?>
 		</a>
-	<?php } elseif ($url_mark_read && $hasAccess) { ?>
+	<?php } elseif ($hasAccess) { ?>
 		<button id="bigMarkAsRead"
 			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
 			form="mark-read-pagination"
@@ -48,7 +49,7 @@ if ($url_mark_read && $hasAccess) { ?>
 	<?php } ?>
 	</li>
 </ul>
-<?php if ($url_mark_read && $hasAccess) { ?>
+<?php if ($hasAccess) { ?>
 </form>
 <?php } else {?>
 </div>

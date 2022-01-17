@@ -4,6 +4,12 @@
  * Manage the emails sent to the users.
  */
 class FreshRSS_User_Mailer extends Minz_Mailer {
+
+	/**
+	 * @var FreshRSS_View
+	 */
+	protected $view;
+
 	public function send_email_need_validation($username, $user_config) {
 		Minz_Translate::reset($user_config->language);
 

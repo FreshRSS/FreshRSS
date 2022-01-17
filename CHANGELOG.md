@@ -1,6 +1,28 @@
 # FreshRSS changelog
 
-## 2021-12-XX FreshRSS 1.19.0-dev
+## 2022-0X-XX FreshRSS 1.19.2-dev
+
+
+## 2022-01-02 FreshRSS 1.19.1
+
+* Bug fixing
+	* Fix some filters for automatic article actions (e.g., `!pubdate:P3d`) [#4092](https://github.com/FreshRSS/FreshRSS/pull/4092)
+* Features
+	* New search operator on article IDs (useful to show a single article, extensions) [#4058](https://github.com/FreshRSS/FreshRSS/pull/4058)
+		* Entry (article) ID: `e:1639310674957894` or multiple entry IDs (*or*): `e:1639310674957894,1639310674957893`
+* UI
+	* Fix left navigation with long category names [#4055](https://github.com/FreshRSS/FreshRSS/pull/4055)
+	* Show *My labels* menu also when empty [#4065](https://github.com/FreshRSS/FreshRSS/pull/4065)
+	* Improve category titles on global view [#4059](https://github.com/FreshRSS/FreshRSS/pull/4059)
+	* Disable dynamic favicon for browser / extensions blocking canvas [#4098](https://github.com/FreshRSS/FreshRSS/pull/4098)
+	* Minor UI and style improvements [#4061](https://github.com/FreshRSS/FreshRSS/pull/4061), [#4067](https://github.com/FreshRSS/FreshRSS/pull/4067), [#4085](https://github.com/FreshRSS/FreshRSS/pull/4085)
+* SimplePie
+	* Manual update to SimplePie 1.5.8 [#4113](https://github.com/FreshRSS/FreshRSS/pull/4113)
+* Code improvements
+	* Add PHPStan [level 1](https://phpstan.org/user-guide/rule-levels) for code quality [#4021](https://github.com/FreshRSS/FreshRSS/pull/4021)
+
+
+## 2021-12-31 FreshRSS 1.19.0
 
 * Features
 	* New thumbnail and/or summary options for the normal view [#3805](https://github.com/FreshRSS/FreshRSS/pull/3805)
@@ -39,7 +61,7 @@
 * Deployment
 	* Docker: development image `:oldest` is now based on `alpine:3.5` with PHP 7.0.33 and Apache 2.4.35 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 	* Docker: default image updated to Debian 11 Bullseye with PHP 7.4.25 and Apache 2.4.51 [#3782](https://github.com/FreshRSS/FreshRSS/pull/3782)
-	* Docker: alternative image updated to Alpine 3.15 with PHP 8.0.13 and Apache 2.4.51 [#3996](https://github.com/FreshRSS/FreshRSS/pull/3996)
+	* Docker: alternative image updated to Alpine 3.15 with PHP 8.0.14 and Apache 2.4.52 [#3996](https://github.com/FreshRSS/FreshRSS/pull/3996)
 	* Docker: fix inclusion of `.htaccess` for `./p/themes/` folder [#4074](https://github.com/FreshRSS/FreshRSS/pull/4074)
 	* Docker: only add the crontab when `CRON_MIN` is set [#3927](https://github.com/FreshRSS/FreshRSS/pull/3927)
 	* Docker: move logic to disable FreshRSS updates [#3973](https://github.com/FreshRSS/FreshRSS/pull/3973)
@@ -78,7 +100,7 @@
 	* Fix bug in French and German translations of new/old tags [#3703](https://github.com/FreshRSS/FreshRSS/pull/3703), [#3668](https://github.com/FreshRSS/FreshRSS/pull/3668)
 	* Fix name of keyboard shortcut to open in new tab [#3899](https://github.com/FreshRSS/FreshRSS/pull/3899)
 	* Add Japanese [#3828](https://github.com/FreshRSS/FreshRSS/pull/3828), [#3834](https://github.com/FreshRSS/FreshRSS/pull/3834)
-	* Improve Chineese [#3926](https://github.com/FreshRSS/FreshRSS/pull/3926), [#3947](https://github.com/FreshRSS/FreshRSS/pull/3947), [#3963](https://github.com/FreshRSS/FreshRSS/pull/3963), [#4084](https://github.com/FreshRSS/FreshRSS/pull/4084)
+	* Improve Chinese [#3926](https://github.com/FreshRSS/FreshRSS/pull/3926), [#3947](https://github.com/FreshRSS/FreshRSS/pull/3947), [#3963](https://github.com/FreshRSS/FreshRSS/pull/3963), [#4084](https://github.com/FreshRSS/FreshRSS/pull/4084)
 	* Improve Dutch [#3844](https://github.com/FreshRSS/FreshRSS/pull/3844), [#3928](https://github.com/FreshRSS/FreshRSS/pull/3928)
 	* Improve German [#3720](https://github.com/FreshRSS/FreshRSS/pull/3720), [#3846](https://github.com/FreshRSS/FreshRSS/pull/3846), [#3913](https://github.com/FreshRSS/FreshRSS/pull/3913), [#4008](https://github.com/FreshRSS/FreshRSS/pull/4008)
 	* Improve Italian [#3939](https://github.com/FreshRSS/FreshRSS/pull/3939)
@@ -1347,7 +1369,7 @@
 	* Generate `base_url` during the installation and add a `pubsubhubbub_enabled` configuration key. [#865](https://github.com/FreshRSS/FreshRSS/issues/865)
 	* Load configuration by recursion to overwrite array values. [#923](https://github.com/FreshRSS/FreshRSS/issues/923)
 	* Cast `$limits` configuration values in integer. [#925](https://github.com/FreshRSS/FreshRSS/issues/925)
-	* Don't hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
+	* Don’t hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)
@@ -1380,7 +1402,7 @@
 	* Add some indications on password format
 * Bug fixing
 	* Some shortcuts was never saved
-	* Global view didn't work if set by default
+	* Global view didn’t work if set by default
 	* Minz_Error was badly raised
 	* Feed update failed if nothing had changed (MySQL only)
 	* CRON task failed with multiple users
@@ -1564,7 +1586,7 @@
 * UI
 	* Séparation des descriptions des raccourcis par groupes
 	* Revue rapide de la page de connexion
-	* Amélioration de l'affichage des notifications sur mobile
+	* Amélioration de l’affichage des notifications sur mobile
 * Revue du système de rafraîchissement des flux
 	* Meilleure gestion de la file de flux à rafraîchir en JSON
 	* Rafraîchissement uniquement pour les flux non rafraîchis récemment
@@ -1574,12 +1596,12 @@
 	* Corrige fuite de mémoire
 	* Meilleure tolérance aux flux invalides
 * Corrections divers
-	* Ne déplie plus l'article lors du clic sur l'icône lien externe
+	* Ne déplie plus l’article lors du clic sur l’icône lien externe
 	* Ne boucle plus à la fin de la navigation dans les articles
 	* Suppression du champ category.color inutile
 	* Corrige bug redirection infinie (Persona)
 	* Amélioration vérification de la requête POST
-	* Ajout d'un verrou lorsqu'une action mark_read ou mark_favorite est en cours
+	* Ajout d’un verrou lorsqu’une action mark_read ou mark_favorite est en cours
 
 
 ## 2014-01-29 FreshRSS 0.7
