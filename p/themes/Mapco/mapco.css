@@ -72,10 +72,6 @@
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .btn.btn-important {
@@ -122,8 +118,8 @@ label {
 }
 
 textarea {
-	width: 360px;
 	max-width: 100%;
+	width: 360px;
 	height: 100px;
 }
 
@@ -228,7 +224,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: #f9fafb;
 	font-size: 1rem;
@@ -238,13 +234,14 @@ form th {
 	text-align: left;
 }
 .dropdown-menu::after {
-	background: white;
+	background: #f9fafb;
 	width: 10px;
 	height: 10px;
 	content: "";
 	position: absolute;
 	top: -4px;
-	right: 13px;
+	right: 18px;
+	bottom: -14px;
 	z-index: -10;
 	transform: rotate(45deg);
 }
@@ -257,10 +254,6 @@ form th {
 	letter-spacing: 1px;
 }
 .dropdown-menu .item {
-	-webkit-transition: all 0.075s ease-in-out;
-	-moz-transition: all 0.075s ease-in-out;
-	-o-transition: all 0.075s ease-in-out;
-	-ms-transition: all 0.075s ease-in-out;
 	transition: all 0.075s ease-in-out;
 }
 .dropdown-menu .item a, .dropdown-menu .item span, .dropdown-menu .item .as-link {
@@ -470,10 +463,6 @@ form th {
 	text-decoration: none;
 	background: #effcfd;
 	color: #36c;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 #bigMarkAsRead:hover {
@@ -577,10 +566,6 @@ form th {
 	line-height: 2.5rem;
 	font-size: 1rem;
 	font-weight: 400;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .tree .tree-folder .tree-folder-items .item.active {
@@ -664,10 +649,6 @@ form th {
 }
 .nav-list .item {
 	background: #303136;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav-list .item a {
@@ -808,16 +789,16 @@ form th {
 	width: auto;
 	table-layout: none;
 }
+.header .logo {
+	margin: 11px 0 5px;
+	filter: grayscale(100%) brightness(100);
+}
 .header .item {
 	vertical-align: middle;
 }
 .header .item.title {
 	width: 280px;
 	font-weight: 400;
-}
-.header .logo {
-	margin: 11px 0 5px;
-	filter: grayscale(100%) brightness(100);
 }
 .header .item.title a img {
 	margin-right: 0.5rem;
@@ -828,10 +809,6 @@ form th {
 	border: none;
 	border-radius: 2px 0 0 2px;
 	background-color: #26272a;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .header .item.search input:hover {
@@ -967,10 +944,6 @@ form th {
 	background-color: #f9fafb;
 	background-position: center;
 	background-repeat: no-repeat;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav_menu .stick .btn:hover {
@@ -1010,10 +983,6 @@ form th {
 	padding: 5px 16px;
 	color: #303136;
 	background-color: #f9fafb;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav_menu .stick .btn.read_all:hover {
@@ -1175,10 +1144,6 @@ form th {
 /*=== Feed articles */
 .flux {
 	background: #fff;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .flux:hover {
@@ -1208,10 +1173,6 @@ form th {
 }
 .flux.favorite {
 	border-left-color: #ffc300;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .flux.favorite:not(.current) {
@@ -1466,10 +1427,6 @@ form th {
 		display: inline-block;
 		width: 100%;
 		color: #fff;
-		-webkit-transition: all 0.2s ease-in-out;
-		-moz-transition: all 0.2s ease-in-out;
-		-o-transition: all 0.2s ease-in-out;
-		-ms-transition: all 0.2s ease-in-out;
 		transition: all 0.2s ease-in-out;
 	}
 	ul.nav .item a:hover, ul.nav .item a:active {
@@ -1482,10 +1439,6 @@ form th {
 	}
 
 	.aside {
-		-webkit-transition: all 0.2s ease-in-out;
-		-moz-transition: all 0.2s ease-in-out;
-		-o-transition: all 0.2s ease-in-out;
-		-ms-transition: all 0.2s ease-in-out;
 		transition: all 0.2s ease-in-out;
 	}
 	.aside.aside_feed {
@@ -1496,9 +1449,9 @@ form th {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
-	#close-slider.active,
-	.dropdown-menu .toggle_aside {
+#panel .close,
+#close-slider.active,
+.dropdown-menu .toggle_aside {
 		background: #25c;
 		display: block;
 		width: 100%;
@@ -1564,6 +1517,20 @@ form th {
 
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #f9fafb;
+		border-top: 1px solid #eff0f2;
+		border-left: 1px solid #eff0f2;
+		right: 21px;
+		bottom: -14px;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
+		bottom: -17px;
 	}
 
 	.day {

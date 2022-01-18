@@ -1149,6 +1149,12 @@ a.btn {
 		width: 400px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #333;
+		border-top: 2px solid #262626;
+		border-right: 2px solid #262626;
+	}
+
 	.day .name {
 		display: none!important;
 		font-size: 1.1rem;

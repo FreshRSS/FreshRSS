@@ -32,7 +32,7 @@
 		<div class="dropdown">
 			<div id="dropdown-query" class="dropdown-target"></div>
 
-			<a class="dropdown-toggle btn" href="#dropdown-query"><?= _i('down') ?></a>
+			<a class="dropdown-toggle btn" href="#dropdown-query" title="<?= _t('index.menu.queries') ?>"><?= _i('bookmark-tag') ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 
@@ -208,11 +208,11 @@
 	<?php
 		if (FreshRSS_Context::$order === 'DESC') {
 			$order = 'ASC';
-			$icon = 'up';
+			$icon = 'sort-up';
 			$title = _t('index.menu.older_first');
 		} else {
 			$order = 'DESC';
-			$icon = 'down';
+			$icon = 'sort-down';
 			$title = _t('index.menu.newer_first');
 		}
 		$url_order = Minz_Request::currentRequest();
