@@ -13,7 +13,7 @@
 	<form method="post" action="<?= _url('configure', 'reading') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<fieldset>
-			<legend>View</legend>
+			<legend><?= _t('conf.reading.headline.view') ?></legend>
 			<div class="form-group">
 				<label class="group-name" for="view_mode"><?= _t('conf.reading.view.default') ?></label>
 				<div class="group-controls">
@@ -59,18 +59,6 @@
 			</div>
 
 			<div class="form-group">
-				<div class="group-controls">
-					<label class="checkbox" for="display_posts">
-						<input type="checkbox" name="display_posts" id="display_posts" value="1"<?=
-							FreshRSS_Context::$user_conf->display_posts ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= FreshRSS_Context::$user_conf->display_posts ?>"/>
-						<?= _t('conf.reading.display_articles_unfolded') ?>
-						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
-					</label>
-				</div>
-			</div>
-
-			<div class="form-group">
 				<label class="group-name" for="sort_order"><?= _t('conf.reading.sort') ?></label>
 				<div class="group-controls">
 					<select name="sort_order" id="sort_order" data-leave-validation="<?= FreshRSS_Context::$user_conf->sort_order ?>">
@@ -83,7 +71,7 @@
 		</fieldset>
 		
 		<fieldset>
-			<legend>Categories</legend>
+			<legend><?= _t('conf.reading.headline.categories') ?></legend>
 			<div class="form-group">
 				<label class="group-name" for="default_view"><?= _t('conf.reading.display_categories_unfolded') ?></label>
 				<div class="group-controls">
@@ -125,9 +113,18 @@
 		</fieldset>
 
 		<fieldset>
-			<legend>Open/Close</legend>
-
-			
+			<legend><?= _t('conf.reading.headline.articles') ?></legend>
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="display_posts">
+						<input type="checkbox" name="display_posts" id="display_posts" value="1"<?=
+							FreshRSS_Context::$user_conf->display_posts ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= FreshRSS_Context::$user_conf->display_posts ?>"/>
+						<?= _t('conf.reading.display_articles_unfolded') ?>
+						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+					</label>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<div class="group-controls">
@@ -155,7 +152,7 @@
 		</fieldset>
 
 		<fieldset>
-			<legend>Mark read</legend>
+			<legend><?= _t('conf.reading.headline.mark_as_read') ?></legend>
 			<div class="form-group">
 				<div class="group-controls">
 					<label class="checkbox" for="auto_remove_article">
@@ -191,11 +188,6 @@
 					</label>
 				</div>
 			</div>
-			
-		</fieldset>
-
-		<fieldset>
-			<legend>Autom. mark as read</legend>
 
 			<div class="form-group">
 				<div class="group-controls">
@@ -208,7 +200,20 @@
 				</div>
 			</div>
 
-			
+			<div class="form-group">
+				<label class="group-name" for="enable_read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
+				<div class="group-controls">
+					<label class="checkbox" for="enable_read_when_same_title_in_feed">
+						<input type="checkbox" name="enable_read_when_same_title_in_feed" id="enable_read_when_same_title_in_feed" value="1"<?=
+							empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? '' : ' checked="checked"' ?>
+							data-leave-validation="<?= empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? 0 : 1 ?>"/>
+						<?= _t('conf.reading.read.when_same_title') ?>
+						<?php $read_when_same_title_in_feed = empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? 25 : FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']; ?>
+						<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
+							value="<?= $read_when_same_title_in_feed ?>" data-leave-validation="<?= $read_when_same_title_in_feed ?>" />
+					</label>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label class="group-name" for="check_open_article"><?= _t('conf.reading.read.when') ?></label>
@@ -256,7 +261,11 @@
 						<?php $keep_max_n_unread = empty(FreshRSS_Context::$user_conf->mark_when['max_n_unread']) ? 1000 : FreshRSS_Context::$user_conf->mark_when['max_n_unread']; ?>
 						<input type="number" id="keep_max_n_unread" name="keep_max_n_unread" min="0" value="<?= $keep_max_n_unread ?>" data-leave-validation="<?= $keep_max_n_unread ?>" />
 					</label>
+				</div>
+			</div>
 
+			<div class="form-group">
+				<div class="group-controls">
 					<label class="checkbox" for="check_reception">
 						<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?=
 							FreshRSS_Context::$user_conf->mark_when['reception'] ? ' checked="checked"' : '' ?>
@@ -265,27 +274,10 @@
 					</label>
 					</div>
 			</div>
-
-			<div class="form-group">
-				<label class="group-name" for="enable_read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
-				<div class="group-controls">
-					<label class="checkbox" for="enable_read_when_same_title_in_feed">
-						<input type="checkbox" name="enable_read_when_same_title_in_feed" id="enable_read_when_same_title_in_feed" value="1"<?=
-							empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? '' : ' checked="checked"' ?>
-							data-leave-validation="<?= empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? 0 : 1 ?>"/>
-						<?= _t('conf.reading.read.when_same_title') ?>
-						<?php $read_when_same_title_in_feed = empty(FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']) ? 25 : FreshRSS_Context::$user_conf->mark_when['same_title_in_feed']; ?>
-						<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
-							value="<?= $read_when_same_title_in_feed ?>" data-leave-validation="<?= $read_when_same_title_in_feed ?>" />
-					</label>
-				</div>
-			</div>
-
-			
 		</fieldset>
 
 		<fieldset>
-			<legend>Misc.</legend>
+			<legend><?= _t('conf.reading.headline.misc') ?></legend>
 			<div class="form-group">
 				<div class="group-controls">
 					<label class="checkbox" for="lazyload">
