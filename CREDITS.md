@@ -90,6 +90,7 @@ People are sorted by name so please keep this order.
 * [marcohald](https://github.com/marcohald): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marcohald)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marcomrc)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mro), [Web](http://mro.name/~me)
+* [Marek Pavelka](https://github.com/marapavelka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marapavelka), [Web](https://marekpavelka.cz)
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marienfressinaud), [Web](https://marienfressinaud.fr/)
 * [Martin](https://github.com/C0rn3j): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:C0rn3j), [Web](https://rys.pw/)
 * [math-GH](https://github.com/math-GH): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:math-GH)
