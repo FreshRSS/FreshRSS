@@ -130,7 +130,7 @@ return array(
 		'confirm_enabled' => 'Zobrazit potvrzovací dialové okno pro akce „označit vše jako přečtené“',
 		'display_articles_unfolded' => 'Ve výchozím nastavení zobrazovat články rozbalené',
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
-    	'headline' => array(
+		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
