@@ -243,7 +243,7 @@ can be used to combine several search criteria with a logical *or* instead: `aut
 You don't have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 to consider the order of logic. See [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460)
 for more details on the usage of `AND` vs `OR` when combining multiple negative operators.
-Addtional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
 ### By sorting by date
 
