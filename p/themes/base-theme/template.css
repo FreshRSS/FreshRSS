@@ -600,6 +600,10 @@ a.btn {
 	text-overflow: ellipsis;
 }
 
+.tree-folder-items .item.feed {
+	position: relative;
+}
+
 .tree-bottom {
 	visibility: hidden;
 	margin-bottom: 18em;
@@ -1290,8 +1294,11 @@ input:checked + .slide-container .properties {
 	color: #bd362f;
 }
 
-.feed .item-title:not([data-unread="0"])::before {
+.feed .item-title:not([data-unread="0"])::after {
 	content: "(" attr(data-unread) ") ";
+	position: absolute;
+	right: 10px; 
+	padding: 0 0 0 5px;
 }
 
 .feed .item-title:not([data-unread="0"]) {
