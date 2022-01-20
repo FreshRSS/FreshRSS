@@ -657,14 +657,16 @@ a.btn,
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.8rem;
-	position: absolute;
-	left: 0;
-	line-height: 0.9rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #f6f6f6;
+	color: #444;
+	margin: 0.5em 0 0 0;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: white;
+	color: #444;
+	margin: 0.75em 0 0 0;
 }
 
 /*=== Aside main page (feeds) */

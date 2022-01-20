@@ -587,18 +587,6 @@ form th {
 	text-decoration: none;
 	color: #fff;
 }
-.tree .tree-folder .tree-folder-items .feed .item-title:not([data-unread="0"])::before {
-	margin: 11px 4px 0 6px;
-	padding: 3px 4px;
-	background: rgba(0, 0, 0, 0.25);
-	display: block;
-	float: right;
-	font-size: 0.75rem;
-	border-radius: 12px;
-	content: attr(data-unread);
-	text-align: center;
-	line-height: 0.75rem;
-}
 
 /*=== Buttons */
 .stick {
@@ -729,15 +717,14 @@ form th {
 	width: calc(100% - 35px - 35px);
 }
 
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: -0.25rem 0 0 1rem;
-	padding: 0 0.75rem;
-	background: rgba(0, 0, 0, 0.25);
-	border-radius: 12px;
-	position: absolute;
-	left: 0;
-	line-height: 1.5rem;
-	text-align: center;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 1.5em 0 0 0;
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.5em 0 0 0;
+	background-color: rgba(0, 0, 0, 0.25);
 }
 
 .feed.item.empty.active {
