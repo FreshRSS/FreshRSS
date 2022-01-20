@@ -1299,7 +1299,7 @@ input:checked + .slide-container .properties {
 	content: attr(data-unread);
 	position: absolute;
 	top: 0;
-	right: 10px; 
+	right: 10px;
 	text-align: center;
 	border-radius: 12px;
 	line-height: 1;
