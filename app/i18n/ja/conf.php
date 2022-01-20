@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'アーカイブ',
@@ -39,7 +49,7 @@ return array(
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
 		'theme' => 'テーマ',
-		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO - Translation
+		'theme_not_available' => '“%s”テーマはご利用いただけません。他のテーマをお選びください。',
 		'thumbnail' => array(
 			'label' => 'サムネイル',
 			'landscape' => 'ランドスケープ',
@@ -128,11 +138,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '記事を元のwebサイトで開いたとき',
 			'article_viewed' => '記事を読んだとき',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => '未読の記事として残す最大数',
 			'scroll' => 'スクロールしているとき',
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => '同一タイトルの新しい記事があるときには、上部へ表示する',
 		),
 		'show' => array(
 			'_' => '記事を表示する',
@@ -163,20 +173,20 @@ return array(
 	'sharing' => array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'もっと多くの情報',
-		'print' => '印刷',
-		'raindrop' => 'Raindrop.io',
+		'print' => '印刷',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '共有方法を削除する',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '表示する共有方法の名前',
 		'share_url' => '使用するURLを共有する',
 		'title' => '共有',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'ショートカット',
@@ -198,13 +208,13 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd>キーを使うと, フィードにショートカットナビが表示されます。<br/><kbd>Alt ⎇</kbd> キーを使うと、カテゴリにショートカットナビが表示されます。',
 		'navigation_no_mod_help' => '次のショートカットナビは、キーボードショートカットには対応していません。',
 		'next_article' => '次の記事を開く',
-		'next_unread_article' => 'Open the next unread article',	// TODO - Translation
+		'next_unread_article' => '次に未読の記事を開く',
 		'non_standard' => '(<kbd>%s</kbd>)のキーはショートカットにはなりません。',
 		'normal_view' => 'ノーマルビューに切り替える',
 		'other_action' => 'ほかのアクション',
 		'previous_article' => '前の記事を表示する',
 		'reading_view' => 'リーディングビューに切り替える',
-		'rss_view' => 'Open as RSS feed',	// TODO - Translation
+		'rss_view' => 'RSSフィードとして開く',
 		'see_on_website' => '元のwebサイトを開く',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd>で前の記事を既読にし、<br />+ <kbd>⇧ Shift</kbd>ですべての記事を既読にします。',
 		'skip_next_article' => '次を開かないで飛ばす',

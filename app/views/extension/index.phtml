@@ -1,6 +1,9 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -66,14 +69,17 @@
 			</table>
 		</div>
 	<?php } ?>
-</div>
 
-<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>></a>
-<div id="slider"<?= $class ?>>
-<?php
-	if (isset($this->extension)) {
-		$this->renderHelper('extension/configure');
-	}
-?>
-</div>
+	<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
+	<a href="#" id="close-slider"<?= $class ?>>
+		<?= _i('close') ?>
+	</a>
+	<div id="slider"<?= $class ?>>
+	<?php
+		if (isset($this->extension)) {
+			$this->renderHelper('extension/configure');
+		}
+	?>
+	</div>
+
+</main>

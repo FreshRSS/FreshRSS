@@ -1,4 +1,5 @@
-<nav class="nav nav-list aside">
+<nav class="nav nav-list aside" id="aside_feed">
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<ul>
 		<li class="nav-header"><?= _t('sub.menu.subscription_management') ?></li>
 
@@ -33,5 +34,8 @@
 		</li>
 
 	</ul>
-
+</nav>
+<a class="close-aside" href="#close">❌</a>
+<nav class="nav_menu nav_mobile">
+	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
 </nav>

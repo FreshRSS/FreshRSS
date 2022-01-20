@@ -1,0 +1,25 @@
+parameters:
+	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
+	level: 5
+	fileExtensions:
+		- php
+		- phtml
+	paths:
+		- .
+	excludePaths:
+		- lib/lib_phpQuery.php
+		- lib/PHPMailer/*
+		- lib/SimplePie/*
+		- node_modules/*
+		# TODO: include tests
+		- tests/*
+		- vendor/*
+	scanDirectories:
+		- lib/PHPMailer/
+		- lib/SimplePie/
+	bootstrapFiles:
+		- cli/_cli.php
+		- lib/favicons.php
+		- lib/lib_phpQuery.php
+		- lib/SimplePie/SimplePie.php
+		- app/SQL/install.sql.sqlite.php

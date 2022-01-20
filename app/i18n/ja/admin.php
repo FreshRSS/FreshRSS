@@ -1,8 +1,18 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
-		'allow_anonymous' => '標準ユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
+		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
 		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',
 		'api_enabled' => '<abbr>API</abbr>からのアクセスを許可する <small>(モバイルアプリが必要です)</small>',
 		'form' => 'ウェブフォーム (JavaScriptが必要です)',

@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Consenti la lettura agli utenti anonimi degli articoli dell utente predefinito (%s)',
@@ -66,8 +76,8 @@ return array(
 			'ok' => 'Estensione JSON presente.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'Non è possibile trovare la libreria mbstring raccomandata per Unicode.',
+			'ok' => 'Ha la libreria mbstring raccomandata per Unicode.',
 		),
 		'pcre' => array(
 			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
@@ -101,23 +111,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Autore',
+		'community' => 'Estensioni della community disponibili',
+		'description' => 'Descrizione',
 		'disabled' => 'Disabilitata',
 		'empty_list' => 'Non ci sono estensioni installate',
 		'enabled' => 'Abilitata',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Installato',
+		'name' => 'Nome',
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
 		'system' => array(
 			'_' => 'Estensioni di sistema',
 			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 		),
 		'title' => 'Estensioni',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Aggiornamento disponibile',
 		'user' => 'Estensioni utente',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Versione',
 	),
 	'stats' => array(
 		'_' => 'Statistiche',
@@ -130,7 +140,7 @@ return array(
 		'entry_per_hour' => 'Per ora (media: %.2f articoli)',
 		'entry_per_month' => 'Per mese (media: %.2f articoli)',
 		'entry_repartition' => 'Ripartizione contenuti',
-		'feed' => 'Feed',	// TODO - Translation
+		'feed' => 'Feed',	// TODO
 		'feed_per_category' => 'Feeds per categoria',
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
@@ -148,12 +158,12 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configurazione di sistema',
-		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'auto-update-url' => 'Auto-update server URL',	// TODO
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => 'in seconds',	// TODO
+			'number' => 'Duration to keep logged in',	// TODO
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO
 		'instance-name' => 'Nome istanza',
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
@@ -172,18 +182,18 @@ return array(
 		'title' => 'Aggiorna sistema',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Amministratore',
+		'article_count' => 'Articoli',
+		'back_to_manage' => '← Return to user list',	// TODO
 		'create' => 'Crea nuovo utente',
-		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Database size',	// TODO
+		'email' => 'Indirizzo e-mail',
+		'enabled' => 'Enabled',	// TODO
+		'feed_count' => 'Feeds',	// TODO
+		'is_admin' => 'Is admin',	// TODO
 		'language' => 'Lingua',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Ultime attività degli utenti',
+		'list' => 'User list',	// TODO
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',

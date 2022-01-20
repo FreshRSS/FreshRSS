@@ -259,6 +259,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
+			// @phpstan-ignore-next-line
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
 					'CACHE_PATH',
@@ -299,7 +300,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->hubUrl = isset($links[0]) ? $links[0] : null;
 
 				if ($loadDetails) {
-					// si on a utilisé l'auto-discover, notre url va avoir changé
+					// si on a utilisé l’auto-discover, notre url va avoir changé
 					$subscribe_url = $simplePie->subscribe_url(false);
 
 					//HTML to HTML-PRE	//ENT_COMPAT except '&'
@@ -368,10 +369,10 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($item == null) {
 				continue;
 			}
-			$title = html_only_entity_decode(strip_tags($item->get_title()));
+			$title = html_only_entity_decode(strip_tags($item->get_title() ?? ''));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
-			$date = @strtotime($item->get_date());
+			$date = @strtotime($item->get_date() ?? '');
 
 			//Tag processing (tag == category)
 			$categories = $item->get_categories();
@@ -405,8 +406,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 						$enclosureContent = '';
 						$elinks[$elink] = true;
-						$mime = strtolower($enclosure->get_type());
-						$medium = strtolower($enclosure->get_medium());
+						$mime = strtolower($enclosure->get_type() ?? '');
+						$medium = strtolower($enclosure->get_medium() ?? '');
 						$height = $enclosure->get_height();
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();
@@ -462,10 +463,10 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$hasBadGuids ? '' : $guid,
-				$title === null ? '' : $title,
+				$title == '' ? '' : $title,
 				$author_names,
-				$content === null ? '' : $content,
-				$link === null ? '' : $link,
+				$content == '' ? '' : $content,
+				$link == '' ? '' : $link,
 				$date ? $date : time()
 			);
 			$entry->_tags($tags);
@@ -495,7 +496,10 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public function cleanOldEntries() {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	/**
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	 */
+	public function cleanOldEntries() {
 		$archiving = $this->attributes('archiving');
 		if ($archiving == null) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();

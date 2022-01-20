@@ -3,7 +3,7 @@
 /**
  * This controller handles action about authentication.
  */
-class FreshRSS_auth_Controller extends Minz_ActionController {
+class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action handles authentication management page.
 	 *
@@ -22,7 +22,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('admin.auth.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.auth.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -107,8 +107,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function formLoginAction() {
 		invalidateHttpCache();
 
-		Minz_View::prependTitle(_t('gen.auth.login') . ' · ');
-		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->cookie_days = round($limits['cookie_duration'] / 86400, 1);
@@ -125,7 +125,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 			FreshRSS_Context::initUser($username);
 			if (FreshRSS_Context::$user_conf == null) {
-				//We do not test here whether the user exists, so most likely an internal error.
+				// Initialise the default user to be able to display the error page
+				FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
 				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 				return;
 			}
@@ -148,7 +149,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				]);
 				FreshRSS_Auth::giveAccess();
 
-				// Set cookie parameter if nedded.
+				// Set cookie parameter if needed.
 				if (Minz_Request::param('keep_logged_in')) {
 					FreshRSS_FormAuth::makeCookie($username, FreshRSS_Context::$user_conf->passwordHash);
 				} else {
@@ -220,7 +221,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	/**
 	 * This action gives possibility to a user to create an account.
 	 *
-	 * The user is redirected to the home if he's connected.
+	 * The user is redirected to the home when logged in.
 	 *
 	 * A 403 is sent if max number of registrations is reached.
 	 */
@@ -236,6 +237,6 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		$this->view->show_tos_checkbox = file_exists(join_path(DATA_PATH, 'tos.html'));
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
-		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

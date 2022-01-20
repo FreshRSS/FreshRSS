@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Dokončiť inštaláciu',
@@ -83,9 +93,9 @@ return array(
 		'reload' => 'Tekrar kontrol et',
 		'tmp' => array(
 			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'Oprávnenia pre dočasný priečinok sú OK.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'neznámy',
 		'users' => array(
 			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia prístupu do priečinku používateľov sú OK.',
@@ -111,10 +121,10 @@ return array(
 		'choose' => 'Vyberte jazyk pre FreshRSS',
 		'defined' => 'Jazyk bol nastavený.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Niečo sa nepodarilo. Ručne vytvorte prázdny súbor <em>%s</em>.',
 	'ok' => 'Inštalácia bola úspešná.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'Webový server pravdepodobne nie je správne nastavený na použitie cookies pre relácie PHP!',
 	),
 	'step' => 'krok %d',
 	'steps' => 'Kroky',

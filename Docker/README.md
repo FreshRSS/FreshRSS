@@ -81,7 +81,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
 * You may remove the `--label traefik.*` lines if you do not use Træfik.
 * Add `-p 8080:80 \` if you want to expose FreshRSS locally, e.g. on port `8080`.
-* Replace `freshrss/freshrss` by a more specific tag (see below) such as `freshrss/freshrss:dev` for the development version, or `freshrss/freshrss:arm` for a Raspberry Pi version.
+* Replace `freshrss/freshrss` by a more specific tag (see below) such as `freshrss/freshrss:edge` for the development version, or `freshrss/freshrss:arm` for a Raspberry Pi version.
 
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
@@ -248,6 +248,21 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   cron -f
 ```
 
+#### For the Debian image (default) using a custom cron.d fragment
+
+This method gives you the most flexibility most flexiblity to
+execute various freshrss cli commands.
+
+```sh
+docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss-extensions:/var/www/FreshRSS/extensions \
+  -v ./freshrss_crontab:/etc/cron.d/freshrss \
+  --net freshrss-network \
+  --name freshrss_cron freshrss/freshrss \
+  cron -f
+```
+
 #### For the Alpine image
 
 ```sh
@@ -269,7 +284,7 @@ while reading the source code from your local (git) directory, like the followin
 cd /path-to-local/FreshRSS/
 docker run --rm -p 8080:80 -e TZ=Europe/Paris -e FRESHRSS_ENV=development \
   -v $(pwd):/var/www/FreshRSS \
-  freshrss/freshrss:dev
+  freshrss/freshrss:edge
 ```
 
 This will start a server on port 8080, based on your local PHP code, which will show the logs directly in your terminal.
@@ -317,7 +332,7 @@ A [docker-compose.yml](docker-compose.yml) file is given as an example, using Po
 	* the `environment` section to adapt the strategy to update feeds.
 	* the `EXPOSED_PORT` variable in the `.env` file;
 
-If you don't want to use the `.env` file you can also directly edit the `docker-compose.yml` file. It's highly recommended to change the password. If you don't change it, it will use the default option.
+If you don’t want to use the `.env` file you can also directly edit the `docker-compose.yml` file. It’s highly recommended to change the password. If you don’t change it, it will use the default option.
 
 You can then launch the stack (FreshRSS + PostgreSQL) with:
 

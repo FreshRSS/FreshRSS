@@ -1105,7 +1105,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #262626;
 		display: block;
 		width: 100%;
@@ -1146,6 +1147,12 @@ a.btn {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #333;
+		border-top: 2px solid #262626;
+		border-left: 2px solid #262626;
 	}
 
 	.day .name {

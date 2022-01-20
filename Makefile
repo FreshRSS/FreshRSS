@@ -82,6 +82,15 @@ bin/phpcbf:
 	wget -O bin/phpcbf https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcbf.phar
 	echo '6f64fe00dee53fa7b256f63656dc0154f5964666fc7e535fac86d0078e7dea41 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
 
+bin/typos:
+	mkdir -p bin/
+	cd bin ; \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' && \
+	tar -xvf *.tar.gz './typos' && \
+	chmod +x typos && \
+	rm *.tar.gz ; \
+	cd ..
+
 ##########
 ## I18N ##
 ##########
@@ -159,7 +168,7 @@ endif
 ###########
 .PHONY: rtl
 rtl: ## Generate RTL CSS files
-	rtlcss -d p/themes && find . -type f -name '*.rtl.rtl.css' -delete
+	rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete
 
 .PHONY: pot
 pot: ## Generate POT templates for docs
@@ -168,6 +177,41 @@ pot: ## Generate POT templates for docs
 .PHONY: refresh
 refresh: ## Refresh feeds by fetching new messages
 	@$(PHP) ./app/actualize_script.php
+
+###############################
+## New commands aligned on CI #
+##     Work in progress       #
+###############################
+
+# TODO: Add composer install
+.PHONY: composer-test
+composer-test:
+	composer run-script test
+
+.PHONY: composer-fix
+composer-fix:
+	composer run-script fix
+
+# TODO: Add npm install
+.PHONY: npm-test
+npm-test:
+	npm test
+
+.PHONY: npm-fix
+npm-fix:
+	npm run fix
+
+.PHONY: typos-test
+typos-test: bin/typos
+	bin/typos
+
+# TODO: Add shellcheck, shfmt, hadolint
+.PHONY: test-all
+test-all: composer-test npm-test typos-test
+
+.PHONY: fix-all
+fix-all: composer-fix npm-fix
+
 
 ##########
 ## HELP ##

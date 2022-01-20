@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'No dispones de permiso para acceder a esta página',
@@ -84,7 +94,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> se ha borrado la caché',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',

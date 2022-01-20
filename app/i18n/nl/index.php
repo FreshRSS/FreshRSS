@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'Over',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Rapporteer fouten',
 		'credits' => 'Waarderingen',
 		'credits_content' => 'Sommige ontwerp elementen komen van <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> alhoewel FreshRSS dit raamwerk niet gebruikt. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Pictogrammen</a> komen van het <a href="https://www.gnome.org/">GNOME project</a>. <em>De Open Sans</em> font police is gemaakt door <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS is gebaseerd op <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, een PHP raamwerk. Nederlandse vertaling door Wanabo, <a href="http://www.nieuwskop.be" title="NieuwsKop">NieuwsKop.be</a>. Link naar de Nederlandse vertaling, <a href="https://github.com/Wanabo/FreshRSS-Dutch-translation/tree/master">FreshRSS-Dutch-translation</a>.',
@@ -12,7 +22,7 @@ return array(
 		'license' => 'Licentie',
 		'project_website' => 'Projectwebsite',
 		'title' => 'Over',
-		'version' => 'Versie',
+		'version' => 'Versie',	// IGNORE
 	),
 	'feed' => array(
 		'add' => 'U kunt wat feeds toevoegen.',

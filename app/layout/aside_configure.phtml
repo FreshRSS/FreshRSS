@@ -1,4 +1,6 @@
-<nav class="nav nav-list aside">
+<nav class="nav nav-list aside" id="aside_feed">
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
+	
 	<ul>
 		<li class="nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></li>	
 		<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
@@ -59,4 +61,8 @@
 			<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
 		</li>
 	</ul>
+</nav>
+<a class="close-aside" href="#close">❌</a>
+<nav class="nav_menu nav_mobile">
+	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
 </nav>

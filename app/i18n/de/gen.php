@@ -1,8 +1,18 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Aktualisieren',
+		'actualize' => 'Feeds aktualisieren',
 		'add' => 'Hinzufügen',
 		'back' => '← Zurück',
 		'back_to_rss_feeds' => '← Zurück zu Ihren RSS-Feeds gehen',
@@ -17,7 +27,6 @@ return array(
 		'import' => 'Importieren',
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
-		'mark_favorite' => 'Als Favorit markieren',
 		'mark_read' => 'Als gelesen markieren',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',
@@ -49,8 +58,8 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',
-		'Aug' => '\\A\\u\\g\\u\\s\\t',
+		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
+		'Aug' => '\\A\\u\\g\\u\\s\\t',	// IGNORE
 		'Dec' => '\\D\\e\\z\\e\\m\\b\\e\\r',
 		'Feb' => '\\F\\e\\b\\r\\u\\a\\r',
 		'Jan' => '\\J\\a\\n\\u\\a\\r',
@@ -58,13 +67,13 @@ return array(
 		'Jun' => '\\J\\u\\n\\i',
 		'Mar' => '\\M\\ä\\r\\z',
 		'May' => '\\M\\a\\i',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// IGNORE
 		'Oct' => '\\O\\k\\t\\o\\b\\e\\r',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// IGNORE
 		'apr' => 'Apr',
-		'april' => 'April',
+		'april' => 'April',	// IGNORE
 		'aug' => 'Aug',
-		'august' => 'August',
+		'august' => 'August',	// IGNORE
 		'before_yesterday' => 'Ältere Beiträge',
 		'dec' => 'Dez',
 		'december' => 'Dezember',
@@ -94,12 +103,12 @@ return array(
 		'mon' => 'Mo',
 		'month' => 'Monat(en)',
 		'nov' => 'Nov',
-		'november' => 'November',
+		'november' => 'November',	// IGNORE
 		'oct' => 'Okt',
 		'october' => 'Oktober',
 		'sat' => 'Sa',
 		'sep' => 'Sep',
-		'september' => 'September',
+		'september' => 'September',	// IGNORE
 		'sun' => 'So',
 		'thu' => 'Do',
 		'today' => 'Heute',
@@ -107,9 +116,9 @@ return array(
 		'wed' => 'Mi',
 		'yesterday' => 'Gestern',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Über FreshRSS',
 	),
 	'js' => array(
@@ -125,29 +134,29 @@ return array(
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Über',
-		'account' => 'Account',
-		'admin' => 'Administration',
+		'account' => 'Account',	// IGNORE
+		'admin' => 'Administration',	// IGNORE
 		'archiving' => 'Archivierung',
 		'authentication' => 'Authentifizierung',
 		'check_install' => 'Installationsüberprüfung',
@@ -184,25 +193,25 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
-		'blogotext' => 'Blogotext',
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Zwischenablage',
-		'diaspora' => 'Diaspora*',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-Mail',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Drucken',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Achtung!',

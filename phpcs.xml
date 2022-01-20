@@ -12,6 +12,7 @@
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
 	<exclude-pattern>./extensions/</exclude-pattern>
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
+	<exclude-pattern>./vendor/</exclude-pattern>
 	<exclude-pattern>*.min.js$</exclude-pattern>
 	<!-- Duplicate class names are not allowed -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>
@@ -27,7 +28,7 @@
 	<rule ref="Generic.Files.LineLength">
 		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
-		<!-- Don't enforce line length on the HTML; the point is to improve legibility, not reduce it -->
+		<!-- Don’t enforce line length on the HTML; the point is to improve legibility, not reduce it -->
 		<exclude-pattern>*.phtml$</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="165"/>
@@ -104,6 +105,8 @@
 	<rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
 		<exclude-pattern>.phtml$</exclude-pattern>
 	</rule>
+	<!-- Opening brace on same line as function declaration -->
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
 	<!-- Newline required after opening brace -->
 	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
 		<exclude-pattern>.phtml$</exclude-pattern>

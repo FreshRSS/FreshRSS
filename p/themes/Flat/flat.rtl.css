@@ -584,7 +584,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #ecf0f1;
-	height: 85px;
 }
 
 .header > .item {
@@ -1123,7 +1122,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
 		display: block;
 		width: 100%;
@@ -1163,6 +1163,16 @@ a.btn {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fafafa;
+		border-top: 1px solid #95a5a6;
+		border-right: 1px solid #95a5a6;
+	}
+
+	.dropdown-target:target ~ .btn.dropdown-toggle::after {
+		bottom: -19px;
 	}
 
 	.day .name {

@@ -553,7 +553,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #41444f;
-	height: 85px;
 }
 
 .header > .item {
@@ -1134,7 +1133,8 @@ a.signin {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #f6f6f6;
 		display: block;
 		width: 100%;
@@ -1169,10 +1169,16 @@ a.signin {
 	.nav_menu .search input {
 		max-width: 97%;
 		width: 90px;
+		line-height: 2;
 	}
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		border-top: 1px solid #aaa;
+		border-left: 1px solid #aaa;
 	}
 
 	.day .name {

@@ -1,4 +1,3 @@
-[![Statut de la compilation](https://travis-ci.org/FreshRSS/FreshRSS.svg)](https://travis-ci.org/FreshRSS/FreshRSS)
 [![Dons Liberapay](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 * Lire ce document sur [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/edge/README.md) pour avoir les images et liens corrects.
@@ -192,7 +191,7 @@ Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre b
 ```
 
 > Il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`.
-Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+Si ce n’est pas le cas, la commande ne fonctionnera pas correctement.
 
 Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer la base de données au format SQLite dans votre base de données:
 
@@ -200,11 +199,11 @@ Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer 
 ./cli/import-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
 ```
 
-> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n’est pas le cas, la commande ne fonctionnera pas correctement.
 
-Le processus d'import/export à l'aide d'une base de données SQLite est utile quand vous devez :
+Le processus d’import/export à l’aide d’une base de données SQLite est utile quand vous devez :
 
-* exporter complètement les données d'un utilisateur,
+* exporter complètement les données d’un utilisateur,
 * sauvegarder votre service,
 * migrer votre service sur un autre serveur,
 * changer de type de base de données,
@@ -230,11 +229,11 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 | [EasyRSS](https://github.com/Alkarex/EasyRSS)                                         | Android     | [✔️](https://github.com/Alkarex/EasyRSS)                      | ✔️                     | GReader          | Bug           | ⭐⭐        | ➖                             | ➖                  | ✔️         | ➖     | ➖       | ➖           |
 | [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader)  | Android     | ➖                                                            | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐       | ➖                             | ➖                  | ✔️         | ➖     | ✓      | ✔️           |
 | [Readrops](https://github.com/readrops/Readrops)                                      | Android     | [✔️](https://github.com/readrops/Readrops)                    | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐       | ➖                             | ➖                  | ➖         | ➖     | ➖       | ✔️           |
-| [ChristopheHenry](https://git.feneas.org/christophehenry/freshrss-android)            | Android     | [✔️](https://git.feneas.org/christophehenry/freshrss-android) | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
+| [ChristopheHenry](https://gitlab.com/christophehenry/freshrss-android)            | Android     | [✔️](https://gitlab.com/christophehenry/freshrss-android) | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
 | [Fluent Reader](https://hyliu.me/fluent-reader/)                             | Windows, Linux, MacOS| [✔️](https://github.com/yang991178/fluent-reader)             | ✔️✔️                   | Fever            | ✔️            | ⭐         | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
 | [FeedReader](https://jangernert.github.io/FeedReader/)                                | GNU/Linux   | [✔️](https://jangernert.github.io/FeedReader/)                | ✔️                     | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ✔️           |
-| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | En développement       | Fever, GReader   | ➖            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
-| [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, MacOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | ✔️✔️                   | Fever   | ➖            | ⭐⭐        | ✔️                           | ✔️                | ✔️       | ➖    | ➖      | ➖          |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk) |            GNU/Linux            | [✔️](https://gitlab.com/news-flash/news_flash_gtk) | En développement | GReader | ➖ | ❔ | ❔ | ❔ | ❔ | ❔ | ➖ | ❔ || [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, MacOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
 | [Vienna RSS](http://www.vienna-rss.com/)                                              | MacOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
 | [Reeder](https://www.reederapp.com/)                                                  | iOS, MacOS  | ➖                                                            | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐       | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ✔️           |
 | [Unread](https://apps.apple.com/app/unread-2/id1363637349)                            | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ➖       | ➖           |

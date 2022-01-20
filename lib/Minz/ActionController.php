@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe ActionController représente le contrôleur de l'application
+ * The Minz_ActionController class is a controller in the MVC paradigm
  */
 class Minz_ActionController {
 	protected $view;
@@ -13,11 +13,15 @@ class Minz_ActionController {
 		'default-src' => "'self'",
 	);
 
-	/**
-	 * Constructeur
-	 */
+	// Gives the possibility to override the default View type.
+	public static $viewType = 'Minz_View';
+
 	public function __construct () {
-		$this->view = new Minz_View();
+		if (class_exists(self::$viewType)) {
+			$this->view = new self::$viewType();
+		} else {
+			$this->view = new Minz_View();
+		}
 		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
 		$this->view->attributeParams ();

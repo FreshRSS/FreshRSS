@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Log permet de logger des erreurs
+ * The Minz_Log class is used to log errors and warnings
  */
 class Minz_Log {
 	/**
@@ -14,9 +14,9 @@ class Minz_Log {
 	 * 	- environment = SILENT
 	 * 	- level = LOG_WARNING et environment = PRODUCTION
 	 * 	- level = LOG_NOTICE et environment = PRODUCTION
-	 * @param $information message d'erreur / information à enregistrer
-	 * @param $level niveau d'erreur https://php.net/function.syslog
-	 * @param $file_name fichier de log
+	 * @param string $information message d'erreur / information à enregistrer
+	 * @param int $level niveau d'erreur https://php.net/function.syslog
+	 * @param string $file_name fichier de log
 	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
@@ -61,6 +61,7 @@ class Minz_Log {
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
 
+			// @phpstan-ignore-next-line
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
 				syslog($level, '[' . $username . '] ' . trim($log));
 			}
@@ -79,11 +80,12 @@ class Minz_Log {
 	 * This method can be called multiple times for one script execution, but its result will not change unless
 	 * you call clearstatcache() in between. We won't due do that for performance reasons.
 	 *
-	 * @param $file_name
+	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize($file_name) {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
+		// @phpstan-ignore-next-line
 		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
 			$fp = fopen($file_name, 'c+');
 			if ($fp && flock($fp, LOCK_EX)) {
@@ -98,24 +100,11 @@ class Minz_Log {
 			} else {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
+			// @phpstan-ignore-next-line
 			if ($fp) {
 				fclose($fp);
 			}
 		}
-	}
-
-	/**
-	 * Automatise le log des variables globales $_GET et $_POST
-	 * Fait appel à la fonction record(...)
-	 * Ne fonctionne qu'en environnement "development"
-	 * @param $file_name fichier de log
-	 */
-	public static function recordRequest($file_name = null) {
-		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));
-		$msg_post = str_replace("\n", '', '$_POST content : ' . print_r($_POST, true));
-
-		self::record($msg_get, LOG_DEBUG, $file_name);
-		self::record($msg_post, LOG_DEBUG, $file_name);
 	}
 
 	/**

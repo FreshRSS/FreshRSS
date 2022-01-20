@@ -39,10 +39,13 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
 	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php7 /usr/bin/php; else true; fi && \
+	echo 'memory_limit = 256M' > /etc/php7/conf.d/10_memory.ini && \
+	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
+	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
-		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
 
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On

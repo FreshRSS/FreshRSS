@@ -1,5 +1,6 @@
 <IfModule mod_mime.c>
 	AddType application/font-woff .woff
+	AddType application/font-woff2 .woff2
 
 	AddCharset	UTF-8	.css
 	AddCharset	UTF-8	.svg
@@ -8,6 +9,7 @@
 <IfModule mod_expires.c>
 	ExpiresActive	on
 	ExpiresByType	application/font-woff	"access plus 1 month"
+	ExpiresByType	application/json	"access plus 1 month"
 	ExpiresByType	image/gif	"access plus 1 month"
 	ExpiresByType	image/png	"access plus 1 month"
 	ExpiresByType	image/svg+xml	"access plus 1 month"

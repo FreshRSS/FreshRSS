@@ -3,16 +3,16 @@
 /**
  * This class handles main actions of FreshRSS.
  */
-class FreshRSS_index_Controller extends Minz_ActionController {
+class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action only redirect on the default view mode (normal or global)
 	 */
 	public function indexAction() {
-		$prefered_output = FreshRSS_Context::$user_conf->view_mode;
+		$preferred_output = FreshRSS_Context::$user_conf->view_mode;
 		Minz_Request::forward(array(
 			'c' => 'index',
-			'a' => $prefered_output
+			'a' => $preferred_output
 		));
 	}
 
@@ -41,12 +41,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$this->view->categories = FreshRSS_Context::$categories;
 
-		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = FreshRSS_Context::$name;
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
-		Minz_View::prependTitle($title . ' · ');
+		FreshRSS_View::prependTitle($title . ' · ');
 
 		FreshRSS_Context::$id_max = time() . '000000';
 
@@ -104,8 +104,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			return;
 		}
 
-		Minz_View::appendScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
-		Minz_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
 		try {
 			$this->updateContext();
@@ -115,12 +115,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$this->view->categories = FreshRSS_Context::$categories;
 
-		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
-		Minz_View::prependTitle($title . ' · ');
+		FreshRSS_View::prependTitle($title . ' · ');
 
 		$this->_csp([
 			'default-src' => "'self'",
@@ -161,7 +161,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		// No layout for RSS output.
 		$this->view->url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
-		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$this->view->_layout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
@@ -253,7 +253,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action displays the about page of FreshRSS.
 	 */
 	public function aboutAction() {
-		Minz_View::prependTitle(_t('index.about.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('index.about.title') . ' · ');
 	}
 
 	/**
@@ -270,7 +270,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$this->view->terms_of_service = $terms_of_service;
 		$this->view->can_register = !max_registrations_reached();
-		Minz_View::prependTitle(_t('index.tos.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('index.tos.title') . ' · ');
 	}
 
 	/**
@@ -281,7 +281,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('index.log.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('index.log.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			FreshRSS_LogDAO::truncate();

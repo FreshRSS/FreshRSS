@@ -55,7 +55,8 @@
 
 	.aside .toggle_aside,
 	#panel .close,
-	#close-slider.active {
+	#close-slider.active,
+	.dropdown-menu .toggle_aside {
 		background: $main-first-alt;
 		display: block;
 		width: 100%;
@@ -68,12 +69,12 @@
 		padding: 0.5rem;
 
 		.item {
-			&.title {
-				display: none;
-			}
-
 			&.search {
 				display: block;
+
+				form {
+					display: inherit;
+				}
 
 				.stick {
 					display: flex;
@@ -95,9 +96,6 @@
 				}
 			}
 
-			&.configure {
-				display: none;
-			}
 		}
 	}
 
@@ -149,7 +147,27 @@
 		}
 	}
 
+	.dropdown-target:target {
+		~ .dropdown-toggle::after {
+			background-color: $grey-lighter;
+			border-top: 1px solid $grey-light;
+			border-left: 1px solid $grey-light;
+			right: 21px;
+			bottom: -14px;
+		}
 
+		~ a.dropdown-toggle {
+			&:not(.btn) {
+				~ .dropdown-menu {
+					margin-top: 0;
+				}
+
+				&::after {
+					bottom: -17px;
+				}
+			}
+		}
+	}
 
 	.day {
 		text-align: center;

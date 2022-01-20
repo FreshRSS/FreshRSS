@@ -1,0 +1,121 @@
+name: Automated tests
+
+on:
+  push:
+    branches: [ edge ]
+  pull_request:
+    branches: [ edge ]
+
+jobs:
+
+  tests:
+    # https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git checkout source code
+      uses: actions/checkout@v2
+
+    # Composer tests
+
+    - name: Check PHP syntax
+      run: composer run-script php-lint
+
+    - name: Check PHTML syntax
+      run: composer run-script phtml-lint
+
+    - name: Check translations syntax
+      run: composer run-script translations && git diff --exit-code
+
+    - name: Use Composer cache
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Run Composer install
+      run: composer install --prefer-dist --no-progress
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+
+    - name: Run PHP unit tests
+      run: composer run-script phpunit
+
+    - name: PHP_CodeSniffer
+      run: composer run-script phpcs
+
+    - name: PHPStan
+      run: composer run-script phpstan
+
+    # NPM tests
+
+    - name: Uses Node.js
+      uses: actions/setup-node@v2
+      with:
+        # https://nodejs.org/en/about/releases/
+        node-version: '14'
+        cache: 'npm'
+
+    - run: npm install
+
+    - name: Check JavaScript syntax
+      run: npm run --silent eslint
+
+    - name: Check Markdown syntax
+      run: npm run --silent markdownlint
+
+    - name: Check Right-to-left CSS
+      run: npm run --silent rtlcss && git diff --exit-code
+
+    - name: Check CSS syntax
+      run: npm run --silent stylelint
+
+    # Shell tests
+
+    - name: Use shell cache
+      id: shell-cache
+      uses: actions/cache@v2
+      with:
+        path: bin
+        key: ${{ runner.os }}-bin-shfmt@v3.4.0c-hadolint@v2.7.0-typos@v1.3.3
+
+    - name: Add ./bin/ to $PATH
+      run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
+
+    - name: Setup Go
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      # Multiple Go versions are pre-installed but the default 1.15 is too old
+      # https://github.com/actions/setup-go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.17'
+
+    - name: Install shfmt
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.4.0
+
+    - name: Check shell script syntax
+      # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+      run: ./tests/shellchecks.sh
+
+    - name: Install hadolint
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      run: curl -sL -o ./bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ./bin/hadolint
+
+    - name: Check Dockerfile syntax
+      run: find . -name 'Dockerfile*' -print0 | xargs -0 -n1 ./bin/hadolint --failure-threshold warning
+
+    - name: Install typos
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      run: |
+        cd bin ;
+        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' &&
+        tar -xvf *.tar.gz './typos' &&
+        chmod +x typos &&
+        rm *.tar.gz ;
+        cd ..
+
+    - name: Check spelling
+      run: bin/typos

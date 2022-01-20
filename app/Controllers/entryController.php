@@ -3,7 +3,14 @@
 /**
  * Controller to handle every entry actions.
  */
-class FreshRSS_entry_Controller extends Minz_ActionController {
+class FreshRSS_entry_Controller extends FreshRSS_ActionController {
+
+	/**
+	 * JavaScript request or not.
+	 * @var bool
+	 */
+	private $ajax = false;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -114,7 +121,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				'c' => 'index',
 				'a' => 'index',
 				'params' => $params,
-			), true);
+			));
 		}
 	}
 
@@ -145,7 +152,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	/**
 	 * This action optimizes database to reduce its size.
 	 *
-	 * This action shouldbe reached by a POST request.
+	 * This action should be reached by a POST request.
 	 *
 	 * @todo move this action in configure controller.
 	 * @todo call this action through web-cron when available

@@ -5,8 +5,17 @@
  * useful functions associated to the current view state.
  */
 class FreshRSS_Context {
+
+	/**
+	 * @var FreshRSS_UserConfiguration|null
+	 */
 	public static $user_conf = null;
+
+	/**
+	 * @var FreshRSS_SystemConfiguration|null
+	 */
 	public static $system_conf = null;
+
 	public static $categories = array();
 	public static $tags = array();
 
@@ -49,7 +58,11 @@ class FreshRSS_Context {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-			FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+			/**
+			 * @var FreshRSS_SystemConfiguration $system_conf
+			 */
+			$system_conf = Minz_Configuration::get('system');
+			FreshRSS_Context::$system_conf = $system_conf;
 			// Register the configuration setter for the system configuration
 			$configurationSetter = new FreshRSS_ConfigurationSetter();
 			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
@@ -80,7 +93,11 @@ class FreshRSS_Context {
 					FreshRSS_Context::$system_conf->configurationSetter());
 
 				Minz_Session::_param('currentUser', $username);
-				FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
+				/**
+				 * @var FreshRSS_UserConfiguration $user_conf
+				 */
+				$user_conf = Minz_Configuration::get('user');
+				FreshRSS_Context::$user_conf = $user_conf;
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
 			}
@@ -125,6 +142,7 @@ class FreshRSS_Context {
 
 	/**
 	 * Returns if the current state includes $state parameter.
+	 * @param int $state
 	 */
 	public static function isStateEnabled($state) {
 		return self::$state & $state;
@@ -132,6 +150,7 @@ class FreshRSS_Context {
 
 	/**
 	 * Returns the current state with or without $state parameter.
+	 * @param int $state
 	 */
 	public static function getRevertState($state) {
 		if (self::$state & $state) {
