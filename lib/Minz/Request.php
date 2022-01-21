@@ -343,7 +343,7 @@ class Minz_Request {
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
-			header('Location: ' . Minz_Url::display($url, 'php'));
+			header('Location: ' . Minz_Url::display($url, 'php', 'root'));
 			exit();
 		} else {
 			self::_controllerName($url['c']);
