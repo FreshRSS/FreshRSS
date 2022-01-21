@@ -674,7 +674,7 @@ input[type="search"] {
 }
 
 .aside_feed .category .title:not([data-unread="0"]) {
-	width: calc(100% - 35px - 20px);
+	width: calc(100% - 75px);
 }
 
 .aside_feed .tree-folder-title .icon {
@@ -1320,6 +1320,7 @@ input:checked + .slide-container .properties {
 
 .feed .item-title:not([data-unread="0"]) {
 	font-weight: bold;
+	width: calc(100% - 80px);
 }
 
 .state_unread .category:not(.active)[data-unread="0"],
