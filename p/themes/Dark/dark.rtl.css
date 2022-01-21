@@ -626,13 +626,12 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
 	background-color: #171717;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
-	background-color: #222222;
+	background-color: #222;
 	color: #888;
 }
 

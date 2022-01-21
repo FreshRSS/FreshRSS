@@ -595,8 +595,8 @@ a.btn {
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
 	background-color: #171717;
-	color: #999999;
-	border-color: #999999;
+	color: #999;
+	border-color: #999;
 }
 
 /*=== Aside main page (feeds) */

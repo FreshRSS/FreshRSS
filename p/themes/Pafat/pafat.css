@@ -624,8 +624,8 @@ a.signin {
 
 .aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
 	background-color: transparent;
-	border: 1px solid #fff;
 	color: white;
+	border: 1px solid #fff;
 	font-weight: bold;
 }
 

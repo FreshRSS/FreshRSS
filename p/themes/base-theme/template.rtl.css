@@ -1301,9 +1301,9 @@ input:checked + .slide-container .properties {
 	top: 0;
 	left: 10px;
 	text-align: center;
+	font-size: 0.9em;
 	border-radius: 12px;
 	line-height: 1;
-	font-size: 0.9em;
 	font-weight: initial;
 }
 
@@ -1313,8 +1313,8 @@ input:checked + .slide-container .properties {
 
 .feed.active .item-title:not([data-unread="0"])::after {
 	background-color: transparent;
-	border: 1px solid #fff;
 	color: white;
+	border: 1px solid #fff;
 	font-weight: bold;
 }
 

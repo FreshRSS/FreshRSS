@@ -674,7 +674,7 @@ input[type="search"] {
 }
 
 .aside_feed .category .title:not([data-unread="0"]) {
-	width: calc(100% - 35px - 20px);
+	width: calc(100% - 55px - 20px);
 }
 
 .aside_feed .tree-folder-title .icon {
@@ -1301,9 +1301,9 @@ input:checked + .slide-container .properties {
 	top: 0;
 	right: 10px;
 	text-align: center;
+	font-size: 0.9em;
 	border-radius: 12px;
 	line-height: 1;
-	font-size: 0.9em;
 	font-weight: initial;
 }
 
@@ -1313,13 +1313,14 @@ input:checked + .slide-container .properties {
 
 .feed.active .item-title:not([data-unread="0"])::after {
 	background-color: transparent;
-	border: 1px solid #fff;
 	color: white;
+	border: 1px solid #fff;
 	font-weight: bold;
 }
 
 .feed .item-title:not([data-unread="0"]) {
 	font-weight: bold;
+	width: calc(100% - 60px - 20px);
 }
 
 .state_unread .category:not(.active)[data-unread="0"],
