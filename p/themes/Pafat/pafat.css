@@ -622,6 +622,10 @@ a.signin {
 	color: white;
 }
 
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	right: 5px;
+}
+
 .aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
 	background-color: transparent;
 	color: white;
