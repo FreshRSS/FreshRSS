@@ -1465,6 +1465,10 @@ input:checked + .slide-container .properties {
 		box-shadow: 3px 0 3px #aaa;
 	}
 
+	.configure .dropdown-target:target ~ .dropdown-toggle::after {
+		content: none;
+	}
+
 	.dropdown-target:target ~ .dropdown-menu {
 		display: table-cell;
 		z-index: 1000;
