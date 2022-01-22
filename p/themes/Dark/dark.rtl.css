@@ -1166,6 +1166,7 @@ a.btn {
 		background-color: #1a1a1a;
 		border-top: 1px solid #888;
 		border-right: 1px solid #888;
+		left: 12px;
 	}
 
 	.day .name {
