@@ -359,18 +359,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #fff;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #ddd;
-	/* @noflip */
-	border-right: 1px solid #ddd;
-	content: "";
-	position: absolute;
-	top: -6px;
-	left: 13px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border-color: #ddd;
 }
 
 .dropdown-header {
