@@ -336,6 +336,20 @@ a.btn {
 	left: 0;
 }
 
+.dropdown-menu::after {
+	background-color: inherit;
+	width: 10px;
+	height: 10px;
+	border-width: 1px 1px 0 0;
+	border-style: solid;
+	content: "";
+	position: absolute;
+	top: -6px;
+	left: 13px;
+	z-index: -10;
+	transform: rotate(-45deg);
+}
+
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
