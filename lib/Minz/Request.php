@@ -147,9 +147,9 @@ class Minz_Request {
 	/**
 	 * Try to guess the base URL from $_SERVER information
 	 *
-	 * @return string base url (e.g. http://example.com/)
+	 * @return string base url (e.g. http://example.com)
 	 */
-	public static function guessBaseUrl() {
+	public static function guessBaseUrl(): string {
 		$protocol = self::extractProtocol();
 		$host = self::extractHost();
 		$port = self::extractPortForUrl();
@@ -225,12 +225,11 @@ class Minz_Request {
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPath() {
-		if ('' != $path = ($_SERVER['REQUEST_URI'] ?? '')) {
-			return '/' === substr($path, -1) ? substr($path, 0, -1) : dirname($path);
+	private static function extractPath(): string {
+		$path = $_SERVER['REQUEST_URI'] ?? '';
+		if ($path != '') {
+			$path = parse_url($path, PHP_URL_PATH);
+			return substr($path, -1) === '/' ? rtrim($path, '/') : dirname($path);
 		}
 		return '';
 	}
