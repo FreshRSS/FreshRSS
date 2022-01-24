@@ -336,6 +336,20 @@ a.btn {
 	right: 0;
 }
 
+.dropdown-menu::after {
+	background-color: inherit;
+	width: 10px;
+	height: 10px;
+	border-width: 1px 0 0 1px;
+	border-style: solid;
+	content: "";
+	position: absolute;
+	top: -6px;
+	right: 13px;
+	z-index: -10;
+	transform: rotate(45deg);
+}
+
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
@@ -1449,6 +1463,10 @@ input:checked + .slide-container .properties {
 		margin-top: 0;
 		overflow: auto;
 		box-shadow: -3px 0 3px #aaa;
+	}
+
+	.configure .dropdown-target:target ~ .dropdown-toggle::after {
+		content: none;
 	}
 
 	.dropdown-target:target ~ .dropdown-menu {

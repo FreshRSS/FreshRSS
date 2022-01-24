@@ -296,6 +296,9 @@ form th {
 .dropdown-menu .dropdown-header {
 	cursor: default;
 }
+.dropdown-menu::after {
+	content: none;
+}
 .dropdown-menu > .item {
 	padding: 0;
 	margin-right: 10px;
