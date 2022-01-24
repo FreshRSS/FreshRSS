@@ -1,3 +1,7 @@
+@use "mixins";
+
+@use "variables";
+
 /*=== MOBILE */
 /*===========*/
 
@@ -18,18 +22,18 @@
 				box-sizing: border-box;
 				padding: 1rem 1rem 1rem 2.5rem;
 
-				background: url("../../themes/icons/logout.svg") no-repeat $sid-bg-dark 3% center;
+				background: url("../../themes/icons/logout.svg") no-repeat variables.$sid-bg-dark 3% center;
 				display: inline-block;
 				width: 100%;
-				color: $sid-font-color;
+				color: variables.$sid-font-color;
 
-				@include transition(all, 0.2s, ease-in-out);
+				@include mixins.transition(all, 0.2s, ease-in-out);
 
 				&:hover,
 				&:active {
-					background: url("../../themes/icons/logout.svg") no-repeat $alert-bg 3% center;
+					background: url("../../themes/icons/logout.svg") no-repeat variables.$alert-bg 3% center;
 					text-decoration: none;
-					color: $white;
+					color: variables.$white;
 				}
 			}
 
@@ -43,7 +47,7 @@
 
 	.aside {
 
-		@include transition(all, 0.2s, ease-in-out);
+		@include mixins.transition(all, 0.2s, ease-in-out);
 
 		&.aside_feed {
 			padding: 0;
@@ -58,7 +62,7 @@
 	#panel .close,
 	#close-slider.active,
 	.dropdown-menu .toggle_aside {
-		background: $main-first-alt;
+		background: variables.$main-first-alt;
 		display: block;
 		width: 100%;
 		height: 50px;
@@ -149,9 +153,9 @@
 
 	.dropdown-target:target {
 		~ .dropdown-toggle::after {
-			background-color: $grey-lighter;
-			border-top: 1px solid $grey-light;
-			border-left: 1px solid $grey-light;
+			background-color: variables.$grey-lighter;
+			border-top: 1px solid variables.$grey-light;
+			border-left: 1px solid variables.$grey-light;
 			right: 21px;
 			bottom: -14px;
 		}

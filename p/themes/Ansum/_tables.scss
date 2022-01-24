@@ -1,3 +1,5 @@
+@use "variables";
+
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -5,11 +7,11 @@ table {
 
 tr, th, td {
 	padding: 0.5em;
-	border: 1px solid $grey-medium-light;
+	border: 1px solid variables.$grey-medium-light;
 }
 
 th {
-	background: $grey-lighter;
+	background: variables.$grey-lighter;
 }
 
 form td,
