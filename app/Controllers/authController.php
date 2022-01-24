@@ -125,15 +125,19 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 			FreshRSS_Context::initUser($username);
 			if (FreshRSS_Context::$user_conf == null) {
+				// Username is unknown
+				
 				// Initialise the default user to be able to display the error page
 				FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'auth', 'a' => 'login']);
 				return;
 			}
 
 			if (!FreshRSS_Context::$user_conf->enabled || FreshRSS_Context::$user_conf->passwordHash == '') {
+				// user is not enabled
+				
 				usleep(rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
-				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'auth', 'a' => 'login']);
 				return;
 			}
 
@@ -163,10 +167,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 
-				header('HTTP/1.1 403 Forbidden');
-				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
-				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
-				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
+				Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'auth', 'a' => 'login']);
 				return;
 			}
 		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
