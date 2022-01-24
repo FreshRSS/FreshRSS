@@ -126,16 +126,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::initUser($username);
 			if (FreshRSS_Context::$user_conf == null) {
 				// Username is unknown
-				
-				// Initialise the default user to be able to display the error page
-				FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user);
 				Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'auth', 'a' => 'login']);
 				return;
 			}
 
 			if (!FreshRSS_Context::$user_conf->enabled || FreshRSS_Context::$user_conf->passwordHash == '') {
 				// user is not enabled
-				
 				usleep(rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
 				Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'auth', 'a' => 'login']);
 				return;
