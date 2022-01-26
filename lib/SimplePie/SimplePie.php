@@ -650,6 +650,14 @@ class SimplePie
 	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));
 
 	/**
+	 * @var array Stores the default tags to be stripped by rename_attributes().
+	 * @see SimplePie::rename_attributes()
+	 * @access private
+	 */
+	public $rename_attributes = array();
+
+
+	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
 	 * @see SimplePie::strip_htmltags()
 	 * @access private
@@ -1215,6 +1223,15 @@ class SimplePie
 	public function remove_div($enable = true)
 	{
 		$this->sanitize->remove_div($enable);
+	}
+
+	public function rename_attributes($tags = '', $encode = null)
+	{
+		if ($tags === '')
+		{
+			$tags = $this->rename_attributes;
+		}
+		$this->sanitize->rename_attributes($tags);
 	}
 
 	public function strip_htmltags($tags = '', $encode = null)
