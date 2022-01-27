@@ -677,7 +677,7 @@ class SimplePie_Sanitize
 
 		foreach ($elements as $element)
 		{
-			$element->setAttribute('data-sanitized-'.$attrib, $element->getAttribute($attrib));
+			$element->setAttribute('data-sanitized-' . $attrib, $element->getAttribute($attrib));
 			$element->removeAttribute($attrib);
 		}
 	}
