@@ -195,16 +195,23 @@ class FreshRSS_Context {
 	}
 
 	/**
-	 * Return true if the current request targets a feed (and not a category or all articles), false otherwise.
+	 * @return bool true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
-	public static function isFeed() {
+	public static function isFeed(): bool {
 		return self::$current_get['feed'] != false;
 	}
 
 	/**
-	 * Return true if $get parameter correspond to the $current_get attribute.
+	 * @return bool true if the current request targets a tag (though not all tags), false otherwise.
 	 */
-	public static function isCurrentGet($get) {
+	public static function isTag(): bool {
+		return self::$current_get['tag'] != false;
+	}
+
+	/**
+	 * @return bool true if $get parameter correspond to the $current_get attribute.
+	 */
+	public static function isCurrentGet($get): bool {
 		$type = $get[0];
 		$id = substr($get, 2);
 

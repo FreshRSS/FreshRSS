@@ -202,6 +202,11 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				!$state_forced_by_user) {
 			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
 		}
+		if (FreshRSS_Context::$user_conf->show_fav_unread && !$state_forced_by_user &&
+				(FreshRSS_Context::isCurrentGet('s') || FreshRSS_Context::isCurrentGet('T') || FreshRSS_Context::isTag()) &&
+				!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
+		}
 
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
 		FreshRSS_Context::$order = Minz_Request::param(
