@@ -196,16 +196,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'state', FreshRSS_Context::$user_conf->default_state
 		);
 		$state_forced_by_user = Minz_Request::param('state', false) !== false;
-		if (FreshRSS_Context::$user_conf->default_view === 'adaptive' &&
-				FreshRSS_Context::$get_unread <= 0 &&
-				!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
-				!$state_forced_by_user) {
-			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
-		}
-		if (FreshRSS_Context::$user_conf->show_fav_unread && !$state_forced_by_user &&
-				(FreshRSS_Context::isCurrentGet('s') || FreshRSS_Context::isCurrentGet('T') || FreshRSS_Context::isTag()) &&
-				!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
+		if (!$state_forced_by_user && !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+			if (FreshRSS_Context::$user_conf->default_view === 'adaptive' && FreshRSS_Context::$get_unread <= 0) {
+				FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
+			}
+			if (FreshRSS_Context::$user_conf->show_fav_unread &&
+					(FreshRSS_Context::isCurrentGet('s') || FreshRSS_Context::isCurrentGet('T') || FreshRSS_Context::isTag())) {
+				FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
+			}
 		}
 
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
