@@ -7,19 +7,16 @@
 
 	<p class="alert alert-warn"><?= $this->extension->getDescription() ?> — <?= _t('gen.short.by_author'), ' ', $this->extension->getAuthor() ?></p>
 
-
-	
 	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-		<form id="form-extension" method="post">
-	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	<form id="form-extension" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group form-actions">
-			<div class="group-controls">
-			
-	<button class="btn btn-attention confirm" form="form-extension" formaction="<?= _url('extension', 'remove', 'e', urlencode($this->extension->getName())) ?>"><?= _t('gen.action.remove') ?></button>
-	</div>
+			<div class="group-controls">		
+				<button class="btn btn-attention confirm" form="form-extension" formaction="<?= _url('extension', 'remove', 'e', urlencode($this->extension->getName())) ?>"><?= _t('gen.action.remove') ?></button>
+			</div>
 		</div>
-<?php } ?>
 	</form>
+	<?php } ?>
 
 	<h2><?= _t('gen.action.manage') ?></h2>
 	<?php
@@ -30,6 +27,4 @@
 	?>
 	<p class="alert alert-warn"><?= _t('admin.extensions.no_configure_view') ?></p>
 	<?php } ?>
-
-	
 </div>
