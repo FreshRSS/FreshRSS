@@ -339,11 +339,11 @@ a.btn {
 	background-image: url('../icons/enabled.svg');
 	background-position: center center;
 	left: unset;
-	right: 28px;
+	right: 5px;
 }
 
 .switch.active:hover::before {
-	right: 31px;
+	right: 8px;
 }
 
 /* ::after = background */
