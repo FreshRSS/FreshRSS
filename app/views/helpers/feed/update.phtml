@@ -281,7 +281,7 @@
 		</p>
 
 		<div class="form-group">
-			<label class="group-name"><?= _t('conf.archiving.policy') ?></label>
+			<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
 			<div class="group-controls">
 				<label class="checkbox">
 					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
@@ -380,7 +380,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_cookie') ?></label>
+			<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="<?=
