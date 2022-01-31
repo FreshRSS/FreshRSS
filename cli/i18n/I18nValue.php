@@ -1,10 +1,10 @@
 <?php
 
 class I18nValue {
-	private const STATE_DIRTY = 'dirty';
-	private const STATE_IGNORE = 'ignore';
-	private const STATE_TODO = 'todo';
-	private const STATES = [
+	const STATE_DIRTY = 'dirty';
+	const STATE_IGNORE = 'ignore';
+	const STATE_TODO = 'todo';
+	const STATES = [
 		self::STATE_DIRTY,
 		self::STATE_IGNORE,
 		self::STATE_TODO,
