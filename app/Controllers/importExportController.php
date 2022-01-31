@@ -409,16 +409,19 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$content = sanitizeHTML($content, $url);
 
 			if (!empty($item['published'])) {
-				$published = $item['published'];
+				$published = '' . $item['published'];
 			} elseif (!empty($item['timestampUsec'])) {
-				$published = substr($item['timestampUsec'], 0, -6);
+				$published = substr('' . $item['timestampUsec'], 0, -6);
 			} elseif (!empty($item['updated'])) {
-				$published = $item['updated'];
+				$published = '' . $item['updated'];
 			} else {
-				$published = 0;
+				$published = '0';
 			}
-			if (!ctype_digit('' . $published)) {
-				$published = strtotime($published);
+			if (!ctype_digit($published)) {
+				$published = '' . strtotime($published);
+			}
+			if (strlen($published) > 10) {	// Milliseconds, e.g. Feedly
+				$published = substr($published, 0, -3);
 			}
 
 			$entry = new FreshRSS_Entry(
