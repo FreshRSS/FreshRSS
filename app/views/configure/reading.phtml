@@ -73,7 +73,7 @@
 		<fieldset>
 			<legend><?= _t('conf.reading.headline.categories') ?></legend>
 			<div class="form-group">
-				<label class="group-name" for="default_view"><?= _t('conf.reading.display_categories_unfolded') ?></label>
+				<label class="group-name" for="display_categories"><?= _t('conf.reading.display_categories_unfolded') ?></label>
 				<div class="group-controls">
 					<select name="display_categories" id="display_categories" data-leave-validation="<?= FreshRSS_Context::$user_conf->display_categories ?>">
 						<option value="active"<?= FreshRSS_Context::$user_conf->display_categories === 'active' ? ' selected="selected"' : '' ?>><?=
