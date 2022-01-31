@@ -449,13 +449,11 @@
 		<div class="form-group">
 			<label class="group-name" for="ssl_verify"><?= _t('sub.feed.ssl_verify') ?></label>
 			<div class="group-controls">
-				<label class="checkbox" for="ssl_verify">
-					<select name="ssl_verify" id="ssl_verify">
-						<option value=""<?= $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-						<option value="0"<?= $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-						<option value="1"<?= $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
-					</select>
-				</label>
+				<select name="ssl_verify" id="ssl_verify">
+					<option value=""<?= $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+				</select>
 			</div>
 		</div>
 
