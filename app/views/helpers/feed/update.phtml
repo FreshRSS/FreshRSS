@@ -22,8 +22,7 @@
 	$from = Minz_Request::param('from');
 	if ($from === false) {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id());
-	} 
-	else {
+	} else {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
 	}
 	?>
