@@ -101,8 +101,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action handles the feed action on the idle statistic page.
-	 * set the 'from' parameter to remember that it had a redirection coming from stats controller, 
-	 * to use the subscription controller to save it, 
+	 * set the 'from' parameter to remember that it had a redirection coming from stats controller,
+	 * to use the subscription controller to save it,
 	 * but shows the stats idle page
 	 */
 	public function feedAction() {
@@ -165,7 +165,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		foreach ($feeds as $feed) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feed['favicon'] = $feedDAO->searchById($feed['id'])->favicon();
-			
+
 			$feedDate->setTimestamp($feed['last_date']);
 			if ($feedDate >= $lastWeek) {
 				continue;
@@ -198,8 +198,6 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->view->feed = $feedDAO->searchById($id);
 		}
-
-
 	}
 
 	/**
