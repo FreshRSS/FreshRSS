@@ -207,7 +207,12 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			$from = Minz_Request::param('from');
+			if ($from === false) {
+				$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			} else {
+				$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
+			}
 			if ($feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_category($cat);
 				$feed->faviconPrepare();
