@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// IGNORE
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// IGNORE
 			'title_new_articles' => 'FreshRSS: new articles!',	// IGNORE
 		),
