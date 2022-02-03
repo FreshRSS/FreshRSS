@@ -127,7 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
-			'body_unread_articles' => '(Ungelesen: %%d)',	// TODO
+			'body_unread_articles' => '(Ungelesen: %%d)',
 			'request_failed' => 'Eine Anfrage ist fehlgeschlagen, dies könnte durch Probleme mit der Internetverbindung verursacht worden sein.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
 		),
