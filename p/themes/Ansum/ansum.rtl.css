@@ -234,16 +234,8 @@ form th {
 	text-align: right;
 }
 .dropdown-menu::after {
-	background: #fcfaf8;
-	width: 10px;
-	height: 10px;
-	content: "";
-	position: absolute;
-	top: -4px;
-	left: 18px;
-	bottom: -14px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border: none;
+	left: 17px;
 }
 .dropdown-menu .dropdown-header {
 	margin: 1.75rem 2rem 0.5rem 0;

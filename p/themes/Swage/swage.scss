@@ -376,6 +376,10 @@ form {
 		cursor: default;
 	}
 
+	&::after {
+		content: none;
+	}
+
 	> {
 		.item {
 

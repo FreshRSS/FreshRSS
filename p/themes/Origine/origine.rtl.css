@@ -117,8 +117,9 @@ form th {
 
 .form-group .group-controls > input,
 .form-group .group-controls > select,
+.form-group .group-controls > textarea,
 .form-group .group-controls .stick {
-	margin: -5px 0;
+	margin: -5px 0 5px 0;
 }
 
 .form-group .group-controls .stick .btn {
@@ -359,18 +360,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #fff;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #ddd;
-	/* @noflip */
-	border-right: 1px solid #ddd;
-	content: "";
-	position: absolute;
-	top: -6px;
-	left: 13px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border-color: #ddd;
 }
 
 .dropdown-header {
