@@ -67,6 +67,10 @@ lint: bin/phpcs ## Run the linter on the PHP files
 lint-fix: bin/phpcbf ## Fix the errors detected by the linter
 	$(PHP) ./bin/phpcbf . -p -s
 
+bin/composer:
+	mkdir -p bin/
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/ce43e63e47a7fca052628faf1e4b14f9100ae82c/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+
 bin/phpunit:
 	mkdir -p bin/
 	wget -O bin/phpunit https://phar.phpunit.de/phpunit-9.5.2.phar
@@ -90,6 +94,12 @@ bin/typos:
 	chmod +x typos && \
 	rm *.tar.gz ; \
 	cd ..
+
+node_modules/.bin/eslint:
+	npm install
+
+vendor/bin/phpstan: bin/composer
+	bin/composer install --prefer-dist --no-progress
 
 ##########
 ## I18N ##
@@ -185,20 +195,19 @@ refresh: ## Refresh feeds by fetching new messages
 
 # TODO: Add composer install
 .PHONY: composer-test
-composer-test:
-	composer run-script test
+composer-test: vendor/bin/phpstan
+	bin/composer run-script test
 
 .PHONY: composer-fix
 composer-fix:
-	composer run-script fix
+	bin/composer run-script fix
 
-# TODO: Add npm install
 .PHONY: npm-test
-npm-test:
+npm-test: node_modules/.bin/eslint
 	npm test
 
 .PHONY: npm-fix
-npm-fix:
+npm-fix: node_modules/.bin/eslint
 	npm run fix
 
 .PHONY: typos-test

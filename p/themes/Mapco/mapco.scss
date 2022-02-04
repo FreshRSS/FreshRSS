@@ -1,41 +1,41 @@
-@import "fonts";
+@use "fonts";
 
-@import "mixins";
+@use "mixins";
 
-@import "variables";
+@use "variables";
 
-@import "forms";
+@use "forms";
 
-@import "tables";
+@use "tables";
 
-@import "components";
+@use "components";
 
-@import "divers";
+@use "divers";
 
-@import "sidebar";
+@use "sidebar";
 
-@import "layout";
+@use "layout";
 
-@import "list-view";
+@use "list-view";
 
-@import "global-view";
+@use "global-view";
 
-@import "reader-view";
+@use "reader-view";
 
-@import "configuration";
+@use "configuration";
 
-@import "logs";
+@use "logs";
 
-@import "stats";
+@use "stats";
 
-@import "mobile";
+@use "mobile";
 
 @charset "UTF-8";
 
 /*=== GENERAL */
 /*============*/
 html, body {
-	background: $grey-light;
+	background: variables.$grey-light;
 	height: 100%;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
@@ -44,5 +44,5 @@ html, body {
 /*=== Links */
 a, button.as-link {
 	outline: none;
-	color: $main-first;
+	color: variables.$main-first;
 }

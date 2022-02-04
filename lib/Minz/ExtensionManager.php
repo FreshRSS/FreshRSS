@@ -139,10 +139,10 @@ class Minz_ExtensionManager {
 	 * If the extension class name is `TestExtension`, entry point will be `Test`.
 	 * `entry_point` must be composed of alphanumeric characters.
 	 *
-	 * @param array $meta is an array of values.
+	 * @param array<string> $meta is an array of values.
 	 * @return bool true if the array is valid, false else.
 	 */
-	public static function isValidMetadata($meta) {
+	public static function isValidMetadata($meta): bool {
 		$valid_chars = array('_');
 		return !(empty($meta['name']) || empty($meta['entrypoint']) || !ctype_alnum(str_replace($valid_chars, '', $meta['entrypoint'])));
 	}
