@@ -985,7 +985,7 @@ form {
 	@extend %aside-width;
 
 	&.good,
-	.bad {
+	&.bad {
 		color: $color_light;
 	}
 

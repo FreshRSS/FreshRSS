@@ -1327,8 +1327,12 @@ function openNotification(msg, status) {
 	notification.querySelector('.msg').innerHTML = msg;
 	notification.className = 'notification';
 	notification.classList.add(status);
-
-	notification_interval = setTimeout(closeNotification, 4000);
+	if (status == 'good') {
+		notification_interval = setTimeout(closeNotification, 4000);
+	} else {
+		// no status or f.e. status = 'bad', give some more time to read
+		notification_interval = setTimeout(closeNotification, 8000);
+	}
 }
 
 function closeNotification() {
@@ -1340,14 +1344,28 @@ function closeNotification() {
 function init_notifications() {
 	notification = document.getElementById('notification');
 
-	notification.querySelector('a.close').onclick = function () {
+	notification.querySelector('a.close').addEventListener('click', function (ev) {
 		closeNotification();
+		ev.preventDefault();
 		return false;
-	};
+	});
+
+	notification.addEventListener('mouseenter', function () {
+		clearInterval(notification_interval);
+	});
+
+	notification.addEventListener('mouseleave', function () {
+		notification_interval = setTimeout(closeNotification, 3000);
+	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
-		notification_interval = setTimeout(closeNotification, 4000);
+		if (notification.classList.contains('good')) {
+			notification_interval = setTimeout(closeNotification, 4000);
+		} else {
+			// no status or f.e. status = 'bad', give some more time to read
+			notification_interval = setTimeout(closeNotification, 8000);
+		}
 	}
 }
 // </notification>

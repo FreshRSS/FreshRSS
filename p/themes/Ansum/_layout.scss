@@ -411,9 +411,12 @@
 	left: 0;
 	right: 0;
 	text-align: center;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
+
+	a {
+		color: #000;
+	}
 
 	.msg {
 		display: inline-block;
