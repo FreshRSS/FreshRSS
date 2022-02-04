@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
+		'headline' => array(
+			'articles' => 'Artikel: Öffnen/Schließen',
+			'categories' => 'Linke Navigation: Kategorien',
+			'mark_as_read' => 'Artikel als gelesen markieren',
+			'misc' => 'Sonstiges',
+			'view' => 'Ansicht',
+		),
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
