@@ -595,7 +595,7 @@ a.btn {
 }
 
 .tree-folder-items > .item.active {
-	margin: 0px 8px;
+	margin: 0px 5px;
 	background: linear-gradient(-180deg, #222 0%, #171717 100%) #171717;
 	background: -webkit-linear-gradient(top, #222 0%, #171717 100%);
 	border-radius: 4px;
@@ -695,16 +695,28 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	left: 3px;
-	padding: 1px 5px;
-	color: #fff;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
-}
-
 .aside_feed .btn-important {
 	border: none;
+}
+
+.aside.aside_feed .tree-folder-items .item.feed.active {
+	padding: 0 10px;
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #171717;
+	color: #ccc;
+	border-color: #999;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #ccc;
+	border-color: #999;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	left: 5px;
 }
 
 /*=== Aside main page (feeds) */
