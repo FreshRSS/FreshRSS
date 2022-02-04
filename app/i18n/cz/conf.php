@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Zobrazit potvrzovací dialové okno pro akce „označit vše jako přečtené“',
 		'display_articles_unfolded' => 'Ve výchozím nastavení zobrazovat články rozbalené',
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Skrýt kategorie a kanály bez nepřečtených článků (nefunguje s nastavením „Zobrazit všechny články“)',
 		'img_with_lazyload' => 'Použít režim „líné načítání“ pro načítaní obrázků',
 		'jump_next' => 'skočit na další nepřečtenou položku na stejné úrovni (kanál nebo kategorie)',

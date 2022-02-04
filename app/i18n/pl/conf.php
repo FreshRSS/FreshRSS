@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Pytaj o potwierdzenie przed oznaczeniem wszystkich wiadomości jako przeczytane.',
 		'display_articles_unfolded' => 'Domyślnie wyświetlaj rozwinięte wiadomości',
 		'display_categories_unfolded' => 'Kategorie do rozwinięcia',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Ukryj kategorie i kanały nie zawierające nieprzeczytanych wiadomości (nie działa gdy włączone jest wyświetlanie wszystkich wiadomości)',
 		'img_with_lazyload' => 'Opóźnij ładowanie obrazów dopóki nie będą widoczne',
 		'jump_next' => 'przejdź do następnego nieprzeczytanego kanału bądź kategorii',

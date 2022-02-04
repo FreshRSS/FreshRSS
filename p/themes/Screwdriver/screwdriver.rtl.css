@@ -990,7 +990,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	background: #222;
 	color: #fff;
 	font-size: 0.9em;
@@ -999,7 +998,6 @@ a.btn {
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.45), 0 -1px rgba(255,255,255,0.08) inset, 0 2px 2px #171717 inset;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	position: absolute;
 	top: 0;
 	z-index: 10;

@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Показывать диалог подтверждения при выпыполнении действия «отметить всё прочитанным»',
 		'display_articles_unfolded' => 'Показывать статьи развёрнутыми по умолчанию',
 		'display_categories_unfolded' => 'Какие категории развёртывать',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Скрывать категории и ленты без непрочитанных статей (не работает с «Показывать все статьи»)',
 		'img_with_lazyload' => 'Использовать режим "ленивой загрузки" для загрузки картинок',
 		'jump_next' => 'перейти к следующей ленте или категории',
