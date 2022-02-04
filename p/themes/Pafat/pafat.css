@@ -603,13 +603,25 @@ a.signin {
 
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	padding: 0px 5px;
-	font-size: 0.8rem;
+	margin: 0.5em 0 0 0;
+	background-color: white;
+	color: #428bca;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #5bc0de;
+	color: white;
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	right: 5px;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	background-color: transparent;
+	color: white;
 	border: 1px solid #fff;
-	border-radius: 3px;
-	position: absolute;
-	top: 0.25rem; right: 3px;
-	line-height: 1.5rem;
+	font-weight: bold;
 }
 
 .aside_feed .tree-folder.all .tree-folder-title {
