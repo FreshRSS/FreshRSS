@@ -673,12 +673,14 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	right: 3px;
-	padding: 1px 5px;
-	color: #fff;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #d18114;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #ccc;
+	border: 1px solid #333;
 }
 
 .aside_feed .btn-important {

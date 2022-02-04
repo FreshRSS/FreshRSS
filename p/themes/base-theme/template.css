@@ -614,6 +614,10 @@ a.btn {
 	text-overflow: ellipsis;
 }
 
+.tree-folder-items .item.feed {
+	position: relative;
+}
+
 .tree-bottom {
 	visibility: hidden;
 	margin-bottom: 18em;
@@ -684,7 +688,7 @@ input[type="search"] {
 }
 
 .aside_feed .category .title:not([data-unread="0"]) {
-	width: calc(100% - 35px - 20px);
+	width: calc(100% - 75px);
 }
 
 .aside_feed .tree-folder-title .icon {
@@ -1363,21 +1367,42 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.category .title:not([data-unread="0"])::after {
-	content: attr(data-unread);
-}
-
 .category .title.error::before {
 	content: "⚠ ";
 	color: #bd362f;
 }
 
-.feed .item-title:not([data-unread="0"])::before {
-	content: "(" attr(data-unread) ") ";
+.category .title:not([data-unread="0"])::after,
+.feed .item-title:not([data-unread="0"])::after {
+	margin: 0.75em 0 0 0;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-unread);
+	position: absolute;
+	top: 0;
+	right: 10px;
+	text-align: center;
+	font-size: 0.9em;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
+.feed .item-title:not([data-unread="0"])::after {
+	margin: 1em 0 0 0;
+}
+
+.feed.active .item-title:not([data-unread="0"])::after {
+	background-color: transparent;
+	color: white;
+	border: 1px solid #fff;
+	font-weight: bold;
 }
 
 .feed .item-title:not([data-unread="0"]) {
 	font-weight: bold;
+	width: calc(100% - 80px);
 }
 
 .state_unread .category:not(.active)[data-unread="0"],
