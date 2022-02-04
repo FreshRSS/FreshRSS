@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las peticiones de usuario. ¡Y no hay marcha atrás!',
 		'feedback' => array(
 			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡Nuevos artículos!',
 		),

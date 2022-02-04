@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'feedback' => array(
 			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),

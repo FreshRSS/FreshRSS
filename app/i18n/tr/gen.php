@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale mevcut.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
