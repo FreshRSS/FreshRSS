@@ -336,6 +336,20 @@ a.btn {
 	left: 0;
 }
 
+.dropdown-menu::after {
+	background-color: inherit;
+	width: 10px;
+	height: 10px;
+	border-width: 1px 1px 0 0;
+	border-style: solid;
+	content: "";
+	position: absolute;
+	top: -6px;
+	left: 13px;
+	z-index: -10;
+	transform: rotate(-45deg);
+}
+
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
@@ -754,6 +768,12 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+	padding-left: 10px;
+}
+
+.website a:hover .favicon,
+a.website:hover .favicon {
+	filter: grayscale(100%);
 }
 
 .flux.not_read .item.title,
@@ -845,7 +865,6 @@ input[type="search"] {
 
 .flux .item > a {
 	display: block;
-	text-decoration: none;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -907,6 +926,7 @@ br {
 
 /*=== Notification and actualize notification */
 .notification {
+	padding: 10px 10px 10px 50px;
 	position: absolute;
 	top: 1em;
 	right: 25%; left: 25%;
@@ -914,6 +934,7 @@ br {
 	background: #fff;
 	border: 1px solid #aaa;
 	opacity: 1;
+	line-height: 2;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
 }
@@ -928,6 +949,14 @@ br {
 	top: 0; bottom: 0;
 	left: 0;
 	display: inline-block;
+}
+
+.notification a.close:hover {
+	background: rgba(10,10,10,0.05);
+}
+
+.notification a.close:hover .icon {
+	filter: brightness(2);
 }
 
 #actualizeProgress {
@@ -1474,6 +1503,10 @@ input:checked + .slide-container .properties {
 		margin-top: 0;
 		overflow: auto;
 		box-shadow: 3px 0 3px #aaa;
+	}
+
+	.configure .dropdown-target:target ~ .dropdown-toggle::after {
+		content: none;
 	}
 
 	.dropdown-target:target ~ .dropdown-menu {

@@ -234,16 +234,8 @@ form th {
 	text-align: right;
 }
 .dropdown-menu::after {
-	background: #fcfaf8;
-	width: 10px;
-	height: 10px;
-	content: "";
-	position: absolute;
-	top: -4px;
-	left: 18px;
-	bottom: -14px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border: none;
+	left: 17px;
 }
 .dropdown-menu .dropdown-header {
 	margin: 1.75rem 2rem 0.5rem 0;
@@ -582,7 +574,7 @@ form th {
 	color: #363330;
 }
 .tree .tree-folder .tree-folder-items .item.active a {
-	color: #fff;
+	color: #ffffff;
 }
 .tree .tree-folder .tree-folder-items .item:hover {
 	background: #efe3d3;
@@ -1086,9 +1078,11 @@ form th {
 	right: 0;
 	left: 0;
 	text-align: center;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
+}
+.notification a {
+	color: #000;
 }
 .notification .msg {
 	display: inline-block;

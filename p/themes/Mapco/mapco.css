@@ -234,16 +234,8 @@ form th {
 	text-align: left;
 }
 .dropdown-menu::after {
-	background: #f9fafb;
-	width: 10px;
-	height: 10px;
-	content: "";
-	position: absolute;
-	top: -4px;
+	border: none;
 	right: 18px;
-	bottom: -14px;
-	z-index: -10;
-	transform: rotate(45deg);
 }
 .dropdown-menu .dropdown-header {
 	margin: 1.75rem 0 0.5rem 2rem;
@@ -533,7 +525,7 @@ form th {
 }
 .tree#sidebar {
 	scrollbar-color: rgba(255, 255, 0, 0.1) rgba(0, 0, 0, 0.05);
-	scrollbar-color: #fff33 #fff22;
+	scrollbar-color: #ffffff33 #ffffff22;
 }
 .tree .tree-folder {
 	border-bottom: 1px solid #3f3f3f;
@@ -549,7 +541,7 @@ form th {
 }
 .tree .tree-folder .tree-folder-title .title {
 	background: inherit;
-	color: #fff;
+	color: #ffffff;
 }
 .tree .tree-folder .tree-folder-title .title:hover {
 	text-decoration: none;
@@ -575,17 +567,17 @@ form th {
 	color: #303136;
 }
 .tree .tree-folder .tree-folder-items .item.active .dropdown li a:hover {
-	color: #fff;
+	color: #ffffff;
 }
 .tree .tree-folder .tree-folder-items .item.active a {
-	color: #fff;
+	color: #ffffff;
 }
 .tree .tree-folder .tree-folder-items .item:hover {
 	background: #17181a;
 }
 .tree .tree-folder .tree-folder-items .item a {
 	text-decoration: none;
-	color: #fff;
+	color: #ffffff;
 }
 
 /*=== Buttons */
@@ -641,25 +633,25 @@ form th {
 }
 .nav-list .item a {
 	padding: 0 1rem;
-	color: #fff;
+	color: #ffffff;
 }
 .nav-list .item .error a {
 	color: #f5633e;
 }
 .nav-list .item:hover {
 	background: #17181a;
-	color: #fff;
+	color: #ffffff;
 }
 .nav-list .item:hover .error a {
 	background: #36c;
-	color: #fff;
+	color: #ffffff;
 }
 .nav-list .item:hover .empty a {
 	background: #f4f762;
-	color: #fff;
+	color: #ffffff;
 }
 .nav-list .item:hover a {
-	color: #fff;
+	color: #ffffff;
 	text-decoration: none;
 }
 .nav-list .item.active {
@@ -792,7 +784,7 @@ form th {
 }
 .header .item.search input {
 	width: 230px;
-	color: #fff;
+	color: #ffffff;
 	border: none;
 	border-radius: 2px 0 0 2px;
 	background-color: #26272a;
@@ -1413,7 +1405,7 @@ form th {
 		background: url("../../themes/icons/logout.svg") no-repeat #17181a 3% center;
 		display: inline-block;
 		width: 100%;
-		color: #fff;
+		color: #ffffff;
 		transition: all 0.2s ease-in-out;
 	}
 	ul.nav .item a:hover, ul.nav .item a:active {

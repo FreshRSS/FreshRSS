@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @charset "UTF-8";
 //colors
 
@@ -61,7 +63,7 @@ body {
 }
 
 a {
-	color: darken( $color_nav, 10%);
+	color: color.adjust( $color_nav, $lightness: -10%);
 	outline: none;
 
 	&.btn {
@@ -70,7 +72,7 @@ a {
 		text-decoration: none;
 
 		&:hover {
-			background: darken( $color_nav, 10%);
+			background: color.adjust( $color_nav, $lightness: -10%);
 		}
 	}
 
@@ -100,7 +102,7 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 	display: inline-block;
 	width: auto;
 	font-size: 1.4em;
@@ -112,14 +114,14 @@ label {
 }
 
 textarea {
-	background: darken( $color_light, 10% );
+	background: color.adjust( $color_light, $lightness: -10% );
 	width: 360px;
 	height: 100px;
 
 	@extend %input;
 
 	&:focus {
-		border-color: darken( $color_nav, 10%);
+		border-color: color.adjust( $color_nav, $lightness: -10%);
 	}
 }
 
@@ -129,7 +131,7 @@ select {
 	@extend %input;
 
 	&:focus {
-		border-color: darken( $color_nav, 10%);
+		border-color: color.adjust( $color_nav, $lightness: -10%);
 	}
 
 	&:invalid {
@@ -143,7 +145,7 @@ select {
 }
 
 select {
-	background: darken( $color_light, 10% );
+	background: color.adjust( $color_light, $lightness: -10% );
 }
 
 input {
@@ -164,7 +166,7 @@ tr,
 td,
 th {
 	padding: 0.5em;
-	border: 1px solid darken( $color_light, 10%);
+	border: 1px solid color.adjust( $color_light, $lightness: -10%);
 }
 
 th {
@@ -201,8 +203,8 @@ form {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background: darken( $color_light, 10%);
-		border-top: 3px solid darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
+		border-top: 3px solid color.adjust( $color_light, $lightness: -10%);
 
 		.btn {
 			margin: 0 10px;
@@ -256,7 +258,7 @@ form {
 	&.active,
 	:active,
 	:hover {
-		background: darken( $color_nav, 10%);
+		background: color.adjust( $color_nav, $lightness: -10%);
 		text-decoration: none;
 	}
 }
@@ -268,7 +270,7 @@ form {
 
 	&:hover,
 	:active {
-		background: darken( $color_alert, 10%) !important;
+		background: color.adjust( $color_alert, $lightness: -10%) !important;
 	}
 }
 
@@ -289,7 +291,7 @@ form {
 
 		&:hover,
 		&.active {
-			background: darken( $color_nav, 10%);
+			background: color.adjust( $color_nav, $lightness: -10%);
 			color: $color_light;
 
 			a {
@@ -306,7 +308,7 @@ form {
 			}
 
 			&.error a {
-				background: lighten( $color_bad, 10%);
+				background: color.adjust( $color_bad, $lightness: 10%);
 			}
 		}
 
@@ -319,14 +321,14 @@ form {
 		}
 
 		&.error a {
-			color: lighten( $color_bad, 10%);
+			color: color.adjust( $color_bad, $lightness: 10%);
 		}
 	}
 
 	.disable {
 		text-align: center;
 		background: $color_light;
-		color: darken( $color_light, 40% );
+		color: color.adjust( $color_light, $lightness: -40% );
 	}
 
 	.nav-form {
@@ -370,10 +372,14 @@ form {
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
-	background-color: darken( $color_nav, 10%);
+	background-color: color.adjust( $color_nav, $lightness: -10%);
 
 	.dropdown-header {
 		cursor: default;
+	}
+
+	&::after {
+		content: none;
 	}
 
 	> {
@@ -431,7 +437,7 @@ form {
 
 .separator {
 	margin: 5px 0;
-	border-bottom: 1px solid darken( $color_light, 10%);
+	border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 	cursor: default;
 }
 
@@ -439,7 +445,7 @@ form {
 	margin: 5px auto;
 	padding: 10px 15px;
 	background: $color_light;
-	color: darken( $color_light, 40% );
+	color: color.adjust( $color_light, $lightness: -40% );
 	font-size: 0.9em;
 	border: none;
 	text-shadow: 0 0 1px $color_light;
@@ -476,7 +482,7 @@ form {
 }
 
 .pagination {
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 	color: $color_text;
 	font-size: 0.8em;
 	text-align: center;
@@ -484,7 +490,7 @@ form {
 	.item {
 		&.pager-current {
 			background: $color_aside;
-			color: darken( $color_light, 10%);
+			color: color.adjust( $color_light, $lightness: -10%);
 			font-size: 1.5em;
 			font-weight: bold;
 		}
@@ -498,7 +504,7 @@ form {
 
 			&:hover {
 				background: $color_aside;
-				color: darken( $color_light, 10%);
+				color: color.adjust( $color_light, $lightness: -10%);
 			}
 		}
 	}
@@ -520,10 +526,10 @@ form {
 
 	hr {
 		margin: 30px 10px;
-		background: darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
 		height: 1px;
 		border: 0;
-		box-shadow: 0 2px 5px darken( $color_light, 10%);
+		box-shadow: 0 2px 5px color.adjust( $color_light, $lightness: -10%);
 	}
 
 	pre {
@@ -553,9 +559,9 @@ form {
 		padding: 5px 20px;
 		background: $color_light;
 		display: block;
-		color: darken( $color_light, 40% );
-		border-top: 1px solid darken( $color_light, 10%);
-		border-bottom: 1px solid darken( $color_light, 10%);
+		color: color.adjust( $color_light, $lightness: -40% );
+		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
+		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 
 		p {
 			margin: 0;
@@ -568,14 +574,14 @@ form {
 }
 
 .box {
-	border: 1px solid darken( $color_light, 10%);
+	border: 1px solid color.adjust( $color_light, $lightness: -10%);
 
 	.box-title {
 		margin: 0;
 		padding: 5px 10px;
-		background: darken( $color_light, 10%);
-		color: darken( $color_light, 40% );
-		border-bottom: 1px solid darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
+		color: color.adjust( $color_light, $lightness: -40% );
+		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 
 		.configure {
 			margin-right: 4px;
@@ -597,7 +603,7 @@ form {
 			.configure {
 				.icon {
 					vertical-align: middle;
-					background-color: darken( $color_light, 10%);
+					background-color: color.adjust( $color_light, $lightness: -10%);
 				}
 			}
 		}
@@ -614,7 +620,7 @@ form {
 			background: $color_nav;
 
 			&:active {
-				background: darken( $color_nav, 10%);
+				background: color.adjust( $color_nav, $lightness: -10%);
 			}
 
 			.title {
@@ -672,7 +678,7 @@ form {
 		font-size: 0.8rem;
 
 		&.active {
-			background: darken( $color_nav, 10%);
+			background: color.adjust( $color_nav, $lightness: -10%);
 		}
 
 		> a {
@@ -794,7 +800,7 @@ form {
 	font-size: 0.9em;
 
 	input {
-		background: darken( $color_light, 10% );
+		background: color.adjust( $color_light, $lightness: -10% );
 
 		&.long {
 			height: 33px;
@@ -846,7 +852,7 @@ form {
 	@extend %aside-width;
 
 	&:hover {
-		background: darken( $color_nav, 10%);
+		background: color.adjust( $color_nav, $lightness: -10%);
 	}
 
 	> a {
@@ -901,7 +907,7 @@ form {
 		@extend %after;
 		margin: 0 auto;
 		width: 90%;
-		border-top: 1px solid darken( $color_light, 10%);
+		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
 	}
 
 	&:hover,
@@ -931,7 +937,7 @@ form {
 
 	.item {
 		&.date {
-			color: darken( $color_light, 40% );
+			color: color.adjust( $color_light, $lightness: -40% );
 			font-size: 0.7rem;
 		}
 	}
@@ -962,9 +968,9 @@ form {
 
 .notification {
 	padding: 10px 0;
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 	height: auto;
-	color: darken( $color_light, 40% );
+	color: color.adjust( $color_light, $lightness: -40% );
 	font-size: 1em;
 	border: none;
 	text-align: center;
@@ -979,7 +985,7 @@ form {
 	@extend %aside-width;
 
 	&.good,
-	.bad {
+	&.bad {
 		color: $color_light;
 	}
 
@@ -992,10 +998,10 @@ form {
 	}
 
 	&.bad {
-		background: lighten( $color_bad, 10%);
+		background: color.adjust( $color_bad, $lightness: 10%);
 
 		a.close:hover {
-			background: lighten( $color_bad, 10%);
+			background: color.adjust( $color_bad, $lightness: 10%);
 		}
 	}
 
@@ -1011,7 +1017,7 @@ form {
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 
 	&:hover {
 		background: $color_aside;
@@ -1041,7 +1047,7 @@ form {
 	> table {
 		td,
 		th {
-			border-bottom: 1px solid darken( $color_light, 10%);
+			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 		}
 	}
 
@@ -1083,16 +1089,16 @@ form {
 	}
 
 	input {
-		border-top: 1px darken( $color_light, 10%);
-		border-right: 1px darken( $color_light, 10%);
-		border-bottom: 1px darken( $color_light, 10%);
+		border-top: 1px color.adjust( $color_light, $lightness: -10%);
+		border-right: 1px color.adjust( $color_light, $lightness: -10%);
+		border-bottom: 1px color.adjust( $color_light, $lightness: -10%);
 		border-left: 5px solid;
 	}
 }
 
 .loglist {
 	overflow: hidden;
-	border: 1px solid darken( $color_light, 40% );
+	border: 1px solid color.adjust( $color_light, $lightness: -40% );
 }
 
 .log {
@@ -1107,7 +1113,7 @@ form {
 	}
 
 	&.error > .date {
-		background: lighten( $color_bad, 10%);
+		background: color.adjust( $color_bad, $lightness: 10%);
 		color: $color_light;
 	}
 
@@ -1117,7 +1123,7 @@ form {
 	}
 
 	&.notice > .date {
-		background: darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
 		color: $color_light;
 	}
 
@@ -1352,11 +1358,11 @@ button.as-link {
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background: darken( $color_nav, 10%);
+	background: color.adjust( $color_nav, $lightness: -10%);
 }
 
 .tree-folder.active .tree-folder-title {
-	background: darken( $color_nav, 10%);
+	background: color.adjust( $color_nav, $lightness: -10%);
 	font-weight: bold;
 }
 
@@ -1379,10 +1385,10 @@ button.as-link {
 	}
 
 	&.error {
-		color: lighten( $color_bad, 10%);
+		color: color.adjust( $color_bad, $lightness: 10%);
 
 		&.active {
-			background: lighten( $color_bad, 10%);
+			background: color.adjust( $color_bad, $lightness: 10%);
 			color: $color_light;
 
 			> a {
@@ -1391,7 +1397,7 @@ button.as-link {
 		}
 
 		> a {
-			color: lighten( $color_bad, 10%);
+			color: color.adjust( $color_bad, $lightness: 10%);
 		}
 	}
 }
@@ -1409,7 +1415,7 @@ button.as-link {
 
 	.author {
 		margin: 0 0 10px;
-		color: darken( $color_light, 40% );
+		color: color.adjust( $color_light, $lightness: -40% );
 		font-size: 90%;
 	}
 }

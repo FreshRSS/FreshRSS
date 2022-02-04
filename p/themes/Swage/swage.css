@@ -296,6 +296,9 @@ form th {
 .dropdown-menu .dropdown-header {
 	cursor: default;
 }
+.dropdown-menu::after {
+	content: none;
+}
 .dropdown-menu > .item {
 	padding: 0;
 	margin-left: 10px;
@@ -777,8 +780,7 @@ form th {
 	left: 0;
 	top: auto;
 }
-.notification.good,
-.notification .bad {
+.notification.good, .notification.bad {
 	color: #fcfcfc;
 }
 .notification.good {
@@ -1165,3 +1167,5 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
+
+/*# sourceMappingURL=swage.css.map */

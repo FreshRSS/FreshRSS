@@ -373,17 +373,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #222;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #171717;
-	border-left: 1px solid #171717;
-	content: "";
-	position: absolute;
-	top: -6px;
-	right: 13px;
-	z-index: -10;
-	transform: rotate(45deg);
+	border-color: #171717;
 }
 
 .configure .dropdown-header {
@@ -1002,7 +992,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #222;
 	color: #fff;
 	font-size: 0.9em;
@@ -1011,7 +1000,6 @@ a.btn {
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.45), 0 -1px rgba(255,255,255,0.08) inset, 0 2px 2px #171717 inset;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	position: absolute;
 	top: 0;
 	z-index: 10;
