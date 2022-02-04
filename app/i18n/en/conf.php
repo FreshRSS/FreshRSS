@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Categories to unfold',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',
+			'categories' => 'Left navigation: Categories',
+			'mark_as_read' => 'Mark article as read',
+			'misc' => 'Miscellaneous',
+			'view' => 'View',
+		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
 		'jump_next' => 'jump to next unread sibling (feed or category)',

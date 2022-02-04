@@ -74,7 +74,7 @@ $today = @strtotime('today');
 			<div class="content <?= $content_width ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
 				<div class="subtitle">
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
 							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
 						<?php endif; ?>

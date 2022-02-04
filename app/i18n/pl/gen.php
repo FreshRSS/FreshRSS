@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'czy jesteś pewien, że chcesz przeprowadzić daną operację? Stracisz powiązane zapytania i ulubione wiadomości. Tych zmian nie można wycofać!',
 		'feedback' => array(
 			'body_new_articles' => 'Na FreshRSS znajduje się %%d wiadomości do przeczytania.',
+			'body_unread_articles' => '(Nieprzeczytane: %%d)',
 			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',
 		),

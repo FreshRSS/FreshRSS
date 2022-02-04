@@ -340,17 +340,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #1a1a1a;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #888;
-	border-left: 1px solid #888;
-	content: "";
-	position: absolute;
-	top: -6px;
-	right: 13px;
-	z-index: -10;
-	transform: rotate(45deg);
+	border-color: #888;
 }
 
 .dropdown-header {
@@ -896,7 +886,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #111;
 	color: #c95;
 	font-size: 0.9em;
@@ -905,7 +894,6 @@ a.btn {
 	box-shadow: 0 0 5px #666;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -1175,6 +1163,7 @@ a.btn {
 		background-color: #1a1a1a;
 		border-top: 1px solid #888;
 		border-left: 1px solid #888;
+		right: 12px;
 	}
 
 	.day .name {
