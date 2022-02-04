@@ -764,6 +764,12 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+	padding-left: 10px;
+}
+
+.website a:hover .favicon,
+a.website:hover .favicon {
+	filter: grayscale(100%);
 }
 
 .flux.not_read .item.title,
@@ -855,7 +861,6 @@ input[type="search"] {
 
 .flux .item > a {
 	display: block;
-	text-decoration: none;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
