@@ -29,20 +29,37 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 
 if (PHP_INT_SIZE < 8) {	//32-bit
+	/**
+	 * @param string|int $dec
+	 * @return string
+	 */
 	function dec2hex($dec) {
 		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
 	}
+	/**
+	 * @param string $hex
+	 * @return string
+	 */
 	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
+		if (!ctype_xdigit($hex)) return '0';
 		return gmp_strval(gmp_init($hex, 16), 10);
 	}
 } else {	//64-bit
-	function dec2hex($dec) {	//http://code.google.com/p/google-reader-api/wiki/ItemId
+	/**
+	 * @param string|int $dec
+	 * @return string
+	 */
+	function dec2hex($dec) {
+		//http://code.google.com/p/google-reader-api/wiki/ItemId
 		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
 	}
+	/**
+	 * @param string $hex
+	 * @return string
+	 */
 	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return hexdec($hex);
+		if (!ctype_xdigit($hex)) return '0';
+		return '' . hexdec($hex);
 	}
 }
 
@@ -65,7 +82,8 @@ function headerVariable($headerName, $varName) {
 	return isset($pairs[$varName]) ? $pairs[$varName] : null;
 }
 
-function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
+function multiplePosts($name) {
+	//https://bugs.php.net/bug.php?id=51633
 	global $ORIGINAL_INPUT;
 	$inputs = explode('&', $ORIGINAL_INPUT);
 	$result = array();
@@ -79,6 +97,9 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
+/**
+ * @return string
+ */
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -178,7 +199,8 @@ function authorizationToUser() {
 	return '';
 }
 
-function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
+function clientLogin($email, $pass) {
+	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
 		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
@@ -228,7 +250,8 @@ function checkToken($conf, $token) {
 	unauthorized();
 }
 
-function userInfo() {	//https://github.com/theoldreader/api#user-info
+function userInfo() {
+	//https://github.com/theoldreader/api#user-info
 	$user = Minz_Session::param('currentUser', '_');
 	exit(json_encode(array(
 			'userId' => $user,
@@ -440,7 +463,8 @@ function quickadd($url) {
 	}
 }
 
-function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
+function unreadCount() {
+	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$totalUnreads = 0;
@@ -1096,7 +1120,7 @@ if ($pathInfos[1] === 'accounts') {
 							//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
 							$streamNames = empty($_POST['s']) && isset($_GET['s']) ? array($_GET['s']) : multiplePosts('s');
 							/* Title to use for the subscription. For the `subscribe` action,
-							 * if not specified then the feed's current title will be used. Can
+							 * if not specified then the feed’s current title will be used. Can
 							 * be used with the `edit` action to rename a subscription */
 							$titles = empty($_POST['t']) && isset($_GET['t']) ? array($_GET['t']) : multiplePosts('t');
 							$action = $_REQUEST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`

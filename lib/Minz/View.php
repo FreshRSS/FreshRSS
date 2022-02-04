@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe View représente la vue de l'application
+ * The Minz_View represents a view in the MVC paradigm
  */
 class Minz_View {
 	const VIEWS_PATH_NAME = '/views';
@@ -146,7 +146,7 @@ class Minz_View {
 
 	/**
 	 * Choose the current view layout.
-	 * @param string $layout the layout name to use, false to use no layouts.
+	 * @param string|false $layout the layout name to use, false to use no layouts.
 	 */
 	public function _layout($layout) {
 		if ($layout) {

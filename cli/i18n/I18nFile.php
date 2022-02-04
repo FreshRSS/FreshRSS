@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/I18nFileInterface.php';
+require_once __DIR__ . '/I18nValue.php';
 
-class I18nFile implements I18nFileInterface{
+class I18nFile {
 
 	private $i18nPath;
 
@@ -22,7 +22,8 @@ class I18nFile implements I18nFileInterface{
 				if (!$file->isFile()) {
 					continue;
 				}
-				$i18n[$dir->getFilename()][$file->getFilename()] = $this->flatten(include $file->getPathname(), $file->getBasename('.php'));
+
+				$i18n[$dir->getFilename()][$file->getFilename()] = $this->flatten($this->process($file->getPathname()), $file->getBasename('.php'));
 			}
 		}
 
@@ -43,13 +44,42 @@ class I18nFile implements I18nFileInterface{
 	}
 
 	/**
+	 * Process the content of an i18n file
+	 *
+	 * @param string $filename
+	 * @return array
+	 */
+	private function process(string $filename) {
+		$content = file_get_contents($filename);
+		$content = str_replace('<?php', '', $content);
+
+		$content = preg_replace([
+			"#',\s*//\s*TODO#i",
+			"#',\s*//\s*DIRTY#i",
+			"#',\s*//\s*IGNORE#i",
+		], [
+			' -> todo\',',
+			' -> dirty\',',
+			' -> ignore\',',
+		], $content);
+
+		$content = eval($content);
+
+		if (is_array($content)) {
+			return $content;
+		}
+
+		return [];
+	}
+
+	/**
 	 * Flatten an array of translation
 	 *
 	 * @param array $translation
 	 * @param string $prefix
 	 * @return array
 	 */
-	private function flatten($translation, $prefix = '') {
+	private function flatten(array $translation, string $prefix = '') {
 		$a = array();
 
 		if ('' !== $prefix) {
@@ -60,7 +90,7 @@ class I18nFile implements I18nFileInterface{
 			if (is_array($value)) {
 				$a += $this->flatten($value, $prefix . $key);
 			} else {
-				$a[$prefix . $key] = $value;
+				$a[$prefix . $key] = new I18nValue($value);
 			}
 		}
 
@@ -76,7 +106,7 @@ class I18nFile implements I18nFileInterface{
 	 * @param array $translation
 	 * @return array
 	 */
-	private function unflatten($translation) {
+	private function unflatten(array $translation) {
 		$a = array();
 
 		ksort($translation, SORT_NATURAL);
@@ -99,25 +129,43 @@ class I18nFile implements I18nFileInterface{
 	 * @param array $translation
 	 * @return string
 	 */
-	private function format($translation) {
+	private function format(array $translation) {
 		$translation = var_export($this->unflatten($translation), true);
 		$patterns = array(
+			'/ -> todo\',/',
+			'/ -> dirty\',/',
+			'/ -> ignore\',/',
 			'/array \(/',
 			'/=>\s*array/',
 			'/(\w) {2}/',
 			'/ {2}/',
-			'/ -> todo\',/',
 		);
 		$replacements = array(
+			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
+			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
+			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
 			'array(',
 			'=> array',
 			'$1 ',
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
-			"',\t// TODO - Translation", // Double quoting is mandatory to have a tab instead of the \t string
 		);
 		$translation = preg_replace($patterns, $replacements, $translation);
 
-		// Double quoting is mandatory to have new lines instead of \n strings
-		return sprintf("<?php\n\nreturn %s;\n", $translation);
+		return <<<OUTPUT
+<?php
+
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
+return {$translation};
+
+OUTPUT;
 	}
 }

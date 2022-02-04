@@ -88,7 +88,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		// TODO: not sure if we should write this method in DAO since DAO
 		// should not be aware about feed class
 
-		// Add feed only if we don't find it in DB
+		// Add feed only if we don’t find it in DB
 		$feed_search = $this->searchByUrl($feed->url());
 		if (!$feed_search) {
 			$values = array(
@@ -174,7 +174,10 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
-	public function updateLastUpdate($id, $inError = false, $mtime = 0) {	//See also updateCachedValue()
+	/**
+	 * @see updateCachedValue()
+	 */
+	public function updateLastUpdate($id, $inError = false, $mtime = 0) {
 		$sql = 'UPDATE `_feed` SET `lastUpdate`=?, error=? WHERE id=?';
 		$values = array(
 			$mtime <= 0 ? time() : $mtime,
@@ -321,7 +324,10 @@ SQL;
 		return $newestItemUsec;
 	}
 
-	public function arrayFeedCategoryNames() {	//For API
+	/**
+	 * For API
+	 */
+	public function arrayFeedCategoryNames() {
 		$sql = <<<'SQL'
 SELECT f.id, f.name, c.name as c_name FROM `_feed` f
 INNER JOIN `_category` c ON c.id = f.category

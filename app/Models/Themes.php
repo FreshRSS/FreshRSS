@@ -75,6 +75,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'all' => '☰',
 			'bookmark' => '★',
 			'bookmark-add' => '✚',
+			'bookmark-tag' => '🔖',
 			'category' => '☷',
 			'category-white' => '☷',
 			'close' => '❌',
@@ -100,6 +101,8 @@ class FreshRSS_Themes extends Minz_Model {
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',
 			'share' => '♺',
+			'sort-down' => '↓',
+			'sort-up' => '↑',
 			'starred' => '★',
 			'stats' => '%',
 			'tag' => '⚐',

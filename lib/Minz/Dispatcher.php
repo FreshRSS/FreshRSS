@@ -41,6 +41,7 @@ class Minz_Dispatcher {
 				$this->createController (Minz_Request::controllerName ());
 				$this->controller->init ();
 				$this->controller->firstAction ();
+				// @phpstan-ignore-next-line
 				if (!self::$needsReset) {
 					$this->launchAction (
 						Minz_Request::actionName ()
@@ -49,6 +50,7 @@ class Minz_Dispatcher {
 				}
 				$this->controller->lastAction ();
 
+				// @phpstan-ignore-next-line
 				if (!self::$needsReset) {
 					$this->controller->declareCspHeader();
 					$this->controller->view ()->build ();
@@ -56,6 +58,7 @@ class Minz_Dispatcher {
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
+			// @phpstan-ignore-next-line
 		} while (self::$needsReset);
 	}
 

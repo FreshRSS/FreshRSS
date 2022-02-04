@@ -1,6 +1,6 @@
 parameters:
 	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
-	level: 1
+	level: 5
 	fileExtensions:
 		- php
 		- phtml

@@ -22,7 +22,7 @@ class FreshRSS_UserQuery {
 	private $tag_dao;
 
 	/**
-	 * @param array $query
+	 * @param array<string,string> $query
 	 * @param FreshRSS_Searchable $feed_dao
 	 * @param FreshRSS_Searchable $category_dao
 	 */
@@ -55,7 +55,7 @@ class FreshRSS_UserQuery {
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array
+	 * @return array<string,string>
 	 */
 	public function toArray() {
 		return array_filter(array(

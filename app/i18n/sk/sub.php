@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Skopírujte tento odkaz a použite ho v inom programe.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte "Uložiť odkaz do záložiek". Potom kliknite na tlačidlo "Odoberať" na ktorejkoľvek stránke, ktorú chcete odoberať.',
@@ -105,11 +115,11 @@ return array(
 		'file_to_import_no_zip' => 'Súbor na import<br />(OPML alebo JSON)',
 		'import' => 'Importovať',
 		'starred_list' => 'Zoznam obľúbených článkov',
-		'title' => 'Import / export',
+		'title' => 'Import / export',	// IGNORE
 	),
 	'menu' => array(
 		'add' => 'Pridať kanál alebo kategóriu',
-		'import_export' => 'Import / export',
+		'import_export' => 'Import / export',	// IGNORE
 		'label_management' => 'Správca štítkov',
 		'stats' => array(
 			'idle' => 'Neaktívne kanály',

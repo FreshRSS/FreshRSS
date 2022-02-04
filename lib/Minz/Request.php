@@ -43,6 +43,7 @@ class Minz_Request {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			$tp = trim($p);
+			// @phpstan-ignore-next-line
 			if ($p === null || $tp === '' || $tp === 'null') {
 				return null;
 			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
@@ -146,9 +147,9 @@ class Minz_Request {
 	/**
 	 * Try to guess the base URL from $_SERVER information
 	 *
-	 * @return string base url (e.g. http://example.com/)
+	 * @return string base url (e.g. http://example.com)
 	 */
-	public static function guessBaseUrl() {
+	public static function guessBaseUrl(): string {
 		$protocol = self::extractProtocol();
 		$host = self::extractHost();
 		$port = self::extractPortForUrl();
@@ -224,12 +225,11 @@ class Minz_Request {
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPath() {
-		if ('' != $path = ($_SERVER['REQUEST_URI'] ?? '')) {
-			return '/' === substr($path, -1) ? substr($path, 0, -1) : dirname($path);
+	private static function extractPath(): string {
+		$path = $_SERVER['REQUEST_URI'] ?? '';
+		if ($path != '') {
+			$path = parse_url($path, PHP_URL_PATH);
+			return substr($path, -1) === '/' ? rtrim($path, '/') : dirname($path);
 		}
 		return '';
 	}
@@ -312,7 +312,7 @@ class Minz_Request {
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
-			//Delete abandonned notifications
+			//Delete abandoned notifications
 			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
@@ -328,7 +328,7 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param array<string,string> $url l'url vers laquelle est relancée la requête
+	 * @param array<string,string|array<string,string>> $url l'url vers laquelle est relancée la requête
 	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
@@ -342,7 +342,7 @@ class Minz_Request {
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
-			header('Location: ' . Minz_Url::display($url, 'php'));
+			header('Location: ' . Minz_Url::display($url, 'php', 'root'));
 			exit();
 		} else {
 			self::_controllerName($url['c']);
@@ -359,7 +359,7 @@ class Minz_Request {
 	/**
 	 * Wrappers good notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,string>> $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
 		Minz_Request::setGoodNotification($msg);
@@ -369,7 +369,7 @@ class Minz_Request {
 	/**
 	 * Wrappers bad notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string> $url url array to where we should be forwarded
+	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
 	 */
 	public static function bad($msg, $url = array()) {
 		Minz_Request::setBadNotification($msg);

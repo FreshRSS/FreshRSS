@@ -1,9 +1,13 @@
+@use "mixins";
+
+@use "variables";
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
 .header {
 	padding: 0.5rem 1.35rem;
-	background: $sid-bg;
+	background: variables.$sid-bg;
 	display: block;
 	width: auto;
 	table-layout: none;
@@ -31,22 +35,22 @@
 			// width: 50%;
 			input {
 				width: 230px;
-				color: $sid-font-color;
+				color: variables.$sid-font-color;
 				border: none;
 				border-radius: 2px 0 0 2px;
-				background-color: $sid-bg-alt;
+				background-color: variables.$sid-bg-alt;
 
-				@include transition(all, 0.15s, ease-in-out);
+				@include mixins.transition(all, 0.15s, ease-in-out);
 
 				&:hover {
-					background-color: $sid-bg-dark;
+					background-color: variables.$sid-bg-dark;
 				}
 
 				&:focus {
 					width: 350px;
-					color: $grey-dark;
+					color: variables.$grey-dark;
 
-					background-color: $white;
+					background-color: variables.$white;
 				}
 			}
 
@@ -56,7 +60,7 @@
 				width: 3rem;
 				border-radius: 0 2px 2px 0;
 
-				background-color: $main-first;
+				background-color: variables.$main-first;
 				background-position: center;
 				background-repeat: no-repeat;
 				background-image: url(icons/magnifier.svg);
@@ -65,7 +69,7 @@
 				min-height: 35px;
 
 				&:hover {
-					background-color: $main-first-alt;
+					background-color: variables.$main-first-alt;
 				}
 			}
 		}
@@ -134,26 +138,29 @@
 
 /*=== New article notification */
 #new-article {
-	background: $main-first;
+	background: variables.$main-first;
 	font-size: 1rem;
 	text-align: center;
+}
+
+#new-article:hover {
+	background: variables.$main-first-alt;
 }
 
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
-	color: $white;
+	color: variables.$white;
 }
 
 #new-article > a:hover {
 	text-decoration: none;
-	background: $main-first-alt;
 }
 
 /*=== Day indication */
 .day {
 	padding: 1rem 0 0 1.25rem;
-	color: $light-font-color;
+	color: variables.$light-font-color;
 	font-size: 0.875rem;
 	font-weight: 700;
 	line-height: 3em;
@@ -163,7 +170,7 @@
 	.name {
 		padding: 0 1rem 0 1rem;
 		// font-weight: 700;
-		color: $main-font-color;
+		color: variables.$main-font-color;
 		font-size: 0.875rem;
 		position: relative;
 		left: 0;
@@ -181,33 +188,33 @@
 	.btn {
 		border-left-width: 0;
 		padding: 0.5rem 1rem;
-		background-color: $grey-lighter;
+		background-color: variables.$grey-lighter;
 		background-position: center;
 		background-repeat: no-repeat;
 
 		&:hover {
-			background-color: $grey-light;
+			background-color: variables.$grey-light;
 		}
 	}
 
 	.stick {
-		background: $grey-lighter;
+		background: variables.$grey-lighter;
 
 		.btn {
 			border-left-width: 0;
 			padding: 0.5rem 1rem;
-			background-color: $grey-lighter;
+			background-color: variables.$grey-lighter;
 			background-position: center;
 			background-repeat: no-repeat;
 
-			@include transition(all, 0.15s, ease-in-out);
+			@include mixins.transition(all, 0.15s, ease-in-out);
 
 			&:hover {
-				background-color: $grey-medium-light;
+				background-color: variables.$grey-medium-light;
 			}
 
 			&.active {
-				background-color: $main-first;
+				background-color: variables.$main-first;
 			}
 
 			img.icon {display: none;} // on efface pour afficher nos icones, mouhahaha !!
@@ -250,13 +257,13 @@
 			&.read_all {
 				padding: 5px 16px;
 				// min-height: 0;
-				color: $main-font-color;
-				background-color: $grey-lighter;
+				color: variables.$main-font-color;
+				background-color: variables.$grey-lighter;
 
-				@include transition(all, 0.15s, ease-in-out);
+				@include mixins.transition(all, 0.15s, ease-in-out);
 
 				&:hover {
-					background-color: $grey-medium-light;
+					background-color: variables.$grey-medium-light;
 				}
 			}
 
@@ -303,7 +310,6 @@
 
 #dropdown-query ~ .dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
-	background-color: $grey-medium-dark;
 	border-radius: 3px;
 }
 
@@ -317,19 +323,19 @@
 
 	h1.title, h1 {
 		a {
-			color: $main-font-color;
+			color: variables.$main-font-color;
 			font-family: "spectral", serif;
 			font-size: 2rem;
 
 			&:hover {
-				color: $main-first;
+				color: variables.$main-first;
 				text-decoration: none;
 			}
 		}
 	}
 
 	.author {
-		color: $light-font-color;
+		color: variables.$light-font-color;
 		font-size: 1.125rem;
 	}
 
@@ -340,7 +346,7 @@
 
 	.content hr {
 		margin: 30px 10px;
-		background: $grey-medium-light;
+		background: variables.$grey-medium-light;
 		height: 1px;
 		border: 0;
 		box-shadow: 0 2px 5px #ccc;
@@ -350,23 +356,22 @@
 		margin: 10px auto;
 		padding: 10px 20px;
 		overflow: auto;
-		background: $main-first-darker;
-		color: $white;
+		background: variables.$main-first-darker;
+		color: variables.$white;
 		font-size: 0.9rem;
 		border-radius: 3px;
 
 		code {
 			background: transparent;
-			color: $white;
+			color: variables.$white;
 			border: none;
 		}
 	}
 
 	code {
 		padding: 2px 5px;
-		background: $grey-lighter;
-		color: $grey-light;
-		border: 1px solid $grey-light;
+		background: variables.$grey-lighter;
+		border: 1px solid variables.$grey-light;
 		border-radius: 3px;
 	}
 
@@ -374,11 +379,11 @@
 	blockquote {
 		margin: 0;
 		padding: 5px 20px;
-		background: $grey-lighter;
+		background: variables.$grey-lighter;
 		display: block;
-		color: $main-font-color;
-		border-top: 1px solid $grey-medium-light;
-		border-bottom: 1px solid $grey-medium-light;
+		color: variables.$main-font-color;
+		border-top: 1px solid variables.$grey-medium-light;
+		border-bottom: 1px solid variables.$grey-medium-light;
 
 		p {
 			margin: 0;
@@ -392,10 +397,10 @@
 .notification {
 
 	padding: 1rem 0;
-	background: $grey-medium-light;
+	background: variables.$grey-medium-light;
 	width: 100%;
 	height: 3rem;
-	color: $grey-dark;
+	color: variables.$grey-dark;
 	// font-weight: bold;
 	font-size: 1em;
 	// border-radius: 3px;
@@ -406,9 +411,12 @@
 	left: 0;
 	right: 0;
 	text-align: center;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
+
+	a {
+		color: #000;
+	}
 
 	.msg {
 		display: inline-block;
@@ -416,13 +424,13 @@
 	}
 
 	&.good {
-		background: $success-bg;
-		color: $white;
+		background: variables.$success-bg;
+		color: variables.$white;
 	}
 
 	&.bad {
-		background: $alert-bg;
-		color: $white;
+		background: variables.$alert-bg;
+		color: variables.$white;
 	}
 
 	a.close {
@@ -432,11 +440,11 @@
 	}
 
 	&.good a.close:hover {
-		background: $success-text;
+		background: variables.$success-text;
 	}
 
 	&.bad a.close:hover {
-		background: $alert-text;
+		background: variables.$alert-text;
 	}
 
 	&#actualizeProgress {
@@ -455,5 +463,5 @@
 	text-align: center;
 	line-height: 3em;
 	table-layout: fixed;
-	background: $sid-bg;
+	background: variables.$sid-bg;
 }
