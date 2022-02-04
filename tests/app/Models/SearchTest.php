@@ -39,7 +39,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string $intitle_value
 	 * @param string|null $search_value
 	 */
-	public function test__construct_whenInputContainsIntitle_setsIntitlePropery($input, $intitle_value, $search_value) {
+	public function test__construct_whenInputContainsIntitle_setsIntitleProperty($input, $intitle_value, $search_value) {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($intitle_value, $search->getIntitle());
 		$this->assertEquals($search_value, $search->getSearch());

@@ -336,6 +336,20 @@ a.btn {
 	right: 0;
 }
 
+.dropdown-menu::after {
+	background-color: inherit;
+	width: 10px;
+	height: 10px;
+	border-width: 1px 0 0 1px;
+	border-style: solid;
+	content: "";
+	position: absolute;
+	top: -6px;
+	right: 13px;
+	z-index: -10;
+	transform: rotate(45deg);
+}
+
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
@@ -432,6 +446,10 @@ a.btn {
 
 .alert ul {
 	margin: 5px 20px;
+}
+
+.alert.hide {
+	display: none;
 }
 
 /*=== Icons */
@@ -573,30 +591,34 @@ li.drag-hover {
 /*=== Scrollbar */
 
 @supports (scrollbar-width: thin) {
-	#sidebar {
-		overflow-y: auto;
+	#sidebar,
+	.scrollbar-thin {
 		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
 		scrollbar-width: thin;
 	}
 
-	#sidebar:hover {
+	#sidebar:hover,
+	.scrollbar-thin {
 		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
 	}
 }
 
 @supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar {
+	#sidebar::-webkit-scrollbar,
+	.scrollbar-thin::-webkit-scrollbar {
 		background: rgba(0, 0, 0, 0.05);
 		width: 8px;
 	}
 
-	#sidebar::-webkit-scrollbar-thumb {
+	#sidebar::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.1);
 		display: unset;
 		border-radius: 5px;
 	}
 
-	#sidebar:hover::-webkit-scrollbar-thumb {
+	#sidebar:hover::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.3);
 	}
 }
@@ -617,17 +639,13 @@ li.drag-hover {
 	transition: max-height .3s linear;
 }
 
-.tree-folder-title {
-	display: block;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
 .tree-folder-title .title {
 	display: inline-block;
 	width: 100%;
 	vertical-align: middle;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .tree-folder-items > .item {
@@ -704,9 +722,17 @@ input[type="search"] {
 	vertical-align: top;
 }
 
+.aside + .close-aside {
+	display: none;
+}
+
 /*=== Aside main page */
 .aside_feed .category .title {
 	width: calc(100% - 35px);
+}
+
+.aside_feed .category .title:not([data-unread="0"]) {
+	width: calc(100% - 35px - 20px);
 }
 
 .aside_feed .tree-folder-title .icon {
@@ -786,6 +812,12 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+	padding-right: 10px;
+}
+
+.website a:hover .favicon,
+a.website:hover .favicon {
+	filter: grayscale(100%);
 }
 
 .flux.not_read .item.title,
@@ -843,8 +875,11 @@ input[type="search"] {
 }
 
 .flux .item.thumbnail img {
+	background: repeating-linear-gradient( -45deg, #ddd, #ddd 5px, transparent 5px, transparent 10px );
+	display: inline-block;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 	object-fit: cover;
 }
 
@@ -874,7 +909,6 @@ input[type="search"] {
 
 .flux .item > a {
 	display: block;
-	text-decoration: none;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -936,6 +970,7 @@ br {
 
 /*=== Notification and actualize notification */
 .notification {
+	padding: 10px 50px 10px 10px;
 	position: absolute;
 	top: 1em;
 	left: 25%; right: 25%;
@@ -943,6 +978,7 @@ br {
 	background: #fff;
 	border: 1px solid #aaa;
 	opacity: 1;
+	line-height: 2;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
 }
@@ -957,6 +993,14 @@ br {
 	top: 0; bottom: 0;
 	right: 0;
 	display: inline-block;
+}
+
+.notification a.close:hover {
+	background: rgba(10,10,10,0.05);
+}
+
+.notification a.close:hover .icon {
+	filter: brightness(2);
 }
 
 #actualizeProgress {
@@ -1347,7 +1391,8 @@ input:checked + .slide-container .properties {
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,
-.nav_menu .toggle_aside {
+.nav_menu .toggle_aside,
+.configure .dropdown-header-close {
 	display: none;
 }
 
@@ -1393,11 +1438,23 @@ input:checked + .slide-container .properties {
 /*===========*/
 
 @media (max-width: 840px) {
-	.header,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
+		display: none;
+	}
+
+	.header > .item {
+		padding: 5px;
+	}
+
+	.header > .item.title .logo {
+		height: 24px;
+	}
+
+
+	header .item.search form {
 		display: none;
 	}
 
@@ -1407,17 +1464,78 @@ input:checked + .slide-container .properties {
 
 	.form-group .group-name {
 		float: none;
+		width: auto;
 	}
 
 	.form-group .group-controls {
 		margin-left: 0;
 	}
 
+	.dropdown {
+		position: inherit;
+	}
+
 	.dropdown .dropdown-menu {
-		width: 100%;
+		width: 94%;
 		border-radius: 0;
+		left: 3%;
+		right: 3%;
+		position: absolute;
+	}
+
+	.dropdown .dropdown-menu .item {
+		margin: 2px 0;
+	}
+
+	.dropdown .dropdown-menu .item button.as-link,
+	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
+		width: 100%;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle {
+		position: relative;
+		overflow: visible;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		width: 10px;
+		height: 10px;
+		content: "";
+		position: absolute;
+		right: 8px;
+		bottom: -17px;
+		transform: rotate(45deg);
+		z-index: 9999;
+		cursor: default;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+
+	.configure .dropdown .dropdown-menu {
+		width: 90%;
+		height: 100vh;
+		top: 0;
+		right: 0;
 		bottom: 0;
+		left: auto;
 		position: fixed;
+		padding-top: 0;
+		margin-top: 0;
+		overflow: auto;
+		box-shadow: -3px 0 3px #aaa;
+	}
+
+	.configure .dropdown-target:target ~ .dropdown-toggle::after {
+		content: none;
+	}
+
+	.dropdown-target:target ~ .dropdown-menu {
+		display: table-cell;
+		z-index: 1000;
+
 	}
 
 	.dropdown-menu::after {
@@ -1425,6 +1543,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.aside .toggle_aside,
+	.configure .dropdown-header-close,
 	.nav-login {
 		display: block;
 	}
@@ -1433,6 +1552,19 @@ input:checked + .slide-container .properties {
 	.nav_menu .search,
 	#panel .close img {
 		display: inline-block;
+	}
+
+	.aside:target + .close-aside {
+		background: rgba(0, 0, 0, 0.2);
+		display: block;
+		font-size: 0;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		cursor: pointer;
+		z-index: 99;
 	}
 
 	.nav_mobile {

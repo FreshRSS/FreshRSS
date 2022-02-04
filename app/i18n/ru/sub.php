@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Скопируйте URL для использования во внешнем инструменте.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Перетяните эту кнопку на вашу панель закладок, или нажмите правой кнопкой мыши и выберите "Добавить ссылку в закладки". Нажимайте кнопку "Подписаться" на любой странице, на которую вы хотите подписаться.<br>',

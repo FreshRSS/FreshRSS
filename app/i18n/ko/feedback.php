@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => '이 페이지에 접근할 수 있는 권한이 없습니다',
@@ -84,7 +94,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> 캐쉬 지움',
 			'deleted' => '피드가 삭제되었습니다',
 			'error' => '피드를 변경할 수 없습니다',
-			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
+			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',

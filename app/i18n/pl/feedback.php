@@ -1,17 +1,27 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Nie masz uprawnień dostępu do tej strony',
-		'not_found' => 'You are looking for a page that doesn’t exist',	// TODO - Translation
+		'not_found' => 'Strona którą chcesz otworzyć nie istnieje',
 	),
 	'admin' => array(
 		'optimization_complete' => 'Optymizacja ukończona',
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Nie można zmienić hasła',
+			'updated' => 'Hasło zostało zmienione',
 		),
 	),
 	'auth' => array(
@@ -24,38 +34,38 @@ return array(
 		),
 	),
 	'conf' => array(
-		'error' => 'An error occurred while saving configuration',	// TODO - Translation
-		'query_created' => 'Query "%s" has been created.',	// TODO - Translation
-		'shortcuts_updated' => 'Shortcuts have been updated',	// TODO - Translation
+		'error' => 'Podczas zapisywania konfiguracji wystąpił błąd',
+		'query_created' => 'Zapytanie "%s" zostało utworzone.',
+		'shortcuts_updated' => 'Skróty zostały zaktualizowane',
 		'updated' => 'Ustawienia zostały zaktualizowane',
 	),
 	'extensions' => array(
-		'already_enabled' => '%s is already enabled',	// TODO - Translation
-		'cannot_remove' => '%s cannot be removed',	// TODO - Translation
+		'already_enabled' => 'Rozszerzenie %s jest już włączone',
+		'cannot_remove' => 'Rozszerzenie %s nie może zostać usunięte',
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO - Translation
-			'ok' => '%s is now disabled',	// TODO - Translation
+			'ko' => 'Rozszerzenie %s nie może zostać wyłączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
+			'ok' => 'Rozszerzenie %s zostało wyłączone',
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO - Translation
-			'ok' => '%s is now enabled',	// TODO - Translation
+			'ko' => 'Rozszerzenie %s nie może zostać włączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
+			'ok' => 'Rozszerzenie %s zostało włączone',
 		),
-		'no_access' => 'You have no access on %s',	// TODO - Translation
-		'not_enabled' => '%s is not enabled',	// TODO - Translation
-		'not_found' => '%s does not exist',	// TODO - Translation
-		'removed' => '%s removed',	// TODO - Translation
+		'no_access' => 'Brak dostępu do %s',
+		'not_enabled' => 'Rozszerzenie %s nie jest włączone',
+		'not_found' => 'Rozszerzenie %s nie istnieje',
+		'removed' => 'Rozszerzenie %s zostało usunięte',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// TODO - Translation
-		'feeds_imported' => 'Your feeds have been imported and will now be updated',	// TODO - Translation
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',	// TODO - Translation
-		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO - Translation
-		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// TODO - Translation
-		'zip_error' => 'An error occurred during ZIP import.',	// TODO - Translation
+		'export_no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze. Spróbuj eksportować pliki pojedynczo.',
+		'feeds_imported' => 'Kanały zostały zaimportowane i zostaną teraz zaktualizowane',
+		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów',
+		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
+		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
+		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',
 	),
 	'profile' => array(
-		'error' => 'Your profile cannot be modified',	// TODO - Translation
-		'updated' => 'Your profile has been modified',	// TODO - Translation
+		'error' => 'Nie można modyfikować profilu',
+		'updated' => 'Profil został zmodyfikowany',
 	),
 	'sub' => array(
 		'actualize' => 'Aktualizacja',
@@ -64,35 +74,35 @@ return array(
 			'marked_unread' => 'Wiadomości zostały oznaczone jako nieprzeczytane.',
 		),
 		'category' => array(
-			'created' => 'Category %s has been created.',	// TODO - Translation
-			'deleted' => 'Category has been deleted.',	// TODO - Translation
-			'emptied' => 'Category has been emptied',	// TODO - Translation
-			'error' => 'Category cannot be updated',	// TODO - Translation
-			'name_exists' => 'Category name already exists.',	// TODO - Translation
-			'no_id' => 'You must specify the id of the category.',	// TODO - Translation
-			'no_name' => 'Category name cannot be empty.',	// TODO - Translation
-			'not_delete_default' => 'You cannot delete the default category!',	// TODO - Translation
-			'not_exist' => 'The category does not exist!',	// TODO - Translation
-			'over_max' => 'You have reached your limit of categories (%d)',	// TODO - Translation
-			'updated' => 'Category has been updated.',	// TODO - Translation
+			'created' => 'Stworzono kategorię %s.',
+			'deleted' => 'Usunięto kategorię.',
+			'emptied' => 'Kategoria jest pusta',
+			'error' => 'Nie można zaktualizować kategorii',
+			'name_exists' => 'Nazwa kategorii już istnieje.',
+			'no_id' => 'Należy podać identyfikator kategorii.',
+			'no_name' => 'Nazwa kategorii nie może być pusta.',
+			'not_delete_default' => 'Nie wolno usunąć domyślnej kategorii!',
+			'not_exist' => 'Kategoria nie istnieje!',
+			'over_max' => 'Osiągnięto ustawiony limit kategorii (%d)',
+			'updated' => 'Zaktualizowano kategorię.',
 		),
 		'feed' => array(
-			'actualized' => '<em>%s</em> has been updated',	// TODO - Translation
-			'actualizeds' => 'RSS feeds have been updated',	// TODO - Translation
-			'added' => 'RSS feed <em>%s</em> has been added',	// TODO - Translation
-			'already_subscribed' => 'You have already subscribed to <em>%s</em>',	// TODO - Translation
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO - Translation
-			'deleted' => 'Feed has been deleted',	// TODO - Translation
-			'error' => 'Feed cannot be updated',	// TODO - Translation
-			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO - Translation
-			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO - Translation
-			'n_actualized' => '%d feeds have been updated',	// TODO - Translation
-			'n_entries_deleted' => '%d articles have been deleted',	// TODO - Translation
-			'no_refresh' => 'There are no feeds to refresh',	// TODO - Translation
-			'not_added' => '<em>%s</em> could not be added',	// TODO - Translation
-			'not_found' => 'Feed cannot be found',	// TODO - Translation
-			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO - Translation
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO - Translation
+			'actualized' => 'Zaktualizowano kanał <em>%s</em>',
+			'actualizeds' => 'Kanały RSS zostały zaktualizowane',
+			'added' => 'Kanał RSS <em>%s</em> został dodany',
+			'already_subscribed' => 'Kanał <em>%s</em> znajduje się już na liście subskrybowanych kanałów',
+			'cache_cleared' => 'Cache kanału <em>%s</em> zostało wyczyszczone',
+			'deleted' => 'Kanał został usunięty',
+			'error' => 'Nie można zaktualizować kanału',
+			'internal_problem' => 'Wystąpił błąd podczas dodawania kanału. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji. Można spróbować wymusić dodanie kanału przez dodanie <code>#force_feed</code> na końcu adresu URL.',
+			'invalid_url' => 'Adres URL <em>%s</em> nie jest prawidłowy',
+			'n_actualized' => 'Liczba zaktualizowanych kanałów: %d',
+			'n_entries_deleted' => 'Liczba usuniętych wiadomości: %d',
+			'no_refresh' => 'Brak kanałó do odświeżenia',
+			'not_added' => 'Kanał <em>%s</em> nie mógł zostać dodany',
+			'not_found' => 'Kanał nie może zostać znaleziony',
+			'over_max' => 'Osiągnięto ustawiony limit kanałów (%d)',
+			'reloaded' => 'Kanał <em>%s</em> został przeładowany',
 			'selector_preview' => array(
 				'http_error' => 'Nie udało się załadować zawartości strony.',
 				'no_entries' => 'Nie ma wiadomości na tym kanale. Potrzeba przynajmniej jednej wiadomości aby podgląd był dostępny.',
@@ -102,12 +112,12 @@ return array(
 			),
 			'updated' => 'Ustawienia kanału zostały zaktualizowane',
 		),
-		'purge_completed' => 'Purge completed (%d articles deleted)',	// TODO - Translation
+		'purge_completed' => 'Oczyszczanie ukończone (liczba skasowanych wiadomości: %d)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO - Translation
-		'name_exists' => 'Tag name already exists.',	// TODO - Translation
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO - Translation
+		'created' => 'Etykieta "%s" została stworzona.',
+		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
+		'renamed' => 'Etykieta "%s" została zmieniona na "%s".',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',
@@ -119,16 +129,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'User %s has been created',	// TODO - Translation
-			'error' => 'User %s cannot be created',	// TODO - Translation
+			'_' => 'Stworzono konto użytkownika %s',
+			'error' => 'Konto użytkownika %s nie może zostać stworzone',
 		),
 		'deleted' => array(
-			'_' => 'User %s has been deleted',	// TODO - Translation
-			'error' => 'User %s cannot be deleted',	// TODO - Translation
+			'_' => 'Konto użytkownika %s zostało usunięte',
+			'error' => 'Nie można usunąć konta użytkownika %s',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	// TODO - Translation
-			'error' => 'User %s has not been updated',	// TODO - Translation
+			'_' => 'Konto użytkownika %s zostało zaktualizowane',
+			'error' => 'Konto użytkownika %s nie zostało zaktualizowane',
 		),
 	),
 );

@@ -2,14 +2,14 @@ FreshRSS has three primary viewing modes: Normal, Global, and Reader view.
 
 # Normal view
 
-Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed's view.
+Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed’s view.
 
 ## Article List
 
 By default, the normal view includes six items per article. From left to right:
-* **Read status:** An envalope icon to show if the article has been read or not. Closed envalopes are unread, open envalopes are read. Clicking on the icon will toggle the read status.
+* **Read status:** An envelope icon to show if the article has been read or not. Closed envelopes are unread, open envelopes are read. Clicking on the icon will toggle the read status.
 * **Favourite status:** A star icon to show if the article has been favourited or not. Filled stars are favourited, empty stars are not. Clicking on the icon will toggle the favourite status.
-* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed's view in normal view.
+* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed’s view in normal view.
 * **Article title:** The title of the article. Clicking will open the article for viewing within FreshRSS.
 * **Article date/time:** The time the article was posted.
 * **Link to original article:** A globe icon that can be clicked to go to the article on the original website.
@@ -19,14 +19,14 @@ By default, the normal view includes six items per article. From left to right:
 Clicking the gear icon next to an individual feed will display additional options for that feed.
 * **Filter:** Run the defined filter to mark articles as read
 * **Statistics:** View statistics about the feed
-* **See website:** Open the feed's website in another tab
+* **See website:** Open the feed’s website in another tab
 * **Manage:** Configure the feed
 * **Actualize:** Force-update the feed
 * **Mark as read:** Mark all items in the feed as read
 
 # Global view
 
-Global view allows quick views of feed's statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed's name will open it in a view similar to normal view.
+Global view allows quick views of feed’s statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed’s name will open it in a view similar to normal view.
 
 # Reader view
 
@@ -111,7 +111,7 @@ You can also target a different user by adding their username to the query strin
 
 ### HTTP authentication
 
-When using HTTP authentication, the syntax in the two previous sections is unusable. You'll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
+When using HTTP authentication, the syntax in the two previous sections is unusable. You’ll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
 
 ```cron
 0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
@@ -119,7 +119,7 @@ When using HTTP authentication, the syntax in the two previous sections is unusa
 
 ## Manual update
 
-If you can't or don't want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
+If you can’t or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
 
 ### Complete update
 
@@ -141,7 +141,7 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 ## Purpose
 
-When the number of articles stored by FreshRSS inevitably grows larger, it's important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
+When the number of articles stored by FreshRSS inevitably grows larger, it’s important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
 ## How-to filter
 
@@ -167,7 +167,7 @@ There are several methods to filter articles by feed:
 
 Each article has two attributes that can be combined. The first attribute indicates whether or not the article has been read. The second attribute indicates if the article was marked as favorite or not.
 
-In version 0.7, attribute filters are available in the article display dropdown list. With this version, it's not possible to combine filters. For instance, it's not possible to display only read and favorite articles.
+In version 0.7, attribute filters are available in the article display dropdown list. With this version, it’s not possible to combine filters. For instance, it’s not possible to display only read and favorite articles.
 
 ![Attribute filters in 0.7](../img/users/status.filter.0.7.png)
 
@@ -227,6 +227,7 @@ You can use the search field to further refine results:
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
+* by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
 
 Be careful not to enter a space between the operator and the search value.
 
@@ -238,6 +239,9 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
+
+You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
+Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
 ### By sorting by date
 
@@ -258,7 +262,7 @@ Display the user queries drop-down by clicking the button next to the state butt
 
 Then click on the bookmark action.
 
-Congratulations, you're done!
+Congratulations, you’re done!
 
 ### Using a bookmarked query
 
@@ -268,4 +272,4 @@ Display the user queries drop-down by clicking the button next to the state butt
 Then click on the bookmarked query, the previously stored query will be applied.
 
 > Note that only the query is stored, not the articles.
-> The results you are seing now could be different from the results on the day you've created the query.
+> The results you are seeing now could be different from the results on the day you've created the query.

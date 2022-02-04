@@ -139,10 +139,10 @@ class Minz_ExtensionManager {
 	 * If the extension class name is `TestExtension`, entry point will be `Test`.
 	 * `entry_point` must be composed of alphanumeric characters.
 	 *
-	 * @param array $meta is an array of values.
+	 * @param array<string> $meta is an array of values.
 	 * @return bool true if the array is valid, false else.
 	 */
-	public static function isValidMetadata($meta) {
+	public static function isValidMetadata($meta): bool {
 		$valid_chars = array('_');
 		return !(empty($meta['name']) || empty($meta['entrypoint']) || !ctype_alnum(str_replace($valid_chars, '', $meta['entrypoint'])));
 	}
@@ -210,7 +210,7 @@ class Minz_ExtensionManager {
 	 *
 	 * The extension init() method will be called.
 	 *
-	 * @param Minz_Extension $ext_name is the name of a valid extension present in $ext_list.
+	 * @param string $ext_name is the name of a valid extension present in $ext_list.
 	 */
 	public static function enable($ext_name) {
 		if (isset(self::$ext_list[$ext_name])) {
@@ -295,23 +295,25 @@ class Minz_ExtensionManager {
 	 * array keys.
 	 *
 	 * @param string $hook_name the hook to call.
-	 * @param additional parameters (for signature, please see self::$hook_list).
-	 * @return mixed final result of the called hook.
+	 * @param mixed ...$args additional parameters (for signature, please see self::$hook_list).
+	 * @return mixed|null final result of the called hook.
 	 */
-	public static function callHook($hook_name) {
+	public static function callHook($hook_name, ...$args) {
 		if (!isset(self::$hook_list[$hook_name])) {
 			return;
 		}
 
 		$signature = self::$hook_list[$hook_name]['signature'];
-		$args = func_get_args();
-		if ($signature === 'PassArguments') {
-			array_shift($args);
+		if ($signature === 'OneToOne') {
+			return self::callOneToOne($hook_name, $args[0] ?? null);
+		} elseif ($signature === 'PassArguments') {
 			foreach (self::$hook_list[$hook_name]['list'] as $function) {
-				call_user_func_array($function, $args);
+				call_user_func($function, ...$args);
 			}
-		} else {
-			return call_user_func_array('self::call' . $signature, $args);
+		} elseif ($signature === 'NoneToString') {
+			return self::callNoneToString($hook_name);
+		} elseif ($signature === 'NoneToNone') {
+			return self::callNoneToNone($hook_name);
 		}
 	}
 
@@ -324,9 +326,9 @@ class Minz_ExtensionManager {
 	 *
 	 * If a hook return a null value, the method is stopped and return null.
 	 *
-	 * @param $hook_name is the hook to call.
-	 * @param $arg is the argument to pass to the first extension hook.
-	 * @return mixed final chained result of the hooks. If nothing is changed,
+	 * @param string $hook_name is the hook to call.
+	 * @param mixed $arg is the argument to pass to the first extension hook.
+	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
 	private static function callOneToOne($hook_name, $arg) {
@@ -366,7 +368,7 @@ class Minz_ExtensionManager {
 	 * This case is simpler than callOneToOne because hooks are called one by
 	 * one, without any consideration of argument nor result.
 	 *
-	 * @param $hook_name is the hook to call.
+	 * @param string $hook_name is the hook to call.
 	 */
 	private static function callNoneToNone($hook_name) {
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {

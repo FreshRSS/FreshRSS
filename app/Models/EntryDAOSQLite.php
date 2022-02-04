@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' id=?';
 			$values[] = $feedId;
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 *
 	 * @param integer|array $ids
 	 * @param boolean $is_read
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markRead($ids, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -169,7 +169,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param integer $idMax fail safe article ID
 	 * @param boolean $onlyFavorites
 	 * @param integer $priorityMin
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -210,7 +210,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 *
 	 * @param integer $id category ID
 	 * @param integer $idMax fail safe article ID
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -242,11 +242,11 @@ DROP TABLE IF EXISTS `tmp`;
 
 	/**
 	 * Mark all the articles in a tag as read.
-	 * @param integer $id tag ID, or empty for targetting any tag
+	 * @param integer $id tag ID, or empty for targeting any tag
 	 * @param integer $idMax max article ID
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
-	public function markReadTag($id = '', $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadTag($id = 0, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -257,10 +257,10 @@ DROP TABLE IF EXISTS `tmp`;
 			 . 'SET is_read = ? '
 			 . 'WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
-			 . ($id == '' ? '' : 'WHERE et.id_tag = ?')
+			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';
 		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
-		if ($id != '') {
+		if ($id != 0) {
 			$values[] = $id;
 		}
 

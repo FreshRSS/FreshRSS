@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'フィードを更新する',
@@ -17,7 +27,6 @@ return array(
 		'import' => 'インポート',
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
-		'mark_favorite' => 'お気に入りとする',
 		'mark_read' => '既読にする',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
@@ -31,7 +40,7 @@ return array(
 	'auth' => array(
 		'accept_tos' => '私は <a href="%s">Terms of Service</a>を承認します。',
 		'email' => 'Eメールアドレス',
-		'keep_logged_in' => 'ログインを保持する <small>(%s)日後に失効</small>',
+		'keep_logged_in' => 'ログインを保持する <small>%s日後にログアウトする</small>',
 		'login' => 'ログイン',
 		'logout' => 'ログアウト',
 		'password' => array(
@@ -107,9 +116,9 @@ return array(
 		'wed' => '水',
 		'yesterday' => '昨日',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
 	),
 	'js' => array(
@@ -118,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
 		'feedback' => array(
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
 			'title_new_articles' => 'FreshRSS: 新規記事!',
 		),
@@ -125,28 +135,28 @@ return array(
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'アカウント',
 		'admin' => '管理者',
 		'archiving' => 'アーカイブ',
 		'authentication' => '認証',
@@ -184,25 +194,25 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
-		'blogotext' => 'Blogotext',
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'クリップボード',
-		'diaspora' => 'Diaspora*',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => '印刷',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '警告!',
@@ -211,10 +221,10 @@ return array(
 		'by_default' => 'デフォルト',
 		'damn' => '終了!',
 		'default_category' => 'カテゴリーに登録されていない',
-		'no' => 'いいえ',
+		'no' => 'NO',
 		'not_applicable' => '利用不可能',
-		'ok' => 'はい!',
-		'or' => 'あるいは',
-		'yes' => 'はい',
+		'ok' => 'OK!',
+		'or' => 'または',
+		'yes' => 'OK',
 	),
 );

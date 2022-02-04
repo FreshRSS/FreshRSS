@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'Update feeds',
@@ -17,7 +27,6 @@ return array(
 		'import' => 'Import',
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
-		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
@@ -118,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),

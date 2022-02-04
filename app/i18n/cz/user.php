@@ -1,44 +1,54 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO - Translation
-			'required' => 'An email address is required.',	// TODO - Translation
+			'invalid' => 'Tato e-mailová adresa je neplatná.',
+			'required' => 'Je vyžadována e-mailová adresa.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
+			'change_email' => 'Svou e-mailovou adresu můžete změnit <a href="%s">na stránce profilu</a>.',
+			'email_sent_to' => 'Odeslali jsme vám e-mail na <strong>%s</strong>. Postupujte podle jeho pokynů pro ověření vaší adresy.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'Email address validation failed.',	// TODO - Translation
-				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unnecessary' => 'This email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'Nemohli jsme vám odeslat e-mail kvůli chybně nastavenému serveru.',
+				'email_sent' => 'Na vaši adresu byl odeslán e-mail.',
+				'error' => 'Ověření e-mailové adresy selhalo.',
+				'ok' => 'Tato e-mailová adresa byla ověřena.',
+				'unnecessary' => 'Tato e-mailová adresa již byla ověřena.',
+				'wrong_token' => 'Tuto e-mailovou adresu se nepodařilo ověřit kvůli špatnému tokenu.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => 'Než budete moci používat %s, musíte ověřit svou e-mailovou adresu.',
+			'resend_email' => 'Znovu odeslat e-mail',
+			'title' => 'Ověření e-mailové adresy',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => 'Právě jste se zaregistrovali na %s, ale ještě musíte ověřit svou e-mailovou adresu. Přejděte na následující odkaz:',
+			'title' => 'Musíte ověřit svůj účet',
+			'welcome' => 'Vítejt, %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'Heslo je neplatné.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Musíte přijmout Podmínky služby, abyste se mohli zaregistrovat.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO - Translation
-		'taken' => 'This username, %s, is taken.',	// TODO - Translation
+		'invalid' => 'Toto uživatelské jméno je neplatné.',
+		'taken' => 'Toto uživatelské jméno, %s, je zabráno.',
 	),
 );

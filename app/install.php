@@ -183,7 +183,6 @@ function saveStep2() {
 }
 
 function saveStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
 		Minz_Session::_params([
@@ -277,12 +276,15 @@ function freshrss_already_installed() {
 	$system_conf = null;
 	try {
 		Minz_Configuration::register('system', $conf_path);
+		/**
+		 * @var FreshRSS_SystemConfiguration $system_conf
+		 */
 		$system_conf = Minz_Configuration::get('system');
 	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
 
-	// ok, the global conf exists... but what about default user conf?
+	// ok, the global conf exists… but what about default user conf?
 	$current_user = $system_conf->default_user;
 	try {
 		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
@@ -447,8 +449,8 @@ function printStep1() {
 
 function printStep2() {
 	$system_default_config = Minz_Configuration::get('default_system');
-?>
-	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
+	$s2 = checkStep2();
+	if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
@@ -503,8 +505,11 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="pass"><?= _t('install.bdd.password') ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?=
-					isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : '' ?>" tabindex="4" autocomplete="off" />
+				<div class="stick">
+					<input type="password" id="pass" name="pass" value="<?=
+						isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : '' ?>" tabindex="4" autocomplete="off" />
+					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
+				</div>
 			</div>
 		</div>
 
@@ -512,7 +517,7 @@ function printStep2() {
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
 				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?=
-					isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : '' ?>" tabindex="5" />
+					isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : '' ?>" tabindex="6" />
 			</div>
 		</div>
 
@@ -520,17 +525,17 @@ function printStep2() {
 			<label class="group-name" for="prefix"><?= _t('install.bdd.prefix') ?></label>
 			<div class="group-controls">
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?=
-					isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix'] ?>" tabindex="6" />
+					isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix'] ?>" tabindex="7" />
 			</div>
 		</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important" tabindex="7" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="8" ><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-important" tabindex="8" ><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn" tabindex="9" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3" tabindex="9" ><?= _t('install.action.next_step') ?></a>
+				<a class="btn btn-important next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -538,10 +543,14 @@ function printStep2() {
 <?php
 }
 
+function no_auth($auth_type) {
+	return !in_array($auth_type, array('form', 'http_auth', 'none'));
+}
+
 function printStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
-?>
-	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
+	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
+	$s3 = checkStep3();
+	if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
 	<?php } elseif (!empty($_POST)) { ?>
 	<p class="alert alert-error"><?= _t('install.fix_errors_before') ?></p>
@@ -563,12 +572,6 @@ function printStep3() {
 			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="4">
-					<?php
-						function no_auth($auth_type) {
-							return !in_array($auth_type, array('form', 'http_auth', 'none'));
-						}
-						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
-					?>
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
@@ -585,7 +588,7 @@ function printStep3() {
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
 						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
-					<a class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
@@ -675,7 +678,7 @@ if (_t('gen.dir') === 'rtl') {
 	</div>
 </header>
 
-<main id="global">
+<div id="global">
 	<nav class="nav nav-list aside">
 		<div class="nav-header"><?= _t('install.steps') ?></div>
 		<ol>
@@ -713,7 +716,7 @@ if (_t('gen.dir') === 'rtl') {
 		</ol>
 	</nav>
 
-	<div class="post">
+	<main class="post">
 		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
 		<?php
 		switch (STEP) {
@@ -738,8 +741,8 @@ if (_t('gen.dir') === 'rtl') {
 			break;
 		}
 		?>
-	</div>
-</main>
+	</main>
+</div>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>
 </html>

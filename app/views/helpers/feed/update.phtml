@@ -1,3 +1,4 @@
+<?php /** @var FreshRSS_View $this */ ?>
 <div class="post">
 	<h1><?= $this->feed->name() ?></h1>
 
@@ -143,7 +144,7 @@
 				<div class="stick">
 					<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
 						$auth['password'] ?>" autocomplete="new-password" />
-					<a class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></button>
 				</div>
 			</div>
 		</div>
@@ -280,7 +281,7 @@
 		</p>
 
 		<div class="form-group">
-			<label class="group-name"><?= _t('conf.archiving.policy') ?></label>
+			<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
 			<div class="group-controls">
 				<label class="checkbox">
 					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
@@ -320,7 +321,7 @@
 			</div>
 		</div>
 		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<label class="group-name"><?= _t('conf.archiving.exception') ?></label>
+			<div class="group-name"><?= _t('conf.archiving.exception') ?></div>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
 					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?>
@@ -379,7 +380,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="path_entries"><?= _t('sub.feed.css_cookie') ?></label>
+			<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="<?=
@@ -448,13 +449,11 @@
 		<div class="form-group">
 			<label class="group-name" for="ssl_verify"><?= _t('sub.feed.ssl_verify') ?></label>
 			<div class="group-controls">
-				<label class="checkbox" for="ssl_verify">
-					<select name="ssl_verify" id="ssl_verify">
-						<option value=""<?= $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-						<option value="0"<?= $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-						<option value="1"<?= $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
-					</select>
-				</label>
+				<select name="ssl_verify" id="ssl_verify">
+					<option value=""<?= $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+				</select>
 			</div>
 		</div>
 

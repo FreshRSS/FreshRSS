@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',
@@ -21,7 +31,7 @@ return array(
 		'title' => 'Title',
 	),
 	'feed' => array(
-		'add' => 'Add a RSS feed',
+		'add' => 'Add an RSS feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(

@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => '归档',
@@ -41,11 +51,11 @@ return array(
 		'theme' => '主题',
 		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO - Translation
-			'landscape' => 'Landscape',	// TODO - Translation
-			'none' => 'None',	// TODO - Translation
-			'portrait' => 'Portrait',	// TODO - Translation
-			'square' => 'Square',	// TODO - Translation
+			'label' => '缩略图',
+			'landscape' => '风景',
+			'none' => '无',
+			'portrait' => '肖像',
+			'square' => '方块',
 		),
 		'title' => '显示',
 		'width' => array(
@@ -120,6 +130,13 @@ return array(
 		'confirm_enabled' => '「全部标记为已读」时显示确认对话框',
 		'display_articles_unfolded' => '默认展开显示文章',
 		'display_categories_unfolded' => '展开的分类',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
@@ -128,11 +145,11 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
-			'keep_max_n_unread' => '在超过N条后',
+			'keep_max_n_unread' => '未读最多保留 n 条',
 			'scroll' => '在滚动浏览后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => '已存在 n 条相同标题文章',
 		),
 		'show' => array(
 			'_' => '文章显示',
@@ -163,20 +180,20 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '添加分享方式',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => '邮箱',
-		'facebook' => '脸书',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => '邮箱',	// IGNORE
+		'facebook' => '脸书',	// IGNORE
 		'more_information' => '更多信息',
 		'print' => '打印',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '删除分享方式',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '名称',
 		'share_url' => '地址',
 		'title' => '分享',
-		'twitter' => '推特',
-		'wallabag' => 'Wallabag',
+		'twitter' => '推特',	// IGNORE
+		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => '快捷键',
@@ -204,7 +221,7 @@ return array(
 		'other_action' => '其他操作',
 		'previous_article' => '打开上一篇文章',
 		'reading_view' => '切换到阅读视图',
-		'rss_view' => 'Open as RSS feed',	// TODO - Translation
+		'rss_view' => '切换到 RSS 视图',
 		'see_on_website' => '在原网站中查看',
 		'shift_for_all_read' => '组合 <kbd>Alt ⎇</kbd>键 将上方的文章标记为已读<br />组合 <kbd>⇧ Shift</kbd>按键 可以将全部文章设为已读',
 		'skip_next_article' => '跳转到下一篇文章而不打开',

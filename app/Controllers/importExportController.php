@@ -3,7 +3,11 @@
 /**
  * Controller to handle every import and export actions.
  */
-class FreshRSS_importExport_Controller extends Minz_ActionController {
+class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
+
+	private $entryDAO;
+	private $feedDAO;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -16,7 +20,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		require_once(LIB_PATH . '/lib_opml.php');
 
-		$this->catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
 	}
@@ -26,7 +29,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		$this->view->feeds = $this->feedDAO->listFeeds();
-		Minz_View::prependTitle(_t('sub.import_export.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
 	private static function megabytes($size_str) {
@@ -49,7 +52,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	public function importFile($name, $path, $username = null) {
 		self::minimumMemory(256);
 
-		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 
@@ -183,8 +185,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	/**
 	 * This method tries to guess the file type based on its name.
 	 *
-	 * Itis a *very* basic guess file type function. Only based on filename.
-	 * That's could be improved but should be enough for what we have to do.
+	 * It is a *very* basic guess file type function. Only based on filename.
+	 * That could be improved but should be enough for what we have to do.
 	 */
 	private static function guessFileType($filename) {
 		if (substr_compare($filename, '.zip', -4) === 0) {
@@ -207,7 +209,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return 'unknown';
 	}
 
-	private function ttrssXmlToJson($xml) {
+	private function ttrssXmlToJson(string $xml) {
 		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = isset($table['article']) ? $table['article'] : array();
 		unset($table['article']);
@@ -253,7 +255,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 *
 	 * @param string $article_file the JSON file content.
 	 * @param boolean $starred true if articles from the file must be starred.
-	 * @return boolean false if an error occured, true otherwise.
+	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	private function importJson($article_file, $starred = false) {
 		$article_object = json_decode($article_file, true);
@@ -407,16 +409,19 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$content = sanitizeHTML($content, $url);
 
 			if (!empty($item['published'])) {
-				$published = $item['published'];
+				$published = '' . $item['published'];
 			} elseif (!empty($item['timestampUsec'])) {
-				$published = substr($item['timestampUsec'], 0, -6);
+				$published = substr('' . $item['timestampUsec'], 0, -6);
 			} elseif (!empty($item['updated'])) {
-				$published = $item['updated'];
+				$published = '' . $item['updated'];
 			} else {
-				$published = 0;
+				$published = '0';
 			}
-			if (!ctype_digit('' . $published)) {
-				$published = strtotime($published);
+			if (!ctype_digit($published)) {
+				$published = '' . strtotime($published);
+			}
+			if (strlen($published) > 10) {	// Milliseconds, e.g. Feedly
+				$published = substr($published, 0, -3);
 			}
 
 			$entry = new FreshRSS_Entry(
@@ -487,9 +492,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	/**
 	 * This method import a JSON-based feed (Google Reader format).
 	 *
-	 * @param array $origin represents a feed.
-	 * @return FreshRSS_Feed if feed is in database at the end of the process,
-	 *         else null.
+	 * @param array<string,string> $origin represents a feed.
+	 * @return FreshRSS_Feed|null if feed is in database at the end of the process, else null.
 	 */
 	private function addFeedJson($origin) {
 		$return = null;
@@ -504,6 +508,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$website = $origin['htmlUrl'];
 		} elseif (!empty($origin['feedUrl'])) {
 			$website = $origin['feedUrl'];
+		} else {
+			$website = '';
 		}
 		$name = empty($origin['title']) ? $website : $origin['title'];
 
@@ -591,7 +597,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		foreach ($export_feeds as $feed_id) {
 			$result = $export_service->generateFeedEntries($feed_id, $max_number_entries);
 			if (!$result) {
-				// It means the actual feed_id doesn't correspond to any existing feed
+				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
 			}
 
@@ -601,7 +607,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$nb_files = count($exported_files);
 		if ($nb_files <= 0) {
-			// There's nothing to do, there're no files to export
+			// There’s nothing to do, there’re no files to export
 			return Minz_Request::forward(
 				array('c' => 'importExport', 'a' => 'index'),
 				true
@@ -613,7 +619,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$filename = key($exported_files);
 			$content = $exported_files[$filename];
 		} else {
-			// More files? Let's compress them in a Zip archive
+			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
 				// Oops, there is no ZIP extension!
 				return Minz_Request::bad(

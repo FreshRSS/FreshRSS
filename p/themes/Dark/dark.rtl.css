@@ -340,17 +340,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #1a1a1a;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #888;
-	border-right: 1px solid #888;
-	content: "";
-	position: absolute;
-	top: -6px;
-	left: 13px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border-color: #888;
 }
 
 .dropdown-header {
@@ -583,10 +573,6 @@ a.btn {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header {
-	height: 85px;
-}
-
 .header > .item {
 	padding: 10px;
 	vertical-align: middle;
@@ -599,7 +585,6 @@ a.btn {
 }
 
 .header > .item.title .logo {
-	margin: 0.5em 0;
 	filter: grayscale(60%) brightness(1.1);
 }
 
@@ -902,7 +887,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	background: #111;
 	color: #c95;
 	font-size: 0.9em;
@@ -911,7 +895,6 @@ a.btn {
 	box-shadow: 0 0 5px #666;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -1136,7 +1119,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #111;
 		display: block;
 		width: 100%;
@@ -1174,6 +1158,13 @@ a.btn {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #1a1a1a;
+		border-top: 1px solid #888;
+		border-right: 1px solid #888;
+		left: 12px;
 	}
 
 	.day .name {

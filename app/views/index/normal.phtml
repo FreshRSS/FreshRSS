@@ -1,4 +1,5 @@
 <?php
+/** @var FreshRSS_View $this */
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
@@ -73,7 +74,7 @@ $today = @strtotime('today');
 			<div class="content <?= $content_width ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
 				<div class="subtitle">
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
 							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
 						<?php endif; ?>
@@ -114,9 +115,16 @@ $today = @strtotime('today');
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<main id="stream" class="prompt alert alert-warn normal">
-	<h2><?= _t('index.feed.empty') ?></h2>
-	<a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a><br /><br />
+<main id="stream" class="normal">
+	<div id="new-article">
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+	</div>
+	<div class="prompt alert alert-warn">
+		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+			<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
+		<?php } ?>
+	</div>
 </main>
 <?php endif; ?>
 

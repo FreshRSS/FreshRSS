@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archius',
@@ -77,7 +87,7 @@ return array(
 			'categories' => 'Afichatge per categoria',
 			'feeds' => 'Afichatge per flux',
 			'order' => 'Triar per data',
-			'search' => 'Expression',
+			'search' => 'Expression',	// IGNORE
 			'state' => 'Estat',
 			'tags' => 'Afichatge per etiqueta',
 			'type' => 'Tipe',
@@ -120,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Mostrar una confirmacion per las accions del tipe « o marcar tot coma legit »',
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
 		'display_categories_unfolded' => 'Categorias a desplegar',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
@@ -163,20 +180,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Mai d’informacions',
-		'print' => 'Imprimir',
-		'raindrop' => 'Raindrop.io',
+		'print' => 'Imprimir',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Suprimir lo metòde de partatge',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Nom del partatge de mostrar',
 		'share_url' => 'URL del partatge d’utilizar',
 		'title' => 'Partatge',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Acorchis',
@@ -194,7 +211,7 @@ return array(
 		'load_more' => 'Cargar mai d’articles',
 		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
-		'navigation' => 'Navigacion',
+		'navigation' => 'Navigacion',	// IGNORE
 		'navigation_help' => 'Amb lo modificador <kbd>⇧ Shift</kbd>, los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador <kbd>Alt ⎇</kbd>, los acorchis de navigacion s’aplican a las categorias.',
 		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
@@ -216,7 +233,7 @@ return array(
 		'views' => 'Vistas',
 	),
 	'user' => array(
-		'articles_and_size' => '%s articles (%s)',
+		'articles_and_size' => '%s articles (%s)',	// IGNORE
 		'current' => 'Utilizaire actual',
 		'is_admin' => 'es administrator',
 		'users' => 'Utilizaires',

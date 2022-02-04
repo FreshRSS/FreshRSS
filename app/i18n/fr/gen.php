@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'Actualiser flux',
@@ -17,7 +27,6 @@ return array(
 		'import' => 'Importer',
 		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
-		'mark_favorite' => 'Mettre en favori',
 		'mark_read' => 'Marquer comme lu',
 		'promote' => 'Promouvoir',
 		'purge' => 'Purger',
@@ -70,8 +79,8 @@ return array(
 		'december' => 'décembre',
 		'feb' => 'fév.',
 		'february' => 'février',
-		'format_date' => 'j %s Y',
-		'format_date_hour' => 'j %s Y \\à H\\:i',
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\à H\\:i',	// IGNORE
 		'fri' => 'ven.',
 		'jan' => 'jan.',
 		'january' => 'janvier',
@@ -107,9 +116,9 @@ return array(
 		'wed' => 'mer.',
 		'yesterday' => 'Hier',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'À propos de FreshRSS',
 	),
 	'js' => array(
@@ -118,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
 		'feedback' => array(
 			'body_new_articles' => 'Il y a %%d nouveaux articles à lire sur FreshRSS.',
+			'body_unread_articles' => '(non lus : %%d)',
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
@@ -125,36 +135,36 @@ return array(
 		'should_be_activated' => 'Le JavaScript doit être activé.',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'À propos',
 		'account' => 'Compte',
-		'admin' => 'Administration',
+		'admin' => 'Administration',	// IGNORE
 		'archiving' => 'Archivage',
 		'authentication' => 'Authentification',
 		'check_install' => 'Vérification de l’installation',
-		'configuration' => 'Configuration',
+		'configuration' => 'Configuration',	// IGNORE
 		'display' => 'Affichage',
-		'extensions' => 'Extensions',
-		'logs' => 'Logs',
+		'extensions' => 'Extensions',	// IGNORE
+		'logs' => 'Logs',	// IGNORE
 		'queries' => 'Filtres utilisateurs',
 		'reading' => 'Lecture',
 		'search' => 'Rechercher des mots ou des #tags',
@@ -184,25 +194,25 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basés sur Known',
-		'blogotext' => 'Blogotext',
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Presse-papier',
-		'diaspora' => 'Diaspora*',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimer',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attention !',
