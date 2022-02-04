@@ -1,5 +1,8 @@
 # FreshRSS changelog
 
+## 2022-0X-XX FreshRSS 1.20.0-dev
+
+
 ## 2022-02-04 FreshRSS 1.19.2
 
 * Bug fixing
