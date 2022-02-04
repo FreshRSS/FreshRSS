@@ -261,12 +261,12 @@
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
 	margin: 1.5em 0 0 0;
-	background-color: $sid-pills;
+	background-color: variables.$sid-pills;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
 	margin: 0.5em 0 0 0;
-	background-color: $sid-pills;
+	background-color: variables.$sid-pills;
 }
 
 .feed.item.empty.active {
