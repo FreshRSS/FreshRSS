@@ -28,7 +28,7 @@ class Minz_Url {
 			$url_string = Minz_Request::getBaseUrl();
 			if (strlen($url_string) < strlen('http://a.bc')) {
 				$url_string = Minz_Request::guessBaseUrl();
-				if (PUBLIC_RELATIVE === '..') {
+				if (PUBLIC_RELATIVE === '..' && preg_match('%' . PUBLIC_TO_INDEX_PATH . '(/|$)%', $url_string)) {
 					//TODO: Implement proper resolver of relative parts such as /test/./../
 					$url_string = dirname($url_string);
 				}
