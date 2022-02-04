@@ -49,5 +49,6 @@ $sid-bg-alt: #f7f2ea; // background inside groups
 $sid-bg-dark: #efe3d3; // les hovers
 $sid-sep: #f0e7da; // les séparateurs
 $sid-active: $main-first; // la couleur active
-$sid-active-font: #fff; // la couleur active
+// stylelint-disable-next-line color-hex-length
+$sid-active-font: #ffffff; // la couleur active
 $sid-pills: rgba(35,35,0, 0.15); // les gélules

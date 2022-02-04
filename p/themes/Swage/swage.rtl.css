@@ -781,8 +781,7 @@ form th {
 	right: 0;
 	top: auto;
 }
-.notification.good,
-.notification .bad {
+.notification.good, .notification.bad {
 	color: #fcfcfc;
 }
 .notification.good {

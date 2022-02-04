@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => '“すべてに既読を付ける” を押したとき確認ダイアログを表示する',
 		'display_articles_unfolded' => 'デフォルトでフォルダーに入れてない記事を表示する',
 		'display_categories_unfolded' => '展開されていない記事',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'カテゴリーを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '"lazy load"を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
