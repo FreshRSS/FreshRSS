@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',

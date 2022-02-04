@@ -2,6 +2,8 @@
 
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
+	const LASTUPDATEFILE = 'last_update.txt';
+
 	public static function isGit() {
 		return is_dir(FRESHRSS_PATH . '/.git/');
 	}
@@ -101,7 +103,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
-		$timestamp = @filemtime(join_path(DATA_PATH, 'last_update.txt'));
+		$timestamp = @filemtime(join_path(DATA_PATH, self::LASTUPDATEFILE));
 		if ($timestamp !== false) {
 			$this->view->last_update_time = timestamptodate($timestamp);
 		}
@@ -112,7 +114,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
-			$version = @file_get_contents(join_path(DATA_PATH, 'last_update.txt'));
+			$version = @file_get_contents(join_path(DATA_PATH, self::LASTUPDATEFILE));
 			if ($version == '') {
 				$version = 'unknown';
 			}
@@ -157,7 +159,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
-				@touch(join_path(DATA_PATH, 'last_update.txt'));
+				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
 				return;
 			}
 		} else {
@@ -193,7 +195,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
-				@touch(join_path(DATA_PATH, 'last_update.txt'));
+				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
 				return;
 			}
 
@@ -203,7 +205,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
-			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
+			@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
 			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
@@ -232,7 +234,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
-				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
+				@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), '');
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);

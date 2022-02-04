@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Určite chcete vykonať túto akciu? Prídete o súvisiace obľúbené a používateľské dopyty. Zmeny budú nezvratné!',
 		'feedback' => array(
 			'body_new_articles' => 'Počet nových článkov v čítačke FreshRSS: %%d',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Nepodarilo sa spracovať váš dopyt, pravdepodobne kvôli problému s pripojením do internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),

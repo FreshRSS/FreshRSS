@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'feedback' => array(
 			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),

@@ -1,3 +1,9 @@
+@use "sass:string";
+
+@use "mixins";
+
+@use "variables";
+
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
@@ -22,7 +28,7 @@
 .dropdown-menu {
 	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
-	background: $grey-lighter;
+	background: variables.$grey-lighter;
 	font-size: 1rem;
 	border: none;
 	border-radius: 3px;
@@ -30,18 +36,8 @@
 	text-align: left;
 
 	&::after {
-		background: $grey-lighter;
-		width: 10px;
-		height: 10px;
-		content: "";
-		position: absolute;
-		top: -4px;
-		right: 18px;
-		bottom: -14px;
-		z-index: -10;
-		transform: rotate(45deg);
-		// border-top: 1px solid #95a5a6;
-		// border-left: 1px solid #95a5a6;
+		border: none;
+		right: 17px;
 	}
 
 	.dropdown-header {
@@ -49,7 +45,7 @@
 		margin: 1.75rem 0 0.5rem 2rem;
 		font-weight: bold;
 		text-align: left;
-		color: $grey-dark;
+		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 
@@ -58,22 +54,22 @@
 
 	.item {
 
-		@include transition(all, 0.075s, ease-in-out);
+		@include mixins.transition(all, 0.075s, ease-in-out);
 
 		a, span, .as-link {
 			padding: 0 2rem;
-			color: $main-font-color;
+			color: variables.$main-font-color;
 			font-size: 1rem;
 			line-height: 2.5em;
 		}
 
 		&:hover {
-			background: $main-first;
-			color: $white;
+			background: variables.$main-first;
+			color: variables.$white;
 
 			a, button {
 				text-decoration: none;
-				color: $white;
+				color: variables.$white;
 			}
 
 			.icon {
@@ -99,7 +95,7 @@
 
 	.separator {
 		margin: 0.75rem 0;
-		border-bottom: 1px solid $grey-light;
+		border-bottom: 1px solid variables.$grey-light;
 		// display: none;
 	}
 
@@ -112,15 +108,15 @@
 
 		a,
 		button {
-			color: $main-font-color;
+			color: variables.$main-font-color;
 
 			&:hover {
-				color: $white;
+				color: variables.$white;
 			}
 		}
 
 		&:hover {
-			background: $main-first;
+			background: variables.$main-first;
 		}
 	}
 }
@@ -133,12 +129,12 @@
 	margin: 1rem 0;
 	// width: 100%;
 	padding: 1rem;
-	background: $grey-lighter;
-	color: $grey-dark;
+	background: variables.$grey-lighter;
+	color: variables.$grey-dark;
 	font-size: 1rem;
-	border: 1px solid $grey-medium;
+	border: 1px solid variables.$grey-medium;
 	border-radius: 3px;
-	text-shadow: 0 0 1px $grey-light;
+	text-shadow: 0 0 1px variables.$grey-light;
 }
 
 .alert-head {
@@ -151,48 +147,48 @@
 }
 
 .alert-warn {
-	background: $warning-light;
-	color: $warning-text;
-	border: 1px solid unquote($warning-text+'33'); // on ajoute l’opacité à la fin
+	background: variables.$warning-light;
+	color: variables.$warning-text;
+	border: 1px solid string.unquote(variables.$warning-text + '33'); // on ajoute l’opacité à la fin
 }
 
 .alert-success {
-	background: $success-light;
-	color: $success-text;
-	border: 1px solid unquote($success-text+'33');
+	background: variables.$success-light;
+	color: variables.$success-text;
+	border: 1px solid string.unquote(variables.$success-text + '33');
 }
 
 .alert-error {
-	background: $alert-light;
-	color: $alert-text;
-	border: 1px solid unquote($alert-text+'33');
+	background: variables.$alert-light;
+	color: variables.$alert-text;
+	border: 1px solid string.unquote(variables.$alert-text + '33');
 }
 
 /*=== Pagination */
 .pagination {
-	background: $grey-light;
-	color: $main-font-color;
+	background: variables.$grey-light;
+	color: variables.$main-font-color;
 	font-size: 0.8em;
 	text-align: center;
 
 	.item {
 		&.pager-current {
-			background: $sid-bg;
-			color: $grey-light;
+			background: variables.$sid-bg;
+			color: variables.$grey-light;
 			font-size: 1.5em;
 			font-weight: bold;
 		}
 
 		a {
 			display: block;
-			color: $main-font-color;
+			color: variables.$main-font-color;
 			font-style: italic;
 			line-height: 3em;
 			text-decoration: none;
 
 			&:hover {
-				background: $main-font-color;
-				color: $grey-light;
+				background: variables.$main-font-color;
+				color: variables.$grey-light;
 			}
 		}
 	}
@@ -212,7 +208,7 @@
 
 /*=== Boxes */
 .box {
-	background: $white;
+	background: variables.$white;
 	// border: 1px solid #ddd;
 	border: none;
 	border-radius: 3px;
@@ -221,8 +217,8 @@
 	.box-title {
 		margin: 0;
 		padding: 0.5rem 0.75rem;
-		background: $grey-light;
-		color: $main-font-color;
+		background: variables.$grey-light;
+		color: variables.$main-font-color;
 		// border-bottom: 1px solid #ddd;
 		border-radius: 2px 2px 0 0;
 
@@ -243,7 +239,7 @@
 				}
 
 				&:hover {
-					background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
+					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
 				}
 			}
 		}
@@ -282,9 +278,9 @@
 
 		.item {
 			padding: 0.5rem 0;
-			color: $main-font-color;
+			color: variables.$main-font-color;
 			font-size: 1rem;
-			border-bottom: 1px solid $grey-light;
+			border-bottom: 1px solid variables.$grey-light;
 			line-height: 1.7em;
 
 			img {
@@ -308,7 +304,7 @@
 
 				&:hover {
 					// background: $main-first;
-					background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
+					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
 				}
 			}
 
@@ -324,13 +320,13 @@
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: $main-first-light;
-	color: $main-first;
+	background: variables.$main-first-light;
+	color: variables.$main-first;
 
-	@include transition(all, 0.15s, ease-in-out);
+	@include mixins.transition(all, 0.15s, ease-in-out);
 
 	&:hover {
-		background: $main-first;
+		background: variables.$main-first;
 		color: #fff;
 
 		.bigTick {
@@ -351,7 +347,7 @@
 
 // page de login
 .formLogin {
-	background: $sid-bg;
+	background: variables.$sid-bg;
 
 	.header {
 		.configure {
@@ -362,13 +358,13 @@
 			}
 
 			a.signin {
-				color: $white;
+				color: variables.$white;
 			}
 		}
 	}
 
 	h1 {
-		color: $white;
+		color: variables.$white;
 	}
 
 	form#crypto-form {
@@ -376,18 +372,18 @@
 			margin-bottom: 1rem;
 
 			label {
-				color: $grey-medium;
+				color: variables.$grey-medium;
 				font-size: 1rem;
 
 
 			}
 
 			input {
-				background: $main-first-darker;
+				background: variables.$main-first-darker;
 
 				&:focus {
-					background: $grey-lighter;
-					color: $main-font-color;
+					background: variables.$grey-lighter;
+					color: variables.$main-font-color;
 				}
 			}
 		}
