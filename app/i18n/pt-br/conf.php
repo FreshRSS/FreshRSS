@@ -130,6 +130,13 @@ return array(
 		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar "marcar todos como lido"',
 		'display_articles_unfolded' => 'Mostrar artigos abertos por padrão',
 		'display_categories_unfolded' => 'Categorias abertas',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
 		'jump_next' => 'Vá para o próximo irmão não lido (feed ou categoria)',

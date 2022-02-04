@@ -1,3 +1,5 @@
+@use "variables";
+
 /*=== STATISTICS */
 /*===============*/
 .stat {
@@ -12,7 +14,7 @@
 
 .stat > table td,
 .stat > table th {
-	border-bottom: 1px solid $grey-medium-light;
+	border-bottom: 1px solid variables.$grey-medium-light;
 }
 
 .stat > .horizontal-list {

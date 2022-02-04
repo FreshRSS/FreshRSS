@@ -127,6 +127,7 @@ return array(
 		'confirm_action_feed_cat' => '정말 이 작업을 수행하시겠습니까? 관련된 즐겨찾기와 사용자 쿼리가 삭제됩니다. 이 작업은 되돌릴 수 없습니다!!',
 		'feedback' => array(
 			'body_new_articles' => '%%d 개의 새 글이 FreshRSS에 있습니다.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
 		),

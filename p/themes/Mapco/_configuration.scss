@@ -1,3 +1,5 @@
+@use "variables";
+
 /*=== Configuration pages */
 .post {
 	padding: 1rem 2rem;
@@ -33,7 +35,7 @@
 
 	h1, h2 { // pages titles
 		// font-family: "spectral";
-		color: $main-font-color;
+		color: variables.$main-font-color;
 		font-size: 3rem;
 		margin-top: 1.75rem;
 		font-weight: 300;
@@ -43,12 +45,12 @@
 	a[href="./"] { // C’est le bouton "Retour à vos flux"
 		margin: 0;
 		padding: 0.75rem 1.5rem;
-		background: $grey-lighter;
+		background: variables.$grey-lighter;
 		display: inline-block;
 		// border: none;
-		color: $grey-dark;
+		color: variables.$grey-dark;
 		font-size: 1rem;
-		border: 1px solid $grey-medium-light;
+		border: 1px solid variables.$grey-medium-light;
 		border-radius: 5px;
 		// min-height: 38px;
 		min-width: 15px;
@@ -58,9 +60,9 @@
 		overflow: hidden;
 
 		&:hover {
-			background: $main-first;
+			background: variables.$main-first;
 			color: white;
-			border: 1px solid $main-first;
+			border: 1px solid variables.$main-first;
 			text-decoration: none;
 		}
 	}
