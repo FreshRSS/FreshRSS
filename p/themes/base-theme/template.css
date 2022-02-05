@@ -475,17 +475,21 @@ a.btn {
 
 .pagination .item {
 	display: table-cell;
-	width: 50px;
+	width: 3em;
+}
+
+.pagination .item.active {
+	min-width: 3em;
 }
 
 .pagination .pager-previous,
 .pagination .pager-next{
-	width: 75px;
+	width: 6em;
 }
 
 .pagination .pager-first,
 .pagination .pager-last {
-	width: 100px;
+	width: 7.5em;
 }
 
 /*=== Boxes */
@@ -1464,6 +1468,10 @@ input:checked + .slide-container .properties {
 
 .reader .aside .stick {
 	display: none;
+}
+
+#loglist-wrapper {
+	overflow-x: auto;
 }
 
 /*=== MOBILE */
