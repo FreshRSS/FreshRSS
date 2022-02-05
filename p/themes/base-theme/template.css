@@ -313,6 +313,20 @@ a.btn {
 	background-image: url('../icons/disabled.svg');
 }
 
+@supports not (::before) {
+	.switch {
+		background-image: url('../icons/disabled.svg');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.switch.active {
+		background-image: url('../icons/enabled.svg');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+}
+
 /* ::before = circle */
 .switch::before {
 	content: "";
