@@ -131,11 +131,11 @@ return array(
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Articles : ouverture/fermeture',
+			'categories' => 'Navigation de gauche : catégories',
+			'mark_as_read' => 'Marquer les articles comme lus',
+			'misc' => 'Divers',
+			'view' => 'Vue',
 		),
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
