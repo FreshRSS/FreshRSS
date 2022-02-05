@@ -146,25 +146,6 @@ class SimplePie_Sanitize
 		}
 	}
 
-	public function rename_attributes($tags = array())
-	{
-		if ($tags)
-		{
-			if (is_array($tags))
-			{
-				$this->rename_attributes = $tags;
-			}
-			else
-			{
-				$this->rename_attributes = explode(',', $tags);
-			}
-		}
-		else
-		{
-			$this->rename_attributes = false;
-		}
-	}
-
 	public function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'))
 	{
 		if ($tags)
@@ -187,6 +168,25 @@ class SimplePie_Sanitize
 	public function encode_instead_of_strip($encode = false)
 	{
 		$this->encode_instead_of_strip = (bool) $encode;
+	}
+
+	public function rename_attributes($attribs = array())
+	{
+		if ($attribs)
+		{
+			if (is_array($attribs))
+			{
+				$this->rename_attributes = $attribs;
+			}
+			else
+			{
+				$this->rename_attributes = explode(',', $attribs);
+			}
+		}
+		else
+		{
+			$this->rename_attributes = false;
+		}
 	}
 
 	public function strip_attributes($attribs = array('bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'))

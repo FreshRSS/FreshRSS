@@ -650,19 +650,18 @@ class SimplePie
 	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));
 
 	/**
-	 * @var array Stores the default tags to be stripped by rename_attributes().
-	 * @see SimplePie::rename_attributes()
-	 * @access private
-	 */
-	public $rename_attributes = array();
-
-
-	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
 	 * @see SimplePie::strip_htmltags()
 	 * @access private
 	 */
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
+
+	/**
+	 * @var array Stores the default tags to be stripped by rename_attributes().
+	 * @see SimplePie::rename_attributes()
+	 * @access private
+	 */
+	public $rename_attributes = array();
 
 	/**
 	 * @var bool Should we throw exceptions, or use the old-style error property?
@@ -1225,15 +1224,6 @@ class SimplePie
 		$this->sanitize->remove_div($enable);
 	}
 
-	public function rename_attributes($tags = '', $encode = null)
-	{
-		if ($tags === '')
-		{
-			$tags = $this->rename_attributes;
-		}
-		$this->sanitize->rename_attributes($tags);
-	}
-
 	public function strip_htmltags($tags = '', $encode = null)
 	{
 		if ($tags === '')
@@ -1250,6 +1240,15 @@ class SimplePie
 	public function encode_instead_of_strip($enable = true)
 	{
 		$this->sanitize->encode_instead_of_strip($enable);
+	}
+
+	public function rename_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->rename_attributes;
+		}
+		$this->sanitize->rename_attributes($attribs);
 	}
 
 	public function strip_attributes($attribs = '')
