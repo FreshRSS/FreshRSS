@@ -735,23 +735,20 @@ a.btn {
 
 /*=== New article notification */
 #new-article {
-	padding: 1em;
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
+	padding: 1em;
 	color: #fff;
 	font-weight: bold;
 }
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
