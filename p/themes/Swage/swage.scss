@@ -848,9 +848,8 @@ form {
 	z-index: 900;
 	left: 0;
 	line-height: 1.5em;
-
 	@extend %aside-width;
-
+	
 	> a {
 		line-height: 1.5em;
 		font-weight: bold;
