@@ -18,7 +18,15 @@
 	<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
 	<?php } ?>
 
-	<form method="post" action="<?= _url('subscription', 'feed', 'id', $this->feed->id()) ?>" autocomplete="off">
+	<?php
+	$from = Minz_Request::param('from');
+	if ($from === false) {
+		$url = _url('subscription', 'feed', 'id', $this->feed->id());
+	} else {
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+	}
+	?>
+	<form method="post" action="<?= $url ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<legend><?= _t('sub.feed.information') ?></legend>
 		<div class="form-group">
