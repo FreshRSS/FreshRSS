@@ -5,9 +5,6 @@
  */
 class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
-	/**
-	 * @inheritdoc
-	 */
 	public function tablesAreCorrect(): bool {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table"';
 		$stm = $this->pdo->query($sql);
@@ -28,9 +25,6 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
@@ -51,9 +45,6 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		));
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function daoToSchema(array $dao): array {
 		return [
 			'name'    => $dao['name'],

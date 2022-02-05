@@ -9,9 +9,6 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	const UNDEFINED_COLUMN = '42703';
 	const UNDEFINED_TABLE = '42P01';
 
-	/**
-	 * @inheritdoc
-	 */
 	public function tablesAreCorrect(): bool {
 		$db = FreshRSS_Context::$system_conf->db;
 		$dbowner = $db['user'];
@@ -36,9 +33,6 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function getSchema(string $table): array {
 		$sql = 'select column_name as field, data_type as type, column_default as default, is_nullable as null from INFORMATION_SCHEMA.COLUMNS where table_name = ?';
 		$stm = $this->pdo->prepare($sql);
