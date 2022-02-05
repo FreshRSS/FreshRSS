@@ -242,9 +242,11 @@ a.btn {
 .switch {
 	background-color: #333;
 }
+
 .switch.active {
 	background-color: #6986b2;
 }
+
 .switch::before,
 .switch:hover::before {
 	background-color: black;
