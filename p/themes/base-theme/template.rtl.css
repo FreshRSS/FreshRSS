@@ -283,6 +283,7 @@ a.btn {
 
 /*=== switch */
 .switch {
+	margin: 0 0.5em;
 	padding: revert;
 	position: relative;
 	width: 3.5em;
@@ -292,7 +293,6 @@ a.btn {
 	background-color: #ccc;
 	cursor: pointer;
 	box-sizing: content-box;
-	margin: 0 0.5em;
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-image: url('../icons/disabled.svg');
@@ -331,7 +331,7 @@ a.btn {
 /* ::before = circle */
 .switch::before {
 	content: "";
-  position: absolute;
+	position: absolute;
 	right: 5px;
 	left: unset;
 	top: 0.2em;
@@ -364,19 +364,19 @@ a.btn {
 /* ::after = background */
 .switch::after {
 	content: "";
-  position: absolute;
-  top: 50%;
-  left: 8px;
-  width: 12px;
-  height: 12px;
-  transform: translateY(-50%);
+	position: absolute;
+	top: 50%;
+	left: 8px;
+	width: 12px;
+	height: 12px;
+	transform: translateY(-50%);
 }
 
 
 .switch.active::after {
 	width: 14px;
-  height: 14px;
-  right: 8px;
+	height: 14px;
+	right: 8px;
 }
 
 /*=== Navigation */
