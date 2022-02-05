@@ -3,7 +3,14 @@
 /**
  * Controller to handle every tag actions.
  */
-class FreshRSS_tag_Controller extends Minz_ActionController {
+class FreshRSS_tag_Controller extends FreshRSS_ActionController {
+
+	/**
+	 * JavaScript request or not.
+	 * @var bool
+	 */
+	private $ajax = false;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -92,10 +99,10 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		if (strlen($name) > 0 && null === $tagDAO->searchByName($name)) {
 			$tagDAO->addTag(['name' => $name]);
-			Minz_Request::good(_t('feedback.tag.created', $name), ['c' => 'tag', 'a' => 'index'], true);
+			Minz_Request::good(_t('feedback.tag.created', $name), ['c' => 'tag', 'a' => 'index']);
 		}
 
-		Minz_Request::bad(_t('feedback.tag.name_exists', $name), ['c' => 'tag', 'a' => 'index'], true);
+		Minz_Request::bad(_t('feedback.tag.name_exists', $name), ['c' => 'tag', 'a' => 'index']);
 	}
 
 	public function renameAction() {
@@ -123,7 +130,7 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 			$tagDAO->deleteTag($sourceId);
 		}
 
-		Minz_Request::good(_t('feedback.tag.renamed', $sourceName, $targetName), ['c' => 'tag', 'a' => 'index'], true);
+		Minz_Request::good(_t('feedback.tag.renamed', $sourceName, $targetName), ['c' => 'tag', 'a' => 'index']);
 	}
 
 	public function indexAction() {

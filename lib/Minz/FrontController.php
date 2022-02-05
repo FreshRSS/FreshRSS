@@ -19,8 +19,9 @@
 # ***** END LICENSE BLOCK *****
 
 /**
- * La classe FrontController est le Dispatcher du framework, elle lance l'application
- * Elle est appelée en général dans le fichier index.php à la racine du serveur
+ * The Minz_FrontController class is the framework Dispatcher.
+ * It runs the application.
+ * It is generally invoqued by an index.php file at the root.
  */
 class Minz_FrontController {
 	protected $dispatcher;
@@ -50,8 +51,8 @@ class Minz_FrontController {
 	}
 
 	/**
-	 * Retourne un tableau représentant l'url passée par la barre d'adresses
-	 * @return array représentant l'url
+	 * Returns an array representing the URL as passed in the address bar
+	 * @return array URL representation
 	 */
 	private function buildUrl() {
 		$url = array();

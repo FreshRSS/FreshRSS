@@ -1,21 +1,31 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Kopieren Sie die folgende URL, um sie in einem externen Tool zu verwenden.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie "Als Lesezeichen hinzufügen". Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche "Abonnieren".',
 		'label' => 'Abonnieren',
-		'title' => 'Bookmarklet',
+		'title' => 'Bookmarklet',	// IGNORE
 	),
 	'category' => array(
 		'_' => 'Kategorie',
 		'add' => 'Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
-		'information' => 'Information',
+		'information' => 'Information',	// IGNORE
 		'position' => 'Reihenfolge',
 		'position_help' => 'Steuert die Kategoriesortierung',
 		'title' => 'Titel',
@@ -49,7 +59,7 @@ return array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile',
 		),
-		'information' => 'Information',
+		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'maintenance' => array(
 			'clear_cache' => 'Zwischenspeicher leeren',
@@ -120,7 +130,7 @@ return array(
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 	'tag' => array(
-		'name' => 'Name',
+		'name' => 'Name',	// IGNORE
 		'new_name' => 'Neuer Name',
 		'old_name' => 'Alter Name',
 	),

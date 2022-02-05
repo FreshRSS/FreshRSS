@@ -1,4 +1,5 @@
 <?php
+	/** @var FreshRSS_View $this */
 	$sharing = array();
 	if (FreshRSS_Auth::hasAccess()) {
 		$sharing = FreshRSS_Context::$user_conf->sharing;
@@ -34,6 +35,7 @@
 			?></li><?php
 		}
 	}
+	// @phpstan-ignore-next-line
 	if ($bottomline_labels) {
 	?><li class="item">
 		<div class="dropdown dynamictags">
@@ -42,7 +44,7 @@
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>"><?php
 				echo _t('index.menu.tags');
 			?></a>
-			<ul class="dropdown-menu dropdown-menu-scrollable">
+			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<!-- Ajax -->
 			</ul>

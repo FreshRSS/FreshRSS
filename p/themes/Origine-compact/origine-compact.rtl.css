@@ -401,6 +401,10 @@ a.btn,
 	color: #fff;
 }
 
+.dropdown-menu > .item:hover .icon {
+	filter: grayscale(100%) brightness(2.5);
+}
+
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
@@ -653,14 +657,16 @@ a.btn,
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.8rem;
-	position: absolute;
-	left: 0;
-	line-height: 0.9rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 0.5em 0 0 0;
+	background-color: #f6f6f6;
+	color: #444;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.75em 0 0 0;
+	background-color: white;
+	color: #444;
 }
 
 /*=== Aside main page (feeds) */
@@ -767,10 +773,6 @@ a.btn,
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
 	line-height: 3em;
 	color: #fff;
@@ -779,6 +781,7 @@ a.btn,
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -974,14 +977,12 @@ a.btn,
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -1065,18 +1066,13 @@ a.btn,
 
 /*=== GLOBAL VIEW */
 /*================*/
-.box.category .box-title .title {
-	font-weight: normal;
-	text-decoration: none;
-	text-align: right;
-}
-
 .box.category:not([data-unread="0"]) .box-title {
 	background: #0084cc;
 }
 
-.box.category:not([data-unread="0"]) .box-title:active {
-	background: #3498db;
+.box.category .box-title .title {
+	display: block;
+	font-weight: normal;
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {
@@ -1250,6 +1246,16 @@ a.btn,
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		border-top: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 5px;
 	}
 
 	.day .name {

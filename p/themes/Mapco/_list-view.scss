@@ -1,69 +1,75 @@
+@use "sass:color";
+
+@use "mixins";
+
+@use "variables";
+
 /*=== Feed articles */
 .flux {
 	// border-left: 2px solid #ecf0f1;
-	background: $white;
+	background: variables.$white;
 
-	@include transition(all, 0.15s, ease-in-out);
+	@include mixins.transition(all, 0.15s, ease-in-out);
 
 	&:hover {
-		background: $grey-lighter;
+		background: variables.$grey-lighter;
 
 		&:not(.current):hover .item.title {
-			background: $grey-lighter;
+			background: variables.$grey-lighter;
 
 
 		}
 	}
 
 	&.current {
-		background: $grey-lighter;
-		border-left-color: $main-first;
+		background: variables.$grey-lighter;
+		border-left-color: variables.$main-first;
 	}
 
 	&.not_read:not(.current) {
-		background: $unread-bg; //--------------------
+		background: variables.$unread-bg; //--------------------
 
 		&:hover .item.title {
-			background: $unread-bg;
+			background: variables.$unread-bg;
 		}
 	}
 
 	&.not_read {
 		.item.title {
 			a {
-				color: $unread-font-color; //--------------------
+				color: variables.$unread-font-color; //--------------------
 			}
 
 		}
 
 		.item.website {
 			a {
-				color: $unread-font-color; //--------------------
+				color: variables.$unread-font-color; //--------------------
 			}
 		}
 
 		.item.date {
-			color: scale-color($unread-font-color, $alpha: -50%);
+			color: color.scale(variables.$unread-font-color, $alpha: -50%);
 		}
 	}
 
 	&.favorite {
-		border-left-color: $fav-bg;
+		border-left-color: variables.$fav-bg;
 
-		@include transition(all, 0.15s, ease-in-out);
+		@include mixins.transition(all, 0.15s, ease-in-out);
 	}
 
 	&.favorite:not(.current) {
-		background: $fav-light;
+		background: variables.$fav-light;
 
 		&:hover .item.title {
-			background: $fav-light;
+			background: variables.$fav-light;
 		}
 	}
 
 	.website {
 		a {
-			color: $main-font-color;
+			color: variables.$main-font-color;
 			opacity: 0.75;
 		}
 
@@ -72,8 +78,8 @@
 		}
 	}
 
-	.date {
-		color: scale-color($main-font-color, $alpha: -50%);
+	.item.date {
+		color: color.scale(variables.$main-font-color, $alpha: -50%);
 		font-size: 0.85rem;
 	}
 
@@ -86,7 +92,7 @@
 .flux_header {
 	font-size: 1rem;
 	cursor: pointer;
-	border-top: 1px solid $grey-light;
+	border-top: 1px solid variables.$grey-light;
 
 	.title {
 		font-size: 1rem;

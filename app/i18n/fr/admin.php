@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
@@ -103,7 +113,7 @@ return array(
 	'extensions' => array(
 		'author' => 'Auteur',
 		'community' => 'Extensions utilisateur disponibles',
-		'description' => 'Description',
+		'description' => 'Description',	// IGNORE
 		'disabled' => 'Désactivée',
 		'empty_list' => 'Aucune extension installée',
 		'enabled' => 'Activée',
@@ -114,10 +124,10 @@ return array(
 			'_' => 'Extensions système',
 			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
-		'title' => 'Extensions',
+		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mise à jour disponible',
 		'user' => 'Extensions utilisateur',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
 		'_' => 'Statistiques',
@@ -136,7 +146,7 @@ return array(
 		'main' => 'Statistiques principales',
 		'main_stream' => 'Flux principal',
 		'no_idle' => 'Il n’y a aucun flux inactif !',
-		'number_entries' => '%d articles',
+		'number_entries' => '%d articles',	// IGNORE
 		'percent_of_total' => '%% du total',
 		'repartition' => 'Répartition des articles',
 		'status_favorites' => 'favoris',
@@ -158,8 +168,20 @@ return array(
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'registration' => array(
-			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulaire d’inscription',
+				'option' => array(
+					'noform' => 'Désactivé : Pas de formulaire d’inscription',
+					'nolimit' => 'Activé : Pas de limite au nombre d’utilisateurs',
+					'setaccountsnumber' => 'Nombre d’utilisateurs limités',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulaire désactivé',
+				'enabled' => 'Formulaire activé',
+			),
+			'title' => 'Formulaire d’inscription utilisateur',
 		),
 	),
 	'update' => array(
@@ -173,7 +195,7 @@ return array(
 	),
 	'user' => array(
 		'admin' => 'Administrateur',
-		'article_count' => 'Articles',
+		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
 		'create' => 'Créer un nouvel utilisateur',
 		'database_size' => 'Volumétrie',

@@ -1,3 +1,4 @@
+<?php /** @var FreshRSS_View $this */ ?>
 <main class="post content">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -10,7 +11,10 @@
 		<button type="submit" class="btn"><?= _t('index.log.clear') ?></button>
 	</p></form>
 
-	<?php $items = $this->logsPaginator->items(); ?>
+	<?php
+		/** @var array<FreshRSS_Log> $items */
+		$items = $this->logsPaginator->items();
+	?>
 
 	<?php if (!empty($items)) { ?>
 	<div class="loglist">

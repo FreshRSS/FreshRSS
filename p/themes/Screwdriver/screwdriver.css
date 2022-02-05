@@ -373,17 +373,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #222;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #171717;
-	border-left: 1px solid #171717;
-	content: "";
-	position: absolute;
-	top: -6px;
-	right: 13px;
-	z-index: -10;
-	transform: rotate(45deg);
+	border-color: #171717;
 }
 
 .configure .dropdown-header {
@@ -683,12 +673,14 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	right: 3px;
-	padding: 1px 5px;
-	color: #fff;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #d18114;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #ccc;
+	border: 1px solid #333;
 }
 
 .aside_feed .btn-important {
@@ -796,10 +788,6 @@ a.btn {
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
 	line-height: 3em;
 	color: #fff;
@@ -808,6 +796,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -1000,7 +989,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #222;
 	color: #fff;
 	font-size: 0.9em;
@@ -1009,7 +997,6 @@ a.btn {
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.45), 0 -1px rgba(255,255,255,0.08) inset, 0 2px 2px #171717 inset;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	position: absolute;
 	top: 0;
 	z-index: 10;
@@ -1305,6 +1292,12 @@ a.btn {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #222;
+		border-top: 1px solid #171717;
+		border-left: 1px solid #171717;
 	}
 
 	.day .name {

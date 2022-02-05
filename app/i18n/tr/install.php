@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Kurulumu tamamla',
@@ -80,7 +90,7 @@ return array(
 			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP Sürümünüz %s, FreshRSS ile tam uyumlu.',
 		),
-		'reload' => 'Check again',	// TODO - Translation
+		'reload' => 'Check again',	// TODO
 		'tmp' => array(
 			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Geçici klasör izinleri sorunsuz.',

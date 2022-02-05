@@ -19,12 +19,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
 	const LENGTH_INDEX_UNICODE = 191;
 
-	public function create() {
+	public function create(): string {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 		$db = FreshRSS_Context::$system_conf->db;
 
 		try {
-			$sql = sprintf($SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
+			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
 			return $this->pdo->exec($sql) === false ? 'Error during CREATE DATABASE' : '';
 		} catch (Exception $e) {
 			syslog(LOG_DEBUG, __method__ . ' notice: ' . $e->getMessage());
@@ -32,7 +32,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function testConnection() {
+	public function testConnection(): string {
 		try {
 			$sql = 'SELECT 1';
 			$stm = $this->pdo->query($sql);
@@ -44,7 +44,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function tablesAreCorrect() {
+	public function tablesAreCorrect(): bool {
 		$stm = $this->pdo->query('SHOW TABLES');
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -63,13 +63,13 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	public function getSchema($table) {
+	public function getSchema(string $table): array {
 		$sql = 'DESC `_' . $table . '`';
 		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function checkTable($table, $schema) {
+	public function checkTable(string $table, $schema): bool {
 		$columns = $this->getSchema($table);
 
 		$ok = (count($columns) == count($schema));
@@ -80,13 +80,13 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $ok;
 	}
 
-	public function categoryIsCorrect() {
+	public function categoryIsCorrect(): bool {
 		return $this->checkTable('category', array(
 			'id', 'name',
 		));
 	}
 
-	public function feedIsCorrect() {
+	public function feedIsCorrect(): bool {
 		return $this->checkTable('feed', array(
 			'id', 'url', 'category', 'name', 'website', 'description', 'lastUpdate',
 			'priority', 'pathEntries', 'httpAuth', 'error', 'ttl', 'attributes',
@@ -94,33 +94,33 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		));
 	}
 
-	public function entryIsCorrect() {
+	public function entryIsCorrect(): bool {
 		return $this->checkTable('entry', array(
 			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read',
 			'is_favorite', 'id_feed', 'tags',
 		));
 	}
 
-	public function entrytmpIsCorrect() {
+	public function entrytmpIsCorrect(): bool {
 		return $this->checkTable('entrytmp', array(
 			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read',
 			'is_favorite', 'id_feed', 'tags',
 		));
 	}
 
-	public function tagIsCorrect() {
+	public function tagIsCorrect(): bool {
 		return $this->checkTable('tag', array(
 			'id', 'name', 'attributes',
 		));
 	}
 
-	public function entrytagIsCorrect() {
+	public function entrytagIsCorrect(): bool {
 		return $this->checkTable('entrytag', array(
 			'id_tag', 'id_entry',
 		));
 	}
 
-	public function daoToSchema($dao) {
+	public function daoToSchema(array $dao): array {
 		return array(
 			'name' => $dao['Field'],
 			'type' => strtolower($dao['Type']),
@@ -129,7 +129,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		);
 	}
 
-	public function listDaoToSchema($listDAO) {
+	public function listDaoToSchema($listDAO): array {
 		$list = array();
 
 		foreach ($listDAO as $dao) {
@@ -139,7 +139,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $list;
 	}
 
-	public function size($all = false) {
+	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::$system_conf->db;
 		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema=?';	//MySQL
 		$values = array($db['base']);
@@ -150,10 +150,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return intval($res[0]);
 	}
 
-	public function optimize() {
+	public function optimize(): bool {
 		$ok = true;
 		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
 
@@ -169,14 +169,14 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $ok;
 	}
 
-	public function ensureCaseInsensitiveGuids() {
+	public function ensureCaseInsensitiveGuids(): bool {
 		$ok = true;
 		if ($this->pdo->dbType() === 'mysql') {
 			include(APP_PATH . '/SQL/install.sql.mysql.php');
 
 			$ok = false;
 			try {
-				$ok = $this->pdo->exec($SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
+				$ok = $this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) !== false;	//FreshRSS 1.12
 			} catch (Exception $e) {
 				$ok = false;
 				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
@@ -192,7 +192,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$this->ensureCaseInsensitiveGuids();
 	}
 
-	private static function stdError($error) {
+	private static function stdError($error): bool {
 		if (defined('STDERR')) {
 			fwrite(STDERR, $error . "\n");
 		}
@@ -203,7 +203,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	const SQLITE_EXPORT = 1;
 	const SQLITE_IMPORT = 2;
 
-	public function dbCopy($filename, $mode, $clearFirst = false) {
+	public function dbCopy(string $filename, int $mode, bool $clearFirst = false): bool {
 		if (!extension_loaded('pdo_sqlite')) {
 			return self::stdError('PHP extension pdo_sqlite is missing!');
 		}
@@ -277,6 +277,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
 				$tagFrom = $tagDAOSQLite; $tagTo = $tagDAO;
 				break;
+			default:
+				return false;
 		}
 
 		$idMaps = [];

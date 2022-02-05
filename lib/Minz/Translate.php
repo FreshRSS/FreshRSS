@@ -31,7 +31,7 @@ class Minz_Translate {
 
 	/**
 	 * Init the translation object.
-	 * @param $lang_name the lang to show.
+	 * @param string $lang_name the lang to show.
 	 */
 	public static function init($lang_name = null) {
 		self::$lang_name = $lang_name;
@@ -45,7 +45,7 @@ class Minz_Translate {
 
 	/**
 	 * Reset the translation object with a new language.
-	 * @param $lang_name the new language to use
+	 * @param string $lang_name the new language to use
 	 */
 	public static function reset($lang_name) {
 		self::$lang_name = $lang_name;
@@ -58,7 +58,7 @@ class Minz_Translate {
 
 	/**
 	 * Return the list of available languages.
-	 * @return array containing langs found in different registered paths.
+	 * @return array<string> containing langs found in different registered paths.
 	 */
 	public static function availableLanguages() {
 		$list_langs = array();
@@ -85,9 +85,9 @@ class Minz_Translate {
 	 * Return the language to use in the application.
 	 * It returns the connected language if it exists then returns the first match from the
 	 * preferred languages then returns the default language
-	 * @param $user the connected user language (nullable)
-	 * @param $preferred an array of the preferred languages
-	 * @param $default the preferred language to use
+	 * @param string|null $user the connected user language (nullable)
+	 * @param array<string> $preferred an array of the preferred languages
+	 * @param string $default the preferred language to use
 	 * @return string containing the language to use
 	 */
 	public static function getLanguage($user, $preferred, $default) {
@@ -108,7 +108,7 @@ class Minz_Translate {
 
 	/**
 	 * Register a new path.
-	 * @param $path a path containing i18n directories (e.g. ./en/, ./fr/).
+	 * @param string $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath($path) {
 		if (!in_array($path, self::$path_list) && is_dir($path)) {
@@ -119,7 +119,7 @@ class Minz_Translate {
 
 	/**
 	 * Load translations of the current language from the given path.
-	 * @param $path the path containing i18n directories.
+	 * @param string $path the path containing i18n directories.
 	 */
 	private static function loadLang($path) {
 		$lang_path = $path . '/' . self::$lang_name;
@@ -148,7 +148,7 @@ class Minz_Translate {
 
 	/**
 	 * Load the files associated to $key into $translates.
-	 * @param $key the top level i18n key we want to load.
+	 * @param string $key the top level i18n key we want to load.
 	 */
 	private static function loadKey($key) {
 		// The top level key is not in $lang_files, it means it does not exist!
@@ -178,12 +178,12 @@ class Minz_Translate {
 
 	/**
 	 * Translate a key into its corresponding value based on selected language.
-	 * @param $key the key to translate.
-	 * @param additional parameters for variable keys.
+	 * @param string $key the key to translate.
+	 * @param mixed ...$args additional parameters for variable keys.
 	 * @return string value corresponding to the key.
 	 *         If no value is found, return the key itself.
 	 */
-	public static function t($key) {
+	public static function t($key, ...$args) {
 		$group = explode('.', $key);
 
 		if (count($group) < 2) {
@@ -232,9 +232,6 @@ class Minz_Translate {
 		}
 
 		// Get the facultative arguments to replace i18n variables.
-		$args = func_get_args();
-		unset($args[0]);
-
 		return vsprintf($translation_value, $args);
 	}
 
@@ -249,11 +246,9 @@ class Minz_Translate {
 
 /**
  * Alias for Minz_Translate::t()
+ * @param string $key
+ * @param mixed ...$args
  */
-function _t($key) {
-	$args = func_get_args();
-	unset($args[0]);
-	array_unshift($args, $key);
-
-	return call_user_func_array('Minz_Translate::t', $args);
+function _t($key, ...$args) {
+	return Minz_Translate::t($key, ...$args);
 }
