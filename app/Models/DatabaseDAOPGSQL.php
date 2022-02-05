@@ -3,7 +3,7 @@
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite implements DatabaseDAOInterface {
+class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 
 	//PostgreSQL error codes
 	const UNDEFINED_COLUMN = '42703';
@@ -55,7 +55,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite implements Da
 		);
 	}
 
-	public function size($all = false) {
+	public function size(bool $all = false): int {
 		if ($all) {
 			$db = FreshRSS_Context::$system_conf->db;
 			$sql = 'SELECT pg_database_size(:base)';
@@ -78,7 +78,7 @@ SQL;
 			return 0;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return intval($res[0]);
 	}
 
 

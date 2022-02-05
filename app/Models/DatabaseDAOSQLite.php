@@ -3,7 +3,7 @@
 /**
  * This class is used to test database is well-constructed (SQLite).
  */
-class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO implements DatabaseDAOInterface {
+class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
 	/**
 	 * @inheritdoc
@@ -37,14 +37,14 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO implements Databas
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function entryIsCorrect() {
+	public function entryIsCorrect(): bool {
 		return $this->checkTable('entry', array(
 			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
 			'is_favorite', 'id_feed', 'tags',
 		));
 	}
 
-	public function entrytmpIsCorrect() {
+	public function entrytmpIsCorrect(): bool {
 		return $this->checkTable('entrytmp', array(
 			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
 			'is_favorite', 'id_feed', 'tags',
@@ -63,7 +63,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO implements Databas
 		];
 	}
 
-	public function size($all = false) {
+	public function size(bool $all = false): int {
 		$sum = 0;
 		if ($all) {
 			foreach (glob(DATA_PATH . '/users/*/db.sqlite') as $filename) {
@@ -72,7 +72,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO implements Databas
 		} else {
 			$sum = @filesize(DATA_PATH . '/users/' . $this->current_user . '/db.sqlite');
 		}
-		return $sum;
+		return intval($sum);
 	}
 
 	public function optimize(): bool {
