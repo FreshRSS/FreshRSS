@@ -1066,6 +1066,22 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
+
+.pagination .item.active{
+	background-color: #0062be;
+	color: white;
+}
+
+#loglist-wrapper {
+	overflow-x: auto;
+}
+
+#loglist td {
+	font-family: monospace;
+}
+
+
+/****old******/
 .loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;

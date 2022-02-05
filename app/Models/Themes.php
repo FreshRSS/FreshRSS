@@ -81,6 +81,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'close' => '❌',
 			'configure' => '⚙',
 			'down' => '▽',
+			'error' => '❌',
 			'favorite' => '★',
 			'FreshRSS-logo' => '⊚',
 			'help' => 'ⓘ',
@@ -94,6 +95,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'logout' => '🔓',
 			'next' => '⏩',
 			'non-starred' => '☆',
+			'notice' => 'ⓘ',
 			'prev' => '⏪',
 			'read' => '☑',
 			'rss' => '☄',
@@ -110,6 +112,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'view-normal' => '☰',
 			'view-global' => '☷',
 			'view-reader' => '☕',
+			'warning' => '△',
 		);
 		return isset($name) ? $alts[$name] : '';
 	}

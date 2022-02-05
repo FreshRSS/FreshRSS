@@ -462,21 +462,28 @@ a.btn {
 }
 
 /*=== Pagination */
+.nav-pagination {
+	width: 100%;
+}
+
 .pagination {
-	margin: 0;
+	margin: 2em auto;
 	padding: 0;
 	display: table;
-	width: 100%;
 	table-layout: fixed;
 }
 
 .pagination .item {
 	display: table-cell;
+	width: 50px;
+}
+
+.pagination .pager-previous,
+.pagination .pager-next{
+	width: 75px;
 }
 
 .pagination .pager-first,
-.pagination .pager-previous,
-.pagination .pager-next,
 .pagination .pager-last {
 	width: 100px;
 }
