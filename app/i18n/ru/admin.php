@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
 		'registration' => array(
-			'help' => '0 означает неограниченное количество пользователей',
 			'number' => 'Максимальное количество пользователей',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(

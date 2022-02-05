@@ -516,6 +516,14 @@ a.btn {
 	display: block;
 }
 
+.box .box-content .item.feed.moved {
+	font-style: italic;
+}
+
+.box .box-content .item.feed.moved .favicon {
+	opacity: 0.4;
+}
+
 .box .box-content .item.disabled {
 	text-align: center;
 	font-style: italic;
@@ -531,13 +539,53 @@ a.btn {
 }
 
 /*=== Draggable */
-.drag-hover {
+[draggable=true]:hover {
+	cursor: move;
+}
+
+.dragging {
+	background-color: rgba(255, 255, 0, 0.7);
+}
+
+.dragging .icon {
+	visibility: hidden;
+}
+
+.drag-disallowed {
+	opacity: 0.5;
+}
+
+.drag-active .drop-zone:not(.drag-disallowed) {
+	background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(250,250,210, 0.7) 40px, rgba(250,250,210, 0.7) 60px);
+}
+
+.drag-active .drag-hover.drop-zone {
+	background: rgba(250,250,210, 0.7);
+	transition: background 0.5s;
+}
+
+li.drag-hover {
 	margin: 0 0 5px;
 	border-bottom: 2px solid #ccc;
 }
 
-[draggable=true] {
-	cursor: grab;
+.drag-drop {
+	animation-name: droppedKeyframe;
+	animation-duration: 0.7s;
+}
+
+@keyframes droppedKeyframe {
+	0% {
+		background-color: rgba(250,250,210, 0.7);
+	}
+
+	50% {
+		background-color: yellow;
+	}
+
+	100% {
+		background-color: none;
+	}
 }
 
 /*=== Scrollbar */

@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
 		'registration' => array(
-			'help' => '0 significa che non esiste limite sui profili',
 			'number' => 'Numero massimo di profili',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(
