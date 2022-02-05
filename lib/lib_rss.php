@@ -247,6 +247,7 @@ function customSimplePie($attributes = array()) {
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
+	$simplePie->rename_attributes(array('id', 'class'));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
