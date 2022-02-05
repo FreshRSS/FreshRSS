@@ -614,14 +614,13 @@ form th {
 	right: 33px;
 }
 
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: 6px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
+.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #00488b;
+	color: #fcfcfc;
+}
+.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #0062be;
+	color: #fcfcfc;
 }
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
