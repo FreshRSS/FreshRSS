@@ -38,6 +38,14 @@ select:invalid {
 	clear: both;
 }
 
+.switch.active {
+	background-color: #0062be;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 #nav_entries, .notification, #new-article, .aside, .header > .item.title, .stick.configure-feeds {
 	width: 231px;
 }

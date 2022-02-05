@@ -1041,6 +1041,10 @@ a.btn {
 	text-shadow: 0 0 10px #666;
 }
 
+.switch.active {
+	background-color: #d18114;
+}
+
 /*=== Navigation menu (for articles) */
 #nav_entries {
 	background: linear-gradient(180deg, #222 0%, #171717 100%) #222;

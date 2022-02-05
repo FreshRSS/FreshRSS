@@ -236,6 +236,14 @@ a.btn {
 	background: #c0392b;
 }
 
+.switch.active {
+	background-color: #2980b9;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
