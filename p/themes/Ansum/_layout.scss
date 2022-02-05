@@ -143,10 +143,6 @@
 	text-align: center;
 }
 
-#new-article:hover {
-	background: variables.$main-first-alt;
-}
-
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -155,6 +151,7 @@
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: variables.$main-first-alt;
 }
 
 /*=== Day indication */
