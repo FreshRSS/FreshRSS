@@ -868,10 +868,6 @@ form th {
 	text-align: center;
 }
 
-#new-article:hover {
-	background: #b7641d;
-}
-
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -880,6 +876,7 @@ form th {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #b7641d;
 }
 
 /*=== Day indication */
