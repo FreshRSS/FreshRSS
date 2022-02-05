@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'registration' => array(
-			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulaire d’inscription',
+				'option' => array(
+					'noform' => 'Désactivé : Pas de formulaire d’inscription',
+					'nolimit' => 'Activé : Pas de limite au nombre d’utilisateurs',
+					'setaccountsnumber' => 'Nombre d’utilisateurs limités',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulaire désactivé',
+				'enabled' => 'Formulaire activé',
+			),
+			'title' => 'Formulaire d’inscription utilisateur',
 		),
 	),
 	'update' => array(
