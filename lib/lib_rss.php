@@ -9,6 +9,7 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+// @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 } else {
@@ -18,10 +19,10 @@ if (COPY_SYSLOG_TO_STDERR) {
 /**
  * Build a directory path by concatenating a list of directory names.
  *
- * @param array<string> $path_parts a list of directory names
+ * @param string ...$path_parts a list of directory names
  * @return string corresponding to the final pathname
  */
-function join_path(...$path_parts) {
+function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
@@ -52,6 +53,10 @@ function classAutoloader($class) {
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
+/**
+ * @param string $url
+ * @return string
+ */
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
 		$idn = parse_url($url, PHP_URL_HOST);
@@ -73,6 +78,11 @@ function idn_to_puny($url) {
 	return $url;
 }
 
+/**
+ * @param string $url
+ * @param bool $fixScheme
+ * @return string|false
+ */
 function checkUrl($url, $fixScheme = true) {
 	$url = trim($url);
 	if ($url == '') {
@@ -92,18 +102,45 @@ function checkUrl($url, $fixScheme = true) {
 	}
 }
 
+/**
+ * @param string $text
+ * @return string
+ */
 function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
 if (function_exists('mb_convert_encoding')) {
-	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	function safe_utf8($text) {
+		return mb_convert_encoding($text, 'UTF-8', 'UTF-8');
+	}
 } elseif (function_exists('iconv')) {
-	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	function safe_utf8($text) {
+		return iconv('UTF-8', 'UTF-8//IGNORE', $text);
+	}
 } else {
-	function safe_utf8($text) { return $text; }
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	function safe_utf8($text) {
+		return $text;
+	}
 }
 
+/**
+ * @param string $text
+ * @param bool $extended
+ * @return string
+ */
 function escapeToUnicodeAlternative($text, $extended = true) {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
@@ -123,7 +160,7 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
-	return str_replace(' ', ' ',	//Espace fine insécable
+	return str_replace(' ', ' ',	// Thin non-breaking space
 		number_format($n, $precision, '.', ' ')
 	);
 }
@@ -156,6 +193,10 @@ function timestamptodate ($t, $hour = true) {
 	return @date ($date, $t);
 }
 
+/**
+ * @param string $text
+ * @return string
+ */
 function html_only_entity_decode($text) {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
@@ -167,6 +208,10 @@ function html_only_entity_decode($text) {
 	return $text == '' ? '' : strtr($text, $htmlEntitiesOnly);
 }
 
+/**
+ * @param array<string,mixed> $attributes
+ * @return SimplePie
+ */
 function customSimplePie($attributes = array()) {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
@@ -276,7 +321,7 @@ function sanitizeHTML($data, $base = '', $maxLength = false) {
  */
 function validateEmailAddress($email) {
 	$mailer = new PHPMailer\PHPMailer\PHPMailer();
-	$mailer->Charset = 'utf-8';
+	$mailer->CharSet = 'utf-8';
 	$punyemail = $mailer->punyencodeAddress($email);
 	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
 }
@@ -294,9 +339,12 @@ function lazyimg($content) {
 	);
 }
 
+/**
+ * @return string
+ */
 function uTimeString() {
 	$t = @gettimeofday();
-	return $t['sec'] . str_pad($t['usec'], 6, '0', STR_PAD_LEFT);
+	return $t['sec'] . str_pad('' . $t['usec'], 6, '0', STR_PAD_LEFT);
 }
 
 function invalidateHttpCache($username = '') {
@@ -311,6 +359,9 @@ function invalidateHttpCache($username = '') {
 	return $ok;
 }
 
+/**
+ * @return array<string>
+ */
 function listUsers() {
 	$final_list = array();
 	$base_path = join_path(DATA_PATH, 'users');
@@ -349,7 +400,7 @@ function max_registrations_reached() {
  * objects. If you need a long-time configuration, please don't use this function.
  *
  * @param string $username the name of the user of which we want the configuration.
- * @return Minz_Configuration|null object, or null if the configuration cannot be loaded.
+ * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -368,10 +419,16 @@ function get_user_configuration($username) {
 		return null;
 	}
 
-	return Minz_Configuration::get($namespace);
+	/**
+	 * @var FreshRSS_UserConfiguration $user_conf
+	 */
+	$user_conf = Minz_Configuration::get($namespace);
+	return $user_conf;
 }
 
-
+/**
+ * @return string
+ */
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
@@ -383,6 +440,9 @@ function httpAuthUser() {
 	return '';
 }
 
+/**
+ * @return bool
+ */
 function cryptAvailable() {
 	try {
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
@@ -425,8 +485,11 @@ function check_install_php() {
  */
 function check_install_files() {
 	return array(
+		// @phpstan-ignore-next-line
 		'data' => DATA_PATH && is_writable(DATA_PATH),
+		// @phpstan-ignore-next-line
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		// @phpstan-ignore-next-line
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),
@@ -497,8 +560,8 @@ function recursive_unlink($dir) {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<string,string> $queries an array of queries.
- * @return array<string,string> whithout queries where $get is appearing.
+ * @param array<int,array<string,string>> $queries an array of queries.
+ * @return array<int,array<string,string>> without queries where $get is appearing.
  */
 function remove_query_by_get($get, $queries) {
 	$final_queries = array();

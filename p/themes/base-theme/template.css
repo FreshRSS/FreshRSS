@@ -336,6 +336,20 @@ a.btn {
 	right: 0;
 }
 
+.dropdown-menu::after {
+	background-color: inherit;
+	width: 10px;
+	height: 10px;
+	border-width: 1px 0 0 1px;
+	border-style: solid;
+	content: "";
+	position: absolute;
+	top: -6px;
+	right: 13px;
+	z-index: -10;
+	transform: rotate(45deg);
+}
+
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
@@ -600,6 +614,10 @@ a.btn {
 	text-overflow: ellipsis;
 }
 
+.tree-folder-items .item.feed {
+	position: relative;
+}
+
 .tree-bottom {
 	visibility: hidden;
 	margin-bottom: 18em;
@@ -670,7 +688,7 @@ input[type="search"] {
 }
 
 .aside_feed .category .title:not([data-unread="0"]) {
-	width: calc(100% - 35px - 20px);
+	width: calc(100% - 75px);
 }
 
 .aside_feed .tree-folder-title .icon {
@@ -750,6 +768,12 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+	padding-right: 10px;
+}
+
+.website a:hover .favicon,
+a.website:hover .favicon {
+	filter: grayscale(100%);
 }
 
 .flux.not_read .item.title,
@@ -841,7 +865,6 @@ input[type="search"] {
 
 .flux .item > a {
 	display: block;
-	text-decoration: none;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -903,6 +926,7 @@ br {
 
 /*=== Notification and actualize notification */
 .notification {
+	padding: 10px 50px 10px 10px;
 	position: absolute;
 	top: 1em;
 	left: 25%; right: 25%;
@@ -910,6 +934,7 @@ br {
 	background: #fff;
 	border: 1px solid #aaa;
 	opacity: 1;
+	line-height: 2;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
 }
@@ -924,6 +949,14 @@ br {
 	top: 0; bottom: 0;
 	right: 0;
 	display: inline-block;
+}
+
+.notification a.close:hover {
+	background: rgba(10,10,10,0.05);
+}
+
+.notification a.close:hover .icon {
+	filter: brightness(2);
 }
 
 #actualizeProgress {
@@ -1281,21 +1314,42 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.category .title:not([data-unread="0"])::after {
-	content: attr(data-unread);
-}
-
 .category .title.error::before {
 	content: "⚠ ";
 	color: #bd362f;
 }
 
-.feed .item-title:not([data-unread="0"])::before {
-	content: "(" attr(data-unread) ") ";
+.category .title:not([data-unread="0"])::after,
+.feed .item-title:not([data-unread="0"])::after {
+	margin: 0.75em 0 0 0;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-unread);
+	position: absolute;
+	top: 0;
+	right: 10px;
+	text-align: center;
+	font-size: 0.9em;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
+.feed .item-title:not([data-unread="0"])::after {
+	margin: 1em 0 0 0;
+}
+
+.feed.active .item-title:not([data-unread="0"])::after {
+	background-color: transparent;
+	color: white;
+	border: 1px solid #fff;
+	font-weight: bold;
 }
 
 .feed .item-title:not([data-unread="0"]) {
 	font-weight: bold;
+	width: calc(100% - 80px);
 }
 
 .state_unread .category:not(.active)[data-unread="0"],
@@ -1394,23 +1448,65 @@ input:checked + .slide-container .properties {
 		margin-left: 0;
 	}
 
+	.dropdown {
+		position: inherit;
+	}
+
 	.dropdown .dropdown-menu {
-		width: 100%;
+		width: 94%;
 		border-radius: 0;
-		bottom: 0;
-		position: fixed;
+		left: 3%;
+		right: 3%;
+		position: absolute;
+	}
+
+	.dropdown .dropdown-menu .item {
+		margin: 2px 0;
+	}
+
+	.dropdown .dropdown-menu .item button.as-link,
+	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
+		width: 100%;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle {
+		position: relative;
+		overflow: visible;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		width: 10px;
+		height: 10px;
+		content: "";
+		position: absolute;
+		right: 8px;
+		bottom: -17px;
+		transform: rotate(45deg);
+		z-index: 9999;
+		cursor: default;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
 	}
 
 	.configure .dropdown .dropdown-menu {
 		width: 90%;
 		height: 100vh;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: auto;
+		position: fixed;
+		padding-top: 0;
+		margin-top: 0;
 		overflow: auto;
 		box-shadow: -3px 0 3px #aaa;
 	}
 
-	.dropdown-target ~ .dropdown-menu {
-		width: 0;
-
+	.configure .dropdown-target:target ~ .dropdown-toggle::after {
+		content: none;
 	}
 
 	.dropdown-target:target ~ .dropdown-menu {

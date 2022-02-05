@@ -3,7 +3,7 @@
 /**
  * Controller to handle every tag actions.
  */
-class FreshRSS_tag_Controller extends Minz_ActionController {
+class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.

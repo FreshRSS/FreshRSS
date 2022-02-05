@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'アーカイブ',
@@ -120,6 +130,13 @@ return array(
 		'confirm_enabled' => '“すべてに既読を付ける” を押したとき確認ダイアログを表示する',
 		'display_articles_unfolded' => 'デフォルトでフォルダーに入れてない記事を表示する',
 		'display_categories_unfolded' => '展開されていない記事',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'カテゴリーを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '"lazy load"を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
@@ -163,20 +180,20 @@ return array(
 	'sharing' => array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'もっと多くの情報',
-		'print' => '印刷',
-		'raindrop' => 'Raindrop.io',
+		'print' => '印刷',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '共有方法を削除する',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '表示する共有方法の名前',
 		'share_url' => '使用するURLを共有する',
 		'title' => '共有',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'ショートカット',

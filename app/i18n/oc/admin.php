@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
@@ -114,10 +124,10 @@ return array(
 			'_' => 'Extensions sistèma',
 			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 		),
-		'title' => 'Extensions',
+		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mesa a jorn disponibla',
 		'user' => 'Extensions utilizaire',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
 		'_' => 'Estatisticas',
@@ -136,12 +146,12 @@ return array(
 		'main' => 'Estatisticas principalas',
 		'main_stream' => 'Flux màger',
 		'no_idle' => 'I a pas cap d’article inactiu !',
-		'number_entries' => '%d articles',
+		'number_entries' => '%d articles',	// IGNORE
 		'percent_of_total' => '%% del total',
 		'repartition' => 'Reparticion dels articles',
 		'status_favorites' => 'Favorits',
 		'status_read' => 'Legit',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
@@ -184,8 +194,8 @@ return array(
 		'title' => 'Sistèma de mesa a jorn',
 	),
 	'user' => array(
-		'admin' => 'Administrator',
-		'article_count' => 'Articles',
+		'admin' => 'Administrator',	// IGNORE
+		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Tornar a la lista dels utilizaires',
 		'create' => 'Crear un nòu utilizaire',
 		'database_size' => 'Talha basa de donadas',

@@ -10,6 +10,7 @@ People are sorted by name so please keep this order.
 
 * [312k](https://github.com/312k): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:312k)
 * [4xfu](https://github.com/4xfu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:4xfu)
+* [Adam Stephens](https://github.com/adamcstephens): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:adamcstephens)
 * [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Trim), [Web](https://adorsaz.ch/)
 * [Alexander Steinhöfer](https://github.com/lx-s): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:lx-s), [Web](https://lx-s.de/)
 * [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Alkarex), [Web](https://alexandre.alapetite.fr/)
@@ -90,6 +91,7 @@ People are sorted by name so please keep this order.
 * [marcohald](https://github.com/marcohald): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marcohald)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marcomrc)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mro), [Web](http://mro.name/~me)
+* [Marek Pavelka](https://github.com/marapavelka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marapavelka), [Web](https://marekpavelka.cz)
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:marienfressinaud), [Web](https://marienfressinaud.fr/)
 * [Martin](https://github.com/C0rn3j): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:C0rn3j), [Web](https://rys.pw/)
 * [math-GH](https://github.com/math-GH): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:math-GH)
@@ -152,6 +154,7 @@ People are sorted by name so please keep this order.
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Tets42)
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
 * [Thomas Guesnon](https://github.com/patjennings): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:patjennings), [Web](http://www.thomasguesnon.fr/)
+* [Thomas Renes](https://github.com/thomasrenes): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:thomasrenes), [Web](https://thomas.renesweb.nl/)
 * [thomas-gt](https://github.com/thomas-gt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:thomas-gt)
 * [ThomasSmallert](https://github.com/ThomasSmallert): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ThomasSmallert)
 * [Ths2-9Y-LqJt6](https://github.com/Ths2-9Y-LqJt6): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Ths2-9Y-LqJt6)

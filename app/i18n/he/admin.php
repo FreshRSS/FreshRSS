@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'הרשאה לאנונימיים לקרוא את מאמרי משתמש ברירת המחדל (%s)',
@@ -8,7 +18,7 @@ return array(
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
-		'title' => 'Authentication',	// TODO - Translation
+		'title' => 'Authentication',	// TODO
 		'token' => 'מחרוזת אימות',
 		'token_help' => 'Allows to access RSS output of the default user without authentication:',
 		'type' => 'שיטת אימות',
@@ -21,11 +31,11 @@ return array(
 		),
 		'categories' => array(
 			'nok' => 'Category table is bad configured.',
-			'ok' => 'Category table is okay.',	// TODO - Translation
+			'ok' => 'Category table is okay.',	// TODO
 		),
 		'connection' => array(
 			'nok' => 'Connection to the database cannot being established.',
-			'ok' => 'Connection to the database is okay.',	// TODO - Translation
+			'ok' => 'Connection to the database is okay.',	// TODO
 		),
 		'ctype' => array(
 			'nok' => 'הספרייה הנדרשת ל character type checking (php-ctype) אינה מותקנת',
@@ -39,35 +49,35 @@ return array(
 			'nok' => 'יש לבדוק את ההרשאות בתיקייה <em>%s</em>. שרת הHTTP חייב להיות בעל הרשאות כתיבה.',
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
-		'database' => 'Database installation',	// TODO - Translation
+		'database' => 'Database installation',	// TODO
 		'dom' => array(
 			'nok' => 'הספרייה הנדרשת לסיור ב DOM אינה מותקנת	(php-xml package)',
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// TODO - Translation
-			'ok' => 'Entry table is okay.',	// TODO - Translation
+			'nok' => 'Entry table is improperly configured.',	// TODO
+			'ok' => 'Entry table is okay.',	// TODO
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'feeds' => array(
 			'nok' => 'Feed table is bad configured.',
-			'ok' => 'Feed table is okay.',	// TODO - Translation
+			'ok' => 'Feed table is okay.',	// TODO
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
+			'ok' => 'You have the fileinfo library.',	// TODO
 		),
-		'files' => 'File installation',	// TODO - Translation
+		'files' => 'File installation',	// TODO
 		'json' => array(
 			'nok' => 'You lack JSON (php-json package).',
-			'ok' => 'You have the JSON extension.',	// TODO - Translation
+			'ok' => 'You have the JSON extension.',	// TODO
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO
 		),
 		'pcre' => array(
 			'nok' => 'הספרייה הנדרשת לביטויים רגולריים אינה מותקנת (php-pcre)',
@@ -78,7 +88,7 @@ return array(
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// TODO - Translation
+			'_' => 'PHP installation',	// TODO
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
@@ -86,38 +96,38 @@ return array(
 			'nok' => 'There is one or more lacking tables in the database.',
 			'ok' => 'Tables are existing in the database.',
 		),
-		'title' => 'Installation check',	// TODO - Translation
+		'title' => 'Installation check',	// TODO
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO - Translation
-			'ok' => 'Permissions on the tokens directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
+			'ok' => 'Permissions on the tokens directory are good.',	// TODO
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO - Translation
-			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO
+			'ok' => 'Permissions on the users directory are good.',	// TODO
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php-zip package).',
-			'ok' => 'You have the ZIP extension.',	// TODO - Translation
+			'ok' => 'You have the ZIP extension.',	// TODO
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
-		'disabled' => 'Disabled',	// TODO - Translation
+		'author' => 'Author',	// TODO
+		'community' => 'Available community extensions',	// TODO
+		'description' => 'Description',	// TODO
+		'disabled' => 'Disabled',	// TODO
 		'empty_list' => 'There is no installed extension',
-		'enabled' => 'Enabled',	// TODO - Translation
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
-		'no_configure_view' => 'This extension cannot be configured.',	// TODO - Translation
+		'enabled' => 'Enabled',	// TODO
+		'latest' => 'Installed',	// TODO
+		'name' => 'Name',	// TODO
+		'no_configure_view' => 'This extension cannot be configured.',	// TODO
 		'system' => array(
-			'_' => 'System extensions',	// TODO - Translation
-			'no_rights' => 'System extension (you do not have the required permissions)',	// TODO - Translation
+			'_' => 'System extensions',	// TODO
+			'no_rights' => 'System extension (you do not have the required permissions)',	// TODO
 		),
-		'title' => 'Extensions',	// TODO - Translation
-		'update' => 'Update available',	// TODO - Translation
-		'user' => 'User extensions',	// TODO - Translation
-		'version' => 'Version',	// TODO - Translation
+		'title' => 'Extensions',	// TODO
+		'update' => 'Update available',	// TODO
+		'user' => 'User extensions',	// TODO
+		'version' => 'Version',	// TODO
 	),
 	'stats' => array(
 		'_' => 'סטטיסטיקות',
@@ -126,9 +136,9 @@ return array(
 		'entry_count' => 'סכום המאמרים',
 		'entry_per_category' => 'מאמרים על פי קטגוריה',
 		'entry_per_day' => 'מספר מאמרים ליום (30 ימים אחרונים)',
-		'entry_per_day_of_week' => 'Per day of week (average: %.2f messages)',	// TODO - Translation
-		'entry_per_hour' => 'Per hour (average: %.2f messages)',	// TODO - Translation
-		'entry_per_month' => 'Per month (average: %.2f messages)',	// TODO - Translation
+		'entry_per_day_of_week' => 'Per day of week (average: %.2f messages)',	// TODO
+		'entry_per_hour' => 'Per hour (average: %.2f messages)',	// TODO
+		'entry_per_month' => 'Per month (average: %.2f messages)',	// TODO
 		'entry_repartition' => 'חלוקת המאמרים',
 		'feed' => 'הזנה',
 		'feed_per_category' => 'הזנות על פי קטגוריה',
@@ -147,31 +157,31 @@ return array(
 		'top_feed' => 'עשרת ההזנות המובילות',
 	),
 	'system' => array(
-		'_' => 'System configuration',	// TODO - Translation
-		'auto-update-url' => 'Auto-update server URL',	// TODO - Translation
+		'_' => 'System configuration',	// TODO
+		'auto-update-url' => 'Auto-update server URL',	// TODO
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+			'help' => 'in seconds',	// TODO
+			'number' => 'Duration to keep logged in',	// TODO
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
-		'instance-name' => 'Instance name',	// TODO - Translation
-		'max-categories' => 'Max number of categories per user',	// TODO - Translation
-		'max-feeds' => 'Max number of feeds per user',	// TODO - Translation
+		'force_email_validation' => 'Force email address validation',	// TODO
+		'instance-name' => 'Instance name',	// TODO
+		'max-categories' => 'Max number of categories per user',	// TODO
+		'max-feeds' => 'Max number of feeds per user',	// TODO
 		'registration' => array(
-			'number' => 'Max number of accounts',	// TODO - Translation
+			'number' => 'Max number of accounts',	// TODO
 			'select' => array(
-				'label' => 'Registration form',	// TODO - Translation
+				'label' => 'Registration form',	// TODO
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO - Translation
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO - Translation
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO - Translation
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO - Translation
-				'enabled' => 'Form enabled',	// TODO - Translation
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
 			),
-			'title' => 'User registration form',	// TODO - Translation
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(
@@ -184,23 +194,23 @@ return array(
 		'title' => 'מערכת העדכון',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrator',	// TODO
+		'article_count' => 'Articles',	// TODO
+		'back_to_manage' => '← Return to user list',	// TODO
 		'create' => 'יצירת משתמש חדש',
-		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Database size',	// TODO
+		'email' => 'Email address',	// TODO
+		'enabled' => 'Enabled',	// TODO
+		'feed_count' => 'Feeds',	// TODO
+		'is_admin' => 'Is admin',	// TODO
 		'language' => 'שפה',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
-		'number' => 'There is %d account created',	// TODO - Translation
-		'numbers' => 'There are %d accounts created',	// TODO - Translation
+		'last_user_activity' => 'Last user activity',	// TODO
+		'list' => 'User list',	// TODO
+		'number' => 'There is %d account created',	// TODO
+		'numbers' => 'There are %d accounts created',	// TODO
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
-		'password_format' => 'At least 7 characters',	// TODO - Translation
-		'title' => 'Manage users',	// TODO - Translation
+		'password_format' => 'At least 7 characters',	// TODO
+		'title' => 'Manage users',	// TODO
 		'username' => 'שם משתמש',
 	),
 );

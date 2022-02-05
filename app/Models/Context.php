@@ -5,8 +5,17 @@
  * useful functions associated to the current view state.
  */
 class FreshRSS_Context {
+
+	/**
+	 * @var FreshRSS_UserConfiguration|null
+	 */
 	public static $user_conf = null;
+
+	/**
+	 * @var FreshRSS_SystemConfiguration|null
+	 */
 	public static $system_conf = null;
+
 	public static $categories = array();
 	public static $tags = array();
 
@@ -49,7 +58,11 @@ class FreshRSS_Context {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-			FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+			/**
+			 * @var FreshRSS_SystemConfiguration $system_conf
+			 */
+			$system_conf = Minz_Configuration::get('system');
+			FreshRSS_Context::$system_conf = $system_conf;
 			// Register the configuration setter for the system configuration
 			$configurationSetter = new FreshRSS_ConfigurationSetter();
 			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
@@ -80,7 +93,11 @@ class FreshRSS_Context {
 					FreshRSS_Context::$system_conf->configurationSetter());
 
 				Minz_Session::_param('currentUser', $username);
-				FreshRSS_Context::$user_conf = Minz_Configuration::get('user');
+				/**
+				 * @var FreshRSS_UserConfiguration $user_conf
+				 */
+				$user_conf = Minz_Configuration::get('user');
+				FreshRSS_Context::$user_conf = $user_conf;
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
 			}
@@ -178,16 +195,23 @@ class FreshRSS_Context {
 	}
 
 	/**
-	 * Return true if the current request targets a feed (and not a category or all articles), false otherwise.
+	 * @return bool true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
-	public static function isFeed() {
+	public static function isFeed(): bool {
 		return self::$current_get['feed'] != false;
 	}
 
 	/**
-	 * Return true if $get parameter correspond to the $current_get attribute.
+	 * @return bool true if the current request targets a tag (though not all tags), false otherwise.
 	 */
-	public static function isCurrentGet($get) {
+	public static function isTag(): bool {
+		return self::$current_get['tag'] != false;
+	}
+
+	/**
+	 * @return bool true if $get parameter correspond to the $current_get attribute.
+	 */
+	public static function isCurrentGet($get): bool {
 		$type = $get[0];
 		$id = substr($get, 2);
 

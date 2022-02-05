@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
@@ -141,7 +151,7 @@ return array(
 		'repartition' => 'Reprto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
@@ -191,7 +201,7 @@ return array(
 		'database_size' => 'Tamaño de la base de datos',
 		'email' => 'Dirección de correo electrónico',
 		'enabled' => 'Permitido',
-		'feed_count' => 'Feeds',
+		'feed_count' => 'Feeds',	// IGNORE
 		'is_admin' => 'Es admin',
 		'language' => 'Idioma',
 		'last_user_activity' => 'Última actividad del usuario',

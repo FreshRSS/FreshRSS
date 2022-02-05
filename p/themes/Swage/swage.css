@@ -296,6 +296,9 @@ form th {
 .dropdown-menu .dropdown-header {
 	cursor: default;
 }
+.dropdown-menu::after {
+	content: none;
+}
 .dropdown-menu > .item {
 	padding: 0;
 	margin-left: 10px;
@@ -611,14 +614,13 @@ form th {
 	right: 33px;
 }
 
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: 6px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
+.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #00488b;
+	color: #fcfcfc;
+}
+.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #0062be;
+	color: #fcfcfc;
 }
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
@@ -778,8 +780,7 @@ form th {
 	left: 0;
 	top: auto;
 }
-.notification.good,
-.notification .bad {
+.notification.good, .notification.bad {
 	color: #fcfcfc;
 }
 .notification.good {
@@ -1011,6 +1012,10 @@ form th {
 		padding-right: 10px;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle.btn::after {
+		display: none;
+	}
+
 	.day .name {
 		font-size: 1.1rem;
 	}
@@ -1162,3 +1167,5 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
+
+/*# sourceMappingURL=swage.css.map */

@@ -396,6 +396,10 @@ a.btn {
 	font-weight: bold;
 }
 
+.dropdown-menu .icon {
+	filter: grayscale(100%) brightness(2.5);
+}
+
 .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
@@ -598,7 +602,7 @@ a.btn {
 }
 
 .tree-folder-items > .item.active {
-	margin: 0px 8px;
+	margin: 0px 5px;
 	background: linear-gradient(180deg, #222 0%, #171717 100%) #171717;
 	background: -webkit-linear-gradient(top, #222 0%, #171717 100%);
 	border-radius: 4px;
@@ -698,16 +702,28 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	right: 3px;
-	padding: 1px 5px;
-	color: #fff;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
-}
-
 .aside_feed .btn-important {
 	border: none;
+}
+
+.aside.aside_feed .tree-folder-items .item.feed.active {
+	padding: 0 10px;
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #171717;
+	color: #ccc;
+	border-color: #999;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #ccc;
+	border-color: #999;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	right: 5px;
 }
 
 /*=== Aside main page (feeds) */
@@ -1017,7 +1033,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #222;
 	color: #fff;
 	font-size: 0.9em;
@@ -1026,7 +1041,6 @@ a.btn {
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.45), 0 -1px rgba(255,255,255,0.08) inset, 0 2px 2px #171717 inset;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	position: absolute;
 	top: 0;
 	z-index: 10;
@@ -1045,6 +1059,14 @@ a.btn {
 .notification a.close {
 	padding: 0 15px;
 	line-height: 3em;
+}
+
+.notification a.close:hover {
+	background: rgba(255,255,255,0.2);
+}
+
+.notification a.close:hover .icon {
+	filter: brightness(2);
 }
 
 .notification#actualizeProgress {
@@ -1320,6 +1342,13 @@ a.btn {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #222;
+		border-top: 1px solid #171717;
+		border-left: 1px solid #171717;
+		right: 13px;
 	}
 
 	.day .name {
