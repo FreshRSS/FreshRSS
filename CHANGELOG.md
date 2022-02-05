@@ -1,16 +1,21 @@
 # FreshRSS changelog
 
-## 2022-0X-XX FreshRSS 1.19.2-dev
+## 2022-0X-XX FreshRSS 1.20.0-dev
+
+
+## 2022-02-04 FreshRSS 1.19.2
 
 * Bug fixing
 	* Fix regression regarding keeping read state after seeing favourites / labels [#4178](https://github.com/FreshRSS/FreshRSS/pull/4178)
 	* Fix migration system on Synology and systems adding custom files to folders [#4163](https://github.com/FreshRSS/FreshRSS/pull/4163)
 	* Fix wrong dropdown triangle UI for labels [#4174](https://github.com/FreshRSS/FreshRSS/pull/4174)
-	* Fix minor UI bugs [#4169](https://github.com/FreshRSS/FreshRSS/pull/4169)
+	* Fix minor UI bugs [#4169](https://github.com/FreshRSS/FreshRSS/pull/4169), [#4189](https://github.com/FreshRSS/FreshRSS/pull/4189), [#4188](https://github.com/FreshRSS/FreshRSS/pull/4188)
 	* Fix minor SCSS details for the themes Ansum and Mapco [#4146](https://github.com/FreshRSS/FreshRSS/pull/4146)
 * UI
 	* Improve dropdown menus on mobile view [#4141](https://github.com/FreshRSS/FreshRSS/pull/4141), [#4128](https://github.com/FreshRSS/FreshRSS/pull/4128)
 	* Improve menu icons [#4004](https://github.com/FreshRSS/FreshRSS/pull/4004)
+* Features
+	* Support JSON import with date in milliseconds (e.g., Feedly) [#4186](https://github.com/FreshRSS/FreshRSS/pull/4186)
 * Deployment
 	* Docker: development image `:newest` updated to PHP 8.1.1 and Apache 2.4.52 [#3666](https://github.com/FreshRSS/FreshRSS/pull/3666)
 * i18n

@@ -20,6 +20,14 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 			'style-src' => "'self' 'unsafe-inline'",
 		]);
 
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+
+		$catDAO->checkDefault();
+		$feedDAO->updateTTL();
+		$this->view->categories = $catDAO->listSortedCategories(false);
+		$this->view->default_category = $catDAO->getDefault();
+
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
@@ -92,6 +100,23 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
+	 * This action handles the feed action on the idle statistic page.
+	 * set the 'from' parameter to remember that it had a redirection coming from stats controller,
+	 * to use the subscription controller to save it,
+	 * but shows the stats idle page
+	 */
+	public function feedAction() {
+		$id = Minz_Request::param('id');
+		$ajax = Minz_Request::param('ajax');
+		if ($ajax) {
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats', 'ajax' => $ajax));
+		} else {
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats'));
+		}
+		Minz_Request::forward($url_redirect, true);
+	}
+
+	/**
 	 * This action handles the idle feed statistic page.
 	 *
 	 * It displays the list of idle feed for different period. The supported
@@ -138,6 +163,9 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$last5Year->modify('-5 year');
 
 		foreach ($feeds as $feed) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feed['favicon'] = $feedDAO->searchById($feed['id'])->favicon();
+
 			$feedDate->setTimestamp($feed['last_date']);
 			if ($feedDate >= $lastWeek) {
 				continue;
@@ -162,6 +190,14 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->idleFeeds = $idleFeeds;
+
+		$id = Minz_Request::param('id');
+		$this->view->displaySlider = false;
+		if (false !== $id) {
+			$this->view->displaySlider = true;
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$this->view->feed = $feedDAO->searchById($id);
+		}
 	}
 
 	/**

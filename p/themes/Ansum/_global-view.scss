@@ -1,3 +1,5 @@
+@use "variables";
+
 /*=== GLOBAL VIEW */
 /*================*/
 #stream {
@@ -20,7 +22,7 @@
 			background: none;
 
 			a.title {
-				color: $grey-dark;
+				color: variables.$grey-dark;
 				font-size: 1rem;
 				font-weight: normal;
 				text-decoration: none;
@@ -31,7 +33,7 @@
 				&:not([data-unread="0"])::after {
 					margin: -0.5rem 1rem 0 0;
 					padding: 0 0.75rem;
-					background: $grey-light;
+					background: variables.$grey-light;
 					border-radius: 12px;
 					position: absolute;
 					top: 1.75rem;
@@ -41,7 +43,7 @@
 				}
 
 				&:hover {
-					color: $main-first;
+					color: variables.$main-first;
 				}
 			}
 		}
@@ -55,11 +57,11 @@
 				font-size: 1rem;
 
 				a {
-					color: $main-font-color;
+					color: variables.$main-font-color;
 					font-weight: 400;
 
 					&:hover {
-						color: $main-first;
+						color: variables.$main-first;
 						text-decoration: none;
 					}
 				}

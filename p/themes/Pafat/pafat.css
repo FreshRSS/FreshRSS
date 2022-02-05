@@ -603,13 +603,25 @@ a.signin {
 
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	padding: 0px 5px;
-	font-size: 0.8rem;
+	margin: 0.5em 0 0 0;
+	background-color: white;
+	color: #428bca;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #5bc0de;
+	color: white;
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	right: 5px;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	background-color: transparent;
+	color: white;
 	border: 1px solid #fff;
-	border-radius: 3px;
-	position: absolute;
-	top: 0.25rem; right: 3px;
-	line-height: 1.5rem;
+	font-weight: bold;
 }
 
 .aside_feed .tree-folder.all .tree-folder-title {
@@ -733,10 +745,6 @@ a.signin {
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #3276b1;
-}
-
 #new-article > a {
 	line-height: 3em;
 	color: #fff;
@@ -745,6 +753,7 @@ a.signin {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #3276b1;
 }
 
 /*=== Day indication */
@@ -895,14 +904,12 @@ a.signin {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }

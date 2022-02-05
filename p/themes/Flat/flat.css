@@ -624,14 +624,12 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #2c3e50;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #34495e;
 }
 
 /*=== Aside main page (feeds) */
@@ -738,10 +736,6 @@ a.btn {
 	text-align: center;
 }
 
-#new-article:hover {
-	background: #2980b9;
-}
-
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -750,6 +744,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #2980b9;
 }
 
 /*=== Day indication */
@@ -900,7 +895,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #ddd;
 	color: #666;
 	font-size: 0.9em;
@@ -908,7 +902,6 @@ a.btn {
 	border-radius: 3px;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -921,6 +914,10 @@ a.btn {
 .notification.bad {
 	background: #e74c3c;
 	color: #fff;
+}
+
+.notification a {
+	color: #000;
 }
 
 .notification a.close {
