@@ -410,8 +410,8 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 		new_active.classList.add('current');
 		if (old_active) {
-			// old_active.classList.remove('active');
-			old_active.classList.remove('current');	// Split for IE11
+			// old_active.classList.remove('active');	// If we want to auto-collapse
+			old_active.classList.remove('current');
 			if (context.auto_remove_article) {
 				removeArticle(old_active);
 			}
