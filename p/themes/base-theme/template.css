@@ -471,10 +471,6 @@ a.btn {
 }
 
 /*=== Pagination */
-.nav-pagination {
-	width: 100%;
-}
-
 .pagination {
 	margin: 2em auto;
 	padding: 0;
@@ -485,10 +481,12 @@ a.btn {
 .pagination .item {
 	display: table-cell;
 	width: 3em;
+	text-align: center;
 }
 
 .pagination .item.active {
 	min-width: 3em;
+	font-weight: bold;
 }
 
 .pagination .pager-previous,
