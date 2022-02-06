@@ -458,7 +458,7 @@ class FeverAPI
 			// use the max_id argument to request the previous $item_limit items
 			$max_id = '' . $_REQUEST['max_id'];
 			if (!ctype_digit($max_id)) {
-				$max_id = null;
+				$max_id = '';
 			}
 		} elseif (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
@@ -466,7 +466,7 @@ class FeverAPI
 			// use the since_id argument to request the next $item_limit items
 			$since_id = '' . $_REQUEST['since_id'];
 			if (!ctype_digit($since_id)) {
-				$since_id = null;
+				$since_id = '';
 			}
 		}
 
