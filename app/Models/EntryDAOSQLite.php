@@ -166,14 +166,15 @@ DROP TABLE IF EXISTS `tmp`;
 	 * place. It will be reused also for the filtering making every thing
 	 * separated.
 	 *
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
 	 * @param boolean $onlyFavorites
 	 * @param integer $priorityMin
+	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0, $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
@@ -209,12 +210,13 @@ DROP TABLE IF EXISTS `tmp`;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param integer $id category ID
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
+	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadCat(int $id, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}

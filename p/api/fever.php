@@ -130,7 +130,14 @@ class FeverAPI
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
 
+	/**
+	 * @var FreshRSS_EntryDAO
+	 */
 	private $entryDAO = null;
+
+	/**
+	 * @var FreshRSS_FeedDAO
+	 */
 	private $feedDAO = null;
 
 	/**
@@ -345,7 +352,7 @@ class FeverAPI
 	}
 
 	/**
-	 * @return int
+	 * @return int|false
 	 */
 	protected function getTotalItems() {
 		return $this->entryDAO->count();
@@ -502,11 +509,8 @@ class FeverAPI
 
 	/**
 	 * TODO replace by a dynamic fetch for id <= $before timestamp
-	 *
-	 * @param int|string $beforeTimestamp
-	 * @return string
 	 */
-	protected function convertBeforeToId($beforeTimestamp): string {
+	protected function convertBeforeToId(string $beforeTimestamp): string {
 		return $beforeTimestamp == '0' ? '0' : $beforeTimestamp . '000000';
 	}
 
@@ -515,7 +519,7 @@ class FeverAPI
 	 */
 	protected function setFeedAsRead(string $id, string $before) {
 		$before = $this->convertBeforeToId($before);
-		return $this->entryDAO->markReadFeed($id, $before);
+		return $this->entryDAO->markReadFeed(intval($id), $before);
 	}
 
 	/**
@@ -529,7 +533,7 @@ class FeverAPI
 			return $this->entryDAO->markReadEntries($before);
 		}
 
-		return $this->entryDAO->markReadCat($id, $before);
+		return $this->entryDAO->markReadCat(intval($id), $before);
 	}
 }
 
