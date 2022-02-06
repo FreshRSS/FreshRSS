@@ -495,12 +495,12 @@ SQL;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param integer $id_feed feed ID
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadFeed($id_feed, $idMax = '0', $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
@@ -543,12 +543,12 @@ SQL;
 	/**
 	 * Mark all the articles in a tag as read.
 	 * @param integer $id tag ID, or empty for targeting any tag
-	 * @param integer $idMax max article ID
+	 * @param string $idMax max article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadTag($id = 0, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadTag($id = 0, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
