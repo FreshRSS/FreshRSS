@@ -99,7 +99,7 @@ function init_crypto_form() {
 // </crypto form (Web login)>
 
 function showPW(ev) {
-	if (ev.buttons || ev.key == " " || ev.key.toUpperCase() == 'ENTER') {
+	if (ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER') {
 		const passwordField = document.getElementById(this.getAttribute('data-toggle'));
 		passwordField.setAttribute('type', 'text');
 		this.classList.add('active');
