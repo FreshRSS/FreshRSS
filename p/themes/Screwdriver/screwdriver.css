@@ -273,7 +273,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	text-shadow: 0 0 2px rgba(255,255,255,0.28);
 	color: #fff;
 }
@@ -489,6 +489,7 @@ a.btn {
 
 .pagination .item a:hover {
 	background: #ddd;
+	color: inherit
 }
 
 .pagination:first-child .item {
