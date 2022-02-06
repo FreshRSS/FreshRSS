@@ -10,8 +10,14 @@ class FreshRSS_Feed extends Minz_Model {
 	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
+	/**
+	 * @var int
+	 */
 	private $id = 0;
 	private $url;
+	/**
+	 * @var int
+	 */
 	private $category = 1;
 	private $nbEntries = -1;
 	private $nbNotRead = -1;

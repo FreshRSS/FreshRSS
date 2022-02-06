@@ -2,23 +2,23 @@
 
 class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	public function isCompressed() {
+	public function isCompressed(): bool {
 		return true;
 	}
 
-	public function hasNativeHex() {
+	public function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode($x) {
+	public function sqlHexDecode(string $x): string {
 		return 'unhex(' . $x . ')';
 	}
 
-	public function sqlHexEncode($x) {
+	public function sqlHexEncode(string $x): string {
 		return 'hex(' . $x . ')';
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	public function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
@@ -62,7 +62,7 @@ SQL;
 	}
 
 	//TODO: Move the database auto-updates to DatabaseDAO
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
@@ -85,7 +85,7 @@ SQL;
 
 	private $addEntryPrepared = null;
 
-	public function addEntry($valuesTmp, $useTmpTable = true) {
+	public function addEntry(array $valuesTmp, bool $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
 			$sql = $this->sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
@@ -251,10 +251,9 @@ SQL;
 	 * there is an other way to do that.
 	 *
 	 * @param integer|array $ids
-	 * @param boolean $is_favorite
 	 * @return false|integer
 	 */
-	public function markFavorite($ids, $is_favorite = true) {
+	public function markFavorite($ids, bool $is_favorite = true) {
 		if (!is_array($ids)) {
 			$ids = array($ids);
 		}
