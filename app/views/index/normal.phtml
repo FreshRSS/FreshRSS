@@ -110,7 +110,7 @@ $today = @strtotime('today');
 
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
-		$this->renderHelper('pagination');
+		$this->renderHelper('stream-footer');
 ?></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles

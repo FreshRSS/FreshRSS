@@ -65,7 +65,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->callbackBeforeEntries = function ($view) {
 			try {
-				FreshRSS_Context::$number++;	//+1 for pagination
+				FreshRSS_Context::$number++;	//+1 for articles' page
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
 				ob_start();	//Buffer "one entry at a time"
@@ -77,7 +77,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->callbackBeforePagination = function ($view, $nbEntries, $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
-				//We have enough entries: we discard the last one to use it for the next pagination
+				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
 				FreshRSS_Context::$next_id = $lastEntry->id();
 			}

@@ -461,6 +461,15 @@ a.btn {
 	line-height: 16px;
 }
 
+/* === stream-footer **/
+#stream-footer {
+	margin: 0 0 5em;
+	padding: 1em 0;
+	width: 100%;
+	border-top: 1px solid #aaa;
+	text-align: center;
+}
+
 /*=== Pagination */
 .pagination {
 	margin: 0;
@@ -1116,6 +1125,13 @@ br {
 	min-height: 40px;
 }
 
+#load_more.loading,
+#load_more.loading:hover {
+	padding: 10px 20px;
+	background: url("loader.gif") center center no-repeat #fff;
+	font-size: 0;
+}
+
 .loading {
 	background: url("loader.gif") center center no-repeat;
 	font-size: 0;
@@ -1682,6 +1698,7 @@ input:checked + .slide-container .properties {
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
+	#stream-footer,
 	#nav_entries {
 		display: none;
 	}
