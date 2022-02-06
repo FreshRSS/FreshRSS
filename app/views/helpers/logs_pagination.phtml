@@ -25,7 +25,7 @@
 		<li class="item">…</a></li>
 		<?php } ?>
 
-		<?php 
+		<?php
 		for ($i = $this->currentPage - 2; $i <= $this->currentPage + 2; $i++) {
 			if($i > 0 && $i <= $this->nbPage) {
 				if ($i != $this->currentPage) {
@@ -37,7 +37,7 @@
 					$aria = 'true';
 				} ?>
 				<li class="item<?= $class ?>"><a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>" aria-current="<?= $aria ?>"><?= $i ?></a></li>
-			<?php 
+			<?php
 			}
 		} ?>
 
