@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
 		'registration' => array(
-			'help' => '0 oznacza brak limitu liczby kont',
 			'number' => 'Maksymalna liczba kont',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(

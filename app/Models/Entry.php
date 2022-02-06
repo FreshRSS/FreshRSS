@@ -7,23 +7,46 @@ class FreshRSS_Entry extends Minz_Model {
 	const STATE_FAVORITE = 4;
 	const STATE_NOT_FAVORITE = 8;
 
-	private $id = 0;
+	/**
+	 * @var string
+	 */
+	private $id = '0';
+
+	/**
+	 * @var string
+	 */
 	private $guid;
+
 	private $title;
 	private $authors;
 	private $content;
 	private $link;
 	private $date;
 	private $date_added = 0; //In microseconds
-	private $hash = null;
-	private $is_read;	//Nullable boolean
+	/**
+	 * @var string
+	 */
+	private $hash = '';
+	/**
+	 * @var bool|null
+	 */
+	private $is_read;
 	private $is_favorite;
+
+	/**
+	 * @var int
+	 */
 	private $feedId;
+
+	/**
+	 * @var FreshRSS_Feed|null
+	 */
 	private $feed;
+
 	private $tags;
 
-	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
-			$link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
+			string $link = '', $pubdate = 0, bool $is_read = false, bool $is_favorite = false, string $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -36,31 +59,31 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	public function id() {
+	public function id(): string {
 		return $this->id;
 	}
-	public function guid() {
+	public function guid(): string {
 		return $this->guid;
 	}
-	public function title() {
+	public function title(): string {
 		return $this->title == '' ? $this->guid() : $this->title;
 	}
-	public function author() {
+	public function author(): string {
 		//Deprecated
 		return $this->authors(true);
 	}
-	public function authors($asString = false) {
+	public function authors(bool $asString = false) {
 		if ($asString) {
 			return $this->authors == null ? '' : ';' . implode('; ', $this->authors);
 		} else {
 			return $this->authors;
 		}
 	}
-	public function content() {
+	public function content(): string {
 		return $this->content;
 	}
 
-	public function enclosures($searchBodyImages = false) {
+	public function enclosures(bool $searchBodyImages = false): array {
 		$results = [];
 		try {
 			$searchEnclosures = strpos($this->content, '<p class="enclosure-content') !== false;
@@ -102,28 +125,28 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function thumbnail() {
+	public function thumbnail(): string {
 		foreach ($this->enclosures(true) as $enclosure) {
 			if (!empty($enclosure['url']) && empty($enclosure['type'])) {
 				return $enclosure;
 			}
 		}
-		return null;
+		return '';
 	}
 
-	public function link() {
+	public function link(): string {
 		return $this->link;
 	}
-	public function date($raw = false) {
+	public function date(bool $raw = false) {
 		if ($raw) {
 			return $this->date;
 		}
 		return timestamptodate($this->date);
 	}
-	public function machineReadableDate() {
+	public function machineReadableDate(): string {
 		return @date (DATE_ATOM, $this->date);
 	}
-	public function dateAdded($raw = false, $microsecond = false) {
+	public function dateAdded(bool $raw = false, bool $microsecond = false) {
 		if ($raw) {
 			if ($microsecond) {
 				return $this->date_added;
@@ -160,15 +183,15 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function hash() {
-		if ($this->hash === null) {
+	public function hash(): string {
+		if ($this->hash == '') {
 			//Do not include $this->date because it may be automatically generated when lacking
 			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
 		}
 		return $this->hash;
 	}
 
-	public function _hash($value) {
+	public function _hash(string $value) {
 		$value = trim($value);
 		if (ctype_xdigit($value)) {
 			$this->hash = substr($value, 0, 32);
@@ -182,7 +205,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$this->date_added = $value;
 		}
 	}
-	public function _guid($value) {
+	public function _guid(string $value) {
 		if ($value == '') {
 			$value = $this->link;
 			if ($value == '') {
@@ -191,16 +214,16 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		$this->guid = $value;
 	}
-	public function _title($value) {
-		$this->hash = null;
+	public function _title(string $value) {
+		$this->hash = '';
 		$this->title = trim($value);
 	}
-	public function _author($value) {
+	public function _author(string $value) {
 		//Deprecated
 		$this->_authors($value);
 	}
 	public function _authors($value) {
-		$this->hash = null;
+		$this->hash = '';
 		if (!is_array($value)) {
 			if (strpos($value, ';') !== false) {
 				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
@@ -210,20 +233,20 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		$this->authors = $value;
 	}
-	public function _content($value) {
-		$this->hash = null;
+	public function _content(string $value) {
+		$this->hash = '';
 		$this->content = $value;
 	}
-	public function _link($value) {
-		$this->hash = null;
+	public function _link(string $value) {
+		$this->hash = '';
 		$this->link = $value;
 	}
 	public function _date($value) {
-		$this->hash = null;
+		$this->hash = '';
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
-	public function _dateAdded($value, $microsecond = false) {
+	public function _dateAdded($value, bool $microsecond = false) {
 		if ($microsecond) {
 			$this->date_added = $value;
 		} else {
@@ -247,15 +270,15 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->feedId = intval($value);
 	}
 	public function _tags($value) {
-		$this->hash = null;
+		$this->hash = '';
 		if (!is_array($value)) {
 			$value = preg_split('/\s*[#,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
 		}
 		$this->tags = $value;
 	}
 
-	public function matches($booleanSearch) {
-		if (!$booleanSearch || count($booleanSearch->searches()) <= 0) {
+	public function matches(FreshRSS_BooleanSearch $booleanSearch): bool {
+		if (count($booleanSearch->searches()) <= 0) {
 			return true;
 		}
 		foreach ($booleanSearch->searches() as $filter) {
@@ -359,7 +382,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return false;
 	}
 
-	public function applyFilterActions($titlesAsRead = []) {
+	public function applyFilterActions(array $titlesAsRead = []) {
 		if ($this->feed != null) {
 			if ($this->feed->attributes('read_upon_reception') ||
 				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
@@ -389,7 +412,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function isDay($day, $today) {
+	public function isDay(int $day, int $today): bool {
 		$date = $this->dateAdded(true);
 		switch ($day) {
 		case FreshRSS_Days::TODAY:
@@ -406,7 +429,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
+	public static function getContentByParsing(string $url, string $path, array $attributes = array(), int $maxRedirs = 3): string {
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -488,7 +511,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent($force = false) {
+	public function loadCompleteContent(bool $force = false): bool {
 		// Gestion du contenu
 		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed(true);
@@ -534,7 +557,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return false;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		return array(
 			'id' => $this->id(),
 			'guid' => $this->guid(),

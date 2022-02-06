@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
-			'help' => '0 heißt, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
+			'select' => array(
+				'label' => 'Registrierungsformular',
+				'option' => array(
+					'noform' => 'Deaktiviert: Keine Registrierung möglich',
+					'nolimit' => 'Aktiviert: Registrierung möglich',
+					'setaccountsnumber' => 'Anzahl maximaler Benutzer-Acounts festlegen',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formular deaktiviert',
+				'enabled' => 'Formular aktiviert',
+			),
+			'title' => 'Benutzer-Registrierungsformular',
 		),
 	),
 	'update' => array(
