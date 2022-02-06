@@ -2,23 +2,23 @@
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
-	public function hasNativeHex() {
+	public function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode($x) {
+	public function sqlHexDecode(string $x): string {
 		return 'decode(' . $x . ", 'hex')";
 	}
 
-	public function sqlHexEncode($x) {
+	public function sqlHexEncode(string $x): string {
 		return 'encode(' . $x . ", 'hex')";
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	public function sqlIgnoreConflict(string $sql): string {
 		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
@@ -32,7 +32,7 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		return false;
 	}
 
-	protected function addColumn($name) {
+	protected function addColumn(string $name) {
 		return false;
 	}
 
