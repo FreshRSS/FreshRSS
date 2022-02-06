@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
-			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
+			'select' => array(
+				'label' => 'Registration form',
+				'option' => array(
+					'noform' => 'Disabled: No registration form',
+					'nolimit' => 'Enabled: No limit of accounts',
+					'setaccountsnumber' => 'Set max. number of accounts',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',
+				'enabled' => 'Form enabled',
+			),
+			'title' => 'User registration form',
 		),
 	),
 	'update' => array(

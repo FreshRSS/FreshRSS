@@ -193,11 +193,7 @@ function timestamptodate ($t, $hour = true) {
 	return @date ($date, $t);
 }
 
-/**
- * @param string $text
- * @return string
- */
-function html_only_entity_decode($text) {
+function html_only_entity_decode(string $text): string {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
 		$htmlEntitiesOnly = array_flip(array_diff(
@@ -210,9 +206,8 @@ function html_only_entity_decode($text) {
 
 /**
  * @param array<string,mixed> $attributes
- * @return SimplePie
  */
-function customSimplePie($attributes = array()) {
+function customSimplePie($attributes = array()): SimplePie {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
@@ -247,6 +242,7 @@ function customSimplePie($attributes = array()) {
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
+	$simplePie->rename_attributes(array('id', 'class'));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',

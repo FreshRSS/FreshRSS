@@ -2,7 +2,7 @@
 
 class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	public function sqlIgnore() {
+	public function sqlIgnore(): string {
 		return 'IGNORE';
 	}
 
@@ -30,7 +30,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
 				if (stripos($errorInfo[2], 'tag') !== false) {

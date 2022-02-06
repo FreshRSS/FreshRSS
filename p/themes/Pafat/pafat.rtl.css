@@ -739,10 +739,6 @@ a.signin {
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #3276b1;
-}
-
 #new-article > a {
 	line-height: 3em;
 	color: #fff;
@@ -751,6 +747,7 @@ a.signin {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #3276b1;
 }
 
 /*=== Day indication */
