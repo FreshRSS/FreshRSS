@@ -232,7 +232,7 @@ class FeverAPI
 						break;
 					case 'feed':
 					case 'group':
-						$before = isset($_REQUEST['before']) ? $_REQUEST['before'] : null;
+						$before = $_REQUEST['before'] ?? '';
 						$this->{$method_name}($id, $before);
 						break;
 				}
@@ -429,8 +429,8 @@ class FeverAPI
 	protected function getItems(): array {
 		$feed_ids = array();
 		$entry_ids = array();
-		$max_id = null;
-		$since_id = null;
+		$max_id = '';
+		$since_id = '';
 
 		if (isset($_REQUEST['feed_ids']) || isset($_REQUEST['group_ids'])) {
 			if (isset($_REQUEST['feed_ids'])) {
