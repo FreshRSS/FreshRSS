@@ -3,7 +3,7 @@
 /**
  * Controller to handle subscription actions.
  */
-class FreshRSS_subscription_Controller extends Minz_ActionController {
+class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -72,7 +72,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 *
 	 * It displays the feed configuration page.
 	 * If this action is reached through a POST request, it stores all new
-	 * configuraiton values then sends a notification to the user.
+	 * configuration values then sends a notification to the user.
 	 *
 	 * The options available on the page are:
 	 *   - name
@@ -175,7 +175,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace(1, Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
@@ -207,7 +207,12 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			$from = Minz_Request::param('from');
+			if ($from === false) {
+				$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			} else {
+				$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
+			}
 			if ($feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_category($cat);
 				$feed->faviconPrepare();
@@ -244,7 +249,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace(1, Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;

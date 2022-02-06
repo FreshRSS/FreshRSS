@@ -27,9 +27,11 @@ define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_sys
  */
 function notice($message) {
 	Minz_Log::notice($message, ADMIN_LOG);
+	// @phpstan-ignore-next-line
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
 		syslog(LOG_NOTICE, $message);
 	}
+	// @phpstan-ignore-next-line
 	if (defined('STDOUT') && !COPY_SYSLOG_TO_STDERR) {
 		fwrite(STDOUT, $message . "\n");	//Unbuffered
 	}
@@ -76,7 +78,7 @@ foreach ($users as $user) {
 	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
 
 	$app->init();
-	notice('FreshRSS actualize ' . $user . '...');
+	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	$app->run();
 

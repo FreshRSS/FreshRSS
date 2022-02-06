@@ -435,7 +435,7 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 
 		if (skipping) {
-			// when skipping, this feels more natural if it's not so near the top
+			// when skipping, this feels more natural if it’s not so near the top
 			new_pos -= document.body.clientHeight / 4;
 		}
 		if (relative_move) {
@@ -1005,7 +1005,7 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.title > a');
-		if (el) {	// Allow default control-click behaviour such as open in backround-tab
+		if (el) {	// Allow default control-click behaviour such as open in background-tab
 			return ev.ctrlKey;
 		}
 
@@ -1327,8 +1327,12 @@ function openNotification(msg, status) {
 	notification.querySelector('.msg').innerHTML = msg;
 	notification.className = 'notification';
 	notification.classList.add(status);
-
-	notification_interval = setTimeout(closeNotification, 4000);
+	if (status == 'good') {
+		notification_interval = setTimeout(closeNotification, 4000);
+	} else {
+		// no status or f.e. status = 'bad', give some more time to read
+		notification_interval = setTimeout(closeNotification, 8000);
+	}
 }
 
 function closeNotification() {
@@ -1340,14 +1344,28 @@ function closeNotification() {
 function init_notifications() {
 	notification = document.getElementById('notification');
 
-	notification.querySelector('a.close').onclick = function () {
+	notification.querySelector('a.close').addEventListener('click', function (ev) {
 		closeNotification();
+		ev.preventDefault();
 		return false;
-	};
+	});
+
+	notification.addEventListener('mouseenter', function () {
+		clearInterval(notification_interval);
+	});
+
+	notification.addEventListener('mouseleave', function () {
+		notification_interval = setTimeout(closeNotification, 3000);
+	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
-		notification_interval = setTimeout(closeNotification, 4000);
+		if (notification.classList.contains('good')) {
+			notification_interval = setTimeout(closeNotification, 4000);
+		} else {
+			// no status or f.e. status = 'bad', give some more time to read
+			notification_interval = setTimeout(closeNotification, 8000);
+		}
 	}
 }
 // </notification>
@@ -1435,14 +1453,14 @@ function notifs_html5_ask_permission() {
 	});
 }
 
-function notifs_html5_show(nb) {
+function notifs_html5_show(nb, nb_new) {
 	if (notifs_html5_permission !== 'granted') {
 		return;
 	}
 
 	const notification = new window.Notification(context.i18n.notif_title_articles, {
 		icon: '../themes/icons/favicon-256-padding.png',
-		body: context.i18n.notif_body_articles.replace('%d', nb),
+		body: context.i18n.notif_body_new_articles.replace('%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%d', nb),
 		tag: 'freshRssNewArticles',
 	});
 
@@ -1482,6 +1500,8 @@ function refreshUnreads() {
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
 		let nbUnreadFeeds = 0;
+		const title = document.querySelector('.category.all .title');
+		const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
@@ -1522,12 +1542,12 @@ function refreshUnreads() {
 			tags.querySelector('.title').setAttribute('data-unread', numberFormat(nbUnreadTags));
 		}
 
-		const title = document.querySelector('.category.all .title');
 		const nb_unreads = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
-			notifs_html5_show(nb_unreads);
+			const nb_new = nb_unreads - nb_unreads_before;
+			notifs_html5_show(nb_unreads, nb_new);
 		}
 	};
 	req.send();

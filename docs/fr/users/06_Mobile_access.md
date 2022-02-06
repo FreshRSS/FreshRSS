@@ -49,8 +49,8 @@ possibilité.
 
 # Clients compatibles
 
-1. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
-	* Saisissez l'adresse de l'API dans le client sélectionné puis votre nom d'utilisateur et votre mot de passe spécialement créé pour l'API.
+1. Sur la même page de l’API FreshRSS, notez l’adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
+	* Saisissez l’adresse de l’API dans le client sélectionné puis votre nom d’utilisateur et votre mot de passe spécialement créé pour l’API.
 
 2. Vous pouvez maintenant tester sur une application mobile:
 	* Android

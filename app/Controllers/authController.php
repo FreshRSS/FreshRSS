@@ -3,7 +3,7 @@
 /**
  * This controller handles action about authentication.
  */
-class FreshRSS_auth_Controller extends Minz_ActionController {
+class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action handles authentication management page.
 	 *
@@ -117,7 +117,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		Minz_Session::_param('POST_to_GET');
 
 		if ($isPOST) {
-			$nonce = Minz_Session::param('nonce');
+			$nonce = Minz_Session::param('nonce', '');
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
 
@@ -149,7 +149,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				]);
 				FreshRSS_Auth::giveAccess();
 
-				// Set cookie parameter if nedded.
+				// Set cookie parameter if needed.
 				if (Minz_Request::param('keep_logged_in')) {
 					FreshRSS_FormAuth::makeCookie($username, FreshRSS_Context::$user_conf->passwordHash);
 				} else {
@@ -221,7 +221,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	/**
 	 * This action gives possibility to a user to create an account.
 	 *
-	 * The user is redirected to the home if he's connected.
+	 * The user is redirected to the home when logged in.
 	 *
 	 * A 403 is sent if max number of registrations is reached.
 	 */
