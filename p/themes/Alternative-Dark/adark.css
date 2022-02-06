@@ -390,27 +390,15 @@ a.btn {
 }
 
 /*=== Pagination */
+
+.pagination .item a {
+	line-height: 3em;
+}
+
 .pagination {
-	background: #171717;
-	text-align: center;
-	color: #e8e8e8;
-	font-size: 0.8em;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
+	color: #999;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
 }
 
 /*=== Boxes */

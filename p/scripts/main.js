@@ -712,9 +712,9 @@ function onScroll() {
 		});
 	}
 	if (context.auto_load_more) {
-		const pagination = document.getElementById('mark-read-pagination');
-		if (pagination && box_to_follow.offsetHeight > 0 &&
-			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= pagination.offsetTop) {
+		const streamFooter = document.getElementById('stream-footer');
+		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			load_more_posts();
 		}
 	}
@@ -1570,16 +1570,16 @@ function load_more_posts() {
 	req.responseType = 'document';
 	req.onload = function (e) {
 		const html = this.response;
-		const formPagination = document.getElementById('mark-read-pagination');
+		const streamFooter = document.getElementById('stream-footer');
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
 		streamAdopted.querySelectorAll('.flux, .day').forEach(function (div) {
-			box_load_more.insertBefore(div, formPagination);
+			box_load_more.insertBefore(div, streamFooter);
 		});
 
-		const paginationOld = formPagination.querySelector('.pagination');
-		const paginationNew = streamAdopted.querySelector('.pagination');
-		formPagination.replaceChild(paginationNew, paginationOld);
+		const streamFooterOld = streamFooter.querySelector('.stream-footer-inner');
+		const streamFooterNew = streamAdopted.querySelector('.stream-footer-inner');
+		streamFooter.replaceChild(streamFooterNew, streamFooterOld);
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
 		const readAll = document.querySelector('#nav_menu_read_all .read_all');
@@ -1620,16 +1620,16 @@ function init_load_more(box) {
 	box_load_more = box;
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
-	const next_link = document.getElementById('load_more');
-	if (!next_link) {
+	const next_button = document.getElementById('load_more');
+	if (!next_button) {
 		// no more article to load
 		url_load_more = '';
 		return;
 	}
 
-	url_load_more = next_link.href;
+	url_load_more = next_button.getAttribute('formaction');
 
-	next_link.onclick = function (e) {
+	next_button.onclick = function (e) {
 		load_more_posts();
 		return false;
 	};

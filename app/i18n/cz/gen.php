@@ -179,10 +179,7 @@ return array(
 	'pagination' => array(
 		'first' => 'První',
 		'last' => 'Poslední',
-		'load_more' => 'Načíst více článků',
-		'mark_all_read' => 'Označit vše jako přečtené',
 		'next' => 'Další',
-		'nothing_to_load' => 'Nejsou zde žádné další články',
 		'previous' => 'Předchozí',
 	),
 	'period' => array(
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'Dobře!',
 		'or' => 'nebo',
 		'yes' => 'Ano',
+	),
+	'stream' => array(
+		'load_more' => 'Načíst více článků',
+		'mark_all_read' => 'Označit vše jako přečtené',
+		'nothing_to_load' => 'Nejsou zde žádné další články',
 	),
 );

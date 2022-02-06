@@ -509,13 +509,6 @@ a.btn {
 	border-top: 1px solid #ddd;
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	height: 55px;
-	font-size: 0
-}
-
 /*=== Boxes */
 .box {
 	background: #f9f7f4;

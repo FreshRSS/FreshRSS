@@ -2,23 +2,23 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
-	public function isCompressed() {
+	public function isCompressed(): bool {
 		return false;
 	}
 
-	public function hasNativeHex() {
+	public function hasNativeHex(): bool {
 		return false;
 	}
 
-	public function sqlHexDecode($x) {
+	public function sqlHexDecode(string $x): string {
 		return $x;
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	public function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'tag') === false) {
@@ -243,10 +243,10 @@ DROP TABLE IF EXISTS `tmp`;
 	/**
 	 * Mark all the articles in a tag as read.
 	 * @param integer $id tag ID, or empty for targeting any tag
-	 * @param integer $idMax max article ID
+	 * @param string $idMax max article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadTag($id = 0, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadTag($id = 0, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';

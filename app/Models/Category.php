@@ -1,6 +1,9 @@
 <?php
 
 class FreshRSS_Category extends Minz_Model {
+	/**
+	 * @var int
+	 */
 	private $id = 0;
 	private $name;
 	private $nbFeed = -1;
@@ -10,7 +13,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $isDefault = false;
 	private $attributes = [];
 
-	public function __construct($name = '', $feeds = null) {
+	public function __construct(string $name = '', $feeds = null) {
 		$this->_name($name);
 		if (isset($feeds)) {
 			$this->_feeds($feeds);
@@ -24,16 +27,16 @@ class FreshRSS_Category extends Minz_Model {
 		}
 	}
 
-	public function id() {
+	public function id(): int {
 		return $this->id;
 	}
-	public function name() {
+	public function name(): string {
 		return $this->name;
 	}
-	public function isDefault() {
+	public function isDefault(): bool {
 		return $this->isDefault;
 	}
-	public function nbFeed() {
+	public function nbFeed(): int {
 		if ($this->nbFeed < 0) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->nbFeed = $catDAO->countFeed($this->id());
@@ -41,7 +44,7 @@ class FreshRSS_Category extends Minz_Model {
 
 		return $this->nbFeed;
 	}
-	public function nbNotRead() {
+	public function nbNotRead(): int {
 		if ($this->nbNotRead < 0) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->nbNotRead = $catDAO->countNotRead($this->id());
@@ -49,7 +52,7 @@ class FreshRSS_Category extends Minz_Model {
 
 		return $this->nbNotRead;
 	}
-	public function feeds() {
+	public function feeds(): array {
 		if ($this->feeds === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->feeds = $feedDAO->listByCategory($this->id());
