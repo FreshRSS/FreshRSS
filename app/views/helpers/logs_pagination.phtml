@@ -7,14 +7,14 @@
 
 <?php if ($this->nbPage > 1) { ?>
 	<nav class="nav-pagination nav-list">
-<ul class="pagination">
-	<?php
-		/** @var int $getteur */
-		$params[$getteur] = 1;
-	?>
-	<li class="item pager-first">
-		<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">« <?= _t('gen.pagination.first') ?></a>
-	</li>
+	<ul class="pagination">
+		<?php
+			/** @var int $getteur */
+			$params[$getteur] = 1;
+		?>
+		<li class="item pager-first">
+			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">« <?= _t('gen.pagination.first') ?></a>
+		</li>
 
 		<?php $params[$getteur] = $this->currentPage - 1; ?>
 		<li class="item pager-previous">
