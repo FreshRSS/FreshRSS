@@ -131,12 +131,12 @@ class FeverAPI
 	const STATUS_ERR = 0;
 
 	/**
-	 * @var FreshRSS_EntryDAO
+	 * @var FreshRSS_EntryDAO|null
 	 */
 	private $entryDAO = null;
 
 	/**
-	 * @var FreshRSS_FeedDAO
+	 * @var FreshRSS_FeedDAO|null
 	 */
 	private $feedDAO = null;
 
