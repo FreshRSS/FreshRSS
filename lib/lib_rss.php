@@ -193,7 +193,10 @@ function timestamptodate ($t, $hour = true) {
 	return @date ($date, $t);
 }
 
-function html_only_entity_decode(string $text): string {
+/**
+ * @param string|null $text
+ */
+function html_only_entity_decode($text): string {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
 		$htmlEntitiesOnly = array_flip(array_diff(

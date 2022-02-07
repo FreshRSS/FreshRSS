@@ -20,7 +20,7 @@
         "php": ">=7.0.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.2.0",
+        "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.6"
     },

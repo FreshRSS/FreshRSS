@@ -365,7 +365,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $feed->attributes('read_when_same_title_in_feed')));
+					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), intval($readWhenSameTitleInFeed)));
 				}
 
 				$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
