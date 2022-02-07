@@ -1,6 +1,28 @@
 <?php
 
 class FreshRSS_Feed extends Minz_Model {
+
+	/**
+	 * Normal RSS or Atom feed
+	 * @var int
+	 */
+	const KIND_RSS = 0;
+	/**
+	 * Invalid RSS or Atom feed
+	 * @var int
+	 */
+	const KIND_RSS_FORCED = 2;
+	/**
+	 * Normal HTML with XPath scraping
+	 * @var int
+	 */
+	const KIND_HTML_XPATH = 10;
+	/**
+	 * Normal JSON with XPath scraping
+	 * @var int
+	 */
+	const KIND_JSON_XPATH = 20;
+
 	const PRIORITY_MAIN_STREAM = 10;
 	const PRIORITY_NORMAL = 0;
 	const PRIORITY_ARCHIVED = -10;
@@ -14,29 +36,90 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @var int
 	 */
 	private $id = 0;
-	private $url;
+	/**
+	 * @var string
+	 */
+	private $url = '';
+	/**
+	 * @var int
+	 */
+	private $kind = 0;
 	/**
 	 * @var int
 	 */
 	private $category = 1;
+	/**
+	 * @var int
+	 */
 	private $nbEntries = -1;
+	/**
+	 * @var int
+	 */
 	private $nbNotRead = -1;
+	/**
+	 * @var int
+	 */
 	private $nbPendingNotRead = 0;
+	/**
+	 * @var string
+	 */
 	private $name = '';
+	/**
+	 * @var string
+	 */
 	private $website = '';
+	/**
+	 * @var string
+	 */
 	private $description = '';
+	/**
+	 * @var int
+	 */
 	private $lastUpdate = 0;
+	/**
+	 * @var int
+	 */
 	private $priority = self::PRIORITY_MAIN_STREAM;
+	/**
+	 * @var string
+	 */
 	private $pathEntries = '';
+	/**
+	 * @var string
+	 */
 	private $httpAuth = '';
+	/**
+	 * @var bool
+	 */
 	private $error = false;
+	/**
+	 * @var int
+	 */
 	private $ttl = self::TTL_DEFAULT;
 	private $attributes = [];
+	/**
+	 * @var bool
+	 */
 	private $mute = false;
-	private $hash = null;
+	/**
+	 * @var string
+	 */
+	private $hash = '';
+	/**
+	 * @var string
+	 */
 	private $lockPath = '';
+	/**
+	 * @var string
+	 */
 	private $hubUrl = '';
+	/**
+	 * @var string
+	 */
 	private $selfUrl = '';
+	/**
+	 * @var array<FreshRSS_FilterAction> $filterActions
+	 */
 	private $filterActions = null;
 
 	public function __construct(string $url, bool $validate = true) {
@@ -47,6 +130,9 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/**
+	 * @return FreshRSS_Feed
+	 */
 	public static function example() {
 		$f = new FreshRSS_Feed('http://example.net/', false);
 		$f->faviconPrepare();
@@ -58,7 +144,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function hash(): string {
-		if ($this->hash === null) {
+		if ($this->hash == '') {
 			$salt = FreshRSS_Context::$system_conf->salt;
 			$this->hash = hash('crc32b', $salt . $this->url);
 		}
@@ -70,6 +156,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function selfUrl(): string {
 		return $this->selfUrl;
+	}
+	public function kind(): int {
+		return $this->kind;
 	}
 	public function hubUrl(): string {
 		return $this->hubUrl;
@@ -191,7 +280,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->id = intval($value);
 	}
 	public function _url(string $value, bool $validate = true) {
-		$this->hash = null;
+		$this->hash = '';
 		if ($validate) {
 			$value = checkUrl($value);
 		}
@@ -199,6 +288,9 @@ class FreshRSS_Feed extends Minz_Model {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
 		$this->url = $value;
+	}
+	public function _kind($value) {
+		$this->kind = $value;
 	}
 	public function _category($value) {
 		$value = intval($value);
@@ -267,7 +359,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return SimplePie|null
 	 */
 	public function load(bool $loadDetails = false, bool $noCache = false) {
-		if ($this->url !== null) {
+		if ($this->url != '') {
 			// @phpstan-ignore-next-line
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
@@ -567,7 +659,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return array<FreshRSS_FilterAction>
 	 */
 	public function filterActions(): array {
-		if ($this->filterActions == null) {
+		if (empty($this->filterActions)) {
 			$this->filterActions = array();
 			$filters = $this->attributes('filters');
 			if (is_array($filters)) {
@@ -582,6 +674,9 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->filterActions;
 	}
 
+	/**
+	 * @param array<FreshRSS_FilterAction> $filterActions
+	 */
 	private function _filterActions($filterActions) {
 		$this->filterActions = $filterActions;
 		if (is_array($this->filterActions) && !empty($this->filterActions)) {
