@@ -281,6 +281,11 @@ a.btn {
 	font-weight: bold;
 }
 
+.btn:focus-visible,
+input[type="checkbox"]:focus-visible {
+	outline: 2px solid #ccc;
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {

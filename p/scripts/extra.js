@@ -98,20 +98,28 @@ function init_crypto_form() {
 }
 // </crypto form (Web login)>
 
+function showPW(ev) {
+	if (ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER') {
+		const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+		passwordField.setAttribute('type', 'text');
+		this.classList.add('active');
+	}
+	return false;
+}
+
+function hidePW() {
+	const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+	passwordField.setAttribute('type', 'password');
+	this.classList.remove('active');
+	return false;
+}
+
 function init_password_observers() {
-	document.querySelectorAll('.toggle-password').forEach(function (a) {
-		a.onmousedown = function (ev) {
-			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-			passwordField.setAttribute('type', 'text');
-			this.classList.add('active');
-			return false;
-		};
-		a.onmouseup = function (ev) {
-			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-			passwordField.setAttribute('type', 'password');
-			this.classList.remove('active');
-			return false;
-		};
+	document.querySelectorAll('.toggle-password').forEach(function (btn) {
+		btn.addEventListener('mousedown', showPW);
+		btn.addEventListener('keydown', showPW);
+		btn.addEventListener('mouseup', hidePW);
+		btn.addEventListener('keyup', hidePW);
 	});
 }
 
