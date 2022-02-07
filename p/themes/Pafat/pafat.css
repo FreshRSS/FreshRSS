@@ -452,12 +452,6 @@ a.btn {
 	border-top: 1px solid #aaa;
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
-}
-
 /*=== Boxes */
 .box {
 	border: 1px solid #aaa;

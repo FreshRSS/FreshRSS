@@ -468,10 +468,9 @@ a.btn {
 	color: #ecf0f1;
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
-	font-size: 0;
 }
 
 /*=== Boxes */

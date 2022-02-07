@@ -372,11 +372,15 @@ a.btn {
 	transform: translateY(-50%);
 }
 
-
 .switch.active::after {
 	width: 14px;
 	height: 14px;
 	left: 8px;
+}
+
+.btn:focus-visible,
+input[type="checkbox"]:focus-visible {
+	outline: 2px solid #ccc;
 }
 
 /*=== Navigation */
@@ -574,6 +578,15 @@ a.btn {
 	height: 16px;
 	vertical-align: middle;
 	line-height: 16px;
+}
+
+/* === stream-footer **/
+#stream-footer {
+	margin: 0 0 5em;
+	padding: 1em 0;
+	width: 100%;
+	border-top: 1px solid #aaa;
+	text-align: center;
 }
 
 /*=== Pagination */
@@ -1231,6 +1244,13 @@ br {
 	min-height: 40px;
 }
 
+#load_more.loading,
+#load_more.loading:hover {
+	padding: 10px 20px;
+	background: url("loader.gif") center center no-repeat #fff;
+	font-size: 0;
+}
+
 .loading {
 	background: url("loader.gif") center center no-repeat;
 	font-size: 0;
@@ -1797,6 +1817,7 @@ input:checked + .slide-container .properties {
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
+	#stream-footer,
 	#nav_entries {
 		display: none;
 	}

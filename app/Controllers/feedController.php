@@ -207,7 +207,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			// Entries are in DB, we redirect to feed configuration page.
 			$url_redirect['a'] = 'index';
-			$url_redirect['params']['id'] = $feed->id();
+			$url_redirect['params']['id'] = '' . $feed->id();
 			Minz_Request::good(_t('feedback.sub.feed.added', $feed->name()), $url_redirect);
 		} else {
 			// GET request: we must ask confirmation to user before adding feed.
@@ -365,7 +365,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $feed->attributes('read_when_same_title_in_feed')));
+					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), intval($readWhenSameTitleInFeed)));
 				}
 
 				$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
