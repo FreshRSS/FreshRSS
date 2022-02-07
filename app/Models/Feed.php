@@ -33,7 +33,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $ttl = self::TTL_DEFAULT;
 	private $attributes = [];
 	private $mute = false;
-	private $hash = null;
+	private $hash = '';
 	private $lockPath = '';
 	private $hubUrl = '';
 	private $selfUrl = '';
@@ -58,7 +58,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function hash(): string {
-		if ($this->hash === null) {
+		if ($this->hash == '') {
 			$salt = FreshRSS_Context::$system_conf->salt;
 			$this->hash = hash('crc32b', $salt . $this->url);
 		}
@@ -191,7 +191,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->id = intval($value);
 	}
 	public function _url(string $value, bool $validate = true) {
-		$this->hash = null;
+		$this->hash = '';
 		if ($validate) {
 			$value = checkUrl($value);
 		}
@@ -304,9 +304,9 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				$links = $simplePie->get_links('self');
-				$this->selfUrl = isset($links[0]) ? $links[0] : null;
+				$this->selfUrl = $links[0] ?? '';
 				$links = $simplePie->get_links('hub');
-				$this->hubUrl = isset($links[0]) ? $links[0] : null;
+				$this->hubUrl = $links[0] ?? '';
 
 				if ($loadDetails) {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
