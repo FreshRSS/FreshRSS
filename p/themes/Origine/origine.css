@@ -1060,8 +1060,7 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
-
-.pagination .item.active{
+.pagination .item.active {
 	background-color: #0062be;
 	color: white;
 }
@@ -1069,7 +1068,6 @@ a.btn {
 #loglist td {
 	font-family: monospace;
 }
-
 
 /****old******/
 .loglist {

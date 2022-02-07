@@ -282,11 +282,8 @@ a.btn {
 	margin: 0;
 	background: linear-gradient(180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
-	border-color: -moz-use-text-color -moz-use-text-color #171717;
-}
-
-.nav-list .item.active a {
 	color: #fff;
+	border-color: -moz-use-text-color -moz-use-text-color #171717;
 }
 
 .nav-list .disable {
@@ -505,8 +502,8 @@ a.btn {
 }
 
 .pagination .item {
-	border-bottom: 1px solid #ddd;
 	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 /*=== Boxes */

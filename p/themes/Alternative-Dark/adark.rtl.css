@@ -210,19 +210,19 @@ a.btn {
 .nav-list .item {
 	height: 2.5em;
 	line-height: 2.5em;
-	font-size: 0.9rem;
 	color: #ccc;
+	font-size: 0.9rem;
 }
 
 .nav-list .item a {
 	color: #ccc;
 }
 
-.nav-list .item a:hover{
+.nav-list .item a:hover {
 	background-color: #1f1f1f;
 }
 
-.nav-list .item.active a{
+.nav-list .item.active a {
 	background-color: #1f1f1f;
 }
 
@@ -390,7 +390,6 @@ a.btn {
 }
 
 /*=== Pagination */
-
 .pagination .item a {
 	line-height: 3em;
 }
