@@ -372,7 +372,6 @@ a.btn {
 	transform: translateY(-50%);
 }
 
-
 .switch.active::after {
 	width: 14px;
 	height: 14px;
