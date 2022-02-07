@@ -76,6 +76,7 @@ class Minz_ExtensionManager {
 			'signature' => 'PassArguments',
 		),
 	);
+	// @phpstan-ignore-next-line
 	private static $ext_to_hooks = array();
 
 	/**

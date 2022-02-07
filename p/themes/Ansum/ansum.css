@@ -357,10 +357,9 @@ form th {
 	background: #363330;
 	color: #f5f0ec;
 }
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
-	font-size: 0;
 }
 
 .content .pagination {

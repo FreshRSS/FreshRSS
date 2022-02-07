@@ -179,10 +179,7 @@ return array(
 	'pagination' => array(
 		'first' => 'İlk',
 		'last' => 'Son',
-		'load_more' => 'Daha fazla makale yükle',
-		'mark_all_read' => 'Tümünü okundu say',
 		'next' => 'Sonraki',
-		'nothing_to_load' => 'Başka makale yok',
 		'previous' => 'Önceki',
 	),
 	'period' => array(
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'Tamam!',
 		'or' => 'ya da',
 		'yes' => 'Evet',
+	),
+	'stream' => array(
+		'load_more' => 'Daha fazla makale yükle',
+		'mark_all_read' => 'Tümünü okundu say',
+		'nothing_to_load' => 'Başka makale yok',
 	),
 );
