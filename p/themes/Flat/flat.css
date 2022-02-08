@@ -215,6 +215,11 @@ a.btn {
 	filter: brightness(5);
 }
 
+#toggle-unread .icon,
+#toggle-starred .icon {
+	filter: none;
+}
+
 .btn-important {
 	font-weight: normal;
 	background: #e67e22;
