@@ -290,7 +290,10 @@ function customSimplePie($attributes = array()): SimplePie {
 	return $simplePie;
 }
 
-function sanitizeHTML($data, $base = '', $maxLength = false) {
+/**
+ * @param int|false $maxLength
+ */
+function sanitizeHTML($data, string $base = '', $maxLength = false) {
 	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
 		return '';
 	}
@@ -309,6 +312,57 @@ function sanitizeHTML($data, $base = '', $maxLength = false) {
 		return sanitizeHTML($data, $base, $maxLength);
 	}
 	return $result;
+}
+
+/**
+ * @param array<string,mixed> $attributes
+ */
+function getHtml(string $url, array $attributes = []):string {
+	$limits = FreshRSS_Context::$system_conf->limits;
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+
+	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
+		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+	}
+
+	$ch = curl_init();
+	curl_setopt_array($ch, [
+		CURLOPT_URL => $url,
+		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
+		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		//CURLOPT_FAILONERROR => true;
+		CURLOPT_MAXREDIRS => 4,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_ENCODING => '',	//Enable all encodings
+	]);
+
+	curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
+
+	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		curl_setopt_array($ch, $attributes['curl_params']);
+	}
+
+	if (isset($attributes['ssl_verify'])) {
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		if (!$attributes['ssl_verify']) {
+			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+		}
+	}
+	$html = curl_exec($ch);
+	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$c_error = curl_error($ch);
+	curl_close($ch);
+
+	if ($c_status != 200 || $c_error != '') {
+		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+	}
+
+	return is_string($html) ? $html : '';
 }
 
 /**

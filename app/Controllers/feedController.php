@@ -339,6 +339,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			try {
 				if ($simplePiePush) {
 					$simplePie = $simplePiePush;	//Used by WebSub
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
+					$simplePie = $feed->loadHtmlXpath(false, $isNewFeed);
 				} else {
 					$simplePie = $feed->load(false, $isNewFeed);
 				}

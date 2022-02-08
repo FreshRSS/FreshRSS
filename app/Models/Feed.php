@@ -582,6 +582,77 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * @param array<string,mixed> $attributes
+	 * @return SimplePie|null
+	 */
+	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false, array $attributes = []) {
+		if ($this->url == '') {
+			return null;
+		}
+		$feedSourceUrl = $this->url;
+
+		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
+		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
+		/**
+		 * @var array<string,string>
+		 */
+		$xPathSettings = $this->attributes('xpath');
+		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
+		$xPathItem = $xPathSettings['item'] ?? '';
+		$xPathItemTitle = $xPathSettings['itemTitle'] ?? '';
+		$xPathItemContent = $xPathSettings['itemContent'] ?? '';
+		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
+		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemEnclosures = $xPathSettings['itemEnclosures'] ?? '';
+		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
+		if ($xPathItem == '') {
+			return null;
+		}
+
+		$html = getHtml($feedSourceUrl, $attributes);
+		if (strlen($html) <= 0) {
+			return null;
+		}
+
+		try {
+			$doc = new DOMDocument();
+			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+			$xpath = new DOMXPath($doc);
+			$feedTitle = $xPathFeedTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')');
+			$nodes = $xpath->query($xPathItem);
+			if (empty($nodes)) {
+				return null;
+			}
+
+			foreach ($nodes as $node) {
+				$item = [];
+				$item['title'] = $xPathItemTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
+				$item['content'] = $xPathItemContent == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
+				$item['uri'] = $xPathItemUri == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
+				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				$item['enclosures'] = [];
+				if ($xPathItemEnclosures != '') {
+					$itemEnclosures = $xpath->query($xPathItemEnclosures);
+					if ($itemEnclosures) {
+						foreach ($itemEnclosures as $itemEnclosure) {
+							$item['enclosures'][] = $itemEnclosure->textContent;
+						}
+					}
+				}
+				$author = '';
+			}
+		} catch (Exception $ex) {
+			Minz_Log::warning($ex->getMessage());
+			return null;
+		}
+
+		$simplePie = customSimplePie();
+		$simplePie->set_raw_data(''); //TODO
+		$simplePie->init();
+		return $simplePie;
+	}
+
+	/**
 	 * To keep track of some new potentially unread articles since last commit+fetch from database
 	 */
 	public function incPendingUnread(int $n = 1) {
