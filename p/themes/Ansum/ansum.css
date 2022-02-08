@@ -81,6 +81,9 @@
 .btn.btn-important:hover, .btn.btn-important:active {
 	background: #b7641d;
 }
+.btn.btn-important img {
+	filter: brightness(3);
+}
 .btn.btn-attention {
 	background: #f5633e;
 	color: #fff;
@@ -357,6 +360,7 @@ form th {
 	background: #363330;
 	color: #f5f0ec;
 }
+
 #load_more.loading,
 #load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
@@ -867,6 +871,10 @@ form th {
 	text-align: center;
 }
 
+#new-article:hover {
+	background: #b7641d;
+}
+
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -875,7 +883,6 @@ form th {
 
 #new-article > a:hover {
 	text-decoration: none;
-	background: #b7641d;
 }
 
 /*=== Day indication */
@@ -1561,5 +1568,3 @@ a, button.as-link {
 	outline: none;
 	color: #ca7227;
 }
-
-/*# sourceMappingURL=ansum.css.map */

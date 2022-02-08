@@ -211,6 +211,10 @@ a.btn {
 	background: #2980b9;
 }
 
+.btn .icon {
+	filter: brightness(5);
+}
+
 .btn-important {
 	font-weight: normal;
 	background: #e67e22;
@@ -222,6 +226,10 @@ a.btn {
 .btn-important:hover,
 .btn-important:active {
 	background: #d35400;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-attention {

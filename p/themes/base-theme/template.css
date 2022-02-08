@@ -65,6 +65,10 @@ p.help, .prompt p.help {
 	margin: 5px 0 0.5em;
 }
 
+p.help .icon {
+	filter: brightness(2);
+}
+
 sup {
 	line-height: 25px;
 	position: relative;

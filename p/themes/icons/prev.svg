@@ -1,5 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16">
-<g transform="translate(-301.0002,-747)">
-<path style="block-progression:tb;color:#bebebe;direction:ltr;text-indent:0;text-align:start;enable-background:new;text-transform:none;" d="m313.01,749-1,0c-0.0104-0.00012-0.0208-0.00046-0.0313,0-0.25495,0.0112-0.50987,0.12858-0.6875,0.3125l-6.2977,5.7188,6.2977,5.7188c0.18816,0.18819,0.45346,0.28125,0.71875,0.28125h1v-1c0-0.26529-0.0931-0.53058-0.28125-0.71875l-4.829-4.2812,4.829-4.2812c0.21074-0.19463,0.30316-0.46925,0.28125-0.75z" fill-rule="nonzero" fill="#bebebe"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   width="16"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="prev.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:current-layer="svg6" />
+  <g
+     transform="translate(-301.0002,-747)"
+     id="g4"
+     style="fill:#666666">
+    <path
+       style="block-progression:tb;color:#bebebe;direction:ltr;text-indent:0;text-align:start;enable-background:new;text-transform:none;fill:#666666"
+       d="m313.01,749-1,0c-0.0104-0.00012-0.0208-0.00046-0.0313,0-0.25495,0.0112-0.50987,0.12858-0.6875,0.3125l-6.2977,5.7188,6.2977,5.7188c0.18816,0.18819,0.45346,0.28125,0.71875,0.28125h1v-1c0-0.26529-0.0931-0.53058-0.28125-0.71875l-4.829-4.2812,4.829-4.2812c0.21074-0.19463,0.30316-0.46925,0.28125-0.75z"
+       fill-rule="nonzero"
+       fill="#bebebe"
+       id="path2" />
+  </g>
 </svg>
