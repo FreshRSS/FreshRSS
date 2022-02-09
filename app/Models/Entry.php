@@ -125,7 +125,6 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-
 	/**
 	 * @return array<string,string>|null
 	 */
