@@ -112,6 +112,12 @@ class Minz_View {
 		}
 	}
 
+	public function renderToString(): string {
+		ob_start();
+		$this->render();
+		return ob_get_clean();
+	}
+
 	/**
 	 * Ajoute un élément du layout
 	 * @param string $part l'élément partial à ajouter

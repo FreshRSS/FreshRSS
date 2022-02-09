@@ -9,7 +9,13 @@
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
 		<atom:link href="<?= Minz_Url::display($this->url, 'html', true) ?>" rel="self" type="application/rss+xml" />
 <?php
+/** @var FreshRSS_Entry */
 foreach ($this->entries as $item) {
+	/** @var FreshRSS_Entry */
+	$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+	if ($item == null) {
+		continue;
+	}
 ?>
 		<item>
 			<title><?= $item->title() ?></title>

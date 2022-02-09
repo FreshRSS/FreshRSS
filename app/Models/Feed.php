@@ -602,7 +602,9 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemTitle = $xPathSettings['itemTitle'] ?? '';
 		$xPathItemContent = $xPathSettings['itemContent'] ?? '';
 		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
+		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemEnclosures = $xPathSettings['itemEnclosures'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		if ($xPathItem == '') {
@@ -629,7 +631,9 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['title'] = $xPathItemTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
 				$item['content'] = $xPathItemContent == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
 				$item['uri'] = $xPathItemUri == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
+				$item['author'] = $xPathItemAuthor == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				$item['enclosures'] = [];
 				if ($xPathItemEnclosures != '') {
 					$itemEnclosures = $xpath->query($xPathItemEnclosures);
@@ -639,15 +643,18 @@ class FreshRSS_Feed extends Minz_Model {
 						}
 					}
 				}
-				$author = '';
+				$item['uid'] = 'urn:sha1:' . sha1($item['uri'] . $item['title'] . $item['content']);
 			}
 		} catch (Exception $ex) {
 			Minz_Log::warning($ex->getMessage());
 			return null;
 		}
 
+		$view = new FreshRSS_View();
+		$view->_path('index/rss');
+
 		$simplePie = customSimplePie();
-		$simplePie->set_raw_data(''); //TODO
+		$simplePie->set_raw_data($view->renderToString());
 		$simplePie->init();
 		return $simplePie;
 	}
