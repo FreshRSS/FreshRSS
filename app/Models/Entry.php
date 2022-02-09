@@ -125,13 +125,17 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function thumbnail(): string {
+
+	/**
+	 * @return array<string,string>|null
+	 */
+	public function thumbnail() {
 		foreach ($this->enclosures(true) as $enclosure) {
 			if (!empty($enclosure['url']) && empty($enclosure['type'])) {
 				return $enclosure;
 			}
 		}
-		return '';
+		return null;
 	}
 
 	public function link(): string {
