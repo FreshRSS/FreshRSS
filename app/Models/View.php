@@ -7,12 +7,19 @@ class FreshRSS_View extends Minz_View {
 	public $callbackBeforeFeeds;
 	public $callbackBeforePagination;
 	public $categories;
+	/** @var FreshRSS_Category|null */
 	public $category;
+	/** @var string */
 	public $current_user;
+	/** @var array<FreshRSS_Entry> */
 	public $entries;
+	/** @var FreshRSS_Entry */
 	public $entry;
+	/** @var FreshRSS_Feed|null */
 	public $feed;
+	/** @var array<FreshRSS_Feed> */
 	public $feeds;
+	/** @var int */
 	public $nbUnreadTags;
 	public $tags;
 

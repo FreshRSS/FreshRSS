@@ -32,94 +32,50 @@ class FreshRSS_Feed extends Minz_Model {
 	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $id = 0;
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $url = '';
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $kind = 0;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $category = 1;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $nbEntries = -1;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $nbNotRead = -1;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $nbPendingNotRead = 0;
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $name = '';
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $website = '';
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $description = '';
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $lastUpdate = 0;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $priority = self::PRIORITY_MAIN_STREAM;
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $pathEntries = '';
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $httpAuth = '';
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $error = false;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $ttl = self::TTL_DEFAULT;
 	private $attributes = [];
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $mute = false;
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $hash = '';
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $lockPath = '';
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $hubUrl = '';
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $selfUrl = '';
-	/**
-	 * @var array<FreshRSS_FilterAction> $filterActions
-	 */
+	/** @var array<FreshRSS_FilterAction> $filterActions */
 	private $filterActions = null;
 
 	public function __construct(string $url, bool $validate = true) {
