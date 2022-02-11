@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Entry extends Minz_Model {
+final class FreshRSS_Entry extends Minz_Model {
 	const STATE_READ = 1;
 	const STATE_NOT_READ = 2;
 	const STATE_ALL = 3;
@@ -57,6 +57,35 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_feedId($feedId);
 		$this->_tags($tags);
 		$this->_guid($guid);
+	}
+
+	/** @param array<string,mixed> $dao */
+	public static function fromArray(array $dao): FreshRSS_Entry {
+		if (!isset($dao['content'])) {
+			$dao['content'] = '';
+		}
+		if (isset($dao['thumbnail'])) {
+			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
+		}
+		$entry = new FreshRSS_Entry(
+			$dao['id_feed'] ?? 0,
+			$dao['guid'] ?? '',
+			$dao['title'] ?? '',
+			$dao['author'] ?? '',
+			$dao['content'] ?? '',
+			$dao['link'] ?? '',
+			$dao['date'] ?? 0,
+			$dao['is_read'] ?? false,
+			$dao['is_favorite'] ?? false,
+			$dao['tags'] ?? ''
+		);
+		if (isset($dao['id'])) {
+			$entry->_id($dao['id']);
+		}
+		if (isset($dao['timestamp'])) {
+			$entry->_date(strtotime($dao['timestamp']));
+		}
+		return $entry;
 	}
 
 	public function id(): string {

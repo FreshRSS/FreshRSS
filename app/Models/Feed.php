@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_Feed extends Minz_Model {
+final class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * Normal RSS or Atom feed
@@ -549,9 +549,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
 		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
-		/**
-		 * @var array<string,string>
-		 */
+		/** @var array<string,string> */
 		$xPathSettings = $this->attributes('xpath');
 		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
 		$xPathItem = $xPathSettings['item'] ?? '';
@@ -561,7 +559,6 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
-		$xPathItemEnclosures = $xPathSettings['itemEnclosures'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		if ($xPathItem == '') {
 			return null;
@@ -573,13 +570,14 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$view = new FreshRSS_View();
+		$view->internal_rendering = true;
 		$view->entries = [];
 
 		try {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
-			$feedTitle = $xPathFeedTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')');
+			$view->rss_title = $xPathFeedTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')');
 			$nodes = $xpath->query($xPathItem);
 			if (empty($nodes)) {
 				return null;
@@ -589,26 +587,17 @@ class FreshRSS_Feed extends Minz_Model {
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
 				$item['content'] = $xPathItemContent == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
-				$item['uri'] = $xPathItemUri == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
+				$item['link'] = $xPathItemUri == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
-				$item['enclosures'] = [];
-				if ($xPathItemEnclosures != '') {
-					$itemEnclosures = $xpath->query($xPathItemEnclosures);
-					if ($itemEnclosures) {
-						foreach ($itemEnclosures as $itemEnclosure) {
-							$item['enclosures'][] = $itemEnclosure->textContent;
-						}
-					}
-				}
-				$item['uid'] = 'urn:sha1:' . sha1($item['uri'] . $item['title'] . $item['content']);
+				$item['guid'] = 'urn:sha1:' . sha1($item['link'] . $item['title'] . $item['content']);
+				$view->entries[] = FreshRSS_Entry::fromArray($item);
 			}
 		} catch (Exception $ex) {
 			Minz_Log::warning($ex->getMessage());
 			return null;
 		}
-
 
 		$view->_path('index/rss');
 

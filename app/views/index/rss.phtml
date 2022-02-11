@@ -11,10 +11,12 @@
 <?php
 /** @var FreshRSS_Entry */
 foreach ($this->entries as $item) {
-	/** @var FreshRSS_Entry */
-	$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
-	if ($item == null) {
-		continue;
+	if (!$this->internal_rendering) {
+		/** @var FreshRSS_Entry */
+		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if ($item == null) {
+			continue;
+		}
 	}
 ?>
 		<item>

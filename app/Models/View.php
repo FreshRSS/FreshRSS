@@ -95,8 +95,12 @@ class FreshRSS_View extends Minz_View {
 	public $nbPage;
 
 	// RSS view
-	public $rss_title;
-	public $url;
+	/** @var string */
+	public $rss_title = '';
+	/** @var string */
+	public $url = '';
+	/** @var boolean */
+	public $internal_rendering = false;
 
 	// Content preview
 	public $fatalError;

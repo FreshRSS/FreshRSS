@@ -658,6 +658,7 @@ SQL;
 		}
 	}
 
+	/** @return FreshRSS_Entry|null */
 	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
@@ -669,9 +670,10 @@ SQL;
 		$stm->bindParam(':guid', $guid);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return isset($res[0]) ? self::daoToEntry($res[0]) : null;
+		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
+	/** @return FreshRSS_Entry|null */
 	public function searchById($id) {
 		$sql = 'SELECT id, guid, title, author, '
 			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -681,7 +683,7 @@ SQL;
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return isset($res[0]) ? self::daoToEntry($res[0]) : null;
+		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchIdByGuid($id_feed, $guid) {
@@ -1061,7 +1063,7 @@ SQL;
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-				yield self::daoToEntry($row);
+				yield FreshRSS_Entry::fromArray($row);
 			}
 		} else {
 			yield false;
@@ -1092,7 +1094,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($ids);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			yield self::daoToEntry($row);
+			yield FreshRSS_Entry::fromArray($row);
 		}
 	}
 
@@ -1250,24 +1252,5 @@ SQL;
 		$all = empty($res[0]) ? 0 : intval($res[0]);
 		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
-	}
-
-	public static function daoToEntry($dao) {
-		$entry = new FreshRSS_Entry(
-				$dao['id_feed'] ?? 0,
-				$dao['guid'] ?? '',
-				$dao['title'] ?? '',
-				$dao['author'] ?? '',
-				$dao['content'] ?? '',
-				$dao['link'] ?? '',
-				$dao['date'] ?? 0,
-				$dao['is_read'] ?? false,
-				$dao['is_favorite'] ?? false,
-				$dao['tags'] ?? ''
-			);
-		if (isset($dao['id'])) {
-			$entry->_id($dao['id']);
-		}
-		return $entry;
 	}
 }
