@@ -1254,16 +1254,16 @@ SQL;
 
 	public static function daoToEntry($dao) {
 		$entry = new FreshRSS_Entry(
-				$dao['id_feed'],
-				$dao['guid'],
-				$dao['title'],
-				$dao['author'],
-				$dao['content'],
-				$dao['link'],
-				$dao['date'],
-				$dao['is_read'],
-				$dao['is_favorite'],
-				isset($dao['tags']) ? $dao['tags'] : ''
+				$dao['id_feed'] ?? 0,
+				$dao['guid'] ?? '',
+				$dao['title'] ?? '',
+				$dao['author'] ?? '',
+				$dao['content'] ?? '',
+				$dao['link'] ?? '',
+				$dao['date'] ?? 0,
+				$dao['is_read'] ?? false,
+				$dao['is_favorite'] ?? false,
+				$dao['tags'] ?? ''
 			);
 		if (isset($dao['id'])) {
 			$entry->_id($dao['id']);

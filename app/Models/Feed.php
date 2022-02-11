@@ -572,6 +572,9 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
+		$view = new FreshRSS_View();
+		$view->entries = [];
+
 		try {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
@@ -606,7 +609,7 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$view = new FreshRSS_View();
+
 		$view->_path('index/rss');
 
 		$simplePie = customSimplePie();
