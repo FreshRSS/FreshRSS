@@ -466,8 +466,8 @@ input[type="checkbox"]:focus-visible {
 /*=== Icons */
 .icon {
 	display: inline-block;
-	width: 16px;
 	max-width: none;
+	width: 16px;
 	height: 16px;
 	vertical-align: middle;
 	line-height: 16px;
