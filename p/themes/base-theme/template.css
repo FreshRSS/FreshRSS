@@ -373,8 +373,9 @@ input[type="checkbox"]:focus-visible {
 .dropdown-menu > .item > .as-link,
 .dropdown-menu > .item > span {
 	display: block;
-	min-width: 200px;
+	width: 100%;
 	white-space: nowrap;
+	box-sizing: border-box;
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
@@ -461,6 +462,7 @@ input[type="checkbox"]:focus-visible {
 .icon {
 	display: inline-block;
 	width: 16px;
+	max-width: none;
 	height: 16px;
 	vertical-align: middle;
 	line-height: 16px;
