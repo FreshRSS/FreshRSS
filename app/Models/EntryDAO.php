@@ -164,7 +164,7 @@ INSERT IGNORE INTO `_entry` (
 )
 SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 FROM `_entrytmp`
-ORDER BY date;
+ORDER BY date, id;
 
 DELETE FROM `_entrytmp` WHERE id <= @rank;
 SQL;

@@ -218,6 +218,7 @@ function customSimplePie($attributes = array()): SimplePie {
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
+	$simplePie->enable_order_by_date(false);
 
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
@@ -320,6 +321,8 @@ function sanitizeHTML($data, string $base = '', $maxLength = false) {
 function getHtml(string $url, array $attributes = []):string {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+
+	//TODO: Implement file cache
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
 		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));

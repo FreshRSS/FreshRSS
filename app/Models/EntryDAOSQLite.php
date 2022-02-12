@@ -41,13 +41,13 @@ DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
 	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 	FROM `_entrytmp`
-	ORDER BY date;
+	ORDER BY date, id;
 INSERT OR IGNORE INTO `_entry`
 	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
 	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 	FROM `tmp`
-	ORDER BY date;
+	ORDER BY date, id;
 DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
 DROP TABLE IF EXISTS `tmp`;
 ';

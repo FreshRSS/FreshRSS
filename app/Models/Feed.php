@@ -395,6 +395,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$guids = [];
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
+		// TODO: Replace very slow $simplePie->get_item($i) by getting all items at once
 		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
 			$item = $simplePie->get_item($i);
 			if ($item == null) {
@@ -423,6 +424,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
 		// We want chronological order and SimplePie uses reverse order.
+		// TODO: Replace very slow $simplePie->get_item($i) by getting all items at once
 		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
 			$item = $simplePie->get_item($i);
 			if ($item == null) {
@@ -548,7 +550,10 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($this->url == '') {
 			return null;
 		}
-		$feedSourceUrl = $this->url;
+		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
+		if ($this->httpAuth != '') {
+			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
+		}
 
 		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
 		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
@@ -574,6 +579,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$view = new FreshRSS_View();
+		$view->_path('index/rss.phtml');
 		$view->internal_rendering = true;
 		$view->entries = [];
 
@@ -611,8 +617,6 @@ class FreshRSS_Feed extends Minz_Model {
 			Minz_Log::warning($ex->getMessage());
 			return null;
 		}
-
-		$view->_path('index/rss.phtml');
 
 		$simplePie = customSimplePie();
 		$simplePie->set_raw_data($view->renderToString());

@@ -67,6 +67,9 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($dao['thumbnail'])) {
 			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
 		}
+		if (!empty($dao['enclosures'])) {
+			// TODO
+		}
 		$entry = new FreshRSS_Entry(
 			$dao['id_feed'] ?? 0,
 			$dao['guid'] ?? '',

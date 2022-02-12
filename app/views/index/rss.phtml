@@ -51,7 +51,7 @@ foreach ($this->entries as $item) {
 	echo $item->content();
 ?>]]></description>
 			<pubDate><?= date('D, d M Y H:i:s O', $item->date(true)) ?></pubDate>
-			<guid isPermaLink="false"><?= $item->id() ?></guid>
+			<guid isPermaLink="false"><?= $item->id() > 0 ? $item->id() : $item->guid() ?></guid>
 		</item>
 <?php } ?>
 
