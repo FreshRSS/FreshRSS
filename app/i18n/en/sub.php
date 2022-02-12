@@ -61,6 +61,33 @@ return array(
 		),
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
+		'kind' => array(
+			'_' => 'Type of feed source',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',
+				'feed_title' => 'XPath for feed title',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',
+				'item' => array(
+					'_' => 'XPath for finding items<br />(most important)',
+					'help' => 'Example: <code>//li[@class="news-item"]</code>',
+				),
+				'item_author' => 'XPath for items author<br />(relative to item)',
+				'item_categories' => 'XPath for items categories / tags<br />(relative to item)',
+				'item_content' => array(
+					'_' => 'XPath for items content<br />(relative to item)',
+					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',
+				),
+				'item_enclosures' => 'XPath for items enclosures (images, videos, audio files)<br />(relative to item)',
+				'item_thumbnail' => 'XPath for items thumbnail image<br />(relative to item)',
+				'item_timestamp' => 'XPath for items date<br />(parsed by <code>strtotime()</code>)<br />(relative to item)',
+				'item_title' => 'XPath for items title<br />(relative to item)',
+				'item_uri' => array(
+					'_' => 'XPath for items URL / link<br />(relative to item)',
+					'help' => 'Example: <code>descendant::a/@href</code>',
+				),
+			),
+			'rss' => 'RSS / Atom (default)',
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',
 			'clear_cache_help' => 'Clear the cache for this feed.',

@@ -1,6 +1,6 @@
 <?php
 
-final class FreshRSS_Entry extends Minz_Model {
+class FreshRSS_Entry extends Minz_Model {
 	const STATE_READ = 1;
 	const STATE_NOT_READ = 2;
 	const STATE_ALL = 3;
@@ -112,6 +112,7 @@ final class FreshRSS_Entry extends Minz_Model {
 		return $this->content;
 	}
 
+	/** @return array<array<string,string>> */
 	public function enclosures(bool $searchBodyImages = false): array {
 		$results = [];
 		try {
@@ -126,11 +127,20 @@ final class FreshRSS_Entry extends Minz_Model {
 			if ($searchEnclosures) {
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
-					$results[] = [
+					$result = [
 						'url' => $enclosure->getAttribute('src'),
 						'type' => $enclosure->getAttribute('data-type'),
+						'medium' => $enclosure->getAttribute('data-medium'),
 						'length' => $enclosure->getAttribute('data-length'),
 					];
+					if (empty($result['medium'])) {
+						switch (strtolower($enclosure->nodeName)) {
+							case 'img': $result['medium'] = 'image'; break;
+							case 'video': $result['medium'] = 'video'; break;
+							case 'audio': $result['medium'] = 'audio'; break;
+						}
+					}
+					$results[] = $result;
 				}
 			}
 			if ($searchBodyImages) {

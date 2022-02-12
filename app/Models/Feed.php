@@ -1,6 +1,6 @@
 <?php
 
-final class FreshRSS_Feed extends Minz_Model {
+class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * Normal RSS or Atom feed
@@ -476,15 +476,18 @@ final class FreshRSS_Feed extends Minz_Model {
 						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
 								. ($length == null ? '' : '" data-length="' . intval($length))
-								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
+								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 						} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
 								. ($length == null ? '' : '" data-length="' . intval($length))
-								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
+								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 						} else {	//e.g. application, text, unknown
-							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink . '">💾</a></p>';
+							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink
+								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+								. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
+								. '">💾</a></p>';
 						}
 
 						$thumbnailContent = '';
@@ -559,6 +562,7 @@ final class FreshRSS_Feed extends Minz_Model {
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
+		$xPathItemEnclosures = $xPathSettings['itemEnclosures'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		if ($xPathItem == '') {
 			return null;
@@ -591,6 +595,15 @@ final class FreshRSS_Feed extends Minz_Model {
 				$item['author'] = $xPathItemAuthor == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
+				$item['enclosures'] = [];
+				if ($xPathItemEnclosures != '') {
+					$itemEnclosures = $xpath->query($xPathItemEnclosures);
+					if ($itemEnclosures) {
+						foreach ($itemEnclosures as $itemEnclosure) {
+							$item['enclosures'][] = $itemEnclosure->textContent;
+						}
+					}
+				}
 				$item['guid'] = 'urn:sha1:' . sha1($item['link'] . $item['title'] . $item['content']);
 				$view->entries[] = FreshRSS_Entry::fromArray($item);
 			}
@@ -599,7 +612,7 @@ final class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$view->_path('index/rss');
+		$view->_path('index/rss.phtml');
 
 		$simplePie = customSimplePie();
 		$simplePie->set_raw_data($view->renderToString());

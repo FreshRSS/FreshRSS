@@ -1,6 +1,6 @@
 <?php /** @var FreshRSS_View $this */ ?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
 	<channel>
 		<title><?= $this->rss_title ?></title>
 		<link><?= Minz_Url::display('', 'html', true) ?></link>
@@ -33,6 +33,17 @@ foreach ($this->entries as $item) {
 				if (is_array($categories)) {
 					foreach ($categories as $category) {
 						echo "\t\t\t" , '<category>', $category, '</category>', "\n";
+					}
+				}
+				$enclosures = $item->enclosures(false);
+				if (is_array($enclosures)) {
+					foreach ($enclosures as $enclosure) {
+						// https://www.rssboard.org/media-rss
+						echo "\t\t\t" , '<media:content url="' . $enclosure['url']
+							. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
+							. (empty($enclosure['type']) ? '' : '" type="' . $enclosure['type'])
+							. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
+							. '"></media:content>', "\n";
 					}
 				}
 			?>

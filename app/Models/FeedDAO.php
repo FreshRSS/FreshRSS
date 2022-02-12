@@ -62,7 +62,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
-			$valuesTmp['kind'],
+			$valuesTmp['kind'] ?? FreshRSS_Feed::KIND_RSS,
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			substr($valuesTmp['website'], 0, 255),
@@ -76,6 +76,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 		);
 
+		Minz_Log::debug(__METHOD__ . ' kind ' . json_encode($values));
 		if ($stm && $stm->execute($values)) {
 			return $this->pdo->lastInsertId('`_feed_id_seq`');
 		} else {
@@ -257,7 +258,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function selectAll() {
 		$sql = <<<'SQL'
-SELECT id, url, category, name, website, description, `lastUpdate`,
+SELECT id, url, kind, category, name, website, description, `lastUpdate`,
 	priority, `pathEntries`, `httpAuth`, error, ttl, attributes
 FROM `_feed`
 SQL;
@@ -351,7 +352,7 @@ SQL;
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0) {
 		$this->updateTTL();
-		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
+		$sql = 'SELECT id, url, kind, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 			. ' AND `lastUpdate` < (' . (time() + 60)

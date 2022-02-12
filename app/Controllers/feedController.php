@@ -38,7 +38,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws FreshRSS_Feed_Exception
 	 * @throws Minz_FileNotExistException
 	 */
-	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array()) {
+	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array(), $kind = FreshRSS_Feed::KIND_RSS) {
 		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
 
@@ -67,6 +67,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
+		$feed->_kind($kind);
 		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
 		$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz_FileNotExistException
@@ -85,6 +86,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$values = array(
 			'url' => $feed->url(),
+			'kind' => $feed->kind(),
 			'category' => $feed->category(),
 			'name' => $title != '' ? $title : $feed->name(),
 			'website' => $feed->website(),
@@ -94,6 +96,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			'attributes' => $feed->attributes(),
 		);
 
+		Minz_Log::debug(__METHOD__ . ' ' . json_encode($values));
 		$id = $feedDAO->addFeed($values);
 		if (!$id) {
 			// There was an error in database… we cannot say what here.
@@ -185,8 +188,26 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$timeout = intval(Minz_Request::param('timeout', 0));
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
+			$feed_kind = Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
+			if ($feed_kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+				$xPathSettings = [];
+				if (Minz_Request::param('xPathFeedTitle', '') != '') $xPathSettings['feedTitle'] = Minz_Request::param('xPathFeedTitle', '');
+				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '');
+				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '');
+				if (Minz_Request::param('xPathItemContent', '') != '') $xPathSettings['itemContent'] = Minz_Request::param('xPathItemContent', '');
+				if (Minz_Request::param('xPathItemUri', '') != '') $xPathSettings['itemUri'] = Minz_Request::param('xPathItemUri', '');
+				if (Minz_Request::param('xPathItemAuthor', '') != '') $xPathSettings['itemAuthor'] = Minz_Request::param('xPathItemAuthor', '');
+				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '');
+				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '');
+				if (Minz_Request::param('xPathItemEnclosures', '') != '') $xPathSettings['itemEnclosures'] = Minz_Request::param('xPathItemEnclosures', '');
+				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '');
+				if (!empty($xPathSettings)) {
+					$attributes['xpath'] = $xPathSettings;
+				}
+			}
+
 			try {
-				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes);
+				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes, $feed_kind);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
@@ -301,6 +322,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if (null === $feed) {
 				continue;
 			}
+
+			Minz_Log::debug(__METHOD__ . ' kind ' . $feed->kind());
 
 			$url = $feed->url();	//For detection of HTTP 301
 
