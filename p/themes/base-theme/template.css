@@ -156,6 +156,10 @@ input, select, textarea {
 	font-size: 0.8rem;
 }
 
+textarea[rows="2"] {
+	height: 3em;
+}
+
 input[type="radio"],
 input[type="checkbox"] {
 	width: 15px !important;
