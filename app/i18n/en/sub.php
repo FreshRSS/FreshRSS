@@ -77,7 +77,6 @@ return array(
 					'_' => 'XPath for items content<br />(relative to item)',
 					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',
 				),
-				'item_enclosures' => 'XPath for items enclosures (images, videos, audio files)<br />(relative to item)',
 				'item_thumbnail' => 'XPath for items thumbnail image<br />(relative to item)',
 				'item_timestamp' => 'XPath for items date<br />(parsed by <code>strtotime()</code>)<br />(relative to item)',
 				'item_title' => 'XPath for items title<br />(relative to item)',

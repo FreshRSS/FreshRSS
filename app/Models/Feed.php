@@ -567,7 +567,6 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
-		$xPathItemEnclosures = $xPathSettings['itemEnclosures'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		if ($xPathItem == '') {
 			return null;
@@ -601,12 +600,11 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['author'] = $xPathItemAuthor == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
-				$item['enclosures'] = [];
-				if ($xPathItemEnclosures != '') {
-					$itemEnclosures = $xpath->query($xPathItemEnclosures);
-					if ($itemEnclosures) {
-						foreach ($itemEnclosures as $itemEnclosure) {
-							$item['enclosures'][] = $itemEnclosure->textContent;
+				if ($xPathItemCategories != '') {
+					$itemCategories = $xpath->query($xPathItemCategories);
+					if ($itemCategories) {
+						foreach ($itemCategories as $itemCategory) {
+							$item['categories'][] = $itemCategory->textContent;
 						}
 					}
 				}

@@ -67,9 +67,6 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($dao['thumbnail'])) {
 			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
 		}
-		if (!empty($dao['enclosures'])) {
-			// TODO
-		}
 		$entry = new FreshRSS_Entry(
 			$dao['id_feed'] ?? 0,
 			$dao['guid'] ?? '',
@@ -85,8 +82,11 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($dao['id'])) {
 			$entry->_id($dao['id']);
 		}
-		if (isset($dao['timestamp'])) {
+		if (!empty($dao['timestamp'])) {
 			$entry->_date(strtotime($dao['timestamp']));
+		}
+		if (!empty($dao['categories'])) {
+			$entry->_tags($dao['categories']);
 		}
 		return $entry;
 	}
