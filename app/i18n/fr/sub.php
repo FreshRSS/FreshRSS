@@ -61,6 +61,47 @@ return array(
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
+		'kind' => array(
+			'_' => 'Type de source de flux',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Moissonnage du Web)',
+				'feed_title' => array(
+					'_' => '<small>XPath pour :</small> titre de flux',
+					'help' => 'Exemple : <code>//title</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> est un language de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
+				'item' => array(
+					'_' => '<small>XPath pour :</small> trouver les articles <strong>items</strong><br /><small>(le plus important)</small>',
+					'help' => 'Exemple : <code>//li[@class="article"]</code>',
+				),
+				'item_author' => array(
+					'_' => '<small>XPath pour :</small> auteur de l’article<br /><small>(relatif à l’article)</small>',
+					'help' => 'Can also be a static string. Exemple : <code>"Anonyme"</code>',
+				),
+				'item_categories' => '<small>XPath pour :</small> items tags<br /><small>(relatif à l’article)</small>',
+				'item_content' => array(
+					'_' => '<small>XPath pour :</small> contenu de l’article<br /><small>(relatif à l’article)</small>',
+					'help' => 'Exemple : <code>descendant::span[@class="contenu"]</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => '<small>XPath pour :</small> miniature de l’article<br /><small>(relatif à l’article)</small>',
+					'help' => 'Exemple : <code>descendant::img/@src</code>',
+				),
+				'item_timestamp' => array(
+					'_' => '<small>XPath pour :</small> date de l’article<br /><small>(relatif à l’article)</small>',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime"><code>strtotime()</code></a>',
+				),
+				'item_title' => array(
+					'_' => '<small>XPath pour :</small> titre de l’article<br /><small>(relatif à l’article)</small>',
+					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes">axe XPath</a> <code>descendant::</code>',
+				),
+				'item_uri' => array(
+					'_' => '<small>XPath pour :</small> lien (URL) de l’article<br /><small>(relatif à l’article)</small>',
+					'help' => 'Exemple : <code>descendant::a/@href</code>',
+				),
+			),
+			'rss' => 'RSS / Atom (par défault)',
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
 			'clear_cache_help' => 'Supprime le cache de ce flux.',

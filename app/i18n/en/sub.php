@@ -65,23 +65,38 @@ return array(
 			'_' => 'Type of feed source',
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',
-				'feed_title' => 'XPath for feed title',
+				'feed_title' => array(
+					'_' => '<small>XPath for:</small> feed title',
+					'help' => 'Example: <code>//title</code>',
+				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',
 				'item' => array(
-					'_' => 'XPath for finding items<br />(most important)',
+					'_' => '<small>XPath for:</small> finding news <strong>items</strong><br /><small>(most important)</small>',
 					'help' => 'Example: <code>//li[@class="news-item"]</code>',
 				),
-				'item_author' => 'XPath for items author<br />(relative to item)',
-				'item_categories' => 'XPath for items categories / tags<br />(relative to item)',
+				'item_author' => array(
+					'_' => '<small>XPath for:</small> items author<br /><small>(relative to item)</small>',
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',
+				),
+				'item_categories' => '<small>XPath for:</small> items tags<br /><small>(relative to item)</small>',
 				'item_content' => array(
-					'_' => 'XPath for items content<br />(relative to item)',
+					'_' => '<small>XPath for:</small> items content<br /><small>(relative to item)</small>',
 					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',
 				),
-				'item_thumbnail' => 'XPath for items thumbnail image<br />(relative to item)',
-				'item_timestamp' => 'XPath for items date<br />(parsed by <code>strtotime()</code>)<br />(relative to item)',
-				'item_title' => 'XPath for items title<br />(relative to item)',
+				'item_thumbnail' => array(
+					'_' => '<small>XPath for:</small> items thumbnail<br /><small>(relative to item)</small>',
+					'help' => 'Example: <code>descendant::img/@src</code>',
+				),
+				'item_timestamp' => array(
+					'_' => '<small>XPath for:</small> items date<br /><small>(relative to item)</small>',
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime"><code>strtotime()</code></a>',
+				),
+				'item_title' => array(
+					'_' => '<small>XPath for:</small> items title<br /><small>(relative to item)</small>',
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',
+				),
 				'item_uri' => array(
-					'_' => 'XPath for items URL / link<br />(relative to item)',
+					'_' => '<small>XPath for:</small> items URL / link<br /><small>(relative to item)</small>',
 					'help' => 'Example: <code>descendant::a/@href</code>',
 				),
 			),

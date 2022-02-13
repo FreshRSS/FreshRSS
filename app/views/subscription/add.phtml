@@ -59,9 +59,9 @@
 			<div class="form-group">
 				<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
 				<div class="group-controls">
-					<select name="feed_kind" id="feed_kind">
-						<option value="<?= FreshRSS_Feed::KIND_RSS ?>"><?= _t('sub.feed.kind.rss') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>"><?= _t('sub.feed.kind.html_xpath') ?></option>
+					<select name="feed_kind" id="feed_kind" class="select-show">
+						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
 					</select>
 				</div>
 			</div>
@@ -70,7 +70,10 @@
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 				<div class="form-group">
 					<label class="group-name" for="xPathFeedTitle"><?= _t('sub.feed.kind.html_xpath.feed_title') ?></label>
-					<div class="group-controls"><textarea name="xPathFeedTitle" id="xPathFeedTitle" rows="2" cols="64" spellcheck="false"></textarea></div>
+					<div class="group-controls">
+						<textarea name="xPathFeedTitle" id="xPathFeedTitle" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.feed_title.help') ?></p>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItem"><?= _t('sub.feed.kind.html_xpath.item') ?></label>
@@ -81,7 +84,10 @@
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItemTitle"><?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
-					<div class="group-controls"><textarea name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"></textarea></div>
+					<div class="group-controls">
+						<textarea name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_title.help') ?></p>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItemContent"><?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
@@ -99,15 +105,24 @@
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItemAuthor"><?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
-					<div class="group-controls"><textarea name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"></textarea></div>
+					<div class="group-controls">
+						<textarea name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItemTimestamp"><?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
-					<div class="group-controls"><textarea name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"></textarea></div>
+					<div class="group-controls">
+						<textarea name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItemThumbnail"><?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
-					<div class="group-controls"><textarea name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"></textarea></div>
+					<div class="group-controls">
+						<textarea name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_thumbnail.help') ?></p>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="xPathItemCategories"><?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>

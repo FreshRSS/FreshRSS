@@ -61,6 +61,47 @@ return array(
 		),
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => '<small>XPath for:</small> feed title',	// TODO
+					'help' => 'Example: <code>//title</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => '<small>XPath for:</small> finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//li[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => '<small>XPath for:</small> items author<br /><small>(relative to item)</small>',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => '<small>XPath for:</small> items tags<br /><small>(relative to item)</small>',	// TODO
+				'item_content' => array(
+					'_' => '<small>XPath for:</small> items content<br /><small>(relative to item)</small>',	// TODO
+					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => '<small>XPath for:</small> items thumbnail<br /><small>(relative to item)</small>',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => '<small>XPath for:</small> items date<br /><small>(relative to item)</small>',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => '<small>XPath for:</small> items title<br /><small>(relative to item)</small>',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => '<small>XPath for:</small> items URL / link<br /><small>(relative to item)</small>',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Escafar lo cache',
 			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',
