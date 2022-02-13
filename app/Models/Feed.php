@@ -580,6 +580,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$view = new FreshRSS_View();
 		$view->_path('index/rss.phtml');
 		$view->internal_rendering = true;
+		$view->rss_url = $feedSourceUrl;
 		$view->entries = [];
 
 		try {
