@@ -69,63 +69,72 @@
 			<fieldset id="html_xpath">
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 				<div class="form-group">
-					<label class="group-name" for="xPathFeedTitle"><?= _t('sub.feed.kind.html_xpath.feed_title') ?></label>
+					<label class="group-name" for="xPathFeedTitle"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.feed_title') ?></label>
 					<div class="group-controls">
 						<textarea name="xPathFeedTitle" id="xPathFeedTitle" rows="2" cols="64" spellcheck="false"></textarea>
 						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.feed_title.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="xPathItem"><?= _t('sub.feed.kind.html_xpath.item') ?></label>
+					<label class="group-name" for="xPathItem"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item') ?></label>
 					<div class="group-controls">
 						<textarea name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"></textarea>
 						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="xPathItemTitle"><?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
+					<label class="group-name" for="xPathItemTitle"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
 					<div class="group-controls">
 						<textarea name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"></textarea>
 						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_title.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="xPathItemContent"><?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
+					<label class="group-name" for="xPathItemContent"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
 					<div class="group-controls">
 						<textarea name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"></textarea>
 						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_content.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="xPathItemUri"><?= _t('sub.feed.kind.html_xpath.item_uri') ?></label>
+					<label class="group-name" for="xPathItemUri"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_uri') ?></label>
 					<div class="group-controls">
 						<textarea name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"></textarea>
 						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_uri.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="xPathItemAuthor"><?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
-					<div class="group-controls">
-						<textarea name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="group-name" for="xPathItemTimestamp"><?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
-					<div class="group-controls">
-						<textarea name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="group-name" for="xPathItemThumbnail"><?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
+					<label class="group-name" for="xPathItemThumbnail"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
 					<div class="group-controls">
 						<textarea name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"></textarea>
 						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_thumbnail.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="xPathItemCategories"><?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
+					<label class="group-name" for="xPathItemAuthor"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
+					<div class="group-controls">
+						<textarea name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemTimestamp"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
+					<div class="group-controls">
+						<textarea name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
 					<div class="group-controls"><textarea name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"></textarea></div>
 				</div>
 			</fieldset>

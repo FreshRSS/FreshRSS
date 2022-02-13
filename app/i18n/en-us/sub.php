@@ -66,39 +66,41 @@ return array(
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => '<small>XPath for:</small> feed title',	// IGNORE
+					'_' => 'feed title',	// IGNORE
 					'help' => 'Example: <code>//title</code>',	// IGNORE
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// IGNORE
 				'item' => array(
-					'_' => '<small>XPath for:</small> finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
 					'help' => 'Example: <code>//li[@class="news-item"]</code>',	// IGNORE
 				),
 				'item_author' => array(
-					'_' => '<small>XPath for:</small> items author<br /><small>(relative to item)</small>',	// IGNORE
+					'_' => 'item author',	// IGNORE
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// IGNORE
 				),
-				'item_categories' => '<small>XPath for:</small> items tags<br /><small>(relative to item)</small>',	// IGNORE
+				'item_categories' => 'items tags',	// IGNORE
 				'item_content' => array(
-					'_' => '<small>XPath for:</small> items content<br /><small>(relative to item)</small>',	// IGNORE
+					'_' => 'item content',	// IGNORE
 					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',	// IGNORE
 				),
 				'item_thumbnail' => array(
-					'_' => '<small>XPath for:</small> items thumbnail<br /><small>(relative to item)</small>',	// IGNORE
+					'_' => 'item thumbnail',	// IGNORE
 					'help' => 'Example: <code>descendant::img/@src</code>',	// IGNORE
 				),
 				'item_timestamp' => array(
-					'_' => '<small>XPath for:</small> items date<br /><small>(relative to item)</small>',	// IGNORE
+					'_' => 'item date',	// IGNORE
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime"><code>strtotime()</code></a>',	// IGNORE
 				),
 				'item_title' => array(
-					'_' => '<small>XPath for:</small> items title<br /><small>(relative to item)</small>',	// IGNORE
+					'_' => 'item title',	// IGNORE
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',	// IGNORE
 				),
 				'item_uri' => array(
-					'_' => '<small>XPath for:</small> items URL / link<br /><small>(relative to item)</small>',	// IGNORE
+					'_' => 'item link (URL)',	// IGNORE
 					'help' => 'Example: <code>descendant::a/@href</code>',	// IGNORE
 				),
+				'relative' => 'XPath (relative to item) for:',	// IGNORE
+				'xpath' => 'XPath for:',	// IGNORE
 			),
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 		),

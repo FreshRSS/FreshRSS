@@ -66,39 +66,41 @@ return array(
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',
 				'feed_title' => array(
-					'_' => '<small>XPath for:</small> feed title',
+					'_' => 'feed title',
 					'help' => 'Example: <code>//title</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',
 				'item' => array(
-					'_' => '<small>XPath for:</small> finding news <strong>items</strong><br /><small>(most important)</small>',
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
 					'help' => 'Example: <code>//li[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => '<small>XPath for:</small> items author<br /><small>(relative to item)</small>',
+					'_' => 'item author',
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',
 				),
-				'item_categories' => '<small>XPath for:</small> items tags<br /><small>(relative to item)</small>',
+				'item_categories' => 'items tags',
 				'item_content' => array(
-					'_' => '<small>XPath for:</small> items content<br /><small>(relative to item)</small>',
+					'_' => 'item content',
 					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => '<small>XPath for:</small> items thumbnail<br /><small>(relative to item)</small>',
+					'_' => 'item thumbnail',
 					'help' => 'Example: <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => '<small>XPath for:</small> items date<br /><small>(relative to item)</small>',
+					'_' => 'item date',
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => '<small>XPath for:</small> items title<br /><small>(relative to item)</small>',
+					'_' => 'item title',
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',
 				),
 				'item_uri' => array(
-					'_' => '<small>XPath for:</small> items URL / link<br /><small>(relative to item)</small>',
+					'_' => 'item link (URL)',
 					'help' => 'Example: <code>descendant::a/@href</code>',
 				),
+				'relative' => 'XPath (relative to item) for:',
+				'xpath' => 'XPath for:',
 			),
 			'rss' => 'RSS / Atom (default)',
 		),
