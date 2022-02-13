@@ -666,18 +666,23 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	protected function cacheFilename(): string {
-		$simplePie = customSimplePie($this->attributes());
-		$filename = $simplePie->get_cache_filename($this->url);
-		return CACHE_PATH . '/' . $filename . '.spc';
+	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
+		$simplePie = customSimplePie($attributes);
+		$filename = $simplePie->get_cache_filename($url);
+		if ($kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+			return CACHE_PATH . '/' . $filename . '.html';
+		} else {
+			return CACHE_PATH . '/' . $filename . '.spc';
+		}
 	}
 
 	public function clearCache(): bool {
-		return @unlink($this->cacheFilename());
+		return @unlink(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
 	}
 
+	/** @return int|false */
 	public function cacheModifiedTime() {
-		return @filemtime($this->cacheFilename());
+		return @filemtime(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
 	}
 
 	public function lock(): bool {

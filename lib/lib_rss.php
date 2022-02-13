@@ -315,19 +315,45 @@ function sanitizeHTML($data, string $base = '', $maxLength = false) {
 	return $result;
 }
 
+function cleanCache(int $hours = 720) {
+	$files = glob(CACHE_PATH . '/*.{html,spc}', GLOB_BRACE | GLOB_NOSORT);
+	foreach ($files as $file) {
+		if (substr($file, -10) === 'index.html') {
+			continue;
+		}
+		$cacheMtime = @filemtime($file);
+		if ($cacheMtime !== false && $cacheMtime < time() - (3600 * $hours)) {
+			unlink($file);
+		}
+	}
+}
+
 /**
  * @param array<string,mixed> $attributes
  */
-function getHtml(string $url, array $attributes = []):string {
+function getHtml(string $url, array $attributes = []): string {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-	//TODO: Implement file cache
+	$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+	$cacheMtime = @filemtime($cachePath);
+	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
+		$html = @file_get_contents($cachePath);
+		if ($html != '') {
+			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . SimplePie_Misc::url_remove_credentials($url));
+			return $html;
+		}
+	}
+
+	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
+		cleanCache();
+	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
 		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
 	}
 
+	// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 	$ch = curl_init();
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
@@ -363,6 +389,10 @@ function getHtml(string $url, array $attributes = []):string {
 
 	if ($c_status != 200 || $c_error != '') {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+	}
+
+	if (file_put_contents($cachePath, $html) === false) {
+		Minz_Log::warning("Error saving cache $cachePath for $url");
 	}
 
 	return is_string($html) ? $html : '';
