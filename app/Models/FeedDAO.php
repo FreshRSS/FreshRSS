@@ -76,7 +76,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 		);
 
-		Minz_Log::debug(__METHOD__ . ' kind ' . json_encode($values));
 		if ($stm && $stm->execute($values)) {
 			return $this->pdo->lastInsertId('`_feed_id_seq`');
 		} else {
