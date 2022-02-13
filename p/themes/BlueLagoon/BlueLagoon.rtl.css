@@ -413,7 +413,8 @@ a.btn {
 	color: #ccc;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: linear-gradient(-180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
 	color: #fff;
@@ -422,11 +423,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .separator {
