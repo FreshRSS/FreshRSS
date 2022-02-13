@@ -406,14 +406,10 @@ form {
 				white-space: nowrap;
 			}
 
-			&:hover {
+			> a:hover,
+			> button:hover {
 				background: $color_nav;
 				color: $color_light;
-
-				> a {
-					text-decoration: none;
-					color: $color_light;
-				}
 			}
 		}
 
