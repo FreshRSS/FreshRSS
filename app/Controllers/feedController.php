@@ -292,6 +292,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	/**
+	 * @param int $feed_id
+	 * @param string $feed_url
+	 * @param bool $force
+	 * @param SimplePie|null $simplePiePush
+	 * @param bool $noCommit
+	 * @param int $maxFeeds
+	 */
 	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $noCommit = false, $maxFeeds = 10) {
 		@set_time_limit(300);
 
@@ -407,6 +415,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 				$oldGuids = array();
 				// Add entries in database if possible.
+				/** @var FreshRSS_Entry $entry */
 				foreach ($entries as $entry) {
 					if (isset($newGuids[$entry->guid()])) {
 						continue;	//Skip subsequent articles with same GUID
@@ -795,7 +804,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		//Re-fetch articles as if the feed was new.
 		$feedDAO->updateFeed($feed->id(), [ 'lastUpdate' => 0 ]);
-		self::actualizeFeed($feed_id, null, false, null, true);
+		self::actualizeFeed($feed_id, '', false);
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
