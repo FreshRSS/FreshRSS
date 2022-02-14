@@ -160,6 +160,10 @@ textarea[rows="2"] {
 	height: 3em;
 }
 
+textarea:invalid {
+	border: 2px dashed red;
+}
+
 input[type="radio"],
 input[type="checkbox"] {
 	width: 15px !important;

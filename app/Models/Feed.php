@@ -587,7 +587,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
-			$view->rss_title = $xPathFeedTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')');
+			$view->rss_title = $xPathFeedTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')');
 			$nodes = $xpath->query($xPathItem);
 			if (empty($nodes)) {
 				return null;
@@ -595,25 +595,31 @@ class FreshRSS_Feed extends Minz_Model {
 
 			foreach ($nodes as $node) {
 				$item = [];
-				$item['title'] = $xPathItemTitle == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
-				$item['content'] = $xPathItemContent == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
-				$item['link'] = $xPathItemUri == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
-				$item['author'] = $xPathItemAuthor == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
-				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
-				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
+				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
+				$item['content'] = $xPathItemContent == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
+				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
+				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
+				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
-					$itemCategories = $xpath->query($xPathItemCategories);
+					$itemCategories = @$xpath->query($xPathItemCategories);
 					if ($itemCategories) {
 						foreach ($itemCategories as $itemCategory) {
 							$item['categories'][] = $itemCategory->textContent;
 						}
 					}
 				}
-				$item['guid'] = 'urn:sha1:' . sha1($item['link'] . $item['title'] . $item['content']);
-				$view->entries[] = FreshRSS_Entry::fromArray($item);
+				if ($item['title'] . $item['content'] . $item['link'] != '') {
+					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+					$view->entries[] = FreshRSS_Entry::fromArray($item);
+				}
 			}
 		} catch (Exception $ex) {
 			Minz_Log::warning($ex->getMessage());
+			return null;
+		}
+
+		if (count($view->entries) < 1) {
 			return null;
 		}
 

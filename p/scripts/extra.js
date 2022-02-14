@@ -234,6 +234,28 @@ function init_select_show() {
 	}
 }
 
+/**
+ * Automatically validate XPath textarea fields
+ */
+function init_valid_xpath() {
+	const listener = (textarea) => {
+		const evaluator = new XPathEvaluator();
+		try {
+			if (textarea.value === '' || evaluator.createExpression(textarea.value) != null) {
+				textarea.setCustomValidity('');
+			}
+		} catch (ex) {
+			textarea.setCustomValidity(ex);
+		}
+	};
+
+	const textareas = document.querySelectorAll('textarea.valid-xpath');
+	for (const textarea of textareas) {
+		textarea.addEventListener('change', (e) => listener(e.target));
+		listener(textarea);
+	}
+}
+
 function init_extra() {
 	if (!window.context) {
 		if (window.console) {
@@ -249,6 +271,7 @@ function init_extra() {
 	init_configuration_alert();
 	fix_popup_preview_selector();
 	init_select_show();
+	init_valid_xpath();
 }
 
 if (document.readyState && document.readyState !== 'loading') {
