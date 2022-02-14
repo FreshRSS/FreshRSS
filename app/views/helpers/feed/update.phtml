@@ -386,14 +386,15 @@
 
 		<fieldset id="html_xpath">
 			<?php
-				$xpath = $this->feed->attributes('xpath');
+				$xpath = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('xpath'));
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 			<div class="form-group">
 				<label class="group-name" for="xPathFeedTitle"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.feed_title') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathFeedTitle" id="xPathFeedTitle" rows="2" cols="64" spellcheck="false"><?= $xpath['feedTitle'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathFeedTitle" id="xPathFeedTitle" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['feedTitle'] ?? '' ?>"><?= $xpath['feedTitle'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.feed_title.help') ?></p>
 				</div>
 			</div>
@@ -401,7 +402,8 @@
 				<label class="group-name" for="xPathItem"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"><?= $xpath['item'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['item'] ?? '' ?>"><?= $xpath['item'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item.help') ?></p>
 				</div>
 			</div>
@@ -409,7 +411,8 @@
 				<label class="group-name" for="xPathItemTitle"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"><?= $xpath['itemTitle'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemTitle'] ?? '' ?>"><?= $xpath['itemTitle'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_title.help') ?></p>
 				</div>
 			</div>
@@ -417,7 +420,8 @@
 				<label class="group-name" for="xPathItemContent"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"><?= $xpath['itemContent'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemContent'] ?? '' ?>"><?= $xpath['itemContent'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_content.help') ?></p>
 				</div>
 			</div>
@@ -425,7 +429,8 @@
 				<label class="group-name" for="xPathItemUri"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_uri') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"><?= $xpath['itemUri'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemUri'] ?? '' ?>"><?= $xpath['itemUri'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_uri.help') ?></p>
 				</div>
 			</div>
@@ -433,7 +438,8 @@
 				<label class="group-name" for="xPathItemThumbnail"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"><?= $xpath['itemThumbnail'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemThumbnail'] ?? '' ?>"><?= $xpath['itemThumbnail'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_thumbnail.help') ?></p>
 				</div>
 			</div>
@@ -441,7 +447,8 @@
 				<label class="group-name" for="xPathItemAuthor"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"><?= $xpath['itemAuthor'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemAuthor'] ?? '' ?>"><?= $xpath['itemAuthor'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
 				</div>
 			</div>
@@ -449,7 +456,8 @@
 				<label class="group-name" for="xPathItemTimestamp"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"><?= $xpath['itemTimestamp'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemTimestamp'] ?? '' ?>"><?= $xpath['itemTimestamp'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
 				</div>
 			</div>
@@ -457,7 +465,8 @@
 				<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"><?= $xpath['itemCategories'] ?? '' ?></textarea>
+					<textarea class="valid-xpath" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemCategories'] ?? '' ?>"><?= $xpath['itemCategories'] ?? '' ?></textarea>
 				</div>
 			</div>
 		</fieldset>
