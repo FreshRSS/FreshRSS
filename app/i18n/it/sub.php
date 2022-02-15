@@ -67,12 +67,12 @@ return array(
 				'_' => 'HTML + XPath (Web scraping)',	// TODO
 				'feed_title' => array(
 					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code>',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//li[@class="news-item"]</code>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
 				),
 				'item_author' => array(
 					'_' => 'item author',	// TODO
@@ -81,7 +81,7 @@ return array(
 				'item_categories' => 'items tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
-					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
 				),
 				'item_thumbnail' => array(
 					'_' => 'item thumbnail',	// TODO
@@ -93,7 +93,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO

@@ -67,12 +67,12 @@ return array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'feed title',	// IGNORE
-					'help' => 'Example: <code>//title</code>',	// IGNORE
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// IGNORE
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
-					'help' => 'Example: <code>//li[@class="news-item"]</code>',	// IGNORE
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// IGNORE
 				),
 				'item_author' => array(
 					'_' => 'item author',	// IGNORE
@@ -81,7 +81,7 @@ return array(
 				'item_categories' => 'items tags',	// IGNORE
 				'item_content' => array(
 					'_' => 'item content',	// IGNORE
-					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',	// IGNORE
+					'help' => 'Example to take the full item: <code>.</code>',	// IGNORE
 				),
 				'item_thumbnail' => array(
 					'_' => 'item thumbnail',	// IGNORE
@@ -93,7 +93,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'item title',	// IGNORE
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',	// IGNORE
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// IGNORE
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// IGNORE

@@ -67,12 +67,12 @@ return array(
 				'_' => 'HTML + XPath (Moissonnage du Web)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
-					'help' => 'Exemple : <code>//title</code>',
+					'help' => 'Exemple : <code>//title</code> ou un text statique : <code>"Mon flux personnalisé"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
 					'_' => 'trouver les <strong>articles</strong>',
-					'help' => 'Exemple : <code>//li[@class="article"]</code>',
+					'help' => 'Exemple : <code>//div[@class="article"]</code>',
 				),
 				'item_author' => array(
 					'_' => 'auteur de l’article',
@@ -81,7 +81,7 @@ return array(
 				'item_categories' => 'catégories (tags) de l’article',
 				'item_content' => array(
 					'_' => 'contenu de l’article',
-					'help' => 'Exemple : <code>descendant::span[@class="contenu"]</code>',
+					'help' => 'Exemple pour prendre l’article complet : <code>.</code>',
 				),
 				'item_thumbnail' => array(
 					'_' => 'miniature de l’article',
@@ -93,7 +93,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'titre de l’article',
-					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes">axe XPath</a> <code>descendant::</code>',
+					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
 				),
 				'item_uri' => array(
 					'_' => 'lien (URL) de l’article',

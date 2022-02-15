@@ -67,12 +67,12 @@ return array(
 				'_' => 'HTML + XPath (Web scraping)',
 				'feed_title' => array(
 					'_' => 'feed title',
-					'help' => 'Example: <code>//title</code>',
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
-					'help' => 'Example: <code>//li[@class="news-item"]</code>',
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
 					'_' => 'item author',
@@ -81,7 +81,7 @@ return array(
 				'item_categories' => 'items tags',
 				'item_content' => array(
 					'_' => 'item content',
-					'help' => 'Example: <code>descendant::span[@class="summary"]</code>',
+					'help' => 'Example to take the full item: <code>.</code>',
 				),
 				'item_thumbnail' => array(
 					'_' => 'item thumbnail',
@@ -93,7 +93,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'item title',
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code>',
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',
