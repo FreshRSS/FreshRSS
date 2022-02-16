@@ -329,6 +329,38 @@ function cleanCache(int $hours = 720) {
 }
 
 /**
+ * Set an XML preamble to enforce the HTML content type charset received by HTTP.
+ * @param string $html the row downloaded HTML content
+ * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
+ * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
+ */
+function enforceHttpEncoding(string $html, string $contentType = ''): string {
+	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === false ? '' : $matches[1] ?? '';
+	if ($httpCharset == '') {
+		// No charset defined by HTTP, do nothing
+		return $html;
+	}
+	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
+	if ($httpCharsetNormalized === 'windows-1252') {
+		// Default charset for HTTP, do nothing
+		return $html;
+	}
+	if (substr($html, 0, 3) === "\xEF\xBB\xBF" || // UTF-8 BOM
+		substr($html, 0, 2) === "\xFF\xFE" || // UTF-16 Little Endian BOM
+		substr($html, 0, 2) === "\xFE\xFF" || // UTF-16 Big Endian BOM
+		substr($html, 0, 4) === "\xFF\xFE\x00\x00" || // UTF-32 Little Endian BOM
+		substr($html, 0, 4) === "\x00\x00\xFE\xFF") { // UTF-32 Big Endian BOM
+		// Existing byte order mark, do nothing
+		return $html;
+	}
+	if (preg_match('/^<[?]xml[^>]+encoding\b/', substr($html, 0, 64))) {
+		// Existing XML declaration, do nothing
+		return $html;
+	}
+	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+}
+
+/**
  * @param array<string,mixed> $attributes
  */
 function getHtml(string $url, array $attributes = []): string {
@@ -384,18 +416,24 @@ function getHtml(string $url, array $attributes = []): string {
 	}
 	$html = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$c_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);	//TODO: Check if that may be null
 	$c_error = curl_error($ch);
 	curl_close($ch);
 
-	if ($c_status != 200 || $c_error != '') {
+	if ($c_status != 200 || $c_error != '' || $html === false) {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+	}
+	if ($html == false) {
+		$html = '';
+	} else {
+		$html = enforceHttpEncoding($html, $c_content_type);
 	}
 
 	if (file_put_contents($cachePath, $html) === false) {
 		Minz_Log::warning("Error saving cache $cachePath for $url");
 	}
 
-	return is_string($html) ? $html : '';
+	return $html;
 }
 
 /**
