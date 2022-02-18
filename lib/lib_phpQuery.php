@@ -436,7 +436,8 @@ class DOMDocumentWrapper {
 	}
 	protected function isXML($markup) {
 //		return strpos($markup, '<?xml') !== false && stripos($markup, 'xhtml') === false;
-		return strpos(substr($markup, 0, 100), '<'.'?xml') !== false;
+		$head = substr($markup, 0, 100);
+		return strpos($head, '<'.'?xml') !== false && stripos($head, '<html ') === false;
 	}
 	protected function contentTypeToArray($contentType) {
 		$matches = explode(';', trim(strtolower($contentType)));
