@@ -213,11 +213,12 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
 					break;
 				case 'normal':
+				case 'reader':
 					$get = Minz_Request::param('get');
 					if ($get) {
-						$url_redirect = array('c' => 'index', 'a' => 'normal', 'params' => array('get' => $get));
+						$url_redirect = array('c' => 'index', 'a' => $from, 'params' => array('get' => $get));
 					} else {
-						$url_redirect = array('c' => 'index', 'a' => 'normal');
+						$url_redirect = array('c' => 'index', 'a' => $from);
 					}
 					break;
 				default:

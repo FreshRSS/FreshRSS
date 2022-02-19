@@ -23,7 +23,12 @@
 	if ($from === false) {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id());
 	} else {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+		$get = Minz_Request::param('get');
+		if (!$get) {
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+		} else {
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get);
+		}
 	}
 	?>
 	<form method="post" action="<?= $url ?>" autocomplete="off">

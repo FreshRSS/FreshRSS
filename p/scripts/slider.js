@@ -23,27 +23,27 @@ function init_slider_observers() {
 }
 
 function open_slider_listener(ev) {
-    const a = ev.target.closest('.open-slider');
-    if (a) {
-        if (!context.ajax_loading) {
-            location.href = '#'; // close menu/dropdown
-            context.ajax_loading = true;
+	const a = ev.target.closest('.open-slider');
+	if (a) {
+		if (!context.ajax_loading) {
+			location.href = '#'; // close menu/dropdown
+			context.ajax_loading = true;
 
-            const req = new XMLHttpRequest();
-            req.open('GET', a.href + '&ajax=1', true);
-            req.responseType = 'document';
-            req.onload = function (e) {
-                const slider = document.getElementById('slider');
-	            const closer = document.getElementById('close-slider');
-                slider.innerHTML = this.response.body.innerHTML;
-                slider.classList.add('active');
-                closer.classList.add('active');
-                context.ajax_loading = false;
-            };
-            req.send();
-            return false;
-        }
-    }
+			const req = new XMLHttpRequest();
+			req.open('GET', a.href + '&ajax=1', true);
+			req.responseType = 'document';
+			req.onload = function (e) {
+				const slider = document.getElementById('slider');
+				const closer = document.getElementById('close-slider');
+				slider.innerHTML = this.response.body.innerHTML;
+				slider.classList.add('active');
+				closer.classList.add('active');
+				context.ajax_loading = false;
+			};
+			req.send();
+			return false;
+		}
+	}
 };
 
 function slider_data_leave_validation() {
@@ -65,7 +65,7 @@ function slider_data_leave_validation() {
 function init_afterDOM() {
 	init_slider_observers();
 
-    if (window.console) {
+	if (window.console) {
 		console.log('FreshRSS slider init done.');
 	}
 }

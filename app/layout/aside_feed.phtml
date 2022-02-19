@@ -142,12 +142,14 @@
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
 		<?php
-		$view = Minz_Request::param('a');
-		if (!$view) {
-			$view = 'normal';
+		$get = Minz_Request::param('get');
+		if (!$get) {
+			$url = _url('subscription', 'feed', 'id', '------', 'from', $actual_view);
+		} else {
+			$url = _url('subscription', 'feed', 'id', '------', 'get', $get, 'from', $actual_view);
 		}
 		?>
-		<li class="item"><a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', '------', 'from', $view) ?>"><?= _t('gen.action.manage') ?></a></li>
+		<li class="item"><a class="configure open-slider" href="<?= $url ?>"><?= _t('gen.action.manage') ?></a></li>
 		<li class="item"><a href="<?= _url('feed', 'actualize', 'id', '------') ?>"><?= _t('gen.action.actualize') ?></a></li>
 		<li class="item">
 			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>

@@ -144,7 +144,7 @@ function init_select_observers() {
 
 function data_leave_validation() {
 	const ds = document.querySelectorAll('[data-leave-validation]');
-	console.log(ds);
+
 	for (let i = ds.length - 1; i >= 0; i--) {
 		const input = ds[i];
 		if (input.type === 'checkbox' || input.type === 'radio') {
