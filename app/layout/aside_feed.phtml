@@ -141,7 +141,13 @@
 		<li class="item"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
-		<li class="item"><a href="<?= _url('subscription', 'index', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a></li>
+		<?php
+		$view = Minz_Request::param('a');
+		if (!$view) {
+			$view = 'normal';
+		}
+		?>
+		<li class="item"><a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', '------', 'from', $view) ?>"><?= _t('gen.action.manage') ?></a></li>
 		<li class="item"><a href="<?= _url('feed', 'actualize', 'id', '------') ?>"><?= _t('gen.action.actualize') ?></a></li>
 		<li class="item">
 			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>

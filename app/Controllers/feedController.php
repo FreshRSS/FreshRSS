@@ -698,15 +698,30 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @todo handle "r" redirection in Minz_Request::forward()?
 	 */
 	public function deleteAction() {
-		$redirect_url = Minz_Request::param('r', false, true);
-		if (!$redirect_url) {
-			$redirect_url = array('c' => 'subscription', 'a' => 'index');
-		}
-		if (!Minz_Request::isPost()) {
-			Minz_Request::forward($redirect_url, true);
-		}
-
+		$from = Minz_Request::param('from');
 		$id = Minz_Request::param('id');
+
+		switch ($from) {
+			case 'stats':
+				$redirect_url = array('c' => 'stats', 'a' => 'idle');
+				break;
+			case 'normal':
+				$get = Minz_Request::param('get');
+				if ($get) {
+					$redirect_url = array('c' => 'index', 'a' => 'normal', 'params' => array('get' => $get));
+				} else {
+					$redirect_url = array('c' => 'index', 'a' => 'normal');
+				}
+				break;
+			default:
+				$redirect_url = Minz_Request::param('r', false, true);
+				if (!$redirect_url) {
+					$redirect_url = array('c' => 'subscription', 'a' => 'index');
+				}
+				if (!Minz_Request::isPost()) {
+					Minz_Request::forward($redirect_url, true);
+				}
+		}
 
 		if (self::deleteFeed($id)) {
 			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url);
