@@ -62,7 +62,7 @@ function slider_data_leave_validation() {
 	return true;
 }
 
-function init_afterDOM() {
+function init_slider_afterDOM() {
 	init_slider_observers();
 
 	if (window.console) {
@@ -71,11 +71,11 @@ function init_afterDOM() {
 }
 
 if (document.readyState && document.readyState !== 'loading') {
-	init_afterDOM();
+	init_slider_afterDOM();
 } else {
 	if (window.console) {
 		console.log('FreshRSS slider waiting for DOMContentLoaded…');
 	}
-	document.addEventListener('DOMContentLoaded', init_afterDOM, false);
+	document.addEventListener('DOMContentLoaded', init_slider_afterDOM, false);
 }
 // @license-end
