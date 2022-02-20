@@ -1,53 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   height="16"
-   width="16"
-   version="1.1"
-   id="svg12"
-   sodipodi:docname="share.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs16" />
-  <sodipodi:namedview
-     id="namedview14"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     showgrid="false"
-     inkscape:current-layer="svg12" />
-  <g
-     fill="#bebebe"
-     transform="translate(-581.0002,-196)"
-     id="g10"
-     style="fill:#666666">
-    <path
-       style="enable-background:new;color:#000000;fill:#666666"
-       d="m291,178.03c0,1.0873-0.88144,1.9688-1.9688,1.9688-1.0873,0-1.9688-0.88144-1.9688-1.9688,0-1.0873,0.88144-1.9688,1.9688-1.9688,1.0873,0,1.9688,0.88144,1.9688,1.9688z"
-       fill-rule="nonzero"
-       transform="matrix(1.5079365,0,0,1.5079365,148.15963,-64.49107)"
-       id="path2" />
-    <path
-       style="enable-background:new;color:#000000;fill:#666666"
-       d="m291,178.03c0,1.0873-0.88144,1.9688-1.9688,1.9688-1.0873,0-1.9688-0.88144-1.9688-1.9688,0-1.0873,0.88144-1.9688,1.9688-1.9688,1.0873,0,1.9688,0.88144,1.9688,1.9688z"
-       fill-rule="nonzero"
-       transform="matrix(1.5079365,0,0,1.5079365,158.12818,-59.49107)"
-       id="path4" />
-    <path
-       style="enable-background:new;color:#000000;fill:#666666"
-       d="m291,178.03c0,1.0873-0.88144,1.9688-1.9688,1.9688-1.0873,0-1.9688-0.88144-1.9688-1.9688,0-1.0873,0.88144-1.9688,1.9688-1.9688,1.0873,0,1.9688,0.88144,1.9688,1.9688z"
-       fill-rule="nonzero"
-       transform="matrix(1.5079365,0,0,1.5079365,158.12818,-69.49107)"
-       id="path6" />
-    <path
-       style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;fill:#666666"
-       d="m593.62,198.16-10.062,4.875-1.8125,0.90625,1.8125,0.90625,10.031,5.0625,0.90625-1.8125-8.2188-4.1562,8.2188-4-0.875-1.7812z"
-       id="path8" />
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+  <g fill="#666" color="#000">
+    <path d="M5.969 7.967a2.969 2.969 0 1 1-5.938 0 2.969 2.969 0 0 1 5.938 0zm9.969 5a2.969 2.969 0 1 1-5.938 0 2.969 2.969 0 0 1 5.938 0zm0-10a2.969 2.969 0 1 1-5.938 0 2.969 2.969 0 0 1 5.938 0z"/>
+    <path d="m593.62 198.16-10.062 4.875-1.813.906 1.813.906 10.031 5.063.906-1.813-8.219-4.156 8.22-4-.876-1.78z" style="block-progression:tb;text-indent:0;text-align:start;text-transform:none" transform="translate(-581 -196)"/>
   </g>
 </svg>
