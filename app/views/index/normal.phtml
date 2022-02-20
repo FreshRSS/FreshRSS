@@ -116,9 +116,7 @@ $today = @strtotime('today');
 	<?= _i('close') ?>
 </a>
 <div id="slider"<?= $class ?>>
-</div>
-<script src="../scripts/slider.js?<?= @filemtime(PUBLIC_PATH . '/scripts/slider.js') ?>"></script>
-</main><?php
+</div></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
