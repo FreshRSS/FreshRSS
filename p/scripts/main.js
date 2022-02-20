@@ -1370,7 +1370,7 @@ function init_notifications() {
 }
 // </notification>
 
-
+// <slider>
 function init_slider_observers() {
 	const slider = document.getElementById('slider');
 	const closer = document.getElementById('close-slider');
@@ -1431,7 +1431,7 @@ function slider_data_leave_validation() {
 	}
 	return true;
 }
-
+// </slider>
 
 // <popup>
 let popup = null;
