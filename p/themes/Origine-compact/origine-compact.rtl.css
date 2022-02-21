@@ -230,6 +230,10 @@ a.btn,
 	box-shadow: none;
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-attention {
 	background: #e95b57;
 	background: linear-gradient(to bottom, #e95b57, #bd362f);
@@ -254,6 +258,7 @@ a.btn,
 	background: #bd362f;
 	box-shadow: none;
 }
+
 
 /*=== Navigation */
 .nav-list .nav-header,
