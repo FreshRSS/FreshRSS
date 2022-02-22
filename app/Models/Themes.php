@@ -71,13 +71,11 @@ class FreshRSS_Themes extends Minz_Model {
 	public static function alt($name) {
 		static $alts = array(
 			'add' => '✚',
-			'add-white' => '✚',
 			'all' => '☰',
 			'bookmark' => '★',
 			'bookmark-add' => '✚',
 			'bookmark-tag' => '🔖',
 			'category' => '☷',
-			'category-white' => '☷',
 			'close' => '❌',
 			'configure' => '⚙',
 			'down' => '▽',
@@ -86,7 +84,6 @@ class FreshRSS_Themes extends Minz_Model {
 			'FreshRSS-logo' => '⊚',
 			'help' => 'ⓘ',
 			'icon' => '⊚',
-			'import' => '⤓',
 			'key' => '⚿',
 			'label' => '🏷️',
 			'link' => '↗',
