@@ -206,6 +206,10 @@ a.btn {
 	box-shadow: none;
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-attention {
 	background: #d9534f;
 	color: #fff;

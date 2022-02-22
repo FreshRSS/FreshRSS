@@ -235,6 +235,10 @@ a.btn {
 	font-weight: normal;
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-important:active {
 	background: linear-gradient(0deg, #e4992c 0%, #d18114 100%) #e4992c;
 	background: -webkit-linear-gradient(bottom, #e4992c 0%, #d18114 100%);
