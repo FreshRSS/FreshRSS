@@ -949,56 +949,56 @@ a.website:hover .favicon {
 	max-width: 550px;
 }
 
-.content header {
+.content > header {
 	color: #666;
 	font-size: 90%;
 }
 
-.content header a {
+.content > header a {
 	color: #666;
 	text-decoration: none;
 }
 
-.content header a:hover {
+.content > header a:hover {
 	color: #0062be;
 	text-decoration: underline;
 }
 
-.content header .tags {
+.content > header .tags {
 	display: flex;
 	line-height: 1;
 }
 
-.content header .tags .icon {
+.content > header .tags .icon {
 	padding: 2px 10px 0 0;
 }
 
-.content header .tags .list-tags {
+.content > header .tags .list-tags {
 	margin: 0;
 	padding: 0;
 	display: inline-block;
 	list-style: none;
 }
 
-.content header .tags .list-tags .item {
+.content > header .tags .list-tags .item {
 	display: inline-block;
 	padding-right: 0.75em;
 	line-height: normal;
 }
 
-.content header .tags .list-tags .item a {
+.content > header .tags .list-tags .item a {
 	display: inline;
 }
 
-.content header h1 {
+.content > header h1 {
 	margin: 0.5em 0;
 }
 
-.content header h1 .extern-link-icon {
+.content > header h1 .extern-link-icon {
 	padding-left: 10px;
 }
 
-.content header h1 a:hover img {
+.content > header h1 a:hover img {
 	filter: contrast(0);
 }
 
