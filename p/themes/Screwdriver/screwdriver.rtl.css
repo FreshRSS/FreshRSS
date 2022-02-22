@@ -240,6 +240,10 @@ a.btn {
 	background: -webkit-linear-gradient(bottom, #e4992c 0%, #d18114 100%);
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-attention {
 	background: #e95b57;
 	background: linear-gradient(to bottom, #e95b57, #bd362f);
