@@ -179,10 +179,7 @@ return array(
 	'pagination' => array(
 		'first' => 'Debuta',
 		'last' => 'Fin',
-		'load_more' => 'Cargar mai d’articles',
-		'mark_all_read' => 'O marcar tot coma legit',
 		'next' => 'Seguent',
-		'nothing_to_load' => 'I a pas mai d’articles',
 		'previous' => 'Precedent',
 	),
 	'period' => array(
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'Òc-ben !',
 		'or' => 'o',
 		'yes' => 'Òc',
+	),
+	'stream' => array(
+		'load_more' => 'Cargar mai d’articles',
+		'mark_all_read' => 'O marcar tot coma legit',
+		'nothing_to_load' => 'I a pas mai d’articles',
 	),
 );

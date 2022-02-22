@@ -179,10 +179,7 @@ return array(
 	'pagination' => array(
 		'first' => 'Eerste',
 		'last' => 'Laatste',
-		'load_more' => 'Laad meer artikelen',
-		'mark_all_read' => 'Markeer alle als gelezen',
 		'next' => 'Volgende',
-		'nothing_to_load' => 'Er zijn geen artikelen meer',
 		'previous' => 'Vorige',
 	),
 	'period' => array(
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'of',
 		'yes' => 'Ja',
+	),
+	'stream' => array(
+		'load_more' => 'Laad meer artikelen',
+		'mark_all_read' => 'Markeer alle als gelezen',
+		'nothing_to_load' => 'Er zijn geen artikelen meer',
 	),
 );

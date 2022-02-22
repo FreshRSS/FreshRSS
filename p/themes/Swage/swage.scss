@@ -402,14 +402,10 @@ form {
 				white-space: nowrap;
 			}
 
-			&:hover {
+			> a:hover,
+			> button:hover {
 				background: $color_nav;
 				color: $color_light;
-
-				> a {
-					text-decoration: none;
-					color: $color_light;
-				}
 			}
 		}
 
@@ -508,13 +504,13 @@ form {
 			}
 		}
 	}
-
-	.loading,
-	a:hover.loading {
-		background: url(loader.gif) center center no-repeat $color_aside;
-		font-size: 0;
-	}
 }
+
+#load_more.loading,
+#load_more.loading:hover {
+	background: url(loader.gif) center center no-repeat $color_aside;
+}
+
 
 .content {
 	padding: 20px 10px;

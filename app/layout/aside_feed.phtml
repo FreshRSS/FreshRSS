@@ -19,7 +19,7 @@
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div class="stick configure-feeds">
 		<a id="btn-subscription" class="btn btn-important" href="<?= _url('subscription', 'index') ?>"><?= _t('index.menu.subscription') ?></a>
-		<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add-white') ?></a>
+		<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?></a>
 	</div>
 	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
 	<a href="<?= _url('index', 'about') ?>"><?= _t('index.menu.about') ?></a>
