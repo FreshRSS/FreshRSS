@@ -13,7 +13,7 @@
 		$name_class = ' disabled';
 		$action = 'enable';
 		$title = _t('gen.action.enable');
-	} 
+	}
 	if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) {?>
 	<button class="switch<?= $button_class ?>" form="form-extension" formaction="<?= _url('extension', $action, 'e', $name_encoded) ?>" title="<?= _t('gen.action.enable') ?>"></button>
 	<a class="open-slider" title="<?= _t('gen.action.manage') ?>" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?></a>
