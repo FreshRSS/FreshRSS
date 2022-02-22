@@ -299,7 +299,7 @@ a.btn {
 	transition: background-position 0.5s;
 }
 
-.switch:hover {
+.switch:not([disabled]):hover {
 	background-image: url('../icons/enabled.svg');
 	background-repeat: no-repeat;
 	background-position: right 7px center;
@@ -312,7 +312,7 @@ a.btn {
 	background-image: url('../icons/enabled.svg');
 }
 
-.switch.active:hover {
+.switch.active:not([disabled]):hover {
 	background-position: left 7px center;
 	background-repeat: no-repeat;
 	background-image: url('../icons/disabled.svg');
@@ -345,8 +345,7 @@ a.btn {
 	transition: left 0.6s, right 0.6s;
 }
 
-.switch:hover::before {
-	left: 8px;
+.switch:not([disabled]):hover::before {
 	background-color: #eee;
 }
 
@@ -357,7 +356,7 @@ a.btn {
 	right: 5px;
 }
 
-.switch.active:hover::before {
+.switch.active:not([disabled]):hover::before {
 	right: 8px;
 }
 

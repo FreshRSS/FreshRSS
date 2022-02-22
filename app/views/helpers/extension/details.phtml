@@ -1,7 +1,6 @@
 <?php /** @var FreshRSS_View $this */ ?>
 
 <?php
-if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) {
 	$name_encoded = urlencode($this->ext_details->getName());
 	$ext_enabled = $this->ext_details->isEnabled();
 	if ($ext_enabled) {
@@ -14,10 +13,12 @@ if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin'
 		$name_class = ' disabled';
 		$action = 'enable';
 		$title = _t('gen.action.enable');
-	} ?>
+	} 
+	if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) {?>
 	<button class="switch<?= $button_class ?>" form="form-extension" formaction="<?= _url('extension', $action, 'e', $name_encoded) ?>" title="<?= _t('gen.action.enable') ?>"></button>
 	<a class="open-slider" title="<?= _t('gen.action.manage') ?>" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?></a>
 	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>
 <?php } else { ?>
-<?= _t('admin.extensions.system.no_rights') ?>
+	<button class="switch<?= $button_class ?>" title="<?= _t('admin.extensions.system.no_rights') ?>" disabled></button>
+	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>
 <?php } ?>
