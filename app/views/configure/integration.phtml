@@ -62,15 +62,17 @@
 
 		<div class="form-group">
 			<div class="group-controls">
-				<select>
-					<?php foreach (FreshRSS_Share::enum() as $share) { ?>
-					<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>'
-						data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
-						<?= $share->name(true) ?>
-					</option>
-					<?php } ?>
-				</select>
-				<a href='#' class='share add btn' title="<?= _t('conf.sharing.add') ?>"><?= _i('add') ?></a>
+				<div class="stick">
+					<select>
+						<?php foreach (FreshRSS_Share::enum() as $share) { ?>
+						<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>'
+							data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
+							<?= $share->name(true) ?>
+						</option>
+						<?php } ?>
+					</select>
+					<a href='#' class='share add btn' title="<?= _t('conf.sharing.add') ?>"><?= _i('add') ?></a>
+				</div>
 			</div>
 		</div>
 
