@@ -1,15 +1,22 @@
 This page assumes you have completed the [server setup](../admins/03_Installation.md).
 
 # Mobile Access
+
 You can access FreshRSS on mobile devices via browser and via mobile apps.
 
+
 ## Access via Browser
+
 The user interface of FreshRSS is optimzed to visit it on small and large screens. It means that it fits the content on small mobile device screens too. Just visit your FreshRSS instance with a common used internet browser (f.e. Chrome, Safari, Firefox).
 
+
 ## Access via Mobile App
+
 FreshRSS supports access from mobile / native apps for Linux, Android, iOS, Windows and MacOS, via two distinct APIs: Google Reader API (best), and Fever API (limited features and less efficient).
 
 A list of known apps is available on [FreshRSS GitHub page](https://github.com/FreshRSS/FreshRSS#apis--native-apps).
+
+
 ### Enable the API in FreshRSS
 
 1. Under the section “Authentication”, enable the option “Allow API access (required for mobile apps)”.
