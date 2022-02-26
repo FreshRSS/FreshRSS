@@ -131,7 +131,7 @@ function updateHref() {
 		this.href = url;
 		return true;
 	} else {
-		urlField.focus;
+		urlField.focus();
 		this.removeAttribute('href');
 		return false;
 	}
