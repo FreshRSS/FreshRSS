@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Zuiveren',
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',

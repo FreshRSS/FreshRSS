@@ -32,6 +32,7 @@ return array(
 		'purge' => '清理',
 		'remove' => '删除',
 		'rename' => '重命名',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',

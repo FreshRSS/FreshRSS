@@ -123,6 +123,29 @@ function init_password_observers() {
 	});
 }
 
+// overwrites the href attribute from the url input
+function updateHref() {
+	const urlField = document.getElementById(this.getAttribute('data-input'));
+	const url = urlField.value;
+	if (url.length > 0) {
+		this.href = url;
+		return true;
+	} else {
+		urlField.focus;
+		this.removeAttribute('href');
+		return false;
+	}
+}
+
+// set event listener on "show url" buttons
+function init_url_observers() {
+	document.querySelectorAll('.open-url').forEach(function (btn) {
+		btn.addEventListener('mouseover', updateHref);
+		btn.addEventListener('mousedown', updateHref);
+		btn.addEventListener('keydown', updateHref);
+	});
+}
+
 function init_select_observers() {
 	document.querySelectorAll('.select-change').forEach(function (s) {
 		s.onchange = function (ev) {
@@ -223,6 +246,7 @@ function init_extra() {
 	}
 	init_crypto_form();
 	init_password_observers();
+	init_url_observers();
 	init_select_observers();
 	init_slider_observers();
 	init_configuration_alert();

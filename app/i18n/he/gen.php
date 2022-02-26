@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Purge',	// TODO
 		'remove' => 'Remove',	// TODO
 		'rename' => 'Rename',	// TODO
+		'see_url' => 'See URL',	// TODO
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',

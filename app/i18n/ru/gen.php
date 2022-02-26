@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Запустить очистку',
 		'remove' => 'Удалить',
 		'rename' => 'Переименовать',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Посмотреть на сайте',
 		'submit' => 'Отправить',
 		'truncate' => 'Удалить все статьи',

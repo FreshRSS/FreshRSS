@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Temizle',
 		'remove' => 'Sil',
 		'rename' => 'Yeniden adlandır',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',

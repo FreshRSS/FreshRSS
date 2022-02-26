@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Vymazať',
 		'remove' => 'Odstrániť',
 		'rename' => 'Premenovať',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Zobraziť webovú stránku',
 		'submit' => 'Poslať',
 		'truncate' => 'Vymazať všetky články',

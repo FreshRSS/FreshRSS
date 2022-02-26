@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Oczyść',
 		'remove' => 'Usuń',
 		'rename' => 'Zmień nazwę',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Przejdź na stronę',
 		'submit' => 'Zatwierdź',
 		'truncate' => 'Usuń wszystkie wiadomości',

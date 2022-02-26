@@ -32,6 +32,7 @@ return array(
 		'purge' => 'Purge',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
+		'see_url' => 'See URL',	// IGNORE
 		'see_website' => 'See website',	// IGNORE
 		'submit' => 'Submit',	// IGNORE
 		'truncate' => 'Delete all articles',	// IGNORE

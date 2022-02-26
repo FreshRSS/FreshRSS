@@ -32,6 +32,7 @@ return array(
 		'purge' => '제거',
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',
+		'see_url' => 'See URL',	// TODO
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',

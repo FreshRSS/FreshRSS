@@ -34,7 +34,10 @@
 		<div class="form-group">
 			<label class="group-name" for="url_rss"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
-				<input id="url_rss" name="url_rss" type="url" required="required" autocomplete="off" class="long" autofocus="autofocus" />
+				<div class="stick">
+					<input id="url_rss" name="url_rss" type="url" required="required" autocomplete="off" class="long" autofocus="autofocus" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="url_rss" title="<?= _t('gen.action.see_url') ?>"><?= _i('link') ?></a>
+				</div>
 			</div>
 		</div>
 
