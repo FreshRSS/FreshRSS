@@ -120,7 +120,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * Parameters are:
 	 *   - url_rss (default: false)
 	 *   - category (default: false)
-	 *   - new_category (required if category == 'nc')
 	 *   - http_user (default: false)
 	 *   - http_pass (default: false)
 	 * It tries to get website information from RSS feed.
