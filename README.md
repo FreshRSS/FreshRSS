@@ -103,7 +103,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 
 # APIs & native apps
 
-FreshRSS supports access from mobile / native apps for Linux, Android, iOS, and OS X, via two distinct APIs:
+FreshRSS supports access from mobile / native apps for Linux, Android, iOS, Windows and MacOS, via two distinct APIs:
 [Google Reader API](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html) (best),
 and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) (limited features and less efficient).
 
