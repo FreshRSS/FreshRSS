@@ -40,8 +40,8 @@
 				$share = FreshRSS_Share::get($share_options['type']);
 				$share->update($share_options);
 		?>
-		<formgroup class="group-share" id="group-share-<?= $key ?>" draggable="true">
-			<legend><?= $share->name(true) ?></legend>
+		<formgroup class="group-share dragbox" id="group-share-<?= $key ?>">
+			<legend draggable="true"><?= $share->name(true) ?></legend>
 			<input type="hidden" id="share_<?= $key ?>_type" name="share[<?= $key ?>][type]" value="<?= $share->type() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_field" name="share[<?= $key ?>][field]" value="<?= $share->field() ?>" />
