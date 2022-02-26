@@ -65,7 +65,7 @@
 						<div class="stick">
 							<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="extend" value="<?= $share->baseUrl() ?>"
 								data-leave-validation="<?= $share->baseUrl() ?>" required />
-							<a class="btn" target="_blank" rel="noreferrer" href="<?= $share->baseUrl() ?>"><?= _i('link') ?></a>
+							<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $share->baseUrl() ?>" title="<?= _t('gen.action.see_url') ?>" data-input="share_<?= $key ?>_url"><?= _i('link') ?></a>
 						</div>
 						<p class="help"><?= _i('help') ?> <a href="<?= $share->help() ?>" target="_blank" rel="noreferrer"><?= _t('conf.sharing.more_information') ?></a></p>
 					</div>
