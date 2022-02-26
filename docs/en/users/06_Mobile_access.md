@@ -14,7 +14,7 @@ The user interface of FreshRSS is optimzed to visit it on small and large screen
 
 FreshRSS supports access from mobile / native apps for Linux, Android, iOS, Windows and MacOS, via two distinct APIs: Google Reader API (best), and Fever API (limited features and less efficient).
 
-A list of known apps is available on [FreshRSS GitHub page](https://github.com/FreshRSS/FreshRSS#apis--native-apps).
+A list of known apps is available on the [FreshRSS GitHub page](https://github.com/FreshRSS/FreshRSS#apis--native-apps).
 
 
 ### Enable the API in FreshRSS
