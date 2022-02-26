@@ -7,7 +7,7 @@ You can access FreshRSS on mobile devices via browser and via mobile apps.
 
 ## Access via Browser
 
-The FreshRSS's user interface is optimized for both small and large screens. The content will fit nicely on small mobile device screens as well.
+The FreshRSS user interface is optimized for both small and large screens. The content will fit nicely on small mobile device screens as well.
 
 
 ## Access via Mobile App
