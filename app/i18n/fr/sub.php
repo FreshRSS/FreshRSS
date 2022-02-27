@@ -69,7 +69,7 @@ return array(
 					'_' => 'titre de flux',
 					'help' => 'Exemple : <code>//title</code> ou un text statique : <code>"Mon flux personnalisé"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
 					'_' => 'trouver les <strong>articles</strong>',
 					'help' => 'Exemple : <code>//div[@class="article"]</code>',
@@ -89,11 +89,11 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
-					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime"><code>strtotime()</code></a>',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'titre de l’article',
-					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
+					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
 				),
 				'item_uri' => array(
 					'_' => 'lien (URL) de l’article',
