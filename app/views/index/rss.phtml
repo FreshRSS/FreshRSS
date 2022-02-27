@@ -1,6 +1,8 @@
 <?php /** @var FreshRSS_View $this */ ?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/"
+	<?= $this->rss_base == '' ? '' : ' xml:base="' . $this->rss_base . '"' ?>
+>
 	<channel>
 		<title><?= $this->rss_title ?></title>
 		<link><?= $this->internal_rendering ? $this->rss_url : Minz_Url::display('', 'html', true) ?></link>

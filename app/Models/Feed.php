@@ -589,7 +589,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$doc->strictErrorChecking = false;
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
-			$view->rss_title = $xPathFeedTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')');
+			$view->rss_title = $xPathFeedTitle == '' ? '' : htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
+			$view->rss_base = htmlspecialchars(trim($xpath->evaluate('normalize-space(//base/@href)')), ENT_COMPAT, 'UTF-8');
 			$nodes = $xpath->query($xPathItem);
 			if (empty($nodes)) {
 				return null;
