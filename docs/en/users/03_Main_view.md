@@ -252,7 +252,7 @@ You can change the sort order by clicking the toggle button available in the hea
 Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
 
 Hopefully, there is a way to bookmark them for later use.
-We call them _user queries_.
+We call them *user queries*.
 You can create as many as you want, the only limit is how they will be displayed on your screen.
 
 ### Bookmark the current query
