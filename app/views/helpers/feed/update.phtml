@@ -127,9 +127,9 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button class="btn btn-attention confirm"
+				<button type="submit" class="btn btn-attention confirm"
 					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
 					formaction="<?= _url('feed', 'delete', 'id', $this->feed->id()) ?>"
 					formmethod="post"><?= _t('gen.action.remove') ?></button>
@@ -367,9 +367,9 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
+				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
 			</div>
 		</div>
 
@@ -580,7 +580,7 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
