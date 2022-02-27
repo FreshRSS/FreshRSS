@@ -613,6 +613,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				if ($item['title'] . $item['content'] . $item['link'] != '') {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+					$item = Minz_Helper::htmlspecialchars_utf8($item);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
 			}
