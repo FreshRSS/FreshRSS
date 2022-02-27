@@ -65,6 +65,10 @@ p.help, .prompt p.help {
 	margin: 5px 0 0.5em;
 }
 
+p.help .icon {
+	filter: brightness(2);
+}
+
 sup {
 	line-height: 25px;
 	position: relative;
@@ -165,6 +169,11 @@ input[type="checkbox"] {
 .dropdown-menu label > input[type="text"] {
 	width: 150px;
 	width: calc(99% - 5em);
+}
+
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
+	text-decoration: none;
 }
 
 .dropdown-menu input[type="checkbox"] {
@@ -373,8 +382,9 @@ input[type="checkbox"]:focus-visible {
 .dropdown-menu > .item > .as-link,
 .dropdown-menu > .item > span {
 	display: block;
-	min-width: 200px;
+	width: 100%;
 	white-space: nowrap;
+	box-sizing: border-box;
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
@@ -460,6 +470,7 @@ input[type="checkbox"]:focus-visible {
 /*=== Icons */
 .icon {
 	display: inline-block;
+	max-width: none;
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;

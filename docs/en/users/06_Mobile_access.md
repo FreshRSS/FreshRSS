@@ -1,6 +1,23 @@
 This page assumes you have completed the [server setup](../admins/03_Installation.md).
 
-# Enable the API in FreshRSS
+# Mobile Access
+
+You can access FreshRSS on mobile devices via browser and via mobile apps.
+
+
+## Access via Browser
+
+The FreshRSS user interface is optimized for both small and large screens. The content will fit nicely on small mobile device screens as well.
+
+
+## Access via Mobile App
+
+FreshRSS supports access from mobile / native apps for Linux, Android, iOS, Windows and macOS, via two distinct APIs: Google Reader API (best), and Fever API (limited features and less efficient).
+
+A list of known apps is available on the [FreshRSS GitHub page](https://github.com/FreshRSS/FreshRSS#apis--native-apps).
+
+
+### Enable the API in FreshRSS
 
 1. Under the section “Authentication”, enable the option “Allow API access (required for mobile apps)”.
 2. Under the section “Profile”, fill-in the field “API password (e.g., for mobile apps)”.
@@ -11,7 +28,7 @@ See the [page about the Google Reader compatible API](../developers/06_GoogleRea
 See the [page about the Fever compatible API](../developers/06_Fever_API.md) for more details.
 
 
-# Testing
+### Testing
 
 1. Under the section “Profile”, click on the link like `https://rss.example.net/api/` next to the field “API password”.
 2. Click on first link “Check full server configuration”:
@@ -20,7 +37,7 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 	* If you get any other error message, proceed to step 5.
 
 
-# Fix server configuration
+### Fix server configuration
 
 * Click on the second link “Check partial server configuration (without `%2F` support)”:
 	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
