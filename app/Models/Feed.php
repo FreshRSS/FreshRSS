@@ -1,6 +1,28 @@
 <?php
 
 class FreshRSS_Feed extends Minz_Model {
+
+	/**
+	 * Normal RSS or Atom feed
+	 * @var int
+	 */
+	const KIND_RSS = 0;
+	/**
+	 * Invalid RSS or Atom feed
+	 * @var int
+	 */
+	const KIND_RSS_FORCED = 2;
+	/**
+	 * Normal HTML with XPath scraping
+	 * @var int
+	 */
+	const KIND_HTML_XPATH = 10;
+	/**
+	 * Normal JSON with XPath scraping
+	 * @var int
+	 */
+	const KIND_JSON_XPATH = 20;
+
 	const PRIORITY_MAIN_STREAM = 10;
 	const PRIORITY_NORMAL = 0;
 	const PRIORITY_ARCHIVED = -10;
@@ -10,33 +32,50 @@ class FreshRSS_Feed extends Minz_Model {
 	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $id = 0;
-	private $url;
-	/**
-	 * @var int
-	 */
+	/** @var string */
+	private $url = '';
+	/** @var int */
+	private $kind = 0;
+	/** @var int */
 	private $category = 1;
+	/** @var int */
 	private $nbEntries = -1;
+	/** @var int */
 	private $nbNotRead = -1;
+	/** @var int */
 	private $nbPendingNotRead = 0;
+	/** @var string */
 	private $name = '';
+	/** @var string */
 	private $website = '';
+	/** @var string */
 	private $description = '';
+	/** @var int */
 	private $lastUpdate = 0;
+	/** @var int */
 	private $priority = self::PRIORITY_MAIN_STREAM;
+	/** @var string */
 	private $pathEntries = '';
+	/** @var string */
 	private $httpAuth = '';
+	/** @var bool */
 	private $error = false;
+	/** @var int */
 	private $ttl = self::TTL_DEFAULT;
 	private $attributes = [];
+	/** @var bool */
 	private $mute = false;
+	/** @var string */
 	private $hash = '';
+	/** @var string */
 	private $lockPath = '';
+	/** @var string */
 	private $hubUrl = '';
+	/** @var string */
 	private $selfUrl = '';
+	/** @var array<FreshRSS_FilterAction> $filterActions */
 	private $filterActions = null;
 
 	public function __construct(string $url, bool $validate = true) {
@@ -47,6 +86,9 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/**
+	 * @return FreshRSS_Feed
+	 */
 	public static function example() {
 		$f = new FreshRSS_Feed('http://example.net/', false);
 		$f->faviconPrepare();
@@ -70,6 +112,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function selfUrl(): string {
 		return $this->selfUrl;
+	}
+	public function kind(): int {
+		return $this->kind;
 	}
 	public function hubUrl(): string {
 		return $this->hubUrl;
@@ -200,6 +245,9 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$this->url = $value;
 	}
+	public function _kind($value) {
+		$this->kind = $value;
+	}
 	public function _category($value) {
 		$value = intval($value);
 		$this->category = $value >= 0 ? $value : 0;
@@ -267,7 +315,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return SimplePie|null
 	 */
 	public function load(bool $loadDetails = false, bool $noCache = false) {
-		if ($this->url !== null) {
+		if ($this->url != '') {
 			// @phpstan-ignore-next-line
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
@@ -347,6 +395,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$guids = [];
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
+		// TODO: Replace very slow $simplePie->get_item($i) by getting all items at once
 		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
 			$item = $simplePie->get_item($i);
 			if ($item == null) {
@@ -375,6 +424,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
 		// We want chronological order and SimplePie uses reverse order.
+		// TODO: Replace very slow $simplePie->get_item($i) by getting all items at once
 		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
 			$item = $simplePie->get_item($i);
 			if ($item == null) {
@@ -428,15 +478,18 @@ class FreshRSS_Feed extends Minz_Model {
 						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
 								. ($length == null ? '' : '" data-length="' . intval($length))
-								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
+								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 						} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
 							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
 								. ($length == null ? '' : '" data-length="' . intval($length))
-								. '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8')
+								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 						} else {	//e.g. application, text, unknown
-							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink . '">💾</a></p>';
+							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink
+								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+								. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
+								. '">💾</a></p>';
 						}
 
 						$thumbnailContent = '';
@@ -490,6 +543,97 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * @param array<string,mixed> $attributes
+	 * @return SimplePie|null
+	 */
+	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false, array $attributes = []) {
+		if ($this->url == '') {
+			return null;
+		}
+		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
+		if ($this->httpAuth != '') {
+			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
+		}
+
+		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
+		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
+		/** @var array<string,string> */
+		$xPathSettings = $this->attributes('xpath');
+		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
+		$xPathItem = $xPathSettings['item'] ?? '';
+		$xPathItemTitle = $xPathSettings['itemTitle'] ?? '';
+		$xPathItemContent = $xPathSettings['itemContent'] ?? '';
+		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
+		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
+		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
+		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
+		if ($xPathItem == '') {
+			return null;
+		}
+
+		$html = getHtml($feedSourceUrl, $attributes);
+		if (strlen($html) <= 0) {
+			return null;
+		}
+
+		$view = new FreshRSS_View();
+		$view->_path('index/rss.phtml');
+		$view->internal_rendering = true;
+		$view->rss_url = $feedSourceUrl;
+		$view->entries = [];
+
+		try {
+			$doc = new DOMDocument();
+			$doc->recover = true;
+			$doc->strictErrorChecking = false;
+			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+			$xpath = new DOMXPath($doc);
+			$view->rss_title = $xPathFeedTitle == '' ? '' : htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
+			$view->rss_base = htmlspecialchars(trim($xpath->evaluate('normalize-space(//base/@href)')), ENT_COMPAT, 'UTF-8');
+			$nodes = $xpath->query($xPathItem);
+			if (empty($nodes)) {
+				return null;
+			}
+
+			foreach ($nodes as $node) {
+				$item = [];
+				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
+				$item['content'] = $xPathItemContent == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
+				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
+				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
+				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
+				if ($xPathItemCategories != '') {
+					$itemCategories = @$xpath->query($xPathItemCategories);
+					if ($itemCategories) {
+						foreach ($itemCategories as $itemCategory) {
+							$item['categories'][] = $itemCategory->textContent;
+						}
+					}
+				}
+				if ($item['title'] . $item['content'] . $item['link'] != '') {
+					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+					$item = Minz_Helper::htmlspecialchars_utf8($item);
+					$view->entries[] = FreshRSS_Entry::fromArray($item);
+				}
+			}
+		} catch (Exception $ex) {
+			Minz_Log::warning($ex->getMessage());
+			return null;
+		}
+
+		if (count($view->entries) < 1) {
+			return null;
+		}
+
+		$simplePie = customSimplePie();
+		$simplePie->set_raw_data($view->renderToString());
+		$simplePie->init();
+		return $simplePie;
+	}
+
+	/**
 	 * To keep track of some new potentially unread articles since last commit+fetch from database
 	 */
 	public function incPendingUnread(int $n = 1) {
@@ -532,18 +676,23 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	protected function cacheFilename(): string {
-		$simplePie = customSimplePie($this->attributes());
-		$filename = $simplePie->get_cache_filename($this->url);
-		return CACHE_PATH . '/' . $filename . '.spc';
+	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
+		$simplePie = customSimplePie($attributes);
+		$filename = $simplePie->get_cache_filename($url);
+		if ($kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+			return CACHE_PATH . '/' . $filename . '.html';
+		} else {
+			return CACHE_PATH . '/' . $filename . '.spc';
+		}
 	}
 
 	public function clearCache(): bool {
-		return @unlink($this->cacheFilename());
+		return @unlink(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
 	}
 
+	/** @return int|false */
 	public function cacheModifiedTime() {
-		return @filemtime($this->cacheFilename());
+		return @filemtime(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
 	}
 
 	public function lock(): bool {
@@ -567,7 +716,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return array<FreshRSS_FilterAction>
 	 */
 	public function filterActions(): array {
-		if ($this->filterActions == null) {
+		if (empty($this->filterActions)) {
 			$this->filterActions = array();
 			$filters = $this->attributes('filters');
 			if (is_array($filters)) {
@@ -582,6 +731,9 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->filterActions;
 	}
 
+	/**
+	 * @param array<FreshRSS_FilterAction> $filterActions
+	 */
 	private function _filterActions($filterActions) {
 		$this->filterActions = $filterActions;
 		if (is_array($this->filterActions) && !empty($this->filterActions)) {

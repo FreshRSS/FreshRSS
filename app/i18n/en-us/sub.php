@@ -61,6 +61,49 @@ return array(
 		),
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
+		'kind' => array(
+			'_' => 'Type of feed source',	// IGNORE
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
+				'feed_title' => array(
+					'_' => 'feed title',	// IGNORE
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// IGNORE
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// IGNORE
+				),
+				'item_author' => array(
+					'_' => 'item author',	// IGNORE
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// IGNORE
+				),
+				'item_categories' => 'items tags',	// IGNORE
+				'item_content' => array(
+					'_' => 'item content',	// IGNORE
+					'help' => 'Example to take the full item: <code>.</code>',	// IGNORE
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// IGNORE
+					'help' => 'Example: <code>descendant::img/@src</code>',	// IGNORE
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// IGNORE
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
+				),
+				'item_title' => array(
+					'_' => 'item title',	// IGNORE
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// IGNORE
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// IGNORE
+					'help' => 'Example: <code>descendant::a/@href</code>',	// IGNORE
+				),
+				'relative' => 'XPath (relative to item) for:',	// IGNORE
+				'xpath' => 'XPath for:',	// IGNORE
+			),
+			'rss' => 'RSS / Atom (default)',	// IGNORE
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// IGNORE
 			'clear_cache_help' => 'Clear the cache for this feed.',	// IGNORE
