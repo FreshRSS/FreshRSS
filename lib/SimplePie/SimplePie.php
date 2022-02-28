@@ -2275,7 +2275,6 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		// FreshRSS https://github.com/simplepie/simplepie/commit/e49c578817aa504d8d05cd7f33857aeda9d41908
 		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
 		{
 			return $element['xml_base'];
