@@ -61,6 +61,49 @@ return array(
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
+		'kind' => array(
+			'_' => 'Type de source de flux',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Moissonnage du Web)',
+				'feed_title' => array(
+					'_' => 'titre de flux',
+					'help' => 'Exemple : <code>//title</code> ou un text statique : <code>"Mon flux personnalisé"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
+				'item' => array(
+					'_' => 'trouver les <strong>articles</strong>',
+					'help' => 'Exemple : <code>//div[@class="article"]</code>',
+				),
+				'item_author' => array(
+					'_' => 'auteur de l’article',
+					'help' => 'Peut aussi être une chaîne de texte statique. Exemple : <code>"Anonyme"</code>',
+				),
+				'item_categories' => 'catégories (tags) de l’article',
+				'item_content' => array(
+					'_' => 'contenu de l’article',
+					'help' => 'Exemple pour prendre l’article complet : <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniature de l’article',
+					'help' => 'Exemple : <code>descendant::img/@src</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'date de l’article',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => array(
+					'_' => 'titre de l’article',
+					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
+				),
+				'item_uri' => array(
+					'_' => 'lien (URL) de l’article',
+					'help' => 'Exemple : <code>descendant::a/@href</code>',
+				),
+				'relative' => 'XPath (relatif à l’article) pour :',
+				'xpath' => 'XPath pour :',
+			),
+			'rss' => 'RSS / Atom (par défaut)',
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
 			'clear_cache_help' => 'Supprime le cache de ce flux.',
@@ -100,7 +143,7 @@ return array(
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'url' => 'URL du flux',
 		'useragent' => 'Sélectionner l’agent utilisateur pour télécharger ce flux',
-		'useragent_help' => 'Exemple: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
+		'useragent_help' => 'Exemple : <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
 		'websub' => 'Notification instantanée par WebSub',
