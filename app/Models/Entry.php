@@ -484,7 +484,7 @@ class FreshRSS_Entry extends Minz_Model {
 			/**
 			 * @var phpQueryObject @doc
 			 */
-			$doc = phpQuery::newDocument($html);
+			$doc = phpQuery::newDocumentHTML($html);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
