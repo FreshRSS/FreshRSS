@@ -61,10 +61,10 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/** @param array<string,mixed> $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
-		if (!isset($dao['content'])) {
+		if (empty($dao['content'])) {
 			$dao['content'] = '';
 		}
-		if (isset($dao['thumbnail'])) {
+		if (!empty($dao['thumbnail'])) {
 			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
 		}
 		$entry = new FreshRSS_Entry(
@@ -79,7 +79,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['is_favorite'] ?? false,
 			$dao['tags'] ?? ''
 		);
-		if (isset($dao['id'])) {
+		if (!empty($dao['id'])) {
 			$entry->_id($dao['id']);
 		}
 		if (!empty($dao['timestamp'])) {
