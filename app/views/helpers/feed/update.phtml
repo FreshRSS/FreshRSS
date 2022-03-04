@@ -32,7 +32,7 @@
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('sub.feed.title') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" class="extend" value="<?= $this->feed->name(true) ?>" />
+				<input type="text" name="name" id="name" class="extend" value="<?= $this->feed->name(true) ?>" required />
 			</div>
 		</div>
 		<div class="form-group">
@@ -45,7 +45,7 @@
 			<label class="group-name" for="website"><?= _t('sub.feed.website') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="website" id="website" class="extend" value="<?= $this->feed->website() ?>" />
+					<input type="url" name="website" id="website" class="extend" value="<?= $this->feed->website() ?>" />
 					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url" id="url" class="extend" value="<?= $this->feed->url() ?>" />
+					<input type="url" name="url" id="url" class="extend" value="<?= $this->feed->url() ?>" required />
 					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
 				</div>
 
