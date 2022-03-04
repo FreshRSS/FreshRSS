@@ -138,7 +138,7 @@
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?= _url('stats', 'repartition', 'id', '------') ?>"><?= _t('index.menu.stats') ?></a></li>
 		<?php } ?>
-		<li class="item"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
+		<li class="item" id="websiteURL"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
 		<li class="item"><a href="<?= _url('subscription', 'index', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a></li>
