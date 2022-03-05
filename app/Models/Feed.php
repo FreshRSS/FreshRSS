@@ -605,7 +605,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
-					$itemCategories = @$xpath->query($xPathItemCategories);
+					$itemCategories = @$xpath->query($xPathItemCategories, $node);
 					if ($itemCategories) {
 						foreach ($itemCategories as $itemCategory) {
 							$item['categories'][] = $itemCategory->textContent;
