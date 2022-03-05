@@ -40,7 +40,7 @@
 			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url_rss" id="url" class="extend" value="<?= $this->feed->url() ?>" />
+					<input type="text" name="url_rss" id="url" value="<?= $this->feed->url() ?>" />
 					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.see_url') ?>"><?= _i('link') ?></a>
 				</div>
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
