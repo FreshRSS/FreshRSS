@@ -133,7 +133,7 @@ function updateHref(ev) {
 	} else {
 		urlField.focus();
 		this.removeAttribute('href');
-		ev.preventDefault;
+		ev.preventDefault();
 		return false;
 	}
 }
