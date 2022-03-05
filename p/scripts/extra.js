@@ -124,7 +124,7 @@ function init_password_observers() {
 }
 
 // overwrites the href attribute from the url input
-function updateHref() {
+function updateHref(ev) {
 	const urlField = document.getElementById(this.getAttribute('data-input'));
 	const url = urlField.value;
 	if (url.length > 0) {
@@ -133,6 +133,7 @@ function updateHref() {
 	} else {
 		urlField.focus();
 		this.removeAttribute('href');
+		ev.preventDefault;
 		return false;
 	}
 }
@@ -141,8 +142,7 @@ function updateHref() {
 function init_url_observers() {
 	document.querySelectorAll('.open-url').forEach(function (btn) {
 		btn.addEventListener('mouseover', updateHref);
-		btn.addEventListener('mousedown', updateHref);
-		btn.addEventListener('keydown', updateHref);
+		btn.addEventListener('click', updateHref);
 	});
 }
 
