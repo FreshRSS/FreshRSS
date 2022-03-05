@@ -2,6 +2,9 @@
 
 ## 2022-0X-XX FreshRSS 1.20.0-dev
 
+* Features
+	* New Web scraping feature *HTML+XPath* for Web pages without any RSS/ATOM feed [#4220](https://github.com/FreshRSS/FreshRSS/pull/4220)
+
 
 ## 2022-02-04 FreshRSS 1.19.2
 
