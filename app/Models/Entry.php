@@ -508,6 +508,10 @@ class FreshRSS_Entry extends Minz_Model {
 			 * @var phpQueryObject @content
 			 */
 			$content = $doc->find($path);
+			$bases = $doc->document->getElementsByTagName('base');
+			if (!empty($bases[0]) && $bases[0]->getAttribute('href') != '') {
+				$url = $bases[0]->getAttribute('href');
+			}
 			$html = trim(sanitizeHTML($content->__toString(), $url));
 			phpQuery::unloadDocuments();
 			return $html;
