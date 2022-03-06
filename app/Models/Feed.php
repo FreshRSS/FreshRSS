@@ -395,9 +395,12 @@ class FreshRSS_Feed extends Minz_Model {
 		$guids = [];
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
-		// TODO: Replace very slow $simplePie->get_item($i) by getting all items at once
-		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
-			$item = $simplePie->get_item($i);
+		$items = $simplePie->get_items();
+		if (empty($items)) {
+			return $guids;
+		}
+		for ($i = count($items) - 1; $i >= 0; $i--) {
+			$item = $items[$i];
 			if ($item == null) {
 				continue;
 			}
@@ -423,10 +426,13 @@ class FreshRSS_Feed extends Minz_Model {
 	public function loadEntries(SimplePie $simplePie) {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
+		$items = $simplePie->get_items();
+		if (empty($items)) {
+			return;
+		}
 		// We want chronological order and SimplePie uses reverse order.
-		// TODO: Replace very slow $simplePie->get_item($i) by getting all items at once
-		for ($i = $simplePie->get_item_quantity() - 1; $i >= 0; $i--) {
-			$item = $simplePie->get_item($i);
+		for ($i = count($items) - 1; $i >= 0; $i--) {
+			$item = $items[$i];
 			if ($item == null) {
 				continue;
 			}
