@@ -80,7 +80,7 @@ A short (not complete) summary:
 #### PHP
 
 - Syntax of `php` and `phtml` files is checked.
-- translation files (`i18n`) are checked ([more informaton about i18n files](internationalization.html)).
+- translation files (`i18n`) are checked ([more information about i18n files](internationalization.html)).
 - unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
 - Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
