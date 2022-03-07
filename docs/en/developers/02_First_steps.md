@@ -67,11 +67,13 @@ If you want to create your own FreshRSS extension, take a look at the [extension
 
 If you want to contribute to the source code, it’s important to follow the project’s coding style. The actual code doesn’t always follow it throughout the project, but we should fix it every time an opportunity presents itself.
 
-The code will be checked within every Pull request commit on GitHub (via GitHub Actions, config file see `.github/workflows/tests.yml`).
-
 Contributions which don’t follow the coding style will be rejected as long as the coding style is not fixed.
 
 ### Checked files via GitHub Actions
+
+The code will be checked within every Pull Request commit on GitHub (via GitHub Actions, config file see `.github/workflows/tests.yml`).
+
+Tests can be run locally, e.g. by running `make test-all` (require npm and node.js installed), and several problems can be automatically fixed by running `make fix-all`
 
 A short (not complete) summary:
 #### PHP
