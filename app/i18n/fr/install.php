@@ -71,8 +71,8 @@ return array(
 			'ok' => 'Vous disposez de fileinfo.',
 		),
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommandée JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
@@ -124,7 +124,7 @@ return array(
 	'missing_applied_migrations' => 'Quelque chose s’est mal passé, vous devriez créer le fichier <em>%s</em> à la main.',
 	'ok' => 'L’installation s’est bien passée.',
 	'session' => array(
-		'nok' => 'Le serveur Web semble mal configué pour les cookies nécessaires aux sessions PHP!',
+		'nok' => 'Le serveur Web semble mal configuré pour les cookies nécessaires aux sessions PHP!',
 	),
 	'step' => 'étape %d',
 	'steps' => 'Étapes',

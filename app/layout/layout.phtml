@@ -31,7 +31,7 @@ if (_t('gen.dir') === 'rtl') {
 		<?= FreshRSS_View::headTitle() ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
-	if (isset($this->rss_title)) {
+	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
 		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
