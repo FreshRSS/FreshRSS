@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_read' => 'Marcar coma legit',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
 		'remove' => 'Levar',
 		'rename' => 'Renomenar',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Veire lo site',
 		'submit' => 'Mandar',
 		'truncate' => 'Suprimir totes los articles',

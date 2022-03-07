@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
 		'remove' => '消去',
 		'rename' => 'リネーム',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'webサイトを閲覧してください',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',

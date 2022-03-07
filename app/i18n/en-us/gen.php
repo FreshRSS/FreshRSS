@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// IGNORE
 		'manage' => 'Manage',	// IGNORE
 		'mark_read' => 'Mark as read',	// IGNORE
+		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
-		'see_url' => 'See URL',	// IGNORE
 		'see_website' => 'See website',	// IGNORE
 		'submit' => 'Submit',	// IGNORE
 		'truncate' => 'Delete all articles',	// IGNORE

@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_read' => 'Marcar como leído',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
 		'remove' => 'Borrar',
 		'rename' => 'Cambiar el nombre a',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',
 		'truncate' => 'Borrar todos los artículos',

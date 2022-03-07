@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => '重置快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',
 		'rename' => '重命名',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',

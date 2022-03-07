@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
 		'remove' => 'Удалить',
 		'rename' => 'Переименовать',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Посмотреть на сайте',
 		'submit' => 'Отправить',
 		'truncate' => 'Удалить все статьи',

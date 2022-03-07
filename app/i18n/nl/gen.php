@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',

@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
 		'mark_read' => 'Marquer comme lu',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promouvoir',
 		'purge' => 'Purger',
 		'remove' => 'Supprimer',
 		'rename' => 'Renommer',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Voir le site',
 		'submit' => 'Valider',
 		'truncate' => 'Supprimer tous les articles',

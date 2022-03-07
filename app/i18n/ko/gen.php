@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',

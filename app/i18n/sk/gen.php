@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Podporiť',
 		'purge' => 'Vymazať',
 		'remove' => 'Odstrániť',
 		'rename' => 'Premenovať',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Zobraziť webovú stránku',
 		'submit' => 'Poslať',
 		'truncate' => 'Vymazať všetky články',

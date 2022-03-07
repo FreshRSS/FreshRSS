@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
 		'remove' => 'Sil',
 		'rename' => 'Yeniden adlandır',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',

@@ -28,11 +28,11 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
-		'see_url' => 'See URL',	// TODO
 		'see_website' => 'Zobrazit webovou stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Odstranit všechny články',
