@@ -82,7 +82,7 @@ A short (not complete) summary:
 - Syntax of `php` and `phtml` files is checked.
 - translation files (`i18n`) are checked ([more informaton about i18n files](internationalization.html)).
 - unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
-- Linter: 
+- Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
   - [PHPstan](https://github.com/phpstan/phpstan)
 
