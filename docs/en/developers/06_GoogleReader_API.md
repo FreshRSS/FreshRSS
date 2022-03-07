@@ -23,7 +23,7 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
-|[News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) |Android|Closed Source (Free)|
+|[News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) |Android|Closed Source (Free)|
 |[FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) |Android                  |Closed Source (Free)                                             |
 |[EasyRSS](https://github.com/Alkarex/EasyRSS)                          |Android                |[GPLv3](https://github.com/Alkarex/EasyRSS/blob/master/license.txt) ([F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))|
 |[Readrops](https://github.com/readrops/Readrops) |Android                  |[GPLv3](https://github.com/readrops/Readrops/blob/develop/LICENSE)                                             |
