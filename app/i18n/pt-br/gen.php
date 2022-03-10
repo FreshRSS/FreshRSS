@@ -176,11 +176,12 @@ return array(
 		'user_management' => 'Gerenciamento de usuários',
 		'user_profile' => 'Perfil',
 	),
-	'pagination' => array(
-		'first' => 'Primeiro',
-		'last' => 'Último',
-		'next' => 'Próximo',
-		'previous' => 'Anterior',
+	'period' => array(
+		'days' => 'dias',
+		'hours' => 'horas',
+		'months' => 'meses',
+		'weeks' => 'semanas',
+		'years' => 'anos',
 	),
 	'share' => array(
 		'Known' => 'Sites no Known',

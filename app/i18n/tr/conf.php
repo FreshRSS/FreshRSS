@@ -77,7 +77,7 @@ return array(
 			'last' => 'Son',
 			'next' => 'Sonraki',
 			'previous' => 'Önceki',
-	),
+		),
 	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
