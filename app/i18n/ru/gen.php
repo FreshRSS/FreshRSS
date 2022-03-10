@@ -176,12 +176,6 @@ return array(
 		'user_management' => 'Управление пользователями',
 		'user_profile' => 'Профиль',
 	),
-	'pagination' => array(
-		'first' => 'Первая',
-		'last' => 'Последняя',
-		'next' => 'Следующая',
-		'previous' => 'Предыдущая',
-	),
 	'period' => array(
 		'days' => 'дней',
 		'hours' => 'часов',

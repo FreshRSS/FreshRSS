@@ -175,13 +175,7 @@ return array(
 		'update' => '更新',
 		'user_management' => '用户管理',
 		'user_profile' => '用户帐户',
-	),
-	'pagination' => array(
-		'first' => '首页',
-		'last' => '末页',
-		'next' => '下一页',
-		'previous' => '上一页',
-	),
+),
 	'period' => array(
 		'days' => '天',
 		'hours' => '时',

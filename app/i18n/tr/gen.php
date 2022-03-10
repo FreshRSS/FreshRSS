@@ -176,12 +176,6 @@ return array(
 		'user_management' => 'Kullanıcıları yönet',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'İlk',
-		'last' => 'Son',
-		'next' => 'Sonraki',
-		'previous' => 'Önceki',
-	),
 	'period' => array(
 		'days' => 'gün',
 		'hours' => 'saat',

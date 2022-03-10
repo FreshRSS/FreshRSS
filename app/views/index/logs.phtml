@@ -18,9 +18,9 @@
 	<div id="loglist-wrapper">
 		<table id="loglist">
 			<thead>
-				<th>Log level</th>
-				<th>Date</th>
-				<th>Log Message</th>
+				<th><?= _t('conf.logs.loglist.level') ?></th>
+				<th><?= _t('conf.logs.loglist.timestamp') ?></th>
+				<th><?= _t('conf.logs.loglist.message') ?></th>
 			</thead>
 			<tbody>
 		<?php foreach ($items as $log) { ?>

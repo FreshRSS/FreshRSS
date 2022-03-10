@@ -176,12 +176,6 @@ return array(
 		'user_management' => 'ユーザー管理',
 		'user_profile' => 'プロフィール',
 	),
-	'pagination' => array(
-		'first' => '先頭',
-		'last' => '最後',
-		'next' => 'つぎへ',
-		'previous' => '前へ',
-	),
 	'period' => array(
 		'days' => '日',
 		'hours' => '時',

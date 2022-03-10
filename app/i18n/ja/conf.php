@@ -66,6 +66,19 @@ return array(
 			'thin' => '狭い',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '先頭',
+			'last' => '最後',
+			'next' => 'つぎへ',
+			'previous' => '前へ',
+		),
+	),
 	'profile' => array(
 		'_' => 'プロフィール',
 		'api' => 'API管理',

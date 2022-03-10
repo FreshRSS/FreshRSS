@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Zayıf',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'İlk',
+			'last' => 'Son',
+			'next' => 'Sonraki',
+			'previous' => 'Önceki',
+	),
+	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
 		'api' => 'API yönetimi',

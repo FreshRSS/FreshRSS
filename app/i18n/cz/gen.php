@@ -176,12 +176,6 @@ return array(
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'První',
-		'last' => 'Poslední',
-		'next' => 'Další',
-		'previous' => 'Předchozí',
-	),
 	'period' => array(
 		'days' => 'dní',
 		'hours' => 'hodin',
