@@ -72,12 +72,11 @@ return array(
 			'message' => 'Log Message',	// TODO
 			'timestamp' => 'Timestamp',	// TODO
 		),
-		'period' => array(
-			'days' => 'dias',
-			'hours' => 'horas',
-			'months' => 'meses',
-			'weeks' => 'semanas',
-			'years' => 'anos',
+		'pagination' => array(
+			'first' => 'Primeiro',
+			'last' => 'Último',
+			'next' => 'Próximo',
+			'previous' => 'Anterior',
 		),
 	),
 	'profile' => array(
