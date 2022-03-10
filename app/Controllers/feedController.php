@@ -38,7 +38,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws FreshRSS_Feed_Exception
 	 * @throws Minz_FileNotExistException
 	 */
-	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array()) {
+	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array(), $kind = FreshRSS_Feed::KIND_RSS) {
 		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
 
@@ -67,10 +67,19 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
+		$feed->_kind($kind);
 		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz_FileNotExistException
 		$feed->_category($cat_id);
+		switch ($kind) {
+			case FreshRSS_Feed::KIND_RSS:
+			case FreshRSS_Feed::KIND_RSS_FORCED:
+				$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz_FileNotExistException
+				break;
+			case FreshRSS_Feed::KIND_HTML_XPATH:
+				$feed->_website($url);
+				break;
+		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		if ($feedDAO->searchByUrl($feed->url())) {
@@ -85,8 +94,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$values = array(
 			'url' => $feed->url(),
+			'kind' => $feed->kind(),
 			'category' => $feed->category(),
-			'name' => $title != '' ? $title : $feed->name(),
+			'name' => $title != '' ? $title : $feed->name(true),
 			'website' => $feed->website(),
 			'description' => $feed->description(),
 			'lastUpdate' => 0,
@@ -120,7 +130,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * Parameters are:
 	 *   - url_rss (default: false)
 	 *   - category (default: false)
-	 *   - new_category (required if category == 'nc')
 	 *   - http_user (default: false)
 	 *   - http_pass (default: false)
 	 * It tries to get website information from RSS feed.
@@ -185,8 +194,25 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$timeout = intval(Minz_Request::param('timeout', 0));
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
+			$feed_kind = Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
+			if ($feed_kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+				$xPathSettings = [];
+				if (Minz_Request::param('xPathFeedTitle', '') != '') $xPathSettings['feedTitle'] = Minz_Request::param('xPathFeedTitle', '', true);
+				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
+				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '', true);
+				if (Minz_Request::param('xPathItemContent', '') != '') $xPathSettings['itemContent'] = Minz_Request::param('xPathItemContent', '', true);
+				if (Minz_Request::param('xPathItemUri', '') != '') $xPathSettings['itemUri'] = Minz_Request::param('xPathItemUri', '', true);
+				if (Minz_Request::param('xPathItemAuthor', '') != '') $xPathSettings['itemAuthor'] = Minz_Request::param('xPathItemAuthor', '', true);
+				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '', true);
+				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '', true);
+				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '', true);
+				if (!empty($xPathSettings)) {
+					$attributes['xpath'] = $xPathSettings;
+				}
+			}
+
 			try {
-				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes);
+				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes, $feed_kind);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
@@ -265,6 +291,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	/**
+	 * @param int $feed_id
+	 * @param string $feed_url
+	 * @param bool $force
+	 * @param SimplePie|null $simplePiePush
+	 * @param bool $noCommit
+	 * @param int $maxFeeds
+	 */
 	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $noCommit = false, $maxFeeds = 10) {
 		@set_time_limit(300);
 
@@ -339,6 +373,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			try {
 				if ($simplePiePush) {
 					$simplePie = $simplePiePush;	//Used by WebSub
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
+					$simplePie = $feed->loadHtmlXpath(false, $isNewFeed);
 				} else {
 					$simplePie = $feed->load(false, $isNewFeed);
 				}
@@ -378,6 +414,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 				$oldGuids = array();
 				// Add entries in database if possible.
+				/** @var FreshRSS_Entry $entry */
 				foreach ($entries as $entry) {
 					if (isset($newGuids[$entry->guid()])) {
 						continue;	//Skip subsequent articles with same GUID
@@ -766,7 +803,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		//Re-fetch articles as if the feed was new.
 		$feedDAO->updateFeed($feed->id(), [ 'lastUpdate' => 0 ]);
-		self::actualizeFeed($feed_id, null, false, null, true);
+		self::actualizeFeed($feed_id, '', false);
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);

@@ -59,11 +59,11 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		} else {
 			$sql = <<<SQL
 SELECT
-pg_total_relation_size('`{$this->pdo->prefix()}category`')
-pg_total_relation_size('`{$this->pdo->prefix()}feed`')
-pg_total_relation_size('`{$this->pdo->prefix()}entry`')
-pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`')
-pg_total_relation_size('`{$this->pdo->prefix()}tag`')
+pg_total_relation_size('`{$this->pdo->prefix()}category`') +
+pg_total_relation_size('`{$this->pdo->prefix()}feed`') +
+pg_total_relation_size('`{$this->pdo->prefix()}entry`') +
+pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`') +
+pg_total_relation_size('`{$this->pdo->prefix()}tag`') +
 pg_total_relation_size('`{$this->pdo->prefix()}entrytag`')
 SQL;
 			$stm = $this->pdo->query($sql);
