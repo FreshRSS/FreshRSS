@@ -35,7 +35,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
-    "markdownlint-cli": "^0.30.0",
+    "markdownlint-cli": "^0.31.1",
     "rtlcss": "^3.5.0",
     "sass": "^1.49.0",
     "stylelint": "^14.3.0",

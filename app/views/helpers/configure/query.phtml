@@ -85,8 +85,8 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button class="btn btn-attention confirm"
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-attention confirm"
 					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
 					formaction="<?= _url('configure', 'deleteQuery', 'id', $this->queryId) ?>"
 					formmethod="post"><?= _t('gen.action.remove') ?></button>
