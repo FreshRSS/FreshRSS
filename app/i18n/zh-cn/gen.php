@@ -175,7 +175,7 @@ return array(
 		'update' => '更新',
 		'user_management' => '用户管理',
 		'user_profile' => '用户帐户',
-),
+	),
 	'period' => array(
 		'days' => '天',
 		'hours' => '时',
