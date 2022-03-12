@@ -20,12 +20,13 @@ class FreshRSS_Share {
 			return;
 		}
 
+		$isDepricated = isset($share_options['depricated']) ? $share_options['depricated'] : false;
 		$help_url = isset($share_options['help']) ? $share_options['help'] : '';
 		$field = isset($share_options['field']) ? $share_options['field'] : null;
 		self::$list_sharing[$type] = new FreshRSS_Share(
 			$type, $share_options['url'], $share_options['transform'],
 			$share_options['form'], $help_url, $share_options['method'],
-			$field
+			$field, $isDepricated
 		);
 	}
 
@@ -83,6 +84,7 @@ class FreshRSS_Share {
 	private $id = null;
 	private $title = null;
 	private $link = null;
+	private $isDepricated = false;
 	private $method = 'GET';
 	private $field;
 
@@ -97,11 +99,12 @@ class FreshRSS_Share {
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param string $method defines the sharing method (GET or POST)
 	 */
-	private function __construct($type, $url_transform, $transform, $form_type, $help_url, $method, $field) {
+	private function __construct($type, $url_transform, $transform, $form_type, $help_url, $method, $field, $isDepricated = false) {
 		$this->type = $type;
 		$this->name = _t('gen.share.' . $type);
 		$this->url_transform = $url_transform;
 		$this->help_url = $help_url;
+		$this->isDepricated = $isDepricated;
 
 		if (!is_array($transform)) {
 			$transform = array();
@@ -194,6 +197,13 @@ class FreshRSS_Share {
 	 */
 	public function baseUrl() {
 		return $this->base_url;
+	}
+
+	/**
+	 * Return the depricated status of the share option.
+	 */
+	public function isDepricated() {
+		return $this->isDepricated;
 	}
 
 	/**

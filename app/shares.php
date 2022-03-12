@@ -24,6 +24,7 @@
 
 return array(
 	'blogotext' => array(
+		'depricated' => true,
 		'url' => '~URL~/admin/links.php?url=~LINK~',
 		'transform' => array(),
 		'help' => 'http://lehollandaisvolant.net/blogotext/fr/',
