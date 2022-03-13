@@ -210,6 +210,7 @@ return array(
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
 		'attention' => 'Warning!',

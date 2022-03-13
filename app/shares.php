@@ -154,4 +154,11 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
+	'xing' => array(
+		'url' => 'https://www.xing.com/spi/shares/new?url=~LINK~',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://dev.xing.com/plugins/share_button/docs',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 );
