@@ -1402,8 +1402,9 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.category .title.error::before {
-	content: "⚠ ";
+.category .title.error::before,
+.item.share.error a::after {
+	content: " ⚠ ";
 	color: #bd362f;
 }
 
