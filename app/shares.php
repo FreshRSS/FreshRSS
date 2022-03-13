@@ -7,9 +7,9 @@
  *
  * For each share there is different configuration options. Here is the description
  * of those options:
- *   - 'deprecated' (optional) is a boolean. Default: 'false'. 
- *     'true', if the sharing service is planned to remove in the future. 
- *     Add more information into the documentation center. 
+ *   - 'deprecated' (optional) is a boolean. Default: 'false'.
+ *     'true', if the sharing service is planned to remove in the future.
+ *     Add more information into the documentation center.
  *   - 'url' is a mandatory option. It is a string representing the share URL. It
  *     supports 4 different placeholders for custom data. The ~URL~ placeholder
  *     represents the URL of the system used to share, it is configured by the
