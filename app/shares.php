@@ -7,19 +7,22 @@
  *
  * For each share there is different configuration options. Here is the description
  * of those options:
- *   - url is a mandatory option. It is a string representing the share URL. It
+ *   - 'deprecated' (optional) is a boolean. Default: 'false'. 
+ *     'true', if the sharing service is planned to remove in the future. 
+ *     Add more information into the documentation center. 
+ *   - 'url' is a mandatory option. It is a string representing the share URL. It
  *     supports 4 different placeholders for custom data. The ~URL~ placeholder
  *     represents the URL of the system used to share, it is configured by the
  *     user. The ~LINK~ placeholder represents the link of the shared article.
  *     The ~TITLE~ placeholder represents the title of the shared article. The
  *     ~ID~ placeholder represents the id of the shared article (only useful
  *     for internal use)
- *   - transform is an array of transformation to apply on links and titles
- *   - help is a URL to a help page (mandatory for form = 'advanced')
- *   - form is the type of form to display during configuration. It’s either
+ *   - 'transform' is an array of transformation to apply on links and titles
+ *   - 'help' is a URL to a help page (mandatory for form = 'advanced')
+ *   - 'form' is the type of form to display during configuration. It’s either
  *     'simple' or 'advanced'. 'simple' is used when only the name is configurable,
  *     'advanced' is used when the name and the location are configurable.
- *   - method is the HTTP method (POST or GET) used to share a link.
+ *   - 'method' is the HTTP method (POST or GET) used to share a link.
  */
 
 return array(
