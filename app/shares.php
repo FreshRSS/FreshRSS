@@ -168,6 +168,13 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
+	'whatsapp' => array(
+		'url' => 'https://wa.me/?text=~TITLE~ | ~LINK~',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://faq.whatsapp.com/iphone/how-to-link-to-whatsapp-from-a-different-app/?lang=en',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'xing' => array(
 		'url' => 'https://www.xing.com/spi/shares/new?url=~LINK~',
 		'transform' => array('rawurlencode'),

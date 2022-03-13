@@ -212,6 +212,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'Wallabag v1',
 		'wallabagv2' => 'Wallabag v2',
+		'whatsapp' => 'Whatsapp',	// TODO
 		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
