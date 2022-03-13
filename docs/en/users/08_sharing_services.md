@@ -14,7 +14,7 @@ FreshRSS has the option to share links with a bunch of services.
 
 | Service           | Short description                                    | Links                                            | Notes                                                         |
 |:------------------|:-----------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------------------|
-| Blogotext         | A little more than a lightweight SQLite Blog-Engine. | [GitHub](https://github.com/BlogoText/blogotext) | Depricated since FreshRSS V1.20.0 (2022). Will be deleted in 2023 (scheduled to FreshRSS V1.22.0) |
+| Blogotext         | A little more than a lightweight SQLite Blog-Engine. | [GitHub](https://github.com/BlogoText/blogotext) | Deprecated since FreshRSS V1.20.0 (2022). Will be deleted in 2023 (scheduled to FreshRSS V1.22.0) |
 | Diaspora*         | The online social world where you are in control     | [Website](https://diasporafoundation.org/), [Wikipedia](https://en.wikipedia.org/wiki/Diaspora_(social_network)) |  |
 | Facebook          | Worldwide social network (by Meta Platforms)         | [Website](https://facebook.com), [Wikipedia](https://en.wikipedia.org/wiki/Facebook)
 | GNU social        | Social communication software for both public and private communications | [Website](https://gnu.io/social/) | |

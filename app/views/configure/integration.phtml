@@ -46,7 +46,7 @@
 			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_field" name="share[<?= $key ?>][field]" value="<?= $share->field() ?>" />
 			
-			<?php if ($share->isDepricated()) { ?>
+			<?php if ($share->isDeprecated()) { ?>
 			<div class="prompt alert alert-warn">
 				<p><?= _t('conf.sharing.deprecated') ?></p>
 			</div>

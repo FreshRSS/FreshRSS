@@ -181,7 +181,7 @@ return array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is depricated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE
