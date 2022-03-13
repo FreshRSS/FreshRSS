@@ -206,6 +206,7 @@ return array(
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',

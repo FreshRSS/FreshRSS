@@ -127,6 +127,13 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'reddit' => array(
+		'url' => 'https://www.reddit.com/submit?url=~LINK~',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://www.reddit.com/wiki/submitting?v=c2ae883a-04b9-11e4-a68c-12313b01a1fc',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'shaarli' => array(
 		'url' => '~URL~?post=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
 		'transform' => array('rawurlencode'),

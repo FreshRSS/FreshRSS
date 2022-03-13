@@ -206,6 +206,7 @@ return array(
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
