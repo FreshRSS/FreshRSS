@@ -203,6 +203,7 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',	// IGNORE

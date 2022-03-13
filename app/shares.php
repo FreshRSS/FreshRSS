@@ -109,6 +109,13 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'pinterest' => array(
+		'url' => 'https://pinterest.com/pin/create/button/?url=~LINK~',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://pinterest.com/',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'pocket' => array(
 		'url' => 'https://getpocket.com/save?url=~LINK~&amp;title=~TITLE~',
 		'transform' => array('rawurlencode'),

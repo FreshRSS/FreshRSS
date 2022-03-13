@@ -203,6 +203,7 @@ return array(
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
