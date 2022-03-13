@@ -2917,7 +2917,7 @@ class phpQueryObject
 	 * jQuey difference
 	 *
 	 * @param $markup
-	 * @return unknown_type
+	 * @return string
 	 */
 	public function markupOuter($callback1 = null, $callback2 = null, $callback3 = null) {
 		$args = func_get_args();

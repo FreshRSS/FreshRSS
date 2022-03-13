@@ -69,6 +69,40 @@ If you want to contribute to the source code, it’s important to follow the pro
 
 Contributions which don’t follow the coding style will be rejected as long as the coding style is not fixed.
 
+### Checked files via GitHub Actions
+
+The code will be checked within every Pull Request commit on GitHub (via GitHub Actions, config file see `.github/workflows/tests.yml`).
+
+Tests can be run locally, e.g. by running `make test-all` (require npm and node.js installed), and several problems can be automatically fixed by running `make fix-all`
+
+A short (not complete) summary:
+
+#### PHP
+
+- Syntax of `php` and `phtml` files is checked.
+- translation files (`i18n`) are checked ([more information about i18n files](internationalization.html)).
+- unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
+- Linter:
+  - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
+  - [PHPstan](https://github.com/phpstan/phpstan)
+
+### CSS
+
+- Linter:
+  - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
+  - via npm `.styleintrc.json`
+  - check that RTL (right-to-left) CSS files match to standard CSS files
+
+### JavaScript
+
+- Linter:
+  - via npm `.styleintrc.json` ([ECMAScript 2017](https://en.wikipedia.org/wiki/ECMAScript#8th_Edition_%E2%80%93_ECMAScript_2017))
+
+### Markdown
+
+- Linter:
+  - via npm `.markdownlint.json`
+
 ## Spaces, tabs and other whitespace characters
 
 ### Indentation

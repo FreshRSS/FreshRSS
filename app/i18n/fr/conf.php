@@ -73,7 +73,7 @@ return array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -186,7 +186,7 @@ return array(
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Plus d’informations',
-		'print' => 'Print',	// IGNORE
+		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Supprimer la méthode de partage',
 		'shaarli' => 'Shaarli',	// IGNORE
