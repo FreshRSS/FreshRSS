@@ -45,13 +45,13 @@ rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
 BEGIN
 	INSERT INTO `_entry`
 		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
-		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content,
+		(SELECT rank + row_number() OVER(ORDER BY date, id) AS id, guid, title, author, content,
 			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 			FROM `_entrytmp` AS etmp
 			WHERE NOT EXISTS (
 				SELECT 1 FROM `_entry` AS ereal
 				WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
-			ORDER BY date);
+			ORDER BY date, id);
 	DELETE FROM `_entrytmp` WHERE id <= maxrank;
 END $$;';
 		$hadTransaction = $this->pdo->inTransaction();
