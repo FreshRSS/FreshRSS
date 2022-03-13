@@ -1532,6 +1532,10 @@ input:checked + .slide-container .properties {
 		position: inherit;
 	}
 
+	.dropdown .dropdown-header {
+		line-height: 2;
+	}
+
 	.dropdown .dropdown-menu {
 		width: 94%;
 		border-radius: 0;

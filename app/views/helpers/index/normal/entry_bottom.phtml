@@ -80,7 +80,8 @@
 			</a>
 
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li><?php
+				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
 					$id = $this->entry->id();
 					$link = $this->entry->link();
 					$title = $this->entry->title() . ' · ' . $this->feed->name();
@@ -89,11 +90,12 @@
 						if ($share === null) {
 							continue;
 						}
+						$cssClass = $share->isDepricated()? ' error':'';
 						$share_options['id'] = $id;
 						$share_options['link'] = $link;
 						$share_options['title'] = $title;
 						$share->update($share_options);
-				?><li class="item share">
+				?><li class="item share<?= $cssClass ?>">
 					<?php if ('GET' === $share->method()) {?>
 						<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
 					<?php } else {?>

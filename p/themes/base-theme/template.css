@@ -1394,8 +1394,9 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.category .title.error::before {
-	content: "⚠ ";
+.category .title.error::before,
+.item.share.error a::after {
+	content: " ⚠ ";
 	color: #bd362f;
 }
 
@@ -1530,6 +1531,10 @@ input:checked + .slide-container .properties {
 
 	.dropdown {
 		position: inherit;
+	}
+
+	.dropdown .dropdown-header {
+		line-height: 2;
 	}
 
 	.dropdown .dropdown-menu {
