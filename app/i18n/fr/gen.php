@@ -28,7 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
 		'mark_read' => 'Marquer comme lu',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'Ouvrir l’URL',
 		'promote' => 'Promouvoir',
 		'purge' => 'Purger',
 		'remove' => 'Supprimer',
