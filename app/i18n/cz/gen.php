@@ -210,8 +210,8 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'Wallabag v1', // IGNORE
-		'wallabagv2' => 'Wallabag v2', // IGNORE
+		'wallabag' => 'wallabag v1', // IGNORE
+		'wallabagv2' => 'wallabag v2', // IGNORE
 		'web-sharing-api' => 'Default System Sharing',	// TODO
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
