@@ -19,6 +19,6 @@
 	<a class="open-slider" title="<?= _t('gen.action.manage') ?>" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?></a>
 	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>
 <?php } else { ?>
-	<button class="switch<?= $button_class ?>" title="<?= _t('admin.extensions.system.no_rights') ?>" disabled></button>
+	<button class="switch<?= $button_class ?>" title="<?= _t('admin.extensions.system.no_rights') ?>" disabled="disabled"></button>
 	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>
 <?php } ?>
