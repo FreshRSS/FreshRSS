@@ -205,6 +205,15 @@ a.btn {
 	box-shadow: none;
 }
 
+/*=== switches */
+.switch.active {
+	background-color: #0062b7;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {

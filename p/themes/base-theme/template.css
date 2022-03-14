@@ -298,6 +298,102 @@ a.btn {
 	font-weight: bold;
 }
 
+/*=== switch */
+.switch {
+	margin: 0 0.5em;
+	padding: revert;
+	position: relative;
+	width: 3.5em;
+	height: 1.75em;
+	border: 0;
+	border-radius: 1em;
+	background-color: #ccc;
+	cursor: pointer;
+	box-sizing: content-box;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url('../icons/disabled.svg');
+	transition: background-position 0.5s;
+}
+
+.switch:not([disabled]):hover {
+	background-image: url('../icons/enabled.svg');
+	background-repeat: no-repeat;
+	background-position: right 7px center;
+}
+
+.switch.active {
+	background-color: rgb(133, 216, 133);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url('../icons/enabled.svg');
+}
+
+.switch.active:not([disabled]):hover {
+	background-position: left 7px center;
+	background-repeat: no-repeat;
+	background-image: url('../icons/disabled.svg');
+}
+
+@supports selector(.switch::before) {
+	.switch {
+		background-image: none;
+	}
+
+	.switch.active {
+		background-image: none;
+	}
+}
+
+/* ::before = circle */
+.switch::before {
+	content: "";
+	position: absolute;
+	left: 5px;
+	right: unset;
+	top: 0.2em;
+	width: 1.5em;
+	height: 1.5em;
+	background-color: #fff;
+	background-image: url('../icons/disabled.svg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-radius: 50%;
+	transition: left 0.6s, right 0.6s;
+}
+
+.switch:not([disabled]):hover::before {
+	background-color: #eee;
+}
+
+.switch.active::before {
+	background-image: url('../icons/enabled.svg');
+	background-position: center center;
+	left: unset;
+	right: 5px;
+}
+
+.switch.active:not([disabled]):hover::before {
+	right: 8px;
+}
+
+/* ::after = background */
+.switch::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	width: 12px;
+	height: 12px;
+	transform: translateY(-50%);
+}
+
+.switch.active::after {
+	width: 14px;
+	height: 14px;
+	left: 8px;
+}
+
 .btn:focus-visible,
 input[type="checkbox"]:focus-visible {
 	outline: 2px solid #ccc;
@@ -335,6 +431,23 @@ input[type="checkbox"]:focus-visible {
 
 .horizontal-list .item {
 	display: table-cell;
+}
+
+/*=== manage-list */
+.manage-list {
+	list-style: none;
+}
+
+.manage-list li {
+	line-height: 2;
+}
+
+.manage-list li * {
+	vertical-align: middle;
+}
+
+.manage-list .disabled {
+	font-style: italic;
 }
 
 /*=== Dropdown */

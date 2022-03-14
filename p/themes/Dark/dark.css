@@ -238,6 +238,20 @@ a.btn {
 	background: #801;
 }
 
+/*=== switches */
+.switch {
+	background-color: #333;
+}
+
+.switch.active {
+	background-color: #6986b2;
+}
+
+.switch::before,
+.switch:hover::before {
+	background-color: black;
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
