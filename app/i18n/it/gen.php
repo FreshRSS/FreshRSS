@@ -197,13 +197,17 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Stampa',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'whatsapp' => 'Whatsapp',	// TODO
+		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
 		'attention' => 'Attenzione!',
