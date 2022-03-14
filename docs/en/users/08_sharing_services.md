@@ -21,15 +21,19 @@ FreshRSS has the option to share links with a bunch of services.
 | Journal du hacker | Le Journal du hacker s'inspire directement du site anglophone Hacker News | [Website](https://www.journalduhacker.net/) |
 | Known based sites | Its robust open source framework can be used to build fully-fledged community sites, or a blog for a single user. | [Website](https://withknown.com/) | |
 | Lemmy             | Selfhosted social link aggregation and discussion platform | [Website](https://join-lemmy.org/) | |
-| LinkedIn          | Business and employment-oriented online service      | [Website](https://www.linkedin.com/), [Wikipedia](https://en.wikipedia.org/wiki/LinkedIn)
+| LinkedIn          | Business and employment-oriented online service      | [Website](https://www.linkedin.com/), [Wikipedia](https://en.wikipedia.org/wiki/LinkedIn)| |
 | Mastodon          | Self-hosted social networking & microblogging services | [Website](https://joinmastodon.org/), [Wikipedia](https://en.wikipedia.org/wiki/Mastodon_(software)) | |
 | Movim             | A powerful web frontend for XMPP                     | [Website](https://movim.eu/) | |
 | Pinboard          | Social Bookmarking for Introverts                    | [Website](https://pinboard.in/) | |
+| Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
 | Pocket            | Social bookmarking (previous "Read it Later", owned by Mozilla) | [Website](https://getpocket.com), [Wikipedia](https://en.wikipedia.org/wiki/Pocket_(service)) | |
-| Raindrop.io       | All-in-one bookmark manager                          | [Website](https://raindrop.io/)
-| Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) |
-| Twitter           | Microblogging social network                         | [Website](https://twitter.com), [Wikipedia](https://de.wikipedia.org/wiki/Twitter) |
+| Raindrop.io       | All-in-one bookmark manager                          | [Website](https://raindrop.io/)| |
+| Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
+| Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |
+| Twitter           | Microblogging social network                         | [Website](https://twitter.com), [Wikipedia](https://de.wikipedia.org/wiki/Twitter) | |
 | wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://www.wallabag.org) | Compatible to version 1 and 2
+| Whatsapp          | Instant messaging and voice-over-IP service owned by Meta Platforms| [Website](https://www.whatsapp.com), [Wikipedia](https://en.wikipedia.org/wiki/WhatsApp) | |
+| XING              | Career-oriented social networking site, operated by New Work SE | [Website](https://www.xing.com/), [Wikipedia](https://en.wikipedia.org/wiki/XING) | |
 
 ## Configuration
 
