@@ -210,6 +210,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'Wallabag v1',
 		'wallabagv2' => 'Wallabag v2',
+		'web-sharing-api' => 'Default System Sharing',	// TODO
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',

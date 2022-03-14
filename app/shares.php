@@ -156,4 +156,11 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
+	'web-sharing-api' => array(
+		'HTMLtag' => 'button',
+		'url' => '~LINK~',
+		'transform' => array(),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 );
