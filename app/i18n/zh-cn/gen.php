@@ -204,13 +204,17 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => '打印',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => '推特',	// IGNORE
 		'wallabag' => 'Wallabag v1',	// IGNORE
 		'wallabagv2' => 'Wallabag v2',	// IGNORE
+		'whatsapp' => 'Whatsapp',	// TODO
+		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
 		'attention' => '警告!',
