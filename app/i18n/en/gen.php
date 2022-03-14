@@ -203,14 +203,18 @@ return array(
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
+		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
+		'reddit' => 'Reddit';
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
-		'web-sharing-api' => 'Default System Sharing',	// TODO
+		'web-sharing-api' => 'Default System Sharing';
+		'whatsapp' => 'Whatsapp',
+		'xing' => 'Xing',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
