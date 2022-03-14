@@ -207,12 +207,12 @@ return array(
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
-		'reddit' => 'Reddit';
+		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
-		'web-sharing-api' => 'Default System Sharing';
+		'web-sharing-api' => 'Default System Sharing',
 		'whatsapp' => 'Whatsapp',
 		'xing' => 'Xing',
 	),
