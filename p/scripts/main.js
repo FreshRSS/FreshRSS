@@ -1018,7 +1018,6 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.share > a[data-type="print"]');
 		el = ev.target.closest('.item.share > button[data-type="print"]');
 		if (el) {	// Print
 			const tmp_window = window.open();
@@ -1033,7 +1032,6 @@ function init_stream(stream) {
 			return false;
 		}
 
-		el = ev.target.closest('.item.share > a[data-type="clipboard"]');
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
 		if (el && navigator.clipboard) {	// Clipboard
 			navigator.clipboard.writeText(el.href);
