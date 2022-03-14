@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
 		),
 		'pagination' => array(
 			'first' => 'Début',
