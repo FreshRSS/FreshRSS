@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Podporiť',
 		'purge' => 'Vymazať',
 		'remove' => 'Odstrániť',

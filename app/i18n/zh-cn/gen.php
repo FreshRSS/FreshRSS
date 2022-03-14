@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => '重置快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',

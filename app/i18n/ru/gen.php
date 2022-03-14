@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
 		'remove' => 'Удалить',

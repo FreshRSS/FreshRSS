@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Ustaw domyślne skróty',
 		'manage' => 'Ustawienia',
 		'mark_read' => 'Oznacz jako przeczytane',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Awansuj',
 		'purge' => 'Oczyść',
 		'remove' => 'Usuń',

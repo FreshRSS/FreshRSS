@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
 		'remove' => '消去',
