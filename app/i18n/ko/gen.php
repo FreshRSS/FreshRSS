@@ -176,12 +176,6 @@ return array(
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
 	),
-	'pagination' => array(
-		'first' => '처음으로',
-		'last' => '마지막으로',
-		'next' => '다음',
-		'previous' => '이전',
-	),
 	'period' => array(
 		'days' => '일',
 		'hours' => '시',

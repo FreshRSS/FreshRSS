@@ -260,7 +260,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	background: #26303f;
 }
 
@@ -462,11 +462,8 @@ a.btn {
 }
 
 .pagination:first-child .item {
-	border-bottom: 1px solid #333;
-}
-
-.pagination:last-child .item {
 	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
 }
 
 #load_more.loading,

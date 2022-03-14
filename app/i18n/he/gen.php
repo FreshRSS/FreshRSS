@@ -176,12 +176,6 @@ return array(
 		'user_management' => 'Manage users',	// TODO
 		'user_profile' => 'Profile',	// TODO
 	),
-	'pagination' => array(
-		'first' => 'הראשון',
-		'last' => 'אחרון',
-		'next' => 'הבא',
-		'previous' => 'הקודם',
-	),
 	'period' => array(
 		'days' => 'days',	// TODO
 		'hours' => 'hours',	// TODO

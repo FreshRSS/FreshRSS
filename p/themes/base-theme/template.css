@@ -609,22 +609,31 @@ input[type="checkbox"]:focus-visible {
 
 /*=== Pagination */
 .pagination {
-	margin: 0;
+	margin: 2em auto;
 	padding: 0;
 	display: table;
-	width: 100%;
 	table-layout: fixed;
 }
 
 .pagination .item {
 	display: table-cell;
+	width: 3em;
+	text-align: center;
+}
+
+.pagination .item.active {
+	min-width: 3em;
+	font-weight: bold;
+}
+
+.pagination .pager-previous,
+.pagination .pager-next {
+	width: 6em;
 }
 
 .pagination .pager-first,
-.pagination .pager-previous,
-.pagination .pager-next,
 .pagination .pager-last {
-	width: 100px;
+	width: 7.5em;
 }
 
 /*=== Boxes */
@@ -1515,6 +1524,12 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
+.log-error,
+.log-warning,
+.log-notice {
+	text-align: center;
+}
+
 .category .title.error::before {
 	content: "⚠ ";
 	color: #bd362f;
@@ -1610,6 +1625,10 @@ input:checked + .slide-container .properties {
 
 .reader .aside .stick {
 	display: none;
+}
+
+#loglist-wrapper {
+	overflow-x: auto;
 }
 
 /*=== MOBILE */

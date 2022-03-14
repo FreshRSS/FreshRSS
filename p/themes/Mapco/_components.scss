@@ -180,11 +180,6 @@
 			font-style: italic;
 			line-height: 3em;
 			text-decoration: none;
-
-			&:hover {
-				background: variables.$main-font-color;
-				color: variables.$grey-light;
-			}
 		}
 	}
 

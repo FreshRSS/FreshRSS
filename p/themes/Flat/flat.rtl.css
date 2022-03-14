@@ -265,13 +265,12 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover,
+.nav-list .item a:hover,
 .nav-list .item.active {
 	background: #2980b9;
 	color: #fff;
 }
 
-.nav-list .item:hover a,
 .nav-list .item.active a {
 	color: #fff;
 }
@@ -448,27 +447,10 @@ a.btn {
 .pagination {
 	background: #ecf0f1;
 	color: #000;
-	font-size: 0.8em;
-	text-align: center;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	background: #34495e;
-	color: #ecf0f1;
-	font-size: 1.5em;
-	font-weight: bold;
 }
 
 .pagination .item a {
-	display: block;
-	font-style: italic;
 	line-height: 3em;
-	text-decoration: none;
 	color: #000;
 }
 

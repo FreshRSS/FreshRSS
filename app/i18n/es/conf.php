@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Estrecho',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Primero',
+			'last' => 'Último',
+			'next' => 'Siguiente',
+			'previous' => 'Anterior',
+		),
+	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
 		'api' => 'Administración de API',

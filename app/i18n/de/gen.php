@@ -176,12 +176,6 @@ return array(
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'Erste',
-		'last' => 'Letzte',
-		'next' => 'Nächste',
-		'previous' => 'Vorherige',
-	),
 	'period' => array(
 		'days' => 'Tage',
 		'hours' => 'Stunden',

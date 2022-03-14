@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fino',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Primeiro',
+			'last' => 'Último',
+			'next' => 'Próximo',
+			'previous' => 'Anterior',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gerenciamento de perfil',
 		'api' => 'Administração da API',
