@@ -1042,8 +1042,8 @@ function init_stream(stream) {
 		if (el && navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
 			const shareData = {
 				url: el.dataset.url,
-				title: decodeURI(el.dataset.title)
-			}
+				title: decodeURI(el.dataset.title),
+			};
 			navigator.share(shareData);
 			return false;
 		}
@@ -1079,11 +1079,11 @@ function init_stream(stream) {
 	};
 
 	if (!navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-		document.querySelectorAll('.item.share > button[data-type="web-sharing-api"]').forEach (
-			function(item) {
+		document.querySelectorAll('.item.share > button[data-type="web-sharing-api"]').forEach(
+			function (item) {
 				item.style.display = 'none';
 			}
-		)
+		);
 	}
 
 	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
