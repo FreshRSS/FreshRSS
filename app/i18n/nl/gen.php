@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
 		'remove' => 'Verwijderen',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Versiecontrole',
 		'user_management' => 'Gebruikersbeheer',
 		'user_profile' => 'Profiel',
-	),
-	'pagination' => array(
-		'first' => 'Eerste',
-		'last' => 'Laatste',
-		'next' => 'Volgende',
-		'previous' => 'Vorige',
 	),
 	'period' => array(
 		'days' => 'dagen',

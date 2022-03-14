@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
 		'remove' => 'Odebrat',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
-	),
-	'pagination' => array(
-		'first' => 'První',
-		'last' => 'Poslední',
-		'next' => 'Další',
-		'previous' => 'Předchozí',
 	),
 	'period' => array(
 		'days' => 'dní',

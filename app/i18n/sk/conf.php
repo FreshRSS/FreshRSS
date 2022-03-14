@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Úzka',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Prvý',
+			'last' => 'Posledný',
+			'next' => 'Ďalší',
+			'previous' => 'Predošlý',
+		),
+	),
 	'profile' => array(
 		'_' => 'Správca profilu',
 		'api' => 'Správa API',

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
 		'remove' => 'Sil',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Güncelleme',
 		'user_management' => 'Kullanıcıları yönet',
 		'user_profile' => 'Profil',
-	),
-	'pagination' => array(
-		'first' => 'İlk',
-		'last' => 'Son',
-		'next' => 'Sonraki',
-		'previous' => 'Önceki',
 	),
 	'period' => array(
 		'days' => 'gün',

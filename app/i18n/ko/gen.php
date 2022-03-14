@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
 		'remove' => '삭제',
@@ -175,12 +176,6 @@ return array(
 		'update' => '업데이트',
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
-	),
-	'pagination' => array(
-		'first' => '처음으로',
-		'last' => '마지막으로',
-		'next' => '다음',
-		'previous' => '이전',
 	),
 	'period' => array(
 		'days' => '일',

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Podporiť',
 		'purge' => 'Vymazať',
 		'remove' => 'Odstrániť',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Aktualizácia',
 		'user_management' => 'Spravovať používateľov',
 		'user_profile' => 'Profil',
-	),
-	'pagination' => array(
-		'first' => 'Prvý',
-		'last' => 'Posledný',
-		'next' => 'Ďalší',
-		'previous' => 'Predošlý',
 	),
 	'period' => array(
 		'days' => 'dni',

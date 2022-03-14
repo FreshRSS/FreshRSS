@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Ustaw domyślne skróty',
 		'manage' => 'Ustawienia',
 		'mark_read' => 'Oznacz jako przeczytane',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Awansuj',
 		'purge' => 'Oczyść',
 		'remove' => 'Usuń',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Aktualizacja',
 		'user_management' => 'Zarządzanie użytkownikami',
 		'user_profile' => 'Profil',
-	),
-	'pagination' => array(
-		'first' => 'Początek',
-		'last' => 'Koniec',
-		'next' => 'Następne',
-		'previous' => 'Poprzednie',
 	),
 	'period' => array(
 		'days' => 'dni',

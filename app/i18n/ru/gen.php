@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
 		'remove' => 'Удалить',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Обновление системы',
 		'user_management' => 'Управление пользователями',
 		'user_profile' => 'Профиль',
-	),
-	'pagination' => array(
-		'first' => 'Первая',
-		'last' => 'Последняя',
-		'next' => 'Следующая',
-		'previous' => 'Предыдущая',
 	),
 	'period' => array(
 		'days' => 'дней',

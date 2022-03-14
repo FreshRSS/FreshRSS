@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fine',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
+		),
+		'pagination' => array(
+			'first' => 'Début',
+			'last' => 'Fin',
+			'next' => 'Suivant',
+			'previous' => 'Précédent',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
 		'api' => 'Gestion de l’API',

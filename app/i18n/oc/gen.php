@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_read' => 'Marcar coma legit',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
 		'remove' => 'Levar',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Mesa a jorn',
 		'user_management' => 'Gestion dels utilizaires',
 		'user_profile' => 'Perfil',
-	),
-	'pagination' => array(
-		'first' => 'Debuta',
-		'last' => 'Fin',
-		'next' => 'Seguent',
-		'previous' => 'Precedent',
 	),
 	'period' => array(
 		'days' => 'jorns',
