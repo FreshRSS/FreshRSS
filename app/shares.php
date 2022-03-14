@@ -174,7 +174,7 @@ return array(
 		'HTMLtag' => 'button',
 		'url' => '~LINK~',
 		'transform' => array(),
-    	'form' => 'simple',
+		'form' => 'simple',
 		'method' => 'GET',
 	),
 	'whatsapp' => array(
