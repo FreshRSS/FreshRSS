@@ -31,6 +31,7 @@ return array(
 		'method' => 'GET',
 	),
 	'clipboard' => array(
+		'HTMLtag' => 'button',
 		'url' => '~LINK~',
 		'transform' => array(),
 		'form' => 'simple',
@@ -116,6 +117,7 @@ return array(
 		'method' => 'GET',
 	),
 	'print' => array(
+		'HTMLtag' => 'button',
 		'url' => '#',
 		'transform' => array(),
 		'form' => 'simple',

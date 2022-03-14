@@ -20,12 +20,13 @@ class FreshRSS_Share {
 			return;
 		}
 
+		$HTMLtag = isset($share_options['HTMLtag']) ? $share_options['HTMLtag'] : 'link';
 		$help_url = isset($share_options['help']) ? $share_options['help'] : '';
 		$field = isset($share_options['field']) ? $share_options['field'] : null;
 		self::$list_sharing[$type] = new FreshRSS_Share(
 			$type, $share_options['url'], $share_options['transform'],
 			$share_options['form'], $help_url, $share_options['method'],
-			$field
+			$field, $HTMLtag
 		);
 	}
 
@@ -85,6 +86,7 @@ class FreshRSS_Share {
 	private $link = null;
 	private $method = 'GET';
 	private $field;
+	private $HTMLtag = 'link';
 
 	/**
 	 * Create a FreshRSS_Share object.
@@ -97,11 +99,12 @@ class FreshRSS_Share {
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param string $method defines the sharing method (GET or POST)
 	 */
-	private function __construct($type, $url_transform, $transform, $form_type, $help_url, $method, $field) {
+	private function __construct($type, $url_transform, $transform, $form_type, $help_url, $method, $field, $HTMLtag) {
 		$this->type = $type;
 		$this->name = _t('gen.share.' . $type);
 		$this->url_transform = $url_transform;
 		$this->help_url = $help_url;
+		$this->HTMLtag = $HTMLtag;
 
 		if (!is_array($transform)) {
 			$transform = array();
@@ -176,6 +179,13 @@ class FreshRSS_Share {
 	 */
 	public function help() {
 		return $this->help_url;
+	}
+
+	/**
+	 * Return the type of HTML tag of the share option.
+	 */
+	public function HTMLtag() {
+		return $this->HTMLtag;
 	}
 
 	/**
