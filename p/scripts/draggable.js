@@ -67,7 +67,7 @@ const init_draggable_list = function () {
 			return;
 		}
 
-		var draggableItem = event.target.closest('[draggable="true"]');
+		let draggableItem = event.target.closest('[draggable="true"]');
 		const dragbox = event.target.closest('.dragbox');
 		if (dragbox) {
 			draggableItem = dragbox;
