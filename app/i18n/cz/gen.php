@@ -203,13 +203,17 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Tisknout',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'Wallabag v1',
 		'wallabagv2' => 'Wallabag v2',
+		'whatsapp' => 'Whatsapp',	// TODO
+		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
