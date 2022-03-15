@@ -1534,8 +1534,9 @@ input:checked + .slide-container .properties {
 	text-align: center;
 }
 
+.item.share.error a::after,
 .category .title.error::before {
-	content: "⚠ ";
+	content: " ⚠ ";
 	color: #bd362f;
 }
 
@@ -1674,6 +1675,10 @@ input:checked + .slide-container .properties {
 
 	.dropdown {
 		position: inherit;
+	}
+
+	.dropdown .dropdown-header {
+		line-height: 2;
 	}
 
 	.dropdown .dropdown-menu {

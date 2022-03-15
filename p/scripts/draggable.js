@@ -27,6 +27,10 @@ const init_draggable_list = function () {
 
 	draggableList.addEventListener('dragstart', event => {
 		source = event.target.closest('[draggable="true"]');
+		const dragbox = source.closest('.dragbox');
+		if (dragbox) {
+			source = dragbox;
+		}
 		event.dataTransfer.setData('text/html', source.outerHTML);
 		event.dataTransfer.effectAllowed = 'move';
 	});
@@ -36,7 +40,11 @@ const init_draggable_list = function () {
 			return;
 		}
 
-		const draggableItem = event.target.closest('[draggable="true"]');
+		let draggableItem = event.target.closest('[draggable="true"]');
+		const dragbox = event.target.closest('.dragbox');
+		if (dragbox) {
+			draggableItem = dragbox;
+		}
 		if (null === draggableItem || source === draggableItem) {
 			return;
 		}
@@ -59,7 +67,11 @@ const init_draggable_list = function () {
 			return;
 		}
 
-		const draggableItem = event.target.closest('[draggable="true"]');
+		let draggableItem = event.target.closest('[draggable="true"]');
+		const dragbox = event.target.closest('.dragbox');
+		if (dragbox) {
+			draggableItem = dragbox;
+		}
 		if (null === draggableItem || source === draggableItem) {
 			return;
 		}

@@ -194,6 +194,7 @@ return array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',	// IGNORE

@@ -21,7 +21,7 @@ const init_integration = function () {
 		newShare = newShare.replace(/##key##/g, shares);
 		newShare = newShare.replace(/##method##/g, shareType.getAttribute('data-method'));
 		newShare = newShare.replace(/##field##/g, shareType.getAttribute('data-field'));
-		event.target.closest('.form-group').insertAdjacentHTML('beforebegin', newShare);
+		event.target.closest('formgroup').insertAdjacentHTML('beforebegin', newShare);
 		shares++;
 	});
 
@@ -30,7 +30,7 @@ const init_integration = function () {
 			return;
 		}
 
-		const deleteButton = event.target.closest('a.remove');
+		const deleteButton = event.target.closest('.remove');
 		if (null === deleteButton || !deleteButton.closest) {
 			return;
 		}
