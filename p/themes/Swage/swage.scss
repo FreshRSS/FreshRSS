@@ -274,6 +274,14 @@ form {
 	}
 }
 
+.switch.active {
+	background-color: #0062be;
+	
+	&:hover {
+		background-image: url('./icons/disabled-light.svg');
+	}
+}
+
 .nav-list {
 	.nav-header {
 
