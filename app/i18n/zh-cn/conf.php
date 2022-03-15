@@ -66,6 +66,19 @@ return array(
 			'thin' => '窄',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '首页',
+			'last' => '末页',
+			'next' => '下一页',
+			'previous' => '上一页',
+		),
+	),
 	'profile' => array(
 		'_' => '用户管理',
 		'api' => 'API 管理',

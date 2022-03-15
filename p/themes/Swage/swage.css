@@ -38,6 +38,14 @@ select:invalid {
 	clear: both;
 }
 
+.switch.active {
+	background-color: #0062be;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 #nav_entries, .notification, #new-article, .aside, .header > .item.title, .stick.configure-feeds {
 	width: 231px;
 }
@@ -223,22 +231,25 @@ form th {
 	color: #fcfcfc;
 	cursor: default;
 }
-.nav-list .item:hover, .nav-list .item.active {
+.nav-list .item a:hover {
 	background: #00488b;
 	color: #fcfcfc;
 }
-.nav-list .item:hover a, .nav-list .item.active a {
+.nav-list .item.active {
+	background: #00488b;
 	color: #fcfcfc;
 }
-.nav-list .item:hover.empty a,
-.nav-list .item:hover .error a, .nav-list .item.active.empty a,
+.nav-list .item.active a {
+	color: #fcfcfc;
+}
+.nav-list .item.active.empty a,
 .nav-list .item.active .error a {
 	color: #fcfcfc;
 }
-.nav-list .item:hover.empty a, .nav-list .item.active.empty a {
+.nav-list .item.active.empty a {
 	background: #fa8052;
 }
-.nav-list .item:hover.error a, .nav-list .item.active.error a {
+.nav-list .item.active.error a {
 	background: #c46178;
 }
 .nav-list .item > a {
@@ -1162,5 +1173,3 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

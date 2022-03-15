@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
+		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
 		'remove' => 'Remove',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Update',
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
-	),
-	'pagination' => array(
-		'first' => 'First',
-		'last' => 'Last',
-		'next' => 'Next',
-		'previous' => 'Previous',
 	),
 	'period' => array(
 		'days' => 'days',

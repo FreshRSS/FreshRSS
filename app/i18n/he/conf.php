@@ -66,6 +66,19 @@ return array(
 			'thin' => 'צר',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'הראשון',
+			'last' => 'אחרון',
+			'next' => 'הבא',
+			'previous' => 'הקודם',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
 		'api' => 'API management',	// TODO

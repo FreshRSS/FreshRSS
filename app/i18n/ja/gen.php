@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
 		'remove' => '消去',
@@ -175,12 +176,6 @@ return array(
 		'update' => '更新',
 		'user_management' => 'ユーザー管理',
 		'user_profile' => 'プロフィール',
-	),
-	'pagination' => array(
-		'first' => '先頭',
-		'last' => '最後',
-		'next' => 'つぎへ',
-		'previous' => '前へ',
 	),
 	'period' => array(
 		'days' => '日',

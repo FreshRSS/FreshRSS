@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
 		'mark_read' => 'Als gelesen markieren',
+		'open_url' => 'URL öffnen',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',
 		'remove' => 'Entfernen',
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Aktualisieren',
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',
-	),
-	'pagination' => array(
-		'first' => 'Erste',
-		'last' => 'Letzte',
-		'next' => 'Nächste',
-		'previous' => 'Vorherige',
 	),
 	'period' => array(
 		'days' => 'Tage',

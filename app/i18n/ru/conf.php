@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Узкое',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Первая',
+			'last' => 'Последняя',
+			'next' => 'Следующая',
+			'previous' => 'Предыдущая',
+		),
+	),
 	'profile' => array(
 		'_' => 'Настройки профиля',
 		'api' => 'Настройки API',

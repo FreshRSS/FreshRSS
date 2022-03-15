@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// IGNORE
 		'manage' => 'Manage',	// IGNORE
 		'mark_read' => 'Mark as read',	// IGNORE
+		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
@@ -175,12 +176,6 @@ return array(
 		'update' => 'Update',	// IGNORE
 		'user_management' => 'Manage users',	// IGNORE
 		'user_profile' => 'Profile',	// IGNORE
-	),
-	'pagination' => array(
-		'first' => 'First',	// IGNORE
-		'last' => 'Last',	// IGNORE
-		'next' => 'Next',	// IGNORE
-		'previous' => 'Previous',	// IGNORE
 	),
 	'period' => array(
 		'days' => 'days',	// IGNORE
