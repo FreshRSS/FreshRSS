@@ -66,6 +66,19 @@ return array(
 			'thin' => '얇게',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '처음으로',
+			'last' => '마지막으로',
+			'next' => '다음',
+			'previous' => '이전',
+		),
+	),
 	'profile' => array(
 		'_' => '프로필 관리',
 		'api' => 'API 관리',

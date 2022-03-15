@@ -289,7 +289,11 @@ form {
 
 		@extend %nav-list;
 
-		&:hover,
+		a:hover {
+			background: color.adjust( $color_nav, $lightness: -10%);
+			color: $color_light;
+		}
+
 		&.active {
 			background: color.adjust( $color_nav, $lightness: -10%);
 			color: $color_light;

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
+		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
 		'remove' => 'Remove',
@@ -176,12 +177,6 @@ return array(
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
 	),
-	'pagination' => array(
-		'first' => 'First',
-		'last' => 'Last',
-		'next' => 'Next',
-		'previous' => 'Previous',
-	),
 	'period' => array(
 		'days' => 'days',
 		'hours' => 'hours',
@@ -203,13 +198,17 @@ return array(
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'whatsapp' => 'Whatsapp',	// TODO
+		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
 		'attention' => 'Warning!',
