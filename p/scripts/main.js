@@ -1078,11 +1078,12 @@ function init_stream(stream) {
 		}
 	};
 
-	if (!navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-		document.querySelectorAll('.item.share > button[data-type="web-sharing-api"]').forEach(
-			function (item) {
-				item.style.display = 'none';
-			}
+	if (!navigator.share) {	
+		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// do not show the menu entry if browser does not support navigator.share
+		document.styleSheets[0].insertRule(
+			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
+			document.styleSheets[0].cssRules.length
 		);
 	}
 
