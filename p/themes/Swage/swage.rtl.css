@@ -417,10 +417,6 @@ form th {
 .content {
 	padding: 20px 10px;
 }
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
 .content hr {
 	margin: 30px 10px;
 	background: #e3e3e3;
@@ -1002,10 +998,6 @@ form th {
 	}
 	.nav_menu .search input {
 		width: 85%;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#panel .close,

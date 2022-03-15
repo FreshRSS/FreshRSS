@@ -519,11 +519,6 @@ form {
 .content {
 	padding: 20px 10px;
 
-	.pagination {
-		margin: 0;
-		padding: 0;
-	}
-
 	hr {
 		margin: 30px 10px;
 		background: color.adjust( $color_light, $lightness: -10%);
@@ -1240,10 +1235,6 @@ form {
 				width: 85%;
 			}
 		}
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#panel .close,

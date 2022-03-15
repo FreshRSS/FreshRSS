@@ -608,8 +608,12 @@ input[type="checkbox"]:focus-visible {
 }
 
 /*=== Pagination */
-.pagination {
+.nav-pagination {
 	margin: 2em auto;
+}
+
+.pagination {
+	margin: 0;
 	padding: 0;
 	display: table;
 	table-layout: fixed;
