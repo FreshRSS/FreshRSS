@@ -45,8 +45,8 @@
 			<label class="group-name" for="website"><?= _t('sub.feed.website') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="website" id="website" class="extend" value="<?= $this->feed->website() ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+					<input type="text" name="website" id="website" value="<?= $this->feed->website() ?>" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>" data-input="website" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
 			</div>
 		</div>
@@ -54,8 +54,8 @@
 			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url" id="url" class="extend" value="<?= $this->feed->url() ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
+					<input type="text" name="url" id="url" value="<?= $this->feed->url() ?>" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
 
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?=

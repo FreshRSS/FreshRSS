@@ -18,6 +18,7 @@ FreshRSS has a lot of features including:
 * The application is "responsive," which means it adapts to small screens so you can bring articles in your pocket
 * Self-hosted: the code is free (under AGPL3 licence), so you can host your own instance of FreshRSS
 * Multi-user, so you can also host for your friends and family
+* share article links with a bunch of services
 * And a lot more!
 
 ## Manual Chapters
