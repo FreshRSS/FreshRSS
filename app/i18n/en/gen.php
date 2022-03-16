@@ -207,7 +207,7 @@ return array(
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
-		'web-sharing-api' => 'Default system sharing',
+		'web-sharing-api' => 'System sharing',
 		'whatsapp' => 'Whatsapp',
 		'xing' => 'Xing',
 	),
