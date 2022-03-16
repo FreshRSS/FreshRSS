@@ -637,18 +637,14 @@ form th {
 }
 .nav-list .item {
 	background: #fbf9f6;
-	transition: all 0.15s ease-in-out;
 }
 .nav-list .item a {
 	padding: 0 1rem;
 	color: #363330;
+	transition: all 0.15s ease-in-out;
 }
 .nav-list .item .error a {
 	color: #f5633e;
-}
-.nav-list .item:hover {
-	background: #efe3d3;
-	color: #363330;
 }
 .nav-list .item:hover .error a {
 	background: #ca7227;
@@ -659,7 +655,7 @@ form th {
 	color: #363330;
 }
 .nav-list .item:hover a {
-	color: #363330;
+	background: #efe3d3;
 	text-decoration: none;
 }
 .nav-list .item.active {
@@ -675,6 +671,7 @@ form th {
 	color: #fff;
 }
 .nav-list .item.active a {
+	background: #ca7227;
 	color: #fff;
 	text-decoration: none;
 }
@@ -1529,10 +1526,6 @@ form th {
 		width: 100%;
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#nav_entries {

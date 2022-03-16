@@ -7,12 +7,19 @@ class FreshRSS_View extends Minz_View {
 	public $callbackBeforeFeeds;
 	public $callbackBeforePagination;
 	public $categories;
+	/** @var FreshRSS_Category|null */
 	public $category;
+	/** @var string */
 	public $current_user;
+	/** @var array<FreshRSS_Entry> */
 	public $entries;
+	/** @var FreshRSS_Entry */
 	public $entry;
+	/** @var FreshRSS_Feed|null */
 	public $feed;
+	/** @var array<FreshRSS_Feed> */
 	public $feeds;
+	/** @var int */
 	public $nbUnreadTags;
 	public $tags;
 
@@ -88,8 +95,14 @@ class FreshRSS_View extends Minz_View {
 	public $nbPage;
 
 	// RSS view
-	public $rss_title;
-	public $url;
+	/** @var string */
+	public $rss_title = '';
+	/** @var string */
+	public $rss_url = '';
+	/** @var string */
+	public $rss_base = '';
+	/** @var boolean */
+	public $internal_rendering = false;
 
 	// Content preview
 	public $fatalError;

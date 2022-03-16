@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_read' => 'Marcar coma legit',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
 		'remove' => 'Levar',
@@ -176,12 +177,6 @@ return array(
 		'user_management' => 'Gestion dels utilizaires',
 		'user_profile' => 'Perfil',
 	),
-	'pagination' => array(
-		'first' => 'Debuta',
-		'last' => 'Fin',
-		'next' => 'Seguent',
-		'previous' => 'Precedent',
-	),
 	'period' => array(
 		'days' => 'jorns',
 		'hours' => 'oras',
@@ -203,13 +198,17 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'whatsapp' => 'Whatsapp',	// TODO
+		'xing' => 'Xing',	// TODO
 	),
 	'short' => array(
 		'attention' => 'Atencion !',

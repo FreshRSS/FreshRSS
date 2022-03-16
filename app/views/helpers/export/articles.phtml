@@ -22,7 +22,7 @@ foreach ($this->entriesRaw as $entryRaw) {
 	if ($entryRaw == null) {
 		continue;
 	}
-	$entry = FreshRSS_EntryDAO::daoToEntry($entryRaw);
+	$entry = FreshRSS_Entry::fromArray($entryRaw);
 	if (!isset($this->feed)) {
 		$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed());
 		if ($feed === null) {

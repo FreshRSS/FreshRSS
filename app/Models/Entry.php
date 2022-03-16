@@ -59,6 +59,38 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
+	/** @param array<string,mixed> $dao */
+	public static function fromArray(array $dao): FreshRSS_Entry {
+		if (empty($dao['content'])) {
+			$dao['content'] = '';
+		}
+		if (!empty($dao['thumbnail'])) {
+			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
+		}
+		$entry = new FreshRSS_Entry(
+			$dao['id_feed'] ?? 0,
+			$dao['guid'] ?? '',
+			$dao['title'] ?? '',
+			$dao['author'] ?? '',
+			$dao['content'] ?? '',
+			$dao['link'] ?? '',
+			$dao['date'] ?? 0,
+			$dao['is_read'] ?? false,
+			$dao['is_favorite'] ?? false,
+			$dao['tags'] ?? ''
+		);
+		if (!empty($dao['id'])) {
+			$entry->_id($dao['id']);
+		}
+		if (!empty($dao['timestamp'])) {
+			$entry->_date(strtotime($dao['timestamp']));
+		}
+		if (!empty($dao['categories'])) {
+			$entry->_tags($dao['categories']);
+		}
+		return $entry;
+	}
+
 	public function id(): string {
 		return $this->id;
 	}
@@ -83,6 +115,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->content;
 	}
 
+	/** @return array<array<string,string>> */
 	public function enclosures(bool $searchBodyImages = false): array {
 		$results = [];
 		try {
@@ -97,11 +130,20 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($searchEnclosures) {
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
-					$results[] = [
+					$result = [
 						'url' => $enclosure->getAttribute('src'),
 						'type' => $enclosure->getAttribute('data-type'),
+						'medium' => $enclosure->getAttribute('data-medium'),
 						'length' => $enclosure->getAttribute('data-length'),
 					];
+					if (empty($result['medium'])) {
+						switch (strtolower($enclosure->nodeName)) {
+							case 'img': $result['medium'] = 'image'; break;
+							case 'video': $result['medium'] = 'video'; break;
+							case 'audio': $result['medium'] = 'audio'; break;
+						}
+					}
+					$results[] = $result;
 				}
 			}
 			if ($searchBodyImages) {
@@ -432,82 +474,43 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public static function getContentByParsing(string $url, string $path, array $attributes = array(), int $maxRedirs = 3): string {
-		$limits = FreshRSS_Context::$system_conf->limits;
-		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
-
-		if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
-			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-		}
-
-		$ch = curl_init();
-		curl_setopt_array($ch, [
-			CURLOPT_URL => $url,
-			CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
-			CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
-			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-			CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			//CURLOPT_FAILONERROR => true;
-			CURLOPT_MAXREDIRS => 4,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
-		]);
-
-		curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
-
-		if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
-			curl_setopt_array($ch, $attributes['curl_params']);
-		}
-
-		if (isset($attributes['ssl_verify'])) {
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
-			if (!$attributes['ssl_verify']) {
-				curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
-			}
-		}
-		$html = curl_exec($ch);
-		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$c_error = curl_error($ch);
-		curl_close($ch);
-
-		if ($c_status != 200 || $c_error != '') {
-			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
-		}
-
-		if (is_string($html) && strlen($html) > 0) {
-			require_once(LIB_PATH . '/lib_phpQuery.php');
-			/**
-			 * @var phpQueryObject @doc
-			 */
-			$doc = phpQuery::newDocument($html);
+	/**
+	 * @param array<string,mixed> $attributes
+	 */
+	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
+		$html = getHtml($url, $attributes);
+		if (strlen($html) > 0) {
+			$doc = new DOMDocument();
+			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+			$xpath = new DOMXPath($doc);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
-				/**
-				 * @var phpQueryObject @metas
-				 */
-				$metas = $doc->find('meta[http-equiv][content]');
+				$metas = $xpath->query('//meta[@content]');
+				/** @var array<DOMElement> $metas */
 				foreach ($metas as $meta) {
 					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
-							phpQuery::unloadDocuments();
 							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
 						}
 					}
 				}
 			}
 
-			/**
-			 * @var phpQueryObject @content
-			 */
-			$content = $doc->find($path);
-			$html = trim(sanitizeHTML($content->__toString(), $url));
-			phpQuery::unloadDocuments();
+			$base = $xpath->evaluate('normalize-space(//base/@href)');
+			if ($base != false && is_string($base)) {
+				$url = $base;
+			}
+			$content = '';
+			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
+			if ($nodes != false) {
+				foreach ($nodes as $node) {
+					$content .= $doc->saveHtml($node) . "\n";
+				}
+			}
+			$html = trim(sanitizeHTML($content, $url));
 			return $html;
 		} else {
 			throw new Exception();

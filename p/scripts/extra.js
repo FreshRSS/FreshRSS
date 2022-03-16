@@ -123,6 +123,29 @@ function init_password_observers() {
 	});
 }
 
+// overwrites the href attribute from the url input
+function updateHref(ev) {
+	const urlField = document.getElementById(this.getAttribute('data-input'));
+	const url = urlField.value;
+	if (url.length > 0) {
+		this.href = url;
+		return true;
+	} else {
+		urlField.focus();
+		this.removeAttribute('href');
+		ev.preventDefault();
+		return false;
+	}
+}
+
+// set event listener on "show url" buttons
+function init_url_observers() {
+	document.querySelectorAll('.open-url').forEach(function (btn) {
+		btn.addEventListener('mouseover', updateHref);
+		btn.addEventListener('click', updateHref);
+	});
+}
+
 function init_select_observers() {
 	document.querySelectorAll('.select-change').forEach(function (s) {
 		s.onchange = function (ev) {
@@ -213,6 +236,49 @@ function init_configuration_alert() {
 	};
 }
 
+/**
+ * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
+ */
+function init_select_show() {
+	const listener = (select) => {
+		const options = select.querySelectorAll('option[data-show]');
+		for (const option of options) {
+			const elem = document.getElementById(option.dataset.show);
+			if (elem) {
+				elem.style.display = option.selected ? 'block' : 'none';
+			}
+		}
+	};
+
+	const selects = document.querySelectorAll('select.select-show');
+	for (const select of selects) {
+		select.addEventListener('change', (e) => listener(e.target));
+		listener(select);
+	}
+}
+
+/**
+ * Automatically validate XPath textarea fields
+ */
+function init_valid_xpath() {
+	const listener = (textarea) => {
+		const evaluator = new XPathEvaluator();
+		try {
+			if (textarea.value === '' || evaluator.createExpression(textarea.value) != null) {
+				textarea.setCustomValidity('');
+			}
+		} catch (ex) {
+			textarea.setCustomValidity(ex);
+		}
+	};
+
+	const textareas = document.querySelectorAll('textarea.valid-xpath');
+	for (const textarea of textareas) {
+		textarea.addEventListener('change', (e) => listener(e.target));
+		listener(textarea);
+	}
+}
+
 function init_extra() {
 	if (!window.context) {
 		if (window.console) {
@@ -223,10 +289,13 @@ function init_extra() {
 	}
 	init_crypto_form();
 	init_password_observers();
+	init_url_observers();
 	init_select_observers();
 	init_slider_observers();
 	init_configuration_alert();
 	fix_popup_preview_selector();
+	init_select_show();
+	init_valid_xpath();
 }
 
 if (document.readyState && document.readyState !== 'loading') {

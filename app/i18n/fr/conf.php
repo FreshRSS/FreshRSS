@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fine',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
+		),
+		'pagination' => array(
+			'first' => 'Début',
+			'last' => 'Fin',
+			'next' => 'Suivant',
+			'previous' => 'Précédent',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
 		'api' => 'Gestion de l’API',
@@ -73,7 +86,7 @@ return array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -181,11 +194,12 @@ return array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Plus d’informations',
-		'print' => 'Print',	// IGNORE
+		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Supprimer la méthode de partage',
 		'shaarli' => 'Shaarli',	// IGNORE

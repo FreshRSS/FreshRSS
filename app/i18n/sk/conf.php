@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Úzka',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Prvý',
+			'last' => 'Posledný',
+			'next' => 'Ďalší',
+			'previous' => 'Predošlý',
+		),
+	),
 	'profile' => array(
 		'_' => 'Správca profilu',
 		'api' => 'Správa API',
@@ -181,6 +194,7 @@ return array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE
