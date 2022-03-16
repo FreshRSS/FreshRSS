@@ -1530,7 +1530,8 @@ input:checked + .slide-container .properties {
 /*===========*/
 .log-error,
 .log-warning,
-.log-notice {
+.log-notice,
+.log-debug {
 	text-align: center;
 }
 
