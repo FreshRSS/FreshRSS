@@ -359,11 +359,6 @@ form th {
 	background: url("loader.gif") center center no-repeat #34495e;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 /*=== Boxes */
 .box {
 	background: #fff;

@@ -274,6 +274,14 @@ form {
 	}
 }
 
+.switch.active {
+	background-color: #0062be;
+
+	&:hover {
+		background-image: url('./icons/disabled-light.svg');
+	}
+}
+
 .nav-list {
 	.nav-header {
 
@@ -518,11 +526,6 @@ form {
 
 .content {
 	padding: 20px 10px;
-
-	.pagination {
-		margin: 0;
-		padding: 0;
-	}
 
 	hr {
 		margin: 30px 10px;
@@ -1240,10 +1243,6 @@ form {
 				width: 85%;
 			}
 		}
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#panel .close,
