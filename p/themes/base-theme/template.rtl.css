@@ -1077,7 +1077,6 @@ a.website:hover .favicon {
 	overflow: hidden;
 }
 
-.flux .item.share > a,
 .item.query > a {
 	display: list-item;
 	list-style-position: inside;
