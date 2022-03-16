@@ -480,40 +480,37 @@ class FreshRSS_Entry extends Minz_Model {
 	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
 		$html = getHtml($url, $attributes);
 		if (strlen($html) > 0) {
-			require_once(LIB_PATH . '/lib_phpQuery.php');
-			/**
-			 * @var phpQueryObject @doc
-			 */
-			$doc = phpQuery::newDocumentHTML($html);
+			$doc = new DOMDocument();
+			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+			$xpath = new DOMXPath($doc);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
-				/**
-				 * @var phpQueryObject @metas
-				 */
-				$metas = $doc->find('meta[http-equiv][content]');
+				$metas = $xpath->query('//meta[@content]');
+				/** @var array<DOMElement> $metas */
 				foreach ($metas as $meta) {
 					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
-							phpQuery::unloadDocuments();
 							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
 						}
 					}
 				}
 			}
 
-			/**
-			 * @var phpQueryObject @content
-			 */
-			$content = $doc->find($path);
-			$bases = $doc->document->getElementsByTagName('base');
-			if (!empty($bases[0]) && $bases[0]->getAttribute('href') != '') {
-				$url = $bases[0]->getAttribute('href');
+			$base = $xpath->evaluate('normalize-space(//base/@href)');
+			if ($base != false && is_string($base)) {
+				$url = $base;
 			}
-			$html = trim(sanitizeHTML($content->__toString(), $url));
-			phpQuery::unloadDocuments();
+			$content = '';
+			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
+			if ($nodes != false) {
+				foreach ($nodes as $node) {
+					$content .= $doc->saveHtml($node) . "\n";
+				}
+			}
+			$html = trim(sanitizeHTML($content, $url));
 			return $html;
 		} else {
 			throw new Exception();
