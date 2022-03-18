@@ -77,9 +77,9 @@ class FreshRSS_Search {
 		$input = $this->parseInurlSearch($input);
 		$input = $this->parseTagsSearch($input);
 
-		// Perform parseSearch before parseNotSearch for cases like "abc -def"
-		$input = $this->parseSearch($input);
-		$this->parseNotSearch($input);
+		$input = $this->parseQuotedSearch($input);
+		$input = $this->parseNotSearch($input);
+		$this->parseSearch($input);
 	}
 
 	public function __toString() {
@@ -526,10 +526,10 @@ class FreshRSS_Search {
 
 	/**
 	 * Parse the search string to find search values.
-	 * Every word is a distinct search value, except when using a delimiter.
+	 * Every word is a distinct search value using a delimiter.
 	 * Supported delimiters are single quote (') and double quotes (").
 	 */
-	private function parseSearch(string $input): string {
+	private function parseQuotedSearch(string $input): string {
 		$input = self::cleanSearch($input);
 		if ($input == '') {
 			return '';
@@ -539,6 +539,14 @@ class FreshRSS_Search {
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
 		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find search values.
+	 * Every word is a distinct search value.
+	 */
+	private function parseSearch(string $input): string {
 		$input = self::cleanSearch($input);
 		if ($input == '') {
 			return '';
