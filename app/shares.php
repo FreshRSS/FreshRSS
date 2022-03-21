@@ -35,6 +35,7 @@ return array(
 		'method' => 'GET',
 	),
 	'clipboard' => array(
+		'HTMLtag' => 'button',
 		'url' => '~LINK~',
 		'transform' => array(),
 		'form' => 'simple',
@@ -127,6 +128,7 @@ return array(
 		'method' => 'GET',
 	),
 	'print' => array(
+		'HTMLtag' => 'button',
 		'url' => '#',
 		'transform' => array(),
 		'form' => 'simple',
@@ -170,6 +172,13 @@ return array(
 		'transform' => array('rawurlencode'),
 		'help' => 'http://www.wallabag.org/',
 		'form' => 'advanced',
+		'method' => 'GET',
+	),
+	'web-sharing-api' => array(
+		'HTMLtag' => 'button',
+		'url' => '~LINK~',
+		'transform' => array(),
+		'form' => 'simple',
 		'method' => 'GET',
 	),
 	'whatsapp' => array(

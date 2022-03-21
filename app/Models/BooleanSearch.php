@@ -16,6 +16,7 @@ class FreshRSS_BooleanSearch {
 		$this->raw_input = $input;
 
 		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
+		$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
 		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE);
 
 		$segment = '';

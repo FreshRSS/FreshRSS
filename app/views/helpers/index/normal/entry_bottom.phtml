@@ -96,9 +96,14 @@
 						$share_options['title'] = $title;
 						$share->update($share_options);
 				?><li class="item share<?= $cssClass ?>">
-					<?php if ('GET' === $share->method()) {?>
+					<?php if ('GET' === $share->method()) {
+						if ($share->HTMLtag() !== 'button') {?>
 						<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
-					<?php } else {?>
+						<?php } else { ?>
+						<button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-title="<?= htmlspecialchars($title) ?>"><?= $share->name() ?></button>
+						<?php
+						}
+					} else {?>
 						<a href="POST"><?= $share->name() ?></a>
 						<form method="POST" action="<?= $share->url() ?>" disabled="disabled">
 							<input type="hidden" value="<?= $link ?>" name="<?= $share->field() ?>"/>

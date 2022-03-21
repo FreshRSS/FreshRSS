@@ -1021,7 +1021,7 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.share > a[data-type="print"]');
+		el = ev.target.closest('.item.share > button[data-type="print"]');
 		if (el) {	// Print
 			const tmp_window = window.open();
 			for (let i = 0; i < document.styleSheets.length; i++) {
@@ -1035,9 +1035,19 @@ function init_stream(stream) {
 			return false;
 		}
 
-		el = ev.target.closest('.item.share > a[data-type="clipboard"]');
+		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
 		if (el && navigator.clipboard) {	// Clipboard
-			navigator.clipboard.writeText(el.href);
+			navigator.clipboard.writeText(el.dataset.url);
+			return false;
+		}
+
+		el = ev.target.closest('.item.share > button[data-type="web-sharing-api"]');
+		if (el && navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+			const shareData = {
+				url: el.dataset.url,
+				title: decodeURI(el.dataset.title),
+			};
+			navigator.share(shareData);
 			return false;
 		}
 
@@ -1070,6 +1080,15 @@ function init_stream(stream) {
 			return false;
 		}
 	};
+
+	if (!navigator.share) {
+		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// do not show the menu entry if browser does not support navigator.share
+		document.styleSheets[0].insertRule(
+			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
+			document.styleSheets[0].cssRules.length
+		);
+	}
 
 	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
 		if (ev.altKey || ev.metaKey || ev.shiftKey) {

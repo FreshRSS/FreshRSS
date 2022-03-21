@@ -608,8 +608,12 @@ input[type="checkbox"]:focus-visible {
 }
 
 /*=== Pagination */
-.pagination {
+.nav-pagination {
 	margin: 2em auto;
+}
+
+.pagination {
+	margin: 0;
 	padding: 0;
 	display: table;
 	table-layout: fixed;
@@ -1073,7 +1077,6 @@ a.website:hover .favicon {
 	overflow: hidden;
 }
 
-.flux .item.share > a,
 .item.query > a {
 	display: list-item;
 	list-style-position: inside;
@@ -1526,7 +1529,8 @@ input:checked + .slide-container .properties {
 /*===========*/
 .log-error,
 .log-warning,
-.log-notice {
+.log-notice,
+.log-debug {
 	text-align: center;
 }
 
