@@ -352,9 +352,15 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				$links = $simplePie->get_links('self');
-				$this->selfUrl = $links[0] ?? '';
+				$this->selfUrl = empty($links[0]) ? '' : checkUrl($links[0]);
+				if ($this->selfUrl == false) {
+					$this->selfUrl = '';
+				}
 				$links = $simplePie->get_links('hub');
-				$this->hubUrl = $links[0] ?? '';
+				$this->hubUrl = empty($links[0]) ? '' : checkUrl($links[0]);
+				if ($this->hubUrl == false) {
+					$this->hubUrl = '';
+				}
 
 				if ($loadDetails) {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
