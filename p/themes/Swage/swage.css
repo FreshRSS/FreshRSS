@@ -38,14 +38,6 @@ select:invalid {
 	clear: both;
 }
 
-.switch.active {
-	background-color: #0062be;
-}
-
-.switch.active:hover {
-	background-image: url('./icons/disabled-light.svg');
-}
-
 #nav_entries, .notification, #new-article, .aside, .header > .item.title, .stick.configure-feeds {
 	width: 231px;
 }
@@ -222,6 +214,13 @@ form th {
 .btn-important :active, .btn-attention:hover,
 .btn-attention :active {
 	background: #f95c20 !important;
+}
+
+.switch.active {
+	background-color: #0062be;
+}
+.switch.active:hover {
+	background-image: url("./icons/disabled-light.svg");
 }
 
 .nav-list .nav-header {
@@ -416,10 +415,6 @@ form th {
 
 .content {
 	padding: 20px 10px;
-}
-.content .pagination {
-	margin: 0;
-	padding: 0;
 }
 .content hr {
 	margin: 30px 10px;
@@ -1004,10 +999,6 @@ form th {
 		width: 85%;
 	}
 
-	.pagination {
-		margin: 0 0 3.5em;
-	}
-
 	#panel .close,
 .dropdown-menu .toggle_aside {
 		background: #22303d;
@@ -1173,3 +1164,5 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
+
+/*# sourceMappingURL=swage.css.map */

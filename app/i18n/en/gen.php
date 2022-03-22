@@ -198,17 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
-		'pinterest' => 'Pinterest',	// TODO
+		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
-		'reddit' => 'Reddit',	// TODO
+		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
-		'whatsapp' => 'Whatsapp',	// TODO
-		'xing' => 'Xing',	// TODO
+		'web-sharing-api' => 'System sharing',
+		'whatsapp' => 'Whatsapp',
+		'xing' => 'Xing',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
