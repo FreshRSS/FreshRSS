@@ -252,7 +252,7 @@ function init_extra() {
 	init_select_observers();
 	init_configuration_alert();
 	fix_popup_preview_selector();
-  init_select_show();
+	init_select_show();
 	init_valid_xpath();
 
 	if (window.console) {
