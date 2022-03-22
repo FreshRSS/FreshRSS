@@ -96,21 +96,19 @@ $today = @strtotime('today');
 					<div class="subtitle">
 						<?php
 						$authors = $this->entry->authors();
-						if (!empty($authors) && is_array($authors)):
-							$first = true;
+						if (!empty($authors) && is_array($authors)) {
 						?>
-						<div class="author"><?php
-							foreach ($authors as $author):
-								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
-								$first = false;
-						?>
-		<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
-				['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
-			) ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a></em>
-						<?php	endforeach; ?>
-						</div><?php endif; ?>
+						<div class="author">
+							<?= _t('gen.short.by_author') ?>
+							<?php
+							foreach ($authors as $author) {
+								$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+							?>
+							<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+							<?php } ?>
+						</div>
+						<?php } ?>
 						<div class="date"><?= $this->entry->date() ?></div>
-						
 					</div>
 				</header>
 				<div class="text"><?php
