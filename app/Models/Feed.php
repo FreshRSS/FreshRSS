@@ -352,9 +352,15 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				$links = $simplePie->get_links('self');
-				$this->selfUrl = $links[0] ?? '';
+				$this->selfUrl = empty($links[0]) ? '' : checkUrl($links[0]);
+				if ($this->selfUrl == false) {
+					$this->selfUrl = '';
+				}
 				$links = $simplePie->get_links('hub');
-				$this->hubUrl = $links[0] ?? '';
+				$this->hubUrl = empty($links[0]) ? '' : checkUrl($links[0]);
+				if ($this->hubUrl == false) {
+					$this->hubUrl = '';
+				}
 
 				if ($loadDetails) {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
@@ -831,7 +837,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function pubSubHubbubEnabled(): bool {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
-		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
 			$hubJson = json_decode($hubFile, true);
 			if ($hubJson && empty($hubJson['error']) &&
@@ -844,7 +850,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function pubSubHubbubError(bool $error = true): bool {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
-		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
 		$hubJson = $hubFile ? json_decode($hubFile, true) : array();
 		if (!isset($hubJson['error']) || $hubJson['error'] !== (bool)$error) {
@@ -862,7 +868,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$key = '';
 		if (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) &&
 			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
-			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
+			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
 			if ($hubFile = @file_get_contents($hubFilename)) {
 				$hubJson = json_decode($hubFile, true);
@@ -892,7 +898,7 @@ class FreshRSS_Feed extends Minz_Model {
 				);
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/');
-				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
+				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
 				$text = 'WebSub prepared for ' . $this->url;
 				Minz_Log::debug($text);
 				Minz_Log::debug($text, PSHB_LOG);
@@ -913,7 +919,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
 		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
-			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
 				Minz_Log::warning('JSON not found for WebSub: ' . $this->url);

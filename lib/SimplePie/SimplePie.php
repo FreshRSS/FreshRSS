@@ -2726,12 +2726,14 @@ class SimplePie
 		if (isset($this->data['headers']['link']))
 		{
 			$link_headers = $this->data['headers']['link'];
-			if (is_string($link_headers)) {
-				$link_headers = array($link_headers);
+			if (is_array($link_headers)) {
+				$link_headers = implode(',', $link_headers);
 			}
-			$matches = preg_filter('/<([^>]+)>; rel='.preg_quote($rel).'/', '$1', $link_headers);
-			if (!empty($matches)) {
-				return $matches;
+			// https://datatracker.ietf.org/doc/html/rfc8288
+			if (is_string($link_headers) &&
+				preg_match_all('/<(?P<uri>[^>]+)>\s*;\s*rel\s*=\s*(?P<quote>"?)' . preg_quote($rel) . '(?P=quote)\s*(?=,|$)/i', $link_headers, $matches))
+			{
+				return $matches['uri'];
 			}
 		}
 
