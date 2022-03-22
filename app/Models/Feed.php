@@ -32,6 +32,9 @@ class FreshRSS_Feed extends Minz_Model {
 	const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
+	/** Number of seconds for which we would like to have the WebSub subscription active */
+	const WEBSUB_LEASE_SECONDS = 864000;
+
 	/** @var int */
 	private $id = 0;
 	/** @var string */
@@ -948,6 +951,7 @@ class FreshRSS_Feed extends Minz_Model {
 						'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
 						'hub.topic' => $url,
 						'hub.callback' => $callbackUrl,
+						'hub.lease_seconds' => self::WEBSUB_LEASE_SECONDS,
 						)),
 					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 					CURLOPT_MAXREDIRS => 10,
