@@ -36,6 +36,6 @@ Only administrators can enable/disable system extensions. The configuration via 
 
 See folder: `.lib/core-extensions`
 
-2 system extensions are already pre installed: `Google-Groups` and `Tumblr-GDPR`.
+Two system extensions are already pre-installed: `Google-Groups` and `Tumblr-GDPR`.
 
 Important: Do not install you chosen extensions here!
