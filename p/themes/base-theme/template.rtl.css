@@ -1106,7 +1106,7 @@ a.website:hover .favicon {
 
 .content > header {
 	color: #666;
-	font-size: 90%;
+	font-size: .9rem;
 }
 
 .content > header a {
