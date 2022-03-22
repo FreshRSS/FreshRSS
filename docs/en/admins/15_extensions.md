@@ -2,7 +2,7 @@
 
 Not every feature is relevant for all users, but some special features are relevant to the right person. That is why FreshRSS is extendable.
 
-There are a bunch of "official" extensions (supported and published by FreshRSS development team and community) and "Community" extensions (developed and published individually by thiry-party).
+There are some "official" extensions (supported and published by the FreshRSS development team and community) and "community" extensions (developed and published individually by third-party developers).
 
 ## Extension repositories
 
