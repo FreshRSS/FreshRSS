@@ -14,7 +14,7 @@ Upload the folder (f.e. `CustomCSS`) of your chosen extension into your `./exten
 
 Result: Content of `./extensions/CustomCSS/` has f.e. `extension.php`, `metadata.json`, `configure.php`, `README.md` files and the folders `i18n` and `static`
 
-Important: Do not delete or overwrite the existing files `./extensions/.gitignore` and `./extensions/README.md` 
+Important: Do not delete or overwrite the existing files `./extensions/.gitignore` and `./extensions/README.md`.
 
 ## How to enable/disable and manage
 
@@ -22,13 +22,13 @@ See in the front end: configuration menu `Configuration/Extensions`
 
 ### User extensions
 
-Every user has to manage the extensions by them self. The configuration via the cog icon is valid only for the user, not for other users. 
+Every user has to manage the extensions by them self. The configuration via the cog icon is valid only for the user, not for other users.
 
 `metadata.json`: "type": "user"
 
 ### System extensions
 
-Only administrators can enable/disable system extensions. The configuration via the gear icon is valid for every user. 
+Only administrators can enable/disable system extensions. The configuration via the gear icon is valid for every user.
 
 `metadata.json`: "type": "system"
 
