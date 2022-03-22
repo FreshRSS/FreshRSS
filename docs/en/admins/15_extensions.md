@@ -22,7 +22,7 @@ See in the front end: configuration menu `Configuration/Extensions`
 
 ### User extensions
 
-Every user has to manage the extensions by them self. The configuration via the cog icon is valid only for the user, not for other users.
+Every user has to manage the extensions by themselves. Configuration via the gear icon is valid only for that user, not for other users.
 
 `metadata.json`: "type": "user"
 
@@ -38,4 +38,4 @@ See folder: `.lib/core-extensions`
 
 Two system extensions are already pre-installed: `Google-Groups` and `Tumblr-GDPR`.
 
-Important: Do not install you chosen extensions here!
+Important: do not install your chosen extensions here!
