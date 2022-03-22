@@ -700,15 +700,6 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-//RFC 4648
-function base64url_encode($data) {
-	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
-}
-//RFC 4648
-function base64url_decode($data) {
-	return base64_decode(strtr($data, '-_', '+/'));
-}
-
 function _i($icon, $url_only = false) {
 	return FreshRSS_Themes::icon($icon, $url_only);
 }
