@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
+/* globals openNotification, openPopupWithSource, xmlHttpRequestJson */
 
 function fix_popup_preview_selector() {
 	const link = document.getElementById('popup-preview-selector');
@@ -165,50 +165,9 @@ function init_select_observers() {
 	});
 }
 
-function init_slider_observers() {
-	const slider = document.getElementById('slider');
-	const closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
-
-	document.querySelector('.post').onclick = function (ev) {
-		const a = ev.target.closest('.open-slider');
-		if (a) {
-			if (!context.ajax_loading) {
-				context.ajax_loading = true;
-
-				const req = new XMLHttpRequest();
-				req.open('GET', a.href + '&ajax=1', true);
-				req.responseType = 'document';
-				req.onload = function (e) {
-					slider.innerHTML = this.response.body.innerHTML;
-					slider.classList.add('active');
-					closer.classList.add('active');
-					context.ajax_loading = false;
-					fix_popup_preview_selector();
-					init_extra();
-				};
-				req.send();
-				return false;
-			}
-		}
-	};
-
-	closer.onclick = function (ev) {
-		if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return true;
-		} else {
-			return false;
-		}
-	};
-}
-
 function data_leave_validation() {
 	const ds = document.querySelectorAll('[data-leave-validation]');
+
 	for (let i = ds.length - 1; i >= 0; i--) {
 		const input = ds[i];
 		if (input.type === 'checkbox' || input.type === 'radio') {
@@ -291,11 +250,14 @@ function init_extra() {
 	init_password_observers();
 	init_url_observers();
 	init_select_observers();
-	init_slider_observers();
 	init_configuration_alert();
 	fix_popup_preview_selector();
 	init_select_show();
 	init_valid_xpath();
+
+	if (window.console) {
+		console.log('FreshRSS extra init done.');
+	}
 }
 
 if (document.readyState && document.readyState !== 'loading') {
