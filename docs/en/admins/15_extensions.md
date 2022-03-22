@@ -24,7 +24,9 @@ See in the front end: configuration menu `Configuration/Extensions`
 
 Every user has to manage the extensions by themselves. Configuration via the gear icon is valid only for that user, not for other users.
 
+```
 `metadata.json`: "type": "user"
+```
 
 ### System extensions
 
