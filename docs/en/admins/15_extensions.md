@@ -24,16 +24,24 @@ See in the front end: configuration menu `Configuration/Extensions`
 
 Every user has to manage the extensions by themselves. Configuration via the gear icon is valid only for that user, not for other users.
 
-```
-metadata.json: "type": "user"
+metadata.json:
+
+```json
+{
+  "type": "user"
+}
 ```
 
 ### System extensions
 
 Only administrators can enable/disable system extensions. The configuration via the gear icon is valid for every user.
 
-```
-metadata.json: "type": "system"
+metadata.json:
+
+```json
+{
+  "type": "system"
+}
 ```
 
 ### pre installed extensions (core extensions)
