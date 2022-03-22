@@ -78,6 +78,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'category' => '☷',
 			'close' => '❌',
 			'configure' => '⚙',
+			'debug' => '🐛',
 			'down' => '▽',
 			'error' => '❌',
 			'favorite' => '★',

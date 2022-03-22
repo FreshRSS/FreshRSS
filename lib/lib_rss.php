@@ -424,6 +424,7 @@ function getHtml(string $url, array $attributes = []): string {
 
 	if ($c_status != 200 || $c_error != '' || $html === false) {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		// TODO: Implement HTTP 410 Gone
 	}
 	if ($html == false) {
 		$html = '';

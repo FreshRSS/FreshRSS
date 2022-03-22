@@ -16,19 +16,24 @@
 			'php', true
 		);
 		$nothing = true;
-		foreach ($this->idleFeeds as $period => $feeds) {
-			if (!empty($feeds)) {
+		foreach ($this->idleFeeds as $period => $feedsInPeriod) {
+			if (!empty($feedsInPeriod)) {
 				$nothing = false;
 	?>
 	<div class="box">
 		<div class="box-title"><?= _t('gen.date.' . $period) ?></div>
 			<ul class="box-content">
-				<?php foreach ($feeds as $feed) { ?>
-					<li class="item feed">
-						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feed['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
-						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
-						<span title="<?= timestamptodate($feed['last_date'], false) ?>"><?= $feed['name'] ?>
-							(<?= _t('admin.stats.number_entries', $feed['nb_articles']) ?>)</span>
+				<?php
+					foreach ($feedsInPeriod as $feedInPeriod) {
+						$feed = $this->feeds[$feedInPeriod['id']] ?? null;
+						$error = $feed == null || $feed->inError() ? ' error' : '';
+						$empty = $feed != null && $feed->nbEntries() == 0 ? ' empty' : '';
+				?>
+					<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>">
+						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
+						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
+						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
+							(<?= _t('admin.stats.number_entries', $feedInPeriod['nb_articles']) ?>)</span>
 					</li>
 				<?php } ?>
 			</ul>

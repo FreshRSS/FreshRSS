@@ -15,7 +15,7 @@
 
 	<?php if (!empty($items)) { ?>
 	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
-	<div id="loglist-wrapper">
+	<div id="loglist-wrapper" class="table-wrapper">
 		<table id="loglist">
 			<thead>
 				<th><?= _t('conf.logs.loglist.level') ?></th>
