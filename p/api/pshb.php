@@ -27,7 +27,7 @@ if ($canonical === false) {
 		header('Connection: close');
 		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 	}
-	header('HTTP/1.1 404 Not Found');
+	header('HTTP/1.1 410 Gone');
 	Minz_Log::warning('Warning: Feed key not found!: ' . $key, PSHB_LOG);
 	die('Feed key not found!');
 }
@@ -35,7 +35,7 @@ $canonical = trim($canonical);
 $canonicalHash = sha1($canonical);
 $hubFile = @file_get_contents('feeds/' . $canonicalHash . '/!hub.json');
 if ($hubFile === false) {
-	header('HTTP/1.1 404 Not Found');
+	header('HTTP/1.1 410 Gone');
 	unlink('keys/' . $key . '.txt');
 	Minz_Log::error('Error: Feed info not found!: ' . $canonical, PSHB_LOG);
 	die('Feed info not found!');
