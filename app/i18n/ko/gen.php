@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
 		'remove' => '삭제',
@@ -176,12 +177,6 @@ return array(
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
 	),
-	'pagination' => array(
-		'first' => '처음으로',
-		'last' => '마지막으로',
-		'next' => '다음',
-		'previous' => '이전',
-	),
 	'period' => array(
 		'days' => '일',
 		'hours' => '시',
@@ -203,17 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
-		'pinterest' => 'Pinterest',	// TODO
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => '인쇄',
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'reddit' => 'Reddit',	// TODO
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'whatsapp' => 'Whatsapp',	// TODO
-		'xing' => 'Xing',	// TODO
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '경고!',

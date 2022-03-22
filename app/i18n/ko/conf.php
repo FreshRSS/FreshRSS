@@ -66,6 +66,19 @@ return array(
 			'thin' => '얇게',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '처음으로',
+			'last' => '마지막으로',
+			'next' => '다음',
+			'previous' => '이전',
+		),
+	),
 	'profile' => array(
 		'_' => '프로필 관리',
 		'api' => 'API 관리',
@@ -181,6 +194,7 @@ return array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
 		'facebook' => 'Facebook',	// IGNORE

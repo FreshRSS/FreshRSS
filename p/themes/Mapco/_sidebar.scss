@@ -146,12 +146,13 @@
 
 	.item {
 		background: variables.$sid-bg;
-
-		@include mixins.transition(all, 0.15s, ease-in-out);
+		color: variables.$white;
 
 		a {
 			padding: 0 1rem;
 			color: variables.$sid-font-color;
+
+			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
 		.error {
@@ -161,9 +162,6 @@
 		}
 
 		&:hover {
-			background: variables.$sid-bg-dark;
-			color: variables.$sid-font-color;
-
 			.error {
 				a {
 					background: variables.$main-first;
@@ -179,7 +177,7 @@
 			}
 
 			a {
-				color: variables.$sid-font-color;
+				background: variables.$sid-bg-dark;
 				text-decoration: none;
 			}
 		}
@@ -203,11 +201,11 @@
 			}
 
 			a {
+				background: variables.$main-first;
 				color: variables.$white;
 				text-decoration: none;
 			}
 		}
-
 	}
 
 	&.empty {

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
 		'remove' => 'Odebrat',
@@ -176,12 +177,6 @@ return array(
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'První',
-		'last' => 'Poslední',
-		'next' => 'Další',
-		'previous' => 'Předchozí',
-	),
 	'period' => array(
 		'days' => 'dní',
 		'hours' => 'hodin',
@@ -203,17 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
-		'pinterest' => 'Pinterest',	// TODO
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Tisknout',
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'reddit' => 'Reddit',	// TODO
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'Wallabag v1',
-		'wallabagv2' => 'Wallabag v2',
-		'whatsapp' => 'Whatsapp',	// TODO
-		'xing' => 'Xing',	// TODO
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',

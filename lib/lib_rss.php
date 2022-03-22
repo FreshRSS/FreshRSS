@@ -45,6 +45,8 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'CssXPath') !== false) {
+		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
 	} elseif (strpos($class, 'PHPMailer') === 0) {
 		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	}
@@ -422,6 +424,7 @@ function getHtml(string $url, array $attributes = []): string {
 
 	if ($c_status != 200 || $c_error != '' || $html === false) {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		// TODO: Implement HTTP 410 Gone
 	}
 	if ($html == false) {
 		$html = '';

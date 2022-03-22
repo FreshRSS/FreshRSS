@@ -458,11 +458,6 @@ a.btn {
 	font-size: 0.8em;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -1060,6 +1055,16 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
+.pagination .item.active {
+	background-color: #0062be;
+	color: white;
+}
+
+#loglist td {
+	font-family: monospace;
+}
+
+/****old******/
 .loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;
@@ -1187,10 +1192,6 @@ a.btn {
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

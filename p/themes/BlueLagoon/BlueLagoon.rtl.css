@@ -277,23 +277,17 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	text-shadow: 0 0 2px rgba(255,255,255,0.28);
 	color: #fff;
 }
 
-.nav-list .item.active {
+.nav-list .item.active a {
 	margin: 0;
 	background: linear-gradient(-180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
-	box-shadow: 1px 2px 2px #171717, 0px 1px rgba(255, 255, 255, 0.08) inset;
-	border-width: medium medium 1px;
-	border-style: none none solid;
-	border-color: -moz-use-text-color -moz-use-text-color #171717;
-}
-
-.nav-list .item.active a {
 	color: #fff;
+	border-color: -moz-use-text-color -moz-use-text-color #171717;
 }
 
 .nav-list .disable {
@@ -484,11 +478,6 @@ a.btn {
 	font-size: 0.8em;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -504,14 +493,12 @@ a.btn {
 
 .pagination .item a:hover {
 	background: #ddd;
+	color: inherit;
 }
 
-.pagination:first-child .item {
-	border-bottom: 1px solid #aaa;
-}
-
-.pagination:last-child .item {
+.pagination .item {
 	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 /*=== Boxes */
@@ -1343,10 +1330,6 @@ a.btn {
 
 	.day .name {
 		display: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

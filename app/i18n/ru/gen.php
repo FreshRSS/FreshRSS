@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
 		'remove' => 'Удалить',
@@ -176,12 +177,6 @@ return array(
 		'user_management' => 'Управление пользователями',
 		'user_profile' => 'Профиль',
 	),
-	'pagination' => array(
-		'first' => 'Первая',
-		'last' => 'Последняя',
-		'next' => 'Следующая',
-		'previous' => 'Предыдущая',
-	),
 	'period' => array(
 		'days' => 'дней',
 		'hours' => 'часов',
@@ -203,17 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
-		'pinterest' => 'Pinterest',	// TODO
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'reddit' => 'Reddit',	// TODO
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'whatsapp' => 'Whatsapp',	// TODO
-		'xing' => 'Xing',	// TODO
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Предупреждение!',

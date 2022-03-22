@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fine',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
+		),
+		'pagination' => array(
+			'first' => 'Début',
+			'last' => 'Fin',
+			'next' => 'Suivant',
+			'previous' => 'Précédent',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
 		'api' => 'Gestion de l’API',
@@ -181,6 +194,7 @@ return array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',	// IGNORE

@@ -238,6 +238,20 @@ a.btn {
 	background: #801;
 }
 
+/*=== switches */
+.switch {
+	background-color: #333;
+}
+
+.switch.active {
+	background-color: #6986b2;
+}
+
+.switch::before,
+.switch:hover::before {
+	background-color: black;
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
@@ -246,7 +260,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	background: #26303f;
 }
 
@@ -424,11 +438,6 @@ a.btn {
 	text-align: center;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	background: #111;
 	font-size: 1.5em;
@@ -448,11 +457,8 @@ a.btn {
 }
 
 .pagination:first-child .item {
-	border-bottom: 1px solid #333;
-}
-
-.pagination:last-child .item {
 	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
 }
 
 #load_more.loading,
@@ -1165,10 +1171,6 @@ a.btn {
 
 	.day .name {
 		font-size: 1.1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification {

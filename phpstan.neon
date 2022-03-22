@@ -7,7 +7,6 @@ parameters:
 	paths:
 		- .
 	excludePaths:
-		- lib/lib_phpQuery.php
 		- lib/PHPMailer/*
 		- lib/SimplePie/*
 		- node_modules/*
@@ -20,6 +19,5 @@ parameters:
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
-		- lib/lib_phpQuery.php
 		- lib/SimplePie/SimplePie.php
 		- app/SQL/install.sql.sqlite.php

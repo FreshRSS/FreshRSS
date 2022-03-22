@@ -359,11 +359,6 @@ form th {
 	background: url("loader.gif") center center no-repeat #34495e;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 /*=== Boxes */
 .box {
 	background: #fff;
@@ -628,18 +623,15 @@ form th {
 }
 .nav-list .item {
 	background: #303136;
-	transition: all 0.15s ease-in-out;
+	color: #fff;
 }
 .nav-list .item a {
 	padding: 0 1rem;
 	color: #ffffff;
+	transition: all 0.15s ease-in-out;
 }
 .nav-list .item .error a {
 	color: #f5633e;
-}
-.nav-list .item:hover {
-	background: #17181a;
-	color: #ffffff;
 }
 .nav-list .item:hover .error a {
 	background: #36c;
@@ -650,7 +642,7 @@ form th {
 	color: #ffffff;
 }
 .nav-list .item:hover a {
-	color: #ffffff;
+	background: #17181a;
 	text-decoration: none;
 }
 .nav-list .item.active {
@@ -666,6 +658,7 @@ form th {
 	color: #fff;
 }
 .nav-list .item.active a {
+	background: #36c;
 	color: #fff;
 	text-decoration: none;
 }
@@ -1518,10 +1511,6 @@ form th {
 		width: 100%;
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#nav_entries {
