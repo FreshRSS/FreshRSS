@@ -28,7 +28,7 @@ Every user has to manage the extensions by them self. The configuration via the 
 
 ### System extensions
 
-Only administrators can enabled/disable system extensions. The configuration via the cog icon is valid for every user. 
+Only administrators can enable/disable system extensions. The configuration via the gear icon is valid for every user. 
 
 `metadata.json`: "type": "system"
 
