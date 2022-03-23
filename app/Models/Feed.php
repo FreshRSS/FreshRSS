@@ -642,7 +642,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 		$simplePie = customSimplePie();
 		$simplePie->set_raw_data($view->renderToString());
-		file_put_contents('/tmp/rss.xml', $view->renderToString());
 		$simplePie->init();
 		return $simplePie;
 	}
