@@ -196,6 +196,7 @@ function timestamptodate ($t, $hour = true) {
 }
 
 /**
+ * Decode HTML entities but preserve XML entities.
  * @param string|null $text
  */
 function html_only_entity_decode($text): string {
