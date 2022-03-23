@@ -26,6 +26,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
+		$id = Minz_Request::param('id');
+		if ($id) {
+			$view = Minz_Request::param('a');
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => $view));
+			Minz_Request::forward($url_redirect, true);
+			return;
+		}
+
 		try {
 			$this->updateContext();
 		} catch (FreshRSS_Context_Exception $e) {

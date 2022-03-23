@@ -196,6 +196,7 @@ function timestamptodate ($t, $hour = true) {
 }
 
 /**
+ * Decode HTML entities but preserve XML entities.
  * @param string|null $text
  */
 function html_only_entity_decode($text): string {
@@ -698,15 +699,6 @@ function remove_query_by_get($get, $queries) {
 		}
 	}
 	return $final_queries;
-}
-
-//RFC 4648
-function base64url_encode($data) {
-	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
-}
-//RFC 4648
-function base64url_decode($data) {
-	return base64_decode(strtr($data, '-_', '+/'));
 }
 
 function _i($icon, $url_only = false) {
