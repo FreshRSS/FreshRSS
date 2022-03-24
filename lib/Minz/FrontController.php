@@ -100,9 +100,9 @@ class Minz_FrontController {
 	* Permet d'arrêter le programme en urgence
 	*/
 	private function killApp ($txt = '') {
-		if (function_exists('errorMessage')) {
+		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function
-			exit(errorMessage('Application problem', $txt));
+			exit(errorMessageInfo('Application problem', $txt));
 		}
 		exit('### Application problem ###<br />' . "\n" . $txt);
 	}
