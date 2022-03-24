@@ -726,7 +726,7 @@ function getNonStandardShortcuts($shortcuts) {
 	return $nonStandard;
 }
 
-function errorMessage($errorTitle, $error = '') {
+function errorMessageInfo($errorTitle, $error = '') {
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
 
 	$message = '';
