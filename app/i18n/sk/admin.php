@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Povoliť čítanie článkov prednastaveného používateľa (%s) bez prihlásenia.',
@@ -153,13 +163,25 @@ return array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
+		'force_email_validation' => 'Vynútiť overenie e-mailovej adresy',
 		'instance-name' => 'Názov inštancie',
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
 		'registration' => array(
-			'help' => '0 znamená žiadny limit počtu účtov',
 			'number' => 'Maximálny počt účtov',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(
@@ -172,18 +194,18 @@ return array(
 		'title' => 'Aktualizácia systému',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrátor',
+		'article_count' => 'Články',
+		'back_to_manage' => '← Späť na zoznam používateľov',
 		'create' => 'Vytvoriť nového používateľa',
-		'database_size' => 'Database size',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Veľkosť databázy',
+		'email' => 'E-mailová adresa',
+		'enabled' => 'Povolené',
+		'feed_count' => 'Kanály',
+		'is_admin' => 'Je admin',
 		'language' => 'Jazyk',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Posledná aktivita používateľa',
+		'list' => 'Zoznam používateľov',
 		'number' => 'Je vytvorený používateľ: %d',
 		'numbers' => 'Je vytvorených používateľov: %d',
 		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',

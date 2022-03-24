@@ -1,0 +1,39 @@
+[default.extend-identifiers]
+ba9 = "ba9"
+Ths2 = "Ths2"
+
+[files]
+extend-exclude = [
+	"*.fr.md",
+	"*.map",
+	"*.min.js",
+	"*.po",
+	"*.pot",
+	"*.rtl.css",
+	"app/i18n/cz/",
+	"app/i18n/de/",
+	"app/i18n/es/",
+	"app/i18n/fr/",
+	"app/i18n/he/",
+	"app/i18n/it/",
+	"app/i18n/ja/",
+	"app/i18n/ko/",
+	"app/i18n/nl/",
+	"app/i18n/oc/",
+	"app/i18n/pl/",
+	"app/i18n/pt-br/",
+	"app/i18n/ru/",
+	"app/i18n/sk/",
+	"app/i18n/tr/",
+	"app/i18n/zh-cn/",
+	"bin/",
+	"data/",
+	"docs/fr/",
+	"lib/CssXPath/",
+	"lib/PHPMailer",
+	"lib/SimplePie/",
+	"node_modules/",
+	"p/scripts/vendor/",
+	"package-lock.json",
+	"vendor/",
+]

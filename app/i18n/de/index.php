@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'Über',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Fehlerberichte',
 		'credits' => 'Mitwirkende',
 		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
@@ -12,7 +22,7 @@ return array(
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Website',
 		'title' => 'Über',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
 		'add' => 'Sie können Feeds hinzufügen.',
@@ -57,7 +67,7 @@ return array(
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Verwandte Tags',
+		'related' => 'Hashtags',
 	),
 	'tos' => array(
 		'title' => 'Nutzungsbedingungen',

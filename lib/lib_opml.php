@@ -131,17 +131,17 @@ function preprocessing_categories($doc) {
 	foreach ($outlines as $outline) {
 		$category = trim($outline->getAttribute('category'));
 		if ($category != '') {
-			$outline_categorie = null;
+			$outline_category = null;
 			if (!isset($outline_categories[$category])) {
-				$outline_categorie = $doc->createElement('outline');
-				$outline_categorie->setAttribute('text', $category);
-				$body->insertBefore($outline_categorie, $body->firstChild);
-				$outline_categories[$category] = $outline_categorie;
+				$outline_category = $doc->createElement('outline');
+				$outline_category->setAttribute('text', $category);
+				$body->insertBefore($outline_category, $body->firstChild);
+				$outline_categories[$category] = $outline_category;
 			} else {
-				$outline_categorie = $outline_categories[$category];
+				$outline_category = $outline_categories[$category];
 			}
 			$outline->parentNode->removeChild($outline);
-			$outline_categorie->appendChild($outline);
+			$outline_category->appendChild($outline);
 		}
 	}
 }

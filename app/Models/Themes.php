@@ -71,20 +71,20 @@ class FreshRSS_Themes extends Minz_Model {
 	public static function alt($name) {
 		static $alts = array(
 			'add' => '✚',
-			'add-white' => '✚',
 			'all' => '☰',
 			'bookmark' => '★',
 			'bookmark-add' => '✚',
+			'bookmark-tag' => '🔖',
 			'category' => '☷',
-			'category-white' => '☷',
 			'close' => '❌',
 			'configure' => '⚙',
+			'debug' => '🐛',
 			'down' => '▽',
+			'error' => '❌',
 			'favorite' => '★',
 			'FreshRSS-logo' => '⊚',
 			'help' => 'ⓘ',
 			'icon' => '⊚',
-			'import' => '⤓',
 			'key' => '⚿',
 			'label' => '🏷️',
 			'link' => '↗',
@@ -93,6 +93,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'logout' => '🔓',
 			'next' => '⏩',
 			'non-starred' => '☆',
+			'notice' => 'ⓘ',
 			'prev' => '⏪',
 			'read' => '☑',
 			'rss' => '☄',
@@ -100,6 +101,8 @@ class FreshRSS_Themes extends Minz_Model {
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',
 			'share' => '♺',
+			'sort-down' => '↓',
+			'sort-up' => '↑',
 			'starred' => '★',
 			'stats' => '%',
 			'tag' => '⚐',
@@ -107,6 +110,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'view-normal' => '☰',
 			'view-global' => '☷',
 			'view-reader' => '☕',
+			'warning' => '△',
 		);
 		return isset($name) ? $alts[$name] : '';
 	}

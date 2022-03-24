@@ -6,7 +6,7 @@ Additionally [page about our Fever compatible API](06_Fever_API.md) for another 
 ## RSS clients
 
 There are many RSS clients that support the Fever API, but they might understand the API a bit differently.
-If your favourite client doesn't work properly with this API, please create an issue and we'll have a look.
+If your favourite client doesn’t work properly with this API, please create an issue and we’ll have a look.
 But we can **only** do that for free clients.
 
 ## Usage & Authentication
@@ -23,15 +23,15 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
-|[News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) |Android|Closed Source (Free)|
+|[News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) |Android|Closed Source (Free)|
 |[FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) |Android                  |Closed Source (Free)                                             |
 |[EasyRSS](https://github.com/Alkarex/EasyRSS)                          |Android                |[GPLv3](https://github.com/Alkarex/EasyRSS/blob/master/license.txt) ([F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))|
 |[Readrops](https://github.com/readrops/Readrops) |Android                  |[GPLv3](https://github.com/readrops/Readrops/blob/develop/LICENSE)                                             |
 |[FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) |Android                  |Closed Source(Free)                                              |
 |[FeedReader 2.0+](https://jangernert.github.io/FeedReader/)                           |Linux                |[GPLv3](https://github.com/jangernert/FeedReader/blob/master/LICENSE)                                              |
 |[Newsboat 2.24+](https://newsboat.org/)                           |Linux                |[MIT](https://github.com/newsboat/newsboat/blob/master/LICENSE)                                              |
-|[Vienna RSS](http://www.vienna-rss.com/)                           |MacOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
-|[Reeder](https://www.reederapp.com/)                           |MacOS, iOS                |Closed Source                                              |
+|[Vienna RSS](http://www.vienna-rss.com/)                           |macOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
+|[Reeder](https://www.reederapp.com/)                           |macOS, iOS                |Closed Source                                              |
 |[FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/)                           |Firefox                |Open Source                                              |
 
 ## Google Reader compatible API

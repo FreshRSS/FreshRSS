@@ -9,6 +9,7 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+// @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 } else {
@@ -18,11 +19,10 @@ if (COPY_SYSLOG_TO_STDERR) {
 /**
  * Build a directory path by concatenating a list of directory names.
  *
- * @param $path_parts a list of directory names
+ * @param string ...$path_parts a list of directory names
  * @return string corresponding to the final pathname
  */
-function join_path() {
-	$path_parts = func_get_args();
+function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
@@ -45,6 +45,8 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'CssXPath') !== false) {
+		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
 	} elseif (strpos($class, 'PHPMailer') === 0) {
 		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	}
@@ -53,6 +55,10 @@ function classAutoloader($class) {
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
+/**
+ * @param string $url
+ * @return string
+ */
 function idn_to_puny($url) {
 	if (function_exists('idn_to_ascii')) {
 		$idn = parse_url($url, PHP_URL_HOST);
@@ -74,6 +80,11 @@ function idn_to_puny($url) {
 	return $url;
 }
 
+/**
+ * @param string $url
+ * @param bool $fixScheme
+ * @return string|false
+ */
 function checkUrl($url, $fixScheme = true) {
 	$url = trim($url);
 	if ($url == '') {
@@ -93,18 +104,45 @@ function checkUrl($url, $fixScheme = true) {
 	}
 }
 
+/**
+ * @param string $text
+ * @return string
+ */
 function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
 if (function_exists('mb_convert_encoding')) {
-	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	function safe_utf8($text) {
+		return mb_convert_encoding($text, 'UTF-8', 'UTF-8');
+	}
 } elseif (function_exists('iconv')) {
-	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	function safe_utf8($text) {
+		return iconv('UTF-8', 'UTF-8//IGNORE', $text);
+	}
 } else {
-	function safe_utf8($text) { return $text; }
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	function safe_utf8($text) {
+		return $text;
+	}
 }
 
+/**
+ * @param string $text
+ * @param bool $extended
+ * @return string
+ */
 function escapeToUnicodeAlternative($text, $extended = true) {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
@@ -124,7 +162,7 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
-	return str_replace(' ', ' ',	//Espace fine insécable
+	return str_replace(' ', ' ',	// Thin non-breaking space
 		number_format($n, $precision, '.', ' ')
 	);
 }
@@ -157,7 +195,11 @@ function timestamptodate ($t, $hour = true) {
 	return @date ($date, $t);
 }
 
-function html_only_entity_decode($text) {
+/**
+ * Decode HTML entities but preserve XML entities.
+ * @param string|null $text
+ */
+function html_only_entity_decode($text): string {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
 		$htmlEntitiesOnly = array_flip(array_diff(
@@ -165,10 +207,13 @@ function html_only_entity_decode($text) {
 			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
 		));
 	}
-	return strtr($text, $htmlEntitiesOnly);
+	return $text == '' ? '' : strtr($text, $htmlEntitiesOnly);
 }
 
-function customSimplePie($attributes = array()) {
+/**
+ * @param array<string,mixed> $attributes
+ */
+function customSimplePie($attributes = array()): SimplePie {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
@@ -176,6 +221,7 @@ function customSimplePie($attributes = array()) {
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
+	$simplePie->enable_order_by_date(false);
 
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
@@ -203,6 +249,7 @@ function customSimplePie($attributes = array()) {
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
+	$simplePie->rename_attributes(array('id', 'class'));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
@@ -247,7 +294,10 @@ function customSimplePie($attributes = array()) {
 	return $simplePie;
 }
 
-function sanitizeHTML($data, $base = '', $maxLength = false) {
+/**
+ * @param int|false $maxLength
+ */
+function sanitizeHTML($data, string $base = '', $maxLength = false) {
 	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
 		return '';
 	}
@@ -268,6 +318,128 @@ function sanitizeHTML($data, $base = '', $maxLength = false) {
 	return $result;
 }
 
+function cleanCache(int $hours = 720) {
+	$files = glob(CACHE_PATH . '/*.{html,spc}', GLOB_BRACE | GLOB_NOSORT);
+	foreach ($files as $file) {
+		if (substr($file, -10) === 'index.html') {
+			continue;
+		}
+		$cacheMtime = @filemtime($file);
+		if ($cacheMtime !== false && $cacheMtime < time() - (3600 * $hours)) {
+			unlink($file);
+		}
+	}
+}
+
+/**
+ * Set an XML preamble to enforce the HTML content type charset received by HTTP.
+ * @param string $html the row downloaded HTML content
+ * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
+ * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
+ */
+function enforceHttpEncoding(string $html, string $contentType = ''): string {
+	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === false ? '' : $matches[1] ?? '';
+	if ($httpCharset == '') {
+		// No charset defined by HTTP, do nothing
+		return $html;
+	}
+	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
+	if ($httpCharsetNormalized === 'windows-1252') {
+		// Default charset for HTTP, do nothing
+		return $html;
+	}
+	if (substr($html, 0, 3) === "\xEF\xBB\xBF" || // UTF-8 BOM
+		substr($html, 0, 2) === "\xFF\xFE" || // UTF-16 Little Endian BOM
+		substr($html, 0, 2) === "\xFE\xFF" || // UTF-16 Big Endian BOM
+		substr($html, 0, 4) === "\xFF\xFE\x00\x00" || // UTF-32 Little Endian BOM
+		substr($html, 0, 4) === "\x00\x00\xFE\xFF") { // UTF-32 Big Endian BOM
+		// Existing byte order mark, do nothing
+		return $html;
+	}
+	if (preg_match('/^<[?]xml[^>]+encoding\b/', substr($html, 0, 64))) {
+		// Existing XML declaration, do nothing
+		return $html;
+	}
+	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+}
+
+/**
+ * @param array<string,mixed> $attributes
+ */
+function getHtml(string $url, array $attributes = []): string {
+	$limits = FreshRSS_Context::$system_conf->limits;
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+
+	$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+	$cacheMtime = @filemtime($cachePath);
+	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
+		$html = @file_get_contents($cachePath);
+		if ($html != '') {
+			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . SimplePie_Misc::url_remove_credentials($url));
+			return $html;
+		}
+	}
+
+	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
+		cleanCache();
+	}
+
+	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
+		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+	}
+
+	// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
+	$ch = curl_init();
+	curl_setopt_array($ch, [
+		CURLOPT_URL => $url,
+		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
+		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		//CURLOPT_FAILONERROR => true;
+		CURLOPT_MAXREDIRS => 4,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_ENCODING => '',	//Enable all encodings
+	]);
+
+	curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
+
+	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		curl_setopt_array($ch, $attributes['curl_params']);
+	}
+
+	if (isset($attributes['ssl_verify'])) {
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		if (!$attributes['ssl_verify']) {
+			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+		}
+	}
+	$html = curl_exec($ch);
+	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$c_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);	//TODO: Check if that may be null
+	$c_error = curl_error($ch);
+	curl_close($ch);
+
+	if ($c_status != 200 || $c_error != '' || $html === false) {
+		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		// TODO: Implement HTTP 410 Gone
+	}
+	if ($html == false) {
+		$html = '';
+	} else {
+		$html = enforceHttpEncoding($html, $c_content_type);
+	}
+
+	if (file_put_contents($cachePath, $html) === false) {
+		Minz_Log::warning("Error saving cache $cachePath for $url");
+	}
+
+	return $html;
+}
+
 /**
  * Validate an email address, supports internationalized addresses.
  *
@@ -277,7 +449,7 @@ function sanitizeHTML($data, $base = '', $maxLength = false) {
  */
 function validateEmailAddress($email) {
 	$mailer = new PHPMailer\PHPMailer\PHPMailer();
-	$mailer->Charset = 'utf-8';
+	$mailer->CharSet = 'utf-8';
 	$punyemail = $mailer->punyencodeAddress($email);
 	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
 }
@@ -285,7 +457,7 @@ function validateEmailAddress($email) {
 /**
  * Add support of image lazy loading
  * Move content from src attribute to data-original
- * @param content is the text we want to parse
+ * @param string $content is the text we want to parse
  */
 function lazyimg($content) {
 	return preg_replace(
@@ -295,9 +467,12 @@ function lazyimg($content) {
 	);
 }
 
+/**
+ * @return string
+ */
 function uTimeString() {
 	$t = @gettimeofday();
-	return $t['sec'] . str_pad($t['usec'], 6, '0', STR_PAD_LEFT);
+	return $t['sec'] . str_pad('' . $t['usec'], 6, '0', STR_PAD_LEFT);
 }
 
 function invalidateHttpCache($username = '') {
@@ -312,6 +487,9 @@ function invalidateHttpCache($username = '') {
 	return $ok;
 }
 
+/**
+ * @return array<string>
+ */
 function listUsers() {
 	$final_list = array();
 	$base_path = join_path(DATA_PATH, 'users');
@@ -349,8 +527,8 @@ function max_registrations_reached() {
  * Note this function has been created to generate temporary configuration
  * objects. If you need a long-time configuration, please don't use this function.
  *
- * @param $username the name of the user of which we want the configuration.
- * @return Minz_Configuration object, null if the configuration cannot be loaded.
+ * @param string $username the name of the user of which we want the configuration.
+ * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -369,10 +547,16 @@ function get_user_configuration($username) {
 		return null;
 	}
 
-	return Minz_Configuration::get($namespace);
+	/**
+	 * @var FreshRSS_UserConfiguration $user_conf
+	 */
+	$user_conf = Minz_Configuration::get($namespace);
+	return $user_conf;
 }
 
-
+/**
+ * @return string
+ */
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
@@ -384,6 +568,9 @@ function httpAuthUser() {
 	return '';
 }
 
+/**
+ * @return bool
+ */
 function cryptAvailable() {
 	try {
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
@@ -398,7 +585,7 @@ function cryptAvailable() {
 /**
  * Check PHP and its extensions are well-installed.
  *
- * @return array of tested values.
+ * @return array<string,bool> of tested values.
  */
 function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -422,12 +609,15 @@ function check_install_php() {
 /**
  * Check different data files and directories exist.
  *
- * @return array of tested values.
+ * @return array<string,bool> of tested values.
  */
 function check_install_files() {
 	return array(
+		// @phpstan-ignore-next-line
 		'data' => DATA_PATH && is_writable(DATA_PATH),
+		// @phpstan-ignore-next-line
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		// @phpstan-ignore-next-line
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),
@@ -438,7 +628,7 @@ function check_install_files() {
 /**
  * Check database is well-installed.
  *
- * @return array of tested values.
+ * @return array<string,bool> of tested values.
  */
 function check_install_database() {
 	$status = array(
@@ -474,7 +664,7 @@ function check_install_database() {
  *
  * From http://php.net/rmdir#110489
  *
- * @param $dir the directory to remove
+ * @param string $dir the directory to remove
  */
 function recursive_unlink($dir) {
 	if (!is_dir($dir)) {
@@ -497,9 +687,9 @@ function recursive_unlink($dir) {
 
 /**
  * Remove queries where $get is appearing.
- * @param $get the get attribute which should be removed.
- * @param $queries an array of queries.
- * @return array whithout queries where $get is appearing.
+ * @param string $get the get attribute which should be removed.
+ * @param array<int,array<string,string>> $queries an array of queries.
+ * @return array<int,array<string,string>> without queries where $get is appearing.
  */
 function remove_query_by_get($get, $queries) {
 	$final_queries = array();
@@ -509,15 +699,6 @@ function remove_query_by_get($get, $queries) {
 		}
 	}
 	return $final_queries;
-}
-
-//RFC 4648
-function base64url_encode($data) {
-	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
-}
-//RFC 4648
-function base64url_decode($data) {
-	return base64_decode(strtr($data, '-_', '+/'));
 }
 
 function _i($icon, $url_only = false) {
@@ -545,7 +726,7 @@ function getNonStandardShortcuts($shortcuts) {
 	return $nonStandard;
 }
 
-function errorMessage($errorTitle, $error = '') {
+function errorMessageInfo($errorTitle, $error = '') {
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
 
 	$message = '';

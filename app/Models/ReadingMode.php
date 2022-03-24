@@ -81,14 +81,14 @@ class FreshRSS_ReadingMode {
 	}
 
 	/**
-	 * @return string
+	 * @return array<string>
 	 */
 	public function getUrlParams() {
 		return $this->urlParams;
 	}
 
 	/**
-	 * @param string $urlParams
+	 * @param array<string> $urlParams
 	 * @return FreshRSS_ReadingMode
 	 */
 	public function setUrlParams($urlParams) {

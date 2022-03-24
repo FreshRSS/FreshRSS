@@ -1,14 +1,24 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Depausatz aqueste boton per la barra de marcapaginas o clicatz-lo a drecha e causissètz « Enregistrar aqueste ligam». Puèi clicatz «S’abonar» sus las paginas que volètz seguir.',
 		'label' => 'S’abonar',
-		'title' => 'Bookmarklet',
+		'title' => 'Bookmarklet',	// IGNORE
 	),
 	'category' => array(
 		'_' => 'Categoria',
@@ -42,7 +52,7 @@ return array(
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
-		'description' => 'Descripcion',
+		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
 		'filteractions' => array(
@@ -51,6 +61,49 @@ return array(
 		),
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => 'items tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+				'relative' => 'XPath (relative to item) for:',	// TODO
+				'xpath' => 'XPath for:',	// TODO
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Escafar lo cache',
 			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',
@@ -61,7 +114,7 @@ return array(
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',
-		'number_entries' => '%d articles',
+		'number_entries' => '%d articles',	// IGNORE
 		'priority' => array(
 			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',

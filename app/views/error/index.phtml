@@ -1,15 +1,16 @@
-<div class="post">
+<?php /** @var FreshRSS_View $this */ ?>
+<main class="post">
 	<div class="alert alert-error">
 		<h1 class="alert-head"><?= $this->code ?></h1>
 		<p>
 			<?= htmlspecialchars($this->errorMessage, ENT_NOQUOTES, 'UTF-8') ?>
 		</p>
-		<p>	
-			<?php if (FreshRSS_Auth::hasAccess()) {?>	
+		<p>
+			<?php if (FreshRSS_Auth::hasAccess()) {?>
 			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 			<?php } else { ?>
 			<a href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a>
 			<?php } ?>
 		</p>
 	</div>
-</div>
+</main>

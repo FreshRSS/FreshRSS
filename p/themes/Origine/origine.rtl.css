@@ -117,8 +117,9 @@ form th {
 
 .form-group .group-controls > input,
 .form-group .group-controls > select,
+.form-group .group-controls > textarea,
 .form-group .group-controls .stick {
-	margin: -5px 0;
+	margin: -5px 0 5px 0;
 }
 
 .form-group .group-controls .stick .btn {
@@ -227,6 +228,10 @@ a.btn {
 .btn-important:active {
 	background: #0044cb;
 	box-shadow: none;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-attention {
@@ -359,18 +364,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #fff;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #ddd;
-	/* @noflip */
-	border-right: 1px solid #ddd;
-	content: "";
-	position: absolute;
-	top: -6px;
-	left: 13px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border-color: #ddd;
 }
 
 .dropdown-header {
@@ -388,19 +382,19 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #0062be;
 	color: #fff;
+}
+
+.dropdown-menu > .item:hover .icon {
+	filter: grayscale(100%) brightness(2.5);
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .dropdown-menu .input select,
@@ -464,11 +458,6 @@ a.btn {
 	font-size: 0.8em;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -492,12 +481,6 @@ a.btn {
 
 .pagination:last-child .item {
 	border-top: 1px solid #aaa;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -632,14 +615,14 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	left: 0;
-	line-height: 1.5rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #f6f6f6;
+	color: #444;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: white;
+	color: #444;
 }
 
 /*=== Aside main page (feeds) */
@@ -741,23 +724,20 @@ a.btn {
 
 /*=== New article notification */
 #new-article {
-	padding: 1em;
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
+	padding: 1em;
 	color: #fff;
 	font-weight: bold;
 }
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -912,14 +892,12 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -999,18 +977,13 @@ a.btn {
 
 /*=== GLOBAL VIEW */
 /*================*/
-.box.category .box-title .title {
-	font-weight: normal;
-	text-decoration: none;
-	text-align: right;
-}
-
 .box.category:not([data-unread="0"]) .box-title {
 	background: #0084cc;
 }
 
-.box.category:not([data-unread="0"]) .box-title:active {
-	background: #3498db;
+.box.category .box-title .title {
+	display: block;
+	font-weight: normal;
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {
@@ -1082,6 +1055,16 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
+.pagination .item.active {
+	background-color: #0062be;
+	color: white;
+}
+
+#loglist td {
+	font-family: monospace;
+}
+
+/****old******/
 .loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;
@@ -1186,10 +1169,17 @@ a.btn {
 		padding: 3px 5px;
 		max-width: 97%;
 		width: 90px;
+		line-height: 2;
 	}
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fff;
+		border-top: 1px solid #ddd;
+		border-right: 1px solid #ddd;
 	}
 
 	.form-group.form-actions {
@@ -1202,10 +1192,6 @@ a.btn {
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

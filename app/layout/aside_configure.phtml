@@ -1,5 +1,6 @@
 <nav class="nav nav-list aside" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
+	
 	<ul>
 		<li class="nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></li>	
 		<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
@@ -32,6 +33,11 @@
 		<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
 			<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
 		</li>
+		<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
+		<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
+			<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
+		</li>
+		<?php } ?>
 		<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
 
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
@@ -52,6 +58,9 @@
 		<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 			<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 		</li>
+		<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
+			<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
+		</li>
 		<?php } ?>
 		<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
 		<?php } ?>
@@ -61,6 +70,7 @@
 		</li>
 	</ul>
 </nav>
+<a class="close-aside" href="#close">❌</a>
 <nav class="nav_menu nav_mobile">
 	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
 </nav>

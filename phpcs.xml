@@ -3,10 +3,10 @@
 	<description>Created with the PHP Coding Standard Generator. https://edorian.github.com/php-coding-standard-generator/</description>
 	<arg name="extensions" value="php,phtml,css,js"/>
 	<arg name="tab-width" value="4"/>
+	<exclude-pattern>./lib/CssXPath/</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
 	<exclude-pattern>./lib/PHPMailer/</exclude-pattern>
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
-	<exclude-pattern>./lib/lib_phpQuery.php</exclude-pattern>
 	<exclude-pattern>./node_modules/</exclude-pattern>
 	<exclude-pattern>./data/config.php</exclude-pattern>
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
@@ -28,7 +28,7 @@
 	<rule ref="Generic.Files.LineLength">
 		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
-		<!-- Don't enforce line length on the HTML; the point is to improve legibility, not reduce it -->
+		<!-- Don’t enforce line length on the HTML; the point is to improve legibility, not reduce it -->
 		<exclude-pattern>*.phtml$</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="165"/>
@@ -105,6 +105,8 @@
 	<rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
 		<exclude-pattern>.phtml$</exclude-pattern>
 	</rule>
+	<!-- Opening brace on same line as function declaration -->
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
 	<!-- Newline required after opening brace -->
 	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
 		<exclude-pattern>.phtml$</exclude-pattern>

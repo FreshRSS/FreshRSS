@@ -2,11 +2,11 @@
 
 class FreshRSS_TagDAOSQLite extends FreshRSS_TagDAO {
 
-	public function sqlIgnore() {
+	public function sqlIgnore(): string {
 		return 'OR IGNORE';
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'tag') === false) {

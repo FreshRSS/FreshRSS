@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Pozwól na anonimowy odczyt wiadomości domyślnego użytkownika (%s)',
@@ -16,97 +26,97 @@ return array(
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the cache directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// TODO
+			'ok' => 'Permissions on the cache directory are good.',	// TODO
 		),
 		'categories' => array(
-			'nok' => 'Category table is improperly configured.',	// TODO - Translation
-			'ok' => 'Category table is okay.',	// TODO - Translation
+			'nok' => 'Category table is improperly configured.',	// TODO
+			'ok' => 'Category table is okay.',	// TODO
 		),
 		'connection' => array(
-			'nok' => 'Connection to the database cannot be established.',	// TODO - Translation
-			'ok' => 'Connection to the database is okay.',	// TODO - Translation
+			'nok' => 'Connection to the database cannot be established.',	// TODO
+			'ok' => 'Connection to the database is okay.',	// TODO
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// TODO - Translation
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO - Translation
+			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// TODO
+			'ok' => 'You have the required library for character type checking (ctype).',	// TODO
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO - Translation
-			'ok' => 'You have the cURL library.',	// TODO - Translation
+			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO
+			'ok' => 'You have the cURL library.',	// TODO
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the data directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// TODO
+			'ok' => 'Permissions on the data directory are good.',	// TODO
 		),
-		'database' => 'Database installation',	// TODO - Translation
+		'database' => 'Database installation',	// TODO
 		'dom' => array(
-			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// TODO - Translation
-			'ok' => 'You have the required library to browse the DOM.',	// TODO - Translation
+			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// TODO
+			'ok' => 'You have the required library to browse the DOM.',	// TODO
 		),
 		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// TODO - Translation
-			'ok' => 'Entry table is okay.',	// TODO - Translation
+			'nok' => 'Entry table is improperly configured.',	// TODO
+			'ok' => 'Entry table is okay.',	// TODO
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO - Translation
-			'ok' => 'Permissions on the favicons directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO
+			'ok' => 'Permissions on the favicons directory are good.',	// TODO
 		),
 		'feeds' => array(
-			'nok' => 'Feed table is improperly configured.',	// TODO - Translation
-			'ok' => 'Feed table is okay.',	// TODO - Translation
+			'nok' => 'Feed table is improperly configured.',	// TODO
+			'ok' => 'Feed table is okay.',	// TODO
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
+			'ok' => 'You have the fileinfo library.',	// TODO
 		),
-		'files' => 'File installation',	// TODO - Translation
+		'files' => 'File installation',	// TODO
 		'json' => array(
-			'nok' => 'Cannot find JSON (php-json package).',	// TODO - Translation
-			'ok' => 'You have the JSON extension.',	// TODO - Translation
+			'nok' => 'Cannot find JSON (php-json package).',	// TODO
+			'ok' => 'You have the JSON extension.',	// TODO
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO
+			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// TODO - Translation
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO - Translation
+			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// TODO
+			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO - Translation
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// TODO - Translation
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO - Translation
-			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO - Translation
+			'_' => 'PHP installation',	// TODO
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO
 		),
 		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',	// TODO - Translation
-			'ok' => 'The appropriate tables exist in the database.',	// TODO - Translation
+			'nok' => 'There are one or more missing tables in the database.',	// TODO
+			'ok' => 'The appropriate tables exist in the database.',	// TODO
 		),
-		'title' => 'Installation check',	// TODO - Translation
+		'title' => 'Installation check',	// TODO
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO - Translation
-			'ok' => 'Permissions on the tokens directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
+			'ok' => 'Permissions on the tokens directory are good.',	// TODO
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO - Translation
-			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO
+			'ok' => 'Permissions on the users directory are good.',	// TODO
 		),
 		'zip' => array(
-			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// TODO - Translation
-			'ok' => 'You have the ZIP extension.',	// TODO - Translation
+			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// TODO
+			'ok' => 'You have the ZIP extension.',	// TODO
 		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
 		'community' => 'Rozszerzenia stworzone przez społeczność',
 		'description' => 'Opis',
-		'disabled' => 'Disabled',	// TODO - Translation
-		'empty_list' => 'There are no installed extensions',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
+		'disabled' => 'Wyłączone',
+		'empty_list' => 'Brak zainstalowanych rozszerzeń',
+		'enabled' => 'Włączone',
 		'latest' => 'Zainstalowane',
 		'name' => 'Nazwa',
 		'no_configure_view' => 'To rozszerzenie nie jest konfigurowalne.',
@@ -115,7 +125,7 @@ return array(
 			'no_rights' => 'Rozszerzenie systemowe (brak uprawnień)',
 		),
 		'title' => 'Rozszerzenia',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Dostępna jest aktualizacja',
 		'user' => 'Rozszerzenia użytkownika',
 		'version' => 'Wersja',
 	),
@@ -158,8 +168,20 @@ return array(
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
 		'registration' => array(
-			'help' => '0 oznacza brak limitu liczby kont',
 			'number' => 'Maksymalna liczba kont',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(
@@ -172,7 +194,7 @@ return array(
 		'title' => 'Aktualizacja',
 	),
 	'user' => array(
-		'admin' => 'Administrator',
+		'admin' => 'Administrator',	// IGNORE
 		'article_count' => 'Liczba wiadomości',
 		'back_to_manage' => '← Powrót do listy użytkowników',
 		'create' => 'Dodaj nowego użytkownika',

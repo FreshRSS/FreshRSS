@@ -2,20 +2,6 @@
 <?php
 require(__DIR__ . '/../cli/_cli.php');
 
-/**
- * Writes to FreshRSS admin log, and if it is not already done by default,
- * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
- */
-function notice($message) {
-	Minz_Log::notice($message, ADMIN_LOG);
-	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
-		syslog(LOG_NOTICE, $message);
-	}
-	if (defined('STDOUT') && !COPY_SYSLOG_TO_STDERR) {
-		fwrite(STDOUT, $message . "\n");	//Unbuffered
-	}
-}
-
 session_cache_limiter('');
 ob_implicit_flush(false);
 ob_start();
@@ -34,6 +20,22 @@ $app = new FreshRSS();
 FreshRSS_Context::initSystem();
 FreshRSS_Context::$system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
+
+/**
+ * Writes to FreshRSS admin log, and if it is not already done by default,
+ * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
+ */
+function notice($message) {
+	Minz_Log::notice($message, ADMIN_LOG);
+	// @phpstan-ignore-next-line
+	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
+		syslog(LOG_NOTICE, $message);
+	}
+	// @phpstan-ignore-next-line
+	if (defined('STDOUT') && !COPY_SYSLOG_TO_STDERR) {
+		fwrite(STDOUT, $message . "\n");	//Unbuffered
+	}
+}
 
 notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
@@ -76,7 +78,7 @@ foreach ($users as $user) {
 	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
 
 	$app->init();
-	notice('FreshRSS actualize ' . $user . '...');
+	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	$app->run();
 

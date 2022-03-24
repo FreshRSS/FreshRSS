@@ -1,6 +1,9 @@
 <?php
 
 class FreshRSS_Tag extends Minz_Model {
+	/**
+	 * @var int
+	 */
 	private $id = 0;
 	private $name;
 	private $attributes = [];
@@ -55,7 +58,7 @@ class FreshRSS_Tag extends Minz_Model {
 			$tagDAO = FreshRSS_Factory::createTagDao();
 			$this->nbEntries = $tagDAO->countEntries($this->id());
 		}
-		return $this->nbFeed;
+		return $this->nbEntries;
 	}
 
 	public function _nbEntries($value) {

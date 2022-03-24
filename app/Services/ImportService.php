@@ -4,9 +4,6 @@
  * Provide methods to import files.
  */
 class FreshRSS_Import_Service {
-	/** @var string */
-	private $username;
-
 	/** @var FreshRSS_CategoryDAO */
 	private $catDAO;
 
@@ -21,7 +18,6 @@ class FreshRSS_Import_Service {
 	public function __construct($username) {
 		require_once(LIB_PATH . '/lib_opml.php');
 
-		$this->username = $username;
 		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 	}
@@ -30,7 +26,7 @@ class FreshRSS_Import_Service {
 	 * This method parses and imports an OPML file.
 	 *
 	 * @param string $opml_file the OPML file content.
-	 * @return boolean false if an error occured, true otherwise.
+	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	public function importOpml($opml_file) {
 		$opml_array = array();
@@ -55,7 +51,7 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array $opml_elements an OPML element (body or outline).
 	 * @param string $parent_cat the name of the parent category.
-	 * @return boolean false if an error occured, true otherwise.
+	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	private function addOpmlElements($opml_elements, $parent_cat = null) {
 		$isOkStatus = true;
@@ -112,7 +108,7 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array $feed_elt an OPML element (must be a feed element).
 	 * @param string $parent_cat the name of the parent category.
-	 * @return boolean false if an error occured, true otherwise.
+	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	private function addFeedOpml($feed_elt, $parent_cat) {
 		if ($parent_cat == null) {
@@ -158,7 +154,7 @@ class FreshRSS_Import_Service {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here
 				$id = $this->feedDAO->addFeedObject($feed);
-				$error = ($id === false);
+				$error = ($id == false);
 			} else {
 				$error = true;
 			}
@@ -189,7 +185,7 @@ class FreshRSS_Import_Service {
 	 * @param string $parent_cat the name of the parent category.
 	 * @param boolean $cat_limit_reached indicates if category limit has been reached.
 	 *                if yes, category is not added (but we try for feeds!)
-	 * @return boolean false if an error occured, true otherwise.
+	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	private function addCategoryOpml($cat_elt, $parent_cat, $cat_limit_reached) {
 		// Create a new Category object

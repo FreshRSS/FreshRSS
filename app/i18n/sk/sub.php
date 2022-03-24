@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Skopírujte tento odkaz a použite ho v inom programe.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte "Uložiť odkaz do záložiek". Potom kliknite na tlačidlo "Odoberať" na ktorejkoľvek stránke, ktorú chcete odoberať.',
@@ -13,11 +23,11 @@ return array(
 	'category' => array(
 		'_' => 'Kategória',
 		'add' => 'Pridať kategória',
-		'archiving' => 'Archiving',	// TODO - Translation
+		'archiving' => 'Archív',
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
+		'position' => 'Zobrazť pozíciu',
+		'position_help' => 'Na kontrolu zoradenia kategórií',
 		'title' => 'Názov',
 	),
 	'feed' => array(
@@ -33,13 +43,13 @@ return array(
 		),
 		'clear_cache' => 'Vždy vymazať vyrovnávaciu pamäť',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'_' => 'Akcia obsahu pri sťahovaní obsahu článku',
+			'append' => 'Pridať za existujúci obsah',
+			'prepend' => 'Pridať pred existujúci obsah',
+			'replace' => 'Nahradiť existujúci obsh',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'css_cookie' => 'Pri sťahovaní obsahu článku použiť cookies',
+		'css_cookie_help' => 'Príklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Stiahnuť skrátenú verziu RSS kanála (pozor, vyžaduje viac času!)',
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
 		'description' => 'Popis',
@@ -51,12 +61,55 @@ return array(
 		),
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => 'items tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+				'relative' => 'XPath (relative to item) for:',	// TODO
+				'xpath' => 'XPath for:',	// TODO
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+		),
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
+			'clear_cache_help' => 'Vymazať vyrovnáciu pamäť pre tento kanál.',
+			'reload_articles' => 'Obnoviť články',
+			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',
+			'title' => 'Údržba',
 		),
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
@@ -68,11 +121,11 @@ return array(
 			'main_stream' => 'Zobraziť v prehľade kanálov',
 			'normal' => 'Zobraziť vo svojej kategórii',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
+		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Zobraziť zdrojový kód',
+			'show_rendered' => 'Zobraziť obsah',
 		),
 		'show' => array(
 			'all' => 'Zobraziť všetky kanály',
@@ -89,8 +142,8 @@ return array(
 		'title_add' => 'Pridať kanál RSS',
 		'ttl' => 'Automaticky neaktualizovať častejšie ako',
 		'url' => 'Odkaz kanála',
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO - Translation
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO - Translation
+		'useragent' => 'Nastaviť používateľského agenta na sťahovanie tohto kanála',
+		'useragent_help' => 'Príklad: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Skontrolovať platnosť kanála',
 		'website' => 'Odkaz webovej stránky',
 		'websub' => 'Okamžité oznámenia cez WebSub',
@@ -105,12 +158,12 @@ return array(
 		'file_to_import_no_zip' => 'Súbor na import<br />(OPML alebo JSON)',
 		'import' => 'Importovať',
 		'starred_list' => 'Zoznam obľúbených článkov',
-		'title' => 'Import / export',
+		'title' => 'Import / export',	// IGNORE
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'import_export' => 'Import / export',
-		'label_management' => 'Label management',	// TODO - Translation
+		'add' => 'Pridať kanál alebo kategóriu',
+		'import_export' => 'Import / export',	// IGNORE
+		'label_management' => 'Správca štítkov',
 		'stats' => array(
 			'idle' => 'Neaktívne kanály',
 			'main' => 'Hlavné štatistiky',
@@ -120,19 +173,19 @@ return array(
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'name' => 'Názov',
+		'new_name' => 'Nový názov',
+		'old_name' => 'Starý názov',
 	),
 	'title' => array(
 		'_' => 'Správa odoberaných kanálov',
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_label' => 'Add a label',	// TODO - Translation
-		'delete_label' => 'Delete a label',	// TODO - Translation
+		'add' => 'Pridať kanál alebo kategóriu',
+		'add_category' => 'Pridať kategóriu',
+		'add_feed' => 'Pridať kanál',
+		'add_label' => 'Pridať štítok',
+		'delete_label' => 'Zmazať štítok',
 		'feed_management' => 'Správa RSS kanálov',
-		'rename_label' => 'Rename a label',	// TODO - Translation
+		'rename_label' => 'Premenovať štítok',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 );

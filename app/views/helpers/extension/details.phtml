@@ -1,21 +1,24 @@
-<ul class="horizontal-list">
-	<li class="item">
-		<?php if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) { ?>
-		<?php $name_encoded = urlencode($this->ext_details->getName()); ?>
-		<div class="stick">
-			<a class="btn open-slider" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?> <?= _t('gen.action.manage') ?></a>
-			<?php if ($this->ext_details->isEnabled()) { ?>
-			<button class="btn active" form="form-extension" formaction="<?= _url('extension', 'disable', 'e', $name_encoded) ?>"><?= _t('gen.action.disable') ?></button>
-			<?php } else { ?>
-			<button class="btn" form="form-extension" formaction="<?= _url('extension', 'enable', 'e', $name_encoded) ?>"><?= _t('gen.action.enable') ?></button>
-			<?php } ?>
-			<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-			<button class="btn btn-attention confirm" form="form-extension" formaction="<?= _url('extension', 'remove', 'e', $name_encoded) ?>"><?= _t('gen.action.remove') ?></button>
-			<?php } ?>
-		</div>
-		<?php } else { ?>
-		<?= _t('admin.extensions.system.no_rights') ?>
-		<?php } ?>
-	</li>
-	<li class="item"><?= $this->ext_details->getName() ?></li>
-</ul>
+<?php /** @var FreshRSS_View $this */ ?>
+
+<?php
+	$name_encoded = urlencode($this->ext_details->getName());
+	$ext_enabled = $this->ext_details->isEnabled();
+	if ($ext_enabled) {
+		$button_class = ' active';
+		$name_class = '';
+		$action = 'disable';
+		$title = _t('gen.action.disable');
+	} else {
+		$button_class = '';
+		$name_class = ' disabled';
+		$action = 'enable';
+		$title = _t('gen.action.enable');
+	}
+	if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) {?>
+	<button class="switch<?= $button_class ?>" form="form-extension" formaction="<?= _url('extension', $action, 'e', $name_encoded) ?>" title="<?= _t('gen.action.enable') ?>"></button>
+	<a class="open-slider" title="<?= _t('gen.action.manage') ?>" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?></a>
+	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>
+<?php } else { ?>
+	<button class="switch<?= $button_class ?>" title="<?= _t('admin.extensions.system.no_rights') ?>" disabled="disabled"></button>
+	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>
+<?php } ?>

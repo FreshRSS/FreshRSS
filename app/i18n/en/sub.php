@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => 'Copy the following URL to use it within an external tool.',
@@ -21,7 +31,7 @@ return array(
 		'title' => 'Title',
 	),
 	'feed' => array(
-		'add' => 'Add a RSS feed',
+		'add' => 'Add an RSS feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(
@@ -51,6 +61,49 @@ return array(
 		),
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
+		'kind' => array(
+			'_' => 'Type of feed source',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',
+				'feed_title' => array(
+					'_' => 'feed title',
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',
+				),
+				'item_author' => array(
+					'_' => 'item author',
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',
+				),
+				'item_categories' => 'items tags',
+				'item_content' => array(
+					'_' => 'item content',
+					'help' => 'Example to take the full item: <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',
+					'help' => 'Example: <code>descendant::img/@src</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => array(
+					'_' => 'item title',
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',
+					'help' => 'Example: <code>descendant::a/@href</code>',
+				),
+				'relative' => 'XPath (relative to item) for:',
+				'xpath' => 'XPath for:',
+			),
+			'rss' => 'RSS / Atom (default)',
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',
 			'clear_cache_help' => 'Clear the cache for this feed.',

@@ -3,7 +3,7 @@
 /**
  * Controller to handle subscription actions.
  */
-class FreshRSS_subscription_Controller extends Minz_ActionController {
+class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -44,8 +44,8 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 * It displays categories and associated feeds.
 	 */
 	public function indexAction() {
-		Minz_View::appendScript(Minz_Url::display('/scripts/category.js?' . @filemtime(PUBLIC_PATH . '/scripts/category.js')));
-		Minz_View::prependTitle(_t('sub.title') . ' · ');
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/category.js?' . @filemtime(PUBLIC_PATH . '/scripts/category.js')));
+		FreshRSS_View::prependTitle(_t('sub.title') . ' · ');
 
 		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');
 
@@ -72,7 +72,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 *
 	 * It displays the feed configuration page.
 	 * If this action is reached through a POST request, it stores all new
-	 * configuraiton values then sends a notification to the user.
+	 * configuration values then sends a notification to the user.
 	 *
 	 * The options available on the page are:
 	 *   - name
@@ -104,7 +104,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		$feed = $this->view->feeds[$id];
 		$this->view->feed = $feed;
 
-		Minz_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $feed->name() . ' · ');
+		FreshRSS_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $feed->name() . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$user = trim(Minz_Request::param('http_user_feed' . $id, ''));
@@ -175,7 +175,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace(1, Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
@@ -192,8 +192,25 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
 
+			$feed_kind = Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
+			if ($feed_kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+				$xPathSettings = [];
+				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
+				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '', true);
+				if (Minz_Request::param('xPathItemContent', '') != '') $xPathSettings['itemContent'] = Minz_Request::param('xPathItemContent', '', true);
+				if (Minz_Request::param('xPathItemUri', '') != '') $xPathSettings['itemUri'] = Minz_Request::param('xPathItemUri', '', true);
+				if (Minz_Request::param('xPathItemAuthor', '') != '') $xPathSettings['itemAuthor'] = Minz_Request::param('xPathItemAuthor', '', true);
+				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '', true);
+				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '', true);
+				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '', true);
+				if (!empty($xPathSettings)) {
+					$feed->_attributes('xpath', $xPathSettings);
+				}
+			}
+
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
+				'kind' => $feed_kind,
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
 				'website' => checkUrl(Minz_Request::param('website', '')),
 				'url' => checkUrl(Minz_Request::param('url', '')),
@@ -207,7 +224,24 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			$from = Minz_Request::param('from');
+			switch ($from) {
+				case 'stats':
+					$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
+					break;
+				case 'normal':
+				case 'reader':
+					$get = Minz_Request::param('get');
+					if ($get) {
+						$url_redirect = array('c' => 'index', 'a' => $from, 'params' => array('get' => $get));
+					} else {
+						$url_redirect = array('c' => 'index', 'a' => $from);
+					}
+					break;
+				default:
+					$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			}
+
 			if ($feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_category($cat);
 				$feed->faviconPrepare();
@@ -244,7 +278,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
 					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace(1, Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
@@ -282,13 +316,13 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 * This action displays the bookmarklet page.
 	 */
 	public function bookmarkletAction() {
-		Minz_View::prependTitle(_t('sub.title.subscription_tools') . ' . ');
+		FreshRSS_View::prependTitle(_t('sub.title.subscription_tools') . ' . ');
 	}
 
 	/**
 	 * This action displays the page to add a new feed
 	 */
 	public function addAction() {
-		Minz_View::prependTitle(_t('sub.title.add') . ' . ');
+		FreshRSS_View::prependTitle(_t('sub.title.add') . ' . ');
 	}
 }

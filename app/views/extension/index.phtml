@@ -1,30 +1,41 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
 	<h1><?= _t('admin.extensions.title') ?></h1>
-	<h2><?= _t('admin.extensions.system') ?></h2>
 	<form id="form-extension" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	<?php if (!empty($this->extension_list['system'])) {
+	<?php if (!empty($this->extension_list['system'])) { ?>
+	<h2><?= _t('admin.extensions.system') ?></h2>
+	<ul class="manage-list">
+	<?php
 		foreach ($this->extension_list['system'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	?>
+			$this->ext_details = $ext; ?>
+			<li>
+			<?php $this->renderHelper('extension/details'); ?>
+			</li>
+		<?php } ?>
+	</ul>
 	<?php } ?>
 
 	<?php if (!empty($this->extension_list['user'])) { ?>
 	<h2><?= _t('admin.extensions.user') ?></h2>
+	<ul class="manage-list">
 	<?php
 		foreach ($this->extension_list['user'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	}
+			$this->ext_details = $ext; ?>
+			<li>
+			<?php $this->renderHelper('extension/details'); ?>
+			</li>
+		<?php } ?>
+		</ul>
+	<?php }
 
 	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
 	?>
@@ -66,14 +77,16 @@
 			</table>
 		</div>
 	<?php } ?>
-</div>
 
-<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>></a>
-<div id="slider"<?= $class ?>>
-<?php
-	if (isset($this->extension)) {
-		$this->renderHelper('extension/configure');
-	}
-?>
-</div>
+	<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
+	<a href="#" id="close-slider"<?= $class ?>>
+		<?= _i('close') ?>
+	</a>
+	<div id="slider"<?= $class ?>>
+	<?php
+		if (isset($this->extension)) {
+			$this->renderHelper('extension/configure');
+		}
+	?>
+	</div>
+</main>
