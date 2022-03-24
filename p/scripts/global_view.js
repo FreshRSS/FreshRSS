@@ -19,7 +19,7 @@ function load_panel(link) {
 			return;
 		}
 		const html = this.response;
-		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #mark-read-pagination, #stream.prompt');
+		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #stream-footer, #stream.prompt');
 		const panel = document.getElementById('panel');
 		foreign.forEach(function (el) {
 			panel.appendChild(document.adoptNode(el));

@@ -51,6 +51,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideIntitleSearch() {
 		return array(
 			array('intitle:word1', array('word1'), null),
+			array('intitle:word1-word2', array('word1-word2'), null),
 			array('intitle:word1 word2', array('word1'), array('word2')),
 			array('intitle:"word1 word2"', array('word1 word2'), null),
 			array("intitle:'word1 word2'", array('word1 word2'), null),
@@ -88,6 +89,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideAuthorSearch() {
 		return array(
 			array('author:word1', array('word1'), null),
+			array('author:word1-word2', array('word1-word2'), null),
 			array('author:word1 word2', array('word1'), array('word2')),
 			array('author:"word1 word2"', array('word1 word2'), null),
 			array("author:'word1 word2'", array('word1 word2'), null),

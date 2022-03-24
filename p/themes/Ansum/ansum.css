@@ -81,6 +81,9 @@
 .btn.btn-important:hover, .btn.btn-important:active {
 	background: #b7641d;
 }
+.btn.btn-important img {
+	filter: brightness(3);
+}
 .btn.btn-attention {
 	background: #f5633e;
 	color: #fff;
@@ -357,10 +360,10 @@ form th {
 	background: #363330;
 	color: #f5f0ec;
 }
-.pagination .loading,
-.pagination a:hover.loading {
+
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
-	font-size: 0;
 }
 
 .content .pagination {
@@ -634,18 +637,14 @@ form th {
 }
 .nav-list .item {
 	background: #fbf9f6;
-	transition: all 0.15s ease-in-out;
 }
 .nav-list .item a {
 	padding: 0 1rem;
 	color: #363330;
+	transition: all 0.15s ease-in-out;
 }
 .nav-list .item .error a {
 	color: #f5633e;
-}
-.nav-list .item:hover {
-	background: #efe3d3;
-	color: #363330;
 }
 .nav-list .item:hover .error a {
 	background: #ca7227;
@@ -656,7 +655,7 @@ form th {
 	color: #363330;
 }
 .nav-list .item:hover a {
-	color: #363330;
+	background: #efe3d3;
 	text-decoration: none;
 }
 .nav-list .item.active {
@@ -672,6 +671,7 @@ form th {
 	color: #fff;
 }
 .nav-list .item.active a {
+	background: #ca7227;
 	color: #fff;
 	text-decoration: none;
 }
@@ -868,6 +868,10 @@ form th {
 	text-align: center;
 }
 
+#new-article:hover {
+	background: #b7641d;
+}
+
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -876,7 +880,6 @@ form th {
 
 #new-article > a:hover {
 	text-decoration: none;
-	background: #b7641d;
 }
 
 /*=== Day indication */
@@ -1523,10 +1526,6 @@ form th {
 		width: 100%;
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#nav_entries {

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
 		'mark_read' => 'Als gelesen markieren',
+		'open_url' => 'URL öffnen',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',
 		'remove' => 'Entfernen',
@@ -176,15 +177,6 @@ return array(
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'Erste',
-		'last' => 'Letzte',
-		'load_more' => 'Weitere Artikel laden',
-		'mark_all_read' => 'Alle als gelesen markieren',
-		'next' => 'Nächste',
-		'nothing_to_load' => 'Es gibt keine weiteren Artikel',
-		'previous' => 'Vorherige',
-	),
 	'period' => array(
 		'days' => 'Tage',
 		'hours' => 'Stunden',
@@ -206,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Drucken',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Teilen (Systemstandard)',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Achtung!',
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'oder',
 		'yes' => 'Ja',
+	),
+	'stream' => array(
+		'load_more' => 'Weitere Artikel laden',
+		'mark_all_read' => 'Alle als gelesen markieren',
+		'nothing_to_load' => 'Es gibt keine weiteren Artikel',
 	),
 );

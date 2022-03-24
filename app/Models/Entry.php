@@ -7,23 +7,46 @@ class FreshRSS_Entry extends Minz_Model {
 	const STATE_FAVORITE = 4;
 	const STATE_NOT_FAVORITE = 8;
 
-	private $id = 0;
+	/**
+	 * @var string
+	 */
+	private $id = '0';
+
+	/**
+	 * @var string
+	 */
 	private $guid;
+
 	private $title;
 	private $authors;
 	private $content;
 	private $link;
 	private $date;
 	private $date_added = 0; //In microseconds
-	private $hash = null;
-	private $is_read;	//Nullable boolean
+	/**
+	 * @var string
+	 */
+	private $hash = '';
+	/**
+	 * @var bool|null
+	 */
+	private $is_read;
 	private $is_favorite;
+
+	/**
+	 * @var int
+	 */
 	private $feedId;
+
+	/**
+	 * @var FreshRSS_Feed|null
+	 */
 	private $feed;
+
 	private $tags;
 
-	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
-			$link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
+			string $link = '', $pubdate = 0, bool $is_read = false, bool $is_favorite = false, string $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -36,31 +59,64 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	public function id() {
+	/** @param array<string,mixed> $dao */
+	public static function fromArray(array $dao): FreshRSS_Entry {
+		if (empty($dao['content'])) {
+			$dao['content'] = '';
+		}
+		if (!empty($dao['thumbnail'])) {
+			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
+		}
+		$entry = new FreshRSS_Entry(
+			$dao['id_feed'] ?? 0,
+			$dao['guid'] ?? '',
+			$dao['title'] ?? '',
+			$dao['author'] ?? '',
+			$dao['content'] ?? '',
+			$dao['link'] ?? '',
+			$dao['date'] ?? 0,
+			$dao['is_read'] ?? false,
+			$dao['is_favorite'] ?? false,
+			$dao['tags'] ?? ''
+		);
+		if (!empty($dao['id'])) {
+			$entry->_id($dao['id']);
+		}
+		if (!empty($dao['timestamp'])) {
+			$entry->_date(strtotime($dao['timestamp']));
+		}
+		if (!empty($dao['categories'])) {
+			$entry->_tags($dao['categories']);
+		}
+		return $entry;
+	}
+
+	public function id(): string {
 		return $this->id;
 	}
-	public function guid() {
+	public function guid(): string {
 		return $this->guid;
 	}
-	public function title() {
+	public function title(): string {
 		return $this->title == '' ? $this->guid() : $this->title;
 	}
-	public function author() {
+	public function author(): string {
 		//Deprecated
 		return $this->authors(true);
 	}
-	public function authors($asString = false) {
+	public function authors(bool $asString = false) {
 		if ($asString) {
 			return $this->authors == null ? '' : ';' . implode('; ', $this->authors);
 		} else {
 			return $this->authors;
 		}
 	}
-	public function content() {
+	public function content(): string {
 		return $this->content;
 	}
 
-	public function enclosures($searchBodyImages = false) {
+	/** @return array<array<string,string>> */
+	public function enclosures(bool $searchBodyImages = false): array {
 		$results = [];
 		try {
 			$searchEnclosures = strpos($this->content, '<p class="enclosure-content') !== false;
@@ -74,11 +130,20 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($searchEnclosures) {
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
-					$results[] = [
+					$result = [
 						'url' => $enclosure->getAttribute('src'),
 						'type' => $enclosure->getAttribute('data-type'),
+						'medium' => $enclosure->getAttribute('data-medium'),
 						'length' => $enclosure->getAttribute('data-length'),
 					];
+					if (empty($result['medium'])) {
+						switch (strtolower($enclosure->nodeName)) {
+							case 'img': $result['medium'] = 'image'; break;
+							case 'video': $result['medium'] = 'video'; break;
+							case 'audio': $result['medium'] = 'audio'; break;
+						}
+					}
+					$results[] = $result;
 				}
 			}
 			if ($searchBodyImages) {
@@ -102,6 +167,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
+	/**
+	 * @return array<string,string>|null
+	 */
 	public function thumbnail() {
 		foreach ($this->enclosures(true) as $enclosure) {
 			if (!empty($enclosure['url']) && empty($enclosure['type'])) {
@@ -111,19 +179,19 @@ class FreshRSS_Entry extends Minz_Model {
 		return null;
 	}
 
-	public function link() {
+	public function link(): string {
 		return $this->link;
 	}
-	public function date($raw = false) {
+	public function date(bool $raw = false) {
 		if ($raw) {
 			return $this->date;
 		}
 		return timestamptodate($this->date);
 	}
-	public function machineReadableDate() {
+	public function machineReadableDate(): string {
 		return @date (DATE_ATOM, $this->date);
 	}
-	public function dateAdded($raw = false, $microsecond = false) {
+	public function dateAdded(bool $raw = false, bool $microsecond = false) {
 		if ($raw) {
 			if ($microsecond) {
 				return $this->date_added;
@@ -160,15 +228,15 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function hash() {
-		if ($this->hash === null) {
+	public function hash(): string {
+		if ($this->hash == '') {
 			//Do not include $this->date because it may be automatically generated when lacking
 			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
 		}
 		return $this->hash;
 	}
 
-	public function _hash($value) {
+	public function _hash(string $value) {
 		$value = trim($value);
 		if (ctype_xdigit($value)) {
 			$this->hash = substr($value, 0, 32);
@@ -182,7 +250,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$this->date_added = $value;
 		}
 	}
-	public function _guid($value) {
+	public function _guid(string $value) {
 		if ($value == '') {
 			$value = $this->link;
 			if ($value == '') {
@@ -191,39 +259,41 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		$this->guid = $value;
 	}
-	public function _title($value) {
-		$this->hash = null;
+	public function _title(string $value) {
+		$this->hash = '';
 		$this->title = trim($value);
 	}
-	public function _author($value) {
+	public function _author(string $value) {
 		//Deprecated
 		$this->_authors($value);
 	}
 	public function _authors($value) {
-		$this->hash = null;
+		$this->hash = '';
 		if (!is_array($value)) {
 			if (strpos($value, ';') !== false) {
+				$value = htmlspecialchars_decode($value, ENT_QUOTES);
 				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+				$value = Minz_Helper::htmlspecialchars_utf8($value);
 			} else {
 				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
 			}
 		}
 		$this->authors = $value;
 	}
-	public function _content($value) {
-		$this->hash = null;
+	public function _content(string $value) {
+		$this->hash = '';
 		$this->content = $value;
 	}
-	public function _link($value) {
-		$this->hash = null;
+	public function _link(string $value) {
+		$this->hash = '';
 		$this->link = $value;
 	}
 	public function _date($value) {
-		$this->hash = null;
+		$this->hash = '';
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
-	public function _dateAdded($value, $microsecond = false) {
+	public function _dateAdded($value, bool $microsecond = false) {
 		if ($microsecond) {
 			$this->date_added = $value;
 		} else {
@@ -247,15 +317,15 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->feedId = intval($value);
 	}
 	public function _tags($value) {
-		$this->hash = null;
+		$this->hash = '';
 		if (!is_array($value)) {
 			$value = preg_split('/\s*[#,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
 		}
 		$this->tags = $value;
 	}
 
-	public function matches($booleanSearch) {
-		if (!$booleanSearch || count($booleanSearch->searches()) <= 0) {
+	public function matches(FreshRSS_BooleanSearch $booleanSearch): bool {
+		if (count($booleanSearch->searches()) <= 0) {
 			return true;
 		}
 		foreach ($booleanSearch->searches() as $filter) {
@@ -359,7 +429,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return false;
 	}
 
-	public function applyFilterActions($titlesAsRead = []) {
+	public function applyFilterActions(array $titlesAsRead = []) {
 		if ($this->feed != null) {
 			if ($this->feed->attributes('read_upon_reception') ||
 				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
@@ -389,7 +459,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function isDay($day, $today) {
+	public function isDay(int $day, int $today): bool {
 		$date = $this->dateAdded(true);
 		switch ($day) {
 		case FreshRSS_Days::TODAY:
@@ -406,89 +476,50 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public static function getContentByParsing($url, $path, $attributes = array(), $maxRedirs = 3) {
-		$limits = FreshRSS_Context::$system_conf->limits;
-		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
-
-		if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
-			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-		}
-
-		$ch = curl_init();
-		curl_setopt_array($ch, [
-			CURLOPT_URL => $url,
-			CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
-			CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
-			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-			CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			//CURLOPT_FAILONERROR => true;
-			CURLOPT_MAXREDIRS => 4,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
-		]);
-
-		curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
-
-		if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
-			curl_setopt_array($ch, $attributes['curl_params']);
-		}
-
-		if (isset($attributes['ssl_verify'])) {
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
-			if (!$attributes['ssl_verify']) {
-				curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
-			}
-		}
-		$html = curl_exec($ch);
-		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$c_error = curl_error($ch);
-		curl_close($ch);
-
-		if ($c_status != 200 || $c_error != '') {
-			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
-		}
-
-		if (is_string($html) && strlen($html) > 0) {
-			require_once(LIB_PATH . '/lib_phpQuery.php');
-			/**
-			 * @var phpQueryObject @doc
-			 */
-			$doc = phpQuery::newDocument($html);
+	/**
+	 * @param array<string,mixed> $attributes
+	 */
+	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
+		$html = getHtml($url, $attributes);
+		if (strlen($html) > 0) {
+			$doc = new DOMDocument();
+			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+			$xpath = new DOMXPath($doc);
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
-				/**
-				 * @var phpQueryObject @metas
-				 */
-				$metas = $doc->find('meta[http-equiv][content]');
+				$metas = $xpath->query('//meta[@content]');
+				/** @var array<DOMElement> $metas */
 				foreach ($metas as $meta) {
 					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
-							phpQuery::unloadDocuments();
 							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
 						}
 					}
 				}
 			}
 
-			/**
-			 * @var phpQueryObject @content
-			 */
-			$content = $doc->find($path);
-			$html = trim(sanitizeHTML($content->__toString(), $url));
-			phpQuery::unloadDocuments();
+			$base = $xpath->evaluate('normalize-space(//base/@href)');
+			if ($base != false && is_string($base)) {
+				$url = $base;
+			}
+			$content = '';
+			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
+			if ($nodes != false) {
+				foreach ($nodes as $node) {
+					$content .= $doc->saveHtml($node) . "\n";
+				}
+			}
+			$html = trim(sanitizeHTML($content, $url));
 			return $html;
 		} else {
 			throw new Exception();
 		}
 	}
 
-	public function loadCompleteContent($force = false) {
+	public function loadCompleteContent(bool $force = false): bool {
 		// Gestion du contenu
 		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed(true);
@@ -534,7 +565,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return false;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		return array(
 			'id' => $this->id(),
 			'guid' => $this->guid(),

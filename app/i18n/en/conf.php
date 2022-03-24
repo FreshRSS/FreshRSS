@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Narrow',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'First',
+			'last' => 'Last',
+			'next' => 'Next',
+			'previous' => 'Previous',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profile management',
 		'api' => 'API management',
@@ -181,6 +194,7 @@ return array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

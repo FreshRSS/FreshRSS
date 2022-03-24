@@ -21,14 +21,17 @@ $today = @strtotime('today');
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
+	/** @var FreshRSS_Entry */
 	foreach ($this->entries as $item):
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
-		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if ($this->entry == null) {
+		/** @var FreshRSS_Entry */
+		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if ($item == null) {
 			continue;
 		}
+		$this->entry = $item;
 
 		// We most likely already have the feed object in cache
 		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feed());
@@ -110,8 +113,13 @@ $today = @strtotime('today');
 
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
-		$this->renderHelper('pagination');
-?></main><?php
+		$this->renderHelper('stream-footer');
+?><?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
+<a href="#" id="close-slider"<?= $class ?>>
+	<?= _i('close') ?>
+</a>
+<div id="slider"<?= $class ?>>
+</div></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>

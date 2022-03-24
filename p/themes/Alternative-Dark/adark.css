@@ -205,25 +205,34 @@ a.btn {
 	box-shadow: none;
 }
 
+/*=== switches */
+.switch.active {
+	background-color: #0062b7;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
 	height: 2.5em;
 	line-height: 2.5em;
+	color: #ccc;
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
-	background: #1f1f1f;
+.nav-list .item a {
+	color: #ccc;
 }
 
-.nav-list .item.active {
-	background: #171717;
-	color: #fff;
+.nav-list .item a:hover {
+	background-color: #1f1f1f;
 }
 
 .nav-list .item.active a {
-	color: #fff;
+	background-color: #1f1f1f;
 }
 
 .nav-list .disable {
@@ -322,7 +331,8 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #262626;
 	color: #fff;
 }
@@ -330,11 +340,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .dropdown-menu .input select,
@@ -390,47 +395,14 @@ a.btn {
 }
 
 /*=== Pagination */
-.pagination {
-	background: #171717;
-	text-align: center;
-	color: #e8e8e8;
-	font-size: 0.8em;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
-}
-
 .pagination .item a {
-	display: block;
-	color: #333;
-	font-style: italic;
 	line-height: 3em;
-	text-decoration: none;
 }
 
-.pagination .item a:hover {
-	background: #ddd;
-}
-
-.pagination:first-child .item {
-	border-bottom: 1px solid #aaa;
-}
-
-.pagination:last-child .item {
-	border-top: 1px solid #292929;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
+.pagination {
+	color: #999;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
 }
 
 /*=== Boxes */
@@ -1152,7 +1124,6 @@ a.btn {
 	}
 
 	.pagination {
-		margin: 0 0 3.5em;
 		border-top: 1px solid #292929;
 	}
 

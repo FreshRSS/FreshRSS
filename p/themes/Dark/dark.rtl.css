@@ -238,6 +238,20 @@ a.btn {
 	background: #801;
 }
 
+/*=== switches */
+.switch {
+	background-color: #333;
+}
+
+.switch.active {
+	background-color: #6986b2;
+}
+
+.switch::before,
+.switch:hover::before {
+	background-color: black;
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
@@ -246,7 +260,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	background: #26303f;
 }
 
@@ -358,7 +372,8 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #26303f;
 	color: #888;
 }
@@ -366,11 +381,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	text-decoration: none;
-	color: #888;
 }
 
 .dropdown-menu .input select,
@@ -428,11 +438,6 @@ a.btn {
 	text-align: center;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	background: #111;
 	font-size: 1.5em;
@@ -452,17 +457,13 @@ a.btn {
 }
 
 .pagination:first-child .item {
+	border-top: 1px solid #333;
 	border-bottom: 1px solid #333;
 }
 
-.pagination:last-child .item {
-	border-top: 1px solid #333;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -1170,10 +1171,6 @@ a.btn {
 
 	.day .name {
 		font-size: 1.1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification {

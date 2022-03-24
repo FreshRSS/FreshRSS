@@ -240,6 +240,10 @@ a.btn {
 	background: -webkit-linear-gradient(bottom, #e4992c 0%, #d18114 100%);
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-attention {
 	background: #e95b57;
 	background: linear-gradient(to bottom, #e95b57, #bd362f);
@@ -273,7 +277,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	text-shadow: 0 0 2px rgba(255,255,255,0.28);
 	color: #fff;
 }
@@ -469,11 +473,6 @@ a.btn {
 	font-size: 0.8em;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -489,6 +488,7 @@ a.btn {
 
 .pagination .item a:hover {
 	background: #ddd;
+	color: inherit
 }
 
 .pagination:first-child .item {
@@ -497,12 +497,6 @@ a.btn {
 
 .pagination:last-child .item {
 	border-top: 1px solid #ddd;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -1041,6 +1035,10 @@ a.btn {
 	text-shadow: 0 0 10px #666;
 }
 
+.switch.active {
+	background-color: #d18114;
+}
+
 /*=== Navigation menu (for articles) */
 #nav_entries {
 	background: linear-gradient(180deg, #222 0%, #171717 100%) #222;
@@ -1302,10 +1300,6 @@ a.btn {
 
 	.day .name {
 		display: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

@@ -536,6 +536,7 @@ function entriesToArray($entries) {
 
 	$items = array();
 	foreach ($entries as $item) {
+		/** @var FreshRSS_Entry $entry */
 		$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if ($entry == null) {
 			continue;

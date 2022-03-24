@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// IGNORE
 		'manage' => 'Manage',	// IGNORE
 		'mark_read' => 'Mark as read',	// IGNORE
+		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
@@ -176,15 +177,6 @@ return array(
 		'user_management' => 'Manage users',	// IGNORE
 		'user_profile' => 'Profile',	// IGNORE
 	),
-	'pagination' => array(
-		'first' => 'First',	// IGNORE
-		'last' => 'Last',	// IGNORE
-		'load_more' => 'Load more articles',	// IGNORE
-		'mark_all_read' => 'Mark all as read',	// IGNORE
-		'next' => 'Next',	// IGNORE
-		'nothing_to_load' => 'There are no more articles',	// IGNORE
-		'previous' => 'Previous',	// IGNORE
-	),
 	'period' => array(
 		'days' => 'days',	// IGNORE
 		'hours' => 'hours',	// IGNORE
@@ -206,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Warning!',	// IGNORE
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'Okay!',	// IGNORE
 		'or' => 'or',	// IGNORE
 		'yes' => 'Yes',	// IGNORE
+	),
+	'stream' => array(
+		'load_more' => 'Load more articles',	// IGNORE
+		'mark_all_read' => 'Mark all as read',	// IGNORE
+		'nothing_to_load' => 'There are no more articles',	// IGNORE
 	),
 );

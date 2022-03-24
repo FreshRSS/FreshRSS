@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Zayıf',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'İlk',
+			'last' => 'Son',
+			'next' => 'Sonraki',
+			'previous' => 'Önceki',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
 		'api' => 'API yönetimi',
@@ -181,6 +194,7 @@ return array(
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

@@ -66,7 +66,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		return false;
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				foreach (['attributes'] as $column) {

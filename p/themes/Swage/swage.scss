@@ -274,6 +274,14 @@ form {
 	}
 }
 
+.switch.active {
+	background-color: #0062be;
+
+	&:hover {
+		background-image: url('./icons/disabled-light.svg');
+	}
+}
+
 .nav-list {
 	.nav-header {
 
@@ -289,7 +297,11 @@ form {
 
 		@extend %nav-list;
 
-		&:hover,
+		a:hover {
+			background: color.adjust( $color_nav, $lightness: -10%);
+			color: $color_light;
+		}
+
 		&.active {
 			background: color.adjust( $color_nav, $lightness: -10%);
 			color: $color_light;
@@ -402,14 +414,10 @@ form {
 				white-space: nowrap;
 			}
 
-			&:hover {
+			> a:hover,
+			> button:hover {
 				background: $color_nav;
 				color: $color_light;
-
-				> a {
-					text-decoration: none;
-					color: $color_light;
-				}
 			}
 		}
 
@@ -508,21 +516,16 @@ form {
 			}
 		}
 	}
-
-	.loading,
-	a:hover.loading {
-		background: url(loader.gif) center center no-repeat $color_aside;
-		font-size: 0;
-	}
 }
+
+#load_more.loading,
+#load_more.loading:hover {
+	background: url(loader.gif) center center no-repeat $color_aside;
+}
+
 
 .content {
 	padding: 20px 10px;
-
-	.pagination {
-		margin: 0;
-		padding: 0;
-	}
 
 	hr {
 		margin: 30px 10px;
@@ -1240,10 +1243,6 @@ form {
 				width: 85%;
 			}
 		}
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#panel .close,

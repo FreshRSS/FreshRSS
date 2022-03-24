@@ -58,7 +58,7 @@ jobs:
         node-version: '14'
         cache: 'npm'
 
-    - run: npm install
+    - run: npm ci
 
     - name: Check JavaScript syntax
       run: npm run --silent eslint
@@ -66,11 +66,11 @@ jobs:
     - name: Check Markdown syntax
       run: npm run --silent markdownlint
 
-    - name: Check Right-to-left CSS
-      run: npm run --silent rtlcss && git diff --exit-code
-
     - name: Check CSS syntax
       run: npm run --silent stylelint
+
+    - name: Check Right-to-left CSS
+      run: npm run --silent rtlcss && git diff --exit-code
 
     # Shell tests
 

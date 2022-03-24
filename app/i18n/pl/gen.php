@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Ustaw domyślne skróty',
 		'manage' => 'Ustawienia',
 		'mark_read' => 'Oznacz jako przeczytane',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Awansuj',
 		'purge' => 'Oczyść',
 		'remove' => 'Usuń',
@@ -176,15 +177,6 @@ return array(
 		'user_management' => 'Zarządzanie użytkownikami',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'Początek',
-		'last' => 'Koniec',
-		'load_more' => 'Załaduj więcej wiadomości',
-		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
-		'next' => 'Następne',
-		'nothing_to_load' => 'Koniec listy wiadomości',
-		'previous' => 'Poprzednie',
-	),
 	'period' => array(
 		'days' => 'dni',
 		'hours' => 'godziny',
@@ -206,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Wydruk',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Uwaga!',
@@ -226,5 +223,10 @@ return array(
 		'ok' => 'Okay!',	// IGNORE
 		'or' => 'lub',
 		'yes' => 'Tak',
+	),
+	'stream' => array(
+		'load_more' => 'Załaduj więcej wiadomości',
+		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
+		'nothing_to_load' => 'Koniec listy wiadomości',
 	),
 );

@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Estrecho',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Primero',
+			'last' => 'Último',
+			'next' => 'Siguiente',
+			'previous' => 'Anterior',
+		),
+	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
 		'api' => 'Administración de API',
@@ -181,6 +194,7 @@ return array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// TODO
 		'facebook' => 'Facebook',	// IGNORE

@@ -66,6 +66,19 @@ return array(
 			'thin' => '窄',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '首页',
+			'last' => '末页',
+			'next' => '下一页',
+			'previous' => '上一页',
+		),
+	),
 	'profile' => array(
 		'_' => '用户管理',
 		'api' => 'API 管理',
@@ -181,6 +194,7 @@ return array(
 		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '邮箱',	// IGNORE
 		'facebook' => '脸书',	// IGNORE

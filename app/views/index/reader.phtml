@@ -15,10 +15,12 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
+	/** @var FreshRSS_Entry */
 	foreach ($this->entries as $item):
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
+		/** @var FreshRSS_Entry */
 		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if ($item == null) {
 			continue;
@@ -74,7 +76,7 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
-		$this->renderHelper('pagination');
+		$this->renderHelper('stream-footer');
 ?></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles

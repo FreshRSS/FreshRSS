@@ -29,7 +29,7 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 
 			</div>
@@ -155,7 +155,7 @@
 		</div>
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
@@ -167,12 +167,12 @@
 		<?php endif;?>
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-attention confirm"
+				<button type="submit" class="btn btn-attention confirm"
 					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
 					formaction="<?= _url('category', 'empty', 'id', $this->category->id()) ?>"
 					formmethod="post"><?= _t('gen.action.empty') ?></button>
 				<?php if (!$this->category->isDefault()): ?>
-				<button class="btn btn-attention confirm"
+				<button type="submit" class="btn btn-attention confirm"
 					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
 					formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
 					formmethod="post"><?= _t('gen.action.remove') ?></button>

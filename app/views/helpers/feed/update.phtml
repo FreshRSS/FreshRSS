@@ -23,7 +23,12 @@
 	if ($from === false) {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id());
 	} else {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+		$get = Minz_Request::param('get');
+		if (!$get) {
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+		} else {
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get);
+		}
 	}
 	?>
 	<form method="post" action="<?= $url ?>" autocomplete="off">
@@ -45,8 +50,8 @@
 			<label class="group-name" for="website"><?= _t('sub.feed.website') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="website" id="website" class="extend" value="<?= $this->feed->website() ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+					<input type="text" name="website" id="website" value="<?= $this->feed->website() ?>" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>" data-input="website" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
 			</div>
 		</div>
@@ -54,8 +59,8 @@
 			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url" id="url" class="extend" value="<?= $this->feed->url() ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
+					<input type="text" name="url" id="url" value="<?= $this->feed->url() ?>" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
 
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?=
@@ -127,11 +132,18 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button class="btn btn-attention confirm"
+				<?php
+				if ($from === false) {
+					$url = _url('feed', 'delete', 'id', $this->feed->id());
+				} else {
+					$url = _url('feed', 'delete', 'id', $this->feed->id(), 'from', $from);
+				}
+				?>
+				<button type="submit" class="btn btn-attention confirm"
 					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-					formaction="<?= _url('feed', 'delete', 'id', $this->feed->id()) ?>"
+					formaction="<?= $url ?>"
 					formmethod="post"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>
@@ -367,9 +379,104 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
+			</div>
+		</div>
+
+		<legend><?= _t('sub.feed.kind') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
+			<div class="group-controls">
+				<select name="feed_kind" id="feed_kind" class="select-show">
+					<option value="<?= FreshRSS_Feed::KIND_RSS ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_RSS ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
+					<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<fieldset id="html_xpath">
+			<?php
+				$xpath = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('xpath'));
+			?>
+			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
+			<div class="form-group">
+				<label class="group-name" for="xPathItem"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['item'] ?? '' ?>"><?= $xpath['item'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemTitle"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemTitle'] ?? '' ?>"><?= $xpath['itemTitle'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_title.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemContent"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemContent'] ?? '' ?>"><?= $xpath['itemContent'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_content.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemUri"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_uri') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemUri'] ?? '' ?>"><?= $xpath['itemUri'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_uri.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemThumbnail"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemThumbnail'] ?? '' ?>"><?= $xpath['itemThumbnail'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_thumbnail.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemAuthor"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemAuthor'] ?? '' ?>"><?= $xpath['itemAuthor'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemTimestamp"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemTimestamp'] ?? '' ?>"><?= $xpath['itemTimestamp'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemCategories'] ?? '' ?>"><?= $xpath['itemCategories'] ?? '' ?></textarea>
+				</div>
+			</div>
+		</fieldset>
+		<div class="form-group form-actions">
+			<div class="group-controls">
 				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
 			</div>
 		</div>
 
@@ -476,7 +583,7 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>

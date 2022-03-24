@@ -180,26 +180,15 @@
 			font-style: italic;
 			line-height: 3em;
 			text-decoration: none;
-
-			&:hover {
-				background: variables.$main-font-color;
-				color: variables.$grey-light;
-			}
 		}
 	}
 
-	.loading,
-	a:hover.loading {
-		background: url("loader.gif") center center no-repeat #34495e;
-		font-size: 0;
-	}
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
+#load_more.loading,
+#load_more.loading:hover {
+	background: url("loader.gif") center center no-repeat #34495e;
 }
-
 
 /*=== Boxes */
 .box {
