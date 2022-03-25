@@ -72,9 +72,6 @@
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .btn.btn-important {
@@ -83,6 +80,9 @@
 }
 .btn.btn-important:hover, .btn.btn-important:active {
 	background: #b7641d;
+}
+.btn.btn-important img {
+	filter: brightness(3);
 }
 .btn.btn-attention {
 	background: #f5633e;
@@ -121,8 +121,8 @@ label {
 }
 
 textarea {
-	width: 360px;
 	max-width: 100%;
+	width: 360px;
 	height: 100px;
 }
 
@@ -227,7 +227,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
 	background: #fcfaf8;
 	font-size: 1rem;
@@ -237,15 +237,8 @@ form th {
 	text-align: left;
 }
 .dropdown-menu::after {
-	background: white;
-	width: 10px;
-	height: 10px;
-	content: "";
-	position: absolute;
-	top: -4px;
-	right: 13px;
-	z-index: -10;
-	transform: rotate(45deg);
+	border: none;
+	right: 17px;
 }
 .dropdown-menu .dropdown-header {
 	margin: 1.75rem 0 0.5rem 2rem;
@@ -256,9 +249,6 @@ form th {
 	letter-spacing: 1px;
 }
 .dropdown-menu .item {
-	-webkit-transition: all 0.075s ease-in-out;
-	-moz-transition: all 0.075s ease-in-out;
-	-o-transition: all 0.075s ease-in-out;
 	transition: all 0.075s ease-in-out;
 }
 .dropdown-menu .item a, .dropdown-menu .item span, .dropdown-menu .item .as-link {
@@ -274,6 +264,9 @@ form th {
 .dropdown-menu .item:hover a, .dropdown-menu .item:hover button {
 	text-decoration: none;
 	color: #fff;
+}
+.dropdown-menu .item:hover .icon {
+	filter: grayscale(100%) brightness(2.5);
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 0 0 -14px;
@@ -367,10 +360,10 @@ form th {
 	background: #363330;
 	color: #f5f0ec;
 }
-.pagination .loading,
-.pagination a:hover.loading {
+
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
-	font-size: 0;
 }
 
 .content .pagination {
@@ -468,9 +461,6 @@ form th {
 	text-decoration: none;
 	background: #fdf6ef;
 	color: #ca7227;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 #bigMarkAsRead:hover {
@@ -575,9 +565,6 @@ form th {
 	line-height: 2.5rem;
 	font-size: 1rem;
 	font-weight: 400;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .tree .tree-folder .tree-folder-items .item.active {
@@ -590,7 +577,7 @@ form th {
 	color: #363330;
 }
 .tree .tree-folder .tree-folder-items .item.active a {
-	color: #fff;
+	color: #ffffff;
 }
 .tree .tree-folder .tree-folder-items .item:hover {
 	background: #efe3d3;
@@ -598,18 +585,6 @@ form th {
 .tree .tree-folder .tree-folder-items .item a {
 	text-decoration: none;
 	color: #363330;
-}
-.tree .tree-folder .tree-folder-items .feed .item-title:not([data-unread="0"])::before {
-	margin: 11px 6px 0 4px;
-	padding: 3px 4px;
-	background: rgba(35, 35, 0, 0.15);
-	display: block;
-	float: left;
-	font-size: 0.75rem;
-	border-radius: 12px;
-	content: attr(data-unread);
-	text-align: center;
-	line-height: 0.75rem;
 }
 
 /*=== Buttons */
@@ -662,21 +637,14 @@ form th {
 }
 .nav-list .item {
 	background: #fbf9f6;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	transition: all 0.15s ease-in-out;
 }
 .nav-list .item a {
 	padding: 0 1rem;
 	color: #363330;
+	transition: all 0.15s ease-in-out;
 }
 .nav-list .item .error a {
 	color: #f5633e;
-}
-.nav-list .item:hover {
-	background: #efe3d3;
-	color: #363330;
 }
 .nav-list .item:hover .error a {
 	background: #ca7227;
@@ -687,7 +655,7 @@ form th {
 	color: #363330;
 }
 .nav-list .item:hover a {
-	color: #363330;
+	background: #efe3d3;
 	text-decoration: none;
 }
 .nav-list .item.active {
@@ -703,6 +671,7 @@ form th {
 	color: #fff;
 }
 .nav-list .item.active a {
+	background: #ca7227;
 	color: #fff;
 	text-decoration: none;
 }
@@ -741,15 +710,18 @@ form th {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: -0.5rem 1rem 0 0;
-	padding: 0 0.75rem;
-	background: rgba(35, 35, 0, 0.15);
-	border-radius: 12px;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
-	text-align: center;
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]) {
+	width: calc(100% - 35px - 35px);
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 1.5em 0 0 0;
+	background-color: rgba(35, 35, 0, 0.15);
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.5em 0 0 0;
+	background-color: rgba(35, 35, 0, 0.15);
 }
 
 .feed.item.empty.active {
@@ -818,9 +790,6 @@ form th {
 	border: none;
 	border-radius: 2px 0 0 2px;
 	background-color: #f7f2ea;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .header .item.search input:hover {
@@ -956,9 +925,6 @@ form th {
 	background-color: #fcfaf8;
 	background-position: center;
 	background-repeat: no-repeat;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav_menu .stick .btn:hover {
@@ -998,9 +964,6 @@ form th {
 	padding: 5px 16px;
 	color: #363330;
 	background-color: #fcfaf8;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .nav_menu .stick .btn.read_all:hover {
@@ -1034,7 +997,6 @@ form th {
 
 #dropdown-query ~ .dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
-	background-color: #ba9;
 	border-radius: 3px;
 }
 
@@ -1116,9 +1078,11 @@ form th {
 	left: 0;
 	right: 0;
 	text-align: center;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
+}
+.notification a {
+	color: #000;
 }
 .notification .msg {
 	display: inline-block;
@@ -1162,9 +1126,6 @@ form th {
 /*=== Feed articles */
 .flux {
 	background: #fff;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .flux:hover {
@@ -1194,9 +1155,6 @@ form th {
 }
 .flux.favorite {
 	border-left-color: #ffc300;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
 	transition: all 0.15s ease-in-out;
 }
 .flux.favorite:not(.current) {
@@ -1451,9 +1409,6 @@ form th {
 		display: inline-block;
 		width: 100%;
 		color: #363330;
-		-webkit-transition: all 0.2s ease-in-out;
-		-moz-transition: all 0.2s ease-in-out;
-		-o-transition: all 0.2s ease-in-out;
 		transition: all 0.2s ease-in-out;
 	}
 	ul.nav .item a:hover, ul.nav .item a:active {
@@ -1467,9 +1422,6 @@ form th {
 	}
 
 	.aside {
-		-webkit-transition: all 0.2s ease-in-out;
-		-moz-transition: all 0.2s ease-in-out;
-		-o-transition: all 0.2s ease-in-out;
 		transition: all 0.2s ease-in-out;
 	}
 	.aside.aside_feed {
@@ -1480,9 +1432,9 @@ form th {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
-	#close-slider.active,
-	.dropdown-menu .toggle_aside {
+#panel .close,
+#close-slider.active,
+.dropdown-menu .toggle_aside {
 		background: #b7641d;
 		display: block;
 		width: 100%;
@@ -1494,11 +1446,11 @@ form th {
 	.header {
 		padding: 0.5rem;
 	}
-	.header .item.search form {
-		display: inherit;
-	}
 	.header .item.search {
 		display: block;
+	}
+	.header .item.search form {
+		display: inherit;
 	}
 	.header .item.search .stick {
 		display: flex;
@@ -1550,6 +1502,20 @@ form th {
 		padding: 0.5rem 0;
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fcfaf8;
+		border-top: 1px solid #f5f0ec;
+		border-left: 1px solid #f5f0ec;
+		right: 21px;
+		bottom: -14px;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
+		bottom: -17px;
+	}
+
 	.day {
 		text-align: center;
 		padding: 1rem 0;
@@ -1560,10 +1526,6 @@ form th {
 		width: 100%;
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#nav_entries {

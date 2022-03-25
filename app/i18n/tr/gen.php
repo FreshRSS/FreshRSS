@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'Yenile akışlarınız',
@@ -18,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
 		'remove' => 'Sil',
@@ -69,8 +80,8 @@ return array(
 		'december' => 'Ara',
 		'feb' => 'şub',
 		'february' => 'Şub',
-		'format_date' => 'j %s Y',
-		'format_date_hour' => 'j %s Y \\a\\t H\\:i',
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\a\\t H\\:i',	// IGNORE
 		'fri' => 'Cum',
 		'jan' => 'oca',
 		'january' => 'Oca',
@@ -89,7 +100,7 @@ return array(
 		'mar' => 'mar',
 		'march' => 'Mar',
 		'may' => 'Mayıs',
-		'may_' => 'May',
+		'may_' => 'May',	// IGNORE
 		'mon' => 'Pzt',
 		'month' => 'ay',
 		'nov' => 'kas',
@@ -106,9 +117,9 @@ return array(
 		'wed' => 'Çar',
 		'yesterday' => 'Dün',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS hakkında',
 	),
 	'js' => array(
@@ -117,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale mevcut.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
@@ -124,28 +136,28 @@ return array(
 		'should_be_activated' => 'JavaScript aktif olmalıdır.',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
-		'account' => 'Account',	// TODO - Translation
+		'account' => 'Account',	// TODO
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',
 		'authentication' => 'Kimlik doğrulama',
@@ -165,15 +177,6 @@ return array(
 		'user_management' => 'Kullanıcıları yönet',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'İlk',
-		'last' => 'Son',
-		'load_more' => 'Daha fazla makale yükle',
-		'mark_all_read' => 'Tümünü okundu say',
-		'next' => 'Sonraki',
-		'nothing_to_load' => 'Başka makale yok',
-		'previous' => 'Önceki',
-	),
 	'period' => array(
 		'days' => 'gün',
 		'hours' => 'saat',
@@ -183,25 +186,30 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Bilinen siteler',
-		'blogotext' => 'Blogotext',
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Kopyala',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
+		'print' => 'Print',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Tehlike!',
@@ -215,5 +223,10 @@ return array(
 		'ok' => 'Tamam!',
 		'or' => 'ya da',
 		'yes' => 'Evet',
+	),
+	'stream' => array(
+		'load_more' => 'Daha fazla makale yükle',
+		'mark_all_read' => 'Tümünü okundu say',
+		'nothing_to_load' => 'Başka makale yok',
 	),
 );

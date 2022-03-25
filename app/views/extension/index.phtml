@@ -1,4 +1,7 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
 <main class="post">
 	<div class="link-back-wrapper">
@@ -6,25 +9,33 @@
 	</div>
 
 	<h1><?= _t('admin.extensions.title') ?></h1>
-	<h2><?= _t('admin.extensions.system') ?></h2>
 	<form id="form-extension" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	<?php if (!empty($this->extension_list['system'])) {
+	<?php if (!empty($this->extension_list['system'])) { ?>
+	<h2><?= _t('admin.extensions.system') ?></h2>
+	<ul class="manage-list">
+	<?php
 		foreach ($this->extension_list['system'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	?>
+			$this->ext_details = $ext; ?>
+			<li>
+			<?php $this->renderHelper('extension/details'); ?>
+			</li>
+		<?php } ?>
+	</ul>
 	<?php } ?>
 
 	<?php if (!empty($this->extension_list['user'])) { ?>
 	<h2><?= _t('admin.extensions.user') ?></h2>
+	<ul class="manage-list">
 	<?php
 		foreach ($this->extension_list['user'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	}
+			$this->ext_details = $ext; ?>
+			<li>
+			<?php $this->renderHelper('extension/details'); ?>
+			</li>
+		<?php } ?>
+		</ul>
+	<?php }
 
 	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
 	?>
@@ -78,5 +89,4 @@
 		}
 	?>
 	</div>
-
 </main>

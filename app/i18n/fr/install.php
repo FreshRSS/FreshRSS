@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Terminer l’installation',
@@ -61,8 +71,8 @@ return array(
 			'ok' => 'Vous disposez de fileinfo.',
 		),
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommandée JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
@@ -114,10 +124,10 @@ return array(
 	'missing_applied_migrations' => 'Quelque chose s’est mal passé, vous devriez créer le fichier <em>%s</em> à la main.',
 	'ok' => 'L’installation s’est bien passée.',
 	'session' => array(
-		'nok' => 'Le serveur Web semble mal configué pour les cookies nécessaires aux sessions PHP!',
+		'nok' => 'Le serveur Web semble mal configuré pour les cookies nécessaires aux sessions PHP!',
 	),
 	'step' => 'étape %d',
 	'steps' => 'Étapes',
-	'this_is_the_end' => 'This is the end',
-	'title' => 'Installation · FreshRSS',
+	'this_is_the_end' => 'This is the end',	// IGNORE
+	'title' => 'Installation · FreshRSS',	// IGNORE
 );

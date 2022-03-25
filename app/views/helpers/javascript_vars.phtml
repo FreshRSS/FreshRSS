@@ -1,4 +1,5 @@
 <?php
+/** @var FreshRSS_View $this */
 $mark = FreshRSS_Context::$user_conf->mark_when;
 $s = FreshRSS_Context::$user_conf->shortcuts;
 $extData = Minz_ExtensionManager::callHook('js_vars', []);
@@ -56,7 +57,8 @@ echo htmlspecialchars(json_encode(array(
 	'i18n' => array(
 		'confirmation_default' => _t('gen.js.confirm_action'),
 		'notif_title_articles' => _t('gen.js.feedback.title_new_articles'),
-		'notif_body_articles' => _t('gen.js.feedback.body_new_articles'),
+		'notif_body_new_articles' => _t('gen.js.feedback.body_new_articles'),
+		'notif_body_unread_articles' => _t('gen.js.feedback.body_unread_articles'),
 		'notif_request_failed' => _t('gen.js.feedback.request_failed'),
 		'category_empty' => _t('gen.js.category_empty'),
 		'language' => FreshRSS_Context::$user_conf->language,

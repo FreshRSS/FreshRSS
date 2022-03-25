@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => '새 글 가져오기',
@@ -18,6 +28,7 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
 		'remove' => '삭제',
@@ -48,18 +59,18 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\4\\월',
-		'Aug' => '\\8\\월',
-		'Dec' => '\\1\\2\\월',
-		'Feb' => '\\2\\월',
-		'Jan' => '\\1\\월',
-		'Jul' => '\\7\\월',
-		'Jun' => '\\6\\월',
-		'Mar' => '\\3\\월',
-		'May' => '\\5\\월',
-		'Nov' => '\\1\\1\\월',
-		'Oct' => '\\1\\0\\월',
-		'Sep' => '\\9\\월',
+		'Apr' => '\\4\\월',	// IGNORE
+		'Aug' => '\\8\\월',	// IGNORE
+		'Dec' => '\\1\\2\\월',	// IGNORE
+		'Feb' => '\\2\\월',	// IGNORE
+		'Jan' => '\\1\\월',	// IGNORE
+		'Jul' => '\\7\\월',	// IGNORE
+		'Jun' => '\\6\\월',	// IGNORE
+		'Mar' => '\\3\\월',	// IGNORE
+		'May' => '\\5\\월',	// IGNORE
+		'Nov' => '\\1\\1\\월',	// IGNORE
+		'Oct' => '\\1\\0\\월',	// IGNORE
+		'Sep' => '\\9\\월',	// IGNORE
 		'apr' => '4월',
 		'april' => '4월',
 		'aug' => '8월',
@@ -106,9 +117,9 @@ return array(
 		'wed' => '수',
 		'yesterday' => '어제',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
 	),
 	'js' => array(
@@ -117,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => '정말 이 작업을 수행하시겠습니까? 관련된 즐겨찾기와 사용자 쿼리가 삭제됩니다. 이 작업은 되돌릴 수 없습니다!!',
 		'feedback' => array(
 			'body_new_articles' => '%%d 개의 새 글이 FreshRSS에 있습니다.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
 		),
@@ -124,24 +136,24 @@ return array(
 		'should_be_activated' => '자바스크립트를 사용하도록 설정해야합니다',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => '정보',
@@ -165,15 +177,6 @@ return array(
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
 	),
-	'pagination' => array(
-		'first' => '처음으로',
-		'last' => '마지막으로',
-		'load_more' => '글 더 불러오기',
-		'mark_all_read' => '모두 읽음으로 표시',
-		'next' => '다음',
-		'nothing_to_load' => '더 이상 글이 없습니다',
-		'previous' => '이전',
-	),
 	'period' => array(
 		'days' => '일',
 		'hours' => '시',
@@ -182,26 +185,31 @@ return array(
 		'years' => '년',
 	),
 	'share' => array(
-		'Known' => 'Known based sites',
-		'blogotext' => 'Blogotext',
+		'Known' => 'Known based sites',	// IGNORE
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => '클립보드',
-		'diaspora' => 'Diaspora*',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => '인쇄',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '경고!',
@@ -215,5 +223,10 @@ return array(
 		'ok' => '좋습니다!',
 		'or' => '또는',
 		'yes' => '네',
+	),
+	'stream' => array(
+		'load_more' => '글 더 불러오기',
+		'mark_all_read' => '모두 읽음으로 표시',
+		'nothing_to_load' => '더 이상 글이 없습니다',
 	),
 );

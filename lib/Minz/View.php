@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe View représente la vue de l'application
+ * The Minz_View represents a view in the MVC paradigm
  */
 class Minz_View {
 	const VIEWS_PATH_NAME = '/views';
@@ -54,7 +54,7 @@ class Minz_View {
 	 *
 	 * New pathnames will be added at the beginning of the list.
 	 *
-	 * @param $base_pathname the new base pathname.
+	 * @param string $base_pathname the new base pathname.
 	 */
 	public static function addBasePathname($base_pathname) {
 		array_unshift(self::$base_pathnames, $base_pathname);
@@ -76,7 +76,7 @@ class Minz_View {
 	 *
 	 * The file is searched inside list of $base_pathnames.
 	 *
-	 * @param $filename the name of the file to include.
+	 * @param string $filename the name of the file to include.
 	 * @return boolean true if the file has been included, false else.
 	 */
 	private function includeFile($filename) {
@@ -112,9 +112,15 @@ class Minz_View {
 		}
 	}
 
+	public function renderToString(): string {
+		ob_start();
+		$this->render();
+		return ob_get_clean();
+	}
+
 	/**
 	 * Ajoute un élément du layout
-	 * @param $part l'élément partial à ajouter
+	 * @param string $part l'élément partial à ajouter
 	 */
 	public function partial ($part) {
 		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
@@ -125,7 +131,7 @@ class Minz_View {
 
 	/**
 	 * Affiche un élément graphique situé dans APP./views/helpers/
-	 * @param $helper l'élément à afficher
+	 * @param string $helper l'élément à afficher
 	 */
 	public function renderHelper ($helper) {
 		$fic_helper = '/views/helpers/' . $helper . '.phtml';
@@ -136,7 +142,7 @@ class Minz_View {
 
 	/**
 	 * Retourne renderHelper() dans une chaîne
-	 * @param $helper l'élément à traîter
+	 * @param string $helper l'élément à traîter
 	 */
 	public function helperToString($helper) {
 		ob_start();
@@ -146,7 +152,7 @@ class Minz_View {
 
 	/**
 	 * Choose the current view layout.
-	 * @param $layout the layout name to use, false to use no layouts.
+	 * @param string|false $layout the layout name to use, false to use no layouts.
 	 */
 	public function _layout($layout) {
 		if ($layout) {
@@ -157,9 +163,9 @@ class Minz_View {
 	}
 
 	/**
-	 * [deprecated] Choose if we want to use the layout or not.
-	 * Please use the `_layout` function instead.
-	 * @param $use true if we want to use the layout, false else
+	 * Choose if we want to use the layout or not.
+	 * @deprecated Please use the `_layout` function instead.
+	 * @param bool $use true if we want to use the layout, false else
 	 */
 	public function _useLayout ($use) {
 		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');

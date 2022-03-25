@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Sta bezoekers toe om artikelen te lezen van de standaard gebruiker (%s)',
@@ -130,7 +140,7 @@ return array(
 		'entry_per_hour' => 'Per uur (gemiddeld: %.2f berichten)',
 		'entry_per_month' => 'Per maand (gemiddeld: %.2f berichten)',
 		'entry_repartition' => 'Invoer verdeling',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds per categorie',
 		'idle' => 'Gepauzeerde feeds',
 		'main' => 'Hoofd statistieken',
@@ -158,8 +168,20 @@ return array(
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
 		'registration' => array(
-			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(
@@ -179,7 +201,7 @@ return array(
 		'database_size' => 'Databasegrootte',
 		'email' => 'Emailadres',
 		'enabled' => 'Ingeschakeld',
-		'feed_count' => 'Feeds',
+		'feed_count' => 'Feeds',	// IGNORE
 		'is_admin' => 'Is beheerder',
 		'language' => 'Taal',
 		'last_user_activity' => 'Laatste gebruikersactiviteit',

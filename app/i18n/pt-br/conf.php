@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Arquivar',
@@ -56,6 +66,19 @@ return array(
 			'thin' => 'Fino',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Primeiro',
+			'last' => 'Último',
+			'next' => 'Próximo',
+			'previous' => 'Anterior',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gerenciamento de perfil',
 		'api' => 'Administração da API',
@@ -88,7 +111,7 @@ return array(
 		'get_feed' => 'Visualizar "%s" feed',
 		'name' => 'Nome',
 		'no_filter' => 'Sem filtro',
-		'number' => 'Query n°%d',
+		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Exibir artigos mais antigos primeiro',
 		'order_desc' => 'Exibir artigos mais novos primeiro',
 		'search' => 'Busca por "%s"',
@@ -120,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar "marcar todos como lido"',
 		'display_articles_unfolded' => 'Mostrar artigos abertos por padrão',
 		'display_categories_unfolded' => 'Categorias abertas',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
 		'jump_next' => 'Vá para o próximo irmão não lido (feed ou categoria)',
@@ -163,20 +193,21 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartilhando',
 		'add' => 'Adicionar um método de compartilhamento',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Mais informação',
-		'print' => 'Imprimir',
-		'raindrop' => 'Raindrop.io',
+		'print' => 'Imprimir',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Remover método de compartilhamento',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Nome de visualização para compartilhar',
 		'share_url' => 'URL utilizada para compartilhar',
 		'title' => 'Compartilhando',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Atalhos',

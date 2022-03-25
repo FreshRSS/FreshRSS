@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivo',
@@ -54,6 +64,19 @@ return array(
 			'medium' => 'Mediano',
 			'no_limit' => 'Sin límite',
 			'thin' => 'Estrecho',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Primero',
+			'last' => 'Último',
+			'next' => 'Siguiente',
+			'previous' => 'Anterior',
 		),
 	),
 	'profile' => array(
@@ -120,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Mostrar ventana de confirmación al usar la función “marcar todos como leídos”',
 		'display_articles_unfolded' => 'Mostrar los artículos expandidos por defecto',
 		'display_categories_unfolded' => 'Categorías a desarrollar',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración "Mostrar todos los artículos")',
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
@@ -163,20 +193,21 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// TODO
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Más información',
 		'print' => 'Imprimir',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Quitar método de uso compartido',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Compartir nombre a mostrar',
 		'share_url' => 'Compatir URL a usar',
 		'title' => 'Compartir',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Atajos de teclado',

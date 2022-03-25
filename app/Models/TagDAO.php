@@ -2,7 +2,7 @@
 
 class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	public function sqlIgnore() {
+	public function sqlIgnore(): string {
 		return 'IGNORE';
 	}
 
@@ -15,12 +15,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
-			Minz_Log::warning('SQL ALTER GUID case sensitivity...');
+			Minz_Log::warning('SQL ALTER GUID case sensitivity…');
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->ensureCaseInsensitiveGuids();
 
-			Minz_Log::warning('SQL CREATE TABLE tag...');
-			$ok = $this->pdo->exec($SQL_CREATE_TABLE_TAGS) !== false;
+			Minz_Log::warning('SQL CREATE TABLE tag…');
+			$ok = $this->pdo->exec($GLOBALS['SQL_CREATE_TABLE_TAGS']) !== false;
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
 		}
@@ -30,7 +30,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
@@ -70,9 +70,12 @@ SQL;
 		}
 	}
 
+	/**
+	 * @param FreshRSS_Tag $tag
+	 */
 	public function addTagObject($tag) {
-		$tag = $this->searchByName($tag->name());
-		if (!$tag) {
+		$tag0 = $this->searchByName($tag->name());
+		if (!$tag0) {
 			$values = array(
 				'name' => $tag->name(),
 				'attributes' => $tag->attributes(),
@@ -82,6 +85,9 @@ SQL;
 		return $tag->id();
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function updateTag($id, $valuesTmp) {
 		// No category of the same name
 		$sql = <<<'SQL'
@@ -111,6 +117,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function updateTagAttribute($tag, $key, $value) {
 		if ($tag instanceof FreshRSS_Tag) {
 			$tag->_attributes($key, $value);
@@ -122,6 +131,9 @@ SQL;
 		return false;
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function deleteTag($id) {
 		if ($id <= 0) {
 			return false;
@@ -156,6 +168,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @return integer|false
+	 */
 	public function updateEntryTag($oldTagId, $newTagId) {
 		$sql = <<<'SQL'
 DELETE FROM `_entrytag` WHERE EXISTS (
@@ -182,6 +197,9 @@ SQL;
 		}
 	}
 
+	/**
+	 * @return FreshRSS_Tag|null
+	 */
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `_tag` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
@@ -192,6 +210,9 @@ SQL;
 		return isset($tag[0]) ? $tag[0] : null;
 	}
 
+	/**
+	 * @return FreshRSS_Tag|null
+	 */
 	public function searchByName($name) {
 		$sql = 'SELECT * FROM `_tag` WHERE name=?';
 		$stm = $this->pdo->prepare($sql);

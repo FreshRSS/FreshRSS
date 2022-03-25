@@ -1,3 +1,4 @@
+<?php /** @var FreshRSS_View $this */ ?>
 <?php if ($this->feed) { ?>
 <main class="post">
 	<h1><?= _t('sub.feed.add') ?></h1>
@@ -39,8 +40,8 @@
 			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url_rss" id="url" class="extend" value="<?= $this->feed->url() ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
+					<input type="text" name="url_rss" id="url" value="<?= $this->feed->url() ?>" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
 			</div>
@@ -54,7 +55,6 @@
 						<?= $cat->name() ?>
 					</option>
 					<?php } ?>
-					<option value="nc"><?= _t('sub.category.new') ?></option>
 				</select>
 
 				<span aria-hidden="true">

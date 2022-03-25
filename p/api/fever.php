@@ -30,6 +30,9 @@ Minz_Session::init('FreshRSS', true);
 // <Debug>
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 
+/**
+ * @return string
+ */
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -60,14 +63,7 @@ function debugInfo() {
 
 class FeverDAO extends Minz_ModelPdo
 {
-	/**
-	 * @param string $prefix
-	 * @param array $values
-	 * @param array $bindArray
-	 * @return string
-	 */
-	protected function bindParamArray($prefix, $values, &$bindArray)
-	{
+	protected function bindParamArray(string $prefix, array $values, array &$bindArray): string {
 		$str = '';
 		for ($i = 0; $i < count($values); $i++) {
 			$str .= ':' . $prefix . $i . ',';
@@ -77,14 +73,9 @@ class FeverDAO extends Minz_ModelPdo
 	}
 
 	/**
-	 * @param array $feed_ids
-	 * @param array $entry_ids
-	 * @param int|null $max_id
-	 * @param int|null $since_id
 	 * @return FreshRSS_Entry[]
 	 */
-	public function findEntries(array $feed_ids, array $entry_ids, $max_id, $since_id)
-	{
+	public function findEntries(array $feed_ids, array $entry_ids, string $max_id, string $since_id) {
 		$values = array();
 		$order = '';
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -97,11 +88,11 @@ class FeverDAO extends Minz_ModelPdo
 		if (!empty($entry_ids)) {
 			$bindEntryIds = $this->bindParamArray('id', $entry_ids, $values);
 			$sql .= " id IN($bindEntryIds)";
-		} elseif ($max_id != null) {
+		} elseif ($max_id != '') {
 			$sql .= ' id < :id';
 			$values[':id'] = $max_id;
 			$order = ' ORDER BY id DESC';
-		} elseif ($since_id != null) {
+		} elseif ($since_id != '') {
 			$sql .= ' id > :id';
 			$values[':id'] = $since_id;
 			$order = ' ORDER BY id ASC';
@@ -123,7 +114,7 @@ class FeverDAO extends Minz_ModelPdo
 
 		$entries = array();
 		foreach ($result as $dao) {
-			$entries[] = FreshRSS_EntryDAO::daoToEntry($dao);
+			$entries[] = FreshRSS_Entry::fromArray($dao);
 		}
 
 		return $entries;
@@ -139,7 +130,14 @@ class FeverAPI
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
 
+	/**
+	 * @var FreshRSS_EntryDAO|null
+	 */
 	private $entryDAO = null;
+
+	/**
+	 * @var FreshRSS_FeedDAO|null
+	 */
 	private $feedDAO = null;
 
 	/**
@@ -148,8 +146,7 @@ class FeverAPI
 	 * API Password sent from client is the result of the md5 sum of
 	 * your FreshRSS "username:your-api-password" combination
 	 */
-	private function authenticate()
-	{
+	private function authenticate(): bool {
 		FreshRSS_Context::$user_conf = null;
 		Minz_Session::_param('currentUser');
 		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
@@ -176,11 +173,7 @@ class FeverAPI
 		return false;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isAuthenticatedApiUser()
-	{
+	public function isAuthenticatedApiUser(): bool {
 		$this->authenticate();
 
 		if (FreshRSS_Context::$user_conf !== null) {
@@ -192,12 +185,9 @@ class FeverAPI
 
 	/**
 	 * This does all the processing, since the fever api does not have a specific variable that specifies the operation
-	 *
-	 * @return array
 	 * @throws Exception
 	 */
-	public function process()
-	{
+	public function process(): array {
 		$response_arr = array();
 
 		if (!$this->isAuthenticatedApiUser()) {
@@ -249,7 +239,7 @@ class FeverAPI
 						break;
 					case 'feed':
 					case 'group':
-						$before = isset($_REQUEST['before']) ? $_REQUEST['before'] : null;
+						$before = $_REQUEST['before'] ?? '';
 						$this->{$method_name}($id, $before);
 						break;
 				}
@@ -273,13 +263,8 @@ class FeverAPI
 
 	/**
 	 * Returns the complete JSON, with 'api_version' and status as 'auth'.
-	 *
-	 * @param int $status
-	 * @param array $reply
-	 * @return string
 	 */
-	public function wrap($status, array $reply = array())
-	{
+	public function wrap(int $status, array $reply = array()): string {
 		$arr = array('api_version' => self::API_LEVEL, 'auth' => $status);
 
 		if ($status === self::STATUS_OK) {
@@ -292,11 +277,8 @@ class FeverAPI
 
 	/**
 	 * every authenticated method includes last_refreshed_on_time
-	 *
-	 * @return int
 	 */
-	protected function lastRefreshedOnTime()
-	{
+	protected function lastRefreshedOnTime(): int {
 		$lastUpdate = 0;
 
 		$entries = $this->feedDAO->listFeedsOrderUpdate(-1, 1);
@@ -309,11 +291,7 @@ class FeverAPI
 		return $lastUpdate;
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getFeeds()
-	{
+	protected function getFeeds(): array {
 		$feeds = array();
 		$myFeeds = $this->feedDAO->listFeeds();
 
@@ -333,11 +311,7 @@ class FeverAPI
 		return $feeds;
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getGroups()
-	{
+	protected function getGroups(): array {
 		$groups = array();
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
@@ -354,11 +328,7 @@ class FeverAPI
 		return $groups;
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getFavicons()
-	{
+	protected function getFavicons(): array {
 		$favicons = array();
 		$salt = FreshRSS_Context::$system_conf->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
@@ -382,18 +352,13 @@ class FeverAPI
 	}
 
 	/**
-	 * @return int
+	 * @return int|false
 	 */
-	protected function getTotalItems()
-	{
+	protected function getTotalItems() {
 		return $this->entryDAO->count();
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getFeedsGroup()
-	{
+	protected function getFeedsGroup(): array {
 		$groups = array();
 		$ids = array();
 		$myFeeds = $this->feedDAO->listFeeds();
@@ -415,27 +380,19 @@ class FeverAPI
 
 	/**
 	 * AFAIK there is no 'hot links' alternative in FreshRSS
-	 * @return array
 	 */
-	protected function getLinks()
-	{
+	protected function getLinks(): array {
 		return array();
 	}
 
 	/**
 	 * @param array $ids
-	 * @return string
 	 */
-	protected function entriesToIdList($ids = array())
-	{
+	protected function entriesToIdList(array $ids = array()): string {
 		return implode(',', array_values($ids));
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getUnreadItemIds()
-	{
+	protected function getUnreadItemIds(): string {
 		$entries = $this->entryDAO->listIdsWhere('a', '', FreshRSS_Entry::STATE_NOT_READ, 'ASC', 0);
 		return $this->entriesToIdList($entries);
 	}
@@ -443,41 +400,44 @@ class FeverAPI
 	/**
 	 * @return string
 	 */
-	protected function getSavedItemIds()
-	{
+	protected function getSavedItemIds() {
 		$entries = $this->entryDAO->listIdsWhere('a', '', FreshRSS_Entry::STATE_FAVORITE, 'ASC', 0);
 		return $this->entriesToIdList($entries);
 	}
 
-	protected function setItemAsRead($id)
-	{
+	/**
+	 * @return integer|false
+	 */
+	protected function setItemAsRead($id) {
 		return $this->entryDAO->markRead($id, true);
 	}
 
-	protected function setItemAsUnread($id)
-	{
+	/**
+	 * @return integer|false
+	 */
+	protected function setItemAsUnread($id) {
 		return $this->entryDAO->markRead($id, false);
 	}
 
-	protected function setItemAsSaved($id)
-	{
+	/**
+	 * @return integer|false
+	 */
+	protected function setItemAsSaved($id) {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
-	protected function setItemAsUnsaved($id)
-	{
+	/**
+	 * @return integer|false
+	 */
+	protected function setItemAsUnsaved($id) {
 		return $this->entryDAO->markFavorite($id, false);
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getItems()
-	{
+	protected function getItems(): array {
 		$feed_ids = array();
 		$entry_ids = array();
-		$max_id = null;
-		$since_id = null;
+		$max_id = '';
+		$since_id = '';
 
 		if (isset($_REQUEST['feed_ids']) || isset($_REQUEST['group_ids'])) {
 			if (isset($_REQUEST['feed_ids'])) {
@@ -491,6 +451,7 @@ class FeverAPI
 					/** @var FreshRSS_Category $category */
 					$category = $categoryDAO->searchById($id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
 					/** @var FreshRSS_Feed $feed */
+					$feeds = [];
 					foreach ($category->feeds() as $feed) {
 						$feeds[] = $feed->id();
 					}
@@ -504,7 +465,7 @@ class FeverAPI
 			// use the max_id argument to request the previous $item_limit items
 			$max_id = '' . $_REQUEST['max_id'];
 			if (!ctype_digit($max_id)) {
-				$max_id = null;
+				$max_id = '';
 			}
 		} elseif (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
@@ -512,7 +473,7 @@ class FeverAPI
 			// use the since_id argument to request the next $item_limit items
 			$since_id = '' . $_REQUEST['since_id'];
 			if (!ctype_digit($since_id)) {
-				$since_id = null;
+				$since_id = '';
 			}
 		}
 
@@ -548,31 +509,31 @@ class FeverAPI
 
 	/**
 	 * TODO replace by a dynamic fetch for id <= $before timestamp
-	 *
-	 * @param int $beforeTimestamp
-	 * @return int
 	 */
-	protected function convertBeforeToId($beforeTimestamp)
-	{
-		return $beforeTimestamp == 0 ? 0 : $beforeTimestamp . '000000';
+	protected function convertBeforeToId(string $beforeTimestamp): string {
+		return $beforeTimestamp == '0' ? '0' : $beforeTimestamp . '000000';
 	}
 
-	protected function setFeedAsRead($id, $before)
-	{
+	/**
+	 * @return integer|false
+	 */
+	protected function setFeedAsRead(string $id, string $before) {
 		$before = $this->convertBeforeToId($before);
-		return $this->entryDAO->markReadFeed($id, $before);
+		return $this->entryDAO->markReadFeed(intval($id), $before);
 	}
 
-	protected function setGroupAsRead($id, $before)
-	{
+	/**
+	 * @return integer|false
+	 */
+	protected function setGroupAsRead(string $id, string $before) {
 		$before = $this->convertBeforeToId($before);
 
 		// special case to mark all items as read
-		if ($id == 0) {
+		if ($id == '0') {
 			return $this->entryDAO->markReadEntries($before);
 		}
 
-		return $this->entryDAO->markReadCat($id, $before);
+		return $this->entryDAO->markReadCat(intval($id), $before);
 	}
 }
 

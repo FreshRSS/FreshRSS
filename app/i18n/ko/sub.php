@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => '이 버튼을 즐겨찾기 막대로 끌어다 놓거나 마우스 오른쪽 클릭으로 나타나는 메뉴에서 "이 링크를 즐겨찾기에 추가"를 선택하세요. 그리고 피드를 구독하길 원하는 페이지에서 "구독하기" 버튼을 클릭하세요.',
@@ -51,6 +61,49 @@ return array(
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => 'items tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+				'relative' => 'XPath (relative to item) for:',	// TODO
+				'xpath' => 'XPath for:',	// TODO
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+		),
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',
 			'clear_cache_help' => '이 피드의 캐쉬 지우기.',

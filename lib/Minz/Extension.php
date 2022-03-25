@@ -34,7 +34,7 @@ abstract class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * @param $meta_info contains information about the extension.
+	 * @param array<string> $meta_info contains information about the extension.
 	 */
 	final public function __construct($meta_info) {
 		$this->name = $meta_info['name'];
@@ -51,8 +51,7 @@ abstract class Minz_Extension {
 	/**
 	 * Used when installing an extension (e.g. update the database scheme).
 	 *
-	 * @return true if the extension has been installed or a string explaining
-	 *         the problem.
+	 * @return string|true true if the extension has been installed or a string explaining the problem.
 	 */
 	public function install() {
 		return true;
@@ -62,8 +61,7 @@ abstract class Minz_Extension {
 	 * Used when uninstalling an extension (e.g. revert the database scheme to
 	 * cancel changes from install).
 	 *
-	 * @return true if the extension has been uninstalled or a string explaining
-	 *         the problem.
+	 * @return string|true true if the extension has been uninstalled or a string explaining the problem.
 	 */
 	public function uninstall() {
 		return true;
@@ -85,7 +83,7 @@ abstract class Minz_Extension {
 	/**
 	 * Return if the extension is currently enabled.
 	 *
-	 * @return true if extension is enabled, false else.
+	 * @return string|true true if extension is enabled, false otherwise.
 	 */
 	public function isEnabled() {
 		return $this->is_enabled;
@@ -94,7 +92,7 @@ abstract class Minz_Extension {
 	/**
 	 * Return the content of the configure view for the current extension.
 	 *
-	 * @return string html content from ext_dir/configure.phtml, false if it does not exist.
+	 * @return string|false html content from ext_dir/configure.phtml, false if it does not exist.
 	 */
 	public function getConfigureView() {
 		$filename = $this->path . '/configure.phtml';
@@ -146,9 +144,9 @@ abstract class Minz_Extension {
 	/**
 	 * Return the url for a given file.
 	 *
-	 * @param $filename name of the file to serve.
-	 * @param $type the type (js or css) of the file to serve.
-	 * @param $isStatic indicates if the file is a static file or a user file. Default is static.
+	 * @param string $filename name of the file to serve.
+	 * @param string $type the type (js or css) of the file to serve.
+	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
 	public function getFileUrl($filename, $type, $isStatic = true) {
@@ -169,8 +167,7 @@ abstract class Minz_Extension {
 	/**
 	 * Register a controller in the Dispatcher.
 	 *
-	 * @param @base_name the base name of the controller. Final name will be:
-	 *                   FreshExtension_<base_name>_Controller.
+	 * @param string $base_name the base name of the controller. Final name will be FreshExtension_<base_name>_Controller.
 	 */
 	public function registerController($base_name) {
 		Minz_Dispatcher::registerController($base_name, $this->path);
@@ -194,8 +191,8 @@ abstract class Minz_Extension {
 	/**
 	 * Register a new hook.
 	 *
-	 * @param $hook_name the hook name (must exist).
-	 * @param $hook_function the function name to call (must be callable).
+	 * @param string $hook_name the hook name (must exist).
+	 * @param callable-string|array<string> $hook_function the function name to call (must be callable).
 	 */
 	public function registerHook($hook_name, $hook_function) {
 		Minz_ExtensionManager::addHook($hook_name, $hook_function, $this);

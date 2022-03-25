@@ -2,23 +2,23 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
-	public function isCompressed() {
+	public function isCompressed(): bool {
 		return false;
 	}
 
-	public function hasNativeHex() {
+	public function hasNativeHex(): bool {
 		return false;
 	}
 
-	public function sqlHexDecode($x) {
+	public function sqlHexDecode(string $x): string {
 		return $x;
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	public function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'tag') === false) {
@@ -41,13 +41,13 @@ DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
 	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 	FROM `_entrytmp`
-	ORDER BY date;
+	ORDER BY date, id;
 INSERT OR IGNORE INTO `_entry`
 	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
 	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 	FROM `tmp`
-	ORDER BY date;
+	ORDER BY date, id;
 DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
 DROP TABLE IF EXISTS `tmp`;
 ';
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' id=?';
 			$values[] = $feedId;
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 *
 	 * @param integer|array $ids
 	 * @param boolean $is_read
-	 * @return integer affected rows
+	 * @return integer|false affected rows
 	 */
 	public function markRead($ids, $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -166,14 +166,15 @@ DROP TABLE IF EXISTS `tmp`;
 	 * place. It will be reused also for the filtering making every thing
 	 * separated.
 	 *
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
 	 * @param boolean $onlyFavorites
 	 * @param integer $priorityMin
-	 * @return integer affected rows
+	 * @param FreshRSS_BooleanSearch|null $filters
+	 * @return integer|false affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0, $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
@@ -209,12 +210,13 @@ DROP TABLE IF EXISTS `tmp`;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param integer $id category ID
-	 * @param integer $idMax fail safe article ID
-	 * @return integer affected rows
+	 * @param string $idMax fail safe article ID
+	 * @param FreshRSS_BooleanSearch|null $filters
+	 * @return integer|false affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadCat(int $id, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
@@ -242,11 +244,11 @@ DROP TABLE IF EXISTS `tmp`;
 
 	/**
 	 * Mark all the articles in a tag as read.
-	 * @param integer $id tag ID, or empty for targetting any tag
-	 * @param integer $idMax max article ID
-	 * @return integer affected rows
+	 * @param integer $id tag ID, or empty for targeting any tag
+	 * @param string $idMax max article ID
+	 * @return integer|false affected rows
 	 */
-	public function markReadTag($id = '', $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadTag($id = 0, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -257,10 +259,10 @@ DROP TABLE IF EXISTS `tmp`;
 			 . 'SET is_read = ? '
 			 . 'WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
-			 . ($id == '' ? '' : 'WHERE et.id_tag = ?')
+			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';
 		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
-		if ($id != '') {
+		if ($id != 0) {
 			$values[] = $id;
 		}
 

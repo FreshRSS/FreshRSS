@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivage',
@@ -11,7 +21,7 @@ return array(
 		'keep_min_by_feed' => 'Nombre minimum d’articles à conserver par flux',
 		'keep_period' => 'Âge maximum des articles à conserver',
 		'keep_unreads' => 'Ne jamais supprimer les articles non lus',
-		'maintenance' => 'Maintenance',
+		'maintenance' => 'Maintenance',	// IGNORE
 		'optimize' => 'Optimiser la base de données',
 		'optimize_help' => 'À faire de temps en temps pour réduire la taille de la BDD',
 		'policy' => 'Politique de nettoyage',
@@ -44,16 +54,29 @@ return array(
 			'label' => 'Miniature',
 			'landscape' => 'Paysage',
 			'none' => 'Sans',
-			'portrait' => 'Portrait',
+			'portrait' => 'Portrait',	// IGNORE
 			'square' => 'Carrée',
 		),
 		'title' => 'Affichage',
 		'width' => array(
 			'content' => 'Largeur du contenu',
-			'large' => 'Large',
+			'large' => 'Large',	// IGNORE
 			'medium' => 'Moyenne',
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
+		),
+		'pagination' => array(
+			'first' => 'Début',
+			'last' => 'Fin',
+			'next' => 'Suivant',
+			'previous' => 'Précédent',
 		),
 	),
 	'profile' => array(
@@ -63,7 +86,7 @@ return array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -77,10 +100,10 @@ return array(
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
-			'search' => 'Expression',
+			'search' => 'Expression',	// IGNORE
 			'state' => 'État',
 			'tags' => 'Afficher par étiquette',
-			'type' => 'Type',
+			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Afficher tous les articles',
 		'get_category' => 'Afficher la catégorie "%s"',
@@ -120,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
+		'headline' => array(
+			'articles' => 'Articles : ouverture/fermeture',
+			'categories' => 'Navigation de gauche : catégories',
+			'mark_as_read' => 'Marquer les articles comme lus',
+			'misc' => 'Divers',
+			'view' => 'Vue',
+		),
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
@@ -163,20 +193,21 @@ return array(
 	'sharing' => array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Plus d’informations',
-		'print' => 'Print',
-		'raindrop' => 'Raindrop.io',
+		'print' => 'Imprimer',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Supprimer la méthode de partage',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Nom du partage à afficher',
 		'share_url' => 'URL du partage à utiliser',
 		'title' => 'Partage',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Raccourcis',
@@ -194,7 +225,7 @@ return array(
 		'load_more' => 'Charger plus d’articles',
 		'mark_favorite' => 'Basculer l’indicateur de favori',
 		'mark_read' => 'Basculer l’indicateur de lecture',
-		'navigation' => 'Navigation',
+		'navigation' => 'Navigation',	// IGNORE
 		'navigation_help' => 'Avec le modificateur <kbd>⇧ Maj</kbd>, les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur <kbd>Alt ⎇</kbd>, les raccourcis de navigation s’appliquent aux catégories.',
 		'navigation_no_mod_help' => 'Les raccourcis suivant ne supportent pas les modificateurs.',
 		'next_article' => 'Passer à l’article suivant',
@@ -216,7 +247,7 @@ return array(
 		'views' => 'Vues',
 	),
 	'user' => array(
-		'articles_and_size' => '%s articles (%s)',
+		'articles_and_size' => '%s articles (%s)',	// IGNORE
 		'current' => 'Utilisateur actuel',
 		'is_admin' => 'est administrateur',
 		'users' => 'Utilisateurs',

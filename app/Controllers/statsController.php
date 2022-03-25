@@ -3,7 +3,7 @@
 /**
  * Controller to handle application statistics.
  */
-class FreshRSS_stats_Controller extends Minz_ActionController {
+class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
@@ -20,28 +20,36 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			'style-src' => "'self' 'unsafe-inline'",
 		]);
 
-		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+
+		$catDAO->checkDefault();
+		$feedDAO->updateTTL();
+		$this->view->categories = $catDAO->listSortedCategories(false);
+		$this->view->default_category = $catDAO->getDefault();
+
+		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
-	private function convertToSerie($data) {
-		$serie = array();
+	private function convertToSeries($data) {
+		$series = array();
 
 		foreach ($data as $key => $value) {
-			$serie[] = array($key, $value);
+			$series[] = array($key, $value);
 		}
 
-		return $serie;
+		return $series;
 	}
 
-	private function convertToPieSerie($data) {
-		$serie = array();
+	private function convertToPieSeries($data) {
+		$series = array();
 
 		foreach ($data as $value) {
 			$value['data'] = array(array(0, (int) $value['data']));
-			$serie[] = $value;
+			$series[] = $value;
 		}
 
-		return $serie;
+		return $series;
 	}
 
 	/**
@@ -57,7 +65,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
 
@@ -66,6 +74,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->average = round(array_sum(array_values($entryCount)) / count($entryCount), 2);
 
 		$feedByCategory_calculated = $statsDAO->calculateFeedByCategory();
+		$feedByCategory = [];
 		for ($i = 0; $i < count($feedByCategory_calculated); $i++) {
 			$feedByCategory['label'][$i] 	= $feedByCategory_calculated[$i]['label'];
 			$feedByCategory['data'][$i] 	= $feedByCategory_calculated[$i]['data'];
@@ -73,6 +82,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->feedByCategory = $feedByCategory;
 
 		$entryByCategory_calculated = $statsDAO->calculateEntryByCategory();
+		$entryByCategory = [];
 		for ($i = 0; $i < count($entryByCategory_calculated); $i++) {
 			$entryByCategory['label'][$i] 	= $entryByCategory_calculated[$i]['label'];
 			$entryByCategory['data'][$i] 	= $entryByCategory_calculated[$i]['data'];
@@ -81,11 +91,29 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
 
+		$last30DaysLabels = [];
 		for ($i = 0; $i < 30; $i++) {
 			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days'));
 		}
 
 		$this->view->last30DaysLabels = $last30DaysLabels;
+	}
+
+	/**
+	 * This action handles the feed action on the idle statistic page.
+	 * set the 'from' parameter to remember that it had a redirection coming from stats controller,
+	 * to use the subscription controller to save it,
+	 * but shows the stats idle page
+	 */
+	public function feedAction() {
+		$id = Minz_Request::param('id');
+		$ajax = Minz_Request::param('ajax');
+		if ($ajax) {
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats', 'ajax' => $ajax));
+		} else {
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats'));
+		}
+		Minz_Request::forward($url_redirect, true);
 	}
 
 	/**
@@ -103,6 +131,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 *   - last week
 	 */
 	public function idleAction() {
+		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
 		$idleFeeds = array(
@@ -135,6 +164,9 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$last5Year->modify('-5 year');
 
 		foreach ($feeds as $feed) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feed['favicon'] = $feedDAO->searchById($feed['id'])->favicon();
+
 			$feedDate->setTimestamp($feed['last_date']);
 			if ($feedDate >= $lastWeek) {
 				continue;
@@ -159,6 +191,15 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		}
 
 		$this->view->idleFeeds = $idleFeeds;
+		$this->view->feeds = $feed_dao->listFeeds();
+
+		$id = Minz_Request::param('id');
+		$this->view->displaySlider = false;
+		if (false !== $id) {
+			$this->view->displaySlider = true;
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$this->view->feed = $feedDAO->searchById($id);
+		}
 	}
 
 	/**
@@ -178,7 +219,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
 		$feedDAO 		= FreshRSS_Factory::createFeedDao();
 
-		Minz_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
 		$id = Minz_Request::param('id', null);
 
@@ -198,6 +239,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->repartitionMonth 		= $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
 		$this->view->averageMonth 			= $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 
+		$hours24Labels = [];
 		for ($i = 0; $i < 24; $i++) {
 			$hours24Labels[$i] = $i . ':xx';
 		}

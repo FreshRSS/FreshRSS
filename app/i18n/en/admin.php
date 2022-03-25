@@ -1,8 +1,18 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the default user\'s articles (%s)',
+		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
@@ -158,8 +168,20 @@ return array(
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
-			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
+			'select' => array(
+				'label' => 'Registration form',
+				'option' => array(
+					'noform' => 'Disabled: No registration form',
+					'nolimit' => 'Enabled: No limit of accounts',
+					'setaccountsnumber' => 'Set max. number of accounts',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',
+				'enabled' => 'Form enabled',
+			),
+			'title' => 'User registration form',
 		),
 	),
 	'update' => array(

@@ -3,7 +3,7 @@
 /**
  * The controller to manage extensions.
  */
-class FreshRSS_extension_Controller extends Minz_ActionController {
+class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the
@@ -19,7 +19,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 * This action lists all the extensions available to the current user.
 	 */
 	public function indexAction() {
-		Minz_View::prependTitle(_t('admin.extensions.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('admin.extensions.title') . ' · ');
 		$this->view->extension_list = array(
 			'system' => array(),
 			'user' => array(),

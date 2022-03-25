@@ -1,4 +1,7 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
 
 <main class="post">
 	<div class="link-back-wrapper">
@@ -13,33 +16,28 @@
 			'php', true
 		);
 		$nothing = true;
-		foreach ($this->idleFeeds as $period => $feeds) {
-			if (!empty($feeds)) {
+		foreach ($this->idleFeeds as $period => $feedsInPeriod) {
+			if (!empty($feedsInPeriod)) {
 				$nothing = false;
 	?>
-		<div class="stat">
-			<h2><?= _t('gen.date.' . $period) ?></h2>
-
-			<form id="form-delete" method="post">
-			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-			<?php foreach ($feeds as $feed) { ?>
-			<ul class="horizontal-list">
-				<li class="item">
-					<div class="stick">
-						<a class="btn" href="<?= _url('index', 'index', 'get', 'f_' . $feed['id']) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
-						<a class="btn" href="<?= _url('subscription', 'index', 'id', $feed['id']) ?>"><?= _i('configure') ?> <?= _t('gen.action.manage') ?></a>
-						<button class="btn btn-attention confirm" form="form-delete"
-							formaction="<?= _url('feed', 'delete', 'id', $feed['id'], 'r', $current_url) ?>"><?= _t('gen.action.remove') ?></button>
-					</div>
-				</li>
-				<li class="item">
-					<span title="<?= timestamptodate($feed['last_date'], false) ?>"><?= $feed['name'] ?>
-						(<?= _t('admin.stats.number_entries', $feed['nb_articles']) ?>)</span>
-				</li>
+	<div class="box">
+		<div class="box-title"><?= _t('gen.date.' . $period) ?></div>
+			<ul class="box-content">
+				<?php
+					foreach ($feedsInPeriod as $feedInPeriod) {
+						$feed = $this->feeds[$feedInPeriod['id']] ?? null;
+						$error = $feed == null || $feed->inError() ? ' error' : '';
+						$empty = $feed != null && $feed->nbEntries() == 0 ? ' empty' : '';
+				?>
+					<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>">
+						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
+						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
+						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
+							(<?= _t('admin.stats.number_entries', $feedInPeriod['nb_articles']) ?>)</span>
+					</li>
+				<?php } ?>
 			</ul>
-			<?php } ?>
-			</form>
-		</div>
+	</div>
 	<?php
 			}
 		}
@@ -50,4 +48,16 @@
 		<span class="alert-head"><?= _t('admin.stats.no_idle') ?></span>
 	</p>
 	<?php } ?>
+
+	<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
+	<a href="#" id="close-slider"<?= $class ?>>
+		<?= _i('close') ?>
+	</a>
+	<div id="slider"<?= $class ?>>
+	<?php
+		if (isset($this->feed)) {
+			$this->renderHelper('feed/update');
+		}
+	?>
+	</div>
 </main>

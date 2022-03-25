@@ -1,14 +1,17 @@
-<?php FreshRSS::preLayout(); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	FreshRSS::preLayout();
+?>
 <!DOCTYPE html>
 <html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
-		<?= self::headStyle() ?>
+		<?= FreshRSS_View::headStyle() ?>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
-		<?= self::headScript() ?>
+		<?= FreshRSS_View::headScript() ?>
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
 		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
@@ -18,7 +21,7 @@
 		<meta name="msapplication-TileColor" content="#FFF" />
 		<meta name="referrer" content="never" />
 		<meta name="robots" content="noindex,nofollow" />
-		<?= self::headTitle() ?>
+		<?= FreshRSS_View::headTitle() ?>
 	</head>
 	<body>
 

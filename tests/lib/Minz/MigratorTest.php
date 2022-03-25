@@ -268,6 +268,7 @@ class MigratorTest extends TestCase
 		$this->assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
 		$this->assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
+		@unlink($applied_migrations_path);
 	}
 
 	public function testExecuteWithAlreadyAppliedMigration() {
@@ -280,6 +281,7 @@ class MigratorTest extends TestCase
 		$this->assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
 		$this->assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
+		@unlink($applied_migrations_path);
 	}
 
 	public function testExecuteWithAppliedMigrationInDifferentOrder() {
@@ -291,9 +293,10 @@ class MigratorTest extends TestCase
 
 		$this->assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
-		// if the order changes, it probably means the first versions comparaison
+		// if the order changes, it probably means the first versions comparison
 		// test doesn't work anymore
 		$this->assertSame("2019_12_23_Baz\n2019_12_22_FooBar", $versions);
+		@unlink($applied_migrations_path);
 	}
 
 	public function testExecuteFailsIfVersionPathDoesNotExist() {
@@ -305,6 +308,7 @@ class MigratorTest extends TestCase
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
 		$this->assertSame($expected_result, $result);
+		@unlink($applied_migrations_path);
 	}
 
 	public function testExecuteFailsIfAMigrationIsFailing() {
@@ -318,5 +322,6 @@ class MigratorTest extends TestCase
 		$this->assertSame($expected_result, $result);
 		$versions = file_get_contents($applied_migrations_path);
 		$this->assertSame('2020_01_11_FooBar', $versions);
+		@unlink($applied_migrations_path);
 	}
 }

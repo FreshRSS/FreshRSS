@@ -1,30 +1,62 @@
-<main class="post content">
+<?php /** @var FreshRSS_View $this */ ?>
+<?php $this->partial('aside_configure'); ?>
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
 	<h1><?= _t('index.log') ?></h1>
-	<form method="post" action="<?= _url('index', 'logs') ?>"><p>
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<input type="hidden" name="clearLogs" />
-		<button type="submit" class="btn"><?= _t('index.log.clear') ?></button>
-	</p></form>
+	
 
-	<?php $items = $this->logsPaginator->items(); ?>
+	<?php
+		/** @var array<FreshRSS_Log> $items */
+		$items = $this->logsPaginator->items();
+	?>
 
 	<?php if (!empty($items)) { ?>
-	<div class="loglist">
-		<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
-
+	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+	<div id="loglist-wrapper" class="table-wrapper">
+		<table id="loglist">
+			<thead>
+				<th><?= _t('conf.logs.loglist.level') ?></th>
+				<th><?= _t('conf.logs.loglist.timestamp') ?></th>
+				<th><?= _t('conf.logs.loglist.message') ?></th>
+			</thead>
+			<tbody>
 		<?php foreach ($items as $log) { ?>
-		<div class="log <?= $log->level() ?>"><span class="date">
-				<?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?>
-			</span><?= htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8') ?></div>
+		<tr class="log-item">
+			<td class="log-<?= $log->level() ?>">
+				<?= _i($log->level()) ?>
+			</td>
+			<td class="log-date">
+				<time datetime="<?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?>">
+					<?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?>
+				</time>
+			</td>
+			<td class="log-message">
+				<?= htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8') ?>
+			</td>
+			</tr>
 		<?php } ?>
-
-		<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+		</tbody>
+		</table>
 	</div>
+	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+	
+
+
+	<form method="post" action="<?= _url('index', 'logs') ?>">
+	<div class="form-group form-actions">
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="clearLogs" />
+		<div class="group-controls">
+		<button type="submit" class="btn btn-attention"><?= _t('index.log.clear') ?></button>
+		</div>
+	</div>
+	</form>
+
 	<?php } else { ?>
 	<p class="alert alert-warn"><?= _t('index.log.empty') ?></p>
 	<?php } ?>
+	
 </main>

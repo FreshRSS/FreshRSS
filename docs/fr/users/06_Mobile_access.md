@@ -49,12 +49,12 @@ possibilité.
 
 # Clients compatibles
 
-1. Sur la même page de l'API FreshRSS, notez l'adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
-	* Saisissez l'adresse de l'API dans le client sélectionné puis votre nom d'utilisateur et votre mot de passe spécialement créé pour l'API.
+1. Sur la même page de l’API FreshRSS, notez l’adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
+	* Saisissez l’adresse de l’API dans le client sélectionné puis votre nom d’utilisateur et votre mot de passe spécialement créé pour l’API.
 
 2. Vous pouvez maintenant tester sur une application mobile:
 	* Android
-		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
+		* [News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) avec [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 		* [Readrops](https://github.com/readrops/Readrops) (Open source)
@@ -62,7 +62,7 @@ possibilité.
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 		* [Newsboat 2.24+](https://newsboat.org/) (Libre)
-	* MacOS
+	* macOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
 	* iOS
