@@ -29,7 +29,7 @@ You may also use the `HTTP_REMOTE_USER` header to integrate with a your reverse-
 To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
 To allow only one IP, you can use a `/32` like this: `trusted_sources => array('192.168.1.10/32')`.
 
-WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn't properly secured, an attacker could simply attach this header and get admin access.
+WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
 ## No Authentication
 
