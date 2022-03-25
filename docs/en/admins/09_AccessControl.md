@@ -15,7 +15,7 @@ You may also choose to use HTTP Authentication provided by your web server.[^1]
 
 If you choose to use this option, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
-You can also use any authentication backend as long as your web server exposes the authenticated user through the `REMOTE_USER` variable.
+You can also use any authentication backend as long as your web server exposes the authenticated user through the `Remote-User` variable.
 
 By default, new users allowed by HTTP Basic Auth will automatically be created in FreshRSS the first time they log in.
 You can disable auto-registration of new users by setting `http_auth_auto_register` to `false` in the configuration file.
@@ -24,7 +24,7 @@ variable containing the email address of the authenticated user (e.g. `REMOTE_US
 
 ## External Authentication
 
-You may also use the `HTTP_REMOTE_USER` header to integrate with a your reverse-proxy's authentication.
+You may also use the `Remote-User` or `X-WebAuth-User` header to integrate with a your reverse-proxy’s authentication.
 
 To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
 To allow only one IPv4, you can use a `/32` like this: `trusted_sources => [ '192.168.1.10/32' ]`.
