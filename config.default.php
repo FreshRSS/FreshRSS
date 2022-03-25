@@ -192,6 +192,9 @@ return array(
 
 	# Trusted IPs that are allowed to send unsafe headers
 	# Please read the documentation, before configuring this
-	'trusted_sources' => array(
-	)
+	# https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	'trusted_sources' => [
+		'127.0.0.0/8',
+		'::1/128',
+	]
 );
