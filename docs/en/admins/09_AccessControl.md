@@ -27,7 +27,8 @@ variable containing the email address of the authenticated user (e.g. `REMOTE_US
 You may also use the `HTTP_REMOTE_USER` header to integrate with a your reverse-proxy's authentication.
 
 To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
-To allow only one IP, you can use a `/32` like this: `trusted_sources => array('192.168.1.10/32')`.
+To allow only one IPv4, you can use a `/32` like this: `trusted_sources => [ '192.168.1.10/32' ]`.
+Likewise to allow only one IPv6, you can use a `/128` like this: `trusted_sources => [ '::1/128' ]`.
 
 WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
