@@ -1389,52 +1389,6 @@ function init_notifications() {
 }
 // </notification>
 
-// <slider>
-
-
-function open_slider_listener(ev) {
-	const a = ev.target.closest('.open-slider');
-	if (a) {
-		if (!context.ajax_loading) {
-			location.href = '#'; // close menu/dropdown
-			context.ajax_loading = true;
-
-			const req = new XMLHttpRequest();
-			req.open('GET', a.href + '&ajax=1', true);
-			req.responseType = 'document';
-			req.onload = function (e) {
-				const slider = document.getElementById('slider');
-				const closer = document.getElementById('close-slider');
-				slider.innerHTML = this.response.body.innerHTML;
-				slider.classList.add('active');
-				closer.classList.add('active');
-				context.ajax_loading = false;
-				fix_popup_preview_selector();
-				init_extra();
-			};
-			req.send();
-			return false;
-		}
-	}
-}
-
-function slider_data_leave_validation() {
-	const ds = document.querySelectorAll('[data-leave-validation]');
-
-	for (let i = ds.length - 1; i >= 0; i--) {
-		const input = ds[i];
-		if (input.type === 'checkbox' || input.type === 'radio') {
-			if (input.checked != input.getAttribute('data-leave-validation')) {
-				return false;
-			}
-		} else if (input.value != input.getAttribute('data-leave-validation')) {
-			return false;
-		}
-	}
-	return true;
-}
-// </slider>
-
 // <popup>
 let popup = null;
 let popup_iframe_container = null;
