@@ -8,7 +8,7 @@ If you use extensions, then each directory in `./extensions` the folder `static`
 
 Do this before an upgrade.
 
-This following tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you’ve installed it somewhere else, substitute your path as necessary.
+This following tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`. If you’ve installed it somewhere else, substitute your path as necessary.
 
 ### Creating a Backup of all Files
 
