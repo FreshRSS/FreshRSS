@@ -1390,26 +1390,7 @@ function init_notifications() {
 // </notification>
 
 // <slider>
-function init_slider_observers() {
-	const slider = document.getElementById('slider');
-	const closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
 
-	window.onclick = open_slider_listener;
-
-	closer.addEventListener('click', function (ev) {
-		if (slider_data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return true;
-		} else {
-			return false;
-		}
-	});
-}
 
 function open_slider_listener(ev) {
 	const a = ev.target.closest('.open-slider');
@@ -1428,6 +1409,8 @@ function open_slider_listener(ev) {
 				slider.classList.add('active');
 				closer.classList.add('active');
 				context.ajax_loading = false;
+				fix_popup_preview_selector();
+				init_extra();
 			};
 			req.send();
 			return false;
@@ -1806,17 +1789,16 @@ function init_normal() {
 	};
 }
 
-function init_beforeDOM() {
+function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
 }
 
-function init_afterDOM() {
+function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
-	init_slider_observers();
 	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
@@ -1834,14 +1816,14 @@ function init_afterDOM() {
 	}
 }
 
-init_beforeDOM();	// Can be called before DOM is fully loaded
+init_main_beforeDOM();	// Can be called before DOM is fully loaded
 
 if (document.readyState && document.readyState !== 'loading') {
-	init_afterDOM();
+	init_main_afterDOM();
 } else {
 	if (window.console) {
 		console.log('FreshRSS waiting for DOMContentLoaded…');
 	}
-	document.addEventListener('DOMContentLoaded', init_afterDOM, false);
+	document.addEventListener('DOMContentLoaded', init_main_afterDOM, false);
 }
 // @license-end

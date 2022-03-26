@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals openNotification, openPopupWithSource, xmlHttpRequestJson */
+/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
 
 function fix_popup_preview_selector() {
 	const link = document.getElementById('popup-preview-selector');
@@ -165,6 +165,29 @@ function init_select_observers() {
 	});
 }
 
+function init_slider_observers() {
+	const slider = document.getElementById('slider');
+	const closer = document.getElementById('close-slider');
+	if (!slider) {
+		return;
+	}
+
+	window.onclick = open_slider_listener;
+
+	closer.addEventListener('click', function (ev) {
+		if (slider_data_leave_validation() || confirm(context.i18n.confirmation_default)) {
+			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+			closer.classList.remove('active');
+			slider.classList.remove('active');
+			fix_popup_preview_selector();
+			init_extra();
+			return true;
+		} else {
+			return false;
+		}
+	});
+}
+
 function data_leave_validation() {
 	const ds = document.querySelectorAll('[data-leave-validation]');
 
@@ -250,6 +273,7 @@ function init_extra() {
 	init_password_observers();
 	init_url_observers();
 	init_select_observers();
+	init_slider_observers()
 	init_configuration_alert();
 	fix_popup_preview_selector();
 	init_select_show();
@@ -260,14 +284,22 @@ function init_extra() {
 	}
 }
 
-if (document.readyState && document.readyState !== 'loading') {
-	init_extra();
-} else {
-	document.addEventListener('DOMContentLoaded', function () {
-		if (window.console) {
-			console.log('FreshRSS extra waiting for DOMContentLoaded…');
-		}
+// wrapper of init_extra(). 
+// Do not init_extra on feed view pages. init_extra() will be triggered there when the slider was opened.
+function init_extra_afterDOM() {
+	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
 		init_extra();
-	}, false);
+	}
+	init_slider_observers();
+}
+
+
+if (document.readyState && document.readyState !== 'loading') {
+	init_extra_afterDOM();
+} else {
+	if (window.console) {
+		console.log('FreshRSS extra waiting for DOMContentLoaded…');
+	}
+	document.addEventListener('DOMContentLoaded', init_extra_afterDOM, false);
 }
 // @license-end
