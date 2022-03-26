@@ -209,7 +209,6 @@ function slider_data_leave_validation() {
 	return true;
 }
 
-
 function init_slider_observers() {
 	const slider = document.getElementById('slider');
 	const closer = document.getElementById('close-slider');
@@ -320,7 +319,7 @@ function init_extra() {
 	init_password_observers();
 	init_url_observers();
 	init_select_observers();
-	init_slider_observers()
+	init_slider_observers();
 	init_configuration_alert();
 	fix_popup_preview_selector();
 	init_select_show();
@@ -339,7 +338,6 @@ function init_extra_afterDOM() {
 	}
 	init_slider_observers();
 }
-
 
 if (document.readyState && document.readyState !== 'loading') {
 	init_extra_afterDOM();
