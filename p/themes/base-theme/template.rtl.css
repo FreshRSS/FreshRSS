@@ -1418,11 +1418,26 @@ br {
 }
 
 #close-slider.active {
+	background: rgba(0, 0, 0, 0.2);
 	right: 0;
 }
 
 #close-slider img {
 	display: none;
+}
+
+#close-slider.active img {
+	display: inline-block;
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	padding: 0.5rem;
+	filter: grayscale(100%) brightness(2.5);
+}
+
+#close-slider.active:hover img {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 50%;
 }
 
 /*=== SLIDESHOW */
@@ -1836,6 +1851,12 @@ input:checked + .slide-container .properties {
 
 	#close-slider img {
 		display: initial;
+	}
+
+	#close-slider.active img {
+		display: initial;
+		position: initial;
+		filter: initial;
 	}
 
 	#close-slider.active {
