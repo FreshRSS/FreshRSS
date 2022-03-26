@@ -2,7 +2,7 @@
 
 FreshRSS global settings are in `./data/config.php` and users' settings are in `./data/users/*/config.php`. You can also back up the whole `./data/` directory but exclude the things you do not want.
 
-If you use extensions, than in each directory in `./extensions` the folder `static` contains the user extensions settings.
+If you use extensions, then each directory in `./extensions` the folder `static` contains the user's extension settings.
 
 ## Full-Installation Backup
 
