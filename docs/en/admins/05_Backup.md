@@ -58,7 +58,7 @@ rm FreshRSS-backup.tgz
 
 You can export your feed list in OPML format either from the web interface, or from the [Command-Line Interface](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md).
 
-The OPML export only exports the standard OPML parameters and does not export things such as desired refresh frequency, custom attributes such as passwords, user agent, XPath Web scraping, etc. 
+The OPML export only exports the standard OPML parameters and does not export things such as desired refresh frequency, custom attributes such as passwords, user agent, XPath Web scraping, etc.
 
 To export all that, use a full back-up with export-to-sqlite, as in following sectiong is described.
 
