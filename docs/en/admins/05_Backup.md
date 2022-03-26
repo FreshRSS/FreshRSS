@@ -60,7 +60,7 @@ You can export your feed list in OPML format either from the web interface, or f
 
 The OPML export only exports the standard OPML parameters and does not export things such as desired refresh frequency, custom attributes such as passwords, user agent, XPath Web scraping, etc.
 
-To export all that, use a full back-up with export-to-sqlite, as in following sectiong is described.
+To export all that, use a full back-up with export-to-sqlite, as described in the following section.
 
 ### Saving Articles
 
