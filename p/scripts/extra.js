@@ -284,7 +284,7 @@ function init_extra() {
 	}
 }
 
-// wrapper of init_extra(). 
+// wrapper of init_extra().
 // Do not init_extra on feed view pages. init_extra() will be triggered there when the slider was opened.
 function init_extra_afterDOM() {
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
