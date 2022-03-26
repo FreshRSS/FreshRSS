@@ -1,12 +1,16 @@
 # Backup
 
-This tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you’ve installed it somewhere else, substitute your path as necessary.
+FreshRSS global settings are in `./data/config.php` and users' settings are in `./data/users/*/config.php`. You can also backup the whole `./data/` directory but exclude the things you do not want.
 
-## Installation Backup
+If you use extensions, than in each directory in `./extensions` the folder `static` contains the user extensions settings.
+
+## Full-Installation Backup
 
 Do this before an upgrade.
 
-### Creating a Backup
+This following tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you’ve installed it somewhere else, substitute your path as necessary.
+
+### Creating a Backup of all Files
 
 First, Enter the directory you wish to save your backup to. Here, for example, we’ll save the backup to the user home directory
 
@@ -22,7 +26,7 @@ tar -czf FreshRSS-backup.tgz -C /usr/share/FreshRSS/ .
 
 And you’re done!
 
-### Restoring from a Backup
+### Restoring Files from a Backup
 
 First, copy the backup previously made into your FreshRSS directory
 
@@ -53,6 +57,10 @@ rm FreshRSS-backup.tgz
 ### Feed list Export
 
 You can export your feed list in OPML format either from the web interface, or from the [Command-Line Interface](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md).
+
+The OPML export only exports the standard OPML parameters and does not export things such as desired refresh frequency, custom attributes such as passwords, user agent, XPath Web scraping, etc. 
+
+To export all that, use a full back-up with export-to-sqlite, as in following sectiong is described.
 
 ### Saving Articles
 
