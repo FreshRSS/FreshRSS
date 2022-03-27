@@ -527,32 +527,18 @@ input[type="checkbox"]:focus-visible {
 	z-index: 1000;
 }
 
-.dropdown-close {
-	display: inline;
+.dropdown-menu + .dropdown-close {
+	display: none;
 }
 
-.dropdown-close a {
+.dropdown-target:target ~ .dropdown-close {
 	display: block;
 	font-size: 0;
 	position: fixed;
 	top: 0; bottom: 0;
 	right: 0; left: 0;
-	z-index: -11;
-	cursor: default;
-}
-
-.dropdown div.dropdown-close {
-	display: none;
-}
-
-.dropdown-target:target ~ div.dropdown-close {
-	display: block;
 	z-index: 999;
-	position: relative;
-}
-
-.dropdown-menu-scrollable .dropdown-close {
-	display: none;
+	cursor: default;
 }
 
 .separator {
@@ -1760,7 +1746,8 @@ input:checked + .slide-container .properties {
 		display: inline-block;
 	}
 
-	.aside:target + .close-aside {
+	.aside:target + .close-aside,
+	.configure .dropdown-target:target ~ .dropdown-close {
 		background: rgba(0, 0, 0, 0.2);
 		display: block;
 		font-size: 0;
@@ -1769,7 +1756,7 @@ input:checked + .slide-container .properties {
 		bottom: 0;
 		right: 0;
 		left: 0;
-		cursor: pointer;
+		cursor: default;
 		z-index: 99;
 	}
 
