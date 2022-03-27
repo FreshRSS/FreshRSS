@@ -45,10 +45,9 @@
 				echo _t('index.menu.tags');
 			?></a>
 			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
-				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<!-- Ajax -->
 			</ul>
-			<div class="dropdown-close"><a href="#close">❌</a></div>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</li><?php
 	}
@@ -62,11 +61,12 @@
 				echo _t('index.tag.related');
 			?></a>
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li><?php
+				<?php
 				foreach ($tags as $tag) {
 					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>"><?= $tag ?></a></li><?php
 				} ?>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</li><?php
 	}
@@ -80,7 +80,6 @@
 			</a>
 
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
 					$id = $this->entry->id();
 					$link = $this->entry->link();
@@ -112,6 +111,7 @@
 				</li><?php
 					}
 			?></ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 		<?php } ?>
 	</li><?php
