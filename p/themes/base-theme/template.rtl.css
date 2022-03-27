@@ -945,7 +945,7 @@ input[type="search"] {
 /*=== Feed article header and footer */
 .flux_header {
 	background: inherit;
-	position: relative;
+	position: static;
 }
 
 .flux .item {
