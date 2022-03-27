@@ -692,7 +692,7 @@ function auto_share(key) {
 	key = parseInt(key);
 	if (key <= shares.length) {
 		shares[key - 1].click();
-		share.parentElement.querySelector('.dropdown-menu .dropdown-close a').click();
+		share.parentElement.querySelector('.dropdown-menu + a.dropdown-close').click();
 	}
 }
 
