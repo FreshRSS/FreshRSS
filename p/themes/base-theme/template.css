@@ -1404,6 +1404,7 @@ br {
 	background: #fff;
 	border-left: 1px solid #aaa;
 	transition: left 200ms linear;
+	z-index: 100;
 }
 
 #slider.active {
@@ -1419,7 +1420,9 @@ br {
 
 #close-slider.active {
 	background: rgba(0, 0, 0, 0.2);
+	font-size: 0;
 	left: 0;
+	z-index: 99;
 }
 
 #close-slider img {
@@ -1433,11 +1436,6 @@ br {
 	top: 0.5rem;
 	left: 0.5rem;
 	filter: grayscale(100%) brightness(2.5);
-}
-
-#close-slider.active:hover img {
-	background: rgba(0, 0, 0, 0.2);
-	border-radius: 50%;
 }
 
 /*=== SLIDESHOW */
