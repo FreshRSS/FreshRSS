@@ -115,9 +115,7 @@ $today = @strtotime('today');
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
 ?><?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>>
-	<?= _i('close') ?>
-</a>
+<a href="#" id="close-slider"<?= $class ?>>❌</a>
 <div id="slider"<?= $class ?>>
 </div></main><?php
 	else:
