@@ -160,8 +160,42 @@ input, select, textarea {
 	font-size: 0.8rem;
 }
 
+input.w50, 
+select.w50, 
+textarea.w50 {
+	min-width: 50%;
+	box-sizing: border-box;
+}
+
+input.w100, 
+select.w100, 
+textarea.w100 {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.stick.w50 {
+	width: 50%;
+}
+
+.stick.w100 {
+	width: 100%;
+}
+
+.stick.w50 input,
+.stick.w100 input {
+	width: 100%;
+}
+
+.stick.w100 input + .btn {
+	width: 29px;
+	padding-right: 3px;
+	padding-left: 3px;
+	text-align: center;
+}
+
 textarea[rows="2"] {
-	height: 3em;
+	height: 4em;
 }
 
 textarea:invalid {
@@ -1397,17 +1431,18 @@ br {
 
 /*=== Slider */
 #slider {
+	width: 0;
 	position: fixed;
 	top: 0; bottom: 0;
-	right: 100%; left: 0;
+	left: 0;
 	overflow: auto;
 	background: #fff;
 	border-right: 1px solid #aaa;
-	transition: right 200ms linear;
+	transition: width 200ms linear;
 }
 
 #slider.active {
-	right: 40%;
+	width: 750px;
 }
 
 #close-slider {
@@ -1832,6 +1867,7 @@ input:checked + .slide-container .properties {
 	#slider.active {
 		right: 0;
 		top: 50px;
+		width: 100%;
 	}
 
 	#close-slider img {
