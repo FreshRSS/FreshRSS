@@ -1431,12 +1431,12 @@ br {
 
 /*=== Slider */
 #slider {
+	background: #fff;
 	width: 0;
 	position: fixed;
 	top: 0; bottom: 0;
 	right: 0;
 	overflow: auto;
-	background: #fff;
 	border-left: 1px solid #aaa;
 	transition: width 200ms linear;
 }
