@@ -160,15 +160,15 @@ input, select, textarea {
 	font-size: 0.8rem;
 }
 
-input.w50, 
-select.w50, 
+input.w50,
+select.w50,
 textarea.w50 {
 	min-width: 50%;
 	box-sizing: border-box;
 }
 
-input.w100, 
-select.w100, 
+input.w100,
+select.w100,
 textarea.w100 {
 	width: 100%;
 	box-sizing: border-box;
