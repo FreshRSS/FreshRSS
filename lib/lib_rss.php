@@ -555,14 +555,67 @@ function get_user_configuration($username) {
 }
 
 /**
+ * Converts an IP (v4 or v6) to a binary representation using inet_pton
+ *
+ * @param string $ip the IP to convert
+ * @return string a binary representation of the specified IP
+ */
+function ipToBits(string $ip): string {
+	$binaryip = '';
+	foreach (str_split(inet_pton($ip)) as $char) {
+		$binaryip .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+	}
+	return $binaryip;
+}
+
+/**
+ * Check if an ip belongs to the provided range (in CIDR format)
+ *
+ * @param string $ip the IP that we want to verify (ex: 192.168.16.1)
+ * @param string $range the range to check against (ex: 192.168.16.0/24)
+ * @return boolean true if the IP is in the range, otherwise false
+ */
+function checkCIDR(string $ip, string $range): bool {
+	$binary_ip = ipToBits($ip);
+	list($subnet, $mask_bits) = explode('/', $range);
+	$mask_bits = intval($mask_bits);
+	$binary_subnet = ipToBits($subnet);
+
+	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
+	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
+
+	return $ip_net_bits === $subnet_bits;
+}
+
+/**
+ * Check if the client is allowed to send unsafe headers
+ * This uses the REMOTE_ADDR header to determine the sender's IP
+ * and the configuration option "trusted_sources" to get an array of the authorized ranges
+ *
+ * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ */
+function checkTrustedIP(): bool {
+	if (!empty($_SERVER['REMOTE_ADDR'])) {
+		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+			if (checkCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/**
  * @return string
  */
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
+		return $_SERVER['HTTP_REMOTE_USER'];
 	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
 		return $_SERVER['HTTP_X_WEBAUTH_USER'];
 	}
 	return '';
