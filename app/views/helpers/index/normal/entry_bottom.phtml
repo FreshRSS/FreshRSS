@@ -40,10 +40,9 @@
 	?><li class="item">
 		<div class="dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-			<?= FreshRSS_Themes::alt('label') ?>
-			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>"><?php
-				echo _t('index.menu.tags');
-			?></a>
+			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
+				<?= _i('label') ?><?= _t('index.menu.tags') ?>
+			</a>
 			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<!-- Ajax -->
@@ -57,10 +56,9 @@
 	?><li class="item">
 		<div class="dropdown">
 			<div id="dropdown-tags-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-			<?= _i('tag') ?>
-			<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>"><?php
-				echo _t('index.tag.related');
-			?></a>
+			<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>">
+				<?= _i('tag') ?><?= _t('index.tag.related') ?>
+			</a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li><?php
 				foreach ($tags as $tag) {
@@ -75,8 +73,7 @@
 		?><div class="dropdown">
 			<div id="dropdown-share-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
-				<?= _i('share') ?>
-				<?= _t('index.share') ?>
+				<?= _i('share') ?><?= _t('index.share') ?>
 			</a>
 
 			<ul class="dropdown-menu">

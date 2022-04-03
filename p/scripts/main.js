@@ -1058,7 +1058,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.content, .item.website, .item.link, .dropdown-menu')) {
+			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
 			if (!context.sides_close_article && ev.target.matches('div.flux_content')) {
@@ -1067,7 +1067,7 @@ function init_stream(stream) {
 			}
 			const old_active = document.querySelector('.flux.current');
 			const new_active = el.parentNode;
-			if (ev.target.tagName.toUpperCase() === 'A') {	// Leave real links alone
+			if (ev.target.tagName.toUpperCase() === 'A') {	// Leave real links alone (but does not catch img in a link)
 				if (context.auto_mark_article) {
 					mark_read(new_active, true, false);
 				}

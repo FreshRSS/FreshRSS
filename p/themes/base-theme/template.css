@@ -1083,6 +1083,10 @@ a.website:hover .favicon {
 	list-style-type: decimal;
 }
 
+.flux_content .bottom .dropdown-toggle .icon {
+	margin-right: 5px;
+}
+
 /*=== Feed article content */
 .hide_posts > .flux:not(.active) > .flux_content {
 	display: none;
