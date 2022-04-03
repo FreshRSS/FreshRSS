@@ -45,6 +45,12 @@
 			</a>
 			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<li class="dropdown-header">
+					<?= _t('index.menu.tags') ?>
+					<?php if (FreshRSS_Auth::hasAccess()) { ?>
+						<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
+					<?php } ?>
+				</li>
 				<!-- Ajax -->
 			</ul>
 			<div class="dropdown-close"><a href="#close">❌</a></div>
