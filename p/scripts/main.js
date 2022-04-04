@@ -1128,42 +1128,44 @@ function init_stream(stream) {
 		const checkboxTag = ev.target.closest('.checkboxTag');
 		if (checkboxTag) {	// Dynamic tags
 			ev.stopPropagation();
-			const isChecked = checkboxTag.checked;
 			const tagId = checkboxTag.name.replace(/^t_/, '');
-			const tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.value : '';
-			const entry = checkboxTag.closest('div.flux');
-			const entryId = entry.id.replace(/^flux_/, '');
-			checkboxTag.disabled = true;
+			const tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.childNodes[0].value : '';
+			if ((tagId == 0 && tagName.length > 0) || tagId != 0) {
+				const isChecked = checkboxTag.checked;
+				const entry = checkboxTag.closest('div.flux');
+				const entryId = entry.id.replace(/^flux_/, '');
+				checkboxTag.disabled = true;
 
-			const req = new XMLHttpRequest();
-			req.open('POST', './?c=tag&a=tagEntry', true);
-			req.responseType = 'json';
-			req.onerror = function (e) {
-				checkboxTag.checked = !isChecked;
-				badAjax(this.status == 403);
-			};
-			req.onload = function (e) {
-				if (this.status != 200) {
-					return req.onerror(e);
-				}
-				if (entry.classList.contains('not_read')) {
-					incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
-				}
-			};
-			req.onloadend = function (e) {
-				checkboxTag.disabled = false;
-				if (tagId == 0) {
-					loadDynamicTags(checkboxTag.closest('div.dropdown'));
-				}
-			};
-			req.setRequestHeader('Content-Type', 'application/json');
-			req.send(JSON.stringify({
-				_csrf: context.csrf,
-				id_tag: tagId,
-				name_tag: tagId == 0 ? tagName : '',
-				id_entry: entryId,
-				checked: isChecked,
-			}));
+				const req = new XMLHttpRequest();
+				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.responseType = 'json';
+				req.onerror = function (e) {
+					checkboxTag.checked = !isChecked;
+					badAjax(this.status == 403);
+				};
+				req.onload = function (e) {
+					if (this.status != 200) {
+						return req.onerror(e);
+					}
+					if (entry.classList.contains('not_read')) {
+						incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
+					}
+				};
+				req.onloadend = function (e) {
+					checkboxTag.disabled = false;
+					if (tagId == 0) {
+						loadDynamicTags(checkboxTag.closest('div.dropdown'));
+					}
+				};
+				req.setRequestHeader('Content-Type', 'application/json');
+				req.send(JSON.stringify({
+					_csrf: context.csrf,
+					id_tag: tagId,
+					name_tag: tagId == 0 ? tagName : '',
+					id_entry: entryId,
+					checked: isChecked,
+				}));
+			}
 		}
 	};
 }
@@ -1210,7 +1212,42 @@ function loadDynamicTags(div) {
 		if (!json) {
 			return req.onerror(e);
 		}
-		let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
+		let li_item0 = document.createElement('li');
+		li_item0.setAttribute('class', 'item addItem');
+
+		let label = document.createElement('label');
+		label.setAttribute('class', 'noHover');
+		
+
+		let input_checkboxTag = document.createElement('input');
+		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+		input_checkboxTag.setAttribute('name', 't_0');
+		input_checkboxTag.setAttribute('type', 'checkbox');
+
+
+		let input_newTag = document.createElement('input');
+		input_newTag.setAttribute('type', 'text');
+		input_newTag.setAttribute('name', 'newTag');
+		input_newTag.addEventListener('keydown', function(ev){if (ev.key.toUpperCase() == 'ENTER') {this.parentNode.previousSibling.click();}});
+
+		let a_btn = document.createElement('a');
+		a_btn.setAttribute('class', 'btn');
+		
+		let text_plus = document.createTextNode('+');
+
+		let div_stick = document.createElement('div');
+		div_stick.setAttribute('class', 'stick');
+		
+		a_btn.appendChild(text_plus);
+		div_stick.appendChild(input_newTag);
+		div_stick.appendChild(a_btn);
+		label.appendChild(input_checkboxTag);
+		label.appendChild(div_stick);
+		li_item0.appendChild(label);
+
+		div.querySelector('.dropdown-menu').appendChild(li_item0);
+
+		let html = '';
 		if (json && json.length) {
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
