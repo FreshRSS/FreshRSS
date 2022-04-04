@@ -1227,7 +1227,7 @@ function loadDynamicTags(div) {
 		const input_newTag = document.createElement('input');
 		input_newTag.setAttribute('type', 'text');
 		input_newTag.setAttribute('name', 'newTag');
-		input_newTag.addEventListener('keydown', function (ev){ if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); }});
+		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
 		const a_btn = document.createElement('a');
 		a_btn.setAttribute('class', 'btn');
