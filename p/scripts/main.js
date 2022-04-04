@@ -1212,18 +1212,17 @@ function loadDynamicTags(div) {
 		if (!json) {
 			return req.onerror(e);
 		}
+
 		let li_item0 = document.createElement('li');
 		li_item0.setAttribute('class', 'item addItem');
 
 		let label = document.createElement('label');
 		label.setAttribute('class', 'noHover');
-		
 
 		let input_checkboxTag = document.createElement('input');
 		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
 		input_checkboxTag.setAttribute('name', 't_0');
 		input_checkboxTag.setAttribute('type', 'checkbox');
-
 
 		let input_newTag = document.createElement('input');
 		input_newTag.setAttribute('type', 'text');
@@ -1232,12 +1231,12 @@ function loadDynamicTags(div) {
 
 		let a_btn = document.createElement('a');
 		a_btn.setAttribute('class', 'btn');
-		
+
 		let text_plus = document.createTextNode('+');
 
 		let div_stick = document.createElement('div');
 		div_stick.setAttribute('class', 'stick');
-		
+
 		a_btn.appendChild(text_plus);
 		div_stick.appendChild(input_newTag);
 		div_stick.appendChild(a_btn);
