@@ -60,6 +60,9 @@ a.btn {
 a.btn:hover {
 	background: #00488b;
 }
+a.btn .icon {
+	filter: brightness(3);
+}
 a#btn-subscription {
 	width: 76%;
 }
