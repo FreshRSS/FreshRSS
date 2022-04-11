@@ -122,18 +122,17 @@
 
 <script id="tag_config_template" type="text/html">
 	<ul class="dropdown-menu">
-		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item">
 			<button class="as-link confirm" disabled="disabled"
 				form="mark-read-aside" formaction="<?= _url('tag', 'delete', 'id_tag', '------') ?>"
 				type="submit"><?= _t('gen.action.remove') ?></button>
 		</li>
 	</ul>
+	<a class="dropdown-close" href="#close">❌</a>
 </script>
 
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
-		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?= _url('index', $actual_view, 'get', 'f_------') ?>"><?= _t('gen.action.filter') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?= _url('stats', 'repartition', 'id', '------') ?>"><?= _t('index.menu.stats') ?></a></li>
@@ -160,4 +159,5 @@
 		</li>
 		<?php } ?>
 	</ul>
+	<a class="dropdown-close" href="#close">❌</a>
 </script>

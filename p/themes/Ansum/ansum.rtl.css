@@ -1442,6 +1442,12 @@ form th {
 		line-height: 50px;
 		text-align: center;
 	}
+	.aside .toggle_aside .icon,
+#panel .close .icon,
+#close-slider.active .icon,
+.dropdown-menu .toggle_aside .icon {
+		filter: grayscale(100%) brightness(2.5);
+	}
 
 	.header {
 		padding: 0.5rem;
