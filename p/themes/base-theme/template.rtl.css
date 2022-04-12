@@ -160,8 +160,42 @@ input, select, textarea {
 	font-size: 0.8rem;
 }
 
+input.w50,
+select.w50,
+textarea.w50 {
+	min-width: 50%;
+	box-sizing: border-box;
+}
+
+input.w100,
+select.w100,
+textarea.w100 {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.stick.w50 {
+	width: 50%;
+}
+
+.stick.w100 {
+	width: 100%;
+}
+
+.stick.w50 input,
+.stick.w100 input {
+	width: 100%;
+}
+
+.stick.w100 input + .btn {
+	width: 29px;
+	padding-right: 3px;
+	padding-left: 3px;
+	text-align: center;
+}
+
 textarea[rows="2"] {
-	height: 3em;
+	height: 4em;
 }
 
 textarea:invalid {
@@ -543,32 +577,18 @@ input[type="checkbox"]:focus-visible {
 	z-index: 1000;
 }
 
-.dropdown-close {
-	display: inline;
+.dropdown-menu + .dropdown-close {
+	display: none;
 }
 
-.dropdown-close a {
+.dropdown-target:target ~ .dropdown-close {
 	display: block;
 	font-size: 0;
 	position: fixed;
 	top: 0; bottom: 0;
 	right: 0; left: 0;
-	z-index: -11;
-	cursor: default;
-}
-
-.dropdown div.dropdown-close {
-	display: none;
-}
-
-.dropdown-target:target ~ div.dropdown-close {
-	display: block;
 	z-index: 999;
-	position: relative;
-}
-
-.dropdown-menu-scrollable .dropdown-close {
-	display: none;
+	cursor: default;
 }
 
 .separator {
@@ -975,7 +995,7 @@ input[type="search"] {
 /*=== Feed article header and footer */
 .flux_header {
 	background: inherit;
-	position: relative;
+	position: static;
 }
 
 .flux .item {
@@ -1417,17 +1437,18 @@ br {
 
 /*=== Slider */
 #slider {
+	background: #fff;
+	width: 0;
 	position: fixed;
 	top: 0; bottom: 0;
-	right: 100%; left: 0;
+	left: 0;
 	overflow: auto;
-	background: #fff;
 	border-right: 1px solid #aaa;
-	transition: right 200ms linear;
+	transition: width 200ms linear;
 }
 
 #slider.active {
-	right: 40%;
+	width: 750px;
 }
 
 #close-slider {
@@ -1780,7 +1801,8 @@ input:checked + .slide-container .properties {
 		display: inline-block;
 	}
 
-	.aside:target + .close-aside {
+	.aside:target + .close-aside,
+	.configure .dropdown-target:target ~ .dropdown-close {
 		background: rgba(0, 0, 0, 0.2);
 		display: block;
 		font-size: 0;
@@ -1789,7 +1811,7 @@ input:checked + .slide-container .properties {
 		bottom: 0;
 		right: 0;
 		left: 0;
-		cursor: pointer;
+		cursor: default;
 		z-index: 99;
 	}
 
@@ -1852,6 +1874,7 @@ input:checked + .slide-container .properties {
 	#slider.active {
 		right: 0;
 		top: 50px;
+		width: 100%;
 	}
 
 	#close-slider img {
