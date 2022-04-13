@@ -420,14 +420,14 @@ a.btn {
 
 .pagination .item a {
 	display: block;
-	color: #333;
+	color: #ffb6c1;
 	font-style: italic;
 	line-height: 3em;
 	text-decoration: none;
 }
 
 .pagination .item a:hover {
-	background: #ddd;
+	background: #444141;
 }
 
 .pagination:first-child .item {
