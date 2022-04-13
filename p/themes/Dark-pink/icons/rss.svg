@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16">
-<g fill-rule="nonzero" transform="translate(-561,-301.00012)" fill="#ffb6c1">
-<path style="enable-background:new;color:#000000;" d="m325.06,97.188c0,1.7872-0.89543,3.2361-2,3.2361s-2-1.4488-2-3.2361c0-1.7872,0.89543-3.2361,2-3.2361s2,1.4488,2,3.2361z" transform="matrix(1.0000007,0,0,0.61803426,241.93747,252.93479)"/>
-<path style="enable-background:new;color:#000000;" d="m563,303,0,1c0,0.55016,0.45347,1,1,1,4.9706,0,9,4.0294,9,9,0,0.55016,0.45347,1,1,1h1v-1c0-6.0751-4.9249-11-11-11h-1zm0,4,0,1c0,0.55016,0.45347,1,1,1,2.7614,0,5,2.2386,5,5,0,0.55016,0.45347,1,1,1h1v-1c0-3.866-3.134-7-7-7h-1z"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"><g fill="#ffb6c1"><path style="enable-background:new;color:#000" d="M325.06 97.188c0 1.787-.895 3.236-2 3.236s-2-1.449-2-3.236c0-1.787.895-3.236 2-3.236s2 1.449 2 3.236z" transform="matrix(1 0 0 .61803 -319.063 -48.065)"/><path style="enable-background:new;color:#000" d="M563 303v1c0 .55.453 1 1 1a9 9 0 0 1 9 9c0 .55.453 1 1 1h1v-1c0-6.075-4.925-11-11-11h-1zm0 4v1c0 .55.453 1 1 1a5 5 0 0 1 5 5c0 .55.453 1 1 1h1v-1a7 7 0 0 0-7-7h-1z" transform="translate(-561 -301)"/></g></svg>
