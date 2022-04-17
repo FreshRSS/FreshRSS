@@ -17,7 +17,8 @@
         "WebSub"
     ],
     "require": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "phpmailer/phpmailer": "6.5.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",

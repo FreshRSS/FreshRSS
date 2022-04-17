@@ -5,10 +5,10 @@
 	<arg name="tab-width" value="4"/>
 	<exclude-pattern>./lib/CssXPath/</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
-	<exclude-pattern>./lib/PHPMailer/</exclude-pattern>
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
 	<exclude-pattern>./node_modules/</exclude-pattern>
 	<exclude-pattern>./data/config.php</exclude-pattern>
+	<exclude-pattern>./data/update.php</exclude-pattern>
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
 	<exclude-pattern>./extensions/</exclude-pattern>
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>

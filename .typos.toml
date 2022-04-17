@@ -30,7 +30,6 @@ extend-exclude = [
 	"data/",
 	"docs/fr/",
 	"lib/CssXPath/",
-	"lib/PHPMailer",
 	"lib/SimplePie/",
 	"node_modules/",
 	"p/scripts/vendor/",
