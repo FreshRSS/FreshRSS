@@ -11,6 +11,7 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | PHP modules   | Required: libxml, cURL, JSON, PDO_MySQL, PCRE and ctype.<br />Required (32-bit only): GMP <br />Recommended: Zlib, mbstring, iconv, ZipArchive<br />*For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* | |
 | Database      | **MySQL 5.5.3+**        | SQLite 3.7.4+, PostgreSQL 9.5+          |
 | Browser       | **Firefox**             | Chrome, Opera, Safari, or Edge          |
+| Composer      | **Composer 2+**         |                         |
 
 ## Getting the appropriate version of FreshRSS
 

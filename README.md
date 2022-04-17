@@ -74,11 +74,12 @@ If you want a rolling release with the newest features, or want to help testing 
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/latest.zip)
 2. Put the application somewhere on your server (expose only the `./p/` folder to the Web)
 3. Add write access to the `./data/` folder for the webserver user
-4. Access FreshRSS with your browser and follow the installation process
-	* or use the [Command-Line Interface](cli/README.md)
-5. Everything should be working :) If you encounter any problems, feel free to [contact us](https://github.com/FreshRSS/FreshRSS/issues).
-6. Advanced configuration settings can be found in [config.default.php](config.default.php) and modified in `data/config.php`.
-7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
+4. Run `composer install`
+5. Access FreshRSS with your browser and follow the installation process
+    * or use the [Command-Line Interface](cli/README.md)
+6. Everything should be working :) If you encounter any problems, feel free to [contact us](https://github.com/FreshRSS/FreshRSS/issues).
+7. Advanced configuration settings can be found in [config.default.php](config.default.php) and modified in `data/config.php`.
+8. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html).
 
