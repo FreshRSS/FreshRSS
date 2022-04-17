@@ -1,6 +1,5 @@
 <?php
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require(__DIR__.'/../../vendor/autoload.php');
 
 const MAX_PAYLOAD = 3145728;
 

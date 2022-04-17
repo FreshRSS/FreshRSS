@@ -1,7 +1,5 @@
 <?php
 
-require_once(LIB_PATH . '/lib_date.php');
-
 class SearchTest extends PHPUnit\Framework\TestCase {
 
 	/**

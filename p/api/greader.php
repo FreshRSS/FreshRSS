@@ -23,8 +23,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/bazqux/bazqux-api
 */
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require(__DIR__.'/../../vendor/autoload.php');
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 

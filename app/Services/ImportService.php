@@ -16,8 +16,6 @@ class FreshRSS_Import_Service {
 	 * @param string $username
 	 */
 	public function __construct($username) {
-		require_once(LIB_PATH . '/lib_opml.php');
-
 		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 	}

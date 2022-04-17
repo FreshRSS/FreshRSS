@@ -7,9 +7,7 @@ const EXIT_CODE_ALREADY_EXISTS = 3;
 const REGEX_INPUT_OPTIONS = '/^--/';
 const REGEX_PARAM_OPTIONS = '/:*$/';
 
-require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-require(LIB_PATH . '/lib_install.php');
+require(__DIR__.'/../vendor/autoload.php');
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();

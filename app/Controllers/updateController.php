@@ -97,8 +97,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		include_once(LIB_PATH . '/lib_install.php');
-
 		invalidateHttpCache();
 
 		$this->view->update_to_apply = false;

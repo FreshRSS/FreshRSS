@@ -17,7 +17,6 @@ parameters:
 		- lib/PHPMailer/
 		- lib/SimplePie/
 	bootstrapFiles:
+		- vendor/autoload.php
 		- cli/_cli.php
-		- lib/favicons.php
-		- lib/SimplePie/SimplePie.php
 		- app/SQL/install.sql.sqlite.php

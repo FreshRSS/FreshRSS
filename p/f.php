@@ -1,8 +1,5 @@
 <?php
-require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-require(LIB_PATH . '/favicons.php');
-require(LIB_PATH . '/http-conditional.php');
+require(__DIR__.'/../vendor/autoload.php');
 
 function show_default_favicon($cacheSeconds = 3600) {
 	$default_mtime = @filemtime(DEFAULT_FAVICON);

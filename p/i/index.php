@@ -20,8 +20,7 @@
 #
 # ***** END LICENSE BLOCK *****
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require(__DIR__.'/../../vendor/autoload.php');
 
 $migrations_path = APP_PATH . '/migrations';
 $applied_migrations_path = DATA_PATH . '/applied_migrations.txt';
@@ -32,7 +31,6 @@ if (!file_exists($applied_migrations_path)) {
 	session_cache_limiter('');
 
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-		require(LIB_PATH . '/http-conditional.php');
 		$currentUser = Minz_Session::param('currentUser', '');
 		$dateLastModification = $currentUser === '' ? time() : max(
 			@filemtime(join_path(USERS_PATH, $currentUser, 'log.txt')),

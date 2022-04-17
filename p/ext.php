@@ -1,6 +1,6 @@
 <?php
 
-require(__DIR__ . '/../constants.php');
+require(__DIR__.'/../vendor/autoload.php');
 
 // Supported types with their associated content type
 const SUPPORTED_TYPES = [
@@ -117,8 +117,6 @@ $mtime = @filemtime($absolute_filename);
 if ($mtime === false) {
 	sendNotFoundResponse();
 }
-
-require(LIB_PATH . '/http-conditional.php');
 
 if (!httpConditional($mtime, 604800, 2)) {
 	readfile($absolute_filename);

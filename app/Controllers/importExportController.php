@@ -18,8 +18,6 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		require_once(LIB_PATH . '/lib_opml.php');
-
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
 	}

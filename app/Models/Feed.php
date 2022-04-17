@@ -202,7 +202,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead + ($includePending ? $this->nbPendingNotRead : 0);
 	}
 	public function faviconPrepare() {
-		require_once(LIB_PATH . '/favicons.php');
 		$url = $this->website;
 		if ($url == '') {
 			$url = $this->url;

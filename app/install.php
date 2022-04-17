@@ -4,7 +4,7 @@ if (function_exists('opcache_reset')) {
 }
 header("Content-Security-Policy: default-src 'self'");
 
-require(LIB_PATH . '/lib_install.php');
+require(__DIR__.'/../vendor/autoload.php');
 
 Minz_Session::init('FreshRSS');
 

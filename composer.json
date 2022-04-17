@@ -24,6 +24,18 @@
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.6"
     },
+    "autoload": {
+        "classmap": ["app/", "lib/"],
+        "files": [
+            "constants.php",
+            "lib/lib_rss.php",
+            "lib/favicons.php",
+            "lib/http-conditional.php",
+            "lib/lib_date.php",
+            "lib/lib_install.php",
+            "lib/lib_opml.php"
+        ]
+    },
     "scripts": {
         "php-lint": "find . -type d -name 'vendor' -prune -o -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",
         "phtml-lint": "find . -type d -name 'vendor' -prune -o -name '*.phtml' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",
