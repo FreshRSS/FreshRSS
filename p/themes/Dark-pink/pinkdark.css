@@ -36,6 +36,10 @@
 	background: #ffa1af !important;
 }
 
+#new-article > a {
+	color: #000 !important;
+}
+
 #new-article > a:hover {
 	background: #ff92a2 !important;
 }
