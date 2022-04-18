@@ -74,6 +74,10 @@ a {
 		&:hover {
 			background: color.adjust( $color_nav, $lightness: -10%);
 		}
+
+		.icon {
+			filter: brightness(3);
+		}
 	}
 
 	&#btn-subscription {
