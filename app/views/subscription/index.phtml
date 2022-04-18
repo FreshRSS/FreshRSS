@@ -73,12 +73,11 @@
 			</div>
 		</div>
 	</div>
-
-	<?php $class = $this->displaySlider ? ' class="active"' : ''; ?>
-	<a href="#" id="close-slider"<?= $class ?>>
+	<?php $class = $this->displaySlider ? ' active' : ''; ?>
+	<a href="#" id="close-slider" class="<?= $class ?>">
 		<?= _i('close') ?>
 	</a>
-	<div id="slider"<?= $class ?>>
+	<div id="slider" class="scrollbar-thin<?= $class ?>">
 	<?php
 		if (isset($this->feed)) {
 			$this->renderHelper('feed/update');
