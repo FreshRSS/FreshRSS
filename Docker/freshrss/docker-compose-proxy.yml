@@ -1,0 +1,54 @@
+version: "2.4"
+
+volumes:
+  traefik-letsencrypt:
+  traefik-tmp:
+
+services:
+
+  traefik:
+    image: traefik:2.6
+    container_name: traefik
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-tmp:/tmp
+      - traefik-letsencrypt:/etc/traefik/acme
+      - ./traefik/tls.yaml:/etc/traefik/tls.yaml:ro
+    command:
+      - --global.sendAnonymousUsage
+      - --accesslog=true
+      - --api=false
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --log.level=INFO
+      - --entryPoints.http.address=:80
+      - --entryPoints.https.address=:443
+      - --entryPoints.http.http.redirections.entryPoint.to=https
+      - --entryPoints.http.http.redirections.entryPoint.scheme=https
+      - --certificatesResolvers.letsEncrypt.acme.storage=/etc/traefik/acme/acme.json
+      - --certificatesResolvers.letsEncrypt.acme.email=${ADMIN_EMAIL}
+      - --certificatesResolvers.letsEncrypt.acme.tlsChallenge=true
+      - --providers.file.filename=/etc/traefik/tls.yaml
+    labels:
+      - traefik.enable=false
+
+  freshrss:
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.freshrssM1.compress=true
+      - traefik.http.middlewares.freshrssM2.headers.forceSTSHeader=true
+      - traefik.http.middlewares.freshrssM2.headers.stsSeconds=31536000
+      - traefik.http.routers.freshrss.entryPoints=https
+      - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2
+      - traefik.http.routers.freshrss.rule=Host(`${SERVER_DNS}`)
+      - traefik.http.routers.freshrss.tls.certResolver=letsEncrypt
+      - traefik.http.routers.freshrss.tls=true
