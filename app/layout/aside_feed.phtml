@@ -63,8 +63,8 @@
 						<a class="dropdown-toggle"><?= _i('configure') ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
-					<?= FreshRSS_Themes::alt('label') ?> <a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
-						_url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter_manual ?>"><?= $tag->name() ?></a>
+					<a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
+						_url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter_manual ?>"><?= _i('label') ?> <?= $tag->name() ?></a>
 				</li>
 				<?php endforeach; ?>
 			</ul>
