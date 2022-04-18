@@ -1229,17 +1229,19 @@ function loadDynamicTags(div) {
 		input_newTag.setAttribute('name', 'newTag');
 		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
-		const a_btn = document.createElement('a');
-		a_btn.setAttribute('class', 'btn');
+		const button_btn = document.createElement('button');
+		button_btn.setAttribute('type', 'button');
+		button_btn.setAttribute('class', 'btn');
+		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
 
 		const text_plus = document.createTextNode('+');
 
 		const div_stick = document.createElement('div');
 		div_stick.setAttribute('class', 'stick');
 
-		a_btn.appendChild(text_plus);
+		button_btn.appendChild(text_plus);
 		div_stick.appendChild(input_newTag);
-		div_stick.appendChild(a_btn);
+		div_stick.appendChild(button_btn);
 		label.appendChild(input_checkboxTag);
 		label.appendChild(div_stick);
 		li_item0.appendChild(label);
