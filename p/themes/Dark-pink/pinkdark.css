@@ -83,43 +83,37 @@ input:focus {
 	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%) !important;
 }
 
-.all .tree-folder-title .icon,
-.category .tree-folder-title .icon,
-#toggle-read .icon,
-#toggle-non-starred .icon,
-#mark-read-menu .dropdown-toggle .icon,
 .icon[src*="/link"],
-.manage .bookmark .icon,
-.manage .read .icon[src*="/read"],
-.horizontal-list .item .icon[src*="/tag"],
-.horizontal-list .item .icon[src*="/share"],
-.signout .icon,
-.help .icon,
-.configure .icon {
+.icon[src*="/share"],
+.icon[src*="/down"],
+.icon[src*="/up"],
+.icon[src*="/all"],
+.icon[src*="/non-starred"],
+.icon[src*="/read"],
+.icon[src*="/logout"],
+.icon[src*="/login"],
+.icon[src*="/help"],
+.icon[src*="/tag"],
+.icon[src*="/share"],
+.icon[src*="/tag"] {
 	/* Color dark grey icons */
 	filter: sepia(21%) brightness(44%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%) !important;
 }
 
-.view-normal .icon,
-.view-global .icon,
-.view-reader .icon,
-.view-rss .icon,
-#toggle-order .icon,
-#actualize .icon,
-#search .btn .icon,
-nav .item .dropdown-toggle .icon,
-#nav_menu_actions .dropdown-toggle .icon,
-.icon[src*="/configure"],
-.search .stick .icon,
-.open-slider .icon,
-.toggle-password .icon {
+.icon[src*="/view-normal"],
+.icon[src*="/view-global"],
+.icon[src*="/view-reader"],
+.icon[src*="/bookmark-tag"],
+.icon[src*="/view-rss"],
+.icon[src*="/refresh"],
+.icon[src*="/search"],
+.icon[src*="/rss"],
+.icon[src*="/sort-up"],
+.icon[src*="/sort-down"],
+.icon[src*="/key"],
+.icon[src*="/configure"] {
 	/* Color light grey icons */
 	filter: sepia(62%) brightness(47%) hue-rotate(116deg) saturate(1000%) contrast(119%) invert(100%) !important;
-}
-
-.favorites .tree-folder-title .icon {
-	/* Exclude these from coloring */
-	filter: unset !important;
 }
 
 #btn-add > img {
