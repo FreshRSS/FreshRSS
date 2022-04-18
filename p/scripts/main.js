@@ -736,6 +736,15 @@ function init_posts() {
 		};
 		onScroll();
 	}
+
+	if (!navigator.share && document.styleSheets.length > 0) {
+		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// do not show the menu entry if browser does not support navigator.share
+		document.styleSheets[0].insertRule(
+			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
+			document.styleSheets[0].cssRules.length
+		);
+	}
 }
 
 function rememberOpenCategory(category_id, isOpen) {
@@ -1077,15 +1086,6 @@ function init_stream(stream) {
 			return false;
 		}
 	};
-
-	if (!navigator.share) {
-		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-		// do not show the menu entry if browser does not support navigator.share
-		document.styleSheets[0].insertRule(
-			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
-			document.styleSheets[0].cssRules.length
-		);
-	}
 
 	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
 		if (ev.altKey || ev.metaKey || ev.shiftKey) {
