@@ -47,8 +47,10 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body class="<?= Minz_Request::actionName() ?>">
 <?php
-	flush();
-	$this->partial('header');
+	if (!Minz_Request::param('ajax')) {
+		flush();
+		$this->partial('header');
+	}
 ?>
 
 <div id="global">

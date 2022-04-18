@@ -34,8 +34,6 @@
 
 			<a class="dropdown-toggle btn" href="#dropdown-query" title="<?= _t('index.menu.queries') ?>"><?= _i('bookmark-tag') ?></a>
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li>
-
 				<li class="dropdown-header">
 					<?= _t('index.menu.queries') ?>
 					<a href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
@@ -58,6 +56,7 @@
 				?>
 				<li class="item"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</div>
 
@@ -102,8 +101,6 @@
 
 			<a class="dropdown-toggle btn" href="#dropdown-read"><?= _i('down') ?></a>
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li>
-
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
 						form="mark-read-menu"
@@ -139,6 +136,7 @@
 						type="submit"><?= $string_unmark ?></button>
 				</li>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 		</form>
 	</div>
