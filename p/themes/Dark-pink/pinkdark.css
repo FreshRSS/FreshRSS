@@ -88,7 +88,7 @@ input:focus {
 #toggle-read .icon,
 #toggle-non-starred .icon,
 #mark-read-menu .dropdown-toggle .icon,
-.link a .icon,
+.icon[src*="/link"],
 .manage .bookmark .icon,
 .manage .read .icon[src*="/read"],
 .horizontal-list .item .icon[src*="/tag"],
@@ -109,7 +109,7 @@ input:focus {
 #search .btn .icon,
 nav .item .dropdown-toggle .icon,
 #nav_menu_actions .dropdown-toggle .icon,
-.configure .dropdown-toggle .icon,
+.icon[src*="/configure"],
 .search .stick .icon,
 .open-slider .icon,
 .toggle-password .icon {
