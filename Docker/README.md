@@ -25,7 +25,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -p 8080:80 \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
-  -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss_data:/var/www/FreshRSS/data \
   --name freshrss \
   freshrss/freshrss
 ```
@@ -33,7 +33,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 * Exposing on port 8080
 * With a [server timezone](http://php.net/timezones) (default is `UTC`)
 * With an automatic cron job to refresh feeds
-* Saving FreshRSS data in a Docker volume `freshrss-data`
+* Saving FreshRSS data in a Docker volume `freshrss_data`
 * Using the default image, which is the latest stable release
 
 ### Complete installation
@@ -43,7 +43,7 @@ or use the command line described below.
 
 ## Command line
 
-See the [CLI documentation](../cli/) for all the commands, which can be applied like:
+See the [CLI documentation](../cli/README.md) for all the commands, which can be applied like:
 
 ```sh
 docker exec --user www-data freshrss cli/list-users.php
@@ -86,8 +86,8 @@ and with newer packages in general (Apache, PHP).
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
 * `LISTEN`: (default is `0.0.0.0:80`) Modifies the internal Apache listening port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
-* `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss-data` volume, before running again.
-* `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss-data` volume, before running again.
+* `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
+* `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
 ## How to update
 
@@ -130,7 +130,7 @@ docker run --rm \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
   -v $(pwd):/var/www/FreshRSS \
-  -v freshrss-data:/var/www/FreshRSS/data \
+  -v freshrss_data:/var/www/FreshRSS/data \
   --name freshrss \
   freshrss/freshrss:edge
 ```
@@ -171,7 +171,7 @@ docker network connect freshrss-network postgres
 
 # Otherwise, start a new PostgreSQL instance, remembering to change the passwords:
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v pgsql-data:/var/lib/postgresql/data \
+  -v pgsql_data:/var/lib/postgresql/data \
   -e POSTGRES_DB=freshrss \
   -e POSTGRES_USER=freshrss \
   -e POSTGRES_PASSWORD=freshrss \
@@ -189,7 +189,7 @@ docker network connect freshrss-network mysql
 
 # Otherwise, start a new MySQL instance, remembering to change the passwords:
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v mysql-data:/var/lib/mysql \
+  -v mysql_data:/var/lib/mysql \
   -e MYSQL_ROOT_PASSWORD=rootpass \
   -e MYSQL_DATABASE=freshrss \
   -e MYSQL_USER=freshrss \
@@ -235,12 +235,12 @@ Some FreshRSS configuration parameters are stored in [`./FreshRSS/data/config.ph
 and the following procedure can be used to modify them:
 
 ```sh
-# Verify the name of your FreshRSS volume, typically `freshrss-data`
+# Verify the name of your FreshRSS volume, typically `freshrss_data`
 docker volume ls
-# Verify the path of your FreshRSS volume, typically `/var/lib/docker/volumes/freshrss-data/`
-docker volume inspect freshrss-data
+# Verify the path of your FreshRSS volume, typically `/var/lib/docker/volumes/freshrss_data/`
+docker volume inspect freshrss_data
 # Then edit your configuration file
-sudo nano /var/lib/docker/volumes/freshrss-data/_data/config.php
+sudo nano /var/lib/docker/volumes/freshrss_data/_data/config.php
 ```
 
 ## Docker Compose
@@ -280,8 +280,8 @@ Detailed (partial) example of Docker Compose for FreshRSS:
 version: "2.4"
 
 volumes:
-  freshrss-data:
-  freshrss-extensions:
+  data:
+  extensions:
 
 services:
   freshrss:
@@ -292,8 +292,8 @@ services:
       options:
         max-size: 10m
     volumes:
-      - freshrss-data:/var/www/FreshRSS/data
-      - freshrss-extensions:/var/www/FreshRSS/extensions
+      - data:/var/www/FreshRSS/data
+      - extensions:/var/www/FreshRSS/extensions
     ports:
       # If you want to open a port 8080 on the local machine:
       - "8080:80"
@@ -301,8 +301,8 @@ services:
       TZ: Europe/Paris
       CRON_MIN: '2,32'
       FRESHRSS_ENV: development
-	  # Optional advanced parameter controlling the internal Apache listening port
-	  LISTEN: 0.0.0.0:80
+      # Optional advanced parameter controlling the internal Apache listening port
+      LISTEN: 0.0.0.0:80
       # Optional auto-install parameters (the Web interface install is recommended instead):
       # ⚠️ Parameters below are only used at the very first run (so far).
       # So if changes are made (or in .env file), first delete the service and volumes.
@@ -553,8 +553,8 @@ See cron option 1 for customising the cron schedule.
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss-data:/var/www/FreshRSS/data \
-  -v freshrss-extensions:/var/www/FreshRSS/extensions \
+  -v freshrss_data:/var/www/FreshRSS/data \
+  -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -e 'CRON_MIN=17,47' \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
@@ -567,8 +567,8 @@ This method gives most flexibility to execute various FreshRSS CLI commands.
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss-data:/var/www/FreshRSS/data \
-  -v freshrss-extensions:/var/www/FreshRSS/extensions \
+  -v freshrss_data:/var/www/FreshRSS/data \
+  -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -v ./freshrss_crontab:/etc/cron.d/freshrss \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
@@ -579,8 +579,8 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss-data:/var/www/FreshRSS/data \
-  -v freshrss-extensions:/var/www/FreshRSS/extensions \
+  -v freshrss_data:/var/www/FreshRSS/data \
+  -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -e 'CRON_MIN=27,57' \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss:alpine \
