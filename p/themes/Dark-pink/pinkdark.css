@@ -67,3 +67,7 @@
 .nav label {
 	color: #4f5e78 !important;
 }
+
+.dropdown-menu::after {
+	border-color: #ffb6c1;
+}
