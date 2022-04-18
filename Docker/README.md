@@ -231,7 +231,7 @@ Require valid-user
 ### Modify the configuration of a running FreshRSS instance
 
 Some FreshRSS configuration parameters are stored in [`./FreshRSS/data/config.php`](../config.default.php)
-(e.g. `base_url`, `'environment' => 'development'`, database parameters, etc.)
+(e.g. `base_url`, `'environment' => 'development'`, database parameters, cURL options, etc.)
 and the following procedure can be used to modify them:
 
 ```sh
@@ -301,6 +301,8 @@ services:
       TZ: Europe/Paris
       CRON_MIN: '2,32'
       FRESHRSS_ENV: development
+	  # Optional advanced parameter controlling the internal Apache listening port
+	  LISTEN: 0.0.0.0:80
       # Optional auto-install parameters (the Web interface install is recommended instead):
       # ⚠️ Parameters below are only used at the very first run (so far).
       # So if changes are made (or in .env file), first delete the service and volumes.
@@ -393,10 +395,10 @@ See [more information about Docker and Let’s Encrypt in Træfik](https://doc.t
 
 ## Alternative reverse proxy configurations
 
-### Alternative reverse proxy using [Apache 2.4](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+### Alternative reverse proxy using Apache
 
-Here is an example of a configuration file for running FreshRSS behind an Apache reverse proxy (as a subdirectory).
-You need a working SSL configuration and the Apache modules `proxy`, `proxy_http` and `headers` installed (depends on your distribution) and enabled (```a2enmod proxy proxy_http headers```).
+Here is an example of a configuration file for running FreshRSS behind an [Apache 2.4 reverse proxy](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) (as a subdirectory).
+You need a working SSL configuration and the Apache modules `proxy`, `proxy_http` and `headers` installed (depends on your distribution) and enabled (`a2enmod proxy proxy_http headers`).
 
 ```apache
 ProxyPreserveHost On
