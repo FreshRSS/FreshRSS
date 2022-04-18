@@ -40,7 +40,7 @@
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
 			<ul class="dropdown-menu scrollbar-thin">
 				<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
-				<li class="dropdown-close"><a href="#close">❌</a></li>
+				
 				<li class="dropdown-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?></li>
 				<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
@@ -77,6 +77,7 @@
 				<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 				<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</nav>
 	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>

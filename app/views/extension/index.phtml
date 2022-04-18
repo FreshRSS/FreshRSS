@@ -77,10 +77,11 @@
 			</table>
 		</div>
 	<?php } ?>
-
-	<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
-	<a href="#" id="close-slider"<?= $class ?>>❌</a>
-	<div id="slider"<?= $class ?>>
+	<?php $class = isset($this->extension) ? ' active' : ''; ?>
+	<a href="#" id="close-slider" class="<?= $class ?>">
+		<?= _i('close') ?>
+	</a>
+	<div id="slider" class="scrollbar-thin<?= $class ?>">
 	<?php
 		if (isset($this->extension)) {
 			$this->renderHelper('extension/configure');
