@@ -241,7 +241,7 @@ form th {
 	left: 17px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1.75rem 2rem 0.5rem 0;
+	margin: 1rem 1rem 1rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #766556;
@@ -257,15 +257,15 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:hover {
+.dropdown-menu .item:not(.addItem):hover {
 	background: #ca7227;
 	color: #fff;
 }
-.dropdown-menu .item:hover a, .dropdown-menu .item:hover button {
+.dropdown-menu .item:not(.addItem):hover a, .dropdown-menu .item:not(.addItem):hover button, .dropdown-menu .item:not(.addItem):hover label {
 	text-decoration: none;
 	color: #fff;
 }
-.dropdown-menu .item:hover .icon {
+.dropdown-menu .item:not(.addItem):hover .icon {
 	filter: grayscale(100%) brightness(2.5);
 }
 .dropdown-menu .item[aria-checked=true] a::before {
@@ -899,6 +899,21 @@ form th {
 	position: relative;
 	right: 0;
 	text-transform: uppercase;
+}
+
+.btn {
+	border-right-width: 0;
+	padding: 0.5rem 1rem;
+	background-color: #f5f0ec;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: all 0.15s ease-in-out;
+}
+.btn:hover {
+	background-color: #e4d8cc;
+}
+.btn.active {
+	background-color: #ca7227;
 }
 
 /*=== Index menu */
