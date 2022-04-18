@@ -71,3 +71,52 @@
 .dropdown-menu::after {
 	border-color: #ffb6c1;
 }
+
+/*=== Change icon colors */
+.header > .item.title .logo {
+	/* Color FreshRSS logo */
+	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%) !important;
+}
+
+.all .tree-folder-title .icon,
+.category .tree-folder-title .icon,
+#toggle-read .icon,
+#toggle-non-starred .icon,
+#mark-read-menu .dropdown-toggle .icon,
+.link a .icon,
+.manage .bookmark .icon,
+.manage .read .icon[src*="/read"],
+.horizontal-list .item .icon[src*="/tag"],
+.horizontal-list .item .icon[src*="/share"],
+.signout .icon,
+.help .icon,
+.configure .icon {
+	/* Color dark grey icons */
+	filter: sepia(21%) brightness(44%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%) !important;
+}
+
+.view-normal .icon,
+.view-global .icon,
+.view-reader .icon,
+.view-rss .icon,
+#toggle-order .icon,
+#actualize .icon,
+#search .btn .icon,
+nav .item .dropdown-toggle .icon,
+#nav_menu_actions .dropdown-toggle .icon,
+.configure .dropdown-toggle .icon,
+.search .stick .icon,
+.open-slider .icon,
+.toggle-password .icon {
+	/* Color light grey icons */
+	filter: sepia(62%) brightness(47%) hue-rotate(116deg) saturate(1000%) contrast(119%) invert(100%) !important;
+}
+
+.favorites .tree-folder-title .icon {
+	/* Exclude these from coloring */
+	filter: unset !important;
+}
+
+#btn-add > img {
+	filter: invert(100%) !important;
+}
