@@ -223,6 +223,22 @@ input[type="checkbox"] {
 	margin-right: .5em;
 }
 
+.dropdown-menu .item .checkboxNewTag {
+	display: none;
+}
+
+.dropdown-menu .item.addItem {
+	padding: 0 0.5em;
+}
+
+.dropdown-menu .item.addItem .stick {
+	width: 100%
+}
+
+.dropdown-menu .item.addItem .stick input[type=text] {
+	width: 100%;
+}
+
 button.as-link,
 button.as-link:hover,
 button.as-link:active {
@@ -1101,6 +1117,10 @@ a.website:hover .favicon {
 	display: list-item;
 	list-style-position: inside;
 	list-style-type: decimal;
+}
+
+.flux_content .bottom .dropdown-toggle .icon {
+	margin-right: 5px;
 }
 
 /*=== Feed article content */

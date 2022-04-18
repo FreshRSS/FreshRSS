@@ -42,7 +42,7 @@
 
 	.dropdown-header {
 		// padding: 0 5px 5px;
-		margin: 1.75rem 0 0.5rem 2rem;
+		margin: 1rem 0.5rem 1rem 1rem;
 		font-weight: bold;
 		text-align: left;
 		color: variables.$grey-dark;
@@ -63,11 +63,11 @@
 			line-height: 2.5em;
 		}
 
-		&:hover {
+		&:not(.addItem):hover {
 			background: variables.$main-first;
 			color: variables.$white;
 
-			a, button {
+			a, button, label {
 				text-decoration: none;
 				color: variables.$white;
 			}
