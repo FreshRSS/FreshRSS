@@ -335,6 +335,8 @@ See [`docker-compose-db.yml`](./freshrss/docker-compose-db.yml)
 cd ./FreshRSS/Docker/freshrss/
 # Update
 docker-compose -f docker-compose.yml -f docker-compose-db.yml pull
+# Logs
+docker-compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
 # Run
 docker-compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
 ```
