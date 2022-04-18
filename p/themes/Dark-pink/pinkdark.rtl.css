@@ -77,6 +77,10 @@ input:focus {
 	border: 1px solid #ff449a;
 }
 
+.notification.good {
+	border-color: #ffb6c1 !important;
+}
+
 /*=== Change icon colors */
 .header > .item.title .logo {
 	/* Color FreshRSS logo */
