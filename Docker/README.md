@@ -335,10 +335,10 @@ See [`docker-compose-db.yml`](./freshrss/docker-compose-db.yml)
 cd ./FreshRSS/Docker/freshrss/
 # Update
 docker-compose -f docker-compose.yml -f docker-compose-db.yml pull
-# Logs
-docker-compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
 # Run
 docker-compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
+# Logs
+docker-compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
 ```
 
 ### Docker Compose for development
@@ -415,11 +415,11 @@ ProxyPreserveHost On
 </Location>
 ```
 
-### Alternative reverse proxy using [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+### Alternative reverse proxy using nginx
 
 #### Hosted in a subdirectory
 
-Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as subdirectory).
+Here is an example of configuration to run FreshRSS behind an [nginx reverse proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) (as subdirectory).
 
 ```nginx
 upstream freshrss {
