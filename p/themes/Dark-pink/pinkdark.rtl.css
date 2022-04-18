@@ -87,19 +87,17 @@ input:focus {
 	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%) !important;
 }
 
-.icon[src*="/link"],
-.icon[src*="/share"],
-.icon[src*="/down"],
-.icon[src*="/up"],
 .icon[src*="/all"],
+.icon[src*="/down"],
+.icon[src*="/help"],
+.icon[src*="/link"],
+.icon[src*="/login"],
+.icon[src*="/logout"],
 .icon[src*="/non-starred"],
 .icon[src*="/read"],
-.icon[src*="/logout"],
-.icon[src*="/login"],
-.icon[src*="/help"],
-.icon[src*="/tag"],
 .icon[src*="/share"],
-.icon[src*="/tag"] {
+.icon[src*="/tag"],
+.icon[src*="/up"] {
 	/* Color dark grey icons */
 	filter: sepia(21%) brightness(44%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%) !important;
 }
