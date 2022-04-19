@@ -1,71 +1,71 @@
 .btn:hover {
-	background: unset !important;
-	border-color: #ff449a !important;
-	color: unset !important;
+	background: unset;
+	border-color: #ff449a;
+	color: unset;
 }
 
 .btn-important {
-	background: #ffb6c1 !important;
-	color: #000 !important;
-	border-color: #ffa1af !important;
+	background: #ffb6c1;
+	color: #000;
+	border-color: #ffa1af;
 }
 
 .btn-important:hover {
-	background: #ffa1af !important;
-	color: #000 !important;
+	background: #ffa1af;
+	color: #000;
 }
 
 .switch.active {
-	background-color: #ffb6c1 !important;
+	background-color: #ffb6c1;
 }
 
 .nav-list .item.active a {
-	color: #ffb6c1 !important;
+	color: #ffb6c1;
 }
 
 .tree-folder.active .tree-folder-title .title {
-	color: #ffb6c1 !important;
+	color: #ffb6c1;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
-	background-color: #000 !important;
+	background-color: #000;
 }
 
 #new-article {
-	background: #ffa1af !important;
+	background: #ffa1af;
 }
 
 #new-article > a {
-	color: #000 !important;
+	color: #000;
 }
 
 #new-article > a:hover {
-	background: #ff92a2 !important;
+	background: #ff92a2;
 }
 
 .day {
-	color: #ffb6c1 !important;
+	color: #ffb6c1;
 }
 
 .day .name {
-	color: #ffb6c1 !important;
+	color: #ffb6c1;
 }
 
 .flux.current {
-	border-color: #787394 !important;
+	border-color: #787394;
 }
 
 .content hr {
-	box-shadow: 0 2px 5px #ffb6c1 !important;
+	box-shadow: 0 2px 5px #ffb6c1;
 }
 
 #bigMarkAsRead {
-	color: #787394 !important;
+	color: #787394;
 }
 
 .nav label {
-	color: #4f5e78 !important;
+	color: #4f5e78;
 }
 
 .dropdown-menu::after {
@@ -73,18 +73,18 @@
 }
 
 input:focus {
-	outline: none !important;
+	outline: none;
 	border: 1px solid #ff449a;
 }
 
 .notification.good {
-	border-color: #ffb6c1 !important;
+	border-color: #ffb6c1;
 }
 
 /*=== Change icon colors */
 .header > .item.title .logo {
 	/* Color FreshRSS logo */
-	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%) !important;
+	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%);
 }
 
 .icon[src*="/all"],
@@ -99,7 +99,7 @@ input:focus {
 .icon[src*="/tag"],
 .icon[src*="/up"] {
 	/* Color dark grey icons */
-	filter: sepia(21%) brightness(44%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%) !important;
+	filter: sepia(21%) brightness(44%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%);
 }
 
 .icon[src*="/view-normal"],
@@ -115,9 +115,9 @@ input:focus {
 .icon[src*="/key"],
 .icon[src*="/configure"] {
 	/* Color light grey icons */
-	filter: sepia(62%) brightness(47%) hue-rotate(116deg) saturate(1000%) contrast(119%) invert(100%) !important;
+	filter: sepia(62%) brightness(47%) hue-rotate(116deg) saturate(1000%) contrast(119%) invert(100%);
 }
 
 #btn-add > img {
-	filter: invert(100%) !important;
+	filter: invert(100%);
 }
