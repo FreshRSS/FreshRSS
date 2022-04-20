@@ -81,6 +81,10 @@ input:focus {
 	border-color: #ffb6c1;
 }
 
+.stick .btn-important:first-child {
+	border-left-color: #fd6aae;
+}
+
 /*=== Change icon colors */
 .header > .item.title .logo {
 	/* Color FreshRSS logo */
