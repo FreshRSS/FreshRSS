@@ -55,4 +55,4 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 		* If you get *File not found!*, check your server `fastcgi_split_path_info`.
 	* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](http://php.net/gmp) extension.
 		* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt install php-gmp`
-	* Update and try again from above chapter "Testing".
+	* Update and try again from the preceding section "Testing".
