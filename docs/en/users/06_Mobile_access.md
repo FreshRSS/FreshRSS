@@ -32,7 +32,7 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 
 1. Under the section “Profile”, click on the link like `https://rss.example.net/api/` next to the field “API password”.
 2. Click on first link “Check full server configuration”:
-	* If you get *PASS* then you are done, all is good.
+	* If you get *PASS* then you are done; all is well.
 	* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`, see the next section "Fix server configuration".
 	* If you receive any other error message, see the next section "Fix server configuration".
 
