@@ -32,9 +32,9 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 
 1. Under the section “Profile”, click on the link like `https://rss.example.net/api/` next to the field “API password”.
 2. Click on first link “Check full server configuration”:
-	* If you get *PASS* then you are done, all is good: you may proceed to step 6.
-	* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`. Proceed to step 5.
-	* If you get any other error message, proceed to step 5.
+	* If you get *PASS* then you are done, all is good.
+	* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`, see next chapter "Fix server configuration".
+	* If you get any other error message, see next chapter "Fix server configuration".
 
 
 ### Fix server configuration
@@ -42,8 +42,8 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 * Click on the second link “Check partial server configuration (without `%2F` support)”:
 	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
 		* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
-		* Or use a client that does not escape slashes (such as EasyRSS), in which case proceed to step 6.
-	* If you get *Service Unavailable!*, then check from step 1 again.
+		* Or use a client that does not escape slashes (such as EasyRSS) ([`check client list`](https://github.com/FreshRSS/FreshRSS#apis--native-apps)).
+	* If you get *Service Unavailable!*, then check from above chapter "Enable the API in FreshRSS" again.
 	* With __Apache__:
 		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
 			* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:
@@ -55,4 +55,4 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 		* If you get *File not found!*, check your server `fastcgi_split_path_info`.
 	* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](http://php.net/gmp) extension.
 		* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt install php-gmp`
-	* Update and try again from step 3.
+	* Update and try again from above chapter "Testing".
