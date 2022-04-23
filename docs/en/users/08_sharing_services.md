@@ -31,7 +31,7 @@ FreshRSS has the option to share links with a bunch of services.
 | Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
 | Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |
 | Twitter           | Microblogging social network                         | [Website](https://twitter.com), [Wikipedia](https://de.wikipedia.org/wiki/Twitter) | |
-| wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://www.wallabag.org) | Compatible to version 1 and 2
+| wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://www.wallabag.org) | Compatible to version 1 and 2. How to configure see [discussion#4150 on GitHub](https://github.com/FreshRSS/FreshRSS/discussions/4150)
 | Whatsapp          | Instant messaging and voice-over-IP service owned by Meta Platforms| [Website](https://www.whatsapp.com), [Wikipedia](https://en.wikipedia.org/wiki/WhatsApp) | |
 | XING              | Career-oriented social networking site, operated by New Work SE | [Website](https://www.xing.com/), [Wikipedia](https://en.wikipedia.org/wiki/XING) | |
 
