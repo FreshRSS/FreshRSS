@@ -106,7 +106,7 @@ function showPW_this(ev) {
 		hidePW(id_passwordField);
 	} else {
 		if (ev.type == 'touchstart' || ev.type == 'click' || ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER' ) {
-			showPW(id_passwordField)
+			showPW(id_passwordField);
 		}
 	}
 	return false;
@@ -116,13 +116,13 @@ function showPW(id_passwordField) {
 	const passwordField = document.getElementById(id_passwordField);
 	passwordField.setAttribute('type', 'text');
 	passwordField.nextElementSibling.classList.add('active');
-	clearTimeout(timeoutHide)
-	timeoutHide = setTimeout(function () {hidePW(id_passwordField)}, 5000);
+	clearTimeout(timeoutHide);
+	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
 	return false;
 }
 
 function hidePW(id_passwordField) {
-	clearTimeout(timeoutHide)
+	clearTimeout(timeoutHide);
 	const passwordField = document.getElementById(id_passwordField);
 	passwordField.setAttribute('type', 'password');
 	passwordField.nextElementSibling.classList.remove('active');
