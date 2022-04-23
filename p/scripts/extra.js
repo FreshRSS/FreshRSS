@@ -105,7 +105,7 @@ function showPW_this(ev) {
 	if (this.classList.contains('active')) {
 		hidePW(id_passwordField);
 	} else {
-		if (ev.type == 'touchstart' || ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER' ) {
+		if (ev.type == 'touchstart' || ev.type == 'click' || ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER' ) {
 			showPW(id_passwordField)
 		}
 	}
@@ -121,14 +121,6 @@ function showPW(id_passwordField) {
 	return false;
 }
 
-function hidePW_this(ev) {
-	if (ev.type != 'touchend') {
-		hidePW(this.getAttribute('data-toggle'));
-	}
-	//alert('test');
-	return false;
-}
-
 function hidePW(id_passwordField) {
 	clearTimeout(timeoutHide)
 	const passwordField = document.getElementById(id_passwordField);
@@ -139,13 +131,7 @@ function hidePW(id_passwordField) {
 
 function init_password_observers() {
 	document.querySelectorAll('.toggle-password').forEach(function (btn) {
-		btn.addEventListener('mousedown', showPW_this);
-		btn.addEventListener('keydown', showPW_this);
-		btn.addEventListener('touchstart', showPW_this);
-
-		btn.addEventListener('mouseup', hidePW_this);
-		btn.addEventListener('keyup', hidePW_this);
-		btn.addEventListener('touchend', hidePW_this);
+		btn.addEventListener('click', showPW_this);
 	});
 }
 
