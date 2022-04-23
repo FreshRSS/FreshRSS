@@ -125,7 +125,7 @@ function hidePW_this(ev) {
 	if (ev.type != 'touchend') {
 		hidePW(this.getAttribute('data-toggle'));
 	}
-	alert('test');
+	//alert('test');
 	return false;
 }
 
