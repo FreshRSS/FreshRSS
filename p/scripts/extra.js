@@ -105,7 +105,7 @@ function showPW_this(ev) {
 	if (this.classList.contains('active')) {
 		hidePW(id_passwordField);
 	} else {
-		if (ev.type == 'touchstart' || ev.type == 'click' || ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER' ) {
+		if (ev.type == 'click' || ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER' ) {
 			showPW(id_passwordField);
 		}
 	}
