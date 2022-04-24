@@ -34,7 +34,7 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 2. Click on first link “Check full server configuration”:
 	* If you get *PASS* then you are done; all is well.
 	* If you get *Bad Request!* or *Not Found*, then your server probably does not accept slashes `/` that are escaped `%2F`, see the next section "Fix server configuration".
-	* If you receive any other error message, see the next section "Fix server configuration".
+	* If you receive any other error message, see the next section “Fix server configuration”.
 
 ### Fix server configuration
 
