@@ -42,7 +42,7 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
 		* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
 		* Or use a client that does not escape slashes (such as EasyRSS) ([`check client list`](https://github.com/FreshRSS/FreshRSS#apis--native-apps)).
-	* If you get *Service Unavailable!*, then check the preceding section "Enable the API in FreshRSS" again.
+	* If you get *Service Unavailable!*, then check the preceding section “Enable the API in FreshRSS” again.
 	* With __Apache__:
 		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
 			* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:
