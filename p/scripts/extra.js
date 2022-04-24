@@ -98,28 +98,40 @@ function init_crypto_form() {
 }
 // </crypto form (Web login)>
 
-function showPW(ev) {
-	if (ev.buttons || ev.key == ' ' || ev.key.toUpperCase() == 'ENTER') {
-		const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-		passwordField.setAttribute('type', 'text');
-		this.classList.add('active');
+let timeoutHide;
+
+function showPW_this(ev) {
+	const id_passwordField = this.getAttribute('data-toggle');
+	if (this.classList.contains('active')) {
+		hidePW(id_passwordField);
+	} else {
+		if (ev.type === 'click' || ev.buttons || ev.key === ' ' || ev.key.toUpperCase() === 'ENTER') {
+			showPW(id_passwordField);
+		}
 	}
 	return false;
 }
 
-function hidePW() {
-	const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+function showPW(id_passwordField) {
+	const passwordField = document.getElementById(id_passwordField);
+	passwordField.setAttribute('type', 'text');
+	passwordField.nextElementSibling.classList.add('active');
+	clearTimeout(timeoutHide);
+	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
+	return false;
+}
+
+function hidePW(id_passwordField) {
+	clearTimeout(timeoutHide);
+	const passwordField = document.getElementById(id_passwordField);
 	passwordField.setAttribute('type', 'password');
-	this.classList.remove('active');
+	passwordField.nextElementSibling.classList.remove('active');
 	return false;
 }
 
 function init_password_observers() {
 	document.querySelectorAll('.toggle-password').forEach(function (btn) {
-		btn.addEventListener('mousedown', showPW);
-		btn.addEventListener('keydown', showPW);
-		btn.addEventListener('mouseup', hidePW);
-		btn.addEventListener('keyup', hidePW);
+		btn.addEventListener('click', showPW_this);
 	});
 }
 
