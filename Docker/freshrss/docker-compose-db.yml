@@ -1,0 +1,21 @@
+version: "2.4"
+
+volumes:
+  db:
+
+services:
+
+  freshrss-db:
+    image: postgres:14
+    container_name: freshrss-db
+    hostname: freshrss-db
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_BASE:-freshrss}
+      POSTGRES_USER: ${DB_USER:-freshrss}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
