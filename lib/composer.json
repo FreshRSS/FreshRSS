@@ -10,5 +10,8 @@
     },
     "config": {
         "vendor-dir": "./"
+    },
+    "scripts": {
+        "post-autoload-dump": "rm autoload.php && rm -r composer"
     }
 }
