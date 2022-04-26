@@ -63,7 +63,7 @@
 			?>
 			<li class="item feed disabled" dropzone="move"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
 			<?php } ?>
-			<li class="item feed">✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.feed.add') ?></a></li>
+			<li class="item feed">✚ <a href="<?= _url('subscription', 'add') ?>&cat_id=<?= $cat->id() ?>"><?= _t('sub.feed.add') ?></a></li>
 		</ul>
 	</div>
 	<?php } ?>
