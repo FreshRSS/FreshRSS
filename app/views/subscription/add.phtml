@@ -46,7 +46,7 @@
 			<div class="group-controls">
 				<select name="category" id="category">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == ( Minz_Request::param('cat_id') ?: 1 ) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
