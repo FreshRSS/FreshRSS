@@ -48,7 +48,7 @@ return array(
 		),
 		'enable' => array(
 			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
-			'ok' => '%s 现已禁用',
+			'ok' => '%s 现已启用',
 		),
 		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
