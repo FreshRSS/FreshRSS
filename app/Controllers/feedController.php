@@ -484,8 +484,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 						if (!$entry->isRead()) {
 							$feed->incPendingUnread();
-							$nb_new_articles++;
 						}
+						$nb_new_articles++;
 					}
 				}
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
