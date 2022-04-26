@@ -482,11 +482,16 @@ function validateEmailAddress($email) {
  * Add support of image lazy loading
  * Move content from src attribute to data-original
  * @param string $content is the text we want to parse
+ * @return string
  */
 function lazyimg($content) {
-	return preg_replace(
-		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+	return preg_replace([
+			'/<((?:img|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+		], [
+			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+		],
 		$content
 	);
 }
