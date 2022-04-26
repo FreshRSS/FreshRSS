@@ -31,7 +31,7 @@ if (_t('gen.dir') === 'rtl') {
 		<?= FreshRSS_View::headTitle() ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
-	if (isset($this->rss_title)) {
+	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
 		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
@@ -47,8 +47,10 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body class="<?= Minz_Request::actionName() ?>">
 <?php
-	flush();
-	$this->partial('header');
+	if (!Minz_Request::param('ajax')) {
+		flush();
+		$this->partial('header');
+	}
 ?>
 
 <div id="global">

@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
+/* globals openNotification, openPopupWithSource, xmlHttpRequestJson */
 
 function fix_popup_preview_selector() {
 	const link = document.getElementById('popup-preview-selector');
@@ -98,20 +98,63 @@ function init_crypto_form() {
 }
 // </crypto form (Web login)>
 
+let timeoutHide;
+
+function showPW_this(ev) {
+	const id_passwordField = this.getAttribute('data-toggle');
+	if (this.classList.contains('active')) {
+		hidePW(id_passwordField);
+	} else {
+		if (ev.type === 'click' || ev.buttons || ev.key === ' ' || ev.key.toUpperCase() === 'ENTER') {
+			showPW(id_passwordField);
+		}
+	}
+	return false;
+}
+
+function showPW(id_passwordField) {
+	const passwordField = document.getElementById(id_passwordField);
+	passwordField.setAttribute('type', 'text');
+	passwordField.nextElementSibling.classList.add('active');
+	clearTimeout(timeoutHide);
+	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
+	return false;
+}
+
+function hidePW(id_passwordField) {
+	clearTimeout(timeoutHide);
+	const passwordField = document.getElementById(id_passwordField);
+	passwordField.setAttribute('type', 'password');
+	passwordField.nextElementSibling.classList.remove('active');
+	return false;
+}
+
 function init_password_observers() {
-	document.querySelectorAll('.toggle-password').forEach(function (a) {
-		a.onmousedown = function (ev) {
-			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-			passwordField.setAttribute('type', 'text');
-			this.classList.add('active');
-			return false;
-		};
-		a.onmouseup = function (ev) {
-			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-			passwordField.setAttribute('type', 'password');
-			this.classList.remove('active');
-			return false;
-		};
+	document.querySelectorAll('.toggle-password').forEach(function (btn) {
+		btn.addEventListener('click', showPW_this);
+	});
+}
+
+// overwrites the href attribute from the url input
+function updateHref(ev) {
+	const urlField = document.getElementById(this.getAttribute('data-input'));
+	const url = urlField.value;
+	if (url.length > 0) {
+		this.href = url;
+		return true;
+	} else {
+		urlField.focus();
+		this.removeAttribute('href');
+		ev.preventDefault();
+		return false;
+	}
+}
+
+// set event listener on "show url" buttons
+function init_url_observers() {
+	document.querySelectorAll('.open-url').forEach(function (btn) {
+		btn.addEventListener('mouseover', updateHref);
+		btn.addEventListener('click', updateHref);
 	});
 }
 
@@ -134,50 +177,9 @@ function init_select_observers() {
 	});
 }
 
-function init_slider_observers() {
-	const slider = document.getElementById('slider');
-	const closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
-
-	document.querySelector('.post').onclick = function (ev) {
-		const a = ev.target.closest('.open-slider');
-		if (a) {
-			if (!context.ajax_loading) {
-				context.ajax_loading = true;
-
-				const req = new XMLHttpRequest();
-				req.open('GET', a.href + '&ajax=1', true);
-				req.responseType = 'document';
-				req.onload = function (e) {
-					slider.innerHTML = this.response.body.innerHTML;
-					slider.classList.add('active');
-					closer.classList.add('active');
-					context.ajax_loading = false;
-					fix_popup_preview_selector();
-					init_extra();
-				};
-				req.send();
-				return false;
-			}
-		}
-	};
-
-	closer.onclick = function (ev) {
-		if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return true;
-		} else {
-			return false;
-		}
-	};
-}
-
 function data_leave_validation() {
 	const ds = document.querySelectorAll('[data-leave-validation]');
+
 	for (let i = ds.length - 1; i >= 0; i--) {
 		const input = ds[i];
 		if (input.type === 'checkbox' || input.type === 'radio') {
@@ -205,6 +207,49 @@ function init_configuration_alert() {
 	};
 }
 
+/**
+ * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
+ */
+function init_select_show() {
+	const listener = (select) => {
+		const options = select.querySelectorAll('option[data-show]');
+		for (const option of options) {
+			const elem = document.getElementById(option.dataset.show);
+			if (elem) {
+				elem.style.display = option.selected ? 'block' : 'none';
+			}
+		}
+	};
+
+	const selects = document.querySelectorAll('select.select-show');
+	for (const select of selects) {
+		select.addEventListener('change', (e) => listener(e.target));
+		listener(select);
+	}
+}
+
+/**
+ * Automatically validate XPath textarea fields
+ */
+function init_valid_xpath() {
+	const listener = (textarea) => {
+		const evaluator = new XPathEvaluator();
+		try {
+			if (textarea.value === '' || evaluator.createExpression(textarea.value) != null) {
+				textarea.setCustomValidity('');
+			}
+		} catch (ex) {
+			textarea.setCustomValidity(ex);
+		}
+	};
+
+	const textareas = document.querySelectorAll('textarea.valid-xpath');
+	for (const textarea of textareas) {
+		textarea.addEventListener('change', (e) => listener(e.target));
+		listener(textarea);
+	}
+}
+
 function init_extra() {
 	if (!window.context) {
 		if (window.console) {
@@ -215,10 +260,16 @@ function init_extra() {
 	}
 	init_crypto_form();
 	init_password_observers();
+	init_url_observers();
 	init_select_observers();
-	init_slider_observers();
 	init_configuration_alert();
 	fix_popup_preview_selector();
+	init_select_show();
+	init_valid_xpath();
+
+	if (window.console) {
+		console.log('FreshRSS extra init done.');
+	}
 }
 
 if (document.readyState && document.readyState !== 'loading') {

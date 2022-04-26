@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
 		'remove' => 'Verwijderen',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'feedback' => array(
 			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Gebruikersbeheer',
 		'user_profile' => 'Profiel',
 	),
-	'pagination' => array(
-		'first' => 'Eerste',
-		'last' => 'Laatste',
-		'load_more' => 'Laad meer artikelen',
-		'mark_all_read' => 'Markeer alle als gelezen',
-		'next' => 'Volgende',
-		'nothing_to_load' => 'Er zijn geen artikelen meer',
-		'previous' => 'Vorige',
-	),
 	'period' => array(
 		'days' => 'dagen',
 		'hours' => 'uren',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attentie!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'of',
 		'yes' => 'Ja',
+	),
+	'stream' => array(
+		'load_more' => 'Laad meer artikelen',
+		'mark_all_read' => 'Markeer alle als gelezen',
+		'nothing_to_load' => 'Er zijn geen artikelen meer',
 	),
 );

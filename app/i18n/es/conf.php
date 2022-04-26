@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Estrecho',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Primero',
+			'last' => 'Último',
+			'next' => 'Siguiente',
+			'previous' => 'Anterior',
+		),
+	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
 		'api' => 'Administración de API',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Mostrar ventana de confirmación al usar la función “marcar todos como leídos”',
 		'display_articles_unfolded' => 'Mostrar los artículos expandidos por defecto',
 		'display_categories_unfolded' => 'Categorías a desarrollar',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración "Mostrar todos los artículos")',
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
@@ -174,6 +194,7 @@ return array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// TODO
 		'facebook' => 'Facebook',	// IGNORE

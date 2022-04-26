@@ -154,7 +154,7 @@ class FreshRSS_Import_Service {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here
 				$id = $this->feedDAO->addFeedObject($feed);
-				$error = ($id === false);
+				$error = ($id == false);
 			} else {
 				$error = true;
 			}

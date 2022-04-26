@@ -33,6 +33,11 @@
 		<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
 			<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
 		</li>
+		<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
+		<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
+			<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
+		</li>
+		<?php } ?>
 		<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
 
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
@@ -52,6 +57,9 @@
 		<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
 		<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 			<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
+		</li>
+		<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
+			<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 		</li>
 		<?php } ?>
 		<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>

@@ -230,6 +230,10 @@ a.btn,
 	box-shadow: none;
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-attention {
 	background: #e95b57;
 	background: linear-gradient(to bottom, #e95b57, #bd362f);
@@ -254,6 +258,7 @@ a.btn,
 	background: #bd362f;
 	box-shadow: none;
 }
+
 
 /*=== Navigation */
 .nav-list .nav-header,
@@ -396,7 +401,8 @@ a.btn,
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #0062be;
 	color: #fff;
 }
@@ -408,11 +414,6 @@ a.btn,
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .dropdown-menu .input select,
@@ -476,11 +477,6 @@ a.btn,
 	font-size: 0.8em;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -504,12 +500,6 @@ a.btn,
 
 .pagination:last-child .item {
 	border-top: 1px solid #aaa;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -657,14 +647,16 @@ a.btn,
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.8rem;
-	position: absolute;
-	right: 0;
-	line-height: 0.9rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 0.5em 0 0 0;
+	background-color: #f6f6f6;
+	color: #444;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.75em 0 0 0;
+	background-color: white;
+	color: #444;
 }
 
 /*=== Aside main page (feeds) */
@@ -771,10 +763,6 @@ a.btn,
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
 	line-height: 3em;
 	color: #fff;
@@ -783,6 +771,7 @@ a.btn,
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -978,14 +967,12 @@ a.btn,
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -1264,10 +1251,6 @@ a.btn,
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

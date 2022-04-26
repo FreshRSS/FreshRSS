@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Narrow',	// IGNORE
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'First',	// IGNORE
+			'last' => 'Last',	// IGNORE
+			'next' => 'Next',	// IGNORE
+			'previous' => 'Previous',	// IGNORE
+		),
+	),
 	'profile' => array(
 		'_' => 'Profile management',	// IGNORE
 		'api' => 'API management',	// IGNORE
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',	// IGNORE
 		'display_articles_unfolded' => 'Show articles unfolded by default',	// IGNORE
 		'display_categories_unfolded' => 'Categories to unfold',	// IGNORE
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// IGNORE
+			'categories' => 'Left navigation: Categories',	// IGNORE
+			'mark_as_read' => 'Mark article as read',	// IGNORE
+			'misc' => 'Miscellaneous',	// IGNORE
+			'view' => 'View',	// IGNORE
+		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// IGNORE
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// IGNORE
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// IGNORE
@@ -174,6 +194,7 @@ return array(
 		'_' => 'Sharing',	// IGNORE
 		'add' => 'Add a sharing method',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

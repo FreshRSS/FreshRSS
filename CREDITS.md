@@ -98,6 +98,7 @@ People are sorted by name so please keep this order.
 * [Maurice Schleußinger](https://github.com/maurice-schleussinger): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:maurice-schleussinger)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](http://x2a.yt/)
+* [Miika Launiainen](https://gitlab.com/miicat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miicat), [Web](https://miicat.eu/)
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)

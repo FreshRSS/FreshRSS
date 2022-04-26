@@ -1,19 +1,25 @@
+@use "sass:string";
+
+@use "mixins";
+
+@use "variables";
+
 /*=== Tree */
 .tree {
 	margin: 10px 0;
 
 	&#sidebar {
 		scrollbar-color: rgba(255,255, 0, 0.1) rgba(0, 0, 0, 0.05);
-		scrollbar-color: unquote($sid-font-color+"33") unquote($sid-font-color+"22");
+		scrollbar-color: string.unquote(variables.$sid-font-color + "33") string.unquote(variables.$sid-font-color + "22");
 	}
 
 
 	.tree-folder {
-		border-bottom: 1px solid $sid-sep;
+		border-bottom: 1px solid variables.$sid-sep;
 
 		.tree-folder-title {
 			padding: 12px 16px;
-			background: $sid-bg;
+			background: variables.$sid-bg;
 			position: relative;
 			font-size: 0.85rem;
 			letter-spacing: 1px;
@@ -22,7 +28,7 @@
 
 			.title {
 				background: inherit;
-				color: $sid-font-color;
+				color: variables.$sid-font-color;
 
 				&:hover {
 					text-decoration: none;
@@ -32,13 +38,13 @@
 
 		&.active {
 			.tree-folder-title {
-				background: $sid-bg;
+				background: variables.$sid-bg;
 				font-weight: bold;
 			}
 		}
 
 		.tree-folder-items {
-			background: $sid-bg-alt;
+			background: variables.$sid-bg-alt;
 
 			.item {
 				padding: 0 1rem;
@@ -46,45 +52,32 @@
 				font-size: 1rem;
 				font-weight: 400;
 
-				@include transition(all, 0.15s, ease-in-out);
+				@include mixins.transition(all, 0.15s, ease-in-out);
 
 				&.active {
-					background: $sid-active;
+					background: variables.$sid-active;
 
 					.dropdown li a {
-						color: $main-font-color;
+						color: variables.$main-font-color;
 
 						&:hover {
-							color: $sid-font-color;
+							color: variables.$sid-font-color;
 						}
 					}
 
 					a {
-						color: $sid-active-font;
+						color: variables.$sid-active-font;
 					}
 				}
 
 				&:hover {
-					background: $sid-bg-dark;
+					background: variables.$sid-bg-dark;
 				}
 
 				a {
 					text-decoration: none;
-					color: $sid-font-color;
+					color: variables.$sid-font-color;
 				}
-			}
-
-			.feed .item-title:not([data-unread="0"])::before {
-				margin: 11px 6px 0 4px;
-				padding: 3px 4px;
-				background: $sid-pills;
-				display: block;
-				float: left;
-				font-size: 0.75rem;
-				border-radius: 12px;
-				content: attr(data-unread);
-				text-align: center;
-				line-height: 0.75rem;
 			}
 		}
 	}
@@ -117,18 +110,18 @@
 	.dropdown + .btn,
 	.dropdown + input,
 	.dropdown + .dropdown > .btn {
-		border-left: 1px solid $grey-medium-light;
+		border-left: 1px solid variables.$grey-medium-light;
 	}
 
 }
 
 .aside {
-	background: $sid-bg;
+	background: variables.$sid-bg;
 
 	&.aside_feed {
 		padding: 10px 0;
 		text-align: center;
-		background: $sid-bg;
+		background: variables.$sid-bg;
 	}
 
 	&.aside_feed .tree {
@@ -152,87 +145,85 @@
 	}
 
 	.item {
-		background: $sid-bg;
-
-		@include transition(all, 0.15s, ease-in-out);
+		background: variables.$sid-bg;
+		color: variables.$white;
 
 		a {
 			padding: 0 1rem;
-			color: $sid-font-color;
+			color: variables.$sid-font-color;
+
+			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
 		.error {
 			a {
-				color: $alert-bg;
+				color: variables.$alert-bg;
 			}
 		}
 
 		&:hover {
-			background: $sid-bg-dark;
-			color: $sid-font-color;
-
 			.error {
 				a {
-					background: $main-first;
-					color: $sid-font-color;
+					background: variables.$main-first;
+					color: variables.$sid-font-color;
 				}
 			}
 
 			.empty {
 				a {
-					background: $warning-bg;
-					color: $sid-font-color;
+					background: variables.$warning-bg;
+					color: variables.$sid-font-color;
 				}
 			}
 
 			a {
-				color: $sid-font-color;
+				background: variables.$sid-bg-dark;
 				text-decoration: none;
 			}
 		}
 
 		&.active {
-			background: $main-first;
-			color: $white;
+			background: variables.$main-first;
+			color: variables.$white;
 
 			.error {
 				a {
-					background: $main-first;
-					color: $white;
+					background: variables.$main-first;
+					color: variables.$white;
 				}
 			}
 
 			.empty {
 				a {
-					background: $warning-bg;
-					color: $white;
+					background: variables.$warning-bg;
+					color: variables.$white;
 				}
 			}
 
 			a {
-				color: $white;
+				background: variables.$main-first;
+				color: variables.$white;
 				text-decoration: none;
 			}
 		}
-
 	}
 
 	&.empty {
 		a {
-			color: $warning-bg;
+			color: variables.$warning-bg;
 		}
 	}
 
 	.disable {
 		text-align: center;
-		background: $grey-lighter;
-		color: $grey-medium-dark;
+		background: variables.$grey-lighter;
+		color: variables.$grey-medium-dark;
 	}
 
 	.nav-header {
 		padding: 0 10px;
 		font-weight: bold;
-		color: $grey-dark;
+		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		margin-top: 1rem;
@@ -247,10 +238,10 @@
 		margin: 0;
 		text-align: right;
 		// background: #34495e;
-		color: $white;
+		color: variables.$white;
 
 		a {
-			color: $white;
+			color: variables.$white;
 		}
 
 		.item {
@@ -266,40 +257,39 @@
 	width: calc(100% - 35px - 35px);
 }
 
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: -0.25rem 1rem 0 0;
-	padding: 0 0.75rem;
-	background: $sid-pills;
-	border-radius: 12px;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
-	text-align: center;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 1.5em 0 0 0;
+	background-color: variables.$sid-pills;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.5em 0 0 0;
+	background-color: variables.$sid-pills;
 }
 
 .feed.item.empty.active {
-	background: $grey-dark;
+	background: variables.$grey-dark;
 }
 
 .feed.item.error.active {
-	background: $grey-dark;
+	background: variables.$grey-dark;
 }
 
 .feed.item.empty,
 .feed.item.empty > a {
-	color: $grey-dark;
+	color: variables.$grey-dark;
 }
 
 .feed.item.error,
 .feed.item.error > a {
-	color: $grey-dark;
+	color: variables.$grey-dark;
 }
 
 .feed.item.empty.active,
 .feed.item.error.active,
 .feed.item.empty.active > a,
 .feed.item.error.active > a {
-	color: $white;
+	color: variables.$white;
 }
 
 .aside_feed .tree-folder-items .dropdown-menu::after {
@@ -313,5 +303,5 @@
 }
 
 .aside_feed .stick #btn-add {
-	border-left-color: $sid-bg;
+	border-left-color: variables.$sid-bg;
 }

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
+		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
 		'remove' => 'Remove',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
 	),
-	'pagination' => array(
-		'first' => 'First',
-		'last' => 'Last',
-		'load_more' => 'Load more articles',
-		'mark_all_read' => 'Mark all as read',
-		'next' => 'Next',
-		'nothing_to_load' => 'There are no more articles',
-		'previous' => 'Previous',
-	),
 	'period' => array(
 		'days' => 'days',
 		'hours' => 'hours',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
+		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
+		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'web-sharing-api' => 'System sharing',
+		'whatsapp' => 'Whatsapp',
+		'xing' => 'Xing',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'Okay!',
 		'or' => 'or',
 		'yes' => 'Yes',
+	),
+	'stream' => array(
+		'load_more' => 'Load more articles',
+		'mark_all_read' => 'Mark all as read',
+		'nothing_to_load' => 'There are no more articles',
 	),
 );

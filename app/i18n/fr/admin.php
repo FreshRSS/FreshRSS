@@ -72,8 +72,8 @@ return array(
 		),
 		'files' => 'Installation des fichiers',
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommandée JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'registration' => array(
-			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulaire d’inscription',
+				'option' => array(
+					'noform' => 'Désactivé : Pas de formulaire d’inscription',
+					'nolimit' => 'Activé : Pas de limite au nombre d’utilisateurs',
+					'setaccountsnumber' => 'Nombre d’utilisateurs limités',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulaire désactivé',
+				'enabled' => 'Formulaire activé',
+			),
+			'title' => 'Formulaire d’inscription utilisateur',
 		),
 	),
 	'update' => array(
@@ -187,7 +199,7 @@ return array(
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
 		'create' => 'Créer un nouvel utilisateur',
 		'database_size' => 'Volumétrie',
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'enabled' => 'Actif',
 		'feed_count' => 'Flux',
 		'is_admin' => 'Admin',

@@ -22,7 +22,8 @@ img.favicon {
 }
 
 body img,
-body video {
+body video,
+p.help .icon {
 	filter: brightness(.6) contrast(1.2);
 }
 
@@ -238,6 +239,20 @@ a.btn {
 	background: #801;
 }
 
+/*=== switches */
+.switch {
+	background-color: #333;
+}
+
+.switch.active {
+	background-color: #6986b2;
+}
+
+.switch::before,
+.switch:hover::before {
+	background-color: black;
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
@@ -246,7 +261,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	background: #26303f;
 }
 
@@ -358,7 +373,8 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #26303f;
 	color: #888;
 }
@@ -366,11 +382,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
-}
-
-.dropdown-menu > .item:hover > a {
-	text-decoration: none;
-	color: #888;
 }
 
 .dropdown-menu .input select,
@@ -428,11 +439,6 @@ a.btn {
 	text-align: center;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	background: #111;
 	font-size: 1.5em;
@@ -452,17 +458,13 @@ a.btn {
 }
 
 .pagination:first-child .item {
+	border-top: 1px solid #333;
 	border-bottom: 1px solid #333;
 }
 
-.pagination:last-child .item {
-	border-top: 1px solid #333;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -616,14 +618,18 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #171717;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #888;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	border-color: #888;
+	color: #888;
 }
 
 /*=== Aside main page (feeds) */
@@ -734,10 +740,6 @@ a.btn {
 	text-align: center;
 }
 
-#new-article:hover {
-	background: #4a5d7a;
-}
-
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -746,6 +748,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #4a5d7a;
 }
 
 /*=== Day indication */
@@ -887,7 +890,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #111;
 	color: #c95;
 	font-size: 0.9em;
@@ -896,7 +898,6 @@ a.btn {
 	box-shadow: 0 0 5px #666;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -1171,10 +1172,6 @@ a.btn {
 
 	.day .name {
 		font-size: 1.1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification {

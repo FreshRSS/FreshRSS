@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
 		'remove' => 'Удалить',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
 		'feedback' => array(
 			'body_new_articles' => '%%d новых статей в FreshRSS.',
+			'body_unread_articles' => '(Непрочитанные: %%d)',
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Управление пользователями',
 		'user_profile' => 'Профиль',
 	),
-	'pagination' => array(
-		'first' => 'Первая',
-		'last' => 'Последняя',
-		'load_more' => 'Загрузить больше статей',
-		'mark_all_read' => 'Отметить всё прочитанным',
-		'next' => 'Следующая',
-		'nothing_to_load' => 'Больше нет статей',
-		'previous' => 'Предыдущая',
-	),
 	'period' => array(
 		'days' => 'дней',
 		'hours' => 'часов',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Предупреждение!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'Отлично!',
 		'or' => 'или',
 		'yes' => 'Да',
+	),
+	'stream' => array(
+		'load_more' => 'Загрузить больше статей',
+		'mark_all_read' => 'Отметить всё прочитанным',
+		'nothing_to_load' => 'Больше нет статей',
 	),
 );

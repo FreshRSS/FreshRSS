@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Klein',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Stufe',
+			'message' => 'Log Nachricht',
+			'timestamp' => 'Zeitstempel',
+		),
+		'pagination' => array(
+			'first' => 'Erste',
+			'last' => 'Letzte',
+			'next' => 'Nächste',
+			'previous' => 'Vorherige',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profil-Verwaltung',
 		'api' => 'API-Verwaltung',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
+		'headline' => array(
+			'articles' => 'Artikel: Öffnen/Schließen',
+			'categories' => 'Linke Navigation: Kategorien',
+			'mark_as_read' => 'Artikel als gelesen markieren',
+			'misc' => 'Sonstiges',
+			'view' => 'Ansicht',
+		),
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
@@ -174,6 +194,7 @@ return array(
 		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Dieser Dienst ist veraltet und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">zukünftigen FreshRSS-Version</a> entfernt.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',	// IGNORE

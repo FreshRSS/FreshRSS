@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Narrow',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'First',
+			'last' => 'Last',
+			'next' => 'Next',
+			'previous' => 'Previous',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profile management',
 		'api' => 'API management',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Categories to unfold',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',
+			'categories' => 'Left navigation: Categories',
+			'mark_as_read' => 'Mark article as read',
+			'misc' => 'Miscellaneous',
+			'view' => 'View',
+		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
 		'jump_next' => 'jump to next unread sibling (feed or category)',
@@ -174,6 +194,7 @@ return array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

@@ -235,6 +235,10 @@ a.btn {
 	font-weight: normal;
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-important:active {
 	background: linear-gradient(0deg, #e4992c 0%, #d18114 100%) #e4992c;
 	background: -webkit-linear-gradient(bottom, #e4992c 0%, #d18114 100%);
@@ -273,23 +277,17 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	text-shadow: 0 0 2px rgba(255,255,255,0.28);
 	color: #fff;
 }
 
-.nav-list .item.active {
+.nav-list .item.active a {
 	margin: 0;
 	background: linear-gradient(-180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
-	box-shadow: 1px 2px 2px #171717, 0px 1px rgba(255, 255, 255, 0.08) inset;
-	border-width: medium medium 1px;
-	border-style: none none solid;
-	border-color: -moz-use-text-color -moz-use-text-color #171717;
-}
-
-.nav-list .item.active a {
 	color: #fff;
+	border-color: -moz-use-text-color -moz-use-text-color #171717;
 }
 
 .nav-list .disable {
@@ -413,7 +411,8 @@ a.btn {
 	color: #ccc;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: linear-gradient(-180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
 	color: #fff;
@@ -422,11 +421,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .separator {
@@ -484,11 +478,6 @@ a.btn {
 	font-size: 0.8em;
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -504,21 +493,12 @@ a.btn {
 
 .pagination .item a:hover {
 	background: #ddd;
+	color: inherit;
 }
 
-.pagination:first-child .item {
-	border-bottom: 1px solid #aaa;
-}
-
-.pagination:last-child .item {
+.pagination .item {
 	border-top: 1px solid #ddd;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	height: 55px;
-	font-size: 0
+	border-bottom: 1px solid #ddd;
 }
 
 /*=== Boxes */
@@ -602,7 +582,7 @@ a.btn {
 }
 
 .tree-folder-items > .item.active {
-	margin: 0px 8px;
+	margin: 0px 5px;
 	background: linear-gradient(-180deg, #222 0%, #171717 100%) #171717;
 	background: -webkit-linear-gradient(top, #222 0%, #171717 100%);
 	border-radius: 4px;
@@ -702,16 +682,28 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	left: 3px;
-	padding: 1px 5px;
-	color: #fff;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
-}
-
 .aside_feed .btn-important {
 	border: none;
+}
+
+.aside.aside_feed .tree-folder-items .item.feed.active {
+	padding: 0 10px;
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #171717;
+	color: #ccc;
+	border-color: #999;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #ccc;
+	border-color: #999;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	left: 5px;
 }
 
 /*=== Aside main page (feeds) */
@@ -819,10 +811,6 @@ a.btn {
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
 	line-height: 3em;
 	color: #fff;
@@ -831,6 +819,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -1021,7 +1010,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	background: #222;
 	color: #fff;
 	font-size: 0.9em;
@@ -1030,7 +1018,6 @@ a.btn {
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.45), 0 -1px rgba(255,255,255,0.08) inset, 0 2px 2px #171717 inset;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	position: absolute;
 	top: 0;
 	z-index: 10;
@@ -1049,6 +1036,14 @@ a.btn {
 .notification a.close {
 	padding: 0 15px;
 	line-height: 3em;
+}
+
+.notification a.close:hover {
+	background: rgba(255,255,255,0.2);
+}
+
+.notification a.close:hover .icon {
+	filter: brightness(2);
 }
 
 .notification#actualizeProgress {
@@ -1335,10 +1330,6 @@ a.btn {
 
 	.day .name {
 		display: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_read' => 'Marcar como leído',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
 		'remove' => 'Borrar',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las peticiones de usuario. ¡Y no hay marcha atrás!',
 		'feedback' => array(
 			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡Nuevos artículos!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Administrar usuarios',
 		'user_profile' => 'Perfil',
 	),
-	'pagination' => array(
-		'first' => 'Primero',
-		'last' => 'Último',
-		'load_more' => 'Cargar más artículos',
-		'mark_all_read' => 'Marcar todo como leído',
-		'next' => 'Siguiente',
-		'nothing_to_load' => 'No hay más artículos',
-		'previous' => 'Anterior',
-	),
 	'period' => array(
 		'days' => 'dias',
 		'hours' => 'horas',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '¡Aviso!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => '¡Vale!',
 		'or' => 'o',
 		'yes' => 'Sí',
+	),
+	'stream' => array(
+		'load_more' => 'Cargar más artículos',
+		'mark_all_read' => 'Marcar todo como leído',
+		'nothing_to_load' => 'No hay más artículos',
 	),
 );

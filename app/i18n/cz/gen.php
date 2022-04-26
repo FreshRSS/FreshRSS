@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
 		'remove' => 'Odebrat',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'feedback' => array(
 			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'První',
-		'last' => 'Poslední',
-		'load_more' => 'Načíst více článků',
-		'mark_all_read' => 'Označit vše jako přečtené',
-		'next' => 'Další',
-		'nothing_to_load' => 'Nejsou zde žádné další články',
-		'previous' => 'Předchozí',
-	),
 	'period' => array(
 		'days' => 'dní',
 		'hours' => 'hodin',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Tisknout',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'Wallabag v1',
-		'wallabagv2' => 'Wallabag v2',
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'Dobře!',
 		'or' => 'nebo',
 		'yes' => 'Ano',
+	),
+	'stream' => array(
+		'load_more' => 'Načíst více článků',
+		'mark_all_read' => 'Označit vše jako přečtené',
+		'nothing_to_load' => 'Nejsou zde žádné další články',
 	),
 );

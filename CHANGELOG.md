@@ -1,5 +1,11 @@
 # FreshRSS changelog
 
+## 2022-0X-XX FreshRSS 1.20.0-dev
+
+* Features
+	* New Web scraping feature *HTML+XPath* for Web pages without any RSS/ATOM feed [#4220](https://github.com/FreshRSS/FreshRSS/pull/4220)
+
+
 ## 2022-02-04 FreshRSS 1.19.2
 
 * Bug fixing
@@ -1585,7 +1591,7 @@
 
 * API compatible with Google Reader API level 2
 	* FreshRSS can now be used from e.g.:
-		* (Android) [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader)
+		* (Android) [News+](https://github.com/noinnion/newsplus/tree/master/extensions/GoogleReaderCloneExtension)
 		* (Android) [EasyRSS](https://github.com/Alkarex/EasyRSS)
 * Basic support for audio and video podcasts
 * Searching

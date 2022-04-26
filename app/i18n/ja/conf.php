@@ -66,6 +66,19 @@ return array(
 			'thin' => '狭い',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '先頭',
+			'last' => '最後',
+			'next' => 'つぎへ',
+			'previous' => '前へ',
+		),
+	),
 	'profile' => array(
 		'_' => 'プロフィール',
 		'api' => 'API管理',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => '“すべてに既読を付ける” を押したとき確認ダイアログを表示する',
 		'display_articles_unfolded' => 'デフォルトでフォルダーに入れてない記事を表示する',
 		'display_categories_unfolded' => '展開されていない記事',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'カテゴリーを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '"lazy load"を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
@@ -174,6 +194,7 @@ return array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
 		'facebook' => 'Facebook',	// IGNORE

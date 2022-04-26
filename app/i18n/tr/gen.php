@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
 		'remove' => 'Sil',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale mevcut.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Kullanıcıları yönet',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'İlk',
-		'last' => 'Son',
-		'load_more' => 'Daha fazla makale yükle',
-		'mark_all_read' => 'Tümünü okundu say',
-		'next' => 'Sonraki',
-		'nothing_to_load' => 'Başka makale yok',
-		'previous' => 'Önceki',
-	),
 	'period' => array(
 		'days' => 'gün',
 		'hours' => 'saat',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Tehlike!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'Tamam!',
 		'or' => 'ya da',
 		'yes' => 'Evet',
+	),
+	'stream' => array(
+		'load_more' => 'Daha fazla makale yükle',
+		'mark_all_read' => 'Tümünü okundu say',
+		'nothing_to_load' => 'Başka makale yok',
 	),
 );

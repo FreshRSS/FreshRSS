@@ -192,8 +192,25 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
 
+			$feed_kind = Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
+			if ($feed_kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+				$xPathSettings = [];
+				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
+				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '', true);
+				if (Minz_Request::param('xPathItemContent', '') != '') $xPathSettings['itemContent'] = Minz_Request::param('xPathItemContent', '', true);
+				if (Minz_Request::param('xPathItemUri', '') != '') $xPathSettings['itemUri'] = Minz_Request::param('xPathItemUri', '', true);
+				if (Minz_Request::param('xPathItemAuthor', '') != '') $xPathSettings['itemAuthor'] = Minz_Request::param('xPathItemAuthor', '', true);
+				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '', true);
+				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '', true);
+				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '', true);
+				if (!empty($xPathSettings)) {
+					$feed->_attributes('xpath', $xPathSettings);
+				}
+			}
+
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
+				'kind' => $feed_kind,
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
 				'website' => checkUrl(Minz_Request::param('website', '')),
 				'url' => checkUrl(Minz_Request::param('url', '')),
@@ -207,7 +224,24 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			$from = Minz_Request::param('from');
+			switch ($from) {
+				case 'stats':
+					$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
+					break;
+				case 'normal':
+				case 'reader':
+					$get = Minz_Request::param('get');
+					if ($get) {
+						$url_redirect = array('c' => 'index', 'a' => $from, 'params' => array('get' => $get));
+					} else {
+						$url_redirect = array('c' => 'index', 'a' => $from);
+					}
+					break;
+				default:
+					$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			}
+
 			if ($feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_category($cat);
 				$feed->faviconPrepare();

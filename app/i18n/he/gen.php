@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
 		'remove' => 'Remove',	// TODO
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
 		'feedback' => array(
 			'body_new_articles' => 'ישנם	\\d מאמרים חדשים לקרוא ב FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Manage users',	// TODO
 		'user_profile' => 'Profile',	// TODO
 	),
-	'pagination' => array(
-		'first' => 'הראשון',
-		'last' => 'אחרון',
-		'load_more' => 'טעינת מאמרים נוספים',
-		'mark_all_read' => 'סימון הכל כנקרא',
-		'next' => 'הבא',
-		'nothing_to_load' => 'אין מאמרים נוספים',
-		'previous' => 'הקודם',
-	),
 	'period' => array(
 		'days' => 'days',	// TODO
 		'hours' => 'hours',	// TODO
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'הדפסה',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'זהירות!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',
+	),
+	'stream' => array(
+		'load_more' => 'טעינת מאמרים נוספים',
+		'mark_all_read' => 'סימון הכל כנקרא',
+		'nothing_to_load' => 'אין מאמרים נוספים',
 	),
 );

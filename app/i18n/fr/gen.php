@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
 		'mark_read' => 'Marquer comme lu',
+		'open_url' => 'Ouvrir l’URL',
 		'promote' => 'Promouvoir',
 		'purge' => 'Purger',
 		'remove' => 'Supprimer',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
 		'feedback' => array(
 			'body_new_articles' => 'Il y a %%d nouveaux articles à lire sur FreshRSS.',
+			'body_unread_articles' => '(non lus : %%d)',
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'Gestion des utilisateurs',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'Début',
-		'last' => 'Fin',
-		'load_more' => 'Charger plus d’articles',
-		'mark_all_read' => 'Tout marquer comme lu',
-		'next' => 'Suivant',
-		'nothing_to_load' => 'Fin des articles',
-		'previous' => 'Précédent',
-	),
 	'period' => array(
 		'days' => 'jours',
 		'hours' => 'heures',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Partage standard',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attention !',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'Ok !',
 		'or' => 'ou',
 		'yes' => 'Oui',
+	),
+	'stream' => array(
+		'load_more' => 'Charger plus d’articles',
+		'mark_all_read' => 'Tout marquer comme lu',
+		'nothing_to_load' => 'Fin des articles',
 	),
 );

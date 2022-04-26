@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fina',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Debuta',
+			'last' => 'Fin',
+			'next' => 'Seguent',
+			'previous' => 'Precedent',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gestion del perfil',
 		'api' => 'Gestion API',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Mostrar una confirmacion per las accions del tipe « o marcar tot coma legit »',
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
 		'display_categories_unfolded' => 'Categorias a desplegar',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
@@ -174,6 +194,7 @@ return array(
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',	// IGNORE

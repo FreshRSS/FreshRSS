@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
 		'remove' => '삭제',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => '정말 이 작업을 수행하시겠습니까? 관련된 즐겨찾기와 사용자 쿼리가 삭제됩니다. 이 작업은 되돌릴 수 없습니다!!',
 		'feedback' => array(
 			'body_new_articles' => '%%d 개의 새 글이 FreshRSS에 있습니다.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
 	),
-	'pagination' => array(
-		'first' => '처음으로',
-		'last' => '마지막으로',
-		'load_more' => '글 더 불러오기',
-		'mark_all_read' => '모두 읽음으로 표시',
-		'next' => '다음',
-		'nothing_to_load' => '더 이상 글이 없습니다',
-		'previous' => '이전',
-	),
 	'period' => array(
 		'days' => '일',
 		'hours' => '시',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => '인쇄',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '경고!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => '좋습니다!',
 		'or' => '또는',
 		'yes' => '네',
+	),
+	'stream' => array(
+		'load_more' => '글 더 불러오기',
+		'mark_all_read' => '모두 읽음으로 표시',
+		'nothing_to_load' => '더 이상 글이 없습니다',
 	),
 );

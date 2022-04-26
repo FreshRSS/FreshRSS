@@ -66,6 +66,19 @@ return array(
 			'thin' => '窄',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '首页',
+			'last' => '末页',
+			'next' => '下一页',
+			'previous' => '上一页',
+		),
+	),
 	'profile' => array(
 		'_' => '用户管理',
 		'api' => 'API 管理',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => '「全部标记为已读」时显示确认对话框',
 		'display_articles_unfolded' => '默认展开显示文章',
 		'display_categories_unfolded' => '展开的分类',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
@@ -174,6 +194,7 @@ return array(
 		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '邮箱',	// IGNORE
 		'facebook' => '脸书',	// IGNORE

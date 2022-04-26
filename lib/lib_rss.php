@@ -45,6 +45,8 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'CssXPath') !== false) {
+		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
 	} elseif (strpos($class, 'PHPMailer') === 0) {
 		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	}
@@ -194,10 +196,10 @@ function timestamptodate ($t, $hour = true) {
 }
 
 /**
- * @param string $text
- * @return string
+ * Decode HTML entities but preserve XML entities.
+ * @param string|null $text
  */
-function html_only_entity_decode($text) {
+function html_only_entity_decode($text): string {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
 		$htmlEntitiesOnly = array_flip(array_diff(
@@ -210,9 +212,8 @@ function html_only_entity_decode($text) {
 
 /**
  * @param array<string,mixed> $attributes
- * @return SimplePie
  */
-function customSimplePie($attributes = array()) {
+function customSimplePie($attributes = array()): SimplePie {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
@@ -220,6 +221,7 @@ function customSimplePie($attributes = array()) {
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
+	$simplePie->enable_order_by_date(false);
 
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
@@ -247,6 +249,7 @@ function customSimplePie($attributes = array()) {
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
+	$simplePie->rename_attributes(array('id', 'class'));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
@@ -291,7 +294,10 @@ function customSimplePie($attributes = array()) {
 	return $simplePie;
 }
 
-function sanitizeHTML($data, $base = '', $maxLength = false) {
+/**
+ * @param int|false $maxLength
+ */
+function sanitizeHTML($data, string $base = '', $maxLength = false) {
 	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
 		return '';
 	}
@@ -312,6 +318,128 @@ function sanitizeHTML($data, $base = '', $maxLength = false) {
 	return $result;
 }
 
+function cleanCache(int $hours = 720) {
+	$files = glob(CACHE_PATH . '/*.{html,spc}', GLOB_BRACE | GLOB_NOSORT);
+	foreach ($files as $file) {
+		if (substr($file, -10) === 'index.html') {
+			continue;
+		}
+		$cacheMtime = @filemtime($file);
+		if ($cacheMtime !== false && $cacheMtime < time() - (3600 * $hours)) {
+			unlink($file);
+		}
+	}
+}
+
+/**
+ * Set an XML preamble to enforce the HTML content type charset received by HTTP.
+ * @param string $html the row downloaded HTML content
+ * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
+ * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
+ */
+function enforceHttpEncoding(string $html, string $contentType = ''): string {
+	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === false ? '' : $matches[1] ?? '';
+	if ($httpCharset == '') {
+		// No charset defined by HTTP, do nothing
+		return $html;
+	}
+	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
+	if ($httpCharsetNormalized === 'windows-1252') {
+		// Default charset for HTTP, do nothing
+		return $html;
+	}
+	if (substr($html, 0, 3) === "\xEF\xBB\xBF" || // UTF-8 BOM
+		substr($html, 0, 2) === "\xFF\xFE" || // UTF-16 Little Endian BOM
+		substr($html, 0, 2) === "\xFE\xFF" || // UTF-16 Big Endian BOM
+		substr($html, 0, 4) === "\xFF\xFE\x00\x00" || // UTF-32 Little Endian BOM
+		substr($html, 0, 4) === "\x00\x00\xFE\xFF") { // UTF-32 Big Endian BOM
+		// Existing byte order mark, do nothing
+		return $html;
+	}
+	if (preg_match('/^<[?]xml[^>]+encoding\b/', substr($html, 0, 64))) {
+		// Existing XML declaration, do nothing
+		return $html;
+	}
+	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+}
+
+/**
+ * @param array<string,mixed> $attributes
+ */
+function getHtml(string $url, array $attributes = []): string {
+	$limits = FreshRSS_Context::$system_conf->limits;
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+
+	$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+	$cacheMtime = @filemtime($cachePath);
+	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
+		$html = @file_get_contents($cachePath);
+		if ($html != '') {
+			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . SimplePie_Misc::url_remove_credentials($url));
+			return $html;
+		}
+	}
+
+	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
+		cleanCache();
+	}
+
+	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
+		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+	}
+
+	// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
+	$ch = curl_init();
+	curl_setopt_array($ch, [
+		CURLOPT_URL => $url,
+		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
+		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		//CURLOPT_FAILONERROR => true;
+		CURLOPT_MAXREDIRS => 4,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_ENCODING => '',	//Enable all encodings
+	]);
+
+	curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
+
+	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		curl_setopt_array($ch, $attributes['curl_params']);
+	}
+
+	if (isset($attributes['ssl_verify'])) {
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		if (!$attributes['ssl_verify']) {
+			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+		}
+	}
+	$html = curl_exec($ch);
+	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$c_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);	//TODO: Check if that may be null
+	$c_error = curl_error($ch);
+	curl_close($ch);
+
+	if ($c_status != 200 || $c_error != '' || $html === false) {
+		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		// TODO: Implement HTTP 410 Gone
+	}
+	if ($html == false) {
+		$html = '';
+	} else {
+		$html = enforceHttpEncoding($html, $c_content_type);
+	}
+
+	if (file_put_contents($cachePath, $html) === false) {
+		Minz_Log::warning("Error saving cache $cachePath for $url");
+	}
+
+	return $html;
+}
+
 /**
  * Validate an email address, supports internationalized addresses.
  *
@@ -330,11 +458,16 @@ function validateEmailAddress($email) {
  * Add support of image lazy loading
  * Move content from src attribute to data-original
  * @param string $content is the text we want to parse
+ * @return string
  */
 function lazyimg($content) {
-	return preg_replace(
-		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+	return preg_replace([
+			'/<((?:img|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+		], [
+			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+		],
 		$content
 	);
 }
@@ -427,14 +560,67 @@ function get_user_configuration($username) {
 }
 
 /**
+ * Converts an IP (v4 or v6) to a binary representation using inet_pton
+ *
+ * @param string $ip the IP to convert
+ * @return string a binary representation of the specified IP
+ */
+function ipToBits(string $ip): string {
+	$binaryip = '';
+	foreach (str_split(inet_pton($ip)) as $char) {
+		$binaryip .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+	}
+	return $binaryip;
+}
+
+/**
+ * Check if an ip belongs to the provided range (in CIDR format)
+ *
+ * @param string $ip the IP that we want to verify (ex: 192.168.16.1)
+ * @param string $range the range to check against (ex: 192.168.16.0/24)
+ * @return boolean true if the IP is in the range, otherwise false
+ */
+function checkCIDR(string $ip, string $range): bool {
+	$binary_ip = ipToBits($ip);
+	list($subnet, $mask_bits) = explode('/', $range);
+	$mask_bits = intval($mask_bits);
+	$binary_subnet = ipToBits($subnet);
+
+	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
+	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
+
+	return $ip_net_bits === $subnet_bits;
+}
+
+/**
+ * Check if the client is allowed to send unsafe headers
+ * This uses the REMOTE_ADDR header to determine the sender's IP
+ * and the configuration option "trusted_sources" to get an array of the authorized ranges
+ *
+ * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ */
+function checkTrustedIP(): bool {
+	if (!empty($_SERVER['REMOTE_ADDR'])) {
+		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+			if (checkCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/**
  * @return string
  */
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
+		return $_SERVER['HTTP_REMOTE_USER'];
 	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
 		return $_SERVER['HTTP_X_WEBAUTH_USER'];
 	}
 	return '';
@@ -573,15 +759,6 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-//RFC 4648
-function base64url_encode($data) {
-	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
-}
-//RFC 4648
-function base64url_decode($data) {
-	return base64_decode(strtr($data, '-_', '+/'));
-}
-
 function _i($icon, $url_only = false) {
 	return FreshRSS_Themes::icon($icon, $url_only);
 }
@@ -607,7 +784,7 @@ function getNonStandardShortcuts($shortcuts) {
 	return $nonStandard;
 }
 
-function errorMessage($errorTitle, $error = '') {
+function errorMessageInfo($errorTitle, $error = '') {
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
 
 	$message = '';

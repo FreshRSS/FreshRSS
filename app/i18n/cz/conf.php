@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Úzká',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'První',
+			'last' => 'Poslední',
+			'next' => 'Další',
+			'previous' => 'Předchozí',
+		),
+	),
 	'profile' => array(
 		'_' => 'Správa profilu',
 		'api' => 'Správa API',
@@ -130,6 +143,13 @@ return array(
 		'confirm_enabled' => 'Zobrazit potvrzovací dialové okno pro akce „označit vše jako přečtené“',
 		'display_articles_unfolded' => 'Ve výchozím nastavení zobrazovat články rozbalené',
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'Skrýt kategorie a kanály bez nepřečtených článků (nefunguje s nastavením „Zobrazit všechny články“)',
 		'img_with_lazyload' => 'Použít režim „líné načítání“ pro načítaní obrázků',
 		'jump_next' => 'skočit na další nepřečtenou položku na stejné úrovni (kanál nebo kategorie)',
@@ -174,6 +194,7 @@ return array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE

@@ -1,7 +1,9 @@
 <?php
 /** @var FreshRSS_View $this */
-$this->partial('aside_feed');
-$this->partial('nav_menu');
+if (!Minz_Request::param('ajax')) {
+	$this->partial('aside_feed');
+	$this->partial('nav_menu');
+}
 
 call_user_func($this->callbackBeforeEntries, $this);
 
@@ -21,14 +23,17 @@ $today = @strtotime('today');
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
+	/** @var FreshRSS_Entry */
 	foreach ($this->entries as $item):
 		$lastEntry = $item;
 		$nbEntries++;
 		ob_flush();
-		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if ($this->entry == null) {
+		/** @var FreshRSS_Entry */
+		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if ($item == null) {
 			continue;
 		}
+		$this->entry = $item;
 
 		// We most likely already have the feed object in cache
 		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feed());
@@ -74,7 +79,7 @@ $today = @strtotime('today');
 			<div class="content <?= $content_width ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
 				<div class="subtitle">
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>">
+					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
 							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
 						<?php endif; ?>
@@ -110,8 +115,13 @@ $today = @strtotime('today');
 
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
-		$this->renderHelper('pagination');
-?></main><?php
+		$this->renderHelper('stream-footer');
+?><?php $class = $this->displaySlider ? ' active' : ''; ?>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>
+<div id="slider" class="scrollbar-thin<?= $class ?>">
+</div></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>

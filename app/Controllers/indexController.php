@@ -26,6 +26,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
+		$id = Minz_Request::param('id');
+		if ($id) {
+			$view = Minz_Request::param('a');
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => $view));
+			Minz_Request::forward($url_redirect, true);
+			return;
+		}
+
 		try {
 			$this->updateContext();
 		} catch (FreshRSS_Context_Exception $e) {
@@ -65,7 +73,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->callbackBeforeEntries = function ($view) {
 			try {
-				FreshRSS_Context::$number++;	//+1 for pagination
+				FreshRSS_Context::$number++;	//+1 for articles' page
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
 				ob_start();	//Buffer "one entry at a time"
@@ -77,7 +85,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->callbackBeforePagination = function ($view, $nbEntries, $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
-				//We have enough entries: we discard the last one to use it for the next pagination
+				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
 				FreshRSS_Context::$next_id = $lastEntry->id();
 			}
@@ -160,7 +168,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		// No layout for RSS output.
-		$this->view->url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
+		$this->view->rss_url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$this->view->_layout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');

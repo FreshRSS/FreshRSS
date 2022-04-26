@@ -28,6 +28,7 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
 		'remove' => '消去',
@@ -127,6 +128,7 @@ return array(
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
 		'feedback' => array(
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
 			'title_new_articles' => 'FreshRSS: 新規記事!',
 		),
@@ -175,15 +177,6 @@ return array(
 		'user_management' => 'ユーザー管理',
 		'user_profile' => 'プロフィール',
 	),
-	'pagination' => array(
-		'first' => '先頭',
-		'last' => '最後',
-		'load_more' => '記事をもっと読み込む',
-		'mark_all_read' => 'すべての記事を既読にする',
-		'next' => 'つぎへ',
-		'nothing_to_load' => 'これ以上の記事はありません',
-		'previous' => '前へ',
-	),
 	'period' => array(
 		'days' => '日',
 		'hours' => '時',
@@ -205,13 +198,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => '印刷',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '警告!',
@@ -225,5 +223,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'または',
 		'yes' => 'OK',
+	),
+	'stream' => array(
+		'load_more' => '記事をもっと読み込む',
+		'mark_all_read' => 'すべての記事を既読にする',
+		'nothing_to_load' => 'これ以上の記事はありません',
 	),
 );

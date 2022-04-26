@@ -211,6 +211,15 @@ a.btn {
 	background: #2980b9;
 }
 
+.btn .icon {
+	filter: brightness(5);
+}
+
+#toggle-unread .icon,
+#toggle-starred .icon {
+	filter: none;
+}
+
 .btn-important {
 	font-weight: normal;
 	background: #e67e22;
@@ -222,6 +231,10 @@ a.btn {
 .btn-important:hover,
 .btn-important:active {
 	background: #d35400;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-attention {
@@ -236,6 +249,14 @@ a.btn {
 	background: #c0392b;
 }
 
+.switch.active {
+	background-color: #2980b9;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
@@ -244,13 +265,12 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover,
+.nav-list .item a:hover,
 .nav-list .item.active {
 	background: #2980b9;
 	color: #fff;
 }
 
-.nav-list .item:hover a,
 .nav-list .item.active a {
 	color: #fff;
 }
@@ -359,7 +379,8 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #2980b9;
 	color: #fff;
 }
@@ -367,11 +388,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	text-decoration: none;
-	color: #fff;
 }
 
 .dropdown-menu .input select,
@@ -431,27 +447,10 @@ a.btn {
 .pagination {
 	background: #ecf0f1;
 	color: #000;
-	font-size: 0.8em;
-	text-align: center;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	background: #34495e;
-	color: #ecf0f1;
-	font-size: 1.5em;
-	font-weight: bold;
 }
 
 .pagination .item a {
-	display: block;
-	font-style: italic;
 	line-height: 3em;
-	text-decoration: none;
 	color: #000;
 }
 
@@ -460,10 +459,9 @@ a.btn {
 	color: #ecf0f1;
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -624,14 +622,12 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	left: 0;
-	line-height: 1.5rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #2c3e50;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #34495e;
 }
 
 /*=== Aside main page (feeds) */
@@ -738,10 +734,6 @@ a.btn {
 	text-align: center;
 }
 
-#new-article:hover {
-	background: #2980b9;
-}
-
 #new-article > a {
 	line-height: 3em;
 	font-weight: bold;
@@ -750,6 +742,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #2980b9;
 }
 
 /*=== Day indication */
@@ -775,7 +768,7 @@ a.btn {
 	padding: 5px 0;
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
+.dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
 	background-color: #95a5a6;
 	border-radius: 3px;
@@ -900,7 +893,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	background: #ddd;
 	color: #666;
 	font-size: 0.9em;
@@ -908,7 +900,6 @@ a.btn {
 	border-radius: 3px;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
 }
@@ -921,6 +912,10 @@ a.btn {
 .notification.bad {
 	background: #e74c3c;
 	color: #fff;
+}
+
+.notification a {
+	color: #000;
 }
 
 .notification a.close {
@@ -1168,10 +1163,6 @@ a.btn {
 
 	.day .name {
 		font-size: 1.1rem;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification {

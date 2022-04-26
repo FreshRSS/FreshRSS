@@ -692,7 +692,7 @@ function auto_share(key) {
 	key = parseInt(key);
 	if (key <= shares.length) {
 		shares[key - 1].click();
-		share.parentElement.querySelector('.dropdown-menu .dropdown-close a').click();
+		share.parentElement.querySelector('.dropdown-menu + a.dropdown-close').click();
 	}
 }
 
@@ -712,9 +712,9 @@ function onScroll() {
 		});
 	}
 	if (context.auto_load_more) {
-		const pagination = document.getElementById('mark-read-pagination');
-		if (pagination && box_to_follow.offsetHeight > 0 &&
-			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= pagination.offsetTop) {
+		const streamFooter = document.getElementById('stream-footer');
+		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			load_more_posts();
 		}
 	}
@@ -735,6 +735,15 @@ function init_posts() {
 			}
 		};
 		onScroll();
+	}
+
+	if (!navigator.share && document.styleSheets.length > 0) {
+		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// do not show the menu entry if browser does not support navigator.share
+		document.styleSheets[0].insertRule(
+			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
+			document.styleSheets[0].cssRules.length
+		);
 	}
 }
 
@@ -1018,7 +1027,7 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.share > a[data-type="print"]');
+		el = ev.target.closest('.item.share > button[data-type="print"]');
 		if (el) {	// Print
 			const tmp_window = window.open();
 			for (let i = 0; i < document.styleSheets.length; i++) {
@@ -1032,9 +1041,19 @@ function init_stream(stream) {
 			return false;
 		}
 
-		el = ev.target.closest('.item.share > a[data-type="clipboard"]');
+		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
 		if (el && navigator.clipboard) {	// Clipboard
-			navigator.clipboard.writeText(el.href);
+			navigator.clipboard.writeText(el.dataset.url);
+			return false;
+		}
+
+		el = ev.target.closest('.item.share > button[data-type="web-sharing-api"]');
+		if (el && navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+			const shareData = {
+				url: el.dataset.url,
+				title: decodeURI(el.dataset.title),
+			};
+			navigator.share(shareData);
 			return false;
 		}
 
@@ -1048,7 +1067,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.content, .item.website, .item.link, .dropdown-menu')) {
+			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
 			if (!context.sides_close_article && ev.target.matches('div.flux_content')) {
@@ -1057,7 +1076,7 @@ function init_stream(stream) {
 			}
 			const old_active = document.querySelector('.flux.current');
 			const new_active = el.parentNode;
-			if (ev.target.tagName.toUpperCase() === 'A') {	// Leave real links alone
+			if (ev.target.tagName.toUpperCase() === 'A') {	// Leave real links alone (but does not catch img in a link)
 				if (context.auto_mark_article) {
 					mark_read(new_active, true, false);
 				}
@@ -1109,42 +1128,44 @@ function init_stream(stream) {
 		const checkboxTag = ev.target.closest('.checkboxTag');
 		if (checkboxTag) {	// Dynamic tags
 			ev.stopPropagation();
-			const isChecked = checkboxTag.checked;
 			const tagId = checkboxTag.name.replace(/^t_/, '');
-			const tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.value : '';
-			const entry = checkboxTag.closest('div.flux');
-			const entryId = entry.id.replace(/^flux_/, '');
-			checkboxTag.disabled = true;
+			const tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.childNodes[0].value : '';
+			if ((tagId == 0 && tagName.length > 0) || tagId != 0) {
+				const isChecked = checkboxTag.checked;
+				const entry = checkboxTag.closest('div.flux');
+				const entryId = entry.id.replace(/^flux_/, '');
+				checkboxTag.disabled = true;
 
-			const req = new XMLHttpRequest();
-			req.open('POST', './?c=tag&a=tagEntry', true);
-			req.responseType = 'json';
-			req.onerror = function (e) {
-				checkboxTag.checked = !isChecked;
-				badAjax(this.status == 403);
-			};
-			req.onload = function (e) {
-				if (this.status != 200) {
-					return req.onerror(e);
-				}
-				if (entry.classList.contains('not_read')) {
-					incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
-				}
-			};
-			req.onloadend = function (e) {
-				checkboxTag.disabled = false;
-				if (tagId == 0) {
-					loadDynamicTags(checkboxTag.closest('div.dropdown'));
-				}
-			};
-			req.setRequestHeader('Content-Type', 'application/json');
-			req.send(JSON.stringify({
-				_csrf: context.csrf,
-				id_tag: tagId,
-				name_tag: tagId == 0 ? tagName : '',
-				id_entry: entryId,
-				checked: isChecked,
-			}));
+				const req = new XMLHttpRequest();
+				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.responseType = 'json';
+				req.onerror = function (e) {
+					checkboxTag.checked = !isChecked;
+					badAjax(this.status == 403);
+				};
+				req.onload = function (e) {
+					if (this.status != 200) {
+						return req.onerror(e);
+					}
+					if (entry.classList.contains('not_read')) {
+						incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
+					}
+				};
+				req.onloadend = function (e) {
+					checkboxTag.disabled = false;
+					if (tagId == 0) {
+						loadDynamicTags(checkboxTag.closest('div.dropdown'));
+					}
+				};
+				req.setRequestHeader('Content-Type', 'application/json');
+				req.send(JSON.stringify({
+					_csrf: context.csrf,
+					id_tag: tagId,
+					name_tag: tagId == 0 ? tagName : '',
+					id_entry: entryId,
+					checked: isChecked,
+				}));
+			}
 		}
 	};
 }
@@ -1191,7 +1212,43 @@ function loadDynamicTags(div) {
 		if (!json) {
 			return req.onerror(e);
 		}
-		let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
+
+		const li_item0 = document.createElement('li');
+		li_item0.setAttribute('class', 'item addItem');
+
+		const label = document.createElement('label');
+		label.setAttribute('class', 'noHover');
+
+		const input_checkboxTag = document.createElement('input');
+		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+		input_checkboxTag.setAttribute('name', 't_0');
+		input_checkboxTag.setAttribute('type', 'checkbox');
+
+		const input_newTag = document.createElement('input');
+		input_newTag.setAttribute('type', 'text');
+		input_newTag.setAttribute('name', 'newTag');
+		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+
+		const button_btn = document.createElement('button');
+		button_btn.setAttribute('type', 'button');
+		button_btn.setAttribute('class', 'btn');
+		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+
+		const text_plus = document.createTextNode('+');
+
+		const div_stick = document.createElement('div');
+		div_stick.setAttribute('class', 'stick');
+
+		button_btn.appendChild(text_plus);
+		div_stick.appendChild(input_newTag);
+		div_stick.appendChild(button_btn);
+		label.appendChild(input_checkboxTag);
+		label.appendChild(div_stick);
+		li_item0.appendChild(label);
+
+		div.querySelector('.dropdown-menu').appendChild(li_item0);
+
+		let html = '';
 		if (json && json.length) {
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
@@ -1327,8 +1384,12 @@ function openNotification(msg, status) {
 	notification.querySelector('.msg').innerHTML = msg;
 	notification.className = 'notification';
 	notification.classList.add(status);
-
-	notification_interval = setTimeout(closeNotification, 4000);
+	if (status == 'good') {
+		notification_interval = setTimeout(closeNotification, 4000);
+	} else {
+		// no status or f.e. status = 'bad', give some more time to read
+		notification_interval = setTimeout(closeNotification, 8000);
+	}
 }
 
 function closeNotification() {
@@ -1340,17 +1401,94 @@ function closeNotification() {
 function init_notifications() {
 	notification = document.getElementById('notification');
 
-	notification.querySelector('a.close').onclick = function () {
+	notification.querySelector('a.close').addEventListener('click', function (ev) {
 		closeNotification();
+		ev.preventDefault();
 		return false;
-	};
+	});
+
+	notification.addEventListener('mouseenter', function () {
+		clearInterval(notification_interval);
+	});
+
+	notification.addEventListener('mouseleave', function () {
+		notification_interval = setTimeout(closeNotification, 3000);
+	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
-		notification_interval = setTimeout(closeNotification, 4000);
+		if (notification.classList.contains('good')) {
+			notification_interval = setTimeout(closeNotification, 4000);
+		} else {
+			// no status or f.e. status = 'bad', give some more time to read
+			notification_interval = setTimeout(closeNotification, 8000);
+		}
 	}
 }
 // </notification>
+
+// <slider>
+function init_slider_observers() {
+	const slider = document.getElementById('slider');
+	const closer = document.getElementById('close-slider');
+	if (!slider) {
+		return;
+	}
+
+	window.onclick = open_slider_listener;
+
+	closer.addEventListener('click', function (ev) {
+		if (slider_data_leave_validation() || confirm(context.i18n.confirmation_default)) {
+			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+			closer.classList.remove('active');
+			slider.classList.remove('active');
+			return true;
+		} else {
+			return false;
+		}
+	});
+}
+
+function open_slider_listener(ev) {
+	const a = ev.target.closest('.open-slider');
+	if (a) {
+		if (!context.ajax_loading) {
+			location.href = '#'; // close menu/dropdown
+			context.ajax_loading = true;
+
+			const req = new XMLHttpRequest();
+			req.open('GET', a.href + '&ajax=1', true);
+			req.responseType = 'document';
+			req.onload = function (e) {
+				const slider = document.getElementById('slider');
+				const closer = document.getElementById('close-slider');
+				slider.innerHTML = this.response.body.innerHTML;
+				slider.classList.add('active');
+				closer.classList.add('active');
+				context.ajax_loading = false;
+			};
+			req.send();
+			return false;
+		}
+	}
+}
+
+function slider_data_leave_validation() {
+	const ds = document.querySelectorAll('[data-leave-validation]');
+
+	for (let i = ds.length - 1; i >= 0; i--) {
+		const input = ds[i];
+		if (input.type === 'checkbox' || input.type === 'radio') {
+			if (input.checked != input.getAttribute('data-leave-validation')) {
+				return false;
+			}
+		} else if (input.value != input.getAttribute('data-leave-validation')) {
+			return false;
+		}
+	}
+	return true;
+}
+// </slider>
 
 // <popup>
 let popup = null;
@@ -1435,14 +1573,14 @@ function notifs_html5_ask_permission() {
 	});
 }
 
-function notifs_html5_show(nb) {
+function notifs_html5_show(nb, nb_new) {
 	if (notifs_html5_permission !== 'granted') {
 		return;
 	}
 
 	const notification = new window.Notification(context.i18n.notif_title_articles, {
 		icon: '../themes/icons/favicon-256-padding.png',
-		body: context.i18n.notif_body_articles.replace('%d', nb),
+		body: context.i18n.notif_body_new_articles.replace('%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%d', nb),
 		tag: 'freshRssNewArticles',
 	});
 
@@ -1482,6 +1620,8 @@ function refreshUnreads() {
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
 		let nbUnreadFeeds = 0;
+		const title = document.querySelector('.category.all .title');
+		const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
@@ -1522,12 +1662,12 @@ function refreshUnreads() {
 			tags.querySelector('.title').setAttribute('data-unread', numberFormat(nbUnreadTags));
 		}
 
-		const title = document.querySelector('.category.all .title');
 		const nb_unreads = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
-			notifs_html5_show(nb_unreads);
+			const nb_new = nb_unreads - nb_unreads_before;
+			notifs_html5_show(nb_unreads, nb_new);
 		}
 	};
 	req.send();
@@ -1550,16 +1690,16 @@ function load_more_posts() {
 	req.responseType = 'document';
 	req.onload = function (e) {
 		const html = this.response;
-		const formPagination = document.getElementById('mark-read-pagination');
+		const streamFooter = document.getElementById('stream-footer');
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
 		streamAdopted.querySelectorAll('.flux, .day').forEach(function (div) {
-			box_load_more.insertBefore(div, formPagination);
+			box_load_more.insertBefore(div, streamFooter);
 		});
 
-		const paginationOld = formPagination.querySelector('.pagination');
-		const paginationNew = streamAdopted.querySelector('.pagination');
-		formPagination.replaceChild(paginationNew, paginationOld);
+		const streamFooterOld = streamFooter.querySelector('.stream-footer-inner');
+		const streamFooterNew = streamAdopted.querySelector('.stream-footer-inner');
+		streamFooter.replaceChild(streamFooterNew, streamFooterOld);
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
 		const readAll = document.querySelector('#nav_menu_read_all .read_all');
@@ -1600,16 +1740,16 @@ function init_load_more(box) {
 	box_load_more = box;
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
-	const next_link = document.getElementById('load_more');
-	if (!next_link) {
+	const next_button = document.getElementById('load_more');
+	if (!next_button) {
 		// no more article to load
 		url_load_more = '';
 		return;
 	}
 
-	url_load_more = next_link.href;
+	url_load_more = next_button.getAttribute('formaction');
 
-	next_link.onclick = function (e) {
+	next_button.onclick = function (e) {
 		load_more_posts();
 		return false;
 	};
@@ -1714,6 +1854,7 @@ function init_beforeDOM() {
 function init_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
+	init_slider_observers();
 	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
