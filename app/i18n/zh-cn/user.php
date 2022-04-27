@@ -20,7 +20,7 @@ return array(
 			'change_email' => '您可以在 <a href="%s">用户管理</a> 中变更您的邮箱地址',
 			'email_sent_to' => '我们已通过 <strong>%s</strong> 发送验证邮件给您，请按其中指示来验证邮箱地址。',
 			'feedback' => array(
-				'email_failed' => '由于服务器配置错误，我们无法向您发送邮箱。',
+				'email_failed' => '由于服务器配置错误，我们无法向您发送邮件。',
 				'email_sent' => '邮件已发送到您的邮箱中',
 				'error' => '邮箱地址无法通过验证',
 				'ok' => '邮箱地址已成功通过验证',
