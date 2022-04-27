@@ -207,7 +207,7 @@ return array(
 		'twitter' => '推特',	// IGNORE
 		'wallabag' => 'Wallabag v1',	// IGNORE
 		'wallabagv2' => 'Wallabag v2',	// IGNORE
-		'web-sharing-api' => 'Web分享',
+		'web-sharing-api' => 'Web分享',	//DIRTY
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),
