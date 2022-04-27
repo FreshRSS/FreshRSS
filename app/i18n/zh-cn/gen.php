@@ -36,7 +36,7 @@ return array(
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
-		'update' => '刷新',
+		'update' => '更新订阅',
 	),
 	'auth' => array(
 		'accept_tos' => '我接受 <a href="%s">服务条款</a>',
