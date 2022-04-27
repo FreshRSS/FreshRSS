@@ -21,7 +21,7 @@ return array(
 	'api' => array(
 		'password' => array(
 			'failed' => '您的密码无法修改',
-			'updated' => '您的密码已修改完成',
+			'updated' => '您的密码已修改',
 		),
 	),
 	'auth' => array(
@@ -30,7 +30,7 @@ return array(
 			'success' => '登录成功',
 		),
 		'logout' => array(
-			'success' => '登出成功',
+			'success' => '已登出',
 		),
 	),
 	'conf' => array(
@@ -65,7 +65,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => '你的帐户修改失败',
-		'updated' => '你的帐户已修改成功',
+		'updated' => '你的帐户已修改',
 	),
 	'sub' => array(
 		'actualize' => '获取',
