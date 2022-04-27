@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => '日志等级',
+			'message' => '信息',
+			'timestamp' => '时间',
 		),
 		'pagination' => array(
 			'first' => '首页',
