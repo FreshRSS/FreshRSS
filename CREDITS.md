@@ -27,6 +27,7 @@ People are sorted by name so please keep this order.
 * [bpatath](https://github.com/bpatath): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bpatath)
 * [Brewal Bouvet](https://github.com/Jucgshu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jucgshu), [Web](https://dizolo.eu/)
 * [Brooke.](https://github.com/BrookeDot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BrookeDot), [Web](https://brooke.codes/)
+* [bluewhale235](https://github.com/BuleWhale): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BuleWhale)
 * [caminsha](https://github.com/caminsha): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:caminsha)
 * [Cem KOÇ](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hckweb)
 * [chemical1979](https://github.com/chemical1979): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:chemical1979)
