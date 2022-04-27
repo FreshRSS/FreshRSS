@@ -28,7 +28,7 @@ return array(
 		'load_default_shortcuts' => '重置快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
 		'remove' => '删除',
@@ -107,7 +107,7 @@ return array(
 		'november' => '十一月',
 		'oct' => '十月',
 		'october' => '十月',
-		'sat' => '周日',
+		'sat' => '周六',
 		'sep' => '九月',
 		'september' => '九月',
 		'sun' => '周日',
@@ -128,7 +128,7 @@ return array(
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询。这将不可撤销！',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(未读: %%d)',
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
@@ -207,7 +207,7 @@ return array(
 		'twitter' => '推特',	// IGNORE
 		'wallabag' => 'Wallabag v1',	// IGNORE
 		'wallabagv2' => 'Wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Web分享',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),
