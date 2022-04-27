@@ -13,7 +13,7 @@
 return array(
 	'archiving' => array(
 		'_' => '归档',
-		'exception' => '清理例外策略',
+		'exception' => '高级清理策略',
 		'help' => '具体选项位于各订阅源的设置',
 		'keep_favourites' => '不清理已收藏的文章',
 		'keep_labels' => '不清理标签',
@@ -144,13 +144,13 @@ return array(
 		'display_articles_unfolded' => '默认展开显示文章',
 		'display_categories_unfolded' => '展开的分类',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => '文章：打开/关闭',
+			'categories' => '左侧导航：分类',
+			'mark_as_read' => '标为已读选项',
+			'misc' => '其它',
+			'view' => '浏览',
 		),
-		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
+		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效)',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
 		'mark_updated_article_unread' => '将更新的文章设为未读',
@@ -194,7 +194,7 @@ return array(
 		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => '这项功能已废弃并在将来版本的FreshRSS移除，详情见：<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank"></a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '邮箱',	// IGNORE
 		'facebook' => '脸书',	// IGNORE
