@@ -194,7 +194,7 @@ return array(
 		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => '这项功能已废弃并在将来版本的FreshRSS移除，详情见：<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank"></a>.',
+		'deprecated' => '这项功能已废弃并在将来版本的FreshRSS移除，详情见：<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">查看文档</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '邮箱',	// IGNORE
 		'facebook' => '脸书',	// IGNORE
