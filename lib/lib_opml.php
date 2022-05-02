@@ -12,7 +12,7 @@
  *
  * @author   Marien Fressinaud <dev@marienfressinaud.fr>
  * @link     https://github.com/marienfressinaud/lib_opml
- * @version  0.2-FreshRSS~1.5.1
+ * @version  0.2-FreshRSS~1.20.0
  * @license  public domain
  *
  * Usages:
