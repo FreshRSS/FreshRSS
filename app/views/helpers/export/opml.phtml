@@ -15,14 +15,40 @@ foreach ($this->categories as $key => $cat) {
 		'@outlines' => array()
 	);
 
+	/** @var FreshRSS_Feed $feed */
 	foreach ($cat['feeds'] as $feed) {
-		$opml_array['body'][$key]['@outlines'][] = array(
+		$outline = [
 			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
-			'type' => 'rss',
+			'type' => FreshRSS_Export_Service::TYPE_RSS_ATOM,
 			'xmlUrl' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 			'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
 			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
-		);
+		];
+		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
+			$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+			/** @var array<string,string> */
+			$xPathSettings = $feed->attributes('xpath');
+			$outline['frss:xPathItem'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['item'] ?? null];
+			$outline['frss:xPathItemTitle'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTitle'] ?? null];
+			$outline['frss:xPathItemContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemContent'] ?? null];
+			$outline['frss:xPathItemUri'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUri'] ?? null];
+			$outline['frss:xPathItemAuthor'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemAuthor'] ?? null];
+			$outline['frss:xPathItemTimestamp'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTimestamp'] ?? null];
+			$outline['frss:xPathItemThumbnail'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemThumbnail'] ?? null];
+			$outline['frss:xPathItemCategories'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemCategories'] ?? null];
+		}
+		if (!empty($feed->filtersAction('read'))) {
+			$filters = '';
+			foreach ($feed->filtersAction('read') as $filterRead) {
+				$filters .= $filterRead->getRawInput() . "\n";
+			}
+			$filters = trim($filters);
+			$outline['frss:filtersActionRead'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $filters];
+		}
+		if ($feed->pathEntries() != '') {
+			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
+		}
+		$opml_array['body'][$key]['@outlines'][] = $outline;
 	}
 }
 

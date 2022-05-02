@@ -245,7 +245,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$this->url = $value;
 	}
-	public function _kind($value) {
+	public function _kind(int $value) {
 		$this->kind = $value;
 	}
 	public function _category($value) {
@@ -758,7 +758,8 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public function filtersAction(string $action) {
+	/** @return array<FreshRSS_BooleanSearch> */
+	public function filtersAction(string $action): array {
 		$action = trim($action);
 		if ($action == '') {
 			return array();
@@ -775,6 +776,9 @@ class FreshRSS_Feed extends Minz_Model {
 		return $filters;
 	}
 
+	/**
+	 * @param array<string> $filters
+	 */
 	public function _filtersAction(string $action, $filters) {
 		$action = trim($action);
 		if ($action == '' || !is_array($filters)) {
