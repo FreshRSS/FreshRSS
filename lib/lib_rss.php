@@ -9,6 +9,19 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+if (!function_exists('str_starts_with')) {
+	/**
+	 * Polyfill for PHP <8.0
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return bool
+	 */
+	function str_starts_with($haystack, $needle): bool {
+		return strncmp($haystack, $needle, strlen($needle)) === 0;
+	}
+}
+
 // @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
@@ -47,32 +60,20 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'CssXPath') !== false) {
 		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
+	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
 		// project-specific namespace prefix
-		$prefix = 'PHPMailer\\';
+		$prefix = 'PHPMailer\\PHPMailer\\';
 
 		// base directory for the namespace prefix
 		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
 
-		// does the class use the namespace prefix?
-		$len = strlen($prefix);
-		if (strncmp($prefix, $class, $len) !== 0) {
-			// no, move to the next registered autoloader
-			return;
-		}
-
 		// get the relative class name
-		$relative_class = substr($class, $len);
+		$relative_class = substr($class, strlen($prefix));
 
 		// replace the namespace prefix with the base directory, replace namespace
 		// separators with directory separators in the relative class name, append
-		// with .php
-		$file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-
-		// if the file exists, require it
-		if (file_exists($file)) {
-			require $file;
-		}
+		// with .php and require the file
+		require $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 	}
 }
 
