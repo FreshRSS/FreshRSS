@@ -71,7 +71,7 @@
 		</li>
 
 		<?php
-			foreach ($this->categories as $cat) {
+			foreach ($this->categories as $cat):
 				$feeds = $cat->feeds();
 				$position = $cat->attributes('position');
 				if (!empty($feeds)) {
@@ -88,28 +88,30 @@
 			</div>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
-				<?php
-					foreach ($feeds as $feed) {
-						$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
-				?>
-				<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?=
-					$feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : ''
-					?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
-					<div class="dropdown no-mobile">
-						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a>
-						<?php /* feed_config_template */ ?>
-					</div>
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-					<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
-						_url('index', $actual_view, 'get', 'f_' . $feed->id()). $state_filter_manual ?>"><?= $feed->name() ?></a>
-				</li>
-				<?php } ?>
+<?php
+	// NB: Reduce whitespace in that loop
+	foreach ($feeds as $feed):
+		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
+?>
+<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?=
+	$feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : ''
+	?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
+	<!-- TODO: CSS performance -->
+	<div class="dropdown no-mobile">
+		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
+	</div>
+	<?php
+		if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif;
+	?><a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
+		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>"><?= $feed->name() ?></a></li>
+<?php
+	endforeach;
+?>
 			</ul>
 		</li>
 		<?php
 				}
-			}
+			endforeach;
 		?>
 		<li class="tree-bottom"></li>
 	</ul>
