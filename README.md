@@ -68,7 +68,7 @@ If you want a rolling release with the newest features, or want to help testing 
 * [![Docker](./docs/img/docker-horizontal.png)](./Docker/)
 * [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
-* [![PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=freshrss)
+* [![PikaPods](https://www.pikapods.com/static/run-button-37.svg)](https://www.pikapods.com/pods?run=freshrss)
 
 ## Manual install
 
