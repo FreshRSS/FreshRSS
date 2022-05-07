@@ -65,9 +65,10 @@ Si vous voulez une publication continue (rolling release) avec les dernières no
 
 ## Installation automatisée
 
-* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
+* [![Docker](./docs/img/docker-horizontal.png)](./Docker/)
 * [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
+* [![PikaPods](https://www.pikapods.com/static/run-button-34.svg)](https://www.pikapods.com/pods?run=freshrss)
 
 ## Installation manuelle
 
