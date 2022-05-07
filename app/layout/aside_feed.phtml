@@ -96,7 +96,6 @@
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?=
 	$feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : ''
 	?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
-	<!-- TODO: CSS performance -->
 	<div class="dropdown no-mobile">
 		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
 	</div>
