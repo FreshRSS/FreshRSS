@@ -82,7 +82,11 @@ return array (
 		'rss_view' => '4',
 		'toggle_media' => 'v',
 	),
+
+	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds
 	'show_favicons' => true,
+	'icons_as_emojis' => false,
+
 	'topline_read' => true,
 	'topline_favorite' => true,
 	'topline_thumbnail' => 'none',
