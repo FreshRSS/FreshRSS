@@ -36,11 +36,9 @@ Reader view will display a feed will all articles already open for reading. Feed
 
 To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this.
 
-## Automatic update
+## Automatic update with cron
 
-This is the recommended method since you can forget about it once it is configured.
-
-### With the actualize_script.php script
+This is the recommended method.
 
 This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
@@ -52,7 +50,7 @@ Here is an example to trigger article update every hour.
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-### Online cron
+## Online cron
 
 If you do not have access to the installation server scheduled task, you can still automate the update process.
 
@@ -77,29 +75,27 @@ If *maxFeeds* is set the configured amount of feeds is refreshed at once. The de
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
-#### No authentication
+### No authentication
 
 This is the most straightforward since you have a public instance; there is nothing special to configure:
 
 <https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
 
-### Form authentication
+#### Form authentication
 
-If you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”).
-
-![Anonymous access configuration](../img/users/anonymous_access.1.png)
-
-The URL used in the previous section will now become accessible to anyone. Therefore you can use the same syntax for the scheduled task.
-
-You can also configure an authentication token to grant special access on the server.
+You can configure an authentication token to grant access to the online cron.
 
 ![Token configuration](../img/users/token.1.png)
 
-You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+You can target a specific user by adding their username to the query string, with `&user=insert-username`:
 
 The scheduled task syntax should look as follows:
 
 <https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token>
+
+Alternatively, but not recommended, if you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”), and that does not require a token.
+
+![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
 ### HTTP authentication
 
