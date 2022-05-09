@@ -36,11 +36,9 @@ Reader view will display a feed will all articles already open for reading. Feed
 
 To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this.
 
-## Automatic update
+## Automatic update with cron
 
-This is the recommended method since you can forget about it once it is configured.
-
-### With the actualize_script.php script
+This is the recommended method.
 
 This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
@@ -51,6 +49,13 @@ Here is an example to trigger article update every hour.
 ```cron
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
+
+## Online cron
+
+If you do not have access to the installation server scheduled task, you can still automate the update process.
+
+To do so, you need to create a scheduled task, which need to call a specific URL:
+<https://freshrss.example.net/i/?c=feed&a=actualize> (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
 
 Special parameters to configure the script - all parameters can be combined:
 
@@ -70,52 +75,41 @@ If *maxFeeds* is set the configured amount of feeds is refreshed at once. The de
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
-### Online cron
+### For Form Authentication
 
-If you do not have access to the installation server scheduled task, you can still automate the update process.
-
-To do so, you need to create a scheduled task, which need to call a specific URL:
-<https://freshrss.example.net/i/?c=feed&a=actualize> (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
-
-#### No authentication
-
-This is the most straightforward since you have a public instance; there is nothing special to configure:
-
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
-```
-
-### Form authentication
-
-If you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”).
-
-![Anonymous access configuration](../img/users/anonymous_access.1.png)
-
-The URL used in the previous section will now become accessible to anyone. Therefore you can use the same syntax for the scheduled task.
-
-You can also configure an authentication token to grant special access on the server.
+If your FreshRSS instance is using Form Authentication, you can configure an authentication token to grant access to the online cron.
 
 ![Token configuration](../img/users/token.1.png)
 
+You can target a specific user by adding their username to the query string, with `&user=insert-username`:
+
 The scheduled task syntax should look as follows:
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
-```
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token>
 
-You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+Alternatively, but not recommended, if you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”), and that does not require a token.
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
-```
+![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
-### HTTP authentication
+### For HTTP authentication
 
-When using HTTP authentication, the syntax in the two previous sections is unusable. You’ll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
+If your FreshRSS instance is using HTTP authentication, you’ll need to provide your credentials to the scheduled task.
+
+**Note:** This method is discouraged as your credentials are stored in plain text.
 
 ```cron
-0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice'
 ```
+
+On some systems, that syntax might also work:
+
+<https://alice:password123@freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice>
+
+### For No authentication (None)
+
+If your FreshRSS instance uses no authentication (public instance, default user):
+
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
 
 ## Manual update
 

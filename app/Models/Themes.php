@@ -70,52 +70,52 @@ class FreshRSS_Themes extends Minz_Model {
 
 	public static function alt($name) {
 		static $alts = array(
-			'add' => '✚',
+			'add' => '➕',	//✚
 			'all' => '☰',
-			'bookmark' => '★',
-			'bookmark-add' => '✚',
-			'bookmark-tag' => '🔖',
-			'category' => '☷',
+			'bookmark' => '✨',	//★
+			'bookmark-add' => '➕',	//✚
+			'bookmark-tag' => '📑',
+			'category' => '🗂️',	//☷
 			'close' => '❌',
-			'configure' => '⚙',
+			'configure' => '⚙️',
 			'debug' => '🐛',
-			'down' => '▽',
+			'down' => '🔽',	//▽
 			'error' => '❌',
-			'favorite' => '★',
+			'favorite' => '⭐',	//★
 			'FreshRSS-logo' => '⊚',
-			'help' => 'ⓘ',
+			'help' => 'ℹ️',	//ⓘ
 			'icon' => '⊚',
-			'key' => '⚿',
+			'key' => '🔑',	//⚿
 			'label' => '🏷️',
-			'link' => '↗',
-			'look' => '👁',
+			'link' => '↗️',	//↗
+			'look' => '👀',	//👁
 			'login' => '🔒',
 			'logout' => '🔓',
 			'next' => '⏩',
 			'non-starred' => '☆',
-			'notice' => 'ⓘ',
+			'notice' => 'ℹ️',	//ⓘ
 			'prev' => '⏪',
-			'read' => '☑',
-			'rss' => '☄',
-			'unread' => '☐',
+			'read' => '☑️',	//☑
+			'rss' => '📣',	//☄
+			'unread' => '🔲',	//☐
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',
-			'share' => '♺',
-			'sort-down' => '↓',
-			'sort-up' => '↑',
-			'starred' => '★',
-			'stats' => '%',
-			'tag' => '⚐',
-			'up' => '△',
-			'view-normal' => '☰',
-			'view-global' => '☷',
-			'view-reader' => '☕',
-			'warning' => '△',
+			'share' => '♻️',	//♺
+			'sort-down' => '⬇️',	//↓
+			'sort-up' => '⬆️',	//↑
+			'starred' => '⭐',	//★
+			'stats' => '📈',	//%
+			'tag' => '🔖',	//⚐
+			'up' => '🔼',	//△
+			'view-normal' => '📰',	//☰
+			'view-global' => '📖',	//☷
+			'view-reader' => '📜',
+			'warning' => '⚠️',	//△
 		);
 		return isset($name) ? $alts[$name] : '';
 	}
 
-	public static function icon($name, $urlOnly = false, $altOnly = false) {
+	public static function icon($name, $urlOnly = false) {
 		$alt = self::alt($name);
 		if ($alt == '') {
 			return '';
@@ -124,6 +124,14 @@ class FreshRSS_Themes extends Minz_Model {
 		$url = $name . '.svg';
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alt . '" />';
+		if ($urlOnly) {
+			return Minz_Url::display($url);
+		}
+
+		if (FreshRSS_Context::$user_conf->icons_as_emojis) {
+			return '<span class="icon">' . $alt . '</span>';
+		}
+
+		return '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '" />';
 	}
 }
