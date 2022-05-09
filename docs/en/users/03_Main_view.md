@@ -52,6 +52,13 @@ Here is an example to trigger article update every hour.
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
+### Online cron
+
+If you do not have access to the installation server scheduled task, you can still automate the update process.
+
+To do so, you need to create a scheduled task, which need to call a specific URL:
+<https://freshrss.example.net/i/?c=feed&a=actualize> (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
+
 Special parameters to configure the script - all parameters can be combined:
 
 * Parameter "force"
@@ -70,19 +77,12 @@ If *maxFeeds* is set the configured amount of feeds is refreshed at once. The de
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
-### Online cron
-
-If you do not have access to the installation server scheduled task, you can still automate the update process.
-
-To do so, you need to create a scheduled task, which need to call a specific URL:
-<https://freshrss.example.net/i/?c=feed&a=actualize> (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
-
 #### No authentication
 
 This is the most straightforward since you have a public instance; there is nothing special to configure:
 
 ```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1'
 ```
 
 ### Form authentication
@@ -97,16 +97,14 @@ You can also configure an authentication token to grant special access on the se
 
 ![Token configuration](../img/users/token.1.png)
 
-The scheduled task syntax should look as follows:
+You can also target a different user by adding their username to the query string, with `&user=insert-username`:
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
-```
+The scheduled task syntax should look as follows:
 
 You can also target a different user by adding their username to the query string, with `&user=insert-username`:
 
 ```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token'
 ```
 
 ### HTTP authentication
