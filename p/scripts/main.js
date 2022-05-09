@@ -764,7 +764,7 @@ function openCategory(category_id) {
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
-	img.alt = '△';
+	img.alt = '🔼';
 }
 
 function init_column_categories() {
@@ -786,15 +786,23 @@ function init_column_categories() {
 	document.getElementById('aside_feed').onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
 		if (a) {
-			const img = a.querySelector('img');
+			const icon = a.querySelector('.icon');
 			const category_id = a.closest('.category').id;
-			if (img.alt === '▽') {
-				img.src = img.src.replace('/icons/down.', '/icons/up.');
-				img.alt = '△';
+			if (icon.alt === '🔽' || icon.innerHTML === '🔽') {
+				if (icon.src) {
+					icon.src = icon.src.replace('/icons/down.', '/icons/up.');
+					icon.alt = '🔼';
+				} else {
+					icon.innerHTML = '🔼';
+				}
 				rememberOpenCategory(category_id, true);
 			} else {
-				img.src = img.src.replace('/icons/up.', '/icons/down.');
-				img.alt = '▽';
+				if (icon.src) {
+					icon.src = icon.src.replace('/icons/up.', '/icons/down.');
+					icon.alt = '🔽';
+				} else {
+					icon.innerHTML = '🔽';
+				}
 				rememberOpenCategory(category_id, false);
 			}
 
