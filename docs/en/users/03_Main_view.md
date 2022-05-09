@@ -75,15 +75,9 @@ If *maxFeeds* is set the configured amount of feeds is refreshed at once. The de
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
-### No authentication
+### For Form Authentication
 
-This is the most straightforward since you have a public instance; there is nothing special to configure:
-
-<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
-
-#### Form authentication
-
-You can configure an authentication token to grant access to the online cron.
+If your FreshRSS instance is using Form Authentication, you can configure an authentication token to grant access to the online cron.
 
 ![Token configuration](../img/users/token.1.png)
 
@@ -97,10 +91,9 @@ Alternatively, but not recommended, if you configure the application to allow an
 
 ![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
-### HTTP authentication
+### For HTTP authentication
 
-When using HTTP authentication, the syntax in the two previous sections is unusable.
-You’ll need to provide your credentials to the scheduled task.
+If your FreshRSS instance is using HTTP authentication, you’ll need to provide your credentials to the scheduled task.
 
 **Note:** This method is discouraged as your credentials are stored in plain text.
 
@@ -111,6 +104,12 @@ You’ll need to provide your credentials to the scheduled task.
 On some systems, that syntax might also work:
 
 <https://alice:password123@freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice>
+
+### For No authentication (None)
+
+If your FreshRSS instance uses no authentication (public instance, default user):
+
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
 
 ## Manual update
 
