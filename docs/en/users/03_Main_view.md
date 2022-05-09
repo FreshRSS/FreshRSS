@@ -81,9 +81,7 @@ Security parameter to prevent unauthorized refreshes. For detailed Documentation
 
 This is the most straightforward since you have a public instance; there is nothing special to configure:
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1'
-```
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
 
 ### Form authentication
 
@@ -101,17 +99,22 @@ You can also target a different user by adding their username to the query strin
 
 The scheduled task syntax should look as follows:
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token'
-```
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token>
 
 ### HTTP authentication
 
-When using HTTP authentication, the syntax in the two previous sections is unusable. You’ll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
+When using HTTP authentication, the syntax in the two previous sections is unusable.
+You’ll need to provide your credentials to the scheduled task.
+
+**Note:** This method is discouraged as your credentials are stored in plain text.
 
 ```cron
-0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice'
 ```
+
+On some systems, that syntax might also work:
+
+<https://alice:password123@freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice>
 
 ## Manual update
 
