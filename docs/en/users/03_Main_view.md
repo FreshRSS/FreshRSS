@@ -101,8 +101,6 @@ You can also target a different user by adding their username to the query strin
 
 The scheduled task syntax should look as follows:
 
-You can also target a different user by adding their username to the query string, with `&user=insert-username`:
-
 ```cron
 0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token'
 ```
