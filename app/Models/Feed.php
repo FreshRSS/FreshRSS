@@ -208,7 +208,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$url = $this->url;
 		}
 		$txt = FAVICONS_DIR . $this->hash() . '.txt';
-		if (!file_exists($txt)) {
+		if (@file_get_contents($txt) !== $url) {
 			file_put_contents($txt, $url);
 		}
 		if (FreshRSS_Context::$isCli) {

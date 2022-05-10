@@ -540,12 +540,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				if (trim($feed->website()) == '') {
 					$website = html_only_entity_decode($simplePie->get_link());
-					$feedProperties['website'] = $website == '' ? $feed->url() : $website;
+					$feed->_website($website == '' ? $feed->url() : $website);
+					$feedProperties['website'] = $feed->website();
+					$feed->faviconPrepare();
 				}
 				if (trim($feed->description()) == '') {
 					$description = html_only_entity_decode($simplePie->get_description());
 					if ($description != '') {
-						$feedProperties['description'] = $description;
+						$feed->_description($description);
+						$feedProperties['description'] = $feed->description();
 					}
 				}
 			}
