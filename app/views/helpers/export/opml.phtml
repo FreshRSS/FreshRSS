@@ -11,11 +11,11 @@ $opml_array = array(
 
 foreach ($this->categories as $key => $cat) {
 	$opml_array['body'][$key] = array(
-		'text' => $cat['name'],
+		'text' => $cat->name(),
 		'@outlines' => array()
 	);
 
-	foreach ($cat['feeds'] as $feed) {
+	foreach ($cat->feeds() as $feed) {
 		$opml_array['body'][$key]['@outlines'][] = array(
 			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
 			'type' => 'rss',

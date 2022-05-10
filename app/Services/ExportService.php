@@ -43,14 +43,7 @@ class FreshRSS_Export_Service {
 
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$categories = [];
-
-		foreach ($this->category_dao->listCategories() as $key => $category) {
-			$categories[$key]['name'] = $category->name();
-			$categories[$key]['feeds'] = $this->feed_dao->listByCategory($category->id());
-		}
-
-		$view->categories = $categories;
+		$view->categories = $this->category_dao->listCategories(true);
 
 		return [
 			"feeds_{$day}.opml.xml",
