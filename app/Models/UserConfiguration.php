@@ -40,6 +40,7 @@
  * @property bool $show_fav_unread
  * @property bool $show_favicons
  * @property bool $icons_as_emojis
+ * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
  * @property string $sort_order
  * @property array<string,array<string>> $sharing
