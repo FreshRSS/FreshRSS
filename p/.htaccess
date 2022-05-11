@@ -1,3 +1,6 @@
+RewriteEngine on
+RewriteRule	^ico-([a-zA-Z0-9\-]+)\.ico$	f.php?$1
+
 <IfModule mod_dir.c>
 	DirectoryIndex	index.php index.html
 </IfModule>
