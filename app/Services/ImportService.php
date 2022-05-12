@@ -148,6 +148,37 @@ class FreshRSS_Import_Service {
 			$feed->_website($website);
 			$feed->_description($description);
 
+			switch ($feed_elt['type'] ?? '') {
+				case FreshRSS_Export_Service::TYPE_HTML_XPATH:
+					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH);
+					break;
+				case FreshRSS_Export_Service::TYPE_RSS_ATOM:
+				default:
+					$feed->_kind(FreshRSS_Feed::KIND_RSS);
+					break;
+			}
+
+			$xPathSettings = [];
+			foreach ($feed_elt as $key => $value) {
+				if (is_array($value) && !empty($value['value']) && ($value['namespace'] ?? '') === FreshRSS_Export_Service::FRSS_NAMESPACE) {
+					switch ($key) {
+						case 'cssFullContent': $feed->_pathEntries($value['value']); break;
+						case 'filtersActionRead': $feed->_filtersAction('read', preg_split('/[\n\r]+/', $value['value'])); break;
+						case 'xPathItem': $xPathSettings['item'] = $value['value']; break;
+						case 'xPathItemTitle': $xPathSettings['itemTitle'] = $value['value']; break;
+						case 'xPathItemContent': $xPathSettings['itemContent'] = $value['value']; break;
+						case 'xPathItemUri': $xPathSettings['itemUri'] = $value['value']; break;
+						case 'xPathItemAuthor': $xPathSettings['itemAuthor'] = $value['value']; break;
+						case 'xPathItemTimestamp': $xPathSettings['itemTimestamp'] = $value['value']; break;
+						case 'xPathItemThumbnail': $xPathSettings['itemThumbnail'] = $value['value']; break;
+						case 'xPathItemCategories': $xPathSettings['itemCategories'] = $value['value']; break;
+					}
+				}
+			}
+			if (!empty($xPathSettings)) {
+				$feed->_attributes('xpath', $xPathSettings);
+			}
+
 			// Call the extension hook
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
 			if ($feed != null) {
