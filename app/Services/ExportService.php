@@ -19,7 +19,7 @@ class FreshRSS_Export_Service {
 	/** @var FreshRSS_TagDAO */
 	private $tag_dao;
 
-	const FRSS_NAMESPACE = 'https://freshrss.org/#v1';
+	const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	const TYPE_HTML_XPATH = 'HTML+XPath';
 	const TYPE_RSS_ATOM = 'rss';
 

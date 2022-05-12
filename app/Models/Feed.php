@@ -567,8 +567,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
 		}
 
-		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
-		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
+		// Same naming conventions than https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html
+		// https://rss-bridge.github.io/rss-bridge/Bridge_API/BridgeAbstract.html#collectdata
 		/** @var array<string,string> */
 		$xPathSettings = $this->attributes('xpath');
 		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
