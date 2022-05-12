@@ -11,12 +11,11 @@ $opml_array = array(
 
 foreach ($this->categories as $key => $cat) {
 	$opml_array['body'][$key] = array(
-		'text' => $cat['name'],
+		'text' => $cat->name(),
 		'@outlines' => array()
 	);
 
-	/** @var FreshRSS_Feed $feed */
-	foreach ($cat['feeds'] as $feed) {
+	foreach ($cat->feeds() as $feed) {
 		$outline = [
 			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
 			'type' => FreshRSS_Export_Service::TYPE_RSS_ATOM,
