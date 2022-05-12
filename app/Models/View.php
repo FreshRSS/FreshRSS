@@ -6,6 +6,7 @@ class FreshRSS_View extends Minz_View {
 	public $callbackBeforeEntries;
 	public $callbackBeforeFeeds;
 	public $callbackBeforePagination;
+	/** @var array<FreshRSS_Category> */
 	public $categories;
 	/** @var FreshRSS_Category|null */
 	public $category;

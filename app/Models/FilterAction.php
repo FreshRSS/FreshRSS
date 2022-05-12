@@ -2,6 +2,7 @@
 
 class FreshRSS_FilterAction {
 
+	/** @var FreshRSS_BooleanSearch */
 	private $booleanSearch = null;
 	private $actions = null;
 
@@ -33,7 +34,7 @@ class FreshRSS_FilterAction {
 					'actions' => $this->actions,
 				);
 		}
-		return '';
+		return [];
 	}
 
 	public static function fromJSON($json) {

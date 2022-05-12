@@ -104,7 +104,7 @@ return array(
 		'max_inactivity' => PHP_INT_MAX,
 
 		# Max number of feeds for a user.
-		'max_feeds' => 16384,
+		'max_feeds' => 131072,
 
 		# Max number of categories for a user.
 		'max_categories' => 16384,
