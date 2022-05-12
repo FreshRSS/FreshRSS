@@ -12,7 +12,7 @@
  *
  * @author   Marien Fressinaud <dev@marienfressinaud.fr>
  * @link     https://github.com/marienfressinaud/lib_opml
- * @version  0.2-FreshRSS~1.5.1
+ * @version  0.2-FreshRSS~1.20.0
  * @license  public domain
  *
  * Usages:
@@ -91,8 +91,20 @@ function libopml_parse_outline($outline_xml, $strict = true) {
 	// An outline may contain any kind of attributes but "text" attribute is
 	// required !
 	$text_is_present = false;
-	foreach ($outline_xml->attributes() as $key => $value) {
-		$outline[$key] = (string)$value;
+
+	$elem = dom_import_simplexml($outline_xml);
+	/** @var DOMAttr $attr */
+	foreach ($elem->attributes as $attr) {
+		$key = $attr->localName;
+
+		if ($attr->namespaceURI == '') {
+			$outline[$key] = $attr->value;
+		} else {
+			$outline[$key] = [
+				'namespace' => $attr->namespaceURI,
+				'value' => $attr->value,
+			];
+		}
 
 		if ($key === 'text') {
 			$text_is_present = true;
@@ -257,17 +269,22 @@ function libopml_render_outline($parent_elt, $outline, $strict) {
 			foreach ($value as $outline_child) {
 				libopml_render_outline($outline_elt, $outline_child, $strict);
 			}
-		} elseif (is_array($value)) {
+		} elseif (is_array($value) && !isset($value['namespace'])) {
 			throw new LibOPML_Exception(
-				'Type of outline elements cannot be array: ' . $key
+				'Type of outline elements cannot be array (except for providing a namespace): ' . $key
 			);
 		} else {
 			// Detect text attribute is present, that's good :)
 			if ($key === 'text') {
 				$text_is_present = true;
 			}
-
-			$outline_elt->addAttribute($key, $value);
+			if (is_array($value)) {
+				if (!empty($value['namespace']) && !empty($value['value'])) {
+					$outline_elt->addAttribute($key, $value['value'], $value['namespace']);
+				}
+			} else {
+				$outline_elt->addAttribute($key, $value);
+			}
 		}
 	}
 
