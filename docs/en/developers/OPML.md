@@ -45,3 +45,30 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 * `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
 	* Example: `div.main`
 * `frss:filtersActionRead`: List (separated by a new line) of search queries to automatically mark a new article as read.
+
+### Example
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+	<head>
+		<title>FreshRSS OPML extension example</title>
+	</head>
+	<body>
+		<outline xmlns:frss="https://freshrss.org/opml"
+			text="Example"
+			type="HTML+XPath"
+			xmlUrl="https://www.example.net/page.html"
+			htmlUrl="https://www.example.net/page.html"
+			description="Example of Web scraping"
+			frss:xPathItem="//a[contains(@href, '/interesting/')]/ancestor::article"
+			frss:xPathItemTitle="descendant::h2"
+			frss:xPathItemContent="."
+			frss:xPathItemUri="descendant::a[string-length(@href)&gt;0]/@href"
+			frss:xPathItemThumbnail="descendant::img/@src"
+			frss:cssFullContent="article"
+			frss:filtersActionRead="intitle:⚡️ OR intitle:🔥&#10;something"
+		/>
+	</body>
+</opml>
+```
