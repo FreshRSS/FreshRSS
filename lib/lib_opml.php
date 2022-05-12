@@ -162,7 +162,7 @@ function preprocessing_categories($doc) {
  * Parse a string as a XML one and returns the corresponding array
  *
  * @param string $xml is the string we want to parse
- * @param bool $strict true if "text" attribute is required, false else
+ * @param bool $strict true to perform some validation (e.g. require "text" attribute), false to relax
  * @return array corresponding to the XML string and following format described above
  * @throws LibOPML_Exception
  * @access public
@@ -194,9 +194,9 @@ function libopml_parse_string($xml, $strict = true) {
 	foreach ($opml->head->children() as $key => $value) {
 		if (in_array($key, unserialize(HEAD_ELEMENTS), true)) {
 			$array['head'][$key] = (string)$value;
-		} else {
+		} elseif ($strict) {
 			throw new LibOPML_Exception(
-				$key . 'is not part of OPML format'
+				$key . ' is not part of the OPML 2.0 specification'
 			);
 		}
 	}
