@@ -26,6 +26,10 @@ Start by creating your development environment. A guide to setting up FreshRSSâ€
 * [View files](04_Frontend/01_View_files.md)
 * [Design (Themes/Theming)](04_Frontend/02_Design.md)
 
+## Namespaces
+
+* [OPML FreshRSS namespace](OPML.md)
+
 ## Minz
 
 Minz is the homemade PHP framework used by FreshRSS. More information can be found [here](Minz/index.md).
