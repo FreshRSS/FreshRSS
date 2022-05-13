@@ -767,6 +767,18 @@ function openCategory(category_id) {
 	img.alt = '🔼';
 }
 
+function loadJs(name) {
+	if (!document.getElementById(name)) {
+		const script = document.createElement('script');
+		script.setAttribute('id', name);
+		// TODO: Use timestamp of script to avoid excessive caching
+		script.setAttribute('src', '../scripts/' + name);
+		script.setAttribute('defer', 'defer');
+		script.setAttribute('async', 'async');
+		document.head.appendChild(script);
+	}
+}
+
 function init_column_categories() {
 	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
 		return;
@@ -821,6 +833,7 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
+			loadJs('feed.js');
 			const itemId = a.closest('.item').id;
 			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
 			const id = itemId.substr(2);

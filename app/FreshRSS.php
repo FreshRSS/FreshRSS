@@ -126,7 +126,9 @@ class FreshRSS extends Minz_FrontController {
 			}
 		}
 		//Use prepend to insert before extensions. Added in reverse order.
-		FreshRSS_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
+		if (Minz_Request::controllerName() !== 'index') {
+			FreshRSS_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')), false, true, true, 'extra');
+		}
 		FreshRSS_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 	}
 

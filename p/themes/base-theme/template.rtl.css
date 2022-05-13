@@ -1222,7 +1222,7 @@ br {
 #popup {
 	display: none;
 	position: fixed;
-	z-index: 1;
+	z-index: 200;
 	right: 0;
 	top: 0;
 	width: 100%;

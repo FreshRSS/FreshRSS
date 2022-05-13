@@ -90,6 +90,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	public function feedAction() {
 		if (Minz_Request::param('ajax')) {
 			$this->view->_layout(false);
+		} else {
+			FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();

@@ -1,23 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
-
-function fix_popup_preview_selector() {
-	const link = document.getElementById('popup-preview-selector');
-
-	if (!link) {
-		return;
-	}
-
-	link.addEventListener('click', function (ev) {
-		const selector_entries = document.getElementById('path_entries').value;
-		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries));
-
-		openPopupWithSource(href);
-
-		ev.preventDefault();
-	});
-}
+/* globals context, openNotification, xmlHttpRequestJson */
 
 // <crypto form (Web login)>
 function poormanSalt() {	// If crypto.getRandomValues is not available
@@ -177,75 +160,6 @@ function init_select_observers() {
 	});
 }
 
-// <slider>
-
-function open_slider_listener(ev) {
-	const a = ev.target.closest('.open-slider');
-	if (a) {
-		if (!context.ajax_loading) {
-			location.href = '#'; // close menu/dropdown
-			context.ajax_loading = true;
-
-			const req = new XMLHttpRequest();
-			req.open('GET', a.href + '&ajax=1', true);
-			req.responseType = 'document';
-			req.onload = function (e) {
-				const slider = document.getElementById('slider');
-				const closer = document.getElementById('close-slider');
-				slider.innerHTML = this.response.body.innerHTML;
-				slider.classList.add('active');
-				closer.classList.add('active');
-				context.ajax_loading = false;
-				fix_popup_preview_selector();
-				init_extra();
-			};
-			req.send();
-			return false;
-		}
-	}
-}
-
-function slider_data_leave_validation() {
-	const ds = document.querySelectorAll('[data-leave-validation]');
-
-	for (let i = ds.length - 1; i >= 0; i--) {
-		const input = ds[i];
-		if (input.type === 'checkbox' || input.type === 'radio') {
-			if (input.checked != input.getAttribute('data-leave-validation')) {
-				return false;
-			}
-		} else if (input.value != input.getAttribute('data-leave-validation')) {
-			return false;
-		}
-	}
-	return true;
-}
-
-function init_slider_observers() {
-	const slider = document.getElementById('slider');
-	const closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
-
-	window.onclick = open_slider_listener;
-
-	closer.addEventListener('click', function (ev) {
-		if (slider_data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			fix_popup_preview_selector();
-			init_extra();
-			return true;
-		} else {
-			return false;
-		}
-	});
-}
-
-// </slider>
-
 function data_leave_validation() {
 	const ds = document.querySelectorAll('[data-leave-validation]');
 
@@ -277,27 +191,6 @@ function init_configuration_alert() {
 }
 
 /**
- * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
- */
-function init_select_show() {
-	const listener = (select) => {
-		const options = select.querySelectorAll('option[data-show]');
-		for (const option of options) {
-			const elem = document.getElementById(option.dataset.show);
-			if (elem) {
-				elem.style.display = option.selected ? 'block' : 'none';
-			}
-		}
-	};
-
-	const selects = document.querySelectorAll('select.select-show');
-	for (const select of selects) {
-		select.addEventListener('change', (e) => listener(e.target));
-		listener(select);
-	}
-}
-
-/**
  * Automatically validate XPath textarea fields
  */
 function init_valid_xpath() {
@@ -319,44 +212,36 @@ function init_valid_xpath() {
 	}
 }
 
-function init_extra() {
+function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
 			console.log('FreshRSS extra waiting for JS…');
 		}
-		window.setTimeout(init_extra, 50);	// Wait for all js to be loaded
+		setTimeout(init_extra_afterDOM, 50);
 		return;
 	}
-	init_crypto_form();
-	init_password_observers();
-	init_url_observers();
-	init_select_observers();
-	init_slider_observers();
-	init_configuration_alert();
-	fix_popup_preview_selector();
-	init_select_show();
-	init_valid_xpath();
+	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
+		init_crypto_form();
+		init_password_observers();
+		init_url_observers();
+		init_select_observers();
+		init_configuration_alert();
+		init_valid_xpath();
+	}
 
 	if (window.console) {
 		console.log('FreshRSS extra init done.');
 	}
 }
 
-// wrapper of init_extra().
-// Do not init_extra on feed view pages. init_extra() will be triggered there when the slider was opened.
-function init_extra_afterDOM() {
-	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_extra();
-	}
-	init_slider_observers();
-}
-
 if (document.readyState && document.readyState !== 'loading') {
 	init_extra_afterDOM();
 } else {
-	if (window.console) {
-		console.log('FreshRSS extra waiting for DOMContentLoaded…');
-	}
-	document.addEventListener('DOMContentLoaded', init_extra_afterDOM, false);
+	document.addEventListener('DOMContentLoaded', function () {
+		if (window.console) {
+			console.log('FreshRSS extra waiting for DOMContentLoaded…');
+		}
+		init_extra_afterDOM();
+	}, false);
 }
 // @license-end
