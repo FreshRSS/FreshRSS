@@ -23,7 +23,7 @@ return array(
 		'keep_unreads' => 'Nigdy nie usuwaj nieprzeczytanych wiadomości',
 		'maintenance' => 'Konserwacja',
 		'optimize' => 'Optymalizacja bazy danych',
-		'optimize_help' => 'Uruchom od czasu do czasy, by zmniejszyć rozmiar bazy danych',
+		'optimize_help' => 'Uruchom od czasu do czasu, by zmniejszyć rozmiar bazy danych',
 		'policy' => 'Polityka oczyszczania',
 		'policy_warning' => 'Jeżeli nie zostanie wybrana polityka oczyszczania, żadna wiadomość nie zostanie usunięta.',
 		'purge_now' => 'Oczyść teraz',
