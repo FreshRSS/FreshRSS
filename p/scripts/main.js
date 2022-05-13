@@ -771,8 +771,7 @@ function loadJs(name) {
 	if (!document.getElementById(name)) {
 		const script = document.createElement('script');
 		script.setAttribute('id', name);
-		// TODO: Use timestamp of script to avoid excessive caching
-		script.setAttribute('src', '../scripts/' + name);
+		script.setAttribute('src', '../scripts/' + name + '?' + context.mtime[name]);
 		script.setAttribute('defer', 'defer');
 		script.setAttribute('async', 'async');
 		document.head.appendChild(script);
@@ -1448,76 +1447,6 @@ function init_notifications() {
 }
 // </notification>
 
-// <popup>
-let popup = null;
-let popup_iframe_container = null;
-let popup_iframe = null;
-let popup_txt = null;
-let popup_working = false;
-
-/* eslint-disable no-unused-vars */
-// TODO: Re-enable no-unused-vars
-function openPopupWithMessage(msg) {
-	if (popup_working === true) {
-		return false;
-	}
-
-	popup_working = true;
-
-	popup_txt.innerHTML = msg;
-
-	popup_txt.style.display = 'table-row';
-	popup.style.display = 'block';
-}
-
-function openPopupWithSource(source) {
-	if (popup_working === true) {
-		return false;
-	}
-
-	popup_working = true;
-
-	popup_iframe.src = source;
-
-	popup_iframe_container.style.display = 'table-row';
-	popup.style.display = 'block';
-}
-/* eslint-enable no-unused-vars */
-
-function closePopup() {
-	popup.style.display = 'none';
-	popup_iframe_container.style.display = 'none';
-	popup_txt.style.display = 'none';
-
-	popup_iframe.src = 'about:blank';
-
-	popup_working = false;
-}
-
-function init_popup() {
-	// Fetch elements.
-	popup = document.getElementById('popup');
-	if (popup) {
-		popup_iframe_container = document.getElementById('popup-iframe-container');
-		popup_iframe = document.getElementById('popup-iframe');
-
-		popup_txt = document.getElementById('popup-txt');
-
-		// Configure close button.
-		document.getElementById('popup-close').addEventListener('click', function (ev) {
-			closePopup();
-		});
-
-		// Configure close-on-click.
-		window.addEventListener('click', function (ev) {
-			if (ev.target == popup) {
-				closePopup();
-			}
-		});
-	}
-}
-// </popup>
-
 // <notifs html5>
 let notifs_html5_permission = 'denied';
 
@@ -1812,7 +1741,6 @@ function init_main_beforeDOM() {
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
-	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
 	if (stream) {

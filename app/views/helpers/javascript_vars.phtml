@@ -22,6 +22,9 @@ echo htmlspecialchars(json_encode(array(
 		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
 		'current_view' => Minz_Request::actionName(),
 		'csrf' => FreshRSS_Auth::csrfToken(),
+		'mtime' => [
+			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
+		],
 	),
 	'shortcuts' => array(
 		'actualize' => @$s['actualize'],

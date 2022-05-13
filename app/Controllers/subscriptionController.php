@@ -45,6 +45,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction() {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/category.js?' . @filemtime(PUBLIC_PATH . '/scripts/category.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		FreshRSS_View::prependTitle(_t('sub.title') . ' · ');
 
 		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');

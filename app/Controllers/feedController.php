@@ -866,8 +866,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public function contentSelectorPreviewAction() {
 
-		// FIXME: Does not work in non-ajax mode, i.e. http://localhost/i/?c=feed&a=contentSelectorPreview&id=736&selector=selector-token
-
 		//Configure.
 		$this->view->fatalError = '';
 		$this->view->selectorSuccess = false;
