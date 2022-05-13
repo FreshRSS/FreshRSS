@@ -12,6 +12,6 @@
         "vendor-dir": "./"
     },
     "scripts": {
-        "post-autoload-dump": "rm autoload.php && rm -r composer"
+        "post-autoload-dump": "rm autoload.php && rm -r composer/ && rm composer.lock"
     }
 }
