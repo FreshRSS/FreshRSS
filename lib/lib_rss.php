@@ -10,14 +10,8 @@ if (!function_exists('mb_strcut')) {
 }
 
 if (!function_exists('str_starts_with')) {
-	/**
-	 * Polyfill for PHP <8.0
-	 *
-	 * @param string $haystack
-	 * @param string $needle
-	 * @return bool
-	 */
-	function str_starts_with($haystack, $needle): bool {
+	/** Polyfill for PHP <8.0 */
+	function str_starts_with(string $haystack, string $needle): bool {
 		return strncmp($haystack, $needle, strlen($needle)) === 0;
 	}
 }
@@ -61,19 +55,10 @@ function classAutoloader($class) {
 	} elseif (strpos($class, 'CssXPath') !== false) {
 		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
 	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
-		// project-specific namespace prefix
 		$prefix = 'PHPMailer\\PHPMailer\\';
-
-		// base directory for the namespace prefix
 		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
-
-		// get the relative class name
-		$relative_class = substr($class, strlen($prefix));
-
-		// replace the namespace prefix with the base directory, replace namespace
-		// separators with directory separators in the relative class name, append
-		// with .php and require the file
-		require $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	}
 }
 
