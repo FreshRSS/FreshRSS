@@ -98,7 +98,7 @@ return array(
 			'invalid_url' => 'Adres URL <em>%s</em> nie jest prawidłowy',
 			'n_actualized' => 'Liczba zaktualizowanych kanałów: %d',
 			'n_entries_deleted' => 'Liczba usuniętych wiadomości: %d',
-			'no_refresh' => 'Brak kanałó do odświeżenia',
+			'no_refresh' => 'Brak kanałów do odświeżenia',
 			'not_added' => 'Kanał <em>%s</em> nie mógł zostać dodany',
 			'not_found' => 'Kanał nie może zostać znaleziony',
 			'over_max' => 'Osiągnięto ustawiony limit kanałów (%d)',
