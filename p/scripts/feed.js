@@ -160,7 +160,6 @@ function slider_data_leave_validation() {
  * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
  */
 function init_select_show(parent) {
-	// TODO: Fix for slider
 	const listener = (select) => {
 		const options = select.querySelectorAll('option[data-show]');
 		for (const option of options) {
