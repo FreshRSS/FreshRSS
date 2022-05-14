@@ -279,6 +279,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function queriesAction() {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 
 		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
