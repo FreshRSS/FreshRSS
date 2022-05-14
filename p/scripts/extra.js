@@ -81,6 +81,7 @@ function init_crypto_form() {
 }
 // </crypto form (Web login)>
 
+// <show password>
 let timeoutHide;
 
 function showPW_this(ev) {
@@ -112,11 +113,62 @@ function hidePW(id_passwordField) {
 	return false;
 }
 
-function init_password_observers() {
-	document.querySelectorAll('.toggle-password').forEach(function (btn) {
+function init_password_observers(parent) {
+	parent.querySelectorAll('.toggle-password').forEach(function (btn) {
 		btn.addEventListener('click', showPW_this);
 	});
 }
+// </show password>
+
+// <slider>
+function open_slider_listener(ev) {
+	const a = ev.target.closest('.open-slider');
+	if (a) {
+		if (!context.ajax_loading) {
+			location.href = '#'; // close menu/dropdown
+			context.ajax_loading = true;
+			const freshrssSliderLoadEvent = new Event('freshrss:slider-load');
+
+			const req = new XMLHttpRequest();
+			req.open('GET', a.href + '&ajax=1', true);
+			req.responseType = 'document';
+			req.onload = function (e) {
+				const slider = document.getElementById('slider');
+				const closer = document.getElementById('close-slider');
+				slider.scrollTop = 0;
+				slider.innerHTML = this.response.body.innerHTML;
+				slider.classList.add('active');
+				closer.classList.add('active');
+				context.ajax_loading = false;
+				slider.dispatchEvent(freshrssSliderLoadEvent);
+			};
+			req.send();
+			return false;
+		}
+	}
+}
+
+function init_slider() {
+	const slider = document.getElementById('slider');
+	if (!slider) {
+		return;
+	}
+
+	window.onclick = open_slider_listener;
+
+	const closer = document.getElementById('close-slider');
+	closer.addEventListener('click', function (ev) {
+		if (data_leave_validation(slider) || confirm(context.i18n.confirmation_default)) {
+			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+			closer.classList.remove('active');
+			slider.classList.remove('active');
+			return true;
+		} else {
+			return false;
+		}
+	});
+}
+// </slider>
 
 // overwrites the href attribute from the url input
 function updateHref(ev) {
@@ -160,8 +212,8 @@ function init_select_observers() {
 	});
 }
 
-function data_leave_validation() {
-	const ds = document.querySelectorAll('[data-leave-validation]');
+function data_leave_validation(parent) {
+	const ds = parent.querySelectorAll('[data-leave-validation]');
 
 	for (let i = ds.length - 1; i >= 0; i--) {
 		const input = ds[i];
@@ -184,32 +236,10 @@ function init_configuration_alert() {
 		if (window.hasSubmit) {
 			return;
 		}
-		if (!data_leave_validation()) {
+		if (!data_leave_validation(document.body)) {
 			return false;
 		}
 	};
-}
-
-/**
- * Automatically validate XPath textarea fields
- */
-function init_valid_xpath() {
-	const listener = (textarea) => {
-		const evaluator = new XPathEvaluator();
-		try {
-			if (textarea.value === '' || evaluator.createExpression(textarea.value) != null) {
-				textarea.setCustomValidity('');
-			}
-		} catch (ex) {
-			textarea.setCustomValidity(ex);
-		}
-	};
-
-	const textareas = document.querySelectorAll('textarea.valid-xpath');
-	for (const textarea of textareas) {
-		textarea.addEventListener('change', (e) => listener(e.target));
-		listener(textarea);
-	}
 }
 
 function init_extra_afterDOM() {
@@ -221,12 +251,12 @@ function init_extra_afterDOM() {
 		return;
 	}
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
+		init_slider();
 		init_crypto_form();
-		init_password_observers();
+		init_password_observers(document.body);
 		init_url_observers();
 		init_select_observers();
 		init_configuration_alert();
-		init_valid_xpath();
 	}
 
 	if (window.console) {
