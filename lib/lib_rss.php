@@ -9,6 +9,13 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+if (!function_exists('str_starts_with')) {
+	/** Polyfill for PHP <8.0 */
+	function str_starts_with(string $haystack, string $needle): bool {
+		return strncmp($haystack, $needle, strlen($needle)) === 0;
+	}
+}
+
 // @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
@@ -47,8 +54,11 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'CssXPath') !== false) {
 		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
-		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
+	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
+		$prefix = 'PHPMailer\\PHPMailer\\';
+		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	}
 }
 
