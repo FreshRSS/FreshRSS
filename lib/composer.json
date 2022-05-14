@@ -12,7 +12,6 @@
         "vendor-dir": "./"
     },
     "scripts": {
-        "post-autoload-dump": "rm autoload.php",
-        "post-update-cmd": "rm composer.lock ; rm -r composer/"
+        "post-update-cmd": "git clean -d -f -X ."
     }
 }

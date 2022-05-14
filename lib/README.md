@@ -9,4 +9,4 @@ cd ./FreshRSS/lib/
 composer update --no-autoloader
 ```
 
-Remember to proof-read the changes, preserve possible local patches, delete irrelevant files, and test before committing.
+Remember to proof-read the changes, preserve possible local patches, delete irrelevant files (minimal installation), and test before committing.
