@@ -116,7 +116,6 @@ function init_feed_afterDOM() {
 
 	const slider = document.getElementById('slider');
 	if (slider) {
-		init_slider(slider);
 		slider.addEventListener('freshrss:slider-load', function (e) {
 			init_popup();
 			init_popup_preview_selector();
@@ -124,6 +123,7 @@ function init_feed_afterDOM() {
 			init_password_observers(slider);
 			init_valid_xpath(slider);
 		});
+		init_slider(slider);
 		init_archiving(slider);
 	} else {
 		init_archiving(document.body);

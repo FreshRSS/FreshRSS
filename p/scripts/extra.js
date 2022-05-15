@@ -142,13 +142,14 @@ function init_archiving(parent) {
 }
 
 // <slider>
+const freshrssSliderLoadEvent = new Event('freshrss:slider-load');
+
 function open_slider_listener(ev) {
 	const a = ev.target.closest('.open-slider');
 	if (a) {
 		if (!context.ajax_loading) {
 			location.href = '#'; // close menu/dropdown
 			context.ajax_loading = true;
-			const freshrssSliderLoadEvent = new Event('freshrss:slider-load');
 
 			const req = new XMLHttpRequest();
 			req.open('GET', a.href + '&ajax=1', true);
@@ -183,6 +184,10 @@ function init_slider(slider) {
 			return false;
 		}
 	});
+
+	if (slider.children.length > 0) {
+		slider.dispatchEvent(freshrssSliderLoadEvent);
+	}
 }
 // </slider>
 
