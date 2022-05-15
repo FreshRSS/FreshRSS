@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals init_password_observers, init_slider */
+/* globals init_archiving, init_password_observers, init_slider */
 
 // <popup>
 let popup = null;
@@ -64,31 +64,6 @@ function init_popup_preview_selector() {
 	});
 }
 
-function init_archiving() {
-	const feed_update = document.getElementById('feed_update');
-	if (!feed_update) {
-		return;
-	}
-	feed_update.addEventListener('change', function (e) {
-		if (e.target.id === 'use_default_purge_options') {
-			feed_update.querySelectorAll('.archiving').forEach(function (element) {
-				element.hidden = e.target.checked;
-				if (!e.target.checked) element.style.visibility = 'visible'; 	// Help for Edge 44
-			});
-		}
-	});
-	feed_update.addEventListener('click', function (e) {
-		if (e.target.closest('button[type=reset]')) {
-			const archiving = document.getElementById('use_default_purge_options');
-			if (archiving) {
-				feed_update.querySelectorAll('.archiving').forEach(function (element) {
-					element.hidden = archiving.getAttribute('data-leave-validation') == 1;
-				});
-			}
-		}
-	});
-}
-
 /**
  * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
  */
@@ -140,19 +115,18 @@ function init_feed_afterDOM() {
 	}
 
 	const slider = document.getElementById('slider');
-
 	if (slider) {
-		init_slider();
+		init_slider(slider);
 		slider.addEventListener('freshrss:slider-load', function (e) {
-			init_archiving();
 			init_popup();
 			init_popup_preview_selector();
 			init_select_show(slider);
 			init_password_observers(slider);
 			init_valid_xpath(slider);
 		});
+		init_archiving(slider);
 	} else {
-		init_archiving();
+		init_archiving(document.body);
 		init_popup();
 		init_popup_preview_selector();
 		init_select_show(document.body);

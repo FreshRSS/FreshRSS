@@ -120,6 +120,27 @@ function init_password_observers(parent) {
 }
 // </show password>
 
+function init_archiving(parent) {
+	parent.addEventListener('change', function (e) {
+		if (e.target.id === 'use_default_purge_options') {
+			parent.querySelectorAll('.archiving').forEach(function (element) {
+				element.hidden = e.target.checked;
+				if (!e.target.checked) element.style.visibility = 'visible'; 	// Help for Edge 44
+			});
+		}
+	});
+	parent.addEventListener('click', function (e) {
+		if (e.target.closest('button[type=reset]')) {
+			const archiving = document.getElementById('use_default_purge_options');
+			if (archiving) {
+				parent.querySelectorAll('.archiving').forEach(function (element) {
+					element.hidden = archiving.getAttribute('data-leave-validation') == 1;
+				});
+			}
+		}
+	});
+}
+
 // <slider>
 function open_slider_listener(ev) {
 	const a = ev.target.closest('.open-slider');
@@ -148,12 +169,7 @@ function open_slider_listener(ev) {
 	}
 }
 
-function init_slider() {
-	const slider = document.getElementById('slider');
-	if (!slider) {
-		return;
-	}
-
+function init_slider(slider) {
 	window.onclick = open_slider_listener;
 
 	const closer = document.getElementById('close-slider');
@@ -251,12 +267,19 @@ function init_extra_afterDOM() {
 		return;
 	}
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_slider();
 		init_crypto_form();
 		init_password_observers(document.body);
 		init_url_observers();
 		init_select_observers();
 		init_configuration_alert();
+
+		const slider = document.getElementById('slider');
+		if (slider) {
+			init_slider(slider);
+			init_archiving(slider);
+		} else {
+			init_archiving(document.body);
+		}
 	}
 
 	if (window.console) {
