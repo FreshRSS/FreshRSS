@@ -767,6 +767,17 @@ function openCategory(category_id) {
 	img.alt = '🔼';
 }
 
+function loadJs(name) {
+	if (!document.getElementById(name)) {
+		const script = document.createElement('script');
+		script.setAttribute('id', name);
+		script.setAttribute('src', '../scripts/' + name + '?' + context.mtime[name]);
+		script.setAttribute('defer', 'defer');
+		script.setAttribute('async', 'async');
+		document.head.appendChild(script);
+	}
+}
+
 function init_column_categories() {
 	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
 		return;
@@ -821,6 +832,8 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
+			loadJs('extra.js');
+			loadJs('feed.js');
 			const itemId = a.closest('.item').id;
 			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
 			const id = itemId.substr(2);
@@ -1436,139 +1449,6 @@ function init_notifications() {
 }
 // </notification>
 
-// <slider>
-function init_slider_observers() {
-	const slider = document.getElementById('slider');
-	const closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
-
-	window.onclick = open_slider_listener;
-
-	closer.addEventListener('click', function (ev) {
-		if (slider_data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return true;
-		} else {
-			return false;
-		}
-	});
-}
-
-function open_slider_listener(ev) {
-	const a = ev.target.closest('.open-slider');
-	if (a) {
-		if (!context.ajax_loading) {
-			location.href = '#'; // close menu/dropdown
-			context.ajax_loading = true;
-
-			const req = new XMLHttpRequest();
-			req.open('GET', a.href + '&ajax=1', true);
-			req.responseType = 'document';
-			req.onload = function (e) {
-				const slider = document.getElementById('slider');
-				const closer = document.getElementById('close-slider');
-				slider.innerHTML = this.response.body.innerHTML;
-				slider.classList.add('active');
-				closer.classList.add('active');
-				context.ajax_loading = false;
-			};
-			req.send();
-			return false;
-		}
-	}
-}
-
-function slider_data_leave_validation() {
-	const ds = document.querySelectorAll('[data-leave-validation]');
-
-	for (let i = ds.length - 1; i >= 0; i--) {
-		const input = ds[i];
-		if (input.type === 'checkbox' || input.type === 'radio') {
-			if (input.checked != input.getAttribute('data-leave-validation')) {
-				return false;
-			}
-		} else if (input.value != input.getAttribute('data-leave-validation')) {
-			return false;
-		}
-	}
-	return true;
-}
-// </slider>
-
-// <popup>
-let popup = null;
-let popup_iframe_container = null;
-let popup_iframe = null;
-let popup_txt = null;
-let popup_working = false;
-
-/* eslint-disable no-unused-vars */
-// TODO: Re-enable no-unused-vars
-function openPopupWithMessage(msg) {
-	if (popup_working === true) {
-		return false;
-	}
-
-	popup_working = true;
-
-	popup_txt.innerHTML = msg;
-
-	popup_txt.style.display = 'table-row';
-	popup.style.display = 'block';
-}
-
-function openPopupWithSource(source) {
-	if (popup_working === true) {
-		return false;
-	}
-
-	popup_working = true;
-
-	popup_iframe.src = source;
-
-	popup_iframe_container.style.display = 'table-row';
-	popup.style.display = 'block';
-}
-/* eslint-enable no-unused-vars */
-
-function closePopup() {
-	popup.style.display = 'none';
-	popup_iframe_container.style.display = 'none';
-	popup_txt.style.display = 'none';
-
-	popup_iframe.src = 'about:blank';
-
-	popup_working = false;
-}
-
-function init_popup() {
-	// Fetch elements.
-	popup = document.getElementById('popup');
-	if (popup) {
-		popup_iframe_container = document.getElementById('popup-iframe-container');
-		popup_iframe = document.getElementById('popup-iframe');
-
-		popup_txt = document.getElementById('popup-txt');
-
-		// Configure close button.
-		document.getElementById('popup-close').addEventListener('click', function (ev) {
-			closePopup();
-		});
-
-		// Configure close-on-click.
-		window.addEventListener('click', function (ev) {
-			if (ev.target == popup) {
-				closePopup();
-			}
-		});
-	}
-}
-// </popup>
-
 // <notifs html5>
 let notifs_html5_permission = 'denied';
 
@@ -1853,18 +1733,16 @@ function init_normal() {
 	};
 }
 
-function init_beforeDOM() {
+function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
 }
 
-function init_afterDOM() {
+function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
-	init_slider_observers();
-	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
 	if (stream) {
@@ -1881,14 +1759,14 @@ function init_afterDOM() {
 	}
 }
 
-init_beforeDOM();	// Can be called before DOM is fully loaded
+init_main_beforeDOM();	// Can be called before DOM is fully loaded
 
 if (document.readyState && document.readyState !== 'loading') {
-	init_afterDOM();
+	init_main_afterDOM();
 } else {
 	if (window.console) {
 		console.log('FreshRSS waiting for DOMContentLoaded…');
 	}
-	document.addEventListener('DOMContentLoaded', init_afterDOM, false);
+	document.addEventListener('DOMContentLoaded', init_main_afterDOM, false);
 }
 // @license-end

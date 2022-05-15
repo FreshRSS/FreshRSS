@@ -131,6 +131,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - last week
 	 */
 	public function idleAction() {
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();

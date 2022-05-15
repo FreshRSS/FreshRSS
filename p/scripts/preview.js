@@ -18,6 +18,9 @@ function update_ui() {
 
 function init_afterDOM() {
 	rendered_node = document.getElementById('freshrss_rendered');
+	if (!rendered_node) {
+		return;
+	}
 	rendered_view = document.getElementById('freshrss_rendered_view');
 
 	raw_node = document.getElementById('freshrss_raw');
@@ -32,7 +35,7 @@ if (document.readyState && document.readyState !== 'loading') {
 } else {
 	document.addEventListener('DOMContentLoaded', function () {
 		if (window.console) {
-			console.log('FreshRSS waiting for DOMContentLoaded…');
+			console.log('FreshRSS preview waiting for DOMContentLoaded…');
 		}
 		init_afterDOM();
 	}, false);

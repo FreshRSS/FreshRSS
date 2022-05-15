@@ -1222,7 +1222,7 @@ br {
 #popup {
 	display: none;
 	position: fixed;
-	z-index: 1;
+	z-index: 200;
 	right: 0;
 	top: 0;
 	width: 100%;
@@ -1263,11 +1263,6 @@ br {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-#popup-txt {
-	display: none;
-	height: 100%;
 }
 
 #popup-iframe-container {
