@@ -1172,6 +1172,7 @@ function init_stream(stream) {
 					name_tag: tagId == 0 ? tagName : '',
 					id_entry: entryId,
 					checked: isChecked,
+					ajax: 1,
 				}));
 			}
 		}
