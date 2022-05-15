@@ -6,31 +6,14 @@
 let popup = null;
 let popup_iframe_container = null;
 let popup_iframe = null;
-let popup_txt = null;
 let popup_working = false;
-
-// function openPopupWithMessage(msg) {
-// 	if (popup_working === true) {
-// 		return false;
-// 	}
-
-// 	popup_working = true;
-
-// 	popup_txt.innerHTML = msg;
-
-// 	popup_txt.style.display = 'table-row';
-// 	popup.style.display = 'block';
-// }
 
 function openPopupWithSource(source) {
 	if (popup_working === true) {
 		return false;
 	}
-
 	popup_working = true;
-
 	popup_iframe.src = source;
-
 	popup_iframe_container.style.display = 'table-row';
 	popup.style.display = 'block';
 }
@@ -38,10 +21,7 @@ function openPopupWithSource(source) {
 function closePopup() {
 	popup.style.display = 'none';
 	popup_iframe_container.style.display = 'none';
-	popup_txt.style.display = 'none';
-
 	popup_iframe.src = 'about:blank';
-
 	popup_working = false;
 }
 
@@ -51,8 +31,6 @@ function init_popup() {
 	if (popup) {
 		popup_iframe_container = document.getElementById('popup-iframe-container');
 		popup_iframe = document.getElementById('popup-iframe');
-
-		popup_txt = document.getElementById('popup-txt');
 
 		// Configure close button.
 		document.getElementById('popup-close').addEventListener('click', function (ev) {

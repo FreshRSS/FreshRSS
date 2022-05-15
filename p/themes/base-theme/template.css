@@ -1265,11 +1265,6 @@ br {
 	cursor: pointer;
 }
 
-#popup-txt {
-	display: none;
-	height: 100%;
-}
-
 #popup-iframe-container {
 	display: none;
 	height: 100%;
