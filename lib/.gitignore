@@ -4,8 +4,8 @@ composer/
 phpgt/cssxpath/.github/
 phpgt/cssxpath/.gitignore
 phpgt/cssxpath/.scrutinizer.yml
-phpgt/cssxpath/CONTRIBUTING.md
 phpgt/cssxpath/composer.json
+phpgt/cssxpath/CONTRIBUTING.md
 phpgt/cssxpath/test/
 phpmailer/phpmailer/*oauth*
 phpmailer/phpmailer/COMMITMENT*
