@@ -6,9 +6,11 @@
     "license": "AGPL-3.0",
     "require": {
         "php": ">=7.0.0",
+        "phpgt/cssxpath": "v1.1.4",
         "phpmailer/phpmailer": "6.6.0"
     },
     "config": {
+        "sort-packages": true,
         "vendor-dir": "./"
     },
     "scripts": {
