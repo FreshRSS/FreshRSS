@@ -50,6 +50,11 @@ function classAutoloader($class) {
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+	} elseif (str_starts_with($class, 'SimplePie\\')) {
+		$prefix = 'SimplePie\\';
+		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/CustomSimplePie/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'CssXPath') !== false) {
