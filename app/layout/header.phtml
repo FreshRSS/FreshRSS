@@ -1,7 +1,13 @@
 <header class="header">
 	<div class="item title">
 		<a href="<?= _url('index', 'index') ?>">
-			<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="" />
+			<?php if (FreshRSS_Context::$user_conf->logo_html == '') { ?>
+				<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="" />
+			<?php
+				} else {
+					echo FreshRSS_Context::$user_conf->logo_html;
+				}
+			?>
 		</a>
 	</div>
 

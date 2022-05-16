@@ -25,6 +25,7 @@
  * @property int|null $keep_history_default
  * @property string $language
  * @property bool $lazyload
+ * @property string $logo_html
  * @property string $mail_login
  * @property bool $mark_updated_article_unread
  * @property array<string,bool> $mark_when
