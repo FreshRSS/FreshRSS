@@ -52,8 +52,11 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'CssXPath') !== false) {
-		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
+	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
+		$prefix = 'Gt\\CssXPath\\';
+		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
 		$prefix = 'PHPMailer\\PHPMailer\\';
 		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
