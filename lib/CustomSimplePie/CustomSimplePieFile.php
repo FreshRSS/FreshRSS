@@ -52,7 +52,7 @@
  * @subpackage HTTP
  * @todo Move to properly supporting RFC2616 (HTTP/1.1)
  */
-class SimplePie_File
+class CustomSimplePieFile
 {
 	var $url;
 	var $useragent;

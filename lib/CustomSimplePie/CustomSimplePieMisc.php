@@ -46,7 +46,7 @@
  *
  * @package SimplePie
  */
-class SimplePie_Misc
+class CustomSimplePieMisc
 {
 	public static function time_hms($seconds)
 	{

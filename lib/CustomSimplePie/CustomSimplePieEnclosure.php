@@ -51,7 +51,7 @@
  * @package SimplePie
  * @subpackage API
  */
-class SimplePie_Enclosure
+class CustomSimplePieEnclosure
 {
 	/**
 	 * @var string

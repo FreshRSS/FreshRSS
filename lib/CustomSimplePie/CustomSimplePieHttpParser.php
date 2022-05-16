@@ -48,7 +48,7 @@
  * @package SimplePie
  * @subpackage HTTP
  */
-class SimplePie_HTTP_Parser
+class CustomSimplePieHTTP_Parser
 {
 	/**
 	 * HTTP Version

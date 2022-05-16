@@ -56,7 +56,7 @@
  * @package SimplePie
  * @subpackage HTTP
  */
-class SimplePie_Content_Type_Sniffer
+class CustomSimplePieContentTypeSniffer
 {
 	/**
 	 * File object

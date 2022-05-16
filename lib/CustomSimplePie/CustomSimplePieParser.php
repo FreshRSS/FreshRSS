@@ -50,7 +50,7 @@
  * @package SimplePie
  * @subpackage Parsing
  */
-class SimplePie_Parser
+class CustomSimplePieParser
 {
 	var $error_code;
 	var $error_string;
