@@ -51,7 +51,7 @@ function classAutoloader($class) {
 	} elseif (strpos($class, 'Minz') === 0) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
-		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+		include(LIB_PATH . '/CustomSimplePie/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'CssXPath') !== false) {
 		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
 	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
