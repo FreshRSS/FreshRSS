@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Zwischenspeicher leeren',
 			'clear_cache_help' => 'Zwischenspeicher für diesen Feed leeren.',
 			'reload_articles' => 'Artikel neuladen',
-			'reload_articles_help' => 'Artikel neuladen und komplette Inhalte holen, wenn ein Selektor festgelegt wurde.',
+			'reload_articles_help' => 'Artikel neuladen und komplette Inhalte holen, wenn ein Selektor festgelegt wurde.',	// DIRTY
 			'title' => 'Wartung',
 		),
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',

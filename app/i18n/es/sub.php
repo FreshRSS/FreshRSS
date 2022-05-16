@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Borrar caché',
 			'clear_cache_help' => 'Borrar la memoria caché de esta fuente.',
 			'reload_articles' => 'Recargar artículos',
-			'reload_articles_help' => 'Vuelva a cargar artículos y obtenga contenido completo si se define un selector.',
+			'reload_articles_help' => 'Vuelva a cargar artículos y obtenga contenido completo si se define un selector.',	// DIRTY
 			'title' => 'Mantenimiento',
 		),
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',

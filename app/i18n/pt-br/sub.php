@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Limpar o cache',
 			'clear_cache_help' => 'Limpar o cache em disco deste feed',
 			'reload_articles' => 'Recarregar artigos',
-			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',
+			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',	// DIRTY
 			'title' => 'Manutenção',
 		),
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
