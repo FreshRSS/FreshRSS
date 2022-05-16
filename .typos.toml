@@ -29,7 +29,7 @@ extend-exclude = [
 	"bin/",
 	"data/",
 	"docs/fr/",
-	"lib/CssXPath/",
+	"lib/phpgt/",
 	"lib/phpmailer/",
 	"lib/SimplePie/",
 	"node_modules/",
