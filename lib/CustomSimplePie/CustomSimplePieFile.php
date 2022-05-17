@@ -41,6 +41,8 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
+use SimplePie\File;
+
 /**
  * Used for fetching remote files and reading local files
  *
@@ -52,18 +54,9 @@
  * @subpackage HTTP
  * @todo Move to properly supporting RFC2616 (HTTP/1.1)
  */
-class CustomSimplePieFile
+class CustomSimplePieFile extends File
 {
-	var $url;
-	var $useragent;
-	var $success = true;
-	var $headers = array();
-	var $body;
 	var $status_code = 0;
-	var $redirects = 0;
-	var $error;
-	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
-	var $permanent_url;
 
 	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $curl_options = array(), $syslog_enabled = SIMPLEPIE_SYSLOG)
 	{
