@@ -4073,7 +4073,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./users/02_First_steps.md:27
 msgid ""
-"[Search an article](03_Main_view.md#with-the-search-field) published some time "
+"[search for an article](03_Main_view.md#with-the-search-field) published some time "
 "ago"
 msgstr ""
 "[Retrouvez un article](03_Main_view.md#rechercher-des-articles) qui a été "
