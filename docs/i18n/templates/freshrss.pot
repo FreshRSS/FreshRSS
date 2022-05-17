@@ -3298,7 +3298,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./users/02_First_steps.md:27
 msgid ""
-"[Search an article](03_Main_view.md#searching-articles) published some time "
+"[Search an article](03_Main_view.md#with-the-search-field) published some time "
 "ago"
 msgstr ""
 

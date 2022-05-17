@@ -21,7 +21,7 @@ Now that you’ve mastered basic use, it’s time to configure FreshRSS to impro
 * [Choose the reading options](05_Configuration.md#reading-options)
 * [Refresh feeds](03_Main_view.md#refreshing-feeds)
 * [Filter articles](03_Main_view.md#filtering-articles) for a fast access to a selection
-* [Search an article](03_Main_view.md#searching-articles) published some time ago
+* [Search an article](03_Main_view.md#with-the-search-field) published some time ago
 * [Access your feeds on a mobile device](06_Mobile_access.md)
 * [Add some extensions](https://github.com/FreshRSS/Extensions)
 * [Frequently asked questions](07_Frequently_Asked_Questions.md)
