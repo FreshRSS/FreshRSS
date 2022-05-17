@@ -3,9 +3,11 @@
 class SimplePieTest extends PHPUnit\Framework\TestCase
 {
 	public function testSimplePieClassExists() {
-		$this->markTestIncomplete('This test has not been implemented yet.');
-
 		$this->assertTrue(class_exists('SimplePie\SimplePie'));
+	}
+
+	public function testSimplePieMiscClassExists() {
+		$this->assertTrue(class_exists('SimplePie\Misc'));
 	}
 
 	public function testPsr0SimplePieClassExists() {
@@ -14,5 +16,13 @@ class SimplePieTest extends PHPUnit\Framework\TestCase
 
 	public function testPsr0SimplePieMiscClassExists() {
 		$this->assertTrue(class_exists('SimplePie_Misc'));
+	}
+
+	public function testCustomSimplePieClassExists() {
+		$this->assertTrue(class_exists('CustomSimplePie'));
+	}
+
+	public function testCustomSimplePieMiscClassExists() {
+		$this->assertTrue(class_exists('CustomSimplePieMisc'));
 	}
 }
