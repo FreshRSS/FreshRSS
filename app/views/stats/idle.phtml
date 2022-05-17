@@ -48,16 +48,16 @@
 		<span class="alert-head"><?= _t('admin.stats.no_idle') ?></span>
 	</p>
 	<?php } ?>
-
-	<?php $class = $this->displaySlider ? ' active' : ''; ?>
-	<a href="#" id="close-slider" class="<?= $class ?>">
-		<?= _i('close') ?>
-	</a>
-	<div id="slider" class="scrollbar-thin<?= $class ?>">
-	<?php
-		if (isset($this->feed)) {
-			$this->renderHelper('feed/update');
-		}
-	?>
-	</div>
 </main>
+
+<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>
+<aside id="slider" class="scrollbar-thin<?= $class ?>">
+<?php
+	if (isset($this->feed)) {
+		$this->renderHelper('feed/update');
+	}
+?>
+</aside>

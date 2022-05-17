@@ -138,7 +138,7 @@ $today = @strtotime('today');
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>
-<div id="slider" class="scrollbar-thin<?= $class ?>">
-</div>
+<aside id="slider" class="scrollbar-thin<?= $class ?>">
+</aside>
 
 <?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>
