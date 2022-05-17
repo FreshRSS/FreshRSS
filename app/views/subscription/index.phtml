@@ -25,7 +25,7 @@
 			<a class="btn" href="<?= _url('subscription', 'index', 'error', '1') ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
 		</div>
 	<?php } ?>
-	
+
 	<div class="drop-section">
 		<?php
 			$signalError = false;
@@ -73,11 +73,13 @@
 			</div>
 		</div>
 	</div>
-	<?php $class = $this->displaySlider ? ' active' : ''; ?>
-	<a href="#" id="close-slider" class="<?= $class ?>">
-		<?= _i('close') ?>
-	</a>
-	<div id="slider" class="scrollbar-thin<?= $class ?>">
+</main>
+
+<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>
+<aside id="slider" class="scrollbar-thin<?= $class ?>">
 	<?php
 		if (isset($this->feed)) {
 			$this->renderHelper('feed/update');
@@ -85,5 +87,4 @@
 			$this->renderHelper('category/update');
 		}
 	?>
-	</div>
-</main>
+</aside>

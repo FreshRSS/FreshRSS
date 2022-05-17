@@ -55,9 +55,9 @@
 	<?= _i('close') ?>
 </a>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
-<?php
-	if (isset($this->feed)) {
-		$this->renderHelper('feed/update');
-	}
-?>
+	<?php
+		if (isset($this->feed)) {
+			$this->renderHelper('feed/update');
+		}
+	?>
 </aside>
