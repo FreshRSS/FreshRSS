@@ -41,6 +41,7 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
+use SimplePie\Content\Type\Sniffer;
 
 /**
  * Content-type sniffing
@@ -56,25 +57,8 @@
  * @package SimplePie
  * @subpackage HTTP
  */
-class CustomSimplePieContentTypeSniffer
+class CustomSimplePieContentTypeSniffer extends Sniffer
 {
-	/**
-	 * File object
-	 *
-	 * @var SimplePie_File
-	 */
-	var $file;
-
-	/**
-	 * Create an instance of the class with the input file
-	 *
-	 * @param SimplePie_Content_Type_Sniffer $file Input file
-	 */
-	public function __construct($file)
-	{
-		$this->file = $file;
-	}
-
 	/**
 	 * Get the Content-Type of the specified file
 	 *
@@ -132,187 +116,5 @@ class CustomSimplePieContentTypeSniffer
 		}
 
 		return $this->unknown();
-	}
-
-	/**
-	 * Sniff text or binary
-	 *
-	 * @return string Actual Content-Type
-	 */
-	public function text_or_binary()
-	{
-		if (substr($this->file->body, 0, 2) === "\xFE\xFF"
-			|| substr($this->file->body, 0, 2) === "\xFF\xFE"
-			|| substr($this->file->body, 0, 4) === "\x00\x00\xFE\xFF"
-			|| substr($this->file->body, 0, 3) === "\xEF\xBB\xBF")
-		{
-			return 'text/plain';
-		}
-		elseif (preg_match('/[\x00-\x08\x0E-\x1A\x1C-\x1F]/', $this->file->body))
-		{
-			return 'application/octet-stream';
-		}
-
-		return 'text/plain';
-	}
-
-	/**
-	 * Sniff unknown
-	 *
-	 * @return string Actual Content-Type
-	 */
-	public function unknown()
-	{
-		$ws = strspn($this->file->body, "\x09\x0A\x0B\x0C\x0D\x20");
-		if (strtolower(substr($this->file->body, $ws, 14)) === '<!doctype html'
-			|| strtolower(substr($this->file->body, $ws, 5)) === '<html'
-			|| strtolower(substr($this->file->body, $ws, 7)) === '<script')
-		{
-			return 'text/html';
-		}
-		elseif (substr($this->file->body, 0, 5) === '%PDF-')
-		{
-			return 'application/pdf';
-		}
-		elseif (substr($this->file->body, 0, 11) === '%!PS-Adobe-')
-		{
-			return 'application/postscript';
-		}
-		elseif (substr($this->file->body, 0, 6) === 'GIF87a'
-			|| substr($this->file->body, 0, 6) === 'GIF89a')
-		{
-			return 'image/gif';
-		}
-		elseif (substr($this->file->body, 0, 8) === "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A")
-		{
-			return 'image/png';
-		}
-		elseif (substr($this->file->body, 0, 3) === "\xFF\xD8\xFF")
-		{
-			return 'image/jpeg';
-		}
-		elseif (substr($this->file->body, 0, 2) === "\x42\x4D")
-		{
-			return 'image/bmp';
-		}
-		elseif (substr($this->file->body, 0, 4) === "\x00\x00\x01\x00")
-		{
-			return 'image/vnd.microsoft.icon';
-		}
-
-		return $this->text_or_binary();
-	}
-
-	/**
-	 * Sniff images
-	 *
-	 * @return string Actual Content-Type
-	 */
-	public function image()
-	{
-		if (substr($this->file->body, 0, 6) === 'GIF87a'
-			|| substr($this->file->body, 0, 6) === 'GIF89a')
-		{
-			return 'image/gif';
-		}
-		elseif (substr($this->file->body, 0, 8) === "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A")
-		{
-			return 'image/png';
-		}
-		elseif (substr($this->file->body, 0, 3) === "\xFF\xD8\xFF")
-		{
-			return 'image/jpeg';
-		}
-		elseif (substr($this->file->body, 0, 2) === "\x42\x4D")
-		{
-			return 'image/bmp';
-		}
-		elseif (substr($this->file->body, 0, 4) === "\x00\x00\x01\x00")
-		{
-			return 'image/vnd.microsoft.icon';
-		}
-
-		return false;
-	}
-
-	/**
-	 * Sniff HTML
-	 *
-	 * @return string Actual Content-Type
-	 */
-	public function feed_or_html()
-	{
-		$len = strlen($this->file->body);
-		$pos = strspn($this->file->body, "\x09\x0A\x0D\x20\xEF\xBB\xBF");
-
-		while ($pos < $len)
-		{
-			switch ($this->file->body[$pos])
-			{
-				case "\x09":
-				case "\x0A":
-				case "\x0D":
-				case "\x20":
-					$pos += strspn($this->file->body, "\x09\x0A\x0D\x20", $pos);
-					continue 2;
-
-				case '<':
-					$pos++;
-					break;
-
-				default:
-					return 'text/html';
-			}
-
-			if (substr($this->file->body, $pos, 3) === '!--')
-			{
-				$pos += 3;
-				if ($pos < $len && ($pos = strpos($this->file->body, '-->', $pos)) !== false)
-				{
-					$pos += 3;
-				}
-				else
-				{
-					return 'text/html';
-				}
-			}
-			elseif (substr($this->file->body, $pos, 1) === '!')
-			{
-				if ($pos < $len && ($pos = strpos($this->file->body, '>', $pos)) !== false)
-				{
-					$pos++;
-				}
-				else
-				{
-					return 'text/html';
-				}
-			}
-			elseif (substr($this->file->body, $pos, 1) === '?')
-			{
-				if ($pos < $len && ($pos = strpos($this->file->body, '?>', $pos)) !== false)
-				{
-					$pos += 2;
-				}
-				else
-				{
-					return 'text/html';
-				}
-			}
-			elseif (substr($this->file->body, $pos, 3) === 'rss'
-				|| substr($this->file->body, $pos, 7) === 'rdf:RDF')
-			{
-				return 'application/rss+xml';
-			}
-			elseif (substr($this->file->body, $pos, 4) === 'feed')
-			{
-				return 'application/atom+xml';
-			}
-			else
-			{
-				return 'text/html';
-			}
-		}
-
-		return 'text/html';
 	}
 }
