@@ -14,6 +14,7 @@ class FreshRSS_UserQuery {
 	private $get_type;
 	private $name;
 	private $order;
+	/** @var FreshRSS_BooleanSearch */
 	private $search;
 	private $state;
 	private $url;

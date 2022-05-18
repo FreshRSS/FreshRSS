@@ -222,6 +222,9 @@ You can use the search field to further refine results:
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
 * by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
+* by user query (saved search) name: `S:myQuery`, `S:"My query"`
+	* internally, those references are replaced by the corresponding user query in the search expression
+	* calling multiple user queries at once is currently not fully supported (e.g. `S:"Query1" S:"Query 2"`) if the queries contain a boolean expression `OR`
 
 Be careful not to enter a space between the operator and the search value.
 
