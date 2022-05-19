@@ -62,47 +62,47 @@ return array(
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => '订阅源类型',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => '提要标题',
+					'help' => '例: <code>//title</code> 或一个静态的字符串： <code>"My custom feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是高级用户的标准查询语言，FreshRSS支持XPath以支持Web抓取。',	// TODO
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => '以寻找 <strong>文章</strong><br /><small>(很重要)</small>',
+					'help' => '例： <kbd><code>//div[@class="news-item"]</code></kbd>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => '文章作者',
+					'help' => '也可以是静态字符串。 例： <code>"Anonymous"</code>',
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => '文章标签',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => '文章内容',
+					'help' => '获取完整项目的示例： <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => '文章缩略图',
+					'help' => '例： <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => '文章日期：',
+					'help' => '结果将被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => '文章标题',
+					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => '文章链接 (URL)',
+					'help' => '例： <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath（文章）：',
+				'xpath' => 'XPath 定位：',	// IGNORE
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (默认)',
 		),
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
