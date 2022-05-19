@@ -72,7 +72,7 @@ return array(
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是高级用户的标准查询语言，FreshRSS支持XPath以支持Web抓取。',	// TODO
 				'item' => array(
 					'_' => '以寻找 <strong>文章</strong><br /><small>(很重要)</small>',
-					'help' => '例： <kbd><code>//div[@class="news-item"]</code></kbd>',
+					'help' => '例： <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
 					'_' => '文章作者',
@@ -93,14 +93,14 @@ return array(
 				),
 				'item_title' => array(
 					'_' => '文章标题',
-					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',
+					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',		//DIRTY
 				),
 				'item_uri' => array(
 					'_' => '文章链接 (URL)',
 					'help' => '例： <code>descendant::a/@href</code>',
 				),
 				'relative' => 'XPath（文章）：',
-				'xpath' => 'XPath 定位：',	// IGNORE
+				'xpath' => 'XPath 定位：',
 			),
 			'rss' => 'RSS / Atom (默认)',
 		),
