@@ -69,7 +69,7 @@ return array(
 					'_' => '提要标题',
 					'help' => '例: <code>//title</code> 或一个静态的字符串： <code>"My custom feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是高级用户的标准查询语言，FreshRSS支持XPath以支持Web抓取。',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是高级用户的标准查询语言，FreshRSS支持XPath以支持Web抓取。',
 				'item' => array(
 					'_' => '以寻找 <strong>文章</strong><br /><small>(很重要)</small>',
 					'help' => '例： <code>//div[@class="news-item"]</code>',
@@ -93,7 +93,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => '文章标题',
-					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',		//DIRTY
+					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',
 				),
 				'item_uri' => array(
 					'_' => '文章链接 (URL)',
