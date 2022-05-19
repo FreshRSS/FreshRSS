@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Clear cache',	// IGNORE
 			'clear_cache_help' => 'Clear the cache for this feed.',	// IGNORE
 			'reload_articles' => 'Reload articles',	// IGNORE
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// IGNORE
+			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// IGNORE
 			'title' => 'Maintenance',	// IGNORE
 		),
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE

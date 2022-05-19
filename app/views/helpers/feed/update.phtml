@@ -478,7 +478,7 @@
 			<div class="group-controls">
 				<div class="stick w100">
 					<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
-						placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+						data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?=
 						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
 				</div>
@@ -573,23 +573,29 @@
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
-
-		<legend><?= _t('sub.feed.maintenance.title') ?></legend>
-		<div class="form-group">
-			<div class="group-controls">
-				<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id()) ?>">
-					<?= _t('sub.feed.maintenance.clear_cache') ?>
-				</a>
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
-			</div>
-			<div class="group-controls">
-				<a class="btn btn-important" href="<?= _url('feed', 'reload', 'id', $this->feed->id()) ?>">
-					<?= _t('sub.feed.maintenance.reload_articles') ?>
-				</a>
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.reload_articles_help') ?></p>
-			</div>
-		</div>
 	</form>
+
+	<legend><?= _t('sub.feed.maintenance.title') ?></legend>
+	<div class="form-group">
+		<div class="group-controls">
+			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id()) ?>">
+				<?= _t('sub.feed.maintenance.clear_cache') ?>
+			</a>
+			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
+		</div>
+		<div class="group-controls">
+			<form method="post" action="<?= _url('feed', 'reload') ?>">
+				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
+				<button type="submit" class="btn btn-important">
+					<?= _t('sub.feed.maintenance.reload_articles') ?>
+				</button>
+				<input type="number" name="reload_limit" min="1" value="10" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.reload_articles_help') ?></p>
+			</form>
+		</div>
+	</div>
+
 </div>
 
 <div id="popup">
