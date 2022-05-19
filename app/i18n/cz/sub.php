@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Vymazat mezipaměť',
 			'clear_cache_help' => 'Vymazat mezipaměť pro tento kanál.',
 			'reload_articles' => 'Znovu načíst články',
-			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován přepínač.',
+			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován přepínač.',	// DIRTY
 			'title' => 'Údržba',
 		),
 		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',

@@ -104,7 +104,7 @@ return array(
 		'max_inactivity' => PHP_INT_MAX,
 
 		# Max number of feeds for a user.
-		'max_feeds' => 16384,
+		'max_feeds' => 131072,
 
 		# Max number of categories for a user.
 		'max_categories' => 16384,
@@ -189,4 +189,12 @@ return array(
 
 	# Disable self-update,
 	'disable_update' => false,
+
+	# Trusted IPs that are allowed to send unsafe headers
+	# Please read the documentation, before configuring this
+	# https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	'trusted_sources' => [
+		'127.0.0.0/8',
+		'::1/128',
+	]
 );

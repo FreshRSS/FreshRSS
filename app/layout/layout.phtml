@@ -47,8 +47,10 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body class="<?= Minz_Request::actionName() ?>">
 <?php
-	flush();
-	$this->partial('header');
+	if (!Minz_Request::param('ajax')) {
+		flush();
+		$this->partial('header');
+	}
 ?>
 
 <div id="global">
@@ -74,19 +76,6 @@ if (_t('gen.dir') === 'rtl') {
 <div id="notification" class="notification <?= $status ?>">
 	<span class="msg"><?= $msg ?></span>
 	<a class="close" href=""><?= _i('close') ?></a>
-</div>
-
-<!-- Popup-->
-<div id="popup">
-	<div id="popup-content">
-		<div id="popup-close" class="popup-row">×</div>
-		<div id="popup-txt" class="popup-row"></div>
-		<div id="popup-iframe-container" class="popup-row">
-			<div id="popup-iframe-sub">
-				<iframe id="popup-iframe" frameborder="0"></iframe>
-			</div>
-		</div>
-	</div>
 </div>
 	</body>
 </html>

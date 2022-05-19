@@ -59,7 +59,7 @@ class SimplePie_File
 	var $success = true;
 	var $headers = array();
 	var $body;
-	var $status_code;
+	var $status_code = 0;
 	var $redirects = 0;
 	var $error;
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;

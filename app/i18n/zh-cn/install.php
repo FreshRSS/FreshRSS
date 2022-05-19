@@ -48,7 +48,7 @@ return array(
 		),
 		'ctype' => array(
 			'nok' => '找不到字符类型检测库（php-ctype）',
-			'ok' => '已找到字符类型检测库（ctype）',
+			'ok' => '已找到字符类型检测库',
 		),
 		'curl' => array(
 			'nok' => '找不到 cURL 库（php-curl）',
@@ -67,7 +67,7 @@ return array(
 			'ok' => 'favicons 目录权限正常',
 		),
 		'fileinfo' => array(
-			'nok' => '找不到 PHP fileinfo 库（fileinfo）',
+			'nok' => '找不到 PHP fileinfo 库（php-fileinfo）',
 			'ok' => '已找到 fileinfo 库',
 		),
 		'json' => array(
@@ -76,11 +76,11 @@ return array(
 		),
 		'mbstring' => array(
 			'nok' => '找不到推荐的 Unicode 解析库（mbstring)',
-			'ok' => '已找到推荐的 Unicode 解析库（mbstring)',
+			'ok' => '已找到推荐的 Unicode 解析库',
 		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库（php-pcre）',
-			'ok' => '已找到正则表达式解析库（PCRE）',
+			'ok' => '已找到正则表达式解析库',
 		),
 		'pdo' => array(
 			'nok' => '找不到 PDO 或支持的驱动（pdo_mysql、pdo_sqlite、pdo_pgsql）',

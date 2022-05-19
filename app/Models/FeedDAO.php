@@ -104,6 +104,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'lastUpdate' => 0,
+				'pathEntries' => $feed->pathEntries(),
 				'httpAuth' => $feed->httpAuth(),
 				'attributes' => $feed->attributes(),
 			);
@@ -384,6 +385,9 @@ SQL;
 		return false;
 	}
 
+	/**
+	 * @return array<FreshRSS_Feed>
+	 */
 	public function listByCategory(int $cat): array {
 		$sql = 'SELECT * FROM `_feed` WHERE category=?';
 		$stm = $this->pdo->prepare($sql);

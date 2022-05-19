@@ -57,7 +57,7 @@
 		<legend><?= _t('admin.system.registration.title') ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="max-registrations-select"><?= _t('admin.system.registration.select.label') ?></label>	
+			<label class="group-name" for="max-registrations-select"><?= _t('admin.system.registration.select.label') ?></label>
 			<div class="group-controls">
 				<select class="select-input-changer" name="" data-name="max-registrations">
 					<option value="1" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 1 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.noform') ?></option>
@@ -72,7 +72,7 @@
 			<div class="group-controls">
 				<?php $number = count(listUsers()); ?>
 				<input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? FreshRSS_Context::$system_conf->limits['max_registrations'] : $number + 1; ?>" min="2"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] ?>" data-number="<?= $number ?>"/>
+					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? FreshRSS_Context::$system_conf->limits['max_registrations'] : $number + 1; ?>" data-number="<?= $number ?>"/>
 				<span id="max-registrations-status-disabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span><span id="max-registrations-status-enabled">(= <?= _t('admin.system.registration.status.enabled') ?>)</span>
 			</div>
 		</div>

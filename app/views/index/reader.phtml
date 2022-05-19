@@ -1,7 +1,9 @@
-<?php /** @var FreshRSS_View $this */ ?>
 <?php
-$this->partial('aside_feed');
-$this->partial('nav_menu');
+/** @var FreshRSS_View $this */
+if (!Minz_Request::param('ajax')) {
+	$this->partial('aside_feed');
+	$this->partial('nav_menu');
+}
 
 call_user_func($this->callbackBeforeEntries, $this);
 

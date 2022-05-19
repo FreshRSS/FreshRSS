@@ -23,7 +23,7 @@ return array(
 		'keep_unreads' => 'Nigdy nie usuwaj nieprzeczytanych wiadomości',
 		'maintenance' => 'Konserwacja',
 		'optimize' => 'Optymalizacja bazy danych',
-		'optimize_help' => 'Uruchom od czasu do czasy, by zmniejszyć rozmiar bazy danych',
+		'optimize_help' => 'Uruchom od czasu do czasu, by zmniejszyć rozmiar bazy danych',
 		'policy' => 'Polityka oczyszczania',
 		'policy_warning' => 'Jeżeli nie zostanie wybrana polityka oczyszczania, żadna wiadomość nie zostanie usunięta.',
 		'purge_now' => 'Oczyść teraz',
@@ -194,7 +194,7 @@ return array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.md" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE

@@ -271,7 +271,9 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->hash = '';
 		if (!is_array($value)) {
 			if (strpos($value, ';') !== false) {
+				$value = htmlspecialchars_decode($value, ENT_QUOTES);
 				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+				$value = Minz_Helper::htmlspecialchars_utf8($value);
 			} else {
 				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
 			}

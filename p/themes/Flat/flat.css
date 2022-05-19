@@ -768,7 +768,7 @@ a.btn {
 	padding: 5px 0;
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
+.dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
 	background-color: #95a5a6;
 	border-radius: 3px;

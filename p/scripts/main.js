@@ -692,7 +692,7 @@ function auto_share(key) {
 	key = parseInt(key);
 	if (key <= shares.length) {
 		shares[key - 1].click();
-		share.parentElement.querySelector('.dropdown-menu .dropdown-close a').click();
+		share.parentElement.querySelector('.dropdown-menu + a.dropdown-close').click();
 	}
 }
 
@@ -736,6 +736,15 @@ function init_posts() {
 		};
 		onScroll();
 	}
+
+	if (!navigator.share && document.styleSheets.length > 0) {
+		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// do not show the menu entry if browser does not support navigator.share
+		document.styleSheets[0].insertRule(
+			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
+			document.styleSheets[0].cssRules.length
+		);
+	}
 }
 
 function rememberOpenCategory(category_id, isOpen) {
@@ -755,7 +764,18 @@ function openCategory(category_id) {
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
-	img.alt = '△';
+	img.alt = '🔼';
+}
+
+function loadJs(name) {
+	if (!document.getElementById(name)) {
+		const script = document.createElement('script');
+		script.setAttribute('id', name);
+		script.setAttribute('src', '../scripts/' + name + '?' + context.mtime[name]);
+		script.setAttribute('defer', 'defer');
+		script.setAttribute('async', 'async');
+		document.head.appendChild(script);
+	}
 }
 
 function init_column_categories() {
@@ -777,15 +797,23 @@ function init_column_categories() {
 	document.getElementById('aside_feed').onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
 		if (a) {
-			const img = a.querySelector('img');
+			const icon = a.querySelector('.icon');
 			const category_id = a.closest('.category').id;
-			if (img.alt === '▽') {
-				img.src = img.src.replace('/icons/down.', '/icons/up.');
-				img.alt = '△';
+			if (icon.alt === '🔽' || icon.innerHTML === '🔽') {
+				if (icon.src) {
+					icon.src = icon.src.replace('/icons/down.', '/icons/up.');
+					icon.alt = '🔼';
+				} else {
+					icon.innerHTML = '🔼';
+				}
 				rememberOpenCategory(category_id, true);
 			} else {
-				img.src = img.src.replace('/icons/up.', '/icons/down.');
-				img.alt = '▽';
+				if (icon.src) {
+					icon.src = icon.src.replace('/icons/up.', '/icons/down.');
+					icon.alt = '🔽';
+				} else {
+					icon.innerHTML = '🔽';
+				}
 				rememberOpenCategory(category_id, false);
 			}
 
@@ -804,6 +832,8 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
+			loadJs('extra.js');
+			loadJs('feed.js');
 			const itemId = a.closest('.item').id;
 			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
 			const id = itemId.substr(2);
@@ -1061,7 +1091,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.content, .item.website, .item.link, .dropdown-menu')) {
+			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
 			if (!context.sides_close_article && ev.target.matches('div.flux_content')) {
@@ -1070,7 +1100,7 @@ function init_stream(stream) {
 			}
 			const old_active = document.querySelector('.flux.current');
 			const new_active = el.parentNode;
-			if (ev.target.tagName.toUpperCase() === 'A') {	// Leave real links alone
+			if (ev.target.tagName.toUpperCase() === 'A') {	// Leave real links alone (but does not catch img in a link)
 				if (context.auto_mark_article) {
 					mark_read(new_active, true, false);
 				}
@@ -1080,15 +1110,6 @@ function init_stream(stream) {
 			return false;
 		}
 	};
-
-	if (!navigator.share) {
-		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-		// do not show the menu entry if browser does not support navigator.share
-		document.styleSheets[0].insertRule(
-			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
-			document.styleSheets[0].cssRules.length
-		);
-	}
 
 	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
 		if (ev.altKey || ev.metaKey || ev.shiftKey) {
@@ -1131,42 +1152,45 @@ function init_stream(stream) {
 		const checkboxTag = ev.target.closest('.checkboxTag');
 		if (checkboxTag) {	// Dynamic tags
 			ev.stopPropagation();
-			const isChecked = checkboxTag.checked;
 			const tagId = checkboxTag.name.replace(/^t_/, '');
-			const tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.value : '';
-			const entry = checkboxTag.closest('div.flux');
-			const entryId = entry.id.replace(/^flux_/, '');
-			checkboxTag.disabled = true;
+			const tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.childNodes[0].value : '';
+			if ((tagId == 0 && tagName.length > 0) || tagId != 0) {
+				const isChecked = checkboxTag.checked;
+				const entry = checkboxTag.closest('div.flux');
+				const entryId = entry.id.replace(/^flux_/, '');
+				checkboxTag.disabled = true;
 
-			const req = new XMLHttpRequest();
-			req.open('POST', './?c=tag&a=tagEntry', true);
-			req.responseType = 'json';
-			req.onerror = function (e) {
-				checkboxTag.checked = !isChecked;
-				badAjax(this.status == 403);
-			};
-			req.onload = function (e) {
-				if (this.status != 200) {
-					return req.onerror(e);
-				}
-				if (entry.classList.contains('not_read')) {
-					incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
-				}
-			};
-			req.onloadend = function (e) {
-				checkboxTag.disabled = false;
-				if (tagId == 0) {
-					loadDynamicTags(checkboxTag.closest('div.dropdown'));
-				}
-			};
-			req.setRequestHeader('Content-Type', 'application/json');
-			req.send(JSON.stringify({
-				_csrf: context.csrf,
-				id_tag: tagId,
-				name_tag: tagId == 0 ? tagName : '',
-				id_entry: entryId,
-				checked: isChecked,
-			}));
+				const req = new XMLHttpRequest();
+				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.responseType = 'json';
+				req.onerror = function (e) {
+					checkboxTag.checked = !isChecked;
+					badAjax(this.status == 403);
+				};
+				req.onload = function (e) {
+					if (this.status != 200) {
+						return req.onerror(e);
+					}
+					if (entry.classList.contains('not_read')) {
+						incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
+					}
+				};
+				req.onloadend = function (e) {
+					checkboxTag.disabled = false;
+					if (tagId == 0) {
+						loadDynamicTags(checkboxTag.closest('div.dropdown'));
+					}
+				};
+				req.setRequestHeader('Content-Type', 'application/json');
+				req.send(JSON.stringify({
+					_csrf: context.csrf,
+					id_tag: tagId,
+					name_tag: tagId == 0 ? tagName : '',
+					id_entry: entryId,
+					checked: isChecked,
+					ajax: 1,
+				}));
+			}
 		}
 	};
 }
@@ -1213,7 +1237,43 @@ function loadDynamicTags(div) {
 		if (!json) {
 			return req.onerror(e);
 		}
-		let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
+
+		const li_item0 = document.createElement('li');
+		li_item0.setAttribute('class', 'item addItem');
+
+		const label = document.createElement('label');
+		label.setAttribute('class', 'noHover');
+
+		const input_checkboxTag = document.createElement('input');
+		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+		input_checkboxTag.setAttribute('name', 't_0');
+		input_checkboxTag.setAttribute('type', 'checkbox');
+
+		const input_newTag = document.createElement('input');
+		input_newTag.setAttribute('type', 'text');
+		input_newTag.setAttribute('name', 'newTag');
+		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+
+		const button_btn = document.createElement('button');
+		button_btn.setAttribute('type', 'button');
+		button_btn.setAttribute('class', 'btn');
+		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+
+		const text_plus = document.createTextNode('+');
+
+		const div_stick = document.createElement('div');
+		div_stick.setAttribute('class', 'stick');
+
+		button_btn.appendChild(text_plus);
+		div_stick.appendChild(input_newTag);
+		div_stick.appendChild(button_btn);
+		label.appendChild(input_checkboxTag);
+		label.appendChild(div_stick);
+		li_item0.appendChild(label);
+
+		div.querySelector('.dropdown-menu').appendChild(li_item0);
+
+		let html = '';
 		if (json && json.length) {
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
@@ -1391,76 +1451,6 @@ function init_notifications() {
 	}
 }
 // </notification>
-
-// <popup>
-let popup = null;
-let popup_iframe_container = null;
-let popup_iframe = null;
-let popup_txt = null;
-let popup_working = false;
-
-/* eslint-disable no-unused-vars */
-// TODO: Re-enable no-unused-vars
-function openPopupWithMessage(msg) {
-	if (popup_working === true) {
-		return false;
-	}
-
-	popup_working = true;
-
-	popup_txt.innerHTML = msg;
-
-	popup_txt.style.display = 'table-row';
-	popup.style.display = 'block';
-}
-
-function openPopupWithSource(source) {
-	if (popup_working === true) {
-		return false;
-	}
-
-	popup_working = true;
-
-	popup_iframe.src = source;
-
-	popup_iframe_container.style.display = 'table-row';
-	popup.style.display = 'block';
-}
-/* eslint-enable no-unused-vars */
-
-function closePopup() {
-	popup.style.display = 'none';
-	popup_iframe_container.style.display = 'none';
-	popup_txt.style.display = 'none';
-
-	popup_iframe.src = 'about:blank';
-
-	popup_working = false;
-}
-
-function init_popup() {
-	// Fetch elements.
-	popup = document.getElementById('popup');
-	if (popup) {
-		popup_iframe_container = document.getElementById('popup-iframe-container');
-		popup_iframe = document.getElementById('popup-iframe');
-
-		popup_txt = document.getElementById('popup-txt');
-
-		// Configure close button.
-		document.getElementById('popup-close').addEventListener('click', function (ev) {
-			closePopup();
-		});
-
-		// Configure close-on-click.
-		window.addEventListener('click', function (ev) {
-			if (ev.target == popup) {
-				closePopup();
-			}
-		});
-	}
-}
-// </popup>
 
 // <notifs html5>
 let notifs_html5_permission = 'denied';
@@ -1746,17 +1736,16 @@ function init_normal() {
 	};
 }
 
-function init_beforeDOM() {
+function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
 }
 
-function init_afterDOM() {
+function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
-	init_popup();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
 	if (stream) {
@@ -1773,14 +1762,14 @@ function init_afterDOM() {
 	}
 }
 
-init_beforeDOM();	// Can be called before DOM is fully loaded
+init_main_beforeDOM();	// Can be called before DOM is fully loaded
 
 if (document.readyState && document.readyState !== 'loading') {
-	init_afterDOM();
+	init_main_afterDOM();
 } else {
 	if (window.console) {
 		console.log('FreshRSS waiting for DOMContentLoaded…');
 	}
-	document.addEventListener('DOMContentLoaded', init_afterDOM, false);
+	document.addEventListener('DOMContentLoaded', init_main_afterDOM, false);
 }
 // @license-end

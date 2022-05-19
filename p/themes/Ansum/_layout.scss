@@ -180,6 +180,24 @@
 	}
 }
 
+.btn {
+	border-left-width: 0;
+	padding: 0.5rem 1rem;
+	background-color: variables.$grey-light;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	@include mixins.transition(all, 0.15s, ease-in-out);
+
+	&:hover {
+		background-color: variables.$grey-medium-light;
+	}
+
+	&.active {
+		background-color: variables.$main-first;
+	}
+}
+
 /*=== Index menu */
 .nav_menu {
 	text-align: center;

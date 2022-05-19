@@ -68,6 +68,10 @@
 		height: 50px;
 		line-height: 50px;
 		text-align: center;
+
+		.icon {
+			filter: grayscale(100%) brightness(2.5);
+		}
 	}
 
 	.header {

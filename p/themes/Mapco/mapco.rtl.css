@@ -238,7 +238,7 @@ form th {
 	left: 18px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1.75rem 2rem 0.5rem 0;
+	margin: 1rem 1rem 1rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #5b6871;
@@ -254,11 +254,11 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:hover {
+.dropdown-menu .item:not(.addItem):hover {
 	background: #36c;
 	color: #fff;
 }
-.dropdown-menu .item:hover a, .dropdown-menu .item:hover button {
+.dropdown-menu .item:not(.addItem):hover a, .dropdown-menu .item:not(.addItem):hover button, .dropdown-menu .item:not(.addItem):hover label {
 	text-decoration: none;
 	color: #fff;
 }
@@ -888,6 +888,21 @@ form th {
 	text-transform: uppercase;
 }
 
+.btn {
+	border-right-width: 0;
+	padding: 0.5rem 1rem;
+	background-color: #eff0f2;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: all 0.15s ease-in-out;
+}
+.btn:hover {
+	background-color: #d5d8db;
+}
+.btn.active {
+	background-color: #36c;
+}
+
 /*=== Index menu */
 .nav_menu {
 	text-align: center;
@@ -1426,6 +1441,12 @@ form th {
 		height: 50px;
 		line-height: 50px;
 		text-align: center;
+	}
+	.aside .toggle_aside .icon,
+#panel .close .icon,
+#close-slider.active .icon,
+.dropdown-menu .toggle_aside .icon {
+		filter: grayscale(100%) brightness(2.5);
 	}
 
 	.header {

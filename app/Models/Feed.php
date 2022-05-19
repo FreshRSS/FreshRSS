@@ -208,7 +208,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$url = $this->url;
 		}
 		$txt = FAVICONS_DIR . $this->hash() . '.txt';
-		if (!file_exists($txt)) {
+		if (@file_get_contents($txt) !== $url) {
 			file_put_contents($txt, $url);
 		}
 		if (FreshRSS_Context::$isCli) {
@@ -245,7 +245,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$this->url = $value;
 	}
-	public function _kind($value) {
+	public function _kind(int $value) {
 		$this->kind = $value;
 	}
 	public function _category($value) {
@@ -352,9 +352,15 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				$links = $simplePie->get_links('self');
-				$this->selfUrl = $links[0] ?? '';
+				$this->selfUrl = empty($links[0]) ? '' : checkUrl($links[0]);
+				if ($this->selfUrl == false) {
+					$this->selfUrl = '';
+				}
 				$links = $simplePie->get_links('hub');
-				$this->hubUrl = $links[0] ?? '';
+				$this->hubUrl = empty($links[0]) ? '' : checkUrl($links[0]);
+				if ($this->hubUrl == false) {
+					$this->hubUrl = '';
+				}
 
 				if ($loadDetails) {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
@@ -561,8 +567,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
 		}
 
-		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
-		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
+		// Same naming conventions than https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html
+		// https://rss-bridge.github.io/rss-bridge/Bridge_API/BridgeAbstract.html#collectdata
 		/** @var array<string,string> */
 		$xPathSettings = $this->attributes('xpath');
 		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
@@ -595,7 +601,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$doc->strictErrorChecking = false;
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
-			$view->rss_title = $xPathFeedTitle == '' ? '' : htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
+			$view->rss_title = $xPathFeedTitle == '' ? $this->name() :
+				htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
 			$view->rss_base = htmlspecialchars(trim($xpath->evaluate('normalize-space(//base/@href)')), ENT_COMPAT, 'UTF-8');
 			$nodes = $xpath->query($xPathItem);
 			if (empty($nodes)) {
@@ -751,7 +758,8 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public function filtersAction(string $action) {
+	/** @return array<FreshRSS_BooleanSearch> */
+	public function filtersAction(string $action): array {
 		$action = trim($action);
 		if ($action == '') {
 			return array();
@@ -768,6 +776,9 @@ class FreshRSS_Feed extends Minz_Model {
 		return $filters;
 	}
 
+	/**
+	 * @param array<string> $filters
+	 */
 	public function _filtersAction(string $action, $filters) {
 		$action = trim($action);
 		if ($action == '' || !is_array($filters)) {
@@ -831,7 +842,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function pubSubHubbubEnabled(): bool {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
-		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
 			$hubJson = json_decode($hubFile, true);
 			if ($hubJson && empty($hubJson['error']) &&
@@ -844,7 +855,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function pubSubHubbubError(bool $error = true): bool {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
-		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
 		$hubJson = $hubFile ? json_decode($hubFile, true) : array();
 		if (!isset($hubJson['error']) || $hubJson['error'] !== (bool)$error) {
@@ -862,7 +873,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$key = '';
 		if (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) &&
 			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
-			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
+			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
 			if ($hubFile = @file_get_contents($hubFilename)) {
 				$hubJson = json_decode($hubFile, true);
@@ -892,7 +903,7 @@ class FreshRSS_Feed extends Minz_Model {
 				);
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/');
-				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
+				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
 				$text = 'WebSub prepared for ' . $this->url;
 				Minz_Log::debug($text);
 				Minz_Log::debug($text, PSHB_LOG);
@@ -913,7 +924,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
 		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
-			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
 				Minz_Log::warning('JSON not found for WebSub: ' . $this->url);

@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Clear cache',	// TODO
 			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO
 			'reload_articles' => 'Reload articles',	// TODO
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO
+			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
 			'title' => 'Maintenance',	// TODO
 		),
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',

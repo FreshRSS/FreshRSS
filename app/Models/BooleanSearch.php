@@ -5,6 +5,7 @@
  */
 class FreshRSS_BooleanSearch {
 
+	/** @var string */
 	private $raw_input = '';
 	private $searches = array();
 
@@ -54,11 +55,11 @@ class FreshRSS_BooleanSearch {
 		return null;
 	}
 
-	public function __toString() {
+	public function __toString(): string {
 		return $this->getRawInput();
 	}
 
-	public function getRawInput() {
+	public function getRawInput(): string {
 		return $this->raw_input;
 	}
 }

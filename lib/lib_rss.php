@@ -9,6 +9,13 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+if (!function_exists('str_starts_with')) {
+	/** Polyfill for PHP <8.0 */
+	function str_starts_with(string $haystack, string $needle): bool {
+		return strncmp($haystack, $needle, strlen($needle)) === 0;
+	}
+}
+
 // @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
@@ -45,10 +52,16 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'CssXPath') !== false) {
-		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
-		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
+	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
+		$prefix = 'Gt\\CssXPath\\';
+		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
+	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
+		$prefix = 'PHPMailer\\PHPMailer\\';
+		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	}
 }
 
@@ -196,6 +209,7 @@ function timestamptodate ($t, $hour = true) {
 }
 
 /**
+ * Decode HTML entities but preserve XML entities.
  * @param string|null $text
  */
 function html_only_entity_decode($text): string {
@@ -391,12 +405,10 @@ function getHtml(string $url, array $attributes = []): string {
 	$ch = curl_init();
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
-		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
 		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
 		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-		//CURLOPT_FAILONERROR => true;
 		CURLOPT_MAXREDIRS => 4,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true,
@@ -457,11 +469,16 @@ function validateEmailAddress($email) {
  * Add support of image lazy loading
  * Move content from src attribute to data-original
  * @param string $content is the text we want to parse
+ * @return string
  */
 function lazyimg($content) {
-	return preg_replace(
-		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+	return preg_replace([
+			'/<((?:img|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+		], [
+			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+		],
 		$content
 	);
 }
@@ -554,14 +571,67 @@ function get_user_configuration($username) {
 }
 
 /**
+ * Converts an IP (v4 or v6) to a binary representation using inet_pton
+ *
+ * @param string $ip the IP to convert
+ * @return string a binary representation of the specified IP
+ */
+function ipToBits(string $ip): string {
+	$binaryip = '';
+	foreach (str_split(inet_pton($ip)) as $char) {
+		$binaryip .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+	}
+	return $binaryip;
+}
+
+/**
+ * Check if an ip belongs to the provided range (in CIDR format)
+ *
+ * @param string $ip the IP that we want to verify (ex: 192.168.16.1)
+ * @param string $range the range to check against (ex: 192.168.16.0/24)
+ * @return boolean true if the IP is in the range, otherwise false
+ */
+function checkCIDR(string $ip, string $range): bool {
+	$binary_ip = ipToBits($ip);
+	list($subnet, $mask_bits) = explode('/', $range);
+	$mask_bits = intval($mask_bits);
+	$binary_subnet = ipToBits($subnet);
+
+	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
+	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
+
+	return $ip_net_bits === $subnet_bits;
+}
+
+/**
+ * Check if the client is allowed to send unsafe headers
+ * This uses the REMOTE_ADDR header to determine the sender's IP
+ * and the configuration option "trusted_sources" to get an array of the authorized ranges
+ *
+ * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ */
+function checkTrustedIP(): bool {
+	if (!empty($_SERVER['REMOTE_ADDR'])) {
+		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+			if (checkCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/**
  * @return string
  */
 function httpAuthUser() {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
+		return $_SERVER['HTTP_REMOTE_USER'];
 	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
 		return $_SERVER['HTTP_X_WEBAUTH_USER'];
 	}
 	return '';
@@ -700,15 +770,6 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-//RFC 4648
-function base64url_encode($data) {
-	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
-}
-//RFC 4648
-function base64url_decode($data) {
-	return base64_decode(strtr($data, '-_', '+/'));
-}
-
 function _i($icon, $url_only = false) {
 	return FreshRSS_Themes::icon($icon, $url_only);
 }
@@ -734,7 +795,7 @@ function getNonStandardShortcuts($shortcuts) {
 	return $nonStandard;
 }
 
-function errorMessage($errorTitle, $error = '') {
+function errorMessageInfo($errorTitle, $error = '') {
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
 
 	$message = '';

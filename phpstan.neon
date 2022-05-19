@@ -7,14 +7,14 @@ parameters:
 	paths:
 		- .
 	excludePaths:
-		- lib/PHPMailer/*
+		- lib/phpmailer/*
 		- lib/SimplePie/*
 		- node_modules/*
 		# TODO: include tests
 		- tests/*
 		- vendor/*
 	scanDirectories:
-		- lib/PHPMailer/
+		- lib/phpmailer/
 		- lib/SimplePie/
 	bootstrapFiles:
 		- cli/_cli.php
