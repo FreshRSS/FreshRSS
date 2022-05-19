@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
 			'clear_cache_help' => 'Vymazať vyrovnáciu pamäť pre tento kanál.',
 			'reload_articles' => 'Obnoviť články',
-			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',
+			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY
 			'title' => 'Údržba',
 		),
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',

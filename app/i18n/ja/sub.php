@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'キャッシュのクリア',
 			'clear_cache_help' => 'このフィードのキャッシュをクリアします。',
 			'reload_articles' => '記事を再読み込みする',
-			'reload_articles_help' => '記事を再読み込みして、セレクターが定義したコンテンツを完全に取得します。',
+			'reload_articles_help' => '記事を再読み込みして、セレクターが定義したコンテンツを完全に取得します。',	// DIRTY
 			'title' => 'メンテナンス',
 		),
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',

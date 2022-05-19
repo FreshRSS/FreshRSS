@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',
 			'clear_cache_help' => 'Czyści pamięć podręczną tego kanału.',
 			'reload_articles' => 'Przeładuj wiadomości',
-			'reload_articles_help' => 'Ponownie pobiera wiadomości i przetwarza treść ze strony pierwotnej, jeżeli zdefiniowany został selektor CSS.',
+			'reload_articles_help' => 'Ponownie pobiera wiadomości i przetwarza treść ze strony pierwotnej, jeżeli zdefiniowany został selektor CSS.',	// DIRTY
 			'title' => 'Konserwacja',
 		),
 		'moved_category_deleted' => 'Po usunięciu kategorii znajdujące się w niej kanały zostaną automatycznie przeniesione do <em>%s</em>.',

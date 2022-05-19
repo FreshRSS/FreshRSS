@@ -233,11 +233,18 @@ function init_select_observers() {
 	});
 }
 
-function data_leave_validation(parent) {
+/**
+ * Returns true when no input element is changed, false otherwise.
+ * When excludeForm is defined, will only report changes outside the specified form.
+ */
+function data_leave_validation(parent, excludeForm = null) {
 	const ds = parent.querySelectorAll('[data-leave-validation]');
 
 	for (let i = ds.length - 1; i >= 0; i--) {
 		const input = ds[i];
+		if (excludeForm && excludeForm === input.form) {
+			continue;
+		}
 		if (input.type === 'checkbox' || input.type === 'radio') {
 			if (input.checked != input.getAttribute('data-leave-validation')) {
 				return false;
@@ -251,7 +258,7 @@ function data_leave_validation(parent) {
 
 function init_configuration_alert() {
 	window.onsubmit = function (e) {
-		window.hasSubmit = true;
+		window.hasSubmit = data_leave_validation(document.body, e.submitter ? e.submitter.form : null);
 	};
 	window.onbeforeunload = function (e) {
 		if (window.hasSubmit) {
