@@ -59,8 +59,7 @@
 				<div class="stick w100">
 					<input type="url" name="url" id="url" value="<?= $this->feed->url() ?>" required="required" />
 					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
-        </div>
-        
+				</div>
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?=
 					rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)) ?>"><?= _t('sub.feed.validator') ?></a>
 			</div>
