@@ -45,6 +45,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction() {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/category.js?' . @filemtime(PUBLIC_PATH . '/scripts/category.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		FreshRSS_View::prependTitle(_t('sub.title') . ' · ');
 
 		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');
@@ -90,6 +91,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	public function feedAction() {
 		if (Minz_Request::param('ajax')) {
 			$this->view->_layout(false);
+		} else {
+			FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -323,6 +326,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 * This action displays the page to add a new feed
 	 */
 	public function addAction() {
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		FreshRSS_View::prependTitle(_t('sub.title.add') . ' . ');
 	}
 }

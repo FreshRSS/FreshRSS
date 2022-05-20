@@ -127,12 +127,8 @@ $today = @strtotime('today');
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
-?><?php $class = $this->displaySlider ? ' active' : ''; ?>
-<a href="#" id="close-slider" class="<?= $class ?>">
-	<?= _i('close') ?>
-</a>
-<div id="slider" class="scrollbar-thin<?= $class ?>">
-</div></main><?php
+?>
+</main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
@@ -148,5 +144,12 @@ $today = @strtotime('today');
 	</div>
 </main>
 <?php endif; ?>
+
+<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>
+<aside id="slider" class="scrollbar-thin<?= $class ?>">
+</aside>
 
 <?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>

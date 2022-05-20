@@ -39,11 +39,11 @@ return array(
 		),
 		'ctype' => array(
 			'nok' => '找不到字符类型检测库（php-ctype）',
-			'ok' => '已找到字符类型检测库 （ctype）',
+			'ok' => '已找到字符类型检测库 （php-ctype）',
 		),
 		'curl' => array(
-			'nok' => '找不到 cURL 库（php-curl）',
-			'ok' => '已找到 cURL 库',
+			'nok' => '找不到 cURL 库(php-cURL)',
+			'ok' => '已找到 cURL 库(php-cURL)',
 		),
 		'data' => array(
 			'nok' => '请检查 <em>./data</em> 目录权限。HTTP 服务器必须有其写入权限。',
@@ -52,7 +52,7 @@ return array(
 		'database' => '数据库相关',
 		'dom' => array(
 			'nok' => '找不到用于浏览 DOM 的库（php-xml）',
-			'ok' => '已找到用于浏览 DOM 的库',
+			'ok' => '已找到用于浏览 DOM 的库(php-xml)',
 		),
 		'entries' => array(
 			'nok' => 'Entry 表配置错误',
@@ -67,13 +67,13 @@ return array(
 			'ok' => 'Feed 表正常',
 		),
 		'fileinfo' => array(
-			'nok' => '找不到 PHP fileinfo 库（fileinfo）',
-			'ok' => '已找到 fileinfo 库',
+			'nok' => '找不到 fileinfo 库（php-fileinfo）',
+			'ok' => '已找到 fileinfo 库(php-fileinfo)',
 		),
 		'files' => '文件相关',
 		'json' => array(
 			'nok' => '找不到 JSON 扩展（php-json ）',
-			'ok' => '已找到 JSON 扩展',
+			'ok' => '已找到 JSON 扩展(php-json)',
 		),
 		'mbstring' => array(
 			'nok' => '找不到推荐的 Unicode 解析库（mbstring)',
@@ -81,7 +81,7 @@ return array(
 		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库（php-pcre）',
-			'ok' => '已找到正则表达式解析库（PCRE）',
+			'ok' => '已找到正则表达式解析库（php-pcre）',
 		),
 		'pdo' => array(
 			'nok' => '找不到 PDO 或支持的驱动（pdo_mysql、pdo_sqlite、pdo_pgsql）',
@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => '最大用户数',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => '注册表单',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => '禁用，无注册表单',
+					'nolimit' => '启用，且无账户限制',
+					'setaccountsnumber' => '设置用户数的最大值',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => '注册表单禁用',
+				'enabled' => '注册表单启用',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => '用户注册表单',
 		),
 	),
 	'update' => array(
@@ -189,9 +189,9 @@ return array(
 		'apply' => '应用',
 		'check' => '检查更新',
 		'current_version' => '当前 FreshRSS 版本为 %s。',
-		'last' => '上一次检查：%s',
+		'last' => '上次检查：%s',
 		'none' => '没有可用更新',
-		'title' => '更新系统',
+		'title' => '系统更新',
 	),
 	'user' => array(
 		'admin' => '管理员',

@@ -432,16 +432,17 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						} else {	//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
-							$needFeedCacheRefresh = $mark_updated_article_unread;
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
-							if ($mark_updated_article_unread) {
-								$feed->incPendingUnread();	//Maybe
-							}
 
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if ($entry === null) {
 								// An extension has returned a null value, there is nothing to insert.
 								continue;
+							}
+
+							if (!$entry->isRead()) {
+								$needFeedCacheRefresh = true;
+								$feed->incPendingUnread();	//Maybe
 							}
 
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
@@ -480,7 +481,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$entryDAO->beginTransaction();
 						}
 						$entryDAO->addEntry($entry->toArray());
-						$feed->incPendingUnread();
+
+						if (!$entry->isRead()) {
+							$feed->incPendingUnread();
+						}
 						$nb_new_articles++;
 					}
 				}
@@ -536,12 +540,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				if (trim($feed->website()) == '') {
 					$website = html_only_entity_decode($simplePie->get_link());
-					$feedProperties['website'] = $website == '' ? $feed->url() : $website;
+					$feed->_website($website == '' ? $feed->url() : $website);
+					$feedProperties['website'] = $feed->website();
+					$feed->faviconPrepare();
 				}
 				if (trim($feed->description()) == '') {
 					$description = html_only_entity_decode($simplePie->get_description());
 					if ($description != '') {
-						$feedProperties['description'] = $description;
+						$feed->_description($description);
+						$feedProperties['description'] = $feed->description();
 					}
 				}
 			}
@@ -807,7 +814,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		@set_time_limit(300);
 
 		//Get Feed ID.
-		$feed_id = Minz_Request::param('id');
+		$feed_id = intval(Minz_Request::param('id', 0));
+		$limit = intval(Minz_Request::param('reload_limit', 10));
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -824,8 +832,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		self::actualizeFeed($feed_id, '', false);
 
 		//Extract all feed entries from database, load complete content and store them back in database.
-		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
-		//TODO: Parameter to limit the number of articles to reload
+		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', $limit);
 
 		//We need another DB connection in parallel for unbuffered streaming
 		Minz_ModelPdo::$usesSharedPdo = false;

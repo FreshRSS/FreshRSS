@@ -1,0 +1,7 @@
+{
+  "name": "Dark pink",
+  "author": "Miicat_47",
+  "description": "Nice dawk pink theme. >_< UwU",
+  "version": 0.1,
+  "files": ["_template.css", "../Alternative-Dark/adark.css", "pinkdark.css"]
+}

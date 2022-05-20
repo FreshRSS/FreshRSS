@@ -9,6 +9,13 @@ if (!function_exists('mb_strcut')) {
 	}
 }
 
+if (!function_exists('str_starts_with')) {
+	/** Polyfill for PHP <8.0 */
+	function str_starts_with(string $haystack, string $needle): bool {
+		return strncmp($haystack, $needle, strlen($needle)) === 0;
+	}
+}
+
 // @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
@@ -45,10 +52,16 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'CssXPath') !== false) {
-		include(LIB_PATH . '/CssXPath/' . basename(str_replace('\\', '/', $class)) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
-		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
+	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
+		$prefix = 'Gt\\CssXPath\\';
+		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
+	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
+		$prefix = 'PHPMailer\\PHPMailer\\';
+		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	}
 }
 
@@ -392,12 +405,10 @@ function getHtml(string $url, array $attributes = []): string {
 	$ch = curl_init();
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
-		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
 		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
 		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-		//CURLOPT_FAILONERROR => true;
 		CURLOPT_MAXREDIRS => 4,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true,
@@ -458,11 +469,16 @@ function validateEmailAddress($email) {
  * Add support of image lazy loading
  * Move content from src attribute to data-original
  * @param string $content is the text we want to parse
+ * @return string
  */
 function lazyimg($content) {
-	return preg_replace(
-		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+	return preg_replace([
+			'/<((?:img|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+		], [
+			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+		],
 		$content
 	);
 }
