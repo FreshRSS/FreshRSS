@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Escafar lo cache',
 			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',
 			'reload_articles' => 'Recargar los articles',
-			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',
+			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',	// DIRTY
 			'title' => 'Mantenença',
 		),
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',

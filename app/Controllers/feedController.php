@@ -814,7 +814,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		@set_time_limit(300);
 
 		//Get Feed ID.
-		$feed_id = Minz_Request::param('id');
+		$feed_id = intval(Minz_Request::param('id', 0));
+		$limit = intval(Minz_Request::param('reload_limit', 10));
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -831,8 +832,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		self::actualizeFeed($feed_id, '', false);
 
 		//Extract all feed entries from database, load complete content and store them back in database.
-		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', 0);
-		//TODO: Parameter to limit the number of articles to reload
+		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', $limit);
 
 		//We need another DB connection in parallel for unbuffered streaming
 		Minz_ModelPdo::$usesSharedPdo = false;
