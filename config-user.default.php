@@ -7,7 +7,6 @@ return array (
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
-
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,

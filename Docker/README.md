@@ -205,6 +205,16 @@ In the FreshRSS setup, you will then specify the name of the container (`freshrs
 
 ## More deployment options
 
+### Provide default global settings
+
+An optional configuration file can be mounted to `/var/www/FreshRSS/data/config.custom.php` to provide custom settings before the FreshRSS setup,
+on the model of [`config.default.php`](../config.default.php).
+
+### Provide default user settings
+
+An optional configuration file can be mounted to `/var/www/FreshRSS/data/config-user.default.php` to provide custom user settings before a user is created,
+on the model of [`config-user.default.php`](../config-user.default.php).
+
 ### Custom Apache configuration (advanced users)
 
 The FreshRSS Docker image uses the [Web server Apache](https://httpd.apache.org/) internally.
@@ -294,6 +304,10 @@ services:
     volumes:
       - data:/var/www/FreshRSS/data
       - extensions:/var/www/FreshRSS/extensions
+	  # Optional file providing custom global settings (used before a FreshRSS install)
+      - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
+	  # Optional file providing custom user settings (used before a new user is created)
+      - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
     ports:
       # If you want to open a port 8080 on the local machine:
       - "8080:80"
