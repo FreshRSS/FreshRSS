@@ -8,11 +8,6 @@ return array (
 	'is_admin' => false,
 	'language' => 'en',
 
-	# Override logo of this FreshRSS instance in the Web user interface.
-	# It is rendered inside an <a>...</a> element and must be valid HTML or text.
-	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
-	'logo_html' => '',
-
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,

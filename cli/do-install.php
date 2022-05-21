@@ -46,6 +46,14 @@ $config = array(
 		'db' => FreshRSS_Context::$system_conf->db,
 	);
 
+$customConfigPath = DATA_PATH . '/config.custom.php';
+if (file_exists($customConfigPath)) {
+	$customConfig = include($customConfigPath);
+	if (is_array($customConfig)) {
+		$config = array_merge($customConfig, $config);
+	}
+}
+
 foreach ($params as $param) {
 	$param = rtrim($param, ':');
 	if (isset($options[$param])) {
