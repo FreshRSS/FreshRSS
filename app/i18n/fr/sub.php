@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Vider le cache',
 			'clear_cache_help' => 'Supprime le cache de ce flux.',
 			'reload_articles' => 'Recharger les articles',
-			'reload_articles_help' => 'Recharge les articles et récupère le contenu complet si un sélecteur est défini.',
+			'reload_articles_help' => 'Recharge cette quantité d’articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',	// IGNORE
 		),
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',

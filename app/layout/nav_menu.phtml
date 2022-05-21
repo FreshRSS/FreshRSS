@@ -39,9 +39,12 @@
 					<a href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
 				</li>
 
-				<?php foreach (FreshRSS_Context::$user_conf->queries as $query) { ?>
+				<?php
+					foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
+						$query = new FreshRSS_UserQuery($raw_query);
+				?>
 				<li class="item query">
-					<a href="<?= $query['url'] ?>"><?= $query['name'] ?></a>
+					<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
 				</li>
 				<?php } ?>
 
