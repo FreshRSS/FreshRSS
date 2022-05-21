@@ -304,9 +304,9 @@ services:
     volumes:
       - data:/var/www/FreshRSS/data
       - extensions:/var/www/FreshRSS/extensions
-	  # Optional file providing custom global settings (used before a FreshRSS install)
+      # Optional file providing custom global settings (used before a FreshRSS install)
       - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
-	  # Optional file providing custom user settings (used before a new user is created)
+      # Optional file providing custom user settings (used before a new user is created)
       - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
     ports:
       # If you want to open a port 8080 on the local machine:
