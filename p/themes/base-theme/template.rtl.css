@@ -1178,13 +1178,13 @@ a.website:hover .favicon {
 	list-style: none;
 }
 
-.content > header .tags .list-tags .item {
+.content > header .tags .list-tags .item.tag {
 	display: inline-block;
 	padding-left: 0.75em;
 	line-height: normal;
 }
 
-.content > header .tags .list-tags .item a {
+.content > header .tags .list-tags .item.tag a.link-tag {
 	display: inline;
 }
 
@@ -1200,9 +1200,9 @@ a.website:hover .favicon {
 	filter: contrast(0);
 }
 
-.content ul,
-.content ol,
-.content dd {
+.content .text ul,
+.content .text ol,
+.content .text dd {
 	margin: 0 15px 0 0;
 	padding: 0 15px 5px 0;
 }
