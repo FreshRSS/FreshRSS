@@ -28,7 +28,7 @@ return array(
 		'policy_warning' => 'Если ни одна политика очистки не выбрана, все статьи будут оставлены.',
 		'purge_now' => 'Запустить очистку сейчас',
 		'title' => 'Архивирование',
-		'ttl' => 'Не актуализировать автоматически чаще чем',
+		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
 	),
 	'display' => array(
 		'_' => 'Отображение',
@@ -38,8 +38,8 @@ return array(
 			'entry' => 'Иконки статей',
 			'publication_date' => 'Дата публикации',
 			'related_tags' => 'Связанные метки',
-			'sharing' => 'Поделиться',
-			'summary' => 'Резюме',
+			'sharing' => 'Обмен',
+			'summary' => 'Сводка',
 			'top_line' => 'Верхняя линия',
 		),
 		'language' => 'Язык',
@@ -51,11 +51,11 @@ return array(
 		'theme' => 'Тема',
 		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
 		'thumbnail' => array(
-			'label' => 'Миниатюра',
-			'landscape' => 'Альбомная ориентация',
-			'none' => 'Пусто',
-			'portrait' => 'Книжная ориентация',
-			'square' => 'Площадь',
+			'label' => 'Эскиз',
+			'landscape' => 'Горизонтальный',
+			'none' => 'Нет',
+			'portrait' => 'Вертикальный',
+			'square' => 'Квадратный',
 		),
 		'title' => 'Отображение',
 		'width' => array(
@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Уровень журнала',
+			'message' => 'Сообщение журнала',
+			'timestamp' => 'Отметка времени',
 		),
 		'pagination' => array(
 			'first' => 'Первая',
@@ -144,11 +144,11 @@ return array(
 		'display_articles_unfolded' => 'Показывать статьи развёрнутыми по умолчанию',
 		'display_categories_unfolded' => 'Какие категории развёртывать',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Статьи: открыть/закрыть',
+			'categories' => 'Левая панель: категории',
+			'mark_as_read' => 'Пометить статью прочитанной',
+			'misc' => 'Разное',
+			'view' => 'Вид',
 		),
 		'hide_read_feeds' => 'Скрывать категории и ленты без непрочитанных статей (не работает с «Показывать все статьи»)',
 		'img_with_lazyload' => 'Использовать режим "ленивой загрузки" для загрузки картинок',
@@ -166,11 +166,11 @@ return array(
 		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',
-			'active_category' => 'Активная категория',
+			'active_category' => 'Активную категорию',
 			'adaptive' => 'Адаптивно',
 			'all_articles' => 'Показывать все статьи',
 			'all_categories' => 'Все категории',
-			'no_category' => 'Никаких категорий',
+			'no_category' => 'Никакие категории',
 			'remember_categories' => 'Запоминать открытые категории',
 			'unread' => 'Только непрочитанные',
 		),
@@ -191,28 +191,28 @@ return array(
 		),
 	),
 	'sharing' => array(
-		'_' => 'Поделиться',
-		'add' => 'Добавить способ поделиться',
+		'_' => 'Обмен',
+		'add' => 'Добавить способ обмена',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Этот сервис устарел и будет удалён из FreshRSS в <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Открыть документацию для большей информации" target="_blank">будущем релизе</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Больше информации',
 		'print' => 'Распечатать',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'remove' => 'Удалить способ поделиться',
+		'remove' => 'Удалить способ обмена',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
-		'title' => 'Поделиться',
+		'title' => 'Обмен',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Горячие клавиши',
 		'article_action' => 'Действия со статьями',
-		'auto_share' => 'Поделиться',
+		'auto_share' => 'Обмен',
 		'auto_share_help' => 'Если способ единственный, он будет вызван. Иначе способы доступны по их номеру.',
 		'close_dropdown' => 'Закрыть меню',
 		'collapse_article' => 'Схлопнуть',
