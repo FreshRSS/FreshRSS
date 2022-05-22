@@ -95,6 +95,7 @@ img {
 }
 
 img.favicon {
+	margin: 0 0 0 0.25rem;
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;
