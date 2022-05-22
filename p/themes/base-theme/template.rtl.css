@@ -1177,7 +1177,7 @@ br {
 	position: absolute;
 	top: 1em;
 	right: 25%; left: 25%;
-	z-index: 10;
+	z-index: 9999;
 	background: #fff;
 	border: 1px solid #aaa;
 	opacity: 1;
