@@ -54,7 +54,7 @@ return array(
 		'css_path' => 'CSS селектор статьи на сайте',
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
-		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова актуализируйте её.',
+		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
 			'help' => 'Введите по одному поисковому фильтру в строке.',
@@ -62,53 +62,53 @@ return array(
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Тип источника ленты',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (парсинг веб-страниц)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'заголовка ленты',
+					'help' => 'Пример: <code>//title</code> или статичная строка: <code>"Моя пользовательская лента"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> – стандартный язык запросов для опытных пользователей, который поддерживается в FreshRSS для парсинга веб-страниц.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'поиска новых <strong>элементов</strong><br /><small>(самое важное)</small>',
+					'help' => 'Пример: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'автора элемента',
+					'help' => 'Может также быть статической строкой. Пример: <code>"Аноним"</code>',
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'тегов элемента',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'содержимого элемента',
+					'help' => 'Пример, чтобы взять элемент целиком: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'эскиза элемента',
+					'help' => 'Пример: <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'даты элемента',
+					'help' => 'Результат будет распарсен с <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'заголовка элемента',
+					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'ссылки элемента (URL)',
+					'help' => 'Пример: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (относительно элемента) для:',
+				'xpath' => 'XPath для:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (по умолчанию)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
 			'clear_cache_help' => 'Очистить кэш для этой ленты.',
-			'reload_articles' => 'Снова загрузить статьи',
-			'reload_articles_help' => 'Снова загрузить статьи и извлечь полное содержимое, если задан селектор.',	// DIRTY
+			'reload_articles' => 'Перезагрузить статьи',
+			'reload_articles_help' => 'Перезагрузить столько статей и извлечь полное содержимое, если задан селектор.',
 			'title' => 'Обслуживание',
 		),
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
@@ -140,7 +140,7 @@ return array(
 		'timeout' => 'Таймаут в секундах',
 		'title' => 'Заголовок',
 		'title_add' => 'Добавить RSS-ленту',
-		'ttl' => 'Не актуализировать автоматически чаще чем',
+		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
 		'url' => 'URL ленты',
 		'useragent' => 'Указать юзерагент для извлечения лент',
 		'useragent_help' => 'Пример: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
@@ -167,7 +167,7 @@ return array(
 		'stats' => array(
 			'idle' => 'Неактивные ленты',
 			'main' => 'Основная статистика',
-			'repartition' => 'Перерасределение статей',
+			'repartition' => 'Расределение статей',
 		),
 		'subscription_management' => 'Управление подписками',
 		'subscription_tools' => 'Инструменты подписки',

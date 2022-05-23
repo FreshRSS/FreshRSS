@@ -17,6 +17,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
+			'img-src' => '* data:',
 			'style-src' => "'self' 'unsafe-inline'",
 		]);
 

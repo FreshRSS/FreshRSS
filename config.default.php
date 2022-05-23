@@ -1,7 +1,8 @@
 <?php
 
 # Do not modify this file, which defines default values,
-# but edit `./data/config.php` instead, after the install process is completed.
+# but instead edit `./data/config.php` after the install process is completed,
+# or edit `./data/config.custom.php` before the install process.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -29,6 +30,11 @@ return array(
 
 	# Meta description used when `allow_robots` is true.
 	'meta_description' => '',
+
+	# Override logo of this FreshRSS instance in the Web user interface.
+	# It is rendered inside an <a>...</a> element and must be valid HTML or text.
+	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
+	'logo_html' => '',
 
 	# Name of the user that has administration rights.
 	'default_user' => '_',
