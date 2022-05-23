@@ -35,7 +35,7 @@ class FreshRSS_UserQuery {
 			$this->parseGet($query['get']);
 		}
 		if (isset($query['name'])) {
-			$this->name = $query['name'];
+			$this->name = trim($query['name']);
 		}
 		if (isset($query['order'])) {
 			$this->order = $query['order'];
