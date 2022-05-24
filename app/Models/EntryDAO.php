@@ -701,7 +701,7 @@ SQL;
 	}
 
 	/** @param FreshRSS_BooleanSearch $filters */
-	protected function sqlBooleanSearch(string $alias, $filters) {
+	protected function sqlBooleanSearch(string $alias, $filters, int $level = 0) {
 		$search = '';
 		$values = [];
 
@@ -709,25 +709,29 @@ SQL;
 		foreach ($filters->searches() as $filter) {
 			if ($filter == null) {
 				continue;
-			} elseif ($filter instanceof FreshRSS_BooleanSearch) {
+			}
+
+			if ($filter instanceof FreshRSS_BooleanSearch) {
 				// BooleanSearches are combined by AND and are recursive
-				//TODO Finalize logic
-				if ($search !== '') {
-					$search .= 'AND ';
+				list($filterValues, $filterSearch) = $this->sqlBooleanSearch($alias, $filter, $level + 1);
+				$filterSearch = trim($filterSearch);
+
+				if ($filterSearch !== '') {
+					//TODO Finalize logic
+					//if ($search !== '') {
+						$search .= 'and ';
+					//}
+					$search .= '(';
+
+					$search .= $filterSearch;
+					$values = array_merge($values, $filterValues);
+
+					$search .= ') ';
 				}
-				$search .= '(';
-
-				list($filterValues, $filterSearch) = $this->sqlBooleanSearch($alias, $filter);
-				$search .= $filterSearch;
-				$values = array_merge($values, $filterValues);
-
-				$search .= ') ';
 				continue;
 			}
 			// Searches are combined by OR and are not recursive
-
 			$sub_search = '';
-
 			if ($filter->getEntryIds()) {
 				foreach ($filter->getEntryIds() as $entry_ids) {
 					$sub_search .= 'AND ' . $alias . 'id IN (';
@@ -949,11 +953,12 @@ SQL;
 					$search .= 'AND (';
 					$isOpen = true;
 				}
-				$search .= '(' . substr($sub_search, 4) . ') ';
+				// Remove overfluous leading 'AND '
+				$search .= '(' . substr($sub_search, 4) . ')';
 			}
 		}
 		if ($isOpen) {
-			$search .= ') ';
+			$search .= ')';
 		}
 
 		return [ $values, $search ];

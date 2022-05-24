@@ -26,7 +26,7 @@ class FreshRSS_BooleanSearch {
 
 		// Either parse everything as a series of BooleanSearch's combined by implicit AND
 		// or parse everything as a series of Search's combined by explicit OR
-		$this->parseParentheses($input) || $this->parseOrSegments($input);
+		$this->parseParentheses($input, $level) || $this->parseOrSegments($input);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class FreshRSS_BooleanSearch {
 	}
 
 	/** @return bool True if some parenthesis logic took over, false otherwise */
-	private function parseParentheses(string $input): bool {
+	private function parseParentheses(string $input, int $level): bool {
 		$input = trim($input);
 		$length = strlen($input);
 		$i = 0;
@@ -79,7 +79,7 @@ class FreshRSS_BooleanSearch {
 				$hasParenthesis = true;
 
 				// The text prior to the opening parenthesis is a BooleanSearch
-				$searchBefore = new FreshRSS_BooleanSearch($before);
+				$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1);
 				if (count($searchBefore->searches()) > 0) {
 					$this->searches[] = $searchBefore;
 				}
@@ -99,7 +99,7 @@ class FreshRSS_BooleanSearch {
 						$parentheses--;
 						if ($parentheses === 0) {
 							// Found the matching closing parenthesis
-							$searchSub = new FreshRSS_BooleanSearch($sub);
+							$searchSub = new FreshRSS_BooleanSearch($sub, $level + 1);
 							if (count($searchSub->searches()) > 0) {
 								$this->searches[] = $searchSub;
 							}
@@ -113,6 +113,7 @@ class FreshRSS_BooleanSearch {
 					}
 					$i++;
 				}
+				// $sub = trim($sub);
 				// if ($sub != '') {
 				// 	// TODO: Consider throwing an error or warning in case of non-matching parenthesis
 				// }
@@ -125,7 +126,7 @@ class FreshRSS_BooleanSearch {
 		}
 		if ($hasParenthesis) {
 			// The remaining text after the last parenthesis is a BooleanSearch
-			$searchBefore = new FreshRSS_BooleanSearch($before);
+			$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1);
 			if (count($searchBefore->searches()) > 0) {
 				$this->searches[] = $searchBefore;
 			}
