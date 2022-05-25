@@ -711,12 +711,15 @@ SQL;
 				continue;
 			}
 			if ($filter instanceof FreshRSS_BooleanSearch) {
-				// BooleanSearches are combined by AND and are recursive
+				// BooleanSearches are combined by AND (default) or OR (special case) operator and are recursive
 				list($filterValues, $filterSearch) = $this->sqlBooleanSearch($alias, $filter, $level + 1);
 				$filterSearch = trim($filterSearch);
 
 				if ($filterSearch !== '') {
-					$search .= $filterSearch . ' ';
+					if ($search !== '') {
+						$search .= $filter->operator();
+					}
+					$search .= ' ' . $filterSearch . ' ';
 					$values = array_merge($values, $filterValues);
 				}
 				continue;
@@ -941,15 +944,11 @@ SQL;
 				if ($isOpen) {
 					$search .= ' OR ';
 				} else {
-					$search .= 'AND (';
 					$isOpen = true;
 				}
 				// Remove superfluous leading 'AND '
 				$search .= '(' . substr($sub_search, 4) . ')';
 			}
-		}
-		if ($isOpen) {
-			$search .= ')';
 		}
 
 		return [ $values, $search ];
@@ -992,11 +991,12 @@ SQL;
 		}
 		if ($filters && count($filters->searches()) > 0) {
 			list($filterValues, $filterSearch) = $this->sqlBooleanSearch($alias, $filters);
-			$search .= $filterSearch;
-			$values = array_merge($values, $filterValues);
+			$filterSearch = trim($filterSearch);
+			if ($filterSearch !== '') {
+				$search .= 'AND (' . $filterSearch . ') ';
+				$values = array_merge($values, $filterValues);
+			}
 		}
-		syslog(LOG_DEBUG, $search);
-		syslog(LOG_DEBUG, json_encode($values));
 		return array($values, $search);
 	}
 

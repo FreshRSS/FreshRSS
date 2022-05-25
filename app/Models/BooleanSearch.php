@@ -10,7 +10,11 @@ class FreshRSS_BooleanSearch {
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private $searches = array();
 
-	public function __construct(string $input, int $level = 0) {
+	/** @var string 'AND' or 'OR' */
+	private $operator;
+
+	public function __construct(string $input, int $level = 0, $operator = 'AND') {
+		$this->operator = $operator;
 		$input = trim($input);
 		if ($input == '') {
 			return;
@@ -72,18 +76,35 @@ class FreshRSS_BooleanSearch {
 		$i = 0;
 		$before = '';
 		$hasParenthesis = false;
+		$nextOperator = 'AND';
 		while ($i < $length) {
 			$c = $input[$i];
 
 			if ($c === '(') {
 				$hasParenthesis = true;
 
-				// The text prior to the opening parenthesis is a BooleanSearch
-				$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1);
-				if (count($searchBefore->searches()) > 0) {
-					$this->searches[] = $searchBefore;
+				$before = trim($before);
+				if (preg_match('/\bOR$/i', $before)) {
+					// Trim trailing OR
+					$before = substr($before, 0, -2);
+
+					// The text prior to the OR is a BooleanSearch
+					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					if (count($searchBefore->searches()) > 0) {
+						$this->searches[] = $searchBefore;
+					}
+					$before = '';
+
+					// The next BooleanSearch will have to be combined with OR instead of default AND
+					$nextOperator = 'OR';
+				} elseif ($before !== '') {
+					// The text prior to the opening parenthesis is a BooleanSearch
+					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					if (count($searchBefore->searches()) > 0) {
+						$this->searches[] = $searchBefore;
+					}
+					$before = '';
 				}
-				$before = '';
 
 				// Search the matching closing parenthesis
 				$parentheses = 1;
@@ -99,7 +120,8 @@ class FreshRSS_BooleanSearch {
 						$parentheses--;
 						if ($parentheses === 0) {
 							// Found the matching closing parenthesis
-							$searchSub = new FreshRSS_BooleanSearch($sub, $level + 1);
+							$searchSub = new FreshRSS_BooleanSearch($sub, $level + 1, $nextOperator);
+							$nextOperator = 'AND';
 							if (count($searchSub->searches()) > 0) {
 								$this->searches[] = $searchSub;
 							}
@@ -125,8 +147,17 @@ class FreshRSS_BooleanSearch {
 			$i++;
 		}
 		if ($hasParenthesis) {
+			$before = trim($before);
+			if (preg_match('/^OR\b/i', $before)) {
+				// The next BooleanSearch will have to be combined with OR instead of default AND
+				$nextOperator = 'OR';
+				// Trim leading OR
+				$before = substr($before, 2);
+			}
+
 			// The remaining text after the last parenthesis is a BooleanSearch
-			$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1);
+			$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+			$nextOperator = 'AND';
 			if (count($searchBefore->searches()) > 0) {
 				$this->searches[] = $searchBefore;
 			}
@@ -173,6 +204,11 @@ class FreshRSS_BooleanSearch {
 	 */
 	public function searches() {
 		return $this->searches;
+	}
+
+	/** @return string 'AND' or 'OR' depending on how this BooleanSearch should be combined */
+	public function operator(): string {
+		return $this->operator;
 	}
 
 	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */

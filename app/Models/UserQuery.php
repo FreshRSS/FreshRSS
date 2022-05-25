@@ -43,7 +43,7 @@ class FreshRSS_UserQuery {
 		if (empty($query['url'])) {
 			if (!empty($query)) {
 				unset($query['name']);
-				$this->url = Minz_Url::display(array('params' => $query));
+				$this->url = Minz_Url::display(['params' => $query]);
 			}
 		} else {
 			$this->url = $query['url'];
