@@ -328,8 +328,12 @@ class FreshRSS_Entry extends Minz_Model {
 		$ok = true;
 		foreach ($booleanSearch->searches() as $filter) {
 			if ($filter instanceof FreshRSS_BooleanSearch) {
-				// BooleanSearches are combined by AND and are recursive
-				$ok &= $this->matches($filter);
+				// BooleanSearches are combined by AND (default) or OR (special case) operator and are recursive
+				if ($filter->operator() === 'OR') {
+					$ok |= $this->matches($filter);
+				} else {
+					$ok &= $this->matches($filter);
+				}
 			} elseif ($filter instanceof FreshRSS_Search) {
 				// Searches are combined by OR and are not recursive
 				$ok = true;

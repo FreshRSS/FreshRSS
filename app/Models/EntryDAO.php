@@ -2,23 +2,27 @@
 
 class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	public function isCompressed(): bool {
+	public static function isCompressed(): bool {
 		return true;
 	}
 
-	public function hasNativeHex(): bool {
+	public static function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode(string $x): string {
+	protected static function sqlConcat($s1, $s2) {
+		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
+	}
+
+	public static function sqlHexDecode(string $x): string {
 		return 'unhex(' . $x . ')';
 	}
 
-	public function sqlHexEncode(string $x): string {
+	public static function sqlHexEncode(string $x): string {
 		return 'hex(' . $x . ')';
 	}
 
-	public function sqlIgnoreConflict(string $sql): string {
+	public static function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
@@ -90,14 +94,14 @@ SQL;
 
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
-			$sql = $this->sqlIgnoreConflict(
+			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
-				. ($this->isCompressed() ? 'content_bin' : 'content')
+				. (static::isCompressed() ? 'content_bin' : 'content')
 				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 				. 'VALUES(:id, :guid, :title, :author, '
-				. ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
+				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
-				. $this->sqlHexDecode(':hash')
+				. static::sqlHexDecode(':hash')
 				. ', :is_read, :is_favorite, :id_feed, :tags)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
@@ -132,7 +136,7 @@ SQL;
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
-			if ($this->hasNativeHex()) {
+			if (static::hasNativeHex()) {
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 			} else {
 				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
@@ -189,9 +193,9 @@ SQL;
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
-				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
+				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
-				. ', hash=' . $this->sqlHexDecode(':hash')
+				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
 				. ', tags=:tags '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
@@ -226,7 +230,7 @@ SQL;
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
-			if ($this->hasNativeHex()) {
+			if (static::hasNativeHex()) {
 				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 			} else {
 				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
@@ -649,8 +653,8 @@ SQL;
 
 	public function selectAll() {
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, `lastSeen`, ' . $this->sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, `lastSeen`, ' . static::sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
 			. 'FROM `_entry`';
 		$stm = $this->pdo->query($sql);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -662,7 +666,7 @@ SQL;
 	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, is_read, is_favorite, id_feed, tags '
 			. 'FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid';
 		$stm = $this->pdo->prepare($sql);
@@ -676,7 +680,7 @@ SQL;
 	/** @return FreshRSS_Entry|null */
 	public function searchById($id) {
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, is_read, is_favorite, id_feed, tags '
 			. 'FROM `_entry` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
@@ -696,12 +700,8 @@ SQL;
 		return isset($res[0]) ? $res[0] : null;
 	}
 
-	protected function sqlConcat($s1, $s2) {
-		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
-	}
-
 	/** @param FreshRSS_BooleanSearch $filters */
-	protected function sqlBooleanSearch(string $alias, $filters, int $level = 0) {
+	public static function sqlBooleanSearch(string $alias, $filters, int $level = 0) {
 		$search = '';
 		$values = [];
 
@@ -712,14 +712,14 @@ SQL;
 			}
 			if ($filter instanceof FreshRSS_BooleanSearch) {
 				// BooleanSearches are combined by AND (default) or OR (special case) operator and are recursive
-				list($filterValues, $filterSearch) = $this->sqlBooleanSearch($alias, $filter, $level + 1);
+				list($filterValues, $filterSearch) = self::sqlBooleanSearch($alias, $filter, $level + 1);
 				$filterSearch = trim($filterSearch);
 
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
 					}
-					$search .= ' ' . $filterSearch . ' ';
+					$search .= ' (' . $filterSearch . ') ';
 					$values = array_merge($values, $filterValues);
 				}
 				continue;
@@ -895,7 +895,7 @@ SQL;
 			}
 			if ($filter->getInurl()) {
 				foreach ($filter->getInurl() as $url) {
-					$sub_search .= 'AND ' . $this->sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ? ';
+					$sub_search .= 'AND ' . static::sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
@@ -920,22 +920,22 @@ SQL;
 			}
 			if ($filter->getNotInurl()) {
 				foreach ($filter->getNotInurl() as $url) {
-					$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ?) ';
+					$sub_search .= 'AND (NOT ' . static::sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ?) ';
 					$values[] = "%{$url}%";
 				}
 			}
 
 			if ($filter->getSearch()) {
 				foreach ($filter->getSearch() as $search_value) {
-					$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title',
-						$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
+					$sub_search .= 'AND ' . static::sqlConcat($alias . 'title',
+						static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
 					$values[] = "%{$search_value}%";
 				}
 			}
 			if ($filter->getNotSearch()) {
 				foreach ($filter->getNotSearch() as $search_value) {
-					$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title',
-						$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+					$sub_search .= 'AND (NOT ' . static::sqlConcat($alias . 'title',
+						static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
 					$values[] = "%{$search_value}%";
 				}
 			}
@@ -990,7 +990,7 @@ SQL;
 			$values[] = $date_min . '000000';
 		}
 		if ($filters && count($filters->searches()) > 0) {
-			list($filterValues, $filterSearch) = $this->sqlBooleanSearch($alias, $filters);
+			list($filterValues, $filterSearch) = self::sqlBooleanSearch($alias, $filters);
 			$filterSearch = trim($filterSearch);
 			if ($filterSearch !== '') {
 				$search .= 'AND (' . $filterSearch . ') ';
@@ -1064,7 +1064,7 @@ SQL;
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
 			. 'FROM `_entry` e0 '
 			. 'INNER JOIN ('
@@ -1109,7 +1109,7 @@ SQL;
 		}
 
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, is_read, is_favorite, id_feed, tags '
 			. 'FROM `_entry` '
 			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
@@ -1148,7 +1148,7 @@ SQL;
 			return $result;
 		}
 		$guids = array_unique($guids);
-		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') .
+		$sql = 'SELECT guid, ' . static::sqlHexEncode('hash') .
 			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id_feed);

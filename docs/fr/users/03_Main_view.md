@@ -253,7 +253,6 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 * par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*): `e:1639310674957894,1639310674957893`
 * par nom de filtre utilisateur (recherche enregistrée): `U:maRecherche`, `U:"Ma recherche"`
 	* en interne, ces références sont remplacées par le filtre utilisateur correspondant dans l’expression de recherche
-	* invoquer plusieurs filtres utilisateurs n’est actuellement pas complètement supporté (ex : `S:"Filtre1" S:"Filtre 2"`) si les filtres utilisent des expression booléennes avec `OR`
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur
 recherchée.
@@ -268,3 +267,8 @@ encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 
 Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
 peut être utilisé pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
+
+Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes :
+
+* `(author:Alice OR intitle:bonjour) (author:Bob OR intitle:monde)`
+* `(author:Alice intitle:bonjour) OR (author:Bob intitle:monde)`

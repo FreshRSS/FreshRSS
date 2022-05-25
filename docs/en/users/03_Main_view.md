@@ -224,7 +224,6 @@ You can use the search field to further refine results:
 * by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
 * by user query (saved search) name: `S:myQuery`, `S:"My query"`
 	* internally, those references are replaced by the corresponding user query in the search expression
-	* calling multiple user queries at once is currently not fully supported (e.g. `S:"Query1" S:"Query 2"`) if the queries contain a boolean expression `OR`
 
 Be careful not to enter a space between the operator and the search value.
 
@@ -239,6 +238,11 @@ can be used to combine several search criteria with a logical *or* instead: `aut
 
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+
+Finally, parentheses may be used to express more complex queries:
+
+* `(author:Alice OR intitle:hello) (author:Bob OR intitle:world)`
+* `(author:Alice intitle:hello) OR (author:Bob intitle:world)`
 
 ### By sorting by date
 

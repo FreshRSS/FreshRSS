@@ -2,19 +2,19 @@
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
-	public function hasNativeHex(): bool {
+	public static function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode(string $x): string {
+	public static function sqlHexDecode(string $x): string {
 		return 'decode(' . $x . ", 'hex')";
 	}
 
-	public function sqlHexEncode(string $x): string {
+	public static function sqlHexEncode(string $x): string {
 		return 'encode(' . $x . ", 'hex')";
 	}
 
-	public function sqlIgnoreConflict(string $sql): string {
+	public static function sqlIgnoreConflict(string $sql): string {
 		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
 	}
 
