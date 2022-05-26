@@ -128,7 +128,7 @@ class FreshRSS_Themes extends Minz_Model {
 			return Minz_Url::display($url);
 		}
 
-		if (FreshRSS_Context::$user_conf->icons_as_emojis) {
+		if (FreshRSS_Context::$user_conf && FreshRSS_Context::$user_conf->icons_as_emojis) {
 			return '<span class="icon">' . $alt . '</span>';
 		}
 
