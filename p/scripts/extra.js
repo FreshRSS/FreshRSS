@@ -148,7 +148,7 @@ function open_slider_listener(ev) {
 	const a = ev.target.closest('.open-slider');
 	if (a) {
 		if (!context.ajax_loading) {
-			location.href = '#'; // close menu/dropdown
+			location.href = '#slider'; // close menu/dropdown
 			context.ajax_loading = true;
 
 			const req = new XMLHttpRequest();
@@ -156,11 +156,8 @@ function open_slider_listener(ev) {
 			req.responseType = 'document';
 			req.onload = function (e) {
 				const slider = document.getElementById('slider');
-				const closer = document.getElementById('close-slider');
 				slider.scrollTop = 0;
 				slider.innerHTML = this.response.body.innerHTML;
-				slider.classList.add('active');
-				closer.classList.add('active');
 				context.ajax_loading = false;
 				slider.dispatchEvent(freshrssSliderLoadEvent);
 			};
@@ -177,8 +174,6 @@ function init_slider(slider) {
 	closer.addEventListener('click', function (ev) {
 		if (data_leave_validation(slider) || confirm(context.i18n.confirmation_default)) {
 			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
 			return true;
 		} else {
 			return false;
