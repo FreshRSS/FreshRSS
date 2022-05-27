@@ -864,6 +864,7 @@ function init_column_categories() {
 }
 
 function init_shortcuts() {
+	console.log('shortcuts');
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
 	});
@@ -1718,7 +1719,6 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
-	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
 
@@ -1735,6 +1735,7 @@ function init_normal() {
 
 function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
+	init_shortcuts();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
