@@ -305,7 +305,7 @@ services:
         max-size: 10m
     volumes:
       - data:/var/www/FreshRSS/data
-	  # Optional volume for storing third-party extensions
+      # Optional volume for storing third-party extensions
       - extensions:/var/www/FreshRSS/extensions
       # Optional file providing custom global settings (used before a FreshRSS install)
       - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
