@@ -846,6 +846,9 @@ function init_column_categories() {
 				a.href = '#dropdown-' + id;
 				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
+				if (feed_web.length < 1) {
+					div.querySelector('.item.link.website').remove();
+				}
 				const b = div.querySelector('button.confirm');
 				if (b) {
 					b.disabled = false;
