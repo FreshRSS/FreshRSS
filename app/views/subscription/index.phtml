@@ -76,9 +76,6 @@
 </main>
 
 <?php $class = $this->displaySlider ? ' active' : ''; ?>
-<a href="#" id="close-slider" class="<?= $class ?>">
-	<?= _i('close') ?>
-</a>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
 	<?php
 		if (isset($this->feed)) {
@@ -88,3 +85,6 @@
 		}
 	?>
 </aside>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>

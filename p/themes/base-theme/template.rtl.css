@@ -1444,7 +1444,7 @@ br {
 	z-index: 100;
 }
 
-#slider.active {
+#slider:target {
 	width: 750px;
 }
 
@@ -1455,7 +1455,7 @@ br {
 	cursor: pointer;
 }
 
-#close-slider.active {
+#slider:target + #close-slider {
 	background: rgba(0, 0, 0, 0.2);
 	font-size: 0;
 	right: 0;
@@ -1466,7 +1466,7 @@ br {
 	display: none;
 }
 
-#close-slider.active img {
+#slider:target + #close-slider img {
 	padding: 0.5rem;
 	display: inline-block;
 	position: absolute;

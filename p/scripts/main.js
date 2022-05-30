@@ -1721,7 +1721,6 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
-	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
 
@@ -1738,6 +1737,7 @@ function init_normal() {
 
 function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
+	init_shortcuts();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
