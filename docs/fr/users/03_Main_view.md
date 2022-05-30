@@ -251,7 +251,7 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 * par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmis une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
 * par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*): `e:1639310674957894,1639310674957893`
-* par nom de filtre utilisateur (recherche enregistrée): `U:maRecherche`, `U:"Ma recherche"`
+* par nom de filtre utilisateur (recherche enregistrée) : `search:maRecherche`, `search:"Ma recherche"` ou par ID de recherche : `S:3`
 	* en interne, ces références sont remplacées par le filtre utilisateur correspondant dans l’expression de recherche
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur

@@ -26,6 +26,7 @@ class FreshRSS_BooleanSearch {
 			$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
 
 			$input = $this->parseUserQueryNames($input);
+			$input = $this->parseUserQueryIds($input);
 		}
 
 		// Either parse everything as a series of BooleanSearch's combined by implicit AND
@@ -34,15 +35,15 @@ class FreshRSS_BooleanSearch {
 	}
 
 	/**
-	 * Parse the user queries and expand them in the input string.
+	 * Parse the user queries (saved searches) by name and expand them in the input string.
 	 */
 	private function parseUserQueryNames(string $input): string {
 		$all_matches = [];
-		if (preg_match_all('/\bS:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$all_matches[] = $matches;
 
 		}
-		if (preg_match_all('/\bS:(?P<search>[^\s"]*)/', $input, $matches)) {
+		if (preg_match_all('/\bsearch:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$all_matches[] = $matches;
 		}
 
@@ -59,8 +60,46 @@ class FreshRSS_BooleanSearch {
 			foreach ($all_matches as $matches) {
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					$name = trim($matches['search'][$i]);
-					$fromS[] = $matches[0][$i];
-					$toS[] = empty($queries[$name]) ? '' : '(' . trim($queries[$name]->getSearch()) . ')';
+					if (!empty($queries[$name])) {
+						$fromS[] = $matches[0][$i];
+						$toS[] = '(' . trim($queries[$name]->getSearch()) . ')';
+					}
+				}
+			}
+
+			$input = str_replace($fromS, $toS, $input);
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the user queries (saved searches) by ID and expand them in the input string.
+	 */
+	private function parseUserQueryIds(string $input): string {
+		$all_matches = [];
+
+		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matches)) {
+			$all_matches[] = $matches;
+		}
+
+		if (!empty($all_matches)) {
+			/** @var array<string,FreshRSS_UserQuery> */
+			$queries = [];
+			foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
+				$query = new FreshRSS_UserQuery($raw_query);
+				$queries[] = $query;
+			}
+
+			$fromS = [];
+			$toS = [];
+			foreach ($all_matches as $matches) {
+				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
+					// Index starting from 1
+					$id = intval(trim($matches['search'][$i])) - 1;
+					if (!empty($queries[$id])) {
+						$fromS[] = $matches[0][$i];
+						$toS[] = '(' . trim($queries[$id]->getSearch()) . ')';
+					}
 				}
 			}
 
