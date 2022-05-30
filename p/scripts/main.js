@@ -864,7 +864,6 @@ function init_column_categories() {
 }
 
 function init_shortcuts() {
-	console.log('shortcuts');
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
 	});
