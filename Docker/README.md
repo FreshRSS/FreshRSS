@@ -132,7 +132,6 @@ docker run --rm \
   -e 'CRON_MIN=1,31' \
   -v $(pwd):/var/www/FreshRSS \
   -v freshrss_data:/var/www/FreshRSS/data \
-  -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
   freshrss/freshrss:edge
 ```
