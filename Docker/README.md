@@ -26,6 +26,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
   -v freshrss_data:/var/www/FreshRSS/data \
+  -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
   freshrss/freshrss
 ```
@@ -33,7 +34,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 * Exposing on port 8080
 * With a [server timezone](http://php.net/timezones) (default is `UTC`)
 * With an automatic cron job to refresh feeds
-* Saving FreshRSS data in a Docker volume `freshrss_data`
+* Saving FreshRSS data in a Docker volume `freshrss_data` and optional extensions in `freshrss_extensions`
 * Using the default image, which is the latest stable release
 
 ### Complete installation
@@ -303,6 +304,7 @@ services:
         max-size: 10m
     volumes:
       - data:/var/www/FreshRSS/data
+      # Optional volume for storing third-party extensions
       - extensions:/var/www/FreshRSS/extensions
       # Optional file providing custom global settings (used before a FreshRSS install)
       - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
