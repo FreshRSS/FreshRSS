@@ -909,7 +909,8 @@ li.item.active{
 
 .flux .item.title .summary {
 	max-height: 3em;
-	color: #666;
+	color: var(--text-light);
+    opacity: 0.8;
 	font-size: 0.9em;
 	line-height: 1.5em;
 	font-weight: normal;
@@ -920,7 +921,8 @@ li.item.active{
 
 .flux .item.title .author {
 	padding-left: 1rem;
-	color: #555;
+	color: var(--text-light);
+    opacity: 0.8;
 	font-size: .9rem;
 	font-weight: normal;
 }
