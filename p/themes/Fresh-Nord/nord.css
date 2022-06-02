@@ -1002,6 +1002,10 @@ li.item.active {
 	width: 200px;
 }
 
+.flux.current{
+	background: var(--accent-bg);
+}
+
 .flux:not(.current):hover .item.title {
 	background: var(--accent-bg);
 	max-width: calc(100% - 320px);
@@ -2119,9 +2123,6 @@ input.extend {
 
 .flux .item.date {
 	font-size: 0.7rem;
-}
-
-.flux:not(.current):hover .item.title {
 }
 
 .flux .bottom {
