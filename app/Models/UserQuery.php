@@ -14,6 +14,7 @@ class FreshRSS_UserQuery {
 	private $get_type;
 	private $name;
 	private $order;
+	/** @var FreshRSS_BooleanSearch */
 	private $search;
 	private $state;
 	private $url;
@@ -34,7 +35,7 @@ class FreshRSS_UserQuery {
 			$this->parseGet($query['get']);
 		}
 		if (isset($query['name'])) {
-			$this->name = $query['name'];
+			$this->name = trim($query['name']);
 		}
 		if (isset($query['order'])) {
 			$this->order = $query['order'];
@@ -42,7 +43,7 @@ class FreshRSS_UserQuery {
 		if (empty($query['url'])) {
 			if (!empty($query)) {
 				unset($query['name']);
-				$this->url = Minz_Url::display(array('params' => $query));
+				$this->url = Minz_Url::display(['params' => $query]);
 			}
 		} else {
 			$this->url = $query['url'];
