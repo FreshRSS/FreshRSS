@@ -28,6 +28,7 @@ class FreshRSS_Import_Service {
 	 * This method parses and imports an OPML file.
 	 *
 	 * @param string $opml_file the OPML file content.
+	 *
 	 * @return boolean false if an error occurred, true otherwise.
 	 */
 	public function importOpml($opml_file) {
@@ -44,94 +45,103 @@ class FreshRSS_Import_Service {
 		}
 
 		$this->catDAO->checkDefault();
+		$default_category = $this->catDAO->getDefault();
 
-		return $this->addOpmlElements($opml_array['body']);
-	}
+		// Get the categories by names so we can use this array to retrieve
+		// existing categories later.
+		$categories = $this->catDAO->listCategories(false);
+		$categories_by_names = [];
+		foreach ($categories as $category) {
+			$categories_by_names[$category->name()] = $category;
+		}
 
-	/**
-	 * This method imports an OPML file based on its body.
-	 *
-	 * @param array $opml_elements an OPML element (body or outline).
-	 * @param string $parent_cat the name of the parent category.
-	 * @return boolean false if an error occurred, true otherwise.
-	 */
-	private function addOpmlElements($opml_elements, $parent_cat = null) {
-		$isOkStatus = true;
-
+		// Get current numbers of categories and feeds, and the limits to
+		// verify the user can import its categories/feeds.
+		$nb_categories = count($categories);
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$nb_cats = count($this->catDAO->listCategories(false));
 		$limits = FreshRSS_Context::$system_conf->limits;
 
-		//Sort with categories first
-		usort($opml_elements, function ($a, $b) {
-			return strcmp(
-				(isset($a['xmlUrl']) ? 'Z' : 'A') . (isset($a['text']) ? $a['text'] : ''),
-				(isset($b['xmlUrl']) ? 'Z' : 'A') . (isset($b['text']) ? $b['text'] : ''));
-		});
+		// Process the OPML outlines to get a list of feeds elements indexed by
+		// their categories names.
+		$categories_to_feeds = $this->loadFeedsFromOutlines($opml_array['body'], '');
 
-		foreach ($opml_elements as $elt) {
-			if (isset($elt['xmlUrl'])) {
-				// If xmlUrl exists, it means it is a feed
-				if (FreshRSS_Context::$isCli && $nb_feeds >= $limits['max_feeds']) {
-					Minz_Log::warning(_t('feedback.sub.feed.over_max',
-									  $limits['max_feeds']));
-					$isOkStatus = false;
-					continue;
+		$is_ok_status = true;
+
+		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
+			// First, retrieve the category by its name.
+			if ($category_name === '') {
+				// If empty, get the default category
+				$category = $default_category;
+			} elseif (isset($categories_by_names[$category_name])) {
+				// If the category already exists, get it from $categories_by_names
+				$category = $categories_by_names[$category_name];
+			} else {
+				// Otherwise, create the category (if possible)
+				$limit_reached = $nb_categories >= $limits['max_categories'];
+				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
+
+				if ($can_create_category) {
+					$category = $this->createAndGetCategory($category_name);
+					if ($category) {
+						$categories_by_names[$category->name()] = $category;
+						$nb_categories++;
+					}
+				} else {
+					Minz_Log::warning(
+						_t('feedback.sub.category.over_max', $limits['max_categories'])
+					);
+				}
+			}
+
+			if (!$category) {
+				// We weren't able to create the category because the user
+				// reached the limit (or because an error occured), so we'll
+				// attach the feeds to the default category.
+				$category = $default_category;
+				$is_ok_status = false;
+			}
+
+			// Then, create the feeds one by one and attach them to the
+			// category we just got.
+			foreach ($feeds_elements as $feed_element) {
+				$limit_reached = $nb_feeds >= $limits['max_feeds'];
+				$can_create_feed = FreshRSS_Context::$isCli || !$limit_reached;
+				if (!$can_create_feed) {
+					Minz_Log::warning(
+						_t('feedback.sub.feed.over_max', $limits['max_feeds'])
+					);
+					$is_ok_status = false;
+					break;
 				}
 
-				if ($this->addFeedOpml($elt, $parent_cat)) {
+				if ($this->createFeed($feed_element, $category)) {
+					// TODO what if the feed already exists in the database?
 					$nb_feeds++;
 				} else {
-					$isOkStatus = false;
-				}
-			} elseif (!empty($elt['text'])) {
-				// No xmlUrl? It should be a category!
-				$limit_reached = ($nb_cats >= $limits['max_categories']);
-				if (!FreshRSS_Context::$isCli && $limit_reached) {
-					Minz_Log::warning(_t('feedback.sub.category.over_max',
-									  $limits['max_categories']));
-					$isOkStatus = false;
-					continue;
-				}
-
-				if ($this->addCategoryOpml($elt, $parent_cat, $limit_reached)) {
-					$nb_cats++;
-				} else {
-					$isOkStatus = false;
+					$is_ok_status = false;
 				}
 			}
 		}
 
-		return $isOkStatus;
+		return $is_ok_status;
 	}
 
 	/**
-	 * This method imports an OPML feed element.
+	 * Create a feed from a feed element (i.e. OPML outline).
 	 *
-	 * @param array $feed_elt an OPML element (must be a feed element).
-	 * @param string $parent_cat the name of the parent category.
+	 * @param array $feed_elt An OPML element (must be a feed element).
+	 * @param FreshRSS_Category $category The category to associate to the feed.
+	 *
 	 * @return boolean false if an error occurred, true otherwise.
 	 */
-	private function addFeedOpml($feed_elt, $parent_cat) {
-		if ($parent_cat == null) {
-			// This feed has no parent category so we get the default one
-			$this->catDAO->checkDefault();
-			$default_cat = $this->catDAO->getDefault();
-			$parent_cat = $default_cat->name();
-		}
-
-		$cat = $this->catDAO->searchByName($parent_cat);
-		if ($cat == null) {
-			// If there is not $cat, it means parent category does not exist in
-			// database.
-			// If it happens, take the default category.
-			$this->catDAO->checkDefault();
-			$cat = $this->catDAO->getDefault();
-		}
-
-		// We get different useful information
+	private function createFeed($feed_elt, $category) {
 		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
-		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text']);
+		$name = '';
+		if (!empty($feed_elt['text'])) {
+			$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text']);
+		} elseif (!empty($feed_elt['title'])) {
+			$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['title']);
+		}
 		$website = '';
 		if (isset($feed_elt['htmlUrl'])) {
 			$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl']);
@@ -145,7 +155,7 @@ class FreshRSS_Import_Service {
 		try {
 			// Create a Feed object and add it in DB
 			$feed = new FreshRSS_Feed($url);
-			$feed->_category($cat->id());
+			$feed->_category($category->id());
 			$feed->_name($name);
 			$feed->_website($website);
 			$feed->_description($description);
@@ -232,39 +242,132 @@ class FreshRSS_Import_Service {
 	}
 
 	/**
-	 * This method imports an OPML category element.
+	 * Create and return a category.
 	 *
-	 * @param array $cat_elt an OPML element (must be a category element).
-	 * @param string $parent_cat the name of the parent category.
-	 * @param boolean $cat_limit_reached indicates if category limit has been reached.
-	 *                if yes, category is not added (but we try for feeds!)
-	 * @return boolean false if an error occurred, true otherwise.
+	 * @param string $category_name
+	 *     The name of the category to create (must be valid).
+	 *
+	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function addCategoryOpml($cat_elt, $parent_cat, $cat_limit_reached) {
-		// Create a new Category object
-		$catName = Minz_Helper::htmlspecialchars_utf8($cat_elt['text']);
-		$cat = new FreshRSS_Category($catName);
+	private function createAndGetCategory($category_name) {
+		$id = $this->catDAO->addCategory([
+			'name' => $category_name,
+		]);
 
-		$error = true;
-		if (FreshRSS_Context::$isCli || !$cat_limit_reached) {
-			$id = $this->catDAO->addCategoryObject($cat);
-			$error = ($id === false);
-		}
-		if ($error) {
+		if ($id !== false) {
+			return $this->catDAO->searchById($id);
+		} else {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS error during OPML category import from URL: ' . $catName . "\n");
 			} else {
 				Minz_Log::warning('Error during OPML category import from URL: ' . $catName);
 			}
+
+			return null;
+		}
+	}
+
+	/**
+	 * Return the list of feed outlines by categories names.
+	 *
+	 * This method is applied to a list of outlines. It merges the different
+	 * list of feeds from several outlines into one array.
+	 *
+	 * @param array $outlines
+	 *     The outlines from which to extract the feeds outlines.
+	 * @param string $parent_category_name
+	 *     The name of the parent category of the current outlines.
+	 *
+	 * @return array[]
+	 */
+	private function loadFeedsFromOutlines($outlines, $parent_category_name) {
+		$categories_to_feeds = [];
+
+		foreach ($outlines as $outline) {
+			// Get the feeds from the child outline (it may return several
+			// feeds if the outline is a category).
+			$outline_categories_to_feeds = $this->loadFeedsFromOutline(
+				$outline,
+				$parent_category_name
+			);
+
+			// Then, we merge the initial array with the array returned by the
+			// outline.
+			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
+				if (!isset($categories_to_feeds[$category_name])) {
+					$categories_to_feeds[$category_name] = [];
+				}
+
+				$categories_to_feeds[$category_name] = array_merge(
+					$categories_to_feeds[$category_name],
+					$feeds
+				);
+			}
 		}
 
-		if (isset($cat_elt['@outlines'])) {
-			// Our cat_elt contains more categories or more feeds, so we
-			// add them recursively.
-			// Note: FreshRSS does not support yet category arborescence
-			$error &= !$this->addOpmlElements($cat_elt['@outlines'], $catName);
+		return $categories_to_feeds;
+	}
+
+	/**
+	 * Return the list of feed outlines by categories names.
+	 *
+	 * This method is applied to a specific outline. If the outline represents
+	 * a category (i.e. @outlines key exists), it will reapply loadFeedsFromOutlines()
+	 * to its children. If the outline represents a feed (i.e. xmlUrl key
+	 * exists), it will add the outline to an array accessible by its category
+	 * name.
+	 *
+	 * The method also cleans the parent_category_name so it will be directly
+	 * usable in database.
+	 *
+	 * @param array $outline
+	 *     The outline from which to extract the feeds outlines.
+	 * @param string $parent_category_name
+	 *     The name of the parent category of the current outline.
+	 *
+	 * @return array[]
+	 */
+	private function loadFeedsFromOutline($outline, $parent_category_name) {
+		$categories_to_feeds = [];
+
+		if ($parent_category_name === '' && isset($outline['category'])) {
+			// The outline has no parent category, but its OPML category
+			// attribute is set, so we use it as the category name.
+			// lib_opml parses this attribute as an array of strings, so we
+			// rebuild a string here.
+			$parent_category_name = implode(', ', $outline['category']);
 		}
 
-		return !$error;
+		if (isset($outline['@outlines'])) {
+			// The outline has children, it's probably a category
+			if (!empty($outline['text'])) {
+				$category_name = $outline['text'];
+			} elseif (!empty($outline['title'])) {
+				$category_name = $outline['title'];
+			} else {
+				$category_name = $parent_category_name;
+			}
+
+			$categories_to_feeds = $this->loadFeedsFromOutlines(
+				$outline['@outlines'],
+				$category_name
+			);
+		}
+
+		// Before adding the parent category_name in the array, we clean the name.
+		$parent_category_name = Minz_Helper::htmlspecialchars_utf8(trim($parent_category_name));
+		$parent_category = new FreshRSS_Category($parent_category_name);
+		$parent_category_name = $parent_category->name();
+
+		if (!isset($categories_to_feeds[$parent_category_name])) {
+			$categories_to_feeds[$parent_category_name] = [];
+		}
+
+		if (isset($outline['xmlUrl'])) {
+			// The xmlUrl means it's a feed URL: add the outline to the array
+			$categories_to_feeds[$parent_category_name][] = $outline;
+		}
+
+		return $categories_to_feeds;
 	}
 }
