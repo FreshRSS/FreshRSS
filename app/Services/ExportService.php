@@ -43,7 +43,9 @@ class FreshRSS_Export_Service {
 	 * @return array First item is the filename, second item is the content
 	 */
 	public function generateOpml() {
-		require_once(LIB_PATH . '/lib_opml.php');
+		require_once(LIB_PATH . '/lib_opml/src/LibOpml/Exception.php');
+		require_once(LIB_PATH . '/lib_opml/src/LibOpml/LibOpml.php');
+		require_once(LIB_PATH . '/lib_opml/src/functions.php');
 
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');

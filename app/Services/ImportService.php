@@ -16,7 +16,9 @@ class FreshRSS_Import_Service {
 	 * @param string $username
 	 */
 	public function __construct($username) {
-		require_once(LIB_PATH . '/lib_opml.php');
+		require_once(LIB_PATH . '/lib_opml/src/LibOpml/Exception.php');
+		require_once(LIB_PATH . '/lib_opml/src/LibOpml/LibOpml.php');
+		require_once(LIB_PATH . '/lib_opml/src/functions.php');
 
 		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
@@ -149,32 +151,52 @@ class FreshRSS_Import_Service {
 			$feed->_description($description);
 
 			switch ($feed_elt['type'] ?? '') {
-				case FreshRSS_Export_Service::TYPE_HTML_XPATH:
+				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH);
 					break;
-				case FreshRSS_Export_Service::TYPE_RSS_ATOM:
+				case strtolower(FreshRSS_Export_Service::TYPE_RSS_ATOM):
 				default:
 					$feed->_kind(FreshRSS_Feed::KIND_RSS);
 					break;
 			}
 
-			$xPathSettings = [];
-			foreach ($feed_elt as $key => $value) {
-				if (is_array($value) && !empty($value['value']) && ($value['namespace'] ?? '') === FreshRSS_Export_Service::FRSS_NAMESPACE) {
-					switch ($key) {
-						case 'cssFullContent': $feed->_pathEntries($value['value']); break;
-						case 'filtersActionRead': $feed->_filtersAction('read', preg_split('/[\n\r]+/', $value['value'])); break;
-						case 'xPathItem': $xPathSettings['item'] = $value['value']; break;
-						case 'xPathItemTitle': $xPathSettings['itemTitle'] = $value['value']; break;
-						case 'xPathItemContent': $xPathSettings['itemContent'] = $value['value']; break;
-						case 'xPathItemUri': $xPathSettings['itemUri'] = $value['value']; break;
-						case 'xPathItemAuthor': $xPathSettings['itemAuthor'] = $value['value']; break;
-						case 'xPathItemTimestamp': $xPathSettings['itemTimestamp'] = $value['value']; break;
-						case 'xPathItemThumbnail': $xPathSettings['itemThumbnail'] = $value['value']; break;
-						case 'xPathItemCategories': $xPathSettings['itemCategories'] = $value['value']; break;
-					}
-				}
+			if (isset($feed_elt['frss:cssFullContent'])) {
+				$feed->_pathEntries($feed_elt['frss:cssFullContent']);
 			}
+
+			if (isset($feed_elt['frss:filtersActionRead'])) {
+				$feed->_filtersAction(
+					'read',
+					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead'])
+				);
+			}
+
+			$xPathSettings = [];
+			if (isset($feed_elt['frss:xPathItem'])) {
+				$xPathSettings['item'] = $feed_elt['frss:xPathItem'];
+			}
+			if (isset($feed_elt['frss:xPathItemTitle'])) {
+				$xPathSettings['itemTitle'] = $feed_elt['frss:xPathItemTitle'];
+			}
+			if (isset($feed_elt['frss:xPathItemContent'])) {
+				$xPathSettings['itemContent'] = $feed_elt['frss:xPathItemContent'];
+			}
+			if (isset($feed_elt['frss:xPathItemUri'])) {
+				$xPathSettings['itemUri'] = $feed_elt['frss:xPathItemUri'];
+			}
+			if (isset($feed_elt['frss:xPathItemAuthor'])) {
+				$xPathSettings['itemAuthor'] = $feed_elt['frss:xPathItemAuthor'];
+			}
+			if (isset($feed_elt['frss:xPathItemTimestamp'])) {
+				$xPathSettings['itemTimestamp'] = $feed_elt['frss:xPathItemTimestamp'];
+			}
+			if (isset($feed_elt['frss:xPathItemThumbnail'])) {
+				$xPathSettings['itemThumbnail'] = $feed_elt['frss:xPathItemThumbnail'];
+			}
+			if (isset($feed_elt['frss:xPathItemCategories'])) {
+				$xPathSettings['itemCategories'] = $feed_elt['frss:xPathItemCategories'];
+			}
+
 			if (!empty($xPathSettings)) {
 				$feed->_attributes('xpath', $xPathSettings);
 			}

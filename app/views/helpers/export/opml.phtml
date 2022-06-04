@@ -2,9 +2,12 @@
 /** @var FreshRSS_View $this */
 
 $opml_array = array(
+	'namespaces' => array(
+		'frss' => FreshRSS_Export_Service::FRSS_NAMESPACE,
+	),
 	'head' => array(
 		'title' => FreshRSS_Context::$system_conf->title,
-		'dateCreated' => date('D, d M Y H:i:s')
+		'dateCreated' => new DateTime(),
 	),
 	'body' => array()
 );
@@ -27,14 +30,14 @@ foreach ($this->categories as $key => $cat) {
 			$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributes('xpath');
-			$outline['frss:xPathItem'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['item'] ?? null];
-			$outline['frss:xPathItemTitle'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTitle'] ?? null];
-			$outline['frss:xPathItemContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemContent'] ?? null];
-			$outline['frss:xPathItemUri'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUri'] ?? null];
-			$outline['frss:xPathItemAuthor'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemAuthor'] ?? null];
-			$outline['frss:xPathItemTimestamp'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTimestamp'] ?? null];
-			$outline['frss:xPathItemThumbnail'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemThumbnail'] ?? null];
-			$outline['frss:xPathItemCategories'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemCategories'] ?? null];
+			$outline['frss:xPathItem'] = $xPathSettings['item'] ?? null;
+			$outline['frss:xPathItemTitle'] = $xPathSettings['itemTitle'] ?? null;
+			$outline['frss:xPathItemContent'] = $xPathSettings['itemContent'] ?? null;
+			$outline['frss:xPathItemUri'] = $xPathSettings['itemUri'] ?? null;
+			$outline['frss:xPathItemAuthor'] = $xPathSettings['itemAuthor'] ?? null;
+			$outline['frss:xPathItemTimestamp'] = $xPathSettings['itemTimestamp'] ?? null;
+			$outline['frss:xPathItemThumbnail'] = $xPathSettings['itemThumbnail'] ?? null;
+			$outline['frss:xPathItemCategories'] = $xPathSettings['itemCategories'] ?? null;
 		}
 		if (!empty($feed->filtersAction('read'))) {
 			$filters = '';
@@ -42,10 +45,10 @@ foreach ($this->categories as $key => $cat) {
 				$filters .= $filterRead->getRawInput() . "\n";
 			}
 			$filters = trim($filters);
-			$outline['frss:filtersActionRead'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $filters];
+			$outline['frss:filtersActionRead'] = $filters;
 		}
 		if ($feed->pathEntries() != '') {
-			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
+			$outline['frss:cssFullContent'] = $feed->pathEntries();
 		}
 		$opml_array['body'][$key]['@outlines'][] = $outline;
 	}
