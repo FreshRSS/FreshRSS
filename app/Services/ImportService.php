@@ -69,6 +69,7 @@ class FreshRSS_Import_Service {
 
 		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
 			// First, retrieve the category by its name.
+			$category = null;
 			if ($category_name === '') {
 				// If empty, get the default category
 				$category = $default_category;
