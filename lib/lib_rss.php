@@ -332,7 +332,7 @@ function sanitizeHTML($data, string $base = '', $maxLength = false) {
 }
 
 function cleanCache(int $hours = 720) {
-	$files = glob(CACHE_PATH . '/*.{html,spc}', GLOB_BRACE | GLOB_NOSORT);
+	$files = glob(CACHE_PATH . '/*', GLOB_NOSORT);
 	foreach ($files as $file) {
 		if (substr($file, -10) === 'index.html') {
 			continue;
