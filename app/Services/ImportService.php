@@ -232,9 +232,9 @@ class FreshRSS_Import_Service {
 
 		if ($error) {
 			if (FreshRSS_Context::$isCli) {
-				fwrite(STDERR, 'FreshRSS error during OPML feed import from URL: ' . $url . ' in category ' . $cat->id() . "\n");
+				fwrite(STDERR, 'FreshRSS error during OPML feed import from URL: ' . $url . ' in category ' . $category->id() . "\n");
 			} else {
-				Minz_Log::warning('Error during OPML feed import from URL: ' . $url . ' in category ' . $cat->id());
+				Minz_Log::warning('Error during OPML feed import from URL: ' . $url . ' in category ' . $category->id());
 			}
 		}
 
@@ -258,9 +258,9 @@ class FreshRSS_Import_Service {
 			return $this->catDAO->searchById($id);
 		} else {
 			if (FreshRSS_Context::$isCli) {
-				fwrite(STDERR, 'FreshRSS error during OPML category import from URL: ' . $catName . "\n");
+				fwrite(STDERR, 'FreshRSS error during OPML category import from URL: ' . $category_name . "\n");
 			} else {
-				Minz_Log::warning('Error during OPML category import from URL: ' . $catName);
+				Minz_Log::warning('Error during OPML category import from URL: ' . $category_name);
 			}
 
 			return null;
