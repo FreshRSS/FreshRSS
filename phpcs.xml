@@ -3,6 +3,7 @@
 	<description>Created with the PHP Coding Standard Generator. https://edorian.github.com/php-coding-standard-generator/</description>
 	<arg name="extensions" value="php,phtml,css,js"/>
 	<arg name="tab-width" value="4"/>
+	<exclude-pattern>./lib/lib_opml/</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
 	<exclude-pattern>./lib/phpgt/</exclude-pattern>
 	<exclude-pattern>./lib/phpmailer/</exclude-pattern>
