@@ -35,7 +35,7 @@ class FreshRSS_Import_Service {
 		$opml_array = array();
 		try {
 			$opml_array = libopml_parse_string($opml_file, false);
-		} catch (LibOPML_Exception $e) {
+		} catch (\marienfressinaud\LibOpml\Exception $e) {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS error during OPML parsing: ' . $e->getMessage() . "\n");
 			} else {
