@@ -7,17 +7,15 @@ parameters:
 	paths:
 		- .
 	excludePaths:
-		- lib/phpmailer/*
-		- lib/SimplePie/*
-		- node_modules/*
-		# TODO: include tests
-		- tests/*
-		- vendor/*
-	scanDirectories:
-		- lib/phpmailer/
-		- lib/SimplePie/
+		analyse:
+			- lib/lib_opml/*
+			- lib/phpmailer/*
+			- lib/SimplePie/*
+		analyseAndScan:
+			- node_modules/*
+			# TODO: include tests
+			- tests/*
+			- vendor/*
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
-		- lib/SimplePie/SimplePie.php
-		- app/SQL/install.sql.sqlite.php
