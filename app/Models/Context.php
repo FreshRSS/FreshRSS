@@ -195,6 +195,20 @@ class FreshRSS_Context {
 	}
 
 	/**
+	 * @return bool true if the current request targets all feeds (main view), false otherwise.
+	 */
+	public static function isAll(): bool {
+		return self::$current_get['all'] != false;
+	}
+
+	/**
+	 * @return bool true if the current request targets a category, false otherwise.
+	 */
+	public static function isCategory(): bool {
+		return self::$current_get['category'] != false;
+	}
+
+	/**
 	 * @return bool true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
 	public static function isFeed(): bool {
