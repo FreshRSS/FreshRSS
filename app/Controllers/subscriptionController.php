@@ -19,7 +19,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$catDAO->checkDefault();
 		$feedDAO->updateTTL();
-		$this->view->categories = $catDAO->listSortedCategories(false);
+		$this->view->categories = $catDAO->listSortedCategories(false, true, true);
 		$this->view->default_category = $catDAO->getDefault();
 
 		$signalError = false;

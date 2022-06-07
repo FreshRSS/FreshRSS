@@ -55,6 +55,10 @@ CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 
 INSERT INTO `_category` (id, name)
+	SELECT -1, 'Dynamic OPML'
+	WHERE NOT EXISTS (SELECT id FROM `_category` WHERE id = -1);
+
+INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
 	WHERE NOT EXISTS (SELECT id FROM `_category` WHERE id = 1)
 	RETURNING nextval('`_category_id_seq`');

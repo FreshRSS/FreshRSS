@@ -3,6 +3,7 @@
 class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	const DEFAULTCATEGORYID = 1;
+	const DYNAMIC_OPML_CATEGORY_ID = -1;
 
 	public function resetDefaultCategoryName() {
 		//FreshRSS 1.15.1
@@ -159,9 +160,10 @@ SQL;
 		if ($id <= self::DEFAULTCATEGORYID) {
 			return false;
 		}
-		$sql = 'DELETE FROM `_category` WHERE id=:id';
+		$sql = 'DELETE FROM `_category` WHERE id=:id AND id > :id1';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
+		$stm->bindParam(':id1', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
 		if ($stm && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
@@ -181,9 +183,7 @@ SQL;
 		} else {
 			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				foreach ($this->selectAll() as $category) {	// `yield from` requires PHP 7+
-					yield $category;
-				}
+				yield from $this->selectAll();
 			}
 			Minz_Log::error(__method__ . ' error: ' . json_encode($info));
 			yield false;
@@ -221,8 +221,8 @@ SQL;
 		}
 	}
 
-	public function listSortedCategories($prePopulateFeeds = true, $details = false) {
-		$categories = $this->listCategories($prePopulateFeeds, $details);
+	public function listSortedCategories($prePopulateFeeds = true, $details = false, $includeSpecials = false) {
+		$categories = $this->listCategories($prePopulateFeeds, $details, $includeSpecials);
 
 		if (!is_array($categories)) {
 			return $categories;
@@ -244,13 +244,14 @@ SQL;
 		return $categories;
 	}
 
-	public function listCategories($prePopulateFeeds = true, $details = false) {
+	public function listCategories($prePopulateFeeds = true, $details = false, $includeSpecials = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.attributes AS c_attributes, '
 				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 				. 'FROM `_category` c '
 				. 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
 				. 'WHERE f.priority >= :priority_normal '
+				. ($includeSpecials ? '' : ' AND c.id > 0 ')
 				. 'GROUP BY f.id, c_id '
 				. 'ORDER BY c.name, f.name';
 			$stm = $this->pdo->prepare($sql);
@@ -266,7 +267,9 @@ SQL;
 				return false;
 			}
 		} else {
-			$sql = 'SELECT * FROM `_category` ORDER BY name';
+			$sql = 'SELECT * FROM `_category` '
+				. ($includeSpecials ? '' : 'WHERE id > 0 ')
+				. 'ORDER BY name';
 			$stm = $this->pdo->query($sql);
 			return self::daoToCategory($stm->fetchAll(PDO::FETCH_ASSOC));
 		}
@@ -314,6 +317,29 @@ SQL;
 			} else {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error check default category: ' . json_encode($info));
+				return false;
+			}
+		}
+
+		$def_cat = $this->searchById(self::DYNAMIC_OPML_CATEGORY_ID);
+
+		if ($def_cat == null) {
+			$cat = new FreshRSS_Category(_t('gen.short.dynamic_opml_category'));
+			$cat->_id(self::DYNAMIC_OPML_CATEGORY_ID);
+
+			$sql = 'INSERT INTO `_category`(id, name) VALUES(?, ?)';
+			$stm = $this->pdo->prepare($sql);
+
+			$values = [
+				$cat->id(),
+				$cat->name(),
+			];
+
+			if ($stm && $stm->execute($values)) {
+				return $this->pdo->lastInsertId('`_category_id_seq`');
+			} else {
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::error('SQL error check dynamic OPML category: ' . json_encode($info));
 				return false;
 			}
 		}

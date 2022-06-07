@@ -63,8 +63,11 @@
 				<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
 				<div class="group-controls">
 					<select name="feed_kind" id="feed_kind" class="select-show">
-						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_RSS ?>"
+							<?= Minz_Request::param('cat_id') != FreshRSS_CategoryDAO::DYNAMIC_OPML_CATEGORY_ID ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_OPML ?>" data-show="opml"
+							<?= Minz_Request::param('cat_id') == FreshRSS_CategoryDAO::DYNAMIC_OPML_CATEGORY_ID ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.opml') ?></option>
 					</select>
 				</div>
 			</div>
@@ -140,6 +143,17 @@
 						<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-xpath" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"></textarea>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset id="opml">
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.opml.help') ?></p>
+				<div class="form-group">
+					<label class="group-name" for="opmlPrefix"><?= _t('sub.feed.kind.opml.prefix') ?></label>
+					<div class="group-controls">
+						<input type="text" name="opmlPrefix" id="opmlPrefix"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.opml.prefix.help') ?></p>
 					</div>
 				</div>
 			</fieldset>

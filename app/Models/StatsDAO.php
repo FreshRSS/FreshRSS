@@ -263,6 +263,7 @@ SELECT c.name AS label
 , COUNT(f.id) AS data
 FROM `_category` AS c, `_feed` AS f
 WHERE c.id = f.category
+AND c.id > 0
 GROUP BY label
 ORDER BY data DESC
 SQL;
@@ -283,6 +284,7 @@ SELECT c.name AS label
 FROM `_category` AS c, `_feed` AS f, `_entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
+AND c.id > 0
 GROUP BY label
 ORDER BY data DESC
 SQL;
@@ -306,6 +308,7 @@ SELECT f.id AS id
 FROM `_category` AS c, `_feed` AS f, `_entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
+AND c.id > 0
 GROUP BY f.id
 ORDER BY count DESC
 LIMIT 10
