@@ -138,7 +138,7 @@ table td span {
 
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: right;
+	text-align: left;
 }
 
 .form-group .group-controls {
@@ -197,7 +197,7 @@ a.btn {
 
 .nav-head {
 	margin: 0;
-	text-align: right;
+	text-align: left;
 }
 
 .nav-head .item {
@@ -219,13 +219,13 @@ a.btn {
 	font-size: 0.8rem;
 	border: 1px solid var(--border);
 	border-radius: 6px;
-	text-align: left;
+	text-align: right;
 }
 
 .dropdown-header {
 	padding: 0 5px 5px;
 	font-weight: bold;
-	text-align: left;
+	text-align: right;
 }
 
 .dropdown-menu > .item > a,
@@ -239,7 +239,7 @@ a.btn {
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
-	margin: 0 0 0 -14px;
+	margin: 0 -14px 0 0;
 }
 
 .dropdown-menu .input select,
@@ -263,7 +263,7 @@ a.btn {
 	font-size: 0;
 	position: fixed;
 	top: 0; bottom: 0;
-	left: 0; right: 0;
+	right: 0; left: 0;
 	z-index: -11;
 	cursor: default;
 }
@@ -505,11 +505,11 @@ li.item.active {
 }
 
 .day .name {
-	padding: 0 10px 0 0;
+	padding: 0 0 0 10px;
 	font-size: 1.8em;
 	opacity: 0.3;
 	font-style: italic;
-	text-align: right;
+	text-align: left;
 }
 
 .name {
@@ -534,7 +534,7 @@ li.item.active {
 
 .flux .item.date {
 	width: 155px;
-	text-align: right;
+	text-align: left;
 	overflow: hidden;
 	font-size: 0.7rem;
 }
@@ -620,7 +620,7 @@ li.item.active {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
+	padding: 0 5px 0 0;
 	background: var(--bg);
 	color: var(--text);
 	font-size: 0.9em;
@@ -655,7 +655,7 @@ li.item.active {
 
 #popup-content {
 	background-color: var(--accent-bg);
-	box-shadow: 0 0 1px #d8dee9, 1px 2px 3px var(--bg);
+	box-shadow: 0 0 1px #d8dee9, -1px 2px 3px var(--bg);
 }
 
 #popup-close:hover,
@@ -712,7 +712,7 @@ li.item.active {
 /*=== Slider */
 #slider {
 	background: var(--accent-bg);
-	border-left: 1px solid var(--border);
+	border-right: 1px solid var(--border);
 }
 
 /*=== DIVERS */
@@ -737,11 +737,11 @@ li.item.active {
 }
 
 .aside.aside_feed .nav-form .dropdown .dropdown-menu {
-	right: -20px;
+	left: -20px;
 }
 
 .aside.aside_feed .nav-form .dropdown .dropdown-menu::after {
-	right: 33px;
+	left: 33px;
 }
 
 /*=== MOBILE */
@@ -755,8 +755,8 @@ li.item.active {
 		position: fixed;
 		top: 0;
 		bottom: 0;
-		left: 0;
 		right: 0;
+		left: 0;
 		cursor: pointer;
 		z-index: 99;
 	}
@@ -768,7 +768,7 @@ li.item.active {
 	.aside {
 		position: fixed;
 		top: 0; bottom: 0;
-		left: 0;
+		right: 0;
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
@@ -796,8 +796,8 @@ li.item.active {
 
 	.notification {
 		top: 0;
-		left: 0;
 		right: 0;
+		left: 0;
 	}
 
 	#nav_entries {
@@ -806,19 +806,19 @@ li.item.active {
 
 	#panel {
 		top: 25px; bottom: 30px;
-		left: 0; right: 0;
+		right: 0; left: 0;
 	}
 
 	#panel .close {
-		top: 0; right: 0;
-		left: auto; bottom: auto;
+		top: 0; left: 0;
+		right: auto; bottom: auto;
 		display: inline-block;
 		width: 30px;
 		height: 30px;
 	}
 
 	#slider.active {
-		left: 0;
+		right: 0;
 		top: 50px;
 		background-color: var(--bg);
 	}
@@ -884,8 +884,8 @@ li.item.active {
 /*=== PREVIEW */
 /*===========*/
 .preview_controls {
-	margin-left: auto;
 	margin-right: auto;
+	margin-left: auto;
 	padding: 1rem;
 	max-width: 1000px;
 	text-align: center;
@@ -903,7 +903,7 @@ li.item.active {
 }
 
 .preview_controls label + label {
-	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
 .preview_background {
@@ -986,11 +986,11 @@ input.extend {
 	content: "";
 	position: absolute;
 	top: -6px;
-	right: 13px;
+	left: 13px;
 	width: 10px;
 	height: 10px;
 	z-index: -10;
-	transform: rotate(45deg);
+	transform: rotate(-45deg);
 	border-color: var(--border);
 }
 
@@ -1036,7 +1036,7 @@ input.extend {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	position: absolute;
-	right: 0;
+	left: 0;
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 0.9rem;
@@ -1045,7 +1045,7 @@ input.extend {
 
 /*=== Aside main page (feeds) */
 .aside_feed .tree-folder-items .dropdown-menu::after {
-	left: 2px;
+	right: 2px;
 }
 
 
@@ -1069,7 +1069,7 @@ input.extend {
 }
 
 .prompt label {
-	text-align: left;
+	text-align: right;
 }
 
 .prompt form {
@@ -1103,14 +1103,14 @@ input.extend {
 .box.category .box-title .title {
 	font-weight: normal;
 	text-decoration: none;
-	text-align: left;
+	text-align: right;
 }
 
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
 	border: 0;
 	position: absolute;
-	top: 5px; right: 10px;
+	top: 5px; left: 10px;
 	font-weight: bold;
 	box-shadow: none;
 	text-shadow: none;
@@ -1196,7 +1196,7 @@ input.extend {
 
 	.notification a.close {
 		display: block;
-		left: 0;
+		right: 0;
 	}
 
 	.notification a.close:hover {
