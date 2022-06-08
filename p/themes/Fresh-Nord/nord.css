@@ -1185,9 +1185,6 @@ li.item.active {
 	padding: 0 0 5px 15px;
 }
 
-.content pre {
-	overflow: auto;
-}
 
 .subtitle > div {
 	display: inline;
@@ -1219,7 +1216,6 @@ br {
 	text-align: center;
 	font-weight: bold;
 	line-height: 3em;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -1333,7 +1329,6 @@ br {
 	table-layout: fixed;
 	text-align: center;
 	line-height: 3em;
-	table-layout: fixed;
 }
 
 #nav_entries .item {
@@ -1647,6 +1642,8 @@ input:checked + .slide-container .properties {
 
 .nav_menu {
 	background: inherit;
+	text-align: center;
+	padding: 5px 0;
 }
 
 .nav_mobile {
@@ -1956,7 +1953,6 @@ input:checked + .slide-container .properties {
 	margin: -1px;
 }
 
-
 .feed .item-title:not([data-unread="0"])::before {
 	content: "(" attr(data-unread) ") ";
 	display: none
@@ -1965,14 +1961,6 @@ input:checked + .slide-container .properties {
 .feed .item-title:not([data-unread="0"])::after {
 	content: " (" attr(data-unread) ")";
 }
-
-/* compact mode :) */
-
-
-/* stylelint-disable block-no-empty  */
-
-
-
 
 
 /*BEGINS BASE.CSS*/
@@ -2017,11 +2005,6 @@ input.extend {
 	margin: 0 10px;
 }
 
-
-
-/*=== Buttons */
-
-
 /*=== Navigation */
 .nav-list .disable {
 	text-align: center;
@@ -2044,10 +2027,6 @@ input.extend {
 	padding: 3px;
 	text-align: center;
 }
-
-
-
-/*=== Horizontal-list */
 
 /*=== Dropdown */
 .dropdown-menu::after {
@@ -2162,11 +2141,6 @@ input.extend {
 
 
 
-/*=== Index menu */
-.nav_menu {
-	text-align: center;
-	padding: 5px 0;
-}
 
 
 
