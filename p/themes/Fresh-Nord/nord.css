@@ -177,6 +177,7 @@ input.extend:focus {
 }
 
 input, select, textarea {
+	padding: 5px;
 	display: inline-block;
 	max-width: 100%;
 	color: var(--text);
@@ -185,7 +186,6 @@ input, select, textarea {
 	border-radius: 6px;
 	background-color: var(--bg);
 	min-height: 25px;
-	padding: 5px;
 	line-height: 25px;
 	vertical-align: middle;
 }
@@ -227,7 +227,6 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
-
 tr, th, td {
 	padding: 0.5em;
 }
@@ -237,16 +236,18 @@ form th {
 	font-weight: normal;
 	text-align: center;
 }
+
 .table-wrapper {
 	overflow-x: auto;
 }
 
 table {
+	max-width: 100%;
+	width: 100%;
 	border-collapse: collapse;
 	text-align: left;
-	width: 100%;
-	max-width: 100%;
 }
+
 table tr {
 	border-bottom: 1px solid
 }
@@ -296,10 +297,10 @@ td.numeric {
 }
 
 .form-group .group-controls {
+	margin: 0 0 0 220px;
 	padding: 5px 0;
 	min-height: 25px;
 	min-width: 250px;
-	margin: 0 0 0 220px;
 	overflow-x: auto;
 }
 
@@ -325,10 +326,10 @@ td.numeric {
 
 /*=== Buttons */
 .stick {
-	vertical-align: middle;
-	font-size: 0;
 	display: inline-flex;
 	max-width: 100%;
+	font-size: 0;
+	vertical-align: middle;
 	white-space: nowrap;
 }
 
@@ -381,10 +382,10 @@ a.btn {
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
-	font-size: 0.9rem;
 	display: block;
+	height: 2.5em;
+	font-size: 0.9rem;
+	line-height: 2.5em;
 }
 
 .nav-list .item,
@@ -404,18 +405,18 @@ a.btn {
 
 .nav-head .item {
 	padding: 5px 10px;
+	display: inline-block;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-	display: inline-block;
 }
 
 /*=== Horizontal-list */
 .horizontal-list {
-	display: table;
-	table-layout: fixed;
-	width: 100%;
 	margin: 0;
 	padding: 0;
+	display: table;
+	width: 100%;
+	table-layout: fixed;
 }
 
 .horizontal-list .item {
@@ -436,14 +437,14 @@ a.btn {
 
 .dropdown-menu {
 	margin: 5px 0 0;
-	padding: 5px 0;
-	font-size: 0.8rem;
-	text-align: left;
 	margin: 0;
+	padding: 5px 0;
 	background: var(--accent-bg);
 	display: none;
+	font-size: 0.8rem;
 	border: 1px solid var(--border);
 	border-radius: 6px;
+	text-align: left;
 	min-width: 200px;
 	position: absolute;
 	right: 0;
@@ -456,8 +457,8 @@ a.btn {
 }
 
 .dropdown-header {
-	display: block;
 	padding: 0 5px 5px;
+	display: block;
 	font-weight: bold;
 	text-align: left;
 }
@@ -470,9 +471,9 @@ a.btn {
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2.5em;
-	color: var(--text);
 	display: block;
+	color: var(--text);
+	line-height: 2.5em;
 	min-width: 200px;
 	white-space: nowrap;
 }
@@ -539,8 +540,8 @@ a.btn {
 }
 
 .separator {
-	display: block;
 	margin: 5px 0;
+	display: block;
 	height: 0;
 	border-bottom: 1px solid var(--border);
 }
@@ -549,9 +550,9 @@ a.btn {
 .alert {
 	margin: 15px auto;
 	padding: 10px 15px;
-	font-size: 0.9em;
 	display: block;
 	width: 90%;
+	font-size: 0.9em;
 }
 
 .alert-warn {
@@ -591,12 +592,12 @@ a.btn {
 
 /*=== Pagination */
 .pagination {
-	text-align: center;
-	font-size: 0.8em;
 	margin: 0;
 	padding: 0;
 	display: table;
 	width: 100%;
+	font-size: 0.8em;
+	text-align: center;
 	table-layout: fixed;
 }
 
@@ -629,11 +630,11 @@ a.btn {
 }
 
 .box .box-title {
-	position: relative;
-	font-size: 1.2rem;
-	font-weight: bold;
 	margin: 0;
 	padding: 5px 10px;
+	font-size: 1.2rem;
+	position: relative;
+	font-weight: bold;
 }
 
 .box .box-title form {
@@ -641,9 +642,9 @@ a.btn {
 }
 
 .box .box-content {
-	max-height: 260px;
 	padding: 8px 8px 8px 16px;
 	display: block;
+	max-height: 260px;
 	overflow: auto;
 }
 
@@ -718,11 +719,11 @@ a.btn {
 
 /*=== Tree */
 .tree {
+	margin: 10px 0;
 	max-height: 99vh;
 	list-style: none;
 	text-align: left;
 	overflow-x: hidden;
-	margin: 10px 0;
 }
 
 .tree-folder-items {
@@ -733,11 +734,11 @@ a.btn {
 }
 
 .tree-folder-title .title {
-	display: inline-block;
 	background: inherit;
+	display: inline-block;
 	width: 100%;
-	vertical-align: middle;
 	color: var(--text);
+	vertical-align: middle;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -749,11 +750,11 @@ a.btn {
 
 .tree-folder-items > .item {
 	padding: 0 10px;
-	line-height: 2.5rem;
-	font-size: 0.8rem;
 	display: block;
-	white-space: nowrap;
 	color: var(--text);
+	font-size: 0.8rem;
+	line-height: 2.5rem;
+	white-space: nowrap;
 }
 
 .tree-folder-items > .item > a {
@@ -802,8 +803,8 @@ a.btn {
 }
 
 .header > .item {
-	display: table-cell;
 	padding: 10px;
+	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
 }
@@ -815,8 +816,8 @@ a.btn {
 }
 
 .header > .item.title h1 {
-	display: inline-block;
 	margin: 0.5em 0;
+	display: inline-block;
 }
 
 .header > .item.title h1 a {
@@ -878,6 +879,7 @@ input[type="search"] {
 .aside.aside_feed .tree {
 	margin: 10px 0 50px;
 }
+
 .aside_feed .category .title {
 	width: calc(100% - 35px);
 
@@ -950,9 +952,9 @@ li.item.active {
 
 /*=== New article notification */
 #new-article {
-	text-align: center;
-	font-size: 0.9em;
 	display: none;
+	font-size: 0.9em;
+	text-align: center;
 }
 
 #new-article > a {
@@ -967,21 +969,21 @@ li.item.active {
 
 /*=== Day indication */
 .day {
-	background: inherit;
 	padding: 0 10px;
+	background: inherit;
 	font-weight: bold;
 	line-height: 3em;
 }
 
 .day .name {
+	padding: 0 10px 0 0;
+	width: 50%;
+	font-size: 1.8em;
 	position: absolute;
 	right: 0;
-	width: 50%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	padding: 0 10px 0 0;
-	font-size: 1.8em;
 	opacity: 0.3;
 	font-style: italic;
 	text-align: right;
@@ -1042,7 +1044,7 @@ li.item.active {
 	width: 200px;
 }
 
-.flux.current{
+.flux.current {
 	background: var(--accent-bg);
 }
 
@@ -1126,11 +1128,10 @@ li.item.active {
 
 
 /*=== Feed article content */
-
 .content {
+	margin: auto;
 	padding: 20px 10px;
 	min-height: 20em;
-	margin: auto;
 	line-height: 1.7em;
 	word-wrap: break-word;
 }
@@ -1201,23 +1202,22 @@ br {
 }
 
 /*=== Notification and actualize notification */
-
 .notification {
+	padding: 0 0 0 5px;
+	background: var(--bg);
+	color: var(--text);
+	font-size: 0.9em;
+	/*border: 1px solid #aaa;*/
+	border-radius: 6px;
 	position: absolute;
 	top: 1em;
 	left: 25%; right: 25%;
 	z-index: 10;
-	background: var(--bg);
-	color: var(--text);
-	/*border: 1px solid #aaa;*/
-	border-radius: 6px;
 	opacity: 1;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
-	padding: 0 0 0 5px;
 	text-align: center;
 	font-weight: bold;
-	font-size: 0.9em;
 	line-height: 3em;
 	z-index: 10;
 	vertical-align: middle;
@@ -1225,11 +1225,11 @@ br {
 
 
 .notification a.close {
+	padding: 0 15px;
+	display: inline-block;
 	position: absolute;
 	top: 0; bottom: 0;
 	right: 0;
-	display: inline-block;
-	padding: 0 15px;
 	line-height: 3em;
 }
 
@@ -1324,13 +1324,13 @@ br {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
+	margin: 0;
 	background: var(--accent-bg);
 	display: table;
+	width: 300px;
 	position: fixed;
 	bottom: 0; left: 0;
-	width: 300px;
 	table-layout: fixed;
-	margin: 0;
 	text-align: center;
 	line-height: 3em;
 	table-layout: fixed;
@@ -1376,7 +1376,6 @@ br {
 }
 
 /*=== Statistiques */
-
 .stat th,
 .stat td,
 .stat tr {
@@ -1400,6 +1399,7 @@ br {
 .stat > .horizontal-list .item:first-child {
 	width: 250px;
 }
+
 .stat-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -1986,8 +1986,6 @@ a, button.as-link {
 }
 
 /*=== Forms */
-
-
 textarea {
 	width: 360px;
 	height: 100px;
@@ -2015,7 +2013,6 @@ input.extend {
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
-
 .form-group.form-actions .btn {
 	margin: 0 10px;
 }
@@ -2026,8 +2023,6 @@ input.extend {
 
 
 /*=== Navigation */
-
-
 .nav-list .disable {
 	text-align: center;
 }
@@ -2055,7 +2050,6 @@ input.extend {
 /*=== Horizontal-list */
 
 /*=== Dropdown */
-
 .dropdown-menu::after {
 	content: "";
 	position: absolute;
@@ -2078,7 +2072,6 @@ input.extend {
 }
 
 /*=== Pagination */
-
 .content .pagination {
 	margin: 0;
 	padding: 0;
@@ -2178,7 +2171,6 @@ input.extend {
 
 
 /*=== "Load more" part */
-
 #bigMarkAsRead:hover {
 }
 
