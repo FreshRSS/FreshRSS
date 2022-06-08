@@ -1371,10 +1371,6 @@ br {
 }
 
 /*=== Statistiques */
-.stat th,
-.stat td,
-.stat tr {
-}
 
 .stat > table td,
 .stat > table th {
@@ -1641,9 +1637,9 @@ input:checked + .slide-container .properties {
 }
 
 .nav_menu {
+	padding: 5px 0;
 	background: inherit;
 	text-align: center;
-	padding: 5px 0;
 }
 
 .nav_mobile {
@@ -1984,14 +1980,6 @@ option {
 	padding: 0 .5em;
 }
 
-input:focus, select:focus, textarea:focus {
-}
-
-input:invalid, select:invalid {
-}
-
-input:disabled, select:disabled {
-}
 
 input.extend {
 	transition: width 200ms linear;
@@ -2139,20 +2127,7 @@ input.extend {
 	margin: 20px 0;
 }
 
-
-
-
-
-
-/*=== "Load more" part */
-#bigMarkAsRead:hover {
-}
-
-#bigMarkAsRead:hover .bigTick {
-}
-
 /*=== Navigation menu (for articles) */
-
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
@@ -2170,16 +2145,6 @@ input.extend {
 	font-weight: normal;
 	text-decoration: none;
 	text-align: left;
-}
-
-.box.category:not([data-unread="0"]) .box-title {
-}
-
-.box.category:not([data-unread="0"]) .box-title:active {
-}
-
-.box.category:not([data-unread="0"]) .box-title .title {
-	font-weight: bold;
 }
 
 .box.category .title:not([data-unread="0"])::after {
@@ -2208,9 +2173,6 @@ input.extend {
 .log {
 	padding: 5px 10px;
 	font-size: 0.8rem;
-}
-
-.log+.log {
 }
 
 .log .date {
