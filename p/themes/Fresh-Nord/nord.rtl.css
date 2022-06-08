@@ -1185,9 +1185,6 @@ li.item.active {
 	padding: 0 15px 5px 0;
 }
 
-.content pre {
-	overflow: auto;
-}
 
 .subtitle > div {
 	display: inline;
@@ -1219,7 +1216,6 @@ br {
 	text-align: center;
 	font-weight: bold;
 	line-height: 3em;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -1333,7 +1329,6 @@ br {
 	table-layout: fixed;
 	text-align: center;
 	line-height: 3em;
-	table-layout: fixed;
 }
 
 #nav_entries .item {
@@ -1376,11 +1371,6 @@ br {
 }
 
 /*=== Statistiques */
-.stat th,
-.stat td,
-.stat tr {
-}
-
 .stat > table td,
 .stat > table th {
 	text-align: center;
@@ -1646,7 +1636,9 @@ input:checked + .slide-container .properties {
 }
 
 .nav_menu {
+	padding: 5px 0;
 	background: inherit;
+	text-align: center;
 }
 
 .nav_mobile {
@@ -1956,7 +1948,6 @@ input:checked + .slide-container .properties {
 	margin: -1px;
 }
 
-
 .feed .item-title:not([data-unread="0"])::before {
 	content: "(" attr(data-unread) ") ";
 	display: none
@@ -1965,14 +1956,6 @@ input:checked + .slide-container .properties {
 .feed .item-title:not([data-unread="0"])::after {
 	content: " (" attr(data-unread) ")";
 }
-
-/* compact mode :) */
-
-
-/* stylelint-disable block-no-empty  */
-
-
-
 
 
 /*BEGINS BASE.CSS*/
@@ -1996,14 +1979,6 @@ option {
 	padding: 0 .5em;
 }
 
-input:focus, select:focus, textarea:focus {
-}
-
-input:invalid, select:invalid {
-}
-
-input:disabled, select:disabled {
-}
 
 input.extend {
 	transition: width 200ms linear;
@@ -2016,11 +1991,6 @@ input.extend {
 .form-group.form-actions .btn {
 	margin: 0 10px;
 }
-
-
-
-/*=== Buttons */
-
 
 /*=== Navigation */
 .nav-list .disable {
@@ -2044,10 +2014,6 @@ input.extend {
 	padding: 3px;
 	text-align: center;
 }
-
-
-
-/*=== Horizontal-list */
 
 /*=== Dropdown */
 .dropdown-menu::after {
@@ -2112,12 +2078,6 @@ input.extend {
 }
 
 /*=== Aside main page (feeds) */
-.feed.item.empty.active,
-.feed.item.error.active,
-.feed.item.empty.active > a,
-.feed.item.error.active > a {
-}
-
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	right: 2px;
 }
@@ -2160,25 +2120,7 @@ input.extend {
 	margin: 20px 0;
 }
 
-
-
-/*=== Index menu */
-.nav_menu {
-	text-align: center;
-	padding: 5px 0;
-}
-
-
-
-/*=== "Load more" part */
-#bigMarkAsRead:hover {
-}
-
-#bigMarkAsRead:hover .bigTick {
-}
-
 /*=== Navigation menu (for articles) */
-
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
@@ -2196,16 +2138,6 @@ input.extend {
 	font-weight: normal;
 	text-decoration: none;
 	text-align: right;
-}
-
-.box.category:not([data-unread="0"]) .box-title {
-}
-
-.box.category:not([data-unread="0"]) .box-title:active {
-}
-
-.box.category:not([data-unread="0"]) .box-title .title {
-	font-weight: bold;
 }
 
 .box.category .title:not([data-unread="0"])::after {
@@ -2234,9 +2166,6 @@ input.extend {
 .log {
 	padding: 5px 10px;
 	font-size: 0.8rem;
-}
-
-.log+.log {
 }
 
 .log .date {

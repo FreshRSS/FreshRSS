@@ -1371,7 +1371,6 @@ br {
 }
 
 /*=== Statistiques */
-
 .stat > table td,
 .stat > table th {
 	text-align: center;
@@ -2079,12 +2078,6 @@ input.extend {
 }
 
 /*=== Aside main page (feeds) */
-.feed.item.empty.active,
-.feed.item.error.active,
-.feed.item.empty.active > a,
-.feed.item.error.active > a {
-}
-
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
 }
