@@ -283,9 +283,9 @@ a.btn {
 }
 
 .dropdown-target:target ~ .dropdown-toggle::after {
-    background-color: var(--accent-bg);
-    border-top: 1px solid var(--border);
-    border-left: 1px solid var(--border);
+	background-color: var(--accent-bg);
+	border-top: 1px solid var(--border);
+	border-left: 1px solid var(--border);
 }
 
 .dropdown-menu-scrollable .dropdown-close {
