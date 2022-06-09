@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`url` VARCHAR(511) NOT NULL,
 	`kind` SMALLINT DEFAULT 0, -- 1.20.0
-	`category` SMALLINT DEFAULT 0,
+	`category` INTEGER DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(255) NOT NULL,
 	`website` VARCHAR(255),
 	`description` TEXT,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,
+	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(1023),
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,
+	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(1023),
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	UNIQUE (`name`)
 );
 CREATE TABLE IF NOT EXISTS `entrytag` (
-	`id_tag` SMALLINT,
+	`id_tag` INTEGER,	-- 1.20.0
 	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

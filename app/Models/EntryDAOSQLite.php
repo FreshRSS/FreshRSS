@@ -2,19 +2,23 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
-	public function isCompressed(): bool {
+	public static function isCompressed(): bool {
 		return false;
 	}
 
-	public function hasNativeHex(): bool {
+	public static function hasNativeHex(): bool {
 		return false;
 	}
 
-	public function sqlHexDecode(string $x): string {
+	protected static function sqlConcat($s1, $s2) {
+		return $s1 . '||' . $s2;
+	}
+
+	public static function sqlHexDecode(string $x): string {
 		return $x;
 	}
 
-	public function sqlIgnoreConflict(string $sql): string {
+	public static function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
@@ -63,10 +67,6 @@ DROP TABLE IF EXISTS `tmp`;
 			$this->pdo->commit();
 		}
 		return $result;
-	}
-
-	protected function sqlConcat($s1, $s2) {
-		return $s1 . '||' . $s2;
 	}
 
 	protected function updateCacheUnreads($catId = false, $feedId = false) {

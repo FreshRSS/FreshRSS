@@ -108,7 +108,7 @@ return array(
 			'clear_cache' => 'Önbelleği temizle',
 			'clear_cache_help' => 'Bu akışın önbelleğini temizler.',
 			'reload_articles' => 'Makaleleri yeniden yükle',
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO
+			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
 			'title' => 'Bakım',
 		),
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',

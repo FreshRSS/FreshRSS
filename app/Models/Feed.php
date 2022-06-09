@@ -208,7 +208,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$url = $this->url;
 		}
 		$txt = FAVICONS_DIR . $this->hash() . '.txt';
-		if (!file_exists($txt)) {
+		if (@file_get_contents($txt) !== $url) {
 			file_put_contents($txt, $url);
 		}
 		if (FreshRSS_Context::$isCli) {
@@ -245,7 +245,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$this->url = $value;
 	}
-	public function _kind($value) {
+	public function _kind(int $value) {
 		$this->kind = $value;
 	}
 	public function _category($value) {
@@ -567,8 +567,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
 		}
 
-		// Same naming conventions than https://github.com/RSS-Bridge/rss-bridge/wiki/XPathAbstract
-		// https://github.com/RSS-Bridge/rss-bridge/wiki/The-collectData-function
+		// Same naming conventions than https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html
+		// https://rss-bridge.github.io/rss-bridge/Bridge_API/BridgeAbstract.html#collectdata
 		/** @var array<string,string> */
 		$xPathSettings = $this->attributes('xpath');
 		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
@@ -758,7 +758,8 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public function filtersAction(string $action) {
+	/** @return array<FreshRSS_BooleanSearch> */
+	public function filtersAction(string $action): array {
 		$action = trim($action);
 		if ($action == '') {
 			return array();
@@ -775,6 +776,9 @@ class FreshRSS_Feed extends Minz_Model {
 		return $filters;
 	}
 
+	/**
+	 * @param array<string> $filters
+	 */
 	public function _filtersAction(string $action, $filters) {
 		$action = trim($action);
 		if ($action == '' || !is_array($filters)) {

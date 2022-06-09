@@ -34,11 +34,13 @@
  * @property bool $onread_jump_next
  * @property string $passwordHash
  * @property int $posts_per_page
- * @property array<int,array<string,string>> $queries
+ * @property array<array<string,string>> $queries
  * @property bool $reading_confirm
  * @property int $since_hours_posts_per_rss
  * @property bool $show_fav_unread
  * @property bool $show_favicons
+ * @property bool $icons_as_emojis
+ * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
  * @property string $sort_order
  * @property array<string,array<string>> $sharing

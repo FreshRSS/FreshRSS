@@ -49,6 +49,8 @@ cd /usr/share/FreshRSS
 # Same parameters as for do-install.php. Used to update an existing installation.
 ```
 
+> ℹ️ More options for [the configuration of your instance](../config.default.php#L3-L5) may be set in `./data/config.custom.php` before the install process, or in `./data/config.php` after the install process.
+
 ### User
 
 ```sh
@@ -59,7 +61,11 @@ cd /usr/share/FreshRSS
 
 ./cli/update-user.php --user username [ ... ]
 # Same options as create-user.php, except --no_default_feeds which is only available for create-user.php
+```
 
+> ℹ️ More options for [the configuration of users](../config-user.default.php#L3-L5) may be set in `./data/config-user.custom.php` prior to creating new users, or in `./data/users/*/config.php` for existing users.
+
+```sh
 ./cli/actualize-user.php --user username
 # Fetch feeds for the specified user
 

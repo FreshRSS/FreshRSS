@@ -1082,7 +1082,6 @@ form th {
 	left: 0;
 	text-align: center;
 	line-height: 3em;
-	z-index: 10;
 	vertical-align: middle;
 }
 .notification .msg {

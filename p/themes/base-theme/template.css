@@ -95,6 +95,7 @@ img {
 }
 
 img.favicon {
+	margin: 0 0.25rem 0 0;
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;
@@ -1176,7 +1177,7 @@ br {
 	position: absolute;
 	top: 1em;
 	left: 25%; right: 25%;
-	z-index: 10;
+	z-index: 9999;
 	background: #fff;
 	border: 1px solid #aaa;
 	opacity: 1;
@@ -1222,7 +1223,7 @@ br {
 #popup {
 	display: none;
 	position: fixed;
-	z-index: 1;
+	z-index: 200;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -1263,11 +1264,6 @@ br {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-#popup-txt {
-	display: none;
-	height: 100%;
 }
 
 #popup-iframe-container {
@@ -1448,7 +1444,7 @@ br {
 	z-index: 100;
 }
 
-#slider.active {
+#slider:target {
 	width: 750px;
 }
 
@@ -1459,7 +1455,7 @@ br {
 	cursor: pointer;
 }
 
-#close-slider.active {
+#slider:target + #close-slider {
 	background: rgba(0, 0, 0, 0.2);
 	font-size: 0;
 	left: 0;
@@ -1470,7 +1466,7 @@ br {
 	display: none;
 }
 
-#close-slider.active img {
+#slider:target + #close-slider img {
 	padding: 0.5rem;
 	display: inline-block;
 	position: absolute;

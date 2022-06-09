@@ -5,7 +5,7 @@ SQL;
 
 $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`id` INT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
 	`attributes` TEXT,	-- v1.15.0
 	PRIMARY KEY (`id`),
@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS `_category` (
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `_feed` (
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`id` INT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`url` VARCHAR(511) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`kind` SMALLINT DEFAULT 0, -- 1.20.0
-	`category` SMALLINT DEFAULT 0,	-- v0.7
+	`category` INT DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(191) NOT NULL,
 	`website` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,	-- v0.7
+	`id_feed` INT,	-- 1.20.0
 	`tags` VARCHAR(1023),
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,
+	`id_feed` INT,	-- 1.20.0
 	`tags` VARCHAR(1023),
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -94,7 +94,7 @@ SQL;
 
 $GLOBALS['SQL_CREATE_TABLE_TAGS'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(63) NOT NULL,
 	`attributes` TEXT,
 	PRIMARY KEY (`id`),
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `_entrytag` (	-- v1.12
-	`id_tag` SMALLINT,
+	`id_tag` INT,	-- 1.20.0
 	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `_tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,

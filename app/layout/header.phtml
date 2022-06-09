@@ -1,7 +1,13 @@
 <header class="header">
 	<div class="item title">
 		<a href="<?= _url('index', 'index') ?>">
-			<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="" />
+			<?php if (FreshRSS_Context::$system_conf->logo_html == '') { ?>
+				<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="FreshRSS" />
+			<?php
+				} else {
+					echo FreshRSS_Context::$system_conf->logo_html;
+				}
+			?>
 		</a>
 	</div>
 
@@ -40,7 +46,7 @@
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
 			<ul class="dropdown-menu scrollbar-thin">
 				<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
-				
+
 				<li class="dropdown-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?></li>
 				<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>

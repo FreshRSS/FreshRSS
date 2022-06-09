@@ -39,11 +39,16 @@
 					<a href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
 				</li>
 
-				<?php foreach (FreshRSS_Context::$user_conf->queries as $query) { ?>
-				<li class="item query">
-					<a href="<?= $query['url'] ?>"><?= $query['name'] ?></a>
-				</li>
-				<?php } ?>
+				<?php foreach (FreshRSS_Context::$user_conf->queries as $raw_query): ?>
+					<li class="item query">
+						<?php if (!empty($raw_query['url'])): ?>
+							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?></a>
+						<?php else: ?>
+						<?php $query = new FreshRSS_UserQuery($raw_query); ?>
+							<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
 
 				<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
 				<li class="separator"></li>
