@@ -334,7 +334,6 @@ SQL;
 		$sql = <<<'SQL'
 SELECT f.id, f.name, c.name as c_name FROM `_feed` f
 INNER JOIN `_category` c ON c.id = f.category
-WHERE c.id > 0
 SQL;
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
