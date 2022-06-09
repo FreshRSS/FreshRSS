@@ -321,6 +321,11 @@ a.btn {
 	/*filter: invert(74%) sepia(29%) saturate(411%) hue-rotate(171deg) brightness(130%) contrast(85%);*/
 }
 
+img.favicon{
+	border-radius: 4px;
+	background: var(--text-light);
+}
+
 /*=== Pagination */
 .pagination {
 	width: 100%;
@@ -548,7 +553,7 @@ li.item.active {
 }
 
 .flux .website .favicon {
-	padding: 5px;
+	padding: 3px;
 }
 
 .flux .item.date {
