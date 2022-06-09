@@ -34,7 +34,6 @@ html, body {
 
 /*=== Links */
 a {
-	background: none !important;
 	color: var(--accent);
 }
 
