@@ -62,16 +62,12 @@ label {
 	cursor: pointer;
 }
 
-input {
-	background: var(--bg);
-	color: var(--text);
-	border-color: var(--border);
-}
-
 input, select, textarea {
 	padding: 5px;
+	margin: 5px;
 	color: var(--text);
-	border: none;
+	border: 1px solid var(--border);
+	border-color: var(--border);
 	border-radius: 6px;
 	background-color: var(--bg);
 	min-height: 25px;
@@ -162,6 +158,11 @@ a.btn {
 
 	text-decoration: none;
 	transition: .4s;
+}
+
+a.btn.active {
+	background-color: var(--accent-bg) !important;
+	border: 1px solid var(--border);
 }
 
 .btn {
@@ -318,7 +319,7 @@ a.btn {
 
 /*=== Icons */
 .icon {
-	filter: invert(74%) sepia(29%) saturate(411%) hue-rotate(171deg) brightness(130%) contrast(85%);
+	/*filter: invert(74%) sepia(29%) saturate(411%) hue-rotate(171deg) brightness(130%) contrast(85%);*/
 }
 
 /*=== Pagination */
