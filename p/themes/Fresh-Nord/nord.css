@@ -183,6 +183,10 @@ a.btn {
 	color: var(--bg) !important;
 }
 
+#btn-add.btn-important .icon, #actualize .icon {
+	filter: brightness(0);
+}
+
 .btn:hover, svg:hover {
 	opacity: .8;
 	cursor: pointer;
@@ -312,6 +316,11 @@ a.btn {
 	text-decoration: underline;
 }
 
+/*=== Icons */
+.icon {
+	filter: invert(74%) sepia(29%) saturate(411%) hue-rotate(171deg) brightness(130%) contrast(85%);
+}
+
 /*=== Pagination */
 .pagination {
 	width: 100%;
@@ -431,6 +440,10 @@ a.btn {
 
 .header .item.search input:focus {
 	width: 350px;
+}
+
+.header > .item.title .logo {
+	filter: grayscale(100%) brightness(2.5);
 }
 
 /*=== Body */

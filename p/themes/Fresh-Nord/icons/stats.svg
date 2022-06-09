@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16">
-<g transform="translate(-142,-490)" fill="#bebebe">
-<path style="block-progression:tb;color:#bebebe;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" d="M144.19,490c-1.21,0-2.19,1.02-2.19,2.22v10.562c0,1.2008,0.98238,2.2188,2.1875,2.2188h11.625c1.2051,0,2.1875-1.0179,2.1875-2.2188v-10.562c-0.01-1.2-0.99-2.22-2.2-2.22h-11.625zm0,2,11.625,0c0.12026,0,0.1875,0.08,0.1875,0.21875v10.562c-0.01,0.14-0.08,0.22-0.2,0.22h-11.625c-0.12026,0-0.1875-0.08-0.1875-0.21875v-10.562c0.01-0.14,0.08-0.22,0.2-0.22z"/>
-<path style="block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" d="m151.31,493.97a0.50005,0.50005,0,0,0,-0.34375,0.34375l-1.6875,6.0938-0.875-1.1875a0.50005,0.50005,0,0,0,-0.4,-0.21h-2.5-0.5v1h0.5,2.25l1.3125,1.7812a0.50005,0.50005,0,0,0,0.875,-0.15625l1.5312-5.4375,1.0625,3.4688a0.50005,0.50005,0,0,0,0.47,0.35h1.5,0.5v-1h-0.5-1.125l-1.4375-4.6875a0.50005,0.50005,0,0,0,-0.625,-0.34375z"/>
-</g>
-</svg>
