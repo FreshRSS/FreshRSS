@@ -22,11 +22,6 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @var int
 	 */
 	const KIND_JSON_XPATH = 20;
-	/**
-	 * OPML source
-	 * @var int
-	 */
-	const KIND_OPML = 40;
 
 	const PRIORITY_MAIN_STREAM = 10;
 	const PRIORITY_NORMAL = 0;
@@ -191,7 +186,7 @@ class FreshRSS_Feed extends Minz_Model {
 		// return $this->lastUpdate + $ttl;
 	// }
 	public function nbEntries(): int {
-		if ($this->nbEntries < 0 && $this->kind != self::KIND_OPML) {
+		if ($this->nbEntries < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbEntries = $feedDAO->countEntries($this->id());
 		}
@@ -199,7 +194,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbEntries;
 	}
 	public function nbNotRead($includePending = false): int {
-		if ($this->nbNotRead < 0 && $this->kind != self::KIND_OPML) {
+		if ($this->nbNotRead < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead($this->id());
 		}
@@ -254,7 +249,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->kind = $value;
 	}
 	public function _category($value) {
-		$this->category = intval($value);
+		$value = intval($value);
+		$this->category = $value >= 0 ? $value : 0;
 	}
 	public function _name(string $value) {
 		$this->name = $value == '' ? '' : trim($value);
