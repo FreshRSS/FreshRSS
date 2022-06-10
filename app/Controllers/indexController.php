@@ -202,6 +202,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $catDAO->listCategories(true, true);
+		$this->view->excludeMutedFeeds = true;
 
 		switch ($type) {
 			case 'a':

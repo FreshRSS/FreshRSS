@@ -3,10 +3,10 @@
 /**
  * @param array<FreshRSS_Feed> $feeds
  */
-function feedsToOutlines($feeds): array {
+function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 	$outlines = [];
 	foreach ($feeds as $feed) {
-		if ($feed->mute()) {
+		if ($feed->mute() && $excludeMutedFeeds) {
 			// Exclude muted feeds
 			continue;
 		}
@@ -60,13 +60,13 @@ if (!empty($this->categories)) {
 	foreach ($this->categories as $key => $cat) {
 		$opml_array['body'][$key] = [
 			'text' => $cat->name(),
-			'@outlines' => feedsToOutlines($cat->feeds()),
+			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
 		];
 	}
 }
 
 if (!empty($this->feeds)) {
-	$opml_array['body'][] = feedsToOutlines($this->feeds);
+	$opml_array['body'][] = feedsToOutlines($this->feeds, $this->excludeMutedFeeds);
 }
 
 echo libopml_render($opml_array);
