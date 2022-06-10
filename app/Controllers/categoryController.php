@@ -40,8 +40,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 
-			$cat_name = Minz_Request::param('new-category');
-			if (!$cat_name) {
+			$cat_name = trim(Minz_Request::param('new-category', ''));
+			if ($cat_name == '') {
 				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
 			}
 
@@ -54,7 +54,14 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$values = array(
 				'id' => $cat->id(),
 				'name' => $cat->name(),
+				'kind' => FreshRSS_Category::KIND_NORMAL,
 			);
+
+			$opml_url = trim(Minz_Request::param('opml_url', ''));
+			if ($opml_url != '') {
+				$values['kind'] = FreshRSS_Category::KIND_DYNAMIC_OPML;
+				//TODO: store OPML URL
+			}
 
 			if ($catDAO->addCategory($values)) {
 				$url_redirect['a'] = 'index';

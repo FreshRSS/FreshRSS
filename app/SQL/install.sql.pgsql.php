@@ -6,6 +6,7 @@ SQL;
 $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
+	"kind" SMALLINT DEFAULT 0, -- 1.20.0
 	"name" VARCHAR(255) UNIQUE NOT NULL,
 	"attributes" TEXT	-- v1.15.0
 );

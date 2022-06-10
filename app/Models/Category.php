@@ -1,6 +1,19 @@
 <?php
 
 class FreshRSS_Category extends Minz_Model {
+
+	/**
+	 * Normal
+	 * @var int
+	 */
+	const KIND_NORMAL = 0;
+
+	/**
+	 * Category tracking a third-party Dynamic OPML
+	 * @var int
+	 */
+	const KIND_DYNAMIC_OPML = 2;
+
 	/**
 	 * @var int
 	 */
@@ -52,6 +65,8 @@ class FreshRSS_Category extends Minz_Model {
 
 		return $this->nbNotRead;
 	}
+
+	/** @return array<FreshRSS_Feed> */
 	public function feeds(): array {
 		if ($this->feeds === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();

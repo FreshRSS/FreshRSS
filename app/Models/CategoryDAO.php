@@ -17,7 +17,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	protected function addColumn($name) {
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
-			if ('attributes' === $name) {	//v1.15.0
+			if ($name === 'kind') {	//v1.20.0
+				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN kind SMALLINT DEFAULT 0') !== false;
+			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
 				$stm = $this->pdo->query('SELECT * FROM `_feed`');

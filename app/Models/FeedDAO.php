@@ -29,6 +29,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
+	/** @return int|false */
 	public function addFeed(array $valuesTmp) {
 		$sql = '
 			INSERT INTO `_feed`
@@ -88,10 +89,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	public function addFeedObject(FreshRSS_Feed $feed): int {
-		// TODO: not sure if we should write this method in DAO since DAO
-		// should not be aware about feed class
-
+	/** @return int|false */
+	public function addFeedObject(FreshRSS_Feed $feed) {
 		// Add feed only if we don’t find it in DB
 		$feed_search = $this->searchByUrl($feed->url());
 		if (!$feed_search) {

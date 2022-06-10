@@ -6,6 +6,7 @@ SQL;
 $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	`id` INT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`kind` SMALLINT DEFAULT 0, -- 1.20.0
 	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
 	`attributes` TEXT,	-- v1.15.0
 	PRIMARY KEY (`id`),

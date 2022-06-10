@@ -218,4 +218,31 @@
 			</div>
 		</div>
 	</form>
+
+	<h2><?= _t('sub.title.add_dynamic_opml') ?></h2>
+	<form action="<?= _url('category', 'create') ?>" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
+			<div class="group-controls">
+				<input id="new-category" name="new-category" type="text" autocomplete="off"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input id="opml_url" name="opml_url" type="url" required="required" autocomplete="off" class="long" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+			</div>
+		</div>
+	</form>
 </main>
