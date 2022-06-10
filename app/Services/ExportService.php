@@ -48,6 +48,7 @@ class FreshRSS_Export_Service {
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
 		$view->categories = $this->category_dao->listCategories(true, true);
+		$view->excludeMutedFeeds = false;
 
 		return [
 			"feeds_{$day}.opml.xml",

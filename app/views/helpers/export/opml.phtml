@@ -7,7 +7,6 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 	$outlines = [];
 	foreach ($feeds as $feed) {
 		if ($feed->mute() && $excludeMutedFeeds) {
-			// Exclude muted feeds
 			continue;
 		}
 		$outline = [
