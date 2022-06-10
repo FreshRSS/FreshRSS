@@ -343,6 +343,10 @@ SQL;
 		return $res[0]['count'];
 	}
 
+	/**
+	 * @param array<FreshRSS_Category> $categories
+	 * @param int $feed_id
+	 */
 	public static function findFeed($categories, $feed_id) {
 		foreach ($categories as $category) {
 			foreach ($category->feeds() as $feed) {
@@ -354,6 +358,10 @@ SQL;
 		return null;
 	}
 
+	/**
+	 * @param array<FreshRSS_Category> $categories
+	 * @param int $minPriority
+	 */
 	public static function CountUnreads($categories, $minPriority = 0) {
 		$n = 0;
 		foreach ($categories as $category) {

@@ -262,8 +262,7 @@ class FreshRSS_Context {
 	 */
 	public static function _get($get) {
 		$type = $get[0];
-		$id = substr($get, 2);
-		$nb_unread = 0;
+		$id = intval(substr($get, 2));
 
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();

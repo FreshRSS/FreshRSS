@@ -40,7 +40,7 @@ if (_t('gen.dir') === 'rtl') {
 		}
 ?>
 		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
-<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory()) {
+<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
 		$opml_rss = $url_base;
 		$opml_rss['a'] = 'opml';
 		unset($opml_rss['params']['rid']);

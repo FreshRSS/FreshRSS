@@ -67,6 +67,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
+		$title = trim($title);
+		if ($title != '') {
+			$feed->_name($title);
+		}
 		$feed->_kind($kind);
 		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
@@ -92,19 +96,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
 
-		$values = array(
-			'url' => $feed->url(),
-			'kind' => $feed->kind(),
-			'category' => $feed->category(),
-			'name' => $title != '' ? $title : $feed->name(true),
-			'website' => $feed->website(),
-			'description' => $feed->description(),
-			'lastUpdate' => 0,
-			'httpAuth' => $feed->httpAuth(),
-			'attributes' => $feed->attributes(),
-		);
-
-		$id = $feedDAO->addFeed($values);
+		$id = $feedDAO->addFeedObject($feed);
 		if (!$id) {
 			// There was an error in database… we cannot say what here.
 			throw new FreshRSS_FeedNotAdded_Exception($url);
