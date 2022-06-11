@@ -71,7 +71,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				foreach (['attributes'] as $column) {
+				foreach (['kind', 'attributes'] as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
 					}
@@ -81,12 +81,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		return false;
 	}
 
+	/** @return int|false */
 	public function addCategory($valuesTmp) {
 		// TRIM() to provide a type hint as text
 		// No tag of the same name
 		$sql = <<<'SQL'
-INSERT INTO `_category`(name, attributes)
-SELECT * FROM (SELECT TRIM(?) AS name, TRIM(?) AS attributes) c2
+INSERT INTO `_category`(kind, name, attributes)
+SELECT * FROM (SELECT ? AS kind, TRIM(?) AS name, TRIM(?) AS attributes) c2
 WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -96,6 +97,7 @@ SQL;
 			$valuesTmp['attributes'] = [];
 		}
 		$values = array(
+			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$valuesTmp['name'],
@@ -113,13 +115,18 @@ SQL;
 		}
 	}
 
+	/**
+	 * @param FreshRSS_Category $category
+	 * @return int|false
+	 */
 	public function addCategoryObject($category) {
 		$cat = $this->searchByName($category->name());
 		if (!$cat) {
-			// Category does not exist yet in DB so we add it before continue
-			$values = array(
+			$values = [
+				'kind' => $category->kind(),
 				'name' => $category->name(),
-			);
+				'attributes' => $category->attributes(),
+			];
 			return $this->addCategory($values);
 		}
 
@@ -129,7 +136,7 @@ SQL;
 	public function updateCategory($id, $valuesTmp) {
 		// No tag of the same name
 		$sql = <<<'SQL'
-UPDATE `_category` SET name=?, attributes=? WHERE id=?
+UPDATE `_category` SET kind=?, name=?, attributes=? WHERE id=?
 AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = ?)
 SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -139,6 +146,7 @@ SQL;
 			$valuesTmp['attributes'] = [];
 		}
 		$values = array(
+			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$id,
@@ -174,7 +182,7 @@ SQL;
 	}
 
 	public function selectAll() {
-		$sql = 'SELECT id, name, attributes FROM `_category`';
+		$sql = 'SELECT id, kind, name, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -190,6 +198,7 @@ SQL;
 		}
 	}
 
+	/** @return FreshRSS_Category|null */
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
@@ -204,7 +213,9 @@ SQL;
 			return null;
 		}
 	}
-	public function searchByName($name) {
+
+	/** @return FreshRSS_Category|null|false */
+	public function searchByName(string $name) {
 		$sql = 'SELECT * FROM `_category` WHERE name=:name';
 		$stm = $this->pdo->prepare($sql);
 		if ($stm == false) {
@@ -246,7 +257,7 @@ SQL;
 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
-			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.attributes AS c_attributes, '
+			$sql = 'SELECT c.id AS c_id, c.kind AS c_kind, c.name AS c_name, c.attributes AS c_attributes, '
 				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 				. 'FROM `_category` c '
 				. 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
@@ -394,6 +405,7 @@ SQL;
 					$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id($previousLine['c_id']);
+				$cat->_kind($previousLine['c_kind']);
 				$cat->_attributes('', $previousLine['c_attributes']);
 				$list[$previousLine['c_id']] = $cat;
 
@@ -411,6 +423,7 @@ SQL;
 				$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id($previousLine['c_id']);
+			$cat->_kind($previousLine['c_kind']);
 			$cat->_attributes('', $previousLine['c_attributes']);
 			$list[$previousLine['c_id']] = $cat;
 		}
@@ -430,8 +443,8 @@ SQL;
 				$dao['name']
 			);
 			$cat->_id($dao['id']);
+			$cat->_kind($dao['kind']);
 			$cat->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
-			$cat->_isDefault(static::DEFAULTCATEGORYID === intval($dao['id']));
 			$list[$key] = $cat;
 		}
 

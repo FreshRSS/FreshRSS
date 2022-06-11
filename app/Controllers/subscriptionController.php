@@ -304,6 +304,14 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'attributes' => $category->attributes(),
 			];
 
+			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
+			if ($opml_url != '') {
+				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
+				$category->_attributes('opml_url', $opml_url);
+				$values['kind'] = $category->kind();
+				$values['attributes'] = $category->attributes();
+			}
+
 			invalidateHttpCache();
 
 			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id, 'type' => 'category'));

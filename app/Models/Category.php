@@ -18,12 +18,13 @@ class FreshRSS_Category extends Minz_Model {
 	 * @var int
 	 */
 	private $id = 0;
+	/** @var int */
+	private $kind = 0;
 	private $name;
 	private $nbFeeds = -1;
 	private $nbNotRead = -1;
 	private $feeds = null;
 	private $hasFeedsWithError = false;
-	private $isDefault = false;
 	private $attributes = [];
 
 	public function __construct(string $name = '', $feeds = null) {
@@ -43,11 +44,14 @@ class FreshRSS_Category extends Minz_Model {
 	public function id(): int {
 		return $this->id;
 	}
+	public function kind(): int {
+		return $this->kind;
+	}
 	public function name(): string {
 		return $this->name;
 	}
 	public function isDefault(): bool {
-		return $this->isDefault;
+		return $this->id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
 	}
 	public function nbFeeds(): int {
 		if ($this->nbFeeds < 0) {
@@ -105,11 +109,13 @@ class FreshRSS_Category extends Minz_Model {
 			$this->_name(_t('gen.short.default_category'));
 		}
 	}
+
+	public function _kind(int $kind) {
+		$this->kind = $kind;
+	}
+
 	public function _name($value) {
 		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
-	}
-	public function _isDefault($value) {
-		$this->isDefault = $value;
 	}
 	public function _feeds($values) {
 		if (!is_array($values)) {
@@ -132,5 +138,9 @@ class FreshRSS_Category extends Minz_Model {
 		} else {
 			$this->attributes[$key] = $value;
 		}
+	}
+
+	public function refreshDynamicOpml() {
+		// TODO
 	}
 }

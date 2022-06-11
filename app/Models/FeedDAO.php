@@ -226,6 +226,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
+	/** @return int|false */
 	public function deleteFeed(int $id) {
 		$sql = 'DELETE FROM `_feed` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
@@ -240,8 +241,16 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return false;
 		}
 	}
-	public function deleteFeedByCategory(int $id) {
+
+	/**
+	 * @param bool|null $muted to include only muted feeds
+	 * @return int|false
+	 */
+	public function deleteFeedByCategory(int $id, $muted = null) {
 		$sql = 'DELETE FROM `_feed` WHERE category=?';
+		if ($muted) {
+			$sql .= ' AND ttl < 0';
+		}
 		$stm = $this->pdo->prepare($sql);
 
 		$values = array($id);
@@ -385,10 +394,14 @@ SQL;
 	}
 
 	/**
+	 * @param bool|null $muted to include only muted feeds
 	 * @return array<FreshRSS_Feed>
 	 */
-	public function listByCategory(int $cat): array {
+	public function listByCategory(int $cat, $muted = null): array {
 		$sql = 'SELECT * FROM `_feed` WHERE category=?';
+		if ($muted) {
+			$sql .= ' AND ttl < 0';
+		}
 		$stm = $this->pdo->prepare($sql);
 
 		$stm->execute(array($cat));

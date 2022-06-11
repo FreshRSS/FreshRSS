@@ -36,6 +36,9 @@
 			<div class="box-title">
 				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
 				<?= $cat->name() ?>
+				<?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
+					<span title="<?= _t('sub.category.dynamic_opml') ?>">🗲</span>
+				<?php endif; ?>
 			</div>
 			<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 				<?php
