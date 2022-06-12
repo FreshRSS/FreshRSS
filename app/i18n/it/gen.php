@@ -31,6 +31,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Rimuovi',
 		'rename' => 'Rename',	// TODO
 		'see_website' => 'Vai al sito',

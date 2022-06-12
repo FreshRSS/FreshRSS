@@ -24,8 +24,13 @@ return array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'archiving' => '보관',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => '빈 카테고리',
 		'information' => '정보',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
 		'title' => '제목',
@@ -181,6 +186,7 @@ return array(
 		'_' => '구독 관리',
 		'add' => '피드 혹은 카테고리 추가',
 		'add_category' => '카테고리 추가',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => '피드 추가',
 		'add_label' => '라벨 추가',
 		'delete_label' => '라벨 삭제',

@@ -31,6 +31,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',
 		'see_website' => '웹사이트 열기',

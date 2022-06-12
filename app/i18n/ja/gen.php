@@ -31,6 +31,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '消去',
 		'rename' => 'リネーム',
 		'see_website' => 'webサイトを閲覧してください',

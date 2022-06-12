@@ -31,6 +31,7 @@ return array(
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '删除',
 		'rename' => '重命名',
 		'see_website' => '网站中查看',

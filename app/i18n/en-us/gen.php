@@ -31,6 +31,7 @@ return array(
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
 		'see_website' => 'See website',	// IGNORE

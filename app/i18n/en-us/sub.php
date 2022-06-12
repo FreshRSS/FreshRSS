@@ -24,8 +24,13 @@ return array(
 		'_' => 'Category',	// IGNORE
 		'add' => 'Add a category',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Empty category',	// IGNORE
 		'information' => 'Information',	// IGNORE
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
 		'title' => 'Title',	// IGNORE
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Subscription management',	// IGNORE
 		'add' => 'Add a feed or category',	// IGNORE
 		'add_category' => 'Add a category',	// IGNORE
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Add a feed',	// IGNORE
 		'add_label' => 'Add a label',	// IGNORE
 		'delete_label' => 'Delete a label',	// IGNORE

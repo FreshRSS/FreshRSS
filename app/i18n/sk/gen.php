@@ -31,6 +31,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Podporiť',
 		'purge' => 'Vymazať',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Odstrániť',
 		'rename' => 'Premenovať',
 		'see_website' => 'Zobraziť webovú stránku',
