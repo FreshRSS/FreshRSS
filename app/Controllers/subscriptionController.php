@@ -299,18 +299,20 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$position = Minz_Request::param('position');
 			$category->_attributes('position', '' === $position ? null : (int) $position);
 
-			$values = [
-				'name' => Minz_Request::param('name', ''),
-				'attributes' => $category->attributes(),
-			];
-
 			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attributes('opml_url', $opml_url);
-				$values['kind'] = $category->kind();
-				$values['attributes'] = $category->attributes();
+			} else {
+				$category->_kind(FreshRSS_Category::KIND_NORMAL);
+				$category->_attributes('opml_url', null);
 			}
+
+			$values = [
+				'kind' => $category->kind(),
+				'name' => Minz_Request::param('name', ''),
+				'attributes' => $category->attributes(),
+			];
 
 			invalidateHttpCache();
 
