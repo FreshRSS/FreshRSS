@@ -117,7 +117,8 @@ input:focus {
 .icon[src*="/sort-up"],
 .icon[src*="/sort-down"],
 .icon[src*="/key"],
-.icon[src*="/configure"] {
+.icon[src*="/configure"],
+.icon[src*="/category"] {
 	/* Color light grey icons */
 	filter: sepia(62%) brightness(47%) hue-rotate(116deg) saturate(1000%) contrast(119%) invert(100%);
 }
