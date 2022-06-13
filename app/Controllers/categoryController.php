@@ -213,7 +213,13 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.not_exist'), $url_redirect);
 			}
 
-			$category->refreshDynamicOpml();
+			invalidateHttpCache();
+
+			if ($category->refreshDynamicOpml()) {
+				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
+			} else {
+				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
+			}
 		}
 
 		Minz_Request::forward($url_redirect, true);

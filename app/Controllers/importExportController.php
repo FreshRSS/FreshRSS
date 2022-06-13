@@ -5,7 +5,10 @@
  */
 class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
+	/** @var FreshRSS_EntryDAO */
 	private $entryDAO;
+
+	/** @var FreshRSS_FeedDAO */
 	private $feedDAO;
 
 	/**
@@ -521,7 +524,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$feed->_name($name);
 			$feed->_website($website);
 			if (!empty($origin['disable'])) {
-				$feed->_ttl(-1 * FreshRSS_Context::$user_conf->ttl_default);
+				$feed->_mute(true);
 			}
 
 			// Call the extension hook

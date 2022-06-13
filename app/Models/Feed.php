@@ -162,15 +162,21 @@ class FreshRSS_Feed extends Minz_Model {
 	public function inError(): bool {
 		return $this->error;
 	}
+
 	/**
 	 * @param bool $raw true for database version combined with mute information, false otherwise
 	 */
 	public function ttl(bool $raw = false): int {
 		if ($raw) {
-			return $this->ttl * ($this->mute ? -1 : 1);
+			$ttl = $this->ttl;
+			if ($this->mute && FreshRSS_Feed::TTL_DEFAULT === $ttl) {
+				$ttl = FreshRSS_Context::$user_conf ? FreshRSS_Context::$user_conf->ttl_default : 3600;
+			}
+			return $ttl * ($this->mute ? -1 : 1);
 		}
 		return $this->ttl;
 	}
+
 	public function attributes($key = '') {
 		if ($key == '') {
 			return $this->attributes;
@@ -178,19 +184,11 @@ class FreshRSS_Feed extends Minz_Model {
 			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
 		}
 	}
+
 	public function mute(): bool {
 		return $this->mute;
 	}
-	// public function ttlExpire() {
-		// $ttl = $this->ttl;
-		// if ($ttl == self::TTL_DEFAULT) {	//Default
-			// $ttl = FreshRSS_Context::$user_conf->ttl_default;
-		// }
-		// if ($ttl == -1) {	//Never
-			// $ttl = 64000000;	//~2 years. Good enough for PubSubHubbub logic
-		// }
-		// return $this->lastUpdate + $ttl;
-	// }
+
 	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();

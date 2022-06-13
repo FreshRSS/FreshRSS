@@ -461,7 +461,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						}
 
 						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
-							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' . $url .
+							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' .
+								SimplePie_Misc::url_remove_credentials($url) .
 								' GUID ' . $entry->guid();
 							Minz_Log::warning($text, PSHB_LOG);
 							Minz_Log::warning($text);
@@ -519,7 +520,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 				}
 			} elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
-				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url(false));
+				Minz_Log::notice('Feed ' . SimplePie_Misc::url_remove_credentials($url) .
+					' moved permanently to ' .  SimplePie_Misc::url_remove_credentials($feed->url(false)));
 				$feedProperties['url'] = $feed->url();
 			}
 

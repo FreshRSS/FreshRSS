@@ -108,8 +108,6 @@ class FreshRSS_Import_Service {
 				if ($category) {
 					$nb_cats++;
 					$categories[] = $category;
-				} else {
-					$this->lastStatus = false;
 				}
 			}
 		}
@@ -213,9 +211,11 @@ class FreshRSS_Import_Service {
 		}
 
 		if (FreshRSS_Context::$isCli) {
-			fwrite(STDERR, 'FreshRSS error during OPML feed import from URL: ' . $url . ' in category ' . $parent_cat->id() . "\n");
+			fwrite(STDERR, 'FreshRSS error during OPML feed import from URL: ' .
+				SimplePie_Misc::url_remove_credentials($url) . ' in category ' . $parent_cat->id() . "\n");
 		} else {
-			Minz_Log::warning('Error during OPML feed import from URL: ' . $url . ' in category ' . $parent_cat->id());
+			Minz_Log::warning('Error during OPML feed import from URL: ' .
+				SimplePie_Misc::url_remove_credentials($url) . ' in category ' . $parent_cat->id());
 		}
 
 		return null;

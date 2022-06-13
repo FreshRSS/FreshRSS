@@ -447,6 +447,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	if ($c_status != 200 || $c_error != '' || $body === false) {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		$body = '';
 		// TODO: Implement HTTP 410 Gone
 	}
 	if ($body == false) {

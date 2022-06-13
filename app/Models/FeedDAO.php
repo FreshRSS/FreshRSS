@@ -105,13 +105,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'lastUpdate' => 0,
 				'pathEntries' => $feed->pathEntries(),
 				'httpAuth' => $feed->httpAuth(),
+				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
 			);
-			if ($feed->mute() || (
-				FreshRSS_Context::$user_conf != null &&	//When creating a new user
-				$feed->ttl() != FreshRSS_Context::$user_conf->ttl_default)) {
-				$values['ttl'] = $feed->ttl(true);
-			}
 
 			$id = $this->addFeed($values);
 			if ($id) {
@@ -141,12 +137,15 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'attributes' => $feed->attributes(),
 			];
 
-			$this->updateFeed($feed_search->id(), $values);
-		}
+			if (!$this->updateFeed($feed_search->id(), $values)) {
+				return false;
+			}
 
-		return $feed_search->id();
+			return $feed_search->id();
+		}
 	}
 
+	/** @return int|false */
 	public function updateFeed(int $id, array $valuesTmp) {
 		if (isset($valuesTmp['name'])) {
 			$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');

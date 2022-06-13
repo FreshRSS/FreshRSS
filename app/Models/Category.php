@@ -168,15 +168,57 @@ class FreshRSS_Category extends Minz_Model {
 		$cachePath = self::cacheFilename($url, $attributes);
 		$opml = httpGet($url, $cachePath, 'opml', $attributes);
 		if ($opml == '') {
+			Minz_Log::warning('Error getting dynamic OPML for category ' . $this->id() . '! ' .
+				SimplePie_Misc::url_remove_credentials($url));
 			return false;
 		}
 
+		$dryRunCategory = new FreshRSS_Category();
 		$importService = new FreshRSS_Import_Service();
-
-		//$dryRunCategory = new FreshRSS_Category();
-		$importService->importOpml($opml, $this, true, false);
+		$importService->importOpml($opml, $dryRunCategory, true, true);
 		if ($importService->lastStatus()) {
-			return true;
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$ok = true;
+
+			/** @var array<string,FreshRSS_Feed> */
+			$dryRunFeeds = [];
+			foreach ($dryRunCategory->feeds() as $dryRunFeed) {
+				$dryRunFeeds[$dryRunFeed->url()] = $dryRunFeed;
+			}
+
+			/** @var array<string,FreshRSS_Feed> */
+			$existingFeeds = [];
+			foreach ($this->feeds() as $existingFeed) {
+				$existingFeeds[$existingFeed->url()] = $existingFeed;
+				if (empty($dryRunFeeds[$existingFeed->url()])) {
+					// The feed does not exist in the new dynamic OPML, so mute (disable) that feed
+					$existingFeed->_mute(true);
+					$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
+						'ttl' => $existingFeed->ttl(true),
+					]) !== false);
+				}
+			}
+
+			foreach ($dryRunCategory->feeds() as $dryRunFeed) {
+				if (empty($existingFeeds[$dryRunFeed->url()])) {
+					// The feed does not exist in the current category, so add that feed
+					$dryRunFeed->_category($this->id());
+					$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
+				} else {
+					$existingFeed = $existingFeeds[$dryRunFeed->url()];
+					if ($existingFeed->mute()) {
+						// The feed already exists in the current category but was muted (disabled), so unmute (enable) again
+						$existingFeed->_mute(false);
+						$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
+							'ttl' => $existingFeed->ttl(true),
+						]) !== false);
+					}
+				}
+			}
+			return $ok;
+		} else {
+			Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
+				SimplePie_Misc::url_remove_credentials($url));
 		}
 
 		return false;
