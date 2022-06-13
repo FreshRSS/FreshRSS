@@ -110,7 +110,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($feed->mute() || (
 				FreshRSS_Context::$user_conf != null &&	//When creating a new user
 				$feed->ttl() != FreshRSS_Context::$user_conf->ttl_default)) {
-				$values['ttl'] = $feed->ttl() * ($feed->mute() ? -1 : 1);
+				$values['ttl'] = $feed->ttl(true);
 			}
 
 			$id = $this->addFeed($values);
@@ -120,6 +120,28 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			}
 
 			return $id;
+		} else {
+			// The feed already exists so make sure it is not muted
+			$feed->_ttl($feed_search->ttl());
+			$feed->_mute(false);
+
+			// Merge existing and import attributes
+			$existingAttributes = $feed_search->attributes();
+			$importAttributes = $feed->attributes();
+			$feed->_attributes('', array_merge_recursive($existingAttributes, $importAttributes));
+
+			// Update some values of the existing feed using the import
+			$values = [
+				'kind' => $feed->kind(),
+				'name' => $feed->name(),
+				'website' => $feed->website(),
+				'description' => $feed->description(),
+				'pathEntries' => $feed->pathEntries(),
+				'ttl' => $feed->ttl(true),
+				'attributes' => $feed->attributes(),
+			];
+
+			$this->updateFeed($feed_search->id(), $values);
 		}
 
 		return $feed_search->id();

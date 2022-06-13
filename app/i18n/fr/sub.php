@@ -117,7 +117,7 @@ return array(
 			'title' => 'Maintenance',	// IGNORE
 		),
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
-		'mute' => 'muet',
+		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',	// IGNORE
 		'priority' => array(

@@ -488,7 +488,8 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @param array<string,mixed> $attributes
 	 */
 	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
-		$html = getHtml($url, $attributes);
+		$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+		$html = httpGet($url, $cachePath, 'html', $attributes);
 		if (strlen($html) > 0) {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);

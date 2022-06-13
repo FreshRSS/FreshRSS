@@ -120,11 +120,13 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$cat = intval(Minz_Request::param('category', 0));
 
-			$mute = Minz_Request::param('mute', false);
+			$mute = boolval(Minz_Request::param('mute', false));
 			$ttl = intval(Minz_Request::param('ttl', FreshRSS_Feed::TTL_DEFAULT));
 			if ($mute && FreshRSS_Feed::TTL_DEFAULT === $ttl) {
 				$ttl = FreshRSS_Context::$user_conf->ttl_default;
 			}
+			$feed->_ttl($ttl);
+			$feed->_mute($mute);
 
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
@@ -195,8 +197,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
 
-			$feed_kind = Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
-			if ($feed_kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+			$feed->_kind(intval(Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS)));
+			if ($feed->kind() == FreshRSS_Feed::KIND_HTML_XPATH) {
 				$xPathSettings = [];
 				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
 				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '', true);
@@ -213,7 +215,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
-				'kind' => $feed_kind,
+				'kind' => $feed->kind(),
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
 				'website' => checkUrl(Minz_Request::param('website', '')),
 				'url' => checkUrl(Minz_Request::param('url', '')),
@@ -221,7 +223,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'pathEntries' => Minz_Request::param('path_entries', ''),
 				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
-				'ttl' => $ttl * ($mute ? -1 : 1),
+				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
 			);
 

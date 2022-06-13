@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',
 		'cancel' => 'Отменить',
 		'create' => 'Создать',
+		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
 		'demote' => 'Понизить',
 		'disable' => 'Отключить',
 		'empty' => 'Опустошить',

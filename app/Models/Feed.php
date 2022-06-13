@@ -162,7 +162,13 @@ class FreshRSS_Feed extends Minz_Model {
 	public function inError(): bool {
 		return $this->error;
 	}
-	public function ttl(): int {
+	/**
+	 * @param bool $raw true for database version combined with mute information, false otherwise
+	 */
+	public function ttl(bool $raw = false): int {
+		if ($raw) {
+			return $this->ttl * ($this->mute ? -1 : 1);
+		}
 		return $this->ttl;
 	}
 	public function attributes($key = '') {
@@ -248,10 +254,13 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _kind(int $value) {
 		$this->kind = $value;
 	}
+
+	/** @param int $value */
 	public function _category($value) {
 		$value = intval($value);
 		$this->category = $value >= 0 ? $value : 0;
 	}
+
 	public function _name(string $value) {
 		$this->name = $value == '' ? '' : trim($value);
 	}
@@ -281,6 +290,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _error($value) {
 		$this->error = (bool)$value;
+	}
+	public function _mute(bool $value) {
+		$this->mute = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);
@@ -584,7 +596,8 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$html = getHtml($feedSourceUrl, $attributes);
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+		$html = httpGet($feedSourceUrl, $cachePath, 'html', $attributes);
 		if (strlen($html) <= 0) {
 			return null;
 		}

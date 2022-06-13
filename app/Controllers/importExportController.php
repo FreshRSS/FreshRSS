@@ -96,7 +96,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$importService = new FreshRSS_Import_Service($username);
 
 		foreach ($list_files['opml'] as $opml_file) {
-			if (!$importService->importOpml($opml_file)) {
+			$importService->importOpml($opml_file);
+			if (!$importService->lastStatus()) {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, 'FreshRSS error during OPML import' . "\n");

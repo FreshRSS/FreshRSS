@@ -23,6 +23,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $name;
 	private $nbFeeds = -1;
 	private $nbNotRead = -1;
+	/** @var array<FreshRSS_Feed>|null */
 	private $feeds = null;
 	private $hasFeedsWithError = false;
 	private $attributes = [];
@@ -117,12 +118,24 @@ class FreshRSS_Category extends Minz_Model {
 	public function _name($value) {
 		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
 	}
+	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
 	public function _feeds($values) {
 		if (!is_array($values)) {
 			$values = array($values);
 		}
 
 		$this->feeds = $values;
+	}
+
+	/**
+	 * To manually add feeds to this category (not committing to database).
+	 * @param FreshRSS_Feed $feed
+	 */
+	public function addFeed($feed) {
+		if ($this->feeds === null) {
+			$this->feeds = [];
+		}
+		$this->feeds[] = $feed;
 	}
 
 	public function _attributes($key, $value) {
@@ -140,7 +153,32 @@ class FreshRSS_Category extends Minz_Model {
 		}
 	}
 
-	public function refreshDynamicOpml() {
-		// TODO
+	public static function cacheFilename(string $url, array $attributes): string {
+		$simplePie = customSimplePie($attributes);
+		$filename = $simplePie->get_cache_filename($url);
+		return CACHE_PATH . '/' . $filename . '.opml.xml';
+	}
+
+	public function refreshDynamicOpml(): bool {
+		$url = $this->attributes('opml_url');
+		if ($url == '') {
+			return false;
+		}
+		$attributes = [];	//TODO
+		$cachePath = self::cacheFilename($url, $attributes);
+		$opml = httpGet($url, $cachePath, 'opml', $attributes);
+		if ($opml == '') {
+			return false;
+		}
+
+		$importService = new FreshRSS_Import_Service();
+
+		//$dryRunCategory = new FreshRSS_Category();
+		$importService->importOpml($opml, $this, true, false);
+		if ($importService->lastStatus()) {
+			return true;
+		}
+
+		return false;
 	}
 }

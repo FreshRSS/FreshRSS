@@ -87,7 +87,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		// No tag of the same name
 		$sql = <<<'SQL'
 INSERT INTO `_category`(kind, name, attributes)
-SELECT * FROM (SELECT ? AS kind, TRIM(?) AS name, TRIM(?) AS attributes) c2
+SELECT * FROM (SELECT ABS(?) AS kind, TRIM(?) AS name, TRIM(?) AS attributes) c2
 WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -283,6 +283,7 @@ SQL;
 		}
 	}
 
+	/** @return FreshRSS_Category|null */
 	public function getDefault() {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
@@ -301,6 +302,8 @@ SQL;
 			return null;
 		}
 	}
+
+	/** @return int|bool */
 	public function checkDefault() {
 		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 

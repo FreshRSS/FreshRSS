@@ -46,9 +46,9 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" value="<?= $this->category->attributes('opml_url') ?>" />
-					<a class="btn" href="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
+					<button type="submit" class="btn" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
-					</a>
+					</button>
 					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('gen.short.blank_to_disable') ?></p>
