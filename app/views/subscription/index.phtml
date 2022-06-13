@@ -77,13 +77,16 @@
 
 <?php $class = $this->displaySlider ? ' active' : ''; ?>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
-	<?php
-		if (isset($this->feed)) {
-			$this->renderHelper('feed/update');
-		} elseif (isset($this->category)) {
-			$this->renderHelper('category/update');
-		}
-	?>
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if (isset($this->feed)) {
+				$this->renderHelper('feed/update');
+			} elseif (isset($this->category)) {
+				$this->renderHelper('category/update');
+			}
+		?>
+	</div>
 </aside>
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>

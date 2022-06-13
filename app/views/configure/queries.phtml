@@ -62,13 +62,16 @@
 </main>
 
 <?php $class = $this->displaySlider ? ' active' : ''; ?>
+<aside id="slider" class="scrollbar-thin<?= $class ?>">
+<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if ($this->query != null) {
+				$this->renderHelper('configure/query');
+			}
+		?>
+	</div>
+</aside>
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>
-<aside id="slider" class="scrollbar-thin<?= $class ?>">
-	<?php
-		if ($this->query != null) {
-			$this->renderHelper('configure/query');
-		}
-	?>
-</aside>

@@ -155,7 +155,7 @@ function open_slider_listener(ev) {
 			req.open('GET', a.href + '&ajax=1', true);
 			req.responseType = 'document';
 			req.onload = function (e) {
-				const slider = document.getElementById('slider');
+				const slider = document.getElementById('slider-content');
 				slider.scrollTop = 0;
 				slider.innerHTML = this.response.body.innerHTML;
 				context.ajax_loading = false;
