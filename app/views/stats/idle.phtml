@@ -30,7 +30,7 @@
 						$empty = $feed != null && $feed->nbEntries() == 0 ? ' empty' : '';
 				?>
 					<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>">
-						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
+						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>&ajax=1#slider" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
 						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
 							(<?= _t('admin.stats.number_entries', $feedInPeriod['nb_articles']) ?>)</span>
