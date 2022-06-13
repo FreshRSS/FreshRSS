@@ -143,6 +143,7 @@ People are sorted by name so please keep this order.
 * [rocka](https://github.com/rocka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rocka)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:romibi)
 * [Rosemary Le Faive](https://github.com/rosiel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rosiel)
+* [ryoku-cha](https://github.com/ryoku-cha): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ryoku-cha)
 * [Sandro Jäckel](https://github.com/SuperSandro2000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SuperSandro2000), [Web](https://supersandro.de/)
 * [Sebastian K](https://github.com/skrollme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrollme)
 * [shn7798](https://github.com/shn7798): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:shn7798), [Web](http://www.code2talk.com/)
