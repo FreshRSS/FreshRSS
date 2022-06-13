@@ -19,6 +19,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		try {
 			if ($name === 'kind') {	//v1.20.0
 				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN kind SMALLINT DEFAULT 0') !== false;
+			} elseif ($name === 'lastUpdate') {	//v1.20.0
+				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN `lastUpdate` BIGINT DEFAULT 0') !== false;
+			} elseif ($name === 'error') {	//v1.20.0
+				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN error SMALLINT DEFAULT 0') !== false;
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
@@ -71,7 +75,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				foreach (['kind', 'attributes'] as $column) {
+				foreach (['kind', 'lastUpdate', 'error', 'attributes'] as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
 					}
@@ -136,7 +140,7 @@ SQL;
 	public function updateCategory($id, $valuesTmp) {
 		// No tag of the same name
 		$sql = <<<'SQL'
-UPDATE `_category` SET kind=?, name=?, attributes=? WHERE id=?
+UPDATE `_category` SET name=?, kind=?, attributes=? WHERE id=?
 AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = ?)
 SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -146,8 +150,8 @@ SQL;
 			$valuesTmp['attributes'] = [];
 		}
 		$values = array(
-			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			$valuesTmp['name'],
+			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 			$id,
 			$valuesTmp['name'],
@@ -161,6 +165,24 @@ SQL;
 				return $this->updateCategory($id, $valuesTmp);
 			}
 			Minz_Log::error('SQL error updateCategory: ' . json_encode($info));
+			return false;
+		}
+	}
+
+	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0) {
+		$sql = 'UPDATE `_category` SET `lastUpdate`=?, error=? WHERE id=?';
+		$values = [
+			$mtime <= 0 ? time() : $mtime,
+			$inError ? 1 : 0,
+			$id,
+		];
+		$stm = $this->pdo->prepare($sql);
+
+		if ($stm && $stm->execute($values)) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			return false;
 		}
 	}
@@ -182,7 +204,7 @@ SQL;
 	}
 
 	public function selectAll() {
-		$sql = 'SELECT id, kind, name, attributes FROM `_category`';
+		$sql = 'SELECT id, name, kind, `lastUpdate`, error, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -257,7 +279,7 @@ SQL;
 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
-			$sql = 'SELECT c.id AS c_id, c.kind AS c_kind, c.name AS c_name, c.attributes AS c_attributes, '
+			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes, '
 				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 				. 'FROM `_category` c '
 				. 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
@@ -427,6 +449,8 @@ SQL;
 			);
 			$cat->_id($previousLine['c_id']);
 			$cat->_kind($previousLine['c_kind']);
+			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
+			$cat->_error($previousLine['c_error'] ?? false);
 			$cat->_attributes('', $previousLine['c_attributes']);
 			$list[$previousLine['c_id']] = $cat;
 		}
@@ -447,6 +471,8 @@ SQL;
 			);
 			$cat->_id($dao['id']);
 			$cat->_kind($dao['kind']);
+			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
+			$cat->_error($dao['error'] ?? false);
 			$cat->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
 			$list[$key] = $cat;
 		}

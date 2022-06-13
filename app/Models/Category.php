@@ -14,6 +14,8 @@ class FreshRSS_Category extends Minz_Model {
 	 */
 	const KIND_DYNAMIC_OPML = 2;
 
+	const TTL_DEFAULT = 0;
+
 	/**
 	 * @var int
 	 */
@@ -27,6 +29,10 @@ class FreshRSS_Category extends Minz_Model {
 	private $feeds = null;
 	private $hasFeedsWithError = false;
 	private $attributes = [];
+	/** @var int */
+	private $lastUpdate = 0;
+	/** @var bool */
+	private $error = false;
 
 	public function __construct(string $name = '', $feeds = null) {
 		$this->_name($name);
@@ -50,6 +56,18 @@ class FreshRSS_Category extends Minz_Model {
 	}
 	public function name(): string {
 		return $this->name;
+	}
+	public function lastUpdate(): int {
+		return $this->lastUpdate;
+	}
+	public function _lastUpdate(int $value) {
+		$this->lastUpdate = $value;
+	}
+	public function inError(): bool {
+		return $this->error;
+	}
+	public function _error($value) {
+		$this->error = (bool)$value;
 	}
 	public function isDefault(): bool {
 		return $this->id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
@@ -164,63 +182,66 @@ class FreshRSS_Category extends Minz_Model {
 		if ($url == '') {
 			return false;
 		}
+		$ok = true;
 		$attributes = [];	//TODO
 		$cachePath = self::cacheFilename($url, $attributes);
 		$opml = httpGet($url, $cachePath, 'opml', $attributes);
 		if ($opml == '') {
 			Minz_Log::warning('Error getting dynamic OPML for category ' . $this->id() . '! ' .
 				SimplePie_Misc::url_remove_credentials($url));
-			return false;
-		}
+			$ok = false;
+		} else {
+			$dryRunCategory = new FreshRSS_Category();
+			$importService = new FreshRSS_Import_Service();
+			$importService->importOpml($opml, $dryRunCategory, true, true);
+			if ($importService->lastStatus()) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
 
-		$dryRunCategory = new FreshRSS_Category();
-		$importService = new FreshRSS_Import_Service();
-		$importService->importOpml($opml, $dryRunCategory, true, true);
-		if ($importService->lastStatus()) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$ok = true;
-
-			/** @var array<string,FreshRSS_Feed> */
-			$dryRunFeeds = [];
-			foreach ($dryRunCategory->feeds() as $dryRunFeed) {
-				$dryRunFeeds[$dryRunFeed->url()] = $dryRunFeed;
-			}
-
-			/** @var array<string,FreshRSS_Feed> */
-			$existingFeeds = [];
-			foreach ($this->feeds() as $existingFeed) {
-				$existingFeeds[$existingFeed->url()] = $existingFeed;
-				if (empty($dryRunFeeds[$existingFeed->url()])) {
-					// The feed does not exist in the new dynamic OPML, so mute (disable) that feed
-					$existingFeed->_mute(true);
-					$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
-						'ttl' => $existingFeed->ttl(true),
-					]) !== false);
+				/** @var array<string,FreshRSS_Feed> */
+				$dryRunFeeds = [];
+				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
+					$dryRunFeeds[$dryRunFeed->url()] = $dryRunFeed;
 				}
-			}
 
-			foreach ($dryRunCategory->feeds() as $dryRunFeed) {
-				if (empty($existingFeeds[$dryRunFeed->url()])) {
-					// The feed does not exist in the current category, so add that feed
-					$dryRunFeed->_category($this->id());
-					$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
-				} else {
-					$existingFeed = $existingFeeds[$dryRunFeed->url()];
-					if ($existingFeed->mute()) {
-						// The feed already exists in the current category but was muted (disabled), so unmute (enable) again
-						$existingFeed->_mute(false);
+				/** @var array<string,FreshRSS_Feed> */
+				$existingFeeds = [];
+				foreach ($this->feeds() as $existingFeed) {
+					$existingFeeds[$existingFeed->url()] = $existingFeed;
+					if (empty($dryRunFeeds[$existingFeed->url()])) {
+						// The feed does not exist in the new dynamic OPML, so mute (disable) that feed
+						$existingFeed->_mute(true);
 						$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
 							'ttl' => $existingFeed->ttl(true),
 						]) !== false);
 					}
 				}
+
+				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
+					if (empty($existingFeeds[$dryRunFeed->url()])) {
+						// The feed does not exist in the current category, so add that feed
+						$dryRunFeed->_category($this->id());
+						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
+					} else {
+						$existingFeed = $existingFeeds[$dryRunFeed->url()];
+						if ($existingFeed->mute()) {
+							// The feed already exists in the current category but was muted (disabled), so unmute (enable) again
+							$existingFeed->_mute(false);
+							$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
+								'ttl' => $existingFeed->ttl(true),
+							]) !== false);
+						}
+					}
+				}
+			} else {
+				$ok = false;
+				Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
+					SimplePie_Misc::url_remove_credentials($url));
 			}
-			return $ok;
-		} else {
-			Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
-				SimplePie_Misc::url_remove_credentials($url));
 		}
 
-		return false;
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO->updateLastUpdate($this->id(), !$ok);
+
+		return $ok;
 	}
 }

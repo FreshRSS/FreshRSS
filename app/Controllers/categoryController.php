@@ -224,4 +224,12 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 		Minz_Request::forward($url_redirect, true);
 	}
+
+	/** @return int|false */
+	public static function refreshDynamicOpmls() {
+		// TODO
+
+		// FreshRSS_Context::$user_conf->dynamic_opml_ttl_default
+		return 0;
+	}
 }

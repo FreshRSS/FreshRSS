@@ -213,7 +213,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error updateLastUpdate: ' . $info[2]);
+			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			return false;
 		}
 	}

@@ -1341,6 +1341,8 @@ function init_actualize() {
 		}
 		context.ajax_loading = true;
 
+		// TODO: Refresh dynamic OPML
+
 		const req = new XMLHttpRequest();
 		req.open('POST', './?c=javascript&a=actualize', true);
 		req.responseType = 'json';

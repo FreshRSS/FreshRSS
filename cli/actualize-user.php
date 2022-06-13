@@ -18,6 +18,13 @@ $username = cliInitUser($options['user']);
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
+$nb = FreshRSS_category_Controller::refreshDynamicOpmls();
+if ($nb === false) {
+	fwrite(STDERR, "FreshRSS error refreshing dynamic OPMLs!\n");
+} elseif ($nb > 0) {
+	echo "FreshRSS refreshed $nb dynamic OPMLs for $username\n";
+}
+
 list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
 
 echo "FreshRSS actualized $nbUpdatedFeeds feeds for $username ($nbNewArticles new articles)\n";
