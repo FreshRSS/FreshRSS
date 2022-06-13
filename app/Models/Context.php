@@ -43,6 +43,7 @@ class FreshRSS_Context {
 	public static $state = 0;
 	public static $order = 'DESC';
 	public static $number = 0;
+	/** @var FreshRSS_BooleanSearch */
 	public static $search;
 	public static $first_id = '';
 	public static $next_id = '';
@@ -113,6 +114,8 @@ class FreshRSS_Context {
 		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
+
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
 
 		//Legacy
 		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
