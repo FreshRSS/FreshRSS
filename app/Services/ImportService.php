@@ -96,7 +96,7 @@ class FreshRSS_Import_Service {
 
 			if (!$category) {
 				// We weren't able to create the category because the user
-				// reached the limit (or because an error occured), so we'll
+				// reached the limit (or because an error occurred), so we'll
 				// attach the feeds to the default category.
 				$category = $default_category;
 				$is_ok_status = false;
