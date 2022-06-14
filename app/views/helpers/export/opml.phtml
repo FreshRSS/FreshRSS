@@ -54,4 +54,5 @@ foreach ($this->categories as $key => $cat) {
 	}
 }
 
-echo libopml_render($opml_array);
+$libopml = new \marienfressinaud\LibOpml\LibOpml(true);
+echo $libopml->render($opml_array, false);

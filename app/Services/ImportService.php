@@ -16,10 +16,6 @@ class FreshRSS_Import_Service {
 	 * @param string $username
 	 */
 	public function __construct($username) {
-		require_once(LIB_PATH . '/lib_opml/src/LibOpml/Exception.php');
-		require_once(LIB_PATH . '/lib_opml/src/LibOpml/LibOpml.php');
-		require_once(LIB_PATH . '/lib_opml/src/functions.php');
-
 		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 	}
@@ -34,7 +30,8 @@ class FreshRSS_Import_Service {
 	public function importOpml($opml_file) {
 		$opml_array = array();
 		try {
-			$opml_array = libopml_parse_string($opml_file, false);
+			$libopml = new \marienfressinaud\LibOpml\LibOpml(false);
+			$opml_array = $libopml->parseString($opml_file);
 		} catch (\marienfressinaud\LibOpml\Exception $e) {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS error during OPML parsing: ' . $e->getMessage() . "\n");

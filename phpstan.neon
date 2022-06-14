@@ -8,7 +8,7 @@ parameters:
 		- .
 	excludePaths:
 		analyse:
-			- lib/lib_opml/*
+			- lib/marienfressinaud/*
 			- lib/phpmailer/*
 			- lib/SimplePie/*
 		analyseAndScan:
