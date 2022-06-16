@@ -1444,7 +1444,7 @@ br {
 	z-index: 100;
 }
 
-#slider:target {
+#slider.active:target {
 	width: 750px;
 }
 
@@ -1455,7 +1455,7 @@ br {
 	cursor: pointer;
 }
 
-#slider:target + #close-slider {
+#slider.active:target + #close-slider {
 	background: rgba(0, 0, 0, 0.2);
 	font-size: 0;
 	right: 0;
@@ -1466,13 +1466,20 @@ br {
 	display: none;
 }
 
-#slider:target + #close-slider img {
+#slider.active:target + #close-slider img {
 	padding: 0.5rem;
 	display: inline-block;
 	position: absolute;
 	top: 0.5rem;
 	right: 0.5rem;
 	filter: grayscale(100%) brightness(2.5);
+}
+
+#slider-content .loader {
+	height: 90vh;
+	background-image: url('loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 /*=== SLIDESHOW */
@@ -1639,6 +1646,7 @@ input:checked + .slide-container .properties {
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,
+#slider .toggle_aside,
 .nav_menu .toggle_aside,
 .configure .dropdown-header-close {
 	display: none;
@@ -1708,6 +1716,19 @@ input:checked + .slide-container .properties {
 
 	header .item.search form {
 		display: none;
+	}
+
+	.aside .toggle_aside,
+	#panel .close,
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
+		background: #f6f6f6;
+		display: block;
+		width: 100%;
+		height: 50px;
+		border-bottom: 1px solid #ddd;
+		line-height: 50px;
+		text-align: center;
 	}
 
 	.form-group {
@@ -1880,9 +1901,7 @@ input:checked + .slide-container .properties {
 		height: 30px;
 	}
 
-	#slider.active {
-		right: 0;
-		top: 50px;
+	#slider.active:target {
 		width: 100%;
 	}
 
@@ -1890,21 +1909,14 @@ input:checked + .slide-container .properties {
 		display: initial;
 	}
 
-	#close-slider.active img {
+	#slider.active:target #close-slider img {
 		display: initial;
 		position: initial;
 		filter: initial;
 	}
 
-	#close-slider.active {
-		background: #f6f6f6;
-		display: block;
-		width: 100%;
-		height: 50px;
-		z-index: 10;
-		text-align: center;
-		line-height: 50px;
-		border-bottom: 1px solid #ddd;
+	#slider.active:target + #close-slider {
+		display: none;
 	}
 
 	.stat.half {
