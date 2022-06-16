@@ -305,6 +305,26 @@ SQL;
 		}
 	}
 
+	/** @return array<FreshRSS_Category> */
+	public function listCategoriesOrderUpdate(int $defaultCacheDuration = 86400, int $limit = 0) {
+		$sql = 'SELECT * FROM `_category` WHERE kind = :kind AND `lastUpdate` < :lu ORDER BY `lastUpdate`'
+			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+		$stm = $this->pdo->prepare($sql);
+		if ($stm &&
+			$stm->bindValue(':kind', FreshRSS_Category::KIND_DYNAMIC_OPML, PDO::PARAM_INT) &&
+			$stm->bindValue(':lu', time() - $defaultCacheDuration, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return self::daoToCategory($stm->fetchAll(PDO::FETCH_ASSOC));
+		} else {
+			$info = $stm ? $stm->errorInfo() : $this->pdo->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->listCategoriesOrderUpdate($defaultCacheDuration, $limit);
+			}
+			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+			return [];
+		}
+	}
+
 	/** @return FreshRSS_Category|null */
 	public function getDefault() {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';

@@ -51,6 +51,15 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.name_exists'), $url_redirect);
 			}
 
+			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
+			if ($opml_url != '') {
+				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
+				$cat->_attributes('opml_url', $opml_url);
+			} else {
+				$cat->_kind(FreshRSS_Category::KIND_NORMAL);
+				$cat->_attributes('opml_url', null);
+			}
+
 			if ($catDAO->addCategoryObject($cat)) {
 				$url_redirect['a'] = 'index';
 				Minz_Request::good(_t('feedback.sub.category.created', $cat->name()), $url_redirect);
@@ -215,21 +224,38 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			if ($category->refreshDynamicOpml()) {
-				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
+			$ok = $category->refreshDynamicOpml();
+
+			if (Minz_Request::param('ajax')) {
+				Minz_Request::setGoodNotification(_t('feedback.sub.category.updated'));
+				$this->view->_layout(false);
 			} else {
-				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
+				if ($ok) {
+					Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
+				} else {
+					Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
+				}
+				Minz_Request::forward($url_redirect, true);
 			}
 		}
-
-		Minz_Request::forward($url_redirect, true);
 	}
 
-	/** @return int|false */
+	/** @return array<string,int> */
 	public static function refreshDynamicOpmls() {
-		// TODO
-
-		// FreshRSS_Context::$user_conf->dynamic_opml_ttl_default
-		return 0;
+		$successes = 0;
+		$errors = 0;
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::$user_conf->dynamic_opml_ttl_default ?? 86400);
+		foreach ($categories as $category) {
+			if ($category->refreshDynamicOpml()) {
+				$successes++;
+			} else {
+				$errors++;
+			}
+		}
+		return [
+			'successes' => $successes,
+			'errors' => $errors,
+		];
 	}
 }

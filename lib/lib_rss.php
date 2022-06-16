@@ -398,7 +398,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
-		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . SimplePie_Misc::url_remove_credentials($url));
 	}
 
 	$accept = '*/*;q=0.8';

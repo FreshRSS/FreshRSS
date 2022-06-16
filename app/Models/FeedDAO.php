@@ -378,6 +378,7 @@ SQL;
 
 	/**
 	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
+	 * @return array<FreshRSS_Feed>
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0) {
 		$this->updateTTL();
@@ -394,7 +395,7 @@ SQL;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->listFeedsOrderUpdate($defaultCacheDuration);
+				return $this->listFeedsOrderUpdate($defaultCacheDuration, $limit);
 			}
 			Minz_Log::error('SQL error listFeedsOrderUpdate: ' . $info[2]);
 			return array();

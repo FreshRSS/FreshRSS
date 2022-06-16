@@ -622,6 +622,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->minorDbMaintenance();
 		} else {
+			FreshRSS_category_Controller::refreshDynamicOpmls();
 			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, $noCommit, $maxFeeds);
 		}
 

@@ -115,9 +115,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 	}
 
 	// Update unread: category
-	elem = document.getElementById(feed_id).closest('.category');
-	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+	elem = document.getElementById(feed_id);
+	elem = elem ? elem.closest('.category') : null;
 	if (elem) {
+		feed_unreads = str2int(elem.getAttribute('data-unread'));
 		elem.setAttribute('data-unread', feed_unreads + nb);
 		elem = elem.querySelector('.title');
 		if (elem) {
@@ -1287,9 +1288,11 @@ function loadDynamicTags(div) {
 }
 
 // <actualize>
-let feed_processed = 0;
+let feeds_processed = 0;
+let categories_processed = 0;
+let to_process = 0;
 
-function updateFeed(feeds, feeds_count) {
+function refreshFeed(feeds, feeds_count) {
 	const feed = feeds.pop();
 	if (!feed) {
 		return;
@@ -1297,14 +1300,15 @@ function updateFeed(feeds, feeds_count) {
 	const req = new XMLHttpRequest();
 	req.open('POST', feed.url, true);
 	req.onloadend = function (e) {
+		feeds_processed++;
 		if (this.status != 200) {
-			return badAjax(false);
+			badAjax(false);
+		} else {
+			const div = document.getElementById('actualizeProgress');
+			div.querySelector('.progress').innerHTML = (categories_processed + feeds_processed) + ' / ' + to_process;
+			div.querySelector('.title').innerHTML = feed.title;
 		}
-		feed_processed++;
-		const div = document.getElementById('actualizeProgress');
-		div.querySelector('.progress').innerHTML = feed_processed + ' / ' + feeds_count;
-		div.querySelector('.title').innerHTML = feed.title;
-		if (feed_processed === feeds_count) {
+		if (feeds_processed === feeds_count) {
 			// Empty request to commit new articles
 			const req2 = new XMLHttpRequest();
 			req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
@@ -1317,7 +1321,7 @@ function updateFeed(feeds, feeds_count) {
 				noCommit: 0,
 			}));
 		} else {
-			updateFeed(feeds, feeds_count);
+			refreshFeed(feeds, feeds_count);
 		}
 	};
 	req.setRequestHeader('Content-Type', 'application/json');
@@ -1327,8 +1331,73 @@ function updateFeed(feeds, feeds_count) {
 	}));
 }
 
+function refreshFeeds(json) {
+	feeds_processed = 0;
+	if (!json.feeds || json.feeds.length === 0) {
+		// Empty request to commit new articles
+		const req2 = new XMLHttpRequest();
+		req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
+		req2.onloadend = function (e) {
+			context.ajax_loading = false;
+		};
+		req2.setRequestHeader('Content-Type', 'application/json');
+		req2.send(JSON.stringify({
+			_csrf: context.csrf,
+			noCommit: 0,
+		}));
+	} else {
+		const feeds_count = json.feeds.length;
+		for (let i = 10; i > 0; i--) {
+			refreshFeed(json.feeds, feeds_count);
+		}
+	}
+}
+
+function refreshDynamicOpml(categories, categories_count, next) {
+	const category = categories.pop();
+	if (!category) {
+		return;
+	}
+	const req = new XMLHttpRequest();
+	req.open('POST', category.url, true);
+	req.onloadend = function (e) {
+		categories_processed++;
+		if (this.status != 200) {
+			badAjax(false);
+		} else {
+			const div = document.getElementById('actualizeProgress');
+			div.querySelector('.progress').innerHTML = (categories_processed + feeds_processed) + ' / ' + to_process;
+			div.querySelector('.title').innerHTML = category.title;
+		}
+		if (categories_processed === categories_count) {
+			if (next) { next(); }
+		} else {
+			refreshDynamicOpml(categories, categories_count, next);
+		}
+	};
+	req.setRequestHeader('Content-Type', 'application/json');
+	req.send(JSON.stringify({
+		_csrf: context.csrf,
+		noCommit: 1,
+	}));
+}
+
+function refreshDynamicOpmls(json, next) {
+	categories_processed = 0;
+	if (json.categories && json.categories.length > 0) {
+		const categories_count = json.categories.length;
+		for (let i = 10; i > 0; i--) {
+			refreshDynamicOpml(json.categories, categories_count, next);
+		}
+	} else {
+		if (next) { next(); }
+	}
+}
+
 function init_actualize() {
 	let auto = false;
+	let nbCategoriesFirstRound = 0;
+	let skipCategories = false;
 
 	const actualize = document.getElementById('actualize');
 	if (!actualize) {
@@ -1341,8 +1410,6 @@ function init_actualize() {
 		}
 		context.ajax_loading = true;
 
-		// TODO: Refresh dynamic OPML
-
 		const req = new XMLHttpRequest();
 		req.open('POST', './?c=javascript&a=actualize', true);
 		req.responseType = 'json';
@@ -1354,33 +1421,29 @@ function init_actualize() {
 			if (!json) {
 				return badAjax(false);
 			}
-			if (auto && json.feeds.length < 1) {
+			if (auto && json.categories.length < 1 && json.feeds.length < 1) {
 				auto = false;
 				context.ajax_loading = false;
 				return false;
 			}
-			if (json.feeds.length === 0) {
-				openNotification(json.feedback_no_refresh, 'good');
-				// Empty request to commit new articles
-				const req2 = new XMLHttpRequest();
-				req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
-				req2.onloadend = function (e) {
-					context.ajax_loading = false;
-				};
-				req2.setRequestHeader('Content-Type', 'application/json');
-				req2.send(JSON.stringify({
-					_csrf: context.csrf,
-					noCommit: 0,
-				}));
-				return;
-			}
-			// Progress bar
-			const feeds_count = json.feeds.length;
-			document.body.insertAdjacentHTML('beforeend', '<div id="actualizeProgress" class="notification good">' +
+			to_process = json.categories.length + json.feeds.length + nbCategoriesFirstRound;
+			if (json.categories.length + json.feeds.length > 0 && !document.getElementById('actualizeProgress')) {
+				document.body.insertAdjacentHTML('beforeend', '<div id="actualizeProgress" class="notification good">' +
 					json.feedback_actualize + '<br /><span class="title">/</span><br /><span class="progress">0 / ' +
-					feeds_count + '</span></div>');
-			for (let i = 10; i > 0; i--) {
-				updateFeed(json.feeds, feeds_count);
+					to_process + '</span></div>');
+			} else {
+				openNotification(json.feedback_no_refresh, 'good');
+			}
+			if (json.categories.length > 0 && !skipCategories) {
+				skipCategories = true;	// To avoid risk of infinite loop
+				nbCategoriesFirstRound = json.categories.length;
+				// If some dynamic OPML categories are refreshed, need to reload the list of feeds before updating them
+				refreshDynamicOpmls(json, () => {
+					context.ajax_loading = false;
+					actualize.click();
+				});
+			} else {
+				refreshFeeds(json);
 			}
 		};
 		req.setRequestHeader('Content-Type', 'application/json');
