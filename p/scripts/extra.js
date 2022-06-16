@@ -148,16 +148,16 @@ function open_slider_listener(ev) {
 	const a = ev.target.closest('.open-slider');
 	if (a) {
 		if (!context.ajax_loading) {
-			location.href = '#slider'; // close menu/dropdown
 			context.ajax_loading = true;
-
+			const slider = document.getElementById('slider');
+			const slider_content = document.getElementById('slider-content');
 			const req = new XMLHttpRequest();
+			slider_content.innerHTML = '';
 			req.open('GET', a.href + '&ajax=1', true);
 			req.responseType = 'document';
 			req.onload = function (e) {
-				const slider = document.getElementById('slider');
-				const slider_content = document.getElementById('slider-content');
-				slider_content.scrollTop = 0;
+				location.href = '#slider'; // close menu/dropdown
+				slider.scrollTop = 0;
 				slider_content.innerHTML = this.response.body.innerHTML;
 				context.ajax_loading = false;
 				slider.dispatchEvent(freshrssSliderLoadEvent);
