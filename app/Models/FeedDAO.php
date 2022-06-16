@@ -31,25 +31,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	/** @return int|false */
 	public function addFeed(array $valuesTmp) {
-		$sql = '
-			INSERT INTO `_feed`
-				(
-					url,
-					kind,
-					category,
-					name,
-					website,
-					description,
-					`lastUpdate`,
-					priority,
-					`pathEntries`,
-					`httpAuth`,
-					error,
-					ttl,
-					attributes
-				)
-				VALUES
-				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `_feed` (url, kind, category, name, website, description, `lastUpdate`, priority, `pathEntries`, `httpAuth`, error, ttl, attributes)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
