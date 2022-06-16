@@ -57,10 +57,14 @@ $opml_array = array(
 
 if (!empty($this->categories)) {
 	foreach ($this->categories as $key => $cat) {
-		$opml_array['body'][$key] = [
+		$outline = [
 			'text' => $cat->name(),
 			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
 		];
+		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
+			$outline['frss:opmlUrl'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $cat->attributes('opml_url')];;
+		}
+		$opml_array['body'][$key] = $outline;
 	}
 }
 

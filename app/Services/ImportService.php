@@ -235,6 +235,21 @@ class FreshRSS_Import_Service {
 		if (!$flatten) {
 			$catName = Minz_Helper::htmlspecialchars_utf8($cat_elt['text']);
 			$cat = new FreshRSS_Category($catName);
+
+			foreach ($cat_elt as $key => $value) {
+				if (is_array($value) && !empty($value['value']) && ($value['namespace'] ?? '') === FreshRSS_Export_Service::FRSS_NAMESPACE) {
+					switch ($key) {
+						case 'opmlUrl':
+							$opml_url = checkUrl($value['value']);
+							if ($opml_url != '') {
+								$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
+								$cat->_attributes('opml_url', $opml_url);
+							}
+							break;
+					}
+				}
+			}
+
 			if (!$dryRun) {
 				$id = $this->catDAO->addCategoryObject($cat);
 				if ($id == false) {
