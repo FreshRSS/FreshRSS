@@ -155,9 +155,10 @@ function open_slider_listener(ev) {
 			req.open('GET', a.href + '&ajax=1', true);
 			req.responseType = 'document';
 			req.onload = function (e) {
-				const slider = document.getElementById('slider-content');
-				slider.scrollTop = 0;
-				slider.innerHTML = this.response.body.innerHTML;
+				const slider = document.getElementById('slider');
+				const slider_content = document.getElementById('slider-content');
+				slider_content.scrollTop = 0;
+				slider_content.innerHTML = this.response.body.innerHTML;
 				context.ajax_loading = false;
 				slider.dispatchEvent(freshrssSliderLoadEvent);
 			};
