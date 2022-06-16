@@ -75,7 +75,7 @@
 	</div>
 </main>
 
-<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<?php $class = isset($this->feed) || isset($this->category) ? ' active' : ''; ?>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
 	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
 	<div id="slider-content">
@@ -88,6 +88,6 @@
 		?>
 	</div>
 </aside>
-<a href="#" id="close-slider" class="<?= $class ?>">
+<a href="#" id="close-slider">
 	<?= _i('close') ?>
 </a>

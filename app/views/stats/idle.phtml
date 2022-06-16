@@ -50,14 +50,14 @@
 	<?php } ?>
 </main>
 
-<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<?php $class = isset($this->feed) ? ' active' : ''; ?>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
-<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
 	<div id="slider-content">
 		<?php
-			if (isset($this->feed)) {
-				$this->renderHelper('feed/update');
-			}
+		if (isset($this->feed)) {
+			$this->renderHelper('feed/update');
+		}
 		?>
 	</div>
 </aside>

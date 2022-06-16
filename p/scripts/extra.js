@@ -157,6 +157,7 @@ function open_slider_listener(ev) {
 			req.responseType = 'document';
 			req.onload = function (e) {
 				location.href = '#slider'; // close menu/dropdown
+				slider.classList.add('active');
 				slider.scrollTop = 0;
 				slider_content.innerHTML = this.response.body.innerHTML;
 				context.ajax_loading = false;
