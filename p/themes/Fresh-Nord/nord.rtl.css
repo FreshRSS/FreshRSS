@@ -254,7 +254,6 @@ a.btn {
 
 .dropdown-menu > .item:hover > a {
 	text-decoration: none;
-	background-color: var(--bg);
 }
 
 .dropdown-close {
