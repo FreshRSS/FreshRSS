@@ -148,7 +148,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	// Update unread: title
 	document.title = document.title.replace(/^((?:\([\s0-9]+\) )?)/, function (m, p1) {
 		const feed = document.getElementById(feed_id);
-		if (article || feed.closest('.active')) {
+		if (article || (feed && feed.closest('.active'))) {
 			isCurrentView = true;
 			return incLabel(p1, nb, true);
 		} else if (document.querySelector('.all.active')) {
