@@ -45,7 +45,12 @@
 			<label class="group-name" for="category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
 				<select name="category" id="category">
-				<?php foreach ($this->categories as $cat) { ?>
+				<?php
+					foreach ($this->categories as $cat) {
+						if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) {
+							continue;
+						}
+				?>
 				<option value="<?= $cat->id() ?>"<?= $cat->id() == ( Minz_Request::param('cat_id') ?: 1 ) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
