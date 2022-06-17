@@ -89,7 +89,9 @@
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
-					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?= $cat->name() ?></a>
+					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?=
+						$cat->name()
+					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML): ?><span title="<?= _t('sub.category.dynamic_opml') ?>">🗲</span><?php endif; ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
