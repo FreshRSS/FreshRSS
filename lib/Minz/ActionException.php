@@ -4,7 +4,7 @@ class Minz_ActionException extends Minz_Exception {
 		// Just for security, as we are not supposed to get non-alphanumeric characters.
 		$action_name = rawurlencode($action_name);
 
-		$message = "Invalid action name “${action_name}” for controller “${controller_name}”.";
+		$message = "Invalid action name “{$action_name}” for controller “{$controller_name}”.";
 		parent::__construct ($message, $code);
 	}
 }
