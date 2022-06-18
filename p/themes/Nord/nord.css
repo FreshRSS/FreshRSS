@@ -500,9 +500,6 @@ img.favicon {
 
 }
 
-.category .title.error::before {
-	color: var(--accent-light);
-}
 
 .item.feed.error > .item-title {
 	color: var(--accent-light);
@@ -768,6 +765,7 @@ li.item.active {
 }
 
 .category .title.error::before {
+	color: var(--accent-light);
 	content: "⚠ ";
 }
 
