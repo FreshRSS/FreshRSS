@@ -13,6 +13,8 @@
 	--accent: #81a1c1;
 	--accent-light: #bf616a;
 	--code: #ebcb8b;
+	--alert: #a3be8c;
+	--alert-bg: #8fbcbb;
 	--code-bg: #2e3440;
 }
 
@@ -305,6 +307,12 @@ a.btn {
 	margin: 15px auto;
 	padding: 10px 15px;
 	font-size: 0.9em;
+	border-radius: 6px;
+}
+
+.alert-success {
+	color: var(--bg);
+	background-color: var(--alert-bg)
 }
 
 .alert-head {
@@ -313,6 +321,16 @@ a.btn {
 
 .alert > a {
 	text-decoration: underline;
+}
+
+.alert-warn {
+	background: var(--code);
+	color: var(--bg);
+}
+
+.alert-error {
+	background: var(--accent-light);
+	color: var(--bg);
 }
 
 /*=== Icons */
@@ -484,6 +502,10 @@ img.favicon {
 
 }
 
+.category .title.error::before {
+	color: var(--accent-light);
+}
+
 .item.feed.error > .item-title {
 	color: var(--accent-light);
 }
@@ -625,6 +647,9 @@ li.item.active {
 	padding: 10px 20px;
 	overflow: auto;
 	font-size: 0.9rem;
+	border: 1px solid var(--accent);
+	border-radius: 6px;
+
 }
 
 .content code {
