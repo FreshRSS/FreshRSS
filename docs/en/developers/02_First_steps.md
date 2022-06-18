@@ -84,7 +84,7 @@ Tests can be run locally, e.g. by running `make test-all`, and several problems 
 Here are the dependencies that need to be manually installed prior to running the fixes & tests.
 
 ```sh
-apt update && apt install --no-install-recommends -y make php-cli php-mbstring php-xml npm
+sudo apt update && sudo apt install --no-install-recommends -y make php-cli php-mbstring php-xml npm
 
 make fix-all
 make test-all
