@@ -324,12 +324,12 @@ a.btn {
 }
 
 .alert-warn {
-	background: var(--code);
+	background-color: var(--code);
 	color: var(--bg);
 }
 
 .alert-error {
-	background: var(--accent-light);
+	background-color: var(--accent-light);
 	color: var(--bg);
 }
 
