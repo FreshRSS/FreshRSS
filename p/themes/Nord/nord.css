@@ -31,7 +31,7 @@
 html, body {
 	background: var(--bg);
 	color: var(--text);
-	font-family: var(--sans-font) !important;
+	font-family: var(--sans-font);
 }
 
 /*=== Links */
@@ -41,13 +41,11 @@ a {
 
 a:hover {
 	color: var(--accent);
-	/*background-color: var(--accent-bg) !important;*/
 }
 
 
 kbd {
 	color: var(--code);
-	/*border: 1px solid var(--border);*/
 	background-color: var(--accent-bg);
 }
 
@@ -77,7 +75,7 @@ input, select, textarea {
 }
 
 button {
-	font-family: var(--sans-font) !important;
+	font-family: var(--sans-font);
 }
 
 button.as-link,
@@ -151,7 +149,7 @@ table td span {
 
 .btn,
 a.btn {
-	margin: .3rem .3rem !important;
+	margin: .3rem .3rem;
 	background: var(--accent-bg);
 	color: var(--accent);
 	border: none;
@@ -162,7 +160,7 @@ a.btn {
 }
 
 a.btn.active {
-	background-color: var(--accent-bg) !important;
+	background-color: var(--accent-bg);
 	border: 1px solid var(--border);
 }
 
@@ -274,7 +272,7 @@ a.btn {
 }
 
 .dropdown-close a:hover {
-	background: none !important;
+	background: none;
 }
 
 .dropdown div.dropdown-close {
