@@ -171,10 +171,10 @@ $today = @strtotime('today');
 <?php endif; ?>
 
 <?php $class = $this->displaySlider ? ' active' : ''; ?>
+<aside id="slider" class="scrollbar-thin<?= $class ?>">
+</aside>
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>
-<aside id="slider" class="scrollbar-thin<?= $class ?>">
-</aside>
 
 <?php if ($nbEntries > 0 && FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>

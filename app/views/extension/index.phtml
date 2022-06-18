@@ -80,9 +80,6 @@
 </main>
 
 <?php $class = isset($this->extension) ? ' active' : ''; ?>
-<a href="#" id="close-slider" class="<?= $class ?>">
-	<?= _i('close') ?>
-</a>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
 	<?php
 		if (isset($this->extension)) {
@@ -90,3 +87,6 @@
 		}
 	?>
 </aside>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>

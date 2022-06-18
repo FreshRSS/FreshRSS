@@ -846,6 +846,9 @@ function init_column_categories() {
 				a.href = '#dropdown-' + id;
 				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
+				if (feed_web.length < 1) {
+					div.querySelector('.item.link.website').remove();
+				}
 				const b = div.querySelector('button.confirm');
 				if (b) {
 					b.disabled = false;
@@ -1718,7 +1721,6 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
-	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
 
@@ -1735,6 +1737,7 @@ function init_normal() {
 
 function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
+	init_shortcuts();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}

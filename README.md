@@ -131,12 +131,12 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 | [Readkit](https://apps.apple.com/app/readkit/id588726889)                             | macOS       | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
 | [Netnewswire](https://ranchero.com/netnewswire/)                                      | iOS, macOS  | [✔️](https://github.com/Ranchero-Software/NetNewsWire)        | Work in progress       | GReader          | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ❔       | ✔️           |
 
-\* Install and enable the [GReader Redate extension](https://github.com/javerous/freshrss-greader-redate) to have the correct publication date for feed articles if you are using Reeder or FeedMe.
+\* Install and enable the [GReader Redate extension](https://github.com/javerous/freshrss-greader-redate) to have the correct publication date for feed articles if you are using Reeder 4 or FeedMe. (No longer required for Reeder 5)
 
 # Included libraries
 
 * [SimplePie](https://simplepie.org/)
-* [MINZ](https://github.com/marienfressinaud/MINZ)
+* [MINZ](https://framagit.org/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [PhpGt/CssXPath](https://github.com/PhpGt/CssXPath)
