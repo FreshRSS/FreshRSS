@@ -71,7 +71,7 @@ Contributions which don’t follow the coding style will be rejected as long as 
 
 ## GitHub Actions
 
-The code will be checked within every Pull Request commit on GitHub (via GitHub Actions, config file see `.github/workflows/tests.yml`).
+The code will be checked for every pull request commit on GitHub via GitHub Actions. See the configuration file [`tests.yml`](../../../.github/workflows/tests.yml).
 
 ## Running fixes & tests
 
