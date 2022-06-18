@@ -76,7 +76,14 @@ See the configuration file [`tests.yml`](../../../.github/workflows/tests.yml).
 
 ## Running fixes & tests
 
-Tests can be run locally, e.g. by running `make test-all`, and several problems can be automatically fixed by running `make fix-all` (require `make` and `npm` in addition to the FreshRSS `php` requirements).
+Tests can be run locally, e.g. by running `make test-all`, and several problems can be automatically fixed by running `make fix-all`.
+
+```sh
+make fix-all
+make test-all
+```
+
+This requires `make` and `npm` in addition to the FreshRSS requirements. See below for the precise requirements for a few platforms.
 
 ### Debian / Ubuntu
 
@@ -85,10 +92,19 @@ Tests can be run locally, e.g. by running `make test-all`, and several problems 
 Here are the dependencies that need to be manually installed prior to running the fixes & tests.
 
 ```sh
-sudo apt update && sudo apt install --no-install-recommends -y make php-cli php-mbstring php-xml npm
+sudo apt update && sudo apt install --no-install-recommends -y make npm php-cli php-curl php-mbstring php-xml unzip wget
+```
 
-make fix-all
-make test-all
+### Fedora / Red Hat
+
+```sh
+yum install -y git make npm php-cli php-curl php-mbstring php-xml php-pdo unzip wget
+```
+
+### Alpine Linux
+
+```sh
+apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlwriter unzip wget
 ```
 
 ### Partial fixes & tests
