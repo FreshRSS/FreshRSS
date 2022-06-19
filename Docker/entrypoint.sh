@@ -24,33 +24,24 @@ fi
 if [ -n "$FRESHRSS_INSTALL" ]; then
 	# shellcheck disable=SC2046
 	php -f ./cli/do-install.php -- \
-		$(echo "$FRESHRSS_INSTALL" | sed -r 's/[\r\n]+/\n/g' | paste -s -) \
-		1>/tmp/out.txt 2>/tmp/err.txt
+		$(echo "$FRESHRSS_INSTALL" | sed -r 's/[\r\n]+/\n/g' | paste -s -)
 	EXITCODE=$?
-	grep -v 'Remember to' /tmp/out.txt
-	grep -v 'Please use' /tmp/err.txt 1>&2
 
 	if [ $EXITCODE -eq 3 ]; then
 		echo 'ℹ️ FreshRSS already installed; no change performed.'
 	elif [ $EXITCODE -eq 0 ]; then
 		echo '✅ FreshRSS successfully installed.'
 	else
-		rm -f /tmp/out.txt /tmp/err.txt
 		echo '❌ FreshRSS error during installation!'
 		exit $EXITCODE
 	fi
-
-	rm -f /tmp/out.txt /tmp/err.txt
 fi
 
 if [ -n "$FRESHRSS_USER" ]; then
 	# shellcheck disable=SC2046
 	php -f ./cli/create-user.php -- \
-		$(echo "$FRESHRSS_USER" | sed -r 's/[\r\n]+/\n/g' | paste -s -) \
-		1>/tmp/out.txt 2>/tmp/err.txt
+		$(echo "$FRESHRSS_USER" | sed -r 's/[\r\n]+/\n/g' | paste -s -)
 	EXITCODE=$?
-	grep -v 'Remember to' /tmp/out.txt
-	cat /tmp/err.txt 1>&2
 
 	if [ $EXITCODE -eq 3 ]; then
 		echo 'ℹ️ FreshRSS user already exists; no change performed.'
@@ -58,12 +49,9 @@ if [ -n "$FRESHRSS_USER" ]; then
 		echo '✅ FreshRSS user successfully created.'
 		./cli/list-users.php | xargs -n1 ./cli/actualize-user.php --user
 	else
-		rm -f /tmp/out.txt /tmp/err.txt
 		echo '❌ FreshRSS error during the creation of a user!'
 		exit $EXITCODE
 	fi
-
-	rm -f /tmp/out.txt /tmp/err.txt
 fi
 
 chown -R :www-data .

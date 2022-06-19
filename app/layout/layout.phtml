@@ -73,7 +73,7 @@ if (_t('gen.dir') === 'rtl') {
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (isset($this->notification)) {
+	if (!empty($this->notification)) {
 		$msg = $this->notification['content'];
 		$status = $this->notification['type'];
 
