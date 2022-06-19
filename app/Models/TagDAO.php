@@ -239,7 +239,7 @@ SQL;
 		if ($stm !== false) {
 			return self::daoToTag($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listTags($precounts);
 			}
@@ -274,7 +274,7 @@ SQL;
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 			return $res[0]['count'];
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->count();
 			}

@@ -262,6 +262,7 @@ function libopml_render_outline($parent_elt, $outline, $strict) {
 
 	$outline_elt = $parent_elt->addChild('outline');
 	$text_is_present = false;
+	/** @var string|array<string,mixed> $value */
 	foreach ($outline as $key => $value) {
 		// Only outlines can be an array and so we consider children are also
 		// outline elements.

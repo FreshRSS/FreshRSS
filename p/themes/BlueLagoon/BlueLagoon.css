@@ -596,7 +596,7 @@ a.btn {
 }
 
 .tree-folder-items > .item.active > a {
-	color: #0090ff
+	color: #0090ff;
 }
 
 /*=== Scrollbar */
