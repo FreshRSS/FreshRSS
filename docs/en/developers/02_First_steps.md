@@ -69,11 +69,50 @@ If you want to contribute to the source code, it’s important to follow the pro
 
 Contributions which don’t follow the coding style will be rejected as long as the coding style is not fixed.
 
-### Checked files via GitHub Actions
+## GitHub Actions
 
-The code will be checked within every Pull Request commit on GitHub (via GitHub Actions, config file see `.github/workflows/tests.yml`).
+The code will be checked for every pull request commit on GitHub via [GitHub Actions](https://github.com/FreshRSS/FreshRSS/actions).
+See the configuration file [`tests.yml`](../../../.github/workflows/tests.yml).
 
-Tests can be run locally, e.g. by running `make test-all` (require npm and node.js installed), and several problems can be automatically fixed by running `make fix-all`
+## Running fixes & tests
+
+Tests can be run locally, e.g. by running `make test-all`, and several problems can be automatically fixed by running `make fix-all`.
+
+```sh
+make fix-all
+make test-all
+```
+
+This requires `make` and `npm` in addition to the FreshRSS requirements. See below for the precise requirements for a few platforms.
+
+### Debian / Ubuntu
+
+> ℹ️ Also applies to [Microsoft Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to [WSL](https://ubuntu.com/wsl).
+
+Here are the dependencies that need to be manually installed prior to running the fixes & tests.
+
+```sh
+sudo apt update && sudo apt install --no-install-recommends -y make npm php-cli php-curl php-mbstring php-xml unzip wget
+```
+
+### Fedora / Red Hat
+
+```sh
+yum install -y git make npm php-cli php-curl php-mbstring php-xml php-pdo unzip wget
+```
+
+### Alpine Linux
+
+```sh
+apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlwriter unzip wget
+```
+
+### Partial fixes & tests
+
+- composer-based: `npm run fix && npm test` or see the [`scripts` section of `composer.json`](../../../composer.json) for individual tests or fixes such as `composer phpstan`
+- npm-based: `npm run fix && npm test` or see the [`scripts` section of `package.json`](../../../package.json) for individual tests or fixes such as `npm run rtlcss`
+
+### Tests summary
 
 A short (not complete) summary:
 
@@ -167,7 +206,7 @@ if ((int)$a == 10) {
 
 ### With chained functions
 
-It happens most of the time in Javascript files. When there are chained functions with closures and callback functions, it’s hard to understand the code if not properly formatted. In those cases, we add a new indent level for the complete instruction and reset the indent for a new instruction on the same level.
+It happens most of the time in JavaScript files. When there are chained functions with closures and call-back functions, it’s hard to understand the code if not properly formatted. In those cases, we add a new indent level for the complete instruction and reset the indent for a new instruction on the same level.
 
 ```javascript
 // First instruction

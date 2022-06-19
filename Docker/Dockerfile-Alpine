@@ -5,7 +5,7 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --no-cache \
 	apache2 php-apache2 \
 	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
-	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-tokenizer php-zlib \
+	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-xml php-tokenizer php-zlib \
 	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
