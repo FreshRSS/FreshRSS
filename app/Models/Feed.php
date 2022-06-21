@@ -653,6 +653,10 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbPendingNotRead += $n;
 	}
 
+	/**
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 * @return int|false the number of lines affected, or false if not applicable
+	 */
 	public function keepMaxUnread() {
 		$keepMaxUnread = $this->attributes('keep_max_n_unread');
 		if ($keepMaxUnread === null) {
@@ -660,11 +664,16 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		if ($keepMaxUnread > 0 && $this->nbNotRead(false) + $this->nbPendingNotRead > $keepMaxUnread) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
+			return $feedDAO->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
 		}
+		return false;
 	}
 
-	/** Applies the *mark as read upon gone* policy, if enabled */
+	/**
+	 * Applies the *mark as read upon gone* policy, if enabled.
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 * @return int|false the number of lines affected, or false if not applicable
+	 */
 	public function markAsReadUponGone() {
 		$readUponGone = $this->attributes('read_upon_gone');
 		if ($readUponGone === null) {
@@ -672,8 +681,9 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		if ($readUponGone) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->markAsReadUponGone($this->id());
+			return $feedDAO->markAsReadUponGone($this->id());
 		}
+		return false;
 	}
 
 	/**

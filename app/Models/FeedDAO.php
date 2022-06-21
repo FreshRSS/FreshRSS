@@ -447,7 +447,8 @@ SQL;
 	}
 
 	/**
-	 * @return int|false
+	 * Remember to call updateCachedValues() after calling this function
+	 * @return int|false number of lines affected or false in case of error
 	 */
 	public function keepMaxUnread(int $id, int $n) {
 		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
@@ -461,36 +462,22 @@ WHERE id_feed=:id_feed1 AND is_read=0 AND id <= (SELECT e3.id FROM (
 	OFFSET :limit) e3)
 SQL;
 
-		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT);
-		$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT);
-		$stm->bindParam(':limit', $n, PDO::PARAM_INT);
-
-		if (!$stm || !$stm->execute()) {
+		if (($stm = $this->pdo->prepare($sql)) &&
+			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
+			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
+			$stm->bindParam(':limit', $n, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return $stm->rowCount();
+		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error keepMaxUnread: ' . json_encode($info));
 			return false;
 		}
-		$affected = $stm->rowCount();
-
-		if ($affected > 0) {
-			$sql = 'UPDATE `_feed` '
-				 . 'SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
-				 . ' WHERE id=:id';
-			$stm = $this->pdo->prepare($sql);
-			$stm->bindParam(':id', $id, PDO::PARAM_INT);
-			if (!($stm && $stm->execute())) {
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error keepMaxUnread cache: ' . json_encode($info));
-				return false;
-			}
-		}
-
-		return $affected;
 	}
 
 	/**
-	 * @return int|false
+	 * Remember to call updateCachedValues() after calling this function
+	 * @return int|false number of lines affected or false in case of error
 	 */
 	public function markAsReadUponGone(int $id) {
 		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
@@ -500,31 +487,16 @@ WHERE id_feed=:id_feed1 AND is_read=0 AND `lastSeen` < (SELECT e3.maxlastseen FR
 	SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2) e3)
 SQL;
 
-		$affected = 0;
-
 		if (($stm = $this->pdo->prepare($sql)) &&
 			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
 			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
 			$stm->execute()) {
-				$affected = $stm->rowCount();
+			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markAsReadUponGone: ' . json_encode($info));
 			return false;
 		}
-
-		if ($affected > 0) {
-			$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`-:affected WHERE id=:id';
-			if (!(($stm = $this->pdo->prepare($sql)) &&
-				$stm->bindParam(':affected', $affected, PDO::PARAM_INT) &&
-				$stm->bindParam(':id', $id, PDO::PARAM_INT))) {
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error markAsReadUponGone cache: ' . json_encode($info));
-				return false;
-			}
-		}
-
-		return $affected;
 	}
 
 	/**
