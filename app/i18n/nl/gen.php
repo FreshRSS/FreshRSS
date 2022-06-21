@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
 		'empty' => 'Leeg',

@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
 		'create' => '作成',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '寄付',
 		'disable' => '無効',
 		'empty' => '空',

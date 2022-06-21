@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
 		'create' => 'יצירה',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
 		'disable' => 'Disable',	// TODO
 		'empty' => 'Empty',	// TODO

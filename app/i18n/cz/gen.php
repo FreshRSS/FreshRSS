@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',

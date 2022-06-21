@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
 		'disable' => 'Disabilita',
 		'empty' => 'Vuoto',

@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Criar',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Despromover',
 		'disable' => 'Desabilitar',
 		'empty' => 'Vazio',

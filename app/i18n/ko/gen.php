@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
-		'delete_muted_feeds' => 'Deleted muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '목록 수준 내리기',
 		'disable' => '비활성화',
 		'empty' => '비우기',
