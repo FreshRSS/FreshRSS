@@ -507,6 +507,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$feedDAO->updateCachedValues($feed->id());
 			}
 			$feed->keepMaxUnread();
+			$feed->markAsReadUponGone();
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}

@@ -655,12 +655,24 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function keepMaxUnread() {
 		$keepMaxUnread = $this->attributes('keep_max_n_unread');
-		if ($keepMaxUnread == false) {
+		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::$user_conf->mark_when['max_n_unread'];
 		}
 		if ($keepMaxUnread > 0 && $this->nbNotRead(false) + $this->nbPendingNotRead > $keepMaxUnread) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feedDAO->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
+		}
+	}
+
+	/** Applies the *mark as read upon gone* policy, if enabled */
+	public function markAsReadUponGone() {
+		$readUponGone = $this->attributes('read_upon_gone');
+		if ($readUponGone === null) {
+			$readUponGone = FreshRSS_Context::$user_conf->mark_when['gone'];
+		}
+		if ($readUponGone) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->markAsReadUponGone($this->id());
 		}
 	}
 

@@ -186,9 +186,17 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
+			<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
-				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+				<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
+					<option value=""<?= $this->feed->attributes('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="10"<?= $this->feed->attributes('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
+					<option value="25"<?= $this->feed->attributes('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
+					<option value="100"<?= $this->feed->attributes('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
+					<option value="1000"<?= $this->feed->attributes('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
+				</select>
+				<?= _t('conf.reading.read.when_same_title') ?>
 			</div>
 		</div>
 
@@ -205,17 +213,14 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
+			<label class="group-name" for="read_upon_gone"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
-				<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
-					<option value=""<?= $this->feed->attributes('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="10"<?= $this->feed->attributes('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
-					<option value="25"<?= $this->feed->attributes('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
-					<option value="100"<?= $this->feed->attributes('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
-					<option value="1000"<?= $this->feed->attributes('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
+				<select name="read_upon_gone" id="read_upon_gone" class="w50">
+					<option value=""<?= $this->feed->attributes('read_upon_gone') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('read_upon_gone') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributes('read_upon_gone') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 				</select>
-				<?= _t('conf.reading.read.when_same_title') ?>
+				<?= _t('conf.reading.read.upon_gone') ?>
 			</div>
 		</div>
 
@@ -228,6 +233,13 @@
 					}
 				?></textarea>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
+			<div class="group-controls">
+				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 			</div>
 		</div>
 
