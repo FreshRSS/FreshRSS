@@ -358,7 +358,7 @@ img.favicon {
 /*=== Boxes */
 .box {
 	background-color: var(--accent-bg);
-	/*	border: 1px solid var(--border);*/
+	border: 1px solid var(--border);
 	border-radius: 6px;
 }
 
