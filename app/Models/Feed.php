@@ -966,7 +966,7 @@ class FreshRSS_Feed extends Minz_Model {
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 
-			if (substr($info['http_code'], 0, 1) == '2') {
+			if (substr('' . $info['http_code'], 0, 1) == '2') {
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon

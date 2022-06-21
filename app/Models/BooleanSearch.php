@@ -223,9 +223,7 @@ class FreshRSS_BooleanSearch {
 				$quotes = substr_count($segment, '"') + substr_count($segment, '&quot;');
 				if ($quotes % 2 === 0) {
 					$segment = trim($segment);
-					if ($segment != '') {
-						$this->searches[] = new FreshRSS_Search($segment);
-					}
+					$this->searches[] = new FreshRSS_Search($segment);
 					$segment = '';
 				}
 			}
