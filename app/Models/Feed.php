@@ -636,10 +636,6 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		if (count($view->entries) < 1) {
-			return null;
-		}
-
 		$simplePie = customSimplePie();
 		$simplePie->set_raw_data($view->renderToString());
 		$simplePie->init();
