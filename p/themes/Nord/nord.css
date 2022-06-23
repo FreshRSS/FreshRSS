@@ -1163,7 +1163,9 @@ input.extend {
 	font-size: 0.8rem;
 }
 
-
+#panel {
+	background-color: var(--bg);
+}
 
 /*=== LOGS */
 /*=========*/
