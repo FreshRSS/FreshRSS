@@ -1,5 +1,5 @@
 [default.extend-identifiers]
-ba9 = "ba9"
+ot = "ot"
 Ths2 = "Ths2"
 
 [files]
@@ -27,6 +27,7 @@ extend-exclude = [
 	"app/i18n/tr/",
 	"app/i18n/zh-cn/",
 	"bin/",
+	"CHANGELOG-old.md",
 	"data/",
 	"docs/fr/",
 	"lib/phpgt/",
