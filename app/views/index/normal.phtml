@@ -13,6 +13,7 @@ $display_others = true;
 $hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 $lazyload = FreshRSS_Context::$user_conf->lazyload;
 $content_width = FreshRSS_Context::$user_conf->content_width;
+$topline_tags = FreshRSS_Context::$user_conf->topline_tags;
 
 $today = @strtotime('today');
 ?>
@@ -83,42 +84,45 @@ $today = @strtotime('today');
 							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 						endif; ?><span><?= $this->feed->name() ?></span></a>
 					</div>
-					<div class="tags">
-						<?php
-						$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
-						if (!empty($tags)) {
-							?><?= _i('tag') ?><ul class="list-tags"><?php
-							$i = 0;
-							foreach ($tags as $tag) {
-								if ($i < 7) {
-									$i++;
-									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
-								} else { // more than 7 tags: show dropdown menu ?>
-									<li class="item tag">
-										<div class="dropdown">
-											<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-											<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>">
-												<?= _i('down') ?>
-											</a>
-											<ul class="dropdown-menu">
-												<li class="dropdown-header">
-													<?= _t('index.tag.related') ?>
-												</li>
-												<?php
-												foreach ($tags as $tag) {
-													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
-												} ?>
-											</ul>
-											<a class="dropdown-close" href="#close">❌</a>
-										</div>
-									</li>
-									<?php
-									break; // do not list more tags
-								}
+					<?php if ($topline_tags) { ?>
+						<div class="tags">
+							<?php
+							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
+							if (!empty($tags)) {
+								?><?= _i('tag') ?><ul class="list-tags"><?php
+								$i = 0;
+								foreach ($tags as $tag) {
+									if ($i < 7) {
+										$i++;
+										?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+									} else { // more than 7 tags: show dropdown menu ?>
+										<li class="item tag">
+											<div class="dropdown">
+												<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+												<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>">
+													<?= _i('down') ?>
+												</a>
+												<ul class="dropdown-menu">
+													<li class="dropdown-header">
+														<?= _t('index.tag.related') ?>
+													</li>
+													<?php
+													foreach ($tags as $tag) {
+														?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
+													} ?>
+												</ul>
+												<a class="dropdown-close" href="#close">❌</a>
+											</div>
+										</li>
+										<?php
+										break; // do not list more tags
+									}
+								} ?>
+								</ul><?php
 							} ?>
-							</ul><?php
-						} ?>
-					</div>
+						</div>
+						<?php
+					}  ?>
 					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?><span class="extern-link-icon"><?= _i('link') ?></span></a></h1>
 					<div class="subtitle">
 						<?php

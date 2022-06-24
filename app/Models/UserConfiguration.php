@@ -55,6 +55,7 @@
  * @property bool $topline_link
  * @property bool $topline_read
  * @property bool $topline_summary
+ * @property bool $topline_tags
  * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property-read bool $unsafe_autologin_enabled
