@@ -14,6 +14,7 @@ $hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 $lazyload = FreshRSS_Context::$user_conf->lazyload;
 $content_width = FreshRSS_Context::$user_conf->content_width;
 $topline_tags = FreshRSS_Context::$user_conf->topline_tags;
+$MAX_TAGS_DISPLAYED = 7;
 
 $today = @strtotime('today');
 ?>
@@ -90,33 +91,27 @@ $today = @strtotime('today');
 							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
 							if (!empty($tags)) {
 								?><?= _i('tag') ?><ul class="list-tags"><?php
-								$i = 0;
-								foreach ($tags as $tag) {
-									if ($i < 7) {
-										$i++;
-										?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
-									} else { // more than 7 tags: show dropdown menu ?>
-										<li class="item tag">
-											<div class="dropdown">
-												<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-												<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>">
-													<?= _i('down') ?>
-												</a>
-												<ul class="dropdown-menu">
-													<li class="dropdown-header">
-														<?= _t('index.tag.related') ?>
-													</li>
-													<?php
-													foreach ($tags as $tag) {
-														?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
-													} ?>
-												</ul>
-												<a class="dropdown-close" href="#close">❌</a>
-											</div>
-										</li>
-										<?php
-										break; // do not list more tags
-									}
+								$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
+								foreach ($firstTags as $tag) {
+									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+								}
+								$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
+								if (!empty($remainingTags)) { // more than 7 tags: show dropdown menu ?>
+									<li class="item tag">
+										<div class="dropdown">
+											<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+											<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+											<ul class="dropdown-menu">
+												<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
+												<?php
+												foreach ($remainingTags as $tag) {
+													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
+												} ?>
+											</ul>
+											<a class="dropdown-close" href="#close">❌</a>
+										</div>
+									</li>
+									<?php
 								} ?>
 								</ul><?php
 							} ?>
