@@ -1170,6 +1170,12 @@ SQL;
 		}
 	}
 
+	/**
+	 * @param int $id_feed
+	 * @param array<string> $guids
+	 * @param int $mtime
+	 * @return int|false The number of affected feeds, or false if error
+	 */
 	public function updateLastSeen($id_feed, $guids, $mtime = 0) {
 		if (count($guids) < 1) {
 			return 0;
