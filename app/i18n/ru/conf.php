@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'когда статья просматривается',
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
 			'scroll' => 'во время прокрутки',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
 			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',

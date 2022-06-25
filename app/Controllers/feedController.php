@@ -503,10 +503,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
+			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
+			$needFeedCacheRefresh |= ($feed->markAsReadUponGone() != false);
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
 			}
-			$feed->keepMaxUnread();
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
