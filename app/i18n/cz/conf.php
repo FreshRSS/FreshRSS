@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'když je článek zobrazen',
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
 			'scroll' => 'během posouvání',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
 			'when_same_title' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích',

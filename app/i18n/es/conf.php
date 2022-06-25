@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'cuando se muestre el artículo',
 			'keep_max_n_unread' => 'Número máximo de artículos para mantener sin leer',
 			'scroll' => 'durante el desplazamiento',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
 			'when_same_title' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes',

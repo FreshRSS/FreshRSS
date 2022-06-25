@@ -58,7 +58,7 @@ $opml_array = array(
 if (!empty($this->categories)) {
 	foreach ($this->categories as $key => $cat) {
 		$outline = [
-			'text' => $cat->name(),
+			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
 		];
 		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {

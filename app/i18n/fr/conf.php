@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'lorsque l’article est affiché',
 			'keep_max_n_unread' => 'Nombre maximum d’articles conservés non lus',
 			'scroll' => 'au défilement de la page',
+			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
 			'when_same_title' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents',

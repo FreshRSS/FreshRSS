@@ -121,6 +121,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$user_conf->sort_order = Minz_Request::param('sort_order', 'DESC');
 			FreshRSS_Context::$user_conf->mark_when = array(
 				'article' => Minz_Request::param('mark_open_article', false),
+				'gone' => Minz_Request::param('read_upon_gone', false),
 				'max_n_unread' => Minz_Request::paramBoolean('enable_keep_max_n_unread') ? Minz_Request::param('keep_max_n_unread', false) : false,
 				'reception' => Minz_Request::param('mark_upon_reception', false),
 				'same_title_in_feed' => Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') ?

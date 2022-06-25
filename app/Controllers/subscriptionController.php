@@ -123,6 +123,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_ttl(intval(Minz_Request::param('ttl', FreshRSS_Feed::TTL_DEFAULT)));
 			$feed->_mute(boolval(Minz_Request::param('mute', false)));
 
+			$feed->_attributes('read_upon_gone', Minz_Request::paramTernary('read_upon_gone'));
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));

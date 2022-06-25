@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => '글을 읽었을 때',
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
 			'scroll' => '스크롤을 하며 지나갈 때',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
 			'when_same_title' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우',

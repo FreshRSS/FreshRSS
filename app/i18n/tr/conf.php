@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'makale görüntülendiğinde',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
 			'scroll' => 'kaydırma yapılırken',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
