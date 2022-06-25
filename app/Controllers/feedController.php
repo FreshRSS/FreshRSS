@@ -361,6 +361,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				//Minz_Log::debug($feed->url(false) . ' was updated at ' . date('c', $mtime) . ' by another user');
 				//Will take advantage of the newer cache
+			} else {
+				$mtime = time();
 			}
 
 			if (!$feed->lock()) {
@@ -413,9 +415,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
-				$newGuids = array();
+				/** @var array<string,bool> */
+				$newGuids = [];
 
-				$oldGuids = array();
 				// Add entries in database if possible.
 				/** @var FreshRSS_Entry $entry */
 				foreach ($entries as $entry) {
@@ -426,10 +428,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
-						if (strcasecmp($existingHash, $entry->hash()) === 0) {
-							//This entry already exists and is unchanged.
-							$oldGuids[] = $entry->guid();
-						} else {	//This entry already exists but has been updated
+						if (strcasecmp($existingHash, $entry->hash()) !== 0) {
+							//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
@@ -488,7 +488,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$nb_new_articles++;
 					}
 				}
-				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
+				$entryDAO->updateLastSeen($feed->id(), array_keys($newGuids), $mtime);
 			}
 			unset($entries);
 
@@ -503,10 +503,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
+			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
+			$needFeedCacheRefresh |= ($feed->markAsReadUponGone() != false);
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
 			}
-			$feed->keepMaxUnread();
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}

@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'when the article is viewed',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',
 			'scroll' => 'while scrolling',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',

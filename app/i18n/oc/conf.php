@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'quand l’article es mostrat',
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
 			'scroll' => 'en davalar la pagina',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
 			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
