@@ -188,6 +188,14 @@ class FreshRSS_ConfigurationSetter {
 		}
 		$data['display_categories'] = $value;
 	}
+	
+	private function show_tags(&$data, $value) {
+		$data['show_tags'] = $value;
+	}
+	
+	private function show_tags_max(&$data, $value) {
+		$data['show_tags_max'] = $value;
+	}
 
 	private function _display_posts(&$data, $value) {
 		$data['display_posts'] = $this->handleBool($value);

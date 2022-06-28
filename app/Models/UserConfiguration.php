@@ -15,6 +15,8 @@
  * @property-read string $default_state
  * @property string $default_view
  * @property string|bool $display_categories
+ * @property string $show_tags
+ * @property string $show_tags_max
  * @property bool $display_posts
  * @property string $email_validation_token
  * @property-read string $enabled

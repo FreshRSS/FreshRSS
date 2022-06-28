@@ -14,7 +14,7 @@ $hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 $lazyload = FreshRSS_Context::$user_conf->lazyload;
 $content_width = FreshRSS_Context::$user_conf->content_width;
 $topline_tags = FreshRSS_Context::$user_conf->topline_tags;
-$MAX_TAGS_DISPLAYED = 7;
+$MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 
 $today = @strtotime('today');
 ?>
@@ -85,7 +85,7 @@ $today = @strtotime('today');
 							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 						endif; ?><span><?= $this->feed->name() ?></span></a>
 					</div>
-					<?php if ($topline_tags) { ?>
+					<?php if (FreshRSS_Context::$user_conf->show_tags == 'h' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
 						<div class="tags">
 							<?php
 							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
@@ -140,11 +140,45 @@ $today = @strtotime('today');
 				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>
-			</div><footer><?php
-
-			$this->renderHelper('index/normal/entry_bottom');
-
-		?></footer></article>
+				<footer>
+					<?php if (FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
+						<div class="tags">
+							<?php
+							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
+							if (!empty($tags)) {
+								?><?= _i('tag') ?><ul class="list-tags"><?php
+								$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
+								foreach ($firstTags as $tag) {
+									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+								}
+								$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
+								if (!empty($remainingTags)) { // more than 7 tags: show dropdown menu ?>
+									<li class="item tag">
+										<div class="dropdown">
+											<div id="dropdown-tags3-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+											<a class="dropdown-toggle" href="#dropdown-tags3-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+											<ul class="dropdown-menu">
+												<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
+												<?php
+												foreach ($remainingTags as $tag) {
+													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
+												} ?>
+											</ul>
+											<a class="dropdown-close" href="#close">❌</a>
+										</div>
+									</li>
+									<?php
+								} ?>
+								</ul><?php
+							} ?>
+						</div>
+						<?php
+					} ?>
+				</footer>
+			</div><footer><?php 		
+				$this->renderHelper('index/normal/entry_bottom');
+			?>
+		</footer></article>
 	</div><?php
 	endforeach;
 
