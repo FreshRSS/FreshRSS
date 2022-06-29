@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'gdy wiadomość jest otworzona',
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
 			'scroll' => 'podczas przewijania',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
 			'when_same_title' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach',

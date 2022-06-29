@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => 'als het artikel wordt bekeken',
 			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
 			'scroll' => 'tijdens het scrollen',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
 			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',

@@ -11,7 +11,7 @@ $opml_array = array(
 
 foreach ($this->categories as $key => $cat) {
 	$opml_array['body'][$key] = array(
-		'text' => $cat->name(),
+		'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 		'@outlines' => array()
 	);
 
