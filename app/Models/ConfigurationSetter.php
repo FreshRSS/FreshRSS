@@ -194,7 +194,8 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function show_tags_max(&$data, $value) {
-		$data['show_tags_max'] = $value;
+		$value = intval($value);
+		$data['show_tags_max'] = $value >= 0 ? $value : 0;
 	}
 
 	private function _display_posts(&$data, $value) {

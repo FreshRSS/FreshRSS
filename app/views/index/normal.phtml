@@ -91,11 +91,17 @@ $today = @strtotime('today');
 							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
 							if (!empty($tags)) {
 								?><?= _i('tag') ?><ul class="list-tags"><?php
-								$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
+								if ($MAX_TAGS_DISPLAYED > 0) {
+									$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
+									$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
+								} else {
+									$firstTags = $tags;
+									$remainingTags = array();
+								}
 								foreach ($firstTags as $tag) {
 									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
 								}
-								$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
+
 								if (!empty($remainingTags)) { // more than 7 tags: show dropdown menu ?>
 									<li class="item tag">
 										<div class="dropdown">
@@ -147,12 +153,10 @@ $today = @strtotime('today');
 							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
 							if (!empty($tags)) {
 								?><?= _i('tag') ?><ul class="list-tags"><?php
-								$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
 								foreach ($firstTags as $tag) {
 									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
 								}
-								$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
-								if (!empty($remainingTags)) { // more than 7 tags: show dropdown menu ?>
+								if (!empty($remainingTags)) { ?>
 									<li class="item tag">
 										<div class="dropdown">
 											<div id="dropdown-tags3-<?= $this->entry->id() ?>" class="dropdown-target"></div>

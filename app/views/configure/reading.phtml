@@ -123,12 +123,14 @@
 						<option value="f" <?= FreshRSS_Context::$user_conf->show_tags === 'f' ? ' selected="selected"' : '' ?> data-input-visible="true">in footer</option>
 						<option value="b" <?= FreshRSS_Context::$user_conf->show_tags === 'b' ? ' selected="selected"' : '' ?> data-input-visible="true">in header + footer</option>
 					</select>
+					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</div>
 			</div>
 			<div class="form-group" id="show_tags-block">
 				<label class="group-name" for="show-tags-max">Max number of tags</label>
 				<div class="group-controls">
 					<input type="number" id="show-tags-max-input" name="show_tags_max" value="<?= FreshRSS_Context::$user_conf->show_tags_max ?>" min="0" data-leave-validation="3" data-number="2">
+					<p class="help"><?= _i('help') ?> 0 means show all tags and do not collapse them</p>
 				</div>
 			</div>
 		</fieldset>
