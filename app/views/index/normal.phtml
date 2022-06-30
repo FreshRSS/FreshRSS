@@ -76,6 +76,9 @@ $today = @strtotime('today');
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
 
+			$firstTags = array();
+			$remainingTags = array();
+
 			if (FreshRSS_Context::$user_conf->show_tags == 'h' || FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') {
 				$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
 				if (!empty($tags)) {
@@ -84,7 +87,6 @@ $today = @strtotime('today');
 						$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
 					} else {
 						$firstTags = $tags;
-						$remainingTags = array();
 					}
 				}
 			}
