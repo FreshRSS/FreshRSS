@@ -74,9 +74,20 @@ $today = @strtotime('today');
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
 		?>"><?php
-
 			$this->renderHelper('index/normal/entry_header');
 
+			if (FreshRSS_Context::$user_conf->show_tags == 'h' || FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') {
+				$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
+				if (!empty($tags)) {
+					if ($MAX_TAGS_DISPLAYED > 0) {
+						$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
+						$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
+					} else {
+						$firstTags = $tags;
+						$remainingTags = array();
+					}
+				}
+			}
 		?><article class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
 				<header>
@@ -88,16 +99,8 @@ $today = @strtotime('today');
 					<?php if (FreshRSS_Context::$user_conf->show_tags == 'h' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
 						<div class="tags">
 							<?php
-							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
 							if (!empty($tags)) {
 								?><?= _i('tag') ?><ul class="list-tags"><?php
-								if ($MAX_TAGS_DISPLAYED > 0) {
-									$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
-									$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
-								} else {
-									$firstTags = $tags;
-									$remainingTags = array();
-								}
 								foreach ($firstTags as $tag) {
 									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
 								}
@@ -150,7 +153,6 @@ $today = @strtotime('today');
 					<?php if (FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
 						<div class="tags">
 							<?php
-							$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
 							if (!empty($tags)) {
 								?><?= _i('tag') ?><ul class="list-tags"><?php
 								foreach ($firstTags as $tag) {
