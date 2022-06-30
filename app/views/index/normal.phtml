@@ -130,6 +130,7 @@ $today = @strtotime('today');
 						<?php
 					} ?>
 					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?><span class="extern-link-icon"><?= _i('link') ?></span></a></h1>
+					<?php if (FreshRSS_Context::$user_conf->show_author_date == 'h' || FreshRSS_Context::$user_conf->show_author_date == 'b') { ?>
 					<div class="subtitle">
 						<?php
 						$authors = $this->entry->authors();
@@ -147,12 +148,34 @@ $today = @strtotime('today');
 						<?php } ?>
 						<div class="date"><?= $this->entry->date() ?></div>
 					</div>
+					<?php } ?>
 				</header>
 				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>
 				<footer>
-					<?php if (FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
+					<?php 
+					if (FreshRSS_Context::$user_conf->show_author_date == 'h' || FreshRSS_Context::$user_conf->show_author_date == 'b') { ?>
+						<div class="subtitle">
+							<?php
+							$authors = $this->entry->authors();
+							if (!empty($authors) && is_array($authors)) {
+							?>
+							<div class="author">
+								<?= _t('gen.short.by_author') ?>
+								<?php
+								foreach ($authors as $author) {
+									$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+								?>
+								<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+								<?php } ?>
+							</div>
+							<?php } ?>
+							<div class="date"><?= $this->entry->date() ?></div>
+						</div>
+					<?php
+					}
+					if (FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
 						<div class="tags">
 							<?php
 							if (!empty($tags)) {

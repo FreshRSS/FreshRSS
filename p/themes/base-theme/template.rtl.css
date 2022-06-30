@@ -1148,17 +1148,30 @@ a.website:hover .favicon {
 	max-width: 550px;
 }
 
-.content > header {
+.content > header,
+.content > footer {
 	color: #666;
 	font-size: .9rem;
 }
 
-.content > header a {
+.content > footer {
+	margin: 2rem 0 2rem;
+	padding-top: 1rem;
+	border-top: 2px solid #ccc;
+}
+
+.content > footer .subtitle {
+	padding-bottom: 1rem;
+}
+
+.content > header a,
+.content > footer a {
 	color: #666;
 	text-decoration: none;
 }
 
-.content > header a:hover {
+.content > header a:hover,
+.content > footer a:hover {
 	color: #0062be;
 	text-decoration: underline;
 }

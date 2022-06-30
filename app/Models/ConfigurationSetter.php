@@ -198,6 +198,10 @@ class FreshRSS_ConfigurationSetter {
 		$data['show_tags_max'] = $value >= 0 ? $value : 0;
 	}
 
+	private function _show_author_date(&$data, $value) {
+		$data['show_author_date'] = $value;
+	}
+
 	private function _display_posts(&$data, $value) {
 		$data['display_posts'] = $this->handleBool($value);
 	}

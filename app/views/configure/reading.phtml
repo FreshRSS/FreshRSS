@@ -133,6 +133,18 @@
 					<p class="help"><?= _i('help') ?> 0 means show all tags and do not collapse them</p>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="group-name" for="show_tags">Show authors and date</label>
+				<div class="group-controls">
+					<select name="show_author_date">
+						<option value="0" <?= FreshRSS_Context::$user_conf->show_author_date === '0' ? ' selected="selected"' : '' ?> data-input-visible="false">None</option>
+						<option value="h" <?= FreshRSS_Context::$user_conf->show_author_date === 'h' ? ' selected="selected"' : '' ?> data-input-visible="true">in header</option>
+						<option value="f" <?= FreshRSS_Context::$user_conf->show_author_date === 'f' ? ' selected="selected"' : '' ?> data-input-visible="true">in footer</option>
+						<option value="b" <?= FreshRSS_Context::$user_conf->show_author_date === 'b' ? ' selected="selected"' : '' ?> data-input-visible="true">in header + footer</option>
+					</select>
+					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>
