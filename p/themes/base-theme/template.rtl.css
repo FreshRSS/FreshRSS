@@ -1163,29 +1163,34 @@ a.website:hover .favicon {
 	text-decoration: underline;
 }
 
-.content > header .tags {
+.content > header .tags,
+.content > footer .tags {
 	display: flex;
 	line-height: 1;
 }
 
-.content > header .tags .icon {
+.content > header .tags .icon,
+.content > footer .tags .icon {
 	padding: 2px 0 0 10px;
 }
 
-.content > header .tags .list-tags {
+.content > header .tags .list-tags,
+.content > footer .tags .list-tags {
 	margin: 0;
 	padding: 0;
 	display: inline-block;
 	list-style: none;
 }
 
-.content > header .tags .list-tags .item.tag {
+.content > header .tags .list-tags .item.tag,
+.content > footer .tags .list-tags .item.tag {
 	display: inline-block;
 	padding-left: 0.75em;
 	line-height: normal;
 }
 
-.content > header .tags .list-tags .item.tag a.link-tag {
+.content > header .tags .list-tags .item.tag a.link-tag,
+.content > footer .tags .list-tags .item.tag a.link-tag {
 	display: inline;
 }
 

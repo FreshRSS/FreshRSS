@@ -1164,7 +1164,7 @@ a.website:hover .favicon {
 }
 
 .content > header .tags,
-.content > footer .tags, {
+.content > footer .tags {
 	display: flex;
 	line-height: 1;
 }
