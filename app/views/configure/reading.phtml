@@ -145,6 +145,17 @@
 					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="group-name" for="show_feed_name">Show feed name</label>
+				<div class="group-controls">
+					<select name="show_feed_name">
+						<option value="0"<?= FreshRSS_Context::$user_conf->show_feed_name === '0' ? ' selected="selected"' : '' ?>>None</option>
+						<option value="t"<?= FreshRSS_Context::$user_conf->show_feed_name === 't' ? ' selected="selected"' : '' ?>>above title/tags</option>
+						<option value="a"<?= FreshRSS_Context::$user_conf->show_feed_name === 'a' ? ' selected="selected"' : '' ?>>in author and date row</option>
+					</select>
+					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>

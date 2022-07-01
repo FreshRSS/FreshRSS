@@ -93,11 +93,13 @@ $today = @strtotime('today');
 		?><article class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
 				<header>
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-						endif; ?><span><?= $this->feed->name() ?></span></a>
-					</div>
+					<?php if (FreshRSS_Context::$user_conf->show_feed_name == 't') { ?>
+						<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+							<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+							endif; ?><span><?= $this->feed->name() ?></span></a>
+						</div>
+					<?php } ?>
 					<?php if (FreshRSS_Context::$user_conf->show_tags == 'h' || FreshRSS_Context::$user_conf->show_tags == 'b') { ?>
 						<div class="tags">
 							<?php
@@ -132,7 +134,15 @@ $today = @strtotime('today');
 					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?><span class="extern-link-icon"><?= _i('link') ?></span></a></h1>
 					<?php if (FreshRSS_Context::$user_conf->show_author_date == 'h' || FreshRSS_Context::$user_conf->show_author_date == 'b') { ?>
 					<div class="subtitle">
-						<?php
+						<?php if (FreshRSS_Context::$user_conf->show_feed_name == 'a') { ?>
+							<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+								<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+								endif; ?><span><?= $this->feed->name() ?></span></a>
+							</div>
+							<?php 
+						}
+
 						$authors = $this->entry->authors();
 						if (!empty($authors) && is_array($authors)) {
 						?>
@@ -157,7 +167,14 @@ $today = @strtotime('today');
 					<?php 
 					if (FreshRSS_Context::$user_conf->show_author_date == 'h' || FreshRSS_Context::$user_conf->show_author_date == 'b') { ?>
 						<div class="subtitle">
-							<?php
+							<?php if (FreshRSS_Context::$user_conf->show_feed_name == 'a') { ?>
+								<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+									<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+										<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+									endif; ?><span><?= $this->feed->name() ?></span></a>
+								</div>
+								<?php 
+							}
 							$authors = $this->entry->authors();
 							if (!empty($authors) && is_array($authors)) {
 							?>

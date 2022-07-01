@@ -36,6 +36,7 @@ return array (
 	'show_tags' => '0',
 	'show_tags_max' => '7',
 	'show_author_date' => 'h',
+	'show_feed_name' => 'a',
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
