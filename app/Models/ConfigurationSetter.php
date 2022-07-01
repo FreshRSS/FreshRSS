@@ -201,7 +201,7 @@ class FreshRSS_ConfigurationSetter {
 	private function _show_author_date(&$data, $value) {
 		$data['show_author_date'] = $value;
 	}
-	
+
 	private function _show_feed_name(&$data, $value) {
 		$data['show_feed_name'] = $value;
 	}

@@ -140,7 +140,7 @@ $today = @strtotime('today');
 									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 								endif; ?><span><?= $this->feed->name() ?></span></a>
 							</div>
-							<?php 
+							<?php
 						}
 
 						$authors = $this->entry->authors();
@@ -164,7 +164,7 @@ $today = @strtotime('today');
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>
 				<footer>
-					<?php 
+					<?php
 					if (FreshRSS_Context::$user_conf->show_author_date == 'h' || FreshRSS_Context::$user_conf->show_author_date == 'b') { ?>
 						<div class="subtitle">
 							<?php if (FreshRSS_Context::$user_conf->show_feed_name == 'a') { ?>
@@ -173,7 +173,7 @@ $today = @strtotime('today');
 										<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 									endif; ?><span><?= $this->feed->name() ?></span></a>
 								</div>
-								<?php 
+								<?php
 							}
 							$authors = $this->entry->authors();
 							if (!empty($authors) && is_array($authors)) {
