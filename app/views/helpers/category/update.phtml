@@ -2,9 +2,7 @@
 <div class="post">
 	<h2>
 		<?= $this->category->name() ?>
-		<?php if ($this->category->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
-			<span title="<?= _t('sub.category.dynamic_opml') ?>">🗲</span>
-		<?php endif; ?>
+		<?php if ($this->category->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
 	</h2>
 
 	<div>
@@ -40,7 +38,7 @@
 		</div>
 
 		<?php if (!$this->category->isDefault()): ?>
-		<legend><?= _t('sub.category.dynamic_opml') ?> <span title="<?= _t('sub.category.dynamic_opml') ?>">🗲</span></legend>
+		<legend><?= _t('sub.category.dynamic_opml') ?> <?= _i('opml-dyn') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
 			<div class="group-controls">

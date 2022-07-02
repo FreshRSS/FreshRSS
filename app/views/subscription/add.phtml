@@ -226,7 +226,7 @@
 
 	<h2>
 		<?= _t('sub.title.add_dynamic_opml') ?>
-		<span title="<?= _t('sub.category.dynamic_opml') ?>">🗲</span>
+		<?= _i('opml-dyn') ?>
 	</h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />

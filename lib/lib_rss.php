@@ -782,8 +782,8 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-function _i($icon, $url_only = false) {
-	return FreshRSS_Themes::icon($icon, $url_only);
+function _i(string $icon, int $type = FreshRSS_Themes::ICON_DEFAULT): string {
+	return FreshRSS_Themes::icon($icon, $type);
 }
 
 
