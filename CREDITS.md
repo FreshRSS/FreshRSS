@@ -70,6 +70,7 @@ People are sorted by name so please keep this order.
 * [Jaussoin Timothée](https://github.com/edhelas): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:edhelas), [Web](http://edhelas.movim.eu/)
 * [Jeremy](https://github.com/Germs2004): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Germs2004)
 * [jlefler](https://github.com/jlefler): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jlefler)
+* [Joel Garcia](https://joelchrono12.xyz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joelchrono12)
 * [Jonas Östanbäck](https://github.com/cez81): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cez81)
 * [Joris Kinable](https://github.com/jkinable): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jkinable)
 * [Jules Bertholet](https://github.com/Jules-Bertholet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jules-Bertholet)
