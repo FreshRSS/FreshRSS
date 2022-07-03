@@ -36,7 +36,7 @@ return array(
 	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
 	'logo_html' => '',
 
-	# Name of the public user important for anonymous reading..
+	# Name of the default user. Also used as the public user for anonymous reading.
 	'default_user' => '_',
 
 	# Force users to validate their email address. If `true`, an email with a
