@@ -137,6 +137,32 @@ return array(
 		'_' => 'Lecture',
 		'after_onread' => 'Après “marquer tout comme lu”,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
@@ -145,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
 			'articles' => 'Articles : ouverture/fermeture',
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Navigation de gauche : catégories',
 			'mark_as_read' => 'Marquer les articles comme lus',
 			'misc' => 'Divers',
