@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Favoriten immer anzeigen',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autoren und Datum',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Oberhalb der Überschrit und Hashtags',
+				'none' => 'Nicht anzeigen',
+				'with_authors' => 'In der Zeile mit Autoren und Datum',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Feed Titel',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Hashtags',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'None',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Max Anzahl von Hashtags',
+				'help' => '0 bedeutet: Zeige alle Hashtags und fasse sie nicht zusammen',
 			),
 		),
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
@@ -171,7 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
 		'headline' => array(
 			'articles' => 'Artikel: Öffnen/Schließen',
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 			'categories' => 'Linke Navigation: Kategorien',
 			'mark_as_read' => 'Artikel als gelesen markieren',
 			'misc' => 'Sonstiges',
