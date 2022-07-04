@@ -34,7 +34,7 @@
 		?>
 		<div class="box">
 			<div class="box-title">
-				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>&ajax=1#slider"><?= _i('configure') ?></a>
+				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
 				<?= $cat->name() ?>
 				<?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
 			</div>
@@ -51,7 +51,7 @@
 				<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
 					draggable="true"
 					data-feed-id="<?= $feed->id() ?>">
-					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>&ajax=1#slider"><?= _i('configure') ?></a>
+					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<?= $feed->name() ?>
 				</li>

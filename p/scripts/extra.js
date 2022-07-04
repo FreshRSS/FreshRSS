@@ -153,7 +153,8 @@ function open_slider_listener(ev) {
 			const slider_content = document.getElementById('slider-content');
 			const req = new XMLHttpRequest();
 			slider_content.innerHTML = '';
-			req.open('GET', a.href + '&ajax=1', true);
+			const ahref = a.href + '&ajax=1#slider';
+			req.open('GET', ahref, true);
 			req.responseType = 'document';
 			req.onload = function (e) {
 				location.href = '#slider'; // close menu/dropdown
