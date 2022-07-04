@@ -10,6 +10,15 @@
 
 	<h1><?= _t('sub.menu.import_export') ?></h1>
 
+	<h2><?= _t('sub.category.dynamic_opml') ?></h2>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<ul>
+				<li><a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.title.add_dynamic_opml') ?> <?= _i('opml-dyn') ?></a></li>
+			</ul>
+		</div>
+	</div>
+
 	<h2><?= _t('sub.import_export.import') ?></h2>
 	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />

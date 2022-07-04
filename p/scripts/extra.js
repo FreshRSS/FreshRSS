@@ -204,8 +204,8 @@ function updateHref(ev) {
 }
 
 // set event listener on "show url" buttons
-function init_url_observers() {
-	document.querySelectorAll('.open-url').forEach(function (btn) {
+function init_url_observers(parent) {
+	parent.querySelectorAll('.open-url').forEach(function (btn) {
 		btn.addEventListener('mouseover', updateHref);
 		btn.addEventListener('click', updateHref);
 	});
@@ -278,7 +278,6 @@ function init_extra_afterDOM() {
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
 		init_crypto_form();
 		init_password_observers(document.body);
-		init_url_observers();
 		init_select_observers();
 		init_configuration_alert();
 
@@ -286,8 +285,10 @@ function init_extra_afterDOM() {
 		if (slider) {
 			init_slider(slider);
 			init_archiving(slider);
+			init_url_observers(slider);
 		} else {
 			init_archiving(document.body);
+			init_url_observers(document.body);
 		}
 	}
 

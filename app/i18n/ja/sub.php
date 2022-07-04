@@ -24,8 +24,13 @@ return array(
 		'_' => 'カテゴリ',
 		'add' => 'カテゴリを追加する',
 		'archiving' => 'アーカイブ',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => '表示位置',
 		'position_help' => 'カテゴリの表示順を操作する',
 		'title' => 'タイトル',
@@ -181,6 +186,7 @@ return array(
 		'_' => '購読されたものの管理',
 		'add' => 'フィードあるいはカテゴリを追加します',
 		'add_category' => 'カテゴリの追加',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'フィードの追加',
 		'add_label' => 'ラベルの追加',
 		'delete_label' => 'ラベルの削除',

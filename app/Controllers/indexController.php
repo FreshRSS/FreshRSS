@@ -174,6 +174,76 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
+	public function opmlAction() {
+		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
+		$token = FreshRSS_Context::$user_conf->token;
+		$token_param = Minz_Request::param('token', '');
+		$token_is_ok = ($token != '' && $token === $token_param);
+
+		// Check if user has access.
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !$token_is_ok) {
+			Minz_Error::error(403);
+		}
+
+		try {
+			$this->updateContext();
+		} catch (FreshRSS_Context_Exception $e) {
+			Minz_Error::error(404);
+		}
+
+		$get = FreshRSS_Context::currentGet(true);
+		if (is_array($get)) {
+			$type = $get[0];
+			$id = $get[1];
+		} else {
+			$type = $get;
+			$id = '';
+		}
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$categories = $catDAO->listCategories(true, true);
+		$this->view->excludeMutedFeeds = true;
+
+		switch ($type) {
+			case 'a':
+				$this->view->categories = $categories;
+				break;
+			case 'c':
+				$cat = $categories[$id] ?? null;
+				if ($cat == null) {
+					Minz_Error::error(404);
+					return;
+				}
+				$this->view->categories = [ $cat ];
+				break;
+			case 'f':
+				// We most likely already have the feed object in cache
+				$feed = FreshRSS_CategoryDAO::findFeed($categories, $id);
+				if ($feed == null) {
+					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$feed = $feedDAO->searchById($id);
+					if ($feed == null) {
+						Minz_Error::error(404);
+						return;
+					}
+				}
+				$this->view->feeds = [ $feed ];
+				break;
+			case 's':
+			case 't':
+			case 'T':
+			default:
+				Minz_Error::error(404);
+				return;
+		}
+
+		require_once(LIB_PATH . '/lib_opml.php');
+
+		// No layout for OPML output.
+		$this->view->_layout(false);
+		header('Content-Type: application/xml; charset=utf-8');
+	}
+
 	/**
 	 * This action updates the Context object by using request parameters.
 	 *

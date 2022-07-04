@@ -30,16 +30,16 @@
     "fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
+    "eslint": "^8.10.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.3",
+    "eslint-plugin-promise": "^6.0.0",
     "markdownlint-cli": "^0.31.1",
     "rtlcss": "^3.5.0",
-    "sass": "^1.49.0",
-    "stylelint": "^14.3.0",
-    "stylelint-config-recommended-scss": "^5.0.2",
+    "sass": "^1.52.3",
+    "stylelint": "^14.9.0",
+    "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-order": "^5.0.0"
   },
   "rtlcssConfig": {}

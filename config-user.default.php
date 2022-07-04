@@ -16,6 +16,7 @@ return array (
 		'keep_unreads' => false,
 	],
 	'ttl_default' => 3600,
+	'dynamic_opml_ttl_default' => 43200,
 	'mail_login' => '',
 	'email_validation_token' => '',
 	'token' => '',
@@ -49,6 +50,7 @@ return array (
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
+		'gone' => false,
 		'max_n_unread' => false,
 		'reception' => false,
 		'same_title_in_feed' => false,

@@ -2,7 +2,7 @@
 	<div class="item title">
 		<a href="<?= _url('index', 'index') ?>">
 			<?php if (FreshRSS_Context::$system_conf->logo_html == '') { ?>
-				<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="FreshRSS" />
+				<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" />
 			<?php
 				} else {
 					echo FreshRSS_Context::$system_conf->logo_html;

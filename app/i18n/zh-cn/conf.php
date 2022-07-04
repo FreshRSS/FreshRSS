@@ -160,6 +160,7 @@ return array(
 			'article_viewed' => '在文章被浏览后',
 			'keep_max_n_unread' => '未读最多保留 n 条',
 			'scroll' => '在滚动浏览后',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
 			'when_same_title' => '已存在 n 条相同标题文章',

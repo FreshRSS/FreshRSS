@@ -46,6 +46,10 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 	* Example: `div.main`
 * `frss:filtersActionRead`: List (separated by a new line) of search queries to automatically mark a new article as read.
 
+### Dynamic OPML (reading lists)
+
+* `frss:opmlUrl`: If non-empty, indicates that this outline (category) should be dynamically populated from a remote OPML at the specified URL.
+
 ### Example
 
 ```xml

@@ -24,8 +24,13 @@ return array(
 		'_' => 'Categorie',
 		'add' => 'Voeg categorie',
 		'archiving' => 'Archiveren',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Abonnementenbeheer',
 		'add' => 'Feed of categorie toevoegen',
 		'add_category' => 'Categorie toevoegen',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Feed toevoegen',
 		'add_label' => 'Label toevoegen',
 		'delete_label' => 'Label verwijderen',

@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
 		'create' => '作成',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '寄付',
 		'disable' => '無効',
 		'empty' => '空',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '消去',
 		'rename' => 'リネーム',
 		'see_website' => 'webサイトを閲覧してください',

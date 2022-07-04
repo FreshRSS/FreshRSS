@@ -24,8 +24,13 @@ return array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Konumu göster',
 		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
 		'title' => 'Başlık',
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Abonelik yönetimi',
 		'add' => 'Kategori veya akış ekle',
 		'add_category' => 'Kategori ekle',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Akış ekle',
 		'add_label' => 'Etiket ekle',
 		'delete_label' => 'Etiket sil',
