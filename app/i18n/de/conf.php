@@ -156,7 +156,7 @@ return array(
 				'both' => 'In Kopf- und Fußzeile',
 				'footer' => 'In Fußzeile',
 				'header' => 'In Kopfzeile',
-				'none' => 'None',
+				'none' => 'Nicht anzeigen',
 			),
 			'tags_max' => array(
 				'_' => 'Max Anzahl von Hashtags',
