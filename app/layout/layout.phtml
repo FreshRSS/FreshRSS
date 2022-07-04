@@ -34,11 +34,18 @@ if (_t('gen.dir') === 'rtl') {
 	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
+		unset($url_rss['params']['rid']);
 		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
 			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
 		}
 ?>
 		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
+<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
+		$opml_rss = $url_base;
+		$opml_rss['a'] = 'opml';
+		unset($opml_rss['params']['rid']);
+?>
+		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Minz_Url::display($opml_rss) ?>" />
 <?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
 		<meta name="description" content="<?= htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
 <?php } else { ?>

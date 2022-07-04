@@ -117,6 +117,7 @@ input:focus {
 .icon[src*="/sort-up"],
 .icon[src*="/sort-down"],
 .icon[src*="/key"],
+.icon[src*="/opml-dyn"],
 .icon[src*="/configure"],
 .icon[src*="/category"] {
 	/* Color light grey icons */

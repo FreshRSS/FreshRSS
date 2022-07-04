@@ -24,8 +24,13 @@ return array(
 		'_' => 'Категория',
 		'add' => 'Добавить категория',
 		'archiving' => 'Архивирование',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
 		'title' => 'Заголовок',
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Управление подписками',
 		'add' => 'Добавить ленту или категорию',
 		'add_category' => 'Добавить категорию',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Добавить ленту',
 		'add_label' => 'Добавить метку',
 		'delete_label' => 'Удалить метку',

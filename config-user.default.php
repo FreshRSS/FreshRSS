@@ -16,6 +16,7 @@ return array (
 		'keep_unreads' => false,
 	],
 	'ttl_default' => 3600,
+	'dynamic_opml_ttl_default' => 43200,
 	'mail_login' => '',
 	'email_validation_token' => '',
 	'token' => '',

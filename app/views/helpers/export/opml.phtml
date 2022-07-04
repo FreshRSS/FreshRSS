@@ -1,21 +1,14 @@
 <?php
-/** @var FreshRSS_View $this */
 
-$opml_array = array(
-	'head' => array(
-		'title' => FreshRSS_Context::$system_conf->title,
-		'dateCreated' => date('D, d M Y H:i:s')
-	),
-	'body' => array()
-);
-
-foreach ($this->categories as $key => $cat) {
-	$opml_array['body'][$key] = array(
-		'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
-		'@outlines' => array()
-	);
-
-	foreach ($cat->feeds() as $feed) {
+/**
+ * @param array<FreshRSS_Feed> $feeds
+ */
+function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
+	$outlines = [];
+	foreach ($feeds as $feed) {
+		if ($feed->mute() && $excludeMutedFeeds) {
+			continue;
+		}
 		$outline = [
 			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
 			'type' => FreshRSS_Export_Service::TYPE_RSS_ATOM,
@@ -47,8 +40,36 @@ foreach ($this->categories as $key => $cat) {
 		if ($feed->pathEntries() != '') {
 			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
 		}
-		$opml_array['body'][$key]['@outlines'][] = $outline;
+		$outlines[] = $outline;
 	}
+	return $outlines;
+}
+
+/** @var FreshRSS_View $this */
+
+$opml_array = array(
+	'head' => array(
+		'title' => FreshRSS_Context::$system_conf->title,
+		'dateCreated' => date('D, d M Y H:i:s')
+	),
+	'body' => array()
+);
+
+if (!empty($this->categories)) {
+	foreach ($this->categories as $key => $cat) {
+		$outline = [
+			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
+		];
+		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
+			$outline['frss:opmlUrl'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $cat->attributes('opml_url')];;
+		}
+		$opml_array['body'][$key] = $outline;
+	}
+}
+
+if (!empty($this->feeds)) {
+	$opml_array['body'][] = feedsToOutlines($this->feeds, $this->excludeMutedFeeds);
 }
 
 echo libopml_render($opml_array);

@@ -25,6 +25,8 @@ class FreshRSS_View extends Minz_View {
 	public $tags;
 	/** @var array<string,string> */
 	public $notification;
+	/** @var bool */
+	public $excludeMutedFeeds;
 
 	// Substriptions
 	public $default_category;

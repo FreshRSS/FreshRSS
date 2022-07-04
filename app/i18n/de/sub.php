@@ -24,8 +24,13 @@ return array(
 		'_' => 'Kategorie',
 		'add' => 'Kategorie hinzufügen',
 		'archiving' => 'Archivierung',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',	// IGNORE
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Reihenfolge',
 		'position_help' => 'Steuert die Kategoriesortierung',
 		'title' => 'Titel',
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Abonnementverwaltung',
 		'add' => 'Feed oder Kategorie hinzufügen',
 		'add_category' => 'Kategorie hinzufügen',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Feed hinzufügen',
 		'add_label' => 'Label hinzufügen',
 		'delete_label' => 'Label löschen',

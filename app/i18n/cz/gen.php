@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
 		'see_website' => 'Zobrazit webovou stránku',

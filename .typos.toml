@@ -2,6 +2,9 @@
 ot = "ot"
 Ths2 = "Ths2"
 
+[default.extend-words]
+ba = "ba"
+
 [files]
 extend-exclude = [
 	"*.fr.md",

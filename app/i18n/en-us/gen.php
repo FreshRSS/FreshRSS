@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',	// IGNORE
 		'cancel' => 'Cancel',	// IGNORE
 		'create' => 'Create',	// IGNORE
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// IGNORE
 		'disable' => 'Disable',	// IGNORE
 		'empty' => 'Empty',	// IGNORE
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
 		'see_website' => 'See website',	// IGNORE

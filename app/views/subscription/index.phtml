@@ -36,6 +36,7 @@
 			<div class="box-title">
 				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
 				<?= $cat->name() ?>
+				<?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
 			</div>
 			<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 				<?php
@@ -60,7 +61,9 @@
 				?>
 				<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
 				<?php } ?>
-				<li class="item feed">✚ <a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _t('sub.feed.add') ?></a></li>
+				<?php if ($cat->kind() != FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
+					<li class="item feed">✚ <a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _t('sub.feed.add') ?></a></li>
+				<?php endif; ?>
 			</ul>
 		</div>
 		<?php } ?>

@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
 		'create' => 'Oluştur',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Yöneticilikten al',
 		'disable' => 'Pasif',
 		'empty' => 'Boş',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Sil',
 		'rename' => 'Yeniden adlandır',
 		'see_website' => 'Siteyi gör',

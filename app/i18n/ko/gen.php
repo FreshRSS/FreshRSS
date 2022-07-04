@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '목록 수준 내리기',
 		'disable' => '비활성화',
 		'empty' => '비우기',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',
 		'see_website' => '웹사이트 열기',

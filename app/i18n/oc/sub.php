@@ -24,8 +24,13 @@ return array(
 		'_' => 'Categoria',
 		'add' => 'Ajustar categoria',
 		'archiving' => 'Archivar',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Gestion dels abonaments',
 		'add' => 'Apondon de flux o categoria',
 		'add_category' => 'Ajustar una categoria',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Ajustar un flux',
 		'add_label' => 'Ajustar una etiqueta',
 		'delete_label' => 'Suprimir una etiqueta',

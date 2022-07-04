@@ -307,8 +307,8 @@ function subscriptionExport() {
 function subscriptionImport($opml) {
 	$user = Minz_Session::param('currentUser', '_');
 	$importService = new FreshRSS_Import_Service($user);
-	$ok = $importService->importOpml($opml);
-	if ($ok) {
+	$importService->importOpml($opml);
+	if ($importService->lastStatus()) {
 		list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
 		invalidateHttpCache($user);
 		exit('OK');

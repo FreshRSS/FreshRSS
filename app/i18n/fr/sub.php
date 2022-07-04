@@ -24,8 +24,13 @@ return array(
 		'_' => 'Catégorie',
 		'add' => 'Ajouter catégorie',
 		'archiving' => 'Archivage',
+		'dynamic_opml' => array(
+			'_' => 'OPML dynamique',
+			'help' => 'Fournir l’URL d’un <a href=http://opml.org/ target=_blank>fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
+		),
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
+		'opml_url' => 'URL de l’OPML',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
@@ -112,7 +117,7 @@ return array(
 			'title' => 'Maintenance',	// IGNORE
 		),
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
-		'mute' => 'muet',
+		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',	// IGNORE
 		'priority' => array(
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Gestion des abonnements',
 		'add' => 'Ajouter un flux/une catégorie',
 		'add_category' => 'Ajouter une catégorie',
+		'add_dynamic_opml' => 'Ajouter un OPML dynamique',
 		'add_feed' => 'Ajouter un flux',
 		'add_label' => 'Ajouter une étiquette',
 		'delete_label' => 'Supprimer une étiquette',
