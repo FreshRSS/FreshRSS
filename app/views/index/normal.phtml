@@ -76,11 +76,12 @@ $today = @strtotime('today');
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
 
+			$tags = null;
 			$firstTags = array();
 			$remainingTags = array();
 
 			if (FreshRSS_Context::$user_conf->show_tags == 'h' || FreshRSS_Context::$user_conf->show_tags == 'f' || FreshRSS_Context::$user_conf->show_tags == 'b') {
-				$tags = FreshRSS_Context::$user_conf->bottomline_tags ? $this->entry->tags() : null;
+				$tags = $this->entry->tags();
 				if (!empty($tags)) {
 					if ($MAX_TAGS_DISPLAYED > 0) {
 						$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
