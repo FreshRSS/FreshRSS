@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
 		'empty' => 'Leeg',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
 		'see_website' => 'Bekijk website',

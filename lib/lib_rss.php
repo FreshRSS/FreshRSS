@@ -377,19 +377,19 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 }
 
 /**
+ * @param string $type {html,opml}
  * @param array<string,mixed> $attributes
  */
-function getHtml(string $url, array $attributes = []): string {
+function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-	$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
 	$cacheMtime = @filemtime($cachePath);
 	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
-		$html = @file_get_contents($cachePath);
-		if ($html != '') {
+		$body = @file_get_contents($cachePath);
+		if ($body != '') {
 			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . SimplePie_Misc::url_remove_credentials($url));
-			return $html;
+			return $body;
 		}
 	}
 
@@ -398,14 +398,25 @@ function getHtml(string $url, array $attributes = []): string {
 	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
-		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . SimplePie_Misc::url_remove_credentials($url));
+	}
+
+	$accept = '*/*;q=0.8';
+	switch ($type) {
+		case 'opml':
+			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
+			break;
+		case 'html':
+		default:
+			$accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+			break;
 	}
 
 	// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 	$ch = curl_init();
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
-		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+		CURLOPT_HTTPHEADER => array('Accept: ' . $accept),
 		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
@@ -428,27 +439,28 @@ function getHtml(string $url, array $attributes = []): string {
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}
 	}
-	$html = curl_exec($ch);
+	$body = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);	//TODO: Check if that may be null
 	$c_error = curl_error($ch);
 	curl_close($ch);
 
-	if ($c_status != 200 || $c_error != '' || $html === false) {
+	if ($c_status != 200 || $c_error != '' || $body === false) {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		$body = '';
 		// TODO: Implement HTTP 410 Gone
 	}
-	if ($html == false) {
-		$html = '';
+	if ($body == false) {
+		$body = '';
 	} else {
-		$html = enforceHttpEncoding($html, $c_content_type);
+		$body = enforceHttpEncoding($body, $c_content_type);
 	}
 
-	if (file_put_contents($cachePath, $html) === false) {
+	if (file_put_contents($cachePath, $body) === false) {
 		Minz_Log::warning("Error saving cache $cachePath for $url");
 	}
 
-	return $html;
+	return $body;
 }
 
 /**
@@ -770,8 +782,8 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-function _i($icon, $url_only = false) {
-	return FreshRSS_Themes::icon($icon, $url_only);
+function _i(string $icon, int $type = FreshRSS_Themes::ICON_DEFAULT): string {
+	return FreshRSS_Themes::icon($icon, $type);
 }
 
 

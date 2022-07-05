@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals init_archiving, init_configuration_alert, init_password_observers, init_slider */
+/* globals init_archiving, init_configuration_alert, init_password_observers, init_slider, init_url_observers */
 
 // <popup>
 let popup = null;
@@ -67,6 +67,22 @@ function init_popup_preview_selector() {
 /**
  * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
  */
+function init_disable_elements_on_update(parent) {
+	const inputs = parent.querySelectorAll('input[data-disable-update]');
+	for (const input of inputs) {
+		input.addEventListener('input', (e) => {
+			const elem = document.getElementById(e.target.dataset.disableUpdate);
+			if (elem) {
+				elem.disabled = true;
+				elem.remove();
+			}
+		});
+	}
+}
+
+/**
+ * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
+ */
 function init_select_show(parent) {
 	const listener = (select) => {
 		const options = select.querySelectorAll('option[data-show]');
@@ -120,7 +136,9 @@ function init_feed_afterDOM() {
 			init_popup();
 			init_popup_preview_selector();
 			init_select_show(slider);
+			init_disable_elements_on_update(slider);
 			init_password_observers(slider);
+			init_url_observers(slider);
 			init_valid_xpath(slider);
 		});
 		init_slider(slider);
@@ -130,6 +148,7 @@ function init_feed_afterDOM() {
 		init_popup();
 		init_popup_preview_selector();
 		init_select_show(document.body);
+		init_disable_elements_on_update(document.body);
 		init_password_observers(document.body);
 		init_valid_xpath(document.body);
 	}

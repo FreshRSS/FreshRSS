@@ -62,6 +62,7 @@
  * @property bool $topline_tags
  * @property string $topline_thumbnail
  * @property int $ttl_default
+ * @property int $dynamic_opml_ttl_default
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,mixed> $volatile

@@ -162,9 +162,21 @@ class FreshRSS_Feed extends Minz_Model {
 	public function inError(): bool {
 		return $this->error;
 	}
-	public function ttl(): int {
+
+	/**
+	 * @param bool $raw true for database version combined with mute information, false otherwise
+	 */
+	public function ttl(bool $raw = false): int {
+		if ($raw) {
+			$ttl = $this->ttl;
+			if ($this->mute && FreshRSS_Feed::TTL_DEFAULT === $ttl) {
+				$ttl = FreshRSS_Context::$user_conf ? FreshRSS_Context::$user_conf->ttl_default : 3600;
+			}
+			return $ttl * ($this->mute ? -1 : 1);
+		}
 		return $this->ttl;
 	}
+
 	public function attributes($key = '') {
 		if ($key == '') {
 			return $this->attributes;
@@ -172,19 +184,11 @@ class FreshRSS_Feed extends Minz_Model {
 			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
 		}
 	}
+
 	public function mute(): bool {
 		return $this->mute;
 	}
-	// public function ttlExpire() {
-		// $ttl = $this->ttl;
-		// if ($ttl == self::TTL_DEFAULT) {	//Default
-			// $ttl = FreshRSS_Context::$user_conf->ttl_default;
-		// }
-		// if ($ttl == -1) {	//Never
-			// $ttl = 64000000;	//~2 years. Good enough for PubSubHubbub logic
-		// }
-		// return $this->lastUpdate + $ttl;
-	// }
+
 	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -248,10 +252,13 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _kind(int $value) {
 		$this->kind = $value;
 	}
+
+	/** @param int $value */
 	public function _category($value) {
 		$value = intval($value);
 		$this->category = $value >= 0 ? $value : 0;
 	}
+
 	public function _name(string $value) {
 		$this->name = $value == '' ? '' : trim($value);
 	}
@@ -281,6 +288,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _error($value) {
 		$this->error = (bool)$value;
+	}
+	public function _mute(bool $value) {
+		$this->mute = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);
@@ -584,7 +594,8 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$html = getHtml($feedSourceUrl, $attributes);
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+		$html = httpGet($feedSourceUrl, $cachePath, 'html', $attributes);
 		if (strlen($html) <= 0) {
 			return null;
 		}

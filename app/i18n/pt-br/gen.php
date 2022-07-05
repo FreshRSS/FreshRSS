@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Criar',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Despromover',
 		'disable' => 'Desabilitar',
 		'empty' => 'Vazio',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promover',
 		'purge' => 'Limpar',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remover',
 		'rename' => 'Renomear',
 		'see_website' => 'Ver o site',

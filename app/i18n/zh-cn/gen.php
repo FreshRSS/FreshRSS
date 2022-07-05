@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
 		'create' => '创建',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '撤销管理员',
 		'disable' => '禁用',
 		'empty' => '清空',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '删除',
 		'rename' => '重命名',
 		'see_website' => '网站中查看',

@@ -24,8 +24,13 @@ return array(
 		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
 		'archiving' => 'Archivace',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Zobrazit pozici',
 		'position_help' => 'Pro ovládání pořadí řazení kategorií',
 		'title' => 'Název',
@@ -181,6 +186,7 @@ return array(
 		'_' => 'Správa odběrů',
 		'add' => 'Přidat kanál nebo kategorii',
 		'add_category' => 'Přidat kategorii',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Přidat kanál',
 		'add_label' => 'Přidat popisek',
 		'delete_label' => 'Odstranit popisek',
