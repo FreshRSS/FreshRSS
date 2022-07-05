@@ -102,7 +102,6 @@ return array (
 	'topline_display_authors' => false,
 	'topline_date' => true,
 	'topline_link' => true,
-	'topline_tags' => false,
 	'bottomline_read' => true,
 	'bottomline_favorite' => true,
 	'bottomline_sharing' => true,

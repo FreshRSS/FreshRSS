@@ -275,9 +275,6 @@ class FreshRSS_ConfigurationSetter {
 	private function _topline_summary(&$data, $value) {
 		$data['topline_summary'] = $this->handleBool($value);
 	}
-	private function _topline_tags(&$data, $value) {
-		$data['topline_tags'] = $this->handleBool($value);
-	}
 	private function _topline_display_authors(&$data, $value) {
 		$data['topline_display_authors'] = $this->handleBool($value);
 	}
