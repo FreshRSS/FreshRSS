@@ -165,7 +165,7 @@ $today = @strtotime('today');
 				?></div>
 				<footer>
 					<?php
-					if (FreshRSS_Context::$user_conf->show_author_date === 'h' || FreshRSS_Context::$user_conf->show_author_date === 'b') { ?>
+					if (FreshRSS_Context::$user_conf->show_author_date === 'f' || FreshRSS_Context::$user_conf->show_author_date === 'b') { ?>
 						<div class="subtitle">
 							<?php if (FreshRSS_Context::$user_conf->show_feed_name === 'a') { ?>
 								<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
