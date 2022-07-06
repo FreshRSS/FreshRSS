@@ -91,6 +91,10 @@ class Minz_Url {
 			}
 		}
 
+		if (!empty($url['#'])) {
+			$uri .= '#' . ($encodage === 'html' ? htmlspecialchars($url['#'], ENT_QUOTES, 'UTF-8') : $url['#']);
+		}
+
 		return $uri;
 	}
 
