@@ -9,7 +9,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
 		if ($stm) {
 			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
-			$stm->bindValue(':name', 'Uncategorized');
+			$stm->bindValue(':name', 'Uncategorized', PDO::PARAM_STR);
 		}
 		return $stm && $stm->execute();
 	}
@@ -52,7 +52,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 						continue;
 					}
 					$stm->bindValue(':id', $feed['id'], PDO::PARAM_INT);
-					$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES));
+					$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES), PDO::PARAM_STR);
 					$stm->execute();
 				}
 
@@ -244,7 +244,7 @@ SQL;
 		if ($stm == false) {
 			return false;
 		}
-		$stm->bindParam(':name', $name);
+		$stm->bindParam(':name', $name, PDO::PARAM_STR);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$cat = self::daoToCategory($res);
