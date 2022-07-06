@@ -159,7 +159,7 @@ return array(
 				'none' => 'None',	// TODO
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags',	// TODO
+				'_' => 'Max number of tags shown',	// TODO
 				'help' => '0 means: show all tags and do not collapse them',	// TODO
 			),
 		),
