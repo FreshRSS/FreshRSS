@@ -1148,6 +1148,10 @@ a.website:hover .favicon {
 	max-width: 550px;
 }
 
+.content .article-header-topline {
+	margin-bottom: 0.75rem;
+}
+
 .content > header,
 .content > footer {
 	color: #666;

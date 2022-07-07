@@ -62,16 +62,18 @@ $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 							$readUrl['params']['is_read'] = 0;
 						}
 					?>
-					<?php if (FreshRSS_Auth::hasAccess()) { ?>
-					<a class="read" href="<?= Minz_Url::display($readUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i($item->isRead() ? 'read' : 'unread') ?></a>
-					<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?></a>
-					<?php } ?>
-					<?php if (FreshRSS_Context::$user_conf->show_feed_name === 't') { ?>
-						<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-							<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-								<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-							endif; ?><span><?= $feed->name() ?></span></a>
-					<?php } ?>
+					<div class="article-header-topline">
+						<?php if (FreshRSS_Auth::hasAccess()) { ?>
+							<a class="read" href="<?= Minz_Url::display($readUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i($item->isRead() ? 'read' : 'unread') ?></a>
+							<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i($item->isFavorite() ? 'starred' : 'non-starred') ?></a>
+						<?php } ?>
+						<?php if (FreshRSS_Context::$user_conf->show_feed_name === 't') { ?>
+							<a class="website" href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+								<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+									<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+								endif; ?><span><?= $feed->name() ?></span></a>
+						<?php } ?>
+					</div>
 
 					<?php if (FreshRSS_Context::$user_conf->show_tags === 'h' || FreshRSS_Context::$user_conf->show_tags === 'b') { ?>
 						<div class="tags">
