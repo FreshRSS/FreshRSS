@@ -163,66 +163,74 @@ $today = @strtotime('today');
 				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>
-				<footer>
-					<?php
-					if (FreshRSS_Context::$user_conf->show_author_date === 'f' || FreshRSS_Context::$user_conf->show_author_date === 'b') { ?>
-						<div class="subtitle">
-							<?php if (FreshRSS_Context::$user_conf->show_feed_name === 'a') { ?>
-								<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-									<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-										<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-									endif; ?><span><?= $this->feed->name() ?></span></a>
-								</div>
-								<?php
-							}
-							$authors = $this->entry->authors();
-							if (!empty($authors) && is_array($authors)) {
-							?>
-							<div class="author">
-								<?= _t('gen.short.by_author') ?>
-								<?php
-								foreach ($authors as $author) {
-									$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
-								?>
-								<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
-								<?php } ?>
-							</div>
-							<?php } ?>
-							<div class="date"><?= $this->entry->date() ?></div>
-						</div>
-					<?php
-					}
-					if (FreshRSS_Context::$user_conf->show_tags === 'f' || FreshRSS_Context::$user_conf->show_tags === 'b') { ?>
-						<div class="tags">
-							<?php
-							if (!empty($tags)) {
-								?><?= _i('tag') ?><ul class="list-tags"><?php
-								foreach ($firstTags as $tag) {
-									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
-								}
-								if (!empty($remainingTags)) { ?>
-									<li class="item tag">
-										<div class="dropdown">
-											<div id="dropdown-tags3-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-											<a class="dropdown-toggle" href="#dropdown-tags3-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
-											<ul class="dropdown-menu">
-												<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
-												<?php
-												foreach ($remainingTags as $tag) {
-													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
-												} ?>
-											</ul>
-											<a class="dropdown-close" href="#close">❌</a>
-										</div>
-									</li>
-									<?php
-								} ?>
-								</ul><?php
-							} ?>
-						</div>
+				<?php
+				$display_authors_date = FreshRSS_Context::$user_conf->show_author_date === 'f' || FreshRSS_Context::$user_conf->show_author_date === 'b';
+				$display_tags = FreshRSS_Context::$user_conf->show_tags === 'f' || FreshRSS_Context::$user_conf->show_tags === 'b';
+
+				if ($display_authors_date || $display_tags) {
+					?>
+					<footer>
 						<?php
-					} ?>
-				</footer>
+						if ($display_authors_date) { ?>
+							<div class="subtitle">
+								<?php if (FreshRSS_Context::$user_conf->show_feed_name === 'a') { ?>
+									<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+										<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+											<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+										endif; ?><span><?= $this->feed->name() ?></span></a>
+									</div>
+									<?php
+								}
+								$authors = $this->entry->authors();
+								if (!empty($authors) && is_array($authors)) {
+								?>
+								<div class="author">
+									<?= _t('gen.short.by_author') ?>
+									<?php
+									foreach ($authors as $author) {
+										$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+									?>
+									<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+									<?php } ?>
+								</div>
+								<?php } ?>
+								<div class="date"><?= $this->entry->date() ?></div>
+							</div>
+						<?php
+						}
+						if ($display_tags) { ?>
+							<div class="tags">
+								<?php
+								if (!empty($tags)) {
+									?><?= _i('tag') ?><ul class="list-tags"><?php
+									foreach ($firstTags as $tag) {
+										?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+									}
+									if (!empty($remainingTags)) { ?>
+										<li class="item tag">
+											<div class="dropdown">
+												<div id="dropdown-tags3-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+												<a class="dropdown-toggle" href="#dropdown-tags3-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+												<ul class="dropdown-menu">
+													<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
+													<?php
+													foreach ($remainingTags as $tag) {
+														?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
+													} ?>
+												</ul>
+												<a class="dropdown-close" href="#close">❌</a>
+											</div>
+										</li>
+										<?php
+									} ?>
+									</ul><?php
+								} ?>
+							</div>
+							<?php
+						} ?>
+					</footer>
+					<?php 
+				} ?>
 			</div><footer><?php
 				$this->renderHelper('index/normal/entry_bottom');
 			?>

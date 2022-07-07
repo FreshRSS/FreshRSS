@@ -1158,6 +1158,7 @@ a.website:hover .favicon {
 	margin: 2rem 0 2rem;
 	padding-top: 1rem;
 	border-top: 2px solid #ccc;
+	clear: both;
 }
 
 .content > footer .subtitle {
