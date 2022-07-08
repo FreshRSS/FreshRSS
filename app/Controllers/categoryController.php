@@ -12,7 +12,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 *
 	 */
 	public function firstAction() {
-		if (!FreshRSS_Auth::hasAccess()) {
+		if (FreshRSS_Auth::hasAccess() === false) {
 			Minz_Error::error(403);
 		}
 
@@ -41,18 +41,18 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 
 			$cat_name = trim(Minz_Request::param('new-category', ''));
-			if ($cat_name == '') {
+			if ($cat_name === '') {
 				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
 			}
 
 			$cat = new FreshRSS_Category($cat_name);
 
-			if ($catDAO->searchByName($cat->name()) != null) {
+			if ($catDAO->searchByName($cat->name()) !== null) {
 				Minz_Request::bad(_t('feedback.sub.category.name_exists'), $url_redirect);
 			}
 
 			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
-			if ($opml_url != '') {
+			if ($opml_url !== '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$cat->_attributes('opml_url', $opml_url);
 			} else {
@@ -91,7 +91,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
 			}
 
-			if ($catDAO->searchById($id) == null) {
+			if ($catDAO->searchById($id) === null) {
 				Minz_Request::bad(_t('feedback.sub.category.not_exist'), $url_redirect);
 			}
 
