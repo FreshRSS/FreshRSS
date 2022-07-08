@@ -12,7 +12,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 *
 	 */
 	public function firstAction() {
-		if (!FreshRSS_Auth::hasAccess()) {
+		if (false === FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 
@@ -47,7 +47,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			$cat = new FreshRSS_Category($cat_name);
 
-			if ($catDAO->searchByName($cat->name()) != null) {
+			if ($catDAO->searchByName($cat->name()) !== null) {
 				Minz_Request::bad(_t('feedback.sub.category.name_exists'), $url_redirect);
 			}
 
