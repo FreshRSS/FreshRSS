@@ -9,7 +9,7 @@
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id()) ?>" autocomplete="off">
+	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<legend><?= _t('sub.category.information') ?></legend>
