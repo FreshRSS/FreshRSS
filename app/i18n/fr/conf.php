@@ -148,7 +148,7 @@ return array(
 			'feed_name' => array(
 				'above_title' => 'Au-dessus du titre',
 				'none' => 'Caché',
-				'with_authors' => 'Sur la ligne “<i>Auteurs et date</i>”',
+				'with_authors' => 'Sur la ligne “Auteurs et date”',
 			),
 			'feed_title' => 'Titre du flux',
 			'tags' => array(
