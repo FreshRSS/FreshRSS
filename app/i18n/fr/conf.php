@@ -141,8 +141,8 @@ return array(
 			'authors_date' => array(
 				'_' => 'Auteurs et date',
 				'both' => 'En en-tête et en pied de page',
-				'footer' => 'En en-tête',
-				'header' => 'En pied de page',
+				'footer' => 'En pied de page',
+				'header' => 'En en-tête',
 				'none' => 'Caché',
 			),
 			'feed_name' => array(
@@ -154,8 +154,8 @@ return array(
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'En en-tête et en pied de page',
-				'footer' => 'En en-tête',
-				'header' => 'En pied de page',
+				'footer' => 'En pied de page',
+				'header' => 'En en-tête',
 				'none' => 'Caché',
 			),
 			'tags_max' => array(
