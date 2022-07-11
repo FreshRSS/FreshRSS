@@ -140,8 +140,8 @@ return array(
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Auteurs et date',
-				'both' => 'En en-tête et en pied de page',
-				'footer' => 'En pied de page',
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
 				'header' => 'En en-tête',
 				'none' => 'Caché',
 			),
@@ -153,8 +153,8 @@ return array(
 			'feed_title' => 'Titre du flux',
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
-				'both' => 'En en-tête et en pied de page',
-				'footer' => 'En pied de page',
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
 				'header' => 'En en-tête',
 				'none' => 'Caché',
 			),
@@ -171,7 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
 			'articles' => 'Articles : ouverture/fermeture',
-			'articles_header_footer' => 'Articles : en-tête / pied de page',
+			'articles_header_footer' => 'Articles : en-tête / pied d’article',
 			'categories' => 'Navigation de gauche : catégories',
 			'mark_as_read' => 'Marquer les articles comme lus',
 			'misc' => 'Divers',
