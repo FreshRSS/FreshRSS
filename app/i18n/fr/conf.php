@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Auteurs et date',
+				'both' => 'En en-tête et en pied de page',
+				'footer' => 'En en-tête',
+				'header' => 'En pied de page',
+				'none' => 'Caché',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Au-dessus du titre',
+				'none' => 'Caché',
+				'with_authors' => 'Sur la ligne “<i>Auteurs et date</i>”',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Titre du flux',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Tags',	// IGNORE
+				'both' => 'En en-tête et en pied de page',
+				'footer' => 'En en-tête',
+				'header' => 'En pied de page',
+				'none' => 'Caché',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Nombre maximum de tags affichés',
+				'help' => '0 pour afficher tous les tags sans menu déroulant',
 			),
 		),
 		'articles_per_page' => 'Nombre d’articles par page',
@@ -171,7 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
 			'articles' => 'Articles : ouverture/fermeture',
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'articles_header_footer' => 'Articles : en-tête / pied de page',
 			'categories' => 'Navigation de gauche : catégories',
 			'mark_as_read' => 'Marquer les articles comme lus',
 			'misc' => 'Divers',
