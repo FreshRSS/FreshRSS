@@ -426,6 +426,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 
+							/** @var FreshRSS_Entry */
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if ($entry === null) {
 								// An extension has returned a null value, there is nothing to insert.
@@ -454,6 +455,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$titlesAsRead[$entry->title()] = true;
 						}
 
+						/** @var FreshRSS_Entry */
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 						if ($entry === null) {
 							// An extension has returned a null value, there is nothing to insert.

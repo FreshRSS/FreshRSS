@@ -65,9 +65,33 @@ SQL;
 		return $ok;
 	}
 
+	protected function addColumn(string $name) {
+		Minz_Log::warning(__method__ . ': ' . $name);
+		try {
+			if ($name === 'attributes') {	//v1.20.0
+				$sql = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN attributes TEXT;
+ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
+SQL;
+				return $this->pdo->exec($sql) !== false;
+			}
+		} catch (Exception $e) {
+			Minz_Log::error(__method__ . ' error: ' . $e->getMessage());
+		}
+		return false;
+	}
+
 	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				foreach (['attributes'] as $column) {
+					if (stripos($errorLines[0], $column) !== false) {
+						return $this->addColumn($column);
+					}
+				}
+			}
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
 					$tagDAO = FreshRSS_Factory::createTagDao();
@@ -97,12 +121,12 @@ SQL;
 			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. (static::isCompressed() ? 'content_bin' : 'content')
-				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
+				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
 				. static::sqlHexDecode(':hash')
-				. ', :is_read, :is_favorite, :id_feed, :tags)');
+				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared) {
@@ -135,6 +159,11 @@ SQL;
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+			if (!isset($valuesTmp['attributes'])) {
+				$valuesTmp['attributes'] = [];
+			}
+			$this->addEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
 
 			if (static::hasNativeHex()) {
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
@@ -164,9 +193,9 @@ SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
 INSERT IGNORE INTO `_entry` (
 	id, guid, title, author, content_bin, link, date, `lastSeen`,
-	hash, is_read, is_favorite, id_feed, tags
+	hash, is_read, is_favorite, id_feed, tags, attributes
 )
-SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entrytmp`
 ORDER BY date, id;
 
@@ -197,7 +226,7 @@ SQL;
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
-				. ', tags=:tags '
+				. ', tags=:tags, attributes=:attributes '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
@@ -229,6 +258,11 @@ SQL;
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+			if (!isset($valuesTmp['attributes'])) {
+				$valuesTmp['attributes'] = [];
+			}
+			$this->addEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
 
 			if (static::hasNativeHex()) {
 				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
@@ -654,11 +688,20 @@ SQL;
 	public function selectAll() {
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, `lastSeen`, ' . static::sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
+			. ', link, date, `lastSeen`, ' . static::sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry`';
 		$stm = $this->pdo->query($sql);
-		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			yield $row;
+		if ($stm != false) {
+			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				yield $row;
+			}
+		} else {
+			$info = $this->pdo->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				yield from $this->selectAll();
+			}
+			Minz_Log::error(__method__ . ' error: ' . json_encode($info));
+			yield false;
 		}
 	}
 
@@ -667,7 +710,7 @@ SQL;
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
@@ -681,7 +724,7 @@ SQL;
 	public function searchById($id) {
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
@@ -1065,7 +1108,7 @@ SQL;
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
+			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes '
 			. 'FROM `_entry` e0 '
 			. 'INNER JOIN ('
 			. $sql
@@ -1077,6 +1120,9 @@ SQL;
 			return $stm;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+			}
 			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
 			return false;
 		}
@@ -1110,7 +1156,7 @@ SQL;
 
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry` '
 			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
 			. 'ORDER BY id ' . $order;

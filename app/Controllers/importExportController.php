@@ -440,6 +440,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 			$newGuids[$entry->guid()] = true;
 
+			/** @var FreshRSS_Entry */
 			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 			if ($entry == null) {
 				// An extension has returned a null value, there is nothing to insert.

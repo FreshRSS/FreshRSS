@@ -44,6 +44,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $feed;
 
 	private $tags;
+	private $attributes = [];
 
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
 			string $link = '', $pubdate = 0, bool $is_read = false, bool $is_favorite = false, string $tags = '') {
@@ -87,6 +88,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['categories'])) {
 			$entry->_tags($dao['categories']);
+		}
+		if (!empty($dao['attributes'])) {
+			$entry->_attributes('', $dao['attributes']);
 		}
 		return $entry;
 	}
@@ -225,6 +229,29 @@ class FreshRSS_Entry extends Minz_Model {
 			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
 		} else {
 			return $this->tags;
+		}
+	}
+
+	public function attributes($key = '') {
+		if ($key == '') {
+			return $this->attributes;
+		} else {
+			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+		}
+	}
+
+	public function _attributes(string $key, $value) {
+		if ($key == '') {
+			if (is_string($value)) {
+				$value = json_decode($value, true);
+			}
+			if (is_array($value)) {
+				$this->attributes = $value;
+			}
+		} elseif ($value === null) {
+			unset($this->attributes[$key]);
+		} else {
+			$this->attributes[$key] = $value;
 		}
 	}
 
@@ -588,6 +615,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'is_favorite' => $this->isFavorite(),
 			'id_feed' => $this->feed(),
 			'tags' => $this->tags(true),
+			'attributes' => $this->attributes(),
 		);
 	}
 }
