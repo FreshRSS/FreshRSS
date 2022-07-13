@@ -1440,12 +1440,15 @@ br {
 	left: 0;
 	overflow: auto;
 	border-right: 1px solid #aaa;
-	transition: width 200ms linear;
 	z-index: 100;
 }
 
 #slider.active:target {
 	width: 750px;
+}
+
+#slider.sliding {
+	transition: width 200ms linear;
 }
 
 #close-slider {
