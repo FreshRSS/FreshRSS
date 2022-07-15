@@ -1216,14 +1216,6 @@ a.website:hover .favicon {
 	margin: 0.5em 0;
 }
 
-.content > header h1 .extern-link-icon {
-	padding-left: 10px;
-}
-
-.content > header h1 a:hover img {
-	filter: contrast(0);
-}
-
 .content .text ul,
 .content .text ol,
 .content .text dd {
