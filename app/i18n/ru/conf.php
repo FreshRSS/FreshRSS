@@ -137,6 +137,32 @@ return array(
 		'_' => 'Чтение',
 		'after_onread' => 'После «отметить всё прочитанным»',
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'Количество статей на странице',
 		'auto_load_more' => 'Загружать больше статей при достижении низа страницы',
 		'auto_remove_article' => 'Скрывать статьи по прочтении',
@@ -145,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Какие категории развёртывать',
 		'headline' => array(
 			'articles' => 'Статьи: открыть/закрыть',
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Левая панель: категории',
 			'mark_as_read' => 'Пометить статью прочитанной',
 			'misc' => 'Разное',
