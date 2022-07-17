@@ -16,6 +16,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	background: white;
+	height: 100%;
 	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
