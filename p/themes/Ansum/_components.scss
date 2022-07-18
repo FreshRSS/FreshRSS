@@ -185,6 +185,11 @@
 			font-style: italic;
 			line-height: 3em;
 			text-decoration: none;
+
+			&:hover {
+				background: #363330;
+				color: #f5f0ec;
+			}
 		}
 	}
 }
