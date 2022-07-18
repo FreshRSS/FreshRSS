@@ -137,6 +137,32 @@ return array(
 		'_' => '阅读',
 		'after_onread' => '「全部标记为已读」后',
 		'always_show_favorites' => '默认显示收藏夹中所有的文章',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入下一篇文章',
 		'auto_remove_article' => '阅读后隐藏文章',
@@ -145,6 +171,7 @@ return array(
 		'display_categories_unfolded' => '展开的分类',
 		'headline' => array(
 			'articles' => '文章：打开/关闭',
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => '左侧导航：分类',
 			'mark_as_read' => '标为已读选项',
 			'misc' => '其它',

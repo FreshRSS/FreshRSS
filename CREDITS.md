@@ -44,6 +44,7 @@ People are sorted by name so please keep this order.
 * [David Souza](https://github.com/araujo0205): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:araujo0205), [Web](http://davidsouza.tech/)
 * [Django Janny](https://github.com/keltroth): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:keltroth)
 * [dswd](https://github.com/dswd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dswd)
+* [DuncanBennie](https://github.com/DuncanBennie): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:DuncanBennie), [Web](https://duncanbennie.com)
 * [ealdraed](https://github.com/ealdraed): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ealdraed)
 * [Ed Sandor](https://github.com/ewsandor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ewsandor), [Web](https://ewsandor.com)
 * [equinoxmatt](https://github.com/equinoxmatt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:equinoxmatt)
