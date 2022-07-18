@@ -405,10 +405,6 @@ form th {
 	line-height: 3em;
 	text-decoration: none;
 }
-.pagination .item a:hover {
-	background: #22303d;
-	color: #e3e3e3;
-}
 
 #load_more.loading,
 #load_more.loading:hover {

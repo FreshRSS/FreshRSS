@@ -433,10 +433,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.pagination .item a:hover {
-	background: #ddd;
-}
-
 .pagination:first-child .item {
 	border-bottom: 1px solid #aaa;
 }

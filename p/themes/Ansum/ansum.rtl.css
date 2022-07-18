@@ -356,10 +356,6 @@ form th {
 	line-height: 3em;
 	text-decoration: none;
 }
-.pagination .item a:hover {
-	background: #363330;
-	color: #f5f0ec;
-}
 
 #load_more.loading,
 #load_more.loading:hover {

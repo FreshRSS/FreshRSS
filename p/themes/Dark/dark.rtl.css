@@ -452,10 +452,6 @@ a.btn {
 	color: #666;
 }
 
-.pagination .item a:hover {
-	background-color: #111;
-}
-
 .pagination:first-child .item {
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #333;
