@@ -570,6 +570,9 @@ form th {
 		background: rgba(255, 255, 255, 0.3);
 	}
 }
+.header {
+	height: auto;
+}
 .header > .item {
 	vertical-align: middle;
 }
@@ -665,6 +668,10 @@ form th {
 }
 .prompt p {
 	margin: 20px 0;
+}
+
+#global {
+	height: 100vh;
 }
 
 #new-article {

@@ -500,7 +500,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #171717;
-	height: 85px;
 }
 
 .header > .item {
@@ -528,10 +527,6 @@ a.btn {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #262626;
 }

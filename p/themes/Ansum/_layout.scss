@@ -10,6 +10,7 @@
 	background: variables.$sid-bg;
 	display: block;
 	width: auto;
+	height: 3rem;
 	table-layout: none;
 
 	.item {
@@ -101,13 +102,11 @@
 			}
 		}
 	}
-
-
 }
 
 /*=== Body */
 #global {
-	height: calc(100% - 85px);
+	height: calc(100% - 4rem);
 }
 
 

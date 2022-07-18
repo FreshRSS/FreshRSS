@@ -645,7 +645,7 @@ a.btn {
 /*=== Body */
 #global {
 	background: #ede7de;
-	height: calc(100% - 60px);
+	height: calc(100% - 55px);
 }
 
 .aside {
