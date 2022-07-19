@@ -113,6 +113,50 @@
 		</fieldset>
 
 		<fieldset>
+			<legend><?= _t('conf.reading.headline.articles_header_footer') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="show_feed_name"><?= _t('conf.reading.article.feed_title') ?></label>
+				<div class="group-controls">
+					<select name="show_feed_name" id="show_feed_name" data-leave-validation="<?= FreshRSS_Context::$user_conf->show_feed_name ?>">
+						<option value="0"<?= FreshRSS_Context::$user_conf->show_feed_name === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.feed_name.none') ?></option>
+						<option value="t"<?= FreshRSS_Context::$user_conf->show_feed_name === 't' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.feed_name.above_title') ?></option>
+						<option value="a"<?= FreshRSS_Context::$user_conf->show_feed_name === 'a' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.feed_name.with_authors') ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="show_author_date"><?= _t('conf.reading.article.authors_date') ?></label>
+				<div class="group-controls">
+					<select name="show_author_date" id="show_author_date" data-leave-validation="<?= FreshRSS_Context::$user_conf->show_author_date ?>">
+						<option value="0" <?= FreshRSS_Context::$user_conf->show_author_date === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.none') ?></option>
+						<option value="h" <?= FreshRSS_Context::$user_conf->show_author_date === 'h' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.header') ?></option>
+						<option value="f" <?= FreshRSS_Context::$user_conf->show_author_date === 'f' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.footer') ?></option>
+						<option value="b" <?= FreshRSS_Context::$user_conf->show_author_date === 'b' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.both') ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="show_tags"><?= _t('conf.reading.article.tags') ?></label>
+				<div class="group-controls">
+					<select class="select-input-changer" name="show_tags" id="show_tags" data-name="show_tags_max" data-leave-validation="<?= FreshRSS_Context::$user_conf->show_tags ?>">
+						<option value="0" <?= FreshRSS_Context::$user_conf->show_tags === '0' ? ' selected="selected"' : '' ?> data-input-visible="false"><?= _t('conf.reading.article.tags.none') ?></option>
+						<option value="h" <?= FreshRSS_Context::$user_conf->show_tags === 'h' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.reading.article.tags.header') ?></option>
+						<option value="f" <?= FreshRSS_Context::$user_conf->show_tags === 'f' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.reading.article.tags.footer') ?></option>
+						<option value="b" <?= FreshRSS_Context::$user_conf->show_tags === 'b' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.reading.article.tags.both') ?></option>
+					</select>
+					<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+				</div>
+			</div>
+			<div class="form-group" id="show_tags_max-block">
+				<label class="group-name" for="show_tags_max"><?= _t('conf.reading.article.tags_max') ?></label>
+				<div class="group-controls">
+					<input type="number" id="show_tags_max" name="show_tags_max" value="<?= FreshRSS_Context::$user_conf->show_tags_max ?>" min="0" data-leave-validation="<?= FreshRSS_Context::$user_conf->show_tags_max ?>" data-number="2" />
+					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.article.tags_max.help') ?></p>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
 			<legend><?= _t('conf.reading.headline.articles') ?></legend>
 			<div class="form-group">
 				<div class="group-controls">
@@ -313,3 +357,5 @@
 
 	</form>
 </main>
+
+<script src="../scripts/config.js?<?= @filemtime(PUBLIC_PATH . '/scripts/config.js') ?>"></script>

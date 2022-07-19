@@ -16,6 +16,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	background: white;
+	height: 100%;
 	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
@@ -1148,9 +1149,77 @@ a.website:hover .favicon {
 	max-width: 550px;
 }
 
-.content ul,
-.content ol,
-.content dd {
+.content .article-header-topline {
+	margin-bottom: 0.75rem;
+}
+
+.content > header,
+.content > footer {
+	color: #666;
+	font-size: .9rem;
+}
+
+.content > footer {
+	margin: 2rem 0 2rem;
+	padding-top: 1rem;
+	border-top: 2px solid #ccc;
+	clear: both;
+}
+
+.content > footer .subtitle {
+	padding-bottom: 1rem;
+}
+
+.content > header a,
+.content > footer a {
+	color: #666;
+	text-decoration: none;
+}
+
+.content > header a:hover,
+.content > footer a:hover {
+	color: #0062be;
+	text-decoration: underline;
+}
+
+.content > header .tags,
+.content > footer .tags {
+	display: flex;
+	line-height: 1;
+}
+
+.content > header .tags .icon,
+.content > footer .tags .icon {
+	padding: 2px 10px 0 0;
+}
+
+.content > header .tags .list-tags,
+.content > footer .tags .list-tags {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	list-style: none;
+}
+
+.content > header .tags .list-tags .item.tag,
+.content > footer .tags .list-tags .item.tag {
+	display: inline-block;
+	padding-right: 0.75em;
+	line-height: normal;
+}
+
+.content > header .tags .list-tags .item.tag a.link-tag,
+.content > footer .tags .list-tags .item.tag a.link-tag {
+	display: inline;
+}
+
+.content > header h1 {
+	margin: 0.5em 0;
+}
+
+.content .text ul,
+.content .text ol,
+.content .text dd {
 	margin: 0 0 0 15px;
 	padding: 0 0 5px 15px;
 }

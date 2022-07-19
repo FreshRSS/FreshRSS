@@ -1043,7 +1043,7 @@ function init_stream(stream) {
 			return ev.ctrlKey;
 		}
 
-		el = ev.target.closest('.flux .content a');
+		el = ev.target.closest('.flux .content .text a');
 		if (el) {
 			if (!el.closest('div').classList.contains('author')) {
 				el.target = '_blank';

@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -845,7 +844,7 @@ a.btn {
 	padding: 20px 10px;
 }
 
-.content > h1.title > a {
+.content h1.title > a {
 	color: #000;
 }
 
