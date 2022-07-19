@@ -512,11 +512,6 @@ form {
 			font-style: italic;
 			line-height: 3em;
 			text-decoration: none;
-
-			&:hover {
-				background: $color_aside;
-				color: color.adjust( $color_light, $lightness: -10%);
-			}
 		}
 	}
 }
