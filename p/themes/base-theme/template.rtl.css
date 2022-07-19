@@ -874,6 +874,7 @@ li.drag-hover {
 .header {
 	display: table;
 	width: 100%;
+	height: 85px;
 	table-layout: fixed;
 }
 
@@ -909,7 +910,7 @@ input[type="search"] {
 	background: inherit;
 	display: table;
 	width: 100%;
-	height: 100%;
+	height: calc(100vh - 85px);
 	table-layout: fixed;
 }
 

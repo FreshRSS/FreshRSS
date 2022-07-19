@@ -597,11 +597,6 @@ a.btn {
 	width: 350px;
 }
 
-/*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #1c1c1c;
 	border-right: 1px solid #333;
