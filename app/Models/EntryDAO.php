@@ -261,7 +261,7 @@ SQL;
 			if (!isset($valuesTmp['attributes'])) {
 				$valuesTmp['attributes'] = [];
 			}
-			$this->addEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+			$this->updateEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
 				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
 
 			if (static::hasNativeHex()) {
