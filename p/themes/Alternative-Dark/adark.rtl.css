@@ -1117,10 +1117,6 @@ a.btn {
 		text-shadow: none;
 	}
 
-	.pagination {
-		border-top: 1px solid #292929;
-	}
-
 	.flux:not(.current):hover .item.title {
 		background: #333;
 	}
