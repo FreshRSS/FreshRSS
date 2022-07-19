@@ -50,13 +50,16 @@
 	<?php } ?>
 </main>
 
-<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<?php $class = isset($this->feed) ? ' active' : ''; ?>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
-	<?php
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
 		if (isset($this->feed)) {
 			$this->renderHelper('feed/update');
 		}
-	?>
+		?>
+	</div>
 </aside>
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
