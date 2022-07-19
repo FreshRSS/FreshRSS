@@ -344,11 +344,8 @@ form th {
 	font-weight: bold;
 }
 .pagination .item a {
-	display: block;
 	color: #303136;
 	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 #load_more.loading,

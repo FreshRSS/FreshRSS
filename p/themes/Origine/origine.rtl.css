@@ -468,11 +468,8 @@ a.btn {
 }
 
 .pagination .item a {
-	display: block;
 	color: #333;
 	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination .item a:hover {

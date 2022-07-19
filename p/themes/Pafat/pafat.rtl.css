@@ -426,11 +426,8 @@ a.btn {
 }
 
 .pagination .item a {
-	display: block;
 	color: #41444f;
 	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination:first-child .item {

@@ -668,6 +668,12 @@ input[type="checkbox"]:focus-visible {
 	font-weight: bold;
 }
 
+.pagination .item a {
+	display: block;
+	line-height: 3em;
+	text-decoration: none;
+}
+
 .pagination .pager-previous,
 .pagination .pager-next {
 	width: 6em;

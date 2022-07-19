@@ -445,10 +445,7 @@ a.btn {
 }
 
 .pagination .item a {
-	display: block;
 	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 	color: #666;
 }
 

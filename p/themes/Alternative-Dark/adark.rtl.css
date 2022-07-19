@@ -394,10 +394,6 @@ a.btn {
 }
 
 /*=== Pagination */
-.pagination .item a {
-	line-height: 3em;
-}
-
 .pagination {
 	color: #999;
 	border-top: 1px solid #999;
