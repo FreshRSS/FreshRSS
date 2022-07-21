@@ -337,7 +337,6 @@ form th {
 }
 .pagination .item a {
 	color: #303136;
-	font-style: italic;
 }
 #load_more.loading,
 #load_more.loading:hover {

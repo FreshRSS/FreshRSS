@@ -472,13 +472,11 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fafafa;
-	text-align: center;
 	color: #333;
 }
 
 .pagination .item a {
 	color: #333;
-	font-style: italic;
 }
 
 .pagination .item a:hover {

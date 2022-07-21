@@ -343,7 +343,6 @@ form th {
 }
 .pagination .item a {
 	color: #363330;
-	font-style: italic;
 }
 
 #load_more.loading,

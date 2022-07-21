@@ -661,11 +661,13 @@ input[type="checkbox"]:focus-visible {
 .pagination .item {
 	display: table-cell;
 	width: 3em;
+	font-style: italic;
 }
 
 .pagination .item.active {
 	min-width: 3em;
 	font-weight: bold;
+	font-style: normal;
 }
 
 .pagination .item a {
