@@ -23,6 +23,14 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	protected function autoUpdateDb(array $errorInfo) {
+		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
+			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
+			foreach (['attributes'] as $column) {
+				if (!in_array($column, $columns)) {
+					return $this->addColumn($column);
+				}
+			}
+		}
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'tag') === false) {
@@ -43,13 +51,13 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$sql = '
 DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
-	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 	FROM `_entrytmp`
 	ORDER BY date, id;
 INSERT OR IGNORE INTO `_entry`
-	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
+	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
-	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 	FROM `tmp`
 	ORDER BY date, id;
 DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);

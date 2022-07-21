@@ -19,13 +19,13 @@
 	<?php
 	$from = Minz_Request::param('from');
 	if ($from === false) {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id());
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
 	} else {
 		$get = Minz_Request::param('get');
 		if (!$get) {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
 		} else {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get);
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
 		}
 	}
 	?>
@@ -256,7 +256,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" value="<?= _t('sub.feed.number_entries', $nbEntries) ?>" disabled="disabled" />
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id()) ?>">
+					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#slider') ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
 					</a>
 				</div>
@@ -384,7 +384,7 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
+				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id(), '#slider') ?>"><?= _t('gen.action.truncate') ?></button>
 			</div>
 		</div>
 
@@ -491,7 +491,7 @@
 					<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
 						data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?=
-						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
+						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', '#slider') ?>"><?= _i('look') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
 			</div>
@@ -589,13 +589,13 @@
 	<legend><?= _t('sub.feed.maintenance.title') ?></legend>
 	<div class="form-group">
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id()) ?>">
+			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#slider') ?>">
 				<?= _t('sub.feed.maintenance.clear_cache') ?>
 			</a>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 		</div>
 		<div class="group-controls">
-			<form method="post" action="<?= _url('feed', 'reload') ?>">
+			<form method="post" action="<?= _url('feed', 'reload', '#slider') ?>">
 				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
 				<button type="submit" class="btn btn-important">

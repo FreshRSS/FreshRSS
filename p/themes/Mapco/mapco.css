@@ -743,6 +743,7 @@ form th {
 	background: #303136;
 	display: block;
 	width: auto;
+	height: 3rem;
 	table-layout: none;
 }
 .header .logo {
@@ -810,7 +811,7 @@ form th {
 }
 /*=== Body */
 #global {
-	height: calc(100% - 85px);
+	height: calc(100% - 4rem);
 }
 
 /*=== Prompt (centered) */

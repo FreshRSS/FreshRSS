@@ -616,7 +616,7 @@ a.btn,
 
 /*=== Body */
 #global {
-	height: calc(100% - 85px);
+	height: calc(100vh - 40px);
 }
 
 .aside {

@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
 	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(1023),
+	"attributes" TEXT,	-- v1.20.0
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
@@ -82,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
 	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(1023),
+	"attributes" TEXT,	-- v1.20.0
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );

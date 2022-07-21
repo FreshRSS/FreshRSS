@@ -555,10 +555,6 @@ a.signin {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #fff;
 	border-left: 1px solid #aaa;

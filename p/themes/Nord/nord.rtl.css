@@ -429,10 +429,6 @@ img.favicon {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header {
-	height: 85px;
-}
-
 .header > .item {
 	padding: 10px;
 	vertical-align: middle;
@@ -465,10 +461,6 @@ img.favicon {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background-color: var(--accent-bg);
 	border-radius: 12px;

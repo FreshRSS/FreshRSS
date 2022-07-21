@@ -750,6 +750,7 @@ form th {
 	background: #fbf9f6;
 	display: block;
 	width: auto;
+	height: 3rem;
 	table-layout: none;
 }
 .header .item {
@@ -814,7 +815,7 @@ form th {
 }
 /*=== Body */
 #global {
-	height: calc(100% - 85px);
+	height: calc(100% - 4rem);
 }
 
 /*=== Prompt (centered) */
