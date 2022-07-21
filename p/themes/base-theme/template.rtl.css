@@ -655,12 +655,12 @@ input[type="checkbox"]:focus-visible {
 	padding: 0;
 	display: table;
 	table-layout: fixed;
+	text-align: center;
 }
 
 .pagination .item {
 	display: table-cell;
 	width: 3em;
-	text-align: center;
 }
 
 .pagination .item.active {

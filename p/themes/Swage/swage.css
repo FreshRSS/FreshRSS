@@ -390,7 +390,6 @@ form th {
 	background: #e3e3e3;
 	color: #181621;
 	font-size: 0.8em;
-	text-align: center;
 }
 .pagination .item.pager-current {
 	background: #22303d;
@@ -1158,5 +1157,3 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

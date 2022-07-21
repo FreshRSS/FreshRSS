@@ -496,7 +496,6 @@ form {
 	background: color.adjust( $color_light, $lightness: -10%);
 	color: $color_text;
 	font-size: 0.8em;
-	text-align: center;
 
 	.item {
 		&.pager-current {
