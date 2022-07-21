@@ -1045,11 +1045,6 @@ input.extend {
 }
 
 /*=== Pagination */
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 .pagination .item a {
 	font-style: italic;
 }
