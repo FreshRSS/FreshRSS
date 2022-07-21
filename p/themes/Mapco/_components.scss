@@ -166,18 +166,9 @@
 	font-size: 0.8em;
 	text-align: center;
 
-	.item {
-		&.pager-current {
-			background: variables.$sid-bg;
-			color: variables.$grey-light;
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			color: variables.$main-font-color;
-			font-style: italic;
-		}
+	.item a {
+		color: variables.$main-font-color;
+		font-style: italic;
 	}
 
 }

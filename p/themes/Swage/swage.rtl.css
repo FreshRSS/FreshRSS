@@ -391,12 +391,6 @@ form th {
 	color: #181621;
 	font-size: 0.8em;
 }
-.pagination .item.pager-current {
-	background: #22303d;
-	color: #e3e3e3;
-	font-size: 1.5em;
-	font-weight: bold;
-}
 .pagination .item a {
 	color: #181621;
 	font-style: italic;

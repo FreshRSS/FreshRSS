@@ -437,12 +437,6 @@ a.btn {
 	font-size: 0.8em;
 }
 
-.pagination .item.pager-current {
-	background: #111;
-	font-size: 1.5em;
-	font-weight: bold;
-}
-
 .pagination .item a {
 	font-style: italic;
 	color: #666;

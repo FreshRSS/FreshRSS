@@ -497,18 +497,9 @@ form {
 	color: $color_text;
 	font-size: 0.8em;
 
-	.item {
-		&.pager-current {
-			background: $color_aside;
-			color: color.adjust( $color_light, $lightness: -10%);
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			color: $color_text;
-			font-style: italic;
-		}
+	.item a {
+		color: $color_text;
+		font-style: italic;
 	}
 }
 
