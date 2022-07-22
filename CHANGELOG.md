@@ -9,8 +9,11 @@
 * Bug fixing
 	* Fix regression with Fever API on 32-bit platforms [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201)
 	* Fix read-when-same-title bug [#4206](https://github.com/FreshRSS/FreshRSS/pull/4206)
+	* Fix database size calculation for PostgreSQL [#4249](https://github.com/FreshRSS/FreshRSS/pull/4249)
 	* Fix HTTP root redirection in some cases (trailing slash with a proxy) [#4167](https://github.com/FreshRSS/FreshRSS/pull/4167)
+	* Fix remain of bookmarklet [#4240](https://github.com/FreshRSS/FreshRSS/pull/4240)
 * UI
+	* Manage feed configuration using a dynamic slider view [#4226](https://github.com/FreshRSS/FreshRSS/pull/4226)
 	* Improve configuration of registration form [#3932](https://github.com/FreshRSS/FreshRSS/pull/3932)
 	* Improve subscription list drag & drop [#3953](https://github.com/FreshRSS/FreshRSS/pull/3953)
 	* Improve extension manager [#4181](https://github.com/FreshRSS/FreshRSS/pull/4181)
@@ -22,14 +25,17 @@
 	* Improve pagination + *load more* button [#4125](https://github.com/FreshRSS/FreshRSS/pull/4125)
 	* Improve log view [#4204](https://github.com/FreshRSS/FreshRSS/pull/4204)
 	* Improve unread articles counter in normal view [#4166](https://github.com/FreshRSS/FreshRSS/pull/4166)
+	* Better PWA colours for mobile [#4254](https://github.com/FreshRSS/FreshRSS/pull/4254)
 	* Minor UI and style improvements [#4205](https://github.com/FreshRSS/FreshRSS/pull/4205), [#4455](https://github.com/FreshRSS/FreshRSS/pull/4455)
 * i18n
-	* Improve i18n CLI [#4197](https://github.com/FreshRSS/FreshRSS/pull/4197), [#4199](https://github.com/FreshRSS/FreshRSS/pull/4199)
+	* Improve i18n CLI [#4197](https://github.com/FreshRSS/FreshRSS/pull/4197), [#4199](https://github.com/FreshRSS/FreshRSS/pull/4199), [#4212](https://github.com/FreshRSS/FreshRSS/pull/4212),
+	[#4218](https://github.com/FreshRSS/FreshRSS/pull/4218), [#4238](https://github.com/FreshRSS/FreshRSS/pull/4238),
 * Misc.
+	* Replace `lib_phpQuery` by [`PhpGt/CssXPath`](https://github.com/PhpGt/CssXPath) library for full content retrieval [#4261](https://github.com/FreshRSS/FreshRSS/pull/4261)
 	* Improve dev automated checks [#4209](https://github.com/FreshRSS/FreshRSS/pull/4209)
-	* Update dev dependencies, SASS [#4173](https://github.com/FreshRSS/FreshRSS/pull/4173), [#4203](https://github.com/FreshRSS/FreshRSS/pull/4203)
+	* Update dev dependencies [#4173](https://github.com/FreshRSS/FreshRSS/pull/4173), [#4203](https://github.com/FreshRSS/FreshRSS/pull/4203), [#4241](https://github.com/FreshRSS/FreshRSS/pull/4241)
 	* Code improvements [#4130](https://github.com/FreshRSS/FreshRSS/pull/4130), [#4194](https://github.com/FreshRSS/FreshRSS/pull/4194), [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201),
-	[#4202](https://github.com/FreshRSS/FreshRSS/pull/4202), [#4212](https://github.com/FreshRSS/FreshRSS/pull/4212), [#4218](https://github.com/FreshRSS/FreshRSS/pull/4218)
+	[#4202](https://github.com/FreshRSS/FreshRSS/pull/4202), [#4258](https://github.com/FreshRSS/FreshRSS/pull/4258), [#4263](https://github.com/FreshRSS/FreshRSS/pull/4263)
 
 
 ## 2022-02-04 FreshRSS 1.19.2
