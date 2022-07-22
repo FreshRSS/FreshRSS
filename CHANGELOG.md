@@ -4,6 +4,32 @@
 
 * Features
 	* New Web scraping feature *HTML+XPath* for Web pages without any RSS/ATOM feed [#4220](https://github.com/FreshRSS/FreshRSS/pull/4220)
+* SimplePie
+	* New method `rename_attribute()` instead of removing attributes to better be able to style/hide content of articles [#4175](https://github.com/FreshRSS/FreshRSS/pull/4175)
+* Bug fixing
+	* Fix regression with Fever API on 32-bit platforms [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201)
+	* Fix read-when-same-title bug [#4206](https://github.com/FreshRSS/FreshRSS/pull/4206)
+	* Fix HTTP root redirection in some cases (trailing slash with a proxy) [#4167](https://github.com/FreshRSS/FreshRSS/pull/4167)
+* UI
+	* Improve configuration of registration form [#3932](https://github.com/FreshRSS/FreshRSS/pull/3932)
+	* Improve subscription list drag & drop [#3953](https://github.com/FreshRSS/FreshRSS/pull/3953)
+	* Improve extension manager [#4181](https://github.com/FreshRSS/FreshRSS/pull/4181)
+	* Improve idle feeds list [#4192](https://github.com/FreshRSS/FreshRSS/pull/4192)
+	* Improve feed link in normal view [#4006](https://github.com/FreshRSS/FreshRSS/pull/4006)
+	* Improve browser notification for unread message [#4193](https://github.com/FreshRSS/FreshRSS/pull/4193)
+	* Improve notification banner [#4023](https://github.com/FreshRSS/FreshRSS/pull/4023)
+	* Improve new article banner [#4037](https://github.com/FreshRSS/FreshRSS/pull/4037)
+	* Improve pagination + *load more* button [#4125](https://github.com/FreshRSS/FreshRSS/pull/4125)
+	* Improve log view [#4204](https://github.com/FreshRSS/FreshRSS/pull/4204)
+	* Improve unread articles counter in normal view [#4166](https://github.com/FreshRSS/FreshRSS/pull/4166)
+	* Minor UI and style improvements [#4205](https://github.com/FreshRSS/FreshRSS/pull/4205), [#4455](https://github.com/FreshRSS/FreshRSS/pull/4455)
+* i18n
+	* Improve i18n CLI [#4197](https://github.com/FreshRSS/FreshRSS/pull/4197), [#4199](https://github.com/FreshRSS/FreshRSS/pull/4199)
+* Misc.
+	* Improve dev automated checks [#4209](https://github.com/FreshRSS/FreshRSS/pull/4209)
+	* Update dev dependencies, SASS [#4173](https://github.com/FreshRSS/FreshRSS/pull/4173), [#4203](https://github.com/FreshRSS/FreshRSS/pull/4203)
+	* Code improvements [#4130](https://github.com/FreshRSS/FreshRSS/pull/4130), [#4194](https://github.com/FreshRSS/FreshRSS/pull/4194), [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201),
+	[#4202](https://github.com/FreshRSS/FreshRSS/pull/4202), [#4212](https://github.com/FreshRSS/FreshRSS/pull/4212), [#4218](https://github.com/FreshRSS/FreshRSS/pull/4218)
 
 
 ## 2022-02-04 FreshRSS 1.19.2
