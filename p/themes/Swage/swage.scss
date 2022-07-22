@@ -495,29 +495,9 @@ form {
 .pagination {
 	background: color.adjust( $color_light, $lightness: -10%);
 	color: $color_text;
-	font-size: 0.8em;
-	text-align: center;
 
-	.item {
-		&.pager-current {
-			background: $color_aside;
-			color: color.adjust( $color_light, $lightness: -10%);
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: $color_text;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-
-			&:hover {
-				background: $color_aside;
-				color: color.adjust( $color_light, $lightness: -10%);
-			}
-		}
+	.item a {
+		color: $color_text;
 	}
 }
 

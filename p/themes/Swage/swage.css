@@ -389,25 +389,9 @@ form th {
 .pagination {
 	background: #e3e3e3;
 	color: #181621;
-	font-size: 0.8em;
-	text-align: center;
-}
-.pagination .item.pager-current {
-	background: #22303d;
-	color: #e3e3e3;
-	font-size: 1.5em;
-	font-weight: bold;
 }
 .pagination .item a {
-	display: block;
 	color: #181621;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
-}
-.pagination .item a:hover {
-	background: #22303d;
-	color: #e3e3e3;
 }
 
 #load_more.loading,
@@ -1172,5 +1156,3 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

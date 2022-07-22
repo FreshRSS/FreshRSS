@@ -344,8 +344,6 @@ img.favicon {
 /*=== Pagination */
 .pagination {
 	width: 100%;
-	font-size: 0.8em;
-	text-align: center;
 }
 
 .pagination .pager-first,
@@ -1038,29 +1036,9 @@ input.extend {
 }
 
 /*=== Pagination */
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
-}
-
 .pagination .item a {
-	display: block;
 	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
-
-.pagination .loading,
-.pagination a:hover.loading {
-	font-size: 0;
-}
-
-
 
 /*=== STRUCTURE */
 /*===============*/

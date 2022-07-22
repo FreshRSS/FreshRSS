@@ -449,13 +449,7 @@ a.btn {
 }
 
 .pagination .item a {
-	line-height: 3em;
 	color: #000;
-}
-
-.pagination .item a:hover {
-	background: #34495e;
-	color: #ecf0f1;
 }
 
 #load_more.loading,

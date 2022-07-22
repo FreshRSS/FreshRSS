@@ -334,26 +334,11 @@ form th {
 .pagination {
 	background: #eff0f2;
 	color: #303136;
-	font-size: 0.8em;
-	text-align: center;
-}
-.pagination .item.pager-current {
-	background: #303136;
-	color: #eff0f2;
-	font-size: 1.5em;
-	font-weight: bold;
 }
 .pagination .item a {
-	display: block;
 	color: #303136;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
-.pagination .item a:hover {
-	background: #303136;
-	color: #eff0f2;
-}
+
 #load_more.loading,
 #load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;

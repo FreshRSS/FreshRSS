@@ -394,10 +394,6 @@ a.btn {
 }
 
 /*=== Pagination */
-.pagination .item a {
-	line-height: 3em;
-}
-
 .pagination {
 	color: #999;
 	border-top: 1px solid #999;
@@ -1114,10 +1110,6 @@ a.btn {
 		display: none!important;
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		border-top: 1px solid #292929;
 	}
 
 	.flux:not(.current):hover .item.title {

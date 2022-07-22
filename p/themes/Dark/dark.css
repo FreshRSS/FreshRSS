@@ -434,26 +434,10 @@ a.btn {
 .pagination {
 	background: #1c1c1c;
 	color: #888;
-	font-size: 0.8em;
-	text-align: center;
-}
-
-.pagination .item.pager-current {
-	background: #111;
-	font-size: 1.5em;
-	font-weight: bold;
 }
 
 .pagination .item a {
-	display: block;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 	color: #666;
-}
-
-.pagination .item a:hover {
-	background-color: #111;
 }
 
 .pagination:first-child .item {

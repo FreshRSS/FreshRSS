@@ -168,24 +168,9 @@
 .pagination {
 	background: variables.$grey-light;
 	color: variables.$main-font-color;
-	font-size: 0.8em;
-	text-align: center;
 
-	.item {
-		&.pager-current {
-			background: variables.$sid-bg;
-			color: variables.$grey-light;
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: variables.$main-font-color;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-		}
+	.item a {
+		color: variables.$main-font-color;
 	}
 }
 
@@ -193,12 +178,6 @@
 #load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
 }
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 
 /*=== Boxes */
 .box {

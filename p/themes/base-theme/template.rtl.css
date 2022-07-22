@@ -655,17 +655,25 @@ input[type="checkbox"]:focus-visible {
 	padding: 0;
 	display: table;
 	table-layout: fixed;
+	text-align: center;
 }
 
 .pagination .item {
 	display: table-cell;
 	width: 3em;
-	text-align: center;
+	font-style: italic;
 }
 
 .pagination .item.active {
 	min-width: 3em;
 	font-weight: bold;
+	font-style: normal;
+}
+
+.pagination .item a {
+	display: block;
+	line-height: 3em;
+	text-decoration: none;
 }
 
 .pagination .pager-previous,
