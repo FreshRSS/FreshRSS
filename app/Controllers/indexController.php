@@ -372,9 +372,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		//gestion pagination
 		$page = intval(Minz_Request::param('page', 1));
-		if ($page < 1) {
-			$page = 1;
-		}
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);
