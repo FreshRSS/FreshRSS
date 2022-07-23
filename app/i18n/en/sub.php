@@ -36,6 +36,8 @@ return array(
 		'title' => 'Title',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',
 		'add' => 'Add an RSS feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
@@ -116,6 +118,8 @@ return array(
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',
 			'title' => 'Maintenance',
 		),
+		'max_http_redir' => 'Max HTTP redirects',
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',

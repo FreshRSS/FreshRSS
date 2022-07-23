@@ -165,6 +165,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$http_auth = $user . ':' . $pass;
 			}
 
+			$cookie = Minz_Request::param('curl_params_cookie', '');
+			$cookie_file = Minz_Request::paramBoolean('curl_params_cookiefile');
+			$max_redirs = intval(Minz_Request::param('curl_params_redirects', 0));
 			$useragent = Minz_Request::param('curl_params_useragent', '');
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
@@ -172,6 +175,18 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
 				$opts[CURLOPT_PROXY] = $proxy_address;
 				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
+			}
+			if ($cookie !== '') {
+				$opts[CURLOPT_COOKIE] = $cookie;
+			}
+			if ($cookie_file) {
+				// Pass empty cookie file name to enable the libcurl cookie engine
+				// without reading any existing cookie data.
+				$opts[CURLOPT_COOKIEFILE] = '';
+			}
+			if ($max_redirs != 0) {
+				$opts[CURLOPT_MAXREDIRS] = $max_redirs;
+				$opts[CURLOPT_FOLLOWLOCATION] = 1;
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;

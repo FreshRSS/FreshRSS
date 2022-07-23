@@ -36,6 +36,8 @@ return array(
 		'title' => 'Título',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Adicionar um RSS feed',
 		'advanced' => 'Avançado',
 		'archiving' => 'Arquivar',
@@ -116,6 +118,8 @@ return array(
 			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',	// DIRTY
 			'title' => 'Manutenção',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
 		'mute' => 'silenciar',
 		'no_selected' => 'Nenhum feed selecionado.',

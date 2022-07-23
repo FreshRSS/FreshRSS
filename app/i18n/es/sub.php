@@ -36,6 +36,8 @@ return array(
 		'title' => 'Título',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Añadir fuente RSS',
 		'advanced' => 'Avanzado',
 		'archiving' => 'Archivo',
@@ -116,6 +118,8 @@ return array(
 			'reload_articles_help' => 'Vuelva a cargar artículos y obtenga contenido completo si se define un selector.',	// DIRTY
 			'title' => 'Mantenimiento',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
 		'mute' => 'silenciar',
 		'no_selected' => 'No hay funentes seleccionadas.',

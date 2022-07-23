@@ -36,6 +36,8 @@ return array(
 		'title' => 'Název',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Přidat kanál RSS',
 		'advanced' => 'Rozšířené',
 		'archiving' => 'Archivace',
@@ -116,6 +118,8 @@ return array(
 			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován přepínač.',	// DIRTY
 			'title' => 'Údržba',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'ztlumit',
 		'no_selected' => 'Nejsou vybrány žádné kanály.',

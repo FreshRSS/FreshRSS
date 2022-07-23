@@ -36,6 +36,8 @@ return array(
 		'title' => 'Tytuł',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Dodaj kanał',
 		'advanced' => 'Zaawansowane',
 		'archiving' => 'Archiwizacja',
@@ -116,6 +118,8 @@ return array(
 			'reload_articles_help' => 'Ponownie pobiera wiadomości i przetwarza treść ze strony pierwotnej, jeżeli zdefiniowany został selektor CSS.',	// DIRTY
 			'title' => 'Konserwacja',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Po usunięciu kategorii znajdujące się w niej kanały zostaną automatycznie przeniesione do <em>%s</em>.',
 		'mute' => 'wycisz',
 		'no_selected' => 'Brak kanałów.',
