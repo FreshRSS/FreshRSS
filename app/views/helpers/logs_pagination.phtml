@@ -31,8 +31,8 @@
 		<?php
 		for ($i = $this->currentPage - 2; $i <= $this->currentPage + 2; $i++) {
 			if($i > 0 && $i <= $this->nbPage) {
+				$params[$getteur] = $i;
 				if ($i != $this->currentPage) {
-					$params[$getteur] = $i;
 					$class = '';
 					$aria = 'false';
 				} else {
