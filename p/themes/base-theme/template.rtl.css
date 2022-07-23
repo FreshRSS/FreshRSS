@@ -1179,18 +1179,6 @@ a.website:hover .favicon {
 	padding-bottom: 1rem;
 }
 
-.content > header a,
-.content > footer a {
-	color: #666;
-	text-decoration: none;
-}
-
-.content > header a:hover,
-.content > footer a:hover {
-	color: #0062be;
-	text-decoration: underline;
-}
-
 .content > header .tags,
 .content > footer .tags {
 	display: flex;
