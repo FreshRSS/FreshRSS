@@ -18,11 +18,13 @@
 
 		<?php $params[$getteur] = $this->currentPage - 1; ?>
 
-		<?php if ($this->currentPage > 1) { ?>
+		
 		<li class="item pager-previous">
+			<?php if ($this->currentPage > 1) { ?>
 			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
+			<?php } ?>
 		</li>
-		<?php } ?>
+		
 
 		<?php if ($this->currentPage - 2 > 1) { ?>
 		<li class="item">…</a></li>
@@ -49,11 +51,13 @@
 		<?php } ?>
 
 		<?php $params[$getteur] = $this->currentPage + 1; ?>
-		<?php if ($this->currentPage < $this->nbPage) { ?>
+		
 		<li class="item pager-next">
+			<?php if ($this->currentPage < $this->nbPage) { ?>
 			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
+			<?php } ?>
 		</li>
-		<?php } ?>
+		
 		<?php $params[$getteur] = $this->nbPage; ?>
 		<li class="item pager-last">
 			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('conf.logs.pagination.last') ?> »</a>
