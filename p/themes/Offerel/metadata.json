@@ -1,0 +1,7 @@
+{
+  "name": "Offerel",
+  "author": "Offerel",
+  "description": "A Fork of Swage.",
+  "version": 0.9,
+  "files": ["_template.css", "swage.css", "offerel.css"]
+}
