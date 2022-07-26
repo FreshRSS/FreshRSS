@@ -1,0 +1,7 @@
+{
+  "name": "Swage Extended",
+  "author": "Offerel",
+  "description": "An extension to Swage",
+  "version": 1.0,
+  "files": ["_template.css", "swage.css"]
+}

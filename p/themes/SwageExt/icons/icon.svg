@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 256 256" version="1.1" viewBox="0 0 256 256" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<style type="text/css">
+.st0{fill:#FFFFFF;}
+.st1{fill:none;stroke:#FFFFFF;stroke-width:24;stroke-opacity:0.3;}
+.st2{fill:none;stroke:#FFFFFF;stroke-width:24;}
+</style>
+<title>Logo FreshRSS</title>
+<circle class="st0" cx="128" cy="128" r="33"/>
+<path class="st1" d="m12 128c0-64.1 51.9-116 116-116s116 51.9 116 116-51.9 116-116 116"/>
+<path class="st1" d="m54 128c0-40.9 33.1-74 74-74s74 33.1 74 74-33.1 74-74 74"/>
+<path class="st2" d="m128 12c64.1 0 116 51.9 116 116"/>
+<path class="st2" d="m128 54c40.9 0 74 33.1 74 74"/>
+</svg>
