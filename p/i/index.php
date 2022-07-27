@@ -35,7 +35,7 @@ if (!file_exists($applied_migrations_path)) {
 		require(LIB_PATH . '/http-conditional.php');
 		$currentUser = Minz_Session::param('currentUser', '');
 		$dateLastModification = $currentUser === '' ? time() : max(
-			@filemtime(join_path(USERS_PATH, $currentUser, 'log.txt')),
+			@filemtime(join_path(USERS_PATH, $currentUser, LOG_FILENAME)),
 			@filemtime(join_path(DATA_PATH, 'config.php'))
 		);
 		if (httpConditional($dateLastModification, 0, 0, false, PHP_COMPRESSION, true)) {

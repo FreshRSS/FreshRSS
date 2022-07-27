@@ -508,7 +508,7 @@ function invalidateHttpCache($username = '') {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_Session::param('currentUser', '_');
 	}
-	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
+	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
 	//if (!$ok) {
 		//TODO: Display notification error on front-end
 	//}

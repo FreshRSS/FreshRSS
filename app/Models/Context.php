@@ -100,7 +100,7 @@ class FreshRSS_Context {
 				$user_conf = Minz_Configuration::get('user');
 				FreshRSS_Context::$user_conf = $user_conf;
 			} catch (Exception $ex) {
-				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
+				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
 		}
 		if (FreshRSS_Context::$user_conf == null) {
