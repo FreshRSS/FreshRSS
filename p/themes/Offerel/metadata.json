@@ -2,6 +2,6 @@
   "name": "Offerel",
   "author": "Offerel",
   "description": "A Fork of Swage.",
-  "version": 0.9,
-  "files": ["_template.css", "swage.css", "offerel.css"]
+  "version": 1.0,
+  "files": ["_template.css", "../Swage/swage.css", "offerel.css"]
 }
