@@ -831,7 +831,7 @@ function errorMessageInfo($errorTitle, $error = '') {
 	<h1>HTTP 500: {$errorTitle}</h1>
 	{$message}
 	{$details}
-	<hr>
+	<hr />
 	<small>For help see the documentation: <a href="https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html" target="_blank">
 	https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html</a></small>
 	</body></html>
