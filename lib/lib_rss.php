@@ -569,9 +569,9 @@ function get_user_configuration($username) {
 			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
+		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
+		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 		return null;
 	}
 
