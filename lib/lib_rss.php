@@ -831,6 +831,8 @@ function errorMessageInfo($errorTitle, $error = '') {
 	<h1>HTTP 500: {$errorTitle}</h1>
 	{$message}
 	{$details}
+	<hr>
+	<small>For help see the documentation: <a href="https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html" target="_blank">https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html</a></small>
 	<h2>Check the logs</h2>
 	<p>FreshRSS logs are located in <code>./FreshRSS/data/users/*/log*.txt</code></p>
 	<p><em>N.B.:</em> A typical problem is wrong file permissions in the <code>./FreshRSS/data/</code> folder
