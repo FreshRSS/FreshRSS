@@ -7,7 +7,7 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 1. [Prerequisites](02_Prerequisites.md): What you’ll need to run FreshRSS
 2. [General installation instructions](03_Installation.md) for FreshRSS
 3. [Update your installation](04_Updating.md) to the latest stable or development version
-4. [Logging and error messages](logs_and_erorrs.md) in case of any troubles
+4. [Logging and error messages](logs_and_errors.md) in case of any troubles
 
 ## Tutorials and Examples
 
