@@ -832,7 +832,8 @@ function errorMessageInfo($errorTitle, $error = '') {
 	{$message}
 	{$details}
 	<hr>
-	<small>For help see the documentation: <a href="https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html" target="_blank">https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html</a></small>
+	<small>For help see the documentation: <a href="https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html" target="_blank">
+	https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html</a></small>
 	</body></html>
 MSG;
 }
