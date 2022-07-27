@@ -823,7 +823,7 @@ function errorMessageInfo($errorTitle, $error = '') {
 		$details = "<pre>{$details}</pre>";
 	}
 
-	header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+	header('HTTP 1.1 500 Internal Server Error', true, 500);
 	header("Content-Security-Policy: default-src 'self'");
 
 	return <<<MSG
