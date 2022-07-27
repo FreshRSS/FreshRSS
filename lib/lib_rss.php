@@ -827,8 +827,8 @@ function errorMessageInfo($errorTitle, $error = '') {
 	header("Content-Security-Policy: default-src 'self'");
 
 	return <<<MSG
-	<!DOCTYPE html><html><body>
-	<h1>{$errorTitle}</h1>
+	<!DOCTYPE html><html><header><title>HTTP 500: {$errorTitle}</title></header><body>
+	<h1>HTTP 500: {$errorTitle}</h1>
 	{$message}
 	{$details}
 	<h2>Check the logs</h2>
