@@ -1661,9 +1661,14 @@ input:checked + .slide-container .properties {
 }
 
 .item.share.error a::after,
-.category .title.error::before {
+.category .title.error::before,
+.item.feed.error .item-title::before {
 	content: " ⚠ ";
 	color: #bd362f;
+}
+
+.feed.item.error.active .item-title::before {
+	color: white;
 }
 
 .category .title:not([data-unread="0"])::after,
