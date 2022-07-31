@@ -68,10 +68,6 @@
 	color: #4f5e78;
 }
 
-.dropdown-menu::after {
-	border-color: #ffb6c1;
-}
-
 input:focus {
 	outline: none;
 	border: 1px solid #ff449a;
@@ -125,5 +121,5 @@ input:focus {
 }
 
 #btn-add > img {
-	filter: invert(100%);
+	filter: brightness(0.75);
 }

@@ -262,6 +262,9 @@ form th {
 .nav-list .item.error a {
 	color: #c46178;
 }
+.nav-list .item .icon {
+	filter: brightness(3);
+}
 .nav-list .disable {
 	text-align: center;
 	background: #fcfcfc;
@@ -587,6 +590,9 @@ form th {
 	z-index: 1000;
 	width: 35px;
 }
+.header .item.configure .dropdown .icon {
+	filter: brightness(3);
+}
 
 .aside {
 	padding: 35px 0;
@@ -653,11 +659,9 @@ form th {
 .prompt p {
 	margin: 20px 0;
 }
-
 #global {
 	height: 100vh;
 }
-
 #new-article {
 	background: #0062be;
 	font-size: 1em;
@@ -1156,3 +1160,5 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
+
+/*# sourceMappingURL=swage.css.map */

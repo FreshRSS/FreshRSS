@@ -81,6 +81,9 @@
 .btn.btn-important:hover, .btn.btn-important:active {
 	background: #25c;
 }
+.btn.btn-important img {
+	filter: brightness(3);
+}
 .btn.btn-attention {
 	background: #f5633e;
 	color: #fff;
