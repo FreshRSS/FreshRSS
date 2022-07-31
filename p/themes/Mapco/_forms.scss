@@ -30,6 +30,10 @@
 		&:active {
 			background: variables.$main-first-alt;
 		}
+
+		img {
+			filter: brightness(3);
+		}
 	}
 
 
