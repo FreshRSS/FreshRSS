@@ -823,7 +823,6 @@ function errorMessageInfo($errorTitle, $error = '') {
 		$details = "<pre>{$details}</pre>";
 	}
 
-	header('HTTP 1.1 500 Internal Server Error', true, 500);
 	header("Content-Security-Policy: default-src 'self'");
 
 	return <<<MSG
