@@ -186,8 +186,12 @@ a.btn {
 }
 
 .btn-important:hover {
-	background: #0062b7;
+	background: #45699a;
 	color: #eee;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-important:active {
@@ -312,7 +316,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	border-color: #ddd;
+	border-color: #333;
 }
 
 .dropdown-header {
