@@ -36,8 +36,8 @@ return array(
 		'title' => 'Titre',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
+		'accept_cookies' => 'Autoriser les cookies',
+		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
 		'add' => 'Ajouter un flux RSS',
 		'advanced' => 'Avancé',
 		'archiving' => 'Archivage',
@@ -118,8 +118,8 @@ return array(
 			'reload_articles_help' => 'Recharge cette quantité d’articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',	// IGNORE
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'max_http_redir' => 'Maximum de redirections HTTP',
+		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',
