@@ -279,9 +279,10 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _guid(string $value) {
 		if ($value == '') {
-			$value = $this->link;
-			if ($value == '') {
+			if ($this->link == '') {
 				$value = $this->hash();
+			} else {
+				$value = sha1($this->link . $this->title);
 			}
 		}
 		$this->guid = $value;
@@ -313,7 +314,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _link(string $value) {
 		$this->hash = '';
-		$this->link = $value;
+		$this->link = trim($value);
 	}
 	public function _date($value) {
 		$this->hash = '';
