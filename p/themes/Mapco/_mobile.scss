@@ -64,11 +64,6 @@
 
 					}
 				}
-
-				.btn {
-					min-height: 49px;
-					padding: 0.5rem 2rem;
-				}
 			}
 
 		}
@@ -76,6 +71,12 @@
 
 	#global {
 		height: calc(100% - 8rem);
+	}
+
+	main.prompt {
+		max-width: 100%;
+		min-width: auto;
+		width: 75%;
 	}
 
 	.post {
