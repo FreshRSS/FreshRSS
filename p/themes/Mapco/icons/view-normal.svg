@@ -7,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16"
-   height="13"
-   viewBox="0 0 16 13"
+   width="15"
+   height="14"
+   viewBox="0 0 15 14"
    version="1.1"
    id="svg5"
-   sodipodi:docname="unread.svg"
+   sodipodi:docname="view-list.svg"
    inkscape:version="0.92.3 (unknown)">
   <metadata
      id="metadata11">
@@ -41,18 +41,19 @@
      inkscape:window-height="480"
      id="namedview7"
      showgrid="false"
-     inkscape:zoom="19.666667"
-     inkscape:cx="8"
-     inkscape:cy="6"
+     inkscape:zoom="16.857143"
+     inkscape:cx="7.5"
+     inkscape:cy="7"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg5" />
   <g
-     id="surface2">
+     id="surface2"
+     transform="translate(0,-1)">
     <path
        style="fill:#515151;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="M 0,0 V 13 H 16 V 0 Z m 3.257812,2 h 9.484376 L 8,5.726562 Z M 2,3.554688 8,8.269531 14,3.554688 V 11 H 2 Z m 0,0"
+       d="m 0,13 h 15 v 2 H 0 Z M 0,7 H 15 V 9 H 0 Z M 0,1 H 15 V 3 H 0 Z m 0,0"
        id="path2"
        inkscape:connector-curvature="0" />
   </g>

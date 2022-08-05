@@ -64,6 +64,10 @@
 		&:not(.addItem):hover {
 			background: variables.$main-first;
 			color: variables.$white;
+			
+			.icon {
+				filter: brightness(3);
+			}
 
 			a, button, label {
 				text-decoration: none;
@@ -188,27 +192,21 @@
 		border-radius: 2px 2px 0 0;
 
 		.configure {
-			margin-right: 4px;
+			padding: 5px;
 		}
 
 		&:hover {
 			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
 				.icon {
-					display: none;
-					border-radius: 3px;
 					vertical-align: middle;
 				}
 
 				&:hover {
-					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
+					background-color: variables.$main-first;
+
+					.icon {
+						filter: brightness(3);
+					}
 				}
 			}
 		}
@@ -241,37 +239,27 @@
 		padding-left: 30px;
 
 		.item {
-			padding: 0.5rem 0;
+			padding: 0.25rem 0;
 			color: variables.$main-font-color;
 			font-size: 1rem;
 			border-bottom: 1px solid variables.$grey-light;
 			line-height: 1.7em;
 
-			img {
-				margin-right: 0.75rem;
-			}
-
 			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
+				padding: 5px;
 
 				.icon {
-					display: none;
-					border-radius: 3px;
 					vertical-align: middle;
 				}
 
 				&:hover {
-					// background: $main-first;
-					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
+					background-color: variables.$main-first;
+
+					.icon {
+						filter: brightness(3);
+					}
 				}
 			}
-
 		}
 
 		.item:last-child {
@@ -294,7 +282,7 @@
 		color: #fff;
 
 		.bigTick {
-			background: url(icons/tick-white.svg) center no-repeat;
+			filter: brightness(5);
 		}
 	}
 
