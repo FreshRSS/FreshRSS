@@ -6,7 +6,6 @@
 
 /*=== Feed articles */
 .flux {
-	// border-left: 2px solid #ecf0f1;
 	background: variables.$white;
 
 	@include mixins.transition(all, 0.15s, ease-in-out);

@@ -41,7 +41,6 @@
 	}
 
 	.dropdown-header {
-		// padding: 0 5px 5px;
 		margin: 1rem 0.5rem 1rem 1rem;
 		font-weight: bold;
 		text-align: left;
@@ -91,7 +90,6 @@
 	.separator {
 		margin: 0.75rem 0;
 		border-bottom: 1px solid variables.$grey-light;
-		// display: none;
 	}
 
 }
@@ -122,7 +120,6 @@
 /*=== Alerts */
 .alert {
 	margin: 1rem 0;
-	// width: 100%;
 	padding: 1rem;
 	background: variables.$grey-lighter;
 	color: variables.$grey-dark;
@@ -178,7 +175,6 @@
 /*=== Boxes */
 .box {
 	background: variables.$white;
-	// border: 1px solid #ddd;
 	border: none;
 	border-radius: 3px;
 
@@ -189,7 +185,6 @@
 		padding: 5px 10px;
 		background: variables.$grey-light;
 		color: variables.$main-font-color;
-		// border-bottom: 1px solid #ddd;
 		border-radius: 2px 2px 0 0;
 
 		.configure {
@@ -229,7 +224,6 @@
 
 				a.dropdown-toggle {
 					padding: 0;
-					// float: right;
 					border-radius: 0;
 					background-image: url(icons/more.svg);
 					background-repeat: no-repeat;
@@ -244,7 +238,6 @@
 	}
 
 	.box-content {
-		// max-height: 260px;
 		padding-left: 30px;
 
 		.item {
