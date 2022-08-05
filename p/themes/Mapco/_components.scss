@@ -64,7 +64,7 @@
 		&:not(.addItem):hover {
 			background: variables.$main-first;
 			color: variables.$white;
-			
+
 			.icon {
 				filter: brightness(3);
 			}

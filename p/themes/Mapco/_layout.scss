@@ -88,14 +88,15 @@
 			top: 1rem;
 			text-align: center;
 
-			.btn .icon, 
-			> .icon { 
+			.btn .icon,
+			> .icon {
 				filter: brightness(3)
 			}
 
 			.signin {
 				color: white;
 			}
+
 			.btn {
 				padding: 0.25rem 1rem;
 				background-color: transparent;
@@ -111,13 +112,13 @@
 
 /*=== Prompt (centered) */
 main.prompt {
-	width: 33%;
-	min-width: 300px;
-	max-width: 400px;
 	margin: 3rem auto;
-	background: variables.$grey-light;
 	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
 	border-radius: 5px;
+	background: variables.$grey-light;
 }
 
 .prompt {
@@ -193,6 +194,7 @@ main.prompt {
 
 	&.active {
 		background-color: variables.$main-first;
+
 		.icon {
 			filter: brightness(3);
 		}
@@ -235,7 +237,6 @@ main.prompt {
 			}
 
 			// actions
-
 			&#toggle-read.active {
 				.icon {
 					filter: brightness(3.5);

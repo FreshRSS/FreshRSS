@@ -787,13 +787,13 @@ form th {
 
 /*=== Prompt (centered) */
 main.prompt {
-	width: 33%;
-	min-width: 300px;
-	max-width: 400px;
 	margin: 3rem auto;
-	background: #eff0f2;
 	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
 	border-radius: 5px;
+	background: #eff0f2;
 }
 
 .prompt {
@@ -1346,8 +1346,8 @@ main.prompt {
 	}
 
 	.header {
-		height: 8rem;
 		padding: 0.5rem;
+		height: 8rem;
 	}
 	.header .item.search {
 		display: block;
