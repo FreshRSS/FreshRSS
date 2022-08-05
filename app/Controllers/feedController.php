@@ -74,7 +74,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed->_kind($kind);
 		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->_category($cat_id);
+		$feed->_categoryId($cat_id);
 		switch ($kind) {
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
@@ -908,7 +908,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		//Get feed.
-		$feed = $entry->feed(true);
+		$feed = $entry->feed();
 
 		if (!$feed) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');

@@ -82,7 +82,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'id' => $feed->id(),
 				'url' => $feed->url(),
 				'kind' => $feed->kind(),
-				'category' => $feed->category(),
+				'category' => $feed->categoryId(),
 				'name' => $feed->name(),
 				'website' => $feed->website(),
 				'description' => $feed->description(),
@@ -341,26 +341,6 @@ SQL;
 	}
 
 	/**
-	 * For API
-	 */
-	public function arrayFeedCategoryNames(): array {
-		$sql = <<<'SQL'
-SELECT f.id, f.name, c.name as c_name FROM `_feed` f
-INNER JOIN `_category` c ON c.id = f.category
-SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$feedCategoryNames = array();
-		foreach ($res as $line) {
-			$feedCategoryNames[$line['id']] = array(
-				'name' => $line['name'],
-				'c_name' => $line['c_name'],
-			);
-		}
-		return $feedCategoryNames;
-	}
-
-	/**
 	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
 	 * @return array<FreshRSS_Feed>
 	 */
@@ -596,7 +576,7 @@ SQL;
 
 			$myFeed = new FreshRSS_Feed($dao['url'] ?? '', false);
 			$myFeed->_kind($dao['kind'] ?? FreshRSS_Feed::KIND_RSS);
-			$myFeed->_category($category);
+			$myFeed->_categoryId($category);
 			$myFeed->_name($dao['name']);
 			$myFeed->_website($dao['website'] ?? '', false);
 			$myFeed->_description($dao['description'] ?? '');
