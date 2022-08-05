@@ -6,38 +6,6 @@
 /*===========*/
 
 @media (max-width: 840px) {
-	html, body {
-		// font-size: 1rem;
-	}
-
-	ul.nav {
-		.item {
-			width: 100%;
-
-			img {
-				display: none;
-			}
-
-			a {
-				box-sizing: border-box;
-				padding: 1rem 1rem 1rem 2.5rem;
-
-				background: url("../../themes/icons/logout.svg") no-repeat variables.$sid-bg-dark 3% center;
-				display: inline-block;
-				width: 100%;
-				color: variables.$sid-font-color;
-
-				@include mixins.transition(all, 0.2s, ease-in-out);
-
-				&:hover,
-				&:active {
-					background: url("../../themes/icons/logout.svg") no-repeat variables.$alert-bg 3% center;
-					text-decoration: none;
-				}
-			}
-
-		}
-
 	.form-group .group-name {
 		text-align: left;
 	}
