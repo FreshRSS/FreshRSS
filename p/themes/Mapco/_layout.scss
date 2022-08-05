@@ -87,29 +87,23 @@
 		}
 
 		&.configure {
-			width: 2rem;
+			width: 3rem;
 			position: absolute;
 			right: 1rem;
-			top: 1.25rem;
+			top: 1rem;
 			text-align: center;
-			// float: right;
+
+			.btn .icon, 
+			> .icon { 
+				filter: brightness(3)
+			}
+
+			.signin {
+				color: white;
+			}
 			.btn {
-				img {display: none;}
-
-				padding: 0 0.5rem;
-				// border-radius: 0 2px 2px 0;
-
+				padding: 0.25rem 1rem;
 				background-color: transparent;
-				background-position: center;
-				background-repeat: no-repeat;
-				background-image: url(icons/cog-white.svg);
-
-				// border-left-width: 0;
-
-				// width: 3rem;
-				&:hover {
-					// background-color: $main-first-alt;
-				}
 			}
 		}
 	}
