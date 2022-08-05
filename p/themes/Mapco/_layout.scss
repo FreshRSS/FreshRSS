@@ -60,22 +60,28 @@
 				}
 			}
 
-			.btn {
-				img {display: none;}
+			input:focus ~ .btn,
+			input:hover ~ .btn {
+				background-color: variables.$main-first;
 
+				.icon {
+					filter: brightness(3);
+				}
+			}
+
+			.btn {
 				width: 3rem;
 				border-radius: 0 2px 2px 0;
-
-				background-color: variables.$main-first;
-				background-position: center;
-				background-repeat: no-repeat;
-				background-image: url(icons/magnifier.svg);
-
+				background-color: variables.$sid-bg-alt;
 				border-left-width: 0;
 				min-height: 35px;
 
 				&:hover {
 					background-color: variables.$main-first-alt;
+
+					.icon {
+						filter: brightness(3);
+					}
 				}
 			}
 		}
