@@ -61,6 +61,7 @@ People are sorted by name so please keep this order.
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [Guillaume Pugnet](https://github.com/GuillaumePugnet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:GuillaumePugnet)
 * [happymacarts](https://github.com/happymacarts): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:happymacarts)
+* [Harshad Hirapara](https://github.com/harshad389): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:harshad389)
 * [hesch](https://github.com/hesch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hesch)
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
 * [ibiruai](https://github.com/ibiruai): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ibiruai)
@@ -176,5 +177,4 @@ People are sorted by name so please keep this order.
 * [xnaas](https://github.com/xnaas): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xnaas), [Web](https://xnaas.info/)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
-* [Harshad Hirapara](https://github.com/harshad389): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:harshad389)
 
