@@ -165,7 +165,7 @@ class FreshRSS_Export_Service {
 		$zip_filename = 'freshrss_' . $this->username . '_' . $day . '_export.zip';
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-		$zip_file = @tempnam('/tmp', 'zip');
+		$zip_file = tempnam('/tmp', 'zip');
 		$zip_archive = new ZipArchive();
 		$zip_archive->open($zip_file, ZipArchive::OVERWRITE);
 
