@@ -789,11 +789,11 @@ form th {
 main.prompt {
 	margin: 3rem auto;
 	padding: 2rem;
+	background: #eff0f2;
 	max-width: 400px;
 	min-width: 300px;
 	width: 33%;
 	border-radius: 5px;
-	background: #eff0f2;
 }
 
 .prompt {

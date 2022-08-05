@@ -114,11 +114,11 @@
 main.prompt {
 	margin: 3rem auto;
 	padding: 2rem;
+	background: variables.$grey-light;
 	max-width: 400px;
 	min-width: 300px;
 	width: 33%;
 	border-radius: 5px;
-	background: variables.$grey-light;
 }
 
 .prompt {
