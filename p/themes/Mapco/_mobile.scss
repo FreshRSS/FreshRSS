@@ -38,8 +38,6 @@
 
 		}
 
-	}
-
 	.form-group .group-name {
 		text-align: left;
 	}
@@ -74,6 +72,7 @@
 	}
 
 	.header {
+		height: 8rem;
 		padding: 0.5rem;
 
 		.item {
@@ -105,6 +104,10 @@
 			}
 
 		}
+	}
+
+	#global {
+		height: calc(100% - 8rem);
 	}
 
 	.post {

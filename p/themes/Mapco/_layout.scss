@@ -10,7 +10,7 @@
 	background: variables.$sid-bg;
 	display: block;
 	width: auto;
-	height: 3rem;
+	height: 3.5rem;
 	table-layout: none;
 
 	.logo {
@@ -111,7 +111,7 @@
 
 /*=== Body */
 #global {
-	height: calc(100% - 4rem);
+	height: calc(100% - 3.5rem);
 }
 
 /*=== Prompt (centered) */
