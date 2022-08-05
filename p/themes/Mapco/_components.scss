@@ -7,7 +7,7 @@
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
-// parti dans _forms.scss
+// see _forms.scss
 
 /*=== Horizontal-list */
 .horizontal-list {
@@ -141,7 +141,7 @@
 .alert-warn {
 	background: variables.$warning-light;
 	color: variables.$warning-text;
-	border: 1px solid string.unquote(variables.$warning-text + '33'); // on ajoute l’opacité à la fin
+	border: 1px solid string.unquote(variables.$warning-text + '33'); // add opacity at the end
 }
 
 .alert-success {
