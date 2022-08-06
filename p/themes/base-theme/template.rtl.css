@@ -1425,21 +1425,6 @@ br {
 	height: 300px;
 }
 
-/*=== LOGIN VIEW */
-/*================*/
-.formLogin .header > .item {
-	padding: 10px 30px;
-}
-
-.formLogin .header > .item.title {
-	text-align: right;
-}
-
-.formLogin .header > .item.configure {
-	text-align: left;
-}
-
-
 /*=== GLOBAL VIEW */
 /*================*/
 #stream.global {
