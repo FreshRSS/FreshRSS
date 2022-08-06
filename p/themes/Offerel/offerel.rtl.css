@@ -1,7 +1,7 @@
 @media screen {
 	.aside {
 		background: rgb(247, 247, 247);
-		float: left;
+		float: right;
 		max-width: 350px;
 		height: 100%;
 		resize: horizontal;
@@ -25,7 +25,7 @@
 	}
 
 	.post {
-		float: left;
+		float: right;
 		width: calc(100% - 350px);
 	}
 
@@ -39,8 +39,8 @@
 		margin: 0;
 		background: transparent;
 		border: 1px solid transparent;
-		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
+		border-bottom-left-radius: 5px;
 	}
 
 	#bigMarkAsRead:hover {
@@ -74,10 +74,10 @@
 		padding: 10px;
 		font-size: 0.8em;
 		border-radius: 5px;
-		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-		right: 30px;
+		box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.3);
+		left: 30px;
 		bottom: 30px;
-		left: unset;
+		right: unset;
 		text-align: unset;
 	}
 
@@ -113,18 +113,18 @@
 		z-index: 10000;
 		top: 29px;
 		transform: rotate(0deg);
-		margin-left: 16px;
+		margin-right: 16px;
 		transition: 3s;
 	}
 
 	li.tree-folder.category[data-unread]:not(.active)::before, li.tree-folder.category.tags:not(.active)::before {
 		transform: rotate(0deg);
-		margin-left: 16px;
+		margin-right: 16px;
 	}
 
 	li.tree-folder.category.active[data-unread]::before, li.tree-folder.category.tags.active::before {
-		transform: rotate(90deg);
-		margin-left: 8px;
+		transform: rotate(-90deg);
+		margin-right: 8px;
 		background-color: rgb(230,230,230);
 	}
 
@@ -145,7 +145,7 @@
 		position: absolute;
 		opacity: 0.15;
 		margin-top: -0.15em;
-		margin-left: -0.15em;
+		margin-right: -0.15em;
 	}
 
 	.flux.current {
@@ -155,7 +155,7 @@
 
 	.flux {
 		margin: 0 20px;
-		padding-right: 0;
+		padding-left: 0;
 	}
 
 	div[id*="dropdown-share"] ~ ul {
@@ -173,7 +173,7 @@
 
 	div[id*="dropdown-share"] ~ ul .item.share {
 		display: inline;
-		float: left;
+		float: right;
 		position: unset;
 	}
 
@@ -208,8 +208,8 @@
 	.flux .bottom {
 		background: #eaeaea;
 		border-top: 1px solid #ccc;
-		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
+		border-bottom-left-radius: 5px;
 	}
 
 	.flux_content .content {
@@ -232,8 +232,8 @@
 	}
 
 	.flux_header {
-		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
 	}
 
 	.flux .item {
@@ -323,9 +323,9 @@
 	.aside_feed [data-unread] .tree-folder-title .icon {
 		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REMyMUQ3QTQzNDQzMTFFNUJFQTVCOUNGMDU2MjgzMDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REMyMUQ3QTUzNDQzMTFFNUJFQTVCOUNGMDU2MjgzMDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpEQzIxRDdBMjM0NDMxMUU1QkVBNUI5Q0YwNTYyODMwOCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEQzIxRDdBMzM0NDMxMUU1QkVBNUI5Q0YwNTYyODMwOCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoggvikAAAXcSURBVHja7N2xa6Nl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') no-repeat;
 		background-size: 10px;
-		padding-left: 10px;
+		padding-right: 10px;
 		box-sizing: border-box;
-		margin-left: 9px;
+		margin-right: 9px;
 	}
 
 	.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
@@ -338,7 +338,7 @@
 
 	.dropdown-menu {
 		font-family: "Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
-		box-shadow: -1px 3px 5px 0px rgba(0,0,0,0.29);
+		box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.29);
 		background-color: #fff;
 		text-shadow: rgb(56, 56, 56) 0 0 0;
 	}
@@ -352,8 +352,8 @@
 	}
 
 	.dropdown-menu > .item {
-		margin-left: 0;
-		padding-left: 10px;
+		margin-right: 0;
+		padding-right: 10px;
 	}
 
 	.dropdown-menu > .item:hover {
