@@ -204,9 +204,18 @@ a.btn {
 	background: linear-gradient(to top, #4a5d7a 0%, #26303f 100%);
 }
 
+.btn:hover .icon {
+	filter: brightness(1);
+}
+
 .btn.active,
 .dropdown-target:target ~ .btn.dropdown-toggle {
 	background: #333;
+}
+
+.btn.active .icon,
+.dropdown-target:target ~ .btn.dropdown-toggle .icon {
+	filter: brightness(1);
 }
 
 .btn:active {
@@ -224,6 +233,10 @@ a.btn {
 
 .btn-important:active {
 	background: #26303f;
+}
+
+.btn-important .icon {
+	filter: brightness(1);
 }
 
 .btn-attention {

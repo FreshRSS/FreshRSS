@@ -1179,18 +1179,6 @@ a.website:hover .favicon {
 	padding-bottom: 1rem;
 }
 
-.content > header a,
-.content > footer a {
-	color: #666;
-	text-decoration: none;
-}
-
-.content > header a:hover,
-.content > footer a:hover {
-	color: #0062be;
-	text-decoration: underline;
-}
-
 .content > header .tags,
 .content > footer .tags {
 	display: flex;
@@ -1437,21 +1425,6 @@ br {
 	height: 300px;
 }
 
-/*=== LOGIN VIEW */
-/*================*/
-.formLogin .header > .item {
-	padding: 10px 30px;
-}
-
-.formLogin .header > .item.title {
-	text-align: left;
-}
-
-.formLogin .header > .item.configure {
-	text-align: right;
-}
-
-
 /*=== GLOBAL VIEW */
 /*================*/
 #stream.global {
@@ -1673,9 +1646,14 @@ input:checked + .slide-container .properties {
 }
 
 .item.share.error a::after,
-.category .title.error::before {
+.category .title.error::before,
+.item.feed.error .item-title::before {
 	content: " ⚠ ";
 	color: #bd362f;
+}
+
+.feed.item.error.active .item-title::before {
+	color: white;
 }
 
 .category .title:not([data-unread="0"])::after,

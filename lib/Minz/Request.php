@@ -27,6 +27,13 @@ class Minz_Request {
 	public static function params() {
 		return self::$params;
 	}
+	/**
+	 * Read the URL parameter
+	 * @param string $key Key name
+	 * @param mixed $default default value, if no parameter is given
+	 * @param bool $specialchars special characters
+	 * @return mixed value of the parameter
+	 */
 	public static function param($key, $default = false, $specialchars = false) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];

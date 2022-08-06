@@ -645,6 +645,10 @@ a.signin {
 	background-color: #fff;
 }
 
+.aside_feed .tree-folder-title .dropdown-toggle .icon {
+	filter: brightness(3);
+}
+
 /*=== Configuration pages */
 .post {
 	padding: 10px 50px;
