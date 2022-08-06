@@ -645,7 +645,7 @@ a.signin {
 	background-color: #fff;
 }
 
-.aside_feed .tree-folder .dropdown-toggle .icon {
+.aside_feed .tree-folder-title .dropdown-toggle .icon {
 	filter: brightness(3);
 }
 
