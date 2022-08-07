@@ -2,17 +2,19 @@ input,
 select, textarea {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 25px;
+	line-height: 29px;
 	vertical-align: middle;
 	background: #fcfcfc;
-	border: none;
-	padding-left: 5px;
+	border: 2px solid #e3e3e3;
+	padding-left: 8px;
 }
 
 input:invalid,
 select:invalid {
+	padding-left: 5px;
 	color: #b0425b;
-	border-color: #b0425b;
+	border-left-color: #b0425b;
+	border-left-width: 5px;
 	box-shadow: none;
 }
 
@@ -56,9 +58,6 @@ a.btn {
 	line-height: 25px;
 	text-decoration: none;
 }
-a.btn:hover {
-	background: #00488b;
-}
 a.btn .icon {
 	filter: brightness(3);
 }
@@ -84,9 +83,10 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: #e3e3e3;
+	background: #22303d;
 	display: inline-block;
 	width: auto;
+	color: #fcfcfc;
 	font-size: 1.4em;
 	clear: both;
 }
@@ -114,7 +114,8 @@ select:disabled {
 }
 
 select {
-	background: #e3e3e3;
+	padding-top: 7px;
+	padding-bottom: 8px;
 }
 
 input.extend {
@@ -200,11 +201,12 @@ form th {
 	cursor: pointer;
 	overflow: hidden;
 }
-.btn.active,
-.btn :active,
-.btn :hover {
+.btn.active, .btn:active, .btn:hover {
 	background: #00488b;
 	text-decoration: none;
+}
+.btn .icon {
+	filter: brightness(3);
 }
 
 .btn-important, .btn-attention {
@@ -575,9 +577,6 @@ form th {
 	top: 5px;
 	filter: grayscale(100%) brightness(100);
 }
-.header > .item.search input {
-	width: 230px;
-}
 .header .item.search input:focus {
 	width: 350px;
 }
@@ -587,7 +586,7 @@ form th {
 .header .item.configure {
 	position: fixed;
 	right: 0;
-	z-index: 1000;
+	z-index: 95;
 	width: 35px;
 }
 .header .item.configure .dropdown .icon {
@@ -628,9 +627,6 @@ form th {
 	padding: 10px 50px;
 	font-size: 0.9em;
 }
-.post input {
-	background: #e3e3e3;
-}
 .post input.long {
 	height: 33px;
 	margin-top: 0px;
@@ -642,26 +638,17 @@ form th {
 	max-width: 550px;
 }
 
-.prompt {
-	text-align: center;
-}
 .prompt label {
 	text-align: left;
-}
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
-}
-.prompt input {
-	margin: 5px auto;
-	width: 100%;
 }
 .prompt p {
 	margin: 20px 0;
 }
+
 #global {
 	height: 100vh;
 }
+
 #new-article {
 	background: #0062be;
 	font-size: 1em;
@@ -701,12 +688,16 @@ form th {
 	font-size: 0;
 	background-color: #0062be;
 	position: fixed;
-	z-index: 900;
+	z-index: 90;
 }
 .nav_menu .item.search {
 	display: inline-block;
 	position: fixed;
 	right: 40px;
+}
+.nav_menu .item.search input {
+	border-width: 0;
+	line-height: 25px;
 }
 
 .flux {
@@ -841,26 +832,33 @@ form th {
 	width: 270px;
 }
 
-.formLogin #global {
+.formLogin #global,
+.register #global {
 	height: 0;
 }
-.formLogin .header {
-	background: #22303d;
-	height: 55px;
+.formLogin .header,
+.register .header {
+	background: #0062be;
+	height: 35px;
+	position: relative;
 }
-.formLogin .header > .item.configure {
-	width: 200px;
-	position: unset;
+.formLogin .header > .item.configure,
+.register .header > .item.configure {
+	width: auto;
+	position: absolute;
+	right: 0;
+	white-space: nowrap;
+	bottom: 0;
+	padding: 8px;
 }
-.formLogin a.signin {
+.formLogin .header > .item.configure .icon,
+.register .header > .item.configure .icon {
+	filter: brightness(3);
+}
+
+a.signin {
 	color: #fcfcfc;
 	padding-left: 5px;
-}
-.formLogin input {
-	border-top: 1px #e3e3e3;
-	border-right: 1px #e3e3e3;
-	border-bottom: 1px #e3e3e3;
-	border-left: 5px solid;
 }
 
 .loglist {
@@ -906,7 +904,7 @@ form th {
 	}
 
 	.dropdown-header, .dropdown-menu > .item {
-		padding: 12px;
+		padding: 5px;
 	}
 
 	#new-article {
@@ -953,8 +951,14 @@ form th {
 		display: block;
 		height: 50px;
 		line-height: 50px;
-		text-align: right;
+		text-align: center;
 		padding-right: 10px;
+	}
+	.aside .toggle_aside:hover {
+		background-color: #0062be;
+	}
+	.aside .toggle_aside .icon {
+		filter: brightness(3);
 	}
 	.aside.aside_feed {
 		padding: 0;
@@ -993,6 +997,7 @@ form th {
 	}
 	.nav_menu .search input {
 		width: 85%;
+		border-width: 0;
 	}
 
 	#panel .close,
@@ -1001,8 +1006,12 @@ form th {
 		display: block;
 		height: 50px;
 		line-height: 50px;
-		text-align: right;
+		text-align: center;
 		padding-right: 10px;
+	}
+	#panel .close:hover,
+.dropdown-menu .toggle_aside:hover {
+		background-color: #0062be;
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle.btn::after {
@@ -1160,5 +1169,3 @@ button.as-link {
 #slider .form-group:hover {
 	background: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */
