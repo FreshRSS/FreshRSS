@@ -227,7 +227,7 @@ input[type="checkbox"] {
 	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
-  }
+}
 
 .dropdown-menu label > input[type="text"] {
 	width: 150px;
