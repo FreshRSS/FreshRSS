@@ -365,7 +365,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 			$feed_id = $article_to_feed[$item['guid']];
 			$author = isset($item['author']) ? $item['author'] : '';
-			$is_starred = false;
+			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
 			$tags = empty($item['categories']) ? array() : $item['categories'];
 			$labels = array();
@@ -484,6 +484,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$this->entryDAO->beginTransaction();
 		foreach ($knownLabels as $labelName => $knownLabel) {
 			$labelId = $knownLabel['id'];
+			if (!$labelId) {
+				continue;
+			}
 			foreach ($knownLabel['articles'] as $article) {
 				$entryId = $this->entryDAO->searchIdByGuid($article['id_feed'], $article['guid']);
 				if ($entryId != null) {

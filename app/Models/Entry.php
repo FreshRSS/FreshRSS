@@ -31,6 +31,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @var bool|null
 	 */
 	private $is_read;
+	/** @var bool|null */
 	private $is_favorite;
 
 	/**
@@ -336,7 +337,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->is_read = $value === null ? null : (bool)$value;
 	}
 	public function _isFavorite($value) {
-		$this->is_favorite = $value;
+		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
 
 	/** @param FreshRSS_Feed|null $feed */
@@ -679,7 +680,7 @@ class FreshRSS_Entry extends Minz_Model {
 		} elseif ($mode === 'freshrss') {
 			$item['guid'] = $this->guid();
 		}
-		if ($category != null) {
+		if ($category != null && $mode !== 'freshrss') {
 			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
 		}
 		if ($feed != null) {

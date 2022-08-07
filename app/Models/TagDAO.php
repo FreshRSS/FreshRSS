@@ -61,7 +61,7 @@ SQL;
 			$valuesTmp['name'],
 		);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm && $stm->execute($values) && $stm->rowCount() > 0) {
 			return $this->pdo->lastInsertId('`_tag_id_seq`');
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
