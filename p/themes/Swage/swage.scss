@@ -1059,8 +1059,9 @@ form {
 	}
 
 	.header {
-		background: $color_aside;
-		height: 55px;
+		background: $color_nav;
+		height: 35px;
+		position: relative;
 
 		> .item {
 			&.configure {
