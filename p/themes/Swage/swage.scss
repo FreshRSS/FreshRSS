@@ -1186,8 +1186,16 @@ a.signin {
 			display: block;
 			height: 50px;
 			line-height: 50px;
-			text-align: right;
+			text-align: center;
 			padding-right: 10px;
+
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);;
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 
 		&.aside_feed {
@@ -1245,8 +1253,12 @@ a.signin {
 		display: block;
 		height: 50px;
 		line-height: 50px;
-		text-align: right;
+		text-align: center;
 		padding-right: 10px;
+
+		&:hover {
+			background-color: color.adjust( $color_nav, $lightness: 0%);;
+		}
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle.btn::after {
