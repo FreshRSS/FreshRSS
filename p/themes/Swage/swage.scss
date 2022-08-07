@@ -107,9 +107,10 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background: $color_aside;
 	display: inline-block;
 	width: auto;
+	color: $color_light;
 	font-size: 1.4em;
 	clear: both;
 }
