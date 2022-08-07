@@ -1069,8 +1069,16 @@ form {
 
 		> .item {
 			&.configure {
-				width: 200px;
-				position: unset;
+				width: auto;
+				position: absolute;
+				right: 0;
+				white-space: nowrap;
+				bottom: 0;
+				padding: 8px;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 	}
