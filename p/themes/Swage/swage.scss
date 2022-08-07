@@ -263,10 +263,14 @@ form {
 	overflow: hidden;
 
 	&.active,
-	:active,
-	:hover {
+	&:active,
+	&:hover {
 		background: color.adjust( $color_nav, $lightness: -10%);
 		text-decoration: none;
+	}
+
+	.icon {
+		filter: brightness(3);
 	}
 }
 
