@@ -72,10 +72,6 @@ a {
 		line-height: 25px;
 		text-decoration: none;
 
-		&:hover {
-			background: color.adjust( $color_nav, $lightness: -10%);
-		}
-
 		.icon {
 			filter: brightness(3);
 		}
