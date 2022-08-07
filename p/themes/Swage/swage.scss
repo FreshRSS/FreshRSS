@@ -1078,11 +1078,7 @@ form {
 			}
 		}
 	}
-
-	a.signin {
-		color: $color_light;
-		padding-left: 5px;
-	}
+}
 
 	input {
 		border-top: 1px color.adjust( $color_light, $lightness: -10%);
@@ -1090,6 +1086,9 @@ form {
 		border-bottom: 1px color.adjust( $color_light, $lightness: -10%);
 		border-left: 5px solid;
 	}
+a.signin {
+	color: $color_light;
+	padding-left: 5px;
 }
 
 .loglist {
