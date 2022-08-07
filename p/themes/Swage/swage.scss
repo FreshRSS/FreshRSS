@@ -740,7 +740,7 @@ form {
 	.item.configure {
 		position: fixed;
 		right: 0;
-		z-index: 1000;
+		z-index: 95;
 		width: 35px;
 
 		.dropdown .icon {
@@ -883,7 +883,7 @@ form {
 	font-size: 0;
 	background-color: $color_nav;
 	position: fixed;
-	z-index: 900;
+	z-index: 90;
 
 	.item.search {
 		display: inline-block;
