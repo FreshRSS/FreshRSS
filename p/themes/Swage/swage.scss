@@ -19,16 +19,18 @@ $color_hover:	#fff;
 %input {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 25px;
+	line-height: 29px;
 	vertical-align: middle;
 	background: $color_light;
-	border: none;
-	padding-left: 5px;
+	border: 2px solid #e3e3e3;
+	padding-left: 8px;
 }
 
 %invalid {
+	padding-left: 5px;
 	color: $color_bad;
-	border-color: $color_bad;
+	border-left-color: $color_bad;
+	border-left-width: 5px;
 	box-shadow: none;
 }
 
@@ -148,7 +150,8 @@ select {
 }
 
 select {
-	background: color.adjust( $color_light, $lightness: -10% );
+	padding-top: 7px;
+	padding-bottom: 8px;
 }
 
 input {
@@ -796,8 +799,6 @@ form {
 	font-size: 0.9em;
 
 	input {
-		background: color.adjust( $color_light, $lightness: -10% );
-
 		&.long {
 			height: 33px;
 			margin-top: 0px;
@@ -823,11 +824,6 @@ form {
 	form {
 		margin: 10px auto 20px auto;
 		width: 200px;
-	}
-
-	input {
-		margin: 5px auto;
-		width: 100%;
 	}
 
 	p {
@@ -892,6 +888,10 @@ form {
 		display: inline-block;
 		position: fixed;
 		right: 40px;
+		input {
+			border-width: 0;
+			line-height: 25px;
+		}
 	}
 }
 
@@ -1081,12 +1081,6 @@ form {
 	}
 }
 
-	input {
-		border-top: 1px color.adjust( $color_light, $lightness: -10%);
-		border-right: 1px color.adjust( $color_light, $lightness: -10%);
-		border-bottom: 1px color.adjust( $color_light, $lightness: -10%);
-		border-left: 5px solid;
-	}
 a.signin {
 	color: $color_light;
 	padding-left: 5px;
@@ -1237,6 +1231,7 @@ a.signin {
 
 			input {
 				width: 85%;
+				border-width: 0;
 			}
 		}
 	}
