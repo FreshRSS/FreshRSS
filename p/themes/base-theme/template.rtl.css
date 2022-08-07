@@ -22,6 +22,15 @@ html, body {
 	font-size: 100%;
 }
 
+main.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
 /*=== Links */
 a {
 	text-decoration: none;
@@ -64,6 +73,7 @@ p {
 
 p.help, .prompt p.help {
 	margin: 5px 0 0.5em;
+	text-align: right;
 }
 
 p.help .icon {
@@ -209,6 +219,15 @@ input[type="checkbox"] {
 	width: 15px !important;
 	min-height: 15px !important;
 }
+
+.prompt textarea,
+.prompt input,
+.prompt select,
+.prompt .stick {
+	margin: 5px auto;
+	width: 100%;
+	box-sizing: border-box;
+  }
 
 .dropdown-menu label > input[type="text"] {
 	width: 150px;
