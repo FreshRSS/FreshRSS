@@ -658,7 +658,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'published' => $this->date(true),
 			// 'updated' => $this->date(true),
 			'title' => $this->title(),
-			'content' => ['content' => $this->content()],
+			'summary' => ['content' => $this->content()],
 			'canonical' => [
 				['href' => htmlspecialchars_decode($this->link(), ENT_QUOTES)],
 			],
@@ -679,6 +679,8 @@ class FreshRSS_Entry extends Minz_Model {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 		} elseif ($mode === 'freshrss') {
 			$item['guid'] = $this->guid();
+			unset($item['summary']);
+			$item['content'] = ['content' => $this->content()];
 		}
 		if ($category != null && $mode !== 'freshrss') {
 			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
