@@ -92,8 +92,7 @@
 		border-radius: 0;
 	}
 
-	.btn:first-child,
-	input:first-child {
+	.btn:first-child {
 		border-radius: 5px 0 0 5px;
 	}
 
@@ -237,7 +236,6 @@
 	.nav-head {
 		margin: 0;
 		text-align: right;
-		// background: #34495e;
 		color: variables.$white;
 
 		a {
