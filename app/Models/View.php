@@ -72,8 +72,6 @@ class FreshRSS_View extends Minz_View {
 
 	// Export / Import
 	public $content;
-	public $entriesRaw;
-	public $entriesId;
 	public $entryIdsTagNames;
 	public $list_title;
 	public $queryId;

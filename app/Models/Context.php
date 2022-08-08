@@ -299,7 +299,7 @@ class FreshRSS_Context {
 				}
 			}
 			self::$current_get['feed'] = $id;
-			self::$current_get['category'] = $feed->category();
+			self::$current_get['category'] = $feed->categoryId();
 			self::$name = $feed->name();
 			self::$description = $feed->description();
 			self::$get_unread = $feed->nbNotRead();

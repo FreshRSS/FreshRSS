@@ -365,7 +365,7 @@ class FeverAPI
 
 		/** @var FreshRSS_Feed $feed */
 		foreach ($myFeeds as $feed) {
-			$ids[$feed->category()][] = $feed->id();
+			$ids[$feed->categoryId()][] = $feed->id();
 		}
 
 		foreach($ids as $category => $feedIds) {
@@ -493,7 +493,7 @@ class FeverAPI
 			}
 			$items[] = array(
 				'id' => '' . $entry->id(),
-				'feed_id' => $entry->feed(false),
+				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
 				'html' => $entry->content(),
