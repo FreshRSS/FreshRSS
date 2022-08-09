@@ -878,6 +878,7 @@ form {
 		display: inline-block;
 		position: fixed;
 		right: 40px;
+
 		input {
 			border-width: 0;
 			line-height: 25px;
@@ -1065,12 +1066,12 @@ form {
 
 		> .item {
 			&.configure {
+				padding: 8px;
 				width: auto;
 				position: absolute;
 				right: 0;
 				white-space: nowrap;
 				bottom: 0;
-				padding: 8px;
 
 				.icon {
 					filter: brightness(3);
@@ -1186,7 +1187,7 @@ a.signin {
 			padding-right: 10px;
 
 			&:hover {
-				background-color: color.adjust( $color_nav, $lightness: 0%);;
+				background-color: color.adjust( $color_nav, $lightness: 0%);
 			}
 
 			.icon {
@@ -1253,7 +1254,7 @@ a.signin {
 		padding-right: 10px;
 
 		&:hover {
-			background-color: color.adjust( $color_nav, $lightness: 0%);;
+			background-color: color.adjust( $color_nav, $lightness: 0%);
 		}
 	}
 

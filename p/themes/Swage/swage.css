@@ -844,12 +844,12 @@ form th {
 }
 .formLogin .header > .item.configure,
 .register .header > .item.configure {
+	padding: 8px;
 	width: auto;
 	position: absolute;
 	right: 0;
 	white-space: nowrap;
 	bottom: 0;
-	padding: 8px;
 }
 .formLogin .header > .item.configure .icon,
 .register .header > .item.configure .icon {
