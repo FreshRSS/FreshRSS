@@ -148,7 +148,7 @@ class FreshRSS_Import_Service {
 		try {
 			// Create a Feed object and add it in DB
 			$feed = new FreshRSS_Feed($url);
-			$feed->_category($parent_cat->id());
+			$feed->_categoryId($parent_cat->id());
 			$parent_cat->addFeed($feed);
 			$feed->_name($name);
 			$feed->_website($website);

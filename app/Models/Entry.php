@@ -31,6 +31,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @var bool|null
 	 */
 	private $is_read;
+	/** @var bool|null */
 	private $is_favorite;
 
 	/**
@@ -213,17 +214,22 @@ class FreshRSS_Entry extends Minz_Model {
 	public function isFavorite() {
 		return $this->is_favorite;
 	}
-	public function feed($object = false) {
-		if ($object) {
-			if ($this->feed == null) {
-				$feedDAO = FreshRSS_Factory::createFeedDao();
-				$this->feed = $feedDAO->searchById($this->feedId);
-			}
-			return $this->feed;
-		} else {
-			return $this->feedId;
+
+	/**
+	 * @return FreshRSS_Feed|null|false
+	 */
+	public function feed() {
+		if ($this->feed === null) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$this->feed = $feedDAO->searchById($this->feedId);
 		}
+		return $this->feed;
 	}
+
+	public function feedId(): int {
+		return $this->feedId;
+	}
+
 	public function tags($asString = false) {
 		if ($asString) {
 			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
@@ -332,18 +338,21 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->is_read = $value === null ? null : (bool)$value;
 	}
 	public function _isFavorite($value) {
-		$this->is_favorite = $value;
+		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
-	public function _feed($value) {
-		if ($value != null) {
-			$this->feed = $value;
-			$this->feedId = $this->feed->id();
-		}
+
+	/** @param FreshRSS_Feed|null $feed */
+	public function _feed($feed) {
+		$this->feed = $feed;
+		$this->feedId = $this->feed == null ? 0 : $this->feed->id();
 	}
-	private function _feedId($value) {
+
+	/** @param int|string $id */
+	private function _feedId($id) {
 		$this->feed = null;
-		$this->feedId = intval($value);
+		$this->feedId = intval($id);
 	}
+
 	public function _tags($value) {
 		$this->hash = '';
 		if (!is_array($value)) {
@@ -559,7 +568,7 @@ class FreshRSS_Entry extends Minz_Model {
 	public function loadCompleteContent(bool $force = false): bool {
 		// Gestion du contenu
 		// Trying to fetch full article content even when feeds do not propose it
-		$feed = $this->feed(true);
+		$feed = $this->feed();
 		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
@@ -614,9 +623,110 @@ class FreshRSS_Entry extends Minz_Model {
 			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),
 			'is_favorite' => $this->isFavorite(),
-			'id_feed' => $this->feed(),
+			'id_feed' => $this->feedId(),
 			'tags' => $this->tags(true),
 			'attributes' => $this->attributes(),
 		);
+	}
+
+	/**
+	 * Integer format conversion for Google Reader API format
+	 * @param string|int $dec Decimal number
+	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+	 */
+	private static function dec2hex($dec): string {
+		return PHP_INT_SIZE < 8 ? // 32-bit ?
+			str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT) :
+			str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
+	}
+
+	/**
+	 * N.B.: To avoid expensive lookups, ensure to set `$entry->_feed($feed)` before calling this function.
+	 * N.B.: You might have to populate `$entry->_tags()` prior to calling this function.
+	 * @param string $mode Set to `'compat'` to use an alternative Unicode representation for problematic HTML special characters not decoded by some clients;
+	 * 	set to `'freshrss'` for using FreshRSS additions for internal use (e.g. export/import).
+	 * @return array<string,mixed> A representation of this entry in a format compatible with Google Reader API
+	 */
+	public function toGReader(string $mode = ''): array {
+
+		$feed = $this->feed();
+		$category = $feed == null ? null : $feed->category();
+
+		$item = [
+			'id' => 'tag:google.com,2005:reader/item/' . self::dec2hex($this->id()),
+			'crawlTimeMsec' => substr($this->dateAdded(true, true), 0, -3),
+			'timestampUsec' => '' . $this->dateAdded(true, true), //EasyRSS & Reeder
+			'published' => $this->date(true),
+			// 'updated' => $this->date(true),
+			'title' => $this->title(),
+			'summary' => ['content' => $this->content()],
+			'canonical' => [
+				['href' => htmlspecialchars_decode($this->link(), ENT_QUOTES)],
+			],
+			'alternate' => [
+				[
+					'href' => htmlspecialchars_decode($this->link(), ENT_QUOTES),
+					'type' => 'text/html',
+				],
+			],
+			'categories' => [
+				'user/-/state/com.google/reading-list',
+			],
+			'origin' => [
+				'streamId' => 'feed/' . $this->feedId,
+			],
+		];
+		if ($mode === 'compat') {
+			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
+		} elseif ($mode === 'freshrss') {
+			$item['guid'] = $this->guid();
+			unset($item['summary']);
+			$item['content'] = ['content' => $this->content()];
+		}
+		if ($category != null && $mode !== 'freshrss') {
+			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
+		}
+		if ($feed != null) {
+			$item['origin']['htmlUrl'] = htmlspecialchars_decode($feed->website());
+			$item['origin']['title'] = $feed->name();	//EasyRSS
+			if ($mode === 'compat') {
+				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
+			} elseif ($mode === 'freshrss') {
+				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+			}
+		}
+		foreach ($this->enclosures() as $enclosure) {
+			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
+				$media = [
+						'href' => $enclosure['url'],
+						'type' => $enclosure['type'],
+					];
+				if (!empty($enclosure['length'])) {
+					$media['length'] = intval($enclosure['length']);
+				}
+				$item['enclosure'][] = $media;
+			}
+		}
+		$author = $this->authors(true);
+		$author = trim($author, '; ');
+		if ($author != '') {
+			if ($mode === 'compat') {
+				$item['author'] = escapeToUnicodeAlternative($author, false);
+			} else {
+				$item['author'] = $author;
+			}
+		}
+		if ($this->isRead()) {
+			$item['categories'][] = 'user/-/state/com.google/read';
+		} elseif ($mode === 'freshrss') {
+			$item['categories'][] = 'user/-/state/com.google/unread';
+		}
+		if ($this->isFavorite()) {
+			$item['categories'][] = 'user/-/state/com.google/starred';
+		}
+		foreach ($this->tags() as $tagName) {
+			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
+		}
+		return $item;
 	}
 }

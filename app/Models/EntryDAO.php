@@ -218,6 +218,9 @@ SQL;
 		if (!isset($valuesTmp['is_read'])) {
 			$valuesTmp['is_read'] = null;
 		}
+		if (!isset($valuesTmp['is_favorite'])) {
+			$valuesTmp['is_favorite'] = null;
+		}
 
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `_entry` '
@@ -226,6 +229,7 @@ SQL;
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
+				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
 				. ', tags=:tags, attributes=:attributes '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
@@ -253,6 +257,11 @@ SQL;
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
 			} else {
 				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
+			}
+			if ($valuesTmp['is_favorite'] === null) {
+				$this->updateEntryPrepared->bindValue(':is_favorite', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, PDO::PARAM_INT);
 			}
 			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
@@ -1102,7 +1111,7 @@ SQL;
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+	private function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 

@@ -69,7 +69,7 @@
 			<div class="group-controls">
 				<select name="category" id="category" class="w100">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->category() ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->categoryId() ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
