@@ -588,6 +588,13 @@ form th {
 	right: 0;
 	z-index: 95;
 	width: 35px;
+	text-align: center;
+	line-height: 0.8rem;
+}
+.header .item.configure > .icon {
+	filter: brightness(3);
+	margin-right: 5px;
+	margin-top: 3px;
 }
 .header .item.configure .dropdown .icon {
 	filter: brightness(3);
@@ -858,7 +865,7 @@ form th {
 
 a.signin {
 	color: #fcfcfc;
-	padding-left: 5px;
+	font-size: 70%;
 }
 
 .loglist {
@@ -894,7 +901,7 @@ a.signin {
 }
 
 @media (max-width: 840px) {
-	.formLogin .header {
+	body:not(.formLogin, .register) .header .item.title {
 		display: none;
 	}
 
@@ -916,20 +923,16 @@ a.signin {
 	.header {
 		display: table;
 	}
-	.header .item.title .logo {
-		display: none;
+	.header .item {
+		padding: 0;
 	}
 	.header .item.configure {
 		padding: 0;
 		position: absolute;
-		right: 77px;
+		right: 15%;
 	}
-
-	.header > .item.title a {
-		display: block;
-		position: absolute;
-		top: -35px;
-		left: 10px;
+	.header .item.configure > .icon {
+		margin-top: 5px;
 	}
 
 	button.read_all.btn {
@@ -996,8 +999,7 @@ a.signin {
 		display: block;
 	}
 	.nav_menu .search input {
-		width: 85%;
-		border-width: 0;
+		width: 80%;
 	}
 
 	#panel .close,
