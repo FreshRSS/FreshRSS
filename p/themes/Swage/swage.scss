@@ -738,6 +738,14 @@ form {
 		right: 0;
 		z-index: 95;
 		width: 35px;
+		text-align: center;
+		line-height: 0.8rem;
+
+		> .icon {
+			filter: brightness(3);
+			margin-right: 5px;
+			margin-top: 3px;
+		}
 
 		.dropdown .icon {
 			filter: brightness(3);
@@ -1083,7 +1091,7 @@ form {
 
 a.signin {
 	color: $color_light;
-	padding-left: 5px;
+	font-size: 70%;
 }
 
 .loglist {
@@ -1124,8 +1132,12 @@ a.signin {
 }
 
 @media (max-width: 840px) {
-	.formLogin .header {
-		display: none;
+	body:not(.formLogin, .register) {
+		.header {
+			.item.title {
+				display: none;
+			}
+		}
 	}
 
 	.form-group .group-name {
@@ -1146,22 +1158,19 @@ a.signin {
 	.header {
 		display: table;
 
-		.item.title .logo {
-			display: none;
+		.item {
+			padding: 0;
 		}
 
 		.item.configure {
 			padding: 0;
 			position: absolute;
 			right: 15%;
-		}
-	}
 
-	.header > .item.title a {
-		display: block;
-		position: absolute;
-		top: -35px;
-		left: 10px;
+			> .icon {
+				margin-top: 5px;
+			}
+		}
 	}
 
 	button.read_all.btn {
@@ -1238,8 +1247,7 @@ a.signin {
 			}
 
 			input {
-				width: 85%;
-				border-width: 0;
+				width: 80%;
 			}
 		}
 	}
