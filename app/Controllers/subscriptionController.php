@@ -244,7 +244,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($feedDAO->updateFeed($id, $values) !== false) {
-				$feed->_category($cat);
+				$feed->_categoryId($cat);
 				$feed->faviconPrepare();
 
 				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);

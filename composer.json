@@ -17,10 +17,36 @@
         "WebSub"
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-fileinfo": "*",
+        "ext-gmp": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pcre": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-session": "*",
+        "ext-simplexml": "*",
+        "ext-xml": "*",
+        "ext-xmlreader": "*",
+        "ext-zend-opcache": "*",
+        "ext-zip": "*",
+        "ext-zlib": "*"
+    },
+    "suggest": {
+        "ext-iconv": "*",
+        "ext-pdo_mysql": "*",
+        "ext-pdo_pgsql": "*"
     },
     "require-dev": {
         "php": ">=8.0",
+        "ext-phar": "*",
+        "ext-tokenizer": "*",
+        "ext-xmlwriter": "*",
         "phpstan/phpstan": "~1.7.14",
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.7"

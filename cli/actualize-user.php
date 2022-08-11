@@ -16,6 +16,8 @@ if (!validateOptions($argv, $params) || empty($options['user'])) {
 
 $username = cliInitUser($options['user']);
 
+Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
 $result = FreshRSS_category_Controller::refreshDynamicOpmls();
