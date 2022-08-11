@@ -1192,6 +1192,7 @@ a.signin {
 	}
 
 	.aside {
+		padding: 0;
 		width: 0;
 		transition: width 200ms linear;
 
@@ -1210,10 +1211,6 @@ a.signin {
 			.icon {
 				filter: brightness(3);
 			}
-		}
-
-		&.aside_feed {
-			padding: 0;
 		}
 
 		&.aside_feed .configure-feeds {
