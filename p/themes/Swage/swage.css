@@ -629,6 +629,13 @@ form th {
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
 }
+.aside_feed .about {
+	padding: 1rem;
+	display: block;
+	text-align: center;
+	font-size: 0.8em;
+	font-style: italic;
+}
 
 .post {
 	padding: 10px 50px;
