@@ -1418,9 +1418,14 @@ button.as-link {
 	}
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	float: right;
+#dropdown-query ~ .dropdown-menu .dropdown-header a {
+	padding: 0 5px;
+	position: absolute;
+	right: 5px;
+
+	&:hover {
+		background-color: $color_nav;
+	}
 }
 
 #stream.reader .flux {
