@@ -549,6 +549,10 @@ class FreshRSS_Entry extends Minz_Model {
 			$base = $xpath->evaluate('normalize-space(//base/@href)');
 			if ($base != false && is_string($base)) {
 				$url = $base;
+				if (substr($url, 0, 2) === '//') {
+					//Protocol-relative URLs "//www.example.net"
+					$url = 'https:' . $url;
+				}
 			}
 			$content = '';
 			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
