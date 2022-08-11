@@ -637,6 +637,21 @@ form th {
 	font-style: italic;
 }
 
+.reader .aside .toggle_aside {
+	background: #22303d;
+	display: block;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+.reader .aside .toggle_aside .icon {
+	filter: brightness(3);
+}
+.reader .aside .toggle_aside:hover {
+	background-color: #0062be;
+}
+
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
@@ -846,6 +861,17 @@ form th {
 	width: 270px;
 }
 
+#overlay {
+	z-index: 100;
+}
+
+#panel {
+	z-index: 100;
+}
+#panel .nav_menu {
+	position: relative;
+}
+
 .formLogin #global,
 .register #global {
 	height: 0;
@@ -917,6 +943,10 @@ a.signin {
 		text-align: left;
 	}
 
+	.dropdown {
+		position: relative;
+	}
+
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 5px;
 	}
@@ -953,6 +983,7 @@ a.signin {
 	}
 
 	.aside {
+		padding: 0;
 		width: 0;
 		transition: width 200ms linear;
 	}
@@ -969,9 +1000,6 @@ a.signin {
 	}
 	.aside .toggle_aside .icon {
 		filter: brightness(3);
-	}
-	.aside.aside_feed {
-		padding: 0;
 	}
 	.aside.aside_feed .configure-feeds {
 		display: flex;
@@ -1151,9 +1179,13 @@ button.as-link {
 	color: #c46178;
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	float: right;
+#dropdown-query ~ .dropdown-menu .dropdown-header a {
+	padding: 0 5px;
+	position: absolute;
+	right: 5px;
+}
+#dropdown-query ~ .dropdown-menu .dropdown-header a:hover {
+	background-color: #0062be;
 }
 
 #stream.reader .flux {

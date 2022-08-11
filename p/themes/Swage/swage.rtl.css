@@ -637,6 +637,21 @@ form th {
 	font-style: italic;
 }
 
+.reader .aside .toggle_aside {
+	background: #22303d;
+	display: block;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+.reader .aside .toggle_aside .icon {
+	filter: brightness(3);
+}
+.reader .aside .toggle_aside:hover {
+	background-color: #0062be;
+}
+
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
@@ -846,6 +861,17 @@ form th {
 	width: 270px;
 }
 
+#overlay {
+	z-index: 100;
+}
+
+#panel {
+	z-index: 100;
+}
+#panel .nav_menu {
+	position: relative;
+}
+
 .formLogin #global,
 .register #global {
 	height: 0;
@@ -917,6 +943,10 @@ a.signin {
 		text-align: right;
 	}
 
+	.dropdown {
+		position: relative;
+	}
+
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 5px;
 	}
@@ -953,6 +983,7 @@ a.signin {
 	}
 
 	.aside {
+		padding: 0;
 		width: 0;
 		transition: width 200ms linear;
 	}
@@ -969,9 +1000,6 @@ a.signin {
 	}
 	.aside .toggle_aside .icon {
 		filter: brightness(3);
-	}
-	.aside.aside_feed {
-		padding: 0;
 	}
 	.aside.aside_feed .configure-feeds {
 		display: flex;
@@ -1149,32 +1177,4 @@ button.as-link {
 }
 .feed.item.error > a {
 	color: #c46178;
-}
-
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	float: left;
-}
-
-#stream.reader .flux {
-	padding: 0 0 50px;
-	background: #fcfcfc;
-	color: #22303d;
-	border: none;
-}
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	color: #969696;
-	font-size: 90%;
-}
-
-#nav_menu_actions ul.dropdown-menu, #nav_menu_read_all ul.dropdown-menu {
-	right: 0px;
-}
-
-#slider label {
-	min-height: initial;
-}
-#slider .form-group:hover {
-	background: initial;
 }
