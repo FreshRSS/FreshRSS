@@ -1069,6 +1069,18 @@ form {
 	}
 }
 
+#overlay {
+	z-index: 100;
+}
+
+#panel{
+	z-index: 100;
+
+	.nav_menu {
+		position: relative;
+	}
+}
+
 .formLogin,
 .register {
 	#global {
