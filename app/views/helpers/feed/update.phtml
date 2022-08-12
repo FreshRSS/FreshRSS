@@ -491,12 +491,22 @@
 					<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
 						data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?=
-						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', '#', 'slider') ?>"><?= _i('look') ?></a>
+						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', 'selector_filter', 'selector-filter-token', '#', 'slider') ?>"><?= _i('look') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
+			<div class="group-controls">
+				<div class="stick w100">
+					<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $this->feed->pathEntriesFilter() ?>"
+						data-leave-validation="<?= $this->feed->pathEntriesFilter() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+			</div>
+		</div>
+		
 		<div class="form-group">
 			<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 			<div class="group-controls">
