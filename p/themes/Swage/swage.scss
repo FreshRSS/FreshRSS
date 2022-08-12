@@ -863,18 +863,17 @@ form {
 }
 
 #new-article {
+	margin: 5rem 2rem 2rem 2rem;
+	width: calc(100% - 4rem);
 	background: $color_nav;
 	font-size: 1em;
 	text-align: center;
-	position: fixed;
-	bottom: 48px;
-	z-index: 900;
-	left: 0;
 	line-height: 1.5em;
 
 	@extend %aside-width;
 
 	> a {
+		padding: 1rem;
 		line-height: 1.5em;
 		font-weight: bold;
 		color: $color_light;
@@ -1202,9 +1201,9 @@ a.signin {
 	}
 
 	#new-article {
-		width: 100%;
+		margin-top: 2rem;
 		position: sticky;
-		top: 0;
+		top: 1rem;
 	}
 
 	.header {
