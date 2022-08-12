@@ -921,6 +921,13 @@ form {
 			line-height: 25px;
 		}
 	}
+
+	#toggle-unread,
+	#toggle-starred {
+		.icon {
+			filter: brightness(1);
+		}
+	}
 }
 
 .flux {
