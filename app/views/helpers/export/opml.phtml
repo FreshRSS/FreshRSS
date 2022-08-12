@@ -40,6 +40,9 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 		if ($feed->pathEntries() != '') {
 			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
 		}
+		if ($feed->pathEntriesFilter() != '') {
+			$outline['frss:cssFullContentFilter'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntriesFilter()];
+		}
 		$outlines[] = $outline;
 	}
 	return $outlines;
