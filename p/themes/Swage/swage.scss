@@ -1217,7 +1217,7 @@ a.signin {
 		.item.configure {
 			padding: 0;
 			position: absolute;
-			right: 15%;
+			right: 76px;
 
 			> .icon {
 				margin-top: 5px;
@@ -1286,17 +1286,18 @@ a.signin {
 			}
 		}
 
-		.search {
-			position: absolute !important;
+		.item.search {
 			top: 3px;
-			left: 37px;
+			margin-left: 77px;
+			width: calc(100% - 4* 38px);
+			position: relative;
 
 			form {
 				display: block;
 			}
 
 			input {
-				width: 80%;
+				width: 100%;
 			}
 		}
 	}
