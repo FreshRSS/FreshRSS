@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
+	`pathEntriesFilter` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
 	`ttl` INT NOT NULL DEFAULT 0,
