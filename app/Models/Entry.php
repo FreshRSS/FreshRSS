@@ -547,9 +547,13 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 
 			$base = $xpath->evaluate('normalize-space(//base/@href)');
-			if ($base != false && is_string($base)) {
-				$url = $base;
+			if ($base == false || !is_string($base)) {
+				$base = $url;
+			} elseif (substr($base, 0, 2) === '//') {
+				//Protocol-relative URLs "//www.example.net"
+				$base = (parse_url($url, PHP_URL_SCHEME) ?? 'https') . ':' . $base;
 			}
+
 			$content = '';
 			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
 			if ($nodes != false) {
@@ -557,7 +561,7 @@ class FreshRSS_Entry extends Minz_Model {
 					$content .= $doc->saveHtml($node) . "\n";
 				}
 			}
-			$html = trim(sanitizeHTML($content, $url));
+			$html = trim(sanitizeHTML($content, $base));
 			return $html;
 		} else {
 			throw new Exception();
