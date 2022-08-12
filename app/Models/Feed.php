@@ -61,6 +61,8 @@ class FreshRSS_Feed extends Minz_Model {
 	/** @var string */
 	private $pathEntries = '';
 	/** @var string */
+	private $pathEntriesFilter = '';
+	/** @var string */
 	private $httpAuth = '';
 	/** @var bool */
 	private $error = false;
@@ -159,6 +161,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function pathEntries(): string {
 		return $this->pathEntries;
+	}
+	public function pathEntriesFilter(): string {
+		return $this->pathEntriesFilter;
 	}
 	public function httpAuth($raw = true) {
 		if ($raw) {
@@ -303,6 +308,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _pathEntries(string $value) {
 		$this->pathEntries = $value;
+	}
+	public function _pathEntriesFilter(string $value) {
+		$this->pathEntriesFilter = $value;
 	}
 	public function _httpAuth(string $value) {
 		$this->httpAuth = $value;
