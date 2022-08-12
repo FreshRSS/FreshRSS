@@ -523,7 +523,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * @param array<string,mixed> $attributes
 	 */
-	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
+	public static function getContentByParsing(string $url, string $path, string $filter, array $attributes = [], int $maxRedirs = 3): string {
 		$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
 		$html = httpGet($url, $cachePath, 'html', $attributes);
 		if (strlen($html) > 0) {
@@ -540,7 +540,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
-							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
+							return self::getContentByParsing($refresh, $path, $filter, $attributes, $maxRedirs - 1);
 						}
 					}
 				}
@@ -558,6 +558,12 @@ class FreshRSS_Entry extends Minz_Model {
 			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
 			if ($nodes != false) {
 				foreach ($nodes as $node) {
+					if ($filter != '') {
+						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($filter), $node);
+						foreach ($filterednodes as $filterednode) {
+							$filterednode->parentNode->removeChild($filterednode);
+						}
+					}
 					$content .= $doc->saveHtml($node) . "\n";
 				}
 			}
@@ -585,6 +591,7 @@ class FreshRSS_Entry extends Minz_Model {
 					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
 						$feed->pathEntries(),
+						$feed->pathEntriesFilter(),
 						$feed->attributes()
 					);
 					if ('' !== $fullContent) {
