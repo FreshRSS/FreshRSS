@@ -328,7 +328,7 @@ form {
 	.nav-header {
 
 		@extend %nav-list;
-		padding: 0 10px;
+		padding: 0 1rem;
 		font-weight: bold;
 		background: $color_aside;
 		color: $color_light;
@@ -367,7 +367,7 @@ form {
 		}
 
 		> a {
-			padding: 0 10px;
+			padding: 0 1.5rem;
 		}
 
 		&.empty a {
