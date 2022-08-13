@@ -733,6 +733,8 @@ input[type="checkbox"]:focus-visible {
 .box .box-content {
 	padding: 8px 16px 8px 8px;
 	display: block;
+	min-height: 2.5em;
+	max-height: 260px;
 	overflow: auto;
 }
 

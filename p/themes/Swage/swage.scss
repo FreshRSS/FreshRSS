@@ -583,11 +583,14 @@ form {
 
 		.configure {
 			margin-right: 4px;
+
+			.icon {
+				&:hover {
+					filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+				}
+			}
 		}
 	}
-
-
-
 
 	.box-content {
 		padding-left: 30px;
@@ -601,7 +604,11 @@ form {
 			.configure {
 				.icon {
 					vertical-align: middle;
-					background-color: color.adjust( $color_light, $lightness: -10%);
+					filter: invert(1);
+
+					&:hover {
+						filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+					}
 				}
 			}
 		}
@@ -642,6 +649,10 @@ form {
 			padding: 2px 10px;
 			font-size: 0.8rem;
 		}
+	}
+
+	&.visible-semi {
+		border-style: solid;
 	}
 }
 
