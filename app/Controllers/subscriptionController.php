@@ -208,7 +208,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$feed->_attributes('xpath', $xPathSettings);
 				}
 			}
-			
+
 			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', ''));
 
 			$values = array(
