@@ -32,8 +32,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	/** @return int|false */
 	public function addFeed(array $valuesTmp) {
-		$sql = 'INSERT INTO `_feed` (url, kind, category, name, website, description, `lastUpdate`, priority, `pathEntries`, `pathEntriesFilter`, `httpAuth`, error, ttl, attributes)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `_feed` (url, kind, category, name, website, description, `lastUpdate`, priority, `pathEntries`, `httpAuth`, error, ttl, attributes)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
@@ -55,7 +55,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? intval($valuesTmp['priority']) : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 511, 'UTF-8'),
-			mb_strcut($valuesTmp['pathEntriesFilter'], 0, 511, 'UTF-8'),
 			base64_encode($valuesTmp['httpAuth']),
 			isset($valuesTmp['error']) ? intval($valuesTmp['error']) : 0,
 			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
@@ -89,7 +88,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'description' => $feed->description(),
 				'lastUpdate' => 0,
 				'pathEntries' => $feed->pathEntries(),
-				'pathEntriesFilter' => $feed->pathEntriesFilter(),
 				'httpAuth' => $feed->httpAuth(),
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
@@ -119,7 +117,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'pathEntries' => $feed->pathEntries(),
-				'pathEntriesFilter' => $feed->pathEntriesFilter(),
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
 			];
@@ -349,7 +346,7 @@ SQL;
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0) {
 		$this->updateTTL();
-		$sql = 'SELECT id, url, kind, name, website, `lastUpdate`, `pathEntries`, `pathEntriesFilter`, `httpAuth`, ttl, attributes '
+		$sql = 'SELECT id, url, kind, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 			. ' AND `lastUpdate` < (' . (time() + 60)
@@ -586,7 +583,6 @@ SQL;
 			$myFeed->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$myFeed->_priority($dao['priority'] ?? 10);
 			$myFeed->_pathEntries($dao['pathEntries'] ?? '');
-			$myFeed->_pathEntriesFilter($dao['pathEntriesFilter'] ?? '');
 			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? ''));
 			$myFeed->_error($dao['error'] ?? 0);
 			$myFeed->_ttl($dao['ttl'] ?? FreshRSS_Feed::TTL_DEFAULT);
