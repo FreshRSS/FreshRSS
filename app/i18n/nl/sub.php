@@ -57,6 +57,7 @@ return array(
 		'css_cookie_help' => 'Voorbeeld: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Haalt onvolledige RSS-feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'CSS-pad van artikelen op originele website',
+		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
