@@ -184,6 +184,41 @@ form {
 	}
 }
 
+
+@supports (scrollbar-width: thin) {
+	#sidebar,
+	.scrollbar-thin {
+		scrollbar-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+		scrollbar-width: thin;
+	}
+
+	#sidebar:hover,
+	.scrollbar-thin:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
+	}
+}
+
+@supports not (scrollbar-width: thin) {
+	#sidebar::-webkit-scrollbar,
+	.scrollbar-thin::-webkit-scrollbar {
+		background: rgba(255, 255, 255, 0);
+		width: 8px;
+	}
+
+	#sidebar::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0);
+		display: unset;
+		border-radius: 5px;
+	}
+
+	#sidebar:hover::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.5);
+	}
+}
+
+
 .category {
 	.title.error::before {
 		display: inline-block;
@@ -391,7 +426,7 @@ form {
 }
 
 .dropdown-menu {
-	padding: 5px 0;
+	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
@@ -399,6 +434,19 @@ form {
 
 	.dropdown-header {
 		cursor: default;
+		padding: 0 0.5rem 0.5rem;
+		font-weight: bold;
+		color: $color_light;
+
+		a {
+			padding: 0 5px;
+			position: absolute;
+			right: 5px;
+		
+			&:hover {
+				background-color: $color_nav;
+			}
+		}
 	}
 
 	&::after {
@@ -447,11 +495,12 @@ form {
 	}
 }
 
-.dropdown-header {
-	padding: 0 5px 5px;
-	font-weight: bold;
-	text-align: left;
-	color: $color_light;
+.labels,
+.tags,
+.share {
+	.dropdown-menu {
+		right: auto;
+	}
 }
 
 .separator {
@@ -1212,10 +1261,6 @@ a.signin {
 		position: relative;
 	}
 
-	.dropdown-header, .dropdown-menu > .item {
-		padding: 5px;
-	}
-
 	#new-article {
 		margin-top: 2rem;
 	}
@@ -1328,8 +1373,14 @@ a.signin {
 		}
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after,
 	.dropdown-target:target ~ .dropdown-toggle.btn::after {
 		display: none;
+	}
+
+	.share .dropdown-menu {
+		right: 3%;
+		left: auto;
 	}
 
 	.day .name {
@@ -1467,16 +1518,6 @@ button.as-link {
 		> a {
 			color: color.adjust( $color_bad, $lightness: 10%);
 		}
-	}
-}
-
-#dropdown-query ~ .dropdown-menu .dropdown-header a {
-	padding: 0 5px;
-	position: absolute;
-	right: 5px;
-
-	&:hover {
-		background-color: $color_nav;
 	}
 }
 
