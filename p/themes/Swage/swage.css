@@ -733,8 +733,8 @@ form th {
 
 #new-article {
 	margin: 5rem 2rem 2rem 2rem;
-	width: calc(100% - 4rem);
 	background: #0062be;
+	width: calc(100% - 4rem);
 	font-size: 1em;
 	text-align: center;
 	line-height: 1.5em;
