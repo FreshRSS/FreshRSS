@@ -432,7 +432,7 @@ function toggleContent(new_active, old_active, skipping) {
 		if (getComputedStyle(nav_menu)['position'] === 'fixed' || getComputedStyle(nav_menu)['position'] === 'sticky') {
 			nav_menu_height = nav_menu.offsetHeight;
 		}
-		
+
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
 		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
