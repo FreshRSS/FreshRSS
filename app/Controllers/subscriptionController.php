@@ -208,6 +208,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$feed->_attributes('xpath', $xPathSettings);
 				}
 			}
+			
+			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', ''));
 
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
@@ -217,7 +219,6 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'url' => checkUrl(Minz_Request::param('url', '')),
 				'category' => $cat,
 				'pathEntries' => Minz_Request::param('path_entries', ''),
-				'pathEntriesFilter' => Minz_Request::param('path_entries_filter', ''),
 				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
 				'ttl' => $feed->ttl(true),
