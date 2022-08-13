@@ -885,7 +885,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		//Get parameters.
 		$feed_id = Minz_Request::param('id');
 		$content_selector = trim(Minz_Request::param('selector'));
-		$content_selector_filter = trim(Minz_Request::param('selector_filter'));
 
 		if (!$content_selector) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.selector_empty');
@@ -916,14 +915,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
 			return;
 		}
+		
+		$attributes = $feed->attributes();
+		$attributes['path_entries_filter'] = trim(Minz_Request::param('selector_filter'));
 
 		//Fetch & select content.
 		try {
 			$fullContent = FreshRSS_Entry::getContentByParsing(
 				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				$content_selector,
-				$content_selector_filter,
-				$feed->attributes()
+				$attributes
 			);
 
 			if ($fullContent != '') {
