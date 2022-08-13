@@ -57,6 +57,7 @@ return array(
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'あきらめられたRSSフィードを取得します (注意してください、より多くの時間が必要になるでしょう!)',
 		'css_path' => '元のwebサイトの記事のCSS',
+		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
 		'description' => '説明',
 		'empty' => 'このフィードは空です。運営されているかどうかを確認してみてください。',
 		'error' => 'このフィードに問題が発生しました。ここにいつでもアクセスできるかどうかを確認して更新してみてください。',
