@@ -57,6 +57,7 @@ return array(
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO
 		'css_help' => 'קבלת הזנות RSS קטומות	(זהירות, לוקח זמן רב יותר!)',
 		'css_path' => 'נתיב הCSS של המאמר באתר המקורי',
+		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
