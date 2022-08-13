@@ -93,7 +93,7 @@ img {
 }
 
 main#stream {
-	margin-top: 35px;
+	margin-top: 2rem;
 }
 
 sup {
@@ -572,10 +572,14 @@ form {
 
 	.box-title {
 		margin: 0;
-		padding: 5px 10px;
-		background: color.adjust( $color_light, $lightness: -10%);
-		color: color.adjust( $color_light, $lightness: -40% );
+		padding: 7px 10px;
+		background: $color_aside;
+		color: $color_light;
 		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+
+		a {
+			color: $color_light;
+		}
 
 		.configure {
 			margin-right: 4px;
@@ -907,7 +911,8 @@ form {
 	width: 100%;
 	font-size: 0;
 	background-color: $color_nav;
-	position: fixed;
+	position: sticky;
+	top: 0;
 	z-index: 90;
 
 	.item.search {
@@ -1202,8 +1207,6 @@ a.signin {
 
 	#new-article {
 		margin-top: 2rem;
-		position: sticky;
-		top: 1rem;
 	}
 
 	.header {
@@ -1215,7 +1218,7 @@ a.signin {
 
 		.item.configure {
 			padding: 0;
-			position: absolute;
+			position: fixed;
 			right: 76px;
 
 			> .icon {
@@ -1270,7 +1273,6 @@ a.signin {
 	}
 
 	.nav_menu {
-		position: initial;
 		height: 71px;
 
 		.btn {
