@@ -57,6 +57,7 @@ return array(
 		'css_cookie_help' => 'Ejemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Recibir fuentes RSS truncadas (aviso, ¡necesita más tiempo!)',
 		'css_path' => 'Ruta a la CSS de los artículos en la web original',
+		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
 		'description' => 'Descripción',
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
 		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
