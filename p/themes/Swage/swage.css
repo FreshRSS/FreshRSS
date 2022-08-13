@@ -259,7 +259,7 @@ form th {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	font-weight: bold;
 	background: #22303d;
 	color: #fcfcfc;
@@ -287,7 +287,7 @@ form th {
 	background: #c46178;
 }
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1.5rem;
 }
 .nav-list .item.empty a {
 	color: #fa8052;
@@ -568,7 +568,7 @@ form th {
 	height: 35px;
 	font-size: 1rem;
 	position: relative;
-	line-height: 2.3rem;
+	line-height: 2rem;
 }
 .tree-folder-title .title {
 	background: inherit;
@@ -659,6 +659,10 @@ form th {
 }
 .aside.aside_feed .tree {
 	margin: 0 0 50px;
+}
+.aside.aside_feed .tree-folder .tree-folder-title:hover,
+.aside.aside_feed .tree-folder .item.feed:hover {
+	background-color: #00488b;
 }
 .aside.aside_feed .nav-form input,
 .aside.aside_feed .nav-form select {
