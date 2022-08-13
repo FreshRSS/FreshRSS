@@ -915,7 +915,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
 			return;
 		}
-		
+
 		$attributes = $feed->attributes();
 		$attributes['path_entries_filter'] = trim(Minz_Request::param('selector_filter'));
 
