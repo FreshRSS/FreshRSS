@@ -605,12 +605,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: left;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
