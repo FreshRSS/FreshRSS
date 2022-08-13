@@ -57,6 +57,7 @@ return array(
 		'css_cookie_help' => 'Exemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retorna RSS feeds truncados (atenção, requer mais tempo!)',
 		'css_path' => 'Caminho do CSS do artigo no site original',
+		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
