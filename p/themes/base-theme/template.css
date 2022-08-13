@@ -286,6 +286,12 @@ td.numeric {
 	text-align: center;
 }
 
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	text-align: left;
+}
+
 .prompt label,
 .prompt .help {
 	text-align: left;
