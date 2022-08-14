@@ -642,26 +642,15 @@ form th {
 	max-width: 550px;
 }
 
-.prompt {
-	text-align: center;
-}
-.prompt label {
-	text-align: left;
-}
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
-}
 .prompt input {
 	margin: 5px auto;
 	width: 100%;
 }
-.prompt p {
-	margin: 20px 0;
-}
+
 #global {
 	height: 100vh;
 }
+
 #new-article {
 	background: #0062be;
 	font-size: 1em;
