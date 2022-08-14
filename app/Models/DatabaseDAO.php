@@ -89,7 +89,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public function feedIsCorrect(): bool {
 		return $this->checkTable('feed', array(
 			'id', 'url', 'category', 'name', 'website', 'description', 'lastUpdate',
-			'priority', 'pathEntries', 'pathEntriesFilter', 'httpAuth', 'error', 'ttl', 'attributes',
+			'priority', 'pathEntries', 'httpAuth', 'error', 'ttl', 'attributes',
 			'cache_nbEntries', 'cache_nbUnreads',
 		));
 	}
