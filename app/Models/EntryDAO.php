@@ -1118,9 +1118,6 @@ SQL;
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
-		syslog(LOG_DEBUG, __METHOD__ . ' 0 ' . $sql . ' ' .
-			json_encode($values, JSON_UNESCAPED_LINE_TERMINATORS | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes '
