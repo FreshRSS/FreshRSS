@@ -558,6 +558,12 @@ class FreshRSS_Entry extends Minz_Model {
 			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
 			if ($nodes != false) {
 				foreach ($nodes as $node) {
+					if (!empty($attributes['path_entries_filter'])) {
+						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($attributes['path_entries_filter']), $node);
+						foreach ($filterednodes as $filterednode) {
+							$filterednode->parentNode->removeChild($filterednode);
+						}
+					}
 					$content .= $doc->saveHtml($node) . "\n";
 				}
 			}
