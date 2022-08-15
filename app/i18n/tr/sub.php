@@ -57,7 +57,10 @@ return array(
 		'css_cookie_help' => 'Örnek: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Dikkat, daha çok zaman gerekir!',
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
-		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',

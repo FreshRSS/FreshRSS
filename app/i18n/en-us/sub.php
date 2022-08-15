@@ -57,7 +57,10 @@ return array(
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// IGNORE
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',	// IGNORE
 		'css_path' => 'Article CSS selector on original website',	// IGNORE
-		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// IGNORE
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// IGNORE
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE

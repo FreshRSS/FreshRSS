@@ -57,7 +57,10 @@ return array(
 		'css_cookie_help' => 'Príklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Stiahnuť skrátenú verziu RSS kanála (pozor, vyžaduje viac času!)',
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
-		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',

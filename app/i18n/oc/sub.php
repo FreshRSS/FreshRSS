@@ -57,7 +57,10 @@ return array(
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
-		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',

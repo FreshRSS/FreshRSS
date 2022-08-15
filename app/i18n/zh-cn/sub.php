@@ -57,7 +57,10 @@ return array(
 		'css_cookie_help' => '例：<kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
-		'css_path_filter' => 'Article CSS selectors to remove, comma separated',	// TODO
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
