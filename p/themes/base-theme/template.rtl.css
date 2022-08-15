@@ -276,6 +276,38 @@ td.numeric {
 	display: none !important;
 }
 
+/* login and register form */
+.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	text-align: right;
+}
+
+.prompt label,
+.prompt .help {
+	text-align: right;
+}
+
+.prompt input,
+.prompt select,
+.prompt .stick {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.prompt p {
+	margin: 20px 0;
+}
+
 /*=== Forms */
 .form-group::after {
 	content: "";
@@ -839,7 +871,6 @@ li.drag-hover {
 
 .tree-folder-items {
 	padding: 0;
-	max-height: 200em;
 	list-style: none;
 	transition: max-height .3s linear;
 }
