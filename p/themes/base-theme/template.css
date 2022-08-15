@@ -871,7 +871,6 @@ li.drag-hover {
 
 .tree-folder-items {
 	padding: 0;
-	max-height: 200em;
 	list-style: none;
 	transition: max-height .3s linear;
 }
