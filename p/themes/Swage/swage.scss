@@ -338,6 +338,10 @@ form {
 		&.error a {
 			color: color.adjust( $color_bad, $lightness: 10%);
 		}
+
+		.icon {
+			filter: brightness(3);
+		}
 	}
 
 	.disable {
@@ -695,6 +699,8 @@ form {
 }
 
 .header {
+	height: auto;
+
 	> .item {
 		vertical-align: middle;
 
@@ -732,6 +738,10 @@ form {
 		right: 0;
 		z-index: 1000;
 		width: 35px;
+
+		.dropdown .icon {
+			filter: brightness(3);
+		}
 	}
 }
 
@@ -804,25 +814,14 @@ form {
 }
 
 .prompt {
-	text-align: center;
-
-	label {
-		text-align: left;
-	}
-
-	form {
-		margin: 10px auto 20px auto;
-		width: 200px;
-	}
-
 	input {
 		margin: 5px auto;
 		width: 100%;
 	}
+}
 
-	p {
-		margin: 20px 0;
-	}
+#global {
+	height: 100vh;
 }
 
 #new-article {

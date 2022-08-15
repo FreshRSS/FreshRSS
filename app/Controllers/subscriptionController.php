@@ -209,6 +209,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				}
 			}
 
+			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', ''));
+
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
 				'kind' => $feed->kind(),
@@ -244,7 +246,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($feedDAO->updateFeed($id, $values) !== false) {
-				$feed->_category($cat);
+				$feed->_categoryId($cat);
 				$feed->faviconPrepare();
 
 				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);

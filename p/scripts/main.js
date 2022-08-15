@@ -704,7 +704,8 @@ function onScroll() {
 		return;
 	}
 	if (context.auto_mark_scroll) {
-		const minTop = 40 + box_to_follow.scrollTop;
+		const hidden_px = -5; // negative = pixels over the edge
+		const minTop = hidden_px + box_to_follow.scrollTop;
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 			if (div.offsetHeight > 0 &&
 					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < minTop) {

@@ -276,6 +276,38 @@ td.numeric {
 	display: none !important;
 }
 
+/* login and register form */
+.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	text-align: left;
+}
+
+.prompt label,
+.prompt .help {
+	text-align: left;
+}
+
+.prompt input,
+.prompt select,
+.prompt .stick {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.prompt p {
+	margin: 20px 0;
+}
+
 /*=== Forms */
 .form-group::after {
 	content: "";
@@ -839,7 +871,6 @@ li.drag-hover {
 
 .tree-folder-items {
 	padding: 0;
-	max-height: 200em;
 	list-style: none;
 	transition: max-height .3s linear;
 }
@@ -1179,18 +1210,6 @@ a.website:hover .favicon {
 	padding-bottom: 1rem;
 }
 
-.content > header a,
-.content > footer a {
-	color: #666;
-	text-decoration: none;
-}
-
-.content > header a:hover,
-.content > footer a:hover {
-	color: #0062be;
-	text-decoration: underline;
-}
-
 .content > header .tags,
 .content > footer .tags {
 	display: flex;
@@ -1437,21 +1456,6 @@ br {
 	height: 300px;
 }
 
-/*=== LOGIN VIEW */
-/*================*/
-.formLogin .header > .item {
-	padding: 10px 30px;
-}
-
-.formLogin .header > .item.title {
-	text-align: left;
-}
-
-.formLogin .header > .item.configure {
-	text-align: right;
-}
-
-
 /*=== GLOBAL VIEW */
 /*================*/
 #stream.global {
@@ -1673,9 +1677,14 @@ input:checked + .slide-container .properties {
 }
 
 .item.share.error a::after,
-.category .title.error::before {
+.category .title.error::before,
+.item.feed.error .item-title::before {
 	content: " ⚠ ";
 	color: #bd362f;
+}
+
+.feed.item.error.active .item-title::before {
+	color: white;
 }
 
 .category .title:not([data-unread="0"])::after,

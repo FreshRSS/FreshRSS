@@ -262,6 +262,9 @@ form th {
 .nav-list .item.error a {
 	color: #c46178;
 }
+.nav-list .item .icon {
+	filter: brightness(3);
+}
 .nav-list .disable {
 	text-align: center;
 	background: #fcfcfc;
@@ -587,6 +590,9 @@ form th {
 	z-index: 1000;
 	width: 35px;
 }
+.header .item.configure .dropdown .icon {
+	filter: brightness(3);
+}
 
 .aside {
 	padding: 35px 0;
@@ -636,22 +642,9 @@ form th {
 	max-width: 550px;
 }
 
-.prompt {
-	text-align: center;
-}
-.prompt label {
-	text-align: right;
-}
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
-}
 .prompt input {
 	margin: 5px auto;
 	width: 100%;
-}
-.prompt p {
-	margin: 20px 0;
 }
 
 #global {

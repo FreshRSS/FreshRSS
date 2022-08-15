@@ -35,7 +35,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -116,7 +116,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -155,7 +155,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -186,7 +186,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -242,60 +242,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// No layout for OPML output.
 		$this->view->_layout(false);
 		header('Content-Type: application/xml; charset=utf-8');
-	}
-
-	/**
-	 * This action updates the Context object by using request parameters.
-	 *
-	 * Parameters are:
-	 *   - state (default: conf->default_view)
-	 *   - search (default: empty string)
-	 *   - order (default: conf->sort_order)
-	 *   - nb (default: conf->posts_per_page)
-	 *   - next (default: empty string)
-	 *   - hours (default: 0)
-	 */
-	private function updateContext() {
-		if (empty(FreshRSS_Context::$categories)) {
-			$catDAO = FreshRSS_Factory::createCategoryDao();
-			FreshRSS_Context::$categories = $catDAO->listSortedCategories();
-		}
-
-		// Update number of read / unread variables.
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		FreshRSS_Context::$total_starred = $entryDAO->countUnreadReadFavorites();
-		FreshRSS_Context::$total_unread = FreshRSS_CategoryDAO::CountUnreads(
-			FreshRSS_Context::$categories, 1
-		);
-
-		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
-
-		FreshRSS_Context::$state = Minz_Request::param(
-			'state', FreshRSS_Context::$user_conf->default_state
-		);
-		$state_forced_by_user = Minz_Request::param('state', false) !== false;
-		if (!$state_forced_by_user && !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			if (FreshRSS_Context::$user_conf->default_view === 'adaptive' && FreshRSS_Context::$get_unread <= 0) {
-				FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
-			}
-			if (FreshRSS_Context::$user_conf->show_fav_unread &&
-					(FreshRSS_Context::isCurrentGet('s') || FreshRSS_Context::isCurrentGet('T') || FreshRSS_Context::isTag())) {
-				FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
-			}
-		}
-
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
-		FreshRSS_Context::$order = Minz_Request::param(
-			'order', FreshRSS_Context::$user_conf->sort_order
-		);
-		FreshRSS_Context::$number = intval(Minz_Request::param('nb', FreshRSS_Context::$user_conf->posts_per_page));
-		if (FreshRSS_Context::$number > FreshRSS_Context::$user_conf->max_posts_per_rss) {
-			FreshRSS_Context::$number = max(
-				FreshRSS_Context::$user_conf->max_posts_per_rss,
-				FreshRSS_Context::$user_conf->posts_per_page);
-		}
-		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
-		FreshRSS_Context::$sinceHours = intval(Minz_Request::param('hours', 0));
 	}
 
 	/**
@@ -371,7 +317,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
-		$page = Minz_Request::param('page', 1);
+		$page = intval(Minz_Request::param('page', 1));
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);

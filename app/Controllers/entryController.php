@@ -72,7 +72,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 			if (!$get) {
 				// No get? Mark all entries as read (from $id_max)
-				$entryDAO->markReadEntries($id_max, $is_read);
+				$entryDAO->markReadEntries($id_max, false, 0, null, 0, $is_read);
 			} else {
 				$type_get = $get[0];
 				$get = substr($get, 2);

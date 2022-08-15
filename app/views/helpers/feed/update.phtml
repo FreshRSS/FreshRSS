@@ -69,7 +69,7 @@
 			<div class="group-controls">
 				<select name="category" id="category" class="w100">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->category() ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->categoryId() ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
@@ -256,7 +256,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" value="<?= _t('sub.feed.number_entries', $nbEntries) ?>" disabled="disabled" />
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#slider') ?>">
+					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
 					</a>
 				</div>
@@ -384,7 +384,7 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id(), '#slider') ?>"><?= _t('gen.action.truncate') ?></button>
+				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id(), '#', 'slider') ?>"><?= _t('gen.action.truncate') ?></button>
 			</div>
 		</div>
 
@@ -491,9 +491,23 @@
 					<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
 						data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?=
-						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', '#slider') ?>"><?= _i('look') ?></a>
+						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', 'selector_filter', 'selector-filter-token', '#', 'slider') ?>"><?= _i('look') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<?php
+				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('path_entries_filter'));
+			?>
+			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
+			<div class="group-controls">
+				<div class="stick w100">
+					<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $path_entries_filter ?>"
+						data-leave-validation="<?= $path_entries_filter ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_path_filter.help') ?></p>
 			</div>
 		</div>
 
@@ -589,13 +603,13 @@
 	<legend><?= _t('sub.feed.maintenance.title') ?></legend>
 	<div class="form-group">
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#slider') ?>">
+			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
 				<?= _t('sub.feed.maintenance.clear_cache') ?>
 			</a>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 		</div>
 		<div class="group-controls">
-			<form method="post" action="<?= _url('feed', 'reload', '#slider') ?>">
+			<form method="post" action="<?= _url('feed', 'reload', '#', 'slider') ?>">
 				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
 				<button type="submit" class="btn btn-important">

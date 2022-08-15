@@ -30,8 +30,10 @@
 		<div class="form-group">
 			<label class="group-name"><?= _t('sub.feed.website') ?></label>
 			<div class="group-controls">
-				<?= $this->feed->website() ?>
-				<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+				<div class="stick">
+					<input type="text" value="<?= $this->feed->website() ?>" disabled="disabled" />
+					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+				</div>
 			</div>
 		</div>
 		<?php } ?>
@@ -43,6 +45,7 @@
 					<input type="text" name="url_rss" id="url" value="<?= $this->feed->url() ?>" />
 					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
+				<br />
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
 			</div>
 		</div>
@@ -75,8 +78,8 @@
 			<label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" name="http_pass" id="http_pass" class="extend" value="<?= $auth['password'] ?>" autocomplete="new-password" />
-					<button type="button" class="btn toggle-password" data-toggle="http_user"><?= _i('key') ?></button>
+					<input type="password" name="http_pass" id="http_pass" value="<?= $auth['password'] ?>" autocomplete="new-password" />
+					<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
 				</div>
 			</div>
 		</div>

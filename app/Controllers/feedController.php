@@ -74,7 +74,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed->_kind($kind);
 		$feed->_attributes('', $attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->_category($cat_id);
+		$feed->_categoryId($cat_id);
 		switch ($kind) {
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
@@ -425,6 +425,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							$entry->_isFavorite(null);	// Do not change favourite state
 
 							/** @var FreshRSS_Entry|null */
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
@@ -908,19 +909,22 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		//Get feed.
-		$feed = $entry->feed(true);
+		$feed = $entry->feed();
 
 		if (!$feed) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
 			return;
 		}
 
+		$attributes = $feed->attributes();
+		$attributes['path_entries_filter'] = trim(Minz_Request::param('selector_filter', ''));
+
 		//Fetch & select content.
 		try {
 			$fullContent = FreshRSS_Entry::getContentByParsing(
 				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				$content_selector,
-				$feed->attributes()
+				$attributes
 			);
 
 			if ($fullContent != '') {
