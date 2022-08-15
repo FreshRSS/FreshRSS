@@ -43,7 +43,9 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 ### Miscellaneous
 
 * `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
-	* Example: `div.main`
+	* Example: `div.main, .summary`
+* `frss:cssFullContentFilter`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to remove the matching HTML elements from the full content retrieved by `frss:cssFullContent`.
+	* Example: `.footer, .aside`
 * `frss:filtersActionRead`: List (separated by a new line) of search queries to automatically mark a new article as read.
 
 ### Dynamic OPML (reading lists)
