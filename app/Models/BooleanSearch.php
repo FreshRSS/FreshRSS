@@ -10,7 +10,7 @@ class FreshRSS_BooleanSearch {
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private $searches = array();
 
-	/** @var string 'AND' or 'OR' */
+	/** @var string 'AND' or 'OR' or 'AND NOT' */
 	private $operator;
 
 	public function __construct(string $input, int $level = 0, $operator = 'AND') {
