@@ -123,7 +123,20 @@ class FreshRSS_BooleanSearch {
 				$hasParenthesis = true;
 
 				$before = trim($before);
-				if (preg_match('/\bOR$/i', $before)) {
+				if (preg_match('/[!-]$/i', $before)) {
+					// Trim trailing negation
+					$before = substr($before, 0, -1);
+
+					// The text prior to the negation is a BooleanSearch
+					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					if (count($searchBefore->searches()) > 0) {
+						$this->searches[] = $searchBefore;
+					}
+					$before = '';
+
+					// The next BooleanSearch will have to be combined with AND NOT instead of default AND
+					$nextOperator = 'AND NOT';
+				} elseif (preg_match('/\bOR$/i', $before)) {
 					// Trim trailing OR
 					$before = substr($before, 0, -2);
 

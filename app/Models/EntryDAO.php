@@ -770,6 +770,9 @@ SQL;
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
+					} elseif ($filter->operator() === 'AND NOT') {
+						// Special case if we start with a negation (there is already the default AND before)
+						$search .= ' NOT';
 					}
 					$search .= ' (' . $filterSearch . ') ';
 					$values = array_merge($values, $filterValues);
@@ -1114,6 +1117,9 @@ SQL;
 	private function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+
+		syslog(LOG_DEBUG, __METHOD__ . ' 0 ' . $sql . ' ' .
+			json_encode($values, JSON_UNESCAPED_LINE_TERMINATORS | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
