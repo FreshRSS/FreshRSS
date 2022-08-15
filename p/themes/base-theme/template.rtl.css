@@ -289,7 +289,7 @@ td.numeric {
 .prompt form {
 	margin-top: 2rem;
 	margin-bottom: 3rem;
-	text-align: left;
+	text-align: right;
 }
 
 .prompt label,
