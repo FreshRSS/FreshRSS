@@ -272,6 +272,10 @@ form {
 	vertical-align: middle;
 	font-size: 0;
 
+	select {
+		margin-top: 0;
+	}
+
 	&.configure-feeds {
 
 		@extend %aside-width;
