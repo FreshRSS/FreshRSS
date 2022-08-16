@@ -1089,6 +1089,21 @@ a.signin {
 		z-index: 1000;
 	}
 
+	#slider .toggle_aside {
+		background: #22303d;
+		display: block;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		padding-right: 10px;
+	}
+	#slider .toggle_aside:hover {
+		background-color: #0062be;
+	}
+	#slider .toggle_aside .icon {
+		filter: brightness(3);
+	}
+
 	.nav_menu {
 		height: 71px;
 	}

@@ -1363,6 +1363,25 @@ a.signin {
 		}
 	}
 
+	#slider {
+		.toggle_aside {
+			background: $color_aside;
+			display: block;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			padding-right: 10px;
+
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
+	}
+
 	.nav_menu {
 		height: 71px;
 
