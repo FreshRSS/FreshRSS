@@ -921,12 +921,9 @@ form {
 }
 
 .prompt {
-	label {
-		text-align: left;
-	}
-
-	p {
-		margin: 20px 0;
+	input {
+		margin: 5px auto;
+		width: 100%;
 	}
 }
 

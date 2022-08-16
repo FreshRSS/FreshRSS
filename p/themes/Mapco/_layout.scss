@@ -112,33 +112,8 @@
 
 /*=== Prompt (centered) */
 main.prompt {
-	margin: 3rem auto;
-	padding: 2rem;
 	background: variables.$grey-light;
-	max-width: 400px;
-	min-width: 300px;
-	width: 33%;
 	border-radius: 5px;
-}
-
-.prompt {
-	text-align: center;
-}
-
-.prompt label,
-.prompt .help {
-	text-align: left;
-}
-
-.prompt input,
-.prompt select,
-.prompt .stick {
-	width: 100%;
-	box-sizing: border-box;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */

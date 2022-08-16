@@ -57,6 +57,10 @@ return array(
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
+		'css_path_filter' => array(
+			'_' => 'Sélecteur CSS des éléments à supprimer',
+			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',

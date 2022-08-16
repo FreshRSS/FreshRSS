@@ -916,12 +916,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
+		$attributes = $feed->attributes();
+		$attributes['path_entries_filter'] = trim(Minz_Request::param('selector_filter', ''));
+
 		//Fetch & select content.
 		try {
 			$fullContent = FreshRSS_Entry::getContentByParsing(
 				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				$content_selector,
-				$feed->attributes()
+				$attributes
 			);
 
 			if ($fullContent != '') {

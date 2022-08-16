@@ -723,11 +723,9 @@ form th {
 	max-width: 550px;
 }
 
-.prompt label {
-	text-align: left;
-}
-.prompt p {
-	margin: 20px 0;
+.prompt input {
+	margin: 5px auto;
+	width: 100%;
 }
 
 #global {
