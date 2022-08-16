@@ -223,7 +223,7 @@ form {
 	}
 
 	#sidebar:hover::-webkit-scrollbar-thumb,
-	.scrollbar-thin::-webkit-scrollbar-thumb {
+	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.5);
 	}
 
@@ -236,7 +236,7 @@ form {
 		background: rgba(0, 0, 0, 0.1);
 	}
 
-	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
+	#slider.scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.3);
 	}
 }
