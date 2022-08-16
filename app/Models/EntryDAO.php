@@ -770,6 +770,9 @@ SQL;
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
+					} elseif ($filter->operator() === 'AND NOT') {
+						// Special case if we start with a negation (there is already the default AND before)
+						$search .= ' NOT';
 					}
 					$search .= ' (' . $filterSearch . ') ';
 					$values = array_merge($values, $filterValues);

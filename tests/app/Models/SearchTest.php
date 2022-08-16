@@ -330,6 +330,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 					' ((e.id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (?)) )) ',
 				['%tag%','%Hello%','%Alice%','%example%','3','%World%', 'Bleu']
 			],
+			[
+				'!((author:Alice intitle:hello) OR (author:Bob intitle:world))',
+				' NOT (((e.author LIKE ? AND e.title LIKE ? )) OR ((e.author LIKE ? AND e.title LIKE ? ))) ',
+				['%Alice%', '%hello%', '%Bob%', '%world%'],
+			],
+			[
+				'(author:Alice intitle:hello) !(author:Bob intitle:world)',
+				' ((e.author LIKE ? AND e.title LIKE ? )) AND NOT ((e.author LIKE ? AND e.title LIKE ? )) ',
+				['%Alice%', '%hello%', '%Bob%', '%world%'],
+			]
 		];
 	}
 }
