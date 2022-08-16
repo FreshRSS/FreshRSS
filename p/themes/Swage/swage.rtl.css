@@ -157,6 +157,14 @@ form th {
 .scrollbar-thin:hover {
 		scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
 	}
+
+	#slider.scrollbar-thin {
+		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
+	}
+
+	#slider.scrollbar-thin:hover {
+		scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
+	}
 }
 @supports not (scrollbar-width: thin) {
 	#sidebar::-webkit-scrollbar,
@@ -175,6 +183,18 @@ form th {
 	#sidebar:hover::-webkit-scrollbar-thumb,
 .scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.5);
+	}
+
+	#slider.scrollbar-thin::-webkit-scrollbar {
+		background: rgba(0, 0, 0, 0.05);
+	}
+
+	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.1);
+	}
+
+	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.3);
 	}
 }
 .category .title.error::before {
