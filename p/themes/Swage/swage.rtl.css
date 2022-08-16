@@ -1262,6 +1262,3 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
-#slider .form-group:hover {
-	background: initial;
-}
