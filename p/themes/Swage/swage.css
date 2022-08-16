@@ -732,11 +732,13 @@ form th {
 }
 
 #new-article {
-	margin: 2rem 2rem 1rem 2rem;
 	background: #0062be;
-	width: calc(100% - 4rem);
 	font-size: 1em;
 	text-align: center;
+	position: fixed;
+	bottom: 48px;
+	z-index: 900;
+	left: 0;
 	line-height: 1.5em;
 }
 #new-article > a {
@@ -1006,6 +1008,7 @@ a.signin {
 
 	#new-article {
 		margin-top: 2rem;
+		width: 100%;
 	}
 
 	.header {
