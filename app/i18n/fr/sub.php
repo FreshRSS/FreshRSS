@@ -104,6 +104,10 @@ return array(
 					'_' => 'titre de l’article',
 					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
 				),
+				'item_uid' => array(
+					'_' => 'identifiant unique de l’article',
+					'help' => 'Optionnel. Exemple : <code>descendant::div/@data-uri</code>',
+				),
 				'item_uri' => array(
 					'_' => 'lien (URL) de l’article',
 					'help' => 'Exemple : <code>descendant::a/@href</code>',

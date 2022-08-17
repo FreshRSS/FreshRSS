@@ -39,6 +39,7 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 * `frss:xPathItemThumbnail`: XPath expression for extracting an item’s thumbnail (image) URL from the item context.
 	* Example: `descendant::img/@src`
 * `frss:xPathItemCategories`: XPath expression for extracting a list of categories (tags) from the item context.
+* `frss:xPathItemUid`: XPath expression for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
 
 ### Miscellaneous
 
