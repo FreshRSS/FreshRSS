@@ -838,8 +838,13 @@ form {
 			margin-top: 3px;
 		}
 
-		.dropdown .icon {
-			filter: brightness(3);
+		.dropdown .dropdown-menu {
+			max-height: calc(100vh - 45px);
+			overflow: scroll;
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 	}
 }
