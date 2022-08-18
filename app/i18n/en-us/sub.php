@@ -87,7 +87,7 @@ return array(
 					'_' => 'item author',	// IGNORE
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// IGNORE
 				),
-				'item_categories' => 'items tag',	// IGNORE
+				'item_categories' => 'item tags',	// IGNORE
 				'item_content' => array(
 					'_' => 'item content',	// IGNORE
 					'help' => 'Example to take the full item: <code>.</code>',	// IGNORE
