@@ -76,25 +76,25 @@ return array(
 				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
 					'_' => '提要标题',
-					'help' => '例: <code>//title</code> 或一个静态的字符串： <code>"My custom feed"</code>',
+					'help' => '如 <code>//title</code> 或是静态字符串如 <code>"My custom feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是高级用户的标准查询语言，FreshRSS支持XPath以支持Web抓取。',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是为资深用户准备的标准查询语言，FreshRSS 用以实现 Web 抓取.',
 				'item' => array(
 					'_' => '以寻找 <strong>文章</strong><br /><small>(很重要)</small>',
-					'help' => '例： <code>//div[@class="news-item"]</code>',
+					'help' => '例如 <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
 					'_' => '文章作者',
-					'help' => '也可以是静态字符串。 例： <code>"Anonymous"</code>',
+					'help' => '可以是静态字符串，例如 <code>"Anonymous"</code>',
 				),
 				'item_categories' => '文章标签',
 				'item_content' => array(
 					'_' => '文章内容',
-					'help' => '获取完整项目的示例： <code>.</code>',
+					'help' => '例如使用 <code>.</code> 将整个对象作为文章内容',
 				),
 				'item_thumbnail' => array(
 					'_' => '文章缩略图',
-					'help' => '例： <code>descendant::img/@src</code>',
+					'help' => '例如 <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
@@ -102,15 +102,15 @@ return array(
 				),
 				'item_title' => array(
 					'_' => '文章标题',
-					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',
+					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => '文章唯一标识',
+					'help' => '可选，例如: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => '文章链接 (URL)',
-					'help' => '例： <code>descendant::a/@href</code>',
+					'help' => '例如 <code>descendant::a/@href</code>',
 				),
 				'relative' => 'XPath（文章）：',
 				'xpath' => 'XPath 定位：',
@@ -121,7 +121,7 @@ return array(
 			'clear_cache' => '清理缓存',
 			'clear_cache_help' => '清除该feed的缓存',
 			'reload_articles' => '重载文章',
-			'reload_articles_help' => '重新加载文章并获取完整内容',	// DIRTY
+			'reload_articles_help' => '重载 n 篇文章并抓取内容（若设置了 CSS 选择器）',
 			'title' => '维护',
 		),
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
