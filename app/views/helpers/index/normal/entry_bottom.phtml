@@ -37,7 +37,7 @@
 	}
 	// @phpstan-ignore-next-line
 	if ($bottomline_labels) {
-	?><li class="item">
+	?><li class="item labels">
 		<div class="dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
@@ -58,7 +58,7 @@
 	}
 	$tags = $bottomline_tags ? $this->entry->tags() : null;
 	if (!empty($tags)) {
-	?><li class="item">
+	?><li class="item tags">
 		<div class="dropdown">
 			<div id="dropdown-tags-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>">
@@ -74,7 +74,7 @@
 		</div>
 	</li><?php
 	}
-	?><li class="item"><?php
+	?><li class="item share"><?php
 			if ($bottomline_sharing) {
 		?><div class="dropdown">
 			<div id="dropdown-share-<?= $this->entry->id() ?>" class="dropdown-target"></div>

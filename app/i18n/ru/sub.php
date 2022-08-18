@@ -104,6 +104,10 @@ return array(
 					'_' => 'заголовка элемента',
 					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
 				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+				),
 				'item_uri' => array(
 					'_' => 'ссылки элемента (URL)',
 					'help' => 'Пример: <code>descendant::a/@href</code>',

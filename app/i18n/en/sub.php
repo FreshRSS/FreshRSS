@@ -87,7 +87,7 @@ return array(
 					'_' => 'item author',
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',
 				),
-				'item_categories' => 'items tags',
+				'item_categories' => 'item tags',
 				'item_content' => array(
 					'_' => 'item content',
 					'help' => 'Example to take the full item: <code>.</code>',
@@ -103,6 +103,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',
