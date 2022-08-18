@@ -426,10 +426,17 @@ function toggleContent(new_active, old_active, skipping) {
 
 	if (context.sticky_post) {	// Stick the article to the top when opened
 		const prev_article = new_active.previousElementSibling;
-		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop;
+		const nav_menu = document.querySelector('.nav_menu');
+		let nav_menu_height = 0;
+
+		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+			nav_menu_height = nav_menu.offsetHeight;
+		}
+
+		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
 		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
-			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop;
+			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop - nav_menu_height;
 			if (relative_move) {
 				new_pos -= box_to_move.offsetTop;
 			}
@@ -1213,7 +1220,13 @@ function init_nav_entries() {
 			const windowTop = document.scrollingElement.scrollTop;
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
-			document.scrollingElement.scrollTop = windowTop > item_top ? item_top : 0;
+			const nav_menu = document.querySelector('.nav_menu');
+			let nav_menu_height = 0;
+
+			if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+				nav_menu_height = nav_menu.offsetHeight;
+			}
+			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height : 0 - nav_menu_height;
 			return false;
 		};
 	}
