@@ -10,10 +10,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return false;
 	}
 
-	protected static function sqlConcat($s1, $s2) {
-		return $s1 . '||' . $s2;
-	}
-
 	public static function sqlHexDecode(string $x): string {
 		return $x;
 	}
