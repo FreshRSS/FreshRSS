@@ -611,6 +611,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
+		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
 		if ($xPathItem == '') {
 			return null;
 		}
@@ -657,8 +658,14 @@ class FreshRSS_Feed extends Minz_Model {
 						}
 					}
 				}
-				if ($item['title'] . $item['content'] . $item['link'] != '') {
+				if ($xPathItemUid != '') {
+					$item['guid'] = @$xpath->evaluate('normalize-space(' . $xPathItemUid . ')', $node);
+				}
+				if (empty($item['guid'])) {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+				}
+
+				if ($item['title'] . $item['content'] . $item['link'] != '') {
 					$item = Minz_Helper::htmlspecialchars_utf8($item);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}

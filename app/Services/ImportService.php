@@ -179,6 +179,7 @@ class FreshRSS_Import_Service {
 						case 'xPathItemTimestamp': $xPathSettings['itemTimestamp'] = $value['value']; break;
 						case 'xPathItemThumbnail': $xPathSettings['itemThumbnail'] = $value['value']; break;
 						case 'xPathItemCategories': $xPathSettings['itemCategories'] = $value['value']; break;
+						case 'xPathItemUid': $xPathSettings['itemUid'] = $value['value']; break;
 					}
 				}
 			}
