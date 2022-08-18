@@ -25,12 +25,12 @@ return array(
 		'add' => '添加分类',
 		'archiving' => '归档',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => '动态订阅',
+			'help' => '使用地址上的 <a href=http://opml.org/ target=_blank>OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
 		'information' => '信息',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML 地址',
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
 		'title' => '标题',
@@ -58,8 +58,8 @@ return array(
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
 		'css_path_filter' => array(
-			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'_' => '需移除元素的 CSS 选择器',
+			'help' => '可设置多个 CSS 选择器，例如：<kbd>.footer, .aside</kbd>',
 		),
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
@@ -190,7 +190,7 @@ return array(
 		'_' => '订阅管理',
 		'add' => '添加订阅源或分类',
 		'add_category' => '添加分类',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => '添加订阅源动态列表',
 		'add_feed' => '添加订阅源',
 		'add_label' => '添加标签',
 		'delete_label' => '删除标签',
