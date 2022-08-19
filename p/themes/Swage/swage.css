@@ -671,7 +671,11 @@ form th {
 	margin-right: 5px;
 	margin-top: 3px;
 }
-.header .item.configure .dropdown .icon {
+.header .item.configure .dropdown .dropdown-menu {
+	max-height: calc(100vh - 45px);
+	overflow: scroll;
+}
+.header .item.configure .dropdown .dropdown-menu .icon {
 	filter: brightness(3);
 }
 
