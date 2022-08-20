@@ -36,6 +36,8 @@ return array(
 		'title' => 'Title',	// IGNORE
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// IGNORE
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// IGNORE
 		'add' => 'Add an RSS feed',	// IGNORE
 		'advanced' => 'Advanced',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
@@ -87,7 +89,7 @@ return array(
 					'_' => 'item author',	// IGNORE
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// IGNORE
 				),
-				'item_categories' => 'items tags',	// IGNORE
+				'item_categories' => 'item tags',	// IGNORE
 				'item_content' => array(
 					'_' => 'item content',	// IGNORE
 					'help' => 'Example to take the full item: <code>.</code>',	// IGNORE
@@ -103,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',	// IGNORE
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// IGNORE
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// IGNORE
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// IGNORE
@@ -120,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// IGNORE
 			'title' => 'Maintenance',	// IGNORE
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// IGNORE
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE
 		'mute' => 'mute',	// IGNORE
 		'no_selected' => 'No feed selected.',	// IGNORE

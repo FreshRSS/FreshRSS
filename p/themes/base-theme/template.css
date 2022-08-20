@@ -22,6 +22,15 @@ html, body {
 	font-size: 100%;
 }
 
+main.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
 /*=== Links */
 a {
 	text-decoration: none;
@@ -64,6 +73,7 @@ p {
 
 p.help, .prompt p.help {
 	margin: 5px 0 0.5em;
+	text-align: left;
 }
 
 p.help .icon {
@@ -208,6 +218,15 @@ input[type="radio"],
 input[type="checkbox"] {
 	width: 15px !important;
 	min-height: 15px !important;
+}
+
+.prompt textarea,
+.prompt input,
+.prompt select,
+.prompt .stick {
+	margin: 5px auto;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .dropdown-menu label > input[type="text"] {
@@ -746,6 +765,8 @@ input[type="checkbox"]:focus-visible {
 .box .box-content {
 	padding: 8px 8px 8px 16px;
 	display: block;
+	min-height: 2.5em;
+	max-height: 260px;
 	overflow: auto;
 }
 
@@ -835,7 +856,7 @@ li.drag-hover {
 	}
 
 	#sidebar:hover,
-	.scrollbar-thin {
+	.scrollbar-thin:hover {
 		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
 	}
 }

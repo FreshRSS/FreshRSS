@@ -30,7 +30,7 @@ return array(
 		'rss_of' => '%s 的订阅源',
 		'title' => '首页',
 		'title_fav' => '收藏',
-		'title_global' => '全屏视图',
+		'title_global' => '全局视图',
 	),
 	'log' => array(
 		'_' => '日志',
@@ -44,7 +44,7 @@ return array(
 		'before_one_week' => '一周前',
 		'bookmark_query' => '收藏当前查询',
 		'favorites' => '收藏（%s）',
-		'global_view' => '全屏视图',
+		'global_view' => '全局视图',
 		'main_stream' => '首页',
 		'mark_all_read' => '全部设为已读',
 		'mark_cat_read' => '此分类设为已读',

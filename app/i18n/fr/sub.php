@@ -36,6 +36,8 @@ return array(
 		'title' => 'Titre',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Autoriser les cookies',
+		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
 		'add' => 'Ajouter un flux RSS',
 		'advanced' => 'Avancé',
 		'archiving' => 'Archivage',
@@ -104,6 +106,10 @@ return array(
 					'_' => 'titre de l’article',
 					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
 				),
+				'item_uid' => array(
+					'_' => 'identifiant unique de l’article',
+					'help' => 'Optionnel. Exemple : <code>descendant::div/@data-uri</code>',
+				),
 				'item_uri' => array(
 					'_' => 'lien (URL) de l’article',
 					'help' => 'Exemple : <code>descendant::a/@href</code>',
@@ -120,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Recharge cette quantité d’articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',	// IGNORE
 		),
+		'max_http_redir' => 'Maximum de redirections HTTP',
+		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',

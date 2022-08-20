@@ -28,6 +28,7 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			$outline['frss:xPathItemTimestamp'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTimestamp'] ?? null];
 			$outline['frss:xPathItemThumbnail'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemThumbnail'] ?? null];
 			$outline['frss:xPathItemCategories'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemCategories'] ?? null];
+			$outline['frss:xPathItemUid'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUid'] ?? null];
 		}
 		if (!empty($feed->filtersAction('read'))) {
 			$filters = '';

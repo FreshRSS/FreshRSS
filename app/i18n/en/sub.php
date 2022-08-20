@@ -36,6 +36,8 @@ return array(
 		'title' => 'Title',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',
 		'add' => 'Add an RSS feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
@@ -87,7 +89,7 @@ return array(
 					'_' => 'item author',
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',
 				),
-				'item_categories' => 'items tags',
+				'item_categories' => 'item tags',
 				'item_content' => array(
 					'_' => 'item content',
 					'help' => 'Example to take the full item: <code>.</code>',
@@ -103,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',
@@ -120,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',
 			'title' => 'Maintenance',
 		),
+		'max_http_redir' => 'Max HTTP redirects',
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',

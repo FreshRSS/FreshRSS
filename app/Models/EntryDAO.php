@@ -10,10 +10,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return true;
 	}
 
-	protected static function sqlConcat($s1, $s2) {
-		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
-	}
-
 	public static function sqlHexDecode(string $x): string {
 		return 'unhex(' . $x . ')';
 	}
@@ -770,6 +766,9 @@ SQL;
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
+					} elseif ($filter->operator() === 'AND NOT') {
+						// Special case if we start with a negation (there is already the default AND before)
+						$search .= ' NOT';
 					}
 					$search .= ' (' . $filterSearch . ') ';
 					$values = array_merge($values, $filterValues);
@@ -947,47 +946,49 @@ SQL;
 			}
 			if ($filter->getInurl()) {
 				foreach ($filter->getInurl() as $url) {
-					$sub_search .= 'AND ' . static::sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ? ';
+					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
 			if ($filter->getNotAuthor()) {
 				foreach ($filter->getNotAuthor() as $author) {
-					$sub_search .= 'AND (NOT ' . $alias . 'author LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'author NOT LIKE ? ';
 					$values[] = "%{$author}%";
 				}
 			}
 			if ($filter->getNotIntitle()) {
 				foreach ($filter->getNotIntitle() as $title) {
-					$sub_search .= 'AND (NOT ' . $alias . 'title LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
 					$values[] = "%{$title}%";
 				}
 			}
 			if ($filter->getNotTags()) {
 				foreach ($filter->getNotTags() as $tag) {
-					$sub_search .= 'AND (NOT ' . $alias . 'tags LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'tags NOT LIKE ? ';
 					$values[] = "%{$tag}%";
 				}
 			}
 			if ($filter->getNotInurl()) {
 				foreach ($filter->getNotInurl() as $url) {
-					$sub_search .= 'AND (NOT ' . static::sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'link NOT LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
 			if ($filter->getSearch()) {
 				foreach ($filter->getSearch() as $search_value) {
-					$sub_search .= 'AND ' . static::sqlConcat($alias . 'title',
-						static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
+					$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' .
+						(static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+					$values[] = "%{$search_value}%";
 					$values[] = "%{$search_value}%";
 				}
 			}
 			if ($filter->getNotSearch()) {
 				foreach ($filter->getNotSearch() as $search_value) {
-					$sub_search .= 'AND (NOT ' . static::sqlConcat($alias . 'title',
-						static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' .
+						(static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' NOT LIKE ? ';
+					$values[] = "%{$search_value}%";
 					$values[] = "%{$search_value}%";
 				}
 			}
