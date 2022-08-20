@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param boolean $is_read
 	 * @return integer|false affected rows
 	 */
-	public function markRead($ids, $is_read = true) {
+	public function markRead($ids, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
