@@ -21,6 +21,7 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 * [Setting Up Automatic Feed Updating](08_FeedUpdates.md)
 * [Access Control](09_AccessControl.md)
 * [Apache/Nginx configuration files](10_ServerConfig.md)
+* [Database configuration](DatabaseConfig.md)
 * [Using the command line interface (CLI)](https://github.com/FreshRSS/FreshRSS/tree/edge/cli)
 * [Configuring the email address validation](05_Configuring_email_validation.md)
 * [Frequently asked questions](04_Frequently_Asked_Questions.md)

@@ -36,6 +36,8 @@ return array(
 		'title' => 'Názov',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Pridať RSS kanál',
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
@@ -57,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Príklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Stiahnuť skrátenú verziu RSS kanála (pozor, vyžaduje viac času!)',
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
@@ -83,7 +89,7 @@ return array(
 					'_' => 'item author',	// TODO
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
 					'help' => 'Example to take the full item: <code>.</code>',	// TODO
@@ -99,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',	// TODO
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO
@@ -116,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY
 			'title' => 'Údržba',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',

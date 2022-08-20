@@ -56,7 +56,9 @@ function init_popup_preview_selector() {
 
 	link.addEventListener('click', function (ev) {
 		const selector_entries = document.getElementById('path_entries').value;
-		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries));
+		const selector_entries_filter = document.getElementById('path_entries_filter').value;
+		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries))
+			.replace('selector-filter-token', encodeURIComponent(selector_entries_filter));
 
 		openPopupWithSource(href);
 

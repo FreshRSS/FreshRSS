@@ -249,6 +249,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					'feedUrl' => isset($item['feed_url']) ? $item['feed_url'] : '',
 				);
 			$item['id'] = isset($item['guid']) ? $item['guid'] : (isset($item['feed_url']) ? $item['feed_url'] : $item['published']);
+			$item['guid'] = $item['id'];
 			$table['items'][$i] = $item;
 		}
 		return json_encode($table);
@@ -284,7 +285,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($items as $item) {
-			if (empty($item['id'])) {
+			if (!isset($item['guid']) && isset($item['id'])) {
+				$item['guid'] = $item['id'];
+			}
+			if (empty($item['guid'])) {
 				continue;
 			}
 			if (empty($item['origin'])) {
@@ -326,11 +330,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($feed != null) {
-				$article_to_feed[$item['id']] = $feed->id();
+				$article_to_feed[$item['guid']] = $feed->id();
 				if (!isset($newFeedGuids['f_' . $feed->id()])) {
 					$newFeedGuids['f_' . $feed->id()] = array();
 				}
-				$newFeedGuids['f_' . $feed->id()][] = safe_ascii($item['id']);
+				$newFeedGuids['f_' . $feed->id()][] = safe_ascii($item['guid']);
 			}
 		}
 
@@ -354,14 +358,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$newGuids = array();
 		$this->entryDAO->beginTransaction();
 		foreach ($items as $item) {
-			if (empty($item['id']) || empty($article_to_feed[$item['id']])) {
+			if (empty($item['guid']) || empty($article_to_feed[$item['guid']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
 			}
 
-			$feed_id = $article_to_feed[$item['id']];
+			$feed_id = $article_to_feed[$item['guid']];
 			$author = isset($item['author']) ? $item['author'] : '';
-			$is_starred = false;
+			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
 			$tags = empty($item['categories']) ? array() : $item['categories'];
 			$labels = array();
@@ -429,7 +433,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			$entry = new FreshRSS_Entry(
-				$feed_id, $item['id'], $title, $author,
+				$feed_id, $item['guid'], $title, $author,
 				$content, $url, $published, $is_read, $is_starred
 			);
 			$entry->_id(uTimeString());
@@ -463,7 +467,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				}
 				$knownLabels[$labelName]['articles'][] = array(
 						//'id' => $entry->id(),	//ID changes after commitNewEntries()
-						'id_feed' => $entry->feed(),
+						'id_feed' => $entry->feedId(),
 						'guid' => $entry->guid(),
 					);
 			}
@@ -480,6 +484,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$this->entryDAO->beginTransaction();
 		foreach ($knownLabels as $labelName => $knownLabel) {
 			$labelId = $knownLabel['id'];
+			if (!$labelId) {
+				continue;
+			}
 			foreach ($knownLabel['articles'] as $article) {
 				$entryId = $this->entryDAO->searchIdByGuid($article['id_feed'], $article['guid']);
 				if ($entryId != null) {
@@ -521,7 +528,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
-			$feed->_category(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
 			$feed->_name($name);
 			$feed->_website($website);
 			if (!empty($origin['disable'])) {

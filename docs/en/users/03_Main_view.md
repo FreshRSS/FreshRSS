@@ -239,10 +239,13 @@ can be used to combine several search criteria with a logical *or* instead: `aut
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
-Finally, parentheses may be used to express more complex queries:
+Finally, parentheses may be used to express more complex queries, with basic negation support:
 
 * `(author:Alice OR intitle:hello) (author:Bob OR intitle:world)`
 * `(author:Alice intitle:hello) OR (author:Bob intitle:world)`
+* `!((author:Alice intitle:hello) OR (author:Bob intitle:world))`
+* `(author:Alice intitle:hello) !(author:Bob intitle:world)`
+* `!(S:1 OR S:2)`
 
 ### By sorting by date
 

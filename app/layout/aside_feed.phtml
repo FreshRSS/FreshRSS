@@ -22,7 +22,7 @@
 		<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?></a>
 	</div>
 	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
-	<a href="<?= _url('index', 'about') ?>"><?= _t('index.menu.about') ?></a>
+	<a href="<?= _url('index', 'about') ?>" class="about"><?= _t('index.menu.about') ?></a>
 	<?php } ?>
 
 	<form id="mark-read-aside" method="post">

@@ -22,6 +22,15 @@ html, body {
 	font-size: 100%;
 }
 
+main.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
 /*=== Links */
 a {
 	text-decoration: none;
@@ -64,6 +73,7 @@ p {
 
 p.help, .prompt p.help {
 	margin: 5px 0 0.5em;
+	text-align: left;
 }
 
 p.help .icon {
@@ -210,6 +220,15 @@ input[type="checkbox"] {
 	min-height: 15px !important;
 }
 
+.prompt textarea,
+.prompt input,
+.prompt select,
+.prompt .stick {
+	margin: 5px auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
 .dropdown-menu label > input[type="text"] {
 	width: 150px;
 	width: calc(99% - 5em);
@@ -274,6 +293,38 @@ td.numeric {
 /*===============*/
 [aria-hidden="true"] {
 	display: none !important;
+}
+
+/* login and register form */
+.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	text-align: left;
+}
+
+.prompt label,
+.prompt .help {
+	text-align: left;
+}
+
+.prompt input,
+.prompt select,
+.prompt .stick {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.prompt p {
+	margin: 20px 0;
 }
 
 /*=== Forms */
@@ -714,6 +765,8 @@ input[type="checkbox"]:focus-visible {
 .box .box-content {
 	padding: 8px 8px 8px 16px;
 	display: block;
+	min-height: 2.5em;
+	max-height: 260px;
 	overflow: auto;
 }
 
@@ -803,7 +856,7 @@ li.drag-hover {
 	}
 
 	#sidebar:hover,
-	.scrollbar-thin {
+	.scrollbar-thin:hover {
 		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
 	}
 }
@@ -839,7 +892,6 @@ li.drag-hover {
 
 .tree-folder-items {
 	padding: 0;
-	max-height: 200em;
 	list-style: none;
 	transition: max-height .3s linear;
 }
@@ -1424,21 +1476,6 @@ br {
 .statGraph {
 	height: 300px;
 }
-
-/*=== LOGIN VIEW */
-/*================*/
-.formLogin .header > .item {
-	padding: 10px 30px;
-}
-
-.formLogin .header > .item.title {
-	text-align: left;
-}
-
-.formLogin .header > .item.configure {
-	text-align: right;
-}
-
 
 /*=== GLOBAL VIEW */
 /*================*/

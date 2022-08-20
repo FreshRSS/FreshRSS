@@ -104,7 +104,7 @@ yum install -y git make npm php-cli php-curl php-mbstring php-xml php-pdo unzip 
 ### Alpine Linux
 
 ```sh
-apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlwriter unzip wget
+apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlreader php-xmlwriter unzip wget
 ```
 
 ### Partial fixes & tests

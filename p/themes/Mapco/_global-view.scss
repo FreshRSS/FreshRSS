@@ -4,17 +4,8 @@
 /*================*/
 #stream {
 	.box.category {
-		&:not([data-unread="0"]) .box-title {
-			// background: #3498db;
-		}
-
-		&:not([data-unread="0"]) .box-title:active {
-			// background: #2980b9;
-		}
-
 		&:not([data-unread="0"]) .box-title .title {
 			font-weight: bold;
-			// color: #fff;
 		}
 
 		.box-title {
@@ -53,7 +44,6 @@
 
 			.item.feed {
 				padding: 0.5rem 1.5rem;
-				// padding: 2px 10px;
 				font-size: 1rem;
 
 				a {
@@ -71,7 +61,7 @@
 }
 
 
-// le panel qui apparait en overlay pour afficher les flux
+// the panel that appears in overlay to display the flows
 #overlay {
 	background: rgba(0, 0, 0, 0.65);
 }
