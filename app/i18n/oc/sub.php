@@ -36,6 +36,8 @@ return array(
 		'title' => 'Títol',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Ajustar un flux RSS',
 		'advanced' => 'Avançat',
 		'archiving' => 'Archivar',
@@ -124,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',	// DIRTY
 			'title' => 'Mantenença',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',

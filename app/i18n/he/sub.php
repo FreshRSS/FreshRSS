@@ -36,6 +36,8 @@ return array(
 		'title' => 'כותרת',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'הוספת הזנה',
 		'advanced' => 'מתקדם',
 		'archiving' => 'ארכוב',
@@ -124,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
 			'title' => 'Maintenance',	// TODO
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
 		'mute' => 'mute',	// TODO
 		'no_selected' => 'אף הזנה לא נבחרה.',
