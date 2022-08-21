@@ -1076,26 +1076,9 @@ input.extend {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	text-align: center;
-}
-
-.prompt label {
-	text-align: left;
-}
-
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 180px;
-}
-
 .prompt input {
 	margin: 5px auto;
 	width: 100%;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== Navigation menu (for articles) */

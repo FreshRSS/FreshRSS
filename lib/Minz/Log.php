@@ -36,7 +36,7 @@ class Minz_Log {
 				$username = '_';
 			}
 			if ($file_name == null) {
-				$file_name = join_path(USERS_PATH, $username, 'log.txt');
+				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
 			} else {
 				$username = '_';
 			}

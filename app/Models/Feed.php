@@ -39,7 +39,9 @@ class FreshRSS_Feed extends Minz_Model {
 	/** @var int */
 	private $kind = 0;
 	/** @var int */
-	private $category = 1;
+	private $categoryId = 1;
+	/** @var FreshRSS_Category|null */
+	private $category;
 	/** @var int */
 	private $nbEntries = -1;
 	/** @var int */
@@ -119,9 +121,22 @@ class FreshRSS_Feed extends Minz_Model {
 	public function hubUrl(): string {
 		return $this->hubUrl;
 	}
-	public function category(): int {
+
+	/**
+	 * @return FreshRSS_Category|null|false
+	 */
+	public function category() {
+		if ($this->category === null) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$this->category = $catDAO->searchById($this->categoryId);
+		}
 		return $this->category;
 	}
+
+	public function categoryId(): int {
+		return $this->categoryId;
+	}
+
 	public function entries() {
 		Minz_Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
 		$simplePie = $this->load(false, true);
@@ -253,10 +268,16 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->kind = $value;
 	}
 
-	/** @param int $value */
-	public function _category($value) {
-		$value = intval($value);
-		$this->category = $value >= 0 ? $value : 0;
+	/** @param FreshRSS_Category|null $cat */
+	public function _category($cat) {
+		$this->category = $cat;
+		$this->categoryId = $this->category == null ? 0 : $this->category->id();
+	}
+
+	/** @param int|string $id */
+	public function _categoryId($id) {
+		$this->category = null;
+		$this->categoryId = intval($id);
 	}
 
 	public function _name(string $value) {
@@ -590,6 +611,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
+		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
 		if ($xPathItem == '') {
 			return null;
 		}
@@ -636,8 +658,14 @@ class FreshRSS_Feed extends Minz_Model {
 						}
 					}
 				}
-				if ($item['title'] . $item['content'] . $item['link'] != '') {
+				if ($xPathItemUid != '') {
+					$item['guid'] = @$xpath->evaluate('normalize-space(' . $xPathItemUid . ')', $node);
+				}
+				if (empty($item['guid'])) {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+				}
+
+				if ($item['title'] . $item['content'] . $item['link'] != '') {
 					$item = Minz_Helper::htmlspecialchars_utf8($item);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
@@ -700,7 +728,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$archiving = $this->attributes('archiving');
 		if ($archiving == null) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			$category = $catDAO->searchById($this->category());
+			$category = $catDAO->searchById($this->categoryId);
 			$archiving = $category == null ? null : $category->attributes('archiving');
 			if ($archiving == null) {
 				$archiving = FreshRSS_Context::$user_conf->archiving;

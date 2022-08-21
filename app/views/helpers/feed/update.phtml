@@ -69,7 +69,7 @@
 			<div class="group-controls">
 				<select name="category" id="category" class="w100">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->category() ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->categoryId() ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
@@ -475,6 +475,14 @@
 						data-leave-validation="<?= $xpath['itemCategories'] ?? '' ?>"><?= $xpath['itemCategories'] ?? '' ?></textarea>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemUid"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_uid') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath w100" name="xPathItemUid" id="xPathItemUid" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemUid'] ?? '' ?>"><?= $xpath['itemUid'] ?? '' ?></textarea>
+				</div>
+			</div>
 		</fieldset>
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -491,9 +499,23 @@
 					<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
 						data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?=
-						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', '#', 'slider') ?>"><?= _i('look') ?></a>
+						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', 'selector_filter', 'selector-filter-token', '#', 'slider') ?>"><?= _i('look') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<?php
+				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('path_entries_filter'));
+			?>
+			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
+			<div class="group-controls">
+				<div class="stick w100">
+					<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $path_entries_filter ?>"
+						data-leave-validation="<?= $path_entries_filter ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_path_filter.help') ?></p>
 			</div>
 		</div>
 
@@ -505,6 +527,25 @@
 						$this->feed->attributes('curl_params')[CURLOPT_COOKIE] : ''
 				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
+				<label for="curl_params_cookiefile">
+					<input type="checkbox" name="curl_params_cookiefile" id="curl_params_cookiefile" value="1"<?=
+						is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_COOKIEFILE]) ?
+							' checked="checked"' : ''
+					?> />
+					<?= _t('sub.feed.accept_cookies') ?>
+				</label>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.accept_cookies_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
+			<div class="group-controls">
+				<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="w50" min="-1" value="<?=
+					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_MAXREDIRS]) ?
+						$this->feed->attributes('curl_params')[CURLOPT_MAXREDIRS] : ''
+				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 			</div>
 		</div>
 
