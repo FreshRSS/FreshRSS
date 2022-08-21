@@ -83,9 +83,9 @@ foreach ($users as $user) {
 	$app->run();
 
 	if (!invalidateHttpCache()) {
-		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'), ADMIN_LOG);
+		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME), ADMIN_LOG);
 		if (defined('STDERR')) {
-			fwrite(STDERR, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
+			fwrite(STDERR, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME) . "\n");
 		}
 	}
 
