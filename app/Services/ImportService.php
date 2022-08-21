@@ -70,7 +70,7 @@ class FreshRSS_Import_Service {
 		$limits = FreshRSS_Context::$system_conf->limits;
 
 		//Sort with categories first
-		usort($opml_elements, function ($a, $b) {
+		usort($opml_elements, static function ($a, $b) {
 			return strcmp(
 				(isset($a['xmlUrl']) ? 'Z' : 'A') . (isset($a['text']) ? $a['text'] : ''),
 				(isset($b['xmlUrl']) ? 'Z' : 'A') . (isset($b['text']) ? $b['text'] : ''));
