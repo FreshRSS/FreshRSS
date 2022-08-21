@@ -96,6 +96,8 @@
 	* Allow empty DB prefix [#4488](https://github.com/FreshRSS/FreshRSS/pull/4488)
 * Compatibility
 	* Initial support for PHP 8.2+ [#4420](https://github.com/FreshRSS/FreshRSS/pull/4420), [#4421](https://github.com/FreshRSS/FreshRSS/pull/4421)
+* Security
+	* Improved error page, properly returning HTTP 500 and CSP [#4465](https://github.com/FreshRSS/FreshRSS/pull/4465)
 * Misc.
 	* Replace `lib_phpQuery` by [`PhpGt/CssXPath`](https://github.com/PhpGt/CssXPath) library for full content retrieval [#4261](https://github.com/FreshRSS/FreshRSS/pull/4261)
 		* Add support for star CSS Selectors such as `a[href*="example"]` [CssXPath#181](https://github.com/PhpGt/CssXPath/pull/181)
@@ -111,8 +113,8 @@
 	[#4419](https://github.com/FreshRSS/FreshRSS/pull/4419), [#4424](https://github.com/FreshRSS/FreshRSS/pull/4424)
 	* Code improvements [#4130](https://github.com/FreshRSS/FreshRSS/pull/4130), [#4194](https://github.com/FreshRSS/FreshRSS/pull/4194), [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201),
 	[#4202](https://github.com/FreshRSS/FreshRSS/pull/4202), [#4258](https://github.com/FreshRSS/FreshRSS/pull/4258), [#4263](https://github.com/FreshRSS/FreshRSS/pull/4263),
-	[#4356](https://github.com/FreshRSS/FreshRSS/pull/4356), [#4489](https://github.com/FreshRSS/FreshRSS/pull/4489), [#4490](https://github.com/FreshRSS/FreshRSS/pull/4490),
-	[#4496](https://github.com/FreshRSS/FreshRSS/pull/4496)
+	[#4356](https://github.com/FreshRSS/FreshRSS/pull/4356), [#4436](https://github.com/FreshRSS/FreshRSS/pull/4436), [#4489](https://github.com/FreshRSS/FreshRSS/pull/4489),
+	[#4490](https://github.com/FreshRSS/FreshRSS/pull/4490), [#4496](https://github.com/FreshRSS/FreshRSS/pull/4496)
 
 
 ## 2022-02-04 FreshRSS 1.19.2
