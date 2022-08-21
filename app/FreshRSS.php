@@ -32,6 +32,14 @@ class FreshRSS extends Minz_FrontController {
 			die($message);
 		}
 
+		if (FreshRSS_Context::$system_conf->logo_html != '') {
+			// Relax Content Security Policy to allow external images if a custom logo HTML is used
+			Minz_ActionController::_defaultCsp([
+				'default-src' => "'self'",
+				'img-src' => '* data:',
+			]);
+		}
+
 		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
 

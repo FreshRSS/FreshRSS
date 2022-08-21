@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Narrow',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'First',
+			'last' => 'Last',
+			'next' => 'Next',
+			'previous' => 'Previous',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profile management',
 		'api' => 'API management',
@@ -124,6 +137,32 @@ return array(
 		'_' => 'Reading',
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load more articles at the bottom of the page',
 		'auto_remove_article' => 'Hide articles after reading',
@@ -132,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',
 			'mark_as_read' => 'Mark article as read',
 			'misc' => 'Miscellaneous',
@@ -147,6 +187,7 @@ return array(
 			'article_viewed' => 'when the article is viewed',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',
 			'scroll' => 'while scrolling',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',
@@ -181,6 +222,7 @@ return array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

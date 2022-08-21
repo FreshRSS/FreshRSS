@@ -10,6 +10,7 @@
 	background: variables.$sid-bg;
 	display: block;
 	width: auto;
+	height: 3rem;
 	table-layout: none;
 
 	.item {
@@ -101,39 +102,16 @@
 			}
 		}
 	}
-
-
 }
 
 /*=== Body */
 #global {
-	height: calc(100% - 85px);
+	height: calc(100% - 4rem);
 }
-
-
-
 
 /*=== Prompt (centered) */
-.prompt {
-	text-align: center;
-}
-
-.prompt label {
-	text-align: left;
-}
-
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 200px;
-}
-
 .prompt input {
 	margin: 5px auto;
-	width: 100%;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -141,10 +119,6 @@
 	background: variables.$main-first;
 	font-size: 1rem;
 	text-align: center;
-}
-
-#new-article:hover {
-	background: variables.$main-first-alt;
 }
 
 #new-article > a {
@@ -155,6 +129,7 @@
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: variables.$main-first-alt;
 }
 
 /*=== Day indication */
@@ -177,6 +152,24 @@
 
 		// letter-spacing: 1px;
 		text-transform: uppercase;
+	}
+}
+
+.btn {
+	border-left-width: 0;
+	padding: 0.5rem 1rem;
+	background-color: variables.$grey-light;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	@include mixins.transition(all, 0.15s, ease-in-out);
+
+	&:hover {
+		background-color: variables.$grey-medium-light;
+	}
+
+	&.active {
+		background-color: variables.$main-first;
 	}
 }
 
@@ -411,7 +404,6 @@
 	left: 0;
 	right: 0;
 	text-align: center;
-	z-index: 10;
 	vertical-align: middle;
 
 	a {

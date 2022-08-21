@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
 		'empty' => 'Leeg',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
 		'see_website' => 'Bekijk website',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'Gebruikersbeheer',
 		'user_profile' => 'Profiel',
 	),
-	'pagination' => array(
-		'first' => 'Eerste',
-		'last' => 'Laatste',
-		'load_more' => 'Laad meer artikelen',
-		'mark_all_read' => 'Markeer alle als gelezen',
-		'next' => 'Volgende',
-		'nothing_to_load' => 'Er zijn geen artikelen meer',
-		'previous' => 'Vorige',
-	),
 	'period' => array(
 		'days' => 'dagen',
 		'hours' => 'uren',
@@ -206,13 +200,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attentie!',
@@ -226,5 +225,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'of',
 		'yes' => 'Ja',
+	),
+	'stream' => array(
+		'load_more' => 'Laad meer artikelen',
+		'mark_all_read' => 'Markeer alle als gelezen',
+		'nothing_to_load' => 'Er zijn geen artikelen meer',
 	),
 );

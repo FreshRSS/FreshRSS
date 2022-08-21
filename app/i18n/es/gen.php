@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Crear',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Degradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Vaciar',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_read' => 'Marcar como leído',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Borrar',
 		'rename' => 'Cambiar el nombre a',
 		'see_website' => 'Ver web',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'Administrar usuarios',
 		'user_profile' => 'Perfil',
 	),
-	'pagination' => array(
-		'first' => 'Primero',
-		'last' => 'Último',
-		'load_more' => 'Cargar más artículos',
-		'mark_all_read' => 'Marcar todo como leído',
-		'next' => 'Siguiente',
-		'nothing_to_load' => 'No hay más artículos',
-		'previous' => 'Anterior',
-	),
 	'period' => array(
 		'days' => 'dias',
 		'hours' => 'horas',
@@ -206,13 +200,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '¡Aviso!',
@@ -226,5 +225,10 @@ return array(
 		'ok' => '¡Vale!',
 		'or' => 'o',
 		'yes' => 'Sí',
+	),
+	'stream' => array(
+		'load_more' => 'Cargar más artículos',
+		'mark_all_read' => 'Marcar todo como leído',
+		'nothing_to_load' => 'No hay más artículos',
 	),
 );

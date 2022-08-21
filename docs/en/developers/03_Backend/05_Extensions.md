@@ -277,22 +277,22 @@ Only the `name` and `entrypoint` fields are required.
 
 ### Choosing between `system` and `user`
 
-A __user__ extension can be enabled by some users and not by others (typically for user preferences).
+A *user* extension can be enabled by some users and not by others (typically for user preferences).
 
-A __system__ extension in comparison is enabled for every account.
+A *system* extension in comparison is enabled for every account.
 
 ### Writing your own extension.php
 
 This file is the core of your extension.
 It must define some key elements to be loaded by the extension system:
 
-1. The class name must be the `entrypoint` value defined in the `metadata.json` file suffixed by `Extension` (if your `entrypoint` value is _HelloWorld_, your class name will be _HelloWorldExtension_).
+1. The class name must be the `entrypoint` value defined in the `metadata.json` file suffixed by `Extension` (if your `entrypoint` value is `HelloWorld`, your class name will be `HelloWorldExtension`).
 1. The class must extend the `Minz_Extension` abstract class which defines the core methods and properties of a FreshRSS extension.
 1. The class must define the `init` method. This method is called **only** if the extension is loaded. Its purpose is to initialize the extension and its behavior during every page load.
 
 The `Minz_Extension` abstract class defines a set of methods that can be overridden to fit your needs:
-* the `install` method is called when the user enables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to prepare FreshRSS for the extension (adding a table to the database, creating a folder tree, …).
-* the `uninstall` method is called when the user disables the extension in the configuration page. It must return _true_ when successful and a string containing an error message when not. Its purpose is to clean FreshRSS (removing a table from the database, deleting a folder tree, …). Usually it reverts changes introduced by the `install` method.
+* the `install` method is called when the user enables the extension in the configuration page. It must return `true` when successful and a string containing an error message when not. Its purpose is to prepare FreshRSS for the extension (adding a table to the database, creating a folder tree, …).
+* the `uninstall` method is called when the user disables the extension in the configuration page. It must return `true` when successful and a string containing an error message when not. Its purpose is to clean FreshRSS (removing a table from the database, deleting a folder tree, …). Usually it reverts changes introduced by the `install` method.
 * the `handleConfigureAction` method is called when a user loads the extension configuration panel. It contains the logic to validate and store the submitted values defined in the `configure.phtml` file.
 
 > If your extension code is scattered in different classes, you need to load their source before using them. Of course you could include the files manually, but it’s more efficient to load them automatically. To do so, you just need to define the `autoload` method which will include them when needed. This method will be registered automatically when the extension is enabled.
@@ -300,7 +300,7 @@ The `Minz_Extension` abstract class defines a set of methods that can be overrid
 The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
 * the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
 * the `getFileUrl` returns the URL of the selected file. The file must exist in the `static` folder of the extension.
-* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension _Controllers_ folder, its file name must be _\<name\>Controller.php_, and its class name must be *FreshExtension_\<name\>_Controller*.
+* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension *Controllers* folder, its file name must be `\<name\>Controller.php`, and its class name must be `FreshExtension_\<name\>_Controller`.
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.

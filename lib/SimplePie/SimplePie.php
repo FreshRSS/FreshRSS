@@ -435,7 +435,7 @@ class SimplePie
 	 * @see SimplePie::status_code()
 	 * @access private
 	 */
-	public $status_code;
+	public $status_code = 0;
 
 	/**
 	 * @var object Instance of SimplePie_Sanitize (or other class)
@@ -657,11 +657,18 @@ class SimplePie
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 
 	/**
+	 * @var array Stores the default tags to be stripped by rename_attributes().
+	 * @see SimplePie::rename_attributes()
+	 * @access private
+	 */
+	public $rename_attributes = array();
+
+	/**
 	 * @var bool Should we throw exceptions, or use the old-style error property?
 	 * @access private
 	 */
 	public $enable_exceptions = false;
-	
+
 	/**
 	 * Use syslog to report HTTP requests done by SimplePie.
 	 * @see SimplePie::set_syslog()
@@ -1233,6 +1240,15 @@ class SimplePie
 	public function encode_instead_of_strip($enable = true)
 	{
 		$this->sanitize->encode_instead_of_strip($enable);
+	}
+
+	public function rename_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->rename_attributes;
+		}
+		$this->sanitize->rename_attributes($attribs);
 	}
 
 	public function strip_attributes($attribs = '')
@@ -2259,7 +2275,7 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		if (!($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION) && !empty($element['xml_base_explicit']) && isset($element['xml_base']))
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
 		{
 			return $element['xml_base'];
 		}
@@ -2710,12 +2726,14 @@ class SimplePie
 		if (isset($this->data['headers']['link']))
 		{
 			$link_headers = $this->data['headers']['link'];
-			if (is_string($link_headers)) {
-				$link_headers = array($link_headers);
+			if (is_array($link_headers)) {
+				$link_headers = implode(',', $link_headers);
 			}
-			$matches = preg_filter('/<([^>]+)>; rel='.preg_quote($rel).'/', '$1', $link_headers);
-			if (!empty($matches)) {
-				return $matches;
+			// https://datatracker.ietf.org/doc/html/rfc8288
+			if (is_string($link_headers) &&
+				preg_match_all('/<(?P<uri>[^>]+)>\s*;\s*rel\s*=\s*(?P<quote>"?)' . preg_quote($rel) . '(?P=quote)\s*(?=,|$)/i', $link_headers, $matches))
+			{
+				return $matches['uri'];
 			}
 		}
 

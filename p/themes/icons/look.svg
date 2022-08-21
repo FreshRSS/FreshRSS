@@ -1,18 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g transform="matrix(0.0764824,0,0,0.0764824,-0.812646,-0.015801)">
-        <g transform="matrix(1,0,0,1,-8.5,-25)">
-            <path d="M20.165,126.756C19.688,128.746 19.721,130.785 20.207,132.866C45.104,175.078 81.07,202.183 123.5,202.183C157.853,202.183 191.961,185.861 227.057,133.589C227.806,131.634 227.838,128.051 227.005,126.1C191.909,73.828 157.853,57.429 123.5,57.429C81.07,57.429 45.062,84.543 20.165,126.756Z" style="fill:rgb(102,102,102);"/>
-        </g>
-        <g transform="matrix(1.04264,0,0,1.04264,-18.5327,-41.2106)">
-            <circle cx="128.071" cy="140.428" r="50.694" style="fill:white;"/>
-        </g>
-        <g transform="matrix(0.620569,0,0,0.620569,35.523,18.0607)">
-            <circle cx="128.071" cy="140.428" r="50.694" style="fill:rgb(102,102,102);"/>
-        </g>
-        <g transform="matrix(0.216239,0,0,0.216239,87.306,74.8402)">
-            <circle cx="128.071" cy="140.428" r="50.694" style="fill:white;"/>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 16 16">
+  <path fill="#666" d="M7.982 2.465c-3.245 0-5.998 2.074-7.902 5.303a1 1 0 0 0 .002.466c1.904 3.229 4.655 5.301 7.9 5.301 2.628 0 5.236-1.248 7.92-5.246a.925.925 0 0 0-.004-.572c-2.684-3.998-5.288-5.252-7.916-5.252zm0 1.523a4.043 4.043 0 0 1 4.043 4.043 4.043 4.043 0 0 1-4.043 4.041 4.043 4.043 0 0 1-4.043-4.04 4.043 4.043 0 0 1 4.043-4.044z"/>
+  <path fill="#666" d="M7.982 5.625a2.406 2.406 0 0 0-2.406 2.406 2.406 2.406 0 0 0 2.406 2.407A2.406 2.406 0 0 0 10.39 8.03a2.406 2.406 0 0 0-2.407-2.406zm0 1.566a.838.838 0 0 1 .838.84.838.838 0 0 1-.838.838.838.838 0 0 1-.837-.838.838.838 0 0 1 .837-.84z"/>
 </svg>

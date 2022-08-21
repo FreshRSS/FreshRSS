@@ -66,6 +66,19 @@ return array(
 			'thin' => '얇게',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '처음으로',
+			'last' => '마지막으로',
+			'next' => '다음',
+			'previous' => '이전',
+		),
+	),
 	'profile' => array(
 		'_' => '프로필 관리',
 		'api' => 'API 관리',
@@ -124,6 +137,32 @@ return array(
 		'_' => '읽기',
 		'after_onread' => '“모두 읽음으로 표시” 후,',
 		'always_show_favorites' => '기본으로 즐겨찾기에 있는 모든 글을 표시',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => '페이지당 글 수',
 		'auto_load_more' => '페이지 하단에 다다르면 글 더 불러오기',
 		'auto_remove_article' => '글을 읽은 후 숨기기',
@@ -132,6 +171,7 @@ return array(
 		'display_categories_unfolded' => '다음 카테고리를 펼치기',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
@@ -147,6 +187,7 @@ return array(
 			'article_viewed' => '글을 읽었을 때',
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
 			'scroll' => '스크롤을 하며 지나갈 때',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
 			'when_same_title' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우',
@@ -181,6 +222,7 @@ return array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
 		'facebook' => 'Facebook',	// IGNORE

@@ -42,7 +42,7 @@
 
 	.dropdown-header {
 		// padding: 0 5px 5px;
-		margin: 1.75rem 0 0.5rem 2rem;
+		margin: 1rem 0.5rem 1rem 1rem;
 		font-weight: bold;
 		text-align: left;
 		color: variables.$grey-dark;
@@ -63,11 +63,11 @@
 			line-height: 2.5em;
 		}
 
-		&:hover {
+		&:not(.addItem):hover {
 			background: variables.$main-first;
 			color: variables.$white;
 
-			a, button {
+			a, button, label {
 				text-decoration: none;
 				color: variables.$white;
 			}
@@ -168,43 +168,16 @@
 .pagination {
 	background: variables.$grey-light;
 	color: variables.$main-font-color;
-	font-size: 0.8em;
-	text-align: center;
 
-	.item {
-		&.pager-current {
-			background: variables.$sid-bg;
-			color: variables.$grey-light;
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: variables.$main-font-color;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-
-			&:hover {
-				background: variables.$main-font-color;
-				color: variables.$grey-light;
-			}
-		}
-	}
-
-	.loading,
-	a:hover.loading {
-		background: url("loader.gif") center center no-repeat #34495e;
-		font-size: 0;
+	.item a {
+		color: variables.$main-font-color;
 	}
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
+#load_more.loading,
+#load_more.loading:hover {
+	background: url("loader.gif") center center no-repeat #34495e;
 }
-
 
 /*=== Boxes */
 .box {

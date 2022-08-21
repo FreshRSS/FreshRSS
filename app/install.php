@@ -145,6 +145,14 @@ function saveStep2() {
 			$config_array['auth_type'] = Minz_Session::param('auth_type');
 		}
 
+		$customConfigPath = DATA_PATH . '/config.custom.php';
+		if (file_exists($customConfigPath)) {
+			$customConfig = include($customConfigPath);
+			if (is_array($customConfig)) {
+				$config_array = array_merge($customConfig, $config_array);
+			}
+		}
+
 		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
 		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($config_array, true) . ";\n");
 

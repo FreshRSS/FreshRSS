@@ -366,8 +366,8 @@ a.btn {
 .pagination:last-child .item {
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	font-size: 0;
 }
 

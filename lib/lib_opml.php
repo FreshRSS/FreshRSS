@@ -12,7 +12,7 @@
  *
  * @author   Marien Fressinaud <dev@marienfressinaud.fr>
  * @link     https://github.com/marienfressinaud/lib_opml
- * @version  0.2-FreshRSS~1.5.1
+ * @version  0.2-FreshRSS~1.20.0
  * @license  public domain
  *
  * Usages:
@@ -91,8 +91,20 @@ function libopml_parse_outline($outline_xml, $strict = true) {
 	// An outline may contain any kind of attributes but "text" attribute is
 	// required !
 	$text_is_present = false;
-	foreach ($outline_xml->attributes() as $key => $value) {
-		$outline[$key] = (string)$value;
+
+	$elem = dom_import_simplexml($outline_xml);
+	/** @var DOMAttr $attr */
+	foreach ($elem->attributes as $attr) {
+		$key = $attr->localName;
+
+		if ($attr->namespaceURI == '') {
+			$outline[$key] = $attr->value;
+		} else {
+			$outline[$key] = [
+				'namespace' => $attr->namespaceURI,
+				'value' => $attr->value,
+			];
+		}
 
 		if ($key === 'text') {
 			$text_is_present = true;
@@ -150,7 +162,7 @@ function preprocessing_categories($doc) {
  * Parse a string as a XML one and returns the corresponding array
  *
  * @param string $xml is the string we want to parse
- * @param bool $strict true if "text" attribute is required, false else
+ * @param bool $strict true to perform some validation (e.g. require "text" attribute), false to relax
  * @return array corresponding to the XML string and following format described above
  * @throws LibOPML_Exception
  * @access public
@@ -182,9 +194,9 @@ function libopml_parse_string($xml, $strict = true) {
 	foreach ($opml->head->children() as $key => $value) {
 		if (in_array($key, unserialize(HEAD_ELEMENTS), true)) {
 			$array['head'][$key] = (string)$value;
-		} else {
+		} elseif ($strict) {
 			throw new LibOPML_Exception(
-				$key . 'is not part of OPML format'
+				$key . ' is not part of the OPML 2.0 specification'
 			);
 		}
 	}
@@ -250,6 +262,7 @@ function libopml_render_outline($parent_elt, $outline, $strict) {
 
 	$outline_elt = $parent_elt->addChild('outline');
 	$text_is_present = false;
+	/** @var string|array<string,mixed> $value */
 	foreach ($outline as $key => $value) {
 		// Only outlines can be an array and so we consider children are also
 		// outline elements.
@@ -257,17 +270,22 @@ function libopml_render_outline($parent_elt, $outline, $strict) {
 			foreach ($value as $outline_child) {
 				libopml_render_outline($outline_elt, $outline_child, $strict);
 			}
-		} elseif (is_array($value)) {
+		} elseif (is_array($value) && !isset($value['namespace'])) {
 			throw new LibOPML_Exception(
-				'Type of outline elements cannot be array: ' . $key
+				'Type of outline elements cannot be array (except for providing a namespace): ' . $key
 			);
 		} else {
 			// Detect text attribute is present, that's good :)
 			if ($key === 'text') {
 				$text_is_present = true;
 			}
-
-			$outline_elt->addAttribute($key, $value);
+			if (is_array($value)) {
+				if (!empty($value['namespace']) && !empty($value['value'])) {
+					$outline_elt->addAttribute($key, $value['value'], $value['namespace']);
+				}
+			} else {
+				$outline_elt->addAttribute($key, $value);
+			}
 		}
 	}
 

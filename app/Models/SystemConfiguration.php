@@ -17,11 +17,13 @@
  * @property-read string $http_auth_auto_register_email_field
  * @property-read string $language
  * @property array<string,int> $limits
+ * @property-read string $logo_html
  * @property-read string $meta_description
  * @property-read bool $pubsubhubbub_enabled
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled
  * @property string $unsafe_autologin_enabled
+ * @property-read array<string> $trusted_sources
  */
 class FreshRSS_SystemConfiguration extends Minz_Configuration {
 

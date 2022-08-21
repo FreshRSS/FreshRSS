@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fina',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'Debuta',
+			'last' => 'Fin',
+			'next' => 'Seguent',
+			'previous' => 'Precedent',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gestion del perfil',
 		'api' => 'Gestion API',
@@ -124,6 +137,32 @@ return array(
 		'_' => 'Lectura',
 		'after_onread' => 'Aprèp « marcar coma legit »,',
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
@@ -132,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Categorias a desplegar',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
@@ -147,6 +187,7 @@ return array(
 			'article_viewed' => 'quand l’article es mostrat',
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
 			'scroll' => 'en davalar la pagina',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
 			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
@@ -181,6 +222,7 @@ return array(
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',	// IGNORE

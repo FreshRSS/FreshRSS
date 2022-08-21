@@ -22,7 +22,7 @@ $dBparams = array(
 		'db-user:',
 		'db-password:',
 		'db-base:',
-		'db-prefix:',
+		'db-prefix::',
 	);
 
 $options = getopt('', array_merge($params, $dBparams));

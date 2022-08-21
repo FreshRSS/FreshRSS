@@ -72,8 +72,8 @@ return array(
 		),
 		'files' => 'Installation des fichiers',
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommandée JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
@@ -199,7 +199,7 @@ return array(
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
 		'create' => 'Créer un nouvel utilisateur',
 		'database_size' => 'Volumétrie',
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'enabled' => 'Actif',
 		'feed_count' => 'Flux',
 		'is_admin' => 'Admin',

@@ -16,7 +16,10 @@ Before you begin, make sure that you’ve read the [prerequisites](02_Prerequisi
 
 6. Using your supported web browser of choice, navigate to the address you’ve installed your server to complete the installation from the GUI.[^3]
 
-7. You can then customize [the configuration of your instance](https://github.com/FreshRSS/FreshRSS/blob/edge/config.default.php#L3-L4), [the default configuration for new users](https://github.com/FreshRSS/FreshRSS/blob/edge/config-user.default.php#L3-L5) or [the default set of feeds for new users](https://github.com/FreshRSS/FreshRSS/blob/edge/opml.default.xml#L2-L5).
+7. In configuration files, you can customize advanced settings:
+	* [the configuration of your instance](https://github.com/FreshRSS/FreshRSS/blob/edge/config.default.php#L3-L5) in `./data/config.custom.php` before the install process, or in `./data/config.php` after the install process;
+	* [the default configuration for new users](https://github.com/FreshRSS/FreshRSS/blob/edge/config-user.default.php#L3-L5) in `./data/config-user.custom.php`, or in `./data/users/*/config.php` for existing users;
+	* [the default set of feeds for new users](https://github.com/FreshRSS/FreshRSS/blob/edge/opml.default.xml#L2-L5) in `./data/opml.xml`.
 
 ---
 

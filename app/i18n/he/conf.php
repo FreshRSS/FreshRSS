@@ -66,6 +66,19 @@ return array(
 			'thin' => 'צר',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => 'הראשון',
+			'last' => 'אחרון',
+			'next' => 'הבא',
+			'previous' => 'הקודם',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
 		'api' => 'API management',	// TODO
@@ -124,6 +137,32 @@ return array(
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO
@@ -132,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// TODO
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
@@ -147,6 +187,7 @@ return array(
 			'article_viewed' => 'כאשר מאמר נצפה',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
 			'scroll' => 'כאשר גוללים',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
@@ -181,6 +222,7 @@ return array(
 		'_' => 'שיתוף',
 		'add' => 'Add a sharing method',	// TODO
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'דואר אלקטרוני',
 		'facebook' => 'Facebook',	// IGNORE

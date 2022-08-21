@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '목록 수준 내리기',
 		'disable' => '비활성화',
 		'empty' => '비우기',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',
 		'see_website' => '웹사이트 열기',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
 	),
-	'pagination' => array(
-		'first' => '처음으로',
-		'last' => '마지막으로',
-		'load_more' => '글 더 불러오기',
-		'mark_all_read' => '모두 읽음으로 표시',
-		'next' => '다음',
-		'nothing_to_load' => '더 이상 글이 없습니다',
-		'previous' => '이전',
-	),
 	'period' => array(
 		'days' => '일',
 		'hours' => '시',
@@ -206,13 +200,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => '인쇄',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '경고!',
@@ -226,5 +225,10 @@ return array(
 		'ok' => '좋습니다!',
 		'or' => '또는',
 		'yes' => '네',
+	),
+	'stream' => array(
+		'load_more' => '글 더 불러오기',
+		'mark_all_read' => '모두 읽음으로 표시',
+		'nothing_to_load' => '더 이상 글이 없습니다',
 	),
 );

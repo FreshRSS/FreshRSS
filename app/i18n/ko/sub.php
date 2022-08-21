@@ -24,13 +24,20 @@ return array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'archiving' => '보관',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => '빈 카테고리',
 		'information' => '정보',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
 		'title' => '제목',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'RSS 피드 추가',
 		'advanced' => '고급 설정',
 		'archiving' => '보관',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => '예시: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
 		'css_path' => '웹사이트 상의 글 본문에 해당하는 CSS 경로',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
@@ -61,13 +72,62 @@ return array(
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+				'relative' => 'XPath (relative to item) for:',	// TODO
+				'xpath' => 'XPath for:',	// TODO
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+		),
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',
 			'clear_cache_help' => '이 피드의 캐쉬 지우기.',
 			'reload_articles' => '글 다시 로드',
-			'reload_articles_help' => '글 다시 로드하고 셀렉터가 정의 되었을 경우에 모든 컨텐츠 가져오기.',
+			'reload_articles_help' => '글 다시 로드하고 셀렉터가 정의 되었을 경우에 모든 컨텐츠 가져오기.',	// DIRTY
 			'title' => '유지 보수',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
@@ -138,6 +198,7 @@ return array(
 		'_' => '구독 관리',
 		'add' => '피드 혹은 카테고리 추가',
 		'add_category' => '카테고리 추가',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => '피드 추가',
 		'add_label' => '라벨 추가',
 		'delete_label' => '라벨 삭제',

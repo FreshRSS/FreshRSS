@@ -20,28 +20,24 @@ if (!ctype_xdigit($key)) {
 	die('Invalid feed key format!');
 }
 chdir(PSHB_PATH);
-$canonical64 = @file_get_contents('keys/' . $key . '.txt');
-if ($canonical64 === false) {
+$canonical = @file_get_contents('keys/' . $key . '.txt');
+if ($canonical === false) {
 	if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'unsubscribe') {
 		Minz_Log::warning('Warning: Accept unknown unsubscribe', PSHB_LOG);
 		header('Connection: close');
 		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 	}
-	header('HTTP/1.1 404 Not Found');
+	header('HTTP/1.1 410 Gone');
 	Minz_Log::warning('Warning: Feed key not found!: ' . $key, PSHB_LOG);
 	die('Feed key not found!');
 }
-$canonical64 = trim($canonical64);
-if (!preg_match('/^[A-Za-z0-9_-]+$/D', $canonical64)) {
-	header('HTTP/1.1 500 Internal Server Error');
-	Minz_Log::error('Error: Invalid key reference!: ' . $canonical64, PSHB_LOG);
-	die('Invalid key reference!');
-}
-$hubFile = @file_get_contents('feeds/' . $canonical64 . '/!hub.json');
+$canonical = trim($canonical);
+$canonicalHash = sha1($canonical);
+$hubFile = @file_get_contents('feeds/' . $canonicalHash . '/!hub.json');
 if ($hubFile === false) {
-	header('HTTP/1.1 404 Not Found');
+	header('HTTP/1.1 410 Gone');
 	unlink('keys/' . $key . '.txt');
-	Minz_Log::error('Error: Feed info not found!: ' . $canonical64, PSHB_LOG);
+	Minz_Log::error('Error: Feed info not found!: ' . $canonical, PSHB_LOG);
 	die('Feed info not found!');
 }
 $hubJson = json_decode($hubFile, true);
@@ -50,18 +46,17 @@ if (!$hubJson || empty($hubJson['key']) || $hubJson['key'] !== $key) {
 	Minz_Log::error('Error: Invalid key cross-check!: ' . $key, PSHB_LOG);
 	die('Invalid key cross-check!');
 }
-chdir('feeds/' . $canonical64);
+chdir('feeds/' . $canonicalHash);
 $users = glob('*.txt', GLOB_NOSORT);
 if (empty($users)) {
 	header('HTTP/1.1 410 Gone');
-	$url = base64url_decode($canonical64);
-	Minz_Log::warning('Warning: Nobody subscribes to this feed anymore!: ' . $url, PSHB_LOG);
+	Minz_Log::warning('Warning: Nobody subscribes to this feed anymore!: ' . $canonical, PSHB_LOG);
 	unlink('../../keys/' . $key . '.txt');
-	$feed = new FreshRSS_Feed($url);
+	$feed = new FreshRSS_Feed($canonical);
 	$feed->pubSubHubbubSubscribe(false);
 	unlink('!hub.json');
 	chdir('..');
-	recursive_unlink($canonical64);
+	recursive_unlink('feeds/' . $canonicalHash);
 	die('Nobody subscribes to this feed anymore!');
 }
 
@@ -104,11 +99,11 @@ unset($ORIGINAL_INPUT);
 $links = $simplePie->get_links('self');
 $self = isset($links[0]) ? $links[0] : null;
 
-if ($self !== base64url_decode($canonical64)) {
+if ($self !== $canonical) {
 	//header('HTTP/1.1 422 Unprocessable Entity');
-	Minz_Log::warning('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . base64url_decode($canonical64), PSHB_LOG);
+	Minz_Log::warning('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . $canonical, PSHB_LOG);
 	//die('Self URL does not match registered canonical URL!');
-	$self = base64url_decode($canonical64);
+	$self = $canonical;
 }
 
 Minz_ExtensionManager::init();

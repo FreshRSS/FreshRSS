@@ -24,13 +24,20 @@ return array(
 		'_' => 'Categoria',
 		'add' => 'Adicionar categoria',
 		'archiving' => 'Arquivar',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Categoria vazia',
 		'information' => 'Informações',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Posição de exibição',
 		'position_help' => 'Para controlar a ordem de exibição',
 		'title' => 'Título',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Adicionar um RSS feed',
 		'advanced' => 'Avançado',
 		'archiving' => 'Arquivar',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Exemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retorna RSS feeds truncados (atenção, requer mais tempo!)',
 		'css_path' => 'Caminho do CSS do artigo no site original',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
@@ -61,13 +72,62 @@ return array(
 		),
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+				'relative' => 'XPath (relative to item) for:',	// TODO
+				'xpath' => 'XPath for:',	// TODO
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Limpar o cache',
 			'clear_cache_help' => 'Limpar o cache em disco deste feed',
 			'reload_articles' => 'Recarregar artigos',
-			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',
+			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',	// DIRTY
 			'title' => 'Manutenção',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
 		'mute' => 'silenciar',
 		'no_selected' => 'Nenhum feed selecionado.',
@@ -138,6 +198,7 @@ return array(
 		'_' => 'Gerenciamento de inscrições',
 		'add' => 'Adicionar um feed ou categoria',
 		'add_category' => 'Adicionar uma categoria',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Adicionar um feed',
 		'add_label' => 'Adicionar uma etiqueta',
 		'delete_label' => 'Deletar uma etiqueta',

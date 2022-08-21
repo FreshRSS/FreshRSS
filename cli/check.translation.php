@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
