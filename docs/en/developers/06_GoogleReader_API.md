@@ -29,6 +29,7 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 |[Readrops](https://github.com/readrops/Readrops) |Android                  |[GPLv3](https://github.com/readrops/Readrops/blob/develop/LICENSE)                                             |
 |[FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) |Android                  |Closed Source(Free)                                              |
 |[FeedReader 2.0+](https://jangernert.github.io/FeedReader/)                           |Linux                |[GPLv3](https://github.com/jangernert/FeedReader/blob/master/LICENSE)                                              |
+|[lire](https://lireapp.com/)                                                        |iOS, macOS           |Closed Source                                             |
 |[Newsboat 2.24+](https://newsboat.org/)                           |Linux                |[MIT](https://github.com/newsboat/newsboat/blob/master/LICENSE)                                              |
 |[Vienna RSS](http://www.vienna-rss.com/)                           |macOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
 |[Reeder](https://www.reederapp.com/)                           |macOS, iOS                |Closed Source                                              |
