@@ -171,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Kategórie na rozbalenie',
 		'headline' => array(
 			'articles' => 'Články: Otvoriť/Zavrieť',
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Ľavé menu: Kategórie',
 			'mark_as_read' => 'Označiť články ako prečítané',
 			'misc' => 'Ostatné',
