@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Úroveň záznamu',
+			'message' => 'Správa záznamu',
+			'timestamp' => 'Časová značka',
 		),
 		'pagination' => array(
 			'first' => 'Prvý',
@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Automaticky zobraziť všetky články v obľúbených',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Authori a dátum',
+				'both' => 'V záhlaví a pätičke',
+				'footer' => 'V pätičke',
+				'header' => 'V záhlaví',
+				'none' => 'Žiadne',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'O zápise/značky',
+				'none' => 'Žiadne',
+				'with_authors' => 'V riadku autori a dátum',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Nadpis kanála',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Značky',
+				'both' => 'V záhlaví a pätičke',
+				'footer' => 'V pätičke',
+				'header' => 'V záhlaví',
+				'none' => 'Žiadne',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Maximálny počet zobrazených značiek',
+				'help' => '0 znamená: zobraziť všetky značky a nerozbaľuj ich',
 			),
 		),
 		'articles_per_page' => 'Počet článkov na jednu stranu',
@@ -170,12 +170,12 @@ return array(
 		'display_articles_unfolded' => 'Zobraziť články otvorené',
 		'display_categories_unfolded' => 'Kategórie na rozbalenie',
 		'headline' => array(
-			'articles' => 'Články: Otvoriť/Zavrieť',
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'articles' => 'Články: Otvoriť/Zatvoriť',
+			'articles_header_footer' => 'Články: záhlavie/pätička',
 			'categories' => 'Ľavé menu: Kategórie',
-			'mark_as_read' => 'Označiť články ako prečítané',
+			'mark_as_read' => 'Označiť článok ako prečítaný',
 			'misc' => 'Ostatné',
-			'view' => 'Zobraznie',
+			'view' => 'Zobraziť',
 		),
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť "lazy load"',
@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'keď je článok zobrazený',
 			'keep_max_n_unread' => 'Maximálny počet článkov ponechať ako neprečítané',
 			'scroll' => 'počas skrolovania',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',
 			'when_same_title' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch',
