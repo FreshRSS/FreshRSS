@@ -25,18 +25,18 @@ return array(
 		'add' => 'Pridať kategória',
 		'archiving' => 'Archív',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
+			'_' => 'Dynamické OPML',
 			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML URL',
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
 		'title' => 'Názov',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies' => 'Prijať cookies',
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Pridať RSS kanál',
 		'advanced' => 'Pokročilé',
@@ -60,8 +60,8 @@ return array(
 		'css_help' => 'Stiahnuť skrátenú verziu RSS kanála (pozor, vyžaduje viac času!)',
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
 		'css_path_filter' => array(
-			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'_' => 'CSS selektor elementu na odstránenie',
+			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
@@ -73,51 +73,51 @@ return array(
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Typ zdroja kanála',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'názov kanála',
+					'help' => 'Príklad: <code>//title</code> alebo statický text: <code>"Môj vlastný kanál"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'vyhľadávanie noviniek <strong>položky</strong><br /><small>(najdôležitejšie)</small>',
+					'help' => 'Príklad: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'položka autor',
+					'help' => 'Môže byť aj statický text. Príklad: <code>"Anonym"</code>',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'položka značky',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'položka obsah',
+					'help' => 'Príklad na zabratie celej položky: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'položka miniatúra',
+					'help' => 'Príklad: <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'položka dátum',
+					'help' => 'Výsledok spracuje <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'položka nadpis',
+					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'položka unikátny identifikátor',
+					'help' => 'Nepovinné. Príklad: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'položka odkaz (URL)',
+					'help' => 'Príklad: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relatívne k položke) pre:',
+				'xpath' => 'XPath pre:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (prednastavené)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
@@ -126,8 +126,8 @@ return array(
 			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY
 			'title' => 'Údržba',
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'max_http_redir' => 'Max HTTP presmerovaní',
+		'max_http_redir_help' => 'Nastavte na 0 alebo nechajte prázdne na zakázanie, -1 pre neobmedzené množstvo presmerovaní',
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',
@@ -198,7 +198,7 @@ return array(
 		'_' => 'Správa odoberaných kanálov',
 		'add' => 'Pridať kanál alebo kategóriu',
 		'add_category' => 'Pridať kategóriu',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Pridať dynamické OPML',
 		'add_feed' => 'Pridať kanál',
 		'add_label' => 'Pridať štítok',
 		'delete_label' => 'Zmazať štítok',
