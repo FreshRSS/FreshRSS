@@ -170,12 +170,12 @@ return array(
 		'display_articles_unfolded' => 'Zobraziť články otvorené',
 		'display_categories_unfolded' => 'Kategórie na rozbalenie',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
+			'articles' => 'Články: Otvoriť/Zavrieť',
 			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'categories' => 'Ľavé menu: Kategórie',
+			'mark_as_read' => 'Označiť články ako prečítané',
+			'misc' => 'Ostatné',
+			'view' => 'Zobraznie',
 		),
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť "lazy load"',
