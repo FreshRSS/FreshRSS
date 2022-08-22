@@ -17,6 +17,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
+			'img-src' => '* data:',
 			'style-src' => "'self' 'unsafe-inline'",
 		]);
 
@@ -131,6 +132,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - last week
 	 */
 	public function idleAction() {
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
+		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
 		$idleFeeds = array(
@@ -190,6 +193,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->idleFeeds = $idleFeeds;
+		$this->view->feeds = $feed_dao->listFeeds();
 
 		$id = Minz_Request::param('id');
 		$this->view->displaySlider = false;

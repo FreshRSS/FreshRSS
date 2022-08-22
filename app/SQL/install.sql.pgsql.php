@@ -7,13 +7,17 @@ $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(255) UNIQUE NOT NULL,
+	"kind" SMALLINT DEFAULT 0,	-- 1.20.0
+	"lastUpdate" BIGINT DEFAULT 0,	-- 1.20.0
+	"error" SMALLINT DEFAULT 0,	-- 1.20.0
 	"attributes" TEXT	-- v1.15.0
 );
 
 CREATE TABLE IF NOT EXISTS `_feed` (
 	"id" SERIAL PRIMARY KEY,
 	"url" VARCHAR(511) UNIQUE NOT NULL,
-	"category" SMALLINT DEFAULT 0,
+	"kind" SMALLINT DEFAULT 0, -- 1.20.0
+	"category" INT DEFAULT 0,	-- 1.20.0
 	"name" VARCHAR(255) NOT NULL,
 	"website" VARCHAR(255),
 	"description" TEXT,
@@ -43,8 +47,9 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
-	"id_feed" SMALLINT,
+	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(1023),
+	"attributes" TEXT,	-- v1.20.0
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
@@ -76,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
-	"id_feed" SMALLINT,
+	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(1023),
+	"attributes" TEXT,	-- v1.20.0
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
@@ -91,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"attributes" TEXT
 );
 CREATE TABLE IF NOT EXISTS `_entrytag` (
-	"id_tag" SMALLINT,
+	"id_tag" INT,	-- 1.20.0
 	"id_entry" BIGINT,
 	PRIMARY KEY ("id_tag","id_entry"),
 	FOREIGN KEY ("id_tag") REFERENCES `_tag` ("id") ON DELETE CASCADE ON UPDATE CASCADE,

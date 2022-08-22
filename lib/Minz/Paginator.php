@@ -76,9 +76,9 @@ class Minz_Paginator {
 	}
 
 	/**
-	 * Permet de retrouver la position d'un élément donné (à partir de 0)
-	 * @param Minz_Model $item l'élément à retrouver
-	 * @return float|false la position à laquelle se trouve l’élément, false si non trouvé
+	 * Search the position (index) of a given element
+	 * @param Minz_Model $item the element to search
+	 * @return int|false the position of the element, or false if not found
 	 */
 	public function positionByItem ($item) {
 		$i = 0;

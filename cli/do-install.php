@@ -26,7 +26,7 @@ $dBparams = array(
 		'db-user:',
 		'db-password:',
 		'db-base:',
-		'db-prefix:',
+		'db-prefix::',
 	);
 
 $options = getopt('', array_merge($params, $dBparams));
@@ -45,6 +45,14 @@ $config = array(
 		'salt' => generateSalt(),
 		'db' => FreshRSS_Context::$system_conf->db,
 	);
+
+$customConfigPath = DATA_PATH . '/config.custom.php';
+if (file_exists($customConfigPath)) {
+	$customConfig = include($customConfigPath);
+	if (is_array($customConfig)) {
+		$config = array_merge($customConfig, $config);
+	}
+}
 
 foreach ($params as $param) {
 	$param = rtrim($param, ':');

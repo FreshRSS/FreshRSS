@@ -6,7 +6,6 @@
 
 /*=== Feed articles */
 .flux {
-	// border-left: 2px solid #ecf0f1;
 	background: variables.$white;
 
 	@include mixins.transition(all, 0.15s, ease-in-out);
@@ -27,7 +26,7 @@
 	}
 
 	&.not_read:not(.current) {
-		background: variables.$unread-bg; //--------------------
+		background: variables.$unread-bg;
 
 		&:hover .item.title {
 			background: variables.$unread-bg;
@@ -37,14 +36,14 @@
 	&.not_read {
 		.item.title {
 			a {
-				color: variables.$unread-font-color; //--------------------
+				color: variables.$unread-font-color;
 			}
 
 		}
 
 		.item.website {
 			a {
-				color: variables.$unread-font-color; //--------------------
+				color: variables.$unread-font-color;
 			}
 		}
 

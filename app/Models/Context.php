@@ -43,6 +43,7 @@ class FreshRSS_Context {
 	public static $state = 0;
 	public static $order = 'DESC';
 	public static $number = 0;
+	/** @var FreshRSS_BooleanSearch */
 	public static $search;
 	public static $first_id = '';
 	public static $next_id = '';
@@ -99,7 +100,7 @@ class FreshRSS_Context {
 				$user_conf = Minz_Configuration::get('user');
 				FreshRSS_Context::$user_conf = $user_conf;
 			} catch (Exception $ex) {
-				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/log.txt');
+				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
 		}
 		if (FreshRSS_Context::$user_conf == null) {
@@ -113,6 +114,8 @@ class FreshRSS_Context {
 		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
+
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
 
 		//Legacy
 		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
@@ -138,6 +141,60 @@ class FreshRSS_Context {
 		}
 
 		return FreshRSS_Context::$user_conf;
+	}
+
+	/**
+	 * This action updates the Context object by using request parameters.
+	 *
+	 * Parameters are:
+	 *   - state (default: conf->default_view)
+	 *   - search (default: empty string)
+	 *   - order (default: conf->sort_order)
+	 *   - nb (default: conf->posts_per_page)
+	 *   - next (default: empty string)
+	 *   - hours (default: 0)
+	 */
+	public static function updateUsingRequest() {
+		if (empty(self::$categories)) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			self::$categories = $catDAO->listSortedCategories();
+		}
+
+		// Update number of read / unread variables.
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		self::$total_starred = $entryDAO->countUnreadReadFavorites();
+		self::$total_unread = FreshRSS_CategoryDAO::CountUnreads(
+			self::$categories, 1
+		);
+
+		self::_get(Minz_Request::param('get', 'a'));
+
+		self::$state = Minz_Request::param(
+			'state', self::$user_conf->default_state
+		);
+		$state_forced_by_user = Minz_Request::param('state', false) !== false;
+		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
+				self::$state |= FreshRSS_Entry::STATE_READ;
+			}
+			if (self::$user_conf->show_fav_unread &&
+					(self::isCurrentGet('s') || self::isCurrentGet('T') || self::isTag())) {
+				self::$state |= FreshRSS_Entry::STATE_READ;
+			}
+		}
+
+		self::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
+		self::$order = Minz_Request::param(
+			'order', self::$user_conf->sort_order
+		);
+		self::$number = intval(Minz_Request::param('nb', self::$user_conf->posts_per_page));
+		if (self::$number > self::$user_conf->max_posts_per_rss) {
+			self::$number = max(
+				self::$user_conf->max_posts_per_rss,
+				self::$user_conf->posts_per_page);
+		}
+		self::$first_id = Minz_Request::param('next', '');
+		self::$sinceHours = intval(Minz_Request::param('hours', 0));
 	}
 
 	/**
@@ -195,6 +252,20 @@ class FreshRSS_Context {
 	}
 
 	/**
+	 * @return bool true if the current request targets all feeds (main view), false otherwise.
+	 */
+	public static function isAll(): bool {
+		return self::$current_get['all'] != false;
+	}
+
+	/**
+	 * @return bool true if the current request targets a category, false otherwise.
+	 */
+	public static function isCategory(): bool {
+		return self::$current_get['category'] != false;
+	}
+
+	/**
 	 * @return bool true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
 	public static function isFeed(): bool {
@@ -248,8 +319,7 @@ class FreshRSS_Context {
 	 */
 	public static function _get($get) {
 		$type = $get[0];
-		$id = substr($get, 2);
-		$nb_unread = 0;
+		$id = intval(substr($get, 2));
 
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -283,7 +353,7 @@ class FreshRSS_Context {
 				}
 			}
 			self::$current_get['feed'] = $id;
-			self::$current_get['category'] = $feed->category();
+			self::$current_get['category'] = $feed->categoryId();
 			self::$name = $feed->name();
 			self::$description = $feed->description();
 			self::$get_unread = $feed->nbNotRead();

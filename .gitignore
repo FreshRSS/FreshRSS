@@ -3,6 +3,8 @@
 /vendor/
 /constants.local.php
 
+.vscode/
+
 # Temp files
 *~
 *.bak

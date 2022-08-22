@@ -7,34 +7,13 @@
 
 	form {
 		margin: 1rem 0;
-
-		// Gestion des extensions
-		.horizontal-list {
-			margin-bottom: 0.5rem;
-
-			.item {
-				.stick {
-					// width: 65%;
-					// margin-right: 1rem;
-					// display:flex;
-
-				}
-
-				.btn {
-					// width: 8rem;
-					// flex-grow: 1;
-				}
-			}
-
-		}
 	}
 
 	&.content {
 		max-width: 550px;
 	}
 
-	h1, h2 { // pages titles
-		// font-family: "spectral";
+	h1, h2 {
 		color: variables.$main-font-color;
 		font-size: 3rem;
 		margin-top: 1.75rem;
@@ -42,17 +21,15 @@
 		line-height: 1.2em;
 	}
 
-	a[href="./"] { // C’est le bouton "Retour à vos flux"
+	a[href="./"] { // This is the "Back to your feeds" button.
 		margin: 0;
 		padding: 0.75rem 1.5rem;
 		background: variables.$grey-lighter;
 		display: inline-block;
-		// border: none;
 		color: variables.$grey-dark;
 		font-size: 1rem;
 		border: 1px solid variables.$grey-medium-light;
 		border-radius: 5px;
-		// min-height: 38px;
 		min-width: 15px;
 		line-height: 25px;
 		vertical-align: middle;

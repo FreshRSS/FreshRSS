@@ -8,7 +8,10 @@
 	],
 	"rules": {
 		"camelcase": "off",
-		"comma-dangle": ["warn", "always-multiline"],
+		"comma-dangle": ["warn", {
+			"arrays": "always-multiline",
+			"objects": "always-multiline"
+		}],
 		"eqeqeq": "off",
 		"indent": ["warn", "tab", { "SwitchCase": 1 }],
 		"linebreak-style": ["error", "unix"],

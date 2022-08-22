@@ -112,6 +112,12 @@ class Minz_View {
 		}
 	}
 
+	public function renderToString(): string {
+		ob_start();
+		$this->render();
+		return ob_get_clean();
+	}
+
 	/**
 	 * Ajoute un élément du layout
 	 * @param string $part l'élément partial à ajouter
@@ -242,6 +248,9 @@ class Minz_View {
 			}
 
 			$scripts .= '<script src="' . $script['url'] . '"';
+			if (!empty($script['id'])) {
+				$scripts .= ' id="' . $script['id'] . '"';
+			}
 			if ($script['defer']) {
 				$scripts .= ' defer="defer"';
 			}
@@ -259,20 +268,22 @@ class Minz_View {
 
 		return $scripts;
 	}
-	public static function prependScript ($url, $cond = false, $defer = true, $async = true) {
+	public static function prependScript ($url, $cond = false, $defer = true, $async = true, $id = '') {
 		array_unshift(self::$scripts, array (
 			'url' => $url,
 			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
+			'id' => $id,
 		));
 	}
-	public static function appendScript ($url, $cond = false, $defer = true, $async = true) {
+	public static function appendScript ($url, $cond = false, $defer = true, $async = true, $id = '') {
 		self::$scripts[] = array (
 			'url' => $url,
 			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
+			'id' => $id,
 		);
 	}
 

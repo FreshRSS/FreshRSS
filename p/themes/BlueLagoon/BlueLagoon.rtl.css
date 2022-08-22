@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	font-size: 92%;
 }
@@ -235,6 +234,10 @@ a.btn {
 	font-weight: normal;
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-important:active {
 	background: linear-gradient(0deg, #e4992c 0%, #d18114 100%) #e4992c;
 	background: -webkit-linear-gradient(bottom, #e4992c 0%, #d18114 100%);
@@ -273,23 +276,17 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	text-shadow: 0 0 2px rgba(255,255,255,0.28);
 	color: #fff;
 }
 
-.nav-list .item.active {
+.nav-list .item.active a {
 	margin: 0;
 	background: linear-gradient(-180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
-	box-shadow: 1px 2px 2px #171717, 0px 1px rgba(255, 255, 255, 0.08) inset;
-	border-width: medium medium 1px;
-	border-style: none none solid;
-	border-color: -moz-use-text-color -moz-use-text-color #171717;
-}
-
-.nav-list .item.active a {
 	color: #fff;
+	border-color: -moz-use-text-color -moz-use-text-color #171717;
 }
 
 .nav-list .disable {
@@ -413,7 +410,8 @@ a.btn {
 	color: #ccc;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: linear-gradient(-180deg,  #0090ff 0%, #0062be 100%) #e4992c;
 	background: -webkit-linear-gradient(top,  #0090ff 0%, #0062be 100%);
 	color: #fff;
@@ -422,11 +420,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .separator {
@@ -479,46 +472,21 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fafafa;
-	text-align: center;
 	color: #333;
-	font-size: 0.8em;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
 }
 
 .pagination .item a {
-	display: block;
 	color: #333;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination .item a:hover {
 	background: #ddd;
+	color: inherit;
 }
 
-.pagination:first-child .item {
-	border-bottom: 1px solid #aaa;
-}
-
-.pagination:last-child .item {
+.pagination .item {
 	border-top: 1px solid #ddd;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	height: 55px;
-	font-size: 0
+	border-bottom: 1px solid #ddd;
 }
 
 /*=== Boxes */
@@ -616,7 +584,7 @@ a.btn {
 }
 
 .tree-folder-items > .item.active > a {
-	color: #0090ff
+	color: #0090ff;
 }
 
 /*=== Scrollbar */
@@ -762,26 +730,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: .5rem;
-	padding-left: .5rem;
-	text-align: center;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: right;
-}
-
-.prompt label {
-	text-align: right;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -795,12 +743,6 @@ a.btn {
 	margin-top: 2rem;
 	align-items: center;
 	justify-content: space-between;
-}
-
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
 }
 
 .prompt input#username,.prompt input#passwordPlain {
@@ -818,10 +760,6 @@ a.btn {
 	padding-right: 1.5rem;
 	padding-left: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -1040,7 +978,6 @@ a.btn {
 	font-weight: bold;
 	position: absolute;
 	top: 0;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -1350,10 +1287,6 @@ a.btn {
 
 	.day .name {
 		display: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {
