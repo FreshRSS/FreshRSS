@@ -30,7 +30,7 @@ return array(
 		),
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
-		'opml_url' => 'OPML URL',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
 		'title' => 'Názov',
@@ -75,7 +75,7 @@ return array(
 		'kind' => array(
 			'_' => 'Typ zdroja kanála',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
 				'feed_title' => array(
 					'_' => 'názov kanála',
 					'help' => 'Príklad: <code>//title</code> alebo statický text: <code>"Môj vlastný kanál"</code>',
@@ -100,11 +100,11 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => 'položka dátum',
-					'help' => 'Výsledok spracuje <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'help' => 'Výsledok spracuje <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// DIRTY
 				),
 				'item_title' => array(
 					'_' => 'položka nadpis',
-					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
 				),
 				'item_uid' => array(
 					'_' => 'položka unikátny identifikátor',
