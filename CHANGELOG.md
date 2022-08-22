@@ -25,7 +25,8 @@
 	* New sharing through standard [Web Share API](https://www.w3.org/TR/web-share/) [#4271](https://github.com/FreshRSS/FreshRSS/pull/4271)
 	* New sharing with Xing, Reddit, Pinterest, WhatsApp [#4270](https://github.com/FreshRSS/FreshRSS/pull/4270)
 * SimplePie
-	* New method `rename_attribute()` instead of removing attributes to better be able to style/hide content of articles [#4175](https://github.com/FreshRSS/FreshRSS/pull/4175)
+	* New method `rename_attribute()` instead of removing attributes to better be able to style/hide content of articles [#4175](https://github.com/FreshRSS/FreshRSS/pull/4175),
+	[simplepie#717](https://github.com/simplepie/simplepie/pull/717)
 	* Fix parsing of HTTP Links [simplepie#729](https://github.com/simplepie/simplepie/pull/729)
 	* Fix `status_code` type for PHP 8.1+ [simplepie#728](https://github.com/simplepie/simplepie/pull/728)
 * Bug fixing
@@ -82,8 +83,10 @@
 	* Improve Chinese [#4332](https://github.com/FreshRSS/FreshRSS/pull/4332), [#4337](https://github.com/FreshRSS/FreshRSS/pull/4337), [#4379](https://github.com/FreshRSS/FreshRSS/pull/4379),
 	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509)
 	* Improve English [#4450](https://github.com/FreshRSS/FreshRSS/pull/4450)
+	* Improve German [#4525](https://github.com/FreshRSS/FreshRSS/pull/4525)
 	* Improve Polish [#4363](https://github.com/FreshRSS/FreshRSS/pull/4363)
 	* Improve Russian [#4385](https://github.com/FreshRSS/FreshRSS/pull/4385)
+	* Improve Slovak [#4524](https://github.com/FreshRSS/FreshRSS/pull/4524)
 * Deployment
 	* Docker: Performance: entrypoint fix buffering, problematic when importing large OPMLs during install [#4417](https://github.com/FreshRSS/FreshRSS/pull/4417)
 	* Docker: alternative image updated to Alpine 3.16 with PHP 8.0.22 and Apache 2.4.54 [#4391](https://github.com/FreshRSS/FreshRSS/pull/4391)
