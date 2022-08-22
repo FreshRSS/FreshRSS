@@ -65,7 +65,6 @@ possibilité.
 	* macOS, iOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
-		* [Reeder](https://www.reederapp.com/) (Commercial)
 		* [lire](https://lireapp.com/) (Commercial)
 	* Firefox
 		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Libre)
