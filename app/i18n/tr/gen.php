@@ -188,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Bilinen siteler',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Kopyala',
 		'diaspora' => 'Diaspora*',	// IGNORE

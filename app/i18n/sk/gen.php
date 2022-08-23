@@ -188,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
