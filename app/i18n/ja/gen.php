@@ -188,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE

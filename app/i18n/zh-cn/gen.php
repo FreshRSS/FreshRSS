@@ -188,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => '剪贴板',
 		'diaspora' => 'Diaspora*',	// IGNORE
