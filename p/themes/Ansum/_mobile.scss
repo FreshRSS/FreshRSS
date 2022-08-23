@@ -15,14 +15,14 @@
 			width: 100%;
 
 			img {
-				display: none;
+				// display: none;
 			}
 
 			a {
 				box-sizing: border-box;
 				padding: 1rem 1rem 1rem 2.5rem;
 
-				background: url("../../themes/icons/logout.svg") no-repeat variables.$sid-bg-dark 3% center;
+				// background: url("../../themes/icons/logout.svg") no-repeat variables.$sid-bg-dark 3% center;
 				display: inline-block;
 				width: 100%;
 				color: variables.$sid-font-color;
@@ -31,7 +31,7 @@
 
 				&:hover,
 				&:active {
-					background: url("../../themes/icons/logout.svg") no-repeat variables.$alert-bg 3% center;
+					// background: url("../../themes/icons/logout.svg") no-repeat variables.$alert-bg 3% center;
 					text-decoration: none;
 					color: variables.$white;
 				}

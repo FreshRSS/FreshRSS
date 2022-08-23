@@ -192,61 +192,10 @@
 		padding: 0.5rem 0.75rem;
 		background: variables.$grey-light;
 		color: variables.$main-font-color;
-		// border-bottom: 1px solid #ddd;
 		border-radius: 2px 2px 0 0;
-
-		&:hover {
-			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
-				.icon {
-					display: none;
-					border-radius: 3px;
-					vertical-align: middle;
-				}
-
-				&:hover {
-					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
-				}
-			}
-		}
-
-		form {
-			input {
-				width: 85%;
-			}
-
-			.dropdown {
-				float: right;
-
-				a.dropdown-toggle {
-					padding: 0;
-					// float: right;
-					border-radius: 0;
-					background-image: url(icons/more.svg);
-					background-repeat: no-repeat;
-					background-position: right 8px;
-
-					img {
-						display: none;
-					}
-				}
-			}
-		}
-
-		.configure {
-			margin-right: 4px;
-		}
 	}
 
 	.box-content {
-		// max-height: 260px;
 		padding-left: 30px;
 
 		.item {
@@ -255,36 +204,29 @@
 			font-size: 1rem;
 			border-bottom: 1px solid variables.$grey-light;
 			line-height: 1.7em;
-
-			img {
-				margin-right: 0.75rem;
-			}
-
-			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
-				.icon {
-					display: none;
-					border-radius: 3px;
-					vertical-align: middle;
-				}
-
-				&:hover {
-					// background: $main-first;
-					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
-				}
-			}
-
 		}
 
 		.item:last-child {
 			border-bottom: none;
+		}
+	}
+
+	.configure {	
+		margin-right: 0.5rem;
+		padding: 0.25rem;
+		border-radius: 3px;
+
+		.icon {
+			vertical-align: middle;
+		}
+
+		&:hover {
+			border-radius: 2px;
+			background-color: variables.$main-first;
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 	}
 }
@@ -303,7 +245,7 @@
 		color: #fff;
 
 		.bigTick {
-			background: url(icons/tick-white.svg) center no-repeat;
+			filter: brightness(7);
 		}
 	}
 

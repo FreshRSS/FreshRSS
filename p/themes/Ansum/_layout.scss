@@ -15,10 +15,7 @@
 
 	.item {
 		vertical-align: middle;
-		// text-align: center;
-		// display: flex;
-		// justify-content: space-between;
-		// flex-direction: row;
+
 		&.title {
 			width: 280px;
 			font-weight: 400;
@@ -32,8 +29,6 @@
 		}
 
 		&.search {
-			// text-align: center;
-			// width: 50%;
 			input {
 				width: 230px;
 				color: variables.$sid-font-color;
@@ -56,18 +51,17 @@
 			}
 
 			.btn {
-				img {display: none;}
-
 				width: 3rem;
 				border-radius: 0 2px 2px 0;
 
 				background-color: variables.$main-first;
-				background-position: center;
-				background-repeat: no-repeat;
-				background-image: url(icons/magnifier.svg);
 
 				border-left-width: 0;
 				min-height: 35px;
+
+				.icon {
+					filter: brightness(3);
+				}
 
 				&:hover {
 					background-color: variables.$main-first-alt;
@@ -81,24 +75,11 @@
 			right: 1rem;
 			top: 1.25rem;
 			text-align: center;
-			// float: right;
-			.btn {
-				img {display: none;}
 
+			.btn {
 				padding: 0 0.5rem;
-				// border-radius: 0 2px 2px 0;
 
 				background-color: transparent;
-				background-position: center;
-				background-repeat: no-repeat;
-				background-image: url(icons/cog.svg);
-
-				// border-left-width: 0;
-
-				// width: 3rem;
-				&:hover {
-					// background-color: $main-first-alt;
-				}
 			}
 		}
 	}
@@ -208,42 +189,45 @@
 
 			&.active {
 				background-color: variables.$main-first;
+				.icon {
+					filter: brightness(5);
+				}
 			}
 
-			img.icon {display: none;} // on efface pour afficher nos icones, mouhahaha !!
+			// img.icon {display: none;} // on efface pour afficher nos icones, mouhahaha !!
 
 
 			// actions
 			&#toggle-read {
-				background-image: url(icons/read.svg);
+			//	background-image: url(icons/read.svg);
 			}
 
 			&#toggle-read.active {
-				background-image: url(icons/read-white.svg);
+				// background-image: url(icons/read-white.svg);
 			}
 
 			&#toggle-unread {
-				background-image: url(icons/unread.svg);
+				// background-image: url(icons/unread.svg);
 			}
 
 			&#toggle-unread.active {
-				background-image: url(icons/unread-white.svg);
+				// background-image: url(icons/unread-white.svg);
 			}
 
 			&#toggle-starred {
-				background-image: url(icons/starred.svg);
+				// background-image: url(icons/starred.svg);
 			}
 
 			&#toggle-starred.active {
-				background-image: url(icons/starred-white.svg);
+				// background-image: url(icons/starred-white.svg);
 			}
 
 			&#toggle-non-starred {
-				background-image: url(icons/non-starred.svg);
+				// background-image: url(icons/non-starred.svg);
 			}
 
 			&#toggle-non-starred.active {
-				background-image: url(icons/non-starred-white.svg);
+				// background-image: url(icons/non-starred-white.svg);
 			}
 
 			// read all
@@ -262,31 +246,31 @@
 
 			// views
 			&.view-normal {
-				background-image: url(icons/view-list.svg);
+				// background-image: url(icons/view-list.svg);
 			}
 
 			&.view-normal.active {
-				background-image: url(icons/view-list-white.svg);
+				// background-image: url(icons/view-list-white.svg);
 			}
 
 			&.view-global {
-				background-image: url(icons/view-global.svg);
+				// background-image: url(icons/view-global.svg);
 			}
 
 			&.view-global.active {
-				background-image: url(icons/view-global-white.svg);
+				// background-image: url(icons/view-global-white.svg);
 			}
 
 			&.view-reader {
-				background-image: url(icons/view-reader.svg);
+				// background-image: url(icons/view-reader.svg);
 			}
 
 			&.view-reader.active {
-				background-image: url(icons/view-reader-white.svg);
+				// background-image: url(icons/view-reader-white.svg);
 			}
 
 			&.view-rss {
-				background-image: url(icons/rss.svg);
+				// background-image: url(icons/rss.svg);
 			}
 
 		}
@@ -295,6 +279,10 @@
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
+
+				.icon {
+					display: none;
+				}
 			}
 		}
 	}
