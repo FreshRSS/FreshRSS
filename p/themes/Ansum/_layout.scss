@@ -91,6 +91,11 @@
 }
 
 /*=== Prompt (centered) */
+main.prompt {
+	background: variables.$grey-light;
+	border-radius: 5px;
+}
+
 .prompt input {
 	margin: 5px auto;
 }

@@ -418,36 +418,6 @@ form th {
 	white-space: nowrap;
 }
 
-.formLogin {
-	background: #fbf9f6;
-}
-.formLogin .header .configure {
-	padding-right: 1rem;
-}
-.formLogin .header .configure img {
-	margin-right: 0.5rem;
-}
-.formLogin .header .configure a.signin {
-	color: #fff;
-}
-.formLogin h1 {
-	color: #fff;
-}
-.formLogin form#crypto-form div {
-	margin-bottom: 1rem;
-}
-.formLogin form#crypto-form div label {
-	color: #d9ccbf;
-	font-size: 1rem;
-}
-.formLogin form#crypto-form div input {
-	background: #221f1d;
-}
-.formLogin form#crypto-form div input:focus {
-	background: #fcfaf8;
-	color: #363330;
-}
-
 /*=== DIVERS */
 /*===========*/
 .aside.aside_feed .nav-form input,
@@ -770,6 +740,11 @@ form th {
 }
 
 /*=== Prompt (centered) */
+main.prompt {
+	background: #f5f0ec;
+	border-radius: 5px;
+}
+
 .prompt input {
 	margin: 5px auto;
 }
@@ -1436,6 +1411,11 @@ html, body {
 	background: #f5f0ec;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
+}
+
+body.formLogin,
+body.register {
+	background: #fbf9f6;
 }
 
 /*=== Links */
