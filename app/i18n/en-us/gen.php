@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',	// IGNORE
 		'cancel' => 'Cancel',	// IGNORE
 		'create' => 'Create',	// IGNORE
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// IGNORE
 		'demote' => 'Demote',	// IGNORE
 		'disable' => 'Disable',	// IGNORE
 		'empty' => 'Empty',	// IGNORE
@@ -32,7 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Refresh OPML',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
 		'see_website' => 'See website',	// IGNORE
@@ -209,7 +209,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'System sharing',	// IGNORE
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

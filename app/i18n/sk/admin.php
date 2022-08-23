@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => 'Maximálny počt účtov',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Registračný formulár',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Zakázané: Žiadny registračný formulár',
+					'nolimit' => 'Povolené: Bez obmedzenia účtov',
+					'setaccountsnumber' => 'Určiť max. počet účtov',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Formulár zakázaný',
+				'enabled' => 'Formulár povolený',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Registračný formulár používateľa',
 		),
 	),
 	'update' => array(
