@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => 'Maximum aantal accounts',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Registratieformulier',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Uitgeschakeld: geen registratieformulier',
+					'nolimit' => 'Ingeschakeld: geen limiet op aantal accounts',
+					'setaccountsnumber' => 'Max. aantal accounts instellen',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Formulier uitgeschakeld',
+				'enabled' => 'Form ingeschakeld',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Gebruikersregistratieformulier',
 		),
 	),
 	'update' => array(

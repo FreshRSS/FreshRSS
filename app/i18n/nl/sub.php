@@ -25,19 +25,19 @@ return array(
 		'add' => 'Voeg categorie',
 		'archiving' => 'Archiveren',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'Dynamische OPML',
+			'help' => 'Geef de URL naar een <a href=http://opml.org/ target=_blank>OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
+		'accept_cookies' => 'Cookies accepteren',
+		'accept_cookies_help' => 'De feed-server toestaan cookies te plaatsen (die alleen voor de duur van de aanvraag in het geheugen worden opgeslagen)',
 		'add' => 'Voeg een RSS-feed toe',
 		'advanced' => 'Geavanceerd',
 		'archiving' => 'Archiveren',
@@ -60,8 +60,8 @@ return array(
 		'css_help' => 'Haalt onvolledige RSS-feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'CSS-pad van artikelen op originele website',
 		'css_path_filter' => array(
-			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'_' => 'CSS selector van de elementen om te verwijderen',
+			'help' => 'Een CSS selector kan een lijst zijn, zoals: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
@@ -73,51 +73,51 @@ return array(
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Feedbron-type',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'feedtitel',
+					'help' => 'Voorbeeld: <code>//title</code> of een statische string: <code>"Mijn aangepaste feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is een standaard querytaal voor geavanceerde gebruikers, die door FreshRSS ondersteund wordt voor web scraping.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'nieuws vinden <strong>berichten</strong><br /><small>(belangrijkste)</small>',
+					'help' => 'Voorbeeld: <code>//div[@class="nieuws-bericht"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'auteur van het bericht',
+					'help' => 'Kan ook een statische string zijn. Voorbeeld: <code>"Anoniem"</code>',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'tags van bericht',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'inhoud van bericht',
+					'help' => 'Voorbeeld om het volledige bericht over te nemen: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'miniatuur van bericht',
+					'help' => 'Voorbeeld: <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'datum van bericht',
+					'help' => 'Het resultaat zal worden geparset door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'titel van bericht',
+					'help' => 'Gebruik vooral <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> zoals <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'uniek ID van bericht',
+					'help' => 'Optioneel. Voorbeeld: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'link van bericht (URL)',
+					'help' => 'Voorbeeld: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relatief naar bericht) voor:',
+				'xpath' => 'XPath voor:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (standaard)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
@@ -126,8 +126,8 @@ return array(
 			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',	// DIRTY
 			'title' => 'Onderhoud',
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
+		'max_http_redir_help' => 'Stel in op 0 of laat leeg om uit te schakelen, -1 voor ongelimiteerde redirects',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
 		'no_selected' => 'Geen feed geselecteerd.',
@@ -198,7 +198,7 @@ return array(
 		'_' => 'Abonnementenbeheer',
 		'add' => 'Feed of categorie toevoegen',
 		'add_category' => 'Categorie toevoegen',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Dynamische OPML toevoegen',
 		'add_feed' => 'Feed toevoegen',
 		'add_label' => 'Label toevoegen',
 		'delete_label' => 'Label verwijderen',
