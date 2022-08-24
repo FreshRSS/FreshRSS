@@ -721,7 +721,7 @@ function onScroll() {
 		});
 	}
 	let streamFooter;
-	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer') != null)) {
+	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
 		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			// Too close to the last pre-loaded article
