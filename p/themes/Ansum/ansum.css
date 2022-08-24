@@ -684,7 +684,7 @@ form th {
 	background: #fbf9f6;
 	display: block;
 	width: auto;
-	height: 3rem;
+	height: 3.5rem;
 	table-layout: none;
 }
 .header .item {
@@ -752,7 +752,7 @@ form th {
 
 /*=== Body */
 #global {
-	height: calc(100% - 4rem);
+	height: calc(100% - 3.5rem);
 }
 
 /*=== Prompt (centered) */
@@ -1315,6 +1315,7 @@ main.prompt {
 
 	.header {
 		padding: 0.5rem;
+		height: 8rem;
 	}
 	.header .item.search {
 		display: block;
@@ -1335,6 +1336,10 @@ main.prompt {
 	.header .item.search .btn {
 		min-height: 49px;
 		padding: 0.5rem 2rem;
+	}
+
+	#global {
+		height: calc(100% - 8rem);
 	}
 
 	.post {

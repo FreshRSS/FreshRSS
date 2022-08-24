@@ -76,6 +76,7 @@
 
 	.header {
 		padding: 0.5rem;
+		height: 8rem;
 
 		.item {
 			&.search {
@@ -105,6 +106,10 @@
 				}
 			}
 		}
+	}
+
+	#global {
+		height: calc(100% - 8rem);
 	}
 
 	.post {
