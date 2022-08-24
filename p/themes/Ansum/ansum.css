@@ -714,18 +714,29 @@ form th {
 	color: #766556;
 	background-color: #fff;
 }
+.header .item.search input:focus ~ .btn,
+.header .item.search input:hover ~ .btn {
+	background-color: #ca7227;
+}
+.header .item.search input:focus ~ .btn .icon,
+.header .item.search input:hover ~ .btn .icon {
+	filter: brightness(3);
+}
 .header .item.search .btn {
 	width: 3rem;
 	border-radius: 0 2px 2px 0;
-	background-color: #ca7227;
+	background-color: #f7f2ea;
 	border-left-width: 0;
 	min-height: 35px;
 }
 .header .item.search .btn .icon {
-	filter: brightness(3);
+	filter: invert(49%) sepia(13%) saturate(2426%) hue-rotate(346deg) brightness(99%) contrast(95%);
 }
 .header .item.search .btn:hover {
 	background-color: #b7641d;
+}
+.header .item.search .btn:hover .icon {
+	filter: brightness(3);
 }
 .header .item.configure {
 	width: 2rem;
