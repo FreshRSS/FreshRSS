@@ -96,6 +96,11 @@ input, select, textarea, button {
 	vertical-align: middle;
 }
 
+select {
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+
 option {
 	padding: 0 .5em;
 }
