@@ -728,12 +728,14 @@ function onScroll() {
 			load_more_posts();
 		} else {
 			let sibling = document.querySelector('.flux.current');
-			for (let i = 5; i > 0; i--) {
-				sibling = sibling.nextElementSibling;
-				if (!sibling) {
-					// Too few pre-loaded articles
-					load_more_posts();
-					break;
+			if (sibling) {
+				for (let i = 5; i > 0; i--) {
+					sibling = sibling.nextElementSibling;
+					if (!sibling) {
+						// Too few pre-loaded articles
+						load_more_posts();
+						break;
+					}
 				}
 			}
 		}
