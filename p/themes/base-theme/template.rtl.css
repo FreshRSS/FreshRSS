@@ -295,13 +295,8 @@ td.numeric {
 	display: none !important;
 }
 
-/* login and register form */
+/* prompt: login + register form + alert message banner */
 .prompt {
-	margin: 3rem auto;
-	padding: 2rem;
-	max-width: 400px;
-	min-width: 300px;
-	width: 33%;
 	text-align: center;
 }
 
