@@ -978,20 +978,26 @@ SQL;
 
 			if ($filter->getSearch()) {
 				foreach ($filter->getSearch() as $search_value) {
-					$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' .
-						(static::isCompressed() ? 'CONVERT(UNCOMPRESS(' . $alias . 'content_bin) USING utf8mb4) COLLATE utf8mb4_unicode_ci' :
-						'' . $alias . 'content') . ' LIKE ?) ';
-					$values[] = "%{$search_value}%";
-					$values[] = "%{$search_value}%";
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ? ';
+						$values[] = "%{$search_value}%";
+					} else {
+						$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' . $alias . 'content LIKE ?) ';
+						$values[] = "%{$search_value}%";
+						$values[] = "%{$search_value}%";
+					}
 				}
 			}
 			if ($filter->getNotSearch()) {
 				foreach ($filter->getNotSearch() as $search_value) {
-					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' .
-						(static::isCompressed() ? 'CONVERT(UNCOMPRESS(' . $alias . 'content_bin) USING utf8mb4) COLLATE utf8mb4_unicode_ci' :
-						'' . $alias . 'content') . ' NOT LIKE ? ';
-					$values[] = "%{$search_value}%";
-					$values[] = "%{$search_value}%";
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND (NOT CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ?) ';
+						$values[] = "%{$search_value}%";
+					} else {
+						$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' . $alias . 'content NOT LIKE ? ';
+						$values[] = "%{$search_value}%";
+						$values[] = "%{$search_value}%";
+					}
 				}
 			}
 
