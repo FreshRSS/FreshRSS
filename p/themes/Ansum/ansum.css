@@ -1261,22 +1261,6 @@ main.prompt {
 /*=== MOBILE */
 /*===========*/
 @media (max-width: 840px) {
-	ul.nav .item {
-		width: 100%;
-	}
-	ul.nav .item a {
-		box-sizing: border-box;
-		padding: 1rem 1rem 1rem 2.5rem;
-		display: inline-block;
-		width: 100%;
-		color: #363330;
-		transition: all 0.2s ease-in-out;
-	}
-	ul.nav .item a:hover, ul.nav .item a:active {
-		text-decoration: none;
-		color: #fff;
-	}
-
 	.form-group .group-name {
 		text-align: left;
 	}
