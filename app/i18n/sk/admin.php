@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
 		'registration' => array(
-			'help' => '0 znamená žiadny limit počtu účtov',
 			'number' => 'Maximálny počt účtov',
+			'select' => array(
+				'label' => 'Registračný formulár',
+				'option' => array(
+					'noform' => 'Zakázané: Žiadny registračný formulár',
+					'nolimit' => 'Povolené: Bez obmedzenia účtov',
+					'setaccountsnumber' => 'Určiť max. počet účtov',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulár zakázaný',
+				'enabled' => 'Formulár povolený',
+			),
+			'title' => 'Registračný formulár používateľa',
 		),
 	),
 	'update' => array(

@@ -31,14 +31,21 @@ if (_t('gen.dir') === 'rtl') {
 		<?= FreshRSS_View::headTitle() ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
-	if (isset($this->rss_title)) {
+	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
+		unset($url_rss['params']['rid']);
 		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
 			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
 		}
 ?>
 		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
+<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
+		$opml_rss = $url_base;
+		$opml_rss['a'] = 'opml';
+		unset($opml_rss['params']['rid']);
+?>
+		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Minz_Url::display($opml_rss) ?>" />
 <?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
 		<meta name="description" content="<?= htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
 <?php } else { ?>
@@ -47,8 +54,10 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body class="<?= Minz_Request::actionName() ?>">
 <?php
-	flush();
-	$this->partial('header');
+	if (!Minz_Request::param('ajax')) {
+		flush();
+		$this->partial('header');
+	}
 ?>
 
 <div id="global">
@@ -64,7 +73,7 @@ if (_t('gen.dir') === 'rtl') {
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (isset($this->notification)) {
+	if (!empty($this->notification)) {
 		$msg = $this->notification['content'];
 		$status = $this->notification['type'];
 
@@ -74,19 +83,6 @@ if (_t('gen.dir') === 'rtl') {
 <div id="notification" class="notification <?= $status ?>">
 	<span class="msg"><?= $msg ?></span>
 	<a class="close" href=""><?= _i('close') ?></a>
-</div>
-
-<!-- Popup-->
-<div id="popup">
-	<div id="popup-content">
-		<div id="popup-close" class="popup-row">×</div>
-		<div id="popup-txt" class="popup-row"></div>
-		<div id="popup-iframe-container" class="popup-row">
-			<div id="popup-iframe-sub">
-				<iframe id="popup-iframe" frameborder="0"></iframe>
-			</div>
-		</div>
-	</div>
 </div>
 	</body>
 </html>

@@ -2,23 +2,23 @@
 
 class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	public function isCompressed() {
+	public static function isCompressed(): bool {
 		return true;
 	}
 
-	public function hasNativeHex() {
+	public static function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode($x) {
+	public static function sqlHexDecode(string $x): string {
 		return 'unhex(' . $x . ')';
 	}
 
-	public function sqlHexEncode($x) {
+	public static function sqlHexEncode(string $x): string {
 		return 'hex(' . $x . ')';
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	public static function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
@@ -61,9 +61,33 @@ SQL;
 		return $ok;
 	}
 
+	protected function addColumn(string $name) {
+		Minz_Log::warning(__method__ . ': ' . $name);
+		try {
+			if ($name === 'attributes') {	//v1.20.0
+				$sql = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN attributes TEXT;
+ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
+SQL;
+				return $this->pdo->exec($sql) !== false;
+			}
+		} catch (Exception $e) {
+			Minz_Log::error(__method__ . ' error: ' . $e->getMessage());
+		}
+		return false;
+	}
+
 	//TODO: Move the database auto-updates to DatabaseDAO
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				foreach (['attributes'] as $column) {
+					if (stripos($errorLines[0], $column) !== false) {
+						return $this->addColumn($column);
+					}
+				}
+			}
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
 					$tagDAO = FreshRSS_Factory::createTagDao();
@@ -83,19 +107,22 @@ SQL;
 		return false;
 	}
 
-	private $addEntryPrepared = null;
+	/**
+	 * @var PDOStatement|null|false
+	 */
+	private $addEntryPrepared = false;
 
-	public function addEntry($valuesTmp, $useTmpTable = true) {
+	public function addEntry(array $valuesTmp, bool $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
-			$sql = $this->sqlIgnoreConflict(
+			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
-				. ($this->isCompressed() ? 'content_bin' : 'content')
-				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
+				. (static::isCompressed() ? 'content_bin' : 'content')
+				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes) '
 				. 'VALUES(:id, :guid, :title, :author, '
-				. ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
+				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
-				. $this->sqlHexDecode(':hash')
-				. ', :is_read, :is_favorite, :id_feed, :tags)');
+				. static::sqlHexDecode(':hash')
+				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared) {
@@ -128,8 +155,13 @@ SQL;
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+			if (!isset($valuesTmp['attributes'])) {
+				$valuesTmp['attributes'] = [];
+			}
+			$this->addEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
 
-			if ($this->hasNativeHex()) {
+			if (static::hasNativeHex()) {
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 			} else {
 				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
@@ -157,11 +189,11 @@ SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
 INSERT IGNORE INTO `_entry` (
 	id, guid, title, author, content_bin, link, date, `lastSeen`,
-	hash, is_read, is_favorite, id_feed, tags
+	hash, is_read, is_favorite, id_feed, tags, attributes
 )
-SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entrytmp`
-ORDER BY date;
+ORDER BY date, id;
 
 DELETE FROM `_entrytmp` WHERE id <= @rank;
 SQL;
@@ -178,19 +210,23 @@ SQL;
 
 	private $updateEntryPrepared = null;
 
-	public function updateEntry($valuesTmp) {
+	public function updateEntry(array $valuesTmp) {
 		if (!isset($valuesTmp['is_read'])) {
 			$valuesTmp['is_read'] = null;
+		}
+		if (!isset($valuesTmp['is_favorite'])) {
+			$valuesTmp['is_favorite'] = null;
 		}
 
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
-				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
+				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
-				. ', hash=' . $this->sqlHexDecode(':hash')
+				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
-				. ', tags=:tags '
+				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
+				. ', tags=:tags, attributes=:attributes '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
@@ -218,12 +254,22 @@ SQL;
 			} else {
 				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 			}
+			if ($valuesTmp['is_favorite'] === null) {
+				$this->updateEntryPrepared->bindValue(':is_favorite', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, PDO::PARAM_INT);
+			}
 			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+			if (!isset($valuesTmp['attributes'])) {
+				$valuesTmp['attributes'] = [];
+			}
+			$this->updateEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
 
-			if ($this->hasNativeHex()) {
+			if (static::hasNativeHex()) {
 				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 			} else {
 				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
@@ -251,10 +297,9 @@ SQL;
 	 * there is an other way to do that.
 	 *
 	 * @param integer|array $ids
-	 * @param boolean $is_favorite
 	 * @return false|integer
 	 */
-	public function markFavorite($ids, $is_favorite = true) {
+	public function markFavorite($ids, bool $is_favorite = true) {
 		if (!is_array($ids)) {
 			$ids = array($ids);
 		}
@@ -344,7 +389,7 @@ SQL;
 	 * @param boolean $is_read
 	 * @return integer|false affected rows
 	 */
-	public function markRead($ids, $is_read = true) {
+	public function markRead($ids, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
@@ -412,12 +457,13 @@ SQL;
 	 * place. It will be reused also for the filtering making every thing
 	 * separated.
 	 *
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
 	 * @param boolean $onlyFavorites
 	 * @param integer $priorityMin
+	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0, $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -457,12 +503,13 @@ SQL;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param integer $id category ID
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
+	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadCat(int $id, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
@@ -495,12 +542,13 @@ SQL;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param integer $id_feed feed ID
-	 * @param integer $idMax fail safe article ID
+	 * @param string $idMax fail safe article ID
+	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadFeed(int $id_feed, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
@@ -543,12 +591,12 @@ SQL;
 	/**
 	 * Mark all the articles in a tag as read.
 	 * @param integer $id tag ID, or empty for targeting any tag
-	 * @param integer $idMax max article ID
+	 * @param string $idMax max article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadTag($id = 0, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+	public function markReadTag($id = 0, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
@@ -644,39 +692,50 @@ SQL;
 
 	public function selectAll() {
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, `lastSeen`, ' . $this->sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, `lastSeen`, ' . static::sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry`';
 		$stm = $this->pdo->query($sql);
-		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			yield $row;
+		if ($stm != false) {
+			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				yield $row;
+			}
+		} else {
+			$info = $this->pdo->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				yield from $this->selectAll();
+			}
+			Minz_Log::error(__method__ . ' error: ' . json_encode($info));
+			yield false;
 		}
 	}
 
+	/** @return FreshRSS_Entry|null */
 	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
 		$stm->bindParam(':guid', $guid);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return isset($res[0]) ? self::daoToEntry($res[0]) : null;
+		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
+	/** @return FreshRSS_Entry|null */
 	public function searchById($id) {
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return isset($res[0]) ? self::daoToEntry($res[0]) : null;
+		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchIdByGuid($id_feed, $guid) {
@@ -689,12 +748,268 @@ SQL;
 		return isset($res[0]) ? $res[0] : null;
 	}
 
-	protected function sqlConcat($s1, $s2) {
-		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
+	/** @param FreshRSS_BooleanSearch $filters */
+	public static function sqlBooleanSearch(string $alias, $filters, int $level = 0) {
+		$search = '';
+		$values = [];
+
+		$isOpen = false;
+		foreach ($filters->searches() as $filter) {
+			if ($filter == null) {
+				continue;
+			}
+			if ($filter instanceof FreshRSS_BooleanSearch) {
+				// BooleanSearches are combined by AND (default) or OR (special case) operator and are recursive
+				list($filterValues, $filterSearch) = self::sqlBooleanSearch($alias, $filter, $level + 1);
+				$filterSearch = trim($filterSearch);
+
+				if ($filterSearch !== '') {
+					if ($search !== '') {
+						$search .= $filter->operator();
+					} elseif ($filter->operator() === 'AND NOT') {
+						// Special case if we start with a negation (there is already the default AND before)
+						$search .= ' NOT';
+					}
+					$search .= ' (' . $filterSearch . ') ';
+					$values = array_merge($values, $filterValues);
+				}
+				continue;
+			}
+			// Searches are combined by OR and are not recursive
+			$sub_search = '';
+			if ($filter->getEntryIds()) {
+				foreach ($filter->getEntryIds() as $entry_ids) {
+					$sub_search .= 'AND ' . $alias . 'id IN (';
+					foreach ($entry_ids as $entry_id) {
+						$sub_search .= '?,';
+						$values[] = $entry_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+			}
+			if ($filter->getNotEntryIds()) {
+				foreach ($filter->getNotEntryIds() as $entry_ids) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (';
+					foreach ($entry_ids as $entry_id) {
+						$sub_search .= '?,';
+						$values[] = $entry_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+			}
+
+			if ($filter->getMinDate()) {
+				$sub_search .= 'AND ' . $alias . 'id >= ? ';
+				$values[] = "{$filter->getMinDate()}000000";
+			}
+			if ($filter->getMaxDate()) {
+				$sub_search .= 'AND ' . $alias . 'id <= ? ';
+				$values[] = "{$filter->getMaxDate()}000000";
+			}
+			if ($filter->getMinPubdate()) {
+				$sub_search .= 'AND ' . $alias . 'date >= ? ';
+				$values[] = $filter->getMinPubdate();
+			}
+			if ($filter->getMaxPubdate()) {
+				$sub_search .= 'AND ' . $alias . 'date <= ? ';
+				$values[] = $filter->getMaxPubdate();
+			}
+
+			//Negation of date intervals must be combined by OR
+			if ($filter->getNotMinDate() || $filter->getNotMaxDate()) {
+				$sub_search .= 'AND (';
+				if ($filter->getNotMinDate()) {
+					$sub_search .= $alias . 'id < ?';
+					$values[] = "{$filter->getNotMinDate()}000000";
+					if ($filter->getNotMaxDate()) {
+						$sub_search .= ' OR ';
+					}
+				}
+				if ($filter->getNotMaxDate()) {
+					$sub_search .= $alias . 'id > ?';
+					$values[] = "{$filter->getNotMaxDate()}000000";
+				}
+				$sub_search .= ') ';
+			}
+			if ($filter->getNotMinPubdate() || $filter->getNotMaxPubdate()) {
+				$sub_search .= 'AND (';
+				if ($filter->getNotMinPubdate()) {
+					$sub_search .= $alias . 'date < ?';
+					$values[] = $filter->getNotMinPubdate();
+					if ($filter->getNotMaxPubdate()) {
+						$sub_search .= ' OR ';
+					}
+				}
+				if ($filter->getNotMaxPubdate()) {
+					$sub_search .= $alias . 'date > ?';
+					$values[] = $filter->getNotMaxPubdate();
+				}
+				$sub_search .= ') ';
+			}
+
+			if ($filter->getFeedIds()) {
+				foreach ($filter->getFeedIds() as $feed_ids) {
+					$sub_search .= 'AND ' . $alias . 'id_feed IN (';
+					foreach ($feed_ids as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+			}
+			if ($filter->getNotFeedIds()) {
+				foreach ($filter->getNotFeedIds() as $feed_ids) {
+					$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
+					foreach ($feed_ids as $feed_id) {
+						$sub_search .= '?,';
+						$values[] = $feed_id;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ') ';
+				}
+			}
+
+			if ($filter->getLabelIds()) {
+				foreach ($filter->getLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
+					}
+				}
+			}
+			if ($filter->getNotLabelIds()) {
+				foreach ($filter->getNotLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
+					}
+				}
+			}
+
+			if ($filter->getLabelNames()) {
+				foreach ($filter->getLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
+				}
+			}
+			if ($filter->getNotLabelNames()) {
+				foreach ($filter->getNotLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
+				}
+			}
+
+			if ($filter->getAuthor()) {
+				foreach ($filter->getAuthor() as $author) {
+					$sub_search .= 'AND ' . $alias . 'author LIKE ? ';
+					$values[] = "%{$author}%";
+				}
+			}
+			if ($filter->getIntitle()) {
+				foreach ($filter->getIntitle() as $title) {
+					$sub_search .= 'AND ' . $alias . 'title LIKE ? ';
+					$values[] = "%{$title}%";
+				}
+			}
+			if ($filter->getTags()) {
+				foreach ($filter->getTags() as $tag) {
+					$sub_search .= 'AND ' . $alias . 'tags LIKE ? ';
+					$values[] = "%{$tag}%";
+				}
+			}
+			if ($filter->getInurl()) {
+				foreach ($filter->getInurl() as $url) {
+					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
+					$values[] = "%{$url}%";
+				}
+			}
+
+			if ($filter->getNotAuthor()) {
+				foreach ($filter->getNotAuthor() as $author) {
+					$sub_search .= 'AND ' . $alias . 'author NOT LIKE ? ';
+					$values[] = "%{$author}%";
+				}
+			}
+			if ($filter->getNotIntitle()) {
+				foreach ($filter->getNotIntitle() as $title) {
+					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
+					$values[] = "%{$title}%";
+				}
+			}
+			if ($filter->getNotTags()) {
+				foreach ($filter->getNotTags() as $tag) {
+					$sub_search .= 'AND ' . $alias . 'tags NOT LIKE ? ';
+					$values[] = "%{$tag}%";
+				}
+			}
+			if ($filter->getNotInurl()) {
+				foreach ($filter->getNotInurl() as $url) {
+					$sub_search .= 'AND ' . $alias . 'link NOT LIKE ? ';
+					$values[] = "%{$url}%";
+				}
+			}
+
+			if ($filter->getSearch()) {
+				foreach ($filter->getSearch() as $search_value) {
+					$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' .
+						(static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+					$values[] = "%{$search_value}%";
+					$values[] = "%{$search_value}%";
+				}
+			}
+			if ($filter->getNotSearch()) {
+				foreach ($filter->getNotSearch() as $search_value) {
+					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' .
+						(static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' NOT LIKE ? ';
+					$values[] = "%{$search_value}%";
+					$values[] = "%{$search_value}%";
+				}
+			}
+
+			if ($sub_search != '') {
+				if ($isOpen) {
+					$search .= ' OR ';
+				} else {
+					$isOpen = true;
+				}
+				// Remove superfluous leading 'AND '
+				$search .= '(' . substr($sub_search, 4) . ')';
+			}
+		}
+
+		return [ $values, $search ];
 	}
 
-	protected function sqlListEntriesWhere($alias = '', $filters = null, $state = FreshRSS_Entry::STATE_ALL,
-			$order = 'DESC', $firstId = '', $date_min = 0) {
+	/** @param FreshRSS_BooleanSearch|null $filters */
+	protected function sqlListEntriesWhere(string $alias = '', $filters = null, int $state = FreshRSS_Entry::STATE_ALL,
+			string $order = 'DESC', string $firstId = '', int $date_min = 0) {
 		$search = ' ';
 		$values = array();
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
@@ -728,239 +1043,11 @@ SQL;
 			$values[] = $date_min . '000000';
 		}
 		if ($filters && count($filters->searches()) > 0) {
-			$isOpen = false;
-			foreach ($filters->searches() as $filter) {
-				if ($filter == null) {
-					continue;
-				}
-				$sub_search = '';
-
-				if ($filter->getEntryIds()) {
-					foreach ($filter->getEntryIds() as $entry_ids) {
-						$sub_search .= 'AND ' . $alias . 'id IN (';
-						foreach ($entry_ids as $entry_id) {
-							$sub_search .= '?,';
-							$values[] = $entry_id;
-						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ') ';
-					}
-				}
-				if ($filter->getNotEntryIds()) {
-					foreach ($filter->getNotEntryIds() as $entry_ids) {
-						$sub_search .= 'AND ' . $alias . 'id NOT IN (';
-						foreach ($entry_ids as $entry_id) {
-							$sub_search .= '?,';
-							$values[] = $entry_id;
-						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ') ';
-					}
-				}
-
-				if ($filter->getMinDate()) {
-					$sub_search .= 'AND ' . $alias . 'id >= ? ';
-					$values[] = "{$filter->getMinDate()}000000";
-				}
-				if ($filter->getMaxDate()) {
-					$sub_search .= 'AND ' . $alias . 'id <= ? ';
-					$values[] = "{$filter->getMaxDate()}000000";
-				}
-				if ($filter->getMinPubdate()) {
-					$sub_search .= 'AND ' . $alias . 'date >= ? ';
-					$values[] = $filter->getMinPubdate();
-				}
-				if ($filter->getMaxPubdate()) {
-					$sub_search .= 'AND ' . $alias . 'date <= ? ';
-					$values[] = $filter->getMaxPubdate();
-				}
-
-				//Negation of date intervals must be combined by OR
-				if ($filter->getNotMinDate() || $filter->getNotMaxDate()) {
-					$sub_search .= 'AND (';
-					if ($filter->getNotMinDate()) {
-						$sub_search .= $alias . 'id < ?';
-						$values[] = "{$filter->getNotMinDate()}000000";
-						if ($filter->getNotMaxDate()) {
-							$sub_search .= ' OR ';
-						}
-					}
-					if ($filter->getNotMaxDate()) {
-						$sub_search .= $alias . 'id > ?';
-						$values[] = "{$filter->getNotMaxDate()}000000";
-					}
-					$sub_search .= ') ';
-				}
-				if ($filter->getNotMinPubdate() || $filter->getNotMaxPubdate()) {
-					$sub_search .= 'AND (';
-					if ($filter->getNotMinPubdate()) {
-						$sub_search .= $alias . 'date < ?';
-						$values[] = $filter->getNotMinPubdate();
-						if ($filter->getNotMaxPubdate()) {
-							$sub_search .= ' OR ';
-						}
-					}
-					if ($filter->getNotMaxPubdate()) {
-						$sub_search .= $alias . 'date > ?';
-						$values[] = $filter->getNotMaxPubdate();
-					}
-					$sub_search .= ') ';
-				}
-
-				if ($filter->getFeedIds()) {
-					foreach ($filter->getFeedIds() as $feed_ids) {
-						$sub_search .= 'AND ' . $alias . 'id_feed IN (';
-						foreach ($feed_ids as $feed_id) {
-							$sub_search .= '?,';
-							$values[] = $feed_id;
-						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ') ';
-					}
-				}
-				if ($filter->getNotFeedIds()) {
-					foreach ($filter->getNotFeedIds() as $feed_ids) {
-						$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
-						foreach ($feed_ids as $feed_id) {
-							$sub_search .= '?,';
-							$values[] = $feed_id;
-						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ') ';
-					}
-				}
-
-				if ($filter->getLabelIds()) {
-					foreach ($filter->getLabelIds() as $label_ids) {
-						if ($label_ids === '*') {
-							$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-						} else {
-							$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-							foreach ($label_ids as $label_id) {
-								$sub_search .= '?,';
-								$values[] = $label_id;
-							}
-							$sub_search = rtrim($sub_search, ',');
-							$sub_search .= ')) ';
-						}
-					}
-				}
-				if ($filter->getNotLabelIds()) {
-					foreach ($filter->getNotLabelIds() as $label_ids) {
-						if ($label_ids === '*') {
-							$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-						} else {
-							$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-							foreach ($label_ids as $label_id) {
-								$sub_search .= '?,';
-								$values[] = $label_id;
-							}
-							$sub_search = rtrim($sub_search, ',');
-							$sub_search .= ')) ';
-						}
-					}
-				}
-
-				if ($filter->getLabelNames()) {
-					foreach ($filter->getLabelNames() as $label_names) {
-						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-						foreach ($label_names as $label_name) {
-							$sub_search .= '?,';
-							$values[] = $label_name;
-						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ')) ';
-					}
-				}
-				if ($filter->getNotLabelNames()) {
-					foreach ($filter->getNotLabelNames() as $label_names) {
-						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-						foreach ($label_names as $label_name) {
-							$sub_search .= '?,';
-							$values[] = $label_name;
-						}
-						$sub_search = rtrim($sub_search, ',');
-						$sub_search .= ')) ';
-					}
-				}
-
-				if ($filter->getAuthor()) {
-					foreach ($filter->getAuthor() as $author) {
-						$sub_search .= 'AND ' . $alias . 'author LIKE ? ';
-						$values[] = "%{$author}%";
-					}
-				}
-				if ($filter->getIntitle()) {
-					foreach ($filter->getIntitle() as $title) {
-						$sub_search .= 'AND ' . $alias . 'title LIKE ? ';
-						$values[] = "%{$title}%";
-					}
-				}
-				if ($filter->getTags()) {
-					foreach ($filter->getTags() as $tag) {
-						$sub_search .= 'AND ' . $alias . 'tags LIKE ? ';
-						$values[] = "%{$tag}%";
-					}
-				}
-				if ($filter->getInurl()) {
-					foreach ($filter->getInurl() as $url) {
-						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ? ';
-						$values[] = "%{$url}%";
-					}
-				}
-
-				if ($filter->getNotAuthor()) {
-					foreach ($filter->getNotAuthor() as $author) {
-						$sub_search .= 'AND (NOT ' . $alias . 'author LIKE ?) ';
-						$values[] = "%{$author}%";
-					}
-				}
-				if ($filter->getNotIntitle()) {
-					foreach ($filter->getNotIntitle() as $title) {
-						$sub_search .= 'AND (NOT ' . $alias . 'title LIKE ?) ';
-						$values[] = "%{$title}%";
-					}
-				}
-				if ($filter->getNotTags()) {
-					foreach ($filter->getNotTags() as $tag) {
-						$sub_search .= 'AND (NOT ' . $alias . 'tags LIKE ?) ';
-						$values[] = "%{$tag}%";
-					}
-				}
-				if ($filter->getNotInurl()) {
-					foreach ($filter->getNotInurl() as $url) {
-						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ?) ';
-						$values[] = "%{$url}%";
-					}
-				}
-
-				if ($filter->getSearch()) {
-					foreach ($filter->getSearch() as $search_value) {
-						$sub_search .= 'AND ' . $this->sqlConcat($alias . 'title',
-							$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
-						$values[] = "%{$search_value}%";
-					}
-				}
-				if ($filter->getNotSearch()) {
-					foreach ($filter->getNotSearch() as $search_value) {
-						$sub_search .= 'AND (NOT ' . $this->sqlConcat($alias . 'title',
-							$this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
-						$values[] = "%{$search_value}%";
-					}
-				}
-
-				if ($sub_search != '') {
-					if ($isOpen) {
-						$search .= 'OR ';
-					} else {
-						$search .= 'AND (';
-						$isOpen = true;
-					}
-					$search .= '(' . substr($sub_search, 4) . ') ';
-				}
-			}
-			if ($isOpen) {
-				$search .= ') ';
+			list($filterValues, $filterSearch) = self::sqlBooleanSearch($alias, $filters);
+			$filterSearch = trim($filterSearch);
+			if ($filterSearch !== '') {
+				$search .= 'AND (' . $filterSearch . ') ';
+				$values = array_merge($values, $filterValues);
 			}
 		}
 		return array($values, $search);
@@ -1025,13 +1112,13 @@ SQL;
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+	private function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes '
 			. 'FROM `_entry` e0 '
 			. 'INNER JOIN ('
 			. $sql
@@ -1043,6 +1130,9 @@ SQL;
 			return $stm;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+			}
 			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
 			return false;
 		}
@@ -1053,7 +1143,7 @@ SQL;
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-				yield self::daoToEntry($row);
+				yield FreshRSS_Entry::fromArray($row);
 			}
 		} else {
 			yield false;
@@ -1075,8 +1165,8 @@ SQL;
 		}
 
 		$sql = 'SELECT id, guid, title, author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
 			. 'FROM `_entry` '
 			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
 			. 'ORDER BY id ' . $order;
@@ -1084,7 +1174,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($ids);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			yield self::daoToEntry($row);
+			yield FreshRSS_Entry::fromArray($row);
 		}
 	}
 
@@ -1114,7 +1204,7 @@ SQL;
 			return $result;
 		}
 		$guids = array_unique($guids);
-		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') .
+		$sql = 'SELECT guid, ' . static::sqlHexEncode('hash') .
 			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id_feed);
@@ -1136,6 +1226,12 @@ SQL;
 		}
 	}
 
+	/**
+	 * @param int $id_feed
+	 * @param array<string> $guids
+	 * @param int $mtime
+	 * @return int|false The number of affected feeds, or false if error
+	 */
 	public function updateLastSeen($id_feed, $guids, $mtime = 0) {
 		if (count($guids) < 1) {
 			return 0;
@@ -1242,24 +1338,5 @@ SQL;
 		$all = empty($res[0]) ? 0 : intval($res[0]);
 		$unread = empty($res[1]) ? 0 : intval($res[1]);
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
-	}
-
-	public static function daoToEntry($dao) {
-		$entry = new FreshRSS_Entry(
-				$dao['id_feed'],
-				$dao['guid'],
-				$dao['title'],
-				$dao['author'],
-				$dao['content'],
-				$dao['link'],
-				$dao['date'],
-				$dao['is_read'],
-				$dao['is_favorite'],
-				isset($dao['tags']) ? $dao['tags'] : ''
-			);
-		if (isset($dao['id'])) {
-			$entry->_id($dao['id']);
-		}
-		return $entry;
 	}
 }

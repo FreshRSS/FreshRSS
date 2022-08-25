@@ -1,6 +1,9 @@
 [default.extend-identifiers]
-ba9 = "ba9"
+ot = "ot"
 Ths2 = "Ths2"
+
+[default.extend-words]
+ba = "ba"
 
 [files]
 extend-exclude = [
@@ -27,10 +30,11 @@ extend-exclude = [
 	"app/i18n/tr/",
 	"app/i18n/zh-cn/",
 	"bin/",
+	"CHANGELOG-old.md",
 	"data/",
 	"docs/fr/",
-	"lib/lib_phpQuery.php",
-	"lib/PHPMailer",
+	"lib/phpgt/",
+	"lib/phpmailer/",
 	"lib/SimplePie/",
 	"node_modules/",
 	"p/scripts/vendor/",

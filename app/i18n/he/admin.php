@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Max number of categories per user',	// TODO
 		'max-feeds' => 'Max number of feeds per user',	// TODO
 		'registration' => array(
-			'help' => '0 means that there is no account limit',	// TODO
 			'number' => 'Max number of accounts',	// TODO
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(

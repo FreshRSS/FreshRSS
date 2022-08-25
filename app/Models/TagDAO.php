@@ -2,7 +2,7 @@
 
 class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	public function sqlIgnore() {
+	public function sqlIgnore(): string {
 		return 'IGNORE';
 	}
 
@@ -30,7 +30,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
@@ -61,7 +61,7 @@ SQL;
 			$valuesTmp['name'],
 		);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm && $stm->execute($values) && $stm->rowCount() > 0) {
 			return $this->pdo->lastInsertId('`_tag_id_seq`');
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -239,7 +239,7 @@ SQL;
 		if ($stm !== false) {
 			return self::daoToTag($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listTags($precounts);
 			}
@@ -274,7 +274,7 @@ SQL;
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 			return $res[0]['count'];
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->count();
 			}

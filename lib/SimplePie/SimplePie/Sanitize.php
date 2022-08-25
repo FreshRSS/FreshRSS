@@ -61,6 +61,7 @@ class SimplePie_Sanitize
 	var $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 	var $encode_instead_of_strip = false;
 	var $strip_attributes = array('bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
+	var $rename_attributes = array();
 	var $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));
 	var $strip_comments = false;
 	var $output_encoding = 'UTF-8';
@@ -167,6 +168,25 @@ class SimplePie_Sanitize
 	public function encode_instead_of_strip($encode = false)
 	{
 		$this->encode_instead_of_strip = (bool) $encode;
+	}
+
+	public function rename_attributes($attribs = array())
+	{
+		if ($attribs)
+		{
+			if (is_array($attribs))
+			{
+				$this->rename_attributes = $attribs;
+			}
+			else
+			{
+				$this->rename_attributes = explode(',', $attribs);
+			}
+		}
+		else
+		{
+			$this->rename_attributes = false;
+		}
 	}
 
 	public function strip_attributes($attribs = array('bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'))
@@ -372,6 +392,14 @@ class SimplePie_Sanitize
 					foreach ($this->strip_htmltags as $tag)
 					{
 						$this->strip_tag($tag, $document, $xpath, $type);
+					}
+				}
+
+				if ($this->rename_attributes)
+				{
+					foreach ($this->rename_attributes as $attrib)
+					{
+						$this->rename_attr($attrib, $xpath);
 					}
 				}
 
@@ -639,6 +667,17 @@ class SimplePie_Sanitize
 
 		foreach ($elements as $element)
 		{
+			$element->removeAttribute($attrib);
+		}
+	}
+
+	protected function rename_attr($attrib, $xpath)
+	{
+		$elements = $xpath->query('//*[@' . $attrib . ']');
+
+		foreach ($elements as $element)
+		{
+			$element->setAttribute('data-sanitized-' . $attrib, $element->getAttribute($attrib));
 			$element->removeAttribute($attrib);
 		}
 	}

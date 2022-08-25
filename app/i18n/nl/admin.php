@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
 		'registration' => array(
-			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',
+			'select' => array(
+				'label' => 'Registratieformulier',
+				'option' => array(
+					'noform' => 'Uitgeschakeld: geen registratieformulier',
+					'nolimit' => 'Ingeschakeld: geen limiet op aantal accounts',
+					'setaccountsnumber' => 'Max. aantal accounts instellen',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulier uitgeschakeld',
+				'enabled' => 'Form ingeschakeld',
+			),
+			'title' => 'Gebruikersregistratieformulier',
 		),
 	),
 	'update' => array(

@@ -8,15 +8,22 @@
  * The Minz_ActionController class is a controller in the MVC paradigm
  */
 class Minz_ActionController {
-	protected $view;
-	private $csp_policies = array(
+
+	/** @var array<string,string> */
+	private static $csp_default = [
 		'default-src' => "'self'",
-	);
+	];
+
+	/** @var array<string,string> */
+	private $csp_policies;
+
+	protected $view;
 
 	// Gives the possibility to override the default View type.
 	public static $viewType = 'Minz_View';
 
 	public function __construct () {
+		$this->csp_policies = self::$csp_default;
 		if (class_exists(self::$viewType)) {
 			$this->view = new self::$viewType();
 		} else {
@@ -32,6 +39,17 @@ class Minz_ActionController {
 	 */
 	public function view () {
 		return $this->view;
+	}
+
+	/**
+	 * Set default CSP policies.
+	 * @param array<string,string> $policies An array where keys are directives and values are sources.
+	 */
+	public static function _defaultCsp($policies) {
+		if (!isset($policies['default-src'])) {
+			Minz_Log::warning('Default CSP policy is not declared', ADMIN_LOG);
+		}
+		self::$csp_default = $policies;
 	}
 
 	/**

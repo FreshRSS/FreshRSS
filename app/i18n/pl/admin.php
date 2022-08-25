@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
 		'registration' => array(
-			'help' => '0 oznacza brak limitu liczby kont',
 			'number' => 'Maksymalna liczba kont',
+			'select' => array(
+				'label' => 'Formularz tworzenia konta',
+				'option' => array(
+					'noform' => 'Wyłączony: formularz niedostępny',
+					'nolimit' => 'Włączony: brak limitu liczby kont',
+					'setaccountsnumber' => 'Ustaw limit liczby kont',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formularz wyłączony',
+				'enabled' => 'Formularz włączony',
+			),
+			'title' => 'Formularz rejestracji użytkowników',
 		),
 	),
 	'update' => array(

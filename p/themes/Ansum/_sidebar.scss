@@ -79,19 +79,6 @@
 					color: variables.$sid-font-color;
 				}
 			}
-
-			.feed .item-title:not([data-unread="0"])::before {
-				margin: 11px 6px 0 4px;
-				padding: 3px 4px;
-				background: variables.$sid-pills;
-				display: block;
-				float: left;
-				font-size: 0.75rem;
-				border-radius: 12px;
-				content: attr(data-unread);
-				text-align: center;
-				line-height: 0.75rem;
-			}
 		}
 	}
 }
@@ -162,11 +149,11 @@
 	.item {
 		background: variables.$sid-bg;
 
-		@include mixins.transition(all, 0.15s, ease-in-out);
-
 		a {
 			padding: 0 1rem;
 			color: variables.$sid-font-color;
+
+			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
 		.error {
@@ -176,9 +163,6 @@
 		}
 
 		&:hover {
-			background: variables.$sid-bg-dark;
-			color: variables.$sid-font-color;
-
 			.error {
 				a {
 					background: variables.$main-first;
@@ -194,7 +178,7 @@
 			}
 
 			a {
-				color: variables.$sid-font-color;
+				background: variables.$sid-bg-dark;
 				text-decoration: none;
 			}
 		}
@@ -218,11 +202,11 @@
 			}
 
 			a {
+				background: variables.$main-first;
 				color: variables.$white;
 				text-decoration: none;
 			}
 		}
-
 	}
 
 	&.empty {
@@ -274,15 +258,14 @@
 	width: calc(100% - 35px - 35px);
 }
 
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: -0.25rem 1rem 0 0;
-	padding: 0 0.75rem;
-	background: variables.$sid-pills;
-	border-radius: 12px;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
-	text-align: center;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 1.5em 0 0 0;
+	background-color: variables.$sid-pills;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.5em 0 0 0;
+	background-color: variables.$sid-pills;
 }
 
 .feed.item.empty.active {

@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Fine',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
+		),
+		'pagination' => array(
+			'first' => 'Début',
+			'last' => 'Fin',
+			'next' => 'Suivant',
+			'previous' => 'Précédent',
+		),
+	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
 		'api' => 'Gestion de l’API',
@@ -73,7 +86,7 @@ return array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -124,6 +137,32 @@ return array(
 		'_' => 'Lecture',
 		'after_onread' => 'Après “marquer tout comme lu”,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs et date',
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'feed_name' => array(
+				'above_title' => 'Au-dessus du titre',
+				'none' => 'Caché',
+				'with_authors' => 'Sur la ligne “Auteurs et date”',
+			),
+			'feed_title' => 'Titre du flux',
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre maximum de tags affichés',
+				'help' => '0 pour afficher tous les tags sans menu déroulant',
+			),
+		),
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
@@ -131,11 +170,12 @@ return array(
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Articles : ouverture/fermeture',
+			'articles_header_footer' => 'Articles : en-tête / pied d’article',
+			'categories' => 'Navigation de gauche : catégories',
+			'mark_as_read' => 'Marquer les articles comme lus',
+			'misc' => 'Divers',
+			'view' => 'Vue',
 		),
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
@@ -147,6 +187,7 @@ return array(
 			'article_viewed' => 'lorsque l’article est affiché',
 			'keep_max_n_unread' => 'Nombre maximum d’articles conservés non lus',
 			'scroll' => 'au défilement de la page',
+			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
 			'when_same_title' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents',
@@ -181,11 +222,12 @@ return array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Plus d’informations',
-		'print' => 'Print',	// IGNORE
+		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Supprimer la méthode de partage',
 		'shaarli' => 'Shaarli',	// IGNORE

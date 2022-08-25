@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	font-size: 92%;
 }
@@ -240,6 +239,10 @@ a.btn {
 	background: -webkit-linear-gradient(bottom, #e4992c 0%, #d18114 100%);
 }
 
+.btn-important .icon {
+	filter: brightness(3);
+}
+
 .btn-attention {
 	background: #e95b57;
 	background: linear-gradient(to bottom, #e95b57, #bd362f);
@@ -273,7 +276,7 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
+.nav-list .item a:hover {
 	text-shadow: 0 0 2px rgba(255,255,255,0.28);
 	color: #fff;
 }
@@ -464,31 +467,16 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fafafa;
-	text-align: center;
 	color: #333;
-	font-size: 0.8em;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
 }
 
 .pagination .item a {
-	display: block;
 	color: #333;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination .item a:hover {
 	background: #ddd;
+	color: inherit
 }
 
 .pagination:first-child .item {
@@ -497,12 +485,6 @@ a.btn {
 
 .pagination:last-child .item {
 	border-top: 1px solid #ddd;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -652,7 +634,7 @@ a.btn {
 /*=== Body */
 #global {
 	background: #ede7de;
-	height: calc(100% - 60px);
+	height: calc(100% - 55px);
 }
 
 .aside {
@@ -673,12 +655,14 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	right: 3px;
-	padding: 1px 5px;
-	color: #fff;
-	text-shadow: 0 1px rgba(255,255,255,0.08);
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #d18114;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #222;
+	color: #ccc;
+	border: 1px solid #333;
 }
 
 .aside_feed .btn-important {
@@ -722,19 +706,7 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
-	max-width: 20rem;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: .5rem;
-	padding-right: .5rem;
-	text-align: center;
 	text-shadow: 0 1px rgba(255,255,255,0.08);
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: left;
 }
 
 .prompt .form-group {
@@ -750,12 +722,6 @@ a.btn {
 	margin-top: 2rem;
 	align-items: center;
 	justify-content: space-between;
-}
-
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
 }
 
 .prompt input#username,.prompt input#passwordPlain {
@@ -775,19 +741,11 @@ a.btn {
 	font-size: 1.1rem;
 }
 
-.prompt p {
-	margin: 20px 0;
-}
-
 /*=== New article notification */
 #new-article {
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
-}
-
-#new-article:hover {
-	background: #06c;
 }
 
 #new-article > a {
@@ -798,6 +756,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -990,7 +949,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #222;
 	color: #fff;
 	font-size: 0.9em;
@@ -999,10 +957,8 @@ a.btn {
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.45), 0 -1px rgba(255,255,255,0.08) inset, 0 2px 2px #171717 inset;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
 	position: absolute;
 	top: 0;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -1042,6 +998,10 @@ a.btn {
 
 #bigMarkAsRead:hover .bigTick {
 	text-shadow: 0 0 10px #666;
+}
+
+.switch.active {
+	background-color: #d18114;
 }
 
 /*=== Navigation menu (for articles) */
@@ -1305,10 +1265,6 @@ a.btn {
 
 	.day .name {
 		display: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

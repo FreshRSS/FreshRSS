@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
 		'create' => 'Créer',
+		'delete_muted_feeds' => 'Supprimer les flux désactivés',
 		'demote' => 'Rétrograder',
 		'disable' => 'Désactiver',
 		'empty' => 'Vider',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
 		'mark_read' => 'Marquer comme lu',
+		'open_url' => 'Ouvrir l’URL',
 		'promote' => 'Promouvoir',
 		'purge' => 'Purger',
+		'refresh_opml' => 'Rafraîchir OPML',
 		'remove' => 'Supprimer',
 		'rename' => 'Renommer',
 		'see_website' => 'Voir le site',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'Gestion des utilisateurs',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'Début',
-		'last' => 'Fin',
-		'load_more' => 'Charger plus d’articles',
-		'mark_all_read' => 'Tout marquer comme lu',
-		'next' => 'Suivant',
-		'nothing_to_load' => 'Fin des articles',
-		'previous' => 'Précédent',
-	),
 	'period' => array(
 		'days' => 'jours',
 		'hours' => 'heures',
@@ -194,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basés sur Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Presse-papier',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -206,13 +201,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Partage standard',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attention !',
@@ -226,5 +226,10 @@ return array(
 		'ok' => 'Ok !',
 		'or' => 'ou',
 		'yes' => 'Oui',
+	),
+	'stream' => array(
+		'load_more' => 'Charger plus d’articles',
+		'mark_all_read' => 'Tout marquer comme lu',
+		'nothing_to_load' => 'Fin des articles',
 	),
 );

@@ -1,4 +1,54 @@
 <?php
+
+/**
+ * @param array<FreshRSS_Feed> $feeds
+ */
+function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
+	$outlines = [];
+	foreach ($feeds as $feed) {
+		if ($feed->mute() && $excludeMutedFeeds) {
+			continue;
+		}
+		$outline = [
+			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
+			'type' => FreshRSS_Export_Service::TYPE_RSS_ATOM,
+			'xmlUrl' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
+			'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
+			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
+		];
+		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
+			$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+			/** @var array<string,string> */
+			$xPathSettings = $feed->attributes('xpath');
+			$outline['frss:xPathItem'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['item'] ?? null];
+			$outline['frss:xPathItemTitle'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTitle'] ?? null];
+			$outline['frss:xPathItemContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemContent'] ?? null];
+			$outline['frss:xPathItemUri'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUri'] ?? null];
+			$outline['frss:xPathItemAuthor'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemAuthor'] ?? null];
+			$outline['frss:xPathItemTimestamp'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTimestamp'] ?? null];
+			$outline['frss:xPathItemThumbnail'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemThumbnail'] ?? null];
+			$outline['frss:xPathItemCategories'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemCategories'] ?? null];
+			$outline['frss:xPathItemUid'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUid'] ?? null];
+		}
+		if (!empty($feed->filtersAction('read'))) {
+			$filters = '';
+			foreach ($feed->filtersAction('read') as $filterRead) {
+				$filters .= $filterRead->getRawInput() . "\n";
+			}
+			$filters = trim($filters);
+			$outline['frss:filtersActionRead'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $filters];
+		}
+		if ($feed->pathEntries() != '') {
+			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
+		}
+		if ($feed->attributes('path_entries_filter') != '') {
+			$outline['frss:cssFullContentFilter'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->attributes('path_entries_filter')];
+		}
+		$outlines[] = $outline;
+	}
+	return $outlines;
+}
+
 /** @var FreshRSS_View $this */
 
 $opml_array = array(
@@ -9,21 +59,21 @@ $opml_array = array(
 	'body' => array()
 );
 
-foreach ($this->categories as $key => $cat) {
-	$opml_array['body'][$key] = array(
-		'text' => $cat['name'],
-		'@outlines' => array()
-	);
-
-	foreach ($cat['feeds'] as $feed) {
-		$opml_array['body'][$key]['@outlines'][] = array(
-			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
-			'type' => 'rss',
-			'xmlUrl' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
-			'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
-			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
-		);
+if (!empty($this->categories)) {
+	foreach ($this->categories as $key => $cat) {
+		$outline = [
+			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
+		];
+		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
+			$outline['frss:opmlUrl'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $cat->attributes('opml_url')];;
+		}
+		$opml_array['body'][$key] = $outline;
 	}
+}
+
+if (!empty($this->feeds)) {
+	$opml_array['body'][] = feedsToOutlines($this->feeds, $this->excludeMutedFeeds);
 }
 
 echo libopml_render($opml_array);

@@ -1,7 +1,8 @@
 <?php
 
 # Do not modify this file, which defines default values,
-# but edit `./data/config.php` instead, after the install process is completed.
+# but instead edit `./data/config.php` after the install process is completed,
+# or edit `./data/config.custom.php` before the install process.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -30,7 +31,12 @@ return array(
 	# Meta description used when `allow_robots` is true.
 	'meta_description' => '',
 
-	# Name of the user that has administration rights.
+	# Override logo of this FreshRSS instance in the Web user interface.
+	# It is rendered inside an <a>...</a> element and must be valid HTML or text.
+	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
+	'logo_html' => '',
+
+	# Name of the default user. Also used as the public user for anonymous reading.
 	'default_user' => '_',
 
 	# Force users to validate their email address. If `true`, an email with a
@@ -104,7 +110,7 @@ return array(
 		'max_inactivity' => PHP_INT_MAX,
 
 		# Max number of feeds for a user.
-		'max_feeds' => 16384,
+		'max_feeds' => 131072,
 
 		# Max number of categories for a user.
 		'max_categories' => 16384,
@@ -189,4 +195,12 @@ return array(
 
 	# Disable self-update,
 	'disable_update' => false,
+
+	# Trusted IPs that are allowed to send unsafe headers
+	# Please read the documentation, before configuring this
+	# https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	'trusted_sources' => [
+		'127.0.0.0/8',
+		'::1/128',
+	]
 );

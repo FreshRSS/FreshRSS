@@ -189,6 +189,23 @@ class FreshRSS_ConfigurationSetter {
 		$data['display_categories'] = $value;
 	}
 
+	private function show_tags(&$data, $value) {
+		$data['show_tags'] = $value;
+	}
+
+	private function show_tags_max(&$data, $value) {
+		$value = intval($value);
+		$data['show_tags_max'] = $value >= 0 ? $value : 0;
+	}
+
+	private function _show_author_date(&$data, $value) {
+		$data['show_author_date'] = $value;
+	}
+
+	private function _show_feed_name(&$data, $value) {
+		$data['show_feed_name'] = $value;
+	}
+
 	private function _display_posts(&$data, $value) {
 		$data['display_posts'] = $this->handleBool($value);
 	}

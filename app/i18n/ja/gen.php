@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
 		'create' => '作成',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '寄付',
 		'disable' => '無効',
 		'empty' => '空',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '消去',
 		'rename' => 'リネーム',
 		'see_website' => 'webサイトを閲覧してください',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'ユーザー管理',
 		'user_profile' => 'プロフィール',
 	),
-	'pagination' => array(
-		'first' => '先頭',
-		'last' => '最後',
-		'load_more' => '記事をもっと読み込む',
-		'mark_all_read' => 'すべての記事を既読にする',
-		'next' => 'つぎへ',
-		'nothing_to_load' => 'これ以上の記事はありません',
-		'previous' => '前へ',
-	),
 	'period' => array(
 		'days' => '日',
 		'hours' => '時',
@@ -194,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -206,13 +201,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => '印刷',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '警告!',
@@ -226,5 +226,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'または',
 		'yes' => 'OK',
+	),
+	'stream' => array(
+		'load_more' => '記事をもっと読み込む',
+		'mark_all_read' => 'すべての記事を既読にする',
+		'nothing_to_load' => 'これ以上の記事はありません',
 	),
 );

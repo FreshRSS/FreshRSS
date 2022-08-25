@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Criar',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Despromover',
 		'disable' => 'Desabilitar',
 		'empty' => 'Vazio',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Carregar mais atalhos',
 		'manage' => 'Gerenciar',
 		'mark_read' => 'Marcar como lido',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promover',
 		'purge' => 'Limpar',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remover',
 		'rename' => 'Renomear',
 		'see_website' => 'Ver o site',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'Gerenciamento de usuários',
 		'user_profile' => 'Perfil',
 	),
-	'pagination' => array(
-		'first' => 'Primeiro',
-		'last' => 'Último',
-		'load_more' => 'Carregar mais artigos',
-		'mark_all_read' => 'Marcar todos como lidos',
-		'next' => 'Próximo',
-		'nothing_to_load' => 'Não há mais artigos',
-		'previous' => 'Anterior',
-	),
 	'period' => array(
 		'days' => 'dias',
 		'hours' => 'horas',
@@ -194,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites no Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Área de transferência',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -206,13 +201,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Atenção!',
@@ -226,5 +226,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'ou',
 		'yes' => 'Sim',
+	),
+	'stream' => array(
+		'load_more' => 'Carregar mais artigos',
+		'mark_all_read' => 'Marcar todos como lidos',
+		'nothing_to_load' => 'Não há mais artigos',
 	),
 );

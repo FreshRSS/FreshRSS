@@ -16,7 +16,19 @@ if (!validateOptions($argv, $params) || empty($options['user'])) {
 
 $username = cliInitUser($options['user']);
 
+Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
+
+$result = FreshRSS_category_Controller::refreshDynamicOpmls();
+if (!empty($result['errors'])) {
+	$errors = $result['errors'];
+	fwrite(STDERR, "FreshRSS error refreshing $errors dynamic OPMLs!\n");
+}
+if (!empty($result['successes'])) {
+	$successes = $result['successes'];
+	echo "FreshRSS refreshed $successes dynamic OPMLs for $username\n";
+}
 
 list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
 

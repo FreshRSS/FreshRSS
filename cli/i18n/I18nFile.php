@@ -54,16 +54,24 @@ class I18nFile {
 		$content = str_replace('<?php', '', $content);
 
 		$content = preg_replace([
-			"#',\s*//\s*TODO#i",
-			"#',\s*//\s*DIRTY#i",
-			"#',\s*//\s*IGNORE#i",
+			"#',\s*//\s*TODO.*#i",
+			"#',\s*//\s*DIRTY.*#i",
+			"#',\s*//\s*IGNORE.*#i",
 		], [
 			' -> todo\',',
 			' -> dirty\',',
 			' -> ignore\',',
 		], $content);
 
-		$content = eval($content);
+		try {
+			$content = eval($content);
+		} catch (ParseError $ex) {
+			if (defined('STDERR')) {
+				fwrite(STDERR, "Error while processing: $filename\n");
+				fwrite(STDERR, $ex);
+			}
+			die(1);
+		}
 
 		if (is_array($content)) {
 			return $content;

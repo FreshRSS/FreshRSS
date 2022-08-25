@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
 		'create' => 'יצירה',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
 		'disable' => 'Disable',	// TODO
 		'empty' => 'Empty',	// TODO
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',	// TODO
 		'rename' => 'Rename',	// TODO
 		'see_website' => 'ראו אתר',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'Manage users',	// TODO
 		'user_profile' => 'Profile',	// TODO
 	),
-	'pagination' => array(
-		'first' => 'הראשון',
-		'last' => 'אחרון',
-		'load_more' => 'טעינת מאמרים נוספים',
-		'mark_all_read' => 'סימון הכל כנקרא',
-		'next' => 'הבא',
-		'nothing_to_load' => 'אין מאמרים נוספים',
-		'previous' => 'הקודם',
-	),
 	'period' => array(
 		'days' => 'days',	// TODO
 		'hours' => 'hours',	// TODO
@@ -194,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -206,13 +201,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'הדפסה',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'זהירות!',
@@ -226,5 +226,10 @@ return array(
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',
+	),
+	'stream' => array(
+		'load_more' => 'טעינת מאמרים נוספים',
+		'mark_all_read' => 'סימון הכל כנקרא',
+		'nothing_to_load' => 'אין מאמרים נוספים',
 	),
 );

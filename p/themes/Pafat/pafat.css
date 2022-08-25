@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	color: #666;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -116,7 +115,6 @@ form th {
 .stick {
 	vertical-align: middle;
 	font-size: 0;
-	min-width: 215px;
 }
 
 .stick input,
@@ -204,6 +202,10 @@ a.btn {
 	background: #47a447;
 	border-color: #47a447;
 	box-shadow: none;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-attention {
@@ -347,7 +349,8 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #eee;
 	color: #666;
 }
@@ -355,11 +358,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #666;
-	text-decoration: none;
 }
 
 .dropdown-menu .input select,
@@ -417,31 +415,11 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fff;
-	text-align: center;
 	color: #41444f;
-	font-size: 0.8em;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
 }
 
 .pagination .item a {
-	display: block;
 	color: #41444f;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
-}
-
-.pagination .item a:hover {
-	background: #ddd;
 }
 
 .pagination:first-child .item {
@@ -450,12 +428,6 @@ a.btn {
 
 .pagination:last-child .item {
 	border-top: 1px solid #aaa;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -583,10 +555,6 @@ a.signin {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #fff;
 	border-right: 1px solid #aaa;
@@ -603,13 +571,25 @@ a.signin {
 
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	padding: 0px 5px;
-	font-size: 0.8rem;
+	margin: 0.5em 0 0 0;
+	background-color: white;
+	color: #428bca;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #5bc0de;
+	color: white;
+}
+
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	right: 5px;
+}
+
+.aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
+	background-color: transparent;
+	color: white;
 	border: 1px solid #fff;
-	border-radius: 3px;
-	position: absolute;
-	top: 0.25rem; right: 3px;
-	line-height: 1.5rem;
+	font-weight: bold;
 }
 
 .aside_feed .tree-folder.all .tree-folder-title {
@@ -665,6 +645,10 @@ a.signin {
 	background-color: #fff;
 }
 
+.aside_feed .tree-folder-title .dropdown-toggle .icon {
+	filter: brightness(3);
+}
+
 /*=== Configuration pages */
 .post {
 	padding: 10px 50px;
@@ -680,21 +664,6 @@ a.signin {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: .5rem;
-	padding-right: .5rem;
-	text-align: center;
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: left;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -710,20 +679,10 @@ a.signin {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt .btn.btn-important {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -731,10 +690,6 @@ a.signin {
 	background: #428bca;
 	text-align: center;
 	font-size: 0.9em;
-}
-
-#new-article:hover {
-	background: #3276b1;
 }
 
 #new-article > a {
@@ -745,6 +700,7 @@ a.signin {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #3276b1;
 }
 
 /*=== Day indication */
@@ -895,15 +851,12 @@ a.signin {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -1175,10 +1128,6 @@ a.signin {
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

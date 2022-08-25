@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
-				<input id="new-category" name="new-category" type="text" autocomplete="off"/>
+				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
 			</div>
 		</div>
 
@@ -34,7 +34,10 @@
 		<div class="form-group">
 			<label class="group-name" for="url_rss"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
-				<input id="url_rss" name="url_rss" type="url" required="required" autocomplete="off" class="long" autofocus="autofocus" />
+				<div class="stick">
+					<input id="url_rss" name="url_rss" type="url" required="required" autocomplete="off" class="long" autofocus="autofocus" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="url_rss" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+				</div>
 			</div>
 		</div>
 
@@ -42,14 +45,117 @@
 			<label class="group-name" for="category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
 				<select name="category" id="category">
-				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
+				<?php
+					foreach ($this->categories as $cat) {
+						if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) {
+							continue;
+						}
+				?>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == ( Minz_Request::param('cat_id') ?: 1 ) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
 				</select>
 			</div>
 		</div>
+
+		<details class="form-advanced">
+			<summary class="form-advanced-title">
+				<?= _t('sub.feed.kind') ?>
+			</summary>
+
+			<div class="form-group">
+				<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
+				<div class="group-controls">
+					<select name="feed_kind" id="feed_kind" class="select-show">
+						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+					</select>
+				</div>
+			</div>
+
+			<fieldset id="html_xpath">
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
+				<div class="form-group">
+					<label class="group-name" for="xPathFeedTitle"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.feed_title') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathFeedTitle" id="xPathFeedTitle" rows="2" cols="64" spellcheck="false">//title</textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.feed_title.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItem"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemTitle"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_title.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemContent"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_content.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemUri"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_uri') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_uri.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemThumbnail"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_thumbnail.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemAuthor"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemTimestamp"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemUid"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_uid') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemUid" id="xPathItemUid" rows="2" cols="64" spellcheck="false"></textarea>
+					</div>
+				</div>
+			</fieldset>
+		</details>
 
 		<details class="form-advanced">
 			<summary class="form-advanced-title">
@@ -70,6 +176,27 @@
 						<input id="http_pass" name="http_pass" type="password" value="" autocomplete="new-password" />
 						<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
 					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
+				<div class="group-controls">
+					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
+					<label for="curl_params_cookiefile">
+						<input type="checkbox" name="curl_params_cookiefile" id="curl_params_cookiefile" value="1" />
+						<?= _t('sub.feed.accept_cookies') ?>
+					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.accept_cookies_help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
+				<div class="group-controls">
+					<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="extend" min="-1" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 				</div>
 			</div>
 
@@ -117,6 +244,37 @@
 				</div>
 			</div>
 		</details>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+			</div>
+		</div>
+	</form>
+
+	<h2>
+		<?= _t('sub.title.add_dynamic_opml') ?>
+		<?= _i('opml-dyn') ?>
+	</h2>
+	<form action="<?= _url('category', 'create') ?>" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
+			<div class="group-controls">
+				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input id="opml_url" name="opml_url" type="url" required="required" autocomplete="off" class="long" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.category.dynamic_opml.help') ?></p>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

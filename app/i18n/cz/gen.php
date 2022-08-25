@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
 		'see_website' => 'Zobrazit webovou stránku',
@@ -176,15 +179,6 @@ return array(
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'První',
-		'last' => 'Poslední',
-		'load_more' => 'Načíst více článků',
-		'mark_all_read' => 'Označit vše jako přečtené',
-		'next' => 'Další',
-		'nothing_to_load' => 'Nejsou zde žádné další články',
-		'previous' => 'Předchozí',
-	),
 	'period' => array(
 		'days' => 'dní',
 		'hours' => 'hodin',
@@ -194,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Známé základní stránky',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -206,13 +201,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Tisknout',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'Wallabag v1',
-		'wallabagv2' => 'Wallabag v2',
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
@@ -226,5 +226,10 @@ return array(
 		'ok' => 'Dobře!',
 		'or' => 'nebo',
 		'yes' => 'Ano',
+	),
+	'stream' => array(
+		'load_more' => 'Načíst více článků',
+		'mark_all_read' => 'Označit vše jako přečtené',
+		'nothing_to_load' => 'Nejsou zde žádné další články',
 	),
 );
