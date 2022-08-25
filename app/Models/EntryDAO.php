@@ -991,7 +991,7 @@ SQL;
 			if ($filter->getNotSearch()) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND (NOT CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ?) ';
+						$sub_search .= 'AND (CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) NOT LIKE ?) ';
 						$values[] = "%{$search_value}%";
 					} else {
 						$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' . $alias . 'content NOT LIKE ? ';
