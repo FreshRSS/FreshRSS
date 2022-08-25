@@ -979,7 +979,8 @@ SQL;
 			if ($filter->getSearch()) {
 				foreach ($filter->getSearch() as $search_value) {
 					$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' .
-						(static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
+						(static::isCompressed() ? 'CONVERT(UNCOMPRESS(' . $alias . 'content_bin) USING utf8mb4) COLLATE utf8mb4_unicode_ci' :
+						'' . $alias . 'content') . ' LIKE ?) ';
 					$values[] = "%{$search_value}%";
 					$values[] = "%{$search_value}%";
 				}
@@ -987,7 +988,8 @@ SQL;
 			if ($filter->getNotSearch()) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' .
-						(static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' NOT LIKE ? ';
+						(static::isCompressed() ? 'CONVERT(UNCOMPRESS(' . $alias . 'content_bin) USING utf8mb4) COLLATE utf8mb4_unicode_ci' :
+						'' . $alias . 'content') . ' NOT LIKE ? ';
 					$values[] = "%{$search_value}%";
 					$values[] = "%{$search_value}%";
 				}
