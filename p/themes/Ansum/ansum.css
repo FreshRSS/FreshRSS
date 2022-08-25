@@ -508,8 +508,7 @@ form th {
 .stick input, .stick .btn {
 	border-radius: 0;
 }
-.stick .btn:first-child,
-.stick input:first-child {
+.stick .btn:first-child {
 	border-radius: 5px 0 0 5px;
 }
 .stick .btn:last-child, .stick input:last-child, .stick .btn + .dropdown > .btn {
@@ -827,9 +826,6 @@ main.prompt {
 }
 .nav_menu .btn:hover {
 	background-color: #f5f0ec;
-}
-.nav_menu .stick {
-	background: #fcfaf8;
 }
 .nav_menu .stick .btn {
 	border-left-width: 0;
