@@ -188,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sitios basados en conocidos',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Portapapeles',
 		'diaspora' => 'Diaspora*',	// IGNORE

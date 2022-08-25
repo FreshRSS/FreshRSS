@@ -188,6 +188,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',

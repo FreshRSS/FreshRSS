@@ -1294,6 +1294,7 @@ button.as-link {
 
 #nav_menu_actions ul.dropdown-menu {
 	right: 0;
+	left: auto;
 }
 
 #nav_menu_read_all ul.dropdown-menu {
