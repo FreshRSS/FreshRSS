@@ -178,7 +178,7 @@ input.extend {
 }
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: right;
+	text-align: left;
 }
 .form-group .group-controls {
 	min-height: 25px;
@@ -192,7 +192,7 @@ input.extend {
 	padding: 5px 0;
 }
 .form-group.form-actions .btn {
-	margin: 0 0.5rem 0 0;
+	margin: 0 0 0 0.5rem;
 }
 
 /*=== Tables */
@@ -227,7 +227,7 @@ form th {
 	vertical-align: middle;
 }
 .horizontal-list .item:first-child {
-	padding-left: 0.5rem;
+	padding-right: 0.5rem;
 }
 
 /*=== Dropdown */
@@ -239,16 +239,16 @@ form th {
 	border: none;
 	border-radius: 3px;
 	box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.35);
-	text-align: left;
+	text-align: right;
 }
 .dropdown-menu::after {
 	border: none;
-	right: 17px;
+	left: 17px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1rem 0.5rem 1rem 1rem;
+	margin: 1rem 1rem 1rem 0.5rem;
 	font-weight: bold;
-	text-align: left;
+	text-align: right;
 	color: #766556;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -274,7 +274,7 @@ form th {
 	filter: grayscale(100%) brightness(2.5);
 }
 .dropdown-menu .item[aria-checked=true] a::before {
-	margin: 0 0 0 -14px;
+	margin: 0 -14px 0 0;
 	font-weight: bold;
 }
 .dropdown-menu .input select, .dropdown-menu .input input {
@@ -370,7 +370,7 @@ form th {
 	border-radius: 2px 2px 0 0;
 }
 .box .box-content {
-	padding-left: 30px;
+	padding-right: 30px;
 }
 .box .box-content .item {
 	padding: 0.5rem 0;
@@ -383,7 +383,7 @@ form th {
 	border-bottom: none;
 }
 .box .configure {
-	margin-right: 0.5rem;
+	margin-left: 0.5rem;
 	padding: 0.25rem;
 	border-radius: 3px;
 }
@@ -431,11 +431,11 @@ form th {
 }
 
 .aside.aside_feed .nav-form .dropdown .dropdown-menu {
-	right: -20px;
+	left: -20px;
 }
 
 .aside.aside_feed .nav-form .dropdown .dropdown-menu::after {
-	right: 33px;
+	left: 33px;
 }
 
 /*=== Tree */
@@ -448,7 +448,7 @@ form th {
 }
 .tree .tree-folder {
 	border-bottom: 1px solid #f0e7da;
-	box-shadow: inset -1px -11px 8px #0003;
+	box-shadow: inset 1px -11px 8px #0003;
 }
 .tree .tree-folder .tree-folder-title {
 	padding: 12px 16px;
@@ -509,10 +509,10 @@ form th {
 	border-radius: 0;
 }
 .stick .btn:first-child {
-	border-radius: 5px 0 0 5px;
+	border-radius: 0 5px 5px 0;
 }
 .stick .btn:last-child, .stick input:last-child, .stick .btn + .dropdown > .btn {
-	border-radius: 0 5px 5px 0;
+	border-radius: 5px 0 0 5px;
 }
 .stick .btn + .btn,
 .stick .btn + input,
@@ -523,7 +523,7 @@ form th {
 .stick .dropdown + .btn,
 .stick .dropdown + input,
 .stick .dropdown + .dropdown > .btn {
-	border-left: 1px solid #e4d8cc;
+	border-right: 1px solid #e4d8cc;
 }
 
 .aside {
@@ -533,7 +533,7 @@ form th {
 	padding: 10px 0;
 	text-align: center;
 	background: #fbf9f6;
-	border-right: 1px solid #f0e7da;
+	border-left: 1px solid #f0e7da;
 }
 .aside.aside_feed .tree {
 	margin: 10px 0 50px;
@@ -609,7 +609,7 @@ form th {
 }
 .nav-list .nav-head {
 	margin: 0;
-	text-align: right;
+	text-align: left;
 	color: #fff;
 }
 .nav-list .nav-head a {
@@ -662,7 +662,7 @@ form th {
 }
 
 .aside_feed .tree-folder-items .dropdown-menu::after {
-	left: 2px;
+	right: 2px;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
@@ -672,7 +672,7 @@ form th {
 }
 
 .aside_feed .stick #btn-add {
-	border-left-color: #fbf9f6;
+	border-right-color: #fbf9f6;
 }
 
 /*=== STRUCTURE */
@@ -701,7 +701,7 @@ form th {
 	width: 230px;
 	color: #363330;
 	border: none;
-	border-radius: 2px 0 0 2px;
+	border-radius: 0 2px 2px 0;
 	background-color: #f7f2ea;
 	transition: all 0.15s ease-in-out;
 }
@@ -723,9 +723,9 @@ form th {
 }
 .header .item.search .btn {
 	width: 3rem;
-	border-radius: 0 2px 2px 0;
+	border-radius: 2px 0 0 2px;
 	background-color: #f7f2ea;
-	border-left-width: 0;
+	border-right-width: 0;
 	min-height: 35px;
 }
 .header .item.search .btn .icon {
@@ -740,7 +740,7 @@ form th {
 .header .item.configure {
 	width: 3rem;
 	position: absolute;
-	right: 1rem;
+	left: 1rem;
 	top: 1rem;
 	text-align: center;
 }
@@ -780,7 +780,7 @@ main.prompt {
 
 /*=== Day indication */
 .day {
-	padding: 1rem 0 0 1.25rem;
+	padding: 1rem 1.25rem 0 0;
 	color: #6d655f;
 	font-size: 0.875rem;
 	font-weight: 700;
@@ -793,12 +793,12 @@ main.prompt {
 	color: #363330;
 	font-size: 0.875rem;
 	position: relative;
-	left: 0;
+	right: 0;
 	text-transform: uppercase;
 }
 
 .btn {
-	border-left-width: 0;
+	border-right-width: 0;
 	padding: 0.5rem 1rem;
 	background-color: #f5f0ec;
 	background-position: center;
@@ -818,7 +818,7 @@ main.prompt {
 	padding: 5px 0;
 }
 .nav_menu .btn {
-	border-left-width: 0;
+	border-right-width: 0;
 	padding: 0.5rem 1rem;
 	background-color: #fcfaf8;
 	background-position: center;
@@ -828,7 +828,7 @@ main.prompt {
 	background-color: #e4d8cc;
 }
 .nav_menu .stick .btn {
-	border-left-width: 0;
+	border-right-width: 0;
 	padding: 0.5rem 1rem;
 	background-color: #fcfaf8;
 	background-position: center;
@@ -854,7 +854,7 @@ main.prompt {
 	background-color: #e4d8cc;
 }
 .nav_menu .stick .dropdown a.dropdown-toggle {
-	border-left-width: 0;
+	border-right-width: 0;
 	background-image: url(icons/more.svg);
 }
 .nav_menu .stick .dropdown a.dropdown-toggle .icon {
@@ -941,8 +941,8 @@ main.prompt {
 	position: fixed;
 	top: auto;
 	bottom: 0;
-	left: 0;
 	right: 0;
+	left: 0;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -963,7 +963,7 @@ main.prompt {
 }
 .notification a.close {
 	padding: 0 15px;
-	border-radius: 0 3px 3px 0;
+	border-radius: 3px 0 0 3px;
 	line-height: 3em;
 }
 .notification.good a.close:hover {
@@ -1001,7 +1001,7 @@ main.prompt {
 }
 .flux.current {
 	background: #fff;
-	border-left-color: #ca7227;
+	border-right-color: #ca7227;
 }
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
@@ -1019,7 +1019,7 @@ main.prompt {
 	color: rgba(22, 26, 56, 0.5);
 }
 .flux.favorite {
-	border-left-color: #ffc300;
+	border-right-color: #ffc300;
 	transition: all 0.15s ease-in-out;
 }
 .flux.favorite:not(.current) {
@@ -1067,18 +1067,18 @@ main.prompt {
 	font-size: 1rem;
 	font-weight: normal;
 	text-decoration: none;
-	text-align: left;
+	text-align: right;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 }
 #stream .box.category .box-title a.title:not([data-unread="0"])::after {
-	margin: -0.5rem 1rem 0 0;
+	margin: -0.5rem 0 0 1rem;
 	padding: 0 0.75rem;
 	background: #f5f0ec;
 	border-radius: 12px;
 	position: absolute;
 	top: 1.75rem;
-	right: 0;
+	left: 0;
 	line-height: 1.5rem;
 	text-align: center;
 }
@@ -1107,9 +1107,9 @@ main.prompt {
 
 #panel {
 	top: 3rem;
-	right: 3rem;
-	bottom: 3rem;
 	left: 3rem;
+	bottom: 3rem;
+	right: 3rem;
 	border-radius: 3px;
 }
 
@@ -1172,7 +1172,7 @@ main.prompt {
 }
 
 #slider {
-	border-left: none;
+	border-right: none;
 	box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.35);
 }
 
@@ -1183,7 +1183,7 @@ main.prompt {
 	border: 0;
 }
 .slide-container .properties .page-number {
-	right: 1rem;
+	left: 1rem;
 	top: 1rem;
 }
 
@@ -1204,7 +1204,7 @@ main.prompt {
 }
 
 .log > .date {
-	margin: 0 10px 0 0;
+	margin: 0 0 0 10px;
 	padding: 5px 10px;
 	border-radius: 20px;
 }
@@ -1262,7 +1262,7 @@ main.prompt {
 /*===========*/
 @media (max-width: 840px) {
 	.form-group .group-name {
-		text-align: left;
+		text-align: right;
 	}
 
 	.aside {
@@ -1323,8 +1323,8 @@ main.prompt {
 	}
 
 	.post {
-		padding-left: 1rem;
 		padding-right: 1rem;
+		padding-left: 1rem;
 	}
 
 	.nav_menu .btn {
@@ -1360,8 +1360,8 @@ main.prompt {
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		background-color: #fcfaf8;
 		border-top: 1px solid #f5f0ec;
-		border-left: 1px solid #f5f0ec;
-		right: 21px;
+		border-right: 1px solid #f5f0ec;
+		left: 21px;
 		bottom: -14px;
 	}
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
@@ -1393,7 +1393,7 @@ main.prompt {
 	.notification a.close {
 		background: transparent;
 		display: block;
-		left: 0;
+		right: 0;
 	}
 	.notification a.close:hover {
 		opacity: 0.5;
