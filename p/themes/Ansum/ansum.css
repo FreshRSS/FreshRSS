@@ -739,14 +739,14 @@ form th {
 	filter: brightness(3);
 }
 .header .item.configure {
-	width: 2rem;
+	width: 3rem;
 	position: absolute;
 	right: 1rem;
-	top: 1.25rem;
+	top: 1rem;
 	text-align: center;
 }
 .header .item.configure .btn {
-	padding: 0 0.5rem;
+	padding: 0.25rem 1rem;
 	background-color: transparent;
 }
 
