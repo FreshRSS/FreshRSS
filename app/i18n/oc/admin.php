@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => 'Nombre max de comptes',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Formulari d’inscripcion',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Desactivat : cap de formulari d’inscripcion',
+					'nolimit' => 'Activat : cap de limit de comptes',
+					'setaccountsnumber' => 'Definir le numbre max. de comptes',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Formulari desactivat',
+				'enabled' => 'Formulari activat',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Formulari d’inscripcion utilizaire',
 		),
 	),
 	'update' => array(
