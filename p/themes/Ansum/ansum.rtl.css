@@ -1144,10 +1144,13 @@ main.prompt {
 }
 .post h1, .post h2 {
 	color: #363330;
-	font-size: 3rem;
+	font-size: 2rem;
 	margin-top: 1.75rem;
 	font-weight: 300;
 	line-height: 1.2em;
+}
+.post h2 {
+	font-size: 1.5rem;
 }
 .post a[href="./"] {
 	margin: 0;
