@@ -273,6 +273,14 @@ form th {
 	background: #f95c20 !important;
 }
 
+.manage-list .configure .icon {
+	filter: brightness(0.4);
+	vertical-align: sub;
+}
+.manage-list .configure:hover {
+	filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+}
+
 .switch.active {
 	background-color: #0062be;
 }
