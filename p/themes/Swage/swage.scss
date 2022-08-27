@@ -680,7 +680,7 @@ form {
 			.configure {
 				.icon {
 					vertical-align: middle;
-					filter: invert(1);
+					filter: brightness(0.4);
 
 					&:hover {
 						filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
