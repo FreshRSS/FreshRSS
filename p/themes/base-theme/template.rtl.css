@@ -229,6 +229,15 @@ input[type="checkbox"] {
 	box-sizing: border-box;
 }
 
+input:disabled, 
+select:disabled {
+	background-color: transparent;
+	min-width: 75px;
+	color: lightgray;
+	font-style: italic;
+	border: 1px dashed lightgray;
+}
+
 .dropdown-menu label > input[type="text"] {
 	width: 150px;
 	width: calc(99% - 5em);
