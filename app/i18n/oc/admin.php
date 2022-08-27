@@ -174,7 +174,7 @@ return array(
 				'option' => array(
 					'noform' => 'Desactivat : cap de formulari d’inscripcion',
 					'nolimit' => 'Activat : cap de limit de comptes',
-					'setaccountsnumber' => 'Definir le numbre max. de comptes',
+					'setaccountsnumber' => 'Definir lo numbre max. de comptes',
 				),
 			),
 			'status' => array(
