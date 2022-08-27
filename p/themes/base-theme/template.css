@@ -229,7 +229,7 @@ input[type="checkbox"] {
 	box-sizing: border-box;
 }
 
-input:disabled, 
+input:disabled,
 select:disabled {
 	background-color: transparent;
 	min-width: 75px;
