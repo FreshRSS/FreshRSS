@@ -78,7 +78,7 @@ return array(
 				'_' => 'HTML + XPath (Web scraping)',
 				'feed_title' => array(
 					'_' => 'títol del flux',
-					'help' => 'Exemple : <code>//títol</code> o una cadena de tèxt estatica : <code>"Mon flux personalizat"</code>',
+					'help' => 'Exemple : <code>//title</code> o una cadena de tèxt estatica : <code>"Mon flux personalizat"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> es un lengatge de requèsta estandard pels utilizaires avançats, e que FreshRSS prend en carga pel Web scraping.',
 				'item' => array(
