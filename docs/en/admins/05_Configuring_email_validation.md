@@ -32,6 +32,21 @@ If you’re not sure to what each item is corresponding, you may find useful [th
 PHPMailer documentation](http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties)
 (which is used by FreshRSS under the hood).
 
+### Example code to configure SMTP server
+
+    'mailer' => 'smtp', // instead of 'mail'
+    'smtp' => array(
+        'hostname' => 'a.com',
+        'host' => 'smtp.b.com', // URL to your smtp server
+        'port' => 465,
+        'auth' => true,
+        'auth_type' => '',
+        'username' => 'alice', // or maybe alice@a.com
+        'password' => 'yoursecretpassword',
+        'secure' => 'ssl', // '', 'ssl' or 'tls'
+        'from' => 'alice@a.com',
+    ),
+
 ## Check your SMTP server is correctly configured
 
 To do so, once you’ve enabled the `force_email_validation` option, you only
