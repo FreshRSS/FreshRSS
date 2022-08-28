@@ -75,7 +75,7 @@ return array(
 		'kind' => array(
 			'_' => 'Tipe de font de flux',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)', // IGNORE
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'títol del flux',
 					'help' => 'Exemple : <code>//title</code> o una cadena de tèxt estatica : <code>"Mon flux personalizat"</code>',
