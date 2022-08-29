@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Nivèl de log',
+			'message' => 'Messatge de log',
+			'timestamp' => 'Orodatatge',
 		),
 		'pagination' => array(
 			'first' => 'Debuta',
@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autors e data',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Al dessús títol/etiquetas',
+				'none' => 'Cap',
+				'with_authors' => 'Dins la linha autors e data',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Títol del flux',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Etiquetas',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Nombre max d’etiquetas afichadas',
+				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
 			),
 		),
 		'articles_per_page' => 'Nombre d’articles per pagina',
@@ -170,12 +170,12 @@ return array(
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
 		'display_categories_unfolded' => 'Categorias a desplegar',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Articles : Dobrir/Tampar',
+			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
+			'categories' => 'Navegacion esquèrra : categorias',
+			'mark_as_read' => 'Marcar los articles coma legits',
+			'misc' => 'Divèrs',
+			'view' => 'Vista',
 		),
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
@@ -186,8 +186,8 @@ return array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
-			'scroll' => 'en davalar la pagina',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'scroll' => 'en davalant la pagina',
+			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
 			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
@@ -222,7 +222,7 @@ return array(
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Aqueste servici es obsolèt e serà tirat de la <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dobrir la documentacion per mai d’informacions" target="_blank">futura version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',	// IGNORE
