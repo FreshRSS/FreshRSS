@@ -49,7 +49,8 @@ option {
 }
 
 input:disabled, select:disabled {
-	background: #eee;
+	color: #666;
+	border-color: #666;
 }
 
 input.extend {

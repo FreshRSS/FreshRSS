@@ -61,6 +61,8 @@ input:invalid, select:invalid {
 
 input:disabled, select:disabled {
 	background: #eee;
+	border-style: solid;
+	border-color: #ccc;
 }
 
 input.extend {
