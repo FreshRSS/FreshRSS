@@ -4,6 +4,8 @@ This tutorial demonstrates commands for updating FreshRSS. It assumes that your 
 
 **Note that FreshRSS contains a built-in update system.** It’s easier to use if you don’t understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
 
+Please read the general advices from “[Backing Up and Updating FreshRSS](04_Updating.md)” before applying any command from this guide.
+
 ## Pausing automatic feed updates
 
 If [Automatic Feed Updating](08_FeedUpdates.md) has been configured, temporarily suspend the automatic feed updates during the upgrade process.
@@ -92,7 +94,7 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 	chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
 	```
 
-6. Clean up the FreshRSS directory by deleting the downloaded zip, the file forcing the setup wizard and the temporary directory
+6. Clean up the FreshRSS directory by deleting the downloaded zip and the temporary directory
 	```sh
 	rm -f freshrss.zip
 	rm -rf FreshRSS-*/
