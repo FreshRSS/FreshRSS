@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Wróć do subskrybowanych kanałów RSS',
 		'cancel' => 'Anuluj',
 		'create' => 'Stwórz',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Usuń wyciszone kanały',
 		'demote' => 'Zdegraduj',
 		'disable' => 'Wyłącz',
 		'empty' => 'Opróżnij',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Ustaw domyślne skróty',
 		'manage' => 'Ustawienia',
 		'mark_read' => 'Oznacz jako przeczytane',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'Otwórz adres',
 		'promote' => 'Awansuj',
 		'purge' => 'Oczyść',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Odśwież OPML',
 		'remove' => 'Usuń',
 		'rename' => 'Zmień nazwę',
 		'see_website' => 'Przejdź na stronę',
@@ -210,7 +210,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Udostępnianie natywne',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

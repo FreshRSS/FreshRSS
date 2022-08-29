@@ -229,6 +229,15 @@ input[type="checkbox"] {
 	box-sizing: border-box;
 }
 
+input:disabled,
+select:disabled {
+	background-color: transparent;
+	min-width: 75px;
+	color: lightgray;
+	font-style: italic;
+	border: 1px dashed lightgray;
+}
+
 .dropdown-menu label > input[type="text"] {
 	width: 150px;
 	width: calc(99% - 5em);
@@ -295,13 +304,8 @@ td.numeric {
 	display: none !important;
 }
 
-/* login and register form */
+/* prompt: login + register form + alert message banner */
 .prompt {
-	margin: 3rem auto;
-	padding: 2rem;
-	max-width: 400px;
-	min-width: 300px;
-	width: 33%;
 	text-align: center;
 }
 

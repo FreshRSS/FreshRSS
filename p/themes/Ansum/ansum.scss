@@ -40,6 +40,11 @@ html, body {
 	font-size: 0.875rem;
 }
 
+body.formLogin,
+body.register {
+	background: variables.$sid-bg;
+}
+
 /*=== Links */
 a, button.as-link {
 	outline: none;

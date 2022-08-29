@@ -74,6 +74,11 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+input:disabled, select:disabled {
+	color: #aaa;
+	border-color: var(--border);
+}
+
 button {
 	font-family: var(--sans-font);
 }
