@@ -160,8 +160,7 @@ class SimplePie_Item
 	 */
 	public function get_base($element = array())
 	{
-		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
-		{
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
 			return $element['xml_base'];
 		}
 		$link = $this->get_permalink();
