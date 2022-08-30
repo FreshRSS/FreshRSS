@@ -163,7 +163,7 @@ class FreshRSS_Context {
 		// Update number of read / unread variables.
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		self::$total_starred = $entryDAO->countUnreadReadFavorites();
-		self::$total_unread = FreshRSS_CategoryDAO::CountUnreads(
+		self::$total_unread = FreshRSS_CategoryDAO::countUnread(
 			self::$categories, 1
 		);
 
