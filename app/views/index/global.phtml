@@ -3,10 +3,13 @@
 	$this->partial('nav_menu');
 
 	$class = '';
+	$state_unread = false;
+
 	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
 			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 		$class = ' state_unread';
+		$state_unread = true;
 	}
 ?>
 
@@ -54,7 +57,7 @@
 		}
 	}
 
-	if ($unreadArticles < 1) {
+	if ($unreadArticles < 1 && $state_unread == true) {
 		?>
 	<div id="noArticlesToShow" class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
