@@ -604,7 +604,8 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside.aside_feed .category .title:not([data-unread="0"])::after {
+.aside.aside_feed .category .title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
 	background-color: #f6f6f6;
 	color: #444;
 }

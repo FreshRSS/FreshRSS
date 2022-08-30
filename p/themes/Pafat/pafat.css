@@ -570,7 +570,8 @@ a.signin {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
+.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
 	margin: 0.5em 0 0 0;
 	background-color: white;
 	color: #428bca;

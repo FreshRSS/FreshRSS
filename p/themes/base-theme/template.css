@@ -1712,8 +1712,8 @@ input:checked + .slide-container .properties {
 	color: white;
 }
 
-.category .title:not([data-unread="0"])::after,
-.feed .item-title:not([data-unread="0"])::after {
+.aside .category .title:not([data-unread="0"])::after,
+.aside .feed .item-title:not([data-unread="0"])::after {
 	margin: 0.75em 0 0 0;
 	padding: 5px 10px;
 	min-width: 20px;
@@ -1724,6 +1724,22 @@ input:checked + .slide-container .properties {
 	right: 10px;
 	text-align: center;
 	font-size: 0.9em;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
+.global .box.category .title:not([data-unread="0"])::after {
+	margin: 0.5rem 0 0 0;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-unread);
+	position: absolute;
+	top: 0;
+	right: 10px;
+	text-align: center;
+	font-size: 0.75rem;
 	border-radius: 12px;
 	line-height: 1;
 	font-weight: initial;
