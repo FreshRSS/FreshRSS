@@ -71,6 +71,7 @@ return array(
 			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'information' => 'Informacions',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Nombre minimum d’articles de servar',
 		'kind' => array(
 			'_' => 'Tipe de font de flux',

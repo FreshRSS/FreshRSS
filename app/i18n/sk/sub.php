@@ -71,6 +71,7 @@ return array(
 			'help' => 'Napíšte jeden výraz hľadania na riadok.',
 		),
 		'information' => 'Informácia',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
 			'_' => 'Typ zdroja kanála',

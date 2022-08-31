@@ -71,6 +71,7 @@ return array(
 			'help' => 'Zapište jeden filtr hledání na řádek.',
 		),
 		'information' => 'Informace',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => array(
 			'_' => 'Type of feed source',	// TODO

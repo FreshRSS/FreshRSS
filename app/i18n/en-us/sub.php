@@ -71,6 +71,7 @@ return array(
 			'help' => 'Write one search filter per line.',	// IGNORE
 		),
 		'information' => 'Information',	// IGNORE
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
 		'kind' => array(
 			'_' => 'Type of feed source',	// IGNORE

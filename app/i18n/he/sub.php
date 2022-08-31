@@ -71,6 +71,7 @@ return array(
 			'help' => 'Write one search filter per line.',	// TODO
 		),
 		'information' => 'מידע',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'kind' => array(
 			'_' => 'Type of feed source',	// TODO

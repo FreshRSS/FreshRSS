@@ -71,6 +71,7 @@ return array(
 			'help' => 'Escribir un filtro de búsqueda por línea.',
 		),
 		'information' => 'Información',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
 			'_' => 'Type of feed source',	// TODO

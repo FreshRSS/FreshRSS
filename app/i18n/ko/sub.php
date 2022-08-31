@@ -71,6 +71,7 @@ return array(
 			'help' => '한 줄에 한 검색 필터를 작성해 주세요.',
 		),
 		'information' => '정보',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(
 			'_' => '피드 소스 유형',

@@ -71,6 +71,7 @@ return array(
 			'help' => '1行に1つの検索フィルターを設定してください',
 		),
 		'information' => 'インフォメーション',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
 			'_' => 'Type of feed source',	// TODO

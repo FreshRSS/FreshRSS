@@ -611,6 +611,17 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="ipresolve"><?= _t('sub.feed.ipresolve') ?></label>
+			<div class="group-controls">
+				<select name="ipresolve" id="ipresolve" class="w50">
+					<option value=""<?= $this->feed->attributes('ipresolve') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('ipresolve') === false ? ' selected="selected"' : '' ?>>IPv4</option>
+					<option value="1"<?= $this->feed->attributes('ipresolve') === true ? ' selected="selected"' : '' ?>>IPv6</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="clear_cache">
 					<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributes('clear_cache') ? ' checked="checked"' : '' ?> />
