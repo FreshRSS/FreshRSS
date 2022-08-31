@@ -30,7 +30,7 @@ return array(
 		),
 		'empty' => '빈 카테고리',
 		'information' => '정보',
-		'opml_url' => 'OPML URL',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
 		'title' => '제목',
