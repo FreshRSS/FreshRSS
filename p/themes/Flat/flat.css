@@ -632,6 +632,13 @@ a.btn {
 	background-color: #34495e;
 }
 
+.aside .about {
+	margin: 1rem;
+	display: block;
+	color: #ecf0f1;
+	font-style: italic;
+}
+
 /*=== Aside main page (feeds) */
 .feed.item.empty.active {
 	background: #f39c12;
