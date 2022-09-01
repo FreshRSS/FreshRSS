@@ -1,6 +1,6 @@
 # FreshRSS changelog
 
-## 2022-0X-XX FreshRSS 1.20.0-dev
+## 2022-09-XX FreshRSS 1.20.0-dev
 
 * Features
 	* New Web scraping feature *HTML+XPath* for Web pages without any RSS/ATOM feed [#4220](https://github.com/FreshRSS/FreshRSS/pull/4220)
@@ -71,11 +71,14 @@
 	[#4383](https://github.com/FreshRSS/FreshRSS/pull/4383), [#4452](https://github.com/FreshRSS/FreshRSS/pull/4452), [#4455](https://github.com/FreshRSS/FreshRSS/pull/4455),
 	[#4466](https://github.com/FreshRSS/FreshRSS/pull/4466), [#4471](https://github.com/FreshRSS/FreshRSS/pull/4471), [#4472](https://github.com/FreshRSS/FreshRSS/pull/4472),
 	[#4474](https://github.com/FreshRSS/FreshRSS/pull/4474), [#4498](https://github.com/FreshRSS/FreshRSS/pull/4498), [#4502](https://github.com/FreshRSS/FreshRSS/pull/4502),
-	[#4504](https://github.com/FreshRSS/FreshRSS/pull/4504)
+	[#4504](https://github.com/FreshRSS/FreshRSS/pull/4504), [#4558](https://github.com/FreshRSS/FreshRSS/pull/4558), [#4546](https://github.com/FreshRSS/FreshRSS/pull/4546),
+	[#4541](https://github.com/FreshRSS/FreshRSS/pull/4541)
 * Themes
 	* New theme *Dark pink* [#4311](https://github.com/FreshRSS/FreshRSS/pull/4311)
 	* New theme *Nord* [#4400](https://github.com/FreshRSS/FreshRSS/pull/4400)
-	* Improve themes *Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491); *Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512)
+	* Improve themes *Ansum* [#4538](https://github.com/FreshRSS/FreshRSS/pull/4538), [#4549](https://github.com/FreshRSS/FreshRSS/pull/4549);
+	*Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491), [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491);
+	*Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512)
 * Extensions
 	* Allow extensions using `entry_before_insert` to change `entry->isRead()` [#4331](https://github.com/FreshRSS/FreshRSS/pull/4331)
 * i18n
@@ -84,6 +87,8 @@
 	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509)
 	* Improve English [#4450](https://github.com/FreshRSS/FreshRSS/pull/4450)
 	* Improve German [#4525](https://github.com/FreshRSS/FreshRSS/pull/4525)
+	* Improve Korean [#4572](https://github.com/FreshRSS/FreshRSS/pull/4572)
+	* Improve Occitan [#4548](https://github.com/FreshRSS/FreshRSS/pull/4548)
 	* Improve Polish [#4363](https://github.com/FreshRSS/FreshRSS/pull/4363)
 	* Improve Russian [#4385](https://github.com/FreshRSS/FreshRSS/pull/4385)
 	* Improve Slovak [#4524](https://github.com/FreshRSS/FreshRSS/pull/4524)
@@ -111,9 +116,11 @@
 	* Use `.gitattributes` `export-ignore` [#4415](https://github.com/FreshRSS/FreshRSS/pull/4415)
 	* Remove HTTP Referer for HTML download [#4372](https://github.com/FreshRSS/FreshRSS/pull/4372)
 	* Add database field `attributes` (JSON) for entries [#4444](https://github.com/FreshRSS/FreshRSS/pull/4444)
+	* Add [`archive.today`](https://archive.ph/) as sharing service [#4530](https://github.com/FreshRSS/FreshRSS/pull/4530)
 	* Improve dev automated checks [#4209](https://github.com/FreshRSS/FreshRSS/pull/4209)
 	* Update dev dependencies [#4173](https://github.com/FreshRSS/FreshRSS/pull/4173), [#4203](https://github.com/FreshRSS/FreshRSS/pull/4203), [#4241](https://github.com/FreshRSS/FreshRSS/pull/4241),
 	[#4419](https://github.com/FreshRSS/FreshRSS/pull/4419), [#4424](https://github.com/FreshRSS/FreshRSS/pull/4424)
+	* Fix extension list warning when offline[#4571](https://github.com/FreshRSS/FreshRSS/pull/4571)
 	* Code improvements [#4130](https://github.com/FreshRSS/FreshRSS/pull/4130), [#4194](https://github.com/FreshRSS/FreshRSS/pull/4194), [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201),
 	[#4202](https://github.com/FreshRSS/FreshRSS/pull/4202), [#4258](https://github.com/FreshRSS/FreshRSS/pull/4258), [#4263](https://github.com/FreshRSS/FreshRSS/pull/4263),
 	[#4356](https://github.com/FreshRSS/FreshRSS/pull/4356), [#4436](https://github.com/FreshRSS/FreshRSS/pull/4436), [#4489](https://github.com/FreshRSS/FreshRSS/pull/4489),
