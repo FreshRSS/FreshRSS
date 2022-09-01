@@ -214,12 +214,6 @@ textarea:invalid {
 	border: 2px dashed red;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-	width: 15px !important;
-	min-height: 15px !important;
-}
-
 .prompt textarea,
 .prompt input,
 .prompt select,
@@ -236,6 +230,13 @@ select:disabled {
 	color: lightgray;
 	font-style: italic;
 	border: 1px dashed lightgray;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+	min-width: auto;
+	width: 15px !important;
+	min-height: 15px !important;
 }
 
 .dropdown-menu label > input[type="text"] {
