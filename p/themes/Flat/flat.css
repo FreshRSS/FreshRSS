@@ -384,6 +384,11 @@ a.btn {
 	color: #fff;
 }
 
+.dropdown-menu > .item a:hover .icon,
+.nav-list.aside .item a:hover .icon {
+	filter: brightness(3);
+}
+
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
