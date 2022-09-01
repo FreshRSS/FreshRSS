@@ -619,6 +619,10 @@ a.btn {
 	margin: 10px 0 50px;
 }
 
+.aside.aside_feed .icon {
+	filter: brightness(3);
+}
+
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
 	background-color: #2c3e50;
