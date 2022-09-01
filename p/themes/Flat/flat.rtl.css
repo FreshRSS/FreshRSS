@@ -757,7 +757,7 @@ a.btn {
 }
 
 .dropdown-menu .dropdown-header a:hover .icon {
-	filter: invert(0.6) invert(77%) sepia(63%) saturate(4993%) hue-rotate(177deg) brightness(88%) contrast(96%);;
+	filter: invert(0.6) invert(77%) sepia(63%) saturate(4993%) hue-rotate(177deg) brightness(88%) contrast(96%);
 }
 
 /*=== Feed articles */
