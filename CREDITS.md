@@ -111,6 +111,7 @@ People are sorted by name so please keep this order.
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
+* [miles](https://github.com/miles170): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miles170)
 * [Nainor](https://github.com/Nainor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Nainor)
 * [nanhualyq](https://github.com/nanhualyq): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nanhualyq)
 * [Natalie Stroud](https://github.com/natastro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:natastro)
