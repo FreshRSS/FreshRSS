@@ -156,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
+		'zh-tw' => '正體中文',
 	),
 	'menu' => array(
 		'about' => 'About',
