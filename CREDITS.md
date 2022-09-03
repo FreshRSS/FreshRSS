@@ -109,6 +109,7 @@ People are sorted by name so please keep this order.
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](http://x2a.yt/)
 * [Miika Launiainen](https://gitlab.com/miicat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miicat), [Web](https://miicat.eu/)
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
+* [miles](https://github.com/miles170): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miles170)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
 * [Nainor](https://github.com/Nainor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Nainor)
