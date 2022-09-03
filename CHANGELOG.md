@@ -24,17 +24,18 @@
 	* Easier definition of default user queries for new users in `data/config-user.custom.php` [#4360](https://github.com/FreshRSS/FreshRSS/pull/4360)
 	* New sharing through standard [Web Share API](https://www.w3.org/TR/web-share/) [#4271](https://github.com/FreshRSS/FreshRSS/pull/4271)
 	* New sharing with Xing, Reddit, Pinterest, WhatsApp [#4270](https://github.com/FreshRSS/FreshRSS/pull/4270)
+	* New sharing with [`archive.today`](https://archive.ph/) [#4530](https://github.com/FreshRSS/FreshRSS/pull/4530)
 * SimplePie
 	* New method `rename_attribute()` instead of removing attributes to better be able to style/hide content of articles [#4175](https://github.com/FreshRSS/FreshRSS/pull/4175),
 	[simplepie#717](https://github.com/simplepie/simplepie/pull/717)
 	* Fix parsing of HTTP Links [simplepie#729](https://github.com/simplepie/simplepie/pull/729)
 	* Fix `status_code` type for PHP 8.1+ [simplepie#728](https://github.com/simplepie/simplepie/pull/728)
 * Bug fixing
+	* Fix last update & archive logic (especially for very long feeds, for which some old items were marked as unread) [#4422](https://github.com/FreshRSS/FreshRSS/pull/4422)
 	* Fix regression with Fever API on 32-bit platforms [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201)
 	* Fix read-when-same-title bug [#4206](https://github.com/FreshRSS/FreshRSS/pull/4206)
 	* Fix some search expressions such as `"ab cd"` and `ab-cd` [#4277](https://github.com/FreshRSS/FreshRSS/pull/4277)
 	* WebSub: Use hash instead of base64 to handle long URLs [#4282](https://github.com/FreshRSS/FreshRSS/pull/4282)
-	* Fix last update & archive logic [#4422](https://github.com/FreshRSS/FreshRSS/pull/4422)
 	* Fix handling of authors with ampersand `&` [#4287](https://github.com/FreshRSS/FreshRSS/pull/4287)
 	* Fix lazy loading images containing a quote `'` in the address [#4330](https://github.com/FreshRSS/FreshRSS/pull/4330)
 	* Fix database size calculation for PostgreSQL [#4249](https://github.com/FreshRSS/FreshRSS/pull/4249)
@@ -77,6 +78,7 @@
 	* New theme *Dark pink* [#4311](https://github.com/FreshRSS/FreshRSS/pull/4311)
 	* New theme *Nord* [#4400](https://github.com/FreshRSS/FreshRSS/pull/4400)
 	* Improve themes *Ansum* [#4538](https://github.com/FreshRSS/FreshRSS/pull/4538), [#4549](https://github.com/FreshRSS/FreshRSS/pull/4549);
+	*Flat* [#4575](https://github.com/FreshRSS/FreshRSS/pull/4575);
 	*Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491), [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491);
 	*Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512)
 * Extensions
@@ -84,7 +86,7 @@
 * i18n
 	* Improve i18n CLI [#4197](https://github.com/FreshRSS/FreshRSS/pull/4197), [#4199](https://github.com/FreshRSS/FreshRSS/pull/4199)
 	* Improve Chinese [#4332](https://github.com/FreshRSS/FreshRSS/pull/4332), [#4337](https://github.com/FreshRSS/FreshRSS/pull/4337), [#4379](https://github.com/FreshRSS/FreshRSS/pull/4379),
-	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509)
+	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509), [#4577](https://github.com/FreshRSS/FreshRSS/pull/4577)
 	* Improve English [#4450](https://github.com/FreshRSS/FreshRSS/pull/4450)
 	* Improve German [#4525](https://github.com/FreshRSS/FreshRSS/pull/4525)
 	* Improve Korean [#4572](https://github.com/FreshRSS/FreshRSS/pull/4572)
@@ -116,7 +118,6 @@
 	* Use `.gitattributes` `export-ignore` [#4415](https://github.com/FreshRSS/FreshRSS/pull/4415)
 	* Remove HTTP Referer for HTML download [#4372](https://github.com/FreshRSS/FreshRSS/pull/4372)
 	* Add database field `attributes` (JSON) for entries [#4444](https://github.com/FreshRSS/FreshRSS/pull/4444)
-	* Add [`archive.today`](https://archive.ph/) as sharing service [#4530](https://github.com/FreshRSS/FreshRSS/pull/4530)
 	* Improve dev automated checks [#4209](https://github.com/FreshRSS/FreshRSS/pull/4209)
 	* Update dev dependencies [#4173](https://github.com/FreshRSS/FreshRSS/pull/4173), [#4203](https://github.com/FreshRSS/FreshRSS/pull/4203), [#4241](https://github.com/FreshRSS/FreshRSS/pull/4241),
 	[#4419](https://github.com/FreshRSS/FreshRSS/pull/4419), [#4424](https://github.com/FreshRSS/FreshRSS/pull/4424)
