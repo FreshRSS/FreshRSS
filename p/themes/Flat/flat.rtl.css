@@ -349,8 +349,8 @@ a.btn {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 5px 0 0;
-	padding: 5px 0;
+	margin: 0.5rem 0 0;
+	padding: 0.5rem 0;
 	background: #fafafa;
 	font-size: 0.8rem;
 	border: 1px solid #95a5a6;
@@ -364,10 +364,15 @@ a.btn {
 }
 
 .dropdown-header {
-	padding: 0 5px 5px;
+	padding: 0 0.5rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #34495e;
+}
+
+.dropdown-header a {
+	position: absolute;
+	left: 0.5rem;
 }
 
 .dropdown-menu > .item > a,
@@ -382,6 +387,11 @@ a.btn {
 .dropdown-menu > .item > button:hover {
 	background: #2980b9;
 	color: #fff;
+}
+
+.dropdown-menu > .item a:hover .icon,
+.nav-list.aside .item a:hover .icon {
+	filter: brightness(3);
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
@@ -609,6 +619,10 @@ a.btn {
 	margin: 10px 0 50px;
 }
 
+.aside.aside_feed .icon {
+	filter: brightness(3);
+}
+
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
 	background-color: #2c3e50;
@@ -616,6 +630,13 @@ a.btn {
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
 	background-color: #34495e;
+}
+
+.aside .about {
+	margin: 1rem;
+	display: block;
+	color: #ecf0f1;
+	font-style: italic;
 }
 
 /*=== Aside main page (feeds) */
@@ -732,9 +753,11 @@ a.btn {
 }
 
 .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	background-color: #95a5a6;
-	border-radius: 3px;
+	filter: invert(0.6);
+}
+
+.dropdown-menu .dropdown-header a:hover .icon {
+	filter: invert(0.6) invert(77%) sepia(63%) saturate(4993%) hue-rotate(177deg) brightness(88%) contrast(96%);
 }
 
 /*=== Feed articles */
