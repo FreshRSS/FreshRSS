@@ -1003,9 +1003,8 @@ function init_shortcuts() {
 			}
 
 			const link_go_website = document.querySelector('.flux.current a.go_website');
-			if (link_go_website) {
-				const newWindow = window.open();
-				if (newWindow) {
+			const newWindow = window.open();
+			if (link_go_website && newWindow) {
 					newWindow.opener = null;
 					newWindow.location = link_go_website.href;
 				}
