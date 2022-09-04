@@ -1001,12 +1001,14 @@ function init_shortcuts() {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
 			}
+
+			const link_go_website = document.querySelector('.flux.current a.go_website');
 			const newWindow = window.open();
-			if (newWindow) {
+			if (link_go_website && newWindow) {
 				newWindow.opener = null;
-				newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				newWindow.location = link_go_website.href;
+				ev.preventDefault();
 			}
-			ev.preventDefault();
 			return;
 		}
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
