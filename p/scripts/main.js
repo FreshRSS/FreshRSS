@@ -1001,12 +1001,16 @@ function init_shortcuts() {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
 			}
-			const newWindow = window.open();
-			if (newWindow) {
-				newWindow.opener = null;
-				newWindow.location = document.querySelector('.flux.current a.go_website').href;
+
+			const link_go_website = document.querySelector('.flux.current a.go_website');
+			if (link_go_website) {
+				const newWindow = window.open();
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = link_go_website.href;
+				}
+				ev.preventDefault();
 			}
-			ev.preventDefault();
 			return;
 		}
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
