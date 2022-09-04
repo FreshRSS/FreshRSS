@@ -45,6 +45,7 @@ People are sorted by name so please keep this order.
 * [danc](https://github.com/danc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:danc), [Web](http://tintouli.free.fr/)
 * [Daniel Lo Nigro](https://github.com/Daniel15): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Daniel15), [Web](https://d.sb/)
 * [David Souza](https://github.com/araujo0205): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:araujo0205), [Web](http://davidsouza.tech/)
+* [Dennis Cheng](https://github.com/den13501): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:den13501)
 * [Django Janny](https://github.com/keltroth): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:keltroth)
 * [drosoCode](https://github.com/drosoCode): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:drosoCode), [Web](https://thomasz.me/)
 * [dswd](https://github.com/dswd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dswd)
