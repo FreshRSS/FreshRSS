@@ -652,6 +652,12 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
+	 * Some clients (tested with News+) would fail if sending too long item content
+	 * @var int
+	 */
+	const API_MAX_COMPAT_CONTENT_LENGTH = 500000;
+
+	/**
 	 * N.B.: To avoid expensive lookups, ensure to set `$entry->_feed($feed)` before calling this function.
 	 * N.B.: You might have to populate `$entry->_tags()` prior to calling this function.
 	 * @param string $mode Set to `'compat'` to use an alternative Unicode representation for problematic HTML special characters not decoded by some clients;
@@ -662,9 +668,6 @@ class FreshRSS_Entry extends Minz_Model {
 
 		$feed = $this->feed();
 		$category = $feed == null ? null : $feed->category();
-
-		// Some clients (tested with News+) would fail if sending too long item content
-		$maxCompatContentLength = 500000;
 
 		$item = [
 			'id' => 'tag:google.com,2005:reader/item/' . self::dec2hex($this->id()),
@@ -693,8 +696,8 @@ class FreshRSS_Entry extends Minz_Model {
 		if ($mode === 'compat') {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
-			if (mb_strlen($this->content(), 'UTF-8') > $maxCompatContentLength) {
-				$item['summary']['content'] = mb_strcut($this->content(), 0, $maxCompatContentLength, 'UTF-8');
+			if (mb_strlen($this->content(), 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
+				$item['summary']['content'] = mb_strcut($this->content(), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8');
 			}
 		} elseif ($mode === 'freshrss') {
 			$item['guid'] = $this->guid();
