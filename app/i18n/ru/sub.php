@@ -24,13 +24,20 @@ return array(
 		'_' => 'Категория',
 		'add' => 'Добавить категория',
 		'archiving' => 'Архивирование',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
 		'title' => 'Заголовок',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Добавить RSS-ленту',
 		'advanced' => 'Дополнительно',
 		'archiving' => 'Архивирование',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Пример: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Получает усечённые RSS-ленты (осторожно, требует больше времени!)',
 		'css_path' => 'CSS селектор статьи на сайте',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
 		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
@@ -95,6 +106,10 @@ return array(
 					'_' => 'заголовка элемента',
 					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
 				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+				),
 				'item_uri' => array(
 					'_' => 'ссылки элемента (URL)',
 					'help' => 'Пример: <code>descendant::a/@href</code>',
@@ -111,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Перезагрузить столько статей и извлечь полное содержимое, если задан селектор.',
 			'title' => 'Обслуживание',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
 		'mute' => 'заглушить',
 		'no_selected' => 'Ленты не выбраны.',
@@ -181,6 +198,7 @@ return array(
 		'_' => 'Управление подписками',
 		'add' => 'Добавить ленту или категорию',
 		'add_category' => 'Добавить категорию',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Добавить ленту',
 		'add_label' => 'Добавить метку',
 		'delete_label' => 'Удалить метку',

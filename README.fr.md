@@ -239,6 +239,7 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 | [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk) |            GNU/Linux            | [✔️](https://gitlab.com/news-flash/news_flash_gtk) | En développement | GReader | ➖ | ❔ | ❔ | ❔ | ❔ | ❔ | ➖ | ❔ || [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, macOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
 | [Vienna RSS](http://www.vienna-rss.com/)                                              | macOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
 | [Reeder](https://www.reederapp.com/)                                                  | iOS, macOS  | ➖                                                            | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐       | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ✔️           |
+| [lire](https://lireapp.com/)                                                          | iOS, macOS  | ➖                                                            | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
 | [Unread](https://apps.apple.com/app/unread-2/id1363637349)                            | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ➖       | ➖           |
 | [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)         | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ❔            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
 | [Readkit](https://apps.apple.com/app/readkit/id588726889)                             | macOS       | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
@@ -247,7 +248,7 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 # Bibliothèques incluses
 
 * [SimplePie](https://simplepie.org/)
-* [MINZ](https://github.com/marienfressinaud/MINZ)
+* [MINZ](https://framagit.org/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [PhpGt/CssXPath](https://github.com/PhpGt/CssXPath)

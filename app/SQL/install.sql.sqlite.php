@@ -7,6 +7,9 @@ $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
+	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
+	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
+	`error` SMALLINT DEFAULT 0,	-- 1.20.0
 	`attributes` TEXT,	-- v1.15.0
 	UNIQUE (`name`)
 );
@@ -14,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 CREATE TABLE IF NOT EXISTS `feed` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`url` VARCHAR(511) NOT NULL,
-	`kind` SMALLINT DEFAULT 0, -- 1.20.0
+	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`category` INTEGER DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(255) NOT NULL,
 	`website` VARCHAR(255),
@@ -48,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(1023),
+	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
@@ -79,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(1023),
+	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)

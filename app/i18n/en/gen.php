@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',
 		'disable' => 'Disable',
 		'empty' => 'Empty',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',
 		'rename' => 'Rename',
 		'see_website' => 'See website',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
+		'zh-tw' => '正體中文',
 	),
 	'menu' => array(
 		'about' => 'About',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',

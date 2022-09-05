@@ -22,7 +22,7 @@
 		<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?></a>
 	</div>
 	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
-	<a href="<?= _url('index', 'about') ?>"><?= _t('index.menu.about') ?></a>
+	<a href="<?= _url('index', 'about') ?>" class="about"><?= _t('index.menu.about') ?></a>
 	<?php } ?>
 
 	<form id="mark-read-aside" method="post">
@@ -89,7 +89,9 @@
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
-					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?= $cat->name() ?></a>
+					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?=
+						$cat->name()
+					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
@@ -100,7 +102,7 @@
 ?>
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?=
 	$feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : ''
-	?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
+	?>" title="<?= $feed->inError() ? _t('sub.feed.error') : '' ?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::$user_conf->simplify_over_n_feeds):
 	?><div class="dropdown no-mobile">
 		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>

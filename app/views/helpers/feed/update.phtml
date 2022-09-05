@@ -19,13 +19,13 @@
 	<?php
 	$from = Minz_Request::param('from');
 	if ($from === false) {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id());
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
 	} else {
 		$get = Minz_Request::param('get');
 		if (!$get) {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from);
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
 		} else {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get);
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
 		}
 	}
 	?>
@@ -69,7 +69,7 @@
 			<div class="group-controls">
 				<select name="category" id="category" class="w100">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->category() ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() == $this->feed->categoryId() ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
@@ -186,9 +186,17 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
+			<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
-				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+				<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
+					<option value=""<?= $this->feed->attributes('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="10"<?= $this->feed->attributes('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
+					<option value="25"<?= $this->feed->attributes('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
+					<option value="100"<?= $this->feed->attributes('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
+					<option value="1000"<?= $this->feed->attributes('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
+				</select>
+				<?= _t('conf.reading.read.when_same_title') ?>
 			</div>
 		</div>
 
@@ -205,17 +213,14 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
+			<label class="group-name" for="read_upon_gone"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
-				<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
-					<option value=""<?= $this->feed->attributes('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="10"<?= $this->feed->attributes('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
-					<option value="25"<?= $this->feed->attributes('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
-					<option value="100"<?= $this->feed->attributes('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
-					<option value="1000"<?= $this->feed->attributes('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
+				<select name="read_upon_gone" id="read_upon_gone" class="w50">
+					<option value=""<?= $this->feed->attributes('read_upon_gone') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributes('read_upon_gone') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributes('read_upon_gone') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 				</select>
-				<?= _t('conf.reading.read.when_same_title') ?>
+				<?= _t('conf.reading.read.upon_gone') ?>
 			</div>
 		</div>
 
@@ -228,6 +233,13 @@
 					}
 				?></textarea>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
+			<div class="group-controls">
+				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 			</div>
 		</div>
 
@@ -244,7 +256,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" value="<?= _t('sub.feed.number_entries', $nbEntries) ?>" disabled="disabled" />
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id()) ?>">
+					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
 					</a>
 				</div>
@@ -372,7 +384,7 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id()) ?>"><?= _t('gen.action.truncate') ?></button>
+				<button type="submit" class="btn btn-attention confirm" formmethod="post" formaction="<?= _url('feed', 'truncate', 'id', $this->feed->id(), '#', 'slider') ?>"><?= _t('gen.action.truncate') ?></button>
 			</div>
 		</div>
 
@@ -463,6 +475,14 @@
 						data-leave-validation="<?= $xpath['itemCategories'] ?? '' ?>"><?= $xpath['itemCategories'] ?? '' ?></textarea>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemUid"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+					<?= _t('sub.feed.kind.html_xpath.item_uid') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath w100" name="xPathItemUid" id="xPathItemUid" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemUid'] ?? '' ?>"><?= $xpath['itemUid'] ?? '' ?></textarea>
+				</div>
+			</div>
 		</fieldset>
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -479,9 +499,23 @@
 					<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
 						data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<a id="popup-preview-selector" class="btn" href="<?=
-						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token') ?>"><?= _i('look') ?></a>
+						_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', 'selector_filter', 'selector-filter-token', '#', 'slider') ?>"><?= _i('look') ?></a>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<?php
+				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('path_entries_filter'));
+			?>
+			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
+			<div class="group-controls">
+				<div class="stick w100">
+					<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $path_entries_filter ?>"
+						data-leave-validation="<?= $path_entries_filter ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_path_filter.help') ?></p>
 			</div>
 		</div>
 
@@ -493,6 +527,25 @@
 						$this->feed->attributes('curl_params')[CURLOPT_COOKIE] : ''
 				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
+				<label for="curl_params_cookiefile">
+					<input type="checkbox" name="curl_params_cookiefile" id="curl_params_cookiefile" value="1"<?=
+						is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_COOKIEFILE]) ?
+							' checked="checked"' : ''
+					?> />
+					<?= _t('sub.feed.accept_cookies') ?>
+				</label>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.accept_cookies_help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
+			<div class="group-controls">
+				<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="w50" min="-1" value="<?=
+					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_MAXREDIRS]) ?
+						$this->feed->attributes('curl_params')[CURLOPT_MAXREDIRS] : ''
+				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 			</div>
 		</div>
 
@@ -577,13 +630,13 @@
 	<legend><?= _t('sub.feed.maintenance.title') ?></legend>
 	<div class="form-group">
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id()) ?>">
+			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
 				<?= _t('sub.feed.maintenance.clear_cache') ?>
 			</a>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 		</div>
 		<div class="group-controls">
-			<form method="post" action="<?= _url('feed', 'reload') ?>">
+			<form method="post" action="<?= _url('feed', 'reload', '#', 'slider') ?>">
 				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
 				<button type="submit" class="btn btn-important">

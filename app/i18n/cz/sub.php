@@ -24,13 +24,20 @@ return array(
 		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
 		'archiving' => 'Archivace',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Zobrazit pozici',
 		'position_help' => 'Pro ovládání pořadí řazení kategorií',
 		'title' => 'Název',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Přidat kanál RSS',
 		'advanced' => 'Rozšířené',
 		'archiving' => 'Archivace',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Příklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Načte oříznuté kanály RSS (pozor, náročnější na čas!)',
 		'css_path' => 'Přepínač CSS článku na původních webových stránkách',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',
 		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný, pak ho aktualizujte.',
@@ -78,7 +89,7 @@ return array(
 					'_' => 'item author',	// TODO
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
 					'help' => 'Example to take the full item: <code>.</code>',	// TODO
@@ -94,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',	// TODO
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO
@@ -111,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován přepínač.',	// DIRTY
 			'title' => 'Údržba',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'ztlumit',
 		'no_selected' => 'Nejsou vybrány žádné kanály.',
@@ -181,6 +198,7 @@ return array(
 		'_' => 'Správa odběrů',
 		'add' => 'Přidat kanál nebo kategorii',
 		'add_category' => 'Přidat kategorii',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Přidat kanál',
 		'add_label' => 'Přidat popisek',
 		'delete_label' => 'Odstranit popisek',

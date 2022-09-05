@@ -222,6 +222,8 @@ You can use the search field to further refine results:
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
 * by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
+* by user query (saved search) name: `search:myQuery`, `search:"My query"` or saved search ID: `S:3`
+	* internally, those references are replaced by the corresponding user query in the search expression
 
 Be careful not to enter a space between the operator and the search value.
 
@@ -236,6 +238,14 @@ can be used to combine several search criteria with a logical *or* instead: `aut
 
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+
+Finally, parentheses may be used to express more complex queries, with basic negation support:
+
+* `(author:Alice OR intitle:hello) (author:Bob OR intitle:world)`
+* `(author:Alice intitle:hello) OR (author:Bob intitle:world)`
+* `!((author:Alice intitle:hello) OR (author:Bob intitle:world))`
+* `(author:Alice intitle:hello) !(author:Bob intitle:world)`
+* `!(S:1 OR S:2)`
 
 ### By sorting by date
 

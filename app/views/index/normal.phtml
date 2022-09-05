@@ -13,6 +13,7 @@ $display_others = true;
 $hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 $lazyload = FreshRSS_Context::$user_conf->lazyload;
 $content_width = FreshRSS_Context::$user_conf->content_width;
+$MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 
 $today = @strtotime('today');
 ?>
@@ -36,9 +37,9 @@ $today = @strtotime('today');
 		$this->entry = $item;
 
 		// We most likely already have the feed object in cache
-		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feed());
+		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feedId());
 		if ($this->feed == null) {
-			$this->feed = $this->entry->feed(true);
+			$this->feed = $this->entry->feed();
 			if ($this->feed == null) {
 				$this->feed = FreshRSS_Feed::example();
 			}
@@ -72,44 +73,168 @@ $today = @strtotime('today');
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
 		?>"><?php
-
 			$this->renderHelper('index/normal/entry_header');
 
-		?><div class="flux_content" dir="auto">
+			$tags = null;
+			$firstTags = array();
+			$remainingTags = array();
+
+			if (FreshRSS_Context::$user_conf->show_tags === 'h' || FreshRSS_Context::$user_conf->show_tags === 'f' || FreshRSS_Context::$user_conf->show_tags === 'b') {
+				$tags = $this->entry->tags();
+				if (!empty($tags)) {
+					if ($MAX_TAGS_DISPLAYED > 0) {
+						$firstTags = array_slice($tags, 0, $MAX_TAGS_DISPLAYED);
+						$remainingTags = array_slice($tags, $MAX_TAGS_DISPLAYED);
+					} else {
+						$firstTags = $tags;
+					}
+				}
+			}
+		?><article class="flux_content" dir="auto">
 			<div class="content <?= $content_width ?>">
-				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?></a></h1>
-				<div class="subtitle">
-					<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
-						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
-							<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
-						<?php endif; ?>
-						<span><?= $this->feed->name() ?></span></a>
-					</div>
-					<div class="date"><?= $this->entry->date() ?></div>
-					<?php
+				<header>
+					<?php if (FreshRSS_Context::$user_conf->show_feed_name === 't') { ?>
+						<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+							<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+							endif; ?><span><?= $this->feed->name() ?></span></a>
+						</div>
+					<?php } ?>
+					<?php if (FreshRSS_Context::$user_conf->show_tags === 'h' || FreshRSS_Context::$user_conf->show_tags === 'b') { ?>
+						<div class="tags">
+							<?php
+							if (!empty($tags)) {
+								?><?= _i('tag') ?><ul class="list-tags"><?php
+								foreach ($firstTags as $tag) {
+									?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+								}
+
+								if (!empty($remainingTags)) { // more than 7 tags: show dropdown menu ?>
+									<li class="item tag">
+										<div class="dropdown">
+											<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+											<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+											<ul class="dropdown-menu">
+												<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
+												<?php
+												foreach ($remainingTags as $tag) {
+													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
+												} ?>
+											</ul>
+											<a class="dropdown-close" href="#close">❌</a>
+										</div>
+									</li>
+									<?php
+								} ?>
+								</ul><?php
+							} ?>
+						</div>
+						<?php
+					} ?>
+					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
+					<?php if (FreshRSS_Context::$user_conf->show_author_date === 'h' || FreshRSS_Context::$user_conf->show_author_date === 'b') { ?>
+					<div class="subtitle">
+						<?php if (FreshRSS_Context::$user_conf->show_feed_name === 'a') { ?>
+							<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+								<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+								endif; ?><span><?= $this->feed->name() ?></span></a>
+							</div>
+							<?php
+						}
+
 						$authors = $this->entry->authors();
-						if (!empty($authors) && is_array($authors)):
-							$first = true;
-					?>
-					<div class="author"><?php
-							foreach ($authors as $author):
-								echo $first ? _t('gen.short.by_author') . ' ' : '· ';
-								$first = false;
-					?>
-	<em><a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(
-			['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"'])
-		) ?>"><?= $author ?></a></em>
-					<?php	endforeach; ?>
-					</div><?php endif; ?>
-				</div>
+						if (!empty($authors) && is_array($authors)) {
+						?>
+						<div class="author">
+							<?= _t('gen.short.by_author') ?>
+							<?php
+							foreach ($authors as $author) {
+								$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+							?>
+							<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+							<?php } ?>
+						</div>
+						<?php } ?>
+						<div class="date"><?= $this->entry->date() ?></div>
+					</div>
+					<?php } ?>
+				</header>
 				<div class="text"><?php
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?></div>
-			</div><?php
+				<?php
+				$display_authors_date = FreshRSS_Context::$user_conf->show_author_date === 'f' || FreshRSS_Context::$user_conf->show_author_date === 'b';
+				$display_tags = FreshRSS_Context::$user_conf->show_tags === 'f' || FreshRSS_Context::$user_conf->show_tags === 'b';
 
-			$this->renderHelper('index/normal/entry_bottom');
-
-		?></div>
+				if ($display_authors_date || $display_tags) {
+					?>
+					<footer>
+						<?php
+						if ($display_authors_date) { ?>
+							<div class="subtitle">
+								<?php if (FreshRSS_Context::$user_conf->show_feed_name === 'a') { ?>
+									<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+										<?php if (FreshRSS_Context::$user_conf->show_favicons): ?>
+											<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+										endif; ?><span><?= $this->feed->name() ?></span></a>
+									</div>
+									<?php
+								}
+								$authors = $this->entry->authors();
+								if (!empty($authors) && is_array($authors)) {
+								?>
+								<div class="author">
+									<?= _t('gen.short.by_author') ?>
+									<?php
+									foreach ($authors as $author) {
+										$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+									?>
+									<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+									<?php } ?>
+								</div>
+								<?php } ?>
+								<div class="date"><?= $this->entry->date() ?></div>
+							</div>
+						<?php
+						}
+						if ($display_tags) { ?>
+							<div class="tags">
+								<?php
+								if (!empty($tags)) {
+									?><?= _i('tag') ?><ul class="list-tags"><?php
+									foreach ($firstTags as $tag) {
+										?><li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li><?php
+									}
+									if (!empty($remainingTags)) { ?>
+										<li class="item tag">
+											<div class="dropdown">
+												<div id="dropdown-tags3-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+												<a class="dropdown-toggle" href="#dropdown-tags3-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+												<ul class="dropdown-menu">
+													<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
+													<?php
+													foreach ($remainingTags as $tag) {
+														?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
+													} ?>
+												</ul>
+												<a class="dropdown-close" href="#close">❌</a>
+											</div>
+										</li>
+										<?php
+									} ?>
+									</ul><?php
+								} ?>
+							</div>
+							<?php
+						} ?>
+					</footer>
+					<?php
+				} ?>
+			</div><footer><?php
+				$this->renderHelper('index/normal/entry_bottom');
+			?>
+		</footer></article>
 	</div><?php
 	endforeach;
 
@@ -136,6 +261,9 @@ $today = @strtotime('today');
 
 <?php $class = $this->displaySlider ? ' active' : ''; ?>
 <aside id="slider" class="scrollbar-thin<?= $class ?>">
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<div id="slider-content">
+		</div>
 </aside>
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>

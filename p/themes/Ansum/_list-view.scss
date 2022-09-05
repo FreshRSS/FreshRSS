@@ -27,7 +27,7 @@
 	}
 
 	&.not_read:not(.current) {
-		background: variables.$unread-bg; //--------------------
+		background: variables.$unread-bg;
 
 		&:hover .item.title {
 			background: variables.$unread-bg;
@@ -37,13 +37,13 @@
 	&.not_read {
 		.item.title {
 			a {
-				color: variables.$unread-font-color; //--------------------
+				color: variables.$unread-font-color;
 			}
 		}
 
 		.item.website {
 			a {
-				color: variables.$unread-font-color; //--------------------
+				color: variables.$unread-font-color;
 			}
 		}
 

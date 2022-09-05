@@ -62,11 +62,10 @@ possibilité.
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 		* [Newsboat 2.24+](https://newsboat.org/) (Libre)
-	* macOS
+	* macOS, iOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
-	* iOS
-		* [Reeder](https://www.reederapp.com/) (Commercial)
+		* [lire](https://lireapp.com/) (Commercial)
 	* Firefox
 		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Libre)
 

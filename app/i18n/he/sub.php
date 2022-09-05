@@ -24,13 +24,20 @@ return array(
 		'_' => 'קטגוריה',
 		'add' => 'Add a category',	// TODO
 		'archiving' => 'ארכוב',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Empty category',	// TODO
 		'information' => 'מידע',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Display position',	// TODO
 		'position_help' => 'To control category sort order',	// TODO
 		'title' => 'כותרת',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'הוספת הזנה',
 		'advanced' => 'מתקדם',
 		'archiving' => 'ארכוב',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO
 		'css_help' => 'קבלת הזנות RSS קטומות	(זהירות, לוקח זמן רב יותר!)',
 		'css_path' => 'נתיב הCSS של המאמר באתר המקורי',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
@@ -78,7 +89,7 @@ return array(
 					'_' => 'item author',	// TODO
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
 					'help' => 'Example to take the full item: <code>.</code>',	// TODO
@@ -94,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',	// TODO
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO
@@ -111,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
 			'title' => 'Maintenance',	// TODO
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
 		'mute' => 'mute',	// TODO
 		'no_selected' => 'אף הזנה לא נבחרה.',
@@ -181,6 +198,7 @@ return array(
 		'_' => 'ניהול הרשמות',
 		'add' => 'Add a feed or category',	// TODO
 		'add_category' => 'Add a category',	// TODO
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'Add a feed',	// TODO
 		'add_label' => 'Add a label',	// TODO
 		'delete_label' => 'Delete a label',	// TODO

@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Crear',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Degradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Vaciar',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Borrar',
 		'rename' => 'Cambiar el nombre a',
 		'see_website' => 'Ver web',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Acerca de',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sitios basados en conocidos',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Portapapeles',
 		'diaspora' => 'Diaspora*',	// IGNORE

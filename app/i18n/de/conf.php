@@ -137,6 +137,32 @@ return array(
 		'_' => 'Lesen',
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'always_show_favorites' => 'Favoriten immer anzeigen',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autoren und Datum',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Oberhalb der Überschrit und Hashtags',
+				'none' => 'Nicht anzeigen',
+				'with_authors' => 'In der Zeile mit Autoren und Datum',
+			),
+			'feed_title' => 'Feed Titel',
+			'tags' => array(
+				'_' => 'Hashtags',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'tags_max' => array(
+				'_' => 'Max Anzahl von Hashtags',
+				'help' => '0 bedeutet: Zeige alle Hashtags und fasse sie nicht zusammen',
+			),
+		),
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
@@ -145,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
 		'headline' => array(
 			'articles' => 'Artikel: Öffnen/Schließen',
+			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 			'categories' => 'Linke Navigation: Kategorien',
 			'mark_as_read' => 'Artikel als gelesen markieren',
 			'misc' => 'Sonstiges',
@@ -160,6 +187,7 @@ return array(
 			'article_viewed' => 'wenn der Artikel angesehen wird',
 			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
 			'scroll' => 'beim Scrollen bzw. Überspringen',
+			'upon_gone' => 'wenn der Artikel nicht mehr im Feed enthalten ist',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
 			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',

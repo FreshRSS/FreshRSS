@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #171717;
-	height: 100%;
 	color: #999;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -50,7 +49,8 @@ option {
 }
 
 input:disabled, select:disabled {
-	background: #eee;
+	color: #666;
+	border-color: #666;
 }
 
 input.extend {
@@ -187,8 +187,12 @@ a.btn {
 }
 
 .btn-important:hover {
-	background: #0062b7;
+	background: #45699a;
 	color: #eee;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-important:active {
@@ -313,7 +317,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	border-color: #ddd;
+	border-color: #333;
 }
 
 .dropdown-header {
@@ -395,10 +399,6 @@ a.btn {
 }
 
 /*=== Pagination */
-.pagination .item a {
-	line-height: 3em;
-}
-
 .pagination {
 	color: #999;
 	border-top: 1px solid #999;
@@ -501,7 +501,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #171717;
-	height: 85px;
 }
 
 .header > .item {
@@ -529,10 +528,6 @@ a.btn {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #262626;
 }
@@ -554,7 +549,8 @@ a.btn {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
-.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
 	background-color: #171717;
 	color: #999;
 	border-color: #999;
@@ -611,25 +607,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: .5rem;
-	padding-right: .5rem;
-	text-align: center;
-}
-
-.prompt label {
-	text-align: left;
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: left;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -645,20 +622,10 @@ a.btn {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt .btn.btn-important {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -1120,10 +1087,6 @@ a.btn {
 		display: none!important;
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		border-top: 1px solid #292929;
 	}
 
 	.flux:not(.current):hover .item.title {

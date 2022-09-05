@@ -7,6 +7,9 @@ $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(255) UNIQUE NOT NULL,
+	"kind" SMALLINT DEFAULT 0,	-- 1.20.0
+	"lastUpdate" BIGINT DEFAULT 0,	-- 1.20.0
+	"error" SMALLINT DEFAULT 0,	-- 1.20.0
 	"attributes" TEXT	-- v1.15.0
 );
 
@@ -46,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
 	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(1023),
+	"attributes" TEXT,	-- v1.20.0
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
@@ -79,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
 	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(1023),
+	"attributes" TEXT,	-- v1.20.0
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );

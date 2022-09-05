@@ -1,9 +1,7 @@
 autoload.php
 composer.lock
 composer/
-phpgt/cssxpath/.github/
-phpgt/cssxpath/.gitignore
-phpgt/cssxpath/.scrutinizer.yml
+phpgt/cssxpath/.*
 phpgt/cssxpath/composer.json
 phpgt/cssxpath/CONTRIBUTING.md
 phpgt/cssxpath/test/

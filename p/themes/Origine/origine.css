@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -458,22 +457,11 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fafafa;
-	text-align: center;
 	color: #333;
-	font-size: 0.8em;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
 }
 
 .pagination .item a {
-	display: block;
 	color: #333;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination .item a:hover {
@@ -600,10 +588,6 @@ a.btn {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #fff;
 	border-right: 1px solid #aaa;
@@ -620,7 +604,8 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside.aside_feed .category .title:not([data-unread="0"])::after {
+.aside.aside_feed .category .title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
 	background-color: #f6f6f6;
 	color: #444;
 }
@@ -681,21 +666,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: .5rem;
-	padding-right: .5rem;
-	text-align: center;
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: left;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -711,20 +681,10 @@ a.btn {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt .btn.btn-important {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -845,7 +805,7 @@ a.btn {
 	padding: 20px 10px;
 }
 
-.content > h1.title > a {
+.content h1.title > a {
 	color: #000;
 }
 

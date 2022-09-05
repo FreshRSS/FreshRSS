@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Log Level',	// IGNORE
+			'message' => 'Log Message',	// IGNORE
+			'timestamp' => 'Timestamp',	// IGNORE
 		),
 		'pagination' => array(
 			'first' => 'First',	// IGNORE
@@ -137,6 +137,32 @@ return array(
 		'_' => 'Reading',	// IGNORE
 		'after_onread' => 'After “mark all as read”,',	// IGNORE
 		'always_show_favorites' => 'Show all articles in favorites by default',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// IGNORE
+				'none' => 'None',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'feed_title' => 'Feed title',	// IGNORE
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// IGNORE
+				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
+			),
+		),
 		'articles_per_page' => 'Number of articles per page',	// IGNORE
 		'auto_load_more' => 'Load more articles at the bottom of the page',	// IGNORE
 		'auto_remove_article' => 'Hide articles after reading',	// IGNORE
@@ -145,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// IGNORE
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// IGNORE
+			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 			'categories' => 'Left navigation: Categories',	// IGNORE
 			'mark_as_read' => 'Mark article as read',	// IGNORE
 			'misc' => 'Miscellaneous',	// IGNORE
@@ -160,6 +187,7 @@ return array(
 			'article_viewed' => 'when the article is viewed',	// IGNORE
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// IGNORE
 			'scroll' => 'while scrolling',	// IGNORE
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// IGNORE
 			'upon_reception' => 'upon receiving the article',	// IGNORE
 			'when' => 'Mark an article as read…',	// IGNORE
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// IGNORE
@@ -194,7 +222,7 @@ return array(
 		'_' => 'Sharing',	// IGNORE
 		'add' => 'Add a sharing method',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

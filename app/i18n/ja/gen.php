@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
 		'create' => '作成',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => '寄付',
 		'disable' => '無効',
 		'empty' => '空',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => '消去',
 		'rename' => 'リネーム',
 		'see_website' => 'webサイトを閲覧してください',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE

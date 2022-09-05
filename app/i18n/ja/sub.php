@@ -24,13 +24,20 @@ return array(
 		'_' => 'カテゴリ',
 		'add' => 'カテゴリを追加する',
 		'archiving' => 'アーカイブ',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',
+		'opml_url' => 'OPML URL',	// TODO
 		'position' => '表示位置',
 		'position_help' => 'カテゴリの表示順を操作する',
 		'title' => 'タイトル',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'RSSフィードに追加する',
 		'advanced' => '応用的な設定',
 		'archiving' => 'アーカイブ',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'あきらめられたRSSフィードを取得します (注意してください、より多くの時間が必要になるでしょう!)',
 		'css_path' => '元のwebサイトの記事のCSS',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => '説明',
 		'empty' => 'このフィードは空です。運営されているかどうかを確認してみてください。',
 		'error' => 'このフィードに問題が発生しました。ここにいつでもアクセスできるかどうかを確認して更新してみてください。',
@@ -78,7 +89,7 @@ return array(
 					'_' => 'item author',	// TODO
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
 					'help' => 'Example to take the full item: <code>.</code>',	// TODO
@@ -94,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',	// TODO
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO
@@ -111,6 +126,8 @@ return array(
 			'reload_articles_help' => '記事を再読み込みして、セレクターが定義したコンテンツを完全に取得します。',	// DIRTY
 			'title' => 'メンテナンス',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
 		'mute' => 'ミュート',
 		'no_selected' => 'どのフィードも選択されていません',
@@ -181,6 +198,7 @@ return array(
 		'_' => '購読されたものの管理',
 		'add' => 'フィードあるいはカテゴリを追加します',
 		'add_category' => 'カテゴリの追加',
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
 		'add_feed' => 'フィードの追加',
 		'add_label' => 'ラベルの追加',
 		'delete_label' => 'ラベルの削除',

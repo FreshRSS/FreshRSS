@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
 		'see_website' => 'Zobrazit webovou stránku',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Známé základní stránky',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE

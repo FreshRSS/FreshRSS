@@ -137,6 +137,32 @@ return array(
 		'_' => 'Leitura',
 		'after_onread' => 'Depois de "marcar todos como lido",',
 		'always_show_favorites' => 'Mostrar todos os artivos nos favoritos por padrão',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'Número de artigos por página',
 		'auto_load_more' => 'Carregar mais artigos no final da página',
 		'auto_remove_article' => 'Esconder artigos depois de lidos',
@@ -145,6 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Categorias abertas',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
@@ -160,6 +187,7 @@ return array(
 			'article_viewed' => 'Quando o artigo é visualizado',
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
 			'scroll' => 'enquanto scrolling',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
 			'when_same_title' => 'Se um título idêntico já existir nos últimos<i>n</i> artigos mais novos',

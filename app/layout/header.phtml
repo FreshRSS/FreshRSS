@@ -2,7 +2,7 @@
 	<div class="item title">
 		<a href="<?= _url('index', 'index') ?>">
 			<?php if (FreshRSS_Context::$system_conf->logo_html == '') { ?>
-				<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="FreshRSS" />
+				<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" />
 			<?php
 				} else {
 					echo FreshRSS_Context::$system_conf->logo_html;
@@ -15,8 +15,9 @@
 		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) { ?>
 		<form action="<?= _url('index', 'index') ?>" method="get">
 			<div class="stick">
-				<input type="search" name="search" id="search" class="extend" value="<?php
-					echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?= _t('gen.menu.search') ?>" />
+				<input type="search" name="search" id="search" class="extend"
+					value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
+					placeholder="<?= _t('gen.menu.search') ?>" />
 
 				<?php $get = Minz_Request::param('get', ''); ?>
 				<?php if ($get != '') { ?>
@@ -88,7 +89,7 @@
 	</nav>
 	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
 	<div class="item configure">
-		<?= _i('login') ?><a class="signin" href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a>
+		<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
 	</div>
 	<?php } ?>
 </header>

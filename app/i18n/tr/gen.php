@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
 		'create' => 'Oluştur',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Yöneticilikten al',
 		'disable' => 'Pasif',
 		'empty' => 'Boş',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Sil',
 		'rename' => 'Yeniden adlandır',
 		'see_website' => 'Siteyi gör',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Bilinen siteler',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Kopyala',
 		'diaspora' => 'Diaspora*',	// IGNORE

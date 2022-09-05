@@ -359,7 +359,7 @@ function cleanCache(int $hours = 720) {
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
 function enforceHttpEncoding(string $html, string $contentType = ''): string {
-	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === false ? '' : $matches[1] ?? '';
+	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === false ? '' : $matches[1];
 	if ($httpCharset == '') {
 		// No charset defined by HTTP, do nothing
 		return $html;
@@ -385,19 +385,19 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 }
 
 /**
+ * @param string $type {html,opml}
  * @param array<string,mixed> $attributes
  */
-function getHtml(string $url, array $attributes = []): string {
+function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
 	$limits = FreshRSS_Context::$system_conf->limits;
 	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-	$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
 	$cacheMtime = @filemtime($cachePath);
 	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
-		$html = @file_get_contents($cachePath);
-		if ($html != '') {
+		$body = @file_get_contents($cachePath);
+		if ($body != '') {
 			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . SimplePie_Misc::url_remove_credentials($url));
-			return $html;
+			return $body;
 		}
 	}
 
@@ -406,14 +406,25 @@ function getHtml(string $url, array $attributes = []): string {
 	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
-		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . SimplePie_Misc::url_remove_credentials($url));
+	}
+
+	$accept = '*/*;q=0.8';
+	switch ($type) {
+		case 'opml':
+			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
+			break;
+		case 'html':
+		default:
+			$accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+			break;
 	}
 
 	// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 	$ch = curl_init();
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
-		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+		CURLOPT_HTTPHEADER => array('Accept: ' . $accept),
 		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
@@ -436,27 +447,28 @@ function getHtml(string $url, array $attributes = []): string {
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}
 	}
-	$html = curl_exec($ch);
+	$body = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);	//TODO: Check if that may be null
 	$c_error = curl_error($ch);
 	curl_close($ch);
 
-	if ($c_status != 200 || $c_error != '' || $html === false) {
+	if ($c_status != 200 || $c_error != '' || $body === false) {
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		$body = '';
 		// TODO: Implement HTTP 410 Gone
 	}
-	if ($html == false) {
-		$html = '';
+	if ($body == false) {
+		$body = '';
 	} else {
-		$html = enforceHttpEncoding($html, $c_content_type);
+		$body = enforceHttpEncoding($body, $c_content_type);
 	}
 
-	if (file_put_contents($cachePath, $html) === false) {
+	if (file_put_contents($cachePath, $body) === false) {
 		Minz_Log::warning("Error saving cache $cachePath for $url");
 	}
 
-	return $html;
+	return $body;
 }
 
 /**
@@ -504,7 +516,7 @@ function invalidateHttpCache($username = '') {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_Session::param('currentUser', '_');
 	}
-	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
+	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
 	//if (!$ok) {
 		//TODO: Display notification error on front-end
 	//}
@@ -565,9 +577,9 @@ function get_user_configuration($username) {
 			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
+		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
+		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 		return null;
 	}
 
@@ -778,8 +790,8 @@ function remove_query_by_get($get, $queries) {
 	return $final_queries;
 }
 
-function _i($icon, $url_only = false) {
-	return FreshRSS_Themes::icon($icon, $url_only);
+function _i(string $icon, int $type = FreshRSS_Themes::ICON_DEFAULT): string {
+	return FreshRSS_Themes::icon($icon, $type);
 }
 
 
@@ -819,25 +831,16 @@ function errorMessageInfo($errorTitle, $error = '') {
 		$details = "<pre>{$details}</pre>";
 	}
 
+	header("Content-Security-Policy: default-src 'self'");
+
 	return <<<MSG
-	<h1>{$errorTitle}</h1>
+	<!DOCTYPE html><html><header><title>HTTP 500: {$errorTitle}</title></header><body>
+	<h1>HTTP 500: {$errorTitle}</h1>
 	{$message}
 	{$details}
-	<h2>Check the logs</h2>
-	<p>FreshRSS logs are located in <code>./FreshRSS/data/users/*/log*.txt</code></p>
-	<p><em>N.B.:</em> A typical problem is wrong file permissions in the <code>./FreshRSS/data/</code> folder
-	so make sure the Web server can write there and in sub-directories.</p>
-	<h3>Common locations for additional logs</h3>
-	<p><em>N.B.:</em> Adapt names and paths according to your local setup.</p>
-	<ul>
-	<li>If using Docker: <code>docker logs -f freshrss</code></li>
-	<li>To check Web server logs on a Linux system using systemd: <code>journalctl -xeu apache2</code>
-	and if you are using php-fpm: <code>journalctl -xeu php-fpm</code></li>
-	<li>Otherwise, Web server logs are typically located in <code>/var/log/apache2/</code> or similar</li>
-	<li>System logs may also contain relevant information in <code>/var/log/syslog</code>, or if using systemd: <code>sudo journalctl -xe</code></li>
-	</ul>
-	<p>More logs can be generated by enabling <code>'environment' => 'development',</code> in <code>./FreshRSS/data/config.php</code></p>
-	<p>Running the feed update script (with the same user and PHP version as your Web server) might provide other hints, e.g.:
-		<code>sudo -u www-data /usr/bin/php ./FreshRSS/app/actualize_script.php</code></p>
+	<hr />
+	<small>For help see the documentation: <a href="https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html" target="_blank">
+	https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html</a></small>
+	</body></html>
 MSG;
 }

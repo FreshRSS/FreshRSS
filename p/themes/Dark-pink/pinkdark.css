@@ -68,10 +68,6 @@
 	color: #4f5e78;
 }
 
-.dropdown-menu::after {
-	border-color: #ffb6c1;
-}
-
 input:focus {
 	outline: none;
 	border: 1px solid #ff449a;
@@ -117,11 +113,13 @@ input:focus {
 .icon[src*="/sort-up"],
 .icon[src*="/sort-down"],
 .icon[src*="/key"],
-.icon[src*="/configure"] {
+.icon[src*="/opml-dyn"],
+.icon[src*="/configure"],
+.icon[src*="/category"] {
 	/* Color light grey icons */
 	filter: sepia(62%) brightness(47%) hue-rotate(116deg) saturate(1000%) contrast(119%) invert(100%);
 }
 
 #btn-add > img {
-	filter: invert(100%);
+	filter: brightness(0.75);
 }

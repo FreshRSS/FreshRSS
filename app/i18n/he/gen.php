@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
 		'create' => 'יצירה',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
 		'disable' => 'Disable',	// TODO
 		'empty' => 'Empty',	// TODO
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',	// TODO
 		'rename' => 'Rename',	// TODO
 		'see_website' => 'ראו אתר',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'אודות',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE

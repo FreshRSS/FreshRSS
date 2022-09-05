@@ -39,7 +39,9 @@ class FreshRSS_Feed extends Minz_Model {
 	/** @var int */
 	private $kind = 0;
 	/** @var int */
-	private $category = 1;
+	private $categoryId = 1;
+	/** @var FreshRSS_Category|null */
+	private $category;
 	/** @var int */
 	private $nbEntries = -1;
 	/** @var int */
@@ -119,9 +121,22 @@ class FreshRSS_Feed extends Minz_Model {
 	public function hubUrl(): string {
 		return $this->hubUrl;
 	}
-	public function category(): int {
+
+	/**
+	 * @return FreshRSS_Category|null|false
+	 */
+	public function category() {
+		if ($this->category === null) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$this->category = $catDAO->searchById($this->categoryId);
+		}
 		return $this->category;
 	}
+
+	public function categoryId(): int {
+		return $this->categoryId;
+	}
+
 	public function entries() {
 		Minz_Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
 		$simplePie = $this->load(false, true);
@@ -162,9 +177,21 @@ class FreshRSS_Feed extends Minz_Model {
 	public function inError(): bool {
 		return $this->error;
 	}
-	public function ttl(): int {
+
+	/**
+	 * @param bool $raw true for database version combined with mute information, false otherwise
+	 */
+	public function ttl(bool $raw = false): int {
+		if ($raw) {
+			$ttl = $this->ttl;
+			if ($this->mute && FreshRSS_Feed::TTL_DEFAULT === $ttl) {
+				$ttl = FreshRSS_Context::$user_conf ? FreshRSS_Context::$user_conf->ttl_default : 3600;
+			}
+			return $ttl * ($this->mute ? -1 : 1);
+		}
 		return $this->ttl;
 	}
+
 	public function attributes($key = '') {
 		if ($key == '') {
 			return $this->attributes;
@@ -172,19 +199,11 @@ class FreshRSS_Feed extends Minz_Model {
 			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
 		}
 	}
+
 	public function mute(): bool {
 		return $this->mute;
 	}
-	// public function ttlExpire() {
-		// $ttl = $this->ttl;
-		// if ($ttl == self::TTL_DEFAULT) {	//Default
-			// $ttl = FreshRSS_Context::$user_conf->ttl_default;
-		// }
-		// if ($ttl == -1) {	//Never
-			// $ttl = 64000000;	//~2 years. Good enough for PubSubHubbub logic
-		// }
-		// return $this->lastUpdate + $ttl;
-	// }
+
 	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -248,10 +267,19 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _kind(int $value) {
 		$this->kind = $value;
 	}
-	public function _category($value) {
-		$value = intval($value);
-		$this->category = $value >= 0 ? $value : 0;
+
+	/** @param FreshRSS_Category|null $cat */
+	public function _category($cat) {
+		$this->category = $cat;
+		$this->categoryId = $this->category == null ? 0 : $this->category->id();
 	}
+
+	/** @param int|string $id */
+	public function _categoryId($id) {
+		$this->category = null;
+		$this->categoryId = intval($id);
+	}
+
 	public function _name(string $value) {
 		$this->name = $value == '' ? '' : trim($value);
 	}
@@ -281,6 +309,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _error($value) {
 		$this->error = (bool)$value;
+	}
+	public function _mute(bool $value) {
+		$this->mute = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);
@@ -580,11 +611,13 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
+		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
 		if ($xPathItem == '') {
 			return null;
 		}
 
-		$html = getHtml($feedSourceUrl, $attributes);
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
+		$html = httpGet($feedSourceUrl, $cachePath, 'html', $attributes);
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -625,18 +658,20 @@ class FreshRSS_Feed extends Minz_Model {
 						}
 					}
 				}
-				if ($item['title'] . $item['content'] . $item['link'] != '') {
+				if ($xPathItemUid != '') {
+					$item['guid'] = @$xpath->evaluate('normalize-space(' . $xPathItemUid . ')', $node);
+				}
+				if (empty($item['guid'])) {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+				}
+
+				if ($item['title'] . $item['content'] . $item['link'] != '') {
 					$item = Minz_Helper::htmlspecialchars_utf8($item);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
 			}
 		} catch (Exception $ex) {
 			Minz_Log::warning($ex->getMessage());
-			return null;
-		}
-
-		if (count($view->entries) < 1) {
 			return null;
 		}
 
@@ -653,15 +688,37 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbPendingNotRead += $n;
 	}
 
+	/**
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 * @return int|false the number of lines affected, or false if not applicable
+	 */
 	public function keepMaxUnread() {
 		$keepMaxUnread = $this->attributes('keep_max_n_unread');
-		if ($keepMaxUnread == false) {
+		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::$user_conf->mark_when['max_n_unread'];
 		}
 		if ($keepMaxUnread > 0 && $this->nbNotRead(false) + $this->nbPendingNotRead > $keepMaxUnread) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
+			return $feedDAO->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
 		}
+		return false;
+	}
+
+	/**
+	 * Applies the *mark as read upon gone* policy, if enabled.
+	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 * @return int|false the number of lines affected, or false if not applicable
+	 */
+	public function markAsReadUponGone() {
+		$readUponGone = $this->attributes('read_upon_gone');
+		if ($readUponGone === null) {
+			$readUponGone = FreshRSS_Context::$user_conf->mark_when['gone'];
+		}
+		if ($readUponGone) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			return $feedDAO->markAsReadUponGone($this->id());
+		}
+		return false;
 	}
 
 	/**
@@ -671,7 +728,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$archiving = $this->attributes('archiving');
 		if ($archiving == null) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			$category = $catDAO->searchById($this->category());
+			$category = $catDAO->searchById($this->categoryId);
 			$archiving = $category == null ? null : $category->attributes('archiving');
 			if ($archiving == null) {
 				$archiving = FreshRSS_Context::$user_conf->archiving;
@@ -966,7 +1023,7 @@ class FreshRSS_Feed extends Minz_Model {
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 
-			if (substr($info['http_code'], 0, 1) == '2') {
+			if (substr('' . $info['http_code'], 0, 1) == '2') {
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon

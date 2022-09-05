@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	font-size: 92%;
 }
@@ -468,22 +467,11 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fafafa;
-	text-align: center;
 	color: #333;
-	font-size: 0.8em;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
 }
 
 .pagination .item a {
-	display: block;
 	color: #333;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination .item a:hover {
@@ -646,7 +634,7 @@ a.btn {
 /*=== Body */
 #global {
 	background: #ede7de;
-	height: calc(100% - 60px);
+	height: calc(100% - 55px);
 }
 
 .aside {
@@ -718,19 +706,7 @@ a.btn {
 
 /*=== Prompt (centered) */
 .prompt {
-	max-width: 20rem;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: .5rem;
-	padding-left: .5rem;
-	text-align: center;
 	text-shadow: 0 1px rgba(255,255,255,0.08);
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: right;
 }
 
 .prompt .form-group {
@@ -748,12 +724,6 @@ a.btn {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt input#username,.prompt input#passwordPlain {
 	background: #fff;
 	border: solid 1px #ccc;
@@ -769,10 +739,6 @@ a.btn {
 	padding-right: 1.5rem;
 	padding-left: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */

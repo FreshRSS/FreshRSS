@@ -1,17 +1,38 @@
 <?php
 
 class FreshRSS_Category extends Minz_Model {
+
+	/**
+	 * Normal
+	 * @var int
+	 */
+	const KIND_NORMAL = 0;
+
+	/**
+	 * Category tracking a third-party Dynamic OPML
+	 * @var int
+	 */
+	const KIND_DYNAMIC_OPML = 2;
+
+	const TTL_DEFAULT = 0;
+
 	/**
 	 * @var int
 	 */
 	private $id = 0;
+	/** @var int */
+	private $kind = 0;
 	private $name;
 	private $nbFeeds = -1;
 	private $nbNotRead = -1;
+	/** @var array<FreshRSS_Feed>|null */
 	private $feeds = null;
 	private $hasFeedsWithError = false;
-	private $isDefault = false;
 	private $attributes = [];
+	/** @var int */
+	private $lastUpdate = 0;
+	/** @var bool */
+	private $error = false;
 
 	public function __construct(string $name = '', $feeds = null) {
 		$this->_name($name);
@@ -30,11 +51,26 @@ class FreshRSS_Category extends Minz_Model {
 	public function id(): int {
 		return $this->id;
 	}
+	public function kind(): int {
+		return $this->kind;
+	}
 	public function name(): string {
 		return $this->name;
 	}
+	public function lastUpdate(): int {
+		return $this->lastUpdate;
+	}
+	public function _lastUpdate(int $value) {
+		$this->lastUpdate = $value;
+	}
+	public function inError(): bool {
+		return $this->error;
+	}
+	public function _error($value) {
+		$this->error = (bool)$value;
+	}
 	public function isDefault(): bool {
-		return $this->isDefault;
+		return $this->id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
 	}
 	public function nbFeeds(): int {
 		if ($this->nbFeeds < 0) {
@@ -52,6 +88,8 @@ class FreshRSS_Category extends Minz_Model {
 
 		return $this->nbNotRead;
 	}
+
+	/** @return array<FreshRSS_Feed> */
 	public function feeds(): array {
 		if ($this->feeds === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -90,18 +128,32 @@ class FreshRSS_Category extends Minz_Model {
 			$this->_name(_t('gen.short.default_category'));
 		}
 	}
+
+	public function _kind(int $kind) {
+		$this->kind = $kind;
+	}
+
 	public function _name($value) {
 		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
 	}
-	public function _isDefault($value) {
-		$this->isDefault = $value;
-	}
+	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
 	public function _feeds($values) {
 		if (!is_array($values)) {
 			$values = array($values);
 		}
 
 		$this->feeds = $values;
+	}
+
+	/**
+	 * To manually add feeds to this category (not committing to database).
+	 * @param FreshRSS_Feed $feed
+	 */
+	public function addFeed($feed) {
+		if ($this->feeds === null) {
+			$this->feeds = [];
+		}
+		$this->feeds[] = $feed;
 	}
 
 	public function _attributes($key, $value) {
@@ -117,5 +169,79 @@ class FreshRSS_Category extends Minz_Model {
 		} else {
 			$this->attributes[$key] = $value;
 		}
+	}
+
+	public static function cacheFilename(string $url, array $attributes): string {
+		$simplePie = customSimplePie($attributes);
+		$filename = $simplePie->get_cache_filename($url);
+		return CACHE_PATH . '/' . $filename . '.opml.xml';
+	}
+
+	public function refreshDynamicOpml(): bool {
+		$url = $this->attributes('opml_url');
+		if ($url == '') {
+			return false;
+		}
+		$ok = true;
+		$attributes = [];	//TODO
+		$cachePath = self::cacheFilename($url, $attributes);
+		$opml = httpGet($url, $cachePath, 'opml', $attributes);
+		if ($opml == '') {
+			Minz_Log::warning('Error getting dynamic OPML for category ' . $this->id() . '! ' .
+				SimplePie_Misc::url_remove_credentials($url));
+			$ok = false;
+		} else {
+			$dryRunCategory = new FreshRSS_Category();
+			$importService = new FreshRSS_Import_Service();
+			$importService->importOpml($opml, $dryRunCategory, true, true);
+			if ($importService->lastStatus()) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+
+				/** @var array<string,FreshRSS_Feed> */
+				$dryRunFeeds = [];
+				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
+					$dryRunFeeds[$dryRunFeed->url()] = $dryRunFeed;
+				}
+
+				/** @var array<string,FreshRSS_Feed> */
+				$existingFeeds = [];
+				foreach ($this->feeds() as $existingFeed) {
+					$existingFeeds[$existingFeed->url()] = $existingFeed;
+					if (empty($dryRunFeeds[$existingFeed->url()])) {
+						// The feed does not exist in the new dynamic OPML, so mute (disable) that feed
+						$existingFeed->_mute(true);
+						$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
+							'ttl' => $existingFeed->ttl(true),
+						]) !== false);
+					}
+				}
+
+				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
+					if (empty($existingFeeds[$dryRunFeed->url()])) {
+						// The feed does not exist in the current category, so add that feed
+						$dryRunFeed->_categoryId($this->id());
+						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
+					} else {
+						$existingFeed = $existingFeeds[$dryRunFeed->url()];
+						if ($existingFeed->mute()) {
+							// The feed already exists in the current category but was muted (disabled), so unmute (enable) again
+							$existingFeed->_mute(false);
+							$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
+								'ttl' => $existingFeed->ttl(true),
+							]) !== false);
+						}
+					}
+				}
+			} else {
+				$ok = false;
+				Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
+					SimplePie_Misc::url_remove_credentials($url));
+			}
+		}
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO->updateLastUpdate($this->id(), !$ok);
+
+		return $ok;
 	}
 }

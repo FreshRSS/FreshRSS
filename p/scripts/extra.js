@@ -148,16 +148,20 @@ function open_slider_listener(ev) {
 	const a = ev.target.closest('.open-slider');
 	if (a) {
 		if (!context.ajax_loading) {
-			location.href = '#slider'; // close menu/dropdown
 			context.ajax_loading = true;
-
+			const slider = document.getElementById('slider');
+			const slider_content = document.getElementById('slider-content');
 			const req = new XMLHttpRequest();
-			req.open('GET', a.href + '&ajax=1', true);
+			slider_content.innerHTML = '';
+			slider.classList.add('sliding');
+			const ahref = a.href + '&ajax=1#slider';
+			req.open('GET', ahref, true);
 			req.responseType = 'document';
 			req.onload = function (e) {
-				const slider = document.getElementById('slider');
+				location.href = '#slider'; // close menu/dropdown
+				slider.classList.add('active');
 				slider.scrollTop = 0;
-				slider.innerHTML = this.response.body.innerHTML;
+				slider_content.innerHTML = this.response.body.innerHTML;
 				context.ajax_loading = false;
 				slider.dispatchEvent(freshrssSliderLoadEvent);
 			};
@@ -202,8 +206,8 @@ function updateHref(ev) {
 }
 
 // set event listener on "show url" buttons
-function init_url_observers() {
-	document.querySelectorAll('.open-url').forEach(function (btn) {
+function init_url_observers(parent) {
+	parent.querySelectorAll('.open-url').forEach(function (btn) {
 		btn.addEventListener('mouseover', updateHref);
 		btn.addEventListener('click', updateHref);
 	});
@@ -276,7 +280,6 @@ function init_extra_afterDOM() {
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
 		init_crypto_form();
 		init_password_observers(document.body);
-		init_url_observers();
 		init_select_observers();
 		init_configuration_alert();
 
@@ -284,8 +287,10 @@ function init_extra_afterDOM() {
 		if (slider) {
 			init_slider(slider);
 			init_archiving(slider);
+			init_url_observers(slider);
 		} else {
 			init_archiving(document.body);
+			init_url_observers(document.body);
 		}
 	}
 

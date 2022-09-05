@@ -35,7 +35,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -116,7 +116,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -155,7 +155,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			$this->updateContext();
+			FreshRSS_Context::updateUsingRequest();
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -174,58 +174,74 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	/**
-	 * This action updates the Context object by using request parameters.
-	 *
-	 * Parameters are:
-	 *   - state (default: conf->default_view)
-	 *   - search (default: empty string)
-	 *   - order (default: conf->sort_order)
-	 *   - nb (default: conf->posts_per_page)
-	 *   - next (default: empty string)
-	 *   - hours (default: 0)
-	 */
-	private function updateContext() {
-		if (empty(FreshRSS_Context::$categories)) {
-			$catDAO = FreshRSS_Factory::createCategoryDao();
-			FreshRSS_Context::$categories = $catDAO->listSortedCategories();
+	public function opmlAction() {
+		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
+		$token = FreshRSS_Context::$user_conf->token;
+		$token_param = Minz_Request::param('token', '');
+		$token_is_ok = ($token != '' && $token === $token_param);
+
+		// Check if user has access.
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !$token_is_ok) {
+			Minz_Error::error(403);
 		}
 
-		// Update number of read / unread variables.
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		FreshRSS_Context::$total_starred = $entryDAO->countUnreadReadFavorites();
-		FreshRSS_Context::$total_unread = FreshRSS_CategoryDAO::CountUnreads(
-			FreshRSS_Context::$categories, 1
-		);
-
-		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
-
-		FreshRSS_Context::$state = Minz_Request::param(
-			'state', FreshRSS_Context::$user_conf->default_state
-		);
-		$state_forced_by_user = Minz_Request::param('state', false) !== false;
-		if (!$state_forced_by_user && !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			if (FreshRSS_Context::$user_conf->default_view === 'adaptive' && FreshRSS_Context::$get_unread <= 0) {
-				FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
-			}
-			if (FreshRSS_Context::$user_conf->show_fav_unread &&
-					(FreshRSS_Context::isCurrentGet('s') || FreshRSS_Context::isCurrentGet('T') || FreshRSS_Context::isTag())) {
-				FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
-			}
+		try {
+			FreshRSS_Context::updateUsingRequest();
+		} catch (FreshRSS_Context_Exception $e) {
+			Minz_Error::error(404);
 		}
 
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
-		FreshRSS_Context::$order = Minz_Request::param(
-			'order', FreshRSS_Context::$user_conf->sort_order
-		);
-		FreshRSS_Context::$number = intval(Minz_Request::param('nb', FreshRSS_Context::$user_conf->posts_per_page));
-		if (FreshRSS_Context::$number > FreshRSS_Context::$user_conf->max_posts_per_rss) {
-			FreshRSS_Context::$number = max(
-				FreshRSS_Context::$user_conf->max_posts_per_rss,
-				FreshRSS_Context::$user_conf->posts_per_page);
+		$get = FreshRSS_Context::currentGet(true);
+		if (is_array($get)) {
+			$type = $get[0];
+			$id = $get[1];
+		} else {
+			$type = $get;
+			$id = '';
 		}
-		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
-		FreshRSS_Context::$sinceHours = intval(Minz_Request::param('hours', 0));
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$categories = $catDAO->listCategories(true, true);
+		$this->view->excludeMutedFeeds = true;
+
+		switch ($type) {
+			case 'a':
+				$this->view->categories = $categories;
+				break;
+			case 'c':
+				$cat = $categories[$id] ?? null;
+				if ($cat == null) {
+					Minz_Error::error(404);
+					return;
+				}
+				$this->view->categories = [ $cat ];
+				break;
+			case 'f':
+				// We most likely already have the feed object in cache
+				$feed = FreshRSS_CategoryDAO::findFeed($categories, $id);
+				if ($feed == null) {
+					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$feed = $feedDAO->searchById($id);
+					if ($feed == null) {
+						Minz_Error::error(404);
+						return;
+					}
+				}
+				$this->view->feeds = [ $feed ];
+				break;
+			case 's':
+			case 't':
+			case 'T':
+			default:
+				Minz_Error::error(404);
+				return;
+		}
+
+		require_once(LIB_PATH . '/lib_opml.php');
+
+		// No layout for OPML output.
+		$this->view->_layout(false);
+		header('Content-Type: application/xml; charset=utf-8');
 	}
 
 	/**
@@ -301,7 +317,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
-		$page = Minz_Request::param('page', 1);
+		$page = intval(Minz_Request::param('page', 1));
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);

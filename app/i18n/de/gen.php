@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Zurück zu Ihren RSS-Feeds gehen',
 		'cancel' => 'Abbrechen',
 		'create' => 'Erstellen',
+		'delete_muted_feeds' => 'Lösche stumm gestellte Feeds',
 		'demote' => 'Zurückstufen',
 		'disable' => 'Deaktivieren',
 		'empty' => 'Leeren',
@@ -31,6 +32,7 @@ return array(
 		'open_url' => 'URL öffnen',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',
+		'refresh_opml' => 'OPML erneut laden',
 		'remove' => 'Entfernen',
 		'rename' => 'Umbenennen',
 		'see_website' => 'Website ansehen',
@@ -154,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Über',
@@ -186,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Zwischenablage',
 		'diaspora' => 'Diaspora*',	// IGNORE
