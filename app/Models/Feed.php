@@ -110,7 +110,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function url(bool $includeCredentials = true): string {
-		return $includeCredentials ? $this->url : SimplePie_Misc::url_remove_credentials($this->url);
+		return $includeCredentials ? $this->url : \SimplePie\Misc::url_remove_credentials($this->url);
 	}
 	public function selfUrl(): string {
 		return $this->selfUrl;
@@ -343,7 +343,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @return SimplePie|null
+	 * @return \SimplePie\SimplePie|null
 	 */
 	public function load(bool $loadDetails = false, bool $noCache = false) {
 		if ($this->url != '') {
@@ -365,7 +365,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$simplePie->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
-					$simplePie->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
+					$simplePie->set_autodiscovery_level(\SimplePie\SimplePie::LOCATOR_NONE);
 				}
 				if ($this->attributes('clear_cache')) {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
@@ -408,7 +408,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $simplePie->subscribe_url(true);
 				}
 
-				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);
+				$clean_url = \SimplePie\Misc::url_remove_credentials($subscribe_url);
 				if ($subscribe_url !== null && $subscribe_url !== $url) {
 					$this->_url($clean_url);
 				}
@@ -426,7 +426,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return array<string>
 	 */
-	public function loadGuids(SimplePie $simplePie) {
+	public function loadGuids(\SimplePie\SimplePie $simplePie) {
 		$hasUniqueGuids = true;
 		$testGuids = [];
 		$guids = [];
@@ -460,7 +460,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $guids;
 	}
 
-	public function loadEntries(SimplePie $simplePie) {
+	public function loadEntries(\SimplePie\SimplePie $simplePie) {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
 		$items = $simplePie->get_items();
@@ -587,7 +587,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * @param array<string,mixed> $attributes
-	 * @return SimplePie|null
+	 * @return \SimplePie\SimplePie|null
 	 */
 	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false, array $attributes = []) {
 		if ($this->url == '') {

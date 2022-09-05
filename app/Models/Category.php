@@ -188,7 +188,7 @@ class FreshRSS_Category extends Minz_Model {
 		$opml = httpGet($url, $cachePath, 'opml', $attributes);
 		if ($opml == '') {
 			Minz_Log::warning('Error getting dynamic OPML for category ' . $this->id() . '! ' .
-				SimplePie_Misc::url_remove_credentials($url));
+				\SimplePie\Misc::url_remove_credentials($url));
 			$ok = false;
 		} else {
 			$dryRunCategory = new FreshRSS_Category();
@@ -235,7 +235,7 @@ class FreshRSS_Category extends Minz_Model {
 			} else {
 				$ok = false;
 				Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
-					SimplePie_Misc::url_remove_credentials($url));
+					\SimplePie\Misc::url_remove_credentials($url));
 			}
 		}
 

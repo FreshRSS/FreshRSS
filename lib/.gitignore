@@ -20,6 +20,7 @@ simplepie/simplepie/composer.json
 simplepie/simplepie/db.sql
 simplepie/simplepie/demo/
 simplepie/simplepie/idn/
+simplepie/simplepie/library/
 simplepie/simplepie/phpunit.xml.dist
 simplepie/simplepie/ROADMAP.md
 simplepie/simplepie/tests/

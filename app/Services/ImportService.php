@@ -214,10 +214,10 @@ class FreshRSS_Import_Service {
 
 		if (FreshRSS_Context::$isCli) {
 			fwrite(STDERR, 'FreshRSS error during OPML feed import from URL: ' .
-				SimplePie_Misc::url_remove_credentials($url) . ' in category ' . $parent_cat->id() . "\n");
+				\SimplePie\Misc::url_remove_credentials($url) . ' in category ' . $parent_cat->id() . "\n");
 		} else {
 			Minz_Log::warning('Error during OPML feed import from URL: ' .
-				SimplePie_Misc::url_remove_credentials($url) . ' in category ' . $parent_cat->id());
+				\SimplePie\Misc::url_remove_credentials($url) . ' in category ' . $parent_cat->id());
 		}
 
 		return null;

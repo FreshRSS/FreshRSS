@@ -55,9 +55,6 @@ function classAutoloader($class) {
 		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
 		$relative_class_name = substr($class, strlen($prefix));
 		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
-	} elseif (str_starts_with($class, 'SimplePie')) {
-		$base_dir = LIB_PATH . '/simplepie/simplepie/library/';
-		require $base_dir . str_replace('_', '/', $class) . '.php';
 	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
 		$prefix = 'Gt\\CssXPath\\';
 		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
@@ -232,9 +229,9 @@ function html_only_entity_decode($text): string {
 /**
  * @param array<string,mixed> $attributes
  */
-function customSimplePie($attributes = array()): SimplePie {
+function customSimplePie($attributes = array()): \SimplePie\SimplePie {
 	$limits = FreshRSS_Context::$system_conf->limits;
-	$simplePie = new SimplePie();
+	$simplePie = new \SimplePie\SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_name_function('sha1');
@@ -328,7 +325,7 @@ function sanitizeHTML($data, string $base = '', $maxLength = false) {
 		$simplePie = customSimplePie();
 		$simplePie->init();
 	}
-	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base));
 	if ($maxLength !== false && strlen($result) > $maxLength) {
 		//Sanitizing has made the result too long so try again shorter
 		$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
@@ -362,7 +359,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		// No charset defined by HTTP, do nothing
 		return $html;
 	}
-	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
+	$httpCharsetNormalized = \SimplePie\Misc::encoding($httpCharset);
 	if ($httpCharsetNormalized === 'windows-1252') {
 		// Default charset for HTTP, do nothing
 		return $html;
@@ -394,7 +391,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
 		$body = @file_get_contents($cachePath);
 		if ($body != '') {
-			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . SimplePie_Misc::url_remove_credentials($url));
+			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
 			return $body;
 		}
 	}
@@ -404,7 +401,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
-		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . SimplePie_Misc::url_remove_credentials($url));
+		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
 	}
 
 	$accept = '*/*;q=0.8';
