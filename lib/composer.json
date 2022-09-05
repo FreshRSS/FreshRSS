@@ -7,6 +7,10 @@
     "repositories": [
         {
             "type": "git",
+            "url": "https://github.com/FreshRSS/simplepie.git"
+        },
+        {
+            "type": "git",
             "url": "https://github.com/PhpGt/CssXPath.git"
         }
     ],
@@ -14,7 +18,7 @@
         "php": ">=7.0.0",
         "phpgt/cssxpath": "dev-master#4fbe420aba3d9e729940107ded4236a835a1a132",
         "phpmailer/phpmailer": "6.6.0",
-        "simplepie/simplepie": "1.6.0"
+        "simplepie/simplepie": "dev-master"
     },
     "config": {
         "sort-packages": true,
