@@ -58,8 +58,6 @@ function classAutoloader($class) {
 	} elseif (str_starts_with($class, 'SimplePie')) {
 		$base_dir = LIB_PATH . '/simplepie/simplepie/library/';
 		require $base_dir . str_replace('_', '/', $class) . '.php';
-	} elseif (str_starts_with($class, 'CustomSimplePie')) {
-		include(LIB_PATH . '/CustomSimplePie/' . $class . '.php');
 	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
 		$prefix = 'Gt\\CssXPath\\';
 		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';

@@ -17,12 +17,4 @@ class SimplePieTest extends PHPUnit\Framework\TestCase
 	public function testPsr0SimplePieMiscClassExists() {
 		$this->assertTrue(class_exists('SimplePie_Misc'));
 	}
-
-	public function testCustomSimplePieClassExists() {
-		$this->assertTrue(class_exists('CustomSimplePie'));
-	}
-
-	public function testCustomSimplePieMiscClassExists() {
-		$this->assertTrue(class_exists('CustomSimplePieMisc'));
-	}
 }
