@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/simplepie/simplepie/compare/1.6.0...master)
 
+### Added
+
+- New class `SimplePie\SimplePie` as a replacement for class `SimplePie`
+- New method `SimplePie\Misc::get_default_useragent` as a replacement for constant `SIMPLEPIE_USERAGENT`
+
+### Deprecated
+
+- The class `SimplePie` is deprecated, use class `SimplePie\SimplePie` instead
+- The use of PSR-0 classes (all classes without namespaces in the `library` directory) is deprecated, use PSR-4 classes (see `src` directory) instead
+- The constant `SIMPLEPIE_BUILD` is deprecated, use `SimplePie\Misc::get_build()` instead
+- The constant `SIMPLEPIE_USERAGENT` is deprecated, use `SimplePie\Misc::get_default_useragent()` instead
+- All global constants are deprecated, use the constants from the class `SimplePie\SimplePie` instead (e.g. replace `SIMPLEPIE_VERSION` with `SimplePie\SimplePie::VERSION`)
+
 ## [1.6.0](https://github.com/simplepie/simplepie/compare/1.5.8...1.6.0) - 2022-04-21
 
 ### Added

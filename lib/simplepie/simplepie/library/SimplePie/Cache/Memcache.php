@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -41,142 +41,15 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
-/**
- * Caches data to memcache
- *
- * Registered for URLs with the "memcache" protocol
- *
- * For example, `memcache://localhost:11211/?timeout=3600&prefix=sp_` will
- * connect to memcache on `localhost` on port 11211. All tables will be
- * prefixed with `sp_` and data will expire after 3600 seconds
- *
- * @package SimplePie
- * @subpackage Caching
- * @uses Memcache
- */
-class SimplePie_Cache_Memcache implements SimplePie_Cache_Base
-{
-	/**
-	 * Memcache instance
-	 *
-	 * @var Memcache
-	 */
-	protected $cache;
+use SimplePie\Cache\Memcache;
 
-	/**
-	 * Options
-	 *
-	 * @var array
-	 */
-	protected $options;
+class_exists('SimplePie\Cache\Memcache');
 
-	/**
-	 * Cache name
-	 *
-	 * @var string
-	 */
-	protected $name;
+// @trigger_error(sprintf('Using the "SimplePie_Cache_Memcache" class is deprecated since SimplePie 1.7, use "SimplePie\Cache\Memcache" instead.'), \E_USER_DEPRECATED);
 
-	/**
-	 * Create a new cache object
-	 *
-	 * @param string $location Location string (from SimplePie::$cache_location)
-	 * @param string $name Unique ID for the cache
-	 * @param string $type Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data
-	 */
-	public function __construct($location, $name, $type)
-	{
-		$this->options = array(
-			'host' => '127.0.0.1',
-			'port' => 11211,
-			'extras' => array(
-				'timeout' => 3600, // one hour
-				'prefix' => 'simplepie_',
-			),
-		);
-		$this->options = SimplePie_Misc::array_merge_recursive($this->options, SimplePie_Cache::parse_URL($location));
-
-		$this->name = $this->options['extras']['prefix'] . md5("$name:$type");
-
-		$this->cache = new Memcache();
-		$this->cache->addServer($this->options['host'], (int) $this->options['port']);
-	}
-
-	/**
-	 * Save data to the cache
-	 *
-	 * @param array|SimplePie $data Data to store in the cache. If passed a SimplePie object, only cache the $data property
-	 * @return bool Successfulness
-	 */
-	public function save($data)
-	{
-		if ($data instanceof SimplePie)
-		{
-			$data = $data->data;
-		}
-		return $this->cache->set($this->name, serialize($data), MEMCACHE_COMPRESSED, (int) $this->options['extras']['timeout']);
-	}
-
-	/**
-	 * Retrieve the data saved to the cache
-	 *
-	 * @return array Data for SimplePie::$data
-	 */
-	public function load()
-	{
-		$data = $this->cache->get($this->name);
-
-		if ($data !== false)
-		{
-			return unserialize($data);
-		}
-		return false;
-	}
-
-	/**
-	 * Retrieve the last modified time for the cache
-	 *
-	 * @return int Timestamp
-	 */
-	public function mtime()
-	{
-		$data = $this->cache->get($this->name);
-
-		if ($data !== false)
-		{
-			// essentially ignore the mtime because Memcache expires on its own
-			return time();
-		}
-
-		return false;
-	}
-
-	/**
-	 * Set the last modified time to the current time
-	 *
-	 * @return bool Success status
-	 */
-	public function touch()
-	{
-		$data = $this->cache->get($this->name);
-
-		if ($data !== false)
-		{
-			return $this->cache->set($this->name, $data, MEMCACHE_COMPRESSED, (int) $this->options['extras']['timeout']);
-		}
-
-		return false;
-	}
-
-	/**
-	 * Remove the cache
-	 *
-	 * @return bool Success status
-	 */
-	public function unlink()
-	{
-		return $this->cache->delete($this->name, 0);
-	}
+if (\false) {
+    /** @deprecated since SimplePie 1.7, use "SimplePie\Cache\Memcache" instead */
+    class SimplePie_Cache_Memcache extends Memcache
+    {
+    }
 }
-
-class_alias('SimplePie_Cache_Memcache', 'SimplePie\Cache\Memcache', false);

@@ -20,7 +20,7 @@ Requirements
 
 What comes in the package?
 --------------------------
-1. `library/` - SimplePie classes for use with the autoloader
+1. `src/` - SimplePie classes for use with the autoloader
 2. `autoloader.php` - The SimplePie Autoloader if you want to use the separate
    file version.
 3. `README.markdown` - This document.

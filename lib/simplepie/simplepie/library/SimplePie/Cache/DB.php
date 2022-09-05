@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -41,98 +41,15 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
-/**
- * Base class for database-based caches
- *
- * @package SimplePie
- * @subpackage Caching
- */
-abstract class SimplePie_Cache_DB implements SimplePie_Cache_Base
-{
-	/**
-	 * Helper for database conversion
-	 *
-	 * Converts a given {@see SimplePie} object into data to be stored
-	 *
-	 * @param SimplePie $data
-	 * @return array First item is the serialized data for storage, second item is the unique ID for this item
-	 */
-	protected static function prepare_simplepie_object_for_cache($data)
-	{
-		$items = $data->get_items();
-		$items_by_id = array();
+use SimplePie\Cache\DB;
 
-		if (!empty($items))
-		{
-			foreach ($items as $item)
-			{
-				$items_by_id[$item->get_id()] = $item;
-			}
+class_exists('SimplePie\Cache\DB');
 
-			if (count($items_by_id) !== count($items))
-			{
-				$items_by_id = array();
-				foreach ($items as $item)
-				{
-					$items_by_id[$item->get_id(true)] = $item;
-				}
-			}
+// @trigger_error(sprintf('Using the "SimplePie_Cache_DB" class is deprecated since SimplePie 1.7, use "SimplePie\Cache\DB" instead.'), \E_USER_DEPRECATED);
 
-			if (isset($data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]))
-			{
-				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0];
-			}
-			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]))
-			{
-				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0];
-			}
-			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]))
-			{
-				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0];
-			}
-			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['channel'][0]))
-			{
-				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['channel'][0];
-			}
-			else
-			{
-				$channel = null;
-			}
-
-			if ($channel !== null)
-			{
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['entry']))
-				{
-					unset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['entry']);
-				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['entry']))
-				{
-					unset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['entry']);
-				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_10]['item']))
-				{
-					unset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_10]['item']);
-				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_090]['item']))
-				{
-					unset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_090]['item']);
-				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_20]['item']))
-				{
-					unset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_20]['item']);
-				}
-			}
-			if (isset($data->data['items']))
-			{
-				unset($data->data['items']);
-			}
-			if (isset($data->data['ordered_items']))
-			{
-				unset($data->data['ordered_items']);
-			}
-		}
-		return array(serialize($data->data), $items_by_id);
-	}
+if (\false) {
+    /** @deprecated since SimplePie 1.7, use "SimplePie\Cache\DB" instead */
+    abstract class SimplePie_Cache_DB extends DB
+    {
+    }
 }
-
-class_alias('SimplePie_Cache_DB', 'SimplePie\Cache\DB', false);

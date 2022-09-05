@@ -18,7 +18,7 @@
         "php": ">=7.0.0",
         "phpgt/cssxpath": "dev-master#4fbe420aba3d9e729940107ded4236a835a1a132",
         "phpmailer/phpmailer": "6.6.0",
-        "simplepie/simplepie": "dev-master"
+        "simplepie/simplepie": "dev-fix-base-url"
     },
     "config": {
         "sort-packages": true,

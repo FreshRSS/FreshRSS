@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -41,124 +41,15 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
-/**
- * Manages all category-related data
- *
- * Used by {@see SimplePie_Item::get_category()} and {@see SimplePie_Item::get_categories()}
- *
- * This class can be overloaded with {@see SimplePie::set_category_class()}
- *
- * @package SimplePie
- * @subpackage API
- */
-class SimplePie_Category
-{
-	/**
-	 * Category identifier
-	 *
-	 * @var string|null
-	 * @see get_term
-	 */
-	var $term;
+use SimplePie\Category;
 
-	/**
-	 * Categorization scheme identifier
-	 *
-	 * @var string|null
-	 * @see get_scheme()
-	 */
-	var $scheme;
+class_exists('SimplePie\Category');
 
-	/**
-	 * Human readable label
-	 *
-	 * @var string|null
-	 * @see get_label()
-	 */
-	var $label;
+// @trigger_error(sprintf('Using the "SimplePie_Category" class is deprecated since SimplePie 1.7, use "SimplePie\Category" instead.'), \E_USER_DEPRECATED);
 
-	/**
-	 * Category type
-	 *
-	 * category for <category>
-	 * subject for <dc:subject>
-	 *
-	 * @var string|null
-	 * @see get_type()
-	 */
-	var $type;
-
-	/**
-	 * Constructor, used to input the data
-	 *
-	 * @param string|null $term
-	 * @param string|null $scheme
-	 * @param string|null $label
-	 * @param string|null $type
-	 */
-	public function __construct($term = null, $scheme = null, $label = null, $type = null)
-	{
-		$this->term = $term;
-		$this->scheme = $scheme;
-		$this->label = $label;
-		$this->type = $type;
-	}
-
-	/**
-	 * String-ified version
-	 *
-	 * @return string
-	 */
-	public function __toString()
-	{
-		// There is no $this->data here
-		return md5(serialize($this));
-	}
-
-	/**
-	 * Get the category identifier
-	 *
-	 * @return string|null
-	 */
-	public function get_term()
-	{
-		return $this->term;
-	}
-
-	/**
-	 * Get the categorization scheme identifier
-	 *
-	 * @return string|null
-	 */
-	public function get_scheme()
-	{
-		return $this->scheme;
-	}
-
-	/**
-	 * Get the human readable label
-	 *
-	 * @param bool $strict
-	 * @return string|null
-	 */
-	public function get_label($strict = false)
-	{
-		if ($this->label === null && $strict !== true)
-		{
-			return $this->get_term();
-		}
-		return $this->label;
-	}
-
-	/**
-	 * Get the category type
-	 *
-	 * @return string|null
-	 */
-	public function get_type()
-	{
-		return $this->type;
-	}
+if (\false) {
+    /** @deprecated since SimplePie 1.7, use "SimplePie\Category" instead */
+    class SimplePie_Category extends Category
+    {
+    }
 }
-
-class_alias('SimplePie_Category', 'SimplePie\Category', false);

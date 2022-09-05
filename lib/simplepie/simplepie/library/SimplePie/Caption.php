@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -41,160 +41,15 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
+use SimplePie\Caption;
 
-/**
- * Handles `<media:text>` captions as defined in Media RSS.
- *
- * Used by {@see SimplePie_Enclosure::get_caption()} and {@see SimplePie_Enclosure::get_captions()}
- *
- * This class can be overloaded with {@see SimplePie::set_caption_class()}
- *
- * @package SimplePie
- * @subpackage API
- */
-class SimplePie_Caption
-{
-	/**
-	 * Content type
-	 *
-	 * @var string
-	 * @see get_type()
-	 */
-	var $type;
+class_exists('SimplePie\Caption');
 
-	/**
-	 * Language
-	 *
-	 * @var string
-	 * @see get_language()
-	 */
-	var $lang;
+// @trigger_error(sprintf('Using the "SimplePie_Caption" class is deprecated since SimplePie 1.7, use "SimplePie\Caption" instead.'), \E_USER_DEPRECATED);
 
-	/**
-	 * Start time
-	 *
-	 * @var string
-	 * @see get_starttime()
-	 */
-	var $startTime;
-
-	/**
-	 * End time
-	 *
-	 * @var string
-	 * @see get_endtime()
-	 */
-	var $endTime;
-
-	/**
-	 * Caption text
-	 *
-	 * @var string
-	 * @see get_text()
-	 */
-	var $text;
-
-	/**
-	 * Constructor, used to input the data
-	 *
-	 * For documentation on all the parameters, see the corresponding
-	 * properties and their accessors
-	 */
-	public function __construct($type = null, $lang = null, $startTime = null, $endTime = null, $text = null)
-	{
-		$this->type = $type;
-		$this->lang = $lang;
-		$this->startTime = $startTime;
-		$this->endTime = $endTime;
-		$this->text = $text;
-	}
-
-	/**
-	 * String-ified version
-	 *
-	 * @return string
-	 */
-	public function __toString()
-	{
-		// There is no $this->data here
-		return md5(serialize($this));
-	}
-
-	/**
-	 * Get the end time
-	 *
-	 * @return string|null Time in the format 'hh:mm:ss.SSS'
-	 */
-	public function get_endtime()
-	{
-		if ($this->endTime !== null)
-		{
-			return $this->endTime;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the language
-	 *
-	 * @link http://tools.ietf.org/html/rfc3066
-	 * @return string|null Language code as per RFC 3066
-	 */
-	public function get_language()
-	{
-		if ($this->lang !== null)
-		{
-			return $this->lang;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the start time
-	 *
-	 * @return string|null Time in the format 'hh:mm:ss.SSS'
-	 */
-	public function get_starttime()
-	{
-		if ($this->startTime !== null)
-		{
-			return $this->startTime;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the text of the caption
-	 *
-	 * @return string|null
-	 */
-	public function get_text()
-	{
-		if ($this->text !== null)
-		{
-			return $this->text;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the content type (not MIME type)
-	 *
-	 * @return string|null Either 'text' or 'html'
-	 */
-	public function get_type()
-	{
-		if ($this->type !== null)
-		{
-			return $this->type;
-		}
-
-		return null;
-	}
+if (\false) {
+    /** @deprecated since SimplePie 1.7, use "SimplePie\Caption" instead */
+    class SimplePie_Caption extends Caption
+    {
+    }
 }
-
-class_alias('SimplePie_Caption', 'SimplePie\Caption', false);

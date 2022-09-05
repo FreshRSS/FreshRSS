@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -41,110 +41,15 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
-/**
- * Handles `<media:credit>` as defined in Media RSS
- *
- * Used by {@see SimplePie_Enclosure::get_credit()} and {@see SimplePie_Enclosure::get_credits()}
- *
- * This class can be overloaded with {@see SimplePie::set_credit_class()}
- *
- * @package SimplePie
- * @subpackage API
- */
-class SimplePie_Credit
-{
-	/**
-	 * Credited role
-	 *
-	 * @var string
-	 * @see get_role()
-	 */
-	var $role;
+use SimplePie\Credit;
 
-	/**
-	 * Organizational scheme
-	 *
-	 * @var string
-	 * @see get_scheme()
-	 */
-	var $scheme;
+class_exists('SimplePie\Credit');
 
-	/**
-	 * Credited name
-	 *
-	 * @var string
-	 * @see get_name()
-	 */
-	var $name;
+// @trigger_error(sprintf('Using the "SimplePie_Credit" class is deprecated since SimplePie 1.7, use "SimplePie\Credit" instead.'), \E_USER_DEPRECATED);
 
-	/**
-	 * Constructor, used to input the data
-	 *
-	 * For documentation on all the parameters, see the corresponding
-	 * properties and their accessors
-	 */
-	public function __construct($role = null, $scheme = null, $name = null)
-	{
-		$this->role = $role;
-		$this->scheme = $scheme;
-		$this->name = $name;
-	}
-
-	/**
-	 * String-ified version
-	 *
-	 * @return string
-	 */
-	public function __toString()
-	{
-		// There is no $this->data here
-		return md5(serialize($this));
-	}
-
-	/**
-	 * Get the role of the person receiving credit
-	 *
-	 * @return string|null
-	 */
-	public function get_role()
-	{
-		if ($this->role !== null)
-		{
-			return $this->role;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the organizational scheme
-	 *
-	 * @return string|null
-	 */
-	public function get_scheme()
-	{
-		if ($this->scheme !== null)
-		{
-			return $this->scheme;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the credited person/entity's name
-	 *
-	 * @return string|null
-	 */
-	public function get_name()
-	{
-		if ($this->name !== null)
-		{
-			return $this->name;
-		}
-
-		return null;
-	}
+if (\false) {
+    /** @deprecated since SimplePie 1.7, use "SimplePie\Credit" instead */
+    class SimplePie_Credit extends Credit
+    {
+    }
 }
-
-class_alias('SimplePie_Credit', 'SimplePie\Credit', false);
