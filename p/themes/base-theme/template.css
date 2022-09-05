@@ -542,6 +542,10 @@ input[type="checkbox"]:focus-visible {
 	vertical-align: middle;
 }
 
+.horizontal-list.wrapTitle_desktop .item {
+	vertical-align: top;
+}
+
 /*=== manage-list */
 .manage-list {
 	list-style: none;
@@ -2014,8 +2018,16 @@ input:checked + .slide-container .properties {
 		white-space: inherit;
 	}
 
-	.flux .wrapTitle_desktop .item.title a {
+	.flux .wrapTitle_mobile .item.title a {
 		white-space: break-spaces;
+	}
+
+	.horizontal-list.wrapTitle_desktop .item {
+		vertical-align: middle;
+	}
+
+	.horizontal-list.wrapTitle_mobile .item {
+		vertical-align: top;
 	}
 
 	.flux_header .item.website {
