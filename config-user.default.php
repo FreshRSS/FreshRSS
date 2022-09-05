@@ -51,6 +51,8 @@ return array (
 	'mark_updated_article_unread' => false, //TODO: -1 => ignore, 0 => update, 1 => update and mark as unread
 
 	'sort_order' => 'DESC',
+	'wrapTitle_desktop' => false,
+	'wrapTitle_mobile' => false,
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,

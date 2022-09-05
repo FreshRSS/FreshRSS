@@ -8,6 +8,13 @@
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$class_wrapTitle = '';
+	if (FreshRSS_Context::$user_conf->wrapTitle_desktop) {
+		$class_wrapTitle = ' wrapTitle_desktop';
+	}
+	if (FreshRSS_Context::$user_conf->wrapTitle_mobile) {
+		$class_wrapTitle .= ' wrapTitle_mobile';
+	}
 ?><ul class="horizontal-list flux_header"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
@@ -48,7 +55,7 @@
 	?></li><?php
 	endif; ?>
 
-	<li class="item title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
+	<li class="item title<?= $class_wrapTitle ?><?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?><span class="author"><?php
 			$authors = $this->entry->authors();

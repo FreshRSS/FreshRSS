@@ -1067,7 +1067,8 @@ input[type="search"] {
 }
 
 .flux .item {
-	line-height: 40px;
+	padding: 0.5rem 0;
+	line-height: 1.5rem;
 	white-space: nowrap;
 }
 
@@ -1096,6 +1097,10 @@ a.website:hover .favicon {
 	background: #fff;
 	max-width: calc(100% - 320px);
 	position: absolute;
+}
+
+.flux:not(.current):hover .item.title.wrapTitle_desktop {
+	position: relative;
 }
 
 .flux:not(.current):hover .item.title.multiline {
@@ -1179,6 +1184,10 @@ a.website:hover .favicon {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+.flux .item.title.wrapTitle_desktop a {
+	white-space: break-spaces;
 }
 
 .item.query > a {
@@ -1998,6 +2007,14 @@ input:checked + .slide-container .properties {
 
 	.aside_feed .configure-feeds {
 		margin-top: 10px;
+	}
+
+	.flux .item.title.wrapTitle_desktop a {
+		white-space: inherit;
+	}
+
+	.flux .item.title.wrapTitle_mobile a {
+		white-space: break-spaces;
 	}
 
 	.flux_header .item.website {

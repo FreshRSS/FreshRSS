@@ -142,6 +142,14 @@ class FreshRSS_ConfigurationSetter {
 		$data['sort_order'] = $value === 'ASC' ? 'ASC' : 'DESC';
 	}
 
+	private function _wrapTitle_desktop(&$data, $value) {
+		$data['wrapTitle_desktop'] = $value;
+	}
+
+	private function _wrapTitle_mobile(&$data, $value) {
+		$data['wrapTitle_mobile'] = $value;
+	}
+
 	private function _ttl_default(&$data, $value) {
 		$value = intval($value);
 		$data['ttl_default'] = $value > FreshRSS_Feed::TTL_DEFAULT ? $value : 3600;
