@@ -726,18 +726,9 @@ function onScroll() {
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			// Too close to the last pre-loaded article
 			load_more_posts();
-		} else {
-			let sibling = document.querySelector('.flux.current');
-			if (sibling) {
-				for (let i = 5; i > 0; i--) {
-					sibling = sibling.nextElementSibling;
-					if (!sibling) {
-						// Too few pre-loaded articles
-						load_more_posts();
-						break;
-					}
-				}
-			}
+		} else if (document.querySelectorAll('.flux.current ~ .flux').length <= 5) {
+			// Too few pre-loaded articles
+			load_more_posts();
 		}
 	}
 }
