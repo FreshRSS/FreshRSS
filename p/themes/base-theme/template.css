@@ -1099,7 +1099,7 @@ a.website:hover .favicon {
 	position: absolute;
 }
 
-.flux:not(.current):hover .item.title.wrapTitle_desktop {
+.flux:not(.current):hover .wrapTitle_desktop .item.title {
 	position: relative;
 }
 
@@ -1186,7 +1186,7 @@ a.website:hover .favicon {
 	overflow: hidden;
 }
 
-.flux .item.title.wrapTitle_desktop a {
+.flux .wrapTitle_desktop .item.title a {
 	white-space: break-spaces;
 }
 
@@ -2009,11 +2009,11 @@ input:checked + .slide-container .properties {
 		margin-top: 10px;
 	}
 
-	.flux .item.title.wrapTitle_desktop a {
+	.flux .wrapTitle_desktop .item.title a {
 		white-space: inherit;
 	}
 
-	.flux .item.title.wrapTitle_mobile a {
+	.flux .wrapTitle_desktop .item.title a {
 		white-space: break-spaces;
 	}
 

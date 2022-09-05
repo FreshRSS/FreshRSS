@@ -15,7 +15,7 @@
 	if (FreshRSS_Context::$user_conf->wrapTitle_mobile) {
 		$class_wrapTitle .= ' wrapTitle_mobile';
 	}
-?><ul class="horizontal-list flux_header"><?php
+?><ul class="horizontal-list flux_header<?= $class_wrapTitle ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
@@ -55,7 +55,7 @@
 	?></li><?php
 	endif; ?>
 
-	<li class="item title<?= $class_wrapTitle ?><?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
+	<li class="item title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?><span class="author"><?php
 			$authors = $this->entry->authors();
