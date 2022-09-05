@@ -689,6 +689,7 @@ class FreshRSS_Entry extends Minz_Model {
 		];
 		if ($mode === 'compat') {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
+			unset($item['alternate'][0]['type']);
 		} elseif ($mode === 'freshrss') {
 			$item['guid'] = $this->guid();
 			unset($item['summary']);

@@ -92,10 +92,6 @@ img {
 	}
 }
 
-main#stream {
-	margin-top: 2rem;
-}
-
 sup {
 	top: -0.3em;
 }
@@ -340,6 +336,19 @@ form {
 	&:hover,
 	:active {
 		background: color.adjust( $color_alert, $lightness: -10%) !important;
+	}
+}
+
+.manage-list {
+	.configure {
+		.icon {
+			filter: brightness(0.4);
+			vertical-align: sub;
+		}
+
+		&:hover {
+			filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+		}
 	}
 }
 
@@ -680,7 +689,7 @@ form {
 			.configure {
 				.icon {
 					vertical-align: middle;
-					filter: invert(1);
+					filter: brightness(0.4);
 
 					&:hover {
 						filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);

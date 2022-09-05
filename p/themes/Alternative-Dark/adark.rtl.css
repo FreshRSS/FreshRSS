@@ -49,7 +49,8 @@ option {
 }
 
 input:disabled, select:disabled {
-	background: #eee;
+	color: #666;
+	border-color: #666;
 }
 
 input.extend {
@@ -548,7 +549,8 @@ a.btn {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
-.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
 	background-color: #171717;
 	color: #999;
 	border-color: #999;

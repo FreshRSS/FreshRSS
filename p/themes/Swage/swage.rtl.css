@@ -72,10 +72,6 @@ img.icon:hover {
 	background: none;
 }
 
-main#stream {
-	margin-top: 2rem;
-}
-
 sup {
 	top: -0.3em;
 }
@@ -271,6 +267,14 @@ form th {
 .btn-important :active, .btn-attention:hover,
 .btn-attention :active {
 	background: #f95c20 !important;
+}
+
+.manage-list .configure .icon {
+	filter: brightness(0.4);
+	vertical-align: sub;
+}
+.manage-list .configure:hover {
+	filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
 }
 
 .switch.active {
@@ -542,7 +546,7 @@ form th {
 }
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
-	filter: invert(1);
+	filter: brightness(0.4);
 }
 .box .box-content .item .configure .icon:hover {
 	filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);

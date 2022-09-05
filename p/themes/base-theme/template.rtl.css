@@ -214,12 +214,6 @@ textarea:invalid {
 	border: 2px dashed red;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-	width: 15px !important;
-	min-height: 15px !important;
-}
-
 .prompt textarea,
 .prompt input,
 .prompt select,
@@ -227,6 +221,22 @@ input[type="checkbox"] {
 	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+input:disabled,
+select:disabled {
+	background-color: transparent;
+	min-width: 75px;
+	color: lightgray;
+	font-style: italic;
+	border: 1px dashed lightgray;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+	min-width: auto;
+	width: 15px !important;
+	min-height: 15px !important;
 }
 
 .dropdown-menu label > input[type="text"] {
@@ -295,13 +305,8 @@ td.numeric {
 	display: none !important;
 }
 
-/* login and register form */
+/* prompt: login + register form + alert message banner */
 .prompt {
-	margin: 3rem auto;
-	padding: 2rem;
-	max-width: 400px;
-	min-width: 300px;
-	width: 33%;
 	text-align: center;
 }
 
@@ -1708,8 +1713,8 @@ input:checked + .slide-container .properties {
 	color: white;
 }
 
-.category .title:not([data-unread="0"])::after,
-.feed .item-title:not([data-unread="0"])::after {
+.aside .category .title:not([data-unread="0"])::after,
+.aside .feed .item-title:not([data-unread="0"])::after {
 	margin: 0.75em 0 0 0;
 	padding: 5px 10px;
 	min-width: 20px;
@@ -1720,6 +1725,22 @@ input:checked + .slide-container .properties {
 	left: 10px;
 	text-align: center;
 	font-size: 0.9em;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
+.global .box.category .title:not([data-unread="0"])::after {
+	margin: 0.5rem 0 0 0;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-unread);
+	position: absolute;
+	top: 0;
+	left: 10px;
+	text-align: center;
+	font-size: 0.75rem;
 	border-radius: 12px;
 	line-height: 1;
 	font-weight: initial;
