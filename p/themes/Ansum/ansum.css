@@ -224,9 +224,6 @@ form th {
 	margin: 0;
 	padding: 0.1rem 0;
 }
-.horizontal-list .item {
-	vertical-align: middle;
-}
 .horizontal-list .item:first-child {
 	padding-left: 0.5rem;
 }

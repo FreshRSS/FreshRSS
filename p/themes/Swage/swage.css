@@ -356,9 +356,6 @@ form th {
 	margin: 0;
 	padding: 0;
 }
-.horizontal-list .item {
-	vertical-align: middle;
-}
 
 .dropdown-menu {
 	padding: 0.5rem 0 1rem 0;

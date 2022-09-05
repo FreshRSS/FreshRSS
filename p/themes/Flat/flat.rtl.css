@@ -343,10 +343,6 @@ a.btn {
 	padding: 0;
 }
 
-.horizontal-list .item {
-	vertical-align: middle;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 0.5rem 0 0;
