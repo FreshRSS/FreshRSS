@@ -720,10 +720,14 @@ function onScroll() {
 			}
 		});
 	}
-	if (context.auto_load_more) {
-		const streamFooter = document.getElementById('stream-footer');
-		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+	let streamFooter;
+	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
+		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
+			// Too close to the last pre-loaded article
+			load_more_posts();
+		} else if (document.querySelectorAll('.flux.current ~ .flux').length <= 5) {
+			// Too few pre-loaded articles
 			load_more_posts();
 		}
 	}
