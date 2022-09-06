@@ -36,7 +36,7 @@ textarea {
 input, select, textarea {
 	padding: 5px;
 	background: #262626;
-	color: #666;
+	color: #999;
 	border: 1px solid #666;
 	border-radius: 3px;
 	min-height: 25px;
