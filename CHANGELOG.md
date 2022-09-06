@@ -30,11 +30,14 @@
 	[simplepie#717](https://github.com/simplepie/simplepie/pull/717)
 	* Fix parsing of HTTP Links [simplepie#729](https://github.com/simplepie/simplepie/pull/729)
 	* Fix `status_code` type for PHP 8.1+ [simplepie#728](https://github.com/simplepie/simplepie/pull/728)
+	* Fix relative URLs [simplepie#744](https://github.com/simplepie/simplepie/pull/744)
 * Bug fixing
 	* Fix last update & archive logic (especially for very long feeds, for which some old items were marked as unread) [#4422](https://github.com/FreshRSS/FreshRSS/pull/4422)
 	* Fix regression with Fever API on 32-bit platforms [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201)
 	* Fix read-when-same-title bug [#4206](https://github.com/FreshRSS/FreshRSS/pull/4206)
 	* Fix some search expressions such as `"ab cd"` and `ab-cd` [#4277](https://github.com/FreshRSS/FreshRSS/pull/4277)
+	* Fix auto-load of more articles when using shortcuts [#4532](https://github.com/FreshRSS/FreshRSS/pull/4532)
+	* Fix <kbd>space</kbd> shortcut [#4581](https://github.com/FreshRSS/FreshRSS/pull/4581)
 	* WebSub: Use hash instead of base64 to handle long URLs [#4282](https://github.com/FreshRSS/FreshRSS/pull/4282)
 	* Fix handling of authors with ampersand `&` [#4287](https://github.com/FreshRSS/FreshRSS/pull/4287)
 	* Fix lazy loading images containing a quote `'` in the address [#4330](https://github.com/FreshRSS/FreshRSS/pull/4330)
@@ -80,12 +83,13 @@
 	* Improve themes *Ansum* [#4538](https://github.com/FreshRSS/FreshRSS/pull/4538), [#4549](https://github.com/FreshRSS/FreshRSS/pull/4549);
 	*Flat* [#4575](https://github.com/FreshRSS/FreshRSS/pull/4575);
 	*Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491), [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491);
-	*Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512)
+	*Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512), [#4566](https://github.com/FreshRSS/FreshRSS/pull/4566)
 * Extensions
 	* Allow extensions using `entry_before_insert` to change `entry->isRead()` [#4331](https://github.com/FreshRSS/FreshRSS/pull/4331)
 * i18n
 	* Improve i18n CLI [#4197](https://github.com/FreshRSS/FreshRSS/pull/4197), [#4199](https://github.com/FreshRSS/FreshRSS/pull/4199)
-	* Improve Chinese [#4332](https://github.com/FreshRSS/FreshRSS/pull/4332), [#4337](https://github.com/FreshRSS/FreshRSS/pull/4337), [#4379](https://github.com/FreshRSS/FreshRSS/pull/4379),
+	* Add Chinese (Traditional) [#4578](https://github.com/FreshRSS/FreshRSS/pull/4578)
+	* Improve Chinese (Simplified) [#4332](https://github.com/FreshRSS/FreshRSS/pull/4332), [#4337](https://github.com/FreshRSS/FreshRSS/pull/4337), [#4379](https://github.com/FreshRSS/FreshRSS/pull/4379),
 	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509), [#4577](https://github.com/FreshRSS/FreshRSS/pull/4577)
 	* Improve English [#4450](https://github.com/FreshRSS/FreshRSS/pull/4450)
 	* Improve German [#4525](https://github.com/FreshRSS/FreshRSS/pull/4525)
@@ -94,12 +98,14 @@
 	* Improve Polish [#4363](https://github.com/FreshRSS/FreshRSS/pull/4363)
 	* Improve Russian [#4385](https://github.com/FreshRSS/FreshRSS/pull/4385)
 	* Improve Slovak [#4524](https://github.com/FreshRSS/FreshRSS/pull/4524)
+* API
+	* Restrict maximum length of item content length for clients compatibility [#4583](https://github.com/FreshRSS/FreshRSS/pull/4583)
 * Deployment
 	* Docker: Performance: entrypoint fix buffering, problematic when importing large OPMLs during install [#4417](https://github.com/FreshRSS/FreshRSS/pull/4417)
+	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.30 and Apache 2.4.54
 	* Docker: alternative image updated to Alpine 3.16 with PHP 8.0.22 and Apache 2.4.54 [#4391](https://github.com/FreshRSS/FreshRSS/pull/4391)
 		* Add PHP extensions `php-openssl` (used by PHPMailer) and `php-xml` (used by SimplePie) [#4420](https://github.com/FreshRSS/FreshRSS/pull/4420)
 	* Docker: Upgraded dev image `freshrss/freshrss:newest` to PHP 8.2 [#4420](https://github.com/FreshRSS/FreshRSS/pull/4420)
-	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.30 and Apache 2.4.54
 	* Include PHP extensions in Composer for easier automated deployment [#4497](https://github.com/FreshRSS/FreshRSS/pull/4497)
 	* Improved trimming of `base_url` to avoid some common configuration bugs, especially via Docker / CLI [#4423](https://github.com/FreshRSS/FreshRSS/pull/4423)
 * CLI
