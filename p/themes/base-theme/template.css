@@ -1071,19 +1071,19 @@ input[type="search"] {
 	position: static;
 }
 
-.flux .item {
+.flux .flux_header .item {
 	padding: 0.5rem 0;
 	line-height: 1.5rem;
 	white-space: nowrap;
 }
 
-.flux .item.manage,
-.flux .item.link {
+.flux .flux_header .item.manage,
+.flux .flux_header .item.link {
 	width: 40px;
 	text-align: center;
 }
 
-.flux .item.website {
+.flux .flux_header .item.website {
 	width: 200px;
 	padding-right: 10px;
 }
