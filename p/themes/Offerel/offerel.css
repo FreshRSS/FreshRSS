@@ -260,9 +260,6 @@
 	.tree-folder-items {
 		background: rgb(247, 247, 247);
 	}
-	.tree-folder.category.tags .icon, .tree-folder.category.all .icon {
-		filter: invert(1);
-	}
 	.dropdown .btn {
 		filter: invert(1);
 		background: transparent;
