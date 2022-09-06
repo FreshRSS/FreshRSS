@@ -1,22 +1,52 @@
 @media screen {
+	.register .header {
+		background: #22303d;
+		height: 55px;
+	}
+	.register .header > .item.configure {
+		width: 200px;
+		position: unset;
+		text-align: right;
+		padding: 10px 30px;
+	}
+	.register .header > .item.configure > a {
+		color: #fcfcfc;
+		padding-left: 5px;
+	}
+	.register #global {
+		height: 0;
+	}
+	.register .header > .item {
+		padding: 10px 30px;
+	}
 	.aside {
-    	background: rgb(247, 247, 247);
-    	resize: horizontal;
-    	overflow: auto;
-    	height: 100%;
-    	float: left;
-    	padding-top: 0;
-    	padding-bottom: 0;
-    	max-width: 350px;
-    	min-width: 150px;
-    }
+		background: rgb(247, 247, 247);
+		max-width: 350px;
+		min-width: 150px;
+	}
+	#stream:after {
+		content: '';
+		background-color: transparent;
+		width: 5px;
+		position: absolute;
+		height: 100%;
+		top: 0;
+		cursor: col-resize;
+	}
+	.nav-list .item > a {
+		color: black;
+	}
+	.normal > .header > .item.title {
+		background: linear-gradient(to bottom, #d3d3d3 0%,#afafaf 100%);
+		height: 35px;
+	}
+	.stick > .btn:not(.btn-important) {
+		max-width: 83px;
+		text-overflow: ellipsis;
+	}
 	#stream {
-    	display: flow-root;
-    	overflow: auto;
-    	margin-top: unset !important;
-    	height: calc(100% - 60px);
-    	width: auto;
-    }
+		margin-top: unset !important;
+	}
     .flux_content iframe {
 	    position: sticky;
 	    top: 0;
@@ -54,9 +84,6 @@
 	.nav_menu {
 		background: linear-gradient(to bottom, #f2f2f2 0%,#e6e6e6 100%);
 		position: unset;
-	}
-	#global {
-		display: block;
 	}
 	#new-article {
 		right: 30px;
@@ -273,9 +300,6 @@
 	.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 		font-size: 12px;
 	}
-	.header > .item.title {
-		display: none;
-	}
 	.dropdown-menu {
 		background-color: #fff;
 		box-shadow: -1px 3px 5px 0px rgba(0,0,0,0.29);
@@ -294,9 +318,6 @@
 	}
 	.dropdown-menu > .item:hover {
 		background: rgb(230, 230, 230);
-		color: rgb(56,56,56);
-	}
-	.nav a {
 		color: rgb(56,56,56);
 	}
 	.nav-list .item:hover, .nav-list .item.active {

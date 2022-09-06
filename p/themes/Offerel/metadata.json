@@ -1,7 +1,7 @@
 {
   "name": "Offerel",
   "author": "Offerel",
-  "description": "A Fork of Swage.",
-  "version": 0.9,
-  "files": ["_template.css", "swage.css", "offerel.css"]
+  "description": "This theme is based on Swage theme. It's changed mostly for brighter colors and you can change the wide of the sidebar.",
+  "version": 1.0,
+  "files": ["_template.css", "../Swage/swage.css", "offerel.css", "offerel.js"]
 }
