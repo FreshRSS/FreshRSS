@@ -143,6 +143,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_attributes('read_when_same_title_in_feed', $read_when_same_title_in_feed);
 
 			$cookie = Minz_Request::param('curl_params_cookie', '');
+			$cookie_file = Minz_Request::paramBoolean('curl_params_cookiefile');
+			$max_redirs = intval(Minz_Request::param('curl_params_redirects', 0));
 			$useragent = Minz_Request::param('curl_params_useragent', '');
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
@@ -153,6 +155,15 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			if ($cookie !== '') {
 				$opts[CURLOPT_COOKIE] = $cookie;
+			}
+			if ($cookie_file) {
+				// Pass empty cookie file name to enable the libcurl cookie engine
+				// without reading any existing cookie data.
+				$opts[CURLOPT_COOKIEFILE] = '';
+			}
+			if ($max_redirs != 0) {
+				$opts[CURLOPT_MAXREDIRS] = $max_redirs;
+				$opts[CURLOPT_FOLLOWLOCATION] = 1;
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
@@ -204,10 +215,13 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '', true);
 				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '', true);
 				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '', true);
+				if (Minz_Request::param('xPathItemUid', '') != '') $xPathSettings['itemUid'] = Minz_Request::param('xPathItemUid', '', true);
 				if (!empty($xPathSettings)) {
 					$feed->_attributes('xpath', $xPathSettings);
 				}
 			}
+
+			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', ''));
 
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
@@ -244,7 +258,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($feedDAO->updateFeed($id, $values) !== false) {
-				$feed->_category($cat);
+				$feed->_categoryId($cat);
 				$feed->faviconPrepare();
 
 				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);

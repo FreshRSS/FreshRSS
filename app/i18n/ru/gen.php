@@ -156,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'О проекте',
@@ -188,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE

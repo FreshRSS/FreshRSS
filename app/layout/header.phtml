@@ -89,7 +89,7 @@
 	</nav>
 	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
 	<div class="item configure">
-		<?= _i('login') ?><a class="signin" href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a>
+		<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
 	</div>
 	<?php } ?>
 </header>

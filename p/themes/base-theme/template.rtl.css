@@ -22,6 +22,15 @@ html, body {
 	font-size: 100%;
 }
 
+main.prompt {
+	margin: 3rem auto;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
+	text-align: center;
+}
+
 /*=== Links */
 a {
 	text-decoration: none;
@@ -64,6 +73,7 @@ p {
 
 p.help, .prompt p.help {
 	margin: 5px 0 0.5em;
+	text-align: right;
 }
 
 p.help .icon {
@@ -204,8 +214,27 @@ textarea:invalid {
 	border: 2px dashed red;
 }
 
+.prompt textarea,
+.prompt input,
+.prompt select,
+.prompt .stick {
+	margin: 5px auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+input:disabled,
+select:disabled {
+	background-color: transparent;
+	min-width: 75px;
+	color: lightgray;
+	font-style: italic;
+	border: 1px dashed lightgray;
+}
+
 input[type="radio"],
 input[type="checkbox"] {
+	min-width: auto;
 	width: 15px !important;
 	min-height: 15px !important;
 }
@@ -274,6 +303,33 @@ td.numeric {
 /*===============*/
 [aria-hidden="true"] {
 	display: none !important;
+}
+
+/* prompt: login + register form + alert message banner */
+.prompt {
+	text-align: center;
+}
+
+.prompt form {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	text-align: right;
+}
+
+.prompt label,
+.prompt .help {
+	text-align: right;
+}
+
+.prompt input,
+.prompt select,
+.prompt .stick {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.prompt p {
+	margin: 20px 0;
 }
 
 /*=== Forms */
@@ -714,6 +770,8 @@ input[type="checkbox"]:focus-visible {
 .box .box-content {
 	padding: 8px 16px 8px 8px;
 	display: block;
+	min-height: 2.5em;
+	max-height: 260px;
 	overflow: auto;
 }
 
@@ -803,7 +861,7 @@ li.drag-hover {
 	}
 
 	#sidebar:hover,
-	.scrollbar-thin {
+	.scrollbar-thin:hover {
 		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
 	}
 }
@@ -839,7 +897,6 @@ li.drag-hover {
 
 .tree-folder-items {
 	padding: 0;
-	max-height: 200em;
 	list-style: none;
 	transition: max-height .3s linear;
 }
@@ -1179,18 +1236,6 @@ a.website:hover .favicon {
 	padding-bottom: 1rem;
 }
 
-.content > header a,
-.content > footer a {
-	color: #666;
-	text-decoration: none;
-}
-
-.content > header a:hover,
-.content > footer a:hover {
-	color: #0062be;
-	text-decoration: underline;
-}
-
 .content > header .tags,
 .content > footer .tags {
 	display: flex;
@@ -1437,21 +1482,6 @@ br {
 	height: 300px;
 }
 
-/*=== LOGIN VIEW */
-/*================*/
-.formLogin .header > .item {
-	padding: 10px 30px;
-}
-
-.formLogin .header > .item.title {
-	text-align: right;
-}
-
-.formLogin .header > .item.configure {
-	text-align: left;
-}
-
-
 /*=== GLOBAL VIEW */
 /*================*/
 #stream.global {
@@ -1673,13 +1703,18 @@ input:checked + .slide-container .properties {
 }
 
 .item.share.error a::after,
-.category .title.error::before {
+.category .title.error::before,
+.item.feed.error .item-title::before {
 	content: " ⚠ ";
 	color: #bd362f;
 }
 
-.category .title:not([data-unread="0"])::after,
-.feed .item-title:not([data-unread="0"])::after {
+.feed.item.error.active .item-title::before {
+	color: white;
+}
+
+.aside .category .title:not([data-unread="0"])::after,
+.aside .feed .item-title:not([data-unread="0"])::after {
 	margin: 0.75em 0 0 0;
 	padding: 5px 10px;
 	min-width: 20px;
@@ -1690,6 +1725,22 @@ input:checked + .slide-container .properties {
 	left: 10px;
 	text-align: center;
 	font-size: 0.9em;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
+.global .box.category .title:not([data-unread="0"])::after {
+	margin: 0.5rem 0 0 0;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-unread);
+	position: absolute;
+	top: 0;
+	left: 10px;
+	text-align: center;
+	font-size: 0.75rem;
 	border-radius: 12px;
 	line-height: 1;
 	font-weight: initial;

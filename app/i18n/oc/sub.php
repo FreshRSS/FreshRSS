@@ -25,17 +25,19 @@ return array(
 		'add' => 'Ajustar categoria',
 		'archiving' => 'Archivar',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'OPML dinamic',
+			'help' => 'Fornís l’URL per un <a href=http://opml.org/ target=_blank>fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
 		),
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'URL OPML',
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Acceptar los cookies',
+		'accept_cookies_help' => 'Permetre al servidor del flux de definir de cookies (gardatz en memòria pendent la durada de la requèsta sonque)',
 		'add' => 'Ajustar un flux RSS',
 		'advanced' => 'Avançat',
 		'archiving' => 'Archivar',
@@ -57,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
+		'css_path_filter' => array(
+			'_' => 'Selector CSS de l’element de tirar',
+			'help' => 'Un selector CSS pòt èsser una lista coma : <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
@@ -67,47 +73,51 @@ return array(
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Tipe de font de flux',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'títol del flux',
+					'help' => 'Exemple : <code>//title</code> o una cadena de tèxt estatica : <code>"Mon flux personalizat"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> es un lengatge de requèsta estandard pels utilizaires avançats, e que FreshRSS prend en carga pel Web scraping.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'trobar de novèlas <strong>items</strong><br /><small>(mai important)</small>',
+					'help' => 'Exemple : <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'item autor',
+					'help' => 'Pòt èsser una cadena de tèxt estatica. Exemple : <code>"Anonymous"</code>',
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'item etiqueta',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'item contengut',
+					'help' => 'Exemple per prendre tot l’item : <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'item vinheta',
+					'help' => 'Exemple : <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'item data',
+					'help' => 'Lo resultats serà formatat per la foncion <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'item títol',
+					'help' => 'Utilizatz en particular lo <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> coma <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'item ID unic',
+					'help' => 'Opcional. Exemple : <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'item ligam (URL)',
+					'help' => 'Exemple : <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relatiu a l’element) per :',
+				'xpath' => 'XPath per :',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (defaut)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Escafar lo cache',
@@ -116,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',	// DIRTY
 			'title' => 'Mantenença',
 		),
+		'max_http_redir' => 'Max HTTP redireccions',
+		'max_http_redir_help' => 'Definir a 0 o daissar void per lo desactivar, -1 per de redireccions illimitadas',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',
@@ -186,7 +198,7 @@ return array(
 		'_' => 'Gestion dels abonaments',
 		'add' => 'Apondon de flux o categoria',
 		'add_category' => 'Ajustar una categoria',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Apondre un OPML dinamic',
 		'add_feed' => 'Ajustar un flux',
 		'add_label' => 'Ajustar una etiqueta',
 		'delete_label' => 'Suprimir una etiqueta',

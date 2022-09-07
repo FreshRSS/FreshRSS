@@ -36,6 +36,8 @@ return array(
 		'title' => 'Başlık',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'RSS akışı ekle',
 		'advanced' => 'Gelişmiş',
 		'archiving' => 'Arşiv',
@@ -57,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Örnek: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Dikkat, daha çok zaman gerekir!',
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
@@ -83,7 +89,7 @@ return array(
 					'_' => 'item author',	// TODO
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
 					'help' => 'Example to take the full item: <code>.</code>',	// TODO
@@ -99,6 +105,10 @@ return array(
 				'item_title' => array(
 					'_' => 'item title',	// TODO
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO
@@ -116,6 +126,8 @@ return array(
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
 			'title' => 'Bakım',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'sessize al',
 		'no_selected' => 'Hiçbir akış seçilmedi.',

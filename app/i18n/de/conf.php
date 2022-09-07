@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'wenn der Artikel angesehen wird',
 			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
 			'scroll' => 'beim Scrollen bzw. Überspringen',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'wenn der Artikel nicht mehr im Feed enthalten ist',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
 			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',

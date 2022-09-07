@@ -44,7 +44,7 @@ class Minz_FrontController {
 			Minz_Request::forward ($url);
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
-			$this->killApp ($e->getMessage());
+			self::killApp($e->getMessage());
 		}
 
 		$this->dispatcher = Minz_Dispatcher::getInstance();
@@ -78,7 +78,7 @@ class Minz_FrontController {
 			try {
 				Minz_Log::error($e->getMessage());
 			} catch (Minz_PermissionDeniedException $e) {
-				$this->killApp ($e->getMessage ());
+				self::killApp($e->getMessage());
 			}
 
 			if ($e instanceof Minz_FileNotExistException ||
@@ -91,20 +91,21 @@ class Minz_FrontController {
 					true
 				);
 			} else {
-				$this->killApp($e->getMessage());
+				self::killApp($e->getMessage());
 			}
 		}
 	}
 
 	/**
-	* Permet d'arrêter le programme en urgence
-	*/
-	private function killApp ($txt = '') {
+	 * Kills the programme
+	 */
+	public static function killApp($txt = '') {
+		header('HTTP 1.1 500 Internal Server Error', true, 500);
 		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function
-			exit(errorMessageInfo('Application problem', $txt));
+			die(errorMessageInfo('Application problem', $txt));
 		}
-		exit('### Application problem ###<br />' . "\n" . $txt);
+		die('### Application problem ###<br />' . "\n" . $txt);
 	}
 
 	private function setReporting() {

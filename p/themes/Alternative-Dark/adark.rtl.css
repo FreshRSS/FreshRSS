@@ -36,7 +36,7 @@ textarea {
 input, select, textarea {
 	padding: 5px;
 	background: #262626;
-	color: #666;
+	color: #999;
 	border: 1px solid #666;
 	border-radius: 3px;
 	min-height: 25px;
@@ -49,7 +49,8 @@ option {
 }
 
 input:disabled, select:disabled {
-	background: #eee;
+	color: #666;
+	border-color: #666;
 }
 
 input.extend {
@@ -186,8 +187,12 @@ a.btn {
 }
 
 .btn-important:hover {
-	background: #0062b7;
+	background: #45699a;
 	color: #eee;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-important:active {
@@ -312,7 +317,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	border-color: #ddd;
+	border-color: #333;
 }
 
 .dropdown-header {
@@ -544,7 +549,8 @@ a.btn {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
-.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
 	background-color: #171717;
 	color: #999;
 	border-color: #999;
@@ -601,25 +607,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: .5rem;
-	padding-left: .5rem;
-	text-align: center;
-}
-
-.prompt label {
-	text-align: right;
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: right;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -635,20 +622,10 @@ a.btn {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt .btn.btn-important {
 	padding-right: 1.5rem;
 	padding-left: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */

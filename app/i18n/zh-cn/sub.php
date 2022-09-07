@@ -25,17 +25,19 @@ return array(
 		'add' => '添加分类',
 		'archiving' => '归档',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => '动态订阅',
+			'help' => '使用地址上的 <a href=http://opml.org/ target=_blank>OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
 		'information' => '信息',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML 地址',
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
 		'title' => '标题',
 	),
 	'feed' => array(
+		'accept_cookies' => '接受 Cookies',
+		'accept_cookies_help' => '允许提要服务器设置 Cookies（仅在请求期间存储在内存中）',
 		'add' => '添加订阅源',
 		'advanced' => '高级',
 		'archiving' => '归档',
@@ -57,6 +59,10 @@ return array(
 		'css_cookie_help' => '例：<kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
+		'css_path_filter' => array(
+			'_' => '需移除元素的 CSS 选择器',
+			'help' => '可设置多个 CSS 选择器，例如：<kbd>.footer, .aside</kbd>',
+		),
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
@@ -72,25 +78,25 @@ return array(
 				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
 					'_' => '提要标题',
-					'help' => '例: <code>//title</code> 或一个静态的字符串： <code>"My custom feed"</code>',
+					'help' => '如 <code>//title</code> 或是静态字符串如 <code>"My custom feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是高级用户的标准查询语言，FreshRSS支持XPath以支持Web抓取。',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是为资深用户准备的标准查询语言，FreshRSS 用以实现 Web 抓取.',
 				'item' => array(
 					'_' => '以寻找 <strong>文章</strong><br /><small>(很重要)</small>',
-					'help' => '例： <code>//div[@class="news-item"]</code>',
+					'help' => '例如 <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
 					'_' => '文章作者',
-					'help' => '也可以是静态字符串。 例： <code>"Anonymous"</code>',
+					'help' => '可以是静态字符串，例如 <code>"Anonymous"</code>',
 				),
 				'item_categories' => '文章标签',
 				'item_content' => array(
 					'_' => '文章内容',
-					'help' => '获取完整项目的示例： <code>.</code>',
+					'help' => '例如使用 <code>.</code> 将整个对象作为文章内容',
 				),
 				'item_thumbnail' => array(
 					'_' => '文章缩略图',
-					'help' => '例： <code>descendant::img/@src</code>',
+					'help' => '例如 <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
@@ -98,11 +104,15 @@ return array(
 				),
 				'item_title' => array(
 					'_' => '文章标题',
-					'help' => '特别是用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code> 像 <code>descendant::h2</code>',
+					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => '文章唯一标识',
+					'help' => '可选，例如: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => '文章链接 (URL)',
-					'help' => '例： <code>descendant::a/@href</code>',
+					'help' => '例如 <code>descendant::a/@href</code>',
 				),
 				'relative' => 'XPath（文章）：',
 				'xpath' => 'XPath 定位：',
@@ -113,9 +123,11 @@ return array(
 			'clear_cache' => '清理缓存',
 			'clear_cache_help' => '清除该feed的缓存',
 			'reload_articles' => '重载文章',
-			'reload_articles_help' => '重新加载文章并获取完整内容',	// DIRTY
+			'reload_articles_help' => '重载 n 篇文章并抓取内容（若设置了 CSS 选择器）',
 			'title' => '维护',
 		),
+		'max_http_redir' => '最大 HTTP 重定向',
+		'max_http_redir_help' => '设置为 0 或留空以禁用，-1 表示无限重定向',
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',
@@ -186,7 +198,7 @@ return array(
 		'_' => '订阅管理',
 		'add' => '添加订阅源或分类',
 		'add_category' => '添加分类',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => '添加订阅源动态列表',
 		'add_feed' => '添加订阅源',
 		'add_label' => '添加标签',
 		'delete_label' => '删除标签',

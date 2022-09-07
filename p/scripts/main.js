@@ -426,10 +426,17 @@ function toggleContent(new_active, old_active, skipping) {
 
 	if (context.sticky_post) {	// Stick the article to the top when opened
 		const prev_article = new_active.previousElementSibling;
-		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop;
+		const nav_menu = document.querySelector('.nav_menu');
+		let nav_menu_height = 0;
 
-		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
-			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop;
+		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+			nav_menu_height = nav_menu.offsetHeight;
+		}
+
+		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
+
+		if (prev_article && prev_article.offsetParent && new_active.offsetTop - prev_article.offsetTop <= 150) {
+			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop - nav_menu_height;
 			if (relative_move) {
 				new_pos -= box_to_move.offsetTop;
 			}
@@ -704,7 +711,8 @@ function onScroll() {
 		return;
 	}
 	if (context.auto_mark_scroll) {
-		const minTop = 40 + box_to_follow.scrollTop;
+		const hidden_px = -5; // negative = pixels over the edge
+		const minTop = hidden_px + box_to_follow.scrollTop;
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 			if (div.offsetHeight > 0 &&
 					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < minTop) {
@@ -712,10 +720,14 @@ function onScroll() {
 			}
 		});
 	}
-	if (context.auto_load_more) {
-		const streamFooter = document.getElementById('stream-footer');
-		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+	let streamFooter;
+	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
+		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
+			// Too close to the last pre-loaded article
+			load_more_posts();
+		} else if (document.querySelectorAll('.flux.current ~ .flux').length <= 5) {
+			// Too few pre-loaded articles
 			load_more_posts();
 		}
 	}
@@ -993,12 +1005,14 @@ function init_shortcuts() {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
 			}
+
+			const link_go_website = document.querySelector('.flux.current a.go_website');
 			const newWindow = window.open();
-			if (newWindow) {
+			if (link_go_website && newWindow) {
 				newWindow.opener = null;
-				newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				newWindow.location = link_go_website.href;
+				ev.preventDefault();
 			}
-			ev.preventDefault();
 			return;
 		}
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
@@ -1095,7 +1109,7 @@ function init_stream(stream) {
 			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
-			if (!context.sides_close_article && ev.target.matches('div.flux_content')) {
+			if (!context.sides_close_article && ev.target.matches('.flux_content')) {
 				// setting for not-closing after clicking outside article area
 				return false;
 			}
@@ -1212,7 +1226,13 @@ function init_nav_entries() {
 			const windowTop = document.scrollingElement.scrollTop;
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
-			document.scrollingElement.scrollTop = windowTop > item_top ? item_top : 0;
+			const nav_menu = document.querySelector('.nav_menu');
+			let nav_menu_height = 0;
+
+			if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+				nav_menu_height = nav_menu.offsetHeight;
+			}
+			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height : 0 - nav_menu_height;
 			return false;
 		};
 	}

@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Gedempte feeds verwijderen',
 		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
 		'empty' => 'Leeg',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'URL openen',
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'OPML vernieuwen',
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
 		'see_website' => 'Bekijk website',
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'feedback' => array(
 			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(ongelezen: %%d)',
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
@@ -156,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Over',
@@ -188,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Klembord',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -209,7 +211,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Delen van systeem',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

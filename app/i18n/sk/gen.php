@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
 		'create' => 'Vytvoriť',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Vymazať stíšené kanály',
 		'demote' => 'Degradovať',
 		'disable' => 'Zakázať',
 		'empty' => 'Vyprázdniť',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'Otvoriť URL',
 		'promote' => 'Podporiť',
 		'purge' => 'Vymazať',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Obnoviť OPML',
 		'remove' => 'Odstrániť',
 		'rename' => 'Premenovať',
 		'see_website' => 'Zobraziť webovú stránku',
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Určite chcete vykonať túto akciu? Prídete o súvisiace obľúbené a používateľské dopyty. Zmeny budú nezvratné!',
 		'feedback' => array(
 			'body_new_articles' => 'Počet nových článkov v čítačke FreshRSS: %%d',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(neprečítané: %%d)',
 			'request_failed' => 'Nepodarilo sa spracovať váš dopyt, pravdepodobne kvôli problému s pripojením do internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -156,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
@@ -188,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -209,7 +211,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Systémové zdieľanie',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

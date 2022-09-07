@@ -19,16 +19,18 @@ $color_hover:	#fff;
 %input {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 25px;
+	line-height: 29px;
 	vertical-align: middle;
 	background: $color_light;
-	border: none;
-	padding-left: 5px;
+	border: 2px solid #e3e3e3;
+	padding-left: 8px;
 }
 
 %invalid {
+	padding-left: 5px;
 	color: $color_bad;
-	border-color: $color_bad;
+	border-left-color: $color_bad;
+	border-left-width: 5px;
 	box-shadow: none;
 }
 
@@ -70,10 +72,6 @@ a {
 		line-height: 25px;
 		text-decoration: none;
 
-		&:hover {
-			background: color.adjust( $color_nav, $lightness: -10%);
-		}
-
 		.icon {
 			filter: brightness(3);
 		}
@@ -94,10 +92,6 @@ img {
 	}
 }
 
-main#stream {
-	margin-top: 35px;
-}
-
 sup {
 	top: -0.3em;
 }
@@ -105,9 +99,10 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background: $color_aside;
 	display: inline-block;
 	width: auto;
+	color: $color_light;
 	font-size: 1.4em;
 	clear: both;
 }
@@ -117,7 +112,6 @@ label {
 }
 
 textarea {
-	background: color.adjust( $color_light, $lightness: -10% );
 	width: 360px;
 	height: 100px;
 
@@ -148,7 +142,8 @@ select {
 }
 
 select {
-	background: color.adjust( $color_light, $lightness: -10% );
+	padding-top: 7px;
+	padding-bottom: 8px;
 }
 
 input {
@@ -183,6 +178,65 @@ form {
 		text-align: center;
 	}
 }
+
+
+@supports (scrollbar-width: thin) {
+	// scrollbar for the sliders (with blue/dark background color)
+	#sidebar,
+	.scrollbar-thin {
+		scrollbar-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+		scrollbar-width: thin;
+	}
+
+	#sidebar:hover,
+	.scrollbar-thin:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
+	}
+
+	// scrollbar for the sliders (with white background color)
+	#slider.scrollbar-thin {
+		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
+	}
+
+	#slider.scrollbar-thin:hover {
+		scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
+	}
+}
+
+@supports not (scrollbar-width: thin) {
+	// scrollbar for the sliders (with blue/dark background color)
+	#sidebar::-webkit-scrollbar,
+	.scrollbar-thin::-webkit-scrollbar {
+		background: rgba(255, 255, 255, 0);
+		width: 8px;
+	}
+
+	#sidebar::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0);
+		display: unset;
+		border-radius: 5px;
+	}
+
+	#sidebar:hover::-webkit-scrollbar-thumb,
+	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.5);
+	}
+
+	// scrollbar for the sliders (with white background color)
+	#slider.scrollbar-thin::-webkit-scrollbar {
+		background: rgba(0, 0, 0, 0.05);
+	}
+
+	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.1);
+	}
+
+	#slider.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.3);
+	}
+}
+
 
 .category {
 	.title.error::before {
@@ -238,6 +292,10 @@ form {
 	vertical-align: middle;
 	font-size: 0;
 
+	select {
+		margin-top: 0;
+	}
+
 	&.configure-feeds {
 
 		@extend %aside-width;
@@ -259,10 +317,14 @@ form {
 	overflow: hidden;
 
 	&.active,
-	:active,
-	:hover {
+	&:active,
+	&:hover {
 		background: color.adjust( $color_nav, $lightness: -10%);
 		text-decoration: none;
+	}
+
+	.icon {
+		filter: brightness(3);
 	}
 }
 
@@ -274,6 +336,19 @@ form {
 	&:hover,
 	:active {
 		background: color.adjust( $color_alert, $lightness: -10%) !important;
+	}
+}
+
+.manage-list {
+	.configure {
+		.icon {
+			filter: brightness(0.4);
+			vertical-align: sub;
+		}
+
+		&:hover {
+			filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+		}
 	}
 }
 
@@ -289,7 +364,7 @@ form {
 	.nav-header {
 
 		@extend %nav-list;
-		padding: 0 10px;
+		padding: 0 1rem;
 		font-weight: bold;
 		background: $color_aside;
 		color: $color_light;
@@ -328,7 +403,7 @@ form {
 		}
 
 		> a {
-			padding: 0 10px;
+			padding: 0 1.5rem;
 		}
 
 		&.empty a {
@@ -337,6 +412,10 @@ form {
 
 		&.error a {
 			color: color.adjust( $color_bad, $lightness: 10%);
+		}
+
+		.icon {
+			filter: brightness(3);
 		}
 	}
 
@@ -383,7 +462,7 @@ form {
 }
 
 .dropdown-menu {
-	padding: 5px 0;
+	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
@@ -391,6 +470,19 @@ form {
 
 	.dropdown-header {
 		cursor: default;
+		padding: 0 0.5rem 0.5rem;
+		font-weight: bold;
+		color: $color_light;
+
+		a {
+			padding: 0 5px;
+			position: absolute;
+			right: 5px;
+
+			&:hover {
+				background-color: $color_nav;
+			}
+		}
 	}
 
 	&::after {
@@ -439,11 +531,12 @@ form {
 	}
 }
 
-.dropdown-header {
-	padding: 0 5px 5px;
-	font-weight: bold;
-	text-align: left;
-	color: $color_light;
+.labels,
+.tags,
+.share {
+	.dropdown-menu {
+		right: auto;
+	}
 }
 
 .separator {
@@ -564,18 +657,25 @@ form {
 
 	.box-title {
 		margin: 0;
-		padding: 5px 10px;
-		background: color.adjust( $color_light, $lightness: -10%);
-		color: color.adjust( $color_light, $lightness: -40% );
+		padding: 7px 10px;
+		background: $color_aside;
+		color: $color_light;
 		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+
+		a {
+			color: $color_light;
+		}
 
 		.configure {
 			margin-right: 4px;
+
+			.icon {
+				&:hover {
+					filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+				}
+			}
 		}
 	}
-
-
-
 
 	.box-content {
 		padding-left: 30px;
@@ -589,7 +689,11 @@ form {
 			.configure {
 				.icon {
 					vertical-align: middle;
-					background-color: color.adjust( $color_light, $lightness: -10%);
+					filter: brightness(0.4);
+
+					&:hover {
+						filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+					}
 				}
 			}
 		}
@@ -631,6 +735,10 @@ form {
 			font-size: 0.8rem;
 		}
 	}
+
+	&.visible-semi {
+		border-style: solid;
+	}
 }
 
 .tree {
@@ -643,7 +751,7 @@ form {
 	height: 35px;
 	font-size: 1rem;
 	position: relative;
-	line-height: 2.3rem;
+	line-height: 2rem;
 
 	.title {
 		background: inherit;
@@ -695,6 +803,8 @@ form {
 }
 
 .header {
+	height: auto;
+
 	> .item {
 		vertical-align: middle;
 
@@ -713,10 +823,6 @@ form {
 				filter: grayscale(100%) brightness(100);
 			}
 		}
-
-		&.search input {
-			width: 230px;
-		}
 	}
 
 	.item.search input:focus {
@@ -730,8 +836,25 @@ form {
 	.item.configure {
 		position: fixed;
 		right: 0;
-		z-index: 1000;
+		z-index: 95;
 		width: 35px;
+		text-align: center;
+		line-height: 0.8rem;
+
+		> .icon {
+			filter: brightness(3);
+			margin-right: 5px;
+			margin-top: 3px;
+		}
+
+		.dropdown .dropdown-menu {
+			max-height: calc(100vh - 45px);
+			overflow: scroll;
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
 	}
 }
 
@@ -744,6 +867,15 @@ form {
 	&.aside_feed {
 		.tree {
 			margin: 0 0 50px;
+		}
+
+		.tree-folder {
+			.tree-folder-title,
+			.item.feed {
+				&:hover {
+					background-color: color.adjust( $color_nav, $lightness: -10%);
+				}
+			}
 		}
 
 		.nav-form {
@@ -779,6 +911,35 @@ form {
 	.tree-folder-items .dropdown-menu::after {
 		left: 2px;
 	}
+
+	.about {
+		padding: 1rem;
+		display: block;
+		text-align: center;
+		font-size: 0.8em;
+		font-style: italic;
+	}
+}
+
+.reader {
+	.aside {
+		.toggle_aside {
+			background: $color_aside;
+			display: block;
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+
+			.icon {
+				filter: brightness(3);
+			}
+
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+		}
+	}
 }
 
 .post {
@@ -786,8 +947,6 @@ form {
 	font-size: 0.9em;
 
 	input {
-		background: color.adjust( $color_light, $lightness: -10% );
-
 		&.long {
 			height: 33px;
 			margin-top: 0px;
@@ -804,25 +963,13 @@ form {
 }
 
 .prompt {
-	text-align: center;
-
-	label {
-		text-align: left;
-	}
-
-	form {
-		margin: 10px auto 20px auto;
-		width: 200px;
-	}
-
 	input {
 		margin: 5px auto;
-		width: 100%;
 	}
+}
 
-	p {
-		margin: 20px 0;
-	}
+#global {
+	height: 100vh;
 }
 
 #new-article {
@@ -838,6 +985,7 @@ form {
 	@extend %aside-width;
 
 	> a {
+		padding: 1rem;
 		line-height: 1.5em;
 		font-weight: bold;
 		color: $color_light;
@@ -871,13 +1019,26 @@ form {
 	width: 100%;
 	font-size: 0;
 	background-color: $color_nav;
-	position: fixed;
-	z-index: 900;
+	position: sticky;
+	top: 0;
+	z-index: 90;
 
 	.item.search {
 		display: inline-block;
-		position: fixed;
+		position: absolute;
 		right: 40px;
+
+		input {
+			border-width: 0;
+			line-height: 25px;
+		}
+	}
+
+	#toggle-unread,
+	#toggle-starred {
+		.icon {
+			filter: brightness(1);
+		}
 	}
 }
 
@@ -1048,34 +1209,49 @@ form {
 	}
 }
 
-.formLogin {
+#overlay {
+	z-index: 100;
+}
+
+#panel {
+	z-index: 100;
+
+	.nav_menu {
+		position: relative;
+	}
+}
+
+.formLogin,
+.register {
 	#global {
 		height: 0;
 	}
 
 	.header {
-		background: $color_aside;
-		height: 55px;
+		background: $color_nav;
+		height: 35px;
+		position: relative;
 
 		> .item {
 			&.configure {
-				width: 200px;
-				position: unset;
+				padding: 8px;
+				width: auto;
+				position: absolute;
+				right: 0;
+				white-space: nowrap;
+				bottom: 0;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 	}
+}
 
-	a.signin {
-		color: $color_light;
-		padding-left: 5px;
-	}
-
-	input {
-		border-top: 1px color.adjust( $color_light, $lightness: -10%);
-		border-right: 1px color.adjust( $color_light, $lightness: -10%);
-		border-bottom: 1px color.adjust( $color_light, $lightness: -10%);
-		border-left: 5px solid;
-	}
+a.signin {
+	color: $color_light;
+	font-size: 70%;
 }
 
 .loglist {
@@ -1116,8 +1292,12 @@ form {
 }
 
 @media (max-width: 840px) {
-	.formLogin .header {
-		display: none;
+	body:not(.formLogin, .register) {
+		.header {
+			.item.title {
+				display: none;
+			}
+		}
 	}
 
 	.form-group .group-name {
@@ -1125,35 +1305,31 @@ form {
 		text-align: left;
 	}
 
-	.dropdown-header, .dropdown-menu > .item {
-		padding: 12px;
+	.dropdown {
+		position: relative;
 	}
 
 	#new-article {
+		margin-top: 2rem;
 		width: 100%;
-		position: sticky;
-		top: 0;
 	}
 
 	.header {
 		display: table;
 
-		.item.title .logo {
-			display: none;
+		.item {
+			padding: 0;
 		}
 
 		.item.configure {
 			padding: 0;
-			position: absolute;
-			right: 77px;
-		}
-	}
+			position: fixed;
+			right: 76px;
 
-	.header > .item.title a {
-		display: block;
-		position: absolute;
-		top: -35px;
-		left: 10px;
+			> .icon {
+				margin-top: 5px;
+			}
+		}
 	}
 
 	button.read_all.btn {
@@ -1167,6 +1343,7 @@ form {
 	}
 
 	.aside {
+		padding: 0;
 		width: 0;
 		transition: width 200ms linear;
 
@@ -1175,12 +1352,16 @@ form {
 			display: block;
 			height: 50px;
 			line-height: 50px;
-			text-align: right;
+			text-align: center;
 			padding-right: 10px;
-		}
 
-		&.aside_feed {
-			padding: 0;
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 
 		&.aside_feed .configure-feeds {
@@ -1196,8 +1377,26 @@ form {
 		}
 	}
 
+	#slider {
+		.toggle_aside {
+			background: $color_aside;
+			display: block;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			padding-right: 10px;
+
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
+	}
+
 	.nav_menu {
-		position: initial;
 		height: 71px;
 
 		.btn {
@@ -1212,17 +1411,18 @@ form {
 			}
 		}
 
-		.search {
-			position: absolute !important;
+		.item.search {
 			top: 3px;
-			left: 37px;
+			margin-left: 77px;
+			width: calc(100% - 4 * 38px);
+			position: relative;
 
 			form {
 				display: block;
 			}
 
 			input {
-				width: 85%;
+				width: 100%;
 			}
 		}
 	}
@@ -1233,12 +1433,22 @@ form {
 		display: block;
 		height: 50px;
 		line-height: 50px;
-		text-align: right;
+		text-align: center;
 		padding-right: 10px;
+
+		&:hover {
+			background-color: color.adjust( $color_nav, $lightness: 0%);
+		}
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after,
 	.dropdown-target:target ~ .dropdown-toggle.btn::after {
 		display: none;
+	}
+
+	.share .dropdown-menu {
+		right: 3%;
+		left: auto;
 	}
 
 	.day .name {
@@ -1331,7 +1541,6 @@ form {
 }
 
 button.as-link {
-	color: $color_light;
 	outline: none;
 }
 
@@ -1380,11 +1589,6 @@ button.as-link {
 	}
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	float: right;
-}
-
 #stream.reader .flux {
 	padding: 0 0 50px;
 	background: $color_light;
@@ -1398,9 +1602,17 @@ button.as-link {
 	}
 }
 
-#nav_menu_actions, #nav_menu_read_all {
+#nav_menu_actions {
 	ul.dropdown-menu {
-		left: 0px;
+		left: 0;
+		right: auto;
+	}
+}
+
+#nav_menu_read_all {
+	ul.dropdown-menu {
+		right: 0;
+		left: auto;
 	}
 }
 
@@ -1408,11 +1620,4 @@ button.as-link {
 	label {
 		min-height: initial;
 	}
-
-	.form-group {
-		&:hover {
-			background: initial;
-		}
-	}
-
 }

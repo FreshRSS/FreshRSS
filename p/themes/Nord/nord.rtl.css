@@ -74,6 +74,11 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+input:disabled, select:disabled {
+	color: #aaa;
+	border-color: var(--border);
+}
+
 button {
 	font-family: var(--sans-font);
 }
@@ -1076,26 +1081,9 @@ input.extend {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	text-align: center;
-}
-
-.prompt label {
-	text-align: right;
-}
-
-.prompt form {
-	margin: 10px auto 20px auto;
-	width: 180px;
-}
-
 .prompt input {
 	margin: 5px auto;
 	width: 100%;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== Navigation menu (for articles) */

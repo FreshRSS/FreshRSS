@@ -10,10 +10,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return true;
 	}
 
-	protected static function sqlConcat($s1, $s2) {
-		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
-	}
-
 	public static function sqlHexDecode(string $x): string {
 		return 'unhex(' . $x . ')';
 	}
@@ -218,6 +214,9 @@ SQL;
 		if (!isset($valuesTmp['is_read'])) {
 			$valuesTmp['is_read'] = null;
 		}
+		if (!isset($valuesTmp['is_favorite'])) {
+			$valuesTmp['is_favorite'] = null;
+		}
 
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `_entry` '
@@ -226,6 +225,7 @@ SQL;
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
+				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
 				. ', tags=:tags, attributes=:attributes '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
@@ -253,6 +253,11 @@ SQL;
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
 			} else {
 				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
+			}
+			if ($valuesTmp['is_favorite'] === null) {
+				$this->updateEntryPrepared->bindValue(':is_favorite', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, PDO::PARAM_INT);
 			}
 			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
@@ -761,6 +766,9 @@ SQL;
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
+					} elseif ($filter->operator() === 'AND NOT') {
+						// Special case if we start with a negation (there is already the default AND before)
+						$search .= ' NOT';
 					}
 					$search .= ' (' . $filterSearch . ') ';
 					$values = array_merge($values, $filterValues);
@@ -938,48 +946,58 @@ SQL;
 			}
 			if ($filter->getInurl()) {
 				foreach ($filter->getInurl() as $url) {
-					$sub_search .= 'AND ' . static::sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ? ';
+					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
 			if ($filter->getNotAuthor()) {
 				foreach ($filter->getNotAuthor() as $author) {
-					$sub_search .= 'AND (NOT ' . $alias . 'author LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'author NOT LIKE ? ';
 					$values[] = "%{$author}%";
 				}
 			}
 			if ($filter->getNotIntitle()) {
 				foreach ($filter->getNotIntitle() as $title) {
-					$sub_search .= 'AND (NOT ' . $alias . 'title LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
 					$values[] = "%{$title}%";
 				}
 			}
 			if ($filter->getNotTags()) {
 				foreach ($filter->getNotTags() as $tag) {
-					$sub_search .= 'AND (NOT ' . $alias . 'tags LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'tags NOT LIKE ? ';
 					$values[] = "%{$tag}%";
 				}
 			}
 			if ($filter->getNotInurl()) {
 				foreach ($filter->getNotInurl() as $url) {
-					$sub_search .= 'AND (NOT ' . static::sqlConcat($alias . 'link', $alias . 'guid') . ' LIKE ?) ';
+					$sub_search .= 'AND ' . $alias . 'link NOT LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
 			if ($filter->getSearch()) {
 				foreach ($filter->getSearch() as $search_value) {
-					$sub_search .= 'AND ' . static::sqlConcat($alias . 'title',
-						static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
-					$values[] = "%{$search_value}%";
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ? ';
+						$values[] = "%{$search_value}%";
+					} else {
+						$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' . $alias . 'content LIKE ?) ';
+						$values[] = "%{$search_value}%";
+						$values[] = "%{$search_value}%";
+					}
 				}
 			}
 			if ($filter->getNotSearch()) {
 				foreach ($filter->getNotSearch() as $search_value) {
-					$sub_search .= 'AND (NOT ' . static::sqlConcat($alias . 'title',
-						static::isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ?) ';
-					$values[] = "%{$search_value}%";
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) NOT LIKE ? ';
+						$values[] = "%{$search_value}%";
+					} else {
+						$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' . $alias . 'content NOT LIKE ? ';
+						$values[] = "%{$search_value}%";
+						$values[] = "%{$search_value}%";
+					}
 				}
 			}
 
@@ -1102,7 +1120,7 @@ SQL;
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
+	private function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 

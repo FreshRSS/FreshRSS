@@ -26,6 +26,13 @@
  */
 
 return array(
+	'archivePH' => array(
+		'url' => 'https://archive.ph/submit/?url=~LINK~',
+		'transform' => array(),
+		'help' => 'https://archive.ph/',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'blogotext' => array(
 		'deprecated' => true,
 		'url' => '~URL~/admin/links.php?url=~LINK~',
