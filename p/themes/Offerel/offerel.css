@@ -44,9 +44,6 @@
 		max-width: 83px;
 		text-overflow: ellipsis;
 	}
-	#stream {
-		margin-top: unset !important;
-	}
     .flux_content iframe {
 	    position: sticky;
 	    top: 0;
@@ -83,7 +80,7 @@
     }
 	.nav_menu {
 		background: linear-gradient(to bottom, #f2f2f2 0%,#e6e6e6 100%);
-		position: unset;
+		position: fixed;
 	}
 	#new-article {
 		right: 30px;
@@ -329,5 +326,103 @@
 	}
 	.flux:hover:not(.current):hover .item.title, .flux .current:not(.current):hover .item.title {
 		background: transparent;
+	}
+	@media (width < 840px) {
+		.aside.aside_feed {
+			width: 0;
+			min-width: 0;
+		}
+		.flux {
+			margin: 0;
+		}
+		.flux_header {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+		.flux .item.website, .flux .item.manage {
+			width: 25px;
+		}
+		.flux .item {
+			line-height: 40px;
+		}
+		.flux_header .title {
+			font-size: 0.9rem;
+			padding-left: 5px;
+		}
+		.flux_content .content {
+			column-count: 1;
+			column-gap: 0;
+			line-height: unset;
+		}
+		.flux .bottom {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		.flux.current {
+			border: 0;
+			border-radius: 0;
+		}
+		.flux.not_read:not(.current) {
+			background: #f9f7f4;
+		}
+		#new-article {
+			border-radius: 0;
+			text-align: center;
+			box-sizing: border-box;
+		}
+		.aside:target, .reader .aside:target {
+			width: 90%;
+			height: 100vh;
+		}
+		.aside.aside_feed .configure-feeds {
+			display: inline-block;
+		}
+		.nav_menu {
+			position: fixed;
+		}
+		main#stream {
+			margin-top: 70px !important;
+		}
+		#nav_menu_read_all {
+			display: none;
+		}
+		div[id*="dropdown-share"] ~ ul {
+			display: none;
+		}
+		a[href='#dropdown-query'] {
+			display: none;
+		}
+		.header .item.configure {
+			right: 45px;
+			position: fixed;
+		}
+		.dropdown-menu > .item > a {
+			font-size: 1.5em;
+			line-height: 1em;
+		}
+		.dropdown-menu {
+			font-size: 1em;
+		}
+		.aside {
+			min-width: 0;
+		}
+		.post {
+			top: 77px;
+			position: relative;
+			width: calc(100% - 30px);
+		}
+		.nav-list .item, .nav-list .nav-header {
+			height: 2em;
+			font-size: 1.2em;
+		}
+		.aside:target, .reader .aside:target {
+			width: 100vW;
+			height: 100vh;
+			max-width: unset;
+			padding: 0;
+		}
+		.configure .dropdown .dropdown-menu {
+			width: 100%;
+		}
 	}
 }
