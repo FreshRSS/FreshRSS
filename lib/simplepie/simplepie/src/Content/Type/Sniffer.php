@@ -102,9 +102,7 @@ class Sniffer
             if ($official === 'unknown/unknown'
                 || $official === 'application/unknown') {
                 return $this->unknown();
-            } elseif (substr($official, -4) === '+xml'
-                || $official === 'text/xml'
-                || $official === 'application/xml') {
+            } elseif (substr($official, -4) === '+xml') {	//FreshRSS
                 return $official;
             } elseif (substr($official, 0, 6) === 'image/') {
                 if ($return = $this->image()) {
@@ -112,7 +110,9 @@ class Sniffer
                 }
 
                 return $official;
-            } elseif ($official === 'text/html') {
+            } elseif ($official === 'text/html'	//FreshRSS
+                || $official === 'text/xml'	//FreshRSS
+                || $official === 'application/xml') {	//FreshRSS
                 return $this->feed_or_html();
             }
 

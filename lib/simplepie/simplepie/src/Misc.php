@@ -79,6 +79,10 @@ class Misc
 
     public static function absolutize_url($relative, $base)
     {
+        if (substr($relative, 0, 2) === '//') {	//FreshRSS
+            //Protocol-relative URLs "//www.example.net"
+            return 'https:' . $relative;
+        }
         $iri = \SimplePie\IRI::absolutize(new \SimplePie\IRI($base), $relative);
         if ($iri === false) {
             return false;
@@ -1845,8 +1849,14 @@ class Misc
 
     public static function atom_10_content_construct_type($attribs)
     {
+        $type = '';
         if (isset($attribs['']['type'])) {
-            $type = strtolower(trim($attribs['']['type']));
+            $type = trim($attribs['']['type']);
+        } elseif (isset($attribs[\SimplePie\SimplePie::NAMESPACE_ATOM_10]['type'])) {	//FreshRSS
+            $type = trim($attribs[\SimplePie\SimplePie::NAMESPACE_ATOM_10]['type']);
+        }
+        if ($type != '') {	//FreshRSS
+            $type = strtolower($type);
             switch ($type) {
                 case 'text':
                     return \SimplePie\SimplePie::CONSTRUCT_TEXT;
@@ -2041,24 +2051,24 @@ class Misc
 
         $body = <<<END
 function embed_quicktime(type, bgcolor, width, height, link, placeholder, loop) {
-	if (placeholder != '') {
-		document.writeln('<embed type="'+type+'" style="cursor:hand; cursor:pointer;" href="'+link+'" src="'+placeholder+'" width="'+width+'" height="'+height+'" autoplay="false" target="myself" controller="false" loop="'+loop+'" scale="aspect" bgcolor="'+bgcolor+'" pluginspage="http://www.apple.com/quicktime/download/"></embed>');
-	}
-	else {
-		document.writeln('<embed type="'+type+'" style="cursor:hand; cursor:pointer;" src="'+link+'" width="'+width+'" height="'+height+'" autoplay="false" target="myself" controller="true" loop="'+loop+'" scale="aspect" bgcolor="'+bgcolor+'" pluginspage="http://www.apple.com/quicktime/download/"></embed>');
-	}
+    if (placeholder != '') {
+        document.writeln('<embed type="'+type+'" style="cursor:hand; cursor:pointer;" href="'+link+'" src="'+placeholder+'" width="'+width+'" height="'+height+'" autoplay="false" target="myself" controller="false" loop="'+loop+'" scale="aspect" bgcolor="'+bgcolor+'" pluginspage="http://www.apple.com/quicktime/download/"></embed>');
+    }
+    else {
+        document.writeln('<embed type="'+type+'" style="cursor:hand; cursor:pointer;" src="'+link+'" width="'+width+'" height="'+height+'" autoplay="false" target="myself" controller="true" loop="'+loop+'" scale="aspect" bgcolor="'+bgcolor+'" pluginspage="http://www.apple.com/quicktime/download/"></embed>');
+    }
 }
 
 function embed_flash(bgcolor, width, height, link, loop, type) {
-	document.writeln('<embed src="'+link+'" pluginspage="http://www.macromedia.com/go/getflashplayer" type="'+type+'" quality="high" width="'+width+'" height="'+height+'" bgcolor="'+bgcolor+'" loop="'+loop+'"></embed>');
+    document.writeln('<embed src="'+link+'" pluginspage="http://www.macromedia.com/go/getflashplayer" type="'+type+'" quality="high" width="'+width+'" height="'+height+'" bgcolor="'+bgcolor+'" loop="'+loop+'"></embed>');
 }
 
 function embed_flv(width, height, link, placeholder, loop, player) {
-	document.writeln('<embed src="'+player+'" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="'+width+'" height="'+height+'" wmode="transparent" flashvars="file='+link+'&autostart=false&repeat='+loop+'&showdigits=true&showfsbutton=false"></embed>');
+    document.writeln('<embed src="'+player+'" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="'+width+'" height="'+height+'" wmode="transparent" flashvars="file='+link+'&autostart=false&repeat='+loop+'&showdigits=true&showfsbutton=false"></embed>');
 }
 
 function embed_wmedia(width, height, link) {
-	document.writeln('<embed type="application/x-mplayer2" src="'+link+'" autosize="1" width="'+width+'" height="'+height+'" showcontrols="1" showstatusbar="0" showdisplay="0" autostart="0"></embed>');
+    document.writeln('<embed type="application/x-mplayer2" src="'+link+'" autosize="1" width="'+width+'" height="'+height+'" showcontrols="1" showstatusbar="0" showdisplay="0" autostart="0"></embed>');
 }
 END;
         echo $body;
@@ -2072,34 +2082,8 @@ END;
      */
     public static function get_build()
     {
-        if (static::$SIMPLEPIE_BUILD !== null) {
-            return static::$SIMPLEPIE_BUILD;
-        }
-
-        $root = dirname(dirname(__FILE__));
-        if (file_exists($root . '/.git/index')) {
-            static::$SIMPLEPIE_BUILD = filemtime($root . '/.git/index');
-
-            return static::$SIMPLEPIE_BUILD;
-        } elseif (file_exists($root . '/SimplePie')) {
-            $time = 0;
-            foreach (glob($root . '/SimplePie/*.php') as $file) {
-                if (($mtime = filemtime($file)) > $time) {
-                    $time = $mtime;
-                }
-            }
-            static::$SIMPLEPIE_BUILD = $time;
-
-            return static::$SIMPLEPIE_BUILD;
-        } elseif (file_exists(dirname(__FILE__) . '/Core.php')) {
-            static::$SIMPLEPIE_BUILD = filemtime(dirname(__FILE__) . '/Core.php');
-
-            return static::$SIMPLEPIE_BUILD;
-        }
-
-        static::$SIMPLEPIE_BUILD = filemtime(__FILE__);
-
-        return static::$SIMPLEPIE_BUILD;
+        $mtime = @filemtime(dirname(__FILE__) . '/SimplePie.php');	//FreshRSS
+        return $mtime ? $mtime : filemtime(__FILE__);
     }
 
     /**

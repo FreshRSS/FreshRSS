@@ -7,7 +7,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/FreshRSS/simplepie.git"
+            "url": "https://github.com/Art4/simplepie.git"
         },
         {
             "type": "git",
@@ -18,7 +18,7 @@
         "php": ">=7.0.0",
         "phpgt/cssxpath": "dev-master#4fbe420aba3d9e729940107ded4236a835a1a132",
         "phpmailer/phpmailer": "6.6.0",
-        "simplepie/simplepie": "dev-fix-base-url"
+        "simplepie/simplepie": "dev-freshrss#94db37e06b20bab99d7474f58346b3e98ee90c0e"
     },
     "config": {
         "sort-packages": true,
