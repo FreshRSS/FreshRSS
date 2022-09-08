@@ -2030,7 +2030,7 @@ input:checked + .slide-container .properties {
 		vertical-align: top;
 	}
 
-	.flux_header .item.website {
+	.flux .flux_header .item.website {
 		width: 40px;
 	}
 
