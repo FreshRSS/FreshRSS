@@ -189,16 +189,17 @@ function libopml_parse_string($xml, $strict = true) {
 		'body' => array()
 	);
 
-	// First, we get all "head" elements. Head is required but its sub-elements
-	// are optional.
-	foreach ($opml->head->children() as $key => $value) {
-		if (in_array($key, unserialize(HEAD_ELEMENTS), true)) {
-			$array['head'][$key] = (string)$value;
-		} elseif ($strict) {
-			throw new LibOPML_Exception(
-				$key . ' is not part of the OPML 2.0 specification'
-			);
+	if (isset($opml->head)) {
+		// We get all "head" elements. Head is required but its sub-elements are optional.
+		foreach ($opml->head->children() as $key => $value) {
+			if (in_array($key, unserialize(HEAD_ELEMENTS), true)) {
+				$array['head'][$key] = (string)$value;
+			} elseif ($strict) {
+				throw new LibOPML_Exception($key . ' is not part of the OPML 2.0 specification');
+			}
 		}
+	} elseif ($strict) {
+		throw new LibOPML_Exception('Required OPML head element is missing!');
 	}
 
 	// Then, we get body oulines. Body must contain at least one outline
