@@ -47,8 +47,8 @@
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
  * @property string $sort_order
- * @property bool $wrapTitle_desktop
- * @property bool $wrapTitle_mobile
+ * @property int $wrapTitle_desktop
+ * @property int $wrapTitle_mobile
  * @property array<string,array<string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article

@@ -143,10 +143,18 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _wrapTitle_desktop(&$data, $value) {
+		$value = intval($value);
+		if (!in_array($value, array(1,2,3,4))) {
+			$value = 1;
+		}
 		$data['wrapTitle_desktop'] = $value;
 	}
 
 	private function _wrapTitle_mobile(&$data, $value) {
+		$value = intval($value);
+		if (!in_array($value, array(1,2,3,4))) {
+			$value = 1;
+		}
 		$data['wrapTitle_mobile'] = $value;
 	}
 

@@ -123,8 +123,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$user_conf->auto_remove_article = Minz_Request::param('auto_remove_article', false);
 			FreshRSS_Context::$user_conf->mark_updated_article_unread = Minz_Request::param('mark_updated_article_unread', false);
 			FreshRSS_Context::$user_conf->sort_order = Minz_Request::param('sort_order', 'DESC');
-			FreshRSS_Context::$user_conf->wrapTitle_desktop = Minz_Request::param('wrapTitle_desktop', false);
-			FreshRSS_Context::$user_conf->wrapTitle_mobile = Minz_Request::param('wrapTitle_mobile', false);
+			FreshRSS_Context::$user_conf->wrapTitle_desktop = Minz_Request::param('wrapTitle_desktop', 1);
+			FreshRSS_Context::$user_conf->wrapTitle_mobile = Minz_Request::param('wrapTitle_mobile', 1);
 			FreshRSS_Context::$user_conf->mark_when = array(
 				'article' => Minz_Request::param('mark_open_article', false),
 				'gone' => Minz_Request::param('read_upon_gone', false),

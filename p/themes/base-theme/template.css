@@ -542,7 +542,13 @@ input[type="checkbox"]:focus-visible {
 	vertical-align: middle;
 }
 
-.horizontal-list.wrapTitle_desktop .item {
+.horizontal-list.wrapTitle_desktop1 .item {
+	vertical-align: middle;
+}
+
+.horizontal-list.wrapTitle_desktop2 .item,
+.horizontal-list.wrapTitle_desktop3 .item,
+.horizontal-list.wrapTitle_desktop4 .item {
 	vertical-align: top;
 }
 
@@ -1104,7 +1110,9 @@ a.website:hover .favicon {
 	position: absolute;
 }
 
-.flux:not(.current):hover .wrapTitle_desktop .item.title {
+.flux:not(.current):hover .wrapTitle_desktop2 .item.title,
+.flux:not(.current):hover .wrapTitle_desktop3 .item.title,
+.flux:not(.current):hover .wrapTitle_desktop4 .item.title {
 	position: relative;
 }
 
@@ -1184,14 +1192,32 @@ a.website:hover .favicon {
 	overflow: hidden;
 }
 
-.flux .item > a {
+.flux .item > a,
+.flux .wrapTitle_desktop1 .item.title a {
 	display: block;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
 
-.flux .wrapTitle_desktop .item.title a {
+.flux .wrapTitle_desktop2 .item.title a {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	white-space: break-spaces;
+}
+
+.flux .wrapTitle_desktop3 .item.title a {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	white-space: break-spaces;
+}
+
+.flux .wrapTitle_desktop4 .item.title a {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
 	white-space: break-spaces;
 }
 
@@ -2014,19 +2040,40 @@ input:checked + .slide-container .properties {
 		margin-top: 10px;
 	}
 
-	.flux .wrapTitle_desktop .item.title a {
+	.flux .wrapTitle_desktop2 .item.title a,
+	.flux .wrapTitle_desktop3 .item.title a,
+	.flux .wrapTitle_desktop4 .item.title a {
 		white-space: inherit;
 	}
 
-	.flux .wrapTitle_mobile .item.title a {
+	.flux .wrapTitle_mobile2 .item.title a {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
 		white-space: break-spaces;
 	}
 
-	.horizontal-list.wrapTitle_desktop .item {
+	.flux .wrapTitle_mobile3 .item.title a {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		white-space: break-spaces;
+	}
+
+	.flux .wrapTitle_mobile4 .item.title a {
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		white-space: break-spaces;
+	}
+
+	.horizontal-list.wrapTitle_desktop1 .item {
 		vertical-align: middle;
 	}
 
-	.horizontal-list.wrapTitle_mobile .item {
+	.horizontal-list.wrapTitle_mobile2 .item,
+	.horizontal-list.wrapTitle_mobile3 .item,
+	.horizontal-list.wrapTitle_mobile4 .item {
 		vertical-align: top;
 	}
 

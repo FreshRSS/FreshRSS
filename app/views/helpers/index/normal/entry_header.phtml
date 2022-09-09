@@ -8,13 +8,8 @@
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
-	$class_wrapTitle = '';
-	if (FreshRSS_Context::$user_conf->wrapTitle_desktop) {
-		$class_wrapTitle = ' wrapTitle_desktop';
-	}
-	if (FreshRSS_Context::$user_conf->wrapTitle_mobile) {
-		$class_wrapTitle .= ' wrapTitle_mobile';
-	}
+	$class_wrapTitle = ' wrapTitle_desktop' . FreshRSS_Context::$user_conf->wrapTitle_desktop;
+	$class_wrapTitle .= ' wrapTitle_mobile' . FreshRSS_Context::$user_conf->wrapTitle_mobile;
 ?><ul class="horizontal-list flux_header<?= $class_wrapTitle ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
