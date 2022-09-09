@@ -991,38 +991,6 @@ a.signin {
 	font-size: 70%;
 }
 
-.loglist {
-	overflow: hidden;
-	border: 1px solid #969696;
-}
-
-.log {
-	padding: 5px 2%;
-	background: #fcfcfc;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-.log > .date {
-	margin: 0 10px 0 0;
-	padding: 5px 10px;
-}
-.log.error > .date {
-	background: #c46178;
-	color: #fcfcfc;
-}
-.log.warning > .date {
-	background: #fa8052;
-	color: #fcfcfc;
-}
-.log.notice > .date {
-	background: #e3e3e3;
-	color: #fcfcfc;
-}
-.log.debug > .date {
-	background: #181621;
-	color: #fcfcfc;
-}
-
 @media (max-width: 840px) {
 	body:not(.formLogin, .register) .header .item.title {
 		display: none;

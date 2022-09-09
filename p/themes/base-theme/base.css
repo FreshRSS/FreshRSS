@@ -828,37 +828,6 @@ a.btn {
 	width: 250px;
 }
 
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-}
-
-.log.warning {
-}
-
-.log.notice {
-}
-
-.log.debug {
-}
-
 /*=== MOBILE */
 /*===========*/
 

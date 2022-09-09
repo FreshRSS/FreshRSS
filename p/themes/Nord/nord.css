@@ -1125,22 +1125,6 @@ input.extend {
 	background-color: var(--bg);
 }
 
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	font-size: 0.8rem;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
 /*=== MOBILE */
 /*===========*/
 
