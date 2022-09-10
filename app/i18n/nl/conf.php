@@ -66,6 +66,19 @@ return array(
 			'thin' => 'Smal',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Logniveau',
+			'message' => 'Logbericht',
+			'timestamp' => 'Tijdstempel',
+		),
+		'pagination' => array(
+			'first' => 'Eerste',
+			'last' => 'Laatste',
+			'next' => 'Volgende',
+			'previous' => 'Vorige',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profielbeheer',
 		'api' => 'API-beheer',
@@ -124,12 +137,46 @@ return array(
 		'_' => 'Lezen',
 		'after_onread' => 'Na “markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs en datum',
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Boven titel/tags',
+				'none' => 'Geen',
+				'with_authors' => 'In lijn met auteurs en datum',
+			),
+			'feed_title' => 'Feedtitel',
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'tags_max' => array(
+				'_' => 'Max aantal getoonde tags',
+				'help' => '0 betekent: toon alle tags en verberg er geen',
+			),
+		),
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
 		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
+		'headline' => array(
+			'articles' => 'Artikelen: openen/sluiten',
+			'articles_header_footer' => 'Artikelen: kop/voet',
+			'categories' => 'Linkernavigatie: categoriën',
+			'mark_as_read' => 'Artikelen als gelezen markeren',
+			'misc' => 'Diversen',
+			'view' => 'Weergave',
+		),
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
@@ -140,6 +187,7 @@ return array(
 			'article_viewed' => 'als het artikel wordt bekeken',
 			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
 			'scroll' => 'tijdens het scrollen',
+			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
 			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
@@ -174,6 +222,7 @@ return array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

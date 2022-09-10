@@ -107,6 +107,6 @@ Exemples avec _uBlock_ :
 
 * Ajoutez votre instance FreshRSS à la liste blanche de en l’ajoutant dans
 	_uBlock > Ouvrir le tableau de bord > Liste blanche_.
-*-* Autorisez votre instance FreshRSS à appeler la page de configuration
+* Autorisez votre instance FreshRSS à appeler la page de configuration
 	`sharing` en ajoutant la règle `*sharing,domain=~votredomaine.com` dans
 	_uBlock > Ouvrir le fichier tableau de bord > Mes filtres_

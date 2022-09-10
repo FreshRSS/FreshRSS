@@ -24,13 +24,20 @@ return array(
 		'_' => 'Kategória',
 		'add' => 'Pridať kategória',
 		'archiving' => 'Archív',
+		'dynamic_opml' => array(
+			'_' => 'Dynamické OPML',
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
 		'title' => 'Názov',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Prijať cookies',
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Pridať RSS kanál',
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Príklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Stiahnuť skrátenú verziu RSS kanála (pozor, vyžaduje viac času!)',
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
+		'css_path_filter' => array(
+			'_' => 'CSS selektor elementu na odstránenie',
+			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
@@ -61,13 +72,62 @@ return array(
 		),
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
+		'kind' => array(
+			'_' => 'Typ zdroja kanála',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'názov kanála',
+					'help' => 'Príklad: <code>//title</code> alebo statický text: <code>"Môj vlastný kanál"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'vyhľadávanie noviniek <strong>položky</strong><br /><small>(najdôležitejšie)</small>',
+					'help' => 'Príklad: <code>//div[@class="news-item"]</code>',
+				),
+				'item_author' => array(
+					'_' => 'položka autor',
+					'help' => 'Môže byť aj statický text. Príklad: <code>"Anonym"</code>',
+				),
+				'item_categories' => 'položka značky',
+				'item_content' => array(
+					'_' => 'položka obsah',
+					'help' => 'Príklad na zabratie celej položky: <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'položka miniatúra',
+					'help' => 'Príklad: <code>descendant::img/@src</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'položka dátum',
+					'help' => 'Výsledok spracuje <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// DIRTY
+				),
+				'item_title' => array(
+					'_' => 'položka nadpis',
+					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
+				),
+				'item_uid' => array(
+					'_' => 'položka unikátny identifikátor',
+					'help' => 'Nepovinné. Príklad: <code>descendant::div/@data-uri</code>',
+				),
+				'item_uri' => array(
+					'_' => 'položka odkaz (URL)',
+					'help' => 'Príklad: <code>descendant::a/@href</code>',
+				),
+				'relative' => 'XPath (relatívne k položke) pre:',
+				'xpath' => 'XPath pre:',
+			),
+			'rss' => 'RSS / Atom (prednastavené)',
+		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
 			'clear_cache_help' => 'Vymazať vyrovnáciu pamäť pre tento kanál.',
 			'reload_articles' => 'Obnoviť články',
-			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',
+			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY
 			'title' => 'Údržba',
 		),
+		'max_http_redir' => 'Max HTTP presmerovaní',
+		'max_http_redir_help' => 'Nastavte na 0 alebo nechajte prázdne na zakázanie, -1 pre neobmedzené množstvo presmerovaní',
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',
@@ -138,6 +198,7 @@ return array(
 		'_' => 'Správa odoberaných kanálov',
 		'add' => 'Pridať kanál alebo kategóriu',
 		'add_category' => 'Pridať kategóriu',
+		'add_dynamic_opml' => 'Pridať dynamické OPML',
 		'add_feed' => 'Pridať kanál',
 		'add_label' => 'Pridať štítok',
 		'delete_label' => 'Zmazať štítok',

@@ -27,6 +27,13 @@ class Minz_Request {
 	public static function params() {
 		return self::$params;
 	}
+	/**
+	 * Read the URL parameter
+	 * @param string $key Key name
+	 * @param mixed $default default value, if no parameter is given
+	 * @param bool $specialchars special characters
+	 * @return mixed value of the parameter
+	 */
 	public static function param($key, $default = false, $specialchars = false) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
@@ -133,10 +140,8 @@ class Minz_Request {
 
 	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
-	 *
-	 * @return boolean
 	 */
-	public static function isHttps() {
+	public static function isHttps(): bool {
 		$header = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
 		if ('' != $header) {
 			return 'https' === strtolower($header);
@@ -147,9 +152,9 @@ class Minz_Request {
 	/**
 	 * Try to guess the base URL from $_SERVER information
 	 *
-	 * @return string base url (e.g. http://example.com/)
+	 * @return string base url (e.g. http://example.com)
 	 */
-	public static function guessBaseUrl() {
+	public static function guessBaseUrl(): string {
 		$protocol = self::extractProtocol();
 		$host = self::extractHost();
 		$port = self::extractPortForUrl();
@@ -159,10 +164,7 @@ class Minz_Request {
 		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL);
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractProtocol() {
+	private static function extractProtocol(): string {
 		if (self::isHttps()) {
 			return 'https';
 		}
@@ -202,10 +204,7 @@ class Minz_Request {
 		return self::isHttps() ? 443 : 80;
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPortForUrl() {
+	private static function extractPortForUrl(): string {
 		if (self::isHttps() && 443 !== $port = self::extractPort()) {
 			return ":{$port}";
 		}
@@ -215,34 +214,28 @@ class Minz_Request {
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPrefix() {
+	private static function extractPrefix(): string {
 		if ('' != $prefix = ($_SERVER['HTTP_X_FORWARDED_PREFIX'] ?? '')) {
 			return rtrim($prefix, '/ ');
 		}
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPath() {
-		if ('' != $path = ($_SERVER['REQUEST_URI'] ?? '')) {
-			return '/' === substr($path, -1) ? substr($path, 0, -1) : dirname($path);
+	private static function extractPath(): string {
+		$path = $_SERVER['REQUEST_URI'] ?? '';
+		if ($path != '') {
+			$path = parse_url($path, PHP_URL_PATH);
+			return substr($path, -1) === '/' ? rtrim($path, '/') : dirname($path);
 		}
 		return '';
 	}
 
 	/**
-	 * Return the base_url from configuration and add a suffix if given.
-	 *
-	 * @return string base_url with a suffix.
+	 * Return the base_url from configuration
 	 */
-	public static function getBaseUrl() {
+	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
-		$url = rtrim($conf->base_url, '/\\');
+		$url = trim($conf->base_url, ' /\\"');
 		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
@@ -343,7 +336,7 @@ class Minz_Request {
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
-			header('Location: ' . Minz_Url::display($url, 'php'));
+			header('Location: ' . Minz_Url::display($url, 'php', 'root'));
 			exit();
 		} else {
 			self::_controllerName($url['c']);
@@ -398,17 +391,11 @@ class Minz_Request {
 		}
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractContentType() {
+	private static function extractContentType(): string {
 		return strtolower(trim($_SERVER['CONTENT_TYPE'] ?? ''));
 	}
 
-	/**
-	 * @return boolean
-	 */
-	public static function isPost() {
+	public static function isPost(): bool {
 		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
 	}
 

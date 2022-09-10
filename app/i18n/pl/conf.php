@@ -23,7 +23,7 @@ return array(
 		'keep_unreads' => 'Nigdy nie usuwaj nieprzeczytanych wiadomości',
 		'maintenance' => 'Konserwacja',
 		'optimize' => 'Optymalizacja bazy danych',
-		'optimize_help' => 'Uruchom od czasu do czasy, by zmniejszyć rozmiar bazy danych',
+		'optimize_help' => 'Uruchom od czasu do czasu, by zmniejszyć rozmiar bazy danych',
 		'policy' => 'Polityka oczyszczania',
 		'policy_warning' => 'Jeżeli nie zostanie wybrana polityka oczyszczania, żadna wiadomość nie zostanie usunięta.',
 		'purge_now' => 'Oczyść teraz',
@@ -64,6 +64,19 @@ return array(
 			'medium' => 'Średnia',
 			'no_limit' => 'Pełna szerokość',
 			'thin' => 'Wąska',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Poziom',
+			'message' => 'Zawartość wpisu',
+			'timestamp' => 'Czas',
+		),
+		'pagination' => array(
+			'first' => 'Początek',
+			'last' => 'Koniec',
+			'next' => 'Następne',
+			'previous' => 'Poprzednie',
 		),
 	),
 	'profile' => array(
@@ -124,12 +137,46 @@ return array(
 		'_' => 'Czytanie',
 		'after_onread' => 'Po oznaczeniu wszystkich jako przeczytane,',
 		'always_show_favorites' => 'Pokaż wszystkie wiadomości po wejściu do ulubionych',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autor i data',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
+			),
+			'feed_name' => array(
+				'above_title' => 'Ponad tytułem/tagami',
+				'none' => 'Brak',
+				'with_authors' => 'W tej samej linii co autor i data',
+			),
+			'feed_title' => 'Nazwa kanału',
+			'tags' => array(
+				'_' => 'Tagi',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
+			),
+			'tags_max' => array(
+				'_' => 'Limit liczby wyświetlanych tagów',
+				'help' => '0 oznacza: wyświetl wszystkie tagi i żadnego nie zwijaj',
+			),
+		),
 		'articles_per_page' => 'Liczba wiadomości na stronę',
 		'auto_load_more' => 'Załaduj więcej wiadomości po dojściu na koniec strony',
 		'auto_remove_article' => 'Ukryj wiadomości po przeczytaniu',
 		'confirm_enabled' => 'Pytaj o potwierdzenie przed oznaczeniem wszystkich wiadomości jako przeczytane.',
 		'display_articles_unfolded' => 'Domyślnie wyświetlaj rozwinięte wiadomości',
 		'display_categories_unfolded' => 'Kategorie do rozwinięcia',
+		'headline' => array(
+			'articles' => 'Wiadomości: otwieranie i zamykanie',
+			'articles_header_footer' => 'Wiadomości: nagłówek i stopka',
+			'categories' => 'Nawigacja po lewej: Kategorie',
+			'mark_as_read' => 'Oznacz wiadomość jako przeczytaną',
+			'misc' => 'Różne',
+			'view' => 'Widok',
+		),
 		'hide_read_feeds' => 'Ukryj kategorie i kanały nie zawierające nieprzeczytanych wiadomości (nie działa gdy włączone jest wyświetlanie wszystkich wiadomości)',
 		'img_with_lazyload' => 'Opóźnij ładowanie obrazów dopóki nie będą widoczne',
 		'jump_next' => 'przejdź do następnego nieprzeczytanego kanału bądź kategorii',
@@ -140,6 +187,7 @@ return array(
 			'article_viewed' => 'gdy wiadomość jest otworzona',
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
 			'scroll' => 'podczas przewijania',
+			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
 			'when_same_title' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach',
@@ -174,6 +222,7 @@ return array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Ta usługa jest przestarzała i zostanie usunięta w <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dodatkowe informacje znajdują się w dokumentacji" target="_blank">przyszłych wydaniach</a> FreshRSS.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE

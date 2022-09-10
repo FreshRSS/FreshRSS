@@ -117,7 +117,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		Minz_Session::_param('POST_to_GET');
 
 		if ($isPOST) {
-			$nonce = Minz_Session::param('nonce');
+			$nonce = Minz_Session::param('nonce', '');
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
 

@@ -66,6 +66,19 @@ return array(
 			'thin' => '狭い',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',	// TODO
+			'message' => 'Log Message',	// TODO
+			'timestamp' => 'Timestamp',	// TODO
+		),
+		'pagination' => array(
+			'first' => '先頭',
+			'last' => '最後',
+			'next' => 'つぎへ',
+			'previous' => '前へ',
+		),
+	),
 	'profile' => array(
 		'_' => 'プロフィール',
 		'api' => 'API管理',
@@ -124,12 +137,46 @@ return array(
 		'_' => 'リーディング',
 		'after_onread' => 'あとで “すべてに既読を付ける”,',
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'ページ当たりの記事の数',
 		'auto_load_more' => 'ページの下にもっと記事を読み込む',
 		'auto_remove_article' => '記事を読んだら非表示にする',
 		'confirm_enabled' => '“すべてに既読を付ける” を押したとき確認ダイアログを表示する',
 		'display_articles_unfolded' => 'デフォルトでフォルダーに入れてない記事を表示する',
 		'display_categories_unfolded' => '展開されていない記事',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'categories' => 'Left navigation: Categories',	// TODO
+			'mark_as_read' => 'Mark article as read',	// TODO
+			'misc' => 'Miscellaneous',	// TODO
+			'view' => 'View',	// TODO
+		),
 		'hide_read_feeds' => 'カテゴリーを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '"lazy load"を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
@@ -140,6 +187,7 @@ return array(
 			'article_viewed' => '記事を読んだとき',
 			'keep_max_n_unread' => '未読の記事として残す最大数',
 			'scroll' => 'スクロールしているとき',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',
 			'when_same_title' => '同一タイトルの新しい記事があるときには、上部へ表示する',
@@ -174,6 +222,7 @@ return array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
 		'facebook' => 'Facebook',	// IGNORE

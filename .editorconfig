@@ -19,6 +19,9 @@ indent_style = tab
 indent_size = 4
 indent_style = tab
 
+[*.svg]
+indent_style = tab
+
 [*.xml]
 indent_style = tab
 

@@ -28,7 +28,7 @@ return array(
 		'policy_warning' => 'Если ни одна политика очистки не выбрана, все статьи будут оставлены.',
 		'purge_now' => 'Запустить очистку сейчас',
 		'title' => 'Архивирование',
-		'ttl' => 'Не актуализировать автоматически чаще чем',
+		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
 	),
 	'display' => array(
 		'_' => 'Отображение',
@@ -38,8 +38,8 @@ return array(
 			'entry' => 'Иконки статей',
 			'publication_date' => 'Дата публикации',
 			'related_tags' => 'Связанные метки',
-			'sharing' => 'Поделиться',
-			'summary' => 'Резюме',
+			'sharing' => 'Обмен',
+			'summary' => 'Сводка',
 			'top_line' => 'Верхняя линия',
 		),
 		'language' => 'Язык',
@@ -51,11 +51,11 @@ return array(
 		'theme' => 'Тема',
 		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
 		'thumbnail' => array(
-			'label' => 'Миниатюра',
-			'landscape' => 'Альбомная ориентация',
-			'none' => 'Пусто',
-			'portrait' => 'Книжная ориентация',
-			'square' => 'Площадь',
+			'label' => 'Эскиз',
+			'landscape' => 'Горизонтальный',
+			'none' => 'Нет',
+			'portrait' => 'Вертикальный',
+			'square' => 'Квадратный',
 		),
 		'title' => 'Отображение',
 		'width' => array(
@@ -64,6 +64,19 @@ return array(
 			'medium' => 'Среднее',
 			'no_limit' => 'Во всю ширину',
 			'thin' => 'Узкое',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Уровень журнала',
+			'message' => 'Сообщение журнала',
+			'timestamp' => 'Отметка времени',
+		),
+		'pagination' => array(
+			'first' => 'Первая',
+			'last' => 'Последняя',
+			'next' => 'Следующая',
+			'previous' => 'Предыдущая',
 		),
 	),
 	'profile' => array(
@@ -124,12 +137,46 @@ return array(
 		'_' => 'Чтение',
 		'after_onread' => 'После «отметить всё прочитанным»',
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'Количество статей на странице',
 		'auto_load_more' => 'Загружать больше статей при достижении низа страницы',
 		'auto_remove_article' => 'Скрывать статьи по прочтении',
 		'confirm_enabled' => 'Показывать диалог подтверждения при выпыполнении действия «отметить всё прочитанным»',
 		'display_articles_unfolded' => 'Показывать статьи развёрнутыми по умолчанию',
 		'display_categories_unfolded' => 'Какие категории развёртывать',
+		'headline' => array(
+			'articles' => 'Статьи: открыть/закрыть',
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'categories' => 'Левая панель: категории',
+			'mark_as_read' => 'Пометить статью прочитанной',
+			'misc' => 'Разное',
+			'view' => 'Вид',
+		),
 		'hide_read_feeds' => 'Скрывать категории и ленты без непрочитанных статей (не работает с «Показывать все статьи»)',
 		'img_with_lazyload' => 'Использовать режим "ленивой загрузки" для загрузки картинок',
 		'jump_next' => 'перейти к следующей ленте или категории',
@@ -140,17 +187,18 @@ return array(
 			'article_viewed' => 'когда статья просматривается',
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
 			'scroll' => 'во время прокрутки',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
 			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',
 		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',
-			'active_category' => 'Активная категория',
+			'active_category' => 'Активную категорию',
 			'adaptive' => 'Адаптивно',
 			'all_articles' => 'Показывать все статьи',
 			'all_categories' => 'Все категории',
-			'no_category' => 'Никаких категорий',
+			'no_category' => 'Никакие категории',
 			'remember_categories' => 'Запоминать открытые категории',
 			'unread' => 'Только непрочитанные',
 		),
@@ -171,27 +219,28 @@ return array(
 		),
 	),
 	'sharing' => array(
-		'_' => 'Поделиться',
-		'add' => 'Добавить способ поделиться',
+		'_' => 'Обмен',
+		'add' => 'Добавить способ обмена',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Этот сервис устарел и будет удалён из FreshRSS в <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Открыть документацию для большей информации" target="_blank">будущем релизе</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Больше информации',
 		'print' => 'Распечатать',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'remove' => 'Удалить способ поделиться',
+		'remove' => 'Удалить способ обмена',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
-		'title' => 'Поделиться',
+		'title' => 'Обмен',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Горячие клавиши',
 		'article_action' => 'Действия со статьями',
-		'auto_share' => 'Поделиться',
+		'auto_share' => 'Обмен',
 		'auto_share_help' => 'Если способ единственный, он будет вызван. Иначе способы доступны по их номеру.',
 		'close_dropdown' => 'Закрыть меню',
 		'collapse_article' => 'Схлопнуть',

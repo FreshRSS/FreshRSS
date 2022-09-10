@@ -28,7 +28,7 @@ class Minz_Url {
 			$url_string = Minz_Request::getBaseUrl();
 			if (strlen($url_string) < strlen('http://a.bc')) {
 				$url_string = Minz_Request::guessBaseUrl();
-				if (PUBLIC_RELATIVE === '..') {
+				if (PUBLIC_RELATIVE === '..' && preg_match('%' . PUBLIC_TO_INDEX_PATH . '(/|$)%', $url_string)) {
 					//TODO: Implement proper resolver of relative parts such as /test/./../
 					$url_string = dirname($url_string);
 				}
@@ -63,11 +63,17 @@ class Minz_Url {
 	private static function printUri($url, $encodage) {
 		$uri = '';
 		$separator = '?';
+		$anchor = '';
 
 		if ($encodage === 'html') {
 			$and = '&amp;';
 		} else {
 			$and = '&';
+		}
+
+		if (!empty($url['params']['#'])) {
+			$anchor = '#' . ($encodage === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
+			unset($url['params']['#']);
 		}
 
 		if (isset($url['c'])
@@ -90,6 +96,12 @@ class Minz_Url {
 				$separator = $and;
 			}
 		}
+
+		if (!empty($url['#'])) {
+			$uri .= '#' . ($encodage === 'html' ? htmlspecialchars($url['#'], ENT_QUOTES, 'UTF-8') : $url['#']);
+		}
+
+		$uri .= $anchor;
 
 		return $uri;
 	}
@@ -121,7 +133,8 @@ class Minz_Url {
 /**
  * @param string $controller
  * @param string $action
- * @param string ...$args
+ * @param string|int ...$args
+ * @return string|false
  */
 function _url ($controller, $action, ...$args) {
 	$nb_args = count($args);
@@ -132,8 +145,8 @@ function _url ($controller, $action, ...$args) {
 
 	$params = array ();
 	for ($i = 0; $i < $nb_args; $i += 2) {
-		$arg = $args[$i];
-		$params[$arg] = $args[$i + 1];
+		$arg = '' . $args[$i];
+		$params[$arg] = '' . $args[$i + 1];
 	}
 
 	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));

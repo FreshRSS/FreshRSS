@@ -168,8 +168,20 @@ return array(
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
 		'registration' => array(
-			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulari d’inscripcion',
+				'option' => array(
+					'noform' => 'Desactivat : cap de formulari d’inscripcion',
+					'nolimit' => 'Activat : cap de limit de comptes',
+					'setaccountsnumber' => 'Definir lo numbre max. de comptes',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulari desactivat',
+				'enabled' => 'Formulari activat',
+			),
+			'title' => 'Formulari d’inscripcion utilizaire',
 		),
 	),
 	'update' => array(

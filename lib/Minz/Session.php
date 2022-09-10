@@ -150,12 +150,12 @@ class Minz_Session {
 		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
 	}
 
-	public static function setLongTermCookie($name, $value, $expire) {
+	public static function setLongTermCookie(string $name, string $value, $expire) {
 		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
 	}
 
-	public static function getLongTermCookie($name) {
-		return isset($_COOKIE[$name]) ? $_COOKIE[$name] : null;
+	public static function getLongTermCookie(string $name): string {
+		return isset($_COOKIE[$name]) ? $_COOKIE[$name] : '';
 	}
 
 }

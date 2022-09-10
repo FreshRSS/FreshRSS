@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
+		'delete_muted_feeds' => 'Suprimir los flux muts',
 		'demote' => 'Retrogradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Voidar',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_read' => 'Marcar coma legit',
+		'open_url' => 'Dobrir l’URL',
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
+		'refresh_opml' => 'Refrescar OPML',
 		'remove' => 'Levar',
 		'rename' => 'Renomenar',
 		'see_website' => 'Veire lo site',
@@ -127,6 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Volètz vertadièrament contunhar ? Perdretz los favorits e filtres ligats. Aquesta accion se pòt pas anullar !',
 		'feedback' => array(
 			'body_new_articles' => 'I a %%d nòus articles per legir sus FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Una requèsta a fach meuca, aquò pòt venir d’un problèma de connexion Internet.',
 			'title_new_articles' => 'FreshRSS : nòus articles !',
 		),
@@ -152,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'A prepaus',
@@ -175,15 +180,6 @@ return array(
 		'user_management' => 'Gestion dels utilizaires',
 		'user_profile' => 'Perfil',
 	),
-	'pagination' => array(
-		'first' => 'Debuta',
-		'last' => 'Fin',
-		'load_more' => 'Cargar mai d’articles',
-		'mark_all_read' => 'O marcar tot coma legit',
-		'next' => 'Seguent',
-		'nothing_to_load' => 'I a pas mai d’articles',
-		'previous' => 'Precedent',
-	),
 	'period' => array(
 		'days' => 'jorns',
 		'hours' => 'oras',
@@ -193,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basats sus Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Quicha-papiers.',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -205,13 +202,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Atencion !',
@@ -225,5 +227,10 @@ return array(
 		'ok' => 'Òc-ben !',
 		'or' => 'o',
 		'yes' => 'Òc',
+	),
+	'stream' => array(
+		'load_more' => 'Cargar mai d’articles',
+		'mark_all_read' => 'O marcar tot coma legit',
+		'nothing_to_load' => 'I a pas mai d’articles',
 	),
 );

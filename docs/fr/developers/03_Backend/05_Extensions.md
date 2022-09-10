@@ -449,10 +449,10 @@ Seuls les champs `name` et `entrypoint` sont requis.
 
 ### Choisir entre extension « system » ou « user »
 
-A __user__ extension can be enabled by some users and not by others
+A *user* extension can be enabled by some users and not by others
 (typically for user preferences).
 
-A __system__ extension in comparison is enabled for every account.
+A *system* extension in comparison is enabled for every account.
 
 ### Writing your own extension.php
 

@@ -1,48 +1,18 @@
+@use "mixins";
+
+@use "variables";
+
 /*=== MOBILE */
 /*===========*/
 
 @media (max-width: 840px) {
-	html, body {
-		// font-size: 1rem;
-	}
-
-	ul.nav {
-		.item {
-			width: 100%;
-
-			img {
-				display: none;
-			}
-
-			a {
-				box-sizing: border-box;
-				padding: 1rem 1rem 1rem 2.5rem;
-
-				background: url("../../themes/icons/logout.svg") no-repeat $sid-bg-dark 3% center;
-				display: inline-block;
-				width: 100%;
-				color: $sid-font-color;
-
-				@include transition(all, 0.2s, ease-in-out);
-
-				&:hover,
-				&:active {
-					background: url("../../themes/icons/logout.svg") no-repeat $alert-bg 3% center;
-					text-decoration: none;
-				}
-			}
-
-		}
-
-	}
-
 	.form-group .group-name {
 		text-align: left;
 	}
 
 	.aside {
 
-		@include transition(all, 0.2s, ease-in-out);
+		@include mixins.transition(all, 0.2s, ease-in-out);
 
 		&.aside_feed {
 			padding: 0;
@@ -57,16 +27,21 @@
 	#panel .close,
 	#close-slider.active,
 	.dropdown-menu .toggle_aside {
-		background: $main-first-alt;
+		background: variables.$main-first-alt;
 		display: block;
 		width: 100%;
 		height: 50px;
 		line-height: 50px;
 		text-align: center;
+
+		.icon {
+			filter: grayscale(100%) brightness(2.5);
+		}
 	}
 
 	.header {
 		padding: 0.5rem;
+		height: 8rem;
 
 		.item {
 			&.search {
@@ -89,14 +64,19 @@
 
 					}
 				}
-
-				.btn {
-					min-height: 49px;
-					padding: 0.5rem 2rem;
-				}
 			}
 
 		}
+	}
+
+	#global {
+		height: calc(100% - 8rem);
+	}
+
+	main.prompt {
+		max-width: 100%;
+		min-width: auto;
+		width: 75%;
 	}
 
 	.post {
@@ -149,9 +129,9 @@
 
 	.dropdown-target:target {
 		~ .dropdown-toggle::after {
-			background-color: $grey-lighter;
-			border-top: 1px solid $grey-light;
-			border-left: 1px solid $grey-light;
+			background-color: variables.$grey-lighter;
+			border-top: 1px solid variables.$grey-light;
+			border-left: 1px solid variables.$grey-light;
 			right: 21px;
 			bottom: -14px;
 		}
@@ -175,17 +155,12 @@
 
 		.name {
 			padding: 0;
-			// font-size: 1.1rem;
 			display: block;
 			width: 100%;
 			line-height: 1.5rem;
 			margin-bottom: 1rem;
 		}
 
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	#nav_entries {

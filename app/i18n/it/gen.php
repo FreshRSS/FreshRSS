@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
 		'disable' => 'Disabilita',
 		'empty' => 'Vuoto',
@@ -28,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'Gestisci',
 		'mark_read' => 'Segna come letto',
+		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Rimuovi',
 		'rename' => 'Rename',	// TODO
 		'see_website' => 'Vai al sito',
@@ -127,6 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'feedback' => array(
 			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
@@ -152,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
@@ -175,15 +180,6 @@ return array(
 		'user_management' => 'Gestione utenti',
 		'user_profile' => 'Profilo',
 	),
-	'pagination' => array(
-		'first' => 'Prima',
-		'last' => 'Ultima',
-		'load_more' => 'Carica altri articoli',
-		'mark_all_read' => 'Segna tutto come letto',
-		'next' => 'Successiva',
-		'nothing_to_load' => 'Non ci sono altri articoli',
-		'previous' => 'Precedente',
-	),
 	'period' => array(
 		'days' => 'days',	// TODO
 		'hours' => 'hours',	// TODO
@@ -193,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Siti basati su Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -205,13 +202,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Stampa',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attenzione!',
@@ -225,5 +227,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'o',
 		'yes' => 'Si',
+	),
+	'stream' => array(
+		'load_more' => 'Carica altri articoli',
+		'mark_all_read' => 'Segna tutto come letto',
+		'nothing_to_load' => 'Non ci sono altri articoli',
 	),
 );

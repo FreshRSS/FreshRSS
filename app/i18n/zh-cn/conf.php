@@ -13,7 +13,7 @@
 return array(
 	'archiving' => array(
 		'_' => '归档',
-		'exception' => '清理例外策略',
+		'exception' => '高级清理策略',
 		'help' => '具体选项位于各订阅源的设置',
 		'keep_favourites' => '不清理已收藏的文章',
 		'keep_labels' => '不清理标签',
@@ -64,6 +64,19 @@ return array(
 			'medium' => '中',
 			'no_limit' => '无限制',
 			'thin' => '窄',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => '日志等级',
+			'message' => '信息',
+			'timestamp' => '时间',
+		),
+		'pagination' => array(
+			'first' => '首页',
+			'last' => '末页',
+			'next' => '下一页',
+			'previous' => '上一页',
 		),
 	),
 	'profile' => array(
@@ -124,13 +137,47 @@ return array(
 		'_' => '阅读',
 		'after_onread' => '「全部标记为已读」后',
 		'always_show_favorites' => '默认显示收藏夹中所有的文章',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '作者和日期',
+				'both' => '两者都显示',
+				'footer' => '仅页脚显示',
+				'header' => '仅页眉显示',
+				'none' => '不显示',
+			),
+			'feed_name' => array(
+				'above_title' => '在文章标题和标签上方',
+				'none' => '不显示',
+				'with_authors' => '与作者和日期一行',
+			),
+			'feed_title' => '订阅源标题',
+			'tags' => array(
+				'_' => '文章标签',
+				'both' => '两者都显示',
+				'footer' => '仅页脚显示',
+				'header' => '仅页眉显示',
+				'none' => '不显示',
+			),
+			'tags_max' => array(
+				'_' => '标签最多显示个数',
+				'help' => '0 标识显示所有标签',
+			),
+		),
 		'articles_per_page' => '每页文章数',
-		'auto_load_more' => '在页面底部载入下一篇文章',
+		'auto_load_more' => '在页面底部载入更多文章',
 		'auto_remove_article' => '阅读后隐藏文章',
 		'confirm_enabled' => '「全部标记为已读」时显示确认对话框',
 		'display_articles_unfolded' => '默认展开显示文章',
 		'display_categories_unfolded' => '展开的分类',
-		'hide_read_feeds' => '隐藏没有未读文章的分类或订阅源 (启用「显示所有文章」后不生效))',
+		'headline' => array(
+			'articles' => '文章：打开/关闭',
+			'articles_header_footer' => '文章: 页眉/页脚',
+			'categories' => '左侧导航：分类',
+			'mark_as_read' => '标为已读选项',
+			'misc' => '其它',
+			'view' => '浏览',
+		),
+		'hide_read_feeds' => '隐藏没有未读文章的分类和订阅源 (启用「显示所有文章」后不生效)',
 		'img_with_lazyload' => '延迟加载图片',
 		'jump_next' => '跳转到下一未读项（订阅源或分类）',
 		'mark_updated_article_unread' => '将更新的文章设为未读',
@@ -140,6 +187,7 @@ return array(
 			'article_viewed' => '在文章被浏览后',
 			'keep_max_n_unread' => '未读最多保留 n 条',
 			'scroll' => '在滚动浏览后',
+			'upon_gone' => '在被原订阅源移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
 			'when_same_title' => '已存在 n 条相同标题文章',
@@ -174,6 +222,7 @@ return array(
 		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => '这项功能已废弃并在将来版本的 FreshRSS 中移除，详情请见 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">说明文档</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '邮箱',	// IGNORE
 		'facebook' => '脸书',	// IGNORE

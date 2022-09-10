@@ -12,24 +12,27 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Актуализировать ленту',
+		'actualize' => 'Обновить ленту',
 		'add' => 'Добавить',
 		'back' => '← Вернуться',
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',
 		'cancel' => 'Отменить',
 		'create' => 'Создать',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Понизить',
 		'disable' => 'Отключить',
-		'empty' => 'Пусто',
+		'empty' => 'Опустошить',
 		'enable' => 'Включить',
 		'export' => 'Экспортировать',
-		'filter' => 'Фильтровать',
+		'filter' => 'Отфильтровать',
 		'import' => 'Импортировать',
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Удалить',
 		'rename' => 'Переименовать',
 		'see_website' => 'Посмотреть на сайте',
@@ -62,7 +65,7 @@ return array(
 		'Aug' => '\\а\\в\\г\\у\\с\\т\\а',
 		'Dec' => '\\д\\е\\к\\а\\б\\р\\я',
 		'Feb' => '\\ф\\е\\в\\р\\а\\л\\я',
-		'Jan' => '\\я\\н\\в\\а\\р\\я\\y',
+		'Jan' => '\\я\\н\\в\\а\\р\\я',
 		'Jul' => '\\и\\ю\\л\\я',
 		'Jun' => '\\и\\ю\\н\\я',
 		'Mar' => '\\м\\а\\р\\т\\а',
@@ -98,8 +101,8 @@ return array(
 		'last_year' => 'Последний год',
 		'mar' => 'мар',
 		'march' => 'марта',
-		'may' => 'май',
-		'may_' => 'мая',
+		'may' => 'мая',
+		'may_' => 'май',
 		'mon' => 'Пн',
 		'month' => 'месяцы',
 		'nov' => 'ноя',
@@ -127,6 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
 		'feedback' => array(
 			'body_new_articles' => '%%d новых статей в FreshRSS.',
+			'body_unread_articles' => '(Непрочитанные: %%d)',
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),
@@ -152,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'О проекте',
@@ -163,26 +168,17 @@ return array(
 		'configuration' => 'Конфигурация',
 		'display' => 'Отображение',
 		'extensions' => 'Расширения',
-		'logs' => 'Логи',
+		'logs' => 'Журнал',
 		'queries' => 'Пользовательские запросы',
 		'reading' => 'Чтение',
 		'search' => 'Искать слова или #теги',
-		'sharing' => 'Поделиться',
+		'sharing' => 'Обмен',
 		'shortcuts' => 'Горячие клавиши',
 		'stats' => 'Статистика',
 		'system' => 'Системные настройки',
 		'update' => 'Обновление системы',
 		'user_management' => 'Управление пользователями',
 		'user_profile' => 'Профиль',
-	),
-	'pagination' => array(
-		'first' => 'Первая',
-		'last' => 'Последняя',
-		'load_more' => 'Загрузить больше статей',
-		'mark_all_read' => 'Отметить всё прочитанным',
-		'next' => 'Следующая',
-		'nothing_to_load' => 'Больше нет статей',
-		'previous' => 'Предыдущая',
 	),
 	'period' => array(
 		'days' => 'дней',
@@ -193,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -205,13 +202,18 @@ return array(
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Системный обмен',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Предупреждение!',
@@ -225,5 +227,10 @@ return array(
 		'ok' => 'Отлично!',
 		'or' => 'или',
 		'yes' => 'Да',
+	),
+	'stream' => array(
+		'load_more' => 'Загрузить больше статей',
+		'mark_all_read' => 'Отметить всё прочитанным',
+		'nothing_to_load' => 'Больше нет статей',
 	),
 );

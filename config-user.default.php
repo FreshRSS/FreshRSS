@@ -16,6 +16,7 @@ return array (
 		'keep_unreads' => false,
 	],
 	'ttl_default' => 3600,
+	'dynamic_opml_ttl_default' => 43200,
 	'mail_login' => '',
 	'email_validation_token' => '',
 	'token' => '',
@@ -33,6 +34,10 @@ return array (
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
+	'show_tags' => '0',
+	'show_tags_max' => '7',
+	'show_author_date' => 'h',
+	'show_feed_name' => 'a',
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
@@ -49,6 +54,7 @@ return array (
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
+		'gone' => false,
 		'max_n_unread' => false,
 		'reception' => false,
 		'same_title_in_feed' => false,
@@ -82,7 +88,13 @@ return array (
 		'rss_view' => '4',
 		'toggle_media' => 'v',
 	),
+
+	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds
 	'show_favicons' => true,
+	'icons_as_emojis' => false,
+	# Hide the dropdown configuration menu and favicon in the aside list in case of many feeds, for UI performance
+	'simplify_over_n_feeds' => 1000,
+
 	'topline_read' => true,
 	'topline_favorite' => true,
 	'topline_thumbnail' => 'none',

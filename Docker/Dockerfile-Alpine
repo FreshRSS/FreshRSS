@@ -1,12 +1,12 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --no-cache \
-	apache2 php8-apache2 \
-	php8 php8-curl php8-gmp php8-intl php8-mbstring php8-xml php8-zip \
-	php8-ctype php8-dom php8-fileinfo php8-iconv php8-json php8-opcache php8-phar php8-session php8-simplexml php8-xmlreader php8-xmlwriter php8-tokenizer php8-zlib \
-	php8-pdo_sqlite php8-pdo_mysql php8-pdo_pgsql
+	apache2 php-apache2 \
+	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
+	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-xml php-tokenizer php-zlib \
+	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
@@ -38,7 +38,6 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8 /usr/bin/php; else true; fi && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \

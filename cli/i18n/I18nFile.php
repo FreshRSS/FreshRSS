@@ -54,16 +54,24 @@ class I18nFile {
 		$content = str_replace('<?php', '', $content);
 
 		$content = preg_replace([
-			"#',\s*//\s*TODO#i",
-			"#',\s*//\s*DIRTY#i",
-			"#',\s*//\s*IGNORE#i",
+			"#',\s*//\s*TODO.*#i",
+			"#',\s*//\s*DIRTY.*#i",
+			"#',\s*//\s*IGNORE.*#i",
 		], [
 			' -> todo\',',
 			' -> dirty\',',
 			' -> ignore\',',
 		], $content);
 
-		$content = eval($content);
+		try {
+			$content = eval($content);
+		} catch (ParseError $ex) {
+			if (defined('STDERR')) {
+				fwrite(STDERR, "Error while processing: $filename\n");
+				fwrite(STDERR, $ex);
+			}
+			die(1);
+		}
 
 		if (is_array($content)) {
 			return $content;
@@ -152,20 +160,20 @@ class I18nFile {
 		$translation = preg_replace($patterns, $replacements, $translation);
 
 		return <<<OUTPUT
-		<?php
+<?php
 
-		/******************************************************************************/
-		/* Each entry of that file can be associated with a comment to indicate its   */
-		/* state. When there is no comment, it means the entry is fully translated.   */
-		/* The recognized comments are (comment matching is case-insensitive):        */
-		/*   + TODO: the entry has never been translated.                             */
-		/*   + DIRTY: the entry has been translated but needs to be updated.          */
-		/*   + IGNORE: the entry does not need to be translated.                      */
-		/* When a comment is not recognized, it is discarded.                         */
-		/******************************************************************************/
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
 
-		return {$translation};
+return {$translation};
 
-		OUTPUT;
+OUTPUT;
 	}
 }

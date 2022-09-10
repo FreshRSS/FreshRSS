@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -117,8 +116,9 @@ form th {
 
 .form-group .group-controls > input,
 .form-group .group-controls > select,
+.form-group .group-controls > textarea,
 .form-group .group-controls .stick {
-	margin: -5px 0;
+	margin: -5px 0 5px 0;
 }
 
 .form-group .group-controls .stick .btn {
@@ -227,6 +227,10 @@ a.btn {
 .btn-important:active {
 	background: #0044cb;
 	box-shadow: none;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-attention {
@@ -359,18 +363,7 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #fff;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #ddd;
-	/* @noflip */
-	border-right: 1px solid #ddd;
-	content: "";
-	position: absolute;
-	top: -6px;
-	left: 13px;
-	z-index: -10;
-	transform: rotate(-45deg);
+	border-color: #ddd;
 }
 
 .dropdown-header {
@@ -388,9 +381,15 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover,
+.dropdown-menu > .item > label:hover:not(.noHover) {
 	background: #0062be;
 	color: #fff;
+}
+
+.dropdown-menu > .item > label {
+	padding: 0;
 }
 
 .dropdown-menu > .item:hover .icon {
@@ -400,11 +399,6 @@ a.btn {
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;
-}
-
-.dropdown-menu > .item:hover > a {
-	color: #fff;
-	text-decoration: none;
 }
 
 .dropdown-menu .input select,
@@ -463,27 +457,11 @@ a.btn {
 /*=== Pagination */
 .pagination {
 	background: #fafafa;
-	text-align: center;
 	color: #333;
-	font-size: 0.8em;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	font-weight: bold;
-	font-size: 1.5em;
 }
 
 .pagination .item a {
-	display: block;
 	color: #333;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 }
 
 .pagination .item a:hover {
@@ -496,12 +474,6 @@ a.btn {
 
 .pagination:last-child .item {
 	border-top: 1px solid #aaa;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
-	background: url("loader.gif") center center no-repeat #fff;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -616,10 +588,6 @@ a.btn {
 }
 
 /*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #fff;
 	border-left: 1px solid #aaa;
@@ -636,14 +604,15 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	left: 0;
-	line-height: 1.5rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
+	background-color: #f6f6f6;
+	color: #444;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: white;
+	color: #444;
 }
 
 /*=== Aside main page (feeds) */
@@ -697,21 +666,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: .5rem;
-	padding-left: .5rem;
-	text-align: center;
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: right;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -727,41 +681,28 @@ a.btn {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt .btn.btn-important {
 	padding-right: 1.5rem;
 	padding-left: 1.5rem;
 	font-size: 1.1rem;
 }
 
-.prompt p {
-	margin: 20px 0;
-}
-
 /*=== New article notification */
 #new-article {
-	padding: 1em;
 	background: #0084cc;
 	text-align: center;
 	font-size: 0.9em;
 }
 
-#new-article:hover {
-	background: #06c;
-}
-
 #new-article > a {
+	padding: 1em;
 	color: #fff;
 	font-weight: bold;
 }
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #06c;
 }
 
 /*=== Day indication */
@@ -864,7 +805,7 @@ a.btn {
 	padding: 20px 10px;
 }
 
-.content > h1.title > a {
+.content h1.title > a {
 	color: #000;
 }
 
@@ -916,15 +857,12 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
 	font-size: 0.9em;
 	border: 1px solid #eeb;
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -1081,6 +1019,16 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
+.pagination .item.active {
+	background-color: #0062be;
+	color: white;
+}
+
+#loglist td {
+	font-family: monospace;
+}
+
+/****old******/
 .loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;
@@ -1208,10 +1156,6 @@ a.btn {
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.pagination {
-		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {

@@ -4,7 +4,8 @@
  * This class is used to test database is well-constructed (SQLite).
  */
 class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
-	public function tablesAreCorrect() {
+
+	public function tablesAreCorrect(): bool {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table"';
 		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -24,36 +25,36 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	public function getSchema($table) {
+	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function entryIsCorrect() {
+	public function entryIsCorrect(): bool {
 		return $this->checkTable('entry', array(
 			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
 			'is_favorite', 'id_feed', 'tags',
 		));
 	}
 
-	public function entrytmpIsCorrect() {
+	public function entrytmpIsCorrect(): bool {
 		return $this->checkTable('entrytmp', array(
 			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
 			'is_favorite', 'id_feed', 'tags',
 		));
 	}
 
-	public function daoToSchema($dao) {
-		return array(
-			'name' => $dao['name'],
-			'type' => strtolower($dao['type']),
+	public function daoToSchema(array $dao): array {
+		return [
+			'name'    => $dao['name'],
+			'type'    => strtolower($dao['type']),
 			'notnull' => $dao['notnull'] === '1' ? true : false,
 			'default' => $dao['dflt_value'],
-		);
+		];
 	}
 
-	public function size($all = false) {
+	public function size(bool $all = false): int {
 		$sum = 0;
 		if ($all) {
 			foreach (glob(DATA_PATH . '/users/*/db.sqlite') as $filename) {
@@ -62,10 +63,10 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		} else {
 			$sum = @filesize(DATA_PATH . '/users/' . $this->current_user . '/db.sqlite');
 		}
-		return $sum;
+		return intval($sum);
 	}
 
-	public function optimize() {
+	public function optimize(): bool {
 		$ok = $this->pdo->exec('VACUUM') !== false;
 		if (!$ok) {
 			$info = $this->pdo->errorInfo();
