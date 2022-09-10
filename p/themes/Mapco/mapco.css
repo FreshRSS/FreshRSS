@@ -1217,6 +1217,12 @@ main.prompt {
 	top: 1rem;
 }
 
+/*=== LOGS */
+/*=========*/
+.log-item.log-error {
+	background-color: rgba(51, 102, 204, 0.2);
+}
+
 /*=== STATISTICS */
 /*===============*/
 .stat {

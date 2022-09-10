@@ -991,6 +991,18 @@ a.signin {
 	font-size: 70%;
 }
 
+.log-item.log-error {
+	background: #c46178;
+	color: #fcfcfc;
+}
+.log-item.log-warning {
+	background: #fa8052;
+	color: #fcfcfc;
+}
+.log-item.log-debug {
+	background: #181621;
+}
+
 @media (max-width: 840px) {
 	body:not(.formLogin, .register) .header .item.title {
 		display: none;
