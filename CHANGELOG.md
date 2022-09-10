@@ -1,6 +1,6 @@
 # FreshRSS changelog
 
-## 2022-09-XX FreshRSS 1.20.0-dev
+## 2022-09-10 FreshRSS 1.20.0
 
 * Features
 	* New Web scraping feature *HTML+XPath* for Web pages without any RSS/ATOM feed [#4220](https://github.com/FreshRSS/FreshRSS/pull/4220)
@@ -18,6 +18,7 @@
 	* New option to exclude some DOM elements with a CSS Selector when retrieving an article full content [#4501](https://github.com/FreshRSS/FreshRSS/pull/4501)
 	* New option to automatically mark as read gone articles [#4426](https://github.com/FreshRSS/FreshRSS/pull/4426)
 	* New OPML export/import of some proprietary FreshRSS attributes [#4342](https://github.com/FreshRSS/FreshRSS/pull/4342)
+	* Tolerate the import of some invalid OPML files [#4591](https://github.com/FreshRSS/FreshRSS/pull/4591)
 	* New feed settings to allow cookies and HTTP redirects [#4470](https://github.com/FreshRSS/FreshRSS/pull/4470)
 	* Performance: Easier [text search indexes](https://freshrss.github.io/FreshRSS/en/admins/DatabaseConfig.html) for fast searches with PostgreSQL [#4505](https://github.com/FreshRSS/FreshRSS/pull/4505)
 		* The indexes must be manually added for now. Using GIN `pg_trgm`
@@ -80,7 +81,8 @@
 * Themes
 	* New theme *Dark pink* [#4311](https://github.com/FreshRSS/FreshRSS/pull/4311)
 	* New theme *Nord* [#4400](https://github.com/FreshRSS/FreshRSS/pull/4400)
-	* Improve themes *Ansum* [#4538](https://github.com/FreshRSS/FreshRSS/pull/4538), [#4549](https://github.com/FreshRSS/FreshRSS/pull/4549);
+	* Improve themes *Alternative Dark* [#4587](https://github.com/FreshRSS/FreshRSS/pull/4587);
+	*Ansum* [#4538](https://github.com/FreshRSS/FreshRSS/pull/4538), [#4549](https://github.com/FreshRSS/FreshRSS/pull/4549);
 	*Flat* [#4575](https://github.com/FreshRSS/FreshRSS/pull/4575);
 	*Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491), [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491);
 	*Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512), [#4566](https://github.com/FreshRSS/FreshRSS/pull/4566)
@@ -100,6 +102,7 @@
 	* Improve Slovak [#4524](https://github.com/FreshRSS/FreshRSS/pull/4524)
 * API
 	* Restrict maximum length of item content length for clients compatibility [#4583](https://github.com/FreshRSS/FreshRSS/pull/4583)
+	* Supported by [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) [#4595](https://github.com/FreshRSS/FreshRSS/pull/4595)
 * Deployment
 	* Docker: Performance: entrypoint fix buffering, problematic when importing large OPMLs during install [#4417](https://github.com/FreshRSS/FreshRSS/pull/4417)
 	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.30 and Apache 2.4.54
