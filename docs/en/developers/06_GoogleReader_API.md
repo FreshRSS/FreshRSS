@@ -27,6 +27,7 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 |[FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) |Android                  |Closed Source (Free)                                             |
 |[EasyRSS](https://github.com/Alkarex/EasyRSS)                          |Android                |[GPLv3](https://github.com/Alkarex/EasyRSS/blob/master/license.txt) ([F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))|
 |[Readrops](https://github.com/readrops/Readrops) |Android                  |[GPLv3](https://github.com/readrops/Readrops/blob/develop/LICENSE)                                             |
+|[Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) |Android, iOS            |[BSD-3](https://github.com/yang991178/fluent-reader-lite)                                             |
 |[FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) |Android                  |Closed Source(Free)                                              |
 |[FeedReader 2.0+](https://jangernert.github.io/FeedReader/)                           |Linux                |[GPLv3](https://github.com/jangernert/FeedReader/blob/master/LICENSE)                                              |
 |[lire](https://lireapp.com/)                                                        |iOS, macOS           |Closed Source                                             |
