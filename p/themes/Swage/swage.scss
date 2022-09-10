@@ -452,15 +452,6 @@ form {
 	}
 }
 
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-
-	.item {
-		vertical-align: middle;
-	}
-}
-
 .dropdown-menu {
 	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
@@ -1191,20 +1182,6 @@ form {
 		td,
 		th {
 			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
-		}
-	}
-
-	> .horizontal-list {
-		margin: 0 0 5px;
-
-		.item {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-
-			&:first-child {
-				width: 270px;
-			}
 		}
 	}
 }
