@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @charset "UTF-8";
 //colors
 
@@ -17,16 +19,18 @@ $color_hover:	#fff;
 %input {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 25px;
+	line-height: 29px;
 	vertical-align: middle;
 	background: $color_light;
-	border: none;
-	padding-left: 5px;
+	border: 2px solid #e3e3e3;
+	padding-left: 8px;
 }
 
 %invalid {
+	padding-left: 5px;
 	color: $color_bad;
-	border-color: $color_bad;
+	border-left-color: $color_bad;
+	border-left-width: 5px;
 	box-shadow: none;
 }
 
@@ -56,12 +60,11 @@ $color_hover:	#fff;
 // /@extend-elements
 html,
 body {
-	height: 100%;
 	font-family: Helvetica, Arial, sans-serif;
 }
 
 a {
-	color: darken( $color_nav, 10%);
+	color: color.adjust( $color_nav, $lightness: -10%);
 	outline: none;
 
 	&.btn {
@@ -69,8 +72,8 @@ a {
 		line-height: 25px;
 		text-decoration: none;
 
-		&:hover {
-			background: darken( $color_nav, 10%);
+		.icon {
+			filter: brightness(3);
 		}
 	}
 
@@ -89,10 +92,6 @@ img {
 	}
 }
 
-div#stream {
-	margin-top: 35px;
-}
-
 sup {
 	top: -0.3em;
 }
@@ -100,9 +99,10 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: darken( $color_light, 10%);
+	background: $color_aside;
 	display: inline-block;
 	width: auto;
+	color: $color_light;
 	font-size: 1.4em;
 	clear: both;
 }
@@ -112,14 +112,13 @@ label {
 }
 
 textarea {
-	background: darken( $color_light, 10% );
 	width: 360px;
 	height: 100px;
 
 	@extend %input;
 
 	&:focus {
-		border-color: darken( $color_nav, 10%);
+		border-color: color.adjust( $color_nav, $lightness: -10%);
 	}
 }
 
@@ -129,7 +128,7 @@ select {
 	@extend %input;
 
 	&:focus {
-		border-color: darken( $color_nav, 10%);
+		border-color: color.adjust( $color_nav, $lightness: -10%);
 	}
 
 	&:invalid {
@@ -143,7 +142,8 @@ select {
 }
 
 select {
-	background: darken( $color_light, 10% );
+	padding-top: 7px;
+	padding-bottom: 8px;
 }
 
 input {
@@ -164,7 +164,7 @@ tr,
 td,
 th {
 	padding: 0.5em;
-	border: 1px solid darken( $color_light, 10%);
+	border: 1px solid color.adjust( $color_light, $lightness: -10%);
 }
 
 th {
@@ -178,6 +178,65 @@ form {
 		text-align: center;
 	}
 }
+
+
+@supports (scrollbar-width: thin) {
+	// scrollbar for the sliders (with blue/dark background color)
+	#sidebar,
+	.scrollbar-thin {
+		scrollbar-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+		scrollbar-width: thin;
+	}
+
+	#sidebar:hover,
+	.scrollbar-thin:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
+	}
+
+	// scrollbar for the sliders (with white background color)
+	#slider.scrollbar-thin {
+		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
+	}
+
+	#slider.scrollbar-thin:hover {
+		scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
+	}
+}
+
+@supports not (scrollbar-width: thin) {
+	// scrollbar for the sliders (with blue/dark background color)
+	#sidebar::-webkit-scrollbar,
+	.scrollbar-thin::-webkit-scrollbar {
+		background: rgba(255, 255, 255, 0);
+		width: 8px;
+	}
+
+	#sidebar::-webkit-scrollbar-thumb,
+	.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0);
+		display: unset;
+		border-radius: 5px;
+	}
+
+	#sidebar:hover::-webkit-scrollbar-thumb,
+	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.5);
+	}
+
+	// scrollbar for the sliders (with white background color)
+	#slider.scrollbar-thin::-webkit-scrollbar {
+		background: rgba(0, 0, 0, 0.05);
+	}
+
+	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.1);
+	}
+
+	#slider.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.3);
+	}
+}
+
 
 .category {
 	.title.error::before {
@@ -201,8 +260,8 @@ form {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background: darken( $color_light, 10%);
-		border-top: 3px solid darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
+		border-top: 3px solid color.adjust( $color_light, $lightness: -10%);
 
 		.btn {
 			margin: 0 10px;
@@ -233,6 +292,10 @@ form {
 	vertical-align: middle;
 	font-size: 0;
 
+	select {
+		margin-top: 0;
+	}
+
 	&.configure-feeds {
 
 		@extend %aside-width;
@@ -254,10 +317,14 @@ form {
 	overflow: hidden;
 
 	&.active,
-	:active,
-	:hover {
-		background: darken( $color_nav, 10%);
+	&:active,
+	&:hover {
+		background: color.adjust( $color_nav, $lightness: -10%);
 		text-decoration: none;
+	}
+
+	.icon {
+		filter: brightness(3);
 	}
 }
 
@@ -268,7 +335,28 @@ form {
 
 	&:hover,
 	:active {
-		background: darken( $color_alert, 10%) !important;
+		background: color.adjust( $color_alert, $lightness: -10%) !important;
+	}
+}
+
+.manage-list {
+	.configure {
+		.icon {
+			filter: brightness(0.4);
+			vertical-align: sub;
+		}
+
+		&:hover {
+			filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+		}
+	}
+}
+
+.switch.active {
+	background-color: #0062be;
+
+	&:hover {
+		background-image: url('./icons/disabled-light.svg');
 	}
 }
 
@@ -276,7 +364,7 @@ form {
 	.nav-header {
 
 		@extend %nav-list;
-		padding: 0 10px;
+		padding: 0 1rem;
 		font-weight: bold;
 		background: $color_aside;
 		color: $color_light;
@@ -287,9 +375,13 @@ form {
 
 		@extend %nav-list;
 
-		&:hover,
+		a:hover {
+			background: color.adjust( $color_nav, $lightness: -10%);
+			color: $color_light;
+		}
+
 		&.active {
-			background: darken( $color_nav, 10%);
+			background: color.adjust( $color_nav, $lightness: -10%);
 			color: $color_light;
 
 			a {
@@ -306,12 +398,12 @@ form {
 			}
 
 			&.error a {
-				background: lighten( $color_bad, 10%);
+				background: color.adjust( $color_bad, $lightness: 10%);
 			}
 		}
 
 		> a {
-			padding: 0 10px;
+			padding: 0 1.5rem;
 		}
 
 		&.empty a {
@@ -319,14 +411,18 @@ form {
 		}
 
 		&.error a {
-			color: lighten( $color_bad, 10%);
+			color: color.adjust( $color_bad, $lightness: 10%);
+		}
+
+		.icon {
+			filter: brightness(3);
 		}
 	}
 
 	.disable {
 		text-align: center;
 		background: $color_light;
-		color: darken( $color_light, 40% );
+		color: color.adjust( $color_light, $lightness: -40% );
 	}
 
 	.nav-form {
@@ -366,14 +462,31 @@ form {
 }
 
 .dropdown-menu {
-	padding: 5px 0;
+	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
-	background-color: darken( $color_nav, 10%);
+	background-color: color.adjust( $color_nav, $lightness: -10%);
 
 	.dropdown-header {
 		cursor: default;
+		padding: 0 0.5rem 0.5rem;
+		font-weight: bold;
+		color: $color_light;
+
+		a {
+			padding: 0 5px;
+			position: absolute;
+			right: 5px;
+
+			&:hover {
+				background-color: $color_nav;
+			}
+		}
+	}
+
+	&::after {
+		content: none;
 	}
 
 	> {
@@ -396,14 +509,10 @@ form {
 				white-space: nowrap;
 			}
 
-			&:hover {
+			> a:hover,
+			> button:hover {
 				background: $color_nav;
 				color: $color_light;
-
-				> a {
-					text-decoration: none;
-					color: $color_light;
-				}
 			}
 		}
 
@@ -422,16 +531,17 @@ form {
 	}
 }
 
-.dropdown-header {
-	padding: 0 5px 5px;
-	font-weight: bold;
-	text-align: left;
-	color: $color_light;
+.labels,
+.tags,
+.share {
+	.dropdown-menu {
+		right: auto;
+	}
 }
 
 .separator {
 	margin: 5px 0;
-	border-bottom: 1px solid darken( $color_light, 10%);
+	border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 	cursor: default;
 }
 
@@ -439,7 +549,7 @@ form {
 	margin: 5px auto;
 	padding: 10px 15px;
 	background: $color_light;
-	color: darken( $color_light, 40% );
+	color: color.adjust( $color_light, $lightness: -40% );
 	font-size: 0.9em;
 	border: none;
 	text-shadow: 0 0 1px $color_light;
@@ -476,54 +586,29 @@ form {
 }
 
 .pagination {
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 	color: $color_text;
-	font-size: 0.8em;
-	text-align: center;
 
-	.item {
-		&.pager-current {
-			background: $color_aside;
-			color: darken( $color_light, 10%);
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: $color_text;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-
-			&:hover {
-				background: $color_aside;
-				color: darken( $color_light, 10%);
-			}
-		}
-	}
-
-	.loading,
-	a:hover.loading {
-		background: url(loader.gif) center center no-repeat $color_aside;
-		font-size: 0;
+	.item a {
+		color: $color_text;
 	}
 }
+
+#load_more.loading,
+#load_more.loading:hover {
+	background: url(loader.gif) center center no-repeat $color_aside;
+}
+
 
 .content {
 	padding: 20px 10px;
 
-	.pagination {
-		margin: 0;
-		padding: 0;
-	}
-
 	hr {
 		margin: 30px 10px;
-		background: darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
 		height: 1px;
 		border: 0;
-		box-shadow: 0 2px 5px darken( $color_light, 10%);
+		box-shadow: 0 2px 5px color.adjust( $color_light, $lightness: -10%);
 	}
 
 	pre {
@@ -553,9 +638,9 @@ form {
 		padding: 5px 20px;
 		background: $color_light;
 		display: block;
-		color: darken( $color_light, 40% );
-		border-top: 1px solid darken( $color_light, 10%);
-		border-bottom: 1px solid darken( $color_light, 10%);
+		color: color.adjust( $color_light, $lightness: -40% );
+		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
+		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 
 		p {
 			margin: 0;
@@ -568,20 +653,29 @@ form {
 }
 
 .box {
-	border: 1px solid darken( $color_light, 10%);
+	border: 1px solid color.adjust( $color_light, $lightness: -10%);
 
 	.box-title {
 		margin: 0;
-		padding: 5px 10px;
-		background: darken( $color_light, 10%);
-		color: darken( $color_light, 40% );
-		border-bottom: 1px solid darken( $color_light, 10%);
-	}
+		padding: 7px 10px;
+		background: $color_aside;
+		color: $color_light;
+		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 
-	.configure {
-		margin-right: 4px;
-	}
+		a {
+			color: $color_light;
+		}
 
+		.configure {
+			margin-right: 4px;
+
+			.icon {
+				&:hover {
+					filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+				}
+			}
+		}
+	}
 
 	.box-content {
 		padding-left: 30px;
@@ -595,7 +689,11 @@ form {
 			.configure {
 				.icon {
 					vertical-align: middle;
-					background-color: darken( $color_light, 10%);
+					filter: brightness(0.4);
+
+					&:hover {
+						filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+					}
 				}
 			}
 		}
@@ -612,7 +710,7 @@ form {
 			background: $color_nav;
 
 			&:active {
-				background: darken( $color_nav, 10%);
+				background: color.adjust( $color_nav, $lightness: -10%);
 			}
 
 			.title {
@@ -637,6 +735,10 @@ form {
 			font-size: 0.8rem;
 		}
 	}
+
+	&.visible-semi {
+		border-style: solid;
+	}
 }
 
 .tree {
@@ -649,7 +751,7 @@ form {
 	height: 35px;
 	font-size: 1rem;
 	position: relative;
-	line-height: 2.3rem;
+	line-height: 2rem;
 
 	.title {
 		background: inherit;
@@ -670,7 +772,7 @@ form {
 		font-size: 0.8rem;
 
 		&.active {
-			background: darken( $color_nav, 10%);
+			background: color.adjust( $color_nav, $lightness: -10%);
 		}
 
 		> a {
@@ -701,6 +803,8 @@ form {
 }
 
 .header {
+	height: auto;
+
 	> .item {
 		vertical-align: middle;
 
@@ -719,10 +823,6 @@ form {
 				filter: grayscale(100%) brightness(100);
 			}
 		}
-
-		&.search input {
-			width: 230px;
-		}
 	}
 
 	.item.search input:focus {
@@ -735,9 +835,26 @@ form {
 
 	.item.configure {
 		position: fixed;
-		right: 0px;
-		z-index: 1000;
+		right: 0;
+		z-index: 95;
 		width: 35px;
+		text-align: center;
+		line-height: 0.8rem;
+
+		> .icon {
+			filter: brightness(3);
+			margin-right: 5px;
+			margin-top: 3px;
+		}
+
+		.dropdown .dropdown-menu {
+			max-height: calc(100vh - 45px);
+			overflow: scroll;
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
 	}
 }
 
@@ -750,6 +867,15 @@ form {
 	&.aside_feed {
 		.tree {
 			margin: 0 0 50px;
+		}
+
+		.tree-folder {
+			.tree-folder-title,
+			.item.feed {
+				&:hover {
+					background-color: color.adjust( $color_nav, $lightness: -10%);
+				}
+			}
 		}
 
 		.nav-form {
@@ -772,18 +898,47 @@ form {
 }
 
 .aside_feed {
-	.tree-folder-title > .title:not([data-unread="0"])::after {
-		margin: 6px 0;
-		padding: 0 10px;
-		background: inherit;
-		font-size: 0.9rem;
-		position: absolute;
-		right: 0;
-		line-height: 1.5rem;
+	.category .title:not([data-unread="0"])::after {
+		background-color: #00488b;
+		color: #fcfcfc;
+	}
+
+	.feed .item-title:not([data-unread="0"])::after {
+		background-color: #0062be;
+		color: #fcfcfc;
 	}
 
 	.tree-folder-items .dropdown-menu::after {
 		left: 2px;
+	}
+
+	.about {
+		padding: 1rem;
+		display: block;
+		text-align: center;
+		font-size: 0.8em;
+		font-style: italic;
+	}
+}
+
+.reader {
+	.aside {
+		.toggle_aside {
+			background: $color_aside;
+			display: block;
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+
+			.icon {
+				filter: brightness(3);
+			}
+
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+		}
 	}
 }
 
@@ -792,8 +947,6 @@ form {
 	font-size: 0.9em;
 
 	input {
-		background: darken( $color_light, 10% );
-
 		&.long {
 			height: 33px;
 			margin-top: 0px;
@@ -810,25 +963,13 @@ form {
 }
 
 .prompt {
-	text-align: center;
-
-	label {
-		text-align: left;
-	}
-
-	form {
-		margin: 10px auto 20px auto;
-		width: 200px;
-	}
-
 	input {
 		margin: 5px auto;
-		width: 100%;
 	}
+}
 
-	p {
-		margin: 20px 0;
-	}
+#global {
+	height: 100vh;
 }
 
 #new-article {
@@ -843,17 +984,15 @@ form {
 
 	@extend %aside-width;
 
-	&:hover {
-		background: darken( $color_nav, 10%);
-	}
-
 	> a {
+		padding: 1rem;
 		line-height: 1.5em;
 		font-weight: bold;
 		color: $color_light;
 
 		&:hover {
 			text-decoration: none;
+			background: color.adjust( $color_nav, $lightness: -10%);
 		}
 	}
 }
@@ -880,13 +1019,26 @@ form {
 	width: 100%;
 	font-size: 0;
 	background-color: $color_nav;
-	position: fixed;
-	z-index: 900;
+	position: sticky;
+	top: 0;
+	z-index: 90;
 
 	.item.search {
 		display: inline-block;
-		position: fixed;
+		position: absolute;
 		right: 40px;
+
+		input {
+			border-width: 0;
+			line-height: 25px;
+		}
+	}
+
+	#toggle-unread,
+	#toggle-starred {
+		.icon {
+			filter: brightness(1);
+		}
 	}
 }
 
@@ -899,7 +1051,7 @@ form {
 		@extend %after;
 		margin: 0 auto;
 		width: 90%;
-		border-top: 1px solid darken( $color_light, 10%);
+		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
 	}
 
 	&:hover,
@@ -927,9 +1079,11 @@ form {
 		}
 	}
 
-	.date {
-		color: darken( $color_light, 40% );
-		font-size: 0.7rem;
+	.item {
+		&.date {
+			color: color.adjust( $color_light, $lightness: -40% );
+			font-size: 0.7rem;
+		}
 	}
 
 	.bottom {
@@ -958,14 +1112,13 @@ form {
 
 .notification {
 	padding: 10px 0;
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 	height: auto;
-	color: darken( $color_light, 40% );
+	color: color.adjust( $color_light, $lightness: -40% );
 	font-size: 1em;
 	border: none;
 	text-align: center;
 	font-weight: bold;
-	z-index: 10;
 	vertical-align: middle;
 	position: fixed;
 	bottom: 48px;
@@ -975,7 +1128,7 @@ form {
 	@extend %aside-width;
 
 	&.good,
-	.bad {
+	&.bad {
 		color: $color_light;
 	}
 
@@ -988,10 +1141,10 @@ form {
 	}
 
 	&.bad {
-		background: lighten( $color_bad, 10%);
+		background: color.adjust( $color_bad, $lightness: 10%);
 
 		a.close:hover {
-			background: lighten( $color_bad, 10%);
+			background: color.adjust( $color_bad, $lightness: 10%);
 		}
 	}
 
@@ -1007,7 +1160,7 @@ form {
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: darken( $color_light, 10%);
+	background: color.adjust( $color_light, $lightness: -10%);
 
 	&:hover {
 		background: $color_aside;
@@ -1037,7 +1190,7 @@ form {
 	> table {
 		td,
 		th {
-			border-bottom: 1px solid darken( $color_light, 10%);
+			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 		}
 	}
 
@@ -1056,39 +1209,54 @@ form {
 	}
 }
 
-.formLogin {
+#overlay {
+	z-index: 100;
+}
+
+#panel {
+	z-index: 100;
+
+	.nav_menu {
+		position: relative;
+	}
+}
+
+.formLogin,
+.register {
 	#global {
 		height: 0;
 	}
 
 	.header {
-		background: $color_aside;
-		height: 55px;
+		background: $color_nav;
+		height: 35px;
+		position: relative;
 
 		> .item {
 			&.configure {
-				width: 200px;
-				position: unset;
+				padding: 8px;
+				width: auto;
+				position: absolute;
+				right: 0;
+				white-space: nowrap;
+				bottom: 0;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 	}
+}
 
-	a.signin {
-		color: $color_light;
-		padding-left: 5px;
-	}
-
-	input {
-		border-top: 1px darken( $color_light, 10%);
-		border-right: 1px darken( $color_light, 10%);
-		border-bottom: 1px darken( $color_light, 10%);
-		border-left: 5px solid;
-	}
+a.signin {
+	color: $color_light;
+	font-size: 70%;
 }
 
 .loglist {
 	overflow: hidden;
-	border: 1px solid darken( $color_light, 40% );
+	border: 1px solid color.adjust( $color_light, $lightness: -40% );
 }
 
 .log {
@@ -1103,7 +1271,7 @@ form {
 	}
 
 	&.error > .date {
-		background: lighten( $color_bad, 10%);
+		background: color.adjust( $color_bad, $lightness: 10%);
 		color: $color_light;
 	}
 
@@ -1113,7 +1281,7 @@ form {
 	}
 
 	&.notice > .date {
-		background: darken( $color_light, 10%);
+		background: color.adjust( $color_light, $lightness: -10%);
 		color: $color_light;
 	}
 
@@ -1124,8 +1292,12 @@ form {
 }
 
 @media (max-width: 840px) {
-	.formLogin .header {
-		display: none;
+	body:not(.formLogin, .register) {
+		.header {
+			.item.title {
+				display: none;
+			}
+		}
 	}
 
 	.form-group .group-name {
@@ -1133,32 +1305,33 @@ form {
 		text-align: left;
 	}
 
-	.dropdown-header, .dropdown-menu > .item {
-		padding: 12px;
+	.dropdown {
+		position: relative;
 	}
 
 	#new-article {
+		margin-top: 2rem;
 		width: 100%;
-		position: sticky;
-		top: 0;
 	}
 
 	.header {
 		display: table;
 
-		.item.title .logo {
-			display: none;
+		.item {
+			padding: 0;
+		}
+
+		.item.configure {
+			padding: 0;
+			position: fixed;
+			right: 76px;
+
+			> .icon {
+				margin-top: 5px;
+			}
 		}
 	}
 
-	.header > .item.title a {
-		display: block;
-		position: absolute;
-		top: -35px;
-		left: 10px;
-	}
-
-	.header .item.configure,
 	button.read_all.btn {
 		display: none;
 	}
@@ -1170,6 +1343,7 @@ form {
 	}
 
 	.aside {
+		padding: 0;
 		width: 0;
 		transition: width 200ms linear;
 
@@ -1178,12 +1352,16 @@ form {
 			display: block;
 			height: 50px;
 			line-height: 50px;
-			text-align: right;
+			text-align: center;
 			padding-right: 10px;
-		}
 
-		&.aside_feed {
-			padding: 0;
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 
 		&.aside_feed .configure-feeds {
@@ -1199,44 +1377,78 @@ form {
 		}
 	}
 
+	#slider {
+		.toggle_aside {
+			background: $color_aside;
+			display: block;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			padding-right: 10px;
+
+			&:hover {
+				background-color: color.adjust( $color_nav, $lightness: 0%);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
+	}
+
 	.nav_menu {
-		position: initial;
 		height: 71px;
 
 		.btn {
-			margin: 5px 10px;
+			margin: 0;
 		}
 
 		.stick {
-			margin: 0 10px;
+			margin: 0;
 
 			.btn {
-				margin: 5px 0;
+				margin: 0;
 			}
 		}
 
-		.search {
-			position: absolute !important;
-			top: 35px;
-			left: 55px;
+		.item.search {
+			top: 3px;
+			margin-left: 77px;
+			width: calc(100% - 4 * 38px);
+			position: relative;
+
+			form {
+				display: block;
+			}
 
 			input {
-				width: 85%;
+				width: 100%;
 			}
 		}
 	}
 
-	.pagination {
-		margin: 0 0 3.5em;
-	}
-
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: $color_aside;
 		display: block;
 		height: 50px;
 		line-height: 50px;
-		text-align: right;
+		text-align: center;
 		padding-right: 10px;
+
+		&:hover {
+			background-color: color.adjust( $color_nav, $lightness: 0%);
+		}
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle::after,
+	.dropdown-target:target ~ .dropdown-toggle.btn::after {
+		display: none;
+	}
+
+	.share .dropdown-menu {
+		right: 3%;
+		left: auto;
 	}
 
 	.day .name {
@@ -1276,7 +1488,7 @@ form {
 
 	a.btn.toggle_aside {
 		position: absolute;
-		top: 29px;
+		top: 0;
 	}
 
 	form#mark-read-menu,
@@ -1288,24 +1500,23 @@ form {
 	}
 
 	form#mark-read-menu {
-		right: 46px;
-		top: 30px;
-		z-index: 1100;
+		right: 38px;
+		top: 0;
 	}
 
 	a#actualize,
 	a#toggle-order {
-		right: 0px;
+		right: 0;
 	}
 
 	a#actualize {
-		top: 29px;
+		top: 0;
 	}
 
 	a#toggle-order,
 	div#nav_menu_actions,
 	div#nav_menu_views {
-		top: 65px;
+		top: 36px;
 	}
 
 	div#nav_menu_actions {
@@ -1330,16 +1541,15 @@ form {
 }
 
 button.as-link {
-	color: $color_light;
 	outline: none;
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background: darken( $color_nav, 10%);
+	background: color.adjust( $color_nav, $lightness: -10%);
 }
 
 .tree-folder.active .tree-folder-title {
-	background: darken( $color_nav, 10%);
+	background: color.adjust( $color_nav, $lightness: -10%);
 	font-weight: bold;
 }
 
@@ -1362,10 +1572,10 @@ button.as-link {
 	}
 
 	&.error {
-		color: lighten( $color_bad, 10%);
+		color: color.adjust( $color_bad, $lightness: 10%);
 
 		&.active {
-			background: lighten( $color_bad, 10%);
+			background: color.adjust( $color_bad, $lightness: 10%);
 			color: $color_light;
 
 			> a {
@@ -1374,14 +1584,9 @@ button.as-link {
 		}
 
 		> a {
-			color: lighten( $color_bad, 10%);
+			color: color.adjust( $color_bad, $lightness: 10%);
 		}
 	}
-}
-
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	float: right;
 }
 
 #stream.reader .flux {
@@ -1392,14 +1597,22 @@ button.as-link {
 
 	.author {
 		margin: 0 0 10px;
-		color: darken( $color_light, 40% );
+		color: color.adjust( $color_light, $lightness: -40% );
 		font-size: 90%;
 	}
 }
 
-#nav_menu_actions, #nav_menu_read_all {
+#nav_menu_actions {
 	ul.dropdown-menu {
-		left: 0px;
+		left: 0;
+		right: auto;
+	}
+}
+
+#nav_menu_read_all {
+	ul.dropdown-menu {
+		right: 0;
+		left: auto;
 	}
 }
 
@@ -1407,11 +1620,4 @@ button.as-link {
 	label {
 		min-height: initial;
 	}
-
-	.form-group {
-		&:hover {
-			background: inital;
-		}
-	}
-
 }

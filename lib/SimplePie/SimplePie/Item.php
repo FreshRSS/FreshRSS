@@ -152,15 +152,21 @@ class SimplePie_Item
 	}
 
 	/**
-	 * Get the base URL value from the parent feed
-	 *
-	 * Uses `<xml:base>`
+	 * Get the base URL value.
+	 * Uses `<xml:base>`, or item link, or feed base URL.
 	 *
 	 * @param array $element
 	 * @return string
 	 */
 	public function get_base($element = array())
 	{
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
+			return $element['xml_base'];
+		}
+		$link = $this->get_permalink();
+		if ($link != null) {
+			return $link;
+		}
 		return $this->feed->get_base($element);
 	}
 

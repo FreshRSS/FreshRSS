@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Helper représente une aide pour des tâches récurrentes
+ * The Minz_Helper class contains some misc. help functions
  */
 class Minz_Helper {
 
@@ -16,7 +16,10 @@ class Minz_Helper {
 	public static function htmlspecialchars_utf8($var) {
 		if (is_array($var)) {
 			return array_map(array('Minz_Helper', 'htmlspecialchars_utf8'), $var);
+		} elseif (is_string($var)) {
+			return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
+		} else {
+			return $var;
 		}
-		return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
 	}
 }

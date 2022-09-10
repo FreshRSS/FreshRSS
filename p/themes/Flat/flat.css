@@ -4,7 +4,6 @@
 /*============*/
 html, body {
 	background: #fafafa;
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -211,6 +210,15 @@ a.btn {
 	background: #2980b9;
 }
 
+.btn .icon {
+	filter: brightness(5);
+}
+
+#toggle-unread .icon,
+#toggle-starred .icon {
+	filter: none;
+}
+
 .btn-important {
 	font-weight: normal;
 	background: #e67e22;
@@ -222,6 +230,10 @@ a.btn {
 .btn-important:hover,
 .btn-important:active {
 	background: #d35400;
+}
+
+.btn-important .icon {
+	filter: brightness(3);
 }
 
 .btn-attention {
@@ -236,6 +248,14 @@ a.btn {
 	background: #c0392b;
 }
 
+.switch.active {
+	background-color: #2980b9;
+}
+
+.switch.active:hover {
+	background-image: url('./icons/disabled-light.svg');
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
@@ -244,13 +264,12 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover,
+.nav-list .item a:hover,
 .nav-list .item.active {
 	background: #2980b9;
 	color: #fff;
 }
 
-.nav-list .item:hover a,
 .nav-list .item.active a {
 	color: #fff;
 }
@@ -330,8 +349,8 @@ a.btn {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 5px 0 0;
-	padding: 5px 0;
+	margin: 0.5rem 0 0;
+	padding: 0.5rem 0;
 	background: #fafafa;
 	font-size: 0.8rem;
 	border: 1px solid #95a5a6;
@@ -340,24 +359,20 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	background: #fff;
-	width: 10px;
-	height: 10px;
-	border-top: 1px solid #95a5a6;
-	border-left: 1px solid #95a5a6;
-	content: "";
-	position: absolute;
-	top: -6px;
-	right: 13px;
-	z-index: -10;
-	transform: rotate(45deg);
+	border-color: #95a5a6;
+	right: 12px;
 }
 
 .dropdown-header {
-	padding: 0 5px 5px;
+	padding: 0 0.5rem 0.5rem;
 	font-weight: bold;
 	text-align: left;
 	color: #34495e;
+}
+
+.dropdown-header a {
+	position: absolute;
+	right: 0.5rem;
 }
 
 .dropdown-menu > .item > a,
@@ -368,19 +383,20 @@ a.btn {
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu > .item > a:hover,
+.dropdown-menu > .item > button:hover {
 	background: #2980b9;
 	color: #fff;
+}
+
+.dropdown-menu > .item a:hover .icon,
+.nav-list.aside .item a:hover .icon {
+	filter: brightness(3);
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
-}
-
-.dropdown-menu > .item:hover > a {
-	text-decoration: none;
-	color: #fff;
 }
 
 .dropdown-menu .input select,
@@ -440,39 +456,15 @@ a.btn {
 .pagination {
 	background: #ecf0f1;
 	color: #000;
-	font-size: 0.8em;
-	text-align: center;
-}
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
-.pagination .item.pager-current {
-	background: #34495e;
-	color: #ecf0f1;
-	font-size: 1.5em;
-	font-weight: bold;
 }
 
 .pagination .item a {
-	display: block;
-	font-style: italic;
-	line-height: 3em;
-	text-decoration: none;
 	color: #000;
 }
 
-.pagination .item a:hover {
-	background: #34495e;
-	color: #ecf0f1;
-}
-
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -584,7 +576,6 @@ a.btn {
 /*=== Header */
 .header {
 	background: #ecf0f1;
-	height: 85px;
 }
 
 .header > .item {
@@ -613,11 +604,6 @@ a.btn {
 	width: 350px;
 }
 
-/*=== Body */
-#global {
-	height: calc(100% - 85px);
-}
-
 .aside {
 	background: #ecf0f1;
 }
@@ -633,15 +619,24 @@ a.btn {
 	margin: 10px 0 50px;
 }
 
+.aside.aside_feed .icon {
+	filter: brightness(3);
+}
+
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	margin: 10px 0;
-	padding: 0 10px;
-	background: inherit;
-	font-size: 0.9rem;
-	position: absolute;
-	right: 0;
-	line-height: 1.5rem;
+.aside.aside_feed .category .title:not([data-unread="0"])::after {
+	background-color: #2c3e50;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: #34495e;
+}
+
+.aside .about {
+	margin: 1rem;
+	display: block;
+	color: #ecf0f1;
+	font-style: italic;
 }
 
 /*=== Aside main page (feeds) */
@@ -695,21 +690,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-.prompt {
-	max-width: 20rem;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: .5rem;
-	padding-right: .5rem;
-	text-align: center;
-}
-
-.prompt form {
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-	text-align: left;
-}
-
 .prompt .form-group {
 	margin-bottom: 1rem;
 }
@@ -725,20 +705,10 @@ a.btn {
 	justify-content: space-between;
 }
 
-.prompt .stick,
-.prompt input {
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .prompt .btn.btn-important {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 	font-size: 1.1rem;
-}
-
-.prompt p {
-	margin: 20px 0;
 }
 
 /*=== New article notification */
@@ -746,10 +716,6 @@ a.btn {
 	background: #3498db;
 	font-size: 0.9em;
 	text-align: center;
-}
-
-#new-article:hover {
-	background: #2980b9;
 }
 
 #new-article > a {
@@ -760,6 +726,7 @@ a.btn {
 
 #new-article > a:hover {
 	text-decoration: none;
+	background: #2980b9;
 }
 
 /*=== Day indication */
@@ -785,10 +752,12 @@ a.btn {
 	padding: 5px 0;
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	background-color: #95a5a6;
-	border-radius: 3px;
+.dropdown-menu .dropdown-header .icon {
+	filter: invert(0.6);
+}
+
+.dropdown-menu .dropdown-header a:hover .icon {
+	filter: invert(0.6) invert(77%) sepia(63%) saturate(4993%) hue-rotate(177deg) brightness(88%) contrast(96%);
 }
 
 /*=== Feed articles */
@@ -910,7 +879,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
 	background: #ddd;
 	color: #666;
 	font-size: 0.9em;
@@ -918,8 +886,6 @@ a.btn {
 	border-radius: 3px;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3em;
-	z-index: 10;
 	vertical-align: middle;
 }
 
@@ -931,6 +897,10 @@ a.btn {
 .notification.bad {
 	background: #e74c3c;
 	color: #fff;
+}
+
+.notification a {
+	color: #000;
 }
 
 .notification a.close {
@@ -1123,7 +1093,8 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
+	#panel .close,
+	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
 		display: block;
 		width: 100%;
@@ -1165,12 +1136,18 @@ a.btn {
 		width: 400px;
 	}
 
-	.day .name {
-		font-size: 1.1rem;
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fafafa;
+		border-top: 1px solid #95a5a6;
+		border-left: 1px solid #95a5a6;
 	}
 
-	.pagination {
-		margin: 0 0 3.5em;
+	.dropdown-target:target ~ .btn.dropdown-toggle::after {
+		bottom: -19px;
+	}
+
+	.day .name {
+		font-size: 1.1rem;
 	}
 
 	.notification {

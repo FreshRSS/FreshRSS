@@ -1,9 +1,19 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
 		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => '이 버튼을 즐겨찾기 막대로 끌어다 놓거나 마우스 오른쪽 클릭으로 나타나는 메뉴에서 "이 링크를 즐겨찾기에 추가"를 선택하세요. 그리고 피드를 구독하길 원하는 페이지에서 "구독하기" 버튼을 클릭하세요.',
@@ -14,13 +24,20 @@ return array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'archiving' => '보관',
+		'dynamic_opml' => array(
+			'_' => '동적 OPML',
+			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href=http://opml.org/ target=_blank>OPML 파일</a> 의 URL을 제공해주세요',
+		),
 		'empty' => '빈 카테고리',
 		'information' => '정보',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
 		'title' => '제목',
 	),
 	'feed' => array(
+		'accept_cookies' => '쿠키 사용 동의',
+		'accept_cookies_help' => '피드 서버가 쿠키를 사용하도록 허용 (요청 지속 기간 동안에만 메모리에 저장)',
 		'add' => 'RSS 피드 추가',
 		'advanced' => '고급 설정',
 		'archiving' => '보관',
@@ -42,6 +59,10 @@ return array(
 		'css_cookie_help' => '예시: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
 		'css_path' => '웹사이트 상의 글 본문에 해당하는 CSS 경로',
+		'css_path_filter' => array(
+			'_' => '제거할 요소의 CSS 선택자',
+			'help' => 'CSS 선택자는 다음과 같은 목록일 수 있습니다: <kbd>.footer, .aside</kbd>',
+		),
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
@@ -51,13 +72,62 @@ return array(
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
+		'kind' => array(
+			'_' => '피드 소스 유형',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (웹 스크래핑)',
+				'feed_title' => array(
+					'_' => '피드 제목',
+					'help' => '예제: <code>//title</code> 혹은 정적 문자열: <code>"나의 커스텀 피드"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 는 고급 사용자를 위한 표준 쿼리 언어입니다. FreshRSS는 웹 스크래핑 지원을 위해 이를 사용합니다.',
+				'item' => array(
+					'_' => '뉴스 <strong>기사</strong><br /><small>(가장 중요한 항목)</small>',
+					'help' => '예제: <code>//div[@class="news-item"]</code>',
+				),
+				'item_author' => array(
+					'_' => '기사 작성자',
+					'help' => '정적 문자열이 될 수 있습니다. 예제: <code>"Anonymous"</code>',
+				),
+				'item_categories' => '기사 태그',
+				'item_content' => array(
+					'_' => '기사 내용',
+					'help' => '전체 기사를 가져오는 예시: <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => '기사 섬네일',
+					'help' => '예제: <code>descendant::img/@src</code>',
+				),
+				'item_timestamp' => array(
+					'_' => '기사 날짜',
+					'help' => '결과 값은 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>에서 파싱한 값을 이용합니다.',
+				),
+				'item_title' => array(
+					'_' => '기사 제목',
+					'help' => '<code>descendant::h2</code> 같은 특정 <code>descendant::</code><a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 축</a>을 사용합니다.',
+				),
+				'item_uid' => array(
+					'_' => '기사 UID',
+					'help' => 'Optional. 예제: <code>descendant::div/@data-uri</code>',
+				),
+				'item_uri' => array(
+					'_' => '기사 링크 (URL)',
+					'help' => '예제: <code>descendant::a/@href</code>',
+				),
+				'relative' => '다음의 (기사와 관련된) XPath:',
+				'xpath' => '다음의 XPath:',
+			),
+			'rss' => 'RSS / Atom (기본값)',
+		),
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',
 			'clear_cache_help' => '이 피드의 캐쉬 지우기.',
 			'reload_articles' => '글 다시 로드',
-			'reload_articles_help' => '글 다시 로드하고 셀렉터가 정의 되었을 경우에 모든 컨텐츠 가져오기.',
+			'reload_articles_help' => '글 다시 로드하고 셀렉터가 정의 되었을 경우에 모든 컨텐츠 가져오기.',	// DIRTY
 			'title' => '유지 보수',
 		),
+		'max_http_redir' => '최대 HTTP 리다이렉션',
+		'max_http_redir_help' => '값을 비워두거나 0으로 설정하면 비활성화하며, -1으로 설정하면 무제한 리다이렉션합니다',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
@@ -128,6 +198,7 @@ return array(
 		'_' => '구독 관리',
 		'add' => '피드 혹은 카테고리 추가',
 		'add_category' => '카테고리 추가',
+		'add_dynamic_opml' => '동적 OPML 추가',
 		'add_feed' => '피드 추가',
 		'add_label' => '라벨 추가',
 		'delete_label' => '라벨 삭제',

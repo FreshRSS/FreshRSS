@@ -19,6 +19,10 @@ class FreshRSS_Export_Service {
 	/** @var FreshRSS_TagDAO */
 	private $tag_dao;
 
+	const FRSS_NAMESPACE = 'https://freshrss.org/opml';
+	const TYPE_HTML_XPATH = 'HTML+XPath';
+	const TYPE_RSS_ATOM = 'rss';
+
 	/**
 	 * Initialize the service for the given user.
 	 *
@@ -41,16 +45,10 @@ class FreshRSS_Export_Service {
 	public function generateOpml() {
 		require_once(LIB_PATH . '/lib_opml.php');
 
-		$view = new Minz_View();
+		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$categories = [];
-
-		foreach ($this->category_dao->listCategories() as $key => $category) {
-			$categories[$key]['name'] = $category->name();
-			$categories[$key]['feeds'] = $this->feed_dao->listByCategory($category->id());
-		}
-
-		$view->categories = $categories;
+		$view->categories = $this->category_dao->listCategories(true, true);
+		$view->excludeMutedFeeds = false;
 
 		return [
 			"feeds_{$day}.opml.xml",
@@ -61,7 +59,7 @@ class FreshRSS_Export_Service {
 	/**
 	 * Generate the starred and labelled entries file content.
 	 *
-	 * Both starred and labelled entries are put into a "starred" file, that's
+	 * Both starred and labelled entries are put into a "starred" file, that’s
 	 * why there is only one method for both.
 	 *
 	 * @param string $type must be one of:
@@ -72,18 +70,18 @@ class FreshRSS_Export_Service {
 	 * @return array First item is the filename, second item is the content
 	 */
 	public function generateStarredEntries($type) {
-		$view = new Minz_View();
-		$view->categories = $this->category_dao->listCategories();
+		$view = new FreshRSS_View();
+		$view->categories = $this->category_dao->listCategories(true);
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$view->entriesId = $this->entry_dao->listIdsWhere(
+		$entriesId = $this->entry_dao->listIdsWhere(
 			$type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1
 		);
-		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($view->entriesId);
+		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
-		$view->entriesRaw = $this->entry_dao->listWhereRaw(
+		$view->entries = $this->entry_dao->listWhere(
 			$type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1
 		);
 
@@ -100,7 +98,7 @@ class FreshRSS_Export_Service {
 	 * @param integer $max_number_entries
 	 *
 	 * @return array|null First item is the filename, second item is the content.
-	 *                    It also can return null if the feed doesn't exist.
+	 *                    It also can return null if the feed doesn’t exist.
 	 */
 	public function generateFeedEntries($feed_id, $max_number_entries) {
 		$feed = $this->feed_dao->searchById($feed_id);
@@ -108,20 +106,20 @@ class FreshRSS_Export_Service {
 			return null;
 		}
 
-		$view = new Minz_View();
-		$view->categories = $this->category_dao->listCategories();
+		$view = new FreshRSS_View();
+		$view->categories = $this->category_dao->listCategories(true);
 		$view->feed = $feed;
 		$day = date('Y-m-d');
-		$filename = "feed_{$day}_" . $feed->category() . '_' . $feed->id() . '.json';
+		$filename = "feed_{$day}_" . $feed->categoryId() . '_' . $feed->id() . '.json';
 
 		$view->list_title = _t('sub.import_export.feed_list', $feed->name());
 		$view->type = 'feed/' . $feed->id();
-		$view->entriesId = $this->entry_dao->listIdsWhere(
+		$entriesId = $this->entry_dao->listIdsWhere(
 			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $max_number_entries
 		);
-		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($view->entriesId);
+		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
-		$view->entriesRaw = $this->entry_dao->listWhereRaw(
+		$view->entries = $this->entry_dao->listWhere(
 			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $max_number_entries
 		);
 
@@ -167,7 +165,7 @@ class FreshRSS_Export_Service {
 		$zip_filename = 'freshrss_' . $this->username . '_' . $day . '_export.zip';
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-		$zip_file = @tempnam('/tmp', 'zip');
+		$zip_file = tempnam('/tmp', 'zip');
 		$zip_archive = new ZipArchive();
 		$zip_archive->open($zip_file, ZipArchive::OVERWRITE);
 

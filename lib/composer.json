@@ -1,0 +1,25 @@
+{
+    "name": "freshrss.org/freshrss",
+    "description": "A free, self-hostable aggregator",
+    "type": "project",
+    "homepage": "https://freshrss.org/",
+    "license": "AGPL-3.0",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/PhpGt/CssXPath.git"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "phpgt/cssxpath": "dev-master#4fbe420aba3d9e729940107ded4236a835a1a132",
+        "phpmailer/phpmailer": "6.6.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "vendor-dir": "./"
+    },
+    "scripts": {
+        "post-update-cmd": "git clean -d -f -X ."
+    }
+}

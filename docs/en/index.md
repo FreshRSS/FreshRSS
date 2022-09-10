@@ -14,10 +14,12 @@ FreshRSS has a lot of features including:
 * Statistics to show you the publishing frequency all the websites you follow
 * Import/export of your feeds into OPML format
 * Several themes created by the community
+* Several extensions created by the community
 * "Google Reader"-like API to connect Android applications
 * The application is "responsive," which means it adapts to small screens so you can bring articles in your pocket
 * Self-hosted: the code is free (under AGPL3 licence), so you can host your own instance of FreshRSS
 * Multi-user, so you can also host for your friends and family
+* share article links with a bunch of services
 * And a lot more!
 
 ## Manual Chapters
@@ -32,6 +34,11 @@ This documentation is split into different sections:
 ## Demo
 
 The official demo of FreshRSS is available under [https://demo.freshrss.org/](https://demo.freshrss.org/).
+
+Login credentials:
+
+* Username: demo
+* Password: demodemo
 
 Another chance to try out, but not official supported by FreshRSS: The application is listed on Softaculous [https://www.softaculous.com/apps/rss/FreshRSS](https://www.softaculous.com/apps/rss/FreshRSS).
 

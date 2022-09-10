@@ -1,4 +1,5 @@
 <?php
+/** @var FreshRSS_View $this */
 $mark = FreshRSS_Context::$user_conf->mark_when;
 $s = FreshRSS_Context::$user_conf->shortcuts;
 $extData = Minz_ExtensionManager::callHook('js_vars', []);
@@ -21,8 +22,13 @@ echo htmlspecialchars(json_encode(array(
 		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
 		'current_view' => Minz_Request::actionName(),
 		'csrf' => FreshRSS_Auth::csrfToken(),
+		'mtime' => [
+			'extra.js' => @filemtime(PUBLIC_PATH . '/scripts/extra.js'),
+			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
+		],
 	),
 	'shortcuts' => array(
+		'actualize' => @$s['actualize'],
 		'mark_read' => @$s['mark_read'],
 		'mark_favorite' => @$s['mark_favorite'],
 		'go_website' => @$s['go_website'],
@@ -55,7 +61,8 @@ echo htmlspecialchars(json_encode(array(
 	'i18n' => array(
 		'confirmation_default' => _t('gen.js.confirm_action'),
 		'notif_title_articles' => _t('gen.js.feedback.title_new_articles'),
-		'notif_body_articles' => _t('gen.js.feedback.body_new_articles'),
+		'notif_body_new_articles' => _t('gen.js.feedback.body_new_articles'),
+		'notif_body_unread_articles' => _t('gen.js.feedback.body_unread_articles'),
 		'notif_request_failed' => _t('gen.js.feedback.request_failed'),
 		'category_empty' => _t('gen.js.category_empty'),
 		'language' => FreshRSS_Context::$user_conf->language,

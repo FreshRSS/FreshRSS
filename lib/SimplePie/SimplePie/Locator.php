@@ -64,6 +64,7 @@ class SimplePie_Locator
 	var $max_checked_feeds = 10;
 	var $force_fsockopen = false;
 	var $curl_options = array();
+	var $dom;
 	protected $registry;
 
 	public function __construct(SimplePie_File $file, $timeout = 10, $useragent = null, $max_checked_feeds = 10, $force_fsockopen = false, $curl_options = array())

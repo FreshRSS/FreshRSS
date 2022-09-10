@@ -39,7 +39,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param string $intitle_value
 	 * @param string|null $search_value
 	 */
-	public function test__construct_whenInputContainsIntitle_setsIntitlePropery($input, $intitle_value, $search_value) {
+	public function test__construct_whenInputContainsIntitle_setsIntitleProperty($input, $intitle_value, $search_value) {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($intitle_value, $search->getIntitle());
 		$this->assertEquals($search_value, $search->getSearch());
@@ -51,6 +51,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideIntitleSearch() {
 		return array(
 			array('intitle:word1', array('word1'), null),
+			array('intitle:word1-word2', array('word1-word2'), null),
 			array('intitle:word1 word2', array('word1'), array('word2')),
 			array('intitle:"word1 word2"', array('word1 word2'), null),
 			array("intitle:'word1 word2'", array('word1 word2'), null),
@@ -88,6 +89,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideAuthorSearch() {
 		return array(
 			array('author:word1', array('word1'), null),
+			array('author:word1-word2', array('word1-word2'), null),
 			array('author:word1 word2', array('word1'), array('word2')),
 			array('author:"word1 word2"', array('word1 word2'), null),
 			array("author:'word1 word2'", array('word1 word2'), null),
@@ -294,5 +296,50 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				array('word7 word8', 'word6'),
 			),
 		);
+	}
+
+	/**
+	 * @dataProvider provideParentheses
+	 * @param array<string> $values
+	 */
+	public function test__construct_parentheses(string $input, string $sql, $values) {
+		list($filterValues, $filterSearch) = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		$this->assertEquals($sql, $filterSearch);
+		$this->assertEquals($values, $filterValues);
+	}
+
+	public function provideParentheses() {
+		return [
+			[
+				'f:1 (f:2 OR f:3 OR f:4) (f:5 OR (f:6 OR f:7))',
+				' ((e.id_feed IN (?) )) AND ((e.id_feed IN (?) ) OR (e.id_feed IN (?) ) OR (e.id_feed IN (?) )) AND' .
+					' (((e.id_feed IN (?) )) OR ((e.id_feed IN (?) ) OR (e.id_feed IN (?) ))) ',
+				['1', '2', '3', '4', '5', '6', '7']
+			],
+			[
+				'#tag Hello OR (author:Alice inurl:example) OR (f:3 intitle:World) OR L:12',
+				' ((e.tags LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) OR ((e.author LIKE ? AND e.link LIKE ? )) OR' .
+					' ((e.id_feed IN (?) AND e.title LIKE ? )) OR ((e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )) ',
+				['%tag%','%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', '12']
+			],
+			[
+				'#tag Hello (author:Alice inurl:example) (f:3 intitle:World) label:Bleu',
+				' ((e.tags LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) AND' .
+					' ((e.author LIKE ? AND e.link LIKE ? )) AND' .
+					' ((e.id_feed IN (?) AND e.title LIKE ? )) AND' .
+					' ((e.id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (?)) )) ',
+				['%tag%', '%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', 'Bleu']
+			],
+			[
+				'!((author:Alice intitle:hello) OR (author:Bob intitle:world))',
+				' NOT (((e.author LIKE ? AND e.title LIKE ? )) OR ((e.author LIKE ? AND e.title LIKE ? ))) ',
+				['%Alice%', '%hello%', '%Bob%', '%world%'],
+			],
+			[
+				'(author:Alice intitle:hello) !(author:Bob intitle:world)',
+				' ((e.author LIKE ? AND e.title LIKE ? )) AND NOT ((e.author LIKE ? AND e.title LIKE ? )) ',
+				['%Alice%', '%hello%', '%Bob%', '%world%'],
+			]
+		];
 	}
 }

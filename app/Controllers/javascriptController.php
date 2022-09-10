@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_javascript_Controller extends Minz_ActionController {
+class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	public function firstAction() {
 		$this->view->_layout(false);
 	}
@@ -8,6 +8,10 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 	public function actualizeAction() {
 		header('Content-Type: application/json; charset=UTF-8');
 		Minz_Session::_param('actualize_feeds', false);
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::$user_conf->dynamic_opml_ttl_default);
+
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
 	}
@@ -36,7 +40,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 				if (strlen($s) >= 60) {
 					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->salt1 = substr($s, 0, 29);
-					$this->view->nonce = sha1($salt . uniqid(mt_rand(), true));
+					$this->view->nonce = sha1($salt . uniqid('' . mt_rand(), true));
 					Minz_Session::_param('nonce', $this->view->nonce);
 					return;	//Success
 				}
@@ -52,6 +56,6 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		for ($i = 22; $i > 0; $i--) {
 			$this->view->salt1 .= $alphabet[mt_rand(0, 63)];
 		}
-		$this->view->nonce = sha1(mt_rand());
+		$this->view->nonce = sha1('' . mt_rand());
 	}
 }

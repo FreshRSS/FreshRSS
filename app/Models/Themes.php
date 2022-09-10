@@ -68,50 +68,68 @@ class FreshRSS_Themes extends Minz_Model {
 		return $infos;
 	}
 
+	public static function title($name) {
+		static $titles = [
+			'opml-dyn' => 'sub.category.dynamic_opml',
+		];
+		return $titles[$name] ?? '';
+	}
+
 	public static function alt($name) {
 		static $alts = array(
-			'add' => '✚',
-			'add-white' => '✚',
+			'add' => '➕',	//✚
 			'all' => '☰',
-			'bookmark' => '★',
-			'bookmark-add' => '✚',
-			'category' => '☷',
-			'category-white' => '☷',
+			'bookmark' => '✨',	//★
+			'bookmark-add' => '➕',	//✚
+			'bookmark-tag' => '📑',
+			'category' => '🗂️',	//☷
 			'close' => '❌',
-			'configure' => '⚙',
-			'down' => '▽',
-			'favorite' => '★',
+			'configure' => '⚙️',
+			'debug' => '🐛',
+			'down' => '🔽',	//▽
+			'error' => '❌',
+			'favorite' => '⭐',	//★
 			'FreshRSS-logo' => '⊚',
-			'help' => 'ⓘ',
+			'help' => 'ℹ️',	//ⓘ
 			'icon' => '⊚',
-			'import' => '⤓',
-			'key' => '⚿',
+			'key' => '🔑',	//⚿
 			'label' => '🏷️',
-			'link' => '↗',
-			'look' => '👁',
+			'link' => '↗️',	//↗
+			'look' => '👀',	//👁
 			'login' => '🔒',
 			'logout' => '🔓',
 			'next' => '⏩',
 			'non-starred' => '☆',
+			'notice' => 'ℹ️',	//ⓘ
+			'opml-dyn' => '🗲',
 			'prev' => '⏪',
-			'read' => '☑',
-			'rss' => '☄',
-			'unread' => '☐',
+			'read' => '☑️',	//☑
+			'rss' => '📣',	//☄
+			'unread' => '🔲',	//☐
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',
-			'share' => '♺',
-			'starred' => '★',
-			'stats' => '%',
-			'tag' => '⚐',
-			'up' => '△',
-			'view-normal' => '☰',
-			'view-global' => '☷',
-			'view-reader' => '☕',
+			'share' => '♻️',	//♺
+			'sort-down' => '⬇️',	//↓
+			'sort-up' => '⬆️',	//↑
+			'starred' => '⭐',	//★
+			'stats' => '📈',	//%
+			'tag' => '🔖',	//⚐
+			'up' => '🔼',	//△
+			'view-normal' => '📰',	//☰
+			'view-global' => '📖',	//☷
+			'view-reader' => '📜',
+			'warning' => '⚠️',	//△
 		);
 		return isset($name) ? $alts[$name] : '';
 	}
 
-	public static function icon($name, $urlOnly = false, $altOnly = false) {
+	// TODO: Change for enum in PHP 8.1+
+	const ICON_DEFAULT = 0;
+	const ICON_IMG = 1;
+	const ICON_URL = 2;
+	const ICON_EMOJI = 3;
+
+	public static function icon(string $name, int $type = self::ICON_DEFAULT): string {
 		$alt = self::alt($name);
 		if ($alt == '') {
 			return '';
@@ -120,6 +138,29 @@ class FreshRSS_Themes extends Minz_Model {
 		$url = $name . '.svg';
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alt . '" />';
+		$title = self::title($name);
+		if ($title != '') {
+			$title = ' title="' . _t($title) . '"';
+		}
+
+		if ($type == self::ICON_DEFAULT) {
+			if ((FreshRSS_Context::$user_conf && FreshRSS_Context::$user_conf->icons_as_emojis) ||
+				// default to emoji alternate for some icons
+				in_array($name, [ 'opml-dyn' ])) {
+				$type = self::ICON_EMOJI;
+			} else {
+				$type = self::ICON_IMG;
+			}
+		}
+
+		switch ($type) {
+			case self::ICON_URL:
+				return Minz_Url::display($url);
+			case self::ICON_IMG:
+				return '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />';
+			case self::ICON_EMOJI:
+			default:
+				return '<span class="icon"' . $title . '>' . $alt . '</span>';
+		}
 	}
 }

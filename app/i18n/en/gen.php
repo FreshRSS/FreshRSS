@@ -1,13 +1,24 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Update',
+		'actualize' => 'Update feeds',
 		'add' => 'Add',
 		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',
 		'disable' => 'Disable',
 		'empty' => 'Empty',
@@ -17,10 +28,11 @@ return array(
 		'import' => 'Import',
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
-		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',
+		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
+		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',
 		'rename' => 'Rename',
 		'see_website' => 'See website',
@@ -118,6 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
@@ -143,6 +156,7 @@ return array(
 		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
+		'zh-tw' => '正體中文',
 	),
 	'menu' => array(
 		'about' => 'About',
@@ -166,15 +180,6 @@ return array(
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
 	),
-	'pagination' => array(
-		'first' => 'First',
-		'last' => 'Last',
-		'load_more' => 'Load more articles',
-		'mark_all_read' => 'Mark all as read',
-		'next' => 'Next',
-		'nothing_to_load' => 'There are no more articles',
-		'previous' => 'Previous',
-	),
 	'period' => array(
 		'days' => 'days',
 		'hours' => 'hours',
@@ -184,6 +189,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
@@ -196,13 +202,18 @@ return array(
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pinboard' => 'Pinboard',
+		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
+		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'web-sharing-api' => 'System sharing',
+		'whatsapp' => 'Whatsapp',
+		'xing' => 'Xing',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
@@ -216,5 +227,10 @@ return array(
 		'ok' => 'Okay!',
 		'or' => 'or',
 		'yes' => 'Yes',
+	),
+	'stream' => array(
+		'load_more' => 'Load more articles',
+		'mark_all_read' => 'Mark all as read',
+		'nothing_to_load' => 'There are no more articles',
 	),
 );

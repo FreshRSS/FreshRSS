@@ -4,7 +4,7 @@ Thanks to our contributors, FreshRSS is translated into more than 15 languages. 
 
 ## Overview
 
-It is common (and that's an understatement) to want to show some text to the user. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
+It is common (and that’s an understatement) to want to show some text to the user. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
 
 The solution is to use the `Minz_Translate` module, which allows dynamic translation of FreshRSS. Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `app/i18n/`. For example, English language files are located in [`app/i18n/en/`](/app/i18n/en/). There are seven different files:
 
@@ -19,7 +19,7 @@ The solution is to use the `Minz_Translate` module, which allows dynamic transla
 
 This organization makes it possible to avoid a single huge translation file.
 
-The translation files are quite simple: it's only a matter of returning a PHP array containing the translations. As an example, here's an extract from [`app/i18n/fr/gen.php`](/app/i18n/fr/gen.php):
+The translation files are quite simple: it’s only a matter of returning a PHP array containing the translations. As an example, here’s an extract from [`app/i18n/fr/gen.php`](/app/i18n/fr/gen.php):
 
 ```php
 <?php
@@ -42,23 +42,23 @@ return array(
 
 Each value can be referenced by a key: it consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation, while the following ones indicate array entries. Thus, the `gen.freshrss.about` key is referencing the `about` entry from the `freshrss` entry which is part of the main array returned by the `gen.php` file. This allows us to further organize our translation files.
 
-You should not have to write the array by yourself and we provide several commands to ease the manipulation of these files. Let's see some common use cases.
+You should not have to write the array by yourself and we provide several commands to ease the manipulation of these files. Let’s see some common use cases.
 
 ## Add support for a new language
 
-If you want to add support for a language which isn't supported by FreshRSS yet, you can run this command:
+If you want to add support for a language which isn’t supported by FreshRSS yet, you can run this command:
 
 ```sh
 make i18n-add-language lang=[your language code]
 ```
 
-You must replace `[your language code]` by the language tag of your language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. You can target a specific region with a subtag, for instance `pt-br` for Brazilian Portuguese. If you're not sure of the code, Wikipedia might be a good start to find it or you can ask us for help too.
+You must replace `[your language code]` by the language tag of your language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. You can target a specific region with a subtag, for instance `pt-br` for Brazilian Portuguese. If you’re not sure of the code, Wikipedia might be a good start to find it or you can ask us for help too.
 
-The command will create a new subfolder under `app/i18n/` and copy the strings from the reference language (i.e. English). It will also mark all the translations with a special tag represented by a comment: `// TODO - Translation`. We'll see in the next section how to translate the strings.
+The command will create a new subfolder under `app/i18n/` and copy the strings from the reference language (i.e. English). It will also mark all the translations with a special tag represented by a comment: `// TODO - Translation`. We’ll see in the next section how to translate the strings.
 
 ## Translate the interface
 
-You might have noticed some strings are not yet translated from English even though you've selected a different language. This is because we mostly speak English or French and it's pretty difficult to us to speak all the different languages!
+You might have noticed some strings are not yet translated from English even though you’ve selected a different language. This is because we mostly speak English or French and it’s pretty difficult to us to speak all the different languages!
 
 To update a string, you just have to open its file, find the string, and change it (without removing the quotes around it!) You might want to remove the comment at the end of the line, but you should prefer to use the following command:
 
@@ -66,7 +66,7 @@ To update a string, you just have to open its file, find the string, and change 
 make i18n-format
 ```
 
-It will remove the comments on the lines that you've changed, and will reformat the file correctly. If you've made any mistakes, it will fix them automatically or it will tell you it can't (well… the command will dramatically fail without any damage, don't worry).
+It will remove the comments on the lines that you’ve changed, and will reformat the file correctly. If you’ve made any mistakes, it will fix them automatically or it will tell you it can’t (well… the command will dramatically fail without any damage, don’t worry).
 
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
@@ -82,11 +82,11 @@ Our tool detects if a string needs to be translated if it equals to the English 
 make i18n-ignore-key lang=fr key=index.about.version
 ```
 
-This command adds an entry in the [`cli/i18n/ignore/fr.php` file](/cli/i18n/ignore/fr.php) so the key can be considered as translated.
+This command adds an IGNORE comment on the translation so the key can be considered as translated.
 
 ## Add/remove/update a key
 
-If you're developping a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don't do that, it's very painful. We provide another command:
+If you’re developping a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don’t do that, it’s very painful. We provide another command:
 
 ```sh
 make i18n-add-key key=the.key.to.add value='Your string in English'
@@ -100,7 +100,7 @@ Conversely, you may want to remove a key that is no longer used in the applicati
 make i18n-remove-key key=the.key.to.remove
 ```
 
-Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change doesn't impact the meaning of the sentence, and therefore other languages don't need to change (e.g. to fix a typo), you should make the change manually in the file. In any other case, you should use the following command:
+Finally, if the English version of a string needs to be changed, you need to consider two cases. If the change doesn’t impact the meaning of the sentence, and therefore other languages don’t need to change (e.g. to fix a typo), you should make the change manually in the file. In any other case, you should use the following command:
 
 ```sh
 make i18n-update-key key=the.key.to.change value='The new string in English'
@@ -118,11 +118,11 @@ To access these translations, you must use the `_t()` function (which is a short
 </p>
 ```
 
-The function expects a translation key, but there's a special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It's pretty hard to explain but very simple to understand. In the example given above, an `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
+The function expects a translation key, but there’s a special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It’s pretty hard to explain but very simple to understand. In the example given above, an `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
 
 `_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/manual/function.sprintf).
 
-For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it doesn't matter). For instance:
+For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it doesn’t matter). For instance:
 
 ```php
 <label>

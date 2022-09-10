@@ -23,7 +23,7 @@ class FreshRSS_fever_Util {
 	/**
 	 * Return the corresponding path for a fever key.
 	 *
-	 * @param string
+	 * @param string $feverKey
 	 * @return string
 	 */
 	public static function getKeyPath($feverKey) {
@@ -34,9 +34,9 @@ class FreshRSS_fever_Util {
 	/**
 	 * Update the fever key of a user.
 	 *
-	 * @param string
-	 * @param string
-	 * @return string the Fever key, or false if the update failed
+	 * @param string $username
+	 * @param string $passwordPlain
+	 * @return string|false the Fever key, or false if the update failed
 	 */
 	public static function updateKey($username, $passwordPlain) {
 		$ok = self::checkFeverPath();
@@ -60,7 +60,7 @@ class FreshRSS_fever_Util {
 	/**
 	 * Delete the Fever key of a user.
 	 *
-	 * @param string
+	 * @param string $username
 	 * @return boolean true if the deletion succeeded, else false.
 	 */
 	public static function deleteKey($username) {

@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Completeer installatie',
@@ -17,13 +27,13 @@ return array(
 		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
-		'_' => 'Database',
+		'_' => 'Database',	// IGNORE
 		'conf' => array(
 			'_' => 'Database configuratie',
 			'ko' => 'Controleer uw database informatie.',
 			'ok' => 'Database configuratie is opgeslagen.',
 		),
-		'host' => 'Host',
+		'host' => 'Host',	// IGNORE
 		'password' => 'Database wachtwoord',
 		'prefix' => 'Tabel voorvoegsel',
 		'type' => 'Type database',

@@ -1,10 +1,13 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
 <?php $isDefault = $this->details['is_default']; ?>
 <?php $isAdmin = $this->details['is_admin']; ?>
 <?php $enabled = $this->details['enabled']; ?>
 
-<div class="post">
+<main class="post">
 	<a href="<?= _url('user', 'manage'); ?>"><?= _t('admin.user.back_to_manage'); ?></a>
 
 	<h1><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h1>
@@ -59,7 +62,7 @@
 				<div class="stick">
 					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
 						pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
-					<a class="btn toggle-password" data-toggle="password-<?= $this->username; ?>"><?= _i('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
 			</div>
@@ -84,4 +87,4 @@
 			<div>
 		</div>
 	</form>
-</div>
+</main>

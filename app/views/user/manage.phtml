@@ -1,6 +1,9 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
 
-<div class="post">
+<main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
@@ -12,7 +15,7 @@
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
 
-		
+
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
@@ -60,7 +63,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
-					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></a>
+					<button type="button" class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
@@ -108,4 +111,4 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+</main>

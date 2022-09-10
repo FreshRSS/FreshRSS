@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivering',
@@ -56,6 +66,19 @@ return array(
 			'thin' => 'Smal',
 		),
 	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Logniveau',
+			'message' => 'Logbericht',
+			'timestamp' => 'Tijdstempel',
+		),
+		'pagination' => array(
+			'first' => 'Eerste',
+			'last' => 'Laatste',
+			'next' => 'Volgende',
+			'previous' => 'Vorige',
+		),
+	),
 	'profile' => array(
 		'_' => 'Profielbeheer',
 		'api' => 'API-beheer',
@@ -70,7 +93,7 @@ return array(
 		'title' => 'Profiel',
 	),
 	'query' => array(
-		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
+		'_' => 'Gebruikersquery’s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
 		'filter' => array(
 			'_' => 'Filter toegepast:',
@@ -80,7 +103,7 @@ return array(
 			'search' => 'Expressie',
 			'state' => 'Status',
 			'tags' => 'Weergeven op tag',
-			'type' => 'Type',
+			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon "%s" categorie',
@@ -88,7 +111,7 @@ return array(
 		'get_feed' => 'Toon "%s" feed',
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
-		'number' => 'Query n°%d',
+		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
 		'search' => 'Zoek naar "%s"',
@@ -108,18 +131,52 @@ return array(
 		'state_13' => 'Toon gelezen artikelen',
 		'state_14' => 'Toon ongelezen artikelen',
 		'state_15' => 'Toon alle artikelen',
-		'title' => 'Gebruikersquery\'s',
+		'title' => 'Gebruikersquery’s',
 	),
 	'reading' => array(
 		'_' => 'Lezen',
 		'after_onread' => 'Na “markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs en datum',
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Boven titel/tags',
+				'none' => 'Geen',
+				'with_authors' => 'In lijn met auteurs en datum',
+			),
+			'feed_title' => 'Feedtitel',
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'tags_max' => array(
+				'_' => 'Max aantal getoonde tags',
+				'help' => '0 betekent: toon alle tags en verberg er geen',
+			),
+		),
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
 		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
+		'headline' => array(
+			'articles' => 'Artikelen: openen/sluiten',
+			'articles_header_footer' => 'Artikelen: kop/voet',
+			'categories' => 'Linkernavigatie: categoriën',
+			'mark_as_read' => 'Artikelen als gelezen markeren',
+			'misc' => 'Diversen',
+			'view' => 'Weergave',
+		),
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
@@ -128,11 +185,12 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',
 			'article_viewed' => 'als het artikel wordt bekeken',
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO - Translation
+			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
 			'scroll' => 'tijdens het scrollen',
+			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO - Translation
+			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',
@@ -163,20 +221,21 @@ return array(
 	'sharing' => array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Meer informatie',
-		'print' => 'Afdrukken',
-		'raindrop' => 'Raindrop.io',
+		'print' => 'Afdrukken',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Deelmethode verwijderen',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Gedeelde naam om weer te geven',
 		'share_url' => 'Deel URL voor gebruik',
 		'title' => 'Delen',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Snelkoppelingen',

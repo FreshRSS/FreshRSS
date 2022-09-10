@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Model_array représente le modèle interragissant avec les fichiers de type texte gérant des tableaux php
+ * The Minz_ModelArray class is the model to interact with text files containing a PHP array
  */
 class Minz_ModelArray {
 	/**
@@ -15,7 +15,7 @@ class Minz_ModelArray {
 
 	/**
 	 * Ouvre le fichier indiqué, charge le tableau dans $array et le $filename
-	 * @param $filename le nom du fichier à ouvrir contenant un tableau
+	 * @param string $filename le nom du fichier à ouvrir contenant un tableau
 	 * Remarque : $array sera obligatoirement un tableau
 	 */
 	public function __construct ($filename) {

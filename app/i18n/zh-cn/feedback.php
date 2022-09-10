@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => '你无权访问此页面',
@@ -11,7 +21,7 @@ return array(
 	'api' => array(
 		'password' => array(
 			'failed' => '您的密码无法修改',
-			'updated' => '您的密码已修改完成',
+			'updated' => '您的密码已修改',
 		),
 	),
 	'auth' => array(
@@ -20,7 +30,7 @@ return array(
 			'success' => '登录成功',
 		),
 		'logout' => array(
-			'success' => '登出成功',
+			'success' => '已登出',
 		),
 	),
 	'conf' => array(
@@ -38,7 +48,7 @@ return array(
 		),
 		'enable' => array(
 			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
-			'ok' => '%s 现已禁用',
+			'ok' => '%s 现已启用',
 		),
 		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
@@ -55,7 +65,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => '你的帐户修改失败',
-		'updated' => '你的帐户已修改成功',
+		'updated' => '你的帐户已修改',
 	),
 	'sub' => array(
 		'actualize' => '获取',

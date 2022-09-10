@@ -1,12 +1,15 @@
 <?php
-$SQL_CREATE_DB = <<<'SQL'
+$GLOBALS['SQL_CREATE_DB'] = <<<'SQL'
 SELECT 1;	-- Do nothing for SQLite
 SQL;
 
-$SQL_CREATE_TABLES = <<<'SQL'
+$GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
+	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
+	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
+	`error` SMALLINT DEFAULT 0,	-- 1.20.0
 	`attributes` TEXT,	-- v1.15.0
 	UNIQUE (`name`)
 );
@@ -14,7 +17,8 @@ CREATE TABLE IF NOT EXISTS `category` (
 CREATE TABLE IF NOT EXISTS `feed` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`url` VARCHAR(511) NOT NULL,
-	`category` SMALLINT DEFAULT 0,
+	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
+	`category` INTEGER DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(255) NOT NULL,
 	`website` VARCHAR(255),
 	`description` TEXT,
@@ -45,8 +49,9 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,
+	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(1023),
+	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
@@ -59,11 +64,11 @@ CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`)
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
 SQL;
 
-$SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+$GLOBALS['SQL_CREATE_INDEX_ENTRY_1'] = <<<'SQL'
 CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 SQL;
 
-$SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
+$GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,
@@ -76,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,
+	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(1023),
+	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
@@ -85,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
 SQL;
 
-$SQL_CREATE_TABLE_TAGS = <<<'SQL'
+$GLOBALS['SQL_CREATE_TABLE_TAGS'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(63) NOT NULL,
@@ -93,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	UNIQUE (`name`)
 );
 CREATE TABLE IF NOT EXISTS `entrytag` (
-	`id_tag` SMALLINT,
+	`id_tag` INTEGER,	-- 1.20.0
 	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -102,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `entrytag` (
 CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
 SQL;
 
-$SQL_DROP_TABLES = <<<'SQL'
+$GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `entrytag`;
 DROP TABLE IF EXISTS `tag`;
 DROP TABLE IF EXISTS `entrytmp`;

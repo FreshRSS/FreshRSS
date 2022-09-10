@@ -19,8 +19,9 @@
 # ***** END LICENSE BLOCK *****
 
 /**
- * La classe FrontController est le Dispatcher du framework, elle lance l'application
- * Elle est appelée en général dans le fichier index.php à la racine du serveur
+ * The Minz_FrontController class is the framework Dispatcher.
+ * It runs the application.
+ * It is generally invoqued by an index.php file at the root.
  */
 class Minz_FrontController {
 	protected $dispatcher;
@@ -38,33 +39,27 @@ class Minz_FrontController {
 			$url = $this->buildUrl();
 			$url['params'] = array_merge (
 				$url['params'],
-				Minz_Request::fetchPOST ()
+				$_POST
 			);
 			Minz_Request::forward ($url);
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
-			$this->killApp ($e->getMessage());
+			self::killApp($e->getMessage());
 		}
 
 		$this->dispatcher = Minz_Dispatcher::getInstance();
 	}
 
 	/**
-	 * Retourne un tableau représentant l'url passée par la barre d'adresses
-	 * @return array représentant l'url
+	 * Returns an array representing the URL as passed in the address bar
+	 * @return array URL representation
 	 */
 	private function buildUrl() {
 		$url = array();
 
-		$url['c'] = Minz_Request::fetchGET(
-			'c',
-			Minz_Request::defaultControllerName()
-		);
-		$url['a'] = Minz_Request::fetchGET(
-			'a',
-			Minz_Request::defaultActionName()
-		);
-		$url['params'] = Minz_Request::fetchGET();
+		$url['c'] = $_GET['c'] ?? Minz_Request::defaultControllerName();
+		$url['a'] = $_GET['a'] ?? Minz_Request::defaultActionName();
+		$url['params'] = $_GET;
 
 		// post-traitement
 		unset($url['params']['c']);
@@ -83,7 +78,7 @@ class Minz_FrontController {
 			try {
 				Minz_Log::error($e->getMessage());
 			} catch (Minz_PermissionDeniedException $e) {
-				$this->killApp ($e->getMessage ());
+				self::killApp($e->getMessage());
 			}
 
 			if ($e instanceof Minz_FileNotExistException ||
@@ -96,20 +91,21 @@ class Minz_FrontController {
 					true
 				);
 			} else {
-				$this->killApp($e->getMessage());
+				self::killApp($e->getMessage());
 			}
 		}
 	}
 
 	/**
-	* Permet d'arrêter le programme en urgence
-	*/
-	private function killApp ($txt = '') {
-		if (function_exists('errorMessage')) {
+	 * Kills the programme
+	 */
+	public static function killApp($txt = '') {
+		header('HTTP 1.1 500 Internal Server Error', true, 500);
+		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function
-			exit(errorMessage('Application problem', $txt));
+			die(errorMessageInfo('Application problem', $txt));
 		}
-		exit('### Application problem ###<br />' . "\n" . $txt);
+		die('### Application problem ###<br />' . "\n" . $txt);
 	}
 
 	private function setReporting() {

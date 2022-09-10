@@ -2,24 +2,32 @@
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
-	public function hasNativeHex() {
+	public static function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode($x) {
+	public static function sqlHexDecode(string $x): string {
 		return 'decode(' . $x . ", 'hex')";
 	}
 
-	public function sqlHexEncode($x) {
+	public static function sqlHexEncode(string $x): string {
 		return 'encode(' . $x . ", 'hex')";
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	public static function sqlIgnoreConflict(string $sql): string {
 		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	protected function autoUpdateDb(array $errorInfo) {
 		if (isset($errorInfo[0])) {
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				foreach (['attributes'] as $column) {
+					if (stripos($errorLines[0], $column) !== false) {
+						return $this->addColumn($column);
+					}
+				}
+			}
 			if ($errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
 					$tagDAO = FreshRSS_Factory::createTagDao();
@@ -32,10 +40,6 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		return false;
 	}
 
-	protected function addColumn($name) {
-		return false;
-	}
-
 	public function commitNewEntries() {
 		//TODO: Update to PostgreSQL 9.5+ syntax with ON CONFLICT DO NOTHING
 		$sql = 'DO $$
@@ -44,14 +48,14 @@ maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
 rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
 BEGIN
 	INSERT INTO `_entry`
-		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
-		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content,
-			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
+		(SELECT rank + row_number() OVER(ORDER BY date, id) AS id, guid, title, author, content,
+			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 			FROM `_entrytmp` AS etmp
 			WHERE NOT EXISTS (
 				SELECT 1 FROM `_entry` AS ereal
 				WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
-			ORDER BY date);
+			ORDER BY date, id);
 	DELETE FROM `_entrytmp` WHERE id <= maxrank;
 END $$;';
 		$hadTransaction = $this->pdo->inTransaction();

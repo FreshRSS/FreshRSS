@@ -206,8 +206,7 @@ the search field.
 
 ### Grâce au champ de recherche
 
-Il est possible d’utiliser le champ de recherche pour raffiner les résultats
-:
+Il est possible d’utiliser le champ de recherche pour raffiner les résultats :
 
 * par ID de flux : `f:123` ou plusieurs flux (*ou*) : `f:123,234,345`
 * par auteur : `author:nom` or `author:'nom composé'`
@@ -251,6 +250,9 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14` ou avec n’importe quelle étiquette : `L:*`
 * par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmis une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
+* par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*): `e:1639310674957894,1639310674957893`
+* par nom de filtre utilisateur (recherche enregistrée) : `search:maRecherche`, `search:"Ma recherche"` ou par ID de recherche : `S:3`
+	* en interne, ces références sont remplacées par le filtre utilisateur correspondant dans l’expression de recherche
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur
 recherchée.
@@ -264,4 +266,12 @@ encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 `f:`, `author:`, `intitle:`, `inurl:`, `#`, et texte libre.
 
 Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
-peut être utiliser pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
+peut être utilisé pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
+
+Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes, avec un support basique de la négation :
+
+* `(author:Alice OR intitle:bonjour) (author:Bob OR intitle:monde)`
+* `(author:Alice intitle:bonjour) OR (author:Bob intitle:monde)`
+* `!((author:Alice intitle:bonjour) OR (author:Bob intitle:monde))`
+* `(author:Alice intitle:bonjour) !(author:Bob intitle:monde)`
+* `!(S:1 OR S:2)`

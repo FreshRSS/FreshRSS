@@ -27,6 +27,13 @@ class Minz_Request {
 	public static function params() {
 		return self::$params;
 	}
+	/**
+	 * Read the URL parameter
+	 * @param string $key Key name
+	 * @param mixed $default default value, if no parameter is given
+	 * @param bool $specialchars special characters
+	 * @return mixed value of the parameter
+	 */
 	public static function param($key, $default = false, $specialchars = false) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
@@ -43,6 +50,7 @@ class Minz_Request {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			$tp = trim($p);
+			// @phpstan-ignore-next-line
 			if ($p === null || $tp === '' || $tp === 'null') {
 				return null;
 			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
@@ -132,37 +140,32 @@ class Minz_Request {
 
 	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
-	 *
-	 * @return boolean
 	 */
-	public static function isHttps() {
-		$header = static::getHeader('HTTP_X_FORWARDED_PROTO');
-		if (null !== $header) {
+	public static function isHttps(): bool {
+		$header = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
+		if ('' != $header) {
 			return 'https' === strtolower($header);
 		}
-		return 'on' === static::getHeader('HTTPS');
+		return 'on' === ($_SERVER['HTTPS'] ?? '');
 	}
 
 	/**
 	 * Try to guess the base URL from $_SERVER information
 	 *
-	 * @return string base url (e.g. http://example.com/)
+	 * @return string base url (e.g. http://example.com)
 	 */
-	public static function guessBaseUrl() {
-		$protocol = static::extractProtocol();
-		$host = static::extractHost();
-		$port = static::extractPortForUrl();
-		$prefix = static::extractPrefix();
-		$path = static::extractPath();
+	public static function guessBaseUrl(): string {
+		$protocol = self::extractProtocol();
+		$host = self::extractHost();
+		$port = self::extractPortForUrl();
+		$prefix = self::extractPrefix();
+		$path = self::extractPath();
 
 		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL);
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractProtocol() {
-		if (static::isHttps()) {
+	private static function extractProtocol(): string {
+		if (self::isHttps()) {
 			return 'https';
 		}
 		return 'http';
@@ -172,14 +175,14 @@ class Minz_Request {
 	 * @return string
 	 */
 	private static function extractHost() {
-		if (null !== $host = static::getHeader('HTTP_X_FORWARDED_HOST')) {
+		if ('' != $host = ($_SERVER['HTTP_X_FORWARDED_HOST'] ?? '')) {
 			return parse_url("http://{$host}", PHP_URL_HOST);
 		}
-		if (null !== $host = static::getHeader('HTTP_HOST')) {
+		if ('' != $host = ($_SERVER['HTTP_HOST'] ?? '')) {
 			// Might contain a port number, and mind IPv6 addresses
 			return parse_url("http://{$host}", PHP_URL_HOST);
 		}
-		if (null !== $host = static::getHeader('SERVER_NAME')) {
+		if ('' != $host = ($_SERVER['SERVER_NAME'] ?? '')) {
 			return $host;
 		}
 		return 'localhost';
@@ -189,59 +192,50 @@ class Minz_Request {
 	 * @return integer
 	 */
 	private static function extractPort() {
-		if (null !== $port = static::getHeader('HTTP_X_FORWARDED_PORT')) {
+		if ('' != $port = ($_SERVER['HTTP_X_FORWARDED_PORT'] ?? '')) {
 			return intval($port);
 		}
-		if (null !== $proto = static::getHeader('HTTP_X_FORWARDED_PROTO')) {
+		if ('' != $proto = ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) {
 			return 'https' === strtolower($proto) ? 443 : 80;
 		}
-		if (null !== $port = static::getHeader('SERVER_PORT')) {
+		if ('' != $port = ($_SERVER['SERVER_PORT'] ?? '')) {
 			return intval($port);
 		}
-		return static::isHttps() ? 443 : 80;
+		return self::isHttps() ? 443 : 80;
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPortForUrl() {
-		if (static::isHttps() && 443 !== $port = static::extractPort()) {
+	private static function extractPortForUrl(): string {
+		if (self::isHttps() && 443 !== $port = self::extractPort()) {
 			return ":{$port}";
 		}
-		if (!static::isHttps() && 80 !== $port = static::extractPort()) {
+		if (!self::isHttps() && 80 !== $port = self::extractPort()) {
 			return ":{$port}";
 		}
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPrefix() {
-		if (null !== $prefix = static::getHeader('HTTP_X_FORWARDED_PREFIX')) {
+	private static function extractPrefix(): string {
+		if ('' != $prefix = ($_SERVER['HTTP_X_FORWARDED_PREFIX'] ?? '')) {
 			return rtrim($prefix, '/ ');
 		}
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPath() {
-		if (null !== $path = static::getHeader('REQUEST_URI')) {
-			return '/' === substr($path, -1) ? substr($path, 0, -1) : dirname($path);
+	private static function extractPath(): string {
+		$path = $_SERVER['REQUEST_URI'] ?? '';
+		if ($path != '') {
+			$path = parse_url($path, PHP_URL_PATH);
+			return substr($path, -1) === '/' ? rtrim($path, '/') : dirname($path);
 		}
 		return '';
 	}
 
 	/**
-	 * Return the base_url from configuration and add a suffix if given.
-	 *
-	 * @return string base_url with a suffix.
+	 * Return the base_url from configuration
 	 */
-	public static function getBaseUrl() {
+	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
-		$url = rtrim($conf->base_url, '/\\');
+		$url = trim($conf->base_url, ' /\\"');
 		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
@@ -251,7 +245,7 @@ class Minz_Request {
 	 * Note: for the moment it tests only if address is corresponding to a
 	 * localhost address.
 	 *
-	 * @param $address the address to test, can be an IP or a URL.
+	 * @param string $address the address to test, can be an IP or a URL.
 	 * @return boolean true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
@@ -312,7 +306,7 @@ class Minz_Request {
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
-			//Delete abandonned notifications
+			//Delete abandoned notifications
 			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
@@ -328,8 +322,8 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param $url l'url vers laquelle est relancée la requête
-	 * @param $redirect si vrai, force la redirection http
+	 * @param array<string,string|array<string,string>> $url l'url vers laquelle est relancée la requête
+	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
 	public static function forward($url = array(), $redirect = false) {
@@ -342,7 +336,7 @@ class Minz_Request {
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
-			header('Location: ' . Minz_Url::display($url, 'php'));
+			header('Location: ' . Minz_Url::display($url, 'php', 'root'));
 			exit();
 		} else {
 			self::_controllerName($url['c']);
@@ -358,43 +352,29 @@ class Minz_Request {
 
 	/**
 	 * Wrappers good notifications + redirection
-	 * @param $msg notification content
-	 * @param $url url array to where we should be forwarded
+	 * @param string $msg notification content
+	 * @param array<string,string|array<string,string>> $url url array to where we should be forwarded
 	 */
 	public static function good($msg, $url = array()) {
 		Minz_Request::setGoodNotification($msg);
 		Minz_Request::forward($url, true);
 	}
 
+	/**
+	 * Wrappers bad notifications + redirection
+	 * @param string $msg notification content
+	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
+	 */
 	public static function bad($msg, $url = array()) {
 		Minz_Request::setBadNotification($msg);
 		Minz_Request::forward($url, true);
-	}
-
-
-	/**
-	 * Permet de récupérer une variable de type $_GET
-	 * @param $param nom de la variable
-	 * @param $default valeur par défaut à attribuer à la variable
-	 * @return string $_GET[$param]
-	 *         $_GET si $param = false
-	 *         $default si $_GET[$param] n'existe pas
-	 */
-	public static function fetchGET($param = false, $default = false) {
-		if (false === $param) {
-			return $_GET;
-		}
-		if (isset($_GET[$param])) {
-			return $_GET[$param];
-		}
-		return $default;
 	}
 
 	/**
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON() {
-		if ('application/json' !== static::extractContentType()) {
+		if ('application/json' !== self::extractContentType()) {
 			return;
 		}
 		if ('' === $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576)) {
@@ -411,50 +391,19 @@ class Minz_Request {
 		}
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractContentType() {
-		return strtolower(trim(static::getHeader('CONTENT_TYPE')));
+	private static function extractContentType(): string {
+		return strtolower(trim($_SERVER['CONTENT_TYPE'] ?? ''));
+	}
+
+	public static function isPost(): bool {
+		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
 	}
 
 	/**
-	 * Permet de récupérer une variable de type $_POST
-	 * @param $param nom de la variable
-	 * @param $default valeur par défaut à attribuer à la variable
-	 * @return string $_POST[$param]
-	 *         $_POST si $param = false
-	 *         $default si $_POST[$param] n'existe pas
-	 */
-	public static function fetchPOST($param = false, $default = false) {
-		if (false === $param) {
-			return $_POST;
-		}
-		if (isset($_POST[$param])) {
-			return $_POST[$param];
-		}
-		return $default;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public static function getHeader($header, $default = null) {
-		return isset($_SERVER[$header]) ? $_SERVER[$header] : $default;
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public static function isPost() {
-		return 'POST' === static::getHeader('REQUEST_METHOD');
-	}
-
-	/**
-	 * @return array
+	 * @return array<string>
 	 */
 	public static function getPreferredLanguages() {
-		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', static::getHeader('HTTP_ACCEPT_LANGUAGE'), $matches)) {
+		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) {
 			return $matches['lang'];
 		}
 		return array('en');

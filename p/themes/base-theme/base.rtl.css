@@ -366,8 +366,8 @@ a.btn {
 .pagination:last-child .item {
 }
 
-.pagination .loading,
-.pagination a:hover.loading {
+#load_more.loading,
+#load_more.loading:hover {
 	font-size: 0;
 }
 
@@ -568,9 +568,6 @@ a.btn {
 #new-article {
 	text-align: center;
 	font-size: 0.9em;
-}
-
-#new-article:hover {
 }
 
 #new-article > a {

@@ -42,7 +42,7 @@
  */
 
 /**
- * Miscellanous utilities
+ * Miscellaneous utilities
  *
  * @package SimplePie
  */

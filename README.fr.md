@@ -1,4 +1,3 @@
-[![Statut de la compilation](https://travis-ci.org/FreshRSS/FreshRSS.svg)](https://travis-ci.org/FreshRSS/FreshRSS)
 [![Dons Liberapay](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 * Lire ce document sur [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/edge/README.md) pour avoir les images et liens corrects.
@@ -15,6 +14,8 @@ Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de
 
 Grâce au standard [WebSub](https://www.w3.org/TR/websub/) (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)),
 FreshRSS est capable de recevoir des notifications push instantanées depuis les sources compatibles, telles [Mastodon](https://joinmastodon.org), [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, FeedBurner, etc.
+
+FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
 
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
@@ -64,9 +65,10 @@ Si vous voulez une publication continue (rolling release) avec les dernières no
 
 ## Installation automatisée
 
-* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
+* [<img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" width="200" alt="Docker" />](./Docker/)
 * [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
+* [![PikaPods](https://www.pikapods.com/static/run-button-34.svg)](https://www.pikapods.com/pods?run=freshrss)
 
 ## Installation manuelle
 
@@ -192,7 +194,7 @@ Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre b
 ```
 
 > Il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`.
-Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+Si ce n’est pas le cas, la commande ne fonctionnera pas correctement.
 
 Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer la base de données au format SQLite dans votre base de données:
 
@@ -200,11 +202,11 @@ Vous pouvez encore utiliser la [ligne de commande](cli/README.md) pour importer 
 ./cli/import-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
 ```
 
-> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n'est pas le cas, la commande ne fonctionnera pas correctement.
+> Encore une fois, il est impératif que le nom du fichier contenant la base de données ait une extension `sqlite`. Si ce n’est pas le cas, la commande ne fonctionnera pas correctement.
 
-Le processus d'import/export à l'aide d'une base de données SQLite est utile quand vous devez :
+Le processus d’import/export à l’aide d’une base de données SQLite est utile quand vous devez :
 
-* exporter complètement les données d'un utilisateur,
+* exporter complètement les données d’un utilisateur,
 * sauvegarder votre service,
 * migrer votre service sur un autre serveur,
 * changer de type de base de données,
@@ -218,36 +220,38 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 
 # APIs et applications natives
 
-FreshRSS supporte l’accès depuis des applications natives pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes :
+FreshRSS supporte l’accès depuis des applications natives pour Linux, Android, iOS, Windows et macOS, grâce à deux APIs distinctes :
 [l’API compatible Google Reader](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html) (la meilleure),
 et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.html) (moindres fonctionnalités et moins efficace).
 
 | App                                                                                   | Plateforme  | Logiciel libre                                                | Maintenu & Dévelopé    | API              | Mode hors-ligne | Sync rapide | Récupère plus d’articles dans les vues individuelles | Récupère les articles lus | Favoris  | Étiquettes | Podcasts | Gestion des flux |
 |:--------------------------------------------------------------------------------------|:-----------:|:-------------------------------------------------------------:|:----------------------:|:----------------:|:-------------:|:---------:|:------------------------------:|:-------------------:|:----------:|:------:|:--------:|:------------:|
-| [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) | Android | [Partially](https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/) | 2015       | GReader | ✔️             | ⭐⭐⭐       | ✔️                    | ✔️                 | ✔️         | ✔️     | ✔️       | ✔️           |
+| [News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) with [Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) | Android | [Partially](https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/) | 2015       | GReader | ✔️             | ⭐⭐⭐       | ✔️                    | ✔️                 | ✔️         | ✔️     | ✔️       | ✔️           |
 | [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme)             | Android     | ➖                                                            | ✔️✔️                   | GReader          | ✔️            | ⭐⭐        | ➖                             | ➖                  | ✔️         | ✓     | ✔️       | ✔️           |
-| [RSS Guard](https://github.com/martinrotter/rssguard) | Windows, GNU/Linux, MacOS, OS/2 | ✔️ | ✔️✔️ | GReader | ✔️ | ⭐ | ➖ | ✔️ | ✔️ | ✔️ | ✔️ | ➖ |
+| [RSS Guard](https://github.com/martinrotter/rssguard) | Windows, GNU/Linux, macOS, OS/2 | ✔️ | ✔️✔️ | GReader | ✔️ | ⭐ | ➖ | ✔️ | ✔️ | ✔️ | ✔️ | ➖ |
 | [EasyRSS](https://github.com/Alkarex/EasyRSS)                                         | Android     | [✔️](https://github.com/Alkarex/EasyRSS)                      | ✔️                     | GReader          | Bug           | ⭐⭐        | ➖                             | ➖                  | ✔️         | ➖     | ➖       | ➖           |
 | [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader)  | Android     | ➖                                                            | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐       | ➖                             | ➖                  | ✔️         | ➖     | ✓      | ✔️           |
 | [Readrops](https://github.com/readrops/Readrops)                                      | Android     | [✔️](https://github.com/readrops/Readrops)                    | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐       | ➖                             | ➖                  | ➖         | ➖     | ➖       | ✔️           |
-| [ChristopheHenry](https://git.feneas.org/christophehenry/freshrss-android)            | Android     | [✔️](https://git.feneas.org/christophehenry/freshrss-android) | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
-| [Fluent Reader](https://hyliu.me/fluent-reader/)                             | Windows, Linux, MacOS| [✔️](https://github.com/yang991178/fluent-reader)             | ✔️✔️                   | Fever            | ✔️            | ⭐         | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
+| [ChristopheHenry](https://gitlab.com/christophehenry/freshrss-android)            | Android     | [✔️](https://gitlab.com/christophehenry/freshrss-android) | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
+| [Fluent Reader](https://hyliu.me/fluent-reader/)                             | Windows, Linux, macOS| [✔️](https://github.com/yang991178/fluent-reader)             | ✔️✔️                   | Fever            | ✔️            | ⭐         | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
 | [FeedReader](https://jangernert.github.io/FeedReader/)                                | GNU/Linux   | [✔️](https://jangernert.github.io/FeedReader/)                | ✔️                     | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ✔️           |
-| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | En développement       | Fever, GReader   | ➖            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
-| [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, MacOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
-| [Vienna RSS](http://www.vienna-rss.com/)                                              | MacOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
-| [Reeder](https://www.reederapp.com/)                                                  | iOS, MacOS  | ➖                                                            | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐       | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ✔️           |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | ✔️✔️                   | Fever   | ➖            | ⭐⭐        | ✔️                           | ✔️                | ✔️       | ➖    | ➖      | ➖          |
+| [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk) |            GNU/Linux            | [✔️](https://gitlab.com/news-flash/news_flash_gtk) | En développement | GReader | ➖ | ❔ | ❔ | ❔ | ❔ | ❔ | ➖ | ❔ || [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, macOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
+| [Vienna RSS](http://www.vienna-rss.com/)                                              | macOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
+| [Reeder](https://www.reederapp.com/)                                                  | iOS, macOS  | ➖                                                            | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐       | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ✔️           |
+| [lire](https://lireapp.com/)                                                          | iOS, macOS  | ➖                                                            | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |
 | [Unread](https://apps.apple.com/app/unread-2/id1363637349)                            | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ➖       | ➖           |
 | [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)         | iOS         | ➖                                                            | ✔️✔️                   | Fever            | ❔            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
-| [Readkit](https://apps.apple.com/app/readkit/id588726889)                             | MacOS       | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
-| [Netnewswire](https://ranchero.com/netnewswire/)                                      | iOS, MacOS  | [✔️](https://github.com/Ranchero-Software/NetNewsWire)        | En développement       | GReader          | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ❔       | ✔️           |
+| [Readkit](https://apps.apple.com/app/readkit/id588726889)                             | macOS       | ➖                                                            | ✔️✔️                   | Fever            | ✔️            | ❔        | ❔                             | ❔                  | ❔         | ➖     | ➖       | ➖           |
+| [Netnewswire](https://ranchero.com/netnewswire/)                                      | iOS, macOS  | [✔️](https://github.com/Ranchero-Software/NetNewsWire)        | En développement       | GReader          | ✔️            | ❔        | ❔                             | ❔                  | ✔️         | ➖     | ❔       | ✔️           |
 
 # Bibliothèques incluses
 
 * [SimplePie](https://simplepie.org/)
-* [MINZ](https://github.com/marienfressinaud/MINZ)
+* [MINZ](https://framagit.org/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
+* [PhpGt/CssXPath](https://github.com/PhpGt/CssXPath)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 * [Chart.js](https://www.chartjs.org)
 

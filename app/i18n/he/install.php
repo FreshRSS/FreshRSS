@@ -1,19 +1,29 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'השלמת ההתקנה',
 		'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
-		'keep_install' => 'Keep previous configuration',	// TODO - Translation
+		'keep_install' => 'Keep previous configuration',	// TODO
 		'next_step' => 'לשלב הבא',
-		'reinstall' => 'Reinstall FreshRSS',	// TODO - Translation
+		'reinstall' => 'Reinstall FreshRSS',	// TODO
 	),
 	'auth' => array(
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
-		'password_format' => 'At least 7 characters',	// TODO - Translation
+		'password_format' => 'At least 7 characters',	// TODO
 		'type' => 'שיטת אימות',
 	),
 	'bdd' => array(
@@ -31,7 +41,7 @@ return array(
 	),
 	'check' => array(
 		'_' => 'בדיקות',
-		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO - Translation
+		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO
 		'cache' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
@@ -57,16 +67,16 @@ return array(
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO - Translation
-			'ok' => 'You have the fileinfo library.',	// TODO - Translation
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
+			'ok' => 'You have the fileinfo library.',	// TODO
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO - Translation
-			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO
+			'ok' => 'You have the recommended library to parse JSON.',	// TODO
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO
 		),
 		'pcre' => array(
 			'nok' => 'הספרייה הנדרשת לביטויים רגולריים אינה מותקנת (php-pcre)',
@@ -82,17 +92,17 @@ return array(
 		),
 		'reload' => 'בדוק שוב',
 		'tmp' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
+			'ok' => 'Permissions on the temp directory are good.',	// TODO
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO - Translation
-			'ok' => 'Permissions on the users directory are good.',	// TODO - Translation
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
+			'ok' => 'Permissions on the users directory are good.',	// TODO
 		),
 		'xml' => array(
-			'nok' => 'Cannot find the required library to parse XML.',	// TODO - Translation
-			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
+			'nok' => 'Cannot find the required library to parse XML.',	// TODO
+			'ok' => 'You have the required library to parse XML.',	// TODO
 		),
 	),
 	'conf' => array(
@@ -104,19 +114,19 @@ return array(
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
 	'js' => array(
-		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO - Translation
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO
 	),
 	'language' => array(
 		'_' => 'שפה',
 		'choose' => 'בחירת שפה ל FreshRSS',
 		'defined' => 'השפה הוגדרה.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
-	'ok' => 'The installation process was successful.',	// TODO - Translation
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO
+	'ok' => 'The installation process was successful.',	// TODO
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO
 	),
-	'step' => 'step %d',	// TODO - Translation
+	'step' => 'step %d',	// TODO
 	'steps' => 'שלבים',
 	'this_is_the_end' => 'סיום',
 	'title' => 'התקנה · FreshRSS',

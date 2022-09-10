@@ -2,7 +2,7 @@
 
 ## First Steps
 
-Start by creating your development environment. A guide to setting up FreshRSS's development environment can be found on [the appropriate page](02_First_steps.md).
+Start by creating your development environment. A guide to setting up FreshRSS’s development environment can be found on [the appropriate page](02_First_steps.md).
 
 ## After That
 
@@ -25,6 +25,10 @@ Start by creating your development environment. A guide to setting up FreshRSS's
 
 * [View files](04_Frontend/01_View_files.md)
 * [Design (Themes/Theming)](04_Frontend/02_Design.md)
+
+## Namespaces
+
+* [OPML FreshRSS namespace](OPML.md)
 
 ## Minz
 

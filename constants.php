@@ -3,7 +3,7 @@
 
 //<Not customisable>
 define('FRESHRSS_MIN_PHP_VERSION', '7.0.0');
-define('FRESHRSS_VERSION', '1.19.0-dev');
+define('FRESHRSS_VERSION', '1.20.0-dev');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
 
@@ -42,7 +42,8 @@ defined('DATA_PATH') or define('DATA_PATH', FRESHRSS_PATH . '/data');
 
 defined('UPDATE_FILENAME') or define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 defined('USERS_PATH') or define('USERS_PATH', DATA_PATH . '/users');
-defined('ADMIN_LOG') or define('ADMIN_LOG', USERS_PATH . '/_/log.txt');
+defined('LOG_FILENAME') or define('LOG_FILENAME', 'log.txt');
+defined('ADMIN_LOG') or define('ADMIN_LOG', USERS_PATH . '/_/' . LOG_FILENAME);
 defined('API_LOG') or define('API_LOG', USERS_PATH . '/_/log_api.txt');
 defined('CACHE_PATH') or define('CACHE_PATH', DATA_PATH . '/cache');
 defined('PSHB_LOG') or define('PSHB_LOG', USERS_PATH . '/_/log_pshb.txt');

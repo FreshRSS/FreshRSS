@@ -1,7 +1,7 @@
 {
   "name": "Blue Lagoon",
   "author": "Mister aiR",
-  "description": "C'est un cocktail (bis)! C'est la version plus fresh de Screwdriver. C'est... c'est... un thème pour l'agrégateur de flux RSS FreshRSS. En toute modestie, ce thème tue du Nyan Cat.",
+  "description": "C’est un cocktail (bis)! C’est la version plus fresh de Screwdriver. C’est… c’est… un thème pour l’agrégateur de flux RSS FreshRSS. En toute modestie, ce thème tue du Nyan Cat.",
   "version": 1.0,
   "files": ["_template.css","BlueLagoon.css"]
 }

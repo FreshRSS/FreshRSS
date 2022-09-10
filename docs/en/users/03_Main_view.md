@@ -2,14 +2,14 @@ FreshRSS has three primary viewing modes: Normal, Global, and Reader view.
 
 # Normal view
 
-Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed's view.
+Normal view will allow you to view articles in a compressed view. They can be separated by category or individual feed, or viewed in the "main stream" containing all feeds. Clicking a feed in the sidebar (mobile users will need to click the folder icon to open it) will open that feed’s view.
 
 ## Article List
 
 By default, the normal view includes six items per article. From left to right:
-* **Read status:** An envalope icon to show if the article has been read or not. Closed envalopes are unread, open envalopes are read. Clicking on the icon will toggle the read status.
+* **Read status:** An envelope icon to show if the article has been read or not. Closed envelopes are unread, open envelopes are read. Clicking on the icon will toggle the read status.
 * **Favourite status:** A star icon to show if the article has been favourited or not. Filled stars are favourited, empty stars are not. Clicking on the icon will toggle the favourite status.
-* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed's view in normal view.
+* **Feed name:** The name of the feed that the article is from. Clicking the feed name will move to that feed’s view in normal view.
 * **Article title:** The title of the article. Clicking will open the article for viewing within FreshRSS.
 * **Article date/time:** The time the article was posted.
 * **Link to original article:** A globe icon that can be clicked to go to the article on the original website.
@@ -19,14 +19,14 @@ By default, the normal view includes six items per article. From left to right:
 Clicking the gear icon next to an individual feed will display additional options for that feed.
 * **Filter:** Run the defined filter to mark articles as read
 * **Statistics:** View statistics about the feed
-* **See website:** Open the feed's website in another tab
+* **See website:** Open the feed’s website in another tab
 * **Manage:** Configure the feed
 * **Actualize:** Force-update the feed
 * **Mark as read:** Mark all items in the feed as read
 
 # Global view
 
-Global view allows quick views of feed's statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed's name will open it in a view similar to normal view.
+Global view allows quick views of feed’s statuses at once. Feeds and categories are shown with the number of unread articles next to them. Clicking a feed’s name will open it in a view similar to normal view.
 
 # Reader view
 
@@ -36,11 +36,9 @@ Reader view will display a feed will all articles already open for reading. Feed
 
 To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this.
 
-## Automatic update
+## Automatic update with cron
 
-This is the recommended method since you can forget about it once it is configured.
-
-### With the actualize_script.php script
+This is the recommended method.
 
 This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
@@ -51,6 +49,13 @@ Here is an example to trigger article update every hour.
 ```cron
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
+
+## Online cron
+
+If you do not have access to the installation server scheduled task, you can still automate the update process.
+
+To do so, you need to create a scheduled task, which need to call a specific URL:
+<https://freshrss.example.net/i/?c=feed&a=actualize> (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
 
 Special parameters to configure the script - all parameters can be combined:
 
@@ -70,56 +75,45 @@ If *maxFeeds* is set the configured amount of feeds is refreshed at once. The de
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
-### Online cron
+### For Form Authentication
 
-If you do not have access to the installation server scheduled task, you can still automate the update process.
-
-To do so, you need to create a scheduled task, which need to call a specific URL:
-<https://freshrss.example.net/i/?c=feed&a=actualize> (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
-
-#### No authentication
-
-This is the most straightforward since you have a public instance; there is nothing special to configure:
-
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
-```
-
-### Form authentication
-
-If you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”).
-
-![Anonymous access configuration](../img/users/anonymous_access.1.png)
-
-The URL used in the previous section will now become accessible to anyone. Therefore you can use the same syntax for the scheduled task.
-
-You can also configure an authentication token to grant special access on the server.
+If your FreshRSS instance is using Form Authentication, you can configure an authentication token to grant access to the online cron.
 
 ![Token configuration](../img/users/token.1.png)
 
+You can target a specific user by adding their username to the query string, with `&user=insert-username`:
+
 The scheduled task syntax should look as follows:
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
-```
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token>
 
-You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+Alternatively, but not recommended, if you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”), and that does not require a token.
 
-```cron
-0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
-```
+![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
-### HTTP authentication
+### For HTTP authentication
 
-When using HTTP authentication, the syntax in the two previous sections is unusable. You'll need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
+If your FreshRSS instance is using HTTP authentication, you’ll need to provide your credentials to the scheduled task.
+
+**Note:** This method is discouraged as your credentials are stored in plain text.
 
 ```cron
-0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice'
 ```
+
+On some systems, that syntax might also work:
+
+<https://alice:password123@freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice>
+
+### For No authentication (None)
+
+If your FreshRSS instance uses no authentication (public instance, default user):
+
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
 
 ## Manual update
 
-If you can't or don't want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
+If you can’t or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
 
 ### Complete update
 
@@ -141,7 +135,7 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 ## Purpose
 
-When the number of articles stored by FreshRSS inevitably grows larger, it's important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
+When the number of articles stored by FreshRSS inevitably grows larger, it’s important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
 ## How-to filter
 
@@ -167,7 +161,7 @@ There are several methods to filter articles by feed:
 
 Each article has two attributes that can be combined. The first attribute indicates whether or not the article has been read. The second attribute indicates if the article was marked as favorite or not.
 
-In version 0.7, attribute filters are available in the article display dropdown list. With this version, it's not possible to combine filters. For instance, it's not possible to display only read and favorite articles.
+In version 0.7, attribute filters are available in the article display dropdown list. With this version, it’s not possible to combine filters. For instance, it’s not possible to display only read and favorite articles.
 
 ![Attribute filters in 0.7](../img/users/status.filter.0.7.png)
 
@@ -227,6 +221,9 @@ You can use the search field to further refine results:
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
+* by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
+* by user query (saved search) name: `search:myQuery`, `search:"My query"` or saved search ID: `S:3`
+	* internally, those references are replaced by the corresponding user query in the search expression
 
 Be careful not to enter a space between the operator and the search value.
 
@@ -239,6 +236,17 @@ For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `i
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
 
+You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
+Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+
+Finally, parentheses may be used to express more complex queries, with basic negation support:
+
+* `(author:Alice OR intitle:hello) (author:Bob OR intitle:world)`
+* `(author:Alice intitle:hello) OR (author:Bob intitle:world)`
+* `!((author:Alice intitle:hello) OR (author:Bob intitle:world))`
+* `(author:Alice intitle:hello) !(author:Bob intitle:world)`
+* `!(S:1 OR S:2)`
+
 ### By sorting by date
 
 You can change the sort order by clicking the toggle button available in the header.
@@ -248,7 +256,7 @@ You can change the sort order by clicking the toggle button available in the hea
 Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
 
 Hopefully, there is a way to bookmark them for later use.
-We call them _user queries_.
+We call them *user queries*.
 You can create as many as you want, the only limit is how they will be displayed on your screen.
 
 ### Bookmark the current query
@@ -258,7 +266,7 @@ Display the user queries drop-down by clicking the button next to the state butt
 
 Then click on the bookmark action.
 
-Congratulations, you're done!
+Congratulations, you’re done!
 
 ### Using a bookmarked query
 
@@ -268,4 +276,4 @@ Display the user queries drop-down by clicking the button next to the state butt
 Then click on the bookmarked query, the previously stored query will be applied.
 
 > Note that only the query is stored, not the articles.
-> The results you are seing now could be different from the results on the day you've created the query.
+> The results you are seeing now could be different from the results on the day you've created the query.

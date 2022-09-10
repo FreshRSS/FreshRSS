@@ -26,10 +26,10 @@ if (empty($options['user'])) {
 sort($users);
 
 $formatJson = isset($options['json']);
+$jsonOutput = [];
 if ($formatJson) {
 	unset($options['header']);
 	unset($options['h']);
-	$jsonOutput = [];
 }
 
 if (array_key_exists('header', $options)) {

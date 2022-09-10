@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivierung',
@@ -27,7 +37,7 @@ return array(
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
-			'related_tags' => 'Verwandte Tags',
+			'related_tags' => 'Hashtags',
 			'sharing' => 'Teilen',
 			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
@@ -54,6 +64,19 @@ return array(
 			'medium' => 'Mittel',
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Stufe',
+			'message' => 'Log Nachricht',
+			'timestamp' => 'Zeitstempel',
+		),
+		'pagination' => array(
+			'first' => 'Erste',
+			'last' => 'Letzte',
+			'next' => 'Nächste',
+			'previous' => 'Vorherige',
 		),
 	),
 	'profile' => array(
@@ -86,7 +109,7 @@ return array(
 		'get_category' => 'Kategorie "%s" anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed "%s" anzeigen',
-		'name' => 'Name',
+		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
@@ -114,12 +137,46 @@ return array(
 		'_' => 'Lesen',
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'always_show_favorites' => 'Favoriten immer anzeigen',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autoren und Datum',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Oberhalb der Überschrit und Hashtags',
+				'none' => 'Nicht anzeigen',
+				'with_authors' => 'In der Zeile mit Autoren und Datum',
+			),
+			'feed_title' => 'Feed Titel',
+			'tags' => array(
+				'_' => 'Hashtags',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'tags_max' => array(
+				'_' => 'Max Anzahl von Hashtags',
+				'help' => '0 bedeutet: Zeige alle Hashtags und fasse sie nicht zusammen',
+			),
+		),
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
+		'headline' => array(
+			'articles' => 'Artikel: Öffnen/Schließen',
+			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
+			'categories' => 'Linke Navigation: Kategorien',
+			'mark_as_read' => 'Artikel als gelesen markieren',
+			'misc' => 'Sonstiges',
+			'view' => 'Ansicht',
+		),
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
@@ -130,6 +187,7 @@ return array(
 			'article_viewed' => 'wenn der Artikel angesehen wird',
 			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
 			'scroll' => 'beim Scrollen bzw. Überspringen',
+			'upon_gone' => 'wenn der Artikel nicht mehr im Feed enthalten ist',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
 			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',
@@ -163,20 +221,21 @@ return array(
 	'sharing' => array(
 		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'Dieser Dienst ist veraltet und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">zukünftigen FreshRSS-Version</a> entfernt.',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-Mail',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Weitere Informationen',
 		'print' => 'Drucken',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Entferne Teilen-Dienst',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Anzuzeigender Teilen-Name',
 		'share_url' => 'Zu verwendende Teilen-URL',
 		'title' => 'Teilen',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Tastenkombination',
@@ -192,9 +251,9 @@ return array(
 		'javascript' => 'JavaScript muss aktiviert sein, um Tastaturkürzel benutzen zu können',
 		'last_article' => 'Zum letzten Artikel springen',
 		'load_more' => 'Weitere Artikel laden',
-		'mark_favorite' => 'Als Favorit markieren',
-		'mark_read' => 'Als gelesen markieren',
-		'navigation' => 'Navigation',
+		'mark_favorite' => 'Als Favorit auswählen/entfernen',
+		'mark_read' => 'Als (un-)gelesen markieren',
+		'navigation' => 'Navigation',	// IGNORE
 		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',

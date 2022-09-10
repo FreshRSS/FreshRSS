@@ -133,7 +133,7 @@ SQL;
 	 *
 	 * @param string $period format string to use for grouping
 	 * @param integer $feed id
-	 * @return array
+	 * @return array<int,int>
 	 */
 	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
 		$restrict = '';
@@ -178,7 +178,7 @@ SQL;
 	 * Calculates the average number of article per hour per feed
 	 *
 	 * @param integer $feed id
-	 * @return integer
+	 * @return float
 	 */
 	public function calculateEntryAveragePerFeedPerHour($feed = null) {
 		return $this->calculateEntryAveragePerFeedPerPeriod(1 / 24, $feed);
@@ -188,7 +188,7 @@ SQL;
 	 * Calculates the average number of article per day of week per feed
 	 *
 	 * @param integer $feed id
-	 * @return integer
+	 * @return float
 	 */
 	public function calculateEntryAveragePerFeedPerDayOfWeek($feed = null) {
 		return $this->calculateEntryAveragePerFeedPerPeriod(7, $feed);
@@ -198,7 +198,7 @@ SQL;
 	 * Calculates the average number of article per month per feed
 	 *
 	 * @param integer $feed id
-	 * @return integer
+	 * @return float
 	 */
 	public function calculateEntryAveragePerFeedPerMonth($feed = null) {
 		return $this->calculateEntryAveragePerFeedPerPeriod(30, $feed);
@@ -209,7 +209,7 @@ SQL;
 	 *
 	 * @param float $period number used to divide the number of day in the period
 	 * @param integer $feed id
-	 * @return integer
+	 * @return float
 	 */
 	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
 		$restrict = '';
@@ -337,7 +337,7 @@ SQL;
 	/**
 	 * Gets days ready for graphs
 	 *
-	 * @return string
+	 * @return array<string>
 	 */
 	public function getDays() {
 		return $this->convertToTranslatedJson(array(
@@ -354,7 +354,7 @@ SQL;
 	/**
 	 * Gets months ready for graphs
 	 *
-	 * @return string
+	 * @return array<string>
 	 */
 	public function getMonths() {
 		return $this->convertToTranslatedJson(array(
@@ -377,7 +377,7 @@ SQL;
 	 * Translates array content
 	 *
 	 * @param array $data
-	 * @return array
+	 * @return array<string>
 	 */
 	private function convertToTranslatedJson($data = array()) {
 		$translated = array_map(function($a) {

@@ -8,7 +8,7 @@
 
 > **À FAIRE**
 
-## Gestion de l'authentification
+## Gestion de l’authentification
 
 > **À FAIRE**
 

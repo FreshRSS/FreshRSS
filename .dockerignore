@@ -1,6 +1,6 @@
-**/.git/
-**/bin/
-**/data/
-**/docs/
-**/node_modules/
-**/package*.json
+/.git/
+/bin/
+/data/
+/docs/
+/node_modules/
+/vendor/

@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => '누구나 기본 사용자의 글을 읽을 수 있도록 합니다(%s)',
@@ -158,8 +168,20 @@ return array(
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
 		'registration' => array(
-			'help' => '0: 제한 없음',
 			'number' => '계정 최대 개수',
+			'select' => array(
+				'label' => '회원가입 양식',
+				'option' => array(
+					'noform' => '비활성화: 회원가입 양식 없음',
+					'nolimit' => '활성화: 계정 개수 제한 없음',
+					'setaccountsnumber' => '최대 계정 개수 설정',
+				),
+			),
+			'status' => array(
+				'disabled' => '양식 비활성화됨',
+				'enabled' => '양식 활성화됨',
+			),
+			'title' => '사용자 회원가입 양식',
 		),
 	),
 	'update' => array(

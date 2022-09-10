@@ -1,4 +1,5 @@
-<div class="prompt">
+<?php /** @var FreshRSS_View $this */ ?>
+<main class="prompt">
 	<h1><?= _t('gen.auth.registration') ?></h1>
 
 	<form method="post" action="<?= _url('user', 'create') ?>">
@@ -34,7 +35,7 @@
 			<label for="new_user_passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
 				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" required="required" autocomplete="new-password" pattern=".{7,}" />
-				<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></a>
+				<button type="button" class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></button>
 			</div>
 			<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.password.format') ?></p>
@@ -66,4 +67,4 @@
 	</form>
 
 	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
-</div>
+</main>

@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Öntanımlı kullanıcının makalelerinin anonim okunmasına izin ver (%s)',
@@ -158,8 +168,20 @@ return array(
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
 		'registration' => array(
-			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',
+			'select' => array(
+				'label' => 'Registration form',	// TODO
+				'option' => array(
+					'noform' => 'Disabled: No registration form',	// TODO
+					'nolimit' => 'Enabled: No limit of accounts',	// TODO
+					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
+			),
+			'title' => 'User registration form',	// TODO
 		),
 	),
 	'update' => array(

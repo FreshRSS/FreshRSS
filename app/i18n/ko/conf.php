@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => '보관',
@@ -54,6 +64,19 @@ return array(
 			'medium' => '중간',
 			'no_limit' => '제한 없음',
 			'thin' => '얇게',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => '로그 수준',
+			'message' => '로그 메세지',
+			'timestamp' => '시간 표기',
+		),
+		'pagination' => array(
+			'first' => '처음으로',
+			'last' => '마지막으로',
+			'next' => '다음',
+			'previous' => '이전',
 		),
 	),
 	'profile' => array(
@@ -114,12 +137,46 @@ return array(
 		'_' => '읽기',
 		'after_onread' => '“모두 읽음으로 표시” 후,',
 		'always_show_favorites' => '기본으로 즐겨찾기에 있는 모든 글을 표시',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '작성자, 작성일',
+				'both' => '머리말과 꼬리말에 모두',
+				'footer' => '꼬리말에',
+				'header' => '머리말에',
+				'none' => '숨김',
+			),
+			'feed_name' => array(
+				'above_title' => '제목/태그 위에',
+				'none' => '숨김',
+				'with_authors' => '작성자, 작성일과 같은 줄에',
+			),
+			'feed_title' => '피드 제목',
+			'tags' => array(
+				'_' => '태그',
+				'both' => '머리말과 꼬리말에',
+				'footer' => '꼬리말에',
+				'header' => '머리말에',
+				'none' => '숨김',
+			),
+			'tags_max' => array(
+				'_' => ' 표시할 최대 태그 수',
+				'help' => '0 으로 설정하면 모든 태그를 표시하고 숨기지 않습니다',
+			),
+		),
 		'articles_per_page' => '페이지당 글 수',
 		'auto_load_more' => '페이지 하단에 다다르면 글 더 불러오기',
 		'auto_remove_article' => '글을 읽은 후 숨기기',
 		'confirm_enabled' => '“모두 읽음으로 표시” 실행시 확인 창 표시',
 		'display_articles_unfolded' => '글을 펼쳐진 상태로 보여주기',
 		'display_categories_unfolded' => '다음 카테고리를 펼치기',
+		'headline' => array(
+			'articles' => '기사: 열기/닫기',
+			'articles_header_footer' => '기사: 머리말/꼬리말',
+			'categories' => '좌측 탐색 메뉴: 카테고리',
+			'mark_as_read' => '읽음으로 표시',
+			'misc' => '기타',
+			'view' => '보기',
+		),
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
 		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',
@@ -130,6 +187,7 @@ return array(
 			'article_viewed' => '글을 읽었을 때',
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
 			'scroll' => '스크롤을 하며 지나갈 때',
+			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
 			'when_same_title' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우',
@@ -163,20 +221,21 @@ return array(
 	'sharing' => array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => '이 서비스는 더 이상 사용되지 않으며 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="상세 정보 문서 열기" target="_blank">추후 릴리즈</a> FreshRSS에서 삭제 될 것 입니다.',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '공유 방법 삭제',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '표시할 이름',
 		'share_url' => '사용할 공유 URL',
 		'title' => '공유',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => '단축키',

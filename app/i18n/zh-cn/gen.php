@@ -1,13 +1,24 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => '获取',
+		'actualize' => '更新提要',
 		'add' => '添加',
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
 		'create' => '创建',
+		'delete_muted_feeds' => '删除已暂停的订阅源',
 		'demote' => '撤销管理员',
 		'disable' => '禁用',
 		'empty' => '清空',
@@ -17,16 +28,17 @@ return array(
 		'import' => '导入',
 		'load_default_shortcuts' => '重置快捷键',
 		'manage' => '管理',
-		'mark_favorite' => '标记收藏',
 		'mark_read' => '标记已读',
+		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'refresh_opml' => '刷新订阅源动态列表',
 		'remove' => '删除',
 		'rename' => '重命名',
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
-		'update' => '刷新',
+		'update' => '更新订阅',
 	),
 	'auth' => array(
 		'accept_tos' => '我接受 <a href="%s">服务条款</a>',
@@ -97,7 +109,7 @@ return array(
 		'november' => '十一月',
 		'oct' => '十月',
 		'october' => '十月',
-		'sat' => '周日',
+		'sat' => '周六',
 		'sep' => '九月',
 		'september' => '九月',
 		'sun' => '周日',
@@ -107,9 +119,9 @@ return array(
 		'wed' => '周三',
 		'yesterday' => '昨天',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => '关于 FreshRSS',
 	),
 	'js' => array(
@@ -118,6 +130,7 @@ return array(
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询。这将不可撤销！',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
+			'body_unread_articles' => '(未读: %%d)',
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
@@ -125,28 +138,29 @@ return array(
 		'should_be_activated' => '必须启用 JavaScript',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'ja' => '日本語',
-		'ko' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => '关于',
-		'account' => 'Account',	// TODO - Translation
+		'account' => '账户',
 		'admin' => '管理',
 		'archiving' => '归档',
 		'authentication' => '认证',
@@ -166,15 +180,6 @@ return array(
 		'user_management' => '用户管理',
 		'user_profile' => '用户帐户',
 	),
-	'pagination' => array(
-		'first' => '首页',
-		'last' => '末页',
-		'load_more' => '载入更多文章',
-		'mark_all_read' => '全部设为已读',
-		'next' => '下一页',
-		'nothing_to_load' => '没有更多文章',
-		'previous' => '上一页',
-	),
 	'period' => array(
 		'days' => '天',
 		'hours' => '时',
@@ -184,25 +189,31 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',
-		'blogotext' => 'Blogotext',
+		'archivePH' => 'archive.ph',	// IGNORE
+		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => '剪贴板',
-		'diaspora' => 'Diaspora*',
-		'email' => '邮箱',
-		'facebook' => '脸书',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => '邮箱',	// IGNORE
+		'facebook' => '脸书',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => '打印',
-		'raindrop' => 'Raindrop.io',
-		'shaarli' => 'Shaarli',
-		'twitter' => '推特',
-		'wallabag' => 'Wallabag v1',
-		'wallabagv2' => 'Wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => '推特',	// IGNORE
+		'wallabag' => 'Wallabag v1',	// IGNORE
+		'wallabagv2' => 'Wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Web分享',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => '警告!',
@@ -216,5 +227,10 @@ return array(
 		'ok' => '正常！',
 		'or' => '或',
 		'yes' => '是',
+	),
+	'stream' => array(
+		'load_more' => '载入更多文章',
+		'mark_all_read' => '全部设为已读',
+		'nothing_to_load' => '没有更多文章',
 	),
 );

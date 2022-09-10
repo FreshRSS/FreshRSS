@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.5.6
+ * @version 1.5.8
  * @copyright 2004-2017 Ryan Parman, Sam Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Sam Sneddon
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.5.6');
+define('SIMPLEPIE_VERSION', '1.5.8');
 
 /**
  * SimplePie Build
@@ -435,7 +435,7 @@ class SimplePie
 	 * @see SimplePie::status_code()
 	 * @access private
 	 */
-	public $status_code;
+	public $status_code = 0;
 
 	/**
 	 * @var object Instance of SimplePie_Sanitize (or other class)
@@ -657,11 +657,18 @@ class SimplePie
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 
 	/**
+	 * @var array Stores the default tags to be stripped by rename_attributes().
+	 * @see SimplePie::rename_attributes()
+	 * @access private
+	 */
+	public $rename_attributes = array();
+
+	/**
 	 * @var bool Should we throw exceptions, or use the old-style error property?
 	 * @access private
 	 */
 	public $enable_exceptions = false;
-	
+
 	/**
 	 * Use syslog to report HTTP requests done by SimplePie.
 	 * @see SimplePie::set_syslog()
@@ -1235,6 +1242,15 @@ class SimplePie
 		$this->sanitize->encode_instead_of_strip($enable);
 	}
 
+	public function rename_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->rename_attributes;
+		}
+		$this->sanitize->rename_attributes($attribs);
+	}
+
 	public function strip_attributes($attribs = '')
 	{
 		if ($attribs === '')
@@ -1389,7 +1405,7 @@ class SimplePie
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
-	 * @return positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
+	 * @return boolean|integer positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
 	 */
 	public function init()
 	{
@@ -1845,7 +1861,7 @@ class SimplePie
 	}
 
 	/**
-	 * Get the error message for the occured error
+	 * Get the error message for the occurred error
 	 *
 	 * @return string|array Error message, or array of messages for multifeeds
 	 */
@@ -2259,7 +2275,7 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		if (!($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION) && !empty($element['xml_base_explicit']) && isset($element['xml_base']))
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
 		{
 			return $element['xml_base'];
 		}
@@ -2707,13 +2723,21 @@ class SimplePie
 			}
 		}
 
-		if (isset($this->data['headers']['link']) &&
-		    preg_match('/<([^>]+)>; rel='.preg_quote($rel).'/',
-		               $this->data['headers']['link'], $match))
+		if (isset($this->data['headers']['link']))
 		{
-			return array($match[1]);
+			$link_headers = $this->data['headers']['link'];
+			if (is_array($link_headers)) {
+				$link_headers = implode(',', $link_headers);
+			}
+			// https://datatracker.ietf.org/doc/html/rfc8288
+			if (is_string($link_headers) &&
+				preg_match_all('/<(?P<uri>[^>]+)>\s*;\s*rel\s*=\s*(?P<quote>"?)' . preg_quote($rel) . '(?P=quote)\s*(?=,|$)/i', $link_headers, $matches))
+			{
+				return $matches['uri'];
+			}
 		}
-		else if (isset($this->data['links'][$rel]))
+
+		if (isset($this->data['links'][$rel]))
 		{
 			return $this->data['links'][$rel];
 		}

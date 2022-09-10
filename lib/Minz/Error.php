@@ -5,19 +5,19 @@
 */
 
 /**
- * La classe Error permet de lancer des erreurs HTTP
+ * The Minz_Error class logs and raises framework errors
  */
 class Minz_Error {
 	public function __construct () { }
 
 	/**
 	* Permet de lancer une erreur
-	* @param $code le type de l'erreur, par défaut 404 (page not found)
-	* @param $logs logs d'erreurs découpés de la forme
+	* @param int $code le type de l'erreur, par défaut 404 (page not found)
+	* @param array<string>|array<string,array<string>> $logs logs d'erreurs découpés de la forme
 	*      > $logs['error']
 	*      > $logs['warning']
 	*      > $logs['notice']
-	* @param $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
+	* @param bool $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
 	*/
 	public static function error ($code = 404, $logs = array (), $redirect = true) {
 		$logs = self::processLogs ($logs);
@@ -33,7 +33,7 @@ class Minz_Error {
 				'c' => 'error'
 			), $redirect);
 		} else {
-			echo '<h1>An error occured</h1>' . "\n";
+			echo '<h1>An error occurred</h1>' . "\n";
 
 			if (!empty ($logs)) {
 				echo '<ul>' . "\n";
@@ -48,10 +48,9 @@ class Minz_Error {
 	}
 
 	/**
-	 * Permet de retourner les logs de façon à n'avoir que
-	 * ceux que l'on veut réellement
-	 * @param $logs les logs rangés par catégories (error, warning, notice)
-	 * @return array liste des logs, sans catégorie, en fonction de l'environment
+	 * Returns filtered logs
+	 * @param array<string,string>|string $logs logs sorted by category (error, warning, notice)
+	 * @return array<string> list of matching logs, without the category, according to environment preferences (production / development)
 	 */
 	private static function processLogs ($logs) {
 		$conf = Minz_Configuration::get('system');

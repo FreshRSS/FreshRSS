@@ -1,11 +1,23 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
 
-<div class="post ">
+<main class="post ">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
 
 	<h1><?= _t('sub.menu.import_export') ?></h1>
+
+	<h2><?= _t('sub.category.dynamic_opml') ?></h2>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<ul>
+				<li><a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.title.add_dynamic_opml') ?> <?= _i('opml-dyn') ?></a></li>
+			</ul>
+		</div>
+	</div>
 
 	<h2><?= _t('sub.import_export.import') ?></h2>
 	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
@@ -69,4 +81,4 @@
 		</div>
 	</form>
 	<?php } ?>
-</div>
+</main>

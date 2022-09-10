@@ -32,6 +32,10 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
+	private $mailer;
+	private $smtp_config;
+	private $debug_level;
+
 	/**
 	 * Constructor.
 	 */

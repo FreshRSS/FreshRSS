@@ -1,0 +1,22 @@
+version: "2.4"
+
+volumes:
+  data:
+  extensions:
+
+services:
+
+  freshrss:
+    image: freshrss/freshrss
+    container_name: freshrss
+    hostname: freshrss
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - data:/var/www/FreshRSS/data
+      - extensions:/var/www/FreshRSS/extensions
+    environment:
+      TZ: Europe/Paris
+      CRON_MIN: '3,33'

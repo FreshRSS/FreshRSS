@@ -29,20 +29,22 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
 
 if (PHP_INT_SIZE < 8) {	//32-bit
-	function dec2hex($dec) {
-		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
-	}
+	/**
+	 * @param string $hex
+	 * @return string
+	 */
 	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
+		if (!ctype_xdigit($hex)) return '0';
 		return gmp_strval(gmp_init($hex, 16), 10);
 	}
 } else {	//64-bit
-	function dec2hex($dec) {	//http://code.google.com/p/google-reader-api/wiki/ItemId
-		return str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
-	}
+	/**
+	 * @param string $hex
+	 * @return string
+	 */
 	function hex2dec($hex) {
-		if (!ctype_xdigit($hex)) return 0;
-		return hexdec($hex);
+		if (!ctype_xdigit($hex)) return '0';
+		return '' . hexdec($hex);
 	}
 }
 
@@ -65,7 +67,8 @@ function headerVariable($headerName, $varName) {
 	return isset($pairs[$varName]) ? $pairs[$varName] : null;
 }
 
-function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
+function multiplePosts($name) {
+	//https://bugs.php.net/bug.php?id=51633
 	global $ORIGINAL_INPUT;
 	$inputs = explode('&', $ORIGINAL_INPUT);
 	$result = array();
@@ -79,6 +82,9 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
+/**
+ * @return string
+ */
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -178,7 +184,8 @@ function authorizationToUser() {
 	return '';
 }
 
-function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
+function clientLogin($email, $pass) {
+	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
 		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
@@ -228,7 +235,8 @@ function checkToken($conf, $token) {
 	unauthorized();
 }
 
-function userInfo() {	//https://github.com/theoldreader/api#user-info
+function userInfo() {
+	//https://github.com/theoldreader/api#user-info
 	$user = Minz_Session::param('currentUser', '_');
 	exit(json_encode(array(
 			'userId' => $user,
@@ -284,8 +292,8 @@ function subscriptionExport() {
 function subscriptionImport($opml) {
 	$user = Minz_Session::param('currentUser', '_');
 	$importService = new FreshRSS_Import_Service($user);
-	$ok = $importService->importOpml($opml);
-	if ($ok) {
+	$importService->importOpml($opml);
+	if ($importService->lastStatus()) {
 		list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
 		invalidateHttpCache($user);
 		exit('OK');
@@ -440,7 +448,8 @@ function quickadd($url) {
 	}
 }
 
-function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
+function unreadCount() {
+	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$totalUnreads = 0;
@@ -502,8 +511,9 @@ function entriesToArray($entries) {
 	if (empty($entries)) {
 		return array();
 	}
-	$feedDAO = FreshRSS_Factory::createFeedDao();
-	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
+	$catDAO = FreshRSS_Factory::createCategoryDao();
+	$categories = $catDAO->listCategories(true);
+
 	$tagDAO = FreshRSS_Factory::createTagDao();
 	$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
 	if ($entryIdsTagNames == false) {
@@ -512,69 +522,20 @@ function entriesToArray($entries) {
 
 	$items = array();
 	foreach ($entries as $item) {
+		/** @var FreshRSS_Entry $entry */
 		$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if ($entry == null) {
 			continue;
 		}
-		$f_id = $entry->feed();
-		if (isset($arrayFeedCategoryNames[$f_id])) {
-			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
-			$f_name = $arrayFeedCategoryNames[$f_id]['name'];
-		} else {
-			$c_name = '_';
-			$f_name = '_';
+
+		$feed = FreshRSS_CategoryDAO::findFeed($categories, $entry->feedId());
+		$entry->_feed($feed);
+
+		if (isset($entryIdsTagNames['e_' . $entry->id()])) {
+			$entry->_tags($entryIdsTagNames['e_' . $entry->id()]);
 		}
-		$item = array(
-			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
-			'crawlTimeMsec' => substr($entry->dateAdded(true, true), 0, -3),
-			'timestampUsec' => '' . $entry->dateAdded(true, true), //EasyRSS & Reeder
-			'published' => $entry->date(true),
-			'title' => escapeToUnicodeAlternative($entry->title(), false),
-			'summary' => array('content' => $entry->content()),
-			'canonical' => array(
-				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
-			),
-			'alternate' => array(
-				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
-			),
-			'categories' => array(
-				'user/-/state/com.google/reading-list',
-				'user/-/label/' . htmlspecialchars_decode($c_name, ENT_QUOTES),
-			),
-			'origin' => array(
-				'streamId' => 'feed/' . $f_id,
-				'title' => escapeToUnicodeAlternative($f_name, true),	//EasyRSS
-				//'htmlUrl' => $line['f_website'],
-			),
-		);
-		foreach ($entry->enclosures() as $enclosure) {
-			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
-				$media = [
-						'href' => $enclosure['url'],
-						'type' => $enclosure['type'],
-					];
-				if (!empty($enclosure['length'])) {
-					$media['length'] = intval($enclosure['length']);
-				}
-				$item['enclosure'][] = $media;
-			}
-		}
-		$author = $entry->authors(true);
-		$author = trim($author, '; ');
-		if ($author != '') {
-			$item['author'] = escapeToUnicodeAlternative($author, false);
-		}
-		if ($entry->isRead()) {
-			$item['categories'][] = 'user/-/state/com.google/read';
-		}
-		if ($entry->isFavorite()) {
-			$item['categories'][] = 'user/-/state/com.google/starred';
-		}
-		$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
-		foreach ($tagNames as $tagName) {
-			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
-		}
-		$items[] = $item;
+
+		$items[] = $entry->toGReader('compat');
 	}
 	return $items;
 }
@@ -1096,7 +1057,7 @@ if ($pathInfos[1] === 'accounts') {
 							//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
 							$streamNames = empty($_POST['s']) && isset($_GET['s']) ? array($_GET['s']) : multiplePosts('s');
 							/* Title to use for the subscription. For the `subscribe` action,
-							 * if not specified then the feed's current title will be used. Can
+							 * if not specified then the feed’s current title will be used. Can
 							 * be used with the `edit` action to rename a subscription */
 							$titles = empty($_POST['t']) && isset($_GET['t']) ? array($_GET['t']) : multiplePosts('t');
 							$action = $_REQUEST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`
@@ -1116,8 +1077,7 @@ if ($pathInfos[1] === 'accounts') {
 		case 'unread-count':
 			$output = isset($_GET['output']) ? $_GET['output'] : '';
 			if ($output !== 'json') notImplemented();
-			$all = isset($_GET['all']) ? $_GET['all'] : '';
-			unreadCount($all);
+			unreadCount();
 			break;
 		case 'edit-tag':	//http://blog.martindoms.com/2010/01/20/using-the-google-reader-api-part-3/
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';

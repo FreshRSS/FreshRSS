@@ -23,14 +23,11 @@ class I18nUsageValidator implements I18nValidatorInterface {
 		return $this->result;
 	}
 
-	public function validate($ignore) {
+	public function validate() {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $key => $value) {
 				$this->totalEntries++;
 				if (preg_match('/\._$/', $key) && in_array(preg_replace('/\._$/', '', $key), $this->code)) {
-					continue;
-				}
-				if (is_array($ignore) && in_array($key, $ignore)) {
 					continue;
 				}
 				if (!in_array($key, $this->code)) {
