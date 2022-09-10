@@ -50,14 +50,13 @@
 					</li>
 				<?php endforeach; ?>
 
-				<?php 
-				$classSeparator = '';
-				if (count(FreshRSS_Context::$user_conf->queries) > 0) {
-					$classSeparator = ' separator';
-				} ?>
-
 				<?php
-					$url_query = Minz_Request::currentRequest();;
+					$classSeparator = '';
+					if (count(FreshRSS_Context::$user_conf->queries) > 0) {
+						$classSeparator = ' separator';
+					} 
+
+					$url_query = Minz_Request::currentRequest();
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
