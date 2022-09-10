@@ -55,7 +55,6 @@
 				<?php else: ?>
 				<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
 				<?php endif; ?>
-				<li class="separator"></li>
 				<li class="dropdown-header"><?= _t('gen.menu.configuration') ?></li>
 				<li class="item"><a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a></li>
 				<li class="item"><a href="<?= _url('configure', 'reading') ?>"><?= _t('gen.menu.reading') ?></a></li>
@@ -67,7 +66,6 @@
 				<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
 
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-				<li class="separator"></li>
 				<li class="dropdown-header"><?= _t('gen.menu.admin') ?></li>
 				<li class="item"><a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a></li>
 				<li class="item"><a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a></li>
@@ -79,7 +77,6 @@
 				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
 				<?php } ?>
 
-				<li class="separator"></li>
 				<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 				<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 				<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>

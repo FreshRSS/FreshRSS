@@ -50,16 +50,18 @@
 					</li>
 				<?php endforeach; ?>
 
-				<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
-				<li class="separator"></li>
-				<?php } ?>
+				<?php 
+				$classSeparator = '';
+				if (count(FreshRSS_Context::$user_conf->queries) > 0) {
+					$classSeparator = ' separator';
+				} ?>
 
 				<?php
 					$url_query = Minz_Request::currentRequest();;
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -112,7 +114,6 @@
 						formaction="<?= Minz_Url::display($mark_read_url) ?>"
 						type="submit"><?= $string_mark ?></button>
 				</li>
-				<li class="separator"></li>
 <?php
 	$today = @strtotime('today');
 	$mark_before_today = $mark_read_url;
@@ -121,7 +122,7 @@
 	$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
 	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) or !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ);
 ?>
-				<li class="item">
+				<li class="item separator">
 					<button class="as-link <?= $confirm ?>"
 						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_today) ?>"
@@ -133,8 +134,7 @@
 						formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
 						type="submit"><?= _t('index.menu.before_one_week') ?></button>
 				</li>
-				<li class="separator"></li>
-				<li class="item">
+				<li class="item separator">
 					<button class="as-link <?= $mark_unread_enabled ? $confirm : '" disabled="disabled' ?>"
 						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_unread_url) ?>"
