@@ -1,4 +1,7 @@
-# FreshRSS changelog
+﻿# FreshRSS changelog
+
+## 202X-XX-XX FreshRSS 1.20.1-dev
+
 
 ## 2022-09-10 FreshRSS 1.20.0
 
