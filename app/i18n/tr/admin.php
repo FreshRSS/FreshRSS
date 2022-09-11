@@ -116,6 +116,7 @@ return array(
 		'description' => 'Açıklama',
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Aktif',
 		'latest' => 'Kuruldu',
 		'name' => 'İsim',

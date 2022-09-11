@@ -171,6 +171,7 @@ return array(
 		'display' => 'Anzeige',
 		'extensions' => 'Erweiterungen',
 		'logs' => 'Protokolle',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Benutzerabfragen',
 		'reading' => 'Lesen',
 		'search' => 'Suche Worte oder #Tags',

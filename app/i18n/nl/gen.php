@@ -171,6 +171,7 @@ return array(
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
 		'logs' => 'Log boeken',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Gebruikers informatie',
 		'reading' => 'Lezen',
 		'search' => 'Zoek woorden of #labels',

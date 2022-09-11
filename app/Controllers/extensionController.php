@@ -42,7 +42,17 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	protected function getAvailableExtensionList() {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
-		$json = @file_get_contents($extensionListUrl);
+
+		$cacheFile = CACHE_PATH . '/extensions.json';
+		if (FreshRSS_Context::$user_conf->retrieve_extension_list === true) {
+			if (!file_exists($cacheFile) || (time() - filemtime($cacheFile) > 86400)) {
+				@file_put_contents($cacheFile, file_get_contents($extensionListUrl));
+			}
+			$json = @file_get_contents($cacheFile);
+		} else {
+			Minz_Log::warning('The extension list retrieval has been blocked for privacy reasons');
+			return [];
+		}
 
 		// we ran into problems, simply ignore them
 		if ($json === false) {

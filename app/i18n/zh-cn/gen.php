@@ -171,6 +171,7 @@ return array(
 		'display' => '显示',
 		'extensions' => '扩展',
 		'logs' => '日志',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => '自定义查询',
 		'reading' => '阅读',
 		'search' => '搜索内容或#标签',

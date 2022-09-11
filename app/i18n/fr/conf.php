@@ -87,6 +87,10 @@ return array(
 			'previous' => 'Précédent',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Vie privée',
+		'retrieve_extension_list' => 'Récupération de la liste des extensions',
+	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
 		'api' => 'Gestion de l’API',

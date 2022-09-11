@@ -116,6 +116,7 @@ return array(
 		'description' => '설명',
 		'disabled' => '비활성화됨',
 		'empty_list' => '설치된 확장 기능이 없습니다',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '활성화됨',
 		'latest' => '설치됨',
 		'name' => '이름',

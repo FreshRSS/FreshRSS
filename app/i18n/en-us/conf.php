@@ -87,6 +87,10 @@ return array(
 			'previous' => 'Previous',	// IGNORE
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Profile management',	// IGNORE
 		'api' => 'API management',	// IGNORE

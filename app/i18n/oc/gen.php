@@ -171,6 +171,7 @@ return array(
 		'display' => 'Afichatge',
 		'extensions' => 'Extensions',	// IGNORE
 		'logs' => 'Jornals d’audit',	// IGNORE
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Filtres utilizaire',
 		'reading' => 'Lectura',
 		'search' => 'Recercar de mots o d’#etiquetas',

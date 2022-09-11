@@ -171,6 +171,7 @@ return array(
 		'display' => 'Visualizzazione',
 		'extensions' => 'Estensioni',
 		'logs' => 'Log',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',

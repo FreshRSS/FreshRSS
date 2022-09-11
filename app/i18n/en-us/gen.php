@@ -171,6 +171,7 @@ return array(
 		'display' => 'Display',	// IGNORE
 		'extensions' => 'Extensions',	// IGNORE
 		'logs' => 'Logs',	// IGNORE
+		'privacy' => 'Privacy',	// IGNORE
 		'queries' => 'User queries',	// IGNORE
 		'reading' => 'Reading',	// IGNORE
 		'search' => 'Search words or #tags',	// IGNORE

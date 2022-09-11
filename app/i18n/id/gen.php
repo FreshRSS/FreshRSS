@@ -171,6 +171,7 @@ return array(
 		'display' => 'Display',	// TODO
 		'extensions' => 'Extensions',	// TODO
 		'logs' => 'Logs',	// TODO
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'User queries',	// TODO
 		'reading' => 'Reading',	// TODO
 		'search' => 'Search words or #tags',	// TODO

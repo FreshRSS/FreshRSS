@@ -87,6 +87,10 @@ return array(
 			'previous' => '上一页',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => '账户管理',
 		'api' => 'API 管理',

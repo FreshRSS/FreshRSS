@@ -171,6 +171,7 @@ return array(
 		'display' => '顯示',
 		'extensions' => '擴充功能',
 		'logs' => '日誌',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => '自定義查詢',
 		'reading' => '閱讀',
 		'search' => '搜尋內容或#標簽',

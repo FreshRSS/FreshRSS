@@ -171,6 +171,7 @@ return array(
 		'display' => 'Görünüm',
 		'extensions' => 'Eklentiler',
 		'logs' => 'Log kayıtları',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Kullanıcı sorguları',
 		'reading' => 'Okuma',
 		'search' => 'Kelime veya #etiket ara',

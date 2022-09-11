@@ -171,6 +171,7 @@ return array(
 		'display' => 'Zobrazení',
 		'extensions' => 'Rozšíření',
 		'logs' => 'Protokoly',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Uživatelské dotazy',
 		'reading' => 'Čtení',
 		'search' => 'Hledat slova nebo #štítky',

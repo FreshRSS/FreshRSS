@@ -116,6 +116,7 @@ return array(
 		'description' => 'Popis',
 		'disabled' => 'Zakázané',
 		'empty_list' => 'Žiadne nainštalované rozšírenia',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Povolené',
 		'latest' => 'Nainštalované',
 		'name' => 'Názov',

@@ -116,6 +116,7 @@ return array(
 		'description' => 'Descrição',
 		'disabled' => 'Desabilitado',
 		'empty_list' => 'Não há extensões instaladas',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Habilitada',
 		'latest' => 'Instalado',
 		'name' => 'Nome',

@@ -67,6 +67,7 @@
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,mixed> $volatile
+ * @property bool $retrieve_extension_list
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 

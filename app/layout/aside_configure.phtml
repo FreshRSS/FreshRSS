@@ -40,6 +40,9 @@
 				<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
 					<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
 				</li>
+				<li class="item<?= Minz_Request::controllerName() === 'privacy' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'privacy') ?>"><?= _t('gen.menu.privacy') ?></a>
+				</li>
 				<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>

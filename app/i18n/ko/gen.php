@@ -171,6 +171,7 @@ return array(
 		'display' => '표시',
 		'extensions' => '확장 기능',
 		'logs' => '로그',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => '사용자 쿼리',
 		'reading' => '읽기',
 		'search' => '단어 또는 #태그 검색',

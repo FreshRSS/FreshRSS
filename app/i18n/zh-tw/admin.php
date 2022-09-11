@@ -116,6 +116,7 @@ return array(
 		'description' => '描述',
 		'disabled' => '已禁用',
 		'empty_list' => '沒有已安裝的擴充功能',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '已啟用',
 		'latest' => '已安裝',
 		'name' => '名稱',

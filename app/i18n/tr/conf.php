@@ -87,6 +87,10 @@ return array(
 			'previous' => 'Önceki',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
 		'api' => 'API yönetimi',
