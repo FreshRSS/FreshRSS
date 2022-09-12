@@ -1,0 +1,46 @@
+{
+  "name": "freshrss",
+  "description": "A free, self-hostable aggregator",
+  "homepage": "https://freshrss.org/",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/FreshRSS/FreshRSS/issues"
+  },
+  "keywords": [
+    "news",
+    "aggregator",
+    "RSS",
+    "Atom",
+    "WebSub"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FreshRSS/FreshRSS.git"
+  },
+  "license": "AGPL-3.0",
+  "scripts": {
+    "eslint": "eslint --ext .js .",
+    "eslint_fix": "eslint --fix --ext .js .",
+    "markdownlint": "markdownlint '**/*.md'",
+    "markdownlint_fix": "markdownlint --fix '**/*.md'",
+    "rtlcss": "rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete",
+    "stylelint": "stylelint **/*.css && stylelint --custom-syntax postcss-scss **/*.scss",
+    "stylelint_fix": "stylelint --fix '**/*.css' && stylelint --fix --custom-syntax postcss-scss '**/*.scss'",
+    "test": "npm run eslint && npm run stylelint && npm run markdownlint",
+    "fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.3",
+    "eslint-plugin-promise": "^6.0.0",
+    "markdownlint-cli": "^0.31.1",
+    "rtlcss": "^3.5.0",
+    "sass": "^1.52.3",
+    "stylelint": "^14.9.0",
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-order": "^5.0.0"
+  },
+  "rtlcssConfig": {}
+}
