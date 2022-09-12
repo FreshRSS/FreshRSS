@@ -577,7 +577,6 @@ a.btn {
 .global .box.category .title:not([data-unread="0"])::after {
 	background-color: var(--background-dark);
 	color: #999;
-	border-color: #999;
 }
 
 /*=== Aside main page (feeds) */
