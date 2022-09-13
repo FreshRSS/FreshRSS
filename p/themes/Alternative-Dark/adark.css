@@ -3,19 +3,7 @@
 /*=== GENERAL */
 /*============*/
 :root {
-	--background: var(--background-dark);
-	--background-hover: #1d242f;
-	--background-hover2: #1f1f1f;;
-	--background-active: var(--background-light);
 	
-	--contrast-attention-background-color: #bd362f;
-	--contrast-font-color: #eee;
-	--font: #999;
-	--font-hover: #6b88ae;
-	--link: #ccc;
-	
-	--border2: #777;
-	--font-disabled: #666;
 
 	--border-color-dark: #333;
 	--border-color-middle: #666;
@@ -30,6 +18,11 @@
 	--contrast-background-color: #0062b7;
 	--contrast-background-color-hover: #45699a;
 	--contrast-background-color-active: #0044cb;
+	--contrast-background-font-color: #eee;
+
+	--contrast-attention-background-color: #bd362f;
+
+	--empty-feed-color: #e67e22;
 
 	--alert-warn-border-color: #615f20;
 	--alert-success-border-color: #0044cb;
@@ -217,14 +210,14 @@ a.btn {
 
 .btn-important {
 	background: var(--contrast-background-color);
-	color: var(--font-color-light);
+	color: var(--contrast-background-font-color);
 	border: 1px solid var(--contrast-background-color);
 	font-weight: normal;
 }
 
 .btn-important:hover {
 	background: var(--contrast-background-color-hover);
-	color: var(--font-color-light);
+	color: var(--contrast-background-font-color);
 }
 
 .btn-important .icon {
@@ -584,8 +577,10 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
-.feed.item.empty.active {
-	background: #e67e22;
+.feed.item.empty.active,
+.feed.item.empty.active > a {
+	background: var(--empty-feed-color);
+	color: var(--font-color-dark);
 }
 
 .feed.item.error.active {
@@ -594,7 +589,7 @@ a.btn {
 
 .feed.item.empty,
 .feed.item.empty > a {
-	color: #e67e22;
+	color: var(--empty-feed-color);
 }
 
 .feed.item.error,
@@ -602,9 +597,7 @@ a.btn {
 	color: var(--contrast-attention-background-color);
 }
 
-.feed.item.empty.active,
 .feed.item.error.active,
-.feed.item.empty.active > a,
 .feed.item.error.active > a {
 	color: var(--font-color-light);
 }
