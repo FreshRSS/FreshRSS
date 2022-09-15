@@ -123,6 +123,9 @@ class FreshRSS_Import_Service {
 	 * @return FreshRSS_Feed|null a feed.
 	 */
 	private function addFeedOpml($feed_elt, $parent_cat, $dryRun = false) {
+		if (empty($feed_elt['xmlUrl'])) {
+			return null;
+		}
 		if ($parent_cat == null) {
 			// This feed has no parent category so we get the default one
 			$this->catDAO->checkDefault();
@@ -135,15 +138,9 @@ class FreshRSS_Import_Service {
 
 		// We get different useful information
 		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
-		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text']);
-		$website = '';
-		if (isset($feed_elt['htmlUrl'])) {
-			$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl']);
-		}
-		$description = '';
-		if (isset($feed_elt['description'])) {
-			$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description']);
-		}
+		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text'] ?? '');
+		$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl'] ?? '');
+		$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description'] ?? '');
 
 		try {
 			// Create a Feed object and add it in DB

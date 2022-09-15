@@ -1,4 +1,5 @@
 *.min.js
+extensions/
 node_modules/
 p/scripts/vendor/
 vendor/

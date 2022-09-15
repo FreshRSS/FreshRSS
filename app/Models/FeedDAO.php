@@ -83,7 +83,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'url' => $feed->url(),
 				'kind' => $feed->kind(),
 				'category' => $feed->categoryId(),
-				'name' => $feed->name(),
+				'name' => $feed->name(true),
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'lastUpdate' => 0,
@@ -113,7 +113,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			// Update some values of the existing feed using the import
 			$values = [
 				'kind' => $feed->kind(),
-				'name' => $feed->name(),
+				'name' => $feed->name(true),
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'pathEntries' => $feed->pathEntries(),
