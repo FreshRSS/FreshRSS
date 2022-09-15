@@ -46,7 +46,8 @@
 					$url_base['params']['get'] = 'f_' . $feed->id();
 			?>
 			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
-				data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
+				data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"
+				title="<?= strlen($error) > 0 ? _t('sub.feed.error') : ''?> <?= strlen($empty) > 0 ? _t('sub.feed.empty') : ''	?>">
 				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 				<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
 			</li>
