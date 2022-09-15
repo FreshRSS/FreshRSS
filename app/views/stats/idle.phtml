@@ -29,7 +29,8 @@
 						$error = $feed == null || $feed->inError() ? ' error' : '';
 						$empty = $feed != null && $feed->nbEntries() == 0 ? ' empty' : '';
 				?>
-					<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>">
+					<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>" title="<?= strlen($error) > 0 ? _t('sub.feed.error') : '' 
+					?> <?= strlen($empty) > 0 ? _t('sub.feed.empty') : ''	?>">
 						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
 						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
