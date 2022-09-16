@@ -45,13 +45,24 @@
 						if ($this->onlyFeedsWithError && !$feed->inError()) {
 							continue;
 						}
-						$error = $feed->inError() ? ' error' : '';
-						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
+
+						$error_class = '';
+						$error_title = '';
+						if ($feed->inError()) {
+							$error_class = ' error';
+							$error_title = _t('sub.feed.error');
+						}
+
+						$empty_class = '';
+						$empty_title = '';
+						if ($feed->nbEntries() == 0) {
+							$empty_class = ' empty';
+							$empty_title = _t('sub.feed.empty');
+						}
+						$mute_class = $feed->mute() ? ' mute' : '';
 				?>
-				<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
-					title="<?= strlen($error) > 0 ? _t('sub.feed.error') : '' ?> <?= strlen($empty) > 0 ? _t('sub.feed.empty') : ''	?>"
-					draggable="true"
-					data-feed-id="<?= $feed->id() ?>">
+				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title	?>"
+					draggable="true" data-feed-id="<?= $feed->id() ?>">
 					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<span class="item-title"><?= $feed->name() ?></span>

@@ -99,11 +99,25 @@
 	// NB: Reduce whitespace in that loop
 	foreach ($feeds as $feed):
 		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
+		$f_active_class = $f_active ? ' active' : '';
+
+		$error_class = '';
+		$error_title = '';
+		if ($feed->inError()) {
+			$error_class = ' error';
+			$error_title = _t('sub.feed.error');
+		}
+
+		$empty_class = '';
+		$empty_title = '';
+		if ($feed->nbEntries() <= 0) {
+			$empty_class = ' empty';
+			$empty_title = _t('sub.feed.empty');
+		}
+		$mute_class = $feed->mute() ? ' mute' : '';
 ?>
-<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active ? ' active' : '', $feed->mute() ? ' mute' : '' ?><?=
-	$feed->inError() ? ' error' : '' ?><?= $feed->nbEntries() <= 0 ? ' empty' : ''
-	?>" title="<?= $feed->inError() ? _t('sub.feed.error') : '' ?> <?= $feed->nbEntries() <= 0 ? _t('sub.feed.empty') : ''
-	?>" data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
+<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>" 
+		data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::$user_conf->simplify_over_n_feeds):
 	?><div class="dropdown no-mobile">
 		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
