@@ -20,7 +20,9 @@
 	--contrast-background-color-active: #0044cb;
 	--contrast-background-font-color: #eee;
 
-	--contrast-attention-background-color: #bd362f;
+	--contrast-attention-background-color: #912621;
+	--contrast-attention-background-color-hover: #be342c;
+	--contrast-attention-font-color: #ddd;
 
 	--empty-feed-color: #e67e22;
 
@@ -234,7 +236,13 @@ a.btn {
 }
 
 .btn-attention {
-	color: #fff;
+	background-color: var(--contrast-attention-background-color);
+	color: var(--contrast-attention-font-color);
+}
+
+.btn-attention:hover {
+	background-color: var(--contrast-attention-background-color-hover);
+	color: var(--contrast-attention-font-color);
 }
 
 .btn-attention:active {
