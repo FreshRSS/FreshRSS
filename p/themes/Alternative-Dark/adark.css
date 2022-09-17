@@ -265,7 +265,7 @@ a.btn {
 }
 
 .nav-list .item.active a {
-	background-color: var(--background-hover);
+	background-color: var(--background-dark);
 }
 
 .nav-list .disable {
@@ -470,7 +470,7 @@ a.btn {
 }
 
 .tree-folder-title:hover {
-	background: var(--background-middle);
+	background: var(--background-hover);
 }
 
 .tree-folder-title .title {
