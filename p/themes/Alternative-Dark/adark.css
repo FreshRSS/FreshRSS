@@ -67,7 +67,7 @@ textarea {
 input, select, textarea {
 	padding: 5px;
 	background: var(--background-light);
-	color: var(--font-color-dark);
+	color: var(--font-color-middle);
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
 	min-height: 25px;
