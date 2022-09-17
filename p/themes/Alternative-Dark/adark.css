@@ -178,7 +178,7 @@ form th {
 	padding: 5px 10px;
 	background: var(--background-dark);
 	display: inline-block;
-	color: #bfbfbf;
+	color: var(--font-color-middle);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
@@ -198,8 +198,12 @@ a.btn {
 .btn:hover {
 	background: var(--background-hover);
 	text-decoration: none;
-	color: #6b88ae;
+	color: var(--font-color-light);
 	border: 1px solid var(--contrast-background-color-hover);
+}
+
+.btn:hover .icon {
+	filter: brightness(2);
 }
 
 .btn.active,
