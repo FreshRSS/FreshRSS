@@ -626,6 +626,16 @@ a.btn {
 	max-width: 550px;
 }
 
+.slides {
+	border-color: var(--border-color-middle);
+}
+
+.properties {
+	background-color: var(--background-light);
+	color: var(--font-color-middle);
+	border-color: var(--border-color-middle);
+}
+
 /*=== Prompt (centered) */
 .prompt .form-group {
 	margin-bottom: 1rem;
@@ -944,7 +954,12 @@ a.btn {
 
 /*=== SLIDESHOW */
 /*==============*/
+
 .nav label {
+	color: var(--background-middle);
+}
+
+.nav label:hover {
 	color: var(--contrast-background-color);
 }
 
