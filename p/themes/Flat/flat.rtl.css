@@ -274,12 +274,6 @@ a.btn {
 	color: #fff;
 }
 
-.nav-list .disable {
-	text-align: center;
-	background: #fafafa;
-	color: #aaa;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }

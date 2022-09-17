@@ -419,12 +419,6 @@ form {
 		}
 	}
 
-	.disable {
-		text-align: center;
-		background: $color_light;
-		color: color.adjust( $color_light, $lightness: -40% );
-	}
-
 	.nav-form {
 		padding: 3px;
 		text-align: center;

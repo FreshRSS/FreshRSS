@@ -324,11 +324,6 @@ form th {
 .nav-list .item .icon {
 	filter: brightness(3);
 }
-.nav-list .disable {
-	text-align: center;
-	background: #fcfcfc;
-	color: #969696;
-}
 .nav-list .nav-form {
 	padding: 3px;
 	text-align: center;

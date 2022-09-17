@@ -291,12 +291,6 @@ a.btn {
 	border-color: -moz-use-text-color -moz-use-text-color #171717;
 }
 
-.nav-list .disable {
-	background: #fafafa;
-	color: #aaa;
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 	color: #ccc;

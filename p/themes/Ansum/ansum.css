@@ -591,11 +591,6 @@ form th {
 .nav-list.empty a {
 	color: #f4f762;
 }
-.nav-list .disable {
-	text-align: center;
-	background: #fcfaf8;
-	color: #ba9;
-}
 .nav-list .nav-header {
 	padding: 0 10px;
 	font-weight: bold;
