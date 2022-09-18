@@ -215,12 +215,6 @@ a.btn {
 	line-height: 1.5rem;
 }
 
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
@@ -742,21 +736,6 @@ li.item.active {
 .stat > table th {
 	text-align: center;
 }
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 250px;
-}
-
 
 .stat {
 	margin: 10px 0 20px;

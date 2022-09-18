@@ -347,14 +347,6 @@ form th {
 	line-height: 1.5rem;
 }
 
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-.horizontal-list .item {
-	vertical-align: middle;
-}
-
 .dropdown-menu {
 	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
@@ -933,17 +925,6 @@ form th {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #e3e3e3;
-}
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
 }
 
 #overlay {
