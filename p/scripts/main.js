@@ -726,9 +726,12 @@ function onScroll() {
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			// Too close to the last pre-loaded article
 			load_more_posts();
-		} else if (document.querySelectorAll('.flux.current ~ .flux').length <= 5) {
-			// Too few pre-loaded articles
-			load_more_posts();
+		} else {
+			const after = document.querySelectorAll('.flux.current ~ .flux').length;
+			if (after > 0 && after <= 5) {
+				// Too few pre-loaded articles
+				load_more_posts();
+			}
 		}
 	}
 }

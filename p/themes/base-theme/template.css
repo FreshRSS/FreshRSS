@@ -532,6 +532,8 @@ input[type="checkbox"]:focus-visible {
 
 /*=== Horizontal-list */
 .horizontal-list {
+	margin: 0;
+	padding: 0;
 	display: table;
 	table-layout: fixed;
 	width: 100%;
@@ -539,6 +541,7 @@ input[type="checkbox"]:focus-visible {
 
 .horizontal-list .item {
 	display: table-cell;
+	vertical-align: middle;
 }
 
 /*=== manage-list */
