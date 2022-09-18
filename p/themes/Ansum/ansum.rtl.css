@@ -221,11 +221,7 @@ form th {
 /*=== Forms */
 /*=== Horizontal-list */
 .horizontal-list {
-	margin: 0;
 	padding: 0.1rem 0;
-}
-.horizontal-list .item {
-	vertical-align: middle;
 }
 .horizontal-list .item:first-child {
 	padding-right: 0.5rem;
@@ -590,11 +586,6 @@ form th {
 }
 .nav-list.empty a {
 	color: #f4f762;
-}
-.nav-list .disable {
-	text-align: center;
-	background: #fcfaf8;
-	color: #ba9;
 }
 .nav-list .nav-header {
 	padding: 0 10px;
@@ -1137,9 +1128,6 @@ main.prompt {
 .post form {
 	margin: 1rem 0;
 }
-.post form .horizontal-list {
-	margin-bottom: 0.5rem;
-}
 .post.content {
 	max-width: 550px;
 }
@@ -1246,20 +1234,6 @@ main.prompt {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #e4d8cc;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
 }
 
 /*=== MOBILE */

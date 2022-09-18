@@ -36,7 +36,7 @@ textarea {
 input, select, textarea {
 	padding: 5px;
 	background: #262626;
-	color: #666;
+	color: #999;
 	border: 1px solid #666;
 	border-radius: 3px;
 	min-height: 25px;
@@ -239,12 +239,6 @@ a.btn {
 	background-color: #1f1f1f;
 }
 
-.nav-list .disable {
-	background: #fafafa;
-	color: #aaa;
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -293,16 +287,6 @@ a.btn {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 /*=== Dropdown */
@@ -958,20 +942,6 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #ddd;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
 }
 
 /*=== LOGS */
