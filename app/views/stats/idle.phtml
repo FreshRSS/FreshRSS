@@ -42,7 +42,7 @@
 						}
 						$mute_class = $feed->mute() ? ' mute' : '';
 				?>
-					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title	?>">
+					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>">
 						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
 						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
