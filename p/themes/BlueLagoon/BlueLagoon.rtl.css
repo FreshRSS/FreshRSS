@@ -1124,50 +1124,6 @@ a.btn {
 	box-shadow: 0 1px #fff;
 }
 
-/*=== LOGS */
-/*=========*/
-.loglist {
-	border: 1px solid #aaa;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	background: #fafafa;
-	color: #333;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-	border-top: 1px solid #aaa;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-	background: #fdd;
-	color: #844;
-}
-
-.log.warning {
-	background: #ffe;
-	color: #c95;
-}
-
-.log.notice {
-	background: #f4f4f4;
-	color: #aaa;
-}
-
-.log.debug {
-	background: #333;
-	color: #eee;
-}
-
 #slider.active {
 	background: #f8f8f8;
 	box-shadow: 4px 0 4px rgba(15, 15, 15, 0.55);

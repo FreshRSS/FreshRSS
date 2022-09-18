@@ -1181,42 +1181,8 @@ main.prompt {
 
 /*=== LOGS */
 /*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid #ba9;
-}
-
-.log {
-	margin: 10px 0;
-	padding: 5px 2%;
-	background: #fcfaf8;
-	color: #766556;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-
-.log > .date {
-	margin: 0 10px 0 0;
-	padding: 5px 10px;
-	border-radius: 20px;
-}
-
-.log.error > .date {
-	background: #f5633e;
-	color: #fff;
-}
-
-.log.warning > .date {
-	background: #f4f762;
-}
-
-.log.notice > .date {
-	background: #f5f0ec;
-}
-
-.log.debug > .date {
-	background: #221f1d;
-	color: #fff;
+.log-item.log-error {
+	background-color: rgba(202, 114, 39, 0.2);
 }
 
 /*=== STATISTICS */
