@@ -795,10 +795,9 @@ a.btn {
 
 .content hr {
 	margin: 30px 10px;
-	background: #ddd;
+	background: var(--font-color-middle);
 	height: 1px;
 	border: 0;
-	box-shadow: 0 2px 5px #ccc;
 }
 
 .content pre {
