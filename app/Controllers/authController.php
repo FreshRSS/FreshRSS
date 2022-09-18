@@ -72,7 +72,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 
 		$auth_type = FreshRSS_Context::$system_conf->auth_type;
-		FreshRSS_Context::initUser('_');
+		FreshRSS_Context::initUser('_', false);
 		switch ($auth_type) {
 			case 'form':
 				Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
