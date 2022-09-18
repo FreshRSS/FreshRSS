@@ -25,8 +25,15 @@
 	--empty-feed-color: #e67e22;
 
 	--alert-warn-border-color: #615f20;
-	--alert-success-border-color: #0044cb;
+	--alert-success-border-color: #18521d;
 	--alert-error-border-color: #902b2b;
+
+
+	--notification-border-color: #eeb;
+	--notification-good-border-color: #0044cb;
+	--notification-bad-background-color: #fdd;
+	--notification-bad-font-color: #844;
+	--notification-bad-border-color: #ecc;
 
 	--font-color-dark: #666;
 	--font-color-middle: #999;
@@ -409,7 +416,7 @@ a.btn {
 }
 
 .alert-success {
-	border-color: var(--alert-success-border-color);
+	border-color: #18521d;
 }
 
 .alert-error {
@@ -851,7 +858,7 @@ a.btn {
 /*=== Notification and actualize notification */
 .notification {
 	font-size: 0.9em;
-	border: 2px solid #eeb;
+	border: 2px solid var(--notification-border-color);
 	border-radius: 5px;
 	text-align: center;
 	font-weight: bold;
@@ -861,13 +868,17 @@ a.btn {
 .notification.good {
 	background-color: var(--background-color-light);
 	color: var(--font-color-middle);
-	border-color: var(--alert-success-border-color);
+	border-color: var(--notification-good-border-color);
 }
 
 .notification.bad {
-	background-color: #fdd;
-	color: #844;
-	border-color: #ecc;
+	background-color: var(--notification-bad-background-color);
+	color: var(--notification-bad-font-color);
+	border-color: var(--notification-bad-border-color);
+}
+
+.notification.bad a.close:hover {
+	background: var(--notification-bad-background-color);
 }
 
 .notification a {
@@ -877,10 +888,6 @@ a.btn {
 .notification a.close {
 	padding: 0 15px;
 	line-height: 3em;
-}
-
-.notification.bad a.close:hover {
-	background: #ecc;
 }
 
 .notification#actualizeProgress {
