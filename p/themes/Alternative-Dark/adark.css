@@ -33,6 +33,7 @@
 	--font-color-dark: #666;
 	--font-color-middle: #999;
 	--font-color-light: #ccc;
+	--font-color-contrast: #0062be;
 }
 
 html, body {
@@ -873,7 +874,7 @@ a.btn {
 }
 
 .notification a {
-	color: #0062be;
+	color: var(--font-color-contrast);
 }
 
 .notification a.close {
@@ -892,9 +893,14 @@ a.btn {
 /*=== "Load more" part */
 #bigMarkAsRead {
 	background: var(--background-dark);
-	color: #0062be;
+	color: var(--font-color-contrast);
 	text-align: center;
 	text-decoration: none;
+}
+
+#bigMarkAsRead:hover {
+	background-color: var(--background-hover);
+	color: var(--font-color-light);
 }
 
 .bigTick {
