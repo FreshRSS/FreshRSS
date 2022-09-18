@@ -3,17 +3,15 @@
 /*=== GENERAL */
 /*============*/
 :root {
-	
-
 	--border-color-dark: #333;
 	--border-color-middle: #666;
 
 
-	--background-dark: #171717;
-	--background-middle: #1f1f1f;
-	--background-light: #262626;
-	--background-hover: #1d242f;
-	--background-active: #333;
+	--background-color-dark: #171717;
+	--background-color-middle: #1f1f1f;
+	--background-color-light: #262626;
+	--background-color-hover: #1d242f;
+	--background-color-active: #333;
 
 	--contrast-background-color: #0062b7;
 	--contrast-background-color-hover: #45699a;
@@ -37,7 +35,7 @@
 }
 
 html, body {
-	background-color: var(--background-dark);
+	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -69,7 +67,7 @@ textarea {
 
 input, select, textarea {
 	padding: 5px;
-	background: var(--background-light);
+	background: var(--background-color-light);
 	color: var(--font-color-middle);
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
@@ -102,7 +100,7 @@ tr, th, td {
 }
 
 th {
-	background: var(--background-light);
+	background: var(--background-color-light);
 }
 
 form td,
@@ -116,7 +114,7 @@ form th {
 /*=== Forms */
 .form-group.form-actions {
 	padding: 5px 0;
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	border-top: 1px solid #333;
 }
 
@@ -179,7 +177,7 @@ form th {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	display: inline-block;
 	color: var(--font-color-middle);
 	font-size: 0.9rem;
@@ -199,7 +197,7 @@ a.btn {
 }
 
 .btn:hover {
-	background: var(--background-hover);
+	background: var(--background-color-hover);
 	text-decoration: none;
 	color: var(--font-color-light);
 	border: 1px solid var(--contrast-background-color-hover);
@@ -212,7 +210,7 @@ a.btn {
 .btn.active,
 .btn:active,
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background: var(--background-light);
+	background: var(--background-color-light);
 }
 
 .btn-important {
@@ -274,12 +272,12 @@ a.btn {
 }
 
 .nav-list .item a:hover {
-	background-color: var(--background-hover);
+	background-color: var(--background-color-hover);
 	color: var(--font-color-light);
 }
 
 .nav-list .item.active a {
-	background-color: var(--background-dark);
+	background-color: var(--background-color-dark);
 }
 
 .nav-list .item > a {
@@ -321,7 +319,7 @@ a.btn {
 
 .nav-head {
 	margin: 0;
-	background: var(--background-light);
+	background: var(--background-color-light);
 	border-bottom: 1px solid #333;
 	text-align: right;
 }
@@ -336,9 +334,9 @@ a.btn {
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
-	background: var(--background-active);
+	background: var(--background-color-active);
 	font-size: 0.8rem;
-	border: 2px solid var(--background-light);
+	border: 2px solid var(--background-color-light);
 	border-radius: 5px;
 	text-align: left;
 }
@@ -364,7 +362,7 @@ a.btn {
 
 .dropdown-menu > .item > a:hover,
 .dropdown-menu > .item > button:hover {
-	background: var(--background-light);
+	background: var(--background-color-light);
 	color: var(--font-color-light);
 }
 
@@ -389,7 +387,7 @@ a.btn {
 .alert {
 	margin: 15px auto;
 	padding: 10px 15px;
-	background-color: var(--background-dark);
+	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
 	font-size: 0.9em;
 	border-width: 2px;
@@ -427,7 +425,7 @@ a.btn {
 
 /*=== Boxes */
 .box {
-	background: var(--background-middle);
+	background: var(--background-color-middle);
 	border-width: 0;
 	border-radius: 3px;
 }
@@ -435,7 +433,7 @@ a.btn {
 .box .box-title {
 	margin: 0;
 	padding: 5px 10px;
-	background: var(--background-light);
+	background: var(--background-color-light);
 	border-radius: 5px 5px 0 0;
 }
 
@@ -462,13 +460,13 @@ a.btn {
 .tree-folder-title {
 	position: relative;
 	padding: 0 10px;
-	background: var(--background-light);
+	background: var(--background-color-light);
 	line-height: 2.5rem;
 	font-size: 1rem;
 }
 
 .tree-folder-title:hover {
-	background: var(--background-hover);
+	background: var(--background-color-hover);
 }
 
 .tree-folder-title:hover .title {
@@ -489,7 +487,7 @@ a.btn {
 }
 
 .tree-folder.active .tree-folder-title {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	font-weight: bold;
 }
 
@@ -498,11 +496,11 @@ a.btn {
 }
 
 .tree-folder-items {
-	background: var(--background-light);
+	background: var(--background-color-light);
 }
 
 .tree-folder-items:hover {
-	background: var(--background-middle);
+	background: var(--background-color-middle);
 }
 
 .tree-folder-items > .item {
@@ -512,7 +510,7 @@ a.btn {
 }
 
 .tree-folder-items > .item.active {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 }
 
 .tree-folder-items > .item > a {
@@ -527,7 +525,7 @@ a.btn {
 /*===============*/
 /*=== Header */
 .header {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 }
 
 .header > .item {
@@ -556,13 +554,13 @@ a.btn {
 
 /*=== Body */
 .aside {
-	background: var(--background-light);
+	background: var(--background-color-light);
 }
 
 .aside.aside_feed {
 	padding: 10px 0;
 	text-align: center;
-	background: var(--background-light);
+	background: var(--background-color-light);
 }
 
 .aside.aside_feed .tree {
@@ -578,7 +576,7 @@ a.btn {
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	background-color: var(--background-dark);
+	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
 }
 
@@ -636,7 +634,7 @@ a.btn {
 }
 
 .properties {
-	background-color: var(--background-light);
+	background-color: var(--background-color-light);
 	color: var(--font-color-middle);
 	border-color: var(--border-color-middle);
 }
@@ -686,7 +684,7 @@ a.btn {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3em;
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	color: var(--font-color-light);
 	border-top: 1px solid #aaa;
 }
@@ -708,27 +706,27 @@ a.btn {
 /*=== Index menu */
 .nav_menu {
 	padding: 5px 0;
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	text-align: center;
 }
 
 /*=== Feed articles */
 .flux {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	border-left: 1px solid #292929;
 }
 
 .flux:hover {
-	background: var(--background-hover) !important;
+	background: var(--background-color-hover) !important;
 }
 
 .flux.current {
-	background: var(--background-middle);
+	background: var(--background-color-middle);
 	border-left: 2px solid var(--contrast-background-color-active);
 }
 
 .flux.current.active {
-	background: var(--background-middle);
+	background: var(--background-color-middle);
 }
 
 .flux.not_read {
@@ -736,7 +734,7 @@ a.btn {
 }
 
 .flux.not_read:not(.current) {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 }
 
 .flux.not_read:not(.current):hover .item.title {
@@ -744,7 +742,7 @@ a.btn {
 }
 
 .flux:not(.current):hover .item.title {
-	background: var(--background-hover);
+	background: var(--background-color-hover);
 }
 
 .flux .item.title a {
@@ -756,7 +754,7 @@ a.btn {
 }
 
 .flux.favorite:not(.current) {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 }
 
 .flux_header {
@@ -804,7 +802,7 @@ a.btn {
 	margin: 10px auto;
 	padding: 10px 20px;
 	overflow: auto;
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	color: var(--font-color-light);
 	font-size: 0.9rem;
 	border-radius: 3px;
@@ -812,8 +810,8 @@ a.btn {
 
 .content code {
 	padding: 2px 5px;
-	background: var(--background-light);
-	border: 1px solid var(--background-light);
+	background: var(--background-color-light);
+	border: 1px solid var(--background-color-light);
 	border-radius: 3px;
 }
 
@@ -826,7 +824,7 @@ a.btn {
 .content blockquote {
 	margin: 0;
 	padding: 25px;
-	background: var(--background-light);
+	background: var(--background-color-light);
 	display: block;
 	color: var(--font-color-middle);
 }
@@ -861,7 +859,7 @@ a.btn {
 }
 
 .notification.good {
-	background-color: var(--background-light);
+	background-color: var(--background-color-light);
 	color: var(--font-color-middle);
 	border-color: var(--alert-success-border-color);
 }
@@ -891,14 +889,14 @@ a.btn {
 
 /*=== "Load more" part */
 #bigMarkAsRead {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	color: var(--font-color-contrast);
 	text-align: center;
 	text-decoration: none;
 }
 
 #bigMarkAsRead:hover {
-	background-color: var(--background-hover);
+	background-color: var(--background-color-hover);
 	color: var(--font-color-light);
 }
 
@@ -909,7 +907,7 @@ a.btn {
 /*=== Navigation menu (for articles) */
 #nav_entries {
 	margin: 0;
-	background: var(--background-light);
+	background: var(--background-color-light);
 	text-align: center;
 	line-height: 3em;
 	table-layout: fixed;
@@ -920,11 +918,11 @@ a.btn {
 #stream.reader .flux {
 	padding: 0 0 50px;
 	color: var(--font-color-dark);
-	border-bottom: 10px solid var(--background-dark);
+	border-bottom: 10px solid var(--background-color-dark);
 }
 
 #stream.reader .flux.current.active {
-	background: var(--background-middle);
+	background: var(--background-color-middle);
 }
 
 #stream.reader .flux .author {
@@ -942,11 +940,11 @@ a.btn {
 }
 
 .box.category:not([data-unread="0"]) .box-title {
-	background: var(--background-light);
+	background: var(--background-color-light);
 }
 
 .box.category:not([data-unread="0"]) .box-title:active {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {
@@ -972,7 +970,7 @@ a.btn {
 
 /*=== Slider */
 #slider {
-	background: var(--background-dark);
+	background: var(--background-color-dark);
 	border-left: 1px solid #333;
 }
 
@@ -980,7 +978,7 @@ a.btn {
 /*==============*/
 
 .nav label {
-	color: var(--background-middle);
+	color: var(--background-color-middle);
 }
 
 .nav label:hover {
@@ -1036,7 +1034,7 @@ a.btn {
 	.aside .toggle_aside,
 	#panel .close,
 	.dropdown-menu .toggle_aside {
-		background: var(--background-light);
+		background: var(--background-color-light);
 		display: block;
 		width: 100%;
 		height: 50px;
@@ -1079,9 +1077,9 @@ a.btn {
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {
-		background-color: var(--background-active);
-		border-top: 2px solid var(--background-light);
-		border-left: 2px solid var(--background-light);
+		background-color: var(--background-color-active);
+		border-top: 2px solid var(--background-color-light);
+		border-left: 2px solid var(--background-color-light);
 	}
 
 	.day .name {
@@ -1091,7 +1089,7 @@ a.btn {
 	}
 
 	.flux:not(.current):hover .item.title {
-		background: var(--background-hover);
+		background: var(--background-color-hover);
 	}
 
 	.notification a.close {
