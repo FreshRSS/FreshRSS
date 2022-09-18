@@ -419,12 +419,6 @@ form {
 		}
 	}
 
-	.disable {
-		text-align: center;
-		background: $color_light;
-		color: color.adjust( $color_light, $lightness: -40% );
-	}
-
 	.nav-form {
 		padding: 3px;
 		text-align: center;
@@ -449,15 +443,6 @@ form {
 		padding: 5px 10px;
 		font-size: 0.9rem;
 		line-height: 1.5rem;
-	}
-}
-
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-
-	.item {
-		vertical-align: middle;
 	}
 }
 
@@ -1191,20 +1176,6 @@ form {
 		td,
 		th {
 			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
-		}
-	}
-
-	> .horizontal-list {
-		margin: 0 0 5px;
-
-		.item {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-
-			&:first-child {
-				width: 270px;
-			}
 		}
 	}
 }
