@@ -616,12 +616,6 @@ a.btn {
 	left: 2px;
 }
 
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
-	background-color: #fff;
-	border-radius: 3px;
-}
-
 /*=== Configuration pages */
 .post {
 	padding: 10px 50px;
