@@ -3,6 +3,9 @@
 class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	protected function addColumn(string $name) {
+		if ($this->pdo->inTransaction()) {
+			$this->pdo->commit();
+		}
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
 			if ($name === 'kind') {	//v1.20.0
