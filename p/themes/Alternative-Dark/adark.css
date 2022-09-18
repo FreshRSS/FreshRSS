@@ -290,11 +290,11 @@ a.btn {
 }
 
 .nav-list .item.empty a {
-	color: #f39c12;
+	color: var(--empty-feed-color);
 }
 
 .nav-list .item.active.empty a {
-	background: #f39c12;
+	background: var(--empty-feed-color);
 	color: var(--font-color-light);
 }
 
