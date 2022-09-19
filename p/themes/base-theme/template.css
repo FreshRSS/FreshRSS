@@ -710,7 +710,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .pagination {
-	margin: 0;
+	margin: 0 auto;
 	padding: 0;
 	display: table;
 	table-layout: fixed;
@@ -1698,11 +1698,12 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.log-error,
-.log-warning,
-.log-notice,
-.log-debug {
+.log-level {
 	text-align: center;
+}
+
+.log-item.log-error {
+	background-color: #bd362f44;
 }
 
 .item.share.error a::after,

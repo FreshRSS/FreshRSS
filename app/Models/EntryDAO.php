@@ -62,6 +62,9 @@ SQL;
 	}
 
 	protected function addColumn(string $name) {
+		if ($this->pdo->inTransaction()) {
+			$this->pdo->commit();
+		}
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
 			if ($name === 'attributes') {	//v1.20.0

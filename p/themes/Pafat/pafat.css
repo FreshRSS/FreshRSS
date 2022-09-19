@@ -986,50 +986,6 @@ a.signin {
 	text-align: center;
 }
 
-/*=== LOGS */
-/*=========*/
-.loglist {
-	border: 1px solid #aaa;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	background: #fafafa;
-	color: #41444f;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-	border-top: 1px solid #aaa;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-	background: #fdd;
-	color: #844;
-}
-
-.log.warning {
-	background: #ffe;
-	color: #c95;
-}
-
-.log.notice {
-	background: #f4f4f4;
-	color: #aaa;
-}
-
-.log.debug {
-	background: #41444f;
-	color: #eee;
-}
-
 /*=== MOBILE */
 /*===========*/
 
