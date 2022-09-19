@@ -8,6 +8,7 @@
 	--background-color-light: #262626;
 	--background-color-hover: #1d242f;
 	--background-color-active: #333;
+	--background-color-slider-shadow: rgba(0, 0, 0, 0.5);
 
 	--contrast-background-color: #0062b7;
 	--contrast-background-color-hover: #45699a;
@@ -992,6 +993,10 @@ a.btn {
 	border-left: 1px solid var(--border-color-dark);
 }
 
+#slider.active:target + #close-slider {
+	background-color: var(--background-color-slider-shadow);
+}
+
 /*=== SLIDESHOW */
 /*==============*/
 
@@ -1071,6 +1076,10 @@ a.btn {
 	#panel .close:hover .icon,
 	.dropdown-menu .toggle_aside:hover .icon{
 		filter: brightness(2);
+	}
+
+	.aside:target + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
+		background-color: var(--background-color-slider-shadow);
 	}
 
 	.aside.aside_feed {
