@@ -11,8 +11,8 @@
 	--background-color-slider-shadow: rgba(0, 0, 0, 0.5);
 
 	--contrast-background-color: #0062b7;
-	--contrast-background-color-hover: #45699a;
-	--contrast-background-color-active: #0044cb;
+	--contrast-background-color-hover: #0078E0;
+	--contrast-background-color-active: #003461;
 	--contrast-background-font-color: #eee;
 
 	--contrast-attention-background-color: #912621;
@@ -22,7 +22,7 @@
 	--font-color-dark: #666;
 	--font-color-middle: #999;
 	--font-color-light: #ccc;
-	--font-color-contrast: #0062be;
+	--font-color-contrast: #0062b7;
 
 	--border-color-dark: #333;
 	--border-color-middle: #666;
