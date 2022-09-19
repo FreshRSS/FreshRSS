@@ -14,6 +14,7 @@
 	--contrast-background-color-hover: #0078E0;
 	--contrast-background-color-active: #003461;
 	--contrast-background-font-color: #eee;
+	--contrast-border-color-hover: #0078E0;
 
 	--contrast-attention-background-color: #912621;
 	--contrast-attention-background-color-hover: #be342c;
@@ -212,7 +213,7 @@ a.btn {
 	background: var(--background-color-hover);
 	text-decoration: none;
 	color: var(--font-color-light);
-	border: 1px solid var(--contrast-background-color-hover);
+	border: 1px solid var(--contrast-border-color-hover);
 }
 
 .btn:hover .icon {
@@ -228,7 +229,7 @@ a.btn {
 .btn-important {
 	background: var(--contrast-background-color);
 	color: var(--contrast-background-font-color);
-	border: 1px solid var(--contrast-background-color);
+	border: 1px solid var(--contrast-border-color-hover);
 	font-weight: normal;
 }
 
@@ -736,7 +737,7 @@ a.btn {
 
 .flux.current {
 	background: var(--background-color-middle);
-	border-left: 2px solid var(--contrast-background-color-active);
+	border-left: 2px solid var(--contrast-border-color-hover);
 }
 
 .flux.current.active {
