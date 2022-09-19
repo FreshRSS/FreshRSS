@@ -3,13 +3,6 @@
 /*=== GENERAL */
 /*============*/
 :root {
-	--border-color-dark: #333;
-	--border-color-middle: #666;
-
-	--border-color-favorite: #ffc300;
-	--border-color-unread:  #e74c3c;
-
-
 	--background-color-dark: #171717;
 	--background-color-middle: #1f1f1f;
 	--background-color-light: #262626;
@@ -25,23 +18,27 @@
 	--contrast-attention-background-color-hover: #be342c;
 	--contrast-attention-font-color: #ddd;
 
+	--font-color-dark: #666;
+	--font-color-middle: #999;
+	--font-color-light: #ccc;
+	--font-color-contrast: #0062be;
+
+	--border-color-dark: #333;
+	--border-color-middle: #666;
+	--border-color-favorite: #ffc300;
+	--border-color-unread:  #e74c3c;
+
 	--empty-feed-color: #e67e22;
 
 	--alert-warn-border-color: #615f20;
 	--alert-success-border-color: #18521d;
 	--alert-error-border-color: #902b2b;
 
-
 	--notification-border-color: #eeb;
 	--notification-good-border-color: #0044cb;
 	--notification-bad-background-color: #fdd;
 	--notification-bad-font-color: #844;
 	--notification-bad-border-color: #ecc;
-
-	--font-color-dark: #666;
-	--font-color-middle: #999;
-	--font-color-light: #ccc;
-	--font-color-contrast: #0062be;
 }
 
 html, body {
