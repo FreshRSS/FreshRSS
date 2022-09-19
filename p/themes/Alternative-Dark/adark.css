@@ -7,6 +7,7 @@
 	--border-color-middle: #666;
 
 	--border-color-favorite: #ffc300;
+	--border-color-unread:  #e74c3c;
 
 
 	--background-color-dark: #171717;
@@ -158,7 +159,7 @@ form th {
 }
 
 .stick .btn-important:first-child {
-	border-right: 1px solid #06f;
+	border-right: 1px solid var(--contrast-background-color-hover);
 }
 
 .stick .btn:last-child,
@@ -695,7 +696,7 @@ a.btn {
 	line-height: 3em;
 	background: var(--background-color-dark);
 	color: var(--font-color-light);
-	border-top: 1px solid #aaa;
+	border-top: 1px solid var(--border-color-dark);
 }
 
 #new-article + .day {
@@ -707,7 +708,7 @@ a.btn {
 	color: var(--font-color-light);
 	font-size: 1.8em;
 	opacity: 0.3;
-	text-shadow: 0px -1px 0px #666;
+	text-shadow: 0px -1px 0px var(--font-color-dark);
 	font-style: italic;
 	text-align: right;
 }
@@ -741,7 +742,7 @@ a.btn {
 }
 
 .flux.not_read {
-	border-left: 2px solid #e74c3c;
+	border-left: 2px solid var(--border-color-unread);
 }
 
 .flux.not_read:not(.current) {
@@ -1025,7 +1026,7 @@ a.btn {
 
 .stat > table td,
 .stat > table th {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color-dark);
 }
 
 /*=== MOBILE */
@@ -1038,7 +1039,7 @@ a.btn {
 	}
 
 	.aside {
-		box-shadow: 3px 0 3px #aaa;
+		box-shadow: 3px 0 3px var(--background-color-active);
 		transition: width 200ms linear;
 	}
 
