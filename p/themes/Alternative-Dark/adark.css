@@ -429,6 +429,12 @@ a.btn {
 	border-color: var(--alert-error-border-color);
 }
 
+kbd {
+	background-color: var(--background-color-middle);
+	color: var(--font-color-middle);
+	border-color: var(--border-color-middle);
+}
+
 /*=== Pagination */
 .pagination {
 	color: var(--font-color-middle);
