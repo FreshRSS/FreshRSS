@@ -780,6 +780,15 @@ a.btn {
 	padding: 5px;
 }
 
+.flux .item.manage .bookmark:hover .icon,
+.flux .item.link a:hover .icon{
+	filter: brightness(2);
+}
+
+.flux .item.manage .read:hover .icon{
+	filter: grayscale(0.8) brightness(1.7);
+}
+
 .flux .item.date {
 	color: var(--font-color-light);
 	font-size: 0.7rem;
