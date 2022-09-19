@@ -54,6 +54,10 @@ a, button.as-link {
 	outline: none;
 }
 
+a:hover .icon {
+	filter: brightness(2);
+}
+
 /*=== Forms */
 legend {
 	margin: 20px 0 5px;
@@ -779,11 +783,6 @@ a.btn {
 
 .flux .website .favicon {
 	padding: 5px;
-}
-
-.flux .item.manage .bookmark:hover .icon,
-.flux .item.link a:hover .icon{
-	filter: brightness(2);
 }
 
 .flux .item.manage .read:hover .icon{
