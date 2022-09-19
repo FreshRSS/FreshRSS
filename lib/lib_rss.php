@@ -351,7 +351,7 @@ function cleanCache(int $hours = 720) {
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
 function enforceHttpEncoding(string $html, string $contentType = ''): string {
-	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === false ? '' : $matches[1];
+	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === 1 ? $matches[1] : '';
 	if ($httpCharset == '') {
 		// No charset defined by HTTP, do nothing
 		return $html;
