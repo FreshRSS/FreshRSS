@@ -254,12 +254,10 @@
 
 		<div class="form-group">
 			<div class="group-controls">
-				<div class="stick">
-					<input type="text" value="<?= _t('sub.feed.number_entries', $nbEntries) ?>" disabled="disabled" />
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
-						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
-					</a>
-				</div>
+				<?= _t('sub.feed.number_entries', $nbEntries) ?>
+				<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
+					<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
+				</a>
 			</div>
 		</div>
 		<?php
