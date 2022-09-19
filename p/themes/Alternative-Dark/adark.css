@@ -1061,6 +1061,18 @@ a.btn {
 		text-align: center;
 	}
 
+	.aside .toggle_aside:hover,
+	#panel .close:hover,
+	.dropdown-menu .toggle_aside:hover {
+		background-color: var(--background-color-hover);
+	}
+
+	.aside .toggle_aside:hover .icon,
+	#panel .close:hover .icon,
+	.dropdown-menu .toggle_aside:hover .icon{
+		filter: brightness(2);
+	}
+
 	.aside.aside_feed {
 		padding: 0;
 	}
