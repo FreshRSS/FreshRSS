@@ -89,8 +89,29 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+input:hover,
+select:hover,
+textarea:hover,
+label:hover {
+	color: var(--font-color-light);
+}
+
+select {
+	padding: 10px 0px 9px;
+}
+
 option {
 	padding: 0 .5em;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	accent-color: var(--contrast-background-color);
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+	accent-color: var(--contrast-background-color-hover);
 }
 
 input:disabled, select:disabled {
