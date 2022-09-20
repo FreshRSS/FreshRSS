@@ -434,9 +434,13 @@ a.btn {
 	font-size: 1.15em;
 }
 
-.alert > a {
-	color: inherit;
+.alert a {
+	color: var(--font-color-middle);
 	text-decoration: underline;
+}
+
+.alert a:hover {
+	color: var(--font-color-light);
 }
 
 .alert-warn {
