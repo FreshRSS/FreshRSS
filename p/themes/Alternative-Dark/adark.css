@@ -24,6 +24,7 @@
 	--font-color-middle: #999;
 	--font-color-light: #ccc;
 	--font-color-contrast: #0062b7;
+	--font-color-error: #912621;
 
 	--border-color-dark: #333;
 	--border-color-middle: #666;
@@ -34,12 +35,12 @@
 
 	--alert-warn-border-color: #615f20;
 	--alert-success-border-color: #18521d;
-	--alert-error-border-color: #902b2b;
+	--alert-error-border-color: #912621;
 
 	--notification-border-color: #eeb;
 	--notification-good-border-color: #0044cb;
 	--notification-bad-background-color: #fdd;
-	--notification-bad-font-color: #844;
+	--notification-bad-font-color: #912621;
 	--notification-bad-border-color: #ecc;
 }
 
@@ -332,7 +333,7 @@ a.btn {
 }
 
 .nav-list .item.error a {
-	color: var(--contrast-attention-background-color);
+	color: var(--font-color-error);
 }
 
 .nav-list .item.active.error a {
@@ -643,7 +644,7 @@ kbd {
 
 .feed.item.error,
 .feed.item.error > a {
-	color: var(--contrast-attention-background-color);
+	color: var(--font-color-error);
 }
 
 .feed.item.error.active,
@@ -1028,11 +1029,11 @@ kbd {
 /*==============*/
 
 .nav label {
-	color: var(--background-color-middle);
+	color: var(--font-color-light);
 }
 
 .nav label:hover {
-	color: var(--contrast-background-color);
+	color: var(--font-color-contrast);
 }
 
 /*=== DIVERS */
