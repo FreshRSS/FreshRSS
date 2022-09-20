@@ -198,10 +198,6 @@ a.btn {
 .nav-list .item.active a {
 }
 
-.nav-list .disable {
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -241,16 +237,6 @@ a.btn {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 /*=== Dropdown */
@@ -812,51 +798,6 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	text-align: center;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 250px;
-}
-
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-}
-
-.log.warning {
-}
-
-.log.notice {
-}
-
-.log.debug {
 }
 
 /*=== MOBILE */

@@ -324,11 +324,6 @@ form th {
 .nav-list .item .icon {
 	filter: brightness(3);
 }
-.nav-list .disable {
-	text-align: center;
-	background: #fcfcfc;
-	color: #969696;
-}
 .nav-list .nav-form {
 	padding: 3px;
 	text-align: center;
@@ -350,14 +345,6 @@ form th {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 .dropdown-menu {
@@ -939,17 +926,6 @@ form th {
 .stat > table th {
 	border-bottom: 1px solid #e3e3e3;
 }
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
-}
 
 #overlay {
 	z-index: 100;
@@ -991,36 +967,16 @@ a.signin {
 	font-size: 70%;
 }
 
-.loglist {
-	overflow: hidden;
-	border: 1px solid #969696;
-}
-
-.log {
-	padding: 5px 2%;
-	background: #fcfcfc;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-.log > .date {
-	margin: 0 10px 0 0;
-	padding: 5px 10px;
-}
-.log.error > .date {
+.log-item.log-error {
 	background: #c46178;
 	color: #fcfcfc;
 }
-.log.warning > .date {
+.log-item.log-warning {
 	background: #fa8052;
 	color: #fcfcfc;
 }
-.log.notice > .date {
-	background: #e3e3e3;
-	color: #fcfcfc;
-}
-.log.debug > .date {
+.log-item.log-debug {
 	background: #181621;
-	color: #fcfcfc;
 }
 
 @media (max-width: 840px) {
