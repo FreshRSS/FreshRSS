@@ -11,10 +11,10 @@
 	--background-color-slider-shadow: rgba(0, 0, 0, 0.5);
 
 	--contrast-background-color: #0062b7;
-	--contrast-background-color-hover: #0078E0;
+	--contrast-background-color-hover: #0078e0;
 	--contrast-background-color-active: #003461;
 	--contrast-background-font-color: #eee;
-	--contrast-border-color-hover: #0078E0;
+	--contrast-border-color-hover: #0078e0;
 
 	--contrast-attention-background-color: #912621;
 	--contrast-attention-background-color-hover: #be342c;
@@ -29,7 +29,7 @@
 	--border-color-dark: #333;
 	--border-color-middle: #666;
 	--border-color-favorite: #ffc300;
-	--border-color-unread:  #e74c3c;
+	--border-color-unread: #e74c3c;
 
 	--empty-feed-color: #e67e22;
 
@@ -823,7 +823,7 @@ kbd {
 	padding: 5px;
 }
 
-.flux .item.manage .read:hover .icon{
+.flux .item.manage .read:hover .icon {
 	filter: grayscale(0.8) brightness(1.7);
 }
 
@@ -1042,7 +1042,6 @@ kbd {
 
 /*=== SLIDESHOW */
 /*==============*/
-
 .nav label {
 	color: var(--font-color-light);
 }
@@ -1114,7 +1113,7 @@ kbd {
 
 	.aside .toggle_aside:hover .icon,
 	#panel .close:hover .icon,
-	.dropdown-menu .toggle_aside:hover .icon{
+	.dropdown-menu .toggle_aside:hover .icon {
 		filter: brightness(2);
 	}
 
