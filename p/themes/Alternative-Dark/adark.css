@@ -313,6 +313,7 @@ a.btn {
 
 .nav-list .item.active a {
 	background-color: var(--background-color-dark);
+	color: var(--font-color-light);
 }
 
 .nav-list .item > a {
