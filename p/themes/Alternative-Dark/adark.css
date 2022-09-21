@@ -982,6 +982,10 @@ kbd {
 	font-size: 90%;
 }
 
+#stream-footer {
+	border-top-color: var(--border-color-dark);
+}
+
 /*=== GLOBAL VIEW */
 /*================*/
 .box.category .box-title .title {
