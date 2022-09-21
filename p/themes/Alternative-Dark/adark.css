@@ -796,6 +796,10 @@ kbd {
 	color: var(--font-color-light);
 }
 
+.flux .item.title .author {
+	color: var(--font-color-dark);
+}
+
 .flux.favorite {
 	border-left: 2px solid var(--border-color-favorite);
 }
