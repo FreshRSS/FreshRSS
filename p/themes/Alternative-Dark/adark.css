@@ -842,8 +842,10 @@ kbd {
 	color: var(--font-color-middle);
 }
 
-.content > h1.title > a {
-	color: var(--font-color-middle);
+.content h1,
+.content h2,
+.content h3 {
+	color: var(--font-color-light);
 }
 
 .content hr {
