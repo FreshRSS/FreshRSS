@@ -7,10 +7,8 @@
 	--template-font-color-grey-dark: #666;
 	--template-font-color-grey-light: #aaa;
 	--template-font-color-light: #fff;
-	--ffont-color-contrast: #0062b7;
-	--ffont-color-error: #912621;
+	--template-font-color-error: #bd362f;
 }
-
 
 @font-face {
 	font-family: 'OpenSans';
@@ -1232,7 +1230,7 @@ a.website:hover .favicon {
 
 .content > header,
 .content > footer {
-	color: var(--template-font-color-grey-dark);
+	color: var(--template-font-color-grey-light);
 	font-size: .9rem;
 }
 
@@ -1717,7 +1715,7 @@ input:checked + .slide-container .properties {
 .category .title.error::before,
 .item.feed.error .item-title::before {
 	content: " ⚠ ";
-	color: #bd362f;
+	color: var(--template-font-color-error);
 }
 
 .feed.item.error.active .item-title::before {
