@@ -823,6 +823,11 @@ kbd {
 	padding: 5px;
 }
 
+.flux .website a:hover .favicon, 
+.flux a.website:hover .favicon {
+	filter: grayscale(50%);
+}
+
 .flux .item.manage .read:hover .icon {
 	filter: grayscale(0.8) brightness(1.7);
 }
