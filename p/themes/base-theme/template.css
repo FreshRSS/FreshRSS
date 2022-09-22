@@ -2,7 +2,6 @@
 
 /*=== GENERAL */
 /*============*/
-
 :root {
 	--template-font-color-dark: #000;
 	--template-font-color-grey-dark: #666;
@@ -27,7 +26,6 @@ html, body {
 	padding: 0;
 	background: white;
 	height: 100%;
-	color: var(--template-font-color-dark);
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }

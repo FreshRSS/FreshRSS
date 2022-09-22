@@ -1381,6 +1381,7 @@ main.prompt {
 /*============*/
 html, body {
 	background: #eff0f2;
+	color: #36c;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
 }

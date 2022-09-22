@@ -2,6 +2,15 @@
 
 /*=== GENERAL */
 /*============*/
+:root {
+	--template-font-color-dark: #000;
+	--template-font-color-grey-dark: #666;
+	--template-font-color-grey-light: #aaa;
+	--template-font-color-light: #fff;
+	--ffont-color-contrast: #0062b7;
+	--ffont-color-error: #912621;
+}
+
 
 @font-face {
 	font-family: 'OpenSans';
@@ -17,7 +26,6 @@ html, body {
 	padding: 0;
 	background: white;
 	height: 100%;
-	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
@@ -91,7 +99,7 @@ kbd {
 	background-color: #eee;
 	padding: 2px 24px 2px 4px;
 	display: inline-block;
-	color: #333;
+	color: var(--template-font-color-grey-dark);
 	border: 1px solid #b4b4b4;
 	border-radius: 3px;
 	text-indent: -20px;
@@ -227,7 +235,7 @@ input:disabled,
 select:disabled {
 	background-color: transparent;
 	min-width: 75px;
-	color: lightgray;
+	color: var(--template-font-color-grey-light);
 	font-style: italic;
 	border: 1px dashed lightgray;
 }
@@ -282,7 +290,7 @@ button.as-link:active {
 }
 
 button.as-link[disabled] {
-	color: #ddd !important;
+	color: var(--template-font-color-grey-light) !important;
 }
 
 /*=== Tables */
@@ -1106,7 +1114,7 @@ a.website:hover .favicon {
 }
 
 .flux .item.title a {
-	color: #000;
+	color: var(--template-font-color-dark);
 	text-decoration: none;
 }
 
@@ -1155,7 +1163,7 @@ a.website:hover .favicon {
 
 .flux .item.title .summary {
 	max-height: 3em;
-	color: #666;
+	color: var(--template-font-color-grey-dark);
 	font-size: 0.9em;
 	line-height: 1.5em;
 	font-weight: normal;
@@ -1166,7 +1174,7 @@ a.website:hover .favicon {
 
 .flux .item.title .author {
 	padding-right: 1rem;
-	color: #555;
+	color: var(--template-font-color-grey-dark);
 	font-size: .9rem;
 	font-weight: normal;
 }
@@ -1224,7 +1232,7 @@ a.website:hover .favicon {
 
 .content > header,
 .content > footer {
-	color: #666;
+	color: var(--template-font-color-grey-dark);
 	font-size: .9rem;
 }
 
@@ -1380,14 +1388,14 @@ br {
 	width: 27px;
 	height: 27px;
 	padding-bottom: 5px;
-	color: #aaa;
+	color: var(--template-font-color-grey-light);
 	font-size: 28px;
 	font-weight: bold;
 }
 
 #popup-close:hover,
 #popup-close:focus {
-	color: #000;
+	color: var(--template-font-color-dark);
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -1638,7 +1646,7 @@ br {
 	display: none;
 	width: 65px;
 	height: 100%;
-	color: #fff;
+	color: var(--template-font-color-light);
 	font-family: "Varela Round", sans-serif;
 	font-size: 1000%;
 	position: absolute;
@@ -1656,7 +1664,6 @@ br {
 	padding: 5px;
 	background: rgba(255, 255, 255, 0.7);
 	display: none;
-	color: #000;
 	border-top: 1px solid #aaa;
 	bottom: 0;
 	right: 0; left: 0;
@@ -1714,7 +1721,7 @@ input:checked + .slide-container .properties {
 }
 
 .feed.item.error.active .item-title::before {
-	color: white;
+	color: var(--template-font-color-light);
 }
 
 .aside .category .title:not([data-unread="0"])::after,
@@ -1756,7 +1763,7 @@ input:checked + .slide-container .properties {
 
 .feed.active .item-title:not([data-unread="0"])::after {
 	background-color: transparent;
-	color: white;
+	color: var(--template-font-color-light);
 	border: 1px solid #fff;
 	font-weight: bold;
 }
@@ -2076,7 +2083,6 @@ input:checked + .slide-container .properties {
 
 	html, body {
 		background: #fff;
-		color: #000;
 		font-family: Serif;
 	}
 
@@ -2090,7 +2096,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.flux_content .content a {
-		color: #000;
+		color: var(--template-font-color-dark);
 	}
 
 	.flux_content .content a::after {
