@@ -274,12 +274,6 @@ a.btn {
 	color: #fff;
 }
 
-.nav-list .disable {
-	text-align: center;
-	background: #fafafa;
-	color: #aaa;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -335,12 +329,6 @@ a.btn {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
 }
 
 /*=== Dropdown */
@@ -1019,60 +1007,6 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #ddd;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
-}
-
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid #aaa;
-}
-
-.log {
-	margin: 10px 0;
-	padding: 5px 2%;
-	background: #fafafa;
-	color: #666;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-
-.log > .date {
-	margin: 0 0 0 10px;
-	padding: 5px 10px;
-	border-radius: 20px;
-}
-
-.log.error > .date {
-	background: #e74c3c;
-	color: #fff;
-}
-
-.log.warning > .date {
-	background: #f39c12;
-}
-
-.log.notice > .date {
-	background: #ecf0f1;
-}
-
-.log.debug > .date {
-	background: #111;
-	color: #eee;
 }
 
 /*=== MOBILE */

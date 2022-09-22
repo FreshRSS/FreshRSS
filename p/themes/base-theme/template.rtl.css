@@ -532,6 +532,8 @@ input[type="checkbox"]:focus-visible {
 
 /*=== Horizontal-list */
 .horizontal-list {
+	margin: 0;
+	padding: 0;
 	display: table;
 	table-layout: fixed;
 	width: 100%;
@@ -542,7 +544,13 @@ input[type="checkbox"]:focus-visible {
 	vertical-align: middle;
 }
 
-.horizontal-list.wrapTitle_desktop .item {
+.horizontal-list.wrapTitle_desktop1 .item {
+	vertical-align: middle;
+}
+
+.horizontal-list.wrapTitle_desktop2 .item,
+.horizontal-list.wrapTitle_desktop3 .item,
+.horizontal-list.wrapTitle_desktop4 .item {
 	vertical-align: top;
 }
 
@@ -712,7 +720,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .pagination {
-	margin: 0;
+	margin: 0 auto;
 	padding: 0;
 	display: table;
 	table-layout: fixed;
@@ -1709,11 +1717,12 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.log-error,
-.log-warning,
-.log-notice,
-.log-debug {
+.log-level {
 	text-align: center;
+}
+
+.log-item.log-error {
+	background-color: #bd362f44;
 }
 
 .item.share.error a::after,

@@ -419,12 +419,6 @@ form {
 		}
 	}
 
-	.disable {
-		text-align: center;
-		background: $color_light;
-		color: color.adjust( $color_light, $lightness: -40% );
-	}
-
 	.nav-form {
 		padding: 3px;
 		text-align: center;
@@ -450,11 +444,6 @@ form {
 		font-size: 0.9rem;
 		line-height: 1.5rem;
 	}
-}
-
-.horizontal-list {
-	margin: 0;
-	padding: 0;
 }
 
 .dropdown-menu {
@@ -1189,20 +1178,6 @@ form {
 			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
 		}
 	}
-
-	> .horizontal-list {
-		margin: 0 0 5px;
-
-		.item {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-
-			&:first-child {
-				width: 270px;
-			}
-		}
-	}
 }
 
 #overlay {
@@ -1250,40 +1225,19 @@ a.signin {
 	font-size: 70%;
 }
 
-.loglist {
-	overflow: hidden;
-	border: 1px solid color.adjust( $color_light, $lightness: -40% );
-}
-
-.log {
-	padding: 5px 2%;
-	background: $color_light;
-	font-size: 0.8rem;
-	overflow: auto;
-
-	> .date {
-		margin: 0 10px 0 0;
-		padding: 5px 10px;
-	}
-
-	&.error > .date {
+.log-item {
+	&.log-error {
 		background: color.adjust( $color_bad, $lightness: 10%);
 		color: $color_light;
 	}
 
-	&.warning > .date {
+	&.log-warning {
 		background: $color_alert;
 		color: $color_light;
 	}
 
-	&.notice > .date {
-		background: color.adjust( $color_light, $lightness: -10%);
-		color: $color_light;
-	}
-
-	&.debug > .date {
+	&.log-debug {
 		background: $color_text;
-		color: $color_light;
 	}
 }
 
