@@ -29,7 +29,8 @@ input, select, textarea {
 	min-height: 32px;
 }
 
-a.btn {
+a.btn,
+.stick .btn {
 	min-height: 20px;
 	line-height: 20px;
 }
