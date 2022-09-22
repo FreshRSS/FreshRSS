@@ -8,7 +8,6 @@ input, select, textarea {
 	line-height: 25px;
 }
 
-
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
@@ -36,15 +35,10 @@ a.btn,
 }
 
 /*=== Navigation */
-
 /*=== Dropdown */
-
 /*=== Alerts */
-
 /*=== Pagination */
-
 /*=== Boxes */
-
 /*=== Tree */
 .tree-folder-title {
 	padding: 0 5px;
@@ -98,13 +92,9 @@ a.btn,
 }
 
 /*=== Aside main page (feeds) */
-
 /*=== Configuration pages */
-
 /*=== Prompt (centered) */
-
 /*=== New article notification */
-
 #new-article > a {
 	line-height: 3em;
 }
@@ -121,7 +111,6 @@ a.btn,
 }
 
 /*=== Index menu */
-
 /*=== Feed articles */
 .flux_header .title {
 	font-size: 0.8rem;
@@ -174,7 +163,6 @@ a.btn,
 }
 
 /*=== Notification and actualize notification */
-
 /*=== "Load more" part */
 #bigMarkAsRead {
 	font-size: 1.2em;
@@ -191,19 +179,16 @@ a.btn,
 
 /*=== READER VIEW */
 /*================*/
-
 /*=== GLOBAL VIEW */
 /*================*/
 /*=== DIVERS */
 /*===========*/
-
 /*=== STATISTICS */
 /*===============*/
 /*=== MOBILE */
 /*===========*/
 
 @media (max-width: 840px) {
-
 	.nav_menu .search input {
 		padding: 1px 5px;
 	}
