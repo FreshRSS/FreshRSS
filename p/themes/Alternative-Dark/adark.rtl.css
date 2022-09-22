@@ -823,7 +823,7 @@ kbd {
 	padding: 5px;
 }
 
-.flux .website a:hover .favicon, 
+.flux .website a:hover .favicon,
 .flux a.website:hover .favicon {
 	filter: grayscale(50%);
 }
