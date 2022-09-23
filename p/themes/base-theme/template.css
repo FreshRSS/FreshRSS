@@ -15,7 +15,9 @@
 
 	--template-noThumbnailImage-background-color: #ddd;
 
-	--template-darken-background-color: rgba(0, 0, 0, 0.5);
+	--template-darken-background-hover: rgba(90, 90, 90, 0.1);
+
+	--template-modal-background-color: rgba(0, 0, 0, 0.5);
 
 	--template-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--template-scrollbar-handle-hover: rgba(0, 0, 0, 0.3);
@@ -1063,6 +1065,12 @@ input[type="search"] {
 	visibility: visible;
 }
 
+.aside .toggle_aside:hover,
+#panel .close:hover,
+.dropdown-menu .toggle_aside:hover {
+	background-color: var(--template-darken-background-hover);
+}
+
 /*=== New article notification */
 #new-article {
 	display: none;
@@ -1348,7 +1356,7 @@ br {
 }
 
 .notification a.close:hover {
-	background: rgba(10,10,10,0.05);
+	background-color: var(--template-darken-background-hover);
 }
 
 .notification a.close:hover .icon {
@@ -1533,7 +1541,7 @@ br {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	background-color: var(--template-darken-background-color);
+	background-color: var(--template-modal-background-color);
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
@@ -1592,7 +1600,7 @@ br {
 }
 
 #slider.active:target + #close-slider {
-	background-color: var(--template-darken-background-color);
+	background-color: var(--template-modal-background-color);
 	font-size: 0;
 	left: 0;
 	z-index: 99;
@@ -1989,7 +1997,7 @@ input:checked + .slide-container .properties {
 
 	.aside:target + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
-		background-color: var(--template-darken-background-color);
+		background-color: var(--template-modal-background-color);
 		display: block;
 		font-size: 0;
 		position: fixed;
