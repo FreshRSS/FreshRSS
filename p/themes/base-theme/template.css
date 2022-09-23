@@ -8,6 +8,19 @@
 	--template-font-color-grey-light: #aaa;
 	--template-font-color-light: #fff;
 	--template-font-color-error: #bd362f;
+
+	--template-background-color: #fff;
+
+	--template-dragdrop-color: rgba(250,250,210, 0.7);
+
+	--template-noThumbnailImage-background-color: #ddd;
+
+	--template-darken-background-color: rgba(0, 0, 0, 0.5);
+
+	--template-scrollbar-handle: rgba(0, 0, 0, 0.1);
+	--template-scrollbar-handle-hover: rgba(0, 0, 0, 0.3);
+	--template-scrollbar-track: rgba(0, 0, 0, 0.05);
+	--template-scrollbar-track-hover: rgba(0, 0, 0, 0.05);
 }
 
 @font-face {
@@ -22,7 +35,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
-	background: white;
+	background-color: var(--template-background-color);
 	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
@@ -580,7 +593,7 @@ input[type="checkbox"]:focus-visible {
 
 .dropdown-menu {
 	margin: 0;
-	background: #fff;
+	background-color: var(--template-background-color);
 	display: none;
 	border: 1px solid #aaa;
 	min-width: 200px;
@@ -828,11 +841,11 @@ input[type="checkbox"]:focus-visible {
 }
 
 .drag-active .drop-zone:not(.drag-disallowed) {
-	background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(250,250,210, 0.7) 40px, rgba(250,250,210, 0.7) 60px);
+	background: repeating-linear-gradient(45deg, transparent, transparent 40px, var(--template-dragdrop-color) 40px, var(--template-dragdrop-color) 60px);
 }
 
 .drag-active .drag-hover.drop-zone {
-	background: rgba(250,250,210, 0.7);
+	background-color: var(--template-dragdrop-color);
 	transition: background 0.5s;
 }
 
@@ -861,37 +874,41 @@ li.drag-hover {
 }
 
 /*=== Scrollbar */
-
 @supports (scrollbar-width: thin) {
 	#sidebar,
 	.scrollbar-thin {
-		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
+		scrollbar-color: var(--template-scrollbar-handle) var(--template-scrollbar-track);
 		scrollbar-width: thin;
 	}
 
 	#sidebar:hover,
 	.scrollbar-thin:hover {
-		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
+		scrollbar-color: rgba(0, 0, 0, 0.3) var(--template-scrollbar-track);
 	}
 }
 
 @supports not (scrollbar-width: thin) {
 	#sidebar::-webkit-scrollbar,
 	.scrollbar-thin::-webkit-scrollbar {
-		background: rgba(0, 0, 0, 0.05);
+		background: var(--template-scrollbar-track);
 		width: 8px;
+	}
+
+	#sidebar:hover::-webkit-scrollbar,
+	.scrollbar-thin:hover::-webkit-scrollbar {
+		background: var(--template-scrollbar-track-hover);
 	}
 
 	#sidebar::-webkit-scrollbar-thumb,
 	.scrollbar-thin::-webkit-scrollbar-thumb {
-		background: rgba(0, 0, 0, 0.1);
+		background: var(--template-scrollbar-handle);
 		display: unset;
 		border-radius: 5px;
 	}
 
 	#sidebar:hover::-webkit-scrollbar-thumb,
 	.scrollbar-thin::-webkit-scrollbar-thumb {
-		background: rgba(0, 0, 0, 0.3);
+		background: var(--template-scrollbar-handle-hover);
 	}
 }
 
@@ -1102,7 +1119,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .item.title {
-	background: #fff;
+	background-color: var(--template-background-color);
 	max-width: calc(100% - 320px);
 	position: absolute;
 }
@@ -1151,7 +1168,7 @@ a.website:hover .favicon {
 }
 
 .flux .item.thumbnail img {
-	background: repeating-linear-gradient( -45deg, #ddd, #ddd 5px, transparent 5px, transparent 10px );
+	background: repeating-linear-gradient( -45deg, var(--template-noThumbnailImage-background-color), var(--template-noThumbnailImage-background-color) 5px, transparent 5px, transparent 10px );
 	display: inline-block;
 	width: 100%;
 	height: 100%;
@@ -1310,7 +1327,7 @@ br {
 	top: 1em;
 	left: 25%; right: 25%;
 	z-index: 9999;
-	background: #fff;
+	background-color: var(--template-background-color);
 	border: 1px solid #aaa;
 	opacity: 1;
 	line-height: 2;
@@ -1415,7 +1432,6 @@ br {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	background: #fff;
 	display: table;
 	position: fixed;
 	bottom: 0; left: 0;
@@ -1517,7 +1533,7 @@ br {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	background: rgba(0, 0, 0, 0.5);
+	background-color: var(--template-darken-background-color);
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
@@ -1529,7 +1545,7 @@ br {
 }
 
 #panel {
-	background: #fff;
+	background-color: var(--template-background-color);
 	display: none;
 	position: fixed;
 	top: 2%; bottom: 2%;
@@ -1550,7 +1566,7 @@ br {
 
 /*=== Slider */
 #slider {
-	background: #fff;
+	background-color: var(--template-background-color);
 	width: 0;
 	position: fixed;
 	top: 0; bottom: 0;
@@ -1576,7 +1592,7 @@ br {
 }
 
 #slider.active:target + #close-slider {
-	background: rgba(0, 0, 0, 0.2);
+	background-color: var(--template-darken-background-color);
 	font-size: 0;
 	left: 0;
 	z-index: 99;
@@ -1863,7 +1879,6 @@ input:checked + .slide-container .properties {
 	#panel .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
-		background: #f6f6f6;
 		display: block;
 		width: 100%;
 		height: 50px;
@@ -1974,7 +1989,7 @@ input:checked + .slide-container .properties {
 
 	.aside:target + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
-		background: rgba(0, 0, 0, 0.2);
+		background-color: var(--template-darken-background-color);
 		display: block;
 		font-size: 0;
 		position: fixed;
@@ -2080,7 +2095,7 @@ input:checked + .slide-container .properties {
 	}
 
 	html, body {
-		background: #fff;
+		background-color: var(--template-background-color);
 		font-family: Serif;
 	}
 
