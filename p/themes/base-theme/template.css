@@ -892,25 +892,25 @@ li.drag-hover {
 @supports not (scrollbar-width: thin) {
 	#sidebar::-webkit-scrollbar,
 	.scrollbar-thin::-webkit-scrollbar {
-		background: var(--template-scrollbar-track);
+		background-color: var(--template-scrollbar-track);
 		width: 8px;
 	}
 
 	#sidebar:hover::-webkit-scrollbar,
 	.scrollbar-thin:hover::-webkit-scrollbar {
-		background: var(--template-scrollbar-track-hover);
+		background-color: var(--template-scrollbar-track-hover);
 	}
 
 	#sidebar::-webkit-scrollbar-thumb,
 	.scrollbar-thin::-webkit-scrollbar-thumb {
-		background: var(--template-scrollbar-handle);
+		background-color: var(--template-scrollbar-handle);
 		display: unset;
 		border-radius: 5px;
 	}
 
 	#sidebar:hover::-webkit-scrollbar-thumb,
 	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
-		background: var(--template-scrollbar-handle-hover);
+		background-color: var(--template-scrollbar-handle-hover);
 	}
 }
 
