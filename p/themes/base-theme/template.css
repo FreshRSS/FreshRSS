@@ -883,7 +883,7 @@ li.drag-hover {
 
 	#sidebar:hover,
 	.scrollbar-thin:hover {
-		scrollbar-color: rgba(0, 0, 0, 0.3) var(--template-scrollbar-track);
+		scrollbar-color: var(--template-scrollbar-handle-hover) var(--template-scrollbar-track-hover);
 	}
 }
 
@@ -907,7 +907,7 @@ li.drag-hover {
 	}
 
 	#sidebar:hover::-webkit-scrollbar-thumb,
-	.scrollbar-thin::-webkit-scrollbar-thumb {
+	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background: var(--template-scrollbar-handle-hover);
 	}
 }
