@@ -23,6 +23,8 @@
 	--template-scrollbar-handle-hover: rgba(0, 0, 0, 0.3);
 	--template-scrollbar-track: rgba(0, 0, 0, 0.05);
 	--template-scrollbar-track-hover: rgba(0, 0, 0, 0.05);
+
+	--template-loading-image: url("loader.gif");
 }
 
 @font-face {
@@ -1469,12 +1471,12 @@ br {
 #load_more.loading,
 #load_more.loading:hover {
 	padding: 10px 20px;
-	background: url("loader.gif") center center no-repeat #fff;
+	background: var(--template-loading-image) center center no-repeat #fff;
 	font-size: 0;
 }
 
 .loading {
-	background: url("loader.gif") center center no-repeat;
+	background: var(--template-loading-image) center center no-repeat;
 	font-size: 0;
 }
 
