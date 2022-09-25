@@ -26,6 +26,8 @@
 	--template-darken-background-hover: rgba(90, 90, 90, 0.1);
 
 	--template-modal-background-color: rgba(0, 0, 0, 0.5);
+	
+	--template-box-shadow-color: rgba(0, 0, 0, 0.2);
 
 	--template-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--template-scrollbar-handle-hover: rgba(0, 0, 0, 0.3);
@@ -1405,9 +1407,9 @@ br {
 	width: 80%;
 	height: 80%;
 	overflow: hidden;
-	background-color: #fafafa;
+	background-color: var(--template-background-color);
 	border-radius: .25rem;
-	box-shadow: 0 0 1px #737373, 1px 2px 3px #4a4a4f;
+	box-shadow: 3px 3px 5px var(--template-box-shadow-color);
 }
 
 .popup-row {
@@ -1595,6 +1597,7 @@ br {
 
 #slider.active:target {
 	width: 750px;
+	box-shadow: -3px 3px 5px var(--template-box-shadow-color);
 }
 
 #slider.sliding {
@@ -1893,6 +1896,10 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
+	.aside:target {
+		box-shadow: 3px 3px 5px var(--template-box-shadow-color);
+	}
+
 	.aside .toggle_aside,
 	#panel .close,
 	.dropdown-menu .toggle_aside,
@@ -1976,7 +1983,7 @@ input:checked + .slide-container .properties {
 		padding-top: 0;
 		margin-top: 0;
 		overflow: auto;
-		box-shadow: -3px 0 3px #aaa;
+		box-shadow: -3px 0 3px var(--template-box-shadow-color);
 	}
 
 	.configure .dropdown-target:target ~ .dropdown-toggle::after {
