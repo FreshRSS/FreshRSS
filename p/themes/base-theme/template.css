@@ -7,14 +7,13 @@
 	--template-font-color-grey-dark: #666;
 	--template-font-color-grey-light: #aaa;
 	--template-font-color-light: #fff;
-	--template-font-color-error: #bd362f;
+	--template-background-color-error: #ff000040;
+	--template-font-color-error: #ff0000;
 
 	--template-background-color: #fff;
 	--template-background-color-transparent: rgba(255, 255, 255, 0.5);
 	--template-background-color-middle: #eee;
 	--template-background-color-dark: #ccc;
-
-	
 
 	--template-switch-accent-color: #85D885;
 
@@ -1746,7 +1745,7 @@ input:checked + .slide-container .properties {
 }
 
 .log-item.log-error {
-	background-color: #bd362f44;
+	background-color: var(--template-background-color-error);
 }
 
 .item.share.error a::after,
@@ -1798,7 +1797,6 @@ input:checked + .slide-container .properties {
 }
 
 .feed.active .item-title:not([data-unread="0"])::after {
-	background-color: transparent;
 	color: var(--template-font-color-light);
 	border: 1px solid #fff;
 	font-weight: bold;
@@ -2167,10 +2165,6 @@ input:checked + .slide-container .properties {
 
 .preview_controls label + label {
 	margin-left: 1rem;
-}
-
-.preview_background {
-	background-color: transparent;
 }
 
 .drag-drop-marker {
