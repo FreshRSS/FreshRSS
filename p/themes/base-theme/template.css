@@ -1079,6 +1079,7 @@ input[type="search"] {
 
 .aside .toggle_aside:hover,
 #panel .close:hover,
+#slider .toggle_aside:hover,
 .dropdown-menu .toggle_aside:hover {
 	background-color: var(--template-darken-background-hover);
 }
