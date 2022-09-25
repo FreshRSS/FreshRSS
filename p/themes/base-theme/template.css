@@ -8,33 +8,33 @@
 	--template-font-color-grey-light: #aaa;
 	--template-font-color-light: #fff;
 	--template-background-color-error-transparent: #ff000040;
-	--template-font-color-error: #ff0000;
+	--template-font-color-error: #f00;
 
 	--template-background-color: #fff;
-	--template-background-color-transparent: #ffffff7F;
+	--template-background-color-transparent: #ffffff7f;
 	--template-background-color-middle: #eee;
 	--template-background-color-dark: #ccc;
 
 	--template-border-color: #999;
-	--template-border-color-error: #ff0000;
+	--template-border-color-error: #f00;
 
-	--template-switch-accent-color: #85D885;
+	--template-switch-accent-color: #85d885;
 
-	--template-dragdrop-color: #ffff00;
-	--template-dragdrop-color-transparent: #ffff0020;
+	--template-dragdrop-color: #ff0;
+	--template-dragdrop-color-transparent: #ff02;
 
 	--template-noThumbnailImage-background-color: #ddd;
 
-	--template-darken-background-hover-transparent: #66666620;
+	--template-darken-background-hover-transparent: #6662;
 
-	--template-modal-background-color-transparent: #0000007F;
+	--template-modal-background-color-transparent: #0007;
 
-	--template-box-shadow-color-transparent: #00000033;
+	--template-box-shadow-color-transparent: #0003;
 
-	--template-scrollbar-handle: #00000022;
-	--template-scrollbar-handle-hover: #00000055;
-	--template-scrollbar-track: #00000011;
-	--template-scrollbar-track-hover: #00000011;
+	--template-scrollbar-handle: #0002;
+	--template-scrollbar-handle-hover: #0005;
+	--template-scrollbar-track: #0001;
+	--template-scrollbar-track-hover: #0001;
 
 	--template-loading-image: url("loader.gif");
 }
@@ -890,6 +890,7 @@ li.drag-hover {
 }
 
 /*=== Scrollbar */
+
 @supports (scrollbar-width: thin) {
 	#sidebar,
 	.scrollbar-thin {
