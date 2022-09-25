@@ -7,11 +7,11 @@
 	--template-font-color-grey-dark: #666;
 	--template-font-color-grey-light: #aaa;
 	--template-font-color-light: #fff;
-	--template-background-color-error: #ff000040;
+	--template-background-color-error-transparent: #ff000040;
 	--template-font-color-error: #ff0000;
 
 	--template-background-color: #fff;
-	--template-background-color-transparent: rgba(255, 255, 255, 0.5);
+	--template-background-color-transparent: #ffffff7F;
 	--template-background-color-middle: #eee;
 	--template-background-color-dark: #ccc;
 
@@ -25,16 +25,16 @@
 
 	--template-noThumbnailImage-background-color: #ddd;
 
-	--template-darken-background-hover: rgba(90, 90, 90, 0.1);
+	--template-darken-background-hover-transparent: #66666620;
 
-	--template-modal-background-color: rgba(0, 0, 0, 0.5);
-	
-	--template-box-shadow-color: rgba(0, 0, 0, 0.2);
+	--template-modal-background-color-transparent: #0000007F;
 
-	--template-scrollbar-handle: rgba(0, 0, 0, 0.1);
-	--template-scrollbar-handle-hover: rgba(0, 0, 0, 0.3);
-	--template-scrollbar-track: rgba(0, 0, 0, 0.05);
-	--template-scrollbar-track-hover: rgba(0, 0, 0, 0.05);
+	--template-box-shadow-color-transparent: #00000033;
+
+	--template-scrollbar-handle: #00000022;
+	--template-scrollbar-handle-hover: #00000055;
+	--template-scrollbar-track: #00000011;
+	--template-scrollbar-track-hover: #00000011;
 
 	--template-loading-image: url("loader.gif");
 }
@@ -1083,7 +1083,7 @@ input[type="search"] {
 #panel .close:hover,
 #slider .toggle_aside:hover,
 .dropdown-menu .toggle_aside:hover {
-	background-color: var(--template-darken-background-hover);
+	background-color: var(--template-darken-background-hover-transparent);
 }
 
 /*=== New article notification */
@@ -1371,7 +1371,7 @@ br {
 }
 
 .notification a.close:hover {
-	background-color: var(--template-darken-background-hover);
+	background-color: var(--template-darken-background-hover-transparent);
 }
 
 .notification a.close:hover .icon {
@@ -1401,7 +1401,7 @@ br {
 	width: 100%;
 	height: 100%;
 	overflow: auto;
-	background-color: var(--template-modal-background-color);
+	background-color: var(--template-modal-background-color-transparent);
 }
 
 #popup-content {
@@ -1412,7 +1412,7 @@ br {
 	overflow: hidden;
 	background-color: var(--template-background-color);
 	border-radius: .25rem;
-	box-shadow: 3px 3px 5px var(--template-box-shadow-color);
+	box-shadow: 3px 3px 5px var(--template-box-shadow-color-transparent);
 }
 
 .popup-row {
@@ -1555,7 +1555,7 @@ br {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	background-color: var(--template-modal-background-color);
+	background-color: var(--template-modal-background-color-transparent);
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
@@ -1599,7 +1599,7 @@ br {
 
 #slider.active:target {
 	width: 750px;
-	box-shadow: -3px 3px 5px var(--template-box-shadow-color);
+	box-shadow: -3px 3px 5px var(--template-box-shadow-color-transparent);
 }
 
 #slider.sliding {
@@ -1614,7 +1614,7 @@ br {
 }
 
 #slider.active:target + #close-slider {
-	background-color: var(--template-modal-background-color);
+	background-color: var(--template-modal-background-color-transparent);
 	font-size: 0;
 	left: 0;
 	z-index: 99;
@@ -1747,7 +1747,7 @@ input:checked + .slide-container .properties {
 }
 
 .log-item.log-error {
-	background-color: var(--template-background-color-error);
+	background-color: var(--template-background-color-error-transparent);
 }
 
 .item.share.error a::after,
@@ -1898,7 +1898,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.aside:target {
-		box-shadow: 3px 3px 5px var(--template-box-shadow-color);
+		box-shadow: 3px 3px 5px var(--template-box-shadow-color-transparent);
 	}
 
 	.aside .toggle_aside,
@@ -1984,7 +1984,7 @@ input:checked + .slide-container .properties {
 		padding-top: 0;
 		margin-top: 0;
 		overflow: auto;
-		box-shadow: -3px 0 3px var(--template-box-shadow-color);
+		box-shadow: -3px 0 3px var(--template-box-shadow-color-transparent);
 	}
 
 	.configure .dropdown-target:target ~ .dropdown-toggle::after {
@@ -2015,7 +2015,7 @@ input:checked + .slide-container .properties {
 
 	.aside:target + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
-		background-color: var(--template-modal-background-color);
+		background-color: var(--template-modal-background-color-transparent);
 		display: block;
 		font-size: 0;
 		position: fixed;
