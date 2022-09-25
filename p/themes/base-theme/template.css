@@ -15,6 +15,9 @@
 	--template-background-color-middle: #eee;
 	--template-background-color-dark: #ccc;
 
+	--template-border-color: #999;
+	--template-border-color-error: #ff0000;
+
 	--template-switch-accent-color: #85D885;
 
 	--template-dragdrop-color: #ffff00;
@@ -124,7 +127,7 @@ kbd {
 	padding: 2px 4px 2px 24px;
 	display: inline-block;
 	color: var(--template-font-color-grey-dark);
-	border: 1px solid #b4b4b4;
+	border: 1px solid var(--template-border-color);
 	border-radius: 3px;
 	text-indent: -20px;
 	white-space: pre-wrap;
@@ -243,7 +246,7 @@ textarea[rows="2"] {
 }
 
 textarea:invalid {
-	border: 2px dashed red;
+	border: 2px dashed var(--template-border-color-error);
 }
 
 .prompt textarea,
@@ -261,7 +264,7 @@ select:disabled {
 	min-width: 75px;
 	color: var(--template-font-color-grey-light);
 	font-style: italic;
-	border: 1px dashed lightgray;
+	border: 1px dashed var(--template-border-color);
 }
 
 input[type="radio"],
@@ -536,7 +539,7 @@ a.btn {
 
 .btn:focus-visible,
 input[type="checkbox"]:focus-visible {
-	outline: 2px solid #ccc;
+	outline: 2px solid var(--template-border-color);
 }
 
 /*=== Navigation */
@@ -608,7 +611,7 @@ input[type="checkbox"]:focus-visible {
 	margin: 0;
 	background-color: var(--template-background-color);
 	display: none;
-	border: 1px solid #aaa;
+	border: 1px solid var(--template-border-color);
 	min-width: 200px;
 	position: absolute;
 	right: 0;
@@ -620,6 +623,7 @@ input[type="checkbox"]:focus-visible {
 	height: 10px;
 	border-width: 1px 0 0 1px;
 	border-style: solid;
+	border-color: var(--template-border-color);
 	content: "";
 	position: absolute;
 	top: -6px;
@@ -687,7 +691,7 @@ input[type="checkbox"]:focus-visible {
 .separator {
 	display: block;
 	height: 0;
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid var(--template-border-color);
 }
 
 /*=== Alerts */
@@ -732,7 +736,7 @@ input[type="checkbox"]:focus-visible {
 	margin: 0 0 5em;
 	padding: 1em 0;
 	width: 100%;
-	border-top: 1px solid #aaa;
+	border-top: 1px solid var(--template-border-color);
 	text-align: center;
 }
 
@@ -783,7 +787,6 @@ input[type="checkbox"]:focus-visible {
 	display: inline-block;
 	max-width: 95%;
 	width: 20rem;
-	border: 1px solid #ccc;
 	vertical-align: top;
 }
 
@@ -864,7 +867,7 @@ input[type="checkbox"]:focus-visible {
 
 li.drag-hover {
 	margin: 0 0 5px;
-	border-bottom: 2px solid #ccc;
+	border-bottom: 2px solid var(--template-border-color);
 }
 
 .drag-drop {
@@ -1274,7 +1277,7 @@ a.website:hover .favicon {
 .content > footer {
 	margin: 2rem 0 2rem;
 	padding-top: 1rem;
-	border-top: 2px solid #ccc;
+	border-top: 2px solid var(--template-border-color);
 	clear: both;
 }
 
@@ -1348,7 +1351,7 @@ br {
 	left: 25%; right: 25%;
 	z-index: 9999;
 	background-color: var(--template-background-color);
-	border: 1px solid #aaa;
+	border: 1px solid var(--template-border-color);
 	opacity: 1;
 	line-height: 2;
 	visibility: visible;
@@ -1480,7 +1483,7 @@ br {
 #load_more.loading,
 #load_more.loading:hover {
 	padding: 10px 20px;
-	background: var(--template-loading-image) center center no-repeat #fff;
+	background: var(--template-loading-image) center center no-repeat var(--template-background-color);
 	font-size: 0;
 }
 
@@ -1591,7 +1594,6 @@ br {
 	top: 0; bottom: 0;
 	right: 0;
 	overflow: auto;
-	border-left: 1px solid #aaa;
 	z-index: 100;
 }
 
@@ -1645,7 +1647,7 @@ br {
 	display: block;
 	max-width: 640px;
 	height: 320px;
-	border: 1px solid #aaa;
+	border: 1px solid var(--template-border-color);
 	position: relative;
 	min-width: 260px;
 	margin-bottom: 30px;
@@ -1698,7 +1700,7 @@ br {
 	padding: 5px;
 	background-color: var(--template-background-color-transparent);
 	display: none;
-	border-top: 1px solid #aaa;
+	border-top: 1px solid var(--template-border-color);
 	bottom: 0;
 	left: 0; right: 0;
 	position: absolute;
@@ -1798,7 +1800,7 @@ input:checked + .slide-container .properties {
 
 .feed.active .item-title:not([data-unread="0"])::after {
 	color: var(--template-font-color-light);
-	border: 1px solid #fff;
+	border: 1px solid var(--template-border-color);
 	font-weight: bold;
 }
 
@@ -1906,7 +1908,7 @@ input:checked + .slide-container .properties {
 		display: block;
 		width: 100%;
 		height: 50px;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid var(--template-border-color);
 		line-height: 50px;
 		text-align: center;
 	}
@@ -2151,7 +2153,7 @@ input:checked + .slide-container .properties {
 	max-width: 1000px;
 	text-align: center;
 	background-color: var(--template-background-color-middle);
-	border: 1px solid #e0e0e0;
+	border: 1px solid var(--template-border-color);
 	border-radius: .25rem;
 }
 
