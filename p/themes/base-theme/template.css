@@ -11,8 +11,15 @@
 
 	--template-background-color: #fff;
 	--template-background-color-transparent: rgba(255, 255, 255, 0.5);
+	--template-background-color-middle: #eee;
+	--template-background-color-dark: #ccc;
 
-	--template-dragdrop-color: rgba(250,250,210, 0.7);
+	
+
+	--template-switch-accent-color: #85D885;
+
+	--template-dragdrop-color: #ffff00;
+	--template-dragdrop-color-transparent: #ffff0020;
 
 	--template-noThumbnailImage-background-color: #ddd;
 
@@ -112,7 +119,7 @@ sup {
 }
 
 kbd {
-	background-color: #eee;
+	background-color: var(--template-background-color-middle);
 	padding: 2px 4px 2px 24px;
 	display: inline-block;
 	color: var(--template-font-color-grey-dark);
@@ -439,7 +446,7 @@ a.btn {
 	height: 1.75em;
 	border: 0;
 	border-radius: 1em;
-	background-color: #ccc;
+	background-color: var(--template-background-color-dark);
 	cursor: pointer;
 	box-sizing: content-box;
 	background-repeat: no-repeat;
@@ -455,7 +462,7 @@ a.btn {
 }
 
 .switch.active {
-	background-color: rgb(133, 216, 133);
+	background-color: var(--template-switch-accent-color);
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-image: url('../icons/enabled.svg');
@@ -486,7 +493,7 @@ a.btn {
 	top: 0.2em;
 	width: 1.5em;
 	height: 1.5em;
-	background-color: #fff;
+	background-color: var(--template-background-color);
 	background-image: url('../icons/disabled.svg');
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -495,7 +502,7 @@ a.btn {
 }
 
 .switch:not([disabled]):hover::before {
-	background-color: #eee;
+	background-color: var(--template-background-color-middle);
 }
 
 .switch.active::before {
@@ -834,7 +841,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .dragging {
-	background-color: rgba(255, 255, 0, 0.7);
+	background-color: var(--template-dragdrop-color)
 }
 
 .dragging .icon {
@@ -846,11 +853,11 @@ input[type="checkbox"]:focus-visible {
 }
 
 .drag-active .drop-zone:not(.drag-disallowed) {
-	background: repeating-linear-gradient(45deg, transparent, transparent 40px, var(--template-dragdrop-color) 40px, var(--template-dragdrop-color) 60px);
+	background: repeating-linear-gradient(45deg, transparent, transparent 40px, var(--template-dragdrop-color-transparent) 40px, var(--template-dragdrop-color-transparent) 60px);
 }
 
 .drag-active .drag-hover.drop-zone {
-	background-color: var(--template-dragdrop-color);
+	background-color: var(--template-dragdrop-color-transparent);
 	transition: background 0.5s;
 }
 
@@ -866,11 +873,11 @@ li.drag-hover {
 
 @keyframes droppedKeyframe {
 	0% {
-		background-color: rgba(250,250,210, 0.7);
+		background-color: var(--template-dragdrop-color-transparent);
 	}
 
 	50% {
-		background-color: yellow;
+		background-color: var(--template-dragdrop-color);
 	}
 
 	100% {
@@ -1389,8 +1396,7 @@ br {
 	width: 100%;
 	height: 100%;
 	overflow: auto;
-	background-color: #eee;
-	background-color: rgba(0,0,0,0.4);
+	background-color: var(--template-modal-background-color);
 }
 
 #popup-content {
@@ -1943,7 +1949,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {
-		background-color: #fff;
+		background-color: var(--template-background-color);
 		width: 10px;
 		height: 10px;
 		content: "";
@@ -2138,7 +2144,7 @@ input:checked + .slide-container .properties {
 	padding: 1rem;
 	max-width: 1000px;
 	text-align: center;
-	background-color: #eee;
+	background-color: var(--template-background-color-middle);
 	border: 1px solid #e0e0e0;
 	border-radius: .25rem;
 }
