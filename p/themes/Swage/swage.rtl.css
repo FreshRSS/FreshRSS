@@ -229,10 +229,6 @@ form th {
 	line-height: 2em;
 }
 
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick select {
 	margin-top: 0;
 }

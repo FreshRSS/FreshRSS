@@ -380,6 +380,7 @@ td.numeric {
 	display: inline-flex;
 	max-width: 100%;
 	white-space: nowrap;
+	vertical-align: middle;
 }
 
 .stick > input {
@@ -393,6 +394,10 @@ td.numeric {
 
 .stick > .btn {
 	flex-shrink: 0;
+}
+
+.stick form {
+	display: inline-flex;
 }
 
 .btn,
