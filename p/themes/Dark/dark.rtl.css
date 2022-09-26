@@ -130,11 +130,6 @@ button.as-link[disabled] {
 	color: #445 !important;
 }
 
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;

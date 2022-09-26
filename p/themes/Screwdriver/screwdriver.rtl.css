@@ -126,12 +126,6 @@ button.as-link[disabled] {
 	border-radius: 3px;
 	box-shadow: 0 2px 2px #222 inset, 0px 1px rgba(255, 255, 255, 0.08);
 }
-
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;
