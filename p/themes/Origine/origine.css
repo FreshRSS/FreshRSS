@@ -188,7 +188,8 @@ form th {
 	overflow: hidden;
 }
 
-a.btn {
+a.btn,
+.stick .btn {
 	min-height: 25px;
 	line-height: 25px;
 }
