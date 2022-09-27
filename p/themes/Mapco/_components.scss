@@ -57,7 +57,8 @@
 			line-height: 2.5em;
 		}
 
-		&:not(.addItem){ 
+		&:not(.addItem) {
+
 			a:hover,
 			button:hover {
 				background: variables.$main-first;
@@ -95,9 +96,6 @@
 			border-radius: 3px;
 		}
 	}
-
-	
-
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu {
