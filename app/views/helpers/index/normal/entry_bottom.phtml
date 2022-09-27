@@ -38,7 +38,7 @@
 	// @phpstan-ignore-next-line
 	if ($bottomline_labels) {
 	?><li class="item labels">
-		<div class="dropdown dynamictags">
+		<div class="dropdown<?= FreshRSS_Auth::hasAccess() ? ' dynamictags' : ''?>">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
 				<?= _i('label') ?><?= _t('index.menu.tags') ?>
@@ -50,6 +50,18 @@
 						<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
 					<?php } ?>
 				</li>
+				<?php
+				if (!FreshRSS_Auth::hasAccess()) {
+					$tagDAO = FreshRSS_Factory::createTagDao();
+					$tagsForEntries = $tagDAO->getTagsForEntry($this->entry->id());
+					for ($i = 0; $i < count($tagsForEntries); $i++) {
+						if ($tagsForEntries[$i]['checked']) {
+							?>
+							<li class="item"><a href="<?= _url('index', 'normal', 'get', 't_'.$tagsForEntries[$i]['id']) ?>"><?= $tagsForEntries[$i]['name'] ?></a></li>
+							<?php
+						}
+					}
+				}?>
 				<!-- Ajax -->
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
