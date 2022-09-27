@@ -4,6 +4,7 @@
 /*============*/
 html, body {
 	background: #fafafa;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	font-size: 92%;
 }
@@ -127,11 +128,6 @@ button.as-link[disabled] {
 	border: solid 1px #171717;
 	border-radius: 3px;
 	box-shadow: 0 2px 2px #222 inset, 0px 1px rgba(255, 255, 255, 0.08);
-}
-
-.stick {
-	vertical-align: middle;
-	font-size: 0;
 }
 
 .stick input,
@@ -291,12 +287,6 @@ a.btn {
 	border-color: -moz-use-text-color -moz-use-text-color #171717;
 }
 
-.nav-list .disable {
-	background: #fafafa;
-	color: #aaa;
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 	color: #ccc;
@@ -347,16 +337,6 @@ a.btn {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 /*=== Dropdown */
@@ -1133,64 +1113,6 @@ a.btn {
 	background: rgba(255,255,255,0.38);
 	border-bottom: 1px solid #ccc;
 	box-shadow: 0 1px #fff;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 250px;
-}
-
-/*=== LOGS */
-/*=========*/
-.loglist {
-	border: 1px solid #aaa;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	background: #fafafa;
-	color: #333;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-	border-top: 1px solid #aaa;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-	background: #fdd;
-	color: #844;
-}
-
-.log.warning {
-	background: #ffe;
-	color: #c95;
-}
-
-.log.notice {
-	background: #f4f4f4;
-	color: #aaa;
-}
-
-.log.debug {
-	background: #333;
-	color: #eee;
 }
 
 #slider.active {

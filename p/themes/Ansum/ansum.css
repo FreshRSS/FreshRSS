@@ -221,11 +221,7 @@ form th {
 /*=== Forms */
 /*=== Horizontal-list */
 .horizontal-list {
-	margin: 0;
 	padding: 0.1rem 0;
-}
-.horizontal-list .item {
-	vertical-align: middle;
 }
 .horizontal-list .item:first-child {
 	padding-left: 0.5rem;
@@ -516,10 +512,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick input, .stick .btn {
 	border-radius: 0;
 }
@@ -604,11 +596,6 @@ form th {
 }
 .nav-list.empty a {
 	color: #f4f762;
-}
-.nav-list .disable {
-	text-align: center;
-	background: #fcfaf8;
-	color: #ba9;
 }
 .nav-list .nav-header {
 	padding: 0 10px;
@@ -1151,9 +1138,6 @@ main.prompt {
 .post form {
 	margin: 1rem 0;
 }
-.post form .horizontal-list {
-	margin-bottom: 0.5rem;
-}
 .post.content {
 	max-width: 550px;
 }
@@ -1207,42 +1191,8 @@ main.prompt {
 
 /*=== LOGS */
 /*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid #ba9;
-}
-
-.log {
-	margin: 10px 0;
-	padding: 5px 2%;
-	background: #fcfaf8;
-	color: #766556;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-
-.log > .date {
-	margin: 0 10px 0 0;
-	padding: 5px 10px;
-	border-radius: 20px;
-}
-
-.log.error > .date {
-	background: #f5633e;
-	color: #fff;
-}
-
-.log.warning > .date {
-	background: #f4f762;
-}
-
-.log.notice > .date {
-	background: #f5f0ec;
-}
-
-.log.debug > .date {
-	background: #221f1d;
-	color: #fff;
+.log-item.log-error {
+	background-color: rgba(202, 114, 39, 0.2);
 }
 
 /*=== STATISTICS */
@@ -1260,20 +1210,6 @@ main.prompt {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #e4d8cc;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
 }
 
 /*=== MOBILE */
@@ -1424,6 +1360,7 @@ main.prompt {
 /*============*/
 html, body {
 	background: #f5f0ec;
+	color: #161a38;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
 }

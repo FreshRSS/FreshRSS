@@ -85,9 +85,6 @@
 
 /*=== Buttons */
 .stick {
-	vertical-align: middle;
-	font-size: 0;
-
 	input, .btn {
 		border-radius: 0;
 	}
@@ -211,12 +208,6 @@
 		a {
 			color: variables.$warning-bg;
 		}
-	}
-
-	.disable {
-		text-align: center;
-		background: variables.$grey-lighter;
-		color: variables.$grey-medium-dark;
 	}
 
 	.nav-header {
