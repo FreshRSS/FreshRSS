@@ -328,11 +328,14 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntry($id_entry) {
+	public function getTagsForEntry($id_entry, $onlyCheckedTags = false) {
 		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
 			 . 'FROM `_tag` t '
-			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
-			 . 'ORDER BY t.name';
+			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? ';
+		if ($onlyCheckedTags) {
+			$sql .= 'WHERE checked = true ';
+		}
+		$sql .= 'ORDER BY t.name';
 
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id_entry);
