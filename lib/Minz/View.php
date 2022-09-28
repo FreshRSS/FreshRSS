@@ -202,36 +202,25 @@ class Minz_View {
 		$styles = '';
 
 		foreach(self::$styles as $style) {
-			$cond = $style['cond'];
-			if ($cond) {
-				$styles .= '<!--[if ' . $cond . ']>';
-			}
-
 			$styles .= '<link rel="stylesheet" ' .
 				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
 				'href="' . $style['url'] . '" />';
-
-			if ($cond) {
-				$styles .= '<![endif]-->';
-			}
 
 			$styles .= "\n";
 		}
 
 		return $styles;
 	}
-	public static function prependStyle ($url, $media = 'all', $cond = false) {
+	public static function prependStyle ($url, $media = 'all') {
 		array_unshift (self::$styles, array (
 			'url' => $url,
-			'media' => $media,
-			'cond' => $cond
+			'media' => $media
 		));
 	}
-	public static function appendStyle ($url, $media = 'all', $cond = false) {
+	public static function appendStyle ($url, $media = 'all') {
 		self::$styles[] = array (
 			'url' => $url,
-			'media' => $media,
-			'cond' => $cond
+			'media' => $media
 		);
 	}
 
@@ -242,11 +231,6 @@ class Minz_View {
 		$scripts = '';
 
 		foreach (self::$scripts as $script) {
-			$cond = $script['cond'];
-			if ($cond) {
-				$scripts .= '<!--[if ' . $cond . ']>';
-			}
-
 			$scripts .= '<script src="' . $script['url'] . '"';
 			if (!empty($script['id'])) {
 				$scripts .= ' id="' . $script['id'] . '"';
@@ -258,29 +242,22 @@ class Minz_View {
 				$scripts .= ' async="async"';
 			}
 			$scripts .= '></script>';
-
-			if ($cond) {
-				$scripts .= '<![endif]-->';
-			}
-
 			$scripts .= "\n";
 		}
 
 		return $scripts;
 	}
-	public static function prependScript ($url, $cond = false, $defer = true, $async = true, $id = '') {
+	public static function prependScript ($url, $defer = true, $async = true, $id = '') {
 		array_unshift(self::$scripts, array (
 			'url' => $url,
-			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
 		));
 	}
-	public static function appendScript ($url, $cond = false, $defer = true, $async = true, $id = '') {
+	public static function appendScript ($url, $defer = true, $async = true, $id = '') {
 		self::$scripts[] = array (
 			'url' => $url,
-			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
