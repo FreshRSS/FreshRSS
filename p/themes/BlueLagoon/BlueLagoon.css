@@ -4,6 +4,7 @@
 /*============*/
 html, body {
 	background: #fafafa;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	font-size: 92%;
 }
@@ -127,11 +128,6 @@ button.as-link[disabled] {
 	border: solid 1px #171717;
 	border-radius: 3px;
 	box-shadow: 0 2px 2px #222 inset, 0px 1px rgba(255, 255, 255, 0.08);
-}
-
-.stick {
-	vertical-align: middle;
-	font-size: 0;
 }
 
 .stick input,

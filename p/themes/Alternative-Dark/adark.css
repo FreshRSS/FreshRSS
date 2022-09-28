@@ -168,11 +168,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;

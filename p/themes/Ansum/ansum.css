@@ -498,10 +498,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick input, .stick .btn {
 	border-radius: 0;
 }
@@ -1350,6 +1346,7 @@ main.prompt {
 /*============*/
 html, body {
 	background: #f5f0ec;
+	color: #161a38;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
 }

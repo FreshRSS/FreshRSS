@@ -46,6 +46,7 @@ select:invalid {
 
 html,
 body {
+	color: black;
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -229,10 +230,6 @@ form th {
 	line-height: 2em;
 }
 
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick select {
 	margin-top: 0;
 }
