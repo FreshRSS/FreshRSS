@@ -904,8 +904,12 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #111;
+	background: #1c1c1c;
+	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #111;
 	border: none;
 }
 

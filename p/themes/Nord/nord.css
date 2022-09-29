@@ -1060,7 +1060,13 @@ input.extend {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
+	background: #242933;
+	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #2e3440;
+	border: none;
 }
 
 #stream.reader .flux .author {

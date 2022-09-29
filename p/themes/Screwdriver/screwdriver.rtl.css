@@ -999,10 +999,21 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #f0f0f0;
+	background: #ede7de;
 	color: #333;
 	border: none;
+}
+
+#stream.reader .flux_content {
+	background: none;
+	border-radius: 0;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
+	border-radius: 10px;
+	box-shadow: 0 -1px rgba(255,255,255,0.28) inset;
 }
 
 #stream.reader .flux .author {
