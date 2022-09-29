@@ -1894,6 +1894,16 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
+.reader .flux {
+	padding: 1rem 0 2rem;
+}
+
+.reader .flux .content {
+	padding: 3rem;
+	background-color: var(--frss-background-color);
+	border: 1px solid var(--frss-border-color);
+}
+
 #loglist-wrapper {
 	overflow-x: auto;
 }

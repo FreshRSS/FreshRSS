@@ -1238,10 +1238,15 @@ button.as-link {
 }
 
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #fcfcfc;
 	color: #22303d;
 	border: none;
+}
+#stream.reader .flux::after {
+	border: none;
+}
+#stream.reader .flux .content {
+	border-color: #e3e3e3;
 }
 #stream.reader .flux .author {
 	margin: 0 0 10px;

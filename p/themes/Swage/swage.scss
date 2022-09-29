@@ -1538,10 +1538,17 @@ button.as-link {
 }
 
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: $color_light;
 	color: $color_aside;
 	border: none;
+
+	&::after {
+		border: none;
+	}
+
+	.content {
+		border-color: #e3e3e3;
+	}
 
 	.author {
 		margin: 0 0 10px;
