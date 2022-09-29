@@ -1024,10 +1024,18 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #f0f0f0;
+	background: #f9f7f4;
 	color: #333;
 	border: none;
+}
+
+#stream.reader .flux_content {
+	background: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
 }
 
 #stream.reader .flux .author {

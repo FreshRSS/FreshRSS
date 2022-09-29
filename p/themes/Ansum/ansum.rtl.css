@@ -1104,13 +1104,15 @@ main.prompt {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #f5f0ec;
 	color: #363330;
 	border: none;
 }
-
-#stream.reader .flux .author {
+#stream.reader .flux .content {
+	background-color: #fff;
+	border: none;
+}
+#stream.reader .flux .content .author {
 	margin: 0 0 10px;
 	color: #ba9;
 	font-size: 90%;

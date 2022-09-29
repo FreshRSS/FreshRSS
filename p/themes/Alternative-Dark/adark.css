@@ -974,9 +974,18 @@ kbd {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
 	color: var(--font-color-dark);
+	background-color: var(--background-color-dark);
 	border-bottom: 10px solid var(--background-color-dark);
+}
+
+#stream.reader .flux:hover {
+	background: inherit !important;
+}
+
+#stream.reader .flux .content {
+	background-color: var(--background-color-middle);
+	border-color: var(--border-color-dark);
 }
 
 #stream.reader .flux.current.active {
