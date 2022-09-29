@@ -3,5 +3,5 @@
 	"author": "AD",
 	"description": "The dark side of the “Origine” theme",
 	"version": 0.2,
-	"files": ["_template.css", "dark.css"]
+	"files": ["_frss.css", "dark.css"]
 }

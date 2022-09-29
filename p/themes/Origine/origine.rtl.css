@@ -908,10 +908,16 @@ a.btn,
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
+	padding: 25px 0 25px;
 	background: #f0f0f0;
 	color: #333;
 	border: none;
+}
+
+#stream.reader .flux .content {
+	padding: 3rem;
+	background-color: #fff;
+	border: 1px solid #ddd;
 }
 
 #stream.reader .flux .author {
