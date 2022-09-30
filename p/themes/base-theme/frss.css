@@ -117,13 +117,6 @@ p.help .icon {
 	filter: brightness(2);
 }
 
-sup {
-	line-height: 25px;
-	position: relative;
-	top: -0.8em;
-	vertical-align: baseline;
-}
-
 kbd {
 	background-color: var(--frss-background-color-middle);
 	padding: 2px 4px 2px 24px;
