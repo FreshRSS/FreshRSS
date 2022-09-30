@@ -1116,7 +1116,7 @@ input[type="search"] {
 }
 
 .flux .item {
-	line-height: 40px;
+	padding: 0.5rem 0;
 	white-space: nowrap;
 }
 
