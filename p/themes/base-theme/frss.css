@@ -767,7 +767,6 @@ input[type="checkbox"]:focus-visible {
 
 .pagination .item a {
 	display: block;
-	line-height: 3em;
 	text-decoration: none;
 }
 
@@ -1204,7 +1203,7 @@ a.website:hover .favicon {
 	max-height: 3em;
 	color: var(--frss-font-color-grey-dark);
 	font-size: 0.9em;
-	line-height: 1.5em;
+	line-height: 1.5;
 	font-weight: normal;
 	white-space: initial;
 	overflow: hidden;
@@ -1249,7 +1248,7 @@ a.website:hover .favicon {
 .content {
 	min-height: 20em;
 	margin: auto;
-	line-height: 1.7em;
+	line-height: 1.5;
 	word-wrap: break-word;
 }
 
@@ -1341,7 +1340,7 @@ a.website:hover .favicon {
 }
 
 br {
-	line-height: 1em;
+	line-height: 1;
 }
 
 /*=== Notification and actualize notification */
@@ -1692,7 +1691,7 @@ br {
 	cursor: pointer;
 	transition: opacity .2s;
 	text-align: center;
-	line-height: 225%;
+	line-height: 2;
 	background-color: var(--frss-background-color-transparent);
 	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
@@ -1920,7 +1919,6 @@ input:checked + .slide-container .properties {
 		width: 100%;
 		height: 50px;
 		border-bottom: 1px solid var(--frss-border-color);
-		line-height: 50px;
 		text-align: center;
 	}
 
