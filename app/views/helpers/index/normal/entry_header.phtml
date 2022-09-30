@@ -62,9 +62,7 @@
 			?></span><?php
 		endif;
 		if ($topline_summary):
-			?><div class="summary">
-				<?= mb_substr(strip_tags($this->entry->content()), 0, 500, 'UTF-8') ?>
-			</div><?php
+			?><div class="summary"><?= mb_substr(strip_tags($this->entry->content()), 0, 500, 'UTF-8') ?></div><?php
 		endif;
 	?></a></li>
 	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>
