@@ -119,12 +119,12 @@ p.help .icon {
 
 kbd {
 	background-color: var(--frss-background-color-middle);
-	padding: 2px 4px 2px 24px;
+	padding: 0 0.5rem 0 0.5rem;
 	display: inline-block;
+	font-size: 0.9rem;
 	color: var(--frss-font-color-grey-dark);
 	border: 1px solid var(--frss-border-color);
 	border-radius: 3px;
-	text-indent: -20px;
 	white-space: pre-wrap;
 	overflow-wrap: anywhere;
 }
