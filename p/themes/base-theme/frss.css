@@ -305,7 +305,7 @@ button.as-link:hover,
 button.as-link:active {
 	background: transparent;
 	color: inherit;
-	font-size: 1.1em;
+	font-size: 1.1rem;
 	border: none;
 	cursor: pointer;
 	text-align: left;
