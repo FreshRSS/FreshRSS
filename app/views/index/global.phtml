@@ -36,7 +36,7 @@
 ?>
 	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
 		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
-			href="<?= Minz_Url::display($url_base) ?>"><?= $cat->name() ?></a></div>
+			href="<?= Minz_Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
 
 		<ul class="box-content">
 			<?php

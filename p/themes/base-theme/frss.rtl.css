@@ -806,6 +806,10 @@ input[type="checkbox"]:focus-visible {
 
 .box .box-title {
 	position: relative;
+}
+
+.box .box-title h2 {
+	display: inline;
 	font-size: 1.2rem;
 	font-weight: bold;
 }
