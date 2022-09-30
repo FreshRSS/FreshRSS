@@ -37,6 +37,8 @@
 	--frss-scrollbar-track-hover: #0001;
 
 	--frss-loading-image: url("loader.gif");
+
+	font-size: 16px; /* do we really need it or should we trust the browser config? */
 }
 
 @font-face {
@@ -83,21 +85,21 @@ ul, ol, dd {
 
 /*=== Titles */
 h1 {
-	margin: 0.6em 0 0.3em;
-	font-size: 1.5em;
-	line-height: 1.6em;
+	margin: 1rem 0 0.5rem;
+	font-size: 1.6rem;
+	line-height: 1.5;
 }
 
 h2 {
-	margin: 0.5em 0 0.25em;
-	font-size: 1.3em;
-	line-height: 2em;
+	margin: 0.5rem 0 0.25rem;
+	font-size: 1.4rem;
+	line-height: 1.5;
 }
 
 h3 {
-	margin: 0.5em 0 0.25em;
-	font-size: 1.1em;
-	line-height: 2em;
+	margin: 0.5rem 0 0.25rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
 }
 
 /*=== Paragraphs */
