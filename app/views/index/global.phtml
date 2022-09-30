@@ -38,7 +38,7 @@
 		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
 			href="<?= Minz_Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
 
-		<ul class="box-content">
+		<ul class="box-content scrollbar-thin">
 			<?php
 				foreach ($feeds as $feed) {
 					$nb_not_read = $feed->nbNotRead();

@@ -38,7 +38,7 @@
 				<h2><?= $cat->name() ?></h2>
 				<?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
 			</div>
-			<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
+			<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 				<?php
 				if (!empty($feeds)) {
 					foreach ($feeds as $feed) {
