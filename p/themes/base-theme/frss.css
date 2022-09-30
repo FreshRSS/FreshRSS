@@ -1202,8 +1202,7 @@ a.website:hover .favicon {
 .flux .item.title .summary {
 	max-height: 3em;
 	color: var(--frss-font-color-grey-dark);
-	font-size: 0.9em;
-	line-height: 1.5;
+	font-size: 0.9rem;
 	font-weight: normal;
 	white-space: initial;
 	overflow: hidden;
