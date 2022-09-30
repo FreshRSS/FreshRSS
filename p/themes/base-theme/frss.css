@@ -1922,10 +1922,9 @@ input:checked + .slide-container .properties {
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		display: block;
+		padding: 1rem;
 		width: 100%;
-		height: 50px;
 		border-bottom: 1px solid var(--frss-border-color);
-		line-height: 50px;
 		text-align: center;
 	}
 
