@@ -181,7 +181,7 @@ return array(
 				'disabled' => 'Formulário desabilitado',	// TODO
 				'enabled' => 'Formulário habilitado',	// TODO
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Formulário de Cadastro de Usuário',	// TODO
 		),
 	),
 	'update' => array(
