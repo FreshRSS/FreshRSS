@@ -156,7 +156,7 @@ return array(
 				'both' => 'No cabeçalho e rodapé',
 				'footer' => 'No rodapé',
 				'header' => 'No cabeçalho',
-				'none' => 'None',	// TODO
+				'none' => 'Nenhum',
 			),
 			'tags_max' => array(
 				'_' => 'Max number of tags shown',	// TODO
