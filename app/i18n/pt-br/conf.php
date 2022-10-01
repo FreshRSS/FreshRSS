@@ -142,7 +142,7 @@ return array(
 				'_' => 'Autores e Data',
 				'both' => 'No cabeçalho e rodapé',
 				'footer' => 'No rodapé',
-				'header' => 'In header',	// TODO
+				'header' => 'No cabeçalho',
 				'none' => 'None',	// TODO
 			),
 			'feed_name' => array(
