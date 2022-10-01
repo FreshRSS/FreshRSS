@@ -1960,11 +1960,10 @@ input:checked + .slide-container .properties {
 	#panel .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
+		padding: 1rem;
 		display: block;
 		width: 100%;
-		height: 50px;
 		border-bottom: 1px solid var(--frss-border-color);
-		line-height: 50px;
 		text-align: center;
 	}
 
