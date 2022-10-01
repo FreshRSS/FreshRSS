@@ -155,7 +155,7 @@ return array(
 				'_' => 'Etiqueta',
 				'both' => 'No cabeçalho e rodapé',
 				'footer' => 'No rodapé',
-				'header' => 'In header',	// TODO
+				'header' => 'No cabeçalho',
 				'none' => 'None',	// TODO
 			),
 			'tags_max' => array(
