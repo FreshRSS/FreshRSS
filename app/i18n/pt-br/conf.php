@@ -141,7 +141,7 @@ return array(
 			'authors_date' => array(
 				'_' => 'Autores e Data',
 				'both' => 'No cabeçalho e rodapé',
-				'footer' => 'No rodapé',	// TODO
+				'footer' => 'No rodapé',
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
 			),
