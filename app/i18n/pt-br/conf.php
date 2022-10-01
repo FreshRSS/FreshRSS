@@ -160,7 +160,7 @@ return array(
 			),
 			'tags_max' => array(
 				'_' => 'Número máximo de etiquetas exibidas',
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'help' => '0 significa: mostrar todas as etiquetas e não recolhê-las',
 			),
 		),
 		'articles_per_page' => 'Número de artigos por página',
