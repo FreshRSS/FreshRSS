@@ -139,7 +139,7 @@ return array(
 		'always_show_favorites' => 'Mostrar todos os artivos nos favoritos por padrão',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
+				'_' => 'Autores e Data',
 				'both' => 'In header and footer',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
