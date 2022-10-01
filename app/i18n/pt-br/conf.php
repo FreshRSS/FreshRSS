@@ -143,7 +143,7 @@ return array(
 				'both' => 'No cabeçalho e rodapé',
 				'footer' => 'No rodapé',
 				'header' => 'No cabeçalho',
-				'none' => 'None',	// TODO
+				'none' => 'Nenhum',
 			),
 			'feed_name' => array(
 				'above_title' => 'Above title/tags',	// TODO
