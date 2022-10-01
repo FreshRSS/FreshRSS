@@ -152,7 +152,7 @@ return array(
 			),
 			'feed_title' => 'Titulo do Feed',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
+				'_' => 'Etiqueta',
 				'both' => 'In header and footer',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
