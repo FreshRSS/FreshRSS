@@ -159,7 +159,7 @@ return array(
 				'none' => 'Nenhum',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
+				'_' => 'Número máximo de etiquetas exibidas',
 				'help' => '0 means: show all tags and do not collapse them',	// TODO
 			),
 		),
