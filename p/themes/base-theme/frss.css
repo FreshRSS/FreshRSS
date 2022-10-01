@@ -1270,7 +1270,7 @@ a.website:hover .favicon {
 .content > header,
 .content > footer {
 	color: var(--frss-font-color-grey-light);
-	font-size: .9rem;
+	font-size: 0.9rem;
 }
 
 .content > footer {
