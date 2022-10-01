@@ -1422,11 +1422,8 @@ br {
 #popup-close {
 	float: right;
 	width: 27px;
-	height: 27px;
-	padding-bottom: 5px;
-	color: var(--frss-font-color-grey-light);
-	font-size: 28px;
-	font-weight: bold;
+	height: 22px;
+	padding-top: 5px;
 }
 
 #popup-close:hover,
