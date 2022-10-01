@@ -46,6 +46,7 @@ select:invalid {
 
 html,
 body {
+	color: black;
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -229,10 +230,6 @@ form th {
 	line-height: 2em;
 }
 
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick select {
 	margin-top: 0;
 }
@@ -1241,10 +1238,15 @@ button.as-link {
 }
 
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #fcfcfc;
 	color: #22303d;
 	border: none;
+}
+#stream.reader .flux::after {
+	border: none;
+}
+#stream.reader .flux .content {
+	border-color: #e3e3e3;
 }
 #stream.reader .flux .author {
 	margin: 0 0 10px;
