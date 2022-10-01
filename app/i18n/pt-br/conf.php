@@ -153,7 +153,7 @@ return array(
 			'feed_title' => 'Titulo do Feed',
 			'tags' => array(
 				'_' => 'Etiqueta',
-				'both' => 'In header and footer',	// TODO
+				'both' => 'No cabeçalho e rodapé',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
