@@ -172,7 +172,7 @@ return array(
 			'select' => array(
 				'label' => 'Formulário de Registro',	// TODO
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
+					'noform' => 'Desativado: Sem formulário de registro',	// TODO
 					'nolimit' => 'Enabled: No limit of accounts',	// TODO
 					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
 				),
