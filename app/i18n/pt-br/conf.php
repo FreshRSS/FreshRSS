@@ -68,7 +68,7 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
+			'level' => 'Nivel de Registro',
 			'message' => 'Log Message',	// TODO
 			'timestamp' => 'Timestamp',	// TODO
 		),
