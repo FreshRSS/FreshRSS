@@ -10,13 +10,13 @@
 	<?php } elseif ($this->signalError){ ?>
 		<a class="btn" href="<?= _url('subscription', 'index', 'error', '1') ?>" title="<?= _t('sub.feed.show.error') ?>"><?= _i('warning') ?></a>
 	<?php
+	}
 	if (Minz_Request::param('state', '') === 'wide') {
 		$cssClass = ' active';
 		$url = _url('subscription', 'index');
 	} else {
 		$cssClass = '';
 		$url = _url('subscription', 'index', 'state', 'wide');
-	}
 	} ?>
 	<a class="btn<?= $cssClass ?>" href="<?= $url ?>">↔️</a>
 
