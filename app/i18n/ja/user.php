@@ -14,7 +14,7 @@ return array(
 	'email' => array(
 		'feedback' => array(
 			'invalid' => 'このEメールアドレスは無効です。',
-			'required' => 'このEメールアドレスは必要です。',
+			'required' => 'Eメールアドレスは必要です。',
 		),
 		'validation' => array(
 			'change_email' => 'Eメールアドレスは <a href="%s">プロフィールページで変更できます</a>.',
@@ -36,7 +36,7 @@ return array(
 		'email_need_validation' => array(
 			'body' => 'あなたは %s で登録されましたが、Eメールアドレスを確認する必要があります。このリンクに従ってください:',
 			'title' => 'あなたのアカウントを確認する必要があります',
-			'welcome' => 'ようこそ %s,',
+			'welcome' => 'ようこそ %s さん',
 		),
 	),
 	'password' => array(
