@@ -174,7 +174,7 @@ return array(
 				'option' => array(
 					'noform' => 'Desativado: Sem formulário de registro',	// TODO
 					'nolimit' => 'Atividado: Sem limites de contas',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'setaccountsnumber' => 'Definir o máximo de número de contas',	// TODO
 				),
 			),
 			'status' => array(
