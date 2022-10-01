@@ -179,7 +179,7 @@ return array(
 			),
 			'status' => array(
 				'disabled' => 'Formulário desabilitado',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'enabled' => 'Formulário habilitado',	// TODO
 			),
 			'title' => 'User registration form',	// TODO
 		),
