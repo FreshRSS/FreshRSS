@@ -170,7 +170,7 @@ return array(
 		'registration' => array(
 			'number' => 'Máximo número de contas',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Formulário de Registro',	// TODO
 				'option' => array(
 					'noform' => 'Disabled: No registration form',	// TODO
 					'nolimit' => 'Enabled: No limit of accounts',	// TODO
