@@ -148,7 +148,7 @@ return array(
 			'feed_name' => array(
 				'above_title' => 'Acima do titulo/tags',
 				'none' => 'Nenhum',
-				'with_authors' => 'In authors and date row',	// TODO
+				'with_authors' => 'Com autores e data',
 			),
 			'feed_title' => 'Feed title',	// TODO
 			'tags' => array(
