@@ -69,7 +69,7 @@ return array(
 	'logs' => array(
 		'loglist' => array(
 			'level' => 'Nivel de Registro',
-			'message' => 'Log Message',	// TODO
+			'message' => 'Mensagem de Registro',
 			'timestamp' => 'Timestamp',	// TODO
 		),
 		'pagination' => array(
