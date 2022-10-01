@@ -70,7 +70,7 @@ return array(
 		'loglist' => array(
 			'level' => 'Nivel de Registro',
 			'message' => 'Mensagem de Registro',
-			'timestamp' => 'Timestamp',	// TODO
+			'timestamp' => 'Data e Hora',
 		),
 		'pagination' => array(
 			'first' => 'Primeiro',
