@@ -150,7 +150,7 @@ return array(
 				'none' => 'Nenhum',
 				'with_authors' => 'Com autores e data',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Titulo do Feed',
 			'tags' => array(
 				'_' => 'Tags',	// TODO
 				'both' => 'In header and footer',	// TODO
