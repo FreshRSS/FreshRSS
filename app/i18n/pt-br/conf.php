@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'Quando o artigo é visualizado',
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
 			'scroll' => 'enquanto scrolling',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
 			'when_same_title' => 'Se um título idêntico já existir nos últimos<i>n</i> artigos mais novos',
