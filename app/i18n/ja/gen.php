@@ -119,7 +119,7 @@ return array(
 		'wed' => '水',
 		'yesterday' => '昨日',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ディレクトリ',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',

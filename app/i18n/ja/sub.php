@@ -92,7 +92,7 @@ return array(
 				'item_categories' => '項目のタグ',
 				'item_content' => array(
 					'_' => '項目のコンテンツ',
-					'help' => 'すべての項目を取得する方法例: <code>.</code>',	
+					'help' => 'すべての項目を取得する方法例: <code>.</code>',
 				),
 				'item_thumbnail' => array(
 					'_' => '項目のサムネイル',
