@@ -849,6 +849,27 @@ input[type="checkbox"]:focus-visible {
 	cursor: move;
 }
 
+.horizontalScrolling {
+	margin-top: 1rem;
+	padding: 3rem 0.5rem 0.5rem 0.5rem;
+	background-color: rgba(0, 0, 0, 0.02);
+	white-space: nowrap;
+	overflow-x: auto;
+	transform: rotateX(180deg);
+}
+
+.horizontalScrolling .boxes-wrapper {
+	transform: rotateX(180deg);
+}
+
+.horizontalScrolling .box {
+	white-space: normal;
+}
+
+.horizontalScrolling .box .box-content {
+	max-height: none;
+}
+
 .dragging {
 	background-color: var(--frss-dragdrop-color)
 }
