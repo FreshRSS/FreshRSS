@@ -146,7 +146,7 @@ return array(
 				'none' => 'Nenhum',
 			),
 			'feed_name' => array(
-				'above_title' => 'Acima do titulo/tags',
+				'above_title' => 'Acima do titulo/etiqueta',
 				'none' => 'Nenhum',
 				'with_authors' => 'Com autores e data',
 			),
