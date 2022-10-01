@@ -908,11 +908,6 @@ form {
 	.aside {
 		.toggle_aside {
 			background: $color_aside;
-			display: block;
-			width: 100%;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
 
 			.icon {
 				filter: brightness(3);
@@ -1297,11 +1292,6 @@ a.signin {
 
 		.toggle_aside {
 			background: $color_aside;
-			display: block;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-			padding-right: 10px;
 
 			&:hover {
 				background-color: color.adjust( $color_nav, $lightness: 0%);
@@ -1328,11 +1318,6 @@ a.signin {
 	#slider {
 		.toggle_aside {
 			background: $color_aside;
-			display: block;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-			padding-right: 10px;
 
 			&:hover {
 				background-color: color.adjust( $color_nav, $lightness: 0%);

@@ -1006,12 +1006,7 @@ a.signin {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background: #f6f6f6;
-		display: block;
-		width: 100%;
-		height: 40px;
 		border-bottom: 1px solid #ddd;
-		line-height: 40px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {
