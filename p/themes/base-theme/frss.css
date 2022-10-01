@@ -122,8 +122,8 @@ kbd {
 	background-color: var(--frss-background-color-middle);
 	padding: 0 0.5rem 0 0.5rem;
 	display: inline-block;
-	font-size: 0.9rem;
 	color: var(--frss-font-color-grey-dark);
+	font-size: 0.9rem;
 	border: 1px solid var(--frss-border-color);
 	border-radius: 3px;
 	white-space: pre-wrap;
@@ -1495,11 +1495,11 @@ br {
 	display: block;
 	width: 100%;
 	text-align: center;
-	font-size: 1.4em;
+	font-size: 1.25rem;
 }
 
 .bigTick {
-	font-size: 4em;
+	font-size: 4rem;
 }
 
 /*=== Statistiques */
@@ -1680,7 +1680,7 @@ br {
 	height: 100%;
 	color: var(--frss-font-color-light);
 	font-family: "Varela Round", sans-serif;
-	font-size: 1000%;
+	font-size: 9rem;
 	position: absolute;
 	opacity: 0;
 	z-index: 9;
@@ -1768,7 +1768,7 @@ input:checked + .slide-container .properties {
 	top: 0;
 	right: 10px;
 	text-align: center;
-	font-size: 0.9em;
+	font-size: 0.9rem;
 	border-radius: 12px;
 	line-height: 1;
 	font-weight: initial;
@@ -1828,7 +1828,7 @@ input:checked + .slide-container .properties {
 }
 
 .enclosure [download] {
-	font-size: xx-large;
+	font-size: 3rem;
 	margin-left: .8em;
 }
 
