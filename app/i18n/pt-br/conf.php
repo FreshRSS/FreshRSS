@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Nivel de Registro',
+			'message' => 'Mensagem de Registro',
+			'timestamp' => 'Data e Hora',
 		),
 		'pagination' => array(
 			'first' => 'Primeiro',
@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Mostrar todos os artivos nos favoritos por padrão',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autores e Data',
+				'both' => 'No cabeçalho e rodapé',
+				'footer' => 'No rodapé',
+				'header' => 'No cabeçalho',
+				'none' => 'Nenhum',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Acima do titulo/etiqueta',
+				'none' => 'Nenhum',
+				'with_authors' => 'Com autores e data',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Titulo do Feed',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Etiqueta',
+				'both' => 'No cabeçalho e rodapé',
+				'footer' => 'No rodapé',
+				'header' => 'No cabeçalho',
+				'none' => 'Nenhum',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Número máximo de etiquetas exibidas',
+				'help' => '0 significa: mostrar todas as etiquetas e não recolhê-las',
 			),
 		),
 		'articles_per_page' => 'Número de artigos por página',
@@ -170,12 +170,12 @@ return array(
 		'display_articles_unfolded' => 'Mostrar artigos abertos por padrão',
 		'display_categories_unfolded' => 'Categorias abertas',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Artigos: Abrir/Fechar',
+			'articles_header_footer' => 'Artigos: cabeçalho/rodapé',
+			'categories' => 'Navegação à esquerda: Categoria',
+			'mark_as_read' => 'Marcar artigo como lido',
+			'misc' => 'Diversos',
+			'view' => 'Visualização',
 		),
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'Quando o artigo é visualizado',
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
 			'scroll' => 'enquanto scrolling',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
 			'when_same_title' => 'Se um título idêntico já existir nos últimos<i>n</i> artigos mais novos',
@@ -222,7 +222,7 @@ return array(
 		'_' => 'Compartilhando',
 		'add' => 'Adicionar um método de compartilhamento',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Este serviço está obceloeto e será removido do FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abra este documento para mais informações" target="_blank">em versões futuras</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE
