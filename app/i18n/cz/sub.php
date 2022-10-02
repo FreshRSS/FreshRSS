@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivace',
 		'dynamic_opml' => array(
 			'_' => 'Dynamický OPML',
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'help' => 'Zadejte adresu URL na <a href=http://opml.org/ target=_blank>OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
 		),
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
