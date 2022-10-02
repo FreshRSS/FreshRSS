@@ -75,7 +75,7 @@ return array(
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
+				'_' => 'HTML + XPath (Web scraping)',	//	IGNORE
 				'feed_title' => array(
 					'_' => 'Título do Feed',	
 					'help' => 'Exemplo: <code>//title</code> ou uma string estática: <code>"Meu feed customizado"</code>',
