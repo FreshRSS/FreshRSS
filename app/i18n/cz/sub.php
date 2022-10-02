@@ -75,7 +75,7 @@ return array(
 		'kind' => array(
 			'_' => 'Typ zdroje feedu',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'název zdroje',
 					'help' => 'Příklad: <code>//title</code> nebo statický řetězec: <code>"Můj vlastní zdroj"</code>',
@@ -100,11 +100,11 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => 'datum položky',
-					'help' => 'Výsledek bude zpracován pomocí <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'help' => 'Výsledek bude zpracován pomocí <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'název položky',
-					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
 				),
 				'item_uid' => array(
 					'_' => 'jedinečné ID položky',
