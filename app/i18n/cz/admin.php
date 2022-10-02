@@ -174,7 +174,7 @@ return array(
 				'option' => array(
 					'noform' => 'Zakazáno: Žádný registrační formulář',
 					'nolimit' => 'Povoleno: Bez omezení počtu účtů',
-					'setaccountsnumber' => 'Nastavit max. počet účtů',	// TODO also it can be: Nastavit maximální počet účtů
+					'setaccountsnumber' => 'also it can be: Nastavit maximální počet účtů',
 				),
 			),
 			'status' => array(
