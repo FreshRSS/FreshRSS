@@ -106,6 +106,7 @@ People are sorted by name so please keep this order.
 * [Martin](https://github.com/C0rn3j): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:C0rn3j), [Web](https://rys.pw/)
 * [math-GH](https://github.com/math-GH): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:math-GH)
 * [Maurice Schleußinger](https://github.com/maurice-schleussinger): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:maurice-schleussinger)
+* [May Meow](https://github.com/MayMeow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:MayMeow), [Web](https://maymeow.com)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](http://x2a.yt/)
 * [Miika Launiainen](https://gitlab.com/miicat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miicat), [Web](https://miicat.eu/)
