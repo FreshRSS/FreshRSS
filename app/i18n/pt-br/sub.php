@@ -75,9 +75,9 @@ return array(
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	//	IGNORE
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'Título do Feed',	
+					'_' => 'Título do Feed',
 					'help' => 'Exemplo: <code>//title</code> ou uma string estática: <code>"Meu feed customizado"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn>é uma linguagem de consulta padrão para usuários avançados e que o FreshRSS suporta para habilitar o Web scraping.',
