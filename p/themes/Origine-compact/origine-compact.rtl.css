@@ -162,6 +162,10 @@ a.btn,
 	max-height: 1.5em;
 }
 
+.flux:not(.current):hover .item.title {
+	top: auto;
+}
+
 /*=== Content of feed articles */
 .content {
 	padding: 10px 10px;
