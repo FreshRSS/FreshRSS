@@ -138,8 +138,8 @@ img {
 
 img.favicon {
 	margin: 0 0.25rem 0 0;
-	width: 16px;
-	height: 16px;
+	width: 1rem;
+	height: 1rem;
 	vertical-align: middle;
 }
 
@@ -1115,6 +1115,10 @@ input[type="search"] {
 	position: static;
 }
 
+.flux_header:hover {
+	position: relative;
+}
+
 .flux .item {
 	padding: 0.5rem 0;
 	white-space: nowrap;
@@ -1145,6 +1149,7 @@ a.website:hover .favicon {
 	background-color: var(--frss-background-color);
 	max-width: calc(100% - 320px);
 	position: absolute;
+	top: 0.25rem
 }
 
 .flux:not(.current):hover .item.title.multiline {
@@ -2063,6 +2068,7 @@ input:checked + .slide-container .properties {
 		position: relative;
 		width: auto;
 		white-space: nowrap;
+		top: 0;
 	}
 
 	.notification {
