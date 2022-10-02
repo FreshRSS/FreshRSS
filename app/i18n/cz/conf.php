@@ -159,8 +159,8 @@ return array(
 				'none' => 'Žádné',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',
-				'help' => '0 means: show all tags and do not collapse them',
+				'_' => 'Maximální počet zobrazených štítků',
+				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
 			),
 		),
 		'articles_per_page' => 'Počet článků na stránku',
@@ -222,7 +222,7 @@ return array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Tato služba je zastaralá a bude ze služby FreshRSS odstraněna v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Otevřete dokumentaci pro další informace" target="_blank">budoucím vydání</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE
