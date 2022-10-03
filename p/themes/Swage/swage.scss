@@ -522,9 +522,9 @@ form {
 	}
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: color.adjust( $color_light, $lightness: -10%);
 	cursor: default;
 }
 

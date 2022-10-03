@@ -38,13 +38,12 @@
 	}
 
 	.dropdown-header {
-		margin: 1rem 0.5rem 1rem 1rem;
+		padding: 1rem 0.5rem 1rem 1rem;
 		font-weight: bold;
 		text-align: left;
 		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-
 	}
 
 	.item {
@@ -58,17 +57,15 @@
 			line-height: 2.5em;
 		}
 
-		&:not(.addItem):hover {
-			background: variables.$main-first;
-			color: variables.$white;
-
-			.icon {
-				filter: brightness(3);
-			}
-
-			a, button, label {
-				text-decoration: none;
+		&:not(.addItem) {
+			a:hover,
+			button:hover {
+				background: variables.$main-first;
 				color: variables.$white;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 
@@ -77,6 +74,17 @@
 				margin: 0 0 0 -14px;
 				font-weight: bold;
 			}
+		}
+
+		~ .dropdown-header {
+			margin-top: 0.75rem;
+			padding-top: 1.75rem;
+			border-top-color: variables.$grey-light;
+		}
+
+		&.separator {
+			margin-top: 0.75rem;
+			border-top-color: variables.$grey-light;
 		}
 	}
 
@@ -87,12 +95,6 @@
 			border-radius: 3px;
 		}
 	}
-
-	.separator {
-		margin: 0.75rem 0;
-		border-bottom: 1px solid variables.$grey-light;
-	}
-
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu {
