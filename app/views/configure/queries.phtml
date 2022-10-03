@@ -10,13 +10,13 @@
 
 	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<h2><?= _t('conf.query') ?></h2>
+		<h1><?= _t('conf.query') ?></h1>
 
 		<?php foreach ($this->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
 			<div class="box">
 				<div class="box-title">
-					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><?= $query->getName() ?>
+					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
 					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<?php } else { ?>
-					<ul class="box-content">
+					<ul class="box-content scrollbar-thin">
 					<?php if ($query->hasSearch()) { ?>
 					<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
 					<?php } ?>
