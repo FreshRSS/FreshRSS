@@ -710,11 +710,6 @@ form th {
 
 .reader .aside .toggle_aside {
 	background: #22303d;
-	display: block;
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
 }
 .reader .aside .toggle_aside .icon {
 	filter: brightness(3);
@@ -819,6 +814,7 @@ form th {
 .flux:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background: #fff;
+	top: 0.15rem;
 }
 .flux.favorite:not(.current) {
 	background: #fff6da;
@@ -1020,6 +1016,10 @@ a.signin {
 		text-align: center;
 	}
 
+	.flux:not(.current):hover .item.title {
+		top: auto !important;
+	}
+
 	.aside {
 		padding: 0;
 		width: 0;
@@ -1027,11 +1027,6 @@ a.signin {
 	}
 	.aside .toggle_aside {
 		background: #22303d;
-		display: block;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		padding-left: 10px;
 	}
 	.aside .toggle_aside:hover {
 		background-color: #0062be;
@@ -1052,11 +1047,6 @@ a.signin {
 
 	#slider .toggle_aside {
 		background: #22303d;
-		display: block;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		padding-left: 10px;
 	}
 	#slider .toggle_aside:hover {
 		background-color: #0062be;

@@ -37,6 +37,8 @@
 	--frss-scrollbar-track-hover: #0001;
 
 	--frss-loading-image: url("loader.gif");
+
+	line-height: 1.5;
 }
 
 @font-face {
@@ -83,21 +85,21 @@ ul, ol, dd {
 
 /*=== Titles */
 h1 {
-	margin: 0.6em 0 0.3em;
-	font-size: 1.5em;
-	line-height: 1.6em;
+	margin: 1rem 0 0.5rem;
+	font-size: 1.6rem;
+	line-height: 1.5;
 }
 
 h2 {
-	margin: 0.5em 0 0.25em;
-	font-size: 1.3em;
-	line-height: 2em;
+	margin: 0.5rem 0 0.25rem;
+	font-size: 1.4rem;
+	line-height: 1.5;
 }
 
 h3 {
-	margin: 0.5em 0 0.25em;
-	font-size: 1.1em;
-	line-height: 2em;
+	margin: 0.5rem 0 0.25rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
 }
 
 .title_hidden {
@@ -106,12 +108,12 @@ h3 {
 
 /*=== Paragraphs */
 p {
-	margin: 1em 0 0.5em;
-	font-size: 1em;
+	margin: 1rem 0 0.5rem;
+	font-size: 1rem;
 }
 
 p.help, .prompt p.help {
-	margin: 5px 0 0.5em;
+	margin: 0.25rem 0 0.5rem;
 	text-align: left;
 }
 
@@ -119,21 +121,14 @@ p.help .icon {
 	filter: brightness(2);
 }
 
-sup {
-	line-height: 25px;
-	position: relative;
-	top: -0.8em;
-	vertical-align: baseline;
-}
-
 kbd {
 	background-color: var(--frss-background-color-middle);
-	padding: 2px 4px 2px 24px;
+	padding: 0 0.5rem 0 0.5rem;
 	display: inline-block;
 	color: var(--frss-font-color-grey-dark);
+	font-size: 0.9rem;
 	border: 1px solid var(--frss-border-color);
 	border-radius: 3px;
-	text-indent: -20px;
 	white-space: pre-wrap;
 	overflow-wrap: anywhere;
 }
@@ -146,8 +141,8 @@ img {
 
 img.favicon {
 	margin: 0 0.25rem 0 0;
-	width: 16px;
-	height: 16px;
+	width: 1rem;
+	height: 1rem;
 	vertical-align: middle;
 }
 
@@ -314,7 +309,7 @@ button.as-link:hover,
 button.as-link:active {
 	background: transparent;
 	color: inherit;
-	font-size: 1.1em;
+	font-size: 1.1rem;
 	border: none;
 	cursor: pointer;
 	text-align: left;
@@ -401,7 +396,6 @@ td.numeric {
 .form-advanced-title {
 	padding: 15px 0;
 	width: 200px;
-	font-size: 1.1em;
 	font-weight: bold;
 	text-align: right;
 	cursor: pointer;
@@ -734,10 +728,10 @@ input[type="checkbox"]:focus-visible {
 .icon {
 	display: inline-block;
 	max-width: none;
-	width: 16px;
-	height: 16px;
+	width: 1rem;
+	height: 1rem;
 	vertical-align: middle;
-	line-height: 16px;
+	line-height: 1;
 }
 
 /* === stream-footer **/
@@ -776,7 +770,6 @@ input[type="checkbox"]:focus-visible {
 
 .pagination .item a {
 	display: block;
-	line-height: 3em;
 	text-decoration: none;
 }
 
@@ -1129,8 +1122,12 @@ input[type="search"] {
 	position: static;
 }
 
+.flux_header:hover {
+	position: relative;
+}
+
 .flux .item {
-	line-height: 40px;
+	padding: 0.5rem 0;
 	white-space: nowrap;
 }
 
@@ -1159,6 +1156,7 @@ a.website:hover .favicon {
 	background-color: var(--frss-background-color);
 	max-width: calc(100% - 320px);
 	position: absolute;
+	top: 0.25rem
 }
 
 .flux:not(.current):hover .item.title.multiline {
@@ -1214,20 +1212,20 @@ a.website:hover .favicon {
 }
 
 .flux .item.title .summary {
-	max-height: 3em;
+	display: -webkit-box;
 	color: var(--frss-font-color-grey-dark);
-	font-size: 0.9em;
-	line-height: 1.5em;
+	font-size: 0.9rem;
 	font-weight: normal;
-	white-space: initial;
-	overflow: hidden;
 	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	white-space: break-spaces;
 }
 
 .flux .item.title .author {
 	padding-left: 1rem;
 	color: var(--frss-font-color-grey-dark);
-	font-size: .9rem;
+	font-size: 0.9rem;
 	font-weight: normal;
 }
 
@@ -1262,7 +1260,7 @@ a.website:hover .favicon {
 .content {
 	min-height: 20em;
 	margin: auto;
-	line-height: 1.7em;
+	line-height: 1.5;
 	word-wrap: break-word;
 }
 
@@ -1285,7 +1283,7 @@ a.website:hover .favicon {
 .content > header,
 .content > footer {
 	color: var(--frss-font-color-grey-light);
-	font-size: .9rem;
+	font-size: 0.9rem;
 }
 
 .content > footer {
@@ -1351,10 +1349,6 @@ a.website:hover .favicon {
 
 .subtitle > div:not(:first-of-type)::before {
 	content: ' · ';
-}
-
-br {
-	line-height: 1em;
 }
 
 /*=== Notification and actualize notification */
@@ -1437,11 +1431,8 @@ br {
 #popup-close {
 	float: right;
 	width: 27px;
-	height: 27px;
-	padding-bottom: 5px;
-	color: var(--frss-font-color-grey-light);
-	font-size: 28px;
-	font-weight: bold;
+	height: 22px;
+	padding-top: 5px;
 }
 
 #popup-close:hover,
@@ -1513,11 +1504,11 @@ br {
 	display: block;
 	width: 100%;
 	text-align: center;
-	font-size: 1.4em;
+	font-size: 1.25rem;
 }
 
 .bigTick {
-	font-size: 4em;
+	font-size: 4rem;
 }
 
 /*=== Statistiques */
@@ -1698,14 +1689,14 @@ br {
 	height: 100%;
 	color: var(--frss-font-color-light);
 	font-family: "Varela Round", sans-serif;
-	font-size: 1000%;
+	font-size: 9rem;
 	position: absolute;
 	opacity: 0;
 	z-index: 9;
 	cursor: pointer;
 	transition: opacity .2s;
 	text-align: center;
-	line-height: 225%;
+	line-height: 2;
 	background-color: var(--frss-background-color-transparent);
 	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
@@ -1786,7 +1777,7 @@ input:checked + .slide-container .properties {
 	top: 0;
 	right: 10px;
 	text-align: center;
-	font-size: 0.9em;
+	font-size: 0.9rem;
 	border-radius: 12px;
 	line-height: 1;
 	font-weight: initial;
@@ -1800,6 +1791,22 @@ input:checked + .slide-container .properties {
 	content: attr(data-unread);
 	position: absolute;
 	top: 0;
+	right: 10px;
+	text-align: center;
+	font-size: 0.75rem;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
+.box .box-title .configure:not([data-cat-position=""])::after {
+	margin: 0.5rem 0px 0px;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-cat-position);
+	position: absolute;
+	top: 0px;
 	right: 10px;
 	text-align: center;
 	font-size: 0.75rem;
@@ -1846,7 +1853,7 @@ input:checked + .slide-container .properties {
 }
 
 .enclosure [download] {
-	font-size: xx-large;
+	font-size: 3rem;
 	margin-left: .8em;
 }
 
@@ -1929,11 +1936,10 @@ input:checked + .slide-container .properties {
 	#panel .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
+		padding: 1rem;
 		display: block;
 		width: 100%;
-		height: 50px;
 		border-bottom: 1px solid var(--frss-border-color);
-		line-height: 50px;
 		text-align: center;
 	}
 
@@ -2082,6 +2088,7 @@ input:checked + .slide-container .properties {
 		position: relative;
 		width: auto;
 		white-space: nowrap;
+		top: 0;
 	}
 
 	.notification {

@@ -36,7 +36,7 @@ class Minz_FrontController {
 
 			Minz_Request::init();
 
-			$url = $this->buildUrl();
+			$url = Minz_Url::build();
 			$url['params'] = array_merge (
 				$url['params'],
 				$_POST
@@ -48,24 +48,6 @@ class Minz_FrontController {
 		}
 
 		$this->dispatcher = Minz_Dispatcher::getInstance();
-	}
-
-	/**
-	 * Returns an array representing the URL as passed in the address bar
-	 * @return array URL representation
-	 */
-	private function buildUrl() {
-		$url = array();
-
-		$url['c'] = $_GET['c'] ?? Minz_Request::defaultControllerName();
-		$url['a'] = $_GET['a'] ?? Minz_Request::defaultActionName();
-		$url['params'] = $_GET;
-
-		// post-traitement
-		unset($url['params']['c']);
-		unset($url['params']['a']);
-
-		return $url;
 	}
 
 	/**
