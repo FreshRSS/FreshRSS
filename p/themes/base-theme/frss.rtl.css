@@ -1800,6 +1800,22 @@ input:checked + .slide-container .properties {
 	font-weight: initial;
 }
 
+.box .box-title .configure:not([data-cat-position=""])::after {
+	margin: 0.5rem 0px 0px;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-cat-position);
+	position: absolute;
+	top: 0px;
+	left: 10px;
+	text-align: center;
+	font-size: 0.75rem;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
 .feed .item-title:not([data-unread="0"])::after {
 	margin: 1em 0 0 0;
 }
