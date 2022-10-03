@@ -91,6 +91,50 @@ Complementary tools can be used to retrieve full article content, such as:
 
 Articles can be automatically marked as read based on some search terms. See [filtering](./10_filter.md) for more information on how to create these filters.
 
+### Title rewriting
+
+Article titles can be automatically rewrote upon insertion based on the title rewriting rule.
+The rewriting rule use a simple templating system that allows to define literal strings, variables, and filters.
+
+#### Variables
+
+There are two supported variables.
+_title_ is the article title, and _feed_ is the feed name.
+Variables are enclosed by doubled curly braces (`{{` and `}}`).
+For instance, using the following rule will display the current article title (which is useless at this point):
+```text
+{{ title }}
+```
+
+#### Filters
+
+Filters are applied on variables, so they are enclosed in the variable doubled curly braces.
+They can be chained by using a pipe (`|`).
+They are applied sequentially, so their order is important.
+There are three supported filters.
+
+| Filter     | Parameters  | Action                               | PHP function                                                        |
+| ---------- | ----------- | ------------------------------------ | ------------------------------------------------------------------- |
+| _ireplace_ | two         | same as replace but case insensitive | [str_ireplace](https://www.php.net/manual/en/function.str-ireplace) |
+| _replace_  | two         | replace a string with another        | [str_replace](https://www.php.net/manual/en/function.str-replace)   |
+| _trim_     | zero or one | remove characters from both ends     | [trim](https://www.php.net/manual/en/function.trim)                 |
+
+**NOTE** Parameters need to be enclosed in double quotes (`"`), and cannot contain a double quote, even when escaped.
+
+#### Literal strings
+
+Everything that is not enclosed in a variable is considered as a literal string.
+It can contain any characters with the exception of doubled opening curly braces (`{{`).
+
+#### Examples
+
+1. `{{ title | trim }}` will display the article title with spacing removed from both ends.
+1. `{{ title | replace("Spiderman", "Spoiler alert!") }}` will display the article title with every occurrence of _Spiderman_ replaced by _Spoiler alert!_.
+1. `{{ title | replace("Spiderman", "Spoiler alert!") | replace("Superman", "Spoiler alert!") }}` will display the article title with every occurrence of _Spiderman_ and _Superman_ replaced by _Spoiler alert!_.
+1. `{{ feed }} - {{ title }}` will display the feed name followed by a dash (`-`), followed by the article title.
+
+**NOTE** For more examples, you can check tests definitions.
+
 ## Import / export
 
 See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli) as an alternative.

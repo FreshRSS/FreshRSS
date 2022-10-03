@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
 		'title' => 'Lectura',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Vista per defaut',
 			'global' => 'Vista generala',

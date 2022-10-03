@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
 		'title' => 'Lectura',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Vista por defecto',
 			'global' => 'Vista Global',

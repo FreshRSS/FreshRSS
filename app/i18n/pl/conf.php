@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
 		'title' => 'Czytanie',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Domyślny widok',
 			'global' => 'Widok globalny',

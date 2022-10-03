@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Standard-Ansicht',
 			'global' => 'Globale Ansicht',

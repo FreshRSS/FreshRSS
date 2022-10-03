@@ -161,6 +161,9 @@ return array(
 		'timeout' => 'タイムアウトする時間(秒)',
 		'title' => 'タイトル',
 		'title_add' => 'RSS フィードを追加する',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => '自動更新の頻度',
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを読み込む際のユーザーエージェントを設定してください',

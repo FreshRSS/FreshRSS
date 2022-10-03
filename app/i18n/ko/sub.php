@@ -161,6 +161,9 @@ return array(
 		'timeout' => '타임아웃 (초)',
 		'title' => '제목',
 		'title_add' => 'RSS 피드 추가',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'url' => '피드 URL',
 		'useragent' => '이 피드를 가져올 때 사용할 유저 에이전트 설정',

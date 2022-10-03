@@ -161,6 +161,9 @@ return array(
 		'timeout' => 'Tiempo de espera en segundos',
 		'title' => 'Título',
 		'title_add' => 'Añadir fuente RSS',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
 		'url' => 'URL de la fuente',
 		'useragent' => 'Selecciona el agente de usario por recuperar la fuente',

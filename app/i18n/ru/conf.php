@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
 		'title' => 'Чтение',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Вид по умолчанию',
 			'global' => 'Глобальный вид',

@@ -243,6 +243,14 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="title_rewriting"><?= _t('conf.reading.title_rewriting') ?></label>
+			<div class="group-controls">
+				<input type="text" name="title_rewriting" id="title_rewriting" class="w100" value="<?= $this->feed->attributes('title_rewriting') ?>" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.title_rewriting.help') ?></p>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

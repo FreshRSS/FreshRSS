@@ -203,6 +203,13 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	public function titleRewriteHandler() {
+		$titleRewritingRule = $this->attributes('title_rewriting');
+		if ($titleRewritingRule !== '' && $titleRewritingRule !== null) {
+			return new FreshRSS_TitleRewriting_Handler(html_entity_decode($titleRewritingRule));
+		}
+	}
+
 	public function mute(): bool {
 		return $this->mute;
 	}

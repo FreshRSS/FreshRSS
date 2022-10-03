@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
 		'title' => 'Lees modus',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Standaard weergave',
 			'global' => 'Globale weergave',

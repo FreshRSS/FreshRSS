@@ -161,6 +161,9 @@ return array(
 		'timeout' => 'Timeout in seconds',	// TODO
 		'title' => 'כותרת',
 		'title_add' => 'הוספת הזנה',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
 		'url' => 'הזנה URL',
 		'useragent' => 'Set the user agent for fetching this feed',	// TODO

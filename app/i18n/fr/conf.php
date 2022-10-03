@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
 		'title' => 'Lecture',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Vue par défaut',
 			'global' => 'Vue globale',

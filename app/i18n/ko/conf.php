@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
 		'title' => '읽기',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => '기본 보기 모드',
 			'global' => '전체 모드',

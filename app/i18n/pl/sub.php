@@ -161,6 +161,9 @@ return array(
 		'timeout' => 'Limit czasu, w sekundach',
 		'title' => 'Tytuł',
 		'title_add' => 'Dodaj kanał',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Nie odświeżaj automatycznie częściej niż',
 		'url' => 'Adres kanału',
 		'useragent' => 'Ciąg user agent używany podczas pobierania kanału',

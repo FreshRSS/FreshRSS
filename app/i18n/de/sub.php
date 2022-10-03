@@ -161,6 +161,9 @@ return array(
 		'timeout' => 'Zeitlimit in Sekunden',
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 		'url' => 'Feed-URL',
 		'useragent' => 'Browser User Agent für den Abruf des Feeds verwenden',

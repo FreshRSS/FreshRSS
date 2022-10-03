@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
 		'title' => 'Lendo',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Visualização padrão',
 			'global' => 'Visualização global',

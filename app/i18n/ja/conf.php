@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => '開いたときにトップを記事にする',
 		'title' => 'リーディング',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'デフォルトビュー',
 			'global' => 'グローバルビュー',

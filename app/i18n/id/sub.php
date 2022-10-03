@@ -161,6 +161,9 @@ return array(
 		'timeout' => 'Timeout in seconds',	// TODO
 		'title' => 'Title',	// TODO
 		'title_add' => 'Add an RSS feed',	// TODO
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Do not automatically refresh more often than',	// TODO
 		'url' => 'Feed URL',	// TODO
 		'useragent' => 'Set the user agent for fetching this feed',	// TODO

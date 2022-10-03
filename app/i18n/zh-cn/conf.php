@@ -219,6 +219,7 @@ return array(
 		),
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => '默认视图',
 			'global' => '全屏视图',
