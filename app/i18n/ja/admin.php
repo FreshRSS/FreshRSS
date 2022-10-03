@@ -12,15 +12,15 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => '標準のユーザーの記事が匿名のユーザーでも読めるようにします。 (%s)',
-		'allow_anonymous_refresh' => '匿名ユーザーが記事を更新できるようにします。',
+		'allow_anonymous' => 'デフォルトのユーザーの記事がログインしていないときでも読めるようにします。 (%s)',
+		'allow_anonymous_refresh' => '未ログインユーザーでも記事を更新できるようにします。',
 		'api_enabled' => '<abbr>API</abbr>からのアクセスを許可する <small>(モバイルアプリが必要です)</small>',
 		'form' => 'ウェブフォーム (JavaScriptが必要です)',
-		'http' => 'HTTP (上級者向けのHTTPS)',
+		'http' => 'HTTP (上級者はHTTPSでも)',
 		'none' => 'なし (危険)',
 		'title' => '認証',
 		'token' => '認証トークン',
-		'token_help' => '標準ユーザーが承認無しで、RSSを出力できることを許可します。:',
+		'token_help' => 'ユーザーが承認無しで、RSSを出力できるようにします。:',
 		'type' => '認証メソッド',
 		'unsafe_autologin' => '危険な自動ログインを有効にします',
 	),
@@ -112,21 +112,21 @@ return array(
 	),
 	'extensions' => array(
 		'author' => '作者',
-		'community' => 'コミュニティ製の拡張',
+		'community' => 'コミュニティ製の拡張機能',
 		'description' => '説明',
 		'disabled' => '無効',
-		'empty_list' => 'インストールされている拡張はありません',
+		'empty_list' => 'インストールされている拡張機能はありません',
 		'enabled' => '有効',
 		'latest' => 'インストール済み',
 		'name' => '名前',
-		'no_configure_view' => 'この拡張は設定できません.',
+		'no_configure_view' => 'この拡張機能は設定できません.',
 		'system' => array(
-			'_' => 'システム拡張',
-			'no_rights' => 'システム拡張 (あなたには権限がありません)',
+			'_' => 'システムの拡張機能',
+			'no_rights' => 'システムの拡張機能 (あなたは権限を所持していません',
 		),
-		'title' => '拡張',
+		'title' => '拡張機能',
 		'update' => 'アップデート可能',
-		'user' => 'ユーザー拡張',
+		'user' => 'ユーザー拡張機能',
 		'version' => 'バージョン',
 	),
 	'stats' => array(
@@ -135,7 +135,7 @@ return array(
 		'category' => 'カテゴリ',
 		'entry_count' => 'エントリの統計',
 		'entry_per_category' => 'カテゴリのエントリ',
-		'entry_per_day' => '日にちあたりのエントリ (直近30日間)',
+		'entry_per_day' => '日にちごとのエントリ (直近30日間)',
 		'entry_per_day_of_week' => '週あたり (平均: %.2f メッセージ)',
 		'entry_per_hour' => '時間当たり (平均: %.2f メッセージ)',
 		'entry_per_month' => '月あたり (平均: %.2f メッセージ)',
@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => 'アカウントの最大値',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => '登録フォーム',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => '無効: 登録されたフォームはありません',
+					'nolimit' => '有効: アカウントの上限はありません',
+					'setaccountsnumber' => 'アカウントの上限数に達しました',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'フォームは無効です',
+				'enabled' => 'フォームは有効です',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'ユーザー登録',
 		),
 	),
 	'update' => array(
@@ -190,7 +190,7 @@ return array(
 		'check' => 'アップデートを確認する',
 		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
 		'last' => '最近の検証: %s',
-		'none' => '適用できないアップデート',
+		'none' => '更新を適用できません',
 		'title' => 'アップデートシステム',
 	),
 	'user' => array(

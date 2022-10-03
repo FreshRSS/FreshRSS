@@ -725,7 +725,13 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
+	background-color: #f0f0f0;
+	color: #333;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
 }
 
 #stream.reader .flux .author {
@@ -806,12 +812,18 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
+	#panel .close,
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
+		background: #fff;
+		border-bottom-color: #ddd;
+	}
+
+	.aside .toggle_aside:hover,
+	#panel .close:hover,
+	.dropdown-menu .toggle_aside:hover,
+	#slider .toggle_aside:hover {
+		background-color: #ddd;
 	}
 
 	.aside.aside_feed {

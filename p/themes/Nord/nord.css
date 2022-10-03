@@ -1060,7 +1060,13 @@ input.extend {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
+	background: #242933;
+	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #2e3440;
+	border: none;
 }
 
 #stream.reader .flux .author {
@@ -1101,15 +1107,6 @@ input.extend {
 @media (max-width: 840px) {
 	.aside {
 		transition: width 200ms linear;
-	}
-
-	.aside .toggle_aside,
-	#panel .close {
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {
