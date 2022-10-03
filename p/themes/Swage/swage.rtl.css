@@ -46,6 +46,7 @@ select:invalid {
 
 html,
 body {
+	color: black;
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -229,10 +230,6 @@ form th {
 	line-height: 2em;
 }
 
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick select {
 	margin-top: 0;
 }
@@ -713,11 +710,6 @@ form th {
 
 .reader .aside .toggle_aside {
 	background: #22303d;
-	display: block;
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
 }
 .reader .aside .toggle_aside .icon {
 	filter: brightness(3);
@@ -1030,11 +1022,6 @@ a.signin {
 	}
 	.aside .toggle_aside {
 		background: #22303d;
-		display: block;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		padding-left: 10px;
 	}
 	.aside .toggle_aside:hover {
 		background-color: #0062be;
@@ -1055,11 +1042,6 @@ a.signin {
 
 	#slider .toggle_aside {
 		background: #22303d;
-		display: block;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
-		padding-left: 10px;
 	}
 	#slider .toggle_aside:hover {
 		background-color: #0062be;
@@ -1241,10 +1223,15 @@ button.as-link {
 }
 
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #fcfcfc;
 	color: #22303d;
 	border: none;
+}
+#stream.reader .flux::after {
+	border: none;
+}
+#stream.reader .flux .content {
+	border-color: #e3e3e3;
 }
 #stream.reader .flux .author {
 	margin: 0 0 10px;

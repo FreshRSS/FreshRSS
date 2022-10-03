@@ -4,6 +4,7 @@
 /*============*/
 html, body {
 	background: #fafafa;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -141,11 +142,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;
@@ -929,10 +925,14 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #ecf0f1;
+	background: #fafafa;
 	color: #34495e;
 	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ecf0f1;
 }
 
 #stream.reader .flux .author {
@@ -1026,11 +1026,6 @@ a.btn {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {
