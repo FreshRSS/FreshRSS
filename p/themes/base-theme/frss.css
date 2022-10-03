@@ -38,7 +38,6 @@
 
 	--frss-loading-image: url("loader.gif");
 
-	font-size: 16px; /* do we really need it or should we trust the browser config? */
 	line-height: 1.5;
 }
 
