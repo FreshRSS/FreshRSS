@@ -34,7 +34,7 @@
 		?>
 		<div class="box">
 			<div class="box-title">
-				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
+				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributes('position') ?>"><?= _i('configure') ?></a>
 				<?= $cat->name() ?>
 				<?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
 			</div>
