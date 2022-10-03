@@ -38,7 +38,6 @@
 
 	--frss-loading-image: url("loader.gif");
 
-	font-size: 16px; /* do we really need it or should we trust the browser config? */
 	line-height: 1.5;
 }
 
@@ -1341,10 +1340,6 @@ a.website:hover .favicon {
 
 .subtitle > div:not(:first-of-type)::before {
 	content: ' · ';
-}
-
-br {
-	line-height: 1;
 }
 
 /*=== Notification and actualize notification */
