@@ -670,7 +670,7 @@ if (_t('gen.dir') === 'rtl') {
 		<meta name="viewport" content="initial-scale=1.0" />
 		<script id="jsonVars" type="application/json">{}</script>
 		<title><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></title>
-		<link rel="stylesheet" href="../themes/base-theme/template.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css') ?>" />
+		<link rel="stylesheet" href="../themes/base-theme/frss.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/frss.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
 		<meta name="robots" content="noindex,nofollow" />
 	</head>

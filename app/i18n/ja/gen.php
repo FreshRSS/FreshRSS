@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
 		'create' => '作成',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
 		'demote' => '寄付',
 		'disable' => '無効',
 		'empty' => '空',
@@ -29,13 +29,13 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'OPMLをリフレッシュする',
 		'remove' => '消去',
-		'rename' => 'リネーム',
-		'see_website' => 'webサイトを閲覧してください',
+		'rename' => '名前を変更する',
+		'see_website' => 'webサイトをご覧ください',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',
 		'update' => '更新',
@@ -119,7 +119,7 @@ return array(
 		'wed' => '水',
 		'yesterday' => '昨日',
 	),
-	'dir' => 'ltr',	// IGNORE
+	'dir' => 'ディレクトリ',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
 		'feedback' => array(
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(未読: %%d)',
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
 			'title_new_articles' => 'FreshRSS: 新規記事!',
 		),
@@ -171,7 +171,7 @@ return array(
 		'logs' => 'ログ',
 		'queries' => 'ユーザークエリ',
 		'reading' => 'リーディング',
-		'search' => '単語で検索するか #tagsで検索する',
+		'search' => '単語で検索するかハッシュタグで検索する',
 		'sharing' => '共有',
 		'shortcuts' => 'ショートカット',
 		'stats' => '統計',
@@ -211,7 +211,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'システム共有',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

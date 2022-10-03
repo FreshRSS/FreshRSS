@@ -1109,7 +1109,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
+			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
 			if (!context.sides_close_article && ev.target.matches('.flux_content')) {

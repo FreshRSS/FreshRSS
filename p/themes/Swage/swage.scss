@@ -908,11 +908,6 @@ form {
 	.aside {
 		.toggle_aside {
 			background: $color_aside;
-			display: block;
-			width: 100%;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
 
 			.icon {
 				filter: brightness(3);
@@ -1043,6 +1038,7 @@ form {
 
 		&:not(.current):hover .item.title {
 			background: $color_hover;
+			top: 0.15rem;
 		}
 	}
 
@@ -1290,6 +1286,10 @@ a.signin {
 		text-align: center;
 	}
 
+	.flux:not(.current):hover .item.title {
+		top: auto !important;
+	}
+
 	.aside {
 		padding: 0;
 		width: 0;
@@ -1297,11 +1297,6 @@ a.signin {
 
 		.toggle_aside {
 			background: $color_aside;
-			display: block;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-			padding-right: 10px;
 
 			&:hover {
 				background-color: color.adjust( $color_nav, $lightness: 0%);
@@ -1328,11 +1323,6 @@ a.signin {
 	#slider {
 		.toggle_aside {
 			background: $color_aside;
-			display: block;
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-			padding-right: 10px;
 
 			&:hover {
 				background-color: color.adjust( $color_nav, $lightness: 0%);
@@ -1538,10 +1528,17 @@ button.as-link {
 }
 
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: $color_light;
 	color: $color_aside;
 	border: none;
+
+	&::after {
+		border: none;
+	}
+
+	.content {
+		border-color: #e3e3e3;
+	}
 
 	.author {
 		margin: 0 0 10px;
