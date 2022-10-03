@@ -61,6 +61,12 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'email-webmail-firefox-fix' => array( // see https://github.com/FreshRSS/FreshRSS/issues/2666
+		'url' => 'mailto:?subject=~TITLE~&amp;body=~LINK~',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'facebook' => array(
 		'url' => 'https://www.facebook.com/sharer.php?u=~LINK~&amp;t=~TITLE~',
 		'transform' => array('rawurlencode'),

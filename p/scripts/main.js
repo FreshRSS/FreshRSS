@@ -1098,6 +1098,12 @@ function init_stream(stream) {
 			navigator.share(shareData);
 			return false;
 		}
+		
+		el = ev.target.closest('.item.share > a[data-type="email-webmail-firefox-fix"]');
+		if (el) {
+			window.open(el.href);
+			return false;
+		}
 
 		el = ev.target.closest('.item.share > a[href="POST"]');
 		if (el) {	// Share by POST
