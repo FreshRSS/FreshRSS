@@ -6,7 +6,6 @@
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
 	--background-color-grey: #f0f0f0;
-	--background-color-ddd: #ddd;
 
 	--background-color-hover: #f6f6f6;
 
@@ -257,7 +256,7 @@ a.btn,
 .btn:active,
 .dropdown-target:target ~ .btn.dropdown-toggle {
 	background: var(--background-color-grey);
-	box-shadow: 0px 2px 4px #e0e0e0 inset, 0px 1px 2px #fafafa;
+	box-shadow: 0px 2px 4px #e0e0e0 inset, 0px 1px 2px var(--background-color-grey);
 }
 
 .btn-important {
@@ -308,7 +307,7 @@ a.btn,
 }
 
 .nav-list .item:hover {
-	background: var(--background-color-grey);
+	background: var(--background-color-hover);
 }
 
 .nav-list .item:hover a {
@@ -443,7 +442,7 @@ a.btn,
 
 .item ~ .dropdown-header,
 .item.separator {
-	border-top-color: #ddd;
+	border-top-color: var(--border-color);
 }
 
 /*=== Alerts */
@@ -453,9 +452,9 @@ a.btn,
 	background: var(--background-color-grey);
 	color: #aaa;
 	font-size: 0.9em;
-	border: 1px solid #ccc;
-	border-right: 1px solid var(--border-color);
-	border-bottom: 1px solid var(--border-color);
+	border: 1px solid var(--border-color);
+	border-right: 1px solid var(--border-color-shadow-side);
+	border-bottom: 1px solid var(--border-color-shadow-side);
 	border-radius: 5px;
 	text-shadow: 0 0 1px #eee;
 }
@@ -498,7 +497,7 @@ a.btn,
 }
 
 .pagination .item a:hover {
-	background: var(--background-color-ddd);
+	background: var(--background-color-hover);
 }
 
 .pagination:first-child .item {
@@ -639,12 +638,12 @@ a.btn,
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	background-color: #f6f6f6;
+	background-color: var(--background-color-light-shadowed);
 	color: #444;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
-	background-color: white;
+	background-color: var(--background-color-light);
 	color: #444;
 }
 
@@ -814,7 +813,7 @@ a.btn,
 
 .flux_header {
 	font-size: 0.8rem;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--border-color);
 	cursor: pointer;
 }
 
@@ -847,7 +846,7 @@ a.btn,
 
 .content hr {
 	margin: 30px 10px;
-	background: var(--background-color-ddd);
+	background: var(--background-color-grey);
 	height: 1px;
 	border: 0;
 	box-shadow: 0 2px 5px #ccc;
@@ -940,7 +939,7 @@ a.btn,
 }
 
 #bigMarkAsRead:hover {
-	background: var(--background-color-light-shadowed);
+	background: var(--background-color-hover);
 	color: #0062be;
 	box-shadow: 0 -5px 10px #eee inset;
 }
