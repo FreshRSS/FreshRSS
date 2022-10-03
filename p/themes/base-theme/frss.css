@@ -1343,10 +1343,6 @@ a.website:hover .favicon {
 	content: ' · ';
 }
 
-br {
-	line-height: 1;
-}
-
 /*=== Notification and actualize notification */
 .notification {
 	padding: 10px 50px 10px 10px;
