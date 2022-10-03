@@ -289,9 +289,9 @@ a.btn {
 	display: none;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid var(--border);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: var(--border);
 }
 
 /*=== Alerts */

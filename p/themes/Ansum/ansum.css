@@ -243,7 +243,7 @@ form th {
 	right: 17px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1rem 0.5rem 1rem 1rem;
+	padding: 1rem 0.5rem 1rem 1rem;
 	font-weight: bold;
 	text-align: left;
 	color: #766556;
@@ -270,18 +270,32 @@ form th {
 .dropdown-menu .item:not(.addItem):hover .icon {
 	filter: grayscale(100%) brightness(2.5);
 }
+.dropdown-menu .item:not(.addItem) a:hover,
+.dropdown-menu .item:not(.addItem) button:hover {
+	background: #ca7227;
+	color: #fff;
+}
+.dropdown-menu .item:not(.addItem) a:hover .icon,
+.dropdown-menu .item:not(.addItem) button:hover .icon {
+	filter: brightness(3);
+}
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 0 0 -14px;
 	font-weight: bold;
+}
+.dropdown-menu .item ~ .dropdown-header {
+	margin-top: 0.75rem;
+	padding-top: 1.75rem;
+	border-top-color: #f5f0ec;
+}
+.dropdown-menu .item.separator {
+	margin-top: 0.75rem;
+	border-top-color: #f5f0ec;
 }
 .dropdown-menu .input select, .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
 	border-radius: 3px;
-}
-.dropdown-menu .separator {
-	margin: 0.75rem 0;
-	border-bottom: 1px solid #f5f0ec;
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu .item {
@@ -1364,5 +1378,3 @@ a, button.as-link {
 	outline: none;
 	color: #ca7227;
 }
-
-/*# sourceMappingURL=ansum.css.map */

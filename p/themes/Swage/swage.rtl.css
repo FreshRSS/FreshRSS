@@ -397,9 +397,9 @@ form th {
 	left: auto;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #e3e3e3;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #e3e3e3;
 	cursor: default;
 }
 

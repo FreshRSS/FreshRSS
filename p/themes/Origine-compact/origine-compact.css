@@ -45,6 +45,11 @@ a.btn,
 }
 
 /*=== Dropdown */
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #ddd;
+}
+
 /*=== Alerts */
 /*=== Pagination */
 /*=== Boxes */

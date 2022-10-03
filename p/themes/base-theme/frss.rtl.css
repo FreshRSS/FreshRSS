@@ -701,10 +701,12 @@ input[type="checkbox"]:focus-visible {
 	cursor: default;
 }
 
-.separator {
-	display: block;
-	height: 0;
-	border-bottom: 1px solid var(--frss-border-color);
+.item ~ .dropdown-header,
+.item.separator {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top-width: 1px;
+	border-top-style: solid;
 }
 
 /*=== Alerts */
