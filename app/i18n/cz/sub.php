@@ -104,7 +104,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'název položky',
-					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
+					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">osu XPath</a> <code>descendant::</code> jako např. <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'jedinečné ID položky',
