@@ -21,8 +21,8 @@
 				$nothing = false;
 	?>
 	<div class="box">
-		<div class="box-title"><?= _t('gen.date.' . $period) ?></div>
-			<ul class="box-content">
+		<div class="box-title"><h2><?= _t('gen.date.' . $period) ?></h2></div>
+			<ul class="box-content scrollbar-thin">
 				<?php
 					foreach ($feedsInPeriod as $feedInPeriod) {
 						$feed = $this->feeds[$feedInPeriod['id']] ?? null;

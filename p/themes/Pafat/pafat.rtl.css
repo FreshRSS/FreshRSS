@@ -902,10 +902,14 @@ a.signin {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #f0f0f0;
+	background: #fafafa;
 	color: #41444f;
 	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
 }
 
 #stream.reader .flux .author {
@@ -1002,12 +1006,7 @@ a.signin {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background: #f6f6f6;
-		display: block;
-		width: 100%;
-		height: 40px;
 		border-bottom: 1px solid #ddd;
-		line-height: 40px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {
