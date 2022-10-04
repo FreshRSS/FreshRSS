@@ -17,7 +17,7 @@
 	--contrast-background-color-active: #0062be;
 
 	--contrast-background-font-color: #eee;
-	
+
 	--attention-background-color-gradient1: #ea4a46;
 	--attention-background-color-gradient2: #911811; /*gradient */
 
@@ -660,7 +660,7 @@ a.btn,
 	color: #444;
 }
 
-.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+.aside.aside_feed .feed:hover .item-title:not([data-unread="0"])::after {
 	background-color: var(--background-color-light-shadowed);
 }
 
@@ -751,7 +751,7 @@ a.btn,
 
 #new-article > a:hover {
 	text-decoration: none;
-	background-color:  var(--contrast-background-color-hover);
+	background-color: var(--contrast-background-color-hover);
 }
 
 /*=== Day indication */
