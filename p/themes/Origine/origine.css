@@ -6,23 +6,23 @@
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
 	--background-color-grey: #f0f0f0;
-
 	--background-color-hover: #f6f6f6;
 
-	background: #fff3ed; /* unread */
-	background: #fff6da; /*favorite */
+	--unread-article-background-color: #fff3ed;
+	--favorite-article-background-color: #fff6da;
 
 	background: #222; /* content pre */
 	background: var(--background-color-light-shadowed); /* content code */
 
+	--contrast-background-color: #0084cc;
+	--contrast-background-color-gradient: #0045cc;
+	--contrast-background-color-hover: #06c;
+	--contrast-background-color-active: #0062be;
 
-	background: #0084cc;
-	background: #0045cc; /*gradient */
-	background: #0044cb; /*active */
-	background: #0062be; /*active */
-	background: #06c;
+	
+	--contrast-background-font-color: #eee;
+	
 
-	background: #e95b57;
 	background: #911811; /*gradient */
 	background: #f39c12;
 	background: #bd362f; /*active */
@@ -50,6 +50,7 @@
 
 	--border-color: #ddd;
 	--border-color-shadow-side: #ccc;
+	--contrast-border-color-active: #0062be;
 }
 
 
@@ -99,7 +100,7 @@ option {
 }
 
 input:focus, select:focus, textarea:focus, input[type="password"]:focus + .toggle-password {
-	color: #0062be;
+	color: var(--font-color-link);
 	border-color: #3bf;
 	box-shadow: 0 2px 2px #ddf inset;
 	outline: none;
@@ -273,8 +274,8 @@ a.btn,
 }
 
 .btn-important {
-	background: #0084cc;
-	background: linear-gradient(to bottom, #0084cc, #0045cc);
+	background: var(--contrast-background-color);
+	background: linear-gradient(to bottom, var(--contrast-background-color), var(--contrast-background-color-gradient));
 	color: #fff;
 	border: 1px solid #0062b7;
 	text-shadow: 0px -1px 0 #aaa;
@@ -282,11 +283,11 @@ a.btn,
 }
 
 .btn-important:hover {
-	background: linear-gradient(to bottom, #06c, #0045cc);
+	background: linear-gradient(to bottom, var(--contrast-background-color-hover), var(--contrast-background-color-gradient));
 }
 
 .btn-important:active {
-	background: #0044cb;
+	background: var(--contrast-background-color-active);
 	box-shadow: none;
 }
 
@@ -295,7 +296,6 @@ a.btn,
 }
 
 .btn-attention {
-	background: #e95b57;
 	background: linear-gradient(to bottom, #ea4a46, #911811);
 	color: #fff;
 	border: 1px solid #c44742;
@@ -328,7 +328,7 @@ a.btn,
 }
 
 .nav-list .item.active {
-	background: #0062be;
+	background: var(--contrast-background-color-active);
 	color: #fff;
 }
 
@@ -429,7 +429,7 @@ a.btn,
 .dropdown-menu > .item > a:hover,
 .dropdown-menu > .item > button:hover,
 .dropdown-menu > .item > label:hover:not(.noHover) {
-	background: #0062be;
+	background: var(--contrast-background-color-active);
 	color: #fff;
 }
 
@@ -580,7 +580,7 @@ a.btn,
 }
 
 .tree-folder.active .tree-folder-title .title {
-	color: #0062be;
+	color: var(--font-color-link);
 }
 
 .tree-folder-items {
@@ -600,7 +600,7 @@ a.btn,
 }
 
 .tree-folder-items > .item.active {
-	background: #0062be;
+	background: var(--contrast-background-color-active);
 }
 
 .tree-folder-items > .item > a {
@@ -748,7 +748,7 @@ a.btn,
 
 /*=== New article notification */
 #new-article {
-	background: #0084cc;
+	background: var(--contrast-background-color);
 	text-align: center;
 	font-size: 0.9em;
 }
@@ -761,7 +761,7 @@ a.btn,
 
 #new-article > a:hover {
 	text-decoration: none;
-	background: #06c;
+	background:  var(--contrast-background-color-hover);
 }
 
 /*=== Day indication */
@@ -811,7 +811,7 @@ a.btn,
 
 .flux.current {
 	background: var(--background-color-light);
-	border-left: 2px solid #0062be;
+	border-left: 2px solid var(--contrast-border-color-active);
 }
 
 .flux.not_read {
@@ -819,7 +819,7 @@ a.btn,
 }
 
 .flux.not_read:not(.current) {
-	background: #fff3ed;
+	background: var(--unread-article-background-color);
 }
 
 .flux.not_read:not(.current):hover .item.title {
@@ -831,7 +831,7 @@ a.btn,
 }
 
 .flux.favorite:not(.current) {
-	background: #fff6da;
+	background: var(--favorite-article-background-color);
 }
 
 .flux_header {
@@ -959,7 +959,7 @@ a.btn,
 
 #bigMarkAsRead:hover {
 	background: var(--background-color-hover);
-	color: #0062be;
+	color: var(--contrast-border-color-active);
 	box-shadow: 0 -5px 10px #eee inset;
 }
 
@@ -999,7 +999,7 @@ a.btn,
 /*=== GLOBAL VIEW */
 /*================*/
 .box.category:not([data-unread="0"]) .box-title {
-	background: #0084cc;
+	background: var(--contrast-background-color);
 }
 
 .box.category .box-title .title {
@@ -1063,7 +1063,7 @@ a.btn,
 /*=== LOGS */
 /*=========*/
 .pagination .item.active {
-	background-color: #0062be;
+	background-color: var(--contrast-background-color-active);
 	color: white;
 }
 
