@@ -609,19 +609,6 @@ form th {
 	padding: 3px;
 	text-align: center;
 }
-.nav-list .nav-head {
-	margin: 0;
-	text-align: right;
-	color: #fff;
-}
-.nav-list .nav-head a {
-	color: #fff;
-}
-.nav-list .nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
 
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]) {
