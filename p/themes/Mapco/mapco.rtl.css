@@ -220,11 +220,7 @@ form th {
 /*=== Forms */
 /*=== Horizontal-list */
 .horizontal-list {
-	margin: 0;
 	padding: 0.1rem 0;
-}
-.horizontal-list .item {
-	vertical-align: middle;
 }
 .horizontal-list .item:first-child {
 	padding-right: 0.5rem;
@@ -246,7 +242,7 @@ form th {
 	left: 18px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1rem 1rem 1rem 0.5rem;
+	padding: 1rem 1rem 1rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #5b6871;
@@ -262,29 +258,32 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:not(.addItem):hover {
+.dropdown-menu .item:not(.addItem) a:hover,
+.dropdown-menu .item:not(.addItem) button:hover {
 	background: #36c;
 	color: #fff;
 }
-.dropdown-menu .item:not(.addItem):hover .icon {
+.dropdown-menu .item:not(.addItem) a:hover .icon,
+.dropdown-menu .item:not(.addItem) button:hover .icon {
 	filter: brightness(3);
-}
-.dropdown-menu .item:not(.addItem):hover a, .dropdown-menu .item:not(.addItem):hover button, .dropdown-menu .item:not(.addItem):hover label {
-	text-decoration: none;
-	color: #fff;
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 -14px 0 0;
 	font-weight: bold;
 }
+.dropdown-menu .item ~ .dropdown-header {
+	margin-top: 0.75rem;
+	padding-top: 1.75rem;
+	border-top-color: #eff0f2;
+}
+.dropdown-menu .item.separator {
+	margin-top: 0.75rem;
+	border-top-color: #eff0f2;
+}
 .dropdown-menu .input select, .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
 	border-radius: 3px;
-}
-.dropdown-menu .separator {
-	margin: 0.75rem 0;
-	border-bottom: 1px solid #eff0f2;
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu .item {
@@ -525,10 +524,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
 .stick input, .stick .btn {
 	border-radius: 0;
 }
@@ -613,11 +608,6 @@ form th {
 }
 .nav-list.empty a {
 	color: #f4f762;
-}
-.nav-list .disable {
-	text-align: center;
-	background: #f9fafb;
-	color: #a6a7ae;
 }
 .nav-list .nav-header {
 	padding: 0 10px;
@@ -1146,13 +1136,15 @@ main.prompt {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #eff0f2;
 	color: #303136;
 	border: none;
 }
-
-#stream.reader .flux .author {
+#stream.reader .flux .content {
+	background-color: #fff;
+	border: none;
+}
+#stream.reader .flux .content .author {
 	margin: 0 0 10px;
 	color: #a6a7ae;
 	font-size: 90%;
@@ -1219,42 +1211,8 @@ main.prompt {
 
 /*=== LOGS */
 /*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid #a6a7ae;
-}
-
-.log {
-	margin: 10px 0;
-	padding: 5px 2%;
-	background: #f9fafb;
-	color: #5b6871;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-
-.log > .date {
-	margin: 0 0 0 10px;
-	padding: 5px 10px;
-	border-radius: 20px;
-}
-
-.log.error > .date {
-	background: #f5633e;
-	color: #fff;
-}
-
-.log.warning > .date {
-	background: #f4f762;
-}
-
-.log.notice > .date {
-	background: #eff0f2;
-}
-
-.log.debug > .date {
-	background: #1d1e22;
-	color: #fff;
+.log-item.log-error {
+	background-color: rgba(51, 102, 204, 0.2);
 }
 
 /*=== STATISTICS */
@@ -1272,20 +1230,6 @@ main.prompt {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #d5d8db;
-}
-
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
 }
 
 /*=== MOBILE */
@@ -1307,19 +1251,20 @@ main.prompt {
 
 	.aside .toggle_aside,
 #panel .close,
-#close-slider.active,
-.dropdown-menu .toggle_aside {
-		background: #25c;
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside {
+		background-color: #36c;
+	}
+	.aside .toggle_aside:hover,
+#panel .close:hover,
+.dropdown-menu .toggle_aside:hover,
+#slider .toggle_aside:hover {
+		background-color: #25c;
 	}
 	.aside .toggle_aside .icon,
 #panel .close .icon,
-#close-slider.active .icon,
-.dropdown-menu .toggle_aside .icon {
+.dropdown-menu .toggle_aside .icon,
+#slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
 	}
 
@@ -1438,6 +1383,7 @@ main.prompt {
 /*============*/
 html, body {
 	background: #eff0f2;
+	color: #36c;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
 }

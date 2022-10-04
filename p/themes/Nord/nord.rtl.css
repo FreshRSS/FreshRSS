@@ -147,11 +147,6 @@ table td span {
 }
 
 /*=== Buttons */
-.stick {
-	font-size: 0;
-	vertical-align: middle;
-}
-
 .btn,
 a.btn {
 	margin: .3rem .3rem;
@@ -213,12 +208,6 @@ a.btn {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
 }
 
 .dropdown-menu {
@@ -300,9 +289,9 @@ a.btn {
 	display: none;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid var(--border);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: var(--border);
 }
 
 /*=== Alerts */
@@ -743,21 +732,6 @@ li.item.active {
 	text-align: center;
 }
 
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 250px;
-}
-
-
 .stat {
 	margin: 10px 0 20px;
 }
@@ -996,10 +970,6 @@ input.extend {
 }
 
 /*=== Navigation */
-.nav-list .disable {
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -1090,7 +1060,13 @@ input.extend {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
+	background: #242933;
+	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #2e3440;
+	border: none;
 }
 
 #stream.reader .flux .author {
@@ -1125,37 +1101,12 @@ input.extend {
 	background-color: var(--bg);
 }
 
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	font-size: 0.8rem;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
 /*=== MOBILE */
 /*===========*/
 
 @media (max-width: 840px) {
 	.aside {
 		transition: width 200ms linear;
-	}
-
-	.aside .toggle_aside,
-	#panel .close {
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {

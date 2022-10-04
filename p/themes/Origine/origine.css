@@ -4,6 +4,7 @@
 /*============*/
 html, body {
 	background: #fafafa;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -127,11 +128,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;
@@ -193,7 +189,8 @@ form th {
 	overflow: hidden;
 }
 
-a.btn {
+a.btn,
+.stick .btn {
 	min-height: 25px;
 	line-height: 25px;
 }
@@ -275,12 +272,6 @@ a.btn {
 	color: #fff;
 }
 
-.nav-list .disable {
-	background: #fafafa;
-	color: #aaa;
-	text-align: center;
-}
-
 .nav-list .item > a,
 .nav-list .item > span {
 	padding: 0 10px;
@@ -341,16 +332,6 @@ a.btn {
 	line-height: 1.5rem;
 }
 
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
@@ -408,9 +389,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #ddd;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #ddd;
 }
 
 /*=== Alerts */
@@ -927,10 +908,14 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #f0f0f0;
 	color: #333;
 	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
 }
 
 #stream.reader .flux .author {
@@ -1003,20 +988,6 @@ a.btn {
 	border-bottom: 1px solid #ddd;
 }
 
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
-}
-
 /*=== LOGS */
 /*=========*/
 .pagination .item.active {
@@ -1026,49 +997,6 @@ a.btn {
 
 #loglist td {
 	font-family: monospace;
-}
-
-/****old******/
-.loglist {
-	border: 1px solid #aaa;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	background: #fafafa;
-	color: #333;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-	border-top: 1px solid #aaa;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-	background: #fdd;
-	color: #844;
-}
-
-.log.warning {
-	background: #ffe;
-	color: #c95;
-}
-
-.log.notice {
-	background: #f4f4f4;
-	color: #aaa;
-}
-
-.log.debug {
-	background: #333;
-	color: #eee;
 }
 
 /*=== MOBILE */
@@ -1093,12 +1021,7 @@ a.btn {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background: #f6f6f6;
-		display: block;
-		width: 100%;
-		height: 50px;
 		border-bottom: 1px solid #ddd;
-		line-height: 50px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {

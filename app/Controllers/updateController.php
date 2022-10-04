@@ -259,6 +259,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				}
 			}
 
+			if (function_exists('opcache_reset')) {
+				opcache_reset();
+			}
+
 			if ($res === true) {
 				Minz_Request::forward(array(
 					'c' => 'update',

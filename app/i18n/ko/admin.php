@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => '계정 최대 개수',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => '회원가입 양식',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => '비활성화: 회원가입 양식 없음',
+					'nolimit' => '활성화: 계정 개수 제한 없음',
+					'setaccountsnumber' => '최대 계정 개수 설정',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => '양식 비활성화됨',
+				'enabled' => '양식 활성화됨',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => '사용자 회원가입 양식',
 		),
 	),
 	'update' => array(

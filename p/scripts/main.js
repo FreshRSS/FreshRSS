@@ -720,11 +720,18 @@ function onScroll() {
 			}
 		});
 	}
-	if (context.auto_load_more) {
-		const streamFooter = document.getElementById('stream-footer');
-		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+	let streamFooter;
+	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
+		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
+			// Too close to the last pre-loaded article
 			load_more_posts();
+		} else {
+			const after = document.querySelectorAll('.flux.current ~ .flux').length;
+			if (after > 0 && after <= 5) {
+				// Too few pre-loaded articles
+				load_more_posts();
+			}
 		}
 	}
 }
@@ -1001,12 +1008,14 @@ function init_shortcuts() {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
 			}
+
+			const link_go_website = document.querySelector('.flux.current a.go_website');
 			const newWindow = window.open();
-			if (newWindow) {
+			if (link_go_website && newWindow) {
 				newWindow.opener = null;
-				newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				newWindow.location = link_go_website.href;
+				ev.preventDefault();
 			}
-			ev.preventDefault();
 			return;
 		}
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
@@ -1100,7 +1109,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
+			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
 			if (!context.sides_close_article && ev.target.matches('.flux_content')) {

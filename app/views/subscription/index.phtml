@@ -34,25 +34,36 @@
 		?>
 		<div class="box">
 			<div class="box-title">
-				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>"><?= _i('configure') ?></a>
-				<?= $cat->name() ?>
+				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributes('position') ?>"><?= _i('configure') ?></a>
+				<h2><?= $cat->name() ?></h2>
 				<?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
 			</div>
-			<ul class="box-content drop-zone" dropzone="move" data-cat-id="<?= $cat->id() ?>">
+			<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 				<?php
 				if (!empty($feeds)) {
 					foreach ($feeds as $feed) {
 						if ($this->onlyFeedsWithError && !$feed->inError()) {
 							continue;
 						}
-						$error = $feed->inError() ? ' error' : '';
-						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
+
+						$error_class = '';
+						$error_title = '';
+						if ($feed->inError()) {
+							$error_class = ' error';
+							$error_title = _t('sub.feed.error');
+						}
+
+						$empty_class = '';
+						$empty_title = '';
+						if ($feed->nbEntries() == 0) {
+							$empty_class = ' empty';
+							$empty_title = _t('sub.feed.empty');
+						}
+						$mute_class = $feed->mute() ? ' mute' : '';
 				?>
-				<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
-					title="<?= $feed->inError() ? _t('sub.feed.error') : '' ?>"
-					draggable="true"
-					data-feed-id="<?= $feed->id() ?>">
-					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>"><?= _i('configure') ?></a>
+				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
+					draggable="true" data-feed-id="<?= $feed->id() ?>">
+					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<span class="item-title"><?= $feed->name() ?></span>
 				</li>
@@ -71,7 +82,7 @@
 
 		<div class="box visible-semi">
 			<div class="box-title">
-				✚ <a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.category.add') ?></a>
+				✚ <a href="<?= _url('subscription', 'add') ?>"><h2><?= _t('sub.category.add') ?></h2></a>
 			</div>
 			<div class="box-content">
 			</div>

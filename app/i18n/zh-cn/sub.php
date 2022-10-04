@@ -36,8 +36,8 @@ return array(
 		'title' => '标题',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
+		'accept_cookies' => '接受 Cookies',
+		'accept_cookies_help' => '允许提要服务器设置 Cookies（仅在请求期间存储在内存中）',
 		'add' => '添加订阅源',
 		'advanced' => '高级',
 		'archiving' => '归档',
@@ -126,8 +126,8 @@ return array(
 			'reload_articles_help' => '重载 n 篇文章并抓取内容（若设置了 CSS 选择器）',
 			'title' => '维护',
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'max_http_redir' => '最大 HTTP 重定向',
+		'max_http_redir_help' => '设置为 0 或留空以禁用，-1 表示无限重定向',
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',

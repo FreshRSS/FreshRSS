@@ -5,6 +5,7 @@ ifndef TAG
 endif
 
 PORT ?= 8080
+NETWORK ?= freshrss-network
 
 ifdef NO_DOCKER
 	PHP = $(shell which php)
@@ -38,6 +39,7 @@ build: ## Build a Docker image
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
+	docker network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
 	docker run \
 		--rm \
@@ -46,11 +48,13 @@ start: ## Start the development environment (use Docker)
 		--publish $(PORT):80 \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
+		--network $(NETWORK) \
 		freshrss/freshrss:$(TAG)
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
-	docker stop freshrss-dev
+	docker stop freshrss-dev || true
+	docker network rm $(NETWORK) || true
 
 ######################
 ## Tests and linter ##

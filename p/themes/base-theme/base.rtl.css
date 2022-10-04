@@ -6,11 +6,13 @@
 /*============*/
 html, body {
 	height: 100%;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 /*=== Links */
 a, button.as-link {
+	color: blue;
 	outline: none;
 }
 
@@ -96,11 +98,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 }
@@ -198,10 +195,6 @@ a.btn {
 .nav-list .item.active a {
 }
 
-.nav-list .disable {
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -241,16 +234,6 @@ a.btn {
 	padding: 5px 10px;
 	font-size: 0.9rem;
 	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 /*=== Dropdown */
@@ -304,10 +287,6 @@ a.btn {
 .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
-}
-
-.separator {
-	margin: 5px 0;
 }
 
 /*=== Alerts */
@@ -742,7 +721,13 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
+	background-color: #f0f0f0;
+	color: #333;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
 }
 
 #stream.reader .flux .author {
@@ -814,51 +799,6 @@ a.btn {
 	text-align: center;
 }
 
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 250px;
-}
-
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-}
-
-.log {
-	padding: 5px 10px;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-}
-
-.log.warning {
-}
-
-.log.notice {
-}
-
-.log.debug {
-}
-
 /*=== MOBILE */
 /*===========*/
 
@@ -868,12 +808,18 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close {
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
+	#panel .close,
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
+		background: #fff;
+		border-bottom-color: #ddd;
+	}
+
+	.aside .toggle_aside:hover,
+	#panel .close:hover,
+	.dropdown-menu .toggle_aside:hover,
+	#slider .toggle_aside:hover {
+		background-color: #ddd;
 	}
 
 	.aside.aside_feed {

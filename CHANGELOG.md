@@ -1,6 +1,9 @@
-# FreshRSS changelog
+﻿# FreshRSS changelog
 
-## 2022-0X-XX FreshRSS 1.20.0-dev
+## 202X-XX-XX FreshRSS 1.20.1-dev
+
+
+## 2022-09-10 FreshRSS 1.20.0
 
 * Features
 	* New Web scraping feature *HTML+XPath* for Web pages without any RSS/ATOM feed [#4220](https://github.com/FreshRSS/FreshRSS/pull/4220)
@@ -18,23 +21,28 @@
 	* New option to exclude some DOM elements with a CSS Selector when retrieving an article full content [#4501](https://github.com/FreshRSS/FreshRSS/pull/4501)
 	* New option to automatically mark as read gone articles [#4426](https://github.com/FreshRSS/FreshRSS/pull/4426)
 	* New OPML export/import of some proprietary FreshRSS attributes [#4342](https://github.com/FreshRSS/FreshRSS/pull/4342)
+	* Tolerate the import of some invalid OPML files [#4591](https://github.com/FreshRSS/FreshRSS/pull/4591)
 	* New feed settings to allow cookies and HTTP redirects [#4470](https://github.com/FreshRSS/FreshRSS/pull/4470)
 	* Performance: Easier [text search indexes](https://freshrss.github.io/FreshRSS/en/admins/DatabaseConfig.html) for fast searches with PostgreSQL [#4505](https://github.com/FreshRSS/FreshRSS/pull/4505)
 		* The indexes must be manually added for now. Using GIN `pg_trgm`
 	* Easier definition of default user queries for new users in `data/config-user.custom.php` [#4360](https://github.com/FreshRSS/FreshRSS/pull/4360)
 	* New sharing through standard [Web Share API](https://www.w3.org/TR/web-share/) [#4271](https://github.com/FreshRSS/FreshRSS/pull/4271)
 	* New sharing with Xing, Reddit, Pinterest, WhatsApp [#4270](https://github.com/FreshRSS/FreshRSS/pull/4270)
+	* New sharing with [`archive.today`](https://archive.ph/) [#4530](https://github.com/FreshRSS/FreshRSS/pull/4530)
 * SimplePie
 	* New method `rename_attribute()` instead of removing attributes to better be able to style/hide content of articles [#4175](https://github.com/FreshRSS/FreshRSS/pull/4175),
 	[simplepie#717](https://github.com/simplepie/simplepie/pull/717)
 	* Fix parsing of HTTP Links [simplepie#729](https://github.com/simplepie/simplepie/pull/729)
 	* Fix `status_code` type for PHP 8.1+ [simplepie#728](https://github.com/simplepie/simplepie/pull/728)
+	* Fix relative URLs [simplepie#744](https://github.com/simplepie/simplepie/pull/744)
 * Bug fixing
+	* Fix last update & archive logic (especially for very long feeds, for which some old items were marked as unread) [#4422](https://github.com/FreshRSS/FreshRSS/pull/4422)
 	* Fix regression with Fever API on 32-bit platforms [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201)
 	* Fix read-when-same-title bug [#4206](https://github.com/FreshRSS/FreshRSS/pull/4206)
 	* Fix some search expressions such as `"ab cd"` and `ab-cd` [#4277](https://github.com/FreshRSS/FreshRSS/pull/4277)
+	* Fix auto-load of more articles when using shortcuts [#4532](https://github.com/FreshRSS/FreshRSS/pull/4532)
+	* Fix <kbd>space</kbd> shortcut [#4581](https://github.com/FreshRSS/FreshRSS/pull/4581)
 	* WebSub: Use hash instead of base64 to handle long URLs [#4282](https://github.com/FreshRSS/FreshRSS/pull/4282)
-	* Fix last update & archive logic [#4422](https://github.com/FreshRSS/FreshRSS/pull/4422)
 	* Fix handling of authors with ampersand `&` [#4287](https://github.com/FreshRSS/FreshRSS/pull/4287)
 	* Fix lazy loading images containing a quote `'` in the address [#4330](https://github.com/FreshRSS/FreshRSS/pull/4330)
 	* Fix database size calculation for PostgreSQL [#4249](https://github.com/FreshRSS/FreshRSS/pull/4249)
@@ -71,28 +79,39 @@
 	[#4383](https://github.com/FreshRSS/FreshRSS/pull/4383), [#4452](https://github.com/FreshRSS/FreshRSS/pull/4452), [#4455](https://github.com/FreshRSS/FreshRSS/pull/4455),
 	[#4466](https://github.com/FreshRSS/FreshRSS/pull/4466), [#4471](https://github.com/FreshRSS/FreshRSS/pull/4471), [#4472](https://github.com/FreshRSS/FreshRSS/pull/4472),
 	[#4474](https://github.com/FreshRSS/FreshRSS/pull/4474), [#4498](https://github.com/FreshRSS/FreshRSS/pull/4498), [#4502](https://github.com/FreshRSS/FreshRSS/pull/4502),
-	[#4504](https://github.com/FreshRSS/FreshRSS/pull/4504)
+	[#4504](https://github.com/FreshRSS/FreshRSS/pull/4504), [#4558](https://github.com/FreshRSS/FreshRSS/pull/4558), [#4546](https://github.com/FreshRSS/FreshRSS/pull/4546),
+	[#4541](https://github.com/FreshRSS/FreshRSS/pull/4541)
 * Themes
 	* New theme *Dark pink* [#4311](https://github.com/FreshRSS/FreshRSS/pull/4311)
 	* New theme *Nord* [#4400](https://github.com/FreshRSS/FreshRSS/pull/4400)
-	* Improve themes *Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491); *Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512)
+	* Improve themes *Alternative Dark* [#4587](https://github.com/FreshRSS/FreshRSS/pull/4587);
+	*Ansum* [#4538](https://github.com/FreshRSS/FreshRSS/pull/4538), [#4549](https://github.com/FreshRSS/FreshRSS/pull/4549);
+	*Flat* [#4575](https://github.com/FreshRSS/FreshRSS/pull/4575);
+	*Mapco* [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491), [#4491](https://github.com/FreshRSS/FreshRSS/pull/4491);
+	*Swage* [#4493](https://github.com/FreshRSS/FreshRSS/pull/4493), [#4512](https://github.com/FreshRSS/FreshRSS/pull/4512), [#4566](https://github.com/FreshRSS/FreshRSS/pull/4566)
 * Extensions
 	* Allow extensions using `entry_before_insert` to change `entry->isRead()` [#4331](https://github.com/FreshRSS/FreshRSS/pull/4331)
 * i18n
 	* Improve i18n CLI [#4197](https://github.com/FreshRSS/FreshRSS/pull/4197), [#4199](https://github.com/FreshRSS/FreshRSS/pull/4199)
-	* Improve Chinese [#4332](https://github.com/FreshRSS/FreshRSS/pull/4332), [#4337](https://github.com/FreshRSS/FreshRSS/pull/4337), [#4379](https://github.com/FreshRSS/FreshRSS/pull/4379),
-	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509)
+	* Add Chinese (Traditional) [#4578](https://github.com/FreshRSS/FreshRSS/pull/4578)
+	* Improve Chinese (Simplified) [#4332](https://github.com/FreshRSS/FreshRSS/pull/4332), [#4337](https://github.com/FreshRSS/FreshRSS/pull/4337), [#4379](https://github.com/FreshRSS/FreshRSS/pull/4379),
+	[#4509](https://github.com/FreshRSS/FreshRSS/pull/4509), [#4577](https://github.com/FreshRSS/FreshRSS/pull/4577)
 	* Improve English [#4450](https://github.com/FreshRSS/FreshRSS/pull/4450)
 	* Improve German [#4525](https://github.com/FreshRSS/FreshRSS/pull/4525)
+	* Improve Korean [#4572](https://github.com/FreshRSS/FreshRSS/pull/4572)
+	* Improve Occitan [#4548](https://github.com/FreshRSS/FreshRSS/pull/4548)
 	* Improve Polish [#4363](https://github.com/FreshRSS/FreshRSS/pull/4363)
 	* Improve Russian [#4385](https://github.com/FreshRSS/FreshRSS/pull/4385)
 	* Improve Slovak [#4524](https://github.com/FreshRSS/FreshRSS/pull/4524)
+* API
+	* Restrict maximum length of item content length for clients compatibility [#4583](https://github.com/FreshRSS/FreshRSS/pull/4583)
+	* Supported by [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) [#4595](https://github.com/FreshRSS/FreshRSS/pull/4595)
 * Deployment
 	* Docker: Performance: entrypoint fix buffering, problematic when importing large OPMLs during install [#4417](https://github.com/FreshRSS/FreshRSS/pull/4417)
+	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.30 and Apache 2.4.54
 	* Docker: alternative image updated to Alpine 3.16 with PHP 8.0.22 and Apache 2.4.54 [#4391](https://github.com/FreshRSS/FreshRSS/pull/4391)
 		* Add PHP extensions `php-openssl` (used by PHPMailer) and `php-xml` (used by SimplePie) [#4420](https://github.com/FreshRSS/FreshRSS/pull/4420)
 	* Docker: Upgraded dev image `freshrss/freshrss:newest` to PHP 8.2 [#4420](https://github.com/FreshRSS/FreshRSS/pull/4420)
-	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.30 and Apache 2.4.54
 	* Include PHP extensions in Composer for easier automated deployment [#4497](https://github.com/FreshRSS/FreshRSS/pull/4497)
 	* Improved trimming of `base_url` to avoid some common configuration bugs, especially via Docker / CLI [#4423](https://github.com/FreshRSS/FreshRSS/pull/4423)
 * CLI
@@ -114,6 +133,7 @@
 	* Improve dev automated checks [#4209](https://github.com/FreshRSS/FreshRSS/pull/4209)
 	* Update dev dependencies [#4173](https://github.com/FreshRSS/FreshRSS/pull/4173), [#4203](https://github.com/FreshRSS/FreshRSS/pull/4203), [#4241](https://github.com/FreshRSS/FreshRSS/pull/4241),
 	[#4419](https://github.com/FreshRSS/FreshRSS/pull/4419), [#4424](https://github.com/FreshRSS/FreshRSS/pull/4424)
+	* Fix extension list warning when offline[#4571](https://github.com/FreshRSS/FreshRSS/pull/4571)
 	* Code improvements [#4130](https://github.com/FreshRSS/FreshRSS/pull/4130), [#4194](https://github.com/FreshRSS/FreshRSS/pull/4194), [#4201](https://github.com/FreshRSS/FreshRSS/pull/4201),
 	[#4202](https://github.com/FreshRSS/FreshRSS/pull/4202), [#4258](https://github.com/FreshRSS/FreshRSS/pull/4258), [#4263](https://github.com/FreshRSS/FreshRSS/pull/4263),
 	[#4356](https://github.com/FreshRSS/FreshRSS/pull/4356), [#4436](https://github.com/FreshRSS/FreshRSS/pull/4436), [#4489](https://github.com/FreshRSS/FreshRSS/pull/4489),
