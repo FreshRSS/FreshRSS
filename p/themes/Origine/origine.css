@@ -252,11 +252,19 @@ a.btn,
 	text-decoration: none;
 }
 
+.btn:hover .icon {
+	filter: brightness(0.85);
+}
+
 .btn.active,
 .btn:active,
 .dropdown-target:target ~ .btn.dropdown-toggle {
 	background: var(--background-color-grey);
 	box-shadow: 0px 2px 4px #e0e0e0 inset, 0px 1px 2px var(--background-color-grey);
+}
+
+.dropdown-target:target ~ .btn.dropdown-toggle .icon {
+	filter: brightness(0.5);
 }
 
 .btn.active .icon,
@@ -812,10 +820,6 @@ a.btn,
 	background: #fff6da;
 }
 
-.flux.favorite:not(.current):hover .item.title {
-	background: #fff6da;
-}
-
 .flux_header {
 	font-size: 0.9rem;
 	border-top: 1px solid var(--border-color);
@@ -1121,10 +1125,6 @@ a.btn,
 		background-color: #fff;
 		border-top: 1px solid var(--border-color);
 		border-left: 1px solid var(--border-color);
-	}
-
-	.dropdown-target:target ~ .dropdown-toggle .icon {
-		filter: brightness(0.5)
 	}
 
 	.form-group.form-actions {
