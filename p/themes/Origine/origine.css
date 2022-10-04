@@ -561,6 +561,9 @@ a.btn,
 
 .tree-folder-title:hover {
 	background-color: var(--background-color-hover);
+}
+
+.tree-folder-title .title:hover {
 	text-decoration: none;
 }
 
@@ -650,8 +653,7 @@ a.btn,
 	color: #444;
 }
 
-.aside.aside_feed .category:hover .title:not([data-unread="0"])::after,
-.global .box.category:hover .title:not([data-unread="0"])::after {
+.aside.aside_feed .category .tree-folder-title:hover .title:not([data-unread="0"])::after {
 	background-color: var(--background-color-light);
 }
 
