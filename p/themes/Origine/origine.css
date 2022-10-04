@@ -11,15 +11,11 @@
 	--unread-article-background-color: #fff3ed;
 	--favorite-article-background-color: #fff6da;
 
-	background: #222; /* content pre */
-	background: var(--background-color-light-shadowed); /* content code */
-
 	--contrast-background-color: #0084cc;
 	--contrast-background-color-gradient: #0045cc;
 	--contrast-background-color-hover: #06c;
 	--contrast-background-color-active: #0062be;
 
-	
 	--contrast-background-font-color: #eee;
 	
 	--attention-background-color-gradient1: #ea4a46;
@@ -220,7 +216,6 @@ form th {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	background-color: var(--background-color-light);
 	background-image: linear-gradient(to bottom, var(--background-color-light) 0%, #eee 100%);
 	display: inline-block;
 	color: #666;
@@ -245,7 +240,7 @@ a.btn,
 }
 
 .btn:hover {
-	background-color: linear-gradient(to bottom, #f8f8f8, #f0f0f0);
+	background-image: linear-gradient(to bottom, #f8f8f8, #f0f0f0);
 	text-decoration: none;
 }
 
@@ -270,7 +265,7 @@ a.btn,
 }
 
 .btn-important {
-	background-color: linear-gradient(to bottom, var(--contrast-background-color), var(--contrast-background-color-gradient));
+	background-image: linear-gradient(to bottom, var(--contrast-background-color), var(--contrast-background-color-gradient));
 	color: #fff;
 	border: 1px solid #0062b7;
 	text-shadow: 0px -1px 0 #aaa;
@@ -278,7 +273,7 @@ a.btn,
 }
 
 .btn-important:hover {
-	background-color: linear-gradient(to bottom, var(--contrast-background-color-hover), var(--contrast-background-color-gradient));
+	background-image: linear-gradient(to bottom, var(--contrast-background-color-hover), var(--contrast-background-color-gradient));
 }
 
 .btn-important:active {
@@ -291,14 +286,14 @@ a.btn,
 }
 
 .btn-attention {
-	background-color: linear-gradient(to bottom, var(--attention-background-color-gradient1), var(--attention-background-color-gradient2));
+	background-image: linear-gradient(to bottom, var(--attention-background-color-gradient1), var(--attention-background-color-gradient2));
 	color: #fff;
 	border: 1px solid #c44742;
 	text-shadow: 0px -1px 0px #666;
 }
 
 .btn-attention:hover {
-	background-color: linear-gradient(to bottom, var(--attention-background-color-gradient1-hover), var(--attention-background-color-gradient2-hover));
+	background-image: linear-gradient(to bottom, var(--attention-background-color-gradient1-hover), var(--attention-background-color-gradient2-hover));
 }
 
 .btn-attention:active {
