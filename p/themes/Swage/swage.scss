@@ -522,9 +522,9 @@ form {
 	}
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: color.adjust( $color_light, $lightness: -10%);
 	cursor: default;
 }
 
@@ -1038,6 +1038,7 @@ form {
 
 		&:not(.current):hover .item.title {
 			background: $color_hover;
+			top: 0.15rem;
 		}
 	}
 
@@ -1283,6 +1284,10 @@ a.signin {
 	.flux_header .item.website {
 		width: 35px;
 		text-align: center;
+	}
+
+	.flux:not(.current):hover .item.title {
+		top: auto !important;
 	}
 
 	.aside {

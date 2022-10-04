@@ -365,10 +365,6 @@ a.btn {
 	transform: rotate(-45deg);
 }
 
-.configure .dropdown-header {
-	display: none;
-}
-
 .dropdown-header {
 	padding: 0 5px 5px;
 	color: #ccc;
@@ -404,10 +400,9 @@ a.btn {
 	margin: 0 -14px 0 0;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #171717;
-	box-shadow: 0 1px rgba(255,255,255,0.08);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: rgba(255,255,255,0.08);
 }
 
 /*=== Alerts */

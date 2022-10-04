@@ -384,9 +384,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #333;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #333;
 }
 
 /*=== Alerts */
