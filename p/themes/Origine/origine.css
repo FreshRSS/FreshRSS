@@ -268,7 +268,7 @@ a.btn,
 
 .btn-important {
 	background-image: linear-gradient(to bottom, var(--contrast-background-color), var(--contrast-background-color-gradient));
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	border: 1px solid #0062b7;
 	text-shadow: 0px -1px 0 #aaa;
 	font-weight: normal;
@@ -289,7 +289,7 @@ a.btn,
 
 .btn-attention {
 	background-image: linear-gradient(to bottom, var(--attention-background-color-gradient1), var(--attention-background-color-gradient2));
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	border: 1px solid #c44742;
 	text-shadow: 0px -1px 0px #666;
 }
@@ -321,11 +321,11 @@ a.btn,
 
 .nav-list .item.active {
 	background-color: var(--contrast-background-color-active);
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 .nav-list .item.active a {
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 .nav-list .item > a,
@@ -348,7 +348,7 @@ a.btn,
 
 .nav-list .item.active.empty a {
 	background-color: var(--empty-feed-color);
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 .nav-list .item.error a {
@@ -357,7 +357,7 @@ a.btn,
 
 .nav-list .item.active.error a {
 	background-color: var(--error-feed-color);
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 .nav-list .nav-header {
@@ -422,7 +422,7 @@ a.btn,
 .dropdown-menu > .item > button:hover,
 .dropdown-menu > .item > label:hover:not(.noHover) {
 	background-color: var(--contrast-background-color-active);
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 .dropdown-menu > .item > label {
@@ -599,7 +599,7 @@ a.btn,
 }
 
 .tree-folder-items > .item.active > a {
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 /*=== STRUCTURE */
@@ -687,7 +687,7 @@ a.btn,
 .feed.item.error.active,
 .feed.item.empty.active > a,
 .feed.item.error.active > a {
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 }
 
 .aside_feed .tree-folder-items .dropdown-menu::after {
@@ -745,7 +745,7 @@ a.btn,
 
 #new-article > a {
 	padding: 1em;
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	font-weight: bold;
 }
 
@@ -866,7 +866,7 @@ a.btn,
 	padding: 10px 20px;
 	overflow: auto;
 	background-color: #222;
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	font-size: 0.9rem;
 	border-radius: 3px;
 }
@@ -881,7 +881,7 @@ a.btn,
 
 .content pre code {
 	background-color: transparent;
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	border: none;
 }
 
@@ -1001,13 +1001,13 @@ a.btn,
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	font-weight: bold;
 }
 
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
-	color: var(--font-color-light)
+	color: var(--font-color-light);
 	border: 0;
 	box-shadow: none;
 	position: absolute;
