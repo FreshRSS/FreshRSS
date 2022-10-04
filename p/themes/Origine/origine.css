@@ -37,7 +37,9 @@
 	--notification-close-background-color-hover: #aaa2;
 
 
-	--font-color: #000;
+	--font-color: #111;
+	--font-color-666: #666;
+	--font-color-light: #fff;
 
 	--font-color-link: #0062be;
 
@@ -81,7 +83,7 @@ textarea {
 input, select, textarea {
 	padding: 7px;
 	background-color: var(--background-color-light);
-	color: #666;
+	color: var(--font-color-666);
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
 	box-shadow: 0 2px 2px #eee inset;
@@ -218,7 +220,7 @@ form th {
 	padding: 5px 10px;
 	background-image: linear-gradient(to bottom, var(--background-color-light) 0%, #eee 100%);
 	display: inline-block;
-	color: #666;
+	color: var(--font-color-666);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color);
 	border-right: 1px solid var(--border-color-shadow-side);
@@ -266,7 +268,7 @@ a.btn,
 
 .btn-important {
 	background-image: linear-gradient(to bottom, var(--contrast-background-color), var(--contrast-background-color-gradient));
-	color: #fff;
+	color: var(--font-color-light)
 	border: 1px solid #0062b7;
 	text-shadow: 0px -1px 0 #aaa;
 	font-weight: normal;
@@ -287,7 +289,7 @@ a.btn,
 
 .btn-attention {
 	background-image: linear-gradient(to bottom, var(--attention-background-color-gradient1), var(--attention-background-color-gradient2));
-	color: #fff;
+	color: var(--font-color-light)
 	border: 1px solid #c44742;
 	text-shadow: 0px -1px 0px #666;
 }
@@ -319,11 +321,11 @@ a.btn,
 
 .nav-list .item.active {
 	background-color: var(--contrast-background-color-active);
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 .nav-list .item.active a {
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 .nav-list .item > a,
@@ -333,7 +335,7 @@ a.btn,
 
 .nav-list .item > span {
 	font-style: italic;
-	color: #888;
+	color: var(--font-color-666);
 }
 
 .nav-list a:hover {
@@ -346,7 +348,7 @@ a.btn,
 
 .nav-list .item.active.empty a {
 	background-color: var(--empty-feed-color);
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 .nav-list .item.error a {
@@ -355,13 +357,13 @@ a.btn,
 
 .nav-list .item.active.error a {
 	background-color: var(--error-feed-color);
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 .nav-list .nav-header {
 	padding: 0 10px;
 	background-color: var(--background-color-grey);
-	color: #888;
+	color: var(--font-color-666);
 	border-bottom: 1px solid var(--border-color);
 	font-weight: bold;
 	text-shadow: 0 0 1px #ddd;
@@ -403,7 +405,7 @@ a.btn,
 
 .dropdown-header {
 	padding: 0 5px 5px;
-	color: #888;
+	color: var(--font-color-666);
 	font-weight: bold;
 	text-align: left;
 }
@@ -420,7 +422,7 @@ a.btn,
 .dropdown-menu > .item > button:hover,
 .dropdown-menu > .item > label:hover:not(.noHover) {
 	background-color: var(--contrast-background-color-active);
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 .dropdown-menu > .item > label {
@@ -453,7 +455,7 @@ a.btn,
 	margin: 15px auto;
 	padding: 10px 15px;
 	background-color: var(--background-color-grey);
-	color: #aaa;
+	color: var(--font-color-666);
 	font-size: 0.9em;
 	border: 1px solid var(--border-color);
 	border-right: 1px solid var(--border-color-shadow-side);
@@ -492,11 +494,7 @@ a.btn,
 /*=== Pagination */
 .pagination {
 	background-color: var(--background-color-light);
-	color: #333;
-}
-
-.pagination .item a {
-	color: #333;
+	color: var(--font-color-666);
 }
 
 .pagination .item a:hover {
@@ -556,7 +554,7 @@ a.btn,
 
 .tree-folder-title .title {
 	background: inherit;
-	color: #444;
+	color: var(--font-color);
 }
 
 .tree-folder-title:hover {
@@ -601,7 +599,7 @@ a.btn,
 }
 
 .tree-folder-items > .item.active > a {
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 /*=== STRUCTURE */
@@ -650,7 +648,7 @@ a.btn,
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
 	background-color: var(--background-color-light-shadowed);
-	color: #444;
+	color: var(--font-color-666);
 }
 
 .aside.aside_feed .category .tree-folder-title:hover .title:not([data-unread="0"])::after {
@@ -659,7 +657,7 @@ a.btn,
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
 	background-color: var(--background-color-light);
-	color: #444;
+	color: var(--font-color-666);
 }
 
 .aside.aside_feed .feed:hover .item-title:not([data-unread="0"])::after {
@@ -689,7 +687,7 @@ a.btn,
 .feed.item.error.active,
 .feed.item.empty.active > a,
 .feed.item.error.active > a {
-	color: #fff;
+	color: var(--font-color-light)
 }
 
 .aside_feed .tree-folder-items .dropdown-menu::after {
@@ -747,7 +745,7 @@ a.btn,
 
 #new-article > a {
 	padding: 1em;
-	color: #fff;
+	color: var(--font-color-light)
 	font-weight: bold;
 }
 
@@ -837,7 +835,7 @@ a.btn,
 }
 
 .flux .item.date {
-	color: #666;
+	color: var(--font-color-666);
 	font-size: 0.7rem;
 }
 
@@ -852,7 +850,7 @@ a.btn,
 }
 
 .content h1.title > a {
-	color: #000;
+	color: var(--font-color);
 }
 
 .content hr {
@@ -868,7 +866,7 @@ a.btn,
 	padding: 10px 20px;
 	overflow: auto;
 	background-color: #222;
-	color: #fff;
+	color: var(--font-color-light)
 	font-size: 0.9rem;
 	border-radius: 3px;
 }
@@ -883,7 +881,7 @@ a.btn,
 
 .content pre code {
 	background-color: transparent;
-	color: #fff;
+	color: var(--font-color-light)
 	border: none;
 }
 
@@ -947,7 +945,7 @@ a.btn,
 
 /*=== "Load more" part */
 #bigMarkAsRead {
-	color: #666;
+	color: var(--font-color-666);
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 0 -1px 0 #aaa;
@@ -977,7 +975,6 @@ a.btn,
 /*================*/
 #stream.reader .flux {
 	background-color: var(--background-color-grey);
-	color: #333;
 	border: none;
 }
 
@@ -988,7 +985,7 @@ a.btn,
 
 #stream.reader .flux .author {
 	margin: 0 0 10px;
-	color: #666;
+	color: var(--font-color-666);
 	font-size: 90%;
 }
 
@@ -1004,13 +1001,13 @@ a.btn,
 }
 
 .box.category:not([data-unread="0"]) .box-title .title {
-	color: #fff;
+	color: var(--font-color-light)
 	font-weight: bold;
 }
 
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
-	color: #fff;
+	color: var(--font-color-light)
 	border: 0;
 	box-shadow: none;
 	position: absolute;
