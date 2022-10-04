@@ -199,17 +199,6 @@ a.btn {
 	line-height: 2.5em;
 }
 
-.nav-head {
-	margin: 0;
-	text-align: right;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;

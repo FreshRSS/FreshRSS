@@ -330,19 +330,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	background: linear-gradient(0deg, #ede7de 0%, #fff 100%) #ede7de;
-	background: -webkit-linear-gradient(bottom, #ede7de 0%, #fff 100%);
-	text-align: right;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
