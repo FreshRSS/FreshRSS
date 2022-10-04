@@ -560,14 +560,6 @@ input[type="checkbox"]:focus-visible {
 	text-overflow: ellipsis;
 }
 
-.nav-head {
-	display: block;
-}
-
-.nav-head .item {
-	display: inline-block;
-}
-
 /*=== Horizontal-list */
 .horizontal-list {
 	margin: 0;

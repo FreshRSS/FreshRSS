@@ -225,17 +225,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	text-align: left;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
