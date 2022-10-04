@@ -817,13 +817,9 @@ a.btn,
 }
 
 .flux_header {
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 	border-top: 1px solid var(--border-color);
 	cursor: pointer;
-}
-
-.flux_header .title {
-	font-size: 0.9rem;
 }
 
 .flux .website .favicon {
