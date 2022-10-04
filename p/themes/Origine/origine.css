@@ -569,7 +569,8 @@ a.btn,
 	color: #444;
 }
 
-.tree-folder-title .title:hover {
+.tree-folder-title:hover {
+	background-color: var(--background-color-hover);
 	text-decoration: none;
 }
 
@@ -592,6 +593,10 @@ a.btn,
 	padding: 0 10px;
 	line-height: 2.5rem;
 	font-size: 0.8rem;
+}
+
+.tree-folder-items .item:hover {
+	background-color: var(--background-color-light);
 }
 
 .tree-folder-items > .item.active {
@@ -655,9 +660,18 @@ a.btn,
 	color: #444;
 }
 
+.aside.aside_feed .category:hover .title:not([data-unread="0"])::after,
+.global .box.category:hover .title:not([data-unread="0"])::after {
+	background-color: var(--background-color-light);
+}
+
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
 	background-color: var(--background-color-light);
 	color: #444;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	background-color: var(--background-color-light-shadowed);
 }
 
 /*=== Aside main page (feeds) */
