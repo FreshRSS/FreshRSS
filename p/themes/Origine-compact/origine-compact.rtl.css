@@ -126,8 +126,12 @@ a.btn,
 
 /*=== Index menu */
 /*=== Feed articles */
-.flux_header .title {
+.flux_header {
 	font-size: 0.8rem;
+}
+
+.flux .item {
+	padding: 0;
 }
 
 .flux .item.thumbnail {
