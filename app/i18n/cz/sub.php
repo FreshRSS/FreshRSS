@@ -123,7 +123,7 @@ return array(
 			'clear_cache' => 'Vymazat mezipaměť',
 			'clear_cache_help' => 'Vymazat mezipaměť pro tento kanál.',
 			'reload_articles' => 'Znovu načíst články',
-			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován přepínač.',	// DIRTY
+			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován selektor.',
 			'title' => 'Údržba',
 		),
 		'max_http_redir' => 'Maximální počet přesměrování HTTP',
