@@ -921,6 +921,10 @@ a.btn,
 	margin: 0;
 }
 
+#stream-footer {
+	border-top-color: var(--border-color);
+}
+
 /*=== Notification and actualize notification */
 .notification {
 	font-size: 0.9em;
