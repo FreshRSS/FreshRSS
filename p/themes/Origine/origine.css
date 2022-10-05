@@ -88,7 +88,7 @@ a, button.as-link {
 	outline: none;
 }
 
-a:hover, 
+a:hover,
 button.as-link:hover {
 	color: var(--font-color-link-hover);
 }
@@ -321,7 +321,7 @@ a:hover .icon {
 	color: var(--font-color-light);
 }
 
-.btn-important:hover .icon{
+.btn-important:hover .icon {
 	filter: brightness(3);
 }
 
@@ -951,8 +951,8 @@ a:hover .icon {
 
 .notification.bad {
 	background-color: var(--notification-bad-background-color);
-	color: var(--notification-bad-font-color);;
-	border: 1px solid var(--notification-bad-border-color);;
+	color: var(--notification-bad-font-color);
+	border: 1px solid var(--notification-bad-border-color);
 }
 
 .notification a.close {
