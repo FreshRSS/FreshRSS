@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Trascina questo pulsante nei preferiti o fai click destro e scegli "Inserisci questo link tra i preferiti". Successivamente clicca il pulsante "Iscriviti" in qualsiasi pagina a cui ti vuoi iscrivere.',	
+		'documentation' => 'Trascina questo pulsante nei preferiti o fai click destro e scegli "Inserisci questo link tra i preferiti". Successivamente clicca il pulsante "Iscriviti" in qualsiasi pagina a cui ti vuoi iscrivere.',
 		'label' => 'Iscriviti',
 		'title' => 'Segnalibro',
 	),
@@ -36,7 +36,7 @@ return array(
 		'title' => 'Titolo',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accetta i cookie',	
+		'accept_cookies' => 'Accetta i cookie',
 		'accept_cookies_help' => 'Consenti al server dei feed di impostare dei cookie (salvati in memoria solo per la durata della richiesta)',
 		'add' => 'Aggiungi un Feed RSS',
 		'advanced' => 'Avanzate',
@@ -83,7 +83,7 @@ return array(
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> è un linguaggio di ricerca standard per utenti avanzati supportato da FreshRSS per abilitare il Web scraping.',
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Esempio: <code>//div[@class="news-item"]</code>',	// TODO
+					'help' => 'Esempio: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
 					'_' => 'item author',	// TODO
