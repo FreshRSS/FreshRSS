@@ -1604,6 +1604,10 @@ a.website:hover .favicon {
 }
 
 /*=== Slider */
+html.slider-active {
+	overflow: hidden;
+}
+
 #slider {
 	background-color: var(--frss-background-color);
 	width: 0;
