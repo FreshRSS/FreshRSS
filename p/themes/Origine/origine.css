@@ -420,20 +420,6 @@ a:hover .icon {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	background: var(--background-color-light);
-	background: linear-gradient(to bottom, var(--background-color-light), var(--background-color-grey));
-	border-bottom: 1px solid var(--border-color);
-	text-align: right;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
