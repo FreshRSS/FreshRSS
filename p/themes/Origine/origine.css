@@ -424,6 +424,7 @@ a:hover .icon {
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
+	background-color: var(--background-color-light);
 	font-size: 0.8rem;
 	border: 1px solid var(--border-color);
 	border-radius: 5px;
