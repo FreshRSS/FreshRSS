@@ -641,6 +641,7 @@ a:hover .icon {
 /*===============*/
 /*=== Header */
 .header {
+	height: 4rem;
 	background-color: var(--background-color-grey);
 }
 
@@ -652,7 +653,8 @@ a:hover .icon {
 }
 
 .header > .item.title {
-	width: 230px;
+	padding: 10px 0;
+	width: 300px;
 }
 
 .header > .item.search input {
@@ -664,13 +666,17 @@ a:hover .icon {
 }
 
 /*=== Body */
+#global {
+	height: calc(100vh - 4rem);
+}
+
 .aside {
 	background-color: var(--background-color-light);
 	border-right: 1px solid var(--border-color);
 }
 
 .aside.aside_feed {
-	padding: 10px 0;
+	padding: 0.5rem 0;
 	text-align: center;
 	background-color: var(--background-color-light);
 }
@@ -808,7 +814,7 @@ a:hover .icon {
 
 /*=== Index menu */
 .nav_menu {
-	padding: 5px 0;
+	padding: 0.5rem 0;
 	background-color: var(--background-color-light-shadowed);
 	border-bottom: 1px solid var(--border-color);
 	text-align: center;
