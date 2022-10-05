@@ -39,7 +39,11 @@
 	--alert-error-boder-color: #ecc;
 
 	--notification-good-background-color: #ffe;
+	--notification-good-border-color: #eeb;
+	--notification-good-font-color: #c95;
 	--notification-bad-background-color: #fdd;
+	--notification-bad-font-color: #844;
+	--notification-bad-border-color: #ecc;
 	--notification-close-background-color-hover: #aaa2;
 
 
@@ -914,7 +918,7 @@ a.btn,
 /*=== Notification and actualize notification */
 .notification {
 	font-size: 0.9em;
-	border: 1px solid #eeb;
+	border: 1px solid var(--notification-good-border-color);
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
@@ -924,14 +928,14 @@ a.btn,
 
 .notification.good {
 	background-color: var(--notification-good-background-color);
-	color: #c95;
-	border: 1px solid #eeb;
+	color: var(--notification-good-font-color);
+	border: 1px solid var(--notification-good-border-color);
 }
 
 .notification.bad {
 	background-color: var(--notification-bad-background-color);
-	color: #844;
-	border: 1px solid #ecc;
+	color: var(--notification-bad-font-color);;
+	border: 1px solid var(--notification-bad-border-color);;
 }
 
 .notification a.close {
