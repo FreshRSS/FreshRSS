@@ -53,6 +53,7 @@
 
 	--text-shadow-color: #aaa;
 	--text-shadow-color-dark: #666;
+	--box-shadow-color: #bbb6;
 
 	--font-color-link: #0062be;
 	--font-color-link-hover: #038;
@@ -417,7 +418,7 @@ a.btn,
 	font-size: 0.8rem;
 	border: 1px solid var(--border-color);
 	border-radius: 5px;
-	box-shadow: 3px 3px 3px #ddd;
+	box-shadow: 3px 3px 3px var(--box-shadow-color);
 	text-align: left;
 }
 
@@ -535,7 +536,7 @@ a.btn,
 .box {
 	background-color: var(--background-color-light);
 	border-radius: 5px;
-	box-shadow: 0 0 3px #bbb;
+	box-shadow: 0 0 3px var(--box-shadow-color);
 }
 
 .box .box-title {
@@ -878,7 +879,7 @@ a.btn,
 	background-color: var(--background-color-grey);
 	height: 1px;
 	border: 0;
-	box-shadow: 0 2px 5px #ccc;
+	box-shadow: 0 2px 5px var(--box-shadow-color);
 }
 
 .content pre {
@@ -928,7 +929,7 @@ a.btn,
 	font-size: 0.9em;
 	border: 1px solid var(--notification-good-border-color);
 	border-radius: 3px;
-	box-shadow: 0 0 5px #ddd;
+	box-shadow: 0 0 5px var(--box-shadow-color);
 	text-align: center;
 	font-weight: bold;
 	vertical-align: middle;
