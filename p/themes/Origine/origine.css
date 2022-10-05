@@ -28,9 +28,15 @@
 	--empty-feed-color: #e67e22;
 	--error-feed-color: #bd362f;
 
-	--alert-warn-border-color: #ffffe0;
-	--alert-success-border-color: #e8ffe8;
-	--alert-error-border-color: #fdd;
+	--alert-warn-background-color: #ffffe0;
+	--alert-warn-font-color: #77501c;
+	--alert-warn-border-color: #eeb;
+	--alert-success-background-color: #e8ffe8;
+	--alert-success-font-color: #2f602f;
+	--alert-success-border-color: #cec;
+	--alert-error-background-color: #fdd;
+	--alert-error-font-color: #844;
+	--alert-error-boder-color: #ecc;
 
 	--notification-good-background-color: #ffe;
 	--notification-bad-background-color: #fdd;
@@ -480,15 +486,15 @@ a.btn,
 }
 
 .alert-warn {
-	background-color: var(--alert-warn-border-color);
-	color: #77501c;
-	border: 1px solid #eeb;
+	background-color: var(--alert-warn-background-color);
+	color: var(--alert-warn-font-color);
+	border: 1px solid var(--alert-warn-border-color);
 }
 
 .alert-success {
-	background-color: var(--alert-success-border-color);
-	color: #2f602f;
-	border: 1px solid #cec;
+	background-color: var(--alert-success-background-color);
+	color: var(--alert-success-font-color);
+	border: 1px solid var(--alert-success-border-color);
 }
 
 .alert-error {
