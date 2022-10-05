@@ -283,8 +283,14 @@ a.btn,
 	text-decoration: none;
 }
 
-.btn:hover .icon {
-	filter: brightness(0.85);
+a:hover .icon {
+	filter: brightness(0.65);
+	transition: 0.1s linear;
+}
+
+#toggle-starred:hover .icon,
+.bookmark:hover .icon {
+	filter: brightness(0.9);
 }
 
 .btn.active,
