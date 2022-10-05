@@ -14,6 +14,7 @@
 ?>
 
 <main id="stream" class="global<?= $class ?>">
+	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
 <?php
 	$params = $_GET;
 	unset($params['c']);
@@ -35,9 +36,9 @@
 ?>
 	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
 		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
-			href="<?= Minz_Url::display($url_base) ?>"><?= $cat->name() ?></a></div>
+			href="<?= Minz_Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
 
-		<ul class="box-content">
+		<ul class="box-content scrollbar-thin">
 			<?php
 				foreach ($feeds as $feed) {
 					$nb_not_read = $feed->nbNotRead();
