@@ -559,19 +559,22 @@ class FreshRSS_Feed extends Minz_Model {
 			$guid = safe_ascii($item->get_id(false, false));
 			unset($item);
 
-			$author_names = '';
+			$authorNames = '';
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
-					$author_names .= escapeToUnicodeAlternative(strip_tags($author->name == '' ? $author->email : $author->name), true) . '; ';
+					$authorName = $author->name != '' ? $author->name : $author->email;
+					if ($authorName != '') {
+						$authorNames .= escapeToUnicodeAlternative(strip_tags($authorName), true) . '; ';
+					}
 				}
 			}
-			$author_names = substr($author_names, 0, -2);
+			$author_names = substr($authorNames, 0, -2);
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$hasBadGuids ? '' : $guid,
 				$title == '' ? '' : $title,
-				$author_names,
+				$authorNames,
 				$content == '' ? '' : $content,
 				$link == '' ? '' : $link,
 				$date ? $date : time()

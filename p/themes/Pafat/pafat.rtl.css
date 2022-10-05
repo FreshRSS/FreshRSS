@@ -284,19 +284,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	background: #fff;
-	background: linear-gradient(to bottom, #fff, #f0f0f0);
-	text-align: left;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
