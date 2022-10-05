@@ -42,6 +42,7 @@
 	--font-color-light: #fff;
 
 	--font-color-link: #0062be;
+	--font-color-link-hover: #038;
 
 	--border-color: #ddd;
 	--border-color-shadow-side: #ccc;
@@ -59,6 +60,11 @@ html, body {
 a, button.as-link {
 	color: var(--font-color-link);
 	outline: none;
+}
+
+a:hover, 
+button.as-link:hover {
+	color: var(--font-color-link-hover);
 }
 
 /*=== Forms */
@@ -316,7 +322,7 @@ a.btn,
 }
 
 .nav-list .item:hover a {
-	color: #038;
+	color: var(--font-color-link-hover);
 }
 
 .nav-list .item.active {
@@ -486,9 +492,9 @@ a.btn,
 }
 
 .alert-error {
-	background-color: var(--alert-error-border-color);
-	color: #844;
-	border: 1px solid #ecc;
+	background-color: var(--alert-error-background-color);
+	color: var(--alert-error-font-color);
+	border: 1px solid var(--alert-error-boder-color);
 }
 
 /*=== Pagination */
