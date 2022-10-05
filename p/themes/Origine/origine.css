@@ -616,6 +616,10 @@ a.btn,
 	background-color: var(--contrast-background-color-active);
 }
 
+.tree-folder-items > .item.active .icon {
+	filter: brightness(3);
+}
+
 .tree-folder-items > .item > a {
 	text-decoration: none;
 }
@@ -714,12 +718,6 @@ a.btn,
 
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
-}
-
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
-	background-color: var(--background-color-light);
-	border-radius: 3px;
 }
 
 /*=== Configuration pages */
