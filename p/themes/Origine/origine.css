@@ -29,13 +29,13 @@
 	--error-feed-color: #bd362f;
 
 	--alert-warn-background-color: #ffffe0;
-	--alert-warn-font-color: #77501c;
+	--alert-warn-font-color: #4b3315;
 	--alert-warn-border-color: #eeb;
 	--alert-success-background-color: #e8ffe8;
-	--alert-success-font-color: #2f602f;
+	--alert-success-font-color: #244424;
 	--alert-success-border-color: #cec;
 	--alert-error-background-color: #fdd;
-	--alert-error-font-color: #844;
+	--alert-error-font-color: #693a3a;
 	--alert-error-boder-color: #ecc;
 
 	--notification-good-background-color: #ffe;
