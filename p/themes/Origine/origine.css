@@ -49,6 +49,7 @@
 
 	--font-color: #111;
 	--font-color-666: #666;
+	--font-color-light-shadowed: #aaa;
 	--font-color-light: #fff;
 
 	--font-color-link: #0062be;
@@ -57,6 +58,9 @@
 	--border-color: #ddd;
 	--border-color-shadow-side: #ccc;
 	--contrast-border-color-active: #0062be;
+
+	--form-element-border-color-focus: #3bf;
+	--form-element-border-color-invalid: #f00;
 }
 
 
@@ -112,13 +116,13 @@ option {
 
 input:focus, select:focus, textarea:focus, input[type="password"]:focus + .toggle-password {
 	color: var(--font-color-link);
-	border-color: #3bf;
+	border-color: var(--form-element-border-color-focus);
 	box-shadow: 0 2px 2px #ddf inset;
 	outline: none;
 }
 
 input:invalid, select:invalid {
-	border-color: #f00;
+	border-color: var(--form-element-border-color-invalid);
 	box-shadow: 0 0 2px 2px #fdd inset;
 }
 
@@ -785,7 +789,7 @@ a.btn,
 
 .day .name {
 	padding: 0 10px 0 0;
-	color: #aab;
+	color: var(--font-color-light-shadowed);
 	font-size: 1.8em;
 	opacity: 0.3;
 	text-shadow: 0px -1px 0px #666;
@@ -890,7 +894,7 @@ a.btn,
 .content code {
 	padding: 2px 5px;
 	background-color: var(--background-color-light-shadowed);
-	color: #d14;
+	color: var(--error-feed-color);
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
 }
@@ -906,7 +910,7 @@ a.btn,
 	padding: 5px 20px;
 	background-color: var(--background-color-light-shadowed);
 	display: block;
-	color: #333;
+	color: var(--font-color-666);
 	border-top: 1px solid var(--border-color);
 	border-bottom: 1px solid var(--border-color);
 }
