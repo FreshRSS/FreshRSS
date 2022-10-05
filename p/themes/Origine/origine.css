@@ -19,7 +19,7 @@
 	--contrast-background-font-color: #eee;
 
 	--attention-background-color-gradient1: #ea4a46;
-	--attention-background-color-gradient2: #911811; /*gradient */
+	--attention-background-color-gradient2: #911811;
 
 	--attention-background-color-gradient1-hover: #d14641;
 	--attention-background-color-gradient2-hover: #bd362f;
@@ -45,7 +45,6 @@
 	--notification-bad-font-color: #643838;
 	--notification-bad-border-color: #ecc;
 	--notification-close-background-color-hover: #aaa2;
-
 
 	--font-color: #111;
 	--font-color-666: #666;
@@ -885,7 +884,7 @@ a.btn,
 	margin: 10px auto;
 	padding: 10px 20px;
 	overflow: auto;
-	background-color: #222;
+	background-color: var(--font-color);
 	color: var(--font-color-light);
 	font-size: 0.9rem;
 	border-radius: 3px;
