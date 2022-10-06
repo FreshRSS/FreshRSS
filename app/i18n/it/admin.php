@@ -158,12 +158,12 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configurazione di sistema',
-		'auto-update-url' => 'Aggiorna automaticamente l\'URL del server',
+		'auto-update-url' => 'Aggiorna automaticamente l’URL del server',
 		'cookie-duration' => array(
 			'help' => 'in secondi',
 			'number' => 'Tempo in cui rimanere loggati',
 		),
-		'force_email_validation' => 'Forza la validazione dell\'indirizzo mail',
+		'force_email_validation' => 'Forza la validazione dell’indirizzo mail',
 		'instance-name' => 'Nome istanza',
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',

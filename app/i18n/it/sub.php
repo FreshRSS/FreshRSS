@@ -26,13 +26,13 @@ return array(
 		'archiving' => 'Archiviazione',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinamico',
-			'help' => 'Fornisci l\'URL ad un <a href=http://opml.org/ target=_blank>file OPML</a> per popolare dinamicamente questa categoria con i feed',
+			'help' => 'Fornisci l’URL ad un <a href=http://opml.org/ target=_blank>file OPML</a> per popolare dinamicamente questa categoria con i feed',
 		),
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostra posizione',
-		'position_help' => 'Per controllare l\'ordinamento della categoria',
+		'position_help' => 'Per controllare l’ordinamento della categoria',
 		'title' => 'Titolo',
 	),
 	'feed' => array(
@@ -139,7 +139,7 @@ return array(
 			'normal' => 'Mostra nella sua categoria',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
-		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l\'indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Mostra codice sorgente',
 			'show_rendered' => 'Mostra contenuto',
@@ -200,10 +200,10 @@ return array(
 		'add_category' => 'Aggiungi una categoria',
 		'add_dynamic_opml' => 'Aggiungi OPML dinamico',
 		'add_feed' => 'Aggiungi un feed',
-		'add_label' => 'Aggiungi un\'etichetta',
-		'delete_label' => 'Cancella un\'etichetta',
+		'add_label' => 'Aggiungi un’etichetta',
+		'delete_label' => 'Cancella un’etichetta',
 		'feed_management' => 'Gestione RSS feeds',
-		'rename_label' => 'Rinomina un\'etichetta',
+		'rename_label' => 'Rinomina un’etichetta',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 );

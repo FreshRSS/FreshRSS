@@ -13,7 +13,7 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archiviazione',
-		'exception' => 'Eccezioni all\'eliminazione automatica',
+		'exception' => 'Eccezioni all’eliminazione automatica',
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
 		'keep_favourites' => 'Non eliminare mai i preferiti',
 		'keep_labels' => 'Non eliminare mai le etichette',
@@ -140,9 +140,9 @@ return array(
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autori e data',
-				'both' => 'Nell\'intestazione e nel fondo pagina',
+				'both' => 'Nell’intestazione e nel fondo pagina',
 				'footer' => 'Nel fondo pagina',
-				'header' => 'Nell\'intestazione',
+				'header' => 'Nell’intestazione',
 				'none' => 'Nessuno',
 			),
 			'feed_name' => array(
@@ -153,9 +153,9 @@ return array(
 			'feed_title' => 'Titolo del feed',
 			'tags' => array(
 				'_' => 'Tag',
-				'both' => 'Nell\'intestazione e nel fondo pagina',
+				'both' => 'Nell’intestazione e nel fondo pagina',
 				'footer' => 'Nel fondo pagina',
-				'header' => 'Nell\'intestazione',
+				'header' => 'Nell’intestazione',
 				'none' => 'Nessuno',
 			),
 			'tags_max' => array(
@@ -203,7 +203,7 @@ return array(
 			'unread' => 'Mostra solo non letti',
 		),
 		'show_fav_unread_help' => 'Si applica anche alle etichette',
-		'sides_close_article' => 'Cliccare fuori dall\'area di testo dell\'articolo chiude l\'articolo',
+		'sides_close_article' => 'Cliccare fuori dall’area di testo dell’articolo chiude l’articolo',
 		'sort' => array(
 			'_' => 'Ordinamento',
 			'newer_first' => 'Prima i più recenti',

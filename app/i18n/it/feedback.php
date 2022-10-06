@@ -94,7 +94,7 @@ return array(
 			'cache_cleared' => 'La cache di <em>%s</em> è stata svuotata',
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
-			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l\'aggiunta forzata aggiungendo <code>#force_feed</code> all\'URL.',
+			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l’aggiunta forzata aggiungendo <code>#force_feed</code> all’URL.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
 			'n_actualized' => '%d feeds aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
@@ -105,10 +105,10 @@ return array(
 			'reloaded' => '<em>%s</em> è stato ricaricato',
 			'selector_preview' => array(
 				'http_error' => 'Fallito caricamento del contenuto del sito web.',
-				'no_entries' => 'Non sono presenti articoli in questo feed. Serve almeno un articolo per creare un\'anteprima.',
+				'no_entries' => 'Non sono presenti articoli in questo feed. Serve almeno un articolo per creare un’anteprima.',
 				'no_feed' => 'Errore interno (feed non trovato).',
 				'no_result' => 'Il selettore non ha trovato nessuna corrispondenza. Come azione di ripiego verrà mostrato il testo originale del feed.',
-				'selector_empty' => 'Il selettore è vuoto. Devi definirne uno per creare un\'anteprima.',
+				'selector_empty' => 'Il selettore è vuoto. Devi definirne uno per creare un’anteprima.',
 			),
 			'updated' => 'Feed aggiornato',
 		),
@@ -137,8 +137,8 @@ return array(
 			'error' => 'Utente %s non cancellato',
 		),
 		'updated' => array(
-			'_' => 'L\'utente %s è stato aggiornato',
-			'error' => 'L\'utente %s non è stato aggiornato',
+			'_' => 'L’utente %s è stato aggiornato',
+			'error' => 'L’utente %s non è stato aggiornato',
 		),
 	),
 );
