@@ -82,48 +82,48 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> è un linguaggio di ricerca standard per utenti avanzati supportato da FreshRSS per abilitare il Web scraping.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'_' => 'trovare <strong>oggetti</strong><br /><small> notizia (più importanti)</small>',
 					'help' => 'Esempio: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'oggetto autore',
+					'help' => 'Può anche essere una stringa statica. Esempio: <code>"Anonimo"</code>',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'oggetto tag',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'oggetto contenuto',
+					'help' => 'Esempio per considerare l’oggetto intero: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'oggetto miniatura',
+					'help' => 'Esempio: <code>descendant::img/@src</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'oggetto data',
+					'help' => 'Il risultato verrà analizzato da <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'oggetto titolo',
+					'help' => 'Usa in particolare l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'oggetto ID univoco',
+					'help' => 'Opzionale. Esempio: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'oggetto link (URL)',
+					'help' => 'Esempio: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relativo all’oggetto) per:',
+				'xpath' => 'XPath per:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (default)',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
 			'clear_cache_help' => 'Svuota la cache per questo feed.',
 			'reload_articles' => 'Ricarica articoli',
-			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
+			'reload_articles_help' => 'Ricarica gli articoli e recupera il contenuto completo se è definito un selettore.',	// DIRTY
 			'title' => 'Manutenzione',
 		),
 		'max_http_redir' => 'Numero massimo di redirect HTTP',
