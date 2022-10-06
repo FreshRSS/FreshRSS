@@ -56,7 +56,7 @@ return array(
 			'title' => 'Creazione profilo',
 		),
 		'username' => array(
-			'_' => 'Username',	// IGNORE
+			'_' => 'Nome utente',
 			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
 		),
 	),

@@ -46,7 +46,7 @@ return array(
 			'help' => 'Accesso per feeds protetti',
 			'http' => 'Autenticazione HTTP',
 			'password' => 'Password HTTP',
-			'username' => 'Username HTTP',
+			'username' => 'Nome utente HTTP',
 		),
 		'clear_cache' => 'Cancella sempre la cache',
 		'content_action' => array(
@@ -117,13 +117,13 @@ return array(
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
 			),
-			'rss' => 'RSS / Atom (default)',	// IGNORE
+			'rss' => 'RSS / Atom (predefinito)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
 			'clear_cache_help' => 'Svuota la cache per questo feed.',
 			'reload_articles' => 'Ricarica articoli',
-			'reload_articles_help' => 'Ricarica gli articoli e recupera il contenuto completo se è definito un selettore.',	// DIRTY
+			'reload_articles_help' => 'Ricarica gli articoli e recupera il contenuto completo se è definito un selettore.',
 			'title' => 'Manutenzione',
 		),
 		'max_http_redir' => 'Numero massimo di redirect HTTP',

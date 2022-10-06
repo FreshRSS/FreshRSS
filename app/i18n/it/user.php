@@ -48,7 +48,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => 'Questo username non è valido.',
-		'taken' => 'Questo username, %s, è già stato utilizzato.',
+		'invalid' => 'Questo nome utente non è valido.',
+		'taken' => 'Questo nome utente, %s, è già stato utilizzato.',
 	),
 );
