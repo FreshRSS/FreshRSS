@@ -1005,6 +1005,7 @@ main.prompt {
 }
 .flux:hover:not(.current):hover .item.title {
 	background: #f9fafb;
+	bottom: 3px;
 }
 .flux.current {
 	background: #f9fafb;
@@ -1385,3 +1386,5 @@ a, button.as-link {
 	outline: none;
 	color: #36c;
 }
+
+/*# sourceMappingURL=mapco.css.map */
