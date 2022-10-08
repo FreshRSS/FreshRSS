@@ -12,205 +12,205 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// IGNORE
-		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// IGNORE
-		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// IGNORE
-		'form' => 'Web form (traditional, requires JavaScript)',	// IGNORE
-		'http' => 'HTTP (for advanced users with HTTPS)',	// IGNORE
-		'none' => 'None (dangerous)',	// IGNORE
-		'title' => 'Authentication',	// IGNORE
-		'token' => 'Authentication token',	// IGNORE
-		'token_help' => 'Allows access to RSS output of the default user without authentication:',	// IGNORE
-		'type' => 'Authentication method',	// IGNORE
-		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',	// IGNORE
+		'allow_anonymous' => 'Izinkan pembacaan anonim artikel pengguna default (%s)',	
+		'allow_anonymous_refresh' => 'Izinkan refresh artikel anonim',	
+		'api_enabled' => 'Izinkan <abbr>API</abbr> akses <small>(Diperlukan untuk aplikasi seluler)</small>',	// TODO
+		'form' => 'Web form (traditional, membutuhkan JavaScript)',	
+		'http' => 'HTTP (untuk pengguna tingkat lanjut HTTPS)',	
+		'none' => 'None (dangerous)',	// TODO
+		'title' => 'Authentication',	// TODO
+		'token' => 'Authentication token',	// TODO
+		'token_help' => 'Memungkinkan akses ke output RSS dari pengguna default tanpa otentikasi:',	
+		'type' => 'Authentication method',	// TODO
+		'unsafe_autologin' => 'Izinkan login otomatis yang tidak aman menggunakan format: ',	
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// IGNORE
-			'ok' => 'Permissions on the cache directory are good.',	// IGNORE
+			'nok' => 'Periksa izin <em>./data/cache</em> direktori. HTTP server harus memiliki izin menulis.',	
+			'ok' => 'Izin pada direktori cache bagus.',	// TODO
 		),
 		'categories' => array(
-			'nok' => 'Category table is improperly configured.',	// IGNORE
-			'ok' => 'Category table is okay.',	// IGNORE
+			'nok' => 'Tabel kategori dikonfigurasi secara tidak tepat.',	
+			'ok' => 'Tabel kategori baik-baik saja.',	
 		),
 		'connection' => array(
-			'nok' => 'Connection to the database cannot be established.',	// IGNORE
-			'ok' => 'Connection to the database is okay.',	// IGNORE
+			'nok' => 'Koneksi ke database tidak dapat dibuat.',	
+			'ok' => 'Koneksi ke database berhasil.',	
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// IGNORE
-			'ok' => 'You have the required library for character type checking (ctype).',	// IGNORE
+			'nok' => 'Tidak dapat menemukan library yang diperlukan untuk pemeriksaan jenis karakter (php-ctype).',	
+			'ok' => 'Anda memiliki library yang dibutuhkan untuk pemeriksaan jenis karakter (ctype).',	
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// IGNORE
-			'ok' => 'You have the cURL library.',	// IGNORE
+			'nok' => 'Tidak dapat menemukan cURL library (php-curl package).',	
+			'ok' => 'Kamu punya cURL library.',	
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// IGNORE
-			'ok' => 'Permissions on the data directory are good.',	// IGNORE
+			'nok' => 'Periksa izin <em>./data</em> direktori. HTTP server harus memiliki izin tulis.',	
+			'ok' => 'Izin pada direktori data bagus.',	
 		),
-		'database' => 'Database installation',	// IGNORE
+		'database' => 'Database installation',	// TODO
 		'dom' => array(
-			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// IGNORE
-			'ok' => 'You have the required library to browse the DOM.',	// IGNORE
+			'nok' => 'Tidak dapat menemukan library yang diperlukan untuk menelusuri DOM (php-xml package).',	
+			'ok' => 'Anda memiliki library yang diperlukan untuk menelusuri DOM.',	
 		),
 		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// IGNORE
-			'ok' => 'Entry table is okay.',	// IGNORE
+			'nok' => 'Tabel entri dikonfigurasi secara tidak benar.',	
+			'ok' => 'Tabel entri baik-baik saja.',	
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// IGNORE
-			'ok' => 'Permissions on the favicons directory are good.',	// IGNORE
+			'nok' => 'Periksa izin on <em>./data/favicons</em> direktori. HTTP server harus memiliki izin tulis.',	
+			'ok' => 'Izin di Direktori Favicons bagus.',	
 		),
 		'feeds' => array(
-			'nok' => 'Feed table is improperly configured.',	// IGNORE
-			'ok' => 'Feed table is okay.',	// IGNORE
+			'nok' => 'Tabel feed dikonfigurasi secara tidak benar.',	
+			'ok' => 'Feed table is okay.',	// TODO
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// IGNORE
-			'ok' => 'You have the fileinfo library.',	// IGNORE
+			'nok' => 'Tidak dapat menemukan PHP fileinfo library (fileinfo package).',	
+			'ok' => 'You have the fileinfo library.',	// TODO
 		),
-		'files' => 'File installation',	// IGNORE
+		'files' => 'File installation',	// TODO
 		'json' => array(
-			'nok' => 'Cannot find JSON (php-json package).',	// IGNORE
-			'ok' => 'You have the JSON extension.',	// IGNORE
+			'nok' => 'Tidak dapat menemukan JSON (php-json package).',	
+			'ok' => 'You have the JSON extension.',	// TODO
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// IGNORE
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// IGNORE
+			'nok' => 'Tidak dapat menemukan mbstring library untuk Unicode.',	
+			'ok' => 'Anda memiliki mbstring library untuk Unicode.',	
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// IGNORE
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// IGNORE
+			'nok' => 'Tidak dapat menemukan library untuk regular expressions (php-pcre).',	
+			'ok' => 'Anda memiliki library untuk regular expressions (PCRE).',	
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
+			'nok' => 'Tidak dapat menemukan PDO salah satu drivers yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',	
+			'ok' => 'Anda memiliki PDO dan setidaknya salah satu drivers yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',	
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// IGNORE
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// IGNORE
-			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// IGNORE
+			'_' => 'PHP installation',	// TODO
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO
 		),
 		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',	// IGNORE
-			'ok' => 'The appropriate tables exist in the database.',	// IGNORE
+			'nok' => 'Ada satu atau lebih tabel yang hilang dalam database.',	
+			'ok' => 'Tabel yang sesuai ada dalam database.',	
 		),
-		'title' => 'Installation check',	// IGNORE
+		'title' => 'Installation check',	// TODO
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// IGNORE
-			'ok' => 'Permissions on the tokens directory are good.',	// IGNORE
+			'nok' => 'Periksa izin pada <em>./data/tokens</em> direktori. HTTP server harus memiliki izin menulis',	
+			'ok' => 'Izin pada direktori token bagus.',	
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// IGNORE
-			'ok' => 'Permissions on the users directory are good.',	// IGNORE
+			'nok' => 'Periksa izin <em>./data/users</em> direktori. HTTP server harus memiliki izin menulis',	
+			'ok' => 'Izin pada direktori pengguna bagus.',	
 		),
 		'zip' => array(
-			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// IGNORE
-			'ok' => 'You have the ZIP extension.',	// IGNORE
+			'nok' => 'Tidak dapat menemukan ekstensi zip (php-zip package).',	
+			'ok' => 'Anda memiliki ekstensi zip.',	
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// IGNORE
-		'community' => 'Available community extensions',	// IGNORE
-		'description' => 'Description',	// IGNORE
-		'disabled' => 'Disabled',	// IGNORE
-		'empty_list' => 'There are no installed extensions',	// IGNORE
-		'enabled' => 'Enabled',	// IGNORE
-		'latest' => 'Installed',	// IGNORE
-		'name' => 'Name',	// IGNORE
-		'no_configure_view' => 'This extension cannot be configured.',	// IGNORE
+		'author' => 'Pengarang',	
+		'community' => 'Ekstensi komunitas yang tersedia',	
+		'description' => 'Keterangan',	
+		'disabled' => 'Disabled',	// TODO
+		'empty_list' => 'Tidak ada ekstensi terpasang',	
+		'enabled' => 'Enabled',	// TODO
+		'latest' => 'Installed',	// TODO
+		'name' => 'Name',	// TODO
+		'no_configure_view' => 'Ekstensi ini tidak dapat dikonfigurasi.',	
 		'system' => array(
-			'_' => 'System extensions',	// IGNORE
-			'no_rights' => 'System extension (you do not have the required permissions)',	// IGNORE
+			'_' => 'System extensions',	// TODO
+			'no_rights' => 'System extension (Anda tidak memiliki izin yang diperlukan)',	
 		),
-		'title' => 'Extensions',	// IGNORE
-		'update' => 'Update available',	// IGNORE
-		'user' => 'User extensions',	// IGNORE
-		'version' => 'Version',	// IGNORE
+		'title' => 'Extensions',	// TODO
+		'update' => 'Pembaruan tersedia',	
+		'user' => 'User extensions',	// TODO
+		'version' => 'Version',	// TODO
 	),
 	'stats' => array(
-		'_' => 'Statistics',	// IGNORE
-		'all_feeds' => 'All feeds',	// IGNORE
-		'category' => 'Category',	// IGNORE
-		'entry_count' => 'Entry count',	// IGNORE
-		'entry_per_category' => 'Entries per category',	// IGNORE
-		'entry_per_day' => 'Entries per day (last 30 days)',	// IGNORE
-		'entry_per_day_of_week' => 'Per day of week (average: %.2f messages)',	// IGNORE
-		'entry_per_hour' => 'Per hour (average: %.2f messages)',	// IGNORE
-		'entry_per_month' => 'Per month (average: %.2f messages)',	// IGNORE
-		'entry_repartition' => 'Entries repartition',	// IGNORE
-		'feed' => 'Feed',	// IGNORE
-		'feed_per_category' => 'Feeds per category',	// IGNORE
-		'idle' => 'Idle feeds',	// IGNORE
-		'main' => 'Main statistics',	// IGNORE
-		'main_stream' => 'Main stream',	// IGNORE
-		'no_idle' => 'There are no idle feeds!',	// IGNORE
-		'number_entries' => '%d articles',	// IGNORE
-		'percent_of_total' => '%% of total',	// IGNORE
-		'repartition' => 'Articles repartition',	// IGNORE
+		'_' => 'Statistik',	
+		'all_feeds' => 'Semua feed',	
+		'category' => 'Kategori',	
+		'entry_count' => 'Entri masuk',	
+		'entry_per_category' => 'Entri per kategori',	
+		'entry_per_day' => 'Entri per hari (30 hari terakhir)',	
+		'entry_per_day_of_week' => 'Per hari dalam seminggu (rata-rata: %.2f pesan)',	
+		'entry_per_hour' => 'Per jam (rata-rata %.2f pesan)',	
+		'entry_per_month' => 'Per bulan (rata -rata: %.2f pesan)',	
+		'entry_repartition' => 'Mengembalikan entri',	
+		'feed' => 'Feed',	// TODO
+		'feed_per_category' => 'Feed per kategori',	
+		'idle' => 'Feed idle',	
+		'main' => 'Statistik utama',	
+		'main_stream' => 'Aliran utama',	
+		'no_idle' => 'Tidak ada idle feed!',	
+		'number_entries' => '%d artikel',	
+		'percent_of_total' => '%% dari total',	
+		'repartition' => 'Mengembalikan artikel',	
 		'status_favorites' => 'Favorites',
-		'status_read' => 'Read',	// IGNORE
-		'status_total' => 'Total',	// IGNORE
-		'status_unread' => 'Unread',	// IGNORE
-		'title' => 'Statistics',	// IGNORE
-		'top_feed' => 'Top ten feeds',	// IGNORE
+		'status_read' => 'Read',	// TODO
+		'status_total' => 'Total',	// TODO
+		'status_unread' => 'Unread',	// TODO
+		'title' => 'Statistik',	
+		'top_feed' => 'Sepuluh feed teratas',	
 	),
 	'system' => array(
-		'_' => 'System configuration',	// IGNORE
-		'auto-update-url' => 'Auto-update server URL',	// IGNORE
+		'_' => 'Sistem konfigurasi',	
+		'auto-update-url' => 'Auto-update server URL',	// TODO
 		'cookie-duration' => array(
-			'help' => 'in seconds',	// IGNORE
-			'number' => 'Duration to keep logged in',	// IGNORE
+			'help' => 'dalam hitungan detik',	
+			'number' => 'Durasi untuk terus masuk',	
 		),
-		'force_email_validation' => 'Force email address validation',	// IGNORE
-		'instance-name' => 'Instance name',	// IGNORE
-		'max-categories' => 'Max number of categories per user',	// IGNORE
-		'max-feeds' => 'Max number of feeds per user',	// IGNORE
+		'force_email_validation' => 'Validasi alamat email paksa',	
+		'instance-name' => 'Nama instansi',	
+		'max-categories' => 'Jumlah kategori maksimal per pengguna',	
+		'max-feeds' => 'Maksimal Jumlah Feed Per Pengguna',	
 		'registration' => array(
-			'number' => 'Max number of accounts',	// IGNORE
+			'number' => 'Jumlah Akun Maks',	
 			'select' => array(
-				'label' => 'Registration form',	// IGNORE
+				'label' => 'Formulir pendaftaran',	
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// IGNORE
-					'nolimit' => 'Enabled: No limit of accounts',	// IGNORE
-					'setaccountsnumber' => 'Set max. number of accounts',	// IGNORE
+					'noform' => 'Disabled: Tidak ada formulir pendaftaran',	
+					'nolimit' => 'Enabled: Tidak ada batasan akun',	
+					'setaccountsnumber' => 'Setel Max. jumlah akun',	
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// IGNORE
-				'enabled' => 'Form enabled',	// IGNORE
+				'disabled' => 'Form disabled',	// TODO
+				'enabled' => 'Form enabled',	// TODO
 			),
-			'title' => 'User registration form',	// IGNORE
+			'title' => 'Formulir Pendaftaran Pengguna',	
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// IGNORE
-		'apply' => 'Apply',	// IGNORE
-		'check' => 'Check for new updates',	// IGNORE
-		'current_version' => 'Your current version of FreshRSS is %s.',	// IGNORE
-		'last' => 'Last verification: %s',	// IGNORE
-		'none' => 'No update to apply',	// IGNORE
-		'title' => 'Update system',	// IGNORE
+		'_' => 'Update system',	// TODO
+		'apply' => 'Apply',	// TODO
+		'check' => 'Periksa pembaruan baru',	
+		'current_version' => 'Versi FreshRSS saat ini adalah %s.',	
+		'last' => 'Verifikasi terakhir: %s',	
+		'none' => 'Tidak ada pembaruan untuk diterapkan',	
+		'title' => 'Perbarui Sistem',	
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// IGNORE
-		'article_count' => 'Articles',	// IGNORE
-		'back_to_manage' => '← Return to user list',	// IGNORE
-		'create' => 'Create new user',	// IGNORE
-		'database_size' => 'Database size',	// IGNORE
-		'email' => 'Email address',	// IGNORE
-		'enabled' => 'Enabled',	// IGNORE
-		'feed_count' => 'Feeds',	// IGNORE
-		'is_admin' => 'Is admin',	// IGNORE
-		'language' => 'Language',	// IGNORE
-		'last_user_activity' => 'Last user activity',	// IGNORE
-		'list' => 'User list',	// IGNORE
-		'number' => 'There is %d account created',	// IGNORE
-		'numbers' => 'There are %d accounts created',	// IGNORE
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// IGNORE
-		'password_format' => 'At least 7 characters',	// IGNORE
-		'title' => 'Manage users',	// IGNORE
-		'username' => 'Username',	// IGNORE
+		'admin' => 'Administrator',	// TODO
+		'article_count' => 'Artikel',	
+		'back_to_manage' => '← Kembali ke Daftar Pengguna',	
+		'create' => 'Buat pengguna baru',	
+		'database_size' => 'Ukuran database',	
+		'email' => 'Alamat email',	
+		'enabled' => 'Enabled',	// TODO
+		'feed_count' => 'Feeds',	// TODO
+		'is_admin' => 'Is admin',	// TODO
+		'language' => 'Bahasa',	
+		'last_user_activity' => 'Aktivitas pengguna terakhir',	
+		'list' => 'Daftar pengguna',	
+		'number' => 'Ada %d akun telah dibuat',	
+		'numbers' => 'Ada %d akun dibuat',	
+		'password_form' => 'Password<br /><small>(Untuk metode login bentuk web)</small>',	
+		'password_format' => 'Setidaknya 7 karakter',	
+		'title' => 'Kelola pengguna',	
+		'username' => 'Username',	// TODO
 	),
 );
