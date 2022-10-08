@@ -159,6 +159,7 @@ function open_slider_listener(ev) {
 			req.responseType = 'document';
 			req.onload = function (e) {
 				location.href = '#slider'; // close menu/dropdown
+				document.documentElement.classList.add('slider-active');
 				slider.classList.add('active');
 				slider.scrollTop = 0;
 				slider_content.innerHTML = this.response.body.innerHTML;
@@ -178,6 +179,7 @@ function init_slider(slider) {
 	closer.addEventListener('click', function (ev) {
 		if (data_leave_validation(slider) || confirm(context.i18n.confirmation_default)) {
 			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+			document.documentElement.classList.remove('slider-active');
 			return true;
 		} else {
 			return false;

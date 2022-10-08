@@ -199,17 +199,6 @@ a.btn {
 	line-height: 2.5em;
 }
 
-.nav-head {
-	margin: 0;
-	text-align: left;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
@@ -289,9 +278,9 @@ a.btn {
 	display: none;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid var(--border);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: var(--border);
 }
 
 /*=== Alerts */
