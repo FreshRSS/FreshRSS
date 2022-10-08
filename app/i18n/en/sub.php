@@ -25,12 +25,12 @@ return array(
 		'add' => 'Add a category',
 		'archiving' => 'Archiving',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'Dynamic OPML',
+			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',
 		),
 		'empty' => 'Empty category',
 		'information' => 'Information',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML URL',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
 		'title' => 'Title',
@@ -61,7 +61,7 @@ return array(
 		'css_path' => 'Article CSS selector on original website',
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
@@ -99,8 +99,8 @@ return array(
 					'help' => 'Example: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Custom date/time format',
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',
@@ -111,8 +111,8 @@ return array(
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'item unique ID',
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',
@@ -202,7 +202,7 @@ return array(
 		'_' => 'Subscription management',
 		'add' => 'Add a feed or category',
 		'add_category' => 'Add a category',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Add dynamic OPML',
 		'add_feed' => 'Add a feed',
 		'add_label' => 'Add a label',
 		'delete_label' => 'Delete a label',
