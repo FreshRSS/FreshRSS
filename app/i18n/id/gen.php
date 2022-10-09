@@ -43,7 +43,7 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
 		'email' => 'Email address',	// TODO
-		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',	// TODO
+		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',	// DIRTY
 		'login' => 'Login',	// TODO
 		'logout' => 'Logout',	// TODO
 		'password' => array(
