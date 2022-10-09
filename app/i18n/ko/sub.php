@@ -98,6 +98,10 @@ return array(
 					'_' => '기사 섬네일',
 					'help' => '예제: <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
 				'item_timestamp' => array(
 					'_' => '기사 날짜',
 					'help' => '결과 값은 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>에서 파싱한 값을 이용합니다.',
