@@ -839,21 +839,12 @@ a.signin {
 	border: 1px solid #ecc;
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
 .notification.good a.close:hover {
 	background: #eeb;
 }
 
 .notification.bad a.close:hover {
 	background: #ecc;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 
 /*=== "Load more" part */

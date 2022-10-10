@@ -867,8 +867,6 @@ a.btn {
 }
 
 .notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
 	border-radius: 0 3px 3px 0;
 }
 
@@ -878,10 +876,6 @@ a.btn {
 
 .notification.bad a.close:hover {
 	background: #c0392b;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 
 /*=== "Load more" part */

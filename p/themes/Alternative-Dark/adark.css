@@ -923,15 +923,6 @@ kbd {
 	color: var(--font-color-contrast);
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
-}
-
 /*=== "Load more" part */
 #bigMarkAsRead {
 	background: var(--background-color-dark);

@@ -1347,15 +1347,20 @@ a.website:hover .favicon {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 10px 50px 10px 10px;
+	padding: 0.75rem 3.5rem 0.75rem 0.75rem;
 	position: absolute;
-	top: 1em;
+	top: 1rem;
 	left: 25%; right: 25%;
 	z-index: 9999;
 	background-color: var(--frss-background-color);
 	border: 1px solid var(--frss-border-color);
 	opacity: 1;
+	z-index: 10;
+	text-align: center;
+	font-weight: bold;
+	font-size: 0.9rem;
 	line-height: 2;
+	vertical-align: middle;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
 }
@@ -1366,10 +1371,12 @@ a.website:hover .favicon {
 }
 
 .notification a.close {
+	padding: 0 1rem;
 	position: absolute;
 	top: 0; bottom: 0;
 	right: 0;
 	display: inline-block;
+	line-height: 3;
 }
 
 .notification a.close:hover {

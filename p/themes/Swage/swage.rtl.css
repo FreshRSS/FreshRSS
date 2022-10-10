@@ -867,9 +867,6 @@ form th {
 .notification.bad a.close:hover {
 	background: #c46178;
 }
-.notification#actualizeProgress {
-	line-height: 2em;
-}
 .notification a.close {
 	display: none;
 }
