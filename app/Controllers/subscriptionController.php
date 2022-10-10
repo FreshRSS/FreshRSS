@@ -170,7 +170,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
 
-			$feed->_attributes('content_action', Minz_Request::param('content_action', 'replace'));
+			$feed->_attributes('content_action', Minz_Request::param('content_action', 'replace', true));
 
 			$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
 			$timeout = intval(Minz_Request::param('timeout', 0));
@@ -222,7 +222,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', ''));
+			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', '', true));
 
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
