@@ -568,7 +568,7 @@ class FreshRSS_Feed extends Minz_Model {
 					}
 				}
 			}
-			$author_names = substr($authorNames, 0, -2);
+			$authorNames = substr($authorNames, 0, -2);
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
@@ -612,6 +612,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemTimeFormat = $xPathSettings['itemTimeFormat'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
@@ -652,6 +653,12 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				if ($xPathItemTimeFormat != '') {
+					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp'] ?? '');
+					if ($dateTime != false) {
+						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
+					}
+				}
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
 					$itemCategories = @$xpath->query($xPathItemCategories, $node);

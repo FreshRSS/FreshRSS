@@ -33,23 +33,23 @@ return array(
 		'title_global' => 'Vista globale per categorie',
 	),
 	'log' => array(
-		'_' => 'Logs',	// TODO
+		'_' => 'Log',
 		'clear' => 'Svuota logs',
 		'empty' => 'File di log vuoto',
-		'title' => 'Logs',	// TODO
+		'title' => 'Log',
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
 		'before_one_day' => 'Giorno precedente',
 		'before_one_week' => 'Settimana precedente',
-		'bookmark_query' => 'Bookmark current query',	// TODO
+		'bookmark_query' => 'Inserisci la ricerca corrente nei segnalibri',
 		'favorites' => 'Preferiti (%s)',
 		'global_view' => 'Vista globale per categorie',
 		'main_stream' => 'Flusso principale',
 		'mark_all_read' => 'Segna tutto come letto',
 		'mark_cat_read' => 'Segna la categoria come letta',
 		'mark_feed_read' => 'Segna il feed come letto',
-		'mark_selection_unread' => 'Mark selection as unread',	// TODO
+		'mark_selection_unread' => 'Segna i selezionati come non letti',
 		'newer_first' => 'Mostra prima i recenti',
 		'non-starred' => 'Escludi preferiti',
 		'normal_view' => 'Vista elenco',
@@ -57,12 +57,12 @@ return array(
 		'queries' => 'Chiavi di ricerca',
 		'read' => 'Mostra solo letti',
 		'reader_view' => 'Modalità di lettura',
-		'rss_view' => 'RSS feed',	// TODO
+		'rss_view' => 'Feed RSS',
 		'search_short' => 'Cerca',
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',
 		'subscription' => 'Gestione sottoscrizioni',
-		'tags' => 'My labels',	// TODO
+		'tags' => 'Le mie etichette',
 		'unread' => 'Mostra solo non letti',
 	),
 	'share' => 'Condividi',
@@ -70,6 +70,6 @@ return array(
 		'related' => 'Tags correlati',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO
+		'title' => 'Termini e condizioni del servizio',
 	),
 );

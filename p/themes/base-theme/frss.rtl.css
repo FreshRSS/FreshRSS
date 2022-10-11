@@ -1116,7 +1116,7 @@ input[type="search"] {
 	position: static;
 }
 
-.flux_header:hover {
+.flux:hover {
 	position: relative;
 }
 
@@ -1586,6 +1586,10 @@ a.website:hover .favicon {
 }
 
 /*=== Slider */
+html.slider-active {
+	overflow: hidden;
+}
+
 #slider {
 	background-color: var(--frss-background-color);
 	width: 0;
@@ -2058,7 +2062,7 @@ input:checked + .slide-container .properties {
 	.aside {
 		position: fixed;
 		top: 0; bottom: 0;
-		right: 0;
+		right: -1px;
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
