@@ -13,42 +13,42 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO
-			'required' => 'An email address is required.',	// TODO
+			'invalid' => 'Alamat email ini tidak valid.',
+			'required' => 'Diperlukan alamat email.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO
+			'change_email' => 'Anda dapat mengubah alamat email Anda <a href="%s">di halaman profil</a>.',
+			'email_sent_to' => 'Kami mengirimi Anda email di <strong>%s</strong>. Harap ikuti instruksinya untuk memvalidasi alamat Anda.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO
-				'email_sent' => 'An email has been sent to your address.',	// TODO
-				'error' => 'Email address validation failed.',	// TODO
-				'ok' => 'This email address has been validated.',	// TODO
-				'unnecessary' => 'This email address was already validated.',	// TODO
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO
+				'email_failed' => 'Kami tidak dapat mengirimi Anda email karena kesalahan konfigurasi server. ',	
+				'email_sent' => 'Email telah dikirim ke alamat Anda.',
+				'error' => 'Validasi alamat email gagal.',
+				'ok' => 'Alamat email ini telah divalidasi.',
+				'unnecessary' => 'Alamat email ini sudah divalidasi.',
+				'wrong_token' => 'Alamat email ini gagal divalidasi karena token yang salah.',	
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO
-			'resend_email' => 'Resend the email',	// TODO
-			'title' => 'Email address validation',	// TODO
+			'need_to' => 'Anda perlu memvalidasi alamat email Anda sebelum dapat menggunakan %s.',
+			'resend_email' => 'Kirim ulang email',
+			'title' => 'Validasi Alamat Email',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO
-			'title' => 'You need to validate your account',	// TODO
-			'welcome' => 'Welcome %s,',	// TODO
+			'body' => 'Anda baru saja mendaftar %s,Tetapi Anda masih perlu memvalidasi alamat email Anda.Untuk itu, ikuti saja tautannya:',
+			'title' => 'Anda perlu memvalidasi akun Anda',
+			'welcome' => 'Welcome %s,',	// IGNORE
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO
+		'invalid' => 'Kata sandi tidak valid.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO
+			'invalid' => 'Anda harus menerima ketentuan layanan untuk dapat mendaftar.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO
-		'taken' => 'This username, %s, is taken.',	// TODO
+		'invalid' => 'Nama pengguna ini tidak valid.',
+		'taken' => 'Nama pengguna ini, %s, telah diambil.',
 	),
 );
