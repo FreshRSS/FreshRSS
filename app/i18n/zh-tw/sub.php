@@ -98,6 +98,10 @@ return array(
 					'_' => '文章縮圖',
 					'help' => '例如 <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
 					'help' => '結果將被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',

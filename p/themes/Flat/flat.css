@@ -310,23 +310,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	text-align: right;
-	background: #34495e;
-	color: #fff;
-}
-
-.nav-head a {
-	color: #fff;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 0.5rem 0 0;
@@ -386,9 +369,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #ddd;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #ddd;
 }
 
 /*=== Alerts */

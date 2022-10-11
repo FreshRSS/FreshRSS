@@ -98,6 +98,10 @@ return array(
 					'_' => 'item vinheta',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
 				'item_timestamp' => array(
 					'_' => 'item data',
 					'help' => 'Lo resultats serà formatat per la foncion <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',

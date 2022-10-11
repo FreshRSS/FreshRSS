@@ -36,6 +36,7 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 * `frss:xPathItemAuthor`: XPath expression for extracting an item author from the item context.
 	* Example: `"Anonymous"`
 * `frss:xPathItemTimestamp`: XPath expression for extracting an item timestamp from the item context. The result will be parsed by [`strtotime()`](https://php.net/strtotime).
+* `frss:xPathItemTimeFormat`: Date/Time format to parse the timestamp, according to [`DateTime::createFromFormat()`](https://php.net/datetime.createfromformat).
 * `frss:xPathItemThumbnail`: XPath expression for extracting an item’s thumbnail (image) URL from the item context.
 	* Example: `descendant::img/@src`
 * `frss:xPathItemCategories`: XPath expression for extracting a list of categories (tags) from the item context.
