@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivar',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinamic',
-			'help' => 'Fornís l’URL per un <a href=http://opml.org/ target=_blank>fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
+			'help' => 'Fornís l’URL per un <a href="http://opml.org/" target="_blank">fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
 		),
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',

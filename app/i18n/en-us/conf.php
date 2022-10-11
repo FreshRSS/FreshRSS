@@ -106,15 +106,15 @@ return array(
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Display all articles',	// IGNORE
-		'get_category' => 'Display "%s" category',	// IGNORE
+		'get_category' => 'Display “%s” category',	// IGNORE
 		'get_favorite' => 'Display favorite articles',
-		'get_feed' => 'Display "%s" feed',	// IGNORE
+		'get_feed' => 'Display “%s” feed',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Display oldest articles first',	// IGNORE
 		'order_desc' => 'Display newest articles first',	// IGNORE
-		'search' => 'Search for "%s"',	// IGNORE
+		'search' => 'Search for “%s”',	// IGNORE
 		'state_0' => 'Display all articles',	// IGNORE
 		'state_1' => 'Display read articles',	// IGNORE
 		'state_2' => 'Display unread articles',	// IGNORE
@@ -178,7 +178,7 @@ return array(
 			'view' => 'View',	// IGNORE
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// IGNORE
-		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// IGNORE
+		'img_with_lazyload' => 'Use “lazy load” mode to load pictures',	// IGNORE
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// IGNORE
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// IGNORE
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// IGNORE

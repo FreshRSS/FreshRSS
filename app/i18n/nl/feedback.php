@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',
-		'query_created' => 'Query "%s" is gemaakt.',
+		'query_created' => 'Query “%s” is gemaakt.',
 		'shortcuts_updated' => 'Verwijzingen zijn vernieuwd',
 		'updated' => 'Configuratie is vernieuwd',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" is aangemaakt.',
+		'created' => 'Tag “%s”is aangemaakt.',
 		'name_exists' => 'Tagnaam bestaat al.',
-		'renamed' => 'Tag "%s" hernoemd naar "%s".',
+		'renamed' => 'Tag “%s”hernoemd naar “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',

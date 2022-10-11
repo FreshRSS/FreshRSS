@@ -106,15 +106,15 @@ return array(
 			'type' => 'Tür',
 		),
 		'get_all' => 'Tüm makaleleri göster',
-		'get_category' => '"%s" kategorisini göster',
+		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
-		'get_feed' => '"%s" akışını göster',
+		'get_feed' => '“%s” akışını göster',
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
-		'search' => '"%s" için arama',
+		'search' => '“%s” için arama',
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
 		'state_2' => 'Okunmamış makaleleri göster',
@@ -135,7 +135,7 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Okuma',
-		'after_onread' => '"Hepsini okundu say" dedinten sonra,',
+		'after_onread' => '“Hepsini okundu say” dedinten sonra,',
 		'always_show_favorites' => 'Öntanımlı olarak favori tüm makaleleri göster',
 		'article' => array(
 			'authors_date' => array(
@@ -166,7 +166,7 @@ return array(
 		'articles_per_page' => 'Sayfa başına makale sayısı',
 		'auto_load_more' => 'Sayfa sonunda yeni makaleleri yükle',
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',
-		'confirm_enabled' => '"Hepsini okundu say" eylemi için onay iste',
+		'confirm_enabled' => '“Hepsini okundu say” eylemi için onay iste',
 		'display_articles_unfolded' => 'Katlaması açılmış makaleleri öntanımlı olarak göster',
 		'display_categories_unfolded' => 'Katlaması açılacak kategoriler',
 		'headline' => array(
@@ -177,8 +177,8 @@ return array(
 			'misc' => 'Miscellaneous',	// TODO
 			'view' => 'View',	// TODO
 		),
-		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle ("Tüm makaleleri göster" komutunda çalışmaz)',
-		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
+		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle (“Tüm makaleleri göster” komutunda çalışmaz)',
+		'img_with_lazyload' => 'Resimleri yüklemek için “tembel modu” kullan',
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
 		'mark_updated_article_unread' => 'Güncellenen makaleleri okundu olarak işaretle',
 		'number_divided_when_reader' => 'Okuma modunda ikiye bölünecek.',
