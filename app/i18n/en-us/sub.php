@@ -98,6 +98,10 @@ return array(
 					'_' => 'item thumbnail',	// IGNORE
 					'help' => 'Example: <code>descendant::img/@src</code>',	// IGNORE
 				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// IGNORE
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
+				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// IGNORE
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE

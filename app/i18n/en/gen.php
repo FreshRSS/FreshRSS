@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',
 		'demote' => 'Demote',
 		'disable' => 'Disable',
 		'empty' => 'Empty',
@@ -32,7 +32,7 @@ return array(
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Refresh OPML',
 		'remove' => 'Remove',
 		'rename' => 'Rename',
 		'see_website' => 'See website',
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(unread: %%d)',
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),

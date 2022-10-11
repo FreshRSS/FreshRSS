@@ -111,7 +111,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			// Merge existing and import attributes
 			$existingAttributes = $feed_search->attributes();
 			$importAttributes = $feed->attributes();
-			$feed->_attributes('', array_merge_recursive($existingAttributes, $importAttributes));
+			$feed->_attributes('', array_replace_recursive($existingAttributes, $importAttributes));
 
 			// Update some values of the existing feed using the import
 			$values = [

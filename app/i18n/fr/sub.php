@@ -98,6 +98,10 @@ return array(
 					'_' => 'miniature de l’article',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
 					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
