@@ -106,15 +106,15 @@ return array(
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'Display all articles',	// TODO
-		'get_category' => 'Display "%s" category',	// TODO
+		'get_category' => 'Display “%s” category',	// DIRTY
 		'get_favorite' => 'Display favorite articles',
-		'get_feed' => 'Display "%s" feed',	// TODO
+		'get_feed' => 'Display “%s” feed',	// DIRTY
 		'name' => 'Name',	// TODO
 		'no_filter' => 'No filter',	// TODO
 		'number' => 'Query n°%d',	// TODO
 		'order_asc' => 'Display oldest articles first',	// TODO
 		'order_desc' => 'Display newest articles first',	// TODO
-		'search' => 'Search for "%s"',	// TODO
+		'search' => 'Search for “%s”',	// DIRTY
 		'state_0' => 'Display all articles',	// TODO
 		'state_1' => 'Display read articles',	// TODO
 		'state_2' => 'Display unread articles',	// TODO
@@ -178,7 +178,7 @@ return array(
 			'view' => 'View',	// TODO
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// TODO
-		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// TODO
+		'img_with_lazyload' => 'Use “lazy load” mode to load pictures',	// DIRTY
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO
