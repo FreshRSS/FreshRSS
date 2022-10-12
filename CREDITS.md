@@ -41,6 +41,7 @@ People are sorted by name so please keep this order.
 * [Creak](https://github.com/MightyCreak): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3AMightyCreak)
 * [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)
 * [Cyb10101](https://github.com/Cyb10101): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Cyb10101)
+* [Çılga İşcan Tercanlı](https://github.com/CilgaIscan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:CilgaIscan)
 * [Damien Leroy](https://github.com/ShiiFu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ShiiFu)
 * [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
 * [danc](https://github.com/danc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:danc), [Web](http://tintouli.free.fr/)
