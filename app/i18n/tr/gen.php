@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
 		'create' => 'Oluştur',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Sessize alınmış akışları sil',
 		'demote' => 'Yöneticilikten al',
 		'disable' => 'Pasif',
 		'empty' => 'Boş',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'URLyi aç',
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'OPML yenile',
 		'remove' => 'Sil',
 		'rename' => 'Yeniden adlandır',
 		'see_website' => 'Siteyi gör',
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale mevcut.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(unread: %%d)',	// IGNORE
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
@@ -160,7 +160,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
-		'account' => 'Account',	// TODO
+		'account' => 'Hesap',
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',
 		'authentication' => 'Kimlik doğrulama',
@@ -211,7 +211,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Sistem paylaşımı',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),
