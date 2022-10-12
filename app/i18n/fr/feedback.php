@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',
-		'query_created' => 'Le filtre “%s” a bien été créé.',
+		'query_created' => 'Le filtre <em>%s</em> a bien été créé.',
 		'shortcuts_updated' => 'Les raccourcis ont été mis à jour.',
 		'updated' => 'La configuration a été mise à jour',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
 	'tag' => array(
-		'created' => 'L’étiquette “%s” a été créée.',
+		'created' => 'L’étiquette <em>%s</em> a été créée.',
 		'name_exists' => 'L’étiquette existe déjà.',
-		'renamed' => 'L’étiquette “%s” a été renommée en “%s”.',
+		'renamed' => 'L’étiquette <em>%s</em> a été renommée en <em>%s</em>.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',

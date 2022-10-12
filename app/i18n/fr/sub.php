@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir “Enregistrer ce lien”. Ensuite, cliquer sur le bouton “S’abonner” sur les pages auxquelles vous voulez vous abonner.',
+		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir « Enregistrer ce lien ». Ensuite, cliquer sur le bouton « S’abonner » sur les pages auxquelles vous voulez vous abonner.',
 		'label' => 'S’abonner',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
