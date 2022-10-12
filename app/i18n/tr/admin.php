@@ -170,18 +170,18 @@ return array(
 		'registration' => array(
 			'number' => 'En fazla hesap sayısı',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Kayıt Formu',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Devre Dışı: Kayıt Formu',
+					'nolimit' => 'Devrede: Hesap limiti yok',
+					'setaccountsnumber' => 'Maksimum hesap limitini ayarla',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Form devre dışı',
+				'enabled' => 'Form devrede',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Kullanıcı kayıt formu',
 		),
 	),
 	'update' => array(
