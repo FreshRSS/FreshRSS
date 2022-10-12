@@ -30,7 +30,7 @@ return array(
 		),
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
-		'opml_url' => 'OPML linki',	
+		'opml_url' => 'OPML linki',
 		'position' => 'Konumu göster',
 		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
 		'title' => 'Başlık',
@@ -75,7 +75,7 @@ return array(
 		'kind' => array(
 			'_' => 'Akış kaynağının tipi',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)' // IGNORE,
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'akış başlığı',
 					'help' => 'Örnek: <code>//başlık</code> ya da sabit dizgi: <code>"Benim özel akışım"</code>',
