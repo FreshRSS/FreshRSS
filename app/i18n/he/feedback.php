@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'הניקוי הושלם (%d מאמרים נמחקו)',
 	),
 	'tag' => array(
-		'created' => 'Tag “%s”has been created.',	// TODO
+		'created' => 'Tag “%s as been created.',	// TODO
 		'name_exists' => 'Tag name already exists.',	// TODO
-		'renamed' => 'Tag “%s”has been renamed to “%s”.',	// TODO
+		'renamed' => 'Tag “%s” has been renamed to “%s”.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',

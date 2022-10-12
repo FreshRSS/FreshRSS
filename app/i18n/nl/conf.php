@@ -178,7 +178,7 @@ return array(
 			'view' => 'Weergave',
 		),
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
-		'img_with_lazyload' => 'Gebruik “lazy load” methode om afbeeldingen te laden',
+		'img_with_lazyload' => 'Gebruik <em>lazy load</em> methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',

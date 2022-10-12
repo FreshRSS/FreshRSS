@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
 	),
 	'tag' => array(
-		'created' => 'A Tag “%s”foi criada.',
+		'created' => 'A Tag “%s” foi criada.',
 		'name_exists' => 'O nome da tag já existe.',
-		'renamed' => 'A Tag “%s”foi renomeada para “%s”.',
+		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',

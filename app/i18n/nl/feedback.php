@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',
 	),
 	'tag' => array(
-		'created' => 'Tag “%s”is aangemaakt.',
+		'created' => 'Tag “%s” is aangemaakt.',
 		'name_exists' => 'Tagnaam bestaat al.',
-		'renamed' => 'Tag “%s”hernoemd naar “%s”.',
+		'renamed' => 'Tag “%s” hernoemd naar “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',
