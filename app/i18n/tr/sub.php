@@ -25,19 +25,19 @@ return array(
 		'add' => 'Kategori ekle',
 		'archiving' => 'Arşiv',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'Dinamik OPML',
+			'help' => 'Dinamik olarak bu kategoriyi akışla doldurmak için bir link <a href=http://opml.org/ target=_blank>OPML file</a> sağla',
 		),
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML linki',
 		'position' => 'Konumu göster',
 		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
 		'title' => 'Başlık',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
+		'accept_cookies' => 'Cookieleri kabul et',
+		'accept_cookies_help' => 'Akış sağlayıcısının cookieler oluşturmasına izin ver. (Sadece istek süresince bellekte depolanmak üzere)',
 		'add' => 'RSS akışı ekle',
 		'advanced' => 'Gelişmiş',
 		'archiving' => 'Arşiv',
@@ -50,7 +50,7 @@ return array(
 		),
 		'clear_cache' => 'Önbelleği her zaman temizle',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO
+			'_' => 'Metin içeriğini getirirken içerik aksiyonu',
 			'append' => 'Mevcut içeriğin sonrasına ekle',
 			'prepend' => 'Mevcut içeriğin öncesine ekle',
 			'replace' => 'Mevcut içerikle değiştir',
@@ -60,8 +60,8 @@ return array(
 		'css_help' => 'Dikkat, daha çok zaman gerekir!',
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
 		'css_path_filter' => array(
-			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'_' => 'Kaldırılacak elemana ait CSS seçicisi',
+			'help' => 'CSS seçicisi şu şekilde olabilir: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
@@ -73,65 +73,65 @@ return array(
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Akış kaynağının tipi',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'akış başlığı',
+					'help' => 'Örnek: <code>//başlık</code> ya da sabit dizgi: <code>"Benim özel akışım"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> Gelişmiş kullanıcılar için standart istek dili, FreshRSS web scrapingi aktifleştirmek için kullanıyor.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'yeni nesneler bulunuyor <strong>nesneler</strong><br /><small>(en önemli)</small>',
+					'help' => 'Örnek: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'nesne yazarı author',
+					'help' => 'Sabit dizi olabilir. Örnek: <code>"Anonymous"</code>',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'nesne etiketleri',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'nesne içeriği',
+					'help' => 'Tüm nesneyi almak için örnek: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'nesne önizlemesi',
+					'help' => 'Örnek: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Özel tarih/saat formatı',
+					'help' => 'Opsiyonel. Desteklenen biçime buradan ulaşabilirsiniz. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> ya da <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'nesne tarihi',
+					'help' => 'Sonuç <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'nesne başlığı',
+					'help' => 'Linkte gösterilen gibi <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> ya da <code>descendant::h2</code> kullanınınız',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'nesne spesifik ID',
+					'help' => 'Opsiyonel. Örnek: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'nesne linki (URL)',
+					'help' => 'Örnek: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (nesneye ait):',
+				'xpath' => 'XPath:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (varsayılan)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Önbelleği temizle',
 			'clear_cache_help' => 'Bu akışın önbelleğini temizler.',
 			'reload_articles' => 'Makaleleri yeniden yükle',
-			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
+			'reload_articles_help' => 'Belirlenen seçiçi için metin yenileme ve tüm akış çekme',
 			'title' => 'Bakım',
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'max_http_redir' => 'Maksimum HTTP yönlendirme sayısı',
+		'max_http_redir_help' => 'Devre dışı bırakmak için boş bırakın ya da 0 olarak bırakın. Sınırsız yönlendirme için -1 olarak tanımlayın',
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'sessize al',
 		'no_selected' => 'Hiçbir akış seçilmedi.',
@@ -202,7 +202,7 @@ return array(
 		'_' => 'Abonelik yönetimi',
 		'add' => 'Kategori veya akış ekle',
 		'add_category' => 'Kategori ekle',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Dinamik OPML ekle',
 		'add_feed' => 'Akış ekle',
 		'add_label' => 'Etiket ekle',
 		'delete_label' => 'Etiket sil',
