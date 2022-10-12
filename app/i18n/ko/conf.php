@@ -178,7 +178,7 @@ return array(
 			'view' => '보기',
 		),
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
-		'img_with_lazyload' => '그림을 불러오는 데에 “lazy load” 모드 사용하기',
+		'img_with_lazyload' => '그림을 불러오는 데에 <em>lazy load</em> 모드 사용하기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',
 		'mark_updated_article_unread' => '갱신 된 글을 읽지 않음으로 표시',
 		'number_divided_when_reader' => '읽기 모드에서는 절반만 표시됩니다.',

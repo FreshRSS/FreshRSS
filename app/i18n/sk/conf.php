@@ -178,7 +178,7 @@ return array(
 			'view' => 'Zobraziť',
 		),
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
-		'img_with_lazyload' => 'Pre načítanie obrázkov použiť “lazy load”',
+		'img_with_lazyload' => 'Pre načítanie obrázkov použiť <em>lazy load</em>',
 		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
 		'mark_updated_article_unread' => 'Označiť aktualizované články ako neprečítané',
 		'number_divided_when_reader' => 'V režime čítania predeliť na dve časti.',

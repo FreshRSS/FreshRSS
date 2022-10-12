@@ -178,7 +178,7 @@ return array(
 			'view' => 'ビュー',
 		),
 		'hide_read_feeds' => 'カテゴリーを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
-		'img_with_lazyload' => '“lazy load”を写真の読み込み時に使う',
+		'img_with_lazyload' => '<em>lazy load</em>を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
 		'number_divided_when_reader' => 'reading viewを二分割する',
