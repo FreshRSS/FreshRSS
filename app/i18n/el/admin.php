@@ -12,9 +12,9 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
-		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
-		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
+		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// TODO
+		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// TODO
+		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// TODO
 		'form' => 'Web form (σύνηθες, απαιτεί JavaScript)',
 		'http' => 'HTTP (για έμπειρους χρήστες με )',
 		'none' => 'Καμία (ριψοκίνδυνο)',
@@ -139,7 +139,7 @@ return array(
 		'entry_per_day_of_week' => 'Ανά ημέρα της εβδομάδας (μέσος όρος: %.2f μηνύματα)',
 		'entry_per_hour' => 'Ανά ώρα (μέσος όρος: %.2f μηνύματα)',
 		'entry_per_month' => 'Ανά μήνα (μέσος όρος: %.2f μηνύματα)',
-		'entry_repartition' => 'Entries repartition',
+		'entry_repartition' => 'Entries repartition',	// TODO
 		'feed' => 'Τροφοδοσία',
 		'feed_per_category' => 'Τροφοδοσίες ανά κατηγορία',
 		'idle' => 'Αδρανείς τροφοδοσίες',
@@ -148,7 +148,7 @@ return array(
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
 		'percent_of_total' => '%% εκ του συνόλου',
-		'repartition' => 'Articles repartition',
+		'repartition' => 'Articles repartition',	// TODO
 		'status_favorites' => 'Αγαπημένα',
 		'status_read' => 'Ανάγνωση',
 		'status_total' => 'Σύνολο',
@@ -164,7 +164,7 @@ return array(
 			'number' => 'Διάρκεια παραμονής σε σύνδεση',
 		),
 		'force_email_validation' => 'Επιβολή επιβεβαίωσης διεύθυνσης email',
-		'instance-name' => 'Instance name',
+		'instance-name' => 'Instance name',	// TODO
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
 		'max-feeds' => 'Μέγιστος αριθμός τροφοδοσιών ανά χρήστη',
 		'registration' => array(
