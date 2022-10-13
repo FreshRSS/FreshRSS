@@ -30,13 +30,13 @@ return array(
 		),
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
-		'opml_url' => 'OPML ссылка',	
+		'opml_url' => 'OPML ссылка',
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
 		'title' => 'Заголовок',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Разрешить файлы cookies',	
+		'accept_cookies' => 'Разрешить файлы cookies',
 		'accept_cookies_help' => 'Разрешить серверу ленты использовать cookies (файлы будут храниться в памяти лишь в течение запроса)',
 		'add' => 'Добавить RSS-ленту',
 		'advanced' => 'Дополнительно',
@@ -60,7 +60,7 @@ return array(
 		'css_help' => 'Получает усечённые RSS-ленты (осторожно, требует больше времени!)',
 		'css_path' => 'CSS селектор статьи на сайте',
 		'css_path_filter' => array(
-			'_' => 'CSS селектор элемента для удаления',	
+			'_' => 'CSS селектор элемента для удаления',
 			'help' => 'CSS селектор может быть списком как: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Описание',
@@ -99,8 +99,8 @@ return array(
 					'help' => 'Пример: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Пользовательский формат даты/времени',	
-					'help' => 'Выборочно. Формат поддерживается <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> как <code>d-m-Y H:i:s</code>',	
+					'_' => 'Пользовательский формат даты/времени',
+					'help' => 'Выборочно. Формат поддерживается <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> как <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'даты элемента',
@@ -112,7 +112,7 @@ return array(
 				),
 				'item_uid' => array(
 					'_' => 'уникальный ID элемента',
-					'help' => 'Выборочно. Пример: <code>descendant::div/@data-uri</code>',	
+					'help' => 'Выборочно. Пример: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => 'ссылки элемента (URL)',
@@ -130,8 +130,8 @@ return array(
 			'reload_articles_help' => 'Перезагрузить столько статей и извлечь полное содержимое, если задан селектор.',
 			'title' => 'Обслуживание',
 		),
-		'max_http_redir' => 'Максимум HTTP переводов',	
-		'max_http_redir_help' => 'Установите 0 или оставьте пустым, чтобы отключить, -1 для бесконечных переводов',	
+		'max_http_redir' => 'Максимум HTTP переводов',
+		'max_http_redir_help' => 'Установите 0 или оставьте пустым, чтобы отключить, -1 для бесконечных переводов',
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
 		'mute' => 'заглушить',
 		'no_selected' => 'Ленты не выбраны.',

@@ -32,7 +32,7 @@ return array(
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
-		'refresh_opml' => 'Обновить OPML',	
+		'refresh_opml' => 'Обновить OPML',
 		'remove' => 'Удалить',
 		'rename' => 'Переименовать',
 		'see_website' => 'Посмотреть на сайте',
