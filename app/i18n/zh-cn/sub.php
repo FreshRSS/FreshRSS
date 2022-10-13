@@ -26,7 +26,7 @@ return array(
 		'archiving' => '归档',
 		'dynamic_opml' => array(
 			'_' => '动态订阅',
-			'help' => '使用地址上的 <a href=http://opml.org/ target=_blank>OPML 文件</a> 中的订阅源填充这一分类',
+			'help' => '使用地址上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
 		'information' => '信息',

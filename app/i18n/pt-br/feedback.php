@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Um erro ocorreu durante o salvamento das configurações',
-		'query_created' => 'A query "%s" foi criada.',
+		'query_created' => 'A Query “%s” foi criada.',
 		'shortcuts_updated' => 'Atalhos foram criados',
 		'updated' => 'Configuração foi atualizada',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
 	),
 	'tag' => array(
-		'created' => 'A tag "%s" foi criada.',
+		'created' => 'A Tag “%s” foi criada.',
 		'name_exists' => 'O nome da tag já existe.',
-		'renamed' => 'A tag "%s" foi renomeada para "%s".',
+		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',

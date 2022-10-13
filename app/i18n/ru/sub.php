@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Архивирование',
 		'dynamic_opml' => array(
 			'_' => 'Динамичный OPML',
-			'help' => 'Предоставьте ссылку на <a href=http://opml.org/ target=_blank>OPML файл</a> чтобы динамично заполнять эту категорию лентами',
+			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
