@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => '설정을 저장하는 동안 문제가 발생했습니다',
-		'query_created' => '쿼리 "%s" 가 생성되었습니다.',
+		'query_created' => '쿼리 “%s” 가 생성되었습니다.',
 		'shortcuts_updated' => '단축키가 갱신되었습니다',
 		'updated' => '설정이 저장되었습니다',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => '삭제 완료 (%d 개의 글을 삭제했습니다)',
 	),
 	'tag' => array(
-		'created' => '"%s" 태그가 생성되었습니다.',
+		'created' => '“%s” 태그가 생성되었습니다.',
 		'name_exists' => '같은 이름의 태그가 이미 존재합니다.',
-		'renamed' => '"%s" 태그가 "%s" (으)로 이름이 변경되었습니다.',
+		'renamed' => '“%s” 태그가 “%s” (으)로 이름이 변경되었습니다.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS가 <strong>%s</strong> 버전으로 업데이트됩니다.',

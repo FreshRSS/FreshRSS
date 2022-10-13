@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'アーカイブ',
 		'dynamic_opml' => array(
 			'_' => 'ダイナミックOPML',
-			'help' => '<a href=http://opml.org/ target=_blank>から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
+			'help' => '<a href="http://opml.org/" target="_blank">から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
 		),
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',

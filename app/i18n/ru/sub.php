@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Архивирование',
 		'dynamic_opml' => array(
 			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
