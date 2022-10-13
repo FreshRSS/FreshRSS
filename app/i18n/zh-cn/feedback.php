@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => '保存配置时出错',
-		'query_created' => '查询 "%s" 已创建。',
+		'query_created' => '查询 “%s” 已创建。',
 		'shortcuts_updated' => '快捷键已更新',
 		'updated' => '配置已更新',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => '清除完成（已删除 %d 篇文章）',
 	),
 	'tag' => array(
-		'created' => '标签 "%s" 已创建。',
+		'created' => '标签 “%s” 已创建。',
 		'name_exists' => '标签名已存在。',
-		'renamed' => '标签 "%s" 已被重命名为 "%s"。',
+		'renamed' => '标签 “%s” 已被重命名为 “%s”。',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>。',
