@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',
 		'label' => 'Subscribe',
 		'title' => 'Bookmarklet',
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiving',
 		'dynamic_opml' => array(
 			'_' => 'Dynamic OPML',
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',
 		),
 		'empty' => 'Empty category',
 		'information' => 'Information',

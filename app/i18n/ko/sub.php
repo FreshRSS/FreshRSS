@@ -26,7 +26,7 @@ return array(
 		'archiving' => '보관',
 		'dynamic_opml' => array(
 			'_' => '동적 OPML',
-			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href=http://opml.org/ target=_blank>OPML 파일</a> 의 URL을 제공해주세요',
+			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href="http://opml.org/" target="_blank">OPML 파일</a> 의 URL을 제공해주세요',
 		),
 		'empty' => '빈 카테고리',
 		'information' => '정보',

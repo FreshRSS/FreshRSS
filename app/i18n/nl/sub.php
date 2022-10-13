@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies "Deze link aan bladwijzers toevoegen."',
+		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies „Deze link aan bladwijzers toevoegen.”',
 		'label' => 'Abonneren',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiveren',
 		'dynamic_opml' => array(
 			'_' => 'Dynamische OPML',
-			'help' => 'Geef de URL naar een <a href=http://opml.org/ target=_blank>OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
+			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',

@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => '設定を保存するとき、エラーが発生しました。',
-		'query_created' => '"%s"クエリは作成されました。',
+		'query_created' => '“%s”クエリは作成されました。',
 		'shortcuts_updated' => 'ショートカットはアップデートされました。',
 		'updated' => '設定が更新されました。',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => '不要データの削除が完了されました (%d 記事は消去されました)',
 	),
 	'tag' => array(
-		'created' => '"%s" タグが作成されました',
+		'created' => '“%s” タグが作成されました',
 		'name_exists' => 'このタグ名は既に存在します',
-		'renamed' => '"%s"タグは"%s"に改名されました',
+		'renamed' => '“%s”タグは“%s”に改名されました',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSSは<strong>バージョン %s</strong>に更新されます。',
