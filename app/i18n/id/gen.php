@@ -199,6 +199,7 @@ return array(
 		'gnusocial' => 'GNU social',	// TODO
 		'jdh' => 'Journal du hacker',	// TODO
 		'lemmy' => 'Lemmy',	// TODO
+		'linkding' => 'Linkding',	// TODO
 		'linkedin' => 'LinkedIn',	// TODO
 		'mastodon' => 'Mastodon',	// TODO
 		'movim' => 'Movim',	// TODO
