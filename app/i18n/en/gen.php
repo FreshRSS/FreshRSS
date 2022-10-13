@@ -198,6 +198,7 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'lemmy' => 'Lemmy',
+		'linkding' => 'Linkding',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
