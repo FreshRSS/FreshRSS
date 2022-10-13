@@ -94,6 +94,13 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
+	'linkding' => array(
+		'url' => '~URL~/bookmarks/new?url=~LINK~&auto_close',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
+		'form' => 'advanced',
+		'method' => 'GET',
+	),
 	'linkedin' => array(
 		'url' => 'https://www.linkedin.com/shareArticle?url=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
 		'transform' => array('rawurlencode'),
