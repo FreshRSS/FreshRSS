@@ -91,6 +91,7 @@ People are sorted by name so please keep this order.
 * [Kiblyn11](https://github.com/Kiblyn11): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Kiblyn11)
 * [kinoushe](https://github.com/kinoushe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kinoushe)
 * [knasdk](https://github.com/knasdk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:knasdk)
+* [Konstantinos Megas](https://github.com/nextdoorpanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nextdoorpanda)
 * [Kristian Salonen](https://github.com/krisu5): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:krisu5)
 * [Leepic](https://github.com/Leepic): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Leepic)
 * [loft17](https://github.com/loft17): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:loft17)
