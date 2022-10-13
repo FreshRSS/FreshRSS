@@ -348,19 +348,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	background: var(--background-color-light);
-	border-bottom: 1px solid var(--border-color-dark);
-	text-align: right;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
@@ -409,9 +396,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid var(--border-color-dark);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: var(--border-color-dark);
 }
 
 /*=== Alerts */

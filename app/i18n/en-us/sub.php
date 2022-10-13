@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// IGNORE
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',	// IGNORE
 		'label' => 'Subscribe',	// IGNORE
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiving',	// IGNORE
 		'dynamic_opml' => array(
 			'_' => 'Dynamic OPML',	// IGNORE
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// IGNORE
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
 		),
 		'empty' => 'Empty category',	// IGNORE
 		'information' => 'Information',	// IGNORE
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'item thumbnail',	// IGNORE
 					'help' => 'Example: <code>descendant::img/@src</code>',	// IGNORE
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// IGNORE
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// IGNORE

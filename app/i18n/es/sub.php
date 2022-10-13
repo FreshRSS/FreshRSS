@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Arrastre este botón a la barra de herramientas de marcadores o haga clic derecho en él y elija "Marcar este enlace". Luego haga clic en el botón "Suscribirse" en cualquier página a la que desee suscribirse.',
+		'documentation' => 'Arrastre este botón a la barra de herramientas de marcadores o haga clic derecho en él y elija “Marcar este enlace”. Luego haga clic en el botón “Suscribirse” en cualquier página a la que desee suscribirse.',
 		'label' => 'Subscribirse',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'miniatura del elemento',
 					'help' => 'Ejemplo: <code>descendiente::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'fecha del elemento',

@@ -329,21 +329,6 @@ form th {
 	text-decoration: none;
 }
 
-.nav-head {
-	margin: 0;
-	text-align: left;
-	background: #22303d;
-	color: #fcfcfc;
-}
-.nav-head a {
-	color: #fcfcfc;
-}
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 .dropdown-menu {
 	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
@@ -397,9 +382,9 @@ form th {
 	left: auto;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #e3e3e3;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #e3e3e3;
 	cursor: default;
 }
 
@@ -814,6 +799,7 @@ form th {
 .flux:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background: #fff;
+	top: 0.15rem;
 }
 .flux.favorite:not(.current) {
 	background: #fff6da;
@@ -1013,6 +999,10 @@ a.signin {
 .flux_header .item.website {
 		width: 35px;
 		text-align: center;
+	}
+
+	.flux:not(.current):hover .item.title {
+		top: auto !important;
 	}
 
 	.aside {

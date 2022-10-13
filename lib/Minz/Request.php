@@ -15,6 +15,8 @@ class Minz_Request {
 	private static $default_controller_name = 'index';
 	private static $default_action_name = 'index';
 
+	private static $originalRequest;
+
 	/**
 	 * Getteurs
 	 */
@@ -91,6 +93,9 @@ class Minz_Request {
 			'a' => self::$action_name,
 			'params' => self::$params,
 		);
+	}
+	public static function originalRequest() {
+		return self::$originalRequest;
 	}
 	public static function modifiedCurrentRequest(array $extraParams = null) {
 		$currentRequest = self::currentRequest();
@@ -327,6 +332,10 @@ class Minz_Request {
 	 *                > sinon, le dispatcher recharge en interne
 	 */
 	public static function forward($url = array(), $redirect = false) {
+		if (Minz_Request::originalRequest() === null && strpos('auth', json_encode($url)) !== false) {
+			self::$originalRequest = $url;
+		}
+
 		if (!is_array($url)) {
 			header('Location: ' . $url);
 			exit();

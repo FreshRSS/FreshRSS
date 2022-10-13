@@ -559,19 +559,22 @@ class FreshRSS_Feed extends Minz_Model {
 			$guid = safe_ascii($item->get_id(false, false));
 			unset($item);
 
-			$author_names = '';
+			$authorNames = '';
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
-					$author_names .= escapeToUnicodeAlternative(strip_tags($author->name == '' ? $author->email : $author->name), true) . '; ';
+					$authorName = $author->name != '' ? $author->name : $author->email;
+					if ($authorName != '') {
+						$authorNames .= escapeToUnicodeAlternative(strip_tags($authorName), true) . '; ';
+					}
 				}
 			}
-			$author_names = substr($author_names, 0, -2);
+			$authorNames = substr($authorNames, 0, -2);
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$hasBadGuids ? '' : $guid,
 				$title == '' ? '' : $title,
-				$author_names,
+				$authorNames,
 				$content == '' ? '' : $content,
 				$link == '' ? '' : $link,
 				$date ? $date : time()
@@ -609,6 +612,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemTimeFormat = $xPathSettings['itemTimeFormat'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
@@ -649,6 +653,12 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				if ($xPathItemTimeFormat != '') {
+					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp'] ?? '');
+					if ($dateTime != false) {
+						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
+					}
+				}
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
 					$itemCategories = @$xpath->query($xPathItemCategories, $node);
