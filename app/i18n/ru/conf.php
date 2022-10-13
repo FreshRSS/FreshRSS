@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Авторы и дата',
+				'both' => 'В верхнем и нижнем колонтитулах',
+				'footer' => 'В нижнем колонтитуле',
+				'header' => 'В верхнем колонтитуле',
+				'none' => 'Нигде',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Над титулом и метками',
+				'none' => 'Нигде',
+				'with_authors' => 'В строке с автором и датой',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Титул ленты',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Метки',
+				'both' => 'В верхнем и нижнем колонтитулах',
+				'footer' => 'В нижнем колонтитуле',
+				'header' => 'В верхнем колонтитуле',
+				'none' => 'Нигде',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Максимальное количество отображающих меток',
+				'help' => '0 означает: показать все метки и не сжимать их',
 			),
 		),
 		'articles_per_page' => 'Количество статей на странице',
@@ -171,7 +171,7 @@ return array(
 		'display_categories_unfolded' => 'Какие категории развёртывать',
 		'headline' => array(
 			'articles' => 'Статьи: открыть/закрыть',
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'articles_header_footer' => 'Статьи: верхний/нижний колонтитул',
 			'categories' => 'Левая панель: категории',
 			'mark_as_read' => 'Пометить статью прочитанной',
 			'misc' => 'Разное',
@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'когда статья просматривается',
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
 			'scroll' => 'во время прокрутки',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
 			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',

@@ -115,7 +115,7 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// IGNORE
 	),
 	'tag' => array(
-		'created' => 'Tag “%s” as been created.',	// IGNORE
+		'created' => 'Tag “%s” has been created.',	// IGNORE
 		'name_exists' => 'Tag name already exists.',	// IGNORE
 		'renamed' => 'Tag “%s” has been renamed to “%s”.',	// IGNORE
 	),
