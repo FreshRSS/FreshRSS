@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Nivel de registro',
+			'message' => 'Mensaje de registro',
+			'timestamp' => 'Marca de tiempo',
 		),
 		'pagination' => array(
 			'first' => 'Primero',
@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Mostrar todos los artículos en favoritos de forma predeterminada',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autores y fecha',
+				'both' => 'En el encabezado y pie de página',
+				'footer' => 'En el pie de página',
+				'header' => 'En el encabezado',
+				'none' => 'Ninguno',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Encima de título/etiquetas',
+				'none' => 'Ninguno',
+				'with_authors' => 'En la fila de autores y fecha',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Título del Feed',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Etiquetas',
+				'both' => 'En el encabezado y pie de página',
+				'footer' => 'En el pie de página',
+				'header' => 'En el encabezado',
+				'none' => 'Ninguno',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Máximo número de etiquetas a mostrar',
+				'help' => '0 significa: mostrar todas las etiquetas y que no estén colapsadas',
 			),
 		),
 		'articles_per_page' => 'Número de artículos por página',
@@ -170,12 +170,12 @@ return array(
 		'display_articles_unfolded' => 'Mostrar los artículos expandidos por defecto',
 		'display_categories_unfolded' => 'Categorías a desarrollar',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Artículos: Abrir/Cerar',
+			'articles_header_footer' => 'Artículos: encabezado/pie de página',
+			'categories' => 'Navegación izquierda: Categorías',
+			'mark_as_read' => 'Marcar artículo como leído',
+			'misc' => 'Variados',
+			'view' => 'Ver',
 		),
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración "Mostrar todos los artículos")',
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',
@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'cuando se muestre el artículo',
 			'keep_max_n_unread' => 'Número máximo de artículos para mantener sin leer',
 			'scroll' => 'durante el desplazamiento',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'cuando ya no está disponible en el feed de noticias previo',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
 			'when_same_title' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes',
@@ -222,9 +222,9 @@ return array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Este servicio está obsoleto y será removido de FreshRSS en un<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abrir la documentación para más información" target="_blank">futuro lanzamiento</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Email',	// TODO
+		'email' => 'Correo electrónico',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Más información',
 		'print' => 'Imprimir',
