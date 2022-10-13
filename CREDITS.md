@@ -68,6 +68,7 @@ People are sorted by name so please keep this order.
 * [Guillaume Fillon](https://github.com/kokaz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kokaz), [Web](http://www.guillaume-fillon.com/)
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [Guillaume Pugnet](https://github.com/GuillaumePugnet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:GuillaumePugnet)
+* [Gulyapulya](https://github.com/gulyapulya): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gulyapulya), [Web](https://dev.to/gulyapulya)
 * [happymacarts](https://github.com/happymacarts): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:happymacarts)
 * [Harshad Hirapara](https://github.com/harshad389): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:harshad389)
 * [hesch](https://github.com/hesch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hesch)
