@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Podczas zapisywania konfiguracji wystąpił błąd',
-		'query_created' => 'Zapytanie "%s" zostało utworzone.',
+		'query_created' => 'Zapytanie “%s” zostało utworzone.',
 		'shortcuts_updated' => 'Skróty zostały zaktualizowane',
 		'updated' => 'Ustawienia zostały zaktualizowane',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Oczyszczanie ukończone (liczba skasowanych wiadomości: %d)',
 	),
 	'tag' => array(
-		'created' => 'Etykieta "%s" została stworzona.',
+		'created' => 'Etykieta “%s” została stworzona.',
 		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
-		'renamed' => 'Etykieta "%s" została zmieniona na "%s".',
+		'renamed' => 'Etykieta “%s” została zmieniona na “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',

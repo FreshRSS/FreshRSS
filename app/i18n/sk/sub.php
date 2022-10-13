@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte "Uložiť odkaz do záložiek". Potom kliknite na tlačidlo "Odoberať" na ktorejkoľvek stránke, ktorú chcete odoberať.',
+		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte “Uložiť odkaz do záložiek”. Potom kliknite na tlačidlo “Odoberať” na ktorejkoľvek stránke, ktorú chcete odoberať.',
 		'label' => 'Odoberať',
 		'title' => 'Záložka',
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archív',
 		'dynamic_opml' => array(
 			'_' => 'Dynamické OPML',
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
