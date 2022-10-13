@@ -21,7 +21,7 @@ FreshRSS has the option to share links with a bunch of services.
 | Journal du hacker | Le Journal du hacker s'inspire directement du site anglophone Hacker News | [Website](https://www.journalduhacker.net/) |
 | Known based sites | Its robust open source framework can be used to build fully-fledged community sites, or a blog for a single user. | [Website](https://withknown.com/) | |
 | Lemmy             | Selfhosted social link aggregation and discussion platform | [Website](https://join-lemmy.org/) | |
-| Linkding          | Selfhosted boomark service | [Website](https://github.com/sissbruecker/linkding) | |
+| Linkding          | Selfhosted bookmark service | [Website](https://github.com/sissbruecker/linkding) | |
 | LinkedIn          | Business and employment-oriented online service      | [Website](https://www.linkedin.com/), [Wikipedia](https://en.wikipedia.org/wiki/LinkedIn)| |
 | Mastodon          | Self-hosted social networking & microblogging services | [Website](https://joinmastodon.org/), [Wikipedia](https://en.wikipedia.org/wiki/Mastodon_(software)) | |
 | Movim             | A powerful web frontend for XMPP                     | [Website](https://movim.eu/) | |
