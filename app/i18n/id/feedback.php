@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',	// TODO
-		'query_created' => 'Query “%s” has been created.',	// DIRTY
+		'query_created' => 'Query “%s” has been created.',	// TODO
 		'shortcuts_updated' => 'Shortcuts have been updated',	// TODO
 		'updated' => 'Configuration has been updated',	// TODO
 	),

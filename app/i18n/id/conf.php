@@ -106,15 +106,15 @@ return array(
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'Display all articles',	// TODO
-		'get_category' => 'Display “%s” category',	// DIRTY
+		'get_category' => 'Display “%s” category',	// TODO
 		'get_favorite' => 'Display favorite articles',
-		'get_feed' => 'Display “%s” feed',	// DIRTY
+		'get_feed' => 'Display “%s” feed',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'No filter',	// TODO
 		'number' => 'Query n°%d',	// TODO
 		'order_asc' => 'Display oldest articles first',	// TODO
 		'order_desc' => 'Display newest articles first',	// TODO
-		'search' => 'Search for “%s”',	// DIRTY
+		'search' => 'Search for “%s”',	// TODO
 		'state_0' => 'Display all articles',	// TODO
 		'state_1' => 'Display read articles',	// TODO
 		'state_2' => 'Display unread articles',	// TODO
