@@ -75,7 +75,7 @@ return array(
 		'kind' => array(
 			'_' => 'Tipo de origen del feed',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// INGORE
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'Título del feed',
 					'help' => 'Ejemplo: <code>//título</code> o un texto estático: <code>"Mi feed personalizado"</code>',
