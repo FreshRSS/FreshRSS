@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie "Als Lesezeichen hinzufügen". Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche "Abonnieren".',
+		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie „Als Lesezeichen hinzufügen“. Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche „Abonnieren“.',
 		'label' => 'Abonnieren',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivierung',
 		'dynamic_opml' => array(
 			'_' => 'Dynamisches OPML',
-			'help' => 'URL zu einer <a href=http://opml.org/ target=_blank>OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
+			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',	// IGNORE
