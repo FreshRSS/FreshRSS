@@ -8,16 +8,15 @@ parameters:
 		- .
 	excludePaths:
 		- lib/phpmailer/*
-		- lib/SimplePie/*
+		- lib/simplepie/*
 		- node_modules/*
 		# TODO: include tests
 		- tests/*
 		- vendor/*
 	scanDirectories:
 		- lib/phpmailer/
-		- lib/SimplePie/
+		- lib/simplepie/
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
-		- lib/SimplePie/SimplePie.php
 		- app/SQL/install.sql.sqlite.php

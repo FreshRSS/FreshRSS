@@ -69,7 +69,7 @@ function searchFavicon(&$url) {
 						}
 					}
 					if (!checkUrl($href, false)) {
-						$href = SimplePie_IRI::absolutize($url, $href);
+						$href = \SimplePie\IRI::absolutize($url, $href);
 					}
 					$favicon = downloadHttp($href, array(
 							CURLOPT_REFERER => $url,
