@@ -24,7 +24,7 @@ Then point your mobile application to the `fever.php` address (e.g. `https://fre
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
 |[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
 |[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Closed Source                                             |
-|[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/-/blob/master/LICENSE)|
+|[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/)|
 |[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Closed Source                                             |
 |[Reeder](https://www.reederapp.com/)                                                |iOS                  |Closed Source                                              |
 |[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Closed Source                                              |
