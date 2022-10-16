@@ -1113,10 +1113,6 @@ input[type="search"] {
 /*=== Feed article header and footer */
 .flux_header {
 	background: inherit;
-	position: static;
-}
-
-.flux:hover {
 	position: relative;
 }
 
@@ -1150,7 +1146,7 @@ a.website:hover .favicon {
 	background-color: var(--frss-background-color);
 	max-width: calc(100% - 320px);
 	position: absolute;
-	top: 0.25rem
+	bottom: 2px;
 }
 
 .flux:not(.current):hover .item.title.multiline {

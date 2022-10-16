@@ -164,7 +164,7 @@ a.btn,
 }
 
 .flux:not(.current):hover .item.title {
-	top: auto;
+	bottom: 0;
 }
 
 /*=== Content of feed articles */
