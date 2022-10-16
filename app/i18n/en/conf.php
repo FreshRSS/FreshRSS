@@ -68,9 +68,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Log Level',
+			'message' => 'Log Message',
+			'timestamp' => 'Timestamp',
 		),
 		'pagination' => array(
 			'first' => 'First',
@@ -106,15 +106,15 @@ return array(
 			'type' => 'Type',
 		),
 		'get_all' => 'Display all articles',
-		'get_category' => 'Display "%s" category',
+		'get_category' => 'Display “%s” category',
 		'get_favorite' => 'Display favourite articles',
-		'get_feed' => 'Display "%s" feed',
+		'get_feed' => 'Display “%s” feed',
 		'name' => 'Name',
 		'no_filter' => 'No filter',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
-		'search' => 'Search for "%s"',
+		'search' => 'Search for “%s”',
 		'state_0' => 'Display all articles',
 		'state_1' => 'Display read articles',
 		'state_2' => 'Display unread articles',
@@ -139,28 +139,28 @@ return array(
 		'always_show_favorites' => 'Show all articles in favourites by default',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Authors and date',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Above title/tags',
+				'none' => 'None',
+				'with_authors' => 'In authors and date row',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Feed title',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Tags',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Max number of tags shown',
+				'help' => '0 means: show all tags and do not collapse them',
 			),
 		),
 		'articles_per_page' => 'Number of articles per page',
@@ -171,14 +171,14 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',
 			'categories' => 'Left navigation: Categories',
 			'mark_as_read' => 'Mark article as read',
 			'misc' => 'Miscellaneous',
 			'view' => 'View',
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
-		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
+		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',
 		'jump_next' => 'jump to next unread sibling (feed or category)',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',
@@ -187,7 +187,7 @@ return array(
 			'article_viewed' => 'when the article is viewed',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',
 			'scroll' => 'while scrolling',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'when it is no longer in the upstream news feed',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',
@@ -222,7 +222,7 @@ return array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

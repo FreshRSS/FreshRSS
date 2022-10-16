@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'アーカイブ',
 		'dynamic_opml' => array(
 			'_' => 'ダイナミックOPML',
-			'help' => '<a href=http://opml.org/ target=_blank>から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
+			'help' => '<a href="http://opml.org/" target="_blank">から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
 		),
 		'empty' => 'からのカテゴリ',
 		'information' => 'インフォメーション',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => '項目のサムネイル',
 					'help' => '例: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => '項目の日付',

@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Trascina questo pulsante nei preferiti o fai click destro e scegli "Inserisci questo link tra i preferiti". Successivamente clicca il pulsante "Iscriviti" in qualsiasi pagina a cui ti vuoi iscrivere.',
+		'documentation' => 'Trascina questo pulsante nei preferiti o fai click destro e scegli “Inserisci questo link tra i preferiti”. Successivamente clicca il pulsante “Iscriviti” in qualsiasi pagina a cui ti vuoi iscrivere.',
 		'label' => 'Iscriviti',
 		'title' => 'Segnalibro',
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiviazione',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinamico',
-			'help' => 'Fornisci l’URL ad un <a href=http://opml.org/ target=_blank>file OPML</a> per popolare dinamicamente questa categoria con i feed',
+			'help' => 'Fornisci l’URL ad un <a href="http://opml.org/" target="_blank">file OPML</a> per popolare dinamicamente questa categoria con i feed',
 		),
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'oggetto miniatura',
 					'help' => 'Esempio: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'oggetto data',
