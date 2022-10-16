@@ -1005,6 +1005,7 @@ main.prompt {
 }
 .flux:hover:not(.current):hover .item.title {
 	background: #f9fafb;
+	bottom: 3px;
 }
 .flux.current {
 	background: #f9fafb;

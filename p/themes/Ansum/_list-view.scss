@@ -16,8 +16,7 @@
 
 		&:not(.current):hover .item.title {
 			background: variables.$grey-lighter;
-
-
+			bottom: 3px;
 		}
 	}
 
