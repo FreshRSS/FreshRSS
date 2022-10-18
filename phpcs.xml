@@ -14,6 +14,10 @@
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
 	<exclude-pattern>./vendor/</exclude-pattern>
 	<exclude-pattern>*.min.js$</exclude-pattern>
+	<exclude-pattern>./p/themes/Ansum/*.css$</exclude-pattern>
+	<exclude-pattern>./p/themes/Mapco/*.css$</exclude-pattern>
+	<exclude-pattern>./p/themes/Swage/*.css$</exclude-pattern>
+	<exclude-pattern>*.rtl.css$</exclude-pattern>
 	<!-- Duplicate class names are not allowed -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>
 	<!-- Statements must not be empty -->

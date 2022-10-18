@@ -1226,6 +1226,7 @@ main.prompt {
   .form-group .group-name {
     text-align: left;
   }
+
   .aside {
     transition: all 0.2s ease-in-out;
   }
@@ -1235,6 +1236,7 @@ main.prompt {
   .aside .tree .tree-folder .tree-folder-items .item a {
     padding: 0.5rem 1rem;
   }
+
   .aside .toggle_aside,
 #panel .close,
 .dropdown-menu .toggle_aside,
@@ -1253,6 +1255,7 @@ main.prompt {
 #slider .toggle_aside .icon {
     filter: grayscale(100%) brightness(2.5);
   }
+
   .header {
     padding: 0.5rem;
     height: 8rem;
@@ -1273,18 +1276,22 @@ main.prompt {
   .header .item.search input:focus {
     width: 100%;
   }
+
   #global {
     height: calc(100% - 8rem);
   }
+
   main.prompt {
     max-width: 100%;
     min-width: auto;
     width: 75%;
   }
+
   .post {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   .nav_menu .btn {
     margin: 0;
     padding: 0.85rem 1.25rem;
@@ -1310,9 +1317,11 @@ main.prompt {
   .nav_menu .search .input:focus {
     width: 400px;
   }
+
   #stream .flux .flux_header {
     padding: 0.5rem 0;
   }
+
   .dropdown-target:target ~ .dropdown-toggle::after {
     background-color: #f9fafb;
     border-top: 1px solid #eff0f2;
@@ -1326,6 +1335,7 @@ main.prompt {
   .dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
     bottom: -17px;
   }
+
   .day {
     text-align: center;
     padding: 1rem 0;
@@ -1337,9 +1347,11 @@ main.prompt {
     line-height: 1.5rem;
     margin-bottom: 1rem;
   }
+
   #nav_entries {
     line-height: 4.5rem;
   }
+
   .notification {
     border-radius: 0;
   }
