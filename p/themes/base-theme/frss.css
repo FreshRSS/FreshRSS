@@ -1314,8 +1314,8 @@ a.website:hover .favicon {
 
 .content > header .tags .list-tags .item.tag,
 .content > footer .tags .list-tags .item.tag {
-	display: inline-block;
 	padding: 0 0.75rem 0 0;
+	display: inline-block;
 	line-height: 1.5;
 }
 
