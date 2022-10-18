@@ -987,6 +987,7 @@ main.prompt {
 }
 .flux:hover:not(.current):hover .item.title {
 	background: #fcfaf8;
+	bottom: 3px;
 }
 .flux.current {
 	background: #fff;

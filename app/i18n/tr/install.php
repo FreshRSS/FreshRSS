@@ -90,7 +90,7 @@ return array(
 			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP Sürümünüz %s, FreshRSS ile tam uyumlu.',
 		),
-		'reload' => 'Check again',	// TODO
+		'reload' => 'Tekrar kontrol et',
 		'tmp' => array(
 			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Geçici klasör izinleri sorunsuz.',

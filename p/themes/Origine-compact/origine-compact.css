@@ -105,14 +105,6 @@ a.btn,
 	margin: 0.75em 0 0 0;
 }
 
-/*=== Aside main page (feeds) */
-/*=== Configuration pages */
-/*=== Prompt (centered) */
-/*=== New article notification */
-#new-article > a {
-	line-height: 3em;
-}
-
 /*=== Day indication */
 .day {
 	font-size: 0.9rem;
@@ -172,7 +164,7 @@ a.btn,
 }
 
 .flux:not(.current):hover .item.title {
-	top: auto;
+	bottom: 0;
 }
 
 /*=== Content of feed articles */

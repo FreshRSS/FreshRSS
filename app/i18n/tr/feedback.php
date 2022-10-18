@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Yapılandırma ayarları kaydedilirken hata oluştu',
-		'query_created' => 'Sorgu "%s" oluşturuldu.',
+		'query_created' => 'Sorgu “%s” oluşturuldu.',
 		'shortcuts_updated' => 'Kısayollar yenilendi',
 		'updated' => 'Yapılandırm ayarları yenilendi',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Temizleme tamamlandı (%d makale silindi)',
 	),
 	'tag' => array(
-		'created' => '"%s" etiketi oluşturuldu.',
+		'created' => '“%s” etiketi oluşturuldu.',
 		'name_exists' => 'Etiket zaten mevcut.',
-		'renamed' => '"%s" isimli etiketin ismi "%s" olarak değiştirildi.',
+		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',

@@ -74,7 +74,7 @@ This setting defines the number of articles to display at once before needing to
 
 The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show.
 
-## Use "lazy load" mode to load images
+## Use “lazy load” mode to load images
 
 This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
