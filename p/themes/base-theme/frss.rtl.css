@@ -1454,6 +1454,7 @@ a.website:hover .favicon {
 	bottom: 0; right: 0;
 	width: 300px;
 	table-layout: fixed;
+	padding-bottom: env(safe-area-inset-bottom);
 }
 
 #nav_entries .item {
