@@ -18,6 +18,7 @@ People are sorted by name so please keep this order.
 * [Alexis Degrugillier](https://github.com/aledeg): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aledeg)
 * [Alwaysin](https://github.com/Alwaysin): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Alwaysin)
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:AmauryCarrade), [Web](https://amaury.carrade.eu/)
+* [Andrew Barrow](https://github.com/acbgbca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:acbgbca)
 * [Andrew Hunter](https://github.com/rexbron): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rexbron)
 * [Andrew Rabert](https://github.com/nvllsvm): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nvllsvm), [Web](https://nullsum.net)
 * [Anton Smirnov](https://github.com/arokettu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:arokettu), [Web](https://sandfox.me/)
