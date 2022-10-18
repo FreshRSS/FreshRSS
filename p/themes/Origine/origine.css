@@ -284,13 +284,13 @@ a.btn,
 }
 
 a:hover .icon {
-	filter: brightness(0.65);
+	filter: brightness(1.5);
 	transition: 0.1s linear;
 }
 
 #toggle-starred:hover .icon,
 .bookmark:hover .icon {
-	filter: brightness(0.9);
+	filter: brightness(1.1);
 }
 
 .btn.active,
@@ -301,12 +301,12 @@ a:hover .icon {
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle .icon {
-	filter: brightness(0.5);
+	filter: brightness(1.1);
 }
 
 .btn.active .icon,
 .btn:active .icon {
-	filter: brightness(0.5);
+	filter: brightness(1.1);
 }
 
 .btn-important {
