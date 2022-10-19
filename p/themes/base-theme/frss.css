@@ -1333,6 +1333,7 @@ a.website:hover .favicon {
 
 .content pre {
 	overflow: auto;
+	white-space: pre-wrap;
 }
 
 .subtitle > div {
