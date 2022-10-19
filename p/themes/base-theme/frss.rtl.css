@@ -1117,7 +1117,7 @@ input[type="search"] {
 	position: relative;
 }
 
-.flux .flux_header .item {
+.flux .flux_header .item .item-element {
 	padding: 0.5rem 0;
 	white-space: nowrap;
 }
