@@ -570,9 +570,12 @@ input[type="checkbox"]:focus-visible {
 }
 
 .horizontal-list .item {
-	padding: 0.5rem 0;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.horizontal-list .item .item-element {
+	padding: 0.5rem 0;
 }
 
 /*=== manage-list */
@@ -1117,8 +1120,7 @@ input[type="search"] {
 	position: relative;
 }
 
-.flux .flux_header .item .item-element {
-	padding: 0.5rem 0;
+.flux .flux_header .item {
 	white-space: nowrap;
 }
 
