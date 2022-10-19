@@ -44,6 +44,10 @@ a.btn,
 	line-height: 30px;
 }
 
+.horizontal-list .item .item-element {
+	padding: 0;
+}
+
 /*=== Dropdown */
 .item ~ .dropdown-header,
 .item.separator {
