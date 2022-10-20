@@ -16,6 +16,12 @@ class I18nUsageValidator implements I18nValidatorInterface {
 	}
 
 	public function displayReport() {
+		if ($this->failedEntries > $this->totalEntries) {
+			throw new \RuntimeException('The number of unused strings cannot be higher than the number of strings');
+		}
+		if ($this->totalEntries === 0) {
+			return 'There is no data.' . PHP_EOL;
+		}
 		return sprintf('%5.1f%% of translation keys are unused.', $this->failedEntries / $this->totalEntries * 100) . PHP_EOL;
 	}
 
