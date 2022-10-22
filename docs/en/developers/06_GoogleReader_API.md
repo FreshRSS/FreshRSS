@@ -74,7 +74,7 @@ curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e
 ### API documentation from the original Google Reader
 
 * [By Daniel Arowser](http://web.archive.org/web/20130710044440/http://undoc.in/api.html) ([source](https://github.com/arowser/google-reader-api))
-* [By Martin Doms](http://web.archive.org/web/20210126115837/https://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2)
+* [By Martin Doms](http://web.archive.org/web/20210126115837/https://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/)
 * [By Nick Bradbury](https://inessential.com/2013/03/14/google_reader_api_documentation)
 * [By Niall Kennedy](http://web.archive.org/web/20170426184845/http://www.niallkennedy.com/blog/2005/12/google-reader-api.html)
 * [By Mihai Parparita](http://web.archive.org/web/20140919042419/http://code.google.com/p/google-reader-api/w/list) ([source](https://github.com/mihaip/google-reader-api))
