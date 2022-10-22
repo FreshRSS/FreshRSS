@@ -10,10 +10,10 @@ Server-side API compatible with Google Reader API layer 2
 
 == Documentation ==
 * http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
-* http://web.archive.org/web/20130718025427/http://undoc.in/
+* https://web.archive.org/web/20130718025427/http://undoc.in/
 * http://ranchero.com/downloads/GoogleReaderAPI-2009.pdf
 * http://code.google.com/p/google-reader-api/w/list
-* http://web.archive.org/web/20210126115837/https://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/
+* https://web.archive.org/web/20210126115837/https://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/
 * https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/GoogleReaderClient.java
 * https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 * https://github.com/devongovett/reader
@@ -185,7 +185,7 @@ function authorizationToUser() {
 }
 
 function clientLogin($email, $pass) {
-	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
+	//https://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
 		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
