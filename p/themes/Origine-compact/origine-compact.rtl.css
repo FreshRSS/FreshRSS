@@ -45,7 +45,7 @@ a.btn,
 }
 
 .horizontal-list .item .item-element {
-	padding: 0;
+	padding: 1px 0 0 0;
 }
 
 /*=== Dropdown */
@@ -169,6 +169,10 @@ a.btn,
 
 .flux:not(.current):hover .item.title {
 	bottom: 0;
+}
+
+.flux .item.title .item-element {
+	padding: 0;
 }
 
 /*=== Content of feed articles */
