@@ -10,10 +10,10 @@ Server-side API compatible with Google Reader API layer 2
 
 == Documentation ==
 * http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
-* http://web.archive.org/web/20130718025427/http://undoc.in/
+* https://web.archive.org/web/20130718025427/http://undoc.in/
 * http://ranchero.com/downloads/GoogleReaderAPI-2009.pdf
 * http://code.google.com/p/google-reader-api/w/list
-* http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/
+* https://web.archive.org/web/20210126115837/https://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/
 * https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/GoogleReaderClient.java
 * https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 * https://github.com/devongovett/reader
@@ -185,7 +185,7 @@ function authorizationToUser() {
 }
 
 function clientLogin($email, $pass) {
-	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
+	//https://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
 		FreshRSS_Context::initUser($email);
 		if (FreshRSS_Context::$user_conf == null) {
@@ -878,6 +878,10 @@ function markAllAsRead($streamId, $olderThanId) {
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	if (strpos($streamId, 'feed/') === 0) {
 		$f_id = basename($streamId);
+		if (!ctype_digit($f_id)) {
+			badRequest();
+		}
+		$f_id = intval($f_id);
 		$entryDAO->markReadFeed($f_id, $olderThanId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$c_name = substr($streamId, 13);
@@ -891,12 +895,15 @@ function markAllAsRead($streamId, $olderThanId) {
 			$tag = $tagDAO->searchByName($c_name);
 			if ($tag != null) {
 				$entryDAO->markReadTag($tag->id(), $olderThanId);
+			} else {
+				badRequest();
 			}
 		}
 	} elseif ($streamId === 'user/-/state/com.google/reading-list') {
 		$entryDAO->markReadEntries($olderThanId, false, -1);
+	} else {
+		badRequest();
 	}
-
 	exit('OK');
 }
 
@@ -1105,10 +1112,10 @@ if ($pathInfos[1] === 'accounts') {
 		case 'mark-all-as-read':
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
 			checkToken(FreshRSS_Context::$user_conf, $token);
-			$streamId = $_POST['s'];	//StreamId
+			$streamId = $_POST['s'] ?? '';
 			$ts = isset($_POST['ts']) ? $_POST['ts'] : '0';	//Older than timestamp in nanoseconds
 			if (!ctype_digit($ts)) {
-				$ts = '0';
+				badRequest();
 			}
 			markAllAsRead($streamId, $ts);
 			break;
