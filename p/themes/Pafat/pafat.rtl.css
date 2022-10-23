@@ -721,6 +721,10 @@ a.signin {
 	border-right: 3px solid #d9534f;
 }
 
+.flux:not(.current):hover .item.title {
+	bottom: 0;
+}
+
 .flux .item.title a, .flux.not_read:not(.current):hover .item.title {
 	color: #333;
 }
@@ -747,8 +751,8 @@ a.signin {
 	font-size: 0.9rem;
 }
 
-.flux .website .favicon {
-	padding: 5px;
+.flux_header .title .item-element {
+	padding: 0.425rem;
 }
 
 .flux .item.date {
