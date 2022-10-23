@@ -181,4 +181,4 @@ cli/user-info.php --json | jq -r '.[] | select((.last_user_activity | fromdate) 
 # Install and updates
 
 If you want to administrate FreshRSS using git, please read our [installation docs](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)
-and [update guidelines](https://freshrss.github.io/FreshRSS/en/admins/03_Updating.html).
+and [update guidelines](https://freshrss.github.io/FreshRSS/en/admins/04_Updating.html).
