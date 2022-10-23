@@ -574,6 +574,10 @@ input[type="checkbox"]:focus-visible {
 	vertical-align: middle;
 }
 
+.horizontal-list .item .item-element {
+	padding: 0.5rem 0;
+}
+
 /*=== manage-list */
 .manage-list {
 	list-style: none;
@@ -1116,8 +1120,7 @@ input[type="search"] {
 	position: relative;
 }
 
-.flux .item {
-	padding: 0.5rem 0;
+.flux .flux_header .item {
 	white-space: nowrap;
 }
 
@@ -1160,7 +1163,7 @@ a.website:hover .favicon {
 
 .flux .item.thumbnail {
 	line-height: 0;
-	padding: 10px;
+	padding: 0.75rem;
 	height: 80px;
 }
 
@@ -1239,7 +1242,7 @@ a.website:hover .favicon {
 }
 
 .flux_content .bottom .dropdown-toggle .icon {
-	margin-left: 5px;
+	margin-left: 0.25rem;
 }
 
 /*=== Feed article content */
@@ -1248,7 +1251,7 @@ a.website:hover .favicon {
 }
 
 .content {
-	min-height: 20em;
+	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
 	word-wrap: break-word;
@@ -1295,7 +1298,8 @@ a.website:hover .favicon {
 
 .content > header .tags .icon,
 .content > footer .tags .icon {
-	padding: 2px 0 0 10px;
+	padding: 0 0 0 1rem;
+	line-height: 1.5;
 }
 
 .content > header .tags .list-tags,
@@ -1308,9 +1312,9 @@ a.website:hover .favicon {
 
 .content > header .tags .list-tags .item.tag,
 .content > footer .tags .list-tags .item.tag {
+	padding: 0 0 0 0.75rem;
 	display: inline-block;
-	padding-left: 0.75em;
-	line-height: normal;
+	line-height: 1.5;
 }
 
 .content > header .tags .list-tags .item.tag a.link-tag,
@@ -1319,14 +1323,14 @@ a.website:hover .favicon {
 }
 
 .content > header h1 {
-	margin: 0.5em 0;
+	margin: 0.5rem 0;
 }
 
 .content .text ul,
 .content .text ol,
 .content .text dd {
-	margin: 0 15px 0 0;
-	padding: 0 15px 5px 0;
+	margin: 0 1rem 0 0;
+	padding: 0 1rem 0.25rem 0;
 }
 
 .content pre {

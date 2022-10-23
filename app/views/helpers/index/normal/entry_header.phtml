@@ -16,7 +16,7 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = 0;
 				}
-				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
+				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
 					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -26,13 +26,13 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = 0;
 				}
-				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
+				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
 	}
 	?><li class="item website">
-		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
+		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
 			<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><span><?= $this->feed->name() ?></span>
 		</a>
 	</li>
@@ -42,15 +42,15 @@
 	?><li class="item thumbnail <?= $topline_thumbnail ?> <?= $topline_summary ? '' : 'small' ?>"><?php
 		$thumbnail = $this->entry->thumbnail();
 		if ($thumbnail != null):
-			?><img src="<?= htmlspecialchars($thumbnail['url'], ENT_COMPAT, 'UTF-8') ?>"<?= $lazyload ? ' loading="lazy"' : '' ?><?=
+			?><img src="<?= htmlspecialchars($thumbnail['url'], ENT_COMPAT, 'UTF-8') ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?><?=
 				empty($thumbnail['alt']) ? '' : ' alt="' . htmlspecialchars(strip_tags($thumbnail['alt']), ENT_COMPAT, 'UTF-8') . '"' ?> /><?php
 		endif;
 	?></li><?php
 	endif; ?>
 
-	<li class="item title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
+	<li class="item title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
-			?><span class="author"><?php
+			?><span class="item-element author"><?php
 			$authors = $this->entry->authors();
 			if (is_array($authors)) {
 				$first = true;
@@ -62,10 +62,10 @@
 			?></span><?php
 		endif;
 		if ($topline_summary):
-			?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content()), 0, 500, 'UTF-8')) ?></div><?php
+			?><div class="item-element summary"><?= trim(mb_substr(strip_tags($this->entry->content()), 0, 500, 'UTF-8')) ?></div><?php
 		endif;
 	?></a></li>
-	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>
-	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?=
+	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>" class="item-element"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>
+	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
 		_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>
