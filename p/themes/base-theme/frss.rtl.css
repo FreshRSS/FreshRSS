@@ -570,7 +570,6 @@ input[type="checkbox"]:focus-visible {
 }
 
 .horizontal-list .item {
-	padding: 0.5rem 0;
 	display: table-cell;
 	vertical-align: middle;
 }
@@ -583,6 +582,10 @@ input[type="checkbox"]:focus-visible {
 .horizontal-list.wrapTitle_desktop3 .item,
 .horizontal-list.wrapTitle_desktop4 .item {
 	vertical-align: top;
+}
+
+.horizontal-list .item .item-element {
+	padding: 0.5rem 0;
 }
 
 /*=== manage-list */
@@ -1128,7 +1131,6 @@ input[type="search"] {
 }
 
 .flux .flux_header .item {
-	padding: 0.5rem 0;
 	white-space: nowrap;
 }
 
