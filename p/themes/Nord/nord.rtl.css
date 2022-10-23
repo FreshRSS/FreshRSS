@@ -590,6 +590,7 @@ li.item.active {
 .flux:not(.current):hover .item.title {
 	background: var(--accent-bg);
 	transition: .4s;
+	bottom: 0;
 }
 
 .flux .item.title a {
