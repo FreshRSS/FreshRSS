@@ -16,6 +16,12 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 	}
 
 	public function displayReport() {
+		if ($this->passEntries > $this->totalEntries) {
+			throw new \RuntimeException('The number of translated strings cannot be higher than the number of strings');
+		}
+		if ($this->totalEntries === 0) {
+			return 'There is no data.' . PHP_EOL;
+		}
 		return sprintf('Translation is %5.1f%% complete.', $this->passEntries / $this->totalEntries * 100) . PHP_EOL;
 	}
 
@@ -27,7 +33,7 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $refKey => $refValue) {
 				$this->totalEntries++;
-				if (!array_key_exists($refKey, $this->language[$file])) {
+				if (!array_key_exists($file, $this->language) || !array_key_exists($refKey, $this->language[$file])) {
 					$this->result .= "Missing key $refKey" . PHP_EOL;
 					continue;
 				}

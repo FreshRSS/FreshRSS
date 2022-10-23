@@ -140,6 +140,7 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
+		'el' => 'Ελληνικά',
 		'en' => 'English',
 		'en-us' => 'English (United States)',
 		'es' => 'Español',
