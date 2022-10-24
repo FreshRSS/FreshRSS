@@ -102,7 +102,7 @@ return array(
 			'order' => 'Sort by date',
 			'search' => 'Expression',
 			'state' => 'State',
-			'tags' => 'Display by tag',
+			'tags' => 'Display by label',
 			'type' => 'Type',
 		),
 		'get_all' => 'Display all articles',
