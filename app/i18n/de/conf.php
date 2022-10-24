@@ -102,7 +102,7 @@ return array(
 			'order' => 'Nach Datum sortieren',
 			'search' => 'Suchbegriff',
 			'state' => 'Eigenschaft',
-			'tags' => 'Nach Tag filtern',
+			'tags' => 'Nach Labels filtern',
 			'type' => 'Filter-Typ',
 		),
 		'get_all' => 'Alle Artikel anzeigen',
