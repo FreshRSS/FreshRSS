@@ -102,7 +102,7 @@ return array(
 			'order' => 'Sorteren op datum',
 			'search' => 'Expressie',
 			'state' => 'Status',
-			'tags' => 'Weergeven op tag',	// DIRTY
+			'tags' => 'Weergeven op label',
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Toon alle artikelen',
