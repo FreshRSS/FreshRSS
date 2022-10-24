@@ -102,7 +102,7 @@ return array(
 			'order' => 'Ordina per data',
 			'search' => 'Espressione',
 			'state' => 'Stato',
-			'tags' => 'Mostra per tag',
+			'tags' => 'Mostra per tag',	// DIRTY
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostra tutti gli articoli',

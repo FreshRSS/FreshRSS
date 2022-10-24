@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// TODO
 	),
 	'tag' => array(
-		'created' => 'Tag “%s”has been created.',	// DIRTY
-		'name_exists' => 'Tag name already exists.',	// TODO
-		'renamed' => 'Tag “%s”has been renamed to “%s”.',	// DIRTY
+		'created' => 'Label “%s”has been created.',	// DIRTY
+		'name_exists' => 'Label name already exists.',	// TODO
+		'renamed' => 'Label “%s”has been renamed to “%s”.',	// DIRTY
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// TODO
