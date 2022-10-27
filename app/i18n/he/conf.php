@@ -102,7 +102,7 @@ return array(
 			'order' => 'Sort by date',	// TODO
 			'search' => 'Expression',	// TODO
 			'state' => 'State',	// TODO
-			'tags' => 'Display by tag',	// TODO
+			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'הצגת כל המאמרים',
