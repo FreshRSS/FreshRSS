@@ -330,7 +330,7 @@ form th {
 }
 .dropdown-menu .dropdown-header {
 	cursor: default;
-	padding: 0 0.5rem 0.5rem;
+	padding: 0.5rem 10px 0.5rem 10px;
 	font-weight: bold;
 	color: #fcfcfc;
 }
@@ -636,7 +636,7 @@ form th {
 }
 .header .item.configure .dropdown .dropdown-menu {
 	max-height: calc(100vh - 45px);
-	overflow: scroll;
+	overflow: auto;
 }
 .header .item.configure .dropdown .dropdown-menu .icon {
 	filter: brightness(3);
@@ -980,6 +980,9 @@ a.signin {
 		width: 35px;
 		text-align: center;
 	}
+	.flux:not(.current):hover .item.title {
+		top: auto !important;
+	}
 	.aside {
 		padding: 0;
 		width: 0;
@@ -1199,5 +1202,3 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */
