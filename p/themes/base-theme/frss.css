@@ -737,7 +737,7 @@ input[type="checkbox"]:focus-visible {
 	display: inline-block;
 	max-width: none;
 	width: 1rem;
-	height: 1rem;
+	height: inherit;
 	vertical-align: middle;
 	line-height: 1;
 }
