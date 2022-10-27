@@ -815,7 +815,7 @@ form {
 
 		.dropdown .dropdown-menu {
 			max-height: calc(100vh - 45px);
-			overflow: scroll;
+			overflow: auto;
 
 			.icon {
 				filter: brightness(3);

@@ -636,7 +636,7 @@ form th {
 }
 .header .item.configure .dropdown .dropdown-menu {
 	max-height: calc(100vh - 45px);
-	overflow: scroll;
+	overflow: auto;
 }
 .header .item.configure .dropdown .dropdown-menu .icon {
 	filter: brightness(3);
