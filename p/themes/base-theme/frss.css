@@ -1222,7 +1222,6 @@ a.website:hover .favicon {
 .flux .item.title .author {
 	padding-left: 1rem;
 	color: var(--frss-font-color-grey-dark);
-	font-size: 0.9rem;
 	font-weight: normal;
 }
 
