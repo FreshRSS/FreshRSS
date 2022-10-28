@@ -557,7 +557,12 @@ li.item.active {
 }
 
 .flux .website .favicon {
-	padding: 3px;
+	padding: 0.25rem;
+	position: absolute;
+}
+
+.flux .website span {
+	margin-left: 2rem;
 }
 
 .flux .item.date {
@@ -577,10 +582,6 @@ li.item.active {
 	background-color: var(--accent-bg);
 	transition: .4s;
 
-}
-
-.flux .item {
-	line-height: 30px;
 }
 
 .flux.current {
