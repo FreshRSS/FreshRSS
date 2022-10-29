@@ -5,7 +5,7 @@
 input, select, textarea {
 	padding: 3px 5px 2px 5px;
 	min-height: 25px;
-	line-height: 25px;
+	line-height: 2;
 }
 
 /*=== COMPONENTS */
@@ -25,12 +25,13 @@ input, select, textarea {
 	margin: 0;
 	padding: 5px 10px;
 	min-height: 32px;
+	line-height: 1.4;
 }
 
 a.btn,
 .stick .btn {
 	min-height: 20px;
-	line-height: 20px;
+	line-height: 1.4;
 }
 
 /*=== Navigation */
@@ -41,7 +42,7 @@ a.btn,
 }
 
 .horizontal-list .item {
-	line-height: 30px;
+	line-height: 2.2;
 }
 
 .horizontal-list .item .item-element {
@@ -60,12 +61,12 @@ a.btn,
 /*=== Tree */
 .tree-folder-title {
 	padding: 0 5px;
-	line-height: 2rem;
+	line-height: 2.2;
 	font-size: 0.9rem;
 }
 
 .tree-folder-items > .item {
-	line-height: 2.2rem;
+	line-height: 2.4;
 }
 
 /*=== STRUCTURE */
@@ -83,7 +84,7 @@ a.btn,
 .header .item.search .btn {
 	min-height: 18px;
 	padding: 4px 10px;
-	line-height: 18px;
+	line-height: 1.4;
 }
 
 .header > .item.title .logo {
@@ -112,7 +113,7 @@ a.btn,
 /*=== Day indication */
 .day {
 	font-size: 0.9rem;
-	line-height: 2em;
+	line-height: 2;
 }
 
 .day .name {
@@ -188,7 +189,7 @@ a.btn,
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	line-height: 2.2em;
+	line-height: 2.2;
 }
 
 /*=== READER VIEW */

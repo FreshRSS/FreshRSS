@@ -265,7 +265,7 @@ form th {
 	border-radius: 3px;
 	min-height: 37px;
 	min-width: 15px;
-	line-height: 25px;
+	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
@@ -274,7 +274,7 @@ form th {
 a.btn,
 .stick .btn {
 	min-height: 25px;
-	line-height: 25px;
+	line-height: 1.7;
 }
 
 .btn:hover {
@@ -354,7 +354,7 @@ a:hover .icon {
 .nav-list .nav-header,
 .nav-list .item {
 	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
@@ -447,7 +447,7 @@ a:hover .icon {
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.8rem;
 }
 
@@ -567,8 +567,9 @@ a:hover .icon {
 }
 
 .box .box-content .item {
+	padding: 0.5rem 0 0.25rem 0;
 	font-size: 0.9rem;
-	line-height: 2.5em;
+	line-height: 1.5;
 }
 
 /*=== Tree */
@@ -580,7 +581,7 @@ a:hover .icon {
 	position: relative;
 	padding: 0 10px;
 	background-color: var(--background-color-light);
-	line-height: 2.5rem;
+	line-height: 2.5;
 	font-size: 1rem;
 }
 
@@ -614,7 +615,7 @@ a:hover .icon {
 
 .tree-folder-items > .item {
 	padding: 0 10px;
-	line-height: 2.5rem;
+	line-height: 3.125;
 	font-size: 0.8rem;
 }
 
@@ -794,9 +795,13 @@ a:hover .icon {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
 	background-color: var(--background-color-light);
 	border-top: 1px solid var(--border-color);
+}
+
+.day span {
+	line-height: 1.5;
 }
 
 #new-article + .day {
@@ -960,7 +965,7 @@ a:hover .icon {
 
 .notification a.close {
 	padding: 0 15px;
-	line-height: 3em;
+	line-height: 3;
 }
 
 .notification a.close:hover .icon {
@@ -976,7 +981,7 @@ a:hover .icon {
 }
 
 .notification#actualizeProgress {
-	line-height: 2em;
+	line-height: 2;
 }
 
 /*=== "Load more" part */
@@ -1003,7 +1008,7 @@ a:hover .icon {
 	background-color: var(--background-color-light);
 	border-top: 1px solid var(--border-color);
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 }
 
