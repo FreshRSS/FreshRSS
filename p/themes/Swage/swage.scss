@@ -711,13 +711,11 @@ form {
 	margin: 10px 0;
 }
 
-.tree-folder-title {
-	padding: 0 10px;
+.aside_feed .tree-folder-title {
+	padding: 0.3rem 0.75rem;
 	background: $color_aside;
-	height: 35px;
 	font-size: 1rem;
 	position: relative;
-	line-height: 2rem;
 
 	.title {
 		background: inherit;
@@ -865,6 +863,7 @@ form {
 
 .aside_feed {
 	.category .title:not([data-unread="0"])::after {
+		margin: 0.5rem 0 0 0;
 		background-color: #00488b;
 		color: #fcfcfc;
 	}

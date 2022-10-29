@@ -549,19 +549,17 @@ form th {
 	margin: 10px 0;
 }
 
-.tree-folder-title {
-	padding: 0 10px;
+.aside_feed .tree-folder-title {
+	padding: 0.3rem 0.75rem;
 	background: #22303d;
-	height: 35px;
 	font-size: 1rem;
 	position: relative;
-	line-height: 2rem;
 }
-.tree-folder-title .title {
+.aside_feed .tree-folder-title .title {
 	background: inherit;
 	color: #fcfcfc;
 }
-.tree-folder-title .title:hover {
+.aside_feed .tree-folder-title .title:hover {
 	text-decoration: none;
 }
 
@@ -665,6 +663,7 @@ form th {
 }
 
 .aside_feed .category .title:not([data-unread="0"])::after {
+	margin: 0.5rem 0 0 0;
 	background-color: #00488b;
 	color: #fcfcfc;
 }
@@ -789,6 +788,7 @@ form th {
 .flux:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background: #fff;
+	top: 0.15rem;
 }
 .flux.favorite:not(.current) {
 	background: #fff6da;

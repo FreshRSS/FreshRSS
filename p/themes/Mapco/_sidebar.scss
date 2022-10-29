@@ -18,7 +18,7 @@
 		border-bottom: 1px solid variables.$sid-sep;
 
 		.tree-folder-title {
-			padding: 12px 16px;
+			padding: 1rem;
 			background: variables.$sid-bg;
 			position: relative;
 			font-size: 0.85rem;
@@ -231,7 +231,7 @@
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1.5em 0 0 0;
+	margin: 1rem 0 0 0;
 	background-color: variables.$sid-pills;
 }
 
