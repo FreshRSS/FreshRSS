@@ -431,7 +431,7 @@ a.btn {
 
 .tree-folder-title {
 	margin: 5px;
-	padding: 0 10px;
+	padding: 0.125rem 0.5rem;
 	background: #5bc0de;
 	color: #fff;
 	font-size: 0.9rem;
@@ -549,7 +549,7 @@ a.signin {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	right: 5px;
+	right: 0.5rem;
 }
 
 .aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
