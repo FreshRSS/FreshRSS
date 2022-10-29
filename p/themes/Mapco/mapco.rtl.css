@@ -1089,13 +1089,6 @@ main.prompt {
 #stream .box.category .box-title a.title:hover {
 	color: #36c;
 }
-#stream .box.category .box-content {
-	padding-bottom: 0.5rem;
-}
-#stream .box.category .box-content .item.feed {
-	padding: 0.5rem 1.5rem;
-	font-size: 1rem;
-}
 #stream .box.category .box-content .item.feed a {
 	color: #303136;
 	font-weight: 400;
