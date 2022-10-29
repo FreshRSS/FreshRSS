@@ -123,10 +123,6 @@ a.btn,
 
 /*=== Index menu */
 /*=== Feed articles */
-.flux_header {
-	font-size: 0.8rem;
-}
-
 .flux .item {
 	padding: 0;
 }
@@ -168,12 +164,8 @@ a.btn,
 	max-height: 1.5em;
 }
 
-.flux:not(.current):hover .item.title {
-	bottom: 0;
-}
-
-.flux .item.title .item-element {
-	padding: 0;
+.flux .flux_header .item .item-element {
+	padding: 0.25rem 0;
 }
 
 /*=== Content of feed articles */

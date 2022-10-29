@@ -436,7 +436,7 @@ form {
 
 	.dropdown-header {
 		cursor: default;
-		padding: 0 0.5rem 0.5rem;
+		padding: 0.5rem 10px 0.5rem 10px;
 		font-weight: bold;
 		color: $color_light;
 
@@ -815,7 +815,7 @@ form {
 
 		.dropdown .dropdown-menu {
 			max-height: calc(100vh - 45px);
-			overflow: scroll;
+			overflow: auto;
 
 			.icon {
 				filter: brightness(3);
@@ -1051,10 +1051,6 @@ form {
 	.bottom {
 		font-size: 0.8rem;
 		text-align: center;
-	}
-
-	.website .favicon {
-		padding: 5px;
 	}
 
 	label {

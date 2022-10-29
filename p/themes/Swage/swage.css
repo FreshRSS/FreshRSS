@@ -149,16 +149,13 @@ form th {
 		scrollbar-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
 		scrollbar-width: thin;
 	}
-
 	#sidebar:hover,
 .scrollbar-thin:hover {
 		scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
 	}
-
 	#slider.scrollbar-thin {
 		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
 	}
-
 	#slider.scrollbar-thin:hover {
 		scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
 	}
@@ -169,27 +166,22 @@ form th {
 		background: rgba(255, 255, 255, 0);
 		width: 8px;
 	}
-
 	#sidebar::-webkit-scrollbar-thumb,
 .scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0);
 		display: unset;
 		border-radius: 5px;
 	}
-
 	#sidebar:hover::-webkit-scrollbar-thumb,
 .scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.5);
 	}
-
 	#slider.scrollbar-thin::-webkit-scrollbar {
 		background: rgba(0, 0, 0, 0.05);
 	}
-
 	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.1);
 	}
-
 	#slider.scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background: rgba(0, 0, 0, 0.3);
 	}
@@ -338,7 +330,7 @@ form th {
 }
 .dropdown-menu .dropdown-header {
 	cursor: default;
-	padding: 0 0.5rem 0.5rem;
+	padding: 0.5rem 10px 0.5rem 10px;
 	font-weight: bold;
 	color: #fcfcfc;
 }
@@ -593,7 +585,6 @@ form th {
 	#sidebar {
 		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0);
 	}
-
 	#sidebar:hover {
 		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0);
 	}
@@ -602,7 +593,6 @@ form th {
 	#sidebar::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.1);
 	}
-
 	#sidebar:hover::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.3);
 	}
@@ -646,7 +636,7 @@ form th {
 }
 .header .item.configure .dropdown .dropdown-menu {
 	max-height: calc(100vh - 45px);
-	overflow: scroll;
+	overflow: auto;
 }
 .header .item.configure .dropdown .dropdown-menu .icon {
 	filter: brightness(3);
@@ -799,7 +789,6 @@ form th {
 .flux:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background: #fff;
-	top: 0.15rem;
 }
 .flux.favorite:not(.current) {
 	background: #fff6da;
@@ -820,9 +809,6 @@ form th {
 .flux .bottom {
 	font-size: 0.8rem;
 	text-align: center;
-}
-.flux .website .favicon {
-	padding: 5px;
 }
 .flux label {
 	color: #fcfcfc;
@@ -961,21 +947,17 @@ a.signin {
 	body:not(.formLogin, .register) .header .item.title {
 		display: none;
 	}
-
 	.form-group .group-name {
 		padding-bottom: 0;
 		text-align: left;
 	}
-
 	.dropdown {
 		position: relative;
 	}
-
 	#new-article {
 		margin-top: 2rem;
 		width: 100%;
 	}
-
 	.header {
 		display: table;
 	}
@@ -990,21 +972,17 @@ a.signin {
 	.header .item.configure > .icon {
 		margin-top: 5px;
 	}
-
 	button.read_all.btn {
 		display: none;
 	}
-
 	.flux .item.manage,
 .flux_header .item.website {
 		width: 35px;
 		text-align: center;
 	}
-
 	.flux:not(.current):hover .item.title {
 		top: auto !important;
 	}
-
 	.aside {
 		padding: 0;
 		width: 0;
@@ -1029,7 +1007,6 @@ a.signin {
 		width: 78%;
 		z-index: 1000;
 	}
-
 	#slider .toggle_aside {
 		background: #22303d;
 	}
@@ -1039,7 +1016,6 @@ a.signin {
 	#slider .toggle_aside .icon {
 		filter: brightness(3);
 	}
-
 	.nav_menu {
 		height: 71px;
 	}
@@ -1064,7 +1040,6 @@ a.signin {
 	.nav_menu .item.search input {
 		width: 100%;
 	}
-
 	#panel .close,
 .dropdown-menu .toggle_aside {
 		background: #22303d;
@@ -1078,21 +1053,17 @@ a.signin {
 .dropdown-menu .toggle_aside:hover {
 		background-color: #0062be;
 	}
-
 	.dropdown-target:target ~ .dropdown-toggle::after,
 .dropdown-target:target ~ .dropdown-toggle.btn::after {
 		display: none;
 	}
-
 	.share .dropdown-menu {
 		right: 3%;
 		left: auto;
 	}
-
 	.day .name {
 		font-size: 1.1rem;
 	}
-
 	.notification {
 		width: 100%;
 	}
@@ -1107,25 +1078,20 @@ a.signin {
 	.notification a.close .icon {
 		display: none;
 	}
-
 	#nav_entries {
 		width: 100% !important;
 	}
-
 	.post {
 		padding-left: 15px;
 		padding-right: 15px;
 	}
-
 	div#stream {
 		margin-top: 0px;
 	}
-
 	a.btn.toggle_aside {
 		position: absolute;
 		top: 0;
 	}
-
 	form#mark-read-menu,
 a#actualize,
 a#toggle-order,
@@ -1133,31 +1099,25 @@ div#nav_menu_actions,
 div#nav_menu_views {
 		position: absolute;
 	}
-
 	form#mark-read-menu {
 		right: 38px;
 		top: 0;
 	}
-
 	a#actualize,
 a#toggle-order {
 		right: 0;
 	}
-
 	a#actualize {
 		top: 0;
 	}
-
 	a#toggle-order,
 div#nav_menu_actions,
 div#nav_menu_views {
 		top: 36px;
 	}
-
 	div#nav_menu_actions {
 		left: 0px;
 	}
-
 	div#nav_menu_views {
 		right: 50px;
 	}
@@ -1242,5 +1202,3 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

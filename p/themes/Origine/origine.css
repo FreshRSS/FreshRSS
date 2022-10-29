@@ -871,10 +871,6 @@ a:hover .icon {
 	cursor: pointer;
 }
 
-.flux .website .favicon {
-	padding: 5px;
-}
-
 .flux .item.date {
 	color: var(--font-color-grey);
 	font-size: 0.7rem;
