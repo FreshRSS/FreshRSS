@@ -1134,6 +1134,11 @@ input[type="search"] {
 	white-space: nowrap;
 }
 
+.flux .flux_header .item .item-element {
+	padding: 0.5rem 0;
+	line-height: 1.5rem;
+}
+
 .flux .flux_header .item.manage,
 .flux .flux_header .item.link {
 	width: 40px;
@@ -1159,7 +1164,6 @@ a.website:hover .favicon {
 	background-color: var(--frss-background-color);
 	max-width: calc(100% - 320px);
 	position: absolute;
-	bottom: 2px;
 }
 
 .flux:not(.current):hover .wrapTitle_desktop2 .item.title,
@@ -1234,7 +1238,6 @@ a.website:hover .favicon {
 .flux .item.title .author {
 	padding-left: 1rem;
 	color: var(--frss-font-color-grey-dark);
-	font-size: 0.9rem;
 	font-weight: normal;
 }
 
