@@ -395,9 +395,8 @@ img.favicon {
 
 .tree-folder-title {
 	position: relative;
-	padding: 0 10px;
+	padding: 0.25rem 0.75rem;
 	font-size: 1rem;
-	line-height: 2.1rem;
 }
 
 .tree-folder-title .title:hover {
@@ -1017,7 +1016,6 @@ input.extend {
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 1.5rem;
 }
 
 /*=== Aside main page (feeds) */

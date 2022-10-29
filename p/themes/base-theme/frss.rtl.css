@@ -1050,11 +1050,11 @@ input[type="search"] {
 }
 
 .aside_feed .tree-folder-title .icon {
-	padding: 5px;
+	padding: 0 0.25rem;
 }
 
 .aside_feed .tree-folder-items .item.feed {
-	padding: 0px 15px;
+	padding: 0 0.75rem;
 }
 
 .aside_feed .tree-folder-items:not(.active) {
@@ -1770,17 +1770,17 @@ input:checked + .slide-container .properties {
 
 .aside .category .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
-	margin: 0.75em 0 0 0;
-	padding: 5px 10px;
-	min-width: 20px;
+	margin: 0.6rem 0 0 0;
+	padding: 0.25rem 0.5rem;
+	min-width: 2rem;
 	display: block;
 	content: attr(data-unread);
 	position: absolute;
 	top: 0;
-	left: 10px;
+	left: 0.75rem;
 	text-align: center;
 	font-size: 0.9rem;
-	border-radius: 12px;
+	border-radius: 0.75rem;
 	line-height: 1;
 	font-weight: initial;
 }
