@@ -738,8 +738,7 @@ input[type="checkbox"]:focus-visible {
 .icon {
 	display: inline-block;
 	max-width: none;
-	width: 1rem;
-	height: inherit;
+	height: 1rem;
 	vertical-align: middle;
 	line-height: 1;
 }
