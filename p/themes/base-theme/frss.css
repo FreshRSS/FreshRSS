@@ -38,6 +38,8 @@
 
 	--frss-loading-image: url("loader.gif");
 
+	--frss-padding-flux-items: 0.75rem;
+
 	line-height: 1.5;
 }
 
@@ -1139,15 +1141,20 @@ input[type="search"] {
 	line-height: 1.5rem;
 }
 
+.flux .flux_header .item.manage .item-element,
+.flux .flux_header .item.website .item-element,
+.flux .flux_header .item.link .item-element {
+	padding-left: var(--frss-padding-flux-items);
+	padding-right: var(--frss-padding-flux-items);
+}
+
 .flux .flux_header .item.manage,
 .flux .flux_header .item.link {
-	width: 40px;
-	text-align: center;
+	width: calc(1rem + 2 * var(--frss-padding-flux-items));
 }
 
 .flux .flux_header .item.website {
 	width: 200px;
-	padding-right: 10px;
 }
 
 .website a:hover .favicon,
@@ -1948,6 +1955,10 @@ input:checked + .slide-container .properties {
 /*===========*/
 
 @media (max-width: 840px) {
+	:root {
+		--frss-padding-flux-items: 0.5rem;
+	}
+
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
