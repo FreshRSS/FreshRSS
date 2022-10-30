@@ -1836,7 +1836,7 @@ input:checked + .slide-container .properties {
 
 .feed .item-title:not([data-unread="0"]) {
 	font-weight: bold;
-	width: calc(100% - 80px);
+	width: calc(100% - 5.5rem);
 }
 
 .state_unread .category:not(.active)[data-unread="0"],
