@@ -1917,6 +1917,10 @@ input:checked + .slide-container .properties {
 /*===========*/
 
 @media (max-width: 840px) {
+	:root {
+		--frss-padding-flux-items: 0.5rem;
+	}
+
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
