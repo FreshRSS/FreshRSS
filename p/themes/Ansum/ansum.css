@@ -462,7 +462,7 @@ form th {
 	box-shadow: inset -1px -11px 8px rgba(0, 0, 0, 0.2);
 }
 .tree .tree-folder .tree-folder-title {
-	padding: 1rem 1rem;
+	padding: 1rem;
 	background: #fbf9f6;
 	position: relative;
 	font-size: 0.85rem;
@@ -1070,13 +1070,6 @@ main.prompt {
 }
 #stream .box.category .box-title a.title:hover {
 	color: #ca7227;
-}
-#stream .box.category .box-content {
-	padding-bottom: 0.5rem;
-}
-#stream .box.category .box-content .item.feed {
-	padding: 0.5rem 1.5rem;
-	font-size: 1rem;
 }
 #stream .box.category .box-content .item.feed a {
 	color: #363330;

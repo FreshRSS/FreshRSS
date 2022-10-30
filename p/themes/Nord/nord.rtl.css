@@ -1080,11 +1080,6 @@ input.extend {
 	text-shadow: none;
 }
 
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
-}
-
 #panel {
 	background-color: var(--bg);
 }
