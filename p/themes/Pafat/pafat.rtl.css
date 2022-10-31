@@ -34,13 +34,11 @@ textarea {
 }
 
 input, select, textarea {
-	padding: 1px;
+	padding: 7px;
 	background: #fdfdfd;
 	color: #666;
 	border: 1px solid #bbb;
 	border-radius: 3px;
-	min-height: 25px;
-	line-height: 21px;
 	vertical-align: middle;
 }
 
@@ -160,7 +158,7 @@ form th {
 	border-radius: 3px;
 	min-height: 29px;
 	min-width: 15px;
-	line-height: 25px;
+	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
@@ -168,7 +166,7 @@ form th {
 
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
+	line-height: 1.7;
 }
 
 .read_all.btn {
@@ -224,7 +222,7 @@ a.btn {
 .nav-list .nav-header,
 .nav-list .item {
 	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
@@ -310,7 +308,7 @@ a.btn {
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2.5em;
+	line-height: 2.5;
 	color: #666;
 	font-size: 0.8rem;
 }
@@ -421,7 +419,7 @@ a.btn {
 
 .box .box-content .item {
 	font-size: 0.9rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -442,7 +440,7 @@ a.btn {
 	border-bottom: 1px solid transparent;
 	border-radius: 0.25rem;
 	position: relative;
-	line-height: 2rem;
+	line-height: 2.15;
 }
 
 .tree-folder-title .title {
@@ -469,7 +467,7 @@ a.btn {
 
 .aside_feed .tree-folder-items > .item.feed {
 	padding: 0 0.5rem;
-	line-height: 2.5rem;
+	line-height: 3.1;
 	font-size: 0.8rem;
 }
 
@@ -550,7 +548,7 @@ a.signin {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	margin: 0.5em 0 0 0;
+	margin: 0.75em 0 0 0;
 	background-color: white;
 	color: #428bca;
 }
@@ -676,7 +674,7 @@ a.signin {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: 0.75rem;
 	color: #fff;
 	font-weight: bold;
 }
@@ -694,7 +692,11 @@ a.signin {
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
+}
+
+.day span {
+	line-height: 1.5;
 }
 
 #new-article + .day {
@@ -857,7 +859,7 @@ a.signin {
 
 .notification a.close {
 	padding: 0 15px;
-	line-height: 3em;
+	line-height: 3;
 }
 
 .notification.good a.close:hover {
@@ -869,7 +871,7 @@ a.signin {
 }
 
 .notification#actualizeProgress {
-	line-height: 2em;
+	line-height: 2;
 }
 
 /*=== "Load more" part */
@@ -895,7 +897,7 @@ a.signin {
 	background: #fff;
 	border-top: 1px solid #ddd;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 }
 
@@ -940,14 +942,9 @@ a.signin {
 
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
-	font-size: 0.8rem;
 	border: 0;
 	box-shadow: none;
-	position: absolute;
-	top: 5px; left: 10px;
-	font-weight: bold;
 	text-shadow: none;
-	line-height: 1.6rem;
 }
 
 /*=== DIVERS */
