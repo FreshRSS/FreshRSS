@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivar',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinamic',
-			'help' => 'Fornís l’URL per un <a href=http://opml.org/ target=_blank>fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
+			'help' => 'Fornís l’URL per un <a href="http://opml.org/" target="_blank">fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
 		),
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'item vinheta',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'item data',

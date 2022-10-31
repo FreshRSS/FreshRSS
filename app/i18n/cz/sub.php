@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivace',
 		'dynamic_opml' => array(
 			'_' => 'Dynamický OPML',
-			'help' => 'Zadejte adresu URL na <a href=http://opml.org/ target=_blank>OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
+			'help' => 'Zadejte adresu URL na <a href="http://opml.org/" target="_blank">OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
 		),
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'náhled položky',
 					'help' => 'Příklad: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'datum položky',

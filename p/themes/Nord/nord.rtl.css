@@ -395,9 +395,8 @@ img.favicon {
 
 .tree-folder-title {
 	position: relative;
-	padding: 0 10px;
+	padding: 0.25rem 0.75rem;
 	font-size: 1rem;
-	line-height: 2.1rem;
 }
 
 .tree-folder-title .title:hover {
@@ -557,7 +556,12 @@ li.item.active {
 }
 
 .flux .website .favicon {
-	padding: 3px;
+	padding: 0.25rem;
+	position: absolute;
+}
+
+.flux .website span {
+	margin-right: 2rem;
 }
 
 .flux .item.date {
@@ -577,10 +581,6 @@ li.item.active {
 	background-color: var(--accent-bg);
 	transition: .4s;
 
-}
-
-.flux .item {
-	line-height: 30px;
 }
 
 .flux.current {
@@ -1006,7 +1006,6 @@ input.extend {
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 1.5rem;
 }
 
 /*=== Aside main page (feeds) */
@@ -1069,11 +1068,6 @@ input.extend {
 	font-weight: bold;
 	box-shadow: none;
 	text-shadow: none;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 #panel {

@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Во время сохранения конфигурации возникла ошибка',
-		'query_created' => 'Запрос "%s" создан.',
+		'query_created' => 'Запрос “%s” создан.',
 		'shortcuts_updated' => 'Горячие клавиши изменены',
 		'updated' => 'Конфигурация изменена',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Очистка выполнена (%d статей удалено)',
 	),
 	'tag' => array(
-		'created' => 'Метка "%s" создана.',
+		'created' => 'Метка “%s” создана.',
 		'name_exists' => 'Метка с таким названием уже существует.',
-		'renamed' => 'Метка "%s" переименована в "%s".',
+		'renamed' => 'Метка “%s” переименована в “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS будет обновлён до <strong>версии %s</strong>.',

@@ -25,7 +25,7 @@ class I18nData {
 		foreach ($reference as $file => $refValues) {
 			foreach ($refValues as $key => $refValue) {
 				foreach ($languages as $language) {
-					if (!array_key_exists($key, $this->data[$language][$file])) {
+					if (!array_key_exists($file, $this->data[$language]) || !array_key_exists($key, $this->data[$language][$file])) {
 						$this->data[$language][$file][$key] = clone $refValue;
 					}
 					$value = $this->data[$language][$file][$key];
@@ -88,7 +88,7 @@ class I18nData {
 	 *
 	 * @return array
 	 */
-	public function getNonReferenceLanguages() {
+	private function getNonReferenceLanguages() {
 		return array_filter(array_keys($this->data), function ($value) {
 			return static::REFERENCE_LANGUAGE !== $value;
 		});
@@ -178,6 +178,27 @@ class I18nData {
 	}
 
 	/**
+	 * Check if a key is a parent key.
+	 * To be a parent key, there must be at least one key starting with the key
+	 * under test. Of course, it cannot be itself.
+	 */
+	private function isParent($key) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE])) {
+			return false;
+		}
+
+		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
+		$children = array_values(array_filter($keys, function ($element) use ($key) {
+			if ($element === $key) {
+				return false;
+			}
+			return false !== strpos($element, $key);
+		}));
+
+		return count($children) !== 0;
+	}
+
+	/**
 	 * Add a new key to all languages.
 	 *
 	 * @param string $key
@@ -185,6 +206,10 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function addKey($key, $value) {
+		if ($this->isParent($key)) {
+			$key = $this->getEmptySibling($key);
+		}
+
 		if ($this->isKnown($key)) {
 			throw new Exception('The selected key already exist.');
 		}
@@ -234,7 +259,8 @@ class I18nData {
 		if (static::REFERENCE_LANGUAGE === $language) {
 			$previousValue = $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
 			foreach ($this->getAvailableLanguages() as $lang) {
-				if ($this->data[$lang][$this->getFilenamePrefix($key)][$key] === $previousValue) {
+				$currentValue = $this->data[$lang][$this->getFilenamePrefix($key)][$key];
+				if ($currentValue->equal($previousValue)) {
 					$this->data[$lang][$this->getFilenamePrefix($key)][$key] = $value;
 				}
 			}

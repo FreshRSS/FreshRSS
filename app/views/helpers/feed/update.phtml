@@ -466,6 +466,15 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="group-name" for="xPathItemTimeFormat"><small>
+					<?= _t('sub.feed.kind.html_xpath.item_timeFormat') ?></label>
+				<div class="group-controls">
+					<textarea class="w100" name="xPathItemTimeFormat" id="xPathItemTimeFormat" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemTimeFormat'] ?? '' ?>"><?= $xpath['itemTimeFormat'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timeFormat.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
 				<div class="group-controls">

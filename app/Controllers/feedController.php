@@ -211,6 +211,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				if (Minz_Request::param('xPathItemUri', '') != '') $xPathSettings['itemUri'] = Minz_Request::param('xPathItemUri', '', true);
 				if (Minz_Request::param('xPathItemAuthor', '') != '') $xPathSettings['itemAuthor'] = Minz_Request::param('xPathItemAuthor', '', true);
 				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '', true);
+				if (Minz_Request::param('xPathItemTimeFormat', '') != '') $xPathSettings['itemTimeFormat'] = Minz_Request::param('xPathItemTimeFormat', '', true);
 				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '', true);
 				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '', true);
 				if (Minz_Request::param('xPathItemUid', '') != '') $xPathSettings['itemUid'] = Minz_Request::param('xPathItemUid', '', true);

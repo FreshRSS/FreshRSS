@@ -98,6 +98,7 @@ class Minz_Request {
 		return self::$originalRequest;
 	}
 	public static function modifiedCurrentRequest(array $extraParams = null) {
+		unset(self::$params['ajax']);
 		$currentRequest = self::currentRequest();
 		if (null !== $extraParams) {
 			$currentRequest['params'] = array_merge($currentRequest['params'], $extraParams);

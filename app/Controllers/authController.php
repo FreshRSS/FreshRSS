@@ -159,8 +159,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 				Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 
-				// All is good, go back to the index.
-				Minz_Request::good(_t('feedback.auth.login.success'), Minz_Url::unserialize(Minz_Request::param('original_request')));
+				// All is good, go back to the original request or the index.
+				$url = Minz_Url::unserialize(Minz_Request::param('original_request'));
+				if ($url === null) {
+					$url = [ 'c' => 'index', 'a' => 'index' ];
+				}
+				Minz_Request::good(_t('feedback.auth.login.success'), $url);
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 

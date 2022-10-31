@@ -429,15 +429,18 @@ a.btn {
 	margin: 10px 0;
 }
 
+.tree-folder {
+	padding: 0.25rem 0.5rem;
+}
+
 .tree-folder-title {
-	margin: 5px;
-	padding: 0 10px;
+	padding: 0.125rem 0.5rem;
 	background: #5bc0de;
 	color: #fff;
 	font-size: 0.9rem;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
-	border-radius: 5px;
+	border-radius: 0.25rem;
 	position: relative;
 	line-height: 2rem;
 }
@@ -459,10 +462,19 @@ a.btn {
 	border-bottom: 1px solid #666;
 }
 
-.tree-folder-items > .item {
-	padding: 0 10px;
+.aside_feed .configure-feeds .btn {
+	padding: 0.125rem 0.75rem;
+}
+
+
+.aside_feed .tree-folder-items > .item.feed {
+	padding: 0 0.5rem;
 	line-height: 2.5rem;
 	font-size: 0.8rem;
+}
+
+.aside .feed .item-title:not([data-unread="0"])::after {
+	right: 0.5rem;
 }
 
 .tree-folder-items > .item.active {
@@ -548,8 +560,12 @@ a.signin {
 	color: white;
 }
 
+.aside.aside_feed .tree-folder.category.active .feed .item-title:not([data-unread="0"])::after {
+	background-color: #39b3d7;
+}
+
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	right: 5px;
+	right: 0.5rem;
 }
 
 .aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
@@ -747,8 +763,8 @@ a.signin {
 	font-size: 0.9rem;
 }
 
-.flux .website .favicon {
-	padding: 5px;
+.flux_header .title .item-element {
+	padding: 0.425rem;
 }
 
 .flux .item.date {
@@ -923,11 +939,6 @@ a.signin {
 	font-weight: bold;
 	text-shadow: none;
 	line-height: 1.6rem;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 /*=== DIVERS */

@@ -589,10 +589,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @param array<string,mixed> $attributes
 	 * @return SimplePie|null
 	 */
-	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false, array $attributes = []) {
+	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false) {
 		if ($this->url == '') {
 			return null;
 		}
@@ -612,6 +611,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemTimeFormat = $xPathSettings['itemTimeFormat'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
@@ -619,8 +619,8 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
-		$html = httpGet($feedSourceUrl, $cachePath, 'html', $attributes);
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), FreshRSS_Feed::KIND_HTML_XPATH);
+		$html = httpGet($feedSourceUrl, $cachePath, 'html', $this->attributes());
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -652,6 +652,12 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				if ($xPathItemTimeFormat != '') {
+					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp'] ?? '');
+					if ($dateTime != false) {
+						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
+					}
+				}
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
 					$itemCategories = @$xpath->query($xPathItemCategories, $node);

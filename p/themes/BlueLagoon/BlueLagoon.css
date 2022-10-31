@@ -861,10 +861,6 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.flux .website .favicon {
-	padding: 5px;
-}
-
 .flux .item.date {
 	color: #666;
 	font-size: 0.7rem;
@@ -1050,11 +1046,6 @@ a.btn {
 	position: absolute;
 	top: 5px; right: 10px;
 	font-weight: bold;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 .box.category .item.feed:not(.empty):not(.error) .item-title {

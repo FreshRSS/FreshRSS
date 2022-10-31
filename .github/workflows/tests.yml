@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Git checkout source code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Composer tests
 
@@ -29,7 +29,7 @@ jobs:
 
     - name: Use Composer cache
       id: composer-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -52,7 +52,7 @@ jobs:
     # NPM tests
 
     - name: Uses Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         # https://nodejs.org/en/about/releases/
         node-version: '16'
@@ -76,7 +76,7 @@ jobs:
 
     - name: Use shell cache
       id: shell-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: bin
         key: ${{ runner.os }}-bin-shfmt@v3.5.1-hadolint@v2.10.0-typos@v1.10.1

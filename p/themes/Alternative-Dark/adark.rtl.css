@@ -801,10 +801,6 @@ kbd {
 	font-size: 0.9rem;
 }
 
-.flux .website .favicon {
-	padding: 5px;
-}
-
 .flux .website a:hover .favicon,
 .flux a.website:hover .favicon {
 	filter: grayscale(50%);
@@ -1010,11 +1006,6 @@ kbd {
 	top: 5px; left: 10px;
 	font-weight: bold;
 	text-shadow: none;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 /*=== Slider */
