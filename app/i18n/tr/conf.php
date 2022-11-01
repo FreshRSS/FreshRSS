@@ -48,7 +48,13 @@ return array(
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
-		'theme' => 'Tema',
+		'theme' => array(
+			'_' => 'Tema',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is deprecated and will be not available anymore in a <a href=https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme target=_blank>future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” teması şuan uygun değilç Lütfen başka bir tema seçin.',
 		'thumbnail' => array(
 			'label' => 'Önizleme',

@@ -48,7 +48,13 @@ return array(
 			'timeout' => 'Notifica timeout HTML5',
 		),
 		'show_nav_buttons' => 'Mostra i pulsanti di navigazione',
-		'theme' => 'Tema',
+		'theme' => array(
+			'_' => 'Tema',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is deprecated and will be not available anymore in a <a href=https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme target=_blank>future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Il tema “%s” non è più disponibile. Si prega di selezionarne un altro.',
 		'thumbnail' => array(
 			'label' => 'Miniatura',
