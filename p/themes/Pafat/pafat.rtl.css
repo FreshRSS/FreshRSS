@@ -455,7 +455,6 @@ a.btn {
 .tree-folder.active .tree-folder-title {
 	background: #39b3d7;
 	font-weight: bold;
-	font-size: 1rem;
 	border-top: 1px solid #666;
 	border-bottom: 1px solid #666;
 }
@@ -548,7 +547,7 @@ a.signin {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	margin: 0.75em 0 0 0;
+	margin: 0.55em 0 0 0;
 	background-color: white;
 	color: #428bca;
 }
