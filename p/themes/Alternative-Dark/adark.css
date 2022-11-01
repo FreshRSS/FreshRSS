@@ -709,6 +709,10 @@ kbd {
 	border-top: 1px solid var(--border-color-dark);
 }
 
+.day span {
+	line-height: 1.5;
+}
+
 #new-article + .day {
 	border-top: none;
 }
