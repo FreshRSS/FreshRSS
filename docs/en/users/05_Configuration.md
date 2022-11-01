@@ -31,8 +31,6 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Screwdriver | Mister aiR | Deprecated. Will be removed with FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
-
-
 If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
 
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
