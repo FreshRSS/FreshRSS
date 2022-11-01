@@ -784,7 +784,6 @@ form th {
 .flux:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background: #fff;
-	top: 0.15rem;
 }
 .flux.favorite:not(.current) {
 	background: #fff6da;
