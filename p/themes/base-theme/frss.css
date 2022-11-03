@@ -98,6 +98,12 @@ h2 {
 	line-height: 1.5;
 }
 
+h2 .icon,
+legend .icon {
+	height: 0.8em;
+	vertical-align: baseline;
+}
+
 h3 {
 	margin: 0.5rem 0 0.25rem;
 	font-size: 1.2rem;

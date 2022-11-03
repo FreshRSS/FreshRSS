@@ -144,9 +144,9 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		if ($type == self::ICON_DEFAULT) {
-			if ((FreshRSS_Context::$user_conf && FreshRSS_Context::$user_conf->icons_as_emojis) ||
+			if ((FreshRSS_Context::$user_conf && FreshRSS_Context::$user_conf->icons_as_emojis)
 				// default to emoji alternate for some icons
-				in_array($name, [ 'opml-dyn' ])) {
+				) {
 				$type = self::ICON_EMOJI;
 			} else {
 				$type = self::ICON_IMG;
