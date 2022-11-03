@@ -452,6 +452,14 @@ a.btn {
 	text-decoration: none;
 }
 
+.tree-folder-title .title.error::before {
+	color: #fff;
+}
+
+.tree-folder-title .title .icon {
+	filter: brightness(2.5);
+}
+
 .tree-folder.active .tree-folder-title {
 	background: #39b3d7;
 	font-weight: bold;
