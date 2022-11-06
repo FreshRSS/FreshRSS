@@ -165,7 +165,7 @@ class FreshRSS_Import_Service {
 			foreach ($feed_elt as $key => $value) {
 				if (is_array($value) && !empty($value['value']) && ($value['namespace'] ?? '') === FreshRSS_Export_Service::FRSS_NAMESPACE) {
 					switch ($key) {
-						case 'cssFullContent': $feed->_pathEntries($value['value']); break;
+						case 'cssFullContent': $feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($value['value'])); break;
 						case 'cssFullContentFilter': $feed->_attributes('path_entries_filter', $value['value']); break;
 						case 'filtersActionRead': $feed->_filtersAction('read', preg_split('/[\n\r]+/', $value['value'])); break;
 						case 'xPathItem': $xPathSettings['item'] = $value['value']; break;
