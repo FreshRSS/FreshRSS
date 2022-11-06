@@ -452,8 +452,17 @@ a.btn {
 	text-decoration: none;
 }
 
+.item.feed.error .item-title::before {
+	font-size: 1rem;
+	font-weight: normal;
+	line-height: 1;
+}
+
 .tree-folder-title .title.error::before {
-	color: #fff;
+	color: #f0ad4e;
+	font-size: 1.2rem;
+	font-weight: normal;
+	line-height: 1;
 }
 
 .tree-folder-title .title .icon {
