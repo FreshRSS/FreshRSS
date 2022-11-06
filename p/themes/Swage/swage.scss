@@ -14,6 +14,28 @@ $color_stared:	#fff6da;
 $color_unread:	#fff3ed;
 $color_hover:	#fff;
 
+:root {
+	--color-text: #{$color_text};
+	--color-background-dark: #{$color_text};
+	--color-text-shadow-light: #{$color_light};
+	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-light: #{$color_light};
+	--color-light-lighter:  #{color.adjust(  $color_light,  $lightness: -40%)};
+	--color-background-light: #{$color_light};
+	--color-border-light: #{$color_light};
+	--color-border-light-lighter:  #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-light-lighter:  #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-nav: #{$color_nav};
+	--color-background-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-aside: #{$color_aside};
+	--color-alert: #{$color_alert};
+	--color-good: #{$color_good};
+	--color-bad: #{$color_bad};
+	--color-stared: #{$color_stared};
+	--color-unread: #{$color_unread};
+	--color-hover: #{$color_hover};
+}
+
 
 // @extend-elements
 %input {
@@ -21,7 +43,7 @@ $color_hover:	#fff;
 	margin-top: 4px;
 	line-height: 29px;
 	vertical-align: middle;
-	background: $color_light;
+	background-color: var(--color-background-light);
 	border: 2px solid #e3e3e3;
 	padding-left: 8px;
 }
@@ -42,7 +64,7 @@ $color_hover:	#fff;
 
 %dropdown {
 	padding: 0 22px;
-	color: $color_light;
+	color: var(--color-light);
 	font-size: 0.8rem;
 	line-height: 2.5em;
 }
@@ -103,7 +125,7 @@ legend {
 	background: $color_aside;
 	display: inline-block;
 	width: auto;
-	color: $color_light;
+	color: var(--color-light);
 	font-size: 1.4em;
 	clear: both;
 }
@@ -138,7 +160,7 @@ select {
 	}
 
 	&:disabled {
-		background: $color_light;
+		background-color: var(--color-background-light);
 	}
 }
 
@@ -165,11 +187,11 @@ tr,
 td,
 th {
 	padding: 0.5em;
-	border: 1px solid color.adjust( $color_light, $lightness: -10%);
+	border: 1px solid var(--color-border-light-lighter);
 }
 
 th {
-	background: $color_light;
+	background-color: var(--color-background-light);
 }
 
 form {
@@ -254,15 +276,15 @@ form {
 	border: 1px solid transparent;
 
 	&:hover {
-		background: $color_light;
-		border: 1px solid $color_light;
+		background-color: var(--color-background-light);
+		border: 1px solid var(--color-border-light);
 	}
 
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background: color.adjust( $color_light, $lightness: -10%);
-		border-top: 3px solid color.adjust( $color_light, $lightness: -10%);
+		background-color: var(--color-background-light-lighter);
+		border-top: 3px solid var(--color-border-light-lighter);
 
 		.btn {
 			margin: 0 10px;
@@ -303,9 +325,9 @@ form {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	background: $color_nav;
+	background-color: var(--color-background-nav);
 	display: inline-block;
-	color: $color_light;
+	color: var(--color-light);
 	font-size: 0.9rem;
 	border: none;
 	min-height: 35px;
@@ -317,7 +339,7 @@ form {
 	&.active,
 	&:active,
 	&:hover {
-		background: color.adjust( $color_nav, $lightness: -10%);
+		background-color: var(--color-background-nav-lighter);
 		text-decoration: none;
 	}
 
@@ -329,7 +351,7 @@ form {
 .btn-important, .btn-attention {
 	font-weight: normal;
 	background: $color_alert;
-	color: $color_light;
+	color: var(--color-light);
 
 	&:hover,
 	:active {
@@ -365,7 +387,7 @@ form {
 		padding: 0 1rem;
 		font-weight: bold;
 		background: $color_aside;
-		color: $color_light;
+		color: var(--color-light);
 		cursor: default;
 	}
 
@@ -374,21 +396,21 @@ form {
 		@extend %nav-list;
 
 		a:hover {
-			background: color.adjust( $color_nav, $lightness: -10%);
-			color: $color_light;
+			background-color: var(--color-background-nav-lighter);
+			color: var(--color-light);
 		}
 
 		&.active {
-			background: color.adjust( $color_nav, $lightness: -10%);
-			color: $color_light;
+			background: var(--color-background-nav-lighter);
+			color: var(--color-light);
 
 			a {
-				color: $color_light;
+				color: var(--color-light);
 			}
 
 			&.empty a,
 			.error a {
-				color: $color_light;
+				color: var(--color-light);
 			}
 
 			&.empty a {
@@ -432,13 +454,13 @@ form {
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
-	background-color: color.adjust( $color_nav, $lightness: -10%);
+	background-color: var(--color-background-nav-lighter);
 
 	.dropdown-header {
 		cursor: default;
 		padding: 0.5rem 10px 0.5rem 10px;
 		font-weight: bold;
-		color: $color_light;
+		color: var(--color-light);
 
 		a {
 			padding: 0 5px;
@@ -446,7 +468,7 @@ form {
 			right: 5px;
 
 			&:hover {
-				background-color: $color_nav;
+				background-color: var(--color-background-nav);
 			}
 		}
 	}
@@ -477,8 +499,8 @@ form {
 
 			> a:hover,
 			> button:hover {
-				background: $color_nav;
-				color: $color_light;
+				background-color: var(--color-background-nav);
+				color: var(--color-light);
 			}
 		}
 
@@ -507,18 +529,18 @@ form {
 
 .item ~ .dropdown-header,
 .item.separator {
-	border-top-color: color.adjust( $color_light, $lightness: -10%);
+	border-top-color: var(--color-border-light-lighter);
 	cursor: default;
 }
 
 .alert {
 	margin: 5px auto;
 	padding: 10px 15px;
-	background: $color_light;
-	color: color.adjust( $color_light, $lightness: -40% );
+	background-color: var(--color-background-light);
+	color: var(--color-light-lighter);
 	font-size: 0.9em;
 	border: none;
-	text-shadow: 0 0 1px $color_light;
+	text-shadow: 0 0 1px var(--color-text-shadow-light);
 
 	> a {
 		color: inherit;
@@ -537,26 +559,26 @@ form {
 }
 
 .alert-warn {
-	background: $color_light;
+	background-color: var(--color-background-light);
 	color: $color_alert;
 }
 
 .alert-success {
-	background: $color_light;
+	background-color: var(--color-background-light);
 	color: $color_good;
 }
 
 .alert-error {
-	background: $color_light;
+	background-color: var(--color-background-light);
 	color: $color_bad;
 }
 
 .pagination {
-	background: color.adjust( $color_light, $lightness: -10%);
-	color: $color_text;
+	background: var(--color-background-light-lighter);
+	color: var(--color_text);
 
 	.item a {
-		color: $color_text;
+		color: var(--color_text);
 	}
 }
 
@@ -571,42 +593,42 @@ form {
 
 	hr {
 		margin: 30px 10px;
-		background: color.adjust( $color_light, $lightness: -10%);
+		background: var(--color-background-light-lighter);
 		height: 1px;
 		border: 0;
-		box-shadow: 0 2px 5px color.adjust( $color_light, $lightness: -10%);
+		box-shadow: 0 2px 5px var(--color-box-shadow-light);
 	}
 
 	pre {
 		margin: 10px auto;
 		padding: 10px 20px;
 		overflow: auto;
-		background: $color_text;
-		color: $color_light;
+		background-color: var(--color-background-dark);
+		color: var(--color-light);
 		font-size: 0.9rem;
 
 		code {
 			background: transparent;
-			color: $color_light;
+			color: var(--color-light);
 			border: none;
 		}
 	}
 
 	code {
 		padding: 2px 5px;
-		background: $color_light;
+		background-color: var(--color-background-light);
 		color: $color_bad;
-		border: 1px solid $color_light;
+		border: 1px solid var(--color-border-light);
 	}
 
 	blockquote {
 		margin: 0;
 		padding: 5px 20px;
-		background: $color_light;
+		background-color: var(--color-background-light);
 		display: block;
-		color: color.adjust( $color_light, $lightness: -40% );
-		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
-		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+		color: var(--color-light-lighter);
+		border-top: 1px solid var(--color-border-light-lighter);
+		border-bottom: 1px solid var(--color-border-light-lighter);
 
 		p {
 			margin: 0;
@@ -614,22 +636,22 @@ form {
 	}
 
 	> h1.title > a {
-		color: $color_text;
+		color: var(--color_text);
 	}
 }
 
 .box {
-	border: 1px solid color.adjust( $color_light, $lightness: -10%);
+	border: 1px solid var(--color-border-light-lighter);
 
 	.box-title {
 		margin: 0;
 		padding: 7px 10px;
 		background: $color_aside;
-		color: $color_light;
-		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+		color: var(--color-light);
+		border-bottom: 1px solid var(--color-border-light-lighter);
 
 		a {
-			color: $color_light;
+			color: var(--color-light);
 		}
 
 		.configure {
@@ -673,15 +695,15 @@ form {
 		}
 
 		&:not([data-unread="0"]) .box-title {
-			background: $color_nav;
+			background-color: var(--color-background-nav);
 
 			&:active {
-				background: color.adjust( $color_nav, $lightness: -10%);
+				background: var(--color-background-nav-lighter);
 			}
 
 			.title {
 				font-weight: bold;
-				color: $color_light;
+				color: var(--color-light);
 			}
 		}
 
@@ -714,7 +736,7 @@ form {
 
 	.title {
 		background: inherit;
-		color: $color_light;
+		color: var(--color-light);
 
 		&:hover {
 			text-decoration: none;
@@ -731,12 +753,12 @@ form {
 		font-size: 0.8rem;
 
 		&.active {
-			background: color.adjust( $color_nav, $lightness: -10%);
+			background-color: var(--color-background-nav-lighter);
 		}
 
 		> a {
 			text-decoration: none;
-			color: $color_light;
+			color: var(--color-light);
 		}
 	}
 }
@@ -832,7 +854,7 @@ form {
 			.tree-folder-title,
 			.item.feed {
 				&:hover {
-					background-color: color.adjust( $color_nav, $lightness: -10%);
+					background-color: var(--color-background-nav-lighter);
 				}
 			}
 		}
@@ -928,7 +950,7 @@ form {
 }
 
 #new-article {
-	background: $color_nav;
+	background-color: var(--color-background-nav);
 	font-size: 1em;
 	text-align: center;
 	position: fixed;
@@ -943,11 +965,11 @@ form {
 		padding: 1rem;
 		line-height: 1.5em;
 		font-weight: bold;
-		color: $color_light;
+		color: var(--color-light);
 
 		&:hover {
 			text-decoration: none;
-			background: color.adjust( $color_nav, $lightness: -10%);
+			background-color: var(--color-background-nav-lighter);
 		}
 	}
 }
@@ -965,7 +987,7 @@ form {
 
 .nav {
 	a {
-		color: $color_light;
+		color: var(--color-light);
 	}
 }
 
@@ -973,7 +995,7 @@ form {
 .nav_menu {
 	width: 100%;
 	font-size: 0;
-	background-color: $color_nav;
+	background-color: var(--color-background-nav);
 	position: sticky;
 	top: 0;
 	z-index: 90;
@@ -999,14 +1021,14 @@ form {
 
 .flux {
 	padding-right: 10px;
-	background: $color_light;
+	background-color: var(--color-background-light);
 
 	&::after {
 
 		@extend %after;
 		margin: 0 auto;
 		width: 90%;
-		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
+		border-top: 1px solid var(--color-border-light-lighter);
 	}
 
 	&:hover,
@@ -1036,7 +1058,7 @@ form {
 
 	.item {
 		&.date {
-			color: color.adjust( $color_light, $lightness: -40% );
+			color: var(--color-light-lighter);
 			font-size: 0.7rem;
 		}
 	}
@@ -1047,7 +1069,7 @@ form {
 	}
 
 	label {
-		color: $color_light;
+		color: var(--color-light);
 		cursor: pointer;
 	}
 }
@@ -1063,9 +1085,9 @@ form {
 
 .notification {
 	padding: 10px 0;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background-color: var(--color-background-light-lighter);
 	height: auto;
-	color: color.adjust( $color_light, $lightness: -40% );
+	color: var(--color-light-lighter);
 	font-size: 1em;
 	border: none;
 	text-align: center;
@@ -1080,7 +1102,7 @@ form {
 
 	&.good,
 	&.bad {
-		color: $color_light;
+		color: var(--color-light);
 	}
 
 	&.good {
@@ -1111,11 +1133,11 @@ form {
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background: var(--color-background-light-lighter);
 
 	&:hover {
 		background: $color_aside;
-		color: $color_light;
+		color: var(--color-light);
 	}
 }
 
@@ -1141,7 +1163,7 @@ form {
 	> table {
 		td,
 		th {
-			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+			border-bottom: 1px solid var(--color-border-light-lighter);
 		}
 	}
 }
@@ -1165,7 +1187,7 @@ form {
 	}
 
 	.header {
-		background: $color_nav;
+		background-color: var(--color-background-nav);
 		height: 35px;
 		position: relative;
 
@@ -1187,23 +1209,23 @@ form {
 }
 
 a.signin {
-	color: $color_light;
+	color: var(--color-light);
 	font-size: 70%;
 }
 
 .log-item {
 	&.log-error {
 		background: color.adjust( $color_bad, $lightness: 10%);
-		color: $color_light;
+		color: var(--color-light);
 	}
 
 	&.log-warning {
 		background: $color_alert;
-		color: $color_light;
+		color: var(--color-light);
 	}
 
 	&.log-debug {
-		background: $color_text;
+		background: var(--color-background-dark);
 	}
 }
 
@@ -1455,11 +1477,11 @@ button.as-link {
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background: color.adjust( $color_nav, $lightness: -10%);
+	background-color: var(--color-background-nav-lighter);
 }
 
 .tree-folder.active .tree-folder-title {
-	background: color.adjust( $color_nav, $lightness: -10%);
+	background-color: var(--color-background-nav-lighter);
 	font-weight: bold;
 }
 
@@ -1469,10 +1491,10 @@ button.as-link {
 
 		&.active {
 			background: $color_alert;
-			color: $color_light;
+			color: var(--color-light);
 
 			> a {
-				color: $color_light;
+				color: var(--color-light);
 			}
 		}
 
@@ -1486,10 +1508,10 @@ button.as-link {
 
 		&.active {
 			background: color.adjust( $color_bad, $lightness: 10%);
-			color: $color_light;
+			color: var(--color-light);
 
 			> a {
-				color: $color_light;
+				color: var(--color-light);
 			}
 		}
 
@@ -1500,7 +1522,7 @@ button.as-link {
 }
 
 #stream.reader .flux {
-	background: $color_light;
+	background-color: var(--color-background-light);
 	color: $color_aside;
 	border: none;
 
@@ -1514,7 +1536,7 @@ button.as-link {
 
 	.author {
 		margin: 0 0 10px;
-		color: color.adjust( $color_light, $lightness: -40% );
+		color: var(--color-light-lighter);
 		font-size: 90%;
 	}
 }
