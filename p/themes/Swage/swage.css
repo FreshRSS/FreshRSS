@@ -21,8 +21,11 @@
 	--color-background-good: #5eaabf;
 	--color-good: #5eaabf;
 	--color-bad: #b0425b;
-	--color-stared: #fff6da;
-	--color-unread: #fff3ed;
+	--color-bad-darker: #c46178;
+	--color-border-bad: #b0425b;
+	--color-background-bad: #c46178;
+	--color-background-stared: #fff6da;
+	--color-background-unread: #fff3ed;
 	--color-hover: #fff;
 }
 
@@ -40,8 +43,8 @@ select, textarea {
 input:invalid,
 select:invalid {
 	padding-left: 5px;
-	color: #b0425b;
-	border-left-color: #b0425b;
+	color: var(--color-bad);
+	border-left-color: var(--color-border-bad);
 	border-left-width: 5px;
 	box-shadow: none;
 }
@@ -327,7 +330,7 @@ form th {
 	background-color: var(--color-background-alert);
 }
 .nav-list .item.active.error a {
-	background: #c46178;
+	background-color: var(--color-background-bad);
 }
 .nav-list .item > a {
 	padding: 0 1.5rem;
@@ -336,7 +339,7 @@ form th {
 	color: var(--color_alert);
 }
 .nav-list .item.error a {
-	color: #c46178;
+	color: var(--color-bad-darker);
 }
 .nav-list .item .icon {
 	filter: brightness(3);
@@ -444,7 +447,7 @@ form th {
 
 .alert-error {
 	background-color: var(--color-background-light);
-	color: #b0425b;
+	color: var(--color-bad);
 }
 
 .pagination {
@@ -486,7 +489,7 @@ form th {
 .content code {
 	padding: 2px 5px;
 	background-color: var(--color-background-light);
-	color: #b0425b;
+	color: var(--color-bad);
 	border: 1px solid var(--color-border-light);
 }
 .content blockquote {
@@ -807,23 +810,23 @@ form th {
 }
 .flux:hover,
 .flux .current {
-	background: #fff;
+	background-color: var(--color-background-unread);
 }
 .flux:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
-	background: #fff;
+	background-color: var(--color-background-unread);
 }
 .flux.favorite:not(.current) {
-	background: #fff6da;
+	background-color: var(--color-background-stared);
 }
 .flux.favorite:not(.current):hover .item.title {
-	background: #fff6da;
+	background-color: var(--color-background-stared);
 }
 .flux.not_read:not(.current) {
-	background: #fff3ed;
+	background-color: var(--color-background-unread);
 }
 .flux.not_read:not(.current):hover .item.title {
-	background: #fff3ed;
+	background-color: var(--color-background-unread);
 }
 .flux .item.date {
 	color: var(--color-light-lighter);
@@ -871,10 +874,10 @@ form th {
 	background-color: var(--color-background-good);
 }
 .notification.bad {
-	background: #c46178;
+	background-color: var(--color-background-bad);
 }
 .notification.bad a.close:hover {
-	background: #c46178;
+	background-color: var(--color-background-bad);
 }
 .notification#actualizeProgress {
 	line-height: 2em;
@@ -955,7 +958,7 @@ a.signin {
 }
 
 .log-item.log-error {
-	background: #c46178;
+	background-color: var(--color-background-bad);
 	color: var(--color-light);
 }
 .log-item.log-warning {
@@ -1182,17 +1185,17 @@ button.as-link {
 	color: var(--color_alert);
 }
 .feed.item.error {
-	color: #c46178;
+	color: var(--color-bad-darker);
 }
 .feed.item.error.active {
-	background: #c46178;
+	background-color: var(--color-background-bad);
 	color: var(--color-light);
 }
 .feed.item.error.active > a {
 	color: var(--color-light);
 }
 .feed.item.error > a {
-	color: #c46178;
+	color: var(--color-bad-darker);
 }
 
 #stream.reader .flux {

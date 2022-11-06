@@ -37,8 +37,11 @@ $color_hover:	#fff;
 	--color-background-good: #{$color_good};
 	--color-good: #{$color_good};
 	--color-bad: #{$color_bad};
-	--color-stared: #{$color_stared};
-	--color-unread: #{$color_unread};
+	--color-bad-darker: #{color.adjust( $color_bad, $lightness: 10%)};
+	--color-border-bad: #{$color_bad};
+	--color-background-bad: #{color.adjust( $color_bad, $lightness: 10%)};
+	--color-background-stared: #{$color_stared};
+	--color-background-unread: #{$color_unread};
 	--color-hover: #{$color_hover};
 }
 
@@ -56,8 +59,8 @@ $color_hover:	#fff;
 
 %invalid {
 	padding-left: 5px;
-	color: $color_bad;
-	border-left-color: $color_bad;
+	color: var(--color-bad);
+	border-left-color: var(--color-border-bad);
 	border-left-width: 5px;
 	box-shadow: none;
 }
@@ -424,7 +427,7 @@ form {
 			}
 
 			&.error a {
-				background: color.adjust( $color_bad, $lightness: 10%);
+				background-color: var(--color-background-bad);
 			}
 		}
 
@@ -437,7 +440,7 @@ form {
 		}
 
 		&.error a {
-			color: color.adjust( $color_bad, $lightness: 10%);
+			color: var(--color-bad-darker);
 		}
 
 		.icon {
@@ -576,7 +579,7 @@ form {
 
 .alert-error {
 	background-color: var(--color-background-light);
-	color: $color_bad;
+	color: var(--color-bad);
 }
 
 .pagination {
@@ -623,7 +626,7 @@ form {
 	code {
 		padding: 2px 5px;
 		background-color: var(--color-background-light);
-		color: $color_bad;
+		color: var(--color-bad);
 		border: 1px solid var(--color-border-light);
 	}
 
@@ -1039,26 +1042,26 @@ form {
 
 	&:hover,
 	.current {
-		background: $color_hover;
+		background-color: var(--color-background-unread);
 
 		&:not(.current):hover .item.title {
-			background: $color_hover;
+			background-color: var(--color-background-unread);
 		}
 	}
 
 	&.favorite:not(.current) {
-		background: $color_stared;
+		background-color: var(--color-background-stared);
 
 		&:hover .item.title {
-			background: $color_stared;
+			background-color: var(--color-background-stared);
 		}
 	}
 
 	&.not_read:not(.current) {
-		background: $color_unread;
+		background-color: var(--color-background-unread);
 
 		&:hover .item.title {
-			background: $color_unread;
+			background-color: var(--color-background-unread);
 		}
 	}
 
@@ -1120,10 +1123,10 @@ form {
 	}
 
 	&.bad {
-		background: color.adjust( $color_bad, $lightness: 10%);
+		background-color: var(--color-background-bad);
 
 		a.close:hover {
-			background: color.adjust( $color_bad, $lightness: 10%);
+			background-color: var(--color-background-bad);
 		}
 	}
 
@@ -1221,7 +1224,7 @@ a.signin {
 
 .log-item {
 	&.log-error {
-		background: color.adjust( $color_bad, $lightness: 10%);
+		background-color: var(--color-background-bad);
 		color: var(--color-light);
 	}
 
@@ -1510,10 +1513,10 @@ button.as-link {
 	}
 
 	&.error {
-		color: color.adjust( $color_bad, $lightness: 10%);
+		color: var(--color-bad-darker);
 
 		&.active {
-			background: color.adjust( $color_bad, $lightness: 10%);
+			background-color: var(--color-background-bad);
 			color: var(--color-light);
 
 			> a {
@@ -1522,7 +1525,7 @@ button.as-link {
 		}
 
 		> a {
-			color: color.adjust( $color_bad, $lightness: 10%);
+			color: var(--color-bad-darker);
 		}
 	}
 }
