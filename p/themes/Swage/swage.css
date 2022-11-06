@@ -11,7 +11,9 @@
 	--color-background-light-lighter: #e3e3e3;
 	--color-background-nav: #0062be;
 	--color-background-nav-lighter: #00488b;
-	--color-aside: #22303d;
+	--color-border-nav-lighter: #00488b;
+	--color-nav-lighter: #00488b;
+	--color-background-aside: #22303d;
 	--color-alert: #fa8052;
 	--color-good: #5eaabf;
 	--color-bad: #b0425b;
@@ -73,7 +75,7 @@ body {
 }
 
 a {
-	color: #00488b;
+	color: var(--color-nav-lighter);
 	outline: none;
 }
 a.btn {
@@ -102,7 +104,7 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: #22303d;
+	background-color: var(--color-background-aside);
 	display: inline-block;
 	width: auto;
 	color: var(--color-light);
@@ -119,12 +121,12 @@ textarea {
 	height: 100px;
 }
 textarea:focus {
-	border-color: #00488b;
+	border-color: var(--color-border-nav-lighter);
 }
 
 input:focus,
 select:focus {
-	border-color: #00488b;
+	border-color: var(--color-border-nav-lighter);
 }
 input:disabled,
 select:disabled {
@@ -298,7 +300,7 @@ form th {
 .nav-list .nav-header {
 	padding: 0 1rem;
 	font-weight: bold;
-	background: #22303d;
+	background-color: var(--color-background-aside);
 	color: var(--color-light);
 	cursor: default;
 }
@@ -505,7 +507,7 @@ form th {
 .box .box-title {
 	margin: 0;
 	padding: 7px 10px;
-	background: #22303d;
+	background-color: var(--color-background-aside);
 	color: var(--color-light);
 	border-bottom: 1px solid var(--color-border-light-lighter);
 }
@@ -569,7 +571,7 @@ form th {
 
 .aside_feed .tree-folder-title {
 	padding: 0.3rem 0.75rem;
-	background: #22303d;
+	background-color: var(--color-background-aside);
 	font-size: 1rem;
 	position: relative;
 }
@@ -582,7 +584,7 @@ form th {
 }
 
 .tree-folder-items {
-	background: #22303d;
+	background-color: var(--color-background-aside);
 }
 .tree-folder-items > .item {
 	padding: 0 10px;
@@ -660,7 +662,7 @@ form th {
 
 .aside {
 	padding: 35px 0;
-	background: #22303d;
+	background-color: var(--color-background-aside);
 }
 .aside.aside_feed .tree {
 	margin: 0 0 50px;
@@ -701,13 +703,13 @@ form th {
 }
 
 .reader .aside .toggle_aside {
-	background: #22303d;
+	background-color: var(--color-background-aside);
 }
 .reader .aside .toggle_aside .icon {
 	filter: brightness(3);
 }
 .reader .aside .toggle_aside:hover {
-	background-color: #0062be;
+	background-color: var(--color-background-nav);
 }
 
 .post {
@@ -883,7 +885,7 @@ form th {
 	background: var(--color-background-light-lighter);
 }
 #bigMarkAsRead:hover {
-	background: #22303d;
+	background-color: var(--color-background-aside);
 	color: var(--color-light);
 }
 
@@ -892,7 +894,7 @@ form th {
 	text-align: center;
 	line-height: 3em;
 	table-layout: fixed;
-	background: #22303d;
+	background-color: var(--color-background-aside);
 }
 
 .stat {
@@ -1006,10 +1008,10 @@ a.signin {
 		transition: width 200ms linear;
 	}
 	.aside .toggle_aside {
-		background: #22303d;
+		background-color: var(--color-background-aside);
 	}
 	.aside .toggle_aside:hover {
-		background-color: #0062be;
+		background-color: var(--color-background-nav);
 	}
 	.aside .toggle_aside .icon {
 		filter: brightness(3);
@@ -1025,10 +1027,10 @@ a.signin {
 		z-index: 1000;
 	}
 	#slider .toggle_aside {
-		background: #22303d;
+		background-color: var(--color-background-aside);
 	}
 	#slider .toggle_aside:hover {
-		background-color: #0062be;
+		background-color: var(--color-background-nav);
 	}
 	#slider .toggle_aside .icon {
 		filter: brightness(3);
@@ -1059,7 +1061,7 @@ a.signin {
 	}
 	#panel .close,
 .dropdown-menu .toggle_aside {
-		background: #22303d;
+		background-color: var(--color-background-aside);
 		display: block;
 		height: 50px;
 		line-height: 50px;
@@ -1068,7 +1070,7 @@ a.signin {
 	}
 	#panel .close:hover,
 .dropdown-menu .toggle_aside:hover {
-		background-color: #0062be;
+		background-color: var(--color-background-nav);
 	}
 	.dropdown-target:target ~ .dropdown-toggle::after,
 .dropdown-target:target ~ .dropdown-toggle.btn::after {

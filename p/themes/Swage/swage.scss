@@ -27,7 +27,9 @@ $color_hover:	#fff;
 	--color-background-light-lighter:  #{color.adjust(  $color_light,  $lightness: -10%)};
 	--color-background-nav: #{$color_nav};
 	--color-background-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-aside: #{$color_aside};
+	--color-border-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-background-aside: #{$color_aside};
 	--color-alert: #{$color_alert};
 	--color-good: #{$color_good};
 	--color-bad: #{$color_bad};
@@ -87,7 +89,7 @@ body {
 }
 
 a {
-	color: color.adjust( $color_nav, $lightness: -10%);
+	color: var(--color-nav-lighter);
 	outline: none;
 
 	&.btn {
@@ -122,7 +124,7 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 	display: inline-block;
 	width: auto;
 	color: var(--color-light);
@@ -141,7 +143,7 @@ textarea {
 	@extend %input;
 
 	&:focus {
-		border-color: color.adjust( $color_nav, $lightness: -10%);
+		border-color: var(--color-border-nav-lighter);
 	}
 }
 
@@ -151,7 +153,7 @@ select {
 	@extend %input;
 
 	&:focus {
-		border-color: color.adjust( $color_nav, $lightness: -10%);
+		border-color: var(--color-border-nav-lighter);
 	}
 
 	&:invalid {
@@ -386,7 +388,7 @@ form {
 		@extend %nav-list;
 		padding: 0 1rem;
 		font-weight: bold;
-		background: $color_aside;
+		background-color: var(--color-background-aside);
 		color: var(--color-light);
 		cursor: default;
 	}
@@ -646,7 +648,7 @@ form {
 	.box-title {
 		margin: 0;
 		padding: 7px 10px;
-		background: $color_aside;
+		background-color: var(--color-background-aside);
 		color: var(--color-light);
 		border-bottom: 1px solid var(--color-border-light-lighter);
 
@@ -730,7 +732,7 @@ form {
 
 .aside_feed .tree-folder-title {
 	padding: 0.3rem 0.75rem;
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 	font-size: 1rem;
 	position: relative;
 
@@ -745,7 +747,7 @@ form {
 }
 
 .tree-folder-items {
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 
 	> .item {
 		padding: 0 10px;
@@ -841,7 +843,7 @@ form {
 
 .aside {
 	padding: 35px 0;
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 
 	@extend %aside-width;
 
@@ -906,14 +908,14 @@ form {
 .reader {
 	.aside {
 		.toggle_aside {
-			background: $color_aside;
+			background-color: var(--color-background-aside);
 
 			.icon {
 				filter: brightness(3);
 			}
 
 			&:hover {
-				background-color: color.adjust( $color_nav, $lightness: 0%);
+				background-color: var(--color-background-nav);
 			}
 		}
 	}
@@ -1136,7 +1138,7 @@ form {
 	background: var(--color-background-light-lighter);
 
 	&:hover {
-		background: $color_aside;
+		background-color: var(--color-background-aside);
 		color: var(--color-light);
 	}
 }
@@ -1148,7 +1150,7 @@ form {
 	table-layout: fixed;
 
 	@extend %aside-width;
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 }
 
 .stat {
@@ -1290,10 +1292,10 @@ a.signin {
 		transition: width 200ms linear;
 
 		.toggle_aside {
-			background: $color_aside;
+			background-color: var(--color-background-aside);
 
 			&:hover {
-				background-color: color.adjust( $color_nav, $lightness: 0%);
+				background-color: var(--color-background-nav);
 			}
 
 			.icon {
@@ -1316,10 +1318,10 @@ a.signin {
 
 	#slider {
 		.toggle_aside {
-			background: $color_aside;
+			background-color: var(--color-background-aside);
 
 			&:hover {
-				background-color: color.adjust( $color_nav, $lightness: 0%);
+				background-color: var(--color-background-nav);
 			}
 
 			.icon {
@@ -1361,7 +1363,7 @@ a.signin {
 
 	#panel .close,
 	.dropdown-menu .toggle_aside {
-		background: $color_aside;
+		background-color: var(--color-background-aside);
 		display: block;
 		height: 50px;
 		line-height: 50px;
@@ -1369,7 +1371,7 @@ a.signin {
 		padding-right: 10px;
 
 		&:hover {
-			background-color: color.adjust( $color_nav, $lightness: 0%);
+			background-color: var(--color-background-nav);
 		}
 	}
 
