@@ -27,6 +27,7 @@
 	--color-background-stared: #fff6da;
 	--color-background-unread: #fff3ed;
 	--color-hover: #fff;
+	--color-border-input: #e3e3e3;
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
 	--frss-scrollbar-track: rgba(0, 0, 0, 0.05);
@@ -40,7 +41,7 @@ select, textarea {
 	line-height: 29px;
 	vertical-align: middle;
 	background-color: var(--color-background-light);
-	border: 2px solid #e3e3e3;
+	border: 2px solid var(--color-border-input);
 	padding-left: 8px;
 }
 
@@ -259,7 +260,7 @@ form th {
 }
 
 .switch.active {
-	background-color: #0062be;
+	background-color: var(--color-background-nav);
 }
 .switch.active:hover {
 	background-image: url("./icons/disabled-light.svg");
@@ -297,7 +298,7 @@ form th {
 	padding: 0 1.5rem;
 }
 .nav-list .item.empty a {
-	color: var(--color_alert);
+	color: var(--color-alert);
 }
 .nav-list .item.error a {
 	color: var(--color-bad-darker);
@@ -398,7 +399,7 @@ form th {
 
 .alert-warn {
 	background-color: var(--color-background-light);
-	color: var(--color_alert);
+	color: var(--color-alert);
 }
 
 .alert-success {
@@ -652,11 +653,11 @@ form th {
 
 .aside_feed .category .title:not([data-unread="0"])::after {
 	margin: 0.5rem 0 0 0;
-	background-color: #00488b;
+	background-color: var(--color-background-nav-lighter);
 	color: #fcfcfc;
 }
 .aside_feed .feed .item-title:not([data-unread="0"])::after {
-	background-color: #0062be;
+	background-color: var(--color-background-nav);
 	color: #fcfcfc;
 }
 .aside_feed .tree-folder-items .dropdown-menu::after {
@@ -1133,7 +1134,7 @@ button.as-link {
 }
 
 .feed.item.empty {
-	color: var(--color_alert);
+	color: var(--color-alert);
 }
 .feed.item.empty.active {
 	background-color: var(--color-background-alert);
@@ -1143,7 +1144,7 @@ button.as-link {
 	color: var(--color-light);
 }
 .feed.item.empty > a {
-	color: var(--color_alert);
+	color: var(--color-alert);
 }
 .feed.item.error {
 	color: var(--color-bad-darker);

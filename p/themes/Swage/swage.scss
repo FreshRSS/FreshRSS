@@ -44,6 +44,8 @@ $color_hover:	#fff;
 	--color-background-unread: #{$color_unread};
 	--color-hover: #{$color_hover};
 
+	--color-border-input: #e3e3e3;
+
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
 	--frss-scrollbar-track: rgba(0, 0, 0, 0.05);
@@ -58,7 +60,7 @@ $color_hover:	#fff;
 	line-height: 29px;
 	vertical-align: middle;
 	background-color: var(--color-background-light);
-	border: 2px solid #e3e3e3;
+	border: 2px solid var(--color-border-input);
 	padding-left: 8px;
 }
 
@@ -328,7 +330,7 @@ form {
 }
 
 .switch.active {
-	background-color: #0062be;
+	background-color: var(--color-background-nav);
 
 	&:hover {
 		background-image: url('./icons/disabled-light.svg');
@@ -382,7 +384,7 @@ form {
 		}
 
 		&.empty a {
-			color: var(--color_alert);
+			color: var(--color-alert);
 		}
 
 		&.error a {
@@ -515,7 +517,7 @@ form {
 
 .alert-warn {
 	background-color: var(--color-background-light);
-	color: var(--color_alert);
+	color: var(--color-alert);
 }
 
 .alert-success {
@@ -836,12 +838,12 @@ form {
 .aside_feed {
 	.category .title:not([data-unread="0"])::after {
 		margin: 0.5rem 0 0 0;
-		background-color: #00488b;
+		background-color: var(--color-background-nav-lighter);
 		color: #fcfcfc;
 	}
 
 	.feed .item-title:not([data-unread="0"])::after {
-		background-color: #0062be;
+		background-color: var(--color-background-nav);
 		color: #fcfcfc;
 	}
 
@@ -1442,7 +1444,7 @@ button.as-link {
 
 .feed.item {
 	&.empty {
-		color: var(--color_alert);
+		color: var(--color-alert);
 
 		&.active {
 			background-color: var(--color-background-alert);
@@ -1454,7 +1456,7 @@ button.as-link {
 		}
 
 		> a {
-			color: var(--color_alert);
+			color: var(--color-alert);
 		}
 	}
 
