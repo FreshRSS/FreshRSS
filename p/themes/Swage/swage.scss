@@ -30,7 +30,11 @@ $color_hover:	#fff;
 	--color-border-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
 	--color-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
 	--color-background-aside: #{$color_aside};
+	--color-aside: #{$color_aside};
 	--color-alert: #{$color_alert};
+	--color-background-alert: #{$color_alert};
+	--color-background-alert-lighter: #{color.adjust(  $color_alert,  $lightness: -10%)};
+	--color-background-good: #{$color_good};
 	--color-good: #{$color_good};
 	--color-bad: #{$color_bad};
 	--color-stared: #{$color_stared};
@@ -352,12 +356,12 @@ form {
 
 .btn-important, .btn-attention {
 	font-weight: normal;
-	background: $color_alert;
+	background-color: var(--color-background-alert);
 	color: var(--color-light);
 
 	&:hover,
 	:active {
-		background: color.adjust( $color_alert, $lightness: -10%) !important;
+		background-color: var(--color-background-alert-lighter) !important;
 	}
 }
 
@@ -416,7 +420,7 @@ form {
 			}
 
 			&.empty a {
-				background: $color_alert;
+				background-color: var(--color-background-alert);
 			}
 
 			&.error a {
@@ -429,7 +433,7 @@ form {
 		}
 
 		&.empty a {
-			color: $color_alert;
+			color: var(--color_alert);
 		}
 
 		&.error a {
@@ -562,12 +566,12 @@ form {
 
 .alert-warn {
 	background-color: var(--color-background-light);
-	color: $color_alert;
+	color: var(--color_alert);
 }
 
 .alert-success {
 	background-color: var(--color-background-light);
-	color: $color_good;
+	color: var(--color-good);
 }
 
 .alert-error {
@@ -586,7 +590,7 @@ form {
 
 #load_more.loading,
 #load_more.loading:hover {
-	background: url(loader.gif) center center no-repeat $color_aside;
+	background: url(loader.gif) center center no-repeat var(--color-background-aside);
 }
 
 
@@ -1108,10 +1112,10 @@ form {
 	}
 
 	&.good {
-		background: $color_good;
+		background-color: var(--color-background-good);
 
 		a.close:hover {
-			background: $color_good;
+			background-color: var(--color-background-good);
 		}
 	}
 
@@ -1222,7 +1226,7 @@ a.signin {
 	}
 
 	&.log-warning {
-		background: $color_alert;
+		background-color: var(--color-background-alert);
 		color: var(--color-light);
 	}
 
@@ -1489,10 +1493,10 @@ button.as-link {
 
 .feed.item {
 	&.empty {
-		color: $color_alert;
+		color: var(--color_alert);
 
 		&.active {
-			background: $color_alert;
+			background-color: var(--color-background-alert);
 			color: var(--color-light);
 
 			> a {
@@ -1501,7 +1505,7 @@ button.as-link {
 		}
 
 		> a {
-			color: $color_alert;
+			color: var(--color_alert);
 		}
 	}
 
@@ -1525,7 +1529,7 @@ button.as-link {
 
 #stream.reader .flux {
 	background-color: var(--color-background-light);
-	color: $color_aside;
+	color: var(--color-aside);
 	border: none;
 
 	&::after {

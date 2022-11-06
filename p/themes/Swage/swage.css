@@ -14,7 +14,11 @@
 	--color-border-nav-lighter: #00488b;
 	--color-nav-lighter: #00488b;
 	--color-background-aside: #22303d;
+	--color-aside: #22303d;
 	--color-alert: #fa8052;
+	--color-background-alert: #fa8052;
+	--color-background-alert-lighter: #f95c20;
+	--color-background-good: #5eaabf;
 	--color-good: #5eaabf;
 	--color-bad: #b0425b;
 	--color-stared: #fff6da;
@@ -273,13 +277,13 @@ form th {
 
 .btn-important, .btn-attention {
 	font-weight: normal;
-	background: #fa8052;
+	background-color: var(--color-background-alert);
 	color: var(--color-light);
 }
 .btn-important:hover,
 .btn-important :active, .btn-attention:hover,
 .btn-attention :active {
-	background: #f95c20 !important;
+	background-color: var(--color-background-alert-lighter) !important;
 }
 
 .manage-list .configure .icon {
@@ -320,7 +324,7 @@ form th {
 	color: var(--color-light);
 }
 .nav-list .item.active.empty a {
-	background: #fa8052;
+	background-color: var(--color-background-alert);
 }
 .nav-list .item.active.error a {
 	background: #c46178;
@@ -329,7 +333,7 @@ form th {
 	padding: 0 1.5rem;
 }
 .nav-list .item.empty a {
-	color: #fa8052;
+	color: var(--color_alert);
 }
 .nav-list .item.error a {
 	color: #c46178;
@@ -430,12 +434,12 @@ form th {
 
 .alert-warn {
 	background-color: var(--color-background-light);
-	color: #fa8052;
+	color: var(--color_alert);
 }
 
 .alert-success {
 	background-color: var(--color-background-light);
-	color: #5eaabf;
+	color: var(--color-good);
 }
 
 .alert-error {
@@ -453,7 +457,7 @@ form th {
 
 #load_more.loading,
 #load_more.loading:hover {
-	background: url(loader.gif) center center no-repeat #22303d;
+	background: url(loader.gif) center center no-repeat var(--color-background-aside);
 }
 
 .content {
@@ -861,10 +865,10 @@ form th {
 	color: var(--color-light);
 }
 .notification.good {
-	background: #5eaabf;
+	background-color: var(--color-background-good);
 }
 .notification.good a.close:hover {
-	background: #5eaabf;
+	background-color: var(--color-background-good);
 }
 .notification.bad {
 	background: #c46178;
@@ -955,7 +959,7 @@ a.signin {
 	color: var(--color-light);
 }
 .log-item.log-warning {
-	background: #fa8052;
+	background-color: var(--color-background-alert);
 	color: var(--color-light);
 }
 .log-item.log-debug {
@@ -1165,17 +1169,17 @@ button.as-link {
 }
 
 .feed.item.empty {
-	color: #fa8052;
+	color: var(--color_alert);
 }
 .feed.item.empty.active {
-	background: #fa8052;
+	background-color: var(--color-background-alert);
 	color: var(--color-light);
 }
 .feed.item.empty.active > a {
 	color: var(--color-light);
 }
 .feed.item.empty > a {
-	color: #fa8052;
+	color: var(--color_alert);
 }
 .feed.item.error {
 	color: #c46178;
@@ -1193,7 +1197,7 @@ button.as-link {
 
 #stream.reader .flux {
 	background-color: var(--color-background-light);
-	color: #22303d;
+	color: var(--color-aside);
 	border: none;
 }
 #stream.reader .flux::after {
