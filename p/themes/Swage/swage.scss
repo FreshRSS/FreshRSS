@@ -42,9 +42,9 @@ $color_hover:	#fff;
 	--color-background-bad: #{color.adjust( $color_bad, $lightness: 10%)};
 	--color-background-stared: #{$color_stared};
 	--color-background-unread: #{$color_unread};
-	--color-hover: #{$color_hover};
+	--color-background-hover: #{$color_hover};
 
-	--color-border-input: #e3e3e3;
+	--color-border-grey: #e3e3e3;
 
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
@@ -60,7 +60,7 @@ $color_hover:	#fff;
 	line-height: 29px;
 	vertical-align: middle;
 	background-color: var(--color-background-light);
-	border: 2px solid var(--color-border-input);
+	border: 2px solid var(--color-border-grey);
 	padding-left: 8px;
 }
 
@@ -839,12 +839,12 @@ form {
 	.category .title:not([data-unread="0"])::after {
 		margin: 0.5rem 0 0 0;
 		background-color: var(--color-background-nav-lighter);
-		color: #fcfcfc;
+		color: var(--color-light);
 	}
 
 	.feed .item-title:not([data-unread="0"])::after {
 		background-color: var(--color-background-nav);
-		color: #fcfcfc;
+		color: var(--color-light);
 	}
 
 	.tree-folder-items .dropdown-menu::after {
@@ -990,10 +990,10 @@ form {
 
 	&:hover,
 	.current {
-		background-color: var(--color-background-unread);
+		background-color: var(--color-background-hover);
 
 		&:not(.current):hover .item.title {
-			background-color: var(--color-background-unread);
+			background-color: var(--color-background-hover);
 		}
 	}
 
@@ -1488,7 +1488,7 @@ button.as-link {
 	}
 
 	.content {
-		border-color: #e3e3e3;
+		border-color: var(--color-border-grey);
 	}
 
 	.author {
