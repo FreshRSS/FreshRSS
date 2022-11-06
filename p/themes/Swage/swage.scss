@@ -43,6 +43,11 @@ $color_hover:	#fff;
 	--color-background-stared: #{$color_stared};
 	--color-background-unread: #{$color_unread};
 	--color-hover: #{$color_hover};
+
+	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
+	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
+	--frss-scrollbar-track: rgba(0, 0, 0, 0.05);
+	--frss-scrollbar-track-hover: rgba(0, 0, 0, 0.1);
 }
 
 
@@ -210,65 +215,6 @@ form {
 		text-align: center;
 	}
 }
-
-
-@supports (scrollbar-width: thin) {
-	// scrollbar for the sliders (with blue/dark background color)
-	#sidebar,
-	.scrollbar-thin {
-		scrollbar-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
-		scrollbar-width: thin;
-	}
-
-	#sidebar:hover,
-	.scrollbar-thin:hover {
-		scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
-	}
-
-	// scrollbar for the sliders (with white background color)
-	#slider.scrollbar-thin {
-		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
-	}
-
-	#slider.scrollbar-thin:hover {
-		scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
-	}
-}
-
-@supports not (scrollbar-width: thin) {
-	// scrollbar for the sliders (with blue/dark background color)
-	#sidebar::-webkit-scrollbar,
-	.scrollbar-thin::-webkit-scrollbar {
-		background: rgba(255, 255, 255, 0);
-		width: 8px;
-	}
-
-	#sidebar::-webkit-scrollbar-thumb,
-	.scrollbar-thin::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0);
-		display: unset;
-		border-radius: 5px;
-	}
-
-	#sidebar:hover::-webkit-scrollbar-thumb,
-	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.5);
-	}
-
-	// scrollbar for the sliders (with white background color)
-	#slider.scrollbar-thin::-webkit-scrollbar {
-		background: rgba(0, 0, 0, 0.05);
-	}
-
-	#slider.scrollbar-thin::-webkit-scrollbar-thumb {
-		background: rgba(0, 0, 0, 0.1);
-	}
-
-	#slider.scrollbar-thin:hover::-webkit-scrollbar-thumb {
-		background: rgba(0, 0, 0, 0.3);
-	}
-}
-
 
 .category {
 	.title.error::before {
