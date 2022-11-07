@@ -28,7 +28,7 @@ $color_hover:	#fff;
 
 	--color-text-shadow-light: #{$color_light};
 	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
-	
+
 	--color-border-light: #{$color_light};
 	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
 	--color-border-grey: #{$color_grey};
