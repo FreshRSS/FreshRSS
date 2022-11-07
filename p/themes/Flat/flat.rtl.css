@@ -4,6 +4,7 @@
 /*============*/
 html, body {
 	background: #fafafa;
+	color: black;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -141,11 +142,6 @@ form th {
 }
 
 /*=== Buttons */
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;
@@ -274,12 +270,6 @@ a.btn {
 	color: #fff;
 }
 
-.nav-list .disable {
-	text-align: center;
-	background: #fafafa;
-	color: #aaa;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -318,33 +308,6 @@ a.btn {
 .nav-list .nav-form {
 	padding: 3px;
 	text-align: center;
-}
-
-.nav-head {
-	margin: 0;
-	text-align: left;
-	background: #34495e;
-	color: #fff;
-}
-
-.nav-head a {
-	color: #fff;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 /*=== Dropdown */
@@ -406,9 +369,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #ddd;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #ddd;
 }
 
 /*=== Alerts */
@@ -808,10 +771,6 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.flux .website .favicon {
-	padding: 5px;
-}
-
 .flux .item.date {
 	color: #666;
 	font-size: 0.7rem;
@@ -945,10 +904,14 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #ecf0f1;
+	background: #fafafa;
 	color: #34495e;
 	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ecf0f1;
 }
 
 #stream.reader .flux .author {
@@ -988,11 +951,6 @@ a.btn {
 	text-shadow: none;
 }
 
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
-}
-
 /*=== DIVERS */
 /*===========*/
 .aside.aside_feed .nav-form input,
@@ -1025,60 +983,6 @@ a.btn {
 	border-bottom: 1px solid #ddd;
 }
 
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
-}
-
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid #aaa;
-}
-
-.log {
-	margin: 10px 0;
-	padding: 5px 2%;
-	background: #fafafa;
-	color: #666;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-
-.log > .date {
-	margin: 0 0 0 10px;
-	padding: 5px 10px;
-	border-radius: 20px;
-}
-
-.log.error > .date {
-	background: #e74c3c;
-	color: #fff;
-}
-
-.log.warning > .date {
-	background: #f39c12;
-}
-
-.log.notice > .date {
-	background: #ecf0f1;
-}
-
-.log.debug > .date {
-	background: #111;
-	color: #eee;
-}
-
 /*=== MOBILE */
 /*===========*/
 
@@ -1096,11 +1000,6 @@ a.btn {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {

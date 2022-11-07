@@ -24,8 +24,8 @@
 			</thead>
 			<tbody>
 		<?php foreach ($items as $log) { ?>
-		<tr class="log-item">
-			<td class="log-<?= $log->level() ?>">
+		<tr class="log-item log-<?= $log->level() ?>">
+			<td class="log-level">
 				<?= _i($log->level()) ?>
 			</td>
 			<td class="log-date">

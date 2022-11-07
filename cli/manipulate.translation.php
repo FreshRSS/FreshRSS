@@ -3,6 +3,8 @@
 
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
+require_once __DIR__ . '/../constants.php';
+
 
 $options = getopt("a:hk:l:o:rv:");
 

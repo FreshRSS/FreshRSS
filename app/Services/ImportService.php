@@ -123,6 +123,9 @@ class FreshRSS_Import_Service {
 	 * @return FreshRSS_Feed|null a feed.
 	 */
 	private function addFeedOpml($feed_elt, $parent_cat, $dryRun = false) {
+		if (empty($feed_elt['xmlUrl'])) {
+			return null;
+		}
 		if ($parent_cat == null) {
 			// This feed has no parent category so we get the default one
 			$this->catDAO->checkDefault();
@@ -135,15 +138,9 @@ class FreshRSS_Import_Service {
 
 		// We get different useful information
 		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
-		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text']);
-		$website = '';
-		if (isset($feed_elt['htmlUrl'])) {
-			$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl']);
-		}
-		$description = '';
-		if (isset($feed_elt['description'])) {
-			$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description']);
-		}
+		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text'] ?? '');
+		$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl'] ?? '');
+		$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description'] ?? '');
 
 		try {
 			// Create a Feed object and add it in DB
@@ -168,7 +165,7 @@ class FreshRSS_Import_Service {
 			foreach ($feed_elt as $key => $value) {
 				if (is_array($value) && !empty($value['value']) && ($value['namespace'] ?? '') === FreshRSS_Export_Service::FRSS_NAMESPACE) {
 					switch ($key) {
-						case 'cssFullContent': $feed->_pathEntries($value['value']); break;
+						case 'cssFullContent': $feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($value['value'])); break;
 						case 'cssFullContentFilter': $feed->_attributes('path_entries_filter', $value['value']); break;
 						case 'filtersActionRead': $feed->_filtersAction('read', preg_split('/[\n\r]+/', $value['value'])); break;
 						case 'xPathItem': $xPathSettings['item'] = $value['value']; break;
@@ -177,6 +174,7 @@ class FreshRSS_Import_Service {
 						case 'xPathItemUri': $xPathSettings['itemUri'] = $value['value']; break;
 						case 'xPathItemAuthor': $xPathSettings['itemAuthor'] = $value['value']; break;
 						case 'xPathItemTimestamp': $xPathSettings['itemTimestamp'] = $value['value']; break;
+						case 'xPathItemTimeFormat': $xPathSettings['itemTimeFormat'] = $value['value']; break;
 						case 'xPathItemThumbnail': $xPathSettings['itemThumbnail'] = $value['value']; break;
 						case 'xPathItemCategories': $xPathSettings['itemCategories'] = $value['value']; break;
 						case 'xPathItemUid': $xPathSettings['itemUid'] = $value['value']; break;

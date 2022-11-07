@@ -21,15 +21,28 @@
 				$nothing = false;
 	?>
 	<div class="box">
-		<div class="box-title"><?= _t('gen.date.' . $period) ?></div>
-			<ul class="box-content">
+		<div class="box-title"><h2><?= _t('gen.date.' . $period) ?></h2></div>
+			<ul class="box-content scrollbar-thin">
 				<?php
 					foreach ($feedsInPeriod as $feedInPeriod) {
 						$feed = $this->feeds[$feedInPeriod['id']] ?? null;
-						$error = $feed == null || $feed->inError() ? ' error' : '';
-						$empty = $feed != null && $feed->nbEntries() == 0 ? ' empty' : '';
+
+						$error_class = '';
+						$error_title = '';
+						if ($feed == null || $feed->inError()) {
+							$error_class = ' error';
+							$error_title = _t('sub.feed.error');
+						}
+
+						$empty_class = '';
+						$empty_title = '';
+						if ($feed != null && $feed->nbEntries() == 0) {
+							$empty_class = ' empty';
+							$empty_title = _t('sub.feed.empty');
+						}
+						$mute_class = $feed->mute() ? ' mute' : '';
 				?>
-					<li class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>">
+					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>">
 						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
 						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
@@ -51,7 +64,7 @@
 </main>
 
 <?php $class = isset($this->feed) ? ' active' : ''; ?>
-<aside id="slider" class="scrollbar-thin<?= $class ?>">
+<aside id="slider" class="<?= $class ?>">
 	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
 	<div id="slider-content">
 		<?php

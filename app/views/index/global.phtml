@@ -14,6 +14,7 @@
 ?>
 
 <main id="stream" class="global<?= $class ?>">
+	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
 <?php
 	$params = $_GET;
 	unset($params['c']);
@@ -35,17 +36,31 @@
 ?>
 	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
 		<div class="box-title"><a class="title" data-unread="<?= format_number($cat->nbNotRead()) ?>"
-			href="<?= Minz_Url::display($url_base) ?>"><?= $cat->name() ?></a></div>
+			href="<?= Minz_Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
 
-		<ul class="box-content">
+		<ul class="box-content scrollbar-thin">
 			<?php
 				foreach ($feeds as $feed) {
 					$nb_not_read = $feed->nbNotRead();
-					$error = $feed->inError() ? ' error' : '';
-					$empty = $feed->nbEntries() === 0 ? ' empty' : '';
+
+					$error_class = '';
+					$error_title = '';
+					if ($feed->inError()) {
+						$error_class = ' error';
+						$error_title = _t('sub.feed.error');
+					}
+
+					$empty_class = '';
+					$empty_title = '';
+					if ($feed->nbEntries() == 0) {
+						$empty_class = ' empty';
+						$empty_title = _t('sub.feed.empty');
+					}
+					$mute_class = $feed->mute() ? ' mute' : '';
+
 					$url_base['params']['get'] = 'f_' . $feed->id();
 			?>
-			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error, $empty, $feed->mute() ? ' mute' : '' ?>"
+			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
 				data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
 				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 				<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>

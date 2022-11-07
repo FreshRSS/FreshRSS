@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies "Deze link aan bladwijzers toevoegen."',
+		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies „Deze link aan bladwijzers toevoegen.”',
 		'label' => 'Abonneren',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiveren',
 		'dynamic_opml' => array(
 			'_' => 'Dynamische OPML',
-			'help' => 'Geef de URL naar een <a href=http://opml.org/ target=_blank>OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
+			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'miniatuur van bericht',
 					'help' => 'Voorbeeld: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'datum van bericht',

@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Vyskytla sa chyba počas ukladania nastavaní',
-		'query_created' => 'Dopyt "%s" bol vytvorený.',
+		'query_created' => 'Dopyt “%s” bol vytvorený.',
 		'shortcuts_updated' => 'Skratky boli aktualizované',
 		'updated' => 'Nastavenia boli aktualizované',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Čistenie ukončené. Počet vymazaných článkov: %d',
 	),
 	'tag' => array(
-		'created' => 'Štítok "%s" bol vytvorený.',
+		'created' => 'Štítok “%s” bol vytvorený.',
 		'name_exists' => 'Názov štítku už existuje.',
-		'renamed' => 'Štítok "%s" bol premenovaný na "%s".',
+		'renamed' => 'Štítok “%s” bol premenovaný na “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS sa teraz aktualizuje <strong>na verziu %s</strong>.',

@@ -13,41 +13,41 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aggiorna feeds',
-		'add' => 'Add',	// TODO
-		'back' => '← Go back',	// TODO
+		'add' => 'Aggiungi',
+		'back' => '← Torna indietro',
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
-		'demote' => 'Demote',	// TODO
+		'delete_muted_feeds' => 'Cancella i feed mutati',
+		'demote' => 'Retrocedi',
 		'disable' => 'Disabilita',
 		'empty' => 'Vuoto',
 		'enable' => 'Abilita',
 		'export' => 'Esporta',
 		'filter' => 'Filtra',
 		'import' => 'Importa',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
+		'load_default_shortcuts' => 'Carica le scorciatoie di default',
 		'manage' => 'Gestisci',
 		'mark_read' => 'Segna come letto',
-		'open_url' => 'Open URL',	// TODO
-		'promote' => 'Promote',	// TODO
-		'purge' => 'Purge',	// TODO
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'open_url' => 'Apri URL',
+		'promote' => 'Promuovi',
+		'purge' => 'Elimina',
+		'refresh_opml' => 'Ricarica OPML',
 		'remove' => 'Rimuovi',
-		'rename' => 'Rename',	// TODO
+		'rename' => 'Rinomina',
 		'see_website' => 'Vai al sito',
 		'submit' => 'Conferma',
 		'truncate' => 'Cancella tutti gli articoli',
-		'update' => 'Update',	// TODO
+		'update' => 'Aggiorna',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
+		'accept_tos' => 'Accetto i <a href="%s">Termini e condizioni del servizio</a>.',
 		'email' => 'Indirizzo email',
 		'keep_logged_in' => 'Ricorda i dati <small>(%s giorni)</small>',
 		'login' => 'Accedi',
 		'logout' => 'Esci',
 		'password' => array(
-			'_' => 'Password',	// TODO
+			'_' => 'Password',	// IGNORE
 			'format' => '<small>almeno 7 caratteri</small>',
 		),
 		'registration' => array(
@@ -56,7 +56,7 @@ return array(
 			'title' => 'Creazione profilo',
 		),
 		'username' => array(
-			'_' => 'Username',	// TODO
+			'_' => 'Nome utente',
 			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
 		),
 	),
@@ -84,39 +84,39 @@ return array(
 		'february' => 'febbraio',
 		'format_date' => 'j\\ %s Y',
 		'format_date_hour' => 'j\\ %s Y \\o\\r\\e H\\:i',
-		'fri' => 'Fri',	// TODO
+		'fri' => 'Ven',
 		'jan' => 'genn.',
 		'january' => 'gennaio',
 		'jul' => 'jul',
 		'july' => 'luglio',
 		'jun' => 'jun',
 		'june' => 'giugno',
-		'last_2_year' => 'Last two years',	// TODO
-		'last_3_month' => 'Ultimi 3 mesi',
-		'last_3_year' => 'Last three years',	// TODO
-		'last_5_year' => 'Last five years',	// TODO
-		'last_6_month' => 'Ultimi 6 mesi',
+		'last_2_year' => 'Ultimi due anni',
+		'last_3_month' => 'Ultimi tre mesi',
+		'last_3_year' => 'Ultimi tre anni',
+		'last_5_year' => 'Ultimi cinque anni',
+		'last_6_month' => 'Ultimi sei mesi',
 		'last_month' => 'Ultimo mese',
 		'last_week' => 'Ultima settimana',
 		'last_year' => 'Ultimo anno',
 		'mar' => 'mar.',
 		'march' => 'marzo',
 		'may' => 'maggio',
-		'may_' => 'May',	// TODO
-		'mon' => 'Mon',	// TODO
+		'may_' => 'Mag',
+		'mon' => 'Lun',
 		'month' => 'mesi',
 		'nov' => 'nov.',
 		'november' => 'novembre',
 		'oct' => 'ott.',
 		'october' => 'ottobre',
-		'sat' => 'Sat',	// TODO
+		'sat' => 'Sab',
 		'sep' => 'sett.',
 		'september' => 'settembre',
-		'sun' => 'Sun',	// TODO
-		'thu' => 'Thu',	// TODO
+		'sun' => 'Dom',
+		'thu' => 'Gio',
 		'today' => 'Oggi',
-		'tue' => 'Tue',	// TODO
-		'wed' => 'Wed',	// TODO
+		'tue' => 'Mar',
+		'wed' => 'Mer',
 		'yesterday' => 'Ieri',
 	),
 	'dir' => 'ltr',	// IGNORE
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'feedback' => array(
 			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(non letti: %%d)',
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
@@ -140,11 +140,13 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
@@ -160,7 +162,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
-		'account' => 'Account',	// TODO
+		'account' => 'Profilo',
 		'admin' => 'Amministrazione',
 		'archiving' => 'Archiviazione',
 		'authentication' => 'Autenticazione',
@@ -168,7 +170,7 @@ return array(
 		'configuration' => 'Configurazione',
 		'display' => 'Visualizzazione',
 		'extensions' => 'Estensioni',
-		'logs' => 'Logs',	// TODO
+		'logs' => 'Log',
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',
@@ -181,23 +183,24 @@ return array(
 		'user_profile' => 'Profilo',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO
-		'hours' => 'hours',	// TODO
-		'months' => 'months',	// TODO
-		'weeks' => 'weeks',	// TODO
-		'years' => 'years',	// TODO
+		'days' => 'giorni',
+		'hours' => 'ore',
+		'months' => 'mesi',
+		'weeks' => 'settimane',
+		'years' => 'anni',
 	),
 	'share' => array(
 		'Known' => 'Siti basati su Known',
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
-		'clipboard' => 'Clipboard',	// TODO
+		'clipboard' => 'Appunti',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Email',	// TODO
+		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
@@ -211,7 +214,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Condivisione di sistema',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

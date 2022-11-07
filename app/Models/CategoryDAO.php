@@ -15,6 +15,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	protected function addColumn($name) {
+		if ($this->pdo->inTransaction()) {
+			$this->pdo->commit();
+		}
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
 			if ($name === 'kind') {	//v1.20.0
@@ -225,16 +228,16 @@ SQL;
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id', $id, PDO::PARAM_INT);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$cat = self::daoToCategory($res);
-
-		if (isset($cat[0])) {
-			return $cat[0];
-		} else {
-			return null;
+		if ($stm &&
+			$stm->bindParam(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$cat = self::daoToCategory($res);
+			if (isset($cat[0])) {
+				return $cat[0];
+			}
 		}
+		return null;
 	}
 
 	/** @return FreshRSS_Category|null|false */

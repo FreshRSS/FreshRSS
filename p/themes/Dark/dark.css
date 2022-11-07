@@ -130,11 +130,6 @@ button.as-link[disabled] {
 	color: #445 !important;
 }
 
-.stick {
-	vertical-align: middle;
-	font-size: 0;
-}
-
 .stick input,
 .stick .btn {
 	border-radius: 0;
@@ -288,12 +283,6 @@ a.btn {
 	color: #888;
 }
 
-.nav-list .disable {
-	background: #fafafa;
-	color: #aaa;
-	text-align: center;
-}
-
 .nav-list .item > a {
 	padding: 0 10px;
 }
@@ -332,29 +321,6 @@ a.btn {
 .nav-list .nav-form {
 	padding: 3px;
 	text-align: center;
-}
-
-.nav-head {
-	margin: 0;
-	text-align: right;
-	background: #1c1c1c;
-	border-bottom: 1px solid #333;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
-/*=== Horizontal-list */
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-}
-
-.horizontal-list .item {
-	vertical-align: middle;
 }
 
 /*=== Dropdown */
@@ -405,9 +371,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #333;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #333;
 }
 
 /*=== Alerts */
@@ -782,10 +748,6 @@ a.btn {
 	color: #888;
 }
 
-.flux .website .favicon {
-	margin: 5px;
-}
-
 .flux .item.date {
 	color: #666;
 	font-size: 0.7rem;
@@ -925,8 +887,12 @@ a.btn {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: #111;
+	background: #1c1c1c;
+	border: none;
+}
+
+#stream.reader .flux .content {
+	background-color: #111;
 	border: none;
 }
 
@@ -968,11 +934,6 @@ a.btn {
 	text-shadow: none;
 }
 
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
-}
-
 /*=== Panel */
 #panel {
 	background: #1c1c1c;
@@ -984,6 +945,10 @@ a.btn {
 #slider {
 	background-color: #1c1c1c;
 	border-left: 1px solid #666;
+}
+
+.properties {
+	color: #111;
 }
 
 /*=== DIVERS */
@@ -1018,63 +983,6 @@ a.btn {
 	border-bottom: 1px solid #333;
 }
 
-.stat > .horizontal-list {
-	margin: 0 0 5px;
-}
-
-.stat > .horizontal-list .item {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.stat > .horizontal-list .item:first-child {
-	width: 270px;
-}
-
-/*=== LOGS */
-/*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid #333;
-}
-
-.log {
-	padding: 5px 10px;
-	background: #111;
-	color: #888;
-	font-size: 0.8rem;
-}
-
-.log+.log {
-	border-top: 1px solid #333;
-}
-
-.log .date {
-	display: block;
-	font-weight: bold;
-}
-
-.log.error {
-	background: #a44;
-	color: #fff;
-}
-
-.log.warning {
-	background: #c95;
-	color: #fff;
-}
-
-.log.notice {
-	background: #ec9;
-	color: #000;
-}
-
-.log.debug {
-	background: #111;
-	color: #eee;
-}
-
 /*=== MOBILE */
 /*===========*/
 
@@ -1092,12 +1000,7 @@ a.btn {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background: #111;
-		display: block;
-		width: 100%;
-		height: 50px;
 		border-bottom: 1px solid #333;
-		line-height: 50px;
-		text-align: center;
 	}
 
 	.aside.aside_feed {

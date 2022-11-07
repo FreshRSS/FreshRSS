@@ -3,7 +3,7 @@
 
 //<Not customisable>
 define('FRESHRSS_MIN_PHP_VERSION', '7.0.0');
-define('FRESHRSS_VERSION', '1.20.0-dev');
+define('FRESHRSS_VERSION', '1.20.1-dev');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
 
@@ -16,6 +16,7 @@ define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 define('PUBLIC_RELATIVE', '..');
 define('LIB_PATH', FRESHRSS_PATH . '/lib');
 define('APP_PATH', FRESHRSS_PATH . '/app');
+define('I18N_PATH', APP_PATH . '/i18n');
 define('CORE_EXTENSIONS_PATH', LIB_PATH . '/core-extensions');
 define('TESTS_PATH', FRESHRSS_PATH . '/tests');
 //</Not customisable>
