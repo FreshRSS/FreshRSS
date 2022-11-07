@@ -777,8 +777,10 @@ function rememberOpenCategory(category_id, isOpen) {
 
 function openCategory(category_id) {
 	const category_element = document.getElementById(category_id);
+	if (!category_element) return;
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
+	if (!img) return;
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
 	img.alt = '🔼';
 }
