@@ -15,36 +15,38 @@ $color_unread:	#fff3ed;
 $color_hover:	#fff;
 
 :root {
-	--color-text: #{$color_text};
-	--color-background-dark: #{$color_text};
-	--color-text-shadow-light: #{$color_light};
-	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
 	--color-text-light: #{$color_light};
 	--color-text-light-darker: #{color.adjust(  $color_light,  $lightness: -40%)};
-	--color-background-light: #{$color_light};
-	--color-border-light: #{$color_light};
-	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-background-nav: #{$color_nav};
-	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-border-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-text-dark: #{$color_text};
 	--color-text-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-background-aside: #{$color_aside};
 	--color-text-aside: #{$color_aside};
 	--color-text-alert: #{$color_alert};
-	--color-background-alert: #{$color_alert};
-	--color-background-alert-darker: #{color.adjust(  $color_alert,  $lightness: -10%)};
-	--color-background-good: #{$color_good};
 	--color-text-good: #{$color_good};
 	--color-text-bad: #{$color_bad};
 	--color-text-bad-lighter: #{color.adjust( $color_bad, $lightness: 10%)};
+
+	--color-text-shadow-light: #{$color_light};
+	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
+	
+	--color-border-light: #{$color_light};
+	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-border-grey: #e3e3e3;
+	--color-border-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
 	--color-border-bad: #{$color_bad};
+
+	--color-background-light: #{$color_light};
+	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-dark: #{$color_text};
+	--color-background-nav: #{$color_nav};
+	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-background-aside: #{$color_aside};
+	--color-background-alert: #{$color_alert};
+	--color-background-alert-darker: #{color.adjust(  $color_alert,  $lightness: -10%)};
+	--color-background-good: #{$color_good};
 	--color-background-bad: #{color.adjust( $color_bad, $lightness: 10%)};
 	--color-background-stared: #{$color_stared};
 	--color-background-unread: #{$color_unread};
 	--color-background-hover: #{$color_hover};
-
-	--color-border-grey: #e3e3e3;
 
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
