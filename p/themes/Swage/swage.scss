@@ -10,6 +10,7 @@ $color_aside:	#22303d;
 $color_alert:	#fa8052;
 $color_good:	#5eaabf;
 $color_bad:		#b0425b;
+$color_grey:	#e3e3e3;
 $color_stared:	#fff6da;
 $color_unread:	#fff3ed;
 $color_hover:	#fff;
@@ -30,7 +31,7 @@ $color_hover:	#fff;
 	
 	--color-border-light: #{$color_light};
 	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-border-grey: #e3e3e3;
+	--color-border-grey: #{$color_grey};
 	--color-border-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
 	--color-border-bad: #{$color_bad};
 
@@ -100,7 +101,7 @@ $color_hover:	#fff;
 // /@extend-elements
 html,
 body {
-	color: black;
+	color: var(--color-text-dark);
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -719,26 +720,6 @@ form {
 			text-decoration: none;
 			color: var(--color-text-light);
 		}
-	}
-}
-
-@supports (scrollbar-width: thin) {
-	#sidebar {
-		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
-	}
-
-	#sidebar:hover {
-		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
-	}
-}
-
-@supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.1);
-	}
-
-	#sidebar:hover::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.3);
 	}
 }
 

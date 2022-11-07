@@ -82,7 +82,7 @@ select:invalid {
 
 html,
 body {
-	color: black;
+	color: var(--color-text-dark);
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -568,22 +568,6 @@ form th {
 	color: var(--color-text-light);
 }
 
-@supports (scrollbar-width: thin) {
-	#sidebar {
-		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0);
-	}
-	#sidebar:hover {
-		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0);
-	}
-}
-@supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.1);
-	}
-	#sidebar:hover::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.3);
-	}
-}
 .header {
 	height: auto;
 }

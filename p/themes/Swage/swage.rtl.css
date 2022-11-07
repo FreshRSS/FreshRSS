@@ -1,33 +1,33 @@
 :root {
-	--color-text: #181621;
-	--color-background-dark: #181621;
-	--color-text-shadow-light: #fcfcfc;
-	--color-box-shadow-light: #e3e3e3;
 	--color-text-light: #fcfcfc;
 	--color-text-light-darker: #969696;
-	--color-background-light: #fcfcfc;
-	--color-border-light: #fcfcfc;
-	--color-border-light-darker: #e3e3e3;
-	--color-background-light-darker: #e3e3e3;
-	--color-background-nav: #0062be;
-	--color-background-nav-darker: #00488b;
-	--color-border-nav: #00488b;
+	--color-text-dark: #181621;
 	--color-text-nav: #00488b;
-	--color-background-aside: #22303d;
 	--color-text-aside: #22303d;
 	--color-text-alert: #fa8052;
-	--color-background-alert: #fa8052;
-	--color-background-alert-darker: #f95c20;
-	--color-background-good: #5eaabf;
 	--color-text-good: #5eaabf;
 	--color-text-bad: #b0425b;
 	--color-text-bad-lighter: #c46178;
+	--color-text-shadow-light: #fcfcfc;
+	--color-box-shadow-light: #e3e3e3;
+	--color-border-light: #fcfcfc;
+	--color-border-light-darker: #e3e3e3;
+	--color-border-grey: #e3e3e3;
+	--color-border-nav: #00488b;
 	--color-border-bad: #b0425b;
+	--color-background-light: #fcfcfc;
+	--color-background-light-darker: #e3e3e3;
+	--color-background-dark: #181621;
+	--color-background-nav: #0062be;
+	--color-background-nav-darker: #00488b;
+	--color-background-aside: #22303d;
+	--color-background-alert: #fa8052;
+	--color-background-alert-darker: #f95c20;
+	--color-background-good: #5eaabf;
 	--color-background-bad: #c46178;
 	--color-background-stared: #fff6da;
 	--color-background-unread: #fff3ed;
 	--color-background-hover: #fff;
-	--color-border-grey: #e3e3e3;
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
 	--frss-scrollbar-track: rgba(0, 0, 0, 0.05);
@@ -82,7 +82,7 @@ select:invalid {
 
 html,
 body {
-	color: black;
+	color: var(--color-text-dark);
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -568,22 +568,6 @@ form th {
 	color: var(--color-text-light);
 }
 
-@supports (scrollbar-width: thin) {
-	#sidebar {
-		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0);
-	}
-	#sidebar:hover {
-		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0);
-	}
-}
-@supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.1);
-	}
-	#sidebar:hover::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.3);
-	}
-}
 .header {
 	height: auto;
 }
