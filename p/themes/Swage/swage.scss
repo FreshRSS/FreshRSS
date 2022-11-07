@@ -60,7 +60,7 @@ $color_hover:	#fff;
 %input {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 29px;
+	line-height: 2.25;
 	vertical-align: middle;
 	background-color: var(--color-background-light);
 	border: 2px solid var(--color-border-grey);
@@ -77,7 +77,7 @@ $color_hover:	#fff;
 
 %nav-list {
 	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
@@ -85,7 +85,7 @@ $color_hover:	#fff;
 	padding: 0 22px;
 	color: var(--color-text-light);
 	font-size: 0.8rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 %after {
@@ -111,7 +111,7 @@ a {
 
 	&.btn {
 		min-height: 25px;
-		line-height: 25px;
+		line-height: 1.5;
 		text-decoration: none;
 
 		.icon {
@@ -261,7 +261,7 @@ form {
 		padding: 5px 0;
 
 		.control {
-			line-height: 2.0em;
+			line-height: 2.0;
 		}
 	}
 }
@@ -632,7 +632,7 @@ form {
 		.item {
 			padding: 0 10px;
 			font-size: 0.9rem;
-			line-height: 2.5em;
+			line-height: 2.5;
 
 			.configure {
 				.icon {
@@ -709,7 +709,7 @@ form {
 
 	> .item {
 		padding: 0 10px;
-		line-height: 2.5rem;
+		line-height: 3;
 		font-size: 0.8rem;
 
 		&.active {
@@ -760,7 +760,7 @@ form {
 		z-index: 95;
 		width: 35px;
 		text-align: center;
-		line-height: 0.8rem;
+		line-height: 0.8;
 
 		> .icon {
 			filter: brightness(3);
@@ -897,13 +897,13 @@ form {
 	bottom: 48px;
 	z-index: 900;
 	left: 0;
-	line-height: 1.5em;
+	line-height: 1.5;
 
 	@extend %aside-width;
 
 	> a {
 		padding: 1rem;
-		line-height: 1.5em;
+		line-height: 1.5;
 		font-weight: bold;
 		color: var(--color-text-light);
 
@@ -917,7 +917,7 @@ form {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
 	text-align: center;
 
 	.name {
@@ -947,7 +947,7 @@ form {
 
 		input {
 			border-width: 0;
-			line-height: 25px;
+			line-height: 1.95;
 		}
 	}
 
@@ -1062,7 +1062,7 @@ form {
 	}
 
 	&#actualizeProgress {
-		line-height: 2em;
+		line-height: 2;
 	}
 
 	a.close {
@@ -1084,7 +1084,7 @@ form {
 #nav_entries {
 	margin: 0;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 
 	@extend %aside-width;
@@ -1304,7 +1304,7 @@ a.signin {
 		background-color: var(--color-background-aside);
 		display: block;
 		height: 50px;
-		line-height: 50px;
+		line-height: 3.5;
 		text-align: center;
 		padding-right: 10px;
 

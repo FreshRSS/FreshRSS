@@ -38,7 +38,7 @@ input,
 select, textarea {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 29px;
+	line-height: 2.25;
 	vertical-align: middle;
 	background-color: var(--color-background-light);
 	border: 2px solid var(--color-border-grey);
@@ -56,7 +56,7 @@ select:invalid {
 
 .nav-list .item, .nav-list .nav-header {
 	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
@@ -67,7 +67,7 @@ select:invalid {
 	padding: 0 22px;
 	color: var(--color-text-light);
 	font-size: 0.8rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 .flux::after, .form-group::after {
@@ -92,7 +92,7 @@ a {
 }
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
+	line-height: 1.5;
 	text-decoration: none;
 }
 a.btn .icon {
@@ -212,7 +212,7 @@ form th {
 	padding: 5px 0;
 }
 .form-group .group-controls .control {
-	line-height: 2em;
+	line-height: 2;
 }
 
 .stick select {
@@ -496,7 +496,7 @@ form th {
 .box .box-content .item {
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
@@ -557,7 +557,7 @@ form th {
 }
 .tree-folder-items > .item {
 	padding: 0 10px;
-	line-height: 2.5rem;
+	line-height: 3;
 	font-size: 0.8rem;
 }
 .tree-folder-items > .item.active {
@@ -598,7 +598,7 @@ form th {
 	z-index: 95;
 	width: 35px;
 	text-align: center;
-	line-height: 0.8rem;
+	line-height: 0.8;
 }
 .header .item.configure > .icon {
 	filter: brightness(3);
@@ -696,11 +696,11 @@ form th {
 	bottom: 48px;
 	z-index: 900;
 	left: 0;
-	line-height: 1.5em;
+	line-height: 1.5;
 }
 #new-article > a {
 	padding: 1rem;
-	line-height: 1.5em;
+	line-height: 1.5;
 	font-weight: bold;
 	color: var(--color-text-light);
 }
@@ -712,7 +712,7 @@ form th {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
 	text-align: center;
 }
 .day .name {
@@ -738,7 +738,7 @@ form th {
 }
 .nav_menu .item.search input {
 	border-width: 0;
-	line-height: 25px;
+	line-height: 1.95;
 }
 .nav_menu #toggle-unread .icon,
 .nav_menu #toggle-starred .icon {
@@ -826,7 +826,7 @@ form th {
 	background-color: var(--color-background-bad);
 }
 .notification#actualizeProgress {
-	line-height: 2em;
+	line-height: 2;
 }
 .notification a.close {
 	display: none;
@@ -845,7 +845,7 @@ form th {
 #nav_entries {
 	margin: 0;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 	background-color: var(--color-background-aside);
 }
@@ -1017,7 +1017,7 @@ a.signin {
 		background-color: var(--color-background-aside);
 		display: block;
 		height: 50px;
-		line-height: 50px;
+		line-height: 3.5;
 		text-align: center;
 		padding-right: 10px;
 	}
