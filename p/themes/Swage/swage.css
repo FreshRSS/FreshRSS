@@ -3,25 +3,25 @@
 	--color-background-dark: #181621;
 	--color-text-shadow-light: #fcfcfc;
 	--color-box-shadow-light: #e3e3e3;
-	--color-light: #fcfcfc;
-	--color-light-lighter: #969696;
+	--color-text-light: #fcfcfc;
+	--color-text-light-darker: #969696;
 	--color-background-light: #fcfcfc;
 	--color-border-light: #fcfcfc;
-	--color-border-light-lighter: #e3e3e3;
-	--color-background-light-lighter: #e3e3e3;
+	--color-border-light-darker: #e3e3e3;
+	--color-background-light-darker: #e3e3e3;
 	--color-background-nav: #0062be;
-	--color-background-nav-lighter: #00488b;
-	--color-border-nav-lighter: #00488b;
-	--color-nav-lighter: #00488b;
+	--color-background-nav-darker: #00488b;
+	--color-border-nav: #00488b;
+	--color-text-nav: #00488b;
 	--color-background-aside: #22303d;
-	--color-aside: #22303d;
-	--color-alert: #fa8052;
+	--color-text-aside: #22303d;
+	--color-text-alert: #fa8052;
 	--color-background-alert: #fa8052;
-	--color-background-alert-lighter: #f95c20;
+	--color-background-alert-darker: #f95c20;
 	--color-background-good: #5eaabf;
-	--color-good: #5eaabf;
-	--color-bad: #b0425b;
-	--color-bad-darker: #c46178;
+	--color-text-good: #5eaabf;
+	--color-text-bad: #b0425b;
+	--color-text-bad-lighter: #c46178;
 	--color-border-bad: #b0425b;
 	--color-background-bad: #c46178;
 	--color-background-stared: #fff6da;
@@ -48,7 +48,7 @@ select, textarea {
 input:invalid,
 select:invalid {
 	padding-left: 5px;
-	color: var(--color-bad);
+	color: var(--color-text-bad);
 	border-left-color: var(--color-border-bad);
 	border-left-width: 5px;
 	box-shadow: none;
@@ -65,7 +65,7 @@ select:invalid {
 .dropdown-menu > .item > .as-link,
 .dropdown-menu > .item button, .dropdown-menu > .item {
 	padding: 0 22px;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 0.8rem;
 	line-height: 2.5em;
 }
@@ -119,7 +119,7 @@ legend {
 	background-color: var(--color-background-aside);
 	display: inline-block;
 	width: auto;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 1.4em;
 	clear: both;
 }
@@ -133,12 +133,12 @@ textarea {
 	height: 100px;
 }
 textarea:focus {
-	border-color: var(--color-border-nav-lighter);
+	border-color: var(--color-border-nav);
 }
 
 input:focus,
 select:focus {
-	border-color: var(--color-border-nav-lighter);
+	border-color: var(--color-border-nav);
 }
 input:disabled,
 select:disabled {
@@ -166,7 +166,7 @@ tr,
 td,
 th {
 	padding: 0.5em;
-	border: 1px solid var(--color-border-light-lighter);
+	border: 1px solid var(--color-border-light-darker);
 }
 
 th {
@@ -197,8 +197,8 @@ form th {
 .form-group.form-actions {
 	margin: 15px 0 25px;
 	padding: 5px 0;
-	background-color: var(--color-background-light-lighter);
-	border-top: 3px solid var(--color-border-light-lighter);
+	background-color: var(--color-background-light-darker);
+	border-top: 3px solid var(--color-border-light-darker);
 }
 .form-group.form-actions .btn {
 	margin: 0 10px;
@@ -223,7 +223,7 @@ form th {
 	padding: 5px 10px;
 	background-color: var(--color-background-nav);
 	display: inline-block;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
 	min-height: 35px;
@@ -233,7 +233,7 @@ form th {
 	overflow: hidden;
 }
 .btn.active, .btn:active, .btn:hover {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 	text-decoration: none;
 }
 .btn .icon {
@@ -243,12 +243,12 @@ form th {
 .btn-important, .btn-attention {
 	font-weight: normal;
 	background-color: var(--color-background-alert);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .btn-important:hover,
 .btn-important :active, .btn-attention:hover,
 .btn-attention :active {
-	background-color: var(--color-background-alert-lighter) !important;
+	background-color: var(--color-background-alert-darker) !important;
 }
 
 .manage-list .configure .icon {
@@ -270,23 +270,23 @@ form th {
 	padding: 0 1rem;
 	font-weight: bold;
 	background-color: var(--color-background-aside);
-	color: var(--color-light);
+	color: var(--color-text-light);
 	cursor: default;
 }
 .nav-list .item a:hover {
-	background-color: var(--color-background-nav-lighter);
-	color: var(--color-light);
+	background-color: var(--color-background-nav-darker);
+	color: var(--color-text-light);
 }
 .nav-list .item.active {
-	background: var(--color-background-nav-lighter);
-	color: var(--color-light);
+	background: var(--color-background-nav-darker);
+	color: var(--color-text-light);
 }
 .nav-list .item.active a {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .nav-list .item.active.empty a,
 .nav-list .item.active .error a {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .nav-list .item.active.empty a {
 	background-color: var(--color-background-alert);
@@ -298,10 +298,10 @@ form th {
 	padding: 0 1.5rem;
 }
 .nav-list .item.empty a {
-	color: var(--color-alert);
+	color: var(--color-text-alert);
 }
 .nav-list .item.error a {
-	color: var(--color-bad-darker);
+	color: var(--color-text-bad-lighter);
 }
 .nav-list .item .icon {
 	filter: brightness(3);
@@ -319,13 +319,13 @@ form th {
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 }
 .dropdown-menu .dropdown-header {
 	cursor: default;
 	padding: 0.5rem 10px 0.5rem 10px;
 	font-weight: bold;
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .dropdown-menu .dropdown-header a {
 	padding: 0 5px;
@@ -349,7 +349,7 @@ form th {
 .dropdown-menu > .item > a:hover,
 .dropdown-menu > .item > button:hover {
 	background-color: var(--color-background-nav);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .dropdown-menu > .item[aria-checked=true] > a::before {
 	font-weight: bold;
@@ -369,7 +369,7 @@ form th {
 
 .item ~ .dropdown-header,
 .item.separator {
-	border-top-color: var(--color-border-light-lighter);
+	border-top-color: var(--color-border-light-darker);
 	cursor: default;
 }
 
@@ -377,7 +377,7 @@ form th {
 	margin: 5px auto;
 	padding: 10px 15px;
 	background-color: var(--color-background-light);
-	color: var(--color-light-lighter);
+	color: var(--color-text-light-darker);
 	font-size: 0.9em;
 	border: none;
 	text-shadow: 0 0 1px var(--color-text-shadow-light);
@@ -399,21 +399,21 @@ form th {
 
 .alert-warn {
 	background-color: var(--color-background-light);
-	color: var(--color-alert);
+	color: var(--color-text-alert);
 }
 
 .alert-success {
 	background-color: var(--color-background-light);
-	color: var(--color-good);
+	color: var(--color-text-good);
 }
 
 .alert-error {
 	background-color: var(--color-background-light);
-	color: var(--color-bad);
+	color: var(--color-text-bad);
 }
 
 .pagination {
-	background: var(--color-background-light-lighter);
+	background: var(--color-background-light-darker);
 	color: var(--color_text);
 }
 .pagination .item a {
@@ -430,7 +430,7 @@ form th {
 }
 .content hr {
 	margin: 30px 10px;
-	background: var(--color-background-light-lighter);
+	background: var(--color-background-light-darker);
 	height: 1px;
 	border: 0;
 	box-shadow: 0 2px 5px var(--color-box-shadow-light);
@@ -440,18 +440,18 @@ form th {
 	padding: 10px 20px;
 	overflow: auto;
 	background-color: var(--color-background-dark);
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 0.9rem;
 }
 .content pre code {
 	background: transparent;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	border: none;
 }
 .content code {
 	padding: 2px 5px;
 	background-color: var(--color-background-light);
-	color: var(--color-bad);
+	color: var(--color-text-bad);
 	border: 1px solid var(--color-border-light);
 }
 .content blockquote {
@@ -459,9 +459,9 @@ form th {
 	padding: 5px 20px;
 	background-color: var(--color-background-light);
 	display: block;
-	color: var(--color-light-lighter);
-	border-top: 1px solid var(--color-border-light-lighter);
-	border-bottom: 1px solid var(--color-border-light-lighter);
+	color: var(--color-text-light-darker);
+	border-top: 1px solid var(--color-border-light-darker);
+	border-bottom: 1px solid var(--color-border-light-darker);
 }
 .content blockquote p {
 	margin: 0;
@@ -471,17 +471,17 @@ form th {
 }
 
 .box {
-	border: 1px solid var(--color-border-light-lighter);
+	border: 1px solid var(--color-border-light-darker);
 }
 .box .box-title {
 	margin: 0;
 	padding: 7px 10px;
 	background-color: var(--color-background-aside);
-	color: var(--color-light);
-	border-bottom: 1px solid var(--color-border-light-lighter);
+	color: var(--color-text-light);
+	border-bottom: 1px solid var(--color-border-light-darker);
 }
 .box .box-title a {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .box .box-title .configure {
 	margin-right: 4px;
@@ -514,11 +514,11 @@ form th {
 	background-color: var(--color-background-nav);
 }
 .box.category:not([data-unread="0"]) .box-title:active {
-	background: var(--color-background-nav-lighter);
+	background: var(--color-background-nav-darker);
 }
 .box.category:not([data-unread="0"]) .box-title .title {
 	font-weight: bold;
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
@@ -546,7 +546,7 @@ form th {
 }
 .aside_feed .tree-folder-title .title {
 	background: inherit;
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .aside_feed .tree-folder-title .title:hover {
 	text-decoration: none;
@@ -561,11 +561,11 @@ form th {
 	font-size: 0.8rem;
 }
 .tree-folder-items > .item.active {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 }
 .tree-folder-items > .item > a {
 	text-decoration: none;
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 
 @supports (scrollbar-width: thin) {
@@ -638,7 +638,7 @@ form th {
 }
 .aside.aside_feed .tree-folder .tree-folder-title:hover,
 .aside.aside_feed .tree-folder .item.feed:hover {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 }
 .aside.aside_feed .nav-form input,
 .aside.aside_feed .nav-form select {
@@ -653,12 +653,12 @@ form th {
 
 .aside_feed .category .title:not([data-unread="0"])::after {
 	margin: 0.5rem 0 0 0;
-	background-color: var(--color-background-nav-lighter);
-	color: var(--color-light);
+	background-color: var(--color-background-nav-darker);
+	color: var(--color-text-light);
 }
 .aside_feed .feed .item-title:not([data-unread="0"])::after {
 	background-color: var(--color-background-nav);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
@@ -718,11 +718,11 @@ form th {
 	padding: 1rem;
 	line-height: 1.5em;
 	font-weight: bold;
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 #new-article > a:hover {
 	text-decoration: none;
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 }
 
 .day {
@@ -736,7 +736,7 @@ form th {
 }
 
 .nav a {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 
 .nav_menu {
@@ -768,7 +768,7 @@ form th {
 .flux::after {
 	margin: 0 auto;
 	width: 90%;
-	border-top: 1px solid var(--color-border-light-lighter);
+	border-top: 1px solid var(--color-border-light-darker);
 }
 .flux:hover,
 .flux .current {
@@ -791,7 +791,7 @@ form th {
 	background-color: var(--color-background-unread);
 }
 .flux .item.date {
-	color: var(--color-light-lighter);
+	color: var(--color-text-light-darker);
 	font-size: 0.7rem;
 }
 .flux .bottom {
@@ -799,7 +799,7 @@ form th {
 	text-align: center;
 }
 .flux label {
-	color: var(--color-light);
+	color: var(--color-text-light);
 	cursor: pointer;
 }
 
@@ -813,9 +813,9 @@ form th {
 
 .notification {
 	padding: 10px 0;
-	background-color: var(--color-background-light-lighter);
+	background-color: var(--color-background-light-darker);
 	height: auto;
-	color: var(--color-light-lighter);
+	color: var(--color-text-light-darker);
 	font-size: 1em;
 	border: none;
 	text-align: center;
@@ -827,7 +827,7 @@ form th {
 	top: auto;
 }
 .notification.good, .notification.bad {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .notification.good {
 	background-color: var(--color-background-good);
@@ -851,11 +851,11 @@ form th {
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: var(--color-background-light-lighter);
+	background: var(--color-background-light-darker);
 }
 #bigMarkAsRead:hover {
 	background-color: var(--color-background-aside);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 
 #nav_entries {
@@ -876,7 +876,7 @@ form th {
 }
 .stat > table td,
 .stat > table th {
-	border-bottom: 1px solid var(--color-border-light-lighter);
+	border-bottom: 1px solid var(--color-border-light-darker);
 }
 
 #overlay {
@@ -915,17 +915,17 @@ form th {
 }
 
 a.signin {
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 70%;
 }
 
 .log-item.log-error {
 	background-color: var(--color-background-bad);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .log-item.log-warning {
 	background-color: var(--color-background-alert);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .log-item.log-debug {
 	background: var(--color-background-dark);
@@ -1125,44 +1125,44 @@ button.as-link {
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 }
 
 .tree-folder.active .tree-folder-title {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 	font-weight: bold;
 }
 
 .feed.item.empty {
-	color: var(--color-alert);
+	color: var(--color-text-alert);
 }
 .feed.item.empty.active {
 	background-color: var(--color-background-alert);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .feed.item.empty.active > a {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .feed.item.empty > a {
-	color: var(--color-alert);
+	color: var(--color-text-alert);
 }
 .feed.item.error {
-	color: var(--color-bad-darker);
+	color: var(--color-text-bad-lighter);
 }
 .feed.item.error.active {
 	background-color: var(--color-background-bad);
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .feed.item.error.active > a {
-	color: var(--color-light);
+	color: var(--color-text-light);
 }
 .feed.item.error > a {
-	color: var(--color-bad-darker);
+	color: var(--color-text-bad-lighter);
 }
 
 #stream.reader .flux {
 	background-color: var(--color-background-light);
-	color: var(--color-aside);
+	color: var(--color-text-aside);
 	border: none;
 }
 #stream.reader .flux::after {
@@ -1173,7 +1173,7 @@ button.as-link {
 }
 #stream.reader .flux .author {
 	margin: 0 0 10px;
-	color: var(--color-light-lighter);
+	color: var(--color-text-light-darker);
 	font-size: 90%;
 }
 

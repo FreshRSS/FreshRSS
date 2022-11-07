@@ -19,25 +19,25 @@ $color_hover:	#fff;
 	--color-background-dark: #{$color_text};
 	--color-text-shadow-light: #{$color_light};
 	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-light: #{$color_light};
-	--color-light-lighter:  #{color.adjust(  $color_light,  $lightness: -40%)};
+	--color-text-light: #{$color_light};
+	--color-text-light-darker: #{color.adjust(  $color_light,  $lightness: -40%)};
 	--color-background-light: #{$color_light};
 	--color-border-light: #{$color_light};
-	--color-border-light-lighter:  #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-background-light-lighter:  #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
 	--color-background-nav: #{$color_nav};
-	--color-background-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-border-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-nav-lighter: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-border-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-text-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
 	--color-background-aside: #{$color_aside};
-	--color-aside: #{$color_aside};
-	--color-alert: #{$color_alert};
+	--color-text-aside: #{$color_aside};
+	--color-text-alert: #{$color_alert};
 	--color-background-alert: #{$color_alert};
-	--color-background-alert-lighter: #{color.adjust(  $color_alert,  $lightness: -10%)};
+	--color-background-alert-darker: #{color.adjust(  $color_alert,  $lightness: -10%)};
 	--color-background-good: #{$color_good};
-	--color-good: #{$color_good};
-	--color-bad: #{$color_bad};
-	--color-bad-darker: #{color.adjust( $color_bad, $lightness: 10%)};
+	--color-text-good: #{$color_good};
+	--color-text-bad: #{$color_bad};
+	--color-text-bad-lighter: #{color.adjust( $color_bad, $lightness: 10%)};
 	--color-border-bad: #{$color_bad};
 	--color-background-bad: #{color.adjust( $color_bad, $lightness: 10%)};
 	--color-background-stared: #{$color_stared};
@@ -66,7 +66,7 @@ $color_hover:	#fff;
 
 %invalid {
 	padding-left: 5px;
-	color: var(--color-bad);
+	color: var(--color-text-bad);
 	border-left-color: var(--color-border-bad);
 	border-left-width: 5px;
 	box-shadow: none;
@@ -80,7 +80,7 @@ $color_hover:	#fff;
 
 %dropdown {
 	padding: 0 22px;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 0.8rem;
 	line-height: 2.5em;
 }
@@ -141,7 +141,7 @@ legend {
 	background-color: var(--color-background-aside);
 	display: inline-block;
 	width: auto;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 1.4em;
 	clear: both;
 }
@@ -157,7 +157,7 @@ textarea {
 	@extend %input;
 
 	&:focus {
-		border-color: var(--color-border-nav-lighter);
+		border-color: var(--color-border-nav);
 	}
 }
 
@@ -167,7 +167,7 @@ select {
 	@extend %input;
 
 	&:focus {
-		border-color: var(--color-border-nav-lighter);
+		border-color: var(--color-border-nav);
 	}
 
 	&:invalid {
@@ -203,7 +203,7 @@ tr,
 td,
 th {
 	padding: 0.5em;
-	border: 1px solid var(--color-border-light-lighter);
+	border: 1px solid var(--color-border-light-darker);
 }
 
 th {
@@ -240,8 +240,8 @@ form {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background-color: var(--color-background-light-lighter);
-		border-top: 3px solid var(--color-border-light-lighter);
+		background-color: var(--color-background-light-darker);
+		border-top: 3px solid var(--color-border-light-darker);
 
 		.btn {
 			margin: 0 10px;
@@ -284,7 +284,7 @@ form {
 	padding: 5px 10px;
 	background-color: var(--color-background-nav);
 	display: inline-block;
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
 	min-height: 35px;
@@ -296,7 +296,7 @@ form {
 	&.active,
 	&:active,
 	&:hover {
-		background-color: var(--color-background-nav-lighter);
+		background-color: var(--color-background-nav-darker);
 		text-decoration: none;
 	}
 
@@ -308,11 +308,11 @@ form {
 .btn-important, .btn-attention {
 	font-weight: normal;
 	background-color: var(--color-background-alert);
-	color: var(--color-light);
+	color: var(--color-text-light);
 
 	&:hover,
 	:active {
-		background-color: var(--color-background-alert-lighter) !important;
+		background-color: var(--color-background-alert-darker) !important;
 	}
 }
 
@@ -344,7 +344,7 @@ form {
 		padding: 0 1rem;
 		font-weight: bold;
 		background-color: var(--color-background-aside);
-		color: var(--color-light);
+		color: var(--color-text-light);
 		cursor: default;
 	}
 
@@ -353,21 +353,21 @@ form {
 		@extend %nav-list;
 
 		a:hover {
-			background-color: var(--color-background-nav-lighter);
-			color: var(--color-light);
+			background-color: var(--color-background-nav-darker);
+			color: var(--color-text-light);
 		}
 
 		&.active {
-			background: var(--color-background-nav-lighter);
-			color: var(--color-light);
+			background: var(--color-background-nav-darker);
+			color: var(--color-text-light);
 
 			a {
-				color: var(--color-light);
+				color: var(--color-text-light);
 			}
 
 			&.empty a,
 			.error a {
-				color: var(--color-light);
+				color: var(--color-text-light);
 			}
 
 			&.empty a {
@@ -384,11 +384,11 @@ form {
 		}
 
 		&.empty a {
-			color: var(--color-alert);
+			color: var(--color-text-alert);
 		}
 
 		&.error a {
-			color: var(--color-bad-darker);
+			color: var(--color-text-bad-lighter);
 		}
 
 		.icon {
@@ -411,13 +411,13 @@ form {
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 
 	.dropdown-header {
 		cursor: default;
 		padding: 0.5rem 10px 0.5rem 10px;
 		font-weight: bold;
-		color: var(--color-light);
+		color: var(--color-text-light);
 
 		a {
 			padding: 0 5px;
@@ -457,7 +457,7 @@ form {
 			> a:hover,
 			> button:hover {
 				background-color: var(--color-background-nav);
-				color: var(--color-light);
+				color: var(--color-text-light);
 			}
 		}
 
@@ -486,7 +486,7 @@ form {
 
 .item ~ .dropdown-header,
 .item.separator {
-	border-top-color: var(--color-border-light-lighter);
+	border-top-color: var(--color-border-light-darker);
 	cursor: default;
 }
 
@@ -494,7 +494,7 @@ form {
 	margin: 5px auto;
 	padding: 10px 15px;
 	background-color: var(--color-background-light);
-	color: var(--color-light-lighter);
+	color: var(--color-text-light-darker);
 	font-size: 0.9em;
 	border: none;
 	text-shadow: 0 0 1px var(--color-text-shadow-light);
@@ -517,21 +517,21 @@ form {
 
 .alert-warn {
 	background-color: var(--color-background-light);
-	color: var(--color-alert);
+	color: var(--color-text-alert);
 }
 
 .alert-success {
 	background-color: var(--color-background-light);
-	color: var(--color-good);
+	color: var(--color-text-good);
 }
 
 .alert-error {
 	background-color: var(--color-background-light);
-	color: var(--color-bad);
+	color: var(--color-text-bad);
 }
 
 .pagination {
-	background: var(--color-background-light-lighter);
+	background: var(--color-background-light-darker);
 	color: var(--color_text);
 
 	.item a {
@@ -550,7 +550,7 @@ form {
 
 	hr {
 		margin: 30px 10px;
-		background: var(--color-background-light-lighter);
+		background: var(--color-background-light-darker);
 		height: 1px;
 		border: 0;
 		box-shadow: 0 2px 5px var(--color-box-shadow-light);
@@ -561,12 +561,12 @@ form {
 		padding: 10px 20px;
 		overflow: auto;
 		background-color: var(--color-background-dark);
-		color: var(--color-light);
+		color: var(--color-text-light);
 		font-size: 0.9rem;
 
 		code {
 			background: transparent;
-			color: var(--color-light);
+			color: var(--color-text-light);
 			border: none;
 		}
 	}
@@ -574,7 +574,7 @@ form {
 	code {
 		padding: 2px 5px;
 		background-color: var(--color-background-light);
-		color: var(--color-bad);
+		color: var(--color-text-bad);
 		border: 1px solid var(--color-border-light);
 	}
 
@@ -583,9 +583,9 @@ form {
 		padding: 5px 20px;
 		background-color: var(--color-background-light);
 		display: block;
-		color: var(--color-light-lighter);
-		border-top: 1px solid var(--color-border-light-lighter);
-		border-bottom: 1px solid var(--color-border-light-lighter);
+		color: var(--color-text-light-darker);
+		border-top: 1px solid var(--color-border-light-darker);
+		border-bottom: 1px solid var(--color-border-light-darker);
 
 		p {
 			margin: 0;
@@ -598,17 +598,17 @@ form {
 }
 
 .box {
-	border: 1px solid var(--color-border-light-lighter);
+	border: 1px solid var(--color-border-light-darker);
 
 	.box-title {
 		margin: 0;
 		padding: 7px 10px;
 		background-color: var(--color-background-aside);
-		color: var(--color-light);
-		border-bottom: 1px solid var(--color-border-light-lighter);
+		color: var(--color-text-light);
+		border-bottom: 1px solid var(--color-border-light-darker);
 
 		a {
-			color: var(--color-light);
+			color: var(--color-text-light);
 		}
 
 		.configure {
@@ -655,12 +655,12 @@ form {
 			background-color: var(--color-background-nav);
 
 			&:active {
-				background: var(--color-background-nav-lighter);
+				background: var(--color-background-nav-darker);
 			}
 
 			.title {
 				font-weight: bold;
-				color: var(--color-light);
+				color: var(--color-text-light);
 			}
 		}
 
@@ -693,7 +693,7 @@ form {
 
 	.title {
 		background: inherit;
-		color: var(--color-light);
+		color: var(--color-text-light);
 
 		&:hover {
 			text-decoration: none;
@@ -710,12 +710,12 @@ form {
 		font-size: 0.8rem;
 
 		&.active {
-			background-color: var(--color-background-nav-lighter);
+			background-color: var(--color-background-nav-darker);
 		}
 
 		> a {
 			text-decoration: none;
-			color: var(--color-light);
+			color: var(--color-text-light);
 		}
 	}
 }
@@ -811,7 +811,7 @@ form {
 			.tree-folder-title,
 			.item.feed {
 				&:hover {
-					background-color: var(--color-background-nav-lighter);
+					background-color: var(--color-background-nav-darker);
 				}
 			}
 		}
@@ -838,13 +838,13 @@ form {
 .aside_feed {
 	.category .title:not([data-unread="0"])::after {
 		margin: 0.5rem 0 0 0;
-		background-color: var(--color-background-nav-lighter);
-		color: var(--color-light);
+		background-color: var(--color-background-nav-darker);
+		color: var(--color-text-light);
 	}
 
 	.feed .item-title:not([data-unread="0"])::after {
 		background-color: var(--color-background-nav);
-		color: var(--color-light);
+		color: var(--color-text-light);
 	}
 
 	.tree-folder-items .dropdown-menu::after {
@@ -922,11 +922,11 @@ form {
 		padding: 1rem;
 		line-height: 1.5em;
 		font-weight: bold;
-		color: var(--color-light);
+		color: var(--color-text-light);
 
 		&:hover {
 			text-decoration: none;
-			background-color: var(--color-background-nav-lighter);
+			background-color: var(--color-background-nav-darker);
 		}
 	}
 }
@@ -944,7 +944,7 @@ form {
 
 .nav {
 	a {
-		color: var(--color-light);
+		color: var(--color-text-light);
 	}
 }
 
@@ -985,7 +985,7 @@ form {
 		@extend %after;
 		margin: 0 auto;
 		width: 90%;
-		border-top: 1px solid var(--color-border-light-lighter);
+		border-top: 1px solid var(--color-border-light-darker);
 	}
 
 	&:hover,
@@ -1015,7 +1015,7 @@ form {
 
 	.item {
 		&.date {
-			color: var(--color-light-lighter);
+			color: var(--color-text-light-darker);
 			font-size: 0.7rem;
 		}
 	}
@@ -1026,7 +1026,7 @@ form {
 	}
 
 	label {
-		color: var(--color-light);
+		color: var(--color-text-light);
 		cursor: pointer;
 	}
 }
@@ -1042,9 +1042,9 @@ form {
 
 .notification {
 	padding: 10px 0;
-	background-color: var(--color-background-light-lighter);
+	background-color: var(--color-background-light-darker);
 	height: auto;
-	color: var(--color-light-lighter);
+	color: var(--color-text-light-darker);
 	font-size: 1em;
 	border: none;
 	text-align: center;
@@ -1059,7 +1059,7 @@ form {
 
 	&.good,
 	&.bad {
-		color: var(--color-light);
+		color: var(--color-text-light);
 	}
 
 	&.good {
@@ -1090,11 +1090,11 @@ form {
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: var(--color-background-light-lighter);
+	background: var(--color-background-light-darker);
 
 	&:hover {
 		background-color: var(--color-background-aside);
-		color: var(--color-light);
+		color: var(--color-text-light);
 	}
 }
 
@@ -1120,7 +1120,7 @@ form {
 	> table {
 		td,
 		th {
-			border-bottom: 1px solid var(--color-border-light-lighter);
+			border-bottom: 1px solid var(--color-border-light-darker);
 		}
 	}
 }
@@ -1166,19 +1166,19 @@ form {
 }
 
 a.signin {
-	color: var(--color-light);
+	color: var(--color-text-light);
 	font-size: 70%;
 }
 
 .log-item {
 	&.log-error {
 		background-color: var(--color-background-bad);
-		color: var(--color-light);
+		color: var(--color-text-light);
 	}
 
 	&.log-warning {
 		background-color: var(--color-background-alert);
-		color: var(--color-light);
+		color: var(--color-text-light);
 	}
 
 	&.log-debug {
@@ -1434,53 +1434,53 @@ button.as-link {
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 }
 
 .tree-folder.active .tree-folder-title {
-	background-color: var(--color-background-nav-lighter);
+	background-color: var(--color-background-nav-darker);
 	font-weight: bold;
 }
 
 .feed.item {
 	&.empty {
-		color: var(--color-alert);
+		color: var(--color-text-alert);
 
 		&.active {
 			background-color: var(--color-background-alert);
-			color: var(--color-light);
+			color: var(--color-text-light);
 
 			> a {
-				color: var(--color-light);
+				color: var(--color-text-light);
 			}
 		}
 
 		> a {
-			color: var(--color-alert);
+			color: var(--color-text-alert);
 		}
 	}
 
 	&.error {
-		color: var(--color-bad-darker);
+		color: var(--color-text-bad-lighter);
 
 		&.active {
 			background-color: var(--color-background-bad);
-			color: var(--color-light);
+			color: var(--color-text-light);
 
 			> a {
-				color: var(--color-light);
+				color: var(--color-text-light);
 			}
 		}
 
 		> a {
-			color: var(--color-bad-darker);
+			color: var(--color-text-bad-lighter);
 		}
 	}
 }
 
 #stream.reader .flux {
 	background-color: var(--color-background-light);
-	color: var(--color-aside);
+	color: var(--color-text-aside);
 	border: none;
 
 	&::after {
@@ -1493,7 +1493,7 @@ button.as-link {
 
 	.author {
 		margin: 0 0 10px;
-		color: var(--color-light-lighter);
+		color: var(--color-text-light-darker);
 		font-size: 90%;
 	}
 }
