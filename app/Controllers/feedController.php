@@ -934,13 +934,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		$attributes = $feed->attributes();
-		$attributes['path_entries_filter'] = trim(Minz_Request::param('selector_filter', ''));
+		$attributes['path_entries_filter'] = trim(Minz_Request::param('selector_filter', '', true));
 
 		//Fetch & select content.
 		try {
 			$fullContent = FreshRSS_Entry::getContentByParsing(
 				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
-				$content_selector,
+				htmlspecialchars_decode($content_selector, ENT_QUOTES),
 				$attributes
 			);
 

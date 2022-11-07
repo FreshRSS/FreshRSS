@@ -54,6 +54,7 @@ class FreshRSS_Category extends Minz_Model {
 	public function kind(): int {
 		return $this->kind;
 	}
+	/** @return string HTML-encoded name of the category */
 	public function name(): string {
 		return $this->name;
 	}
