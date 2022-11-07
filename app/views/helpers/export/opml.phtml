@@ -40,7 +40,7 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			$outline['frss:filtersActionRead'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $filters];
 		}
 		if ($feed->pathEntries() != '') {
-			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
+			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES)];
 		}
 		if ($feed->attributes('path_entries_filter') != '') {
 			$outline['frss:cssFullContentFilter'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->attributes('path_entries_filter')];
