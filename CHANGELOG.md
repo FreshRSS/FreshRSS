@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 202X-11-XX FreshRSS 1.20.1-dev
+## 2022-11-XX FreshRSS 1.20.1-dev
 
 * Features
 	* Add support for custom XPath date/time format [#4703](https://github.com/FreshRSS/FreshRSS/pull/4703)
