@@ -1214,6 +1214,8 @@ a:hover .icon {
 		--frss-background-color: #000;
 		--frss-font-color-dark: #ccc;
 		--frss-modal-background-color-transparent: #000000a3;
+		--frss-background-color-transparent: #000000a3;
+
 		--background-color-light-gradient: #111;
 		--background-color-light: #111;
 		--background-color-light-shadowed: #191919;
