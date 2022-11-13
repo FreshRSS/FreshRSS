@@ -1208,3 +1208,87 @@ a:hover .icon {
 		display: none;
 	}
 }
+
+@media screen and (prefers-color-scheme: dark) {
+	:root {
+		--frss-background-color: #000;
+		--frss-font-color-dark: #ccc;
+		--frss-modal-background-color-transparent: #000000a3;
+		--background-color-light-gradient: #111;
+		--background-color-light: #111;
+		--background-color-light-shadowed: #191919;
+		--background-color-grey: #1f1f1f;
+		--background-color-hover: #090909;
+
+		--unread-article-background-color: #fff3ed10;
+		--unread-article-border-color: #ff5300;
+		--favorite-article-background-color: #fff6da;
+		--favorite-article-border-color: #ffc300;
+
+		--contrast-background-color: #0084cc;
+		--contrast-background-color-gradient: #0045cc;
+		--contrast-background-color-hover: #06c;
+		--contrast-background-color-active: #038;
+		--contrast-border-color: #0062b7;
+
+		--contrast-background-font-color: #eee;
+
+		--attention-background-color-gradient1: #ea4a46;
+		--attention-background-color-gradient2: #911811;
+
+		--attention-background-color-gradient1-hover: #d14641;
+		--attention-background-color-gradient2-hover: #bd362f;
+		--attention-background-color-active: #bd362f;
+		--attention-border-color: #c44742;
+
+		--empty-feed-color: #e67e22;
+		--error-feed-color: #bd362f;
+
+		--alert-warn-background-color: #ffffe022;
+		--alert-warn-font-color: #ccc;
+		--alert-warn-border-color: #eeb;
+		--alert-success-background-color: #e8ffe814;
+		--alert-success-font-color: #96c196;
+		--alert-success-border-color: #cec;
+		--alert-error-background-color: #fdda;
+		--alert-error-font-color: #693a3a;
+		--alert-error-boder-color: #ecc;
+
+		--notification-good-background-color: #ffe;
+		--notification-good-border-color: #eeb;
+		--notification-good-font-color: #916a37;
+		--notification-bad-background-color: #fdd;
+		--notification-bad-font-color: #643838;
+		--notification-bad-border-color: #ecc;
+		--notification-close-background-color-hover: #aaa2;
+
+		--font-color: #ccc;
+		--font-color-grey: #999;
+		--font-color-light-shadowed: #555;
+		--font-color-light: #ccc;
+
+		--text-shadow-color: #1c1c1c;
+		--text-shadow-color-dark: #666;
+		--box-shadow-color: #4446;
+		--box-shadow-color-inset: #1f1f1f;
+
+		--font-color-link: #0062be;
+		--font-color-link-hover: #0062be;
+
+		--border-color: #222;
+		--border-color-shadow-side: #333;
+		--contrast-border-color-active: #0062be;
+
+		--form-element-font-color-focus: #0062be;
+		--form-element-border-color-focus: #0062be;
+		--form-element-focus-box-shadow-color-inset: #110;
+		--form-element-border-color-invalid: #f00;
+		--form-element-invalid-box-shadow-color-inset: #fdd;
+	}
+
+	.btn.active,
+	.btn:active,
+	.dropdown-target:target ~ .btn.dropdown-toggle {
+		background: var(--border-color);
+	}
+}
