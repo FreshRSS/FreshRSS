@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Odstranění ztlumených zdrojů',
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'Otevřít adresu URL',
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Aktualizovat OPML',
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
 		'see_website' => 'Zobrazit webovou stránku',
@@ -130,7 +130,7 @@ return array(
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'feedback' => array(
 			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(nepřečtené: %%d)',
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -140,11 +140,13 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
@@ -194,10 +196,12 @@ return array(
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
@@ -211,7 +215,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Sdílení systému',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

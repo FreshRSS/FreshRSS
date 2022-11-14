@@ -10,30 +10,51 @@
 
 	<h1><?= _t('conf.sharing') ?></h1>
 
-	<form method="post" action="<?= _url('configure', 'integration') ?>"
-		data-simple='<formgroup><legend>##label##</legend>
-			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
-			<div class="form-group" id="group-share-##key##">
-			<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label><div class="group-controls">
-			<input type="text" id="share_##key##_name" name="share[##key##][name]" value="##label##" />
-			</div>
-			</div></formgroup>'
-		data-advanced='<formgroup class="group-share"><legend>##label##</legend>
-			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
-			<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
-			<input type="hidden" id="share_##key##_field" name="share[##key##][field]" value="##field##" />
-			<div class="form-group" id="group-share-##key##"><label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label><div class="group-controls">
-			<input type="text" id="share_##key##_name" name="share[##key##][name]" value="" />
-			</div>
-			<div class="form-group" id="group-share-##key##"><label class="group-name" for="share_##key##_url"><?= _t('conf.sharing.share_url') ?></label><div class="group-controls">
-			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="long" value="" required />
-			<p class="help"><?= _i('help') ?> <a href="##help##" target="_blank" rel="noreferrer"><?= _t('conf.sharing.more_information') ?></a></p>
-			</div><div class="form-group">
-				<div class="group-controls">
-					<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
-				</div>
-			</div></formgroup>' class="draggableList">
+	<form method="post" action="<?= _url('configure', 'integration') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<template id="simple-share">
+			<formgroup class="group-share dragbox">
+				<legend draggable="true">##label##</legend>
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label>
+					<div class="group-controls">
+						<input type="text" id="share_##key##_name" name="share[##key##][name]" value="##label##" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="group-controls">
+						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
+					</div>
+				</div>
+			</formgroup>
+		</template>
+		<template id="advanced-share">
+			<formgroup class="group-share dragbox">
+				<legend draggable="true">##label##</legend>
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
+				<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
+				<input type="hidden" id="share_##key##_field" name="share[##key##][field]" value="##field##" />
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label>
+					<div class="group-controls">
+						<input type="text" id="share_##key##_name" name="share[##key##][name]" value="" />
+					</div>
+				</div>
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_url"><?= _t('conf.sharing.share_url') ?></label>
+					<div class="group-controls">
+						<input type="url" id="share_##key##_url" name="share[##key##][url]" class="long" value="" required />
+						<p class="help"><?= _i('help') ?> <a href="##help##" target="_blank" rel="noreferrer"><?= _t('conf.sharing.more_information') ?></a></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="group-controls">
+						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
+					</div>
+				</div>
+			</formgroup>
+		</template>
 
 		<?php
 			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
