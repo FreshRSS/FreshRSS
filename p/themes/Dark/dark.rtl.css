@@ -938,6 +938,10 @@ a.btn {
 	border-right: 1px solid #666;
 }
 
+.properties {
+	color: #111;
+}
+
 /*=== DIVERS */
 /*===========*/
 .aside.aside_feed .nav-form input,

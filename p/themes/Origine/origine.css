@@ -567,7 +567,7 @@ a:hover .icon {
 }
 
 .box .box-content .item {
-	padding: 0.5rem 0 0.25rem 0;
+	padding-bottom: 0.25rem;
 	font-size: 0.9rem;
 	line-height: 1.5;
 }
@@ -579,9 +579,9 @@ a:hover .icon {
 
 .tree-folder-title {
 	position: relative;
-	padding: 0 10px;
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
 	background-color: var(--background-color-light);
-	line-height: 2.5;
 	font-size: 1rem;
 }
 
@@ -615,7 +615,7 @@ a:hover .icon {
 
 .tree-folder-items > .item {
 	padding: 0 10px;
-	line-height: 3.125;
+	line-height: 1.7;
 	font-size: 0.8rem;
 }
 
@@ -643,19 +643,18 @@ a:hover .icon {
 /*===============*/
 /*=== Header */
 .header {
-	height: 4rem;
 	background-color: var(--background-color-grey);
 }
 
 .header > .item {
-	padding: 10px;
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
 	border-bottom: 1px solid var(--border-color);
 	vertical-align: middle;
 	text-align: center;
 }
 
 .header > .item.title {
-	padding: 10px 0;
 	width: 300px;
 }
 
@@ -781,7 +780,6 @@ a:hover .icon {
 }
 
 #new-article > a {
-	padding: 1em;
 	color: var(--font-color-light);
 	font-weight: bold;
 }
@@ -820,10 +818,8 @@ a:hover .icon {
 
 /*=== Index menu */
 .nav_menu {
-	padding: 0.5rem 0;
 	background-color: var(--background-color-light-shadowed);
 	border-bottom: 1px solid var(--border-color);
-	text-align: center;
 }
 
 /*=== Feed articles */
@@ -882,10 +878,6 @@ a:hover .icon {
 }
 
 /*=== Content of feed articles */
-.content {
-	padding: 20px 10px;
-}
-
 .content h1.title > a {
 	color: var(--font-color);
 }
@@ -1123,7 +1115,8 @@ a:hover .icon {
 
 	.aside .toggle_aside,
 	#panel .close,
-	.dropdown-menu .toggle_aside {
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
 		background-color: var(--background-color-light-shadowed);
 		border-bottom: 1px solid var(--border-color);
 	}

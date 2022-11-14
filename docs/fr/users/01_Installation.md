@@ -7,7 +7,7 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 | Logiciel         | Recommandé                                                                                                     | Fonctionne aussi avec          |
 | --------         | -----------                                                                                                    | ---------------------          |
 | Serveur web      | **Apache 2**                                                                                                   | Nginx                          |
-| PHP              | **PHP 7+**                                                                                                     |                                |
+| PHP              | **PHP 7.2+**                                                                                                   |                                |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
 | Base de données  | **MySQL 5.5.3+**                                                                                               | SQLite 3.7.4+, PostgreSQL 9.5+   |
 | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or Edge   |

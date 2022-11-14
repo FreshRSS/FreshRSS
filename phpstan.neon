@@ -7,6 +7,7 @@ parameters:
 	paths:
 		- .
 	excludePaths:
+		- .git/*
 		- lib/phpmailer/*
 		- lib/SimplePie/*
 		- node_modules/*

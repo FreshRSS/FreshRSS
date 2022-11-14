@@ -35,9 +35,7 @@ textarea {
 }
 
 input, select, textarea {
-	min-height: 25px;
-	padding: 5px;
-	line-height: 25px;
+	padding: 7px;
 	vertical-align: middle;
 }
 
@@ -137,6 +135,7 @@ form th {
 	min-height: 37px;
 	min-width: 15px;
 	font-size: 0.9rem;
+	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
@@ -144,7 +143,6 @@ form th {
 
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
@@ -178,8 +176,7 @@ a.btn {
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
@@ -257,7 +254,7 @@ a.btn {
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 .dropdown-menu > .item:hover {
@@ -321,7 +318,7 @@ a.btn {
 .pagination .item a {
 	display: block;
 	font-style: italic;
-	line-height: 3em;
+	line-height: 3;
 	text-decoration: none;
 }
 
@@ -355,7 +352,7 @@ a.btn {
 .box .box-content .item {
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -366,7 +363,7 @@ a.btn {
 .tree-folder-title {
 	position: relative;
 	padding: 0 10px;
-	line-height: 2.5rem;
+	line-height: 2.5;
 	font-size: 1rem;
 }
 
@@ -390,7 +387,7 @@ a.btn {
 
 .tree-folder-items > .item {
 	padding: 0 10px;
-	line-height: 2.5rem;
+	line-height: 3.1;
 	font-size: 0.8rem;
 }
 
@@ -461,7 +458,7 @@ a.btn {
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 1.5rem;
+	line-height: 1.5;
 }
 
 /*=== Aside main page (feeds) */
@@ -539,7 +536,7 @@ a.btn {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: 0.75rem;
 	font-weight: bold;
 }
 
@@ -551,7 +548,11 @@ a.btn {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
+}
+
+.day span {
+	line-height: 1.5;
 }
 
 #new-article + .day {
@@ -687,7 +688,7 @@ a.btn {
 #nav_entries {
 	margin: 0;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 }
 
