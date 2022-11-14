@@ -247,7 +247,7 @@ class Minz_View {
 
 		return $scripts;
 	}
-	public static function prependScript ($url, $defer = true, $async = true, $id = '') {
+	public static function prependScript($url, $defer = true, $async = true, $id = '') {
 		array_unshift(self::$scripts, array (
 			'url' => $url,
 			'defer' => $defer,
