@@ -950,21 +950,12 @@ a.btn {
 	color: #eb2901;
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
 .notification a.close:hover {
 	background: rgba(255,255,255,0.2);
 }
 
 .notification a.close:hover .icon {
 	filter: brightness(2);
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 
 /*=== "Load more" part */
