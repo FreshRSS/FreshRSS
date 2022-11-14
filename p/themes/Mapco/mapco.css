@@ -969,18 +969,13 @@ main.prompt {
 	color: #fff;
 }
 .notification a.close {
-	padding: 0 15px;
 	border-radius: 0 3px 3px 0;
-	line-height: 3em;
 }
 .notification.good a.close:hover {
 	background: #0c7540;
 }
 .notification.bad a.close:hover {
 	background: #73341f;
-}
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 .notification#actualizeProgress br {
 	display: none;

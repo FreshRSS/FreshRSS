@@ -664,16 +664,6 @@ li.item.active {
 	vertical-align: middle;
 }
 
-
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
-}
-
 .notification.closed {
 	opacity: 0;
 	visibility: hidden;
