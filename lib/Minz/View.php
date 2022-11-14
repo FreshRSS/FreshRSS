@@ -211,7 +211,7 @@ class Minz_View {
 
 		return $styles;
 	}
-	public static function prependStyle ($url, $media = 'all') {
+	public static function prependStyle($url, $media = 'all') {
 		array_unshift (self::$styles, array (
 			'url' => $url,
 			'media' => $media
