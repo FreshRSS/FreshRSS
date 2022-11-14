@@ -80,13 +80,11 @@ textarea {
 }
 
 input, select, textarea {
-	padding: 5px;
+	padding: 7px;
 	background: var(--background-color-light);
 	color: var(--font-color-middle);
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
-	min-height: 25px;
-	line-height: 25px;
 	vertical-align: middle;
 }
 
@@ -95,10 +93,6 @@ select:hover,
 textarea:hover,
 label:hover {
 	color: var(--font-color-light);
-}
-
-select {
-	padding: 10px 0px 9px;
 }
 
 option {
@@ -215,7 +209,7 @@ form th {
 	border-radius: 3px;
 	min-height: 37px;
 	min-width: 15px;
-	line-height: 25px;
+	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
@@ -223,7 +217,6 @@ form th {
 
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
@@ -291,8 +284,7 @@ a.btn {
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	color: var(--font-color-light);
 	font-size: 0.9rem;
 }
@@ -348,19 +340,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	background: var(--background-color-light);
-	border-bottom: 1px solid var(--border-color-dark);
-	text-align: right;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 5px 0 0;
@@ -387,7 +366,7 @@ a.btn {
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.8rem;
 }
 
@@ -409,9 +388,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid var(--border-color-dark);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: var(--border-color-dark);
 }
 
 /*=== Alerts */
@@ -490,7 +469,7 @@ kbd {
 
 .box .box-content .item {
 	font-size: 0.9rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -502,7 +481,7 @@ kbd {
 	position: relative;
 	padding: 0 10px;
 	background: var(--background-color-light);
-	line-height: 2.5rem;
+	line-height: 2.5;
 	font-size: 1rem;
 }
 
@@ -546,7 +525,7 @@ kbd {
 
 .tree-folder-items > .item {
 	padding: 0 10px;
-	line-height: 2.5rem;
+	line-height: 3.1;
 	font-size: 0.8rem;
 }
 
@@ -611,7 +590,7 @@ kbd {
 /*=== Aside main page (categories) */
 .aside_feed .category .title:not([data-unread="0"])::after {
 	padding: 0 10px;
-	line-height: 1.5rem;
+	line-height: 1.5;
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
@@ -710,7 +689,7 @@ kbd {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: 0.75rem;
 	color: var(--font-color-light);
 	font-weight: bold;
 }
@@ -724,10 +703,14 @@ kbd {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
 	background: var(--background-color-dark);
 	color: var(--font-color-light);
 	border-top: 1px solid var(--border-color-dark);
+}
+
+.day span {
+	line-height: 1.5;
 }
 
 #new-article + .day {
@@ -812,10 +795,6 @@ kbd {
 
 .flux_header .title {
 	font-size: 0.9rem;
-}
-
-.flux .website .favicon {
-	padding: 5px;
 }
 
 .flux .website a:hover .favicon,
@@ -938,11 +917,11 @@ kbd {
 
 .notification a.close {
 	padding: 0 15px;
-	line-height: 3em;
+	line-height: 3;
 }
 
 .notification#actualizeProgress {
-	line-height: 2em;
+	line-height: 2;
 }
 
 /*=== "Load more" part */
@@ -967,7 +946,7 @@ kbd {
 	margin: 0;
 	background: var(--background-color-light);
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 }
 
@@ -1032,11 +1011,6 @@ kbd {
 	top: 5px; right: 10px;
 	font-weight: bold;
 	text-shadow: none;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 /*=== Slider */

@@ -26,7 +26,7 @@ return array(
 		'archiving' => '归档',
 		'dynamic_opml' => array(
 			'_' => '动态订阅',
-			'help' => '使用地址上的 <a href=http://opml.org/ target=_blank>OPML 文件</a> 中的订阅源填充这一分类',
+			'help' => '使用地址上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
 		'information' => '信息',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => '文章缩略图',
 					'help' => '例如 <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',

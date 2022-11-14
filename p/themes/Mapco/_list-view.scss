@@ -15,8 +15,6 @@
 
 		&:not(.current):hover .item.title {
 			background: variables.$grey-lighter;
-
-
 		}
 	}
 
@@ -70,10 +68,6 @@
 		a {
 			color: variables.$main-font-color;
 			opacity: 0.75;
-		}
-
-		.favicon {
-			padding: 5px;
 		}
 	}
 
