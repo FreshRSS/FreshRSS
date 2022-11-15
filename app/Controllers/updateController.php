@@ -217,7 +217,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public function applyAction() {
-		if (Minz_Configuration::get('system')->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
+		if (FreshRSS_Context::$system_conf->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 
