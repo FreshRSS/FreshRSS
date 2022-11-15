@@ -658,13 +658,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
-	text-align: center;
-	font-weight: bold;
-	font-size: 0.9em;
-	line-height: 3;
-	z-index: 10;
-	vertical-align: middle;
 }
 
 .notification.good {
@@ -673,19 +666,10 @@ a.btn {
 .notification.bad {
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3;
-}
-
 .notification.good a.close:hover {
 }
 
 .notification.bad a.close:hover {
-}
-
-.notification#actualizeProgress {
-	line-height: 2;
 }
 
 /*=== "Load more" part */

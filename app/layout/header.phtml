@@ -71,7 +71,7 @@
 				<li class="item"><a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a></li>
 				<li class="item"><a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a></li>
 				<li class="item"><a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a></li>
-				<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
+				<?php if (!FreshRSS_Context::$system_conf->disable_update) { ?>
 				<li class="item"><a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a></li>
 				<?php } ?>
 				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>

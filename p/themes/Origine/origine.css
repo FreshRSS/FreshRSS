@@ -955,15 +955,6 @@ a:hover .icon {
 	border: 1px solid var(--notification-bad-border-color);
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3;
-}
-
-.notification a.close:hover .icon {
-	filter: brightness(0.5);
-}
-
 .notification.good a.close:hover {
 	background-color: var(--notification-close-background-color-hover);
 }
@@ -973,7 +964,7 @@ a:hover .icon {
 }
 
 .notification#actualizeProgress {
-	line-height: 2;
+	line-height: 2em;
 }
 
 /*=== "Load more" part */
