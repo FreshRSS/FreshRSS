@@ -1671,8 +1671,7 @@ function toggle_bigMarkAsRead_button() {
 		} else {
 			if (bigMarkAsRead_button.querySelector('.jumpNext')) {
 				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = 'hidden';
-			}
-			else {
+			} else {
 				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
 				bigMarkAsRead_button.style.visibility = 'hidden';
 			}
