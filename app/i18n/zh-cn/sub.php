@@ -100,7 +100,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自定义日期、时间格式',
-					'help' => '可选. 一个被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支持的日期、时间格式，例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可选。一个被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支持的日期、时间格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
