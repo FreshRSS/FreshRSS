@@ -283,11 +283,7 @@ function freshrss_already_installed() {
 	// A configuration file already exists, we try to load it.
 	$system_conf = null;
 	try {
-		Minz_Configuration::register('system', $conf_path);
-		/**
-		 * @var FreshRSS_SystemConfiguration $system_conf
-		 */
-		$system_conf = Minz_Configuration::get('system');
+		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
 	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
@@ -295,7 +291,7 @@ function freshrss_already_installed() {
 	// ok, the global conf exists… but what about default user conf?
 	$current_user = $system_conf->default_user;
 	try {
-		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
+		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
 	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
