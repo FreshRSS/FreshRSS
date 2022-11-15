@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// TODO
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',	// TODO
 		'label' => 'Subscribe',	// TODO
 		'title' => 'Bookmarklet',	// TODO
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'ארכוב',
 		'dynamic_opml' => array(
 			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Empty category',	// TODO
 		'information' => 'מידע',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'item thumbnail',	// TODO
 					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// TODO

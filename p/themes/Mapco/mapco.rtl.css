@@ -3,56 +3,56 @@
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Lato"), url("../fonts/LatoLatin-Regular.woff") format("woff");
+	src: url("../fonts/LatoLatin-Regular.woff") format("woff");
 }
 @font-face {
 	font-family: "lato";
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Lato"), url("../fonts/LatoLatin-Italic.woff") format("woff");
+	src: url("../fonts/LatoLatin-Italic.woff") format("woff");
 }
 @font-face {
 	font-family: "lato";
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Lato"), url("../fonts/LatoLatin-Bold.woff") format("woff");
+	src: url("../fonts/LatoLatin-Regular.woff") format("woff");
 }
 @font-face {
 	font-family: "lato";
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Lato"), url("../fonts/LatoLatin-BoldItalic.woff") format("woff");
+	src: url("../fonts/LatoLatin-BoldItalic.woff") format("woff");
 }
 @font-face {
 	font-family: "spectral";
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Spectral"), url("../fonts/Spectral-Regular.woff") format("woff");
+	src: url("../fonts/Spectral-Regular.woff") format("woff");
 }
 @font-face {
 	font-family: "spectral";
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Spectral"), url("../fonts/Spectral-Italic.woff") format("woff");
+	src: url("../fonts/Spectral-Italic.woff") format("woff");
 }
 @font-face {
 	font-family: "spectral";
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Spectral"), url("../fonts/Spectral-Bold.woff") format("woff");
+	src: url("../fonts/Spectral-Bold.woff") format("woff");
 }
 @font-face {
 	font-family: "spectral";
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Spectral"), url("../fonts/Spectral-BoldItalic.woff") format("woff");
+	src: url("../fonts/Spectral-BoldItalic.woff") format("woff");
 }
 /* stylelint-disable property-no-vendor-prefix */
 /* FUNCTIONS */
@@ -242,7 +242,7 @@ form th {
 	left: 18px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1rem 1rem 1rem 0.5rem;
+	padding: 1rem 1rem 1rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #5b6871;
@@ -258,29 +258,32 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:not(.addItem):hover {
+.dropdown-menu .item:not(.addItem) a:hover,
+.dropdown-menu .item:not(.addItem) button:hover {
 	background: #36c;
 	color: #fff;
 }
-.dropdown-menu .item:not(.addItem):hover .icon {
+.dropdown-menu .item:not(.addItem) a:hover .icon,
+.dropdown-menu .item:not(.addItem) button:hover .icon {
 	filter: brightness(3);
-}
-.dropdown-menu .item:not(.addItem):hover a, .dropdown-menu .item:not(.addItem):hover button, .dropdown-menu .item:not(.addItem):hover label {
-	text-decoration: none;
-	color: #fff;
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 -14px 0 0;
 	font-weight: bold;
 }
+.dropdown-menu .item ~ .dropdown-header {
+	margin-top: 0.75rem;
+	padding-top: 1.75rem;
+	border-top-color: #eff0f2;
+}
+.dropdown-menu .item.separator {
+	margin-top: 0.75rem;
+	border-top-color: #eff0f2;
+}
 .dropdown-menu .input select, .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
 	border-radius: 3px;
-}
-.dropdown-menu .separator {
-	margin: 0.75rem 0;
-	border-bottom: 1px solid #eff0f2;
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu .item {
@@ -471,7 +474,7 @@ form th {
 	border-bottom: 1px solid #3f3f3f;
 }
 .tree .tree-folder .tree-folder-title {
-	padding: 12px 16px;
+	padding: 1rem;
 	background: #303136;
 	position: relative;
 	font-size: 0.85rem;
@@ -618,19 +621,6 @@ form th {
 	padding: 3px;
 	text-align: center;
 }
-.nav-list .nav-head {
-	margin: 0;
-	text-align: left;
-	color: #fff;
-}
-.nav-list .nav-head a {
-	color: #fff;
-}
-.nav-list .nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
 
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]) {
@@ -638,7 +628,7 @@ form th {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1.5em 0 0 0;
+	margin: 1rem 0 0 0;
 	background-color: rgba(0, 0, 0, 0.25);
 }
 
@@ -931,18 +921,18 @@ main.prompt {
 }
 .content code, .content.thin code {
 	padding: 2px 5px;
-	background: #f9fafb;
-	border: 1px solid #eff0f2;
+	background: #fde3e3;
+	color: #e41212;
+	font-size: 1rem;
 	border-radius: 3px;
 }
 .content blockquote, .content.thin blockquote {
 	margin: 0;
-	padding: 5px 20px;
+	padding: 0.5rem 1.5rem;
 	background: #f9fafb;
 	display: block;
-	color: #303136;
-	border-top: 1px solid #d5d8db;
-	border-bottom: 1px solid #d5d8db;
+	color: #5b6871;
+	border-right: 4px solid #d5d8db;
 }
 .content blockquote p, .content.thin blockquote p {
 	margin: 0;
@@ -1049,9 +1039,6 @@ main.prompt {
 	color: #303136;
 	opacity: 0.75;
 }
-.flux .website .favicon {
-	padding: 5px;
-}
 .flux .item.date {
 	color: rgba(48, 49, 54, 0.5);
 	font-size: 0.85rem;
@@ -1102,13 +1089,6 @@ main.prompt {
 #stream .box.category .box-title a.title:hover {
 	color: #36c;
 }
-#stream .box.category .box-content {
-	padding-bottom: 0.5rem;
-}
-#stream .box.category .box-content .item.feed {
-	padding: 0.5rem 1.5rem;
-	font-size: 1rem;
-}
 #stream .box.category .box-content .item.feed a {
 	color: #303136;
 	font-weight: 400;
@@ -1133,13 +1113,15 @@ main.prompt {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	padding: 0 0 50px;
 	background: #eff0f2;
 	color: #303136;
 	border: none;
 }
-
-#stream.reader .flux .author {
+#stream.reader .flux .content {
+	background-color: #fff;
+	border: none;
+}
+#stream.reader .flux .content .author {
 	margin: 0 0 10px;
 	color: #a6a7ae;
 	font-size: 90%;
@@ -1233,7 +1215,6 @@ main.prompt {
 	.form-group .group-name {
 		text-align: right;
 	}
-
 	.aside {
 		transition: all 0.2s ease-in-out;
 	}
@@ -1243,25 +1224,24 @@ main.prompt {
 	.aside .tree .tree-folder .tree-folder-items .item a {
 		padding: 0.5rem 1rem;
 	}
-
 	.aside .toggle_aside,
 #panel .close,
-#close-slider.active,
-.dropdown-menu .toggle_aside {
-		background: #25c;
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside {
+		background-color: #36c;
+	}
+	.aside .toggle_aside:hover,
+#panel .close:hover,
+.dropdown-menu .toggle_aside:hover,
+#slider .toggle_aside:hover {
+		background-color: #25c;
 	}
 	.aside .toggle_aside .icon,
 #panel .close .icon,
-#close-slider.active .icon,
-.dropdown-menu .toggle_aside .icon {
+.dropdown-menu .toggle_aside .icon,
+#slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
 	}
-
 	.header {
 		padding: 0.5rem;
 		height: 8rem;
@@ -1282,22 +1262,18 @@ main.prompt {
 	.header .item.search input:focus {
 		width: 100%;
 	}
-
 	#global {
 		height: calc(100% - 8rem);
 	}
-
 	main.prompt {
 		max-width: 100%;
 		min-width: auto;
 		width: 75%;
 	}
-
 	.post {
 		padding-right: 1rem;
 		padding-left: 1rem;
 	}
-
 	.nav_menu .btn {
 		margin: 0;
 		padding: 0.85rem 1.25rem;
@@ -1323,11 +1299,9 @@ main.prompt {
 	.nav_menu .search .input:focus {
 		width: 400px;
 	}
-
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
 	}
-
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		background-color: #f9fafb;
 		border-top: 1px solid #eff0f2;
@@ -1341,7 +1315,6 @@ main.prompt {
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
 		bottom: -17px;
 	}
-
 	.day {
 		text-align: center;
 		padding: 1rem 0;
@@ -1353,11 +1326,9 @@ main.prompt {
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
 	}
-
 	#nav_entries {
 		line-height: 4.5rem;
 	}
-
 	.notification {
 		border-radius: 0;
 	}
@@ -1377,7 +1348,7 @@ main.prompt {
 /*============*/
 html, body {
 	background: #eff0f2;
-	color: #36c;
+	color: #303136;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
 }

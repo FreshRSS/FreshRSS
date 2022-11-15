@@ -163,9 +163,7 @@
 		<li class="item"><a href="<?= _url('stats', 'repartition', 'id', '------') ?>"><?= _t('index.menu.stats') ?></a></li>
 		<?php } ?>
 		<li class="item link website"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
-		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-		<li class="separator"></li>
-		<?php
+		<?php if (FreshRSS_Auth::hasAccess()) {
 		$get = Minz_Request::param('get');
 		if (!$get) {
 			$url = _url('subscription', 'feed', 'id', '------', 'from', $actual_view);

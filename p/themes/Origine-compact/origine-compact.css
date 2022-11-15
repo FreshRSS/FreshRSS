@@ -5,7 +5,7 @@
 input, select, textarea {
 	padding: 3px 5px 2px 5px;
 	min-height: 25px;
-	line-height: 25px;
+	line-height: 2;
 }
 
 /*=== COMPONENTS */
@@ -25,12 +25,13 @@ input, select, textarea {
 	margin: 0;
 	padding: 5px 10px;
 	min-height: 32px;
+	line-height: 1.4;
 }
 
 a.btn,
 .stick .btn {
 	min-height: 20px;
-	line-height: 20px;
+	line-height: 1.4;
 }
 
 /*=== Navigation */
@@ -41,22 +42,31 @@ a.btn,
 }
 
 .horizontal-list .item {
-	line-height: 30px;
+	line-height: 2.2;
+}
+
+.horizontal-list .item .item-element {
+	padding: 1px 0 0 0;
 }
 
 /*=== Dropdown */
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #ddd;
+}
+
 /*=== Alerts */
 /*=== Pagination */
 /*=== Boxes */
 /*=== Tree */
 .tree-folder-title {
 	padding: 0 5px;
-	line-height: 2rem;
+	line-height: 2.2;
 	font-size: 0.9rem;
 }
 
 .tree-folder-items > .item {
-	line-height: 2.2rem;
+	line-height: 2.4;
 }
 
 /*=== STRUCTURE */
@@ -74,7 +84,7 @@ a.btn,
 .header .item.search .btn {
 	min-height: 18px;
 	padding: 4px 10px;
-	line-height: 18px;
+	line-height: 1.4;
 }
 
 .header > .item.title .logo {
@@ -93,25 +103,17 @@ a.btn,
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	margin: 0.5em 0 0 0;
+	margin: 0.4em 0 0 0;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
-	margin: 0.75em 0 0 0;
-}
-
-/*=== Aside main page (feeds) */
-/*=== Configuration pages */
-/*=== Prompt (centered) */
-/*=== New article notification */
-#new-article > a {
-	line-height: 3em;
+	margin: 0.5em 0 0 0;
 }
 
 /*=== Day indication */
 .day {
 	font-size: 0.9rem;
-	line-height: 2em;
+	line-height: 2;
 }
 
 .day .name {
@@ -121,8 +123,8 @@ a.btn,
 
 /*=== Index menu */
 /*=== Feed articles */
-.flux_header .title {
-	font-size: 0.8rem;
+.flux .item {
+	padding: 0;
 }
 
 .flux .item.thumbnail {
@@ -162,6 +164,10 @@ a.btn,
 	max-height: 1.5em;
 }
 
+.flux .flux_header .item .item-element {
+	padding: 0.25rem 0;
+}
+
 /*=== Content of feed articles */
 .content {
 	padding: 10px 10px;
@@ -183,7 +189,7 @@ a.btn,
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	line-height: 2.2em;
+	line-height: 2.2;
 }
 
 /*=== READER VIEW */

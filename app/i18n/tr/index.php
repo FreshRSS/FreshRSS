@@ -27,7 +27,7 @@ return array(
 	'feed' => array(
 		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
-		'rss_of' => 'RSS feed of %s',	// TODO
+		'rss_of' => '%s kaynağına ait RSS akışı',
 		'title' => 'Ana akış',
 		'title_fav' => 'Favoriler',
 		'title_global' => 'Evrensel görünüm',
@@ -42,7 +42,7 @@ return array(
 		'about' => 'FreshRSS hakkında',
 		'before_one_day' => 'Bir gün önce',
 		'before_one_week' => 'Bir hafta önce',
-		'bookmark_query' => 'Bookmark current query',	// TODO
+		'bookmark_query' => 'Şuana ait yer imi sorgusu',
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Evrensel görünüm',
 		'main_stream' => 'Ana akış',

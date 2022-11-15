@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',	// IGNORE
-		'query_created' => 'Query "%s" has been created.',	// IGNORE
+		'query_created' => 'Query “%s” has been created.',	// IGNORE
 		'shortcuts_updated' => 'Shortcuts have been updated',	// IGNORE
 		'updated' => 'Configuration has been updated',	// IGNORE
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// IGNORE
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// IGNORE
-		'name_exists' => 'Tag name already exists.',	// IGNORE
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// IGNORE
+		'created' => 'Label “%s” has been created.',	// IGNORE
+		'name_exists' => 'Label name already exists.',	// IGNORE
+		'renamed' => 'Label “%s” has been renamed to “%s”.',	// IGNORE
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// IGNORE
