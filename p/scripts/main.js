@@ -1663,10 +1663,20 @@ function refreshUnreads() {
 }
 
 function toggle_bigMarkAsRead_button() {
-	if (document.querySelector('.flux.not_read') != null) {
-		document.getElementById('bigMarkAsRead').style = '';
-	} else {
-		document.getElementById('bigMarkAsRead').style.display = 'none';
+	var bigMarkAsRead_button = document.getElementById('bigMarkAsRead');
+	if (bigMarkAsRead_button) {
+		if (document.querySelector('.flux.not_read') != null) {
+			bigMarkAsRead_button.style = '';
+			bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+		} else {
+			if (bigMarkAsRead_button.querySelector('.jumpNext')) {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = 'hidden';
+			}
+			else {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+				bigMarkAsRead_button.style.visibility = 'hidden';
+			}
+		}
 	}
 }
 
