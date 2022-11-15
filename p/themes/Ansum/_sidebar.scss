@@ -18,7 +18,7 @@
 		box-shadow: inset -1px -11px 8px #0003;
 
 		.tree-folder-title {
-			padding: 12px 16px;
+			padding: 1rem;
 			background: variables.$sid-bg;
 			position: relative;
 			font-size: 0.85rem;
@@ -224,23 +224,6 @@
 		padding: 3px;
 		text-align: center;
 	}
-
-	.nav-head {
-		margin: 0;
-		text-align: right;
-		// background: #34495e;
-		color: variables.$white;
-
-		a {
-			color: variables.$white;
-		}
-
-		.item {
-			padding: 5px 10px;
-			font-size: 0.9rem;
-			line-height: 1.5rem;
-		}
-	}
 }
 
 /*=== Aside main page (categories) */
@@ -249,7 +232,7 @@
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1.5em 0 0 0;
+	margin: 1rem 0 0 0;
 	background-color: variables.$sid-pills;
 }
 

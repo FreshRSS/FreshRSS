@@ -696,13 +696,13 @@ function check_install_php() {
 function check_install_files() {
 	return array(
 		// @phpstan-ignore-next-line
-		'data' => DATA_PATH && is_writable(DATA_PATH),
+		'data' => DATA_PATH && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
 		// @phpstan-ignore-next-line
-		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		'cache' => CACHE_PATH && touch(CACHE_PATH . '/index.html'),
 		// @phpstan-ignore-next-line
-		'users' => USERS_PATH && is_writable(USERS_PATH),
-		'favicons' => is_writable(DATA_PATH . '/favicons'),
-		'tokens' => is_writable(DATA_PATH . '/tokens'),
+		'users' => USERS_PATH && touch(USERS_PATH . '/index.html'),
+		'favicons' => touch(DATA_PATH . '/favicons/index.html'),
+		'tokens' => touch(DATA_PATH . '/tokens/index.html'),
 	);
 }
 

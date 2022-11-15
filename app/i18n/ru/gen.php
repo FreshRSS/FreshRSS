@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',
 		'cancel' => 'Отменить',
 		'create' => 'Создать',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Удалить заглушенные ленты',
 		'demote' => 'Понизить',
 		'disable' => 'Отключить',
 		'empty' => 'Опустошить',
@@ -32,7 +32,7 @@ return array(
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Обновить OPML',
 		'remove' => 'Удалить',
 		'rename' => 'Переименовать',
 		'see_website' => 'Посмотреть на сайте',
@@ -140,11 +140,13 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
@@ -194,10 +196,12 @@ return array(
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE

@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Hubo un error durante el guardado de la configuración.',
-		'query_created' => 'Se ha creado la petición "%s".',
+		'query_created' => 'Se ha creado la petición “%s”.',
 		'shortcuts_updated' => 'Se han actualizado los atajos de teclado',
 		'updated' => 'Se ha actualizado la configuración',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => 'Limpieza completada (se han eliminado %d artículos)',
 	),
 	'tag' => array(
-		'created' => 'Se ha creado la etiqueta "%s".',
+		'created' => 'Se ha creado la etiqueta “%s”.',
 		'name_exists' => 'El nombre de la etiqueta ya existe.',
-		'renamed' => 'La etiqueta "%s" ha sido renombrada a "%s".',
+		'renamed' => 'La etiqueta “%s” ha sido renombrada a “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS se va a actualizar a la <strong>versión %s</strong>.',

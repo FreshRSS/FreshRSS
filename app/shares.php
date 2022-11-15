@@ -61,6 +61,12 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'email-webmail-firefox-fix' => array( // see https://github.com/FreshRSS/FreshRSS/issues/2666
+		'url' => 'mailto:?subject=~TITLE~&amp;body=~LINK~',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'facebook' => array(
 		'url' => 'https://www.facebook.com/sharer.php?u=~LINK~&amp;t=~TITLE~',
 		'transform' => array('rawurlencode'),
@@ -91,6 +97,13 @@ return array(
 		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
 		'transform' => array('rawurlencode'),
 		'help' => 'https://join-lemmy.org/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	),
+	'linkding' => array(
+		'url' => '~URL~/bookmarks/new?url=~LINK~&auto_close',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
 		'form' => 'advanced',
 		'method' => 'GET',
 	),

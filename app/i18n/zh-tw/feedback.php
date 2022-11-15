@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => '保存配置時出錯',
-		'query_created' => '查詢 "%s" 已創建。',
+		'query_created' => '查詢 “%s” 已創建。',
 		'shortcuts_updated' => '快捷鍵已更新',
 		'updated' => '配置已更新',
 	),
@@ -115,9 +115,9 @@ return array(
 		'purge_completed' => '清除完成（已刪除 %d 篇文章）',
 	),
 	'tag' => array(
-		'created' => '標簽 "%s" 已創建。',
+		'created' => '標簽 “%s” 已創建。',
 		'name_exists' => '標簽名已存在。',
-		'renamed' => '標簽 "%s" 已被重命名為 "%s"。',
+		'renamed' => '標簽 “%s” 已被重命名為 “%s”。',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 將更新到 <strong>版本 %s</strong>。',

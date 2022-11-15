@@ -243,7 +243,7 @@ form th {
 	left: 17px;
 }
 .dropdown-menu .dropdown-header {
-	margin: 1rem 1rem 1rem 0.5rem;
+	padding: 1rem 1rem 1rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #766556;
@@ -270,18 +270,32 @@ form th {
 .dropdown-menu .item:not(.addItem):hover .icon {
 	filter: grayscale(100%) brightness(2.5);
 }
+.dropdown-menu .item:not(.addItem) a:hover,
+.dropdown-menu .item:not(.addItem) button:hover {
+	background: #ca7227;
+	color: #fff;
+}
+.dropdown-menu .item:not(.addItem) a:hover .icon,
+.dropdown-menu .item:not(.addItem) button:hover .icon {
+	filter: brightness(3);
+}
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 -14px 0 0;
 	font-weight: bold;
+}
+.dropdown-menu .item ~ .dropdown-header {
+	margin-top: 0.75rem;
+	padding-top: 1.75rem;
+	border-top-color: #f5f0ec;
+}
+.dropdown-menu .item.separator {
+	margin-top: 0.75rem;
+	border-top-color: #f5f0ec;
 }
 .dropdown-menu .input select, .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
 	border-radius: 3px;
-}
-.dropdown-menu .separator {
-	margin: 0.75rem 0;
-	border-bottom: 1px solid #f5f0ec;
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu .item {
@@ -445,10 +459,10 @@ form th {
 }
 .tree .tree-folder {
 	border-bottom: 1px solid #f0e7da;
-	box-shadow: inset 1px -11px 8px #0003;
+	box-shadow: inset 1px -11px 8px rgba(0, 0, 0, 0.2);
 }
 .tree .tree-folder .tree-folder-title {
-	padding: 12px 16px;
+	padding: 1rem;
 	background: #fbf9f6;
 	position: relative;
 	font-size: 0.85rem;
@@ -595,19 +609,6 @@ form th {
 	padding: 3px;
 	text-align: center;
 }
-.nav-list .nav-head {
-	margin: 0;
-	text-align: left;
-	color: #fff;
-}
-.nav-list .nav-head a {
-	color: #fff;
-}
-.nav-list .nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
 
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]) {
@@ -615,7 +616,7 @@ form th {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1.5em 0 0 0;
+	margin: 1rem 0 0 0;
 	background-color: rgba(35, 35, 0, 0.15);
 }
 
@@ -950,18 +951,13 @@ main.prompt {
 	color: #fff;
 }
 .notification a.close {
-	padding: 0 15px;
 	border-radius: 3px 0 0 3px;
-	line-height: 3em;
 }
 .notification.good a.close:hover {
 	background: #0c7556;
 }
 .notification.bad a.close:hover {
 	background: #73341f;
-}
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 .notification#actualizeProgress br {
 	display: none;
@@ -1020,9 +1016,6 @@ main.prompt {
 	color: #363330;
 	opacity: 0.75;
 }
-.flux .website .favicon {
-	padding: 5px;
-}
 .flux .item.date {
 	color: rgba(54, 51, 48, 0.5);
 	font-size: 0.85rem;
@@ -1072,13 +1065,6 @@ main.prompt {
 }
 #stream .box.category .box-title a.title:hover {
 	color: #ca7227;
-}
-#stream .box.category .box-content {
-	padding-bottom: 0.5rem;
-}
-#stream .box.category .box-content .item.feed {
-	padding: 0.5rem 1.5rem;
-	font-size: 1rem;
 }
 #stream .box.category .box-content .item.feed a {
 	color: #363330;
@@ -1206,7 +1192,6 @@ main.prompt {
 	.form-group .group-name {
 		text-align: right;
 	}
-
 	.aside {
 		transition: all 0.2s ease-in-out;
 	}
@@ -1216,7 +1201,6 @@ main.prompt {
 	.aside .tree .tree-folder .tree-folder-items .item a {
 		padding: 0.5rem 1rem;
 	}
-
 	.aside .toggle_aside,
 #panel .close,
 .dropdown-menu .toggle_aside,
@@ -1235,7 +1219,6 @@ main.prompt {
 #slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
 	}
-
 	.header {
 		padding: 0.5rem;
 		height: 8rem;
@@ -1260,16 +1243,13 @@ main.prompt {
 		min-height: 49px;
 		padding: 0.5rem 2rem;
 	}
-
 	#global {
 		height: calc(100% - 8rem);
 	}
-
 	.post {
 		padding-right: 1rem;
 		padding-left: 1rem;
 	}
-
 	.nav_menu .btn {
 		margin: 0;
 		padding: 0.85rem 1.25rem;
@@ -1295,11 +1275,9 @@ main.prompt {
 	.nav_menu .search .input:focus {
 		width: 400px;
 	}
-
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
 	}
-
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		background-color: #fcfaf8;
 		border-top: 1px solid #f5f0ec;
@@ -1313,7 +1291,6 @@ main.prompt {
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
 		bottom: -17px;
 	}
-
 	.day {
 		text-align: center;
 		padding: 1rem 0;
@@ -1325,11 +1302,9 @@ main.prompt {
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
 	}
-
 	#nav_entries {
 		line-height: 4.5rem;
 	}
-
 	.notification {
 		border-radius: 0;
 	}

@@ -307,20 +307,21 @@ main.prompt {
 
 	code {
 		padding: 2px 5px;
-		background: variables.$grey-lighter;
-		border: 1px solid variables.$grey-light;
+		background: variables.$code-bg;
+		color: variables.$code-text;
+		font-size: 1rem;
+		// border: 1px solid variables.$alert-light;
 		border-radius: 3px;
 	}
 
 
 	blockquote {
 		margin: 0;
-		padding: 5px 20px;
+		padding: 0.5rem 1.5rem;
 		background: variables.$grey-lighter;
 		display: block;
-		color: variables.$main-font-color;
-		border-top: 1px solid variables.$grey-medium-light;
-		border-bottom: 1px solid variables.$grey-medium-light;
+		color: variables.$light-font-color;
+		border-left: 4px solid variables.$grey-medium-light;
 
 		p {
 			margin: 0;
@@ -365,9 +366,7 @@ main.prompt {
 	}
 
 	a.close {
-		padding: 0 15px;
 		border-radius: 0 3px 3px 0;
-		line-height: 3em;
 	}
 
 	&.good a.close:hover {
@@ -379,8 +378,6 @@ main.prompt {
 	}
 
 	&#actualizeProgress {
-		line-height: 2em;
-
 		br {
 			display: none;
 		}

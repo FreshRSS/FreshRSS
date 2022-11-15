@@ -310,23 +310,6 @@ a.btn {
 	text-align: center;
 }
 
-.nav-head {
-	margin: 0;
-	text-align: left;
-	background: #34495e;
-	color: #fff;
-}
-
-.nav-head a {
-	color: #fff;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
-}
-
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 0.5rem 0 0;
@@ -386,9 +369,9 @@ a.btn {
 	border-radius: 3px;
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid #ddd;
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: #ddd;
 }
 
 /*=== Alerts */
@@ -788,10 +771,6 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-.flux .website .favicon {
-	padding: 5px;
-}
-
 .flux .item.date {
 	color: #666;
 	font-size: 0.7rem;
@@ -884,8 +863,6 @@ a.btn {
 }
 
 .notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
 	border-radius: 3px 0 0 3px;
 }
 
@@ -895,10 +872,6 @@ a.btn {
 
 .notification.bad a.close:hover {
 	background: #c0392b;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 
 /*=== "Load more" part */
@@ -970,11 +943,6 @@ a.btn {
 	font-weight: bold;
 	box-shadow: none;
 	text-shadow: none;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 /*=== DIVERS */
