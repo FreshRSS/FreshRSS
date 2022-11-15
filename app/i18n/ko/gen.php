@@ -196,6 +196,7 @@ return array(
 		'clipboard' => '클립보드',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

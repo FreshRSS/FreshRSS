@@ -145,6 +145,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function name($raw = false): string {
 		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://(www[.])?%i', '', $this->url);
 	}
+	/** @return string HTML-encoded URL of the Web site of the feed */
 	public function website(): string {
 		return $this->website;
 	}
@@ -157,6 +158,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function priority(): int {
 		return $this->priority;
 	}
+	/** @return string HTML-encoded CSS selector */
 	public function pathEntries(): string {
 		return $this->pathEntries;
 	}
@@ -192,6 +194,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->ttl;
 	}
 
+	/** @return mixed attribute (if $key is not blank) or array of attributes, not HTML-encoded */
 	public function attributes($key = '') {
 		if ($key == '') {
 			return $this->attributes;
@@ -301,6 +304,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _priority($value) {
 		$this->priority = intval($value);
 	}
+	/** @param string $value HTML-encoded CSS selector */
 	public function _pathEntries(string $value) {
 		$this->pathEntries = $value;
 	}
@@ -320,6 +324,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
 
+	/** @param mixed $value Value, not HTML-encoded */
 	public function _attributes(string $key, $value) {
 		if ($key == '') {
 			if (is_string($value)) {

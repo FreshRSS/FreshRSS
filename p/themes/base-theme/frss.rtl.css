@@ -39,6 +39,7 @@
 	--frss-loading-image: url("loader.gif");
 
 	--frss-padding-flux-items: 0.75rem;
+	--frss-padding-top-bottom: 0.5rem;
 
 	line-height: 1.5;
 }
@@ -96,6 +97,12 @@ h2 {
 	margin: 0.5rem 0 0.25rem;
 	font-size: 1.4rem;
 	line-height: 1.5;
+}
+
+h2 .icon,
+legend .icon {
+	height: 0.8em;
+	vertical-align: baseline;
 }
 
 h3 {
@@ -577,7 +584,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .horizontal-list .item .item-element {
-	padding: 0.5rem 0;
+	padding: var(--frss-padding-top-bottom) 0;
 }
 
 /*=== manage-list */
@@ -820,6 +827,7 @@ input[type="checkbox"]:focus-visible {
 
 .box .box-content .item.feed {
 	display: block;
+	padding-top: var(--frss-padding-top-bottom);
 }
 
 .box .box-content .item.feed.moved {
@@ -949,6 +957,11 @@ li.drag-hover {
 	transition: max-height .3s linear;
 }
 
+.tree-folder-title {
+	padding-top: var(--frss-padding-top-bottom);
+	padding-bottom: var(--frss-padding-top-bottom);
+}
+
 .tree-folder-title .title {
 	display: inline-block;
 	width: 100%;
@@ -987,11 +1000,13 @@ li.drag-hover {
 .header {
 	display: table;
 	width: 100%;
-	height: 85px;
+	height: calc(2rem + 2 * var(--frss-padding-top-bottom));
 	table-layout: fixed;
 }
 
 .header > .item {
+	padding-top: var(--frss-padding-top-bottom);
+	padding-bottom: var(--frss-padding-top-bottom);
 	display: table-cell;
 }
 
@@ -1006,7 +1021,7 @@ li.drag-hover {
 
 .header > .item.title .logo {
 	display: inline-block;
-	height: 32px;
+	height: 2rem;
 	vertical-align: middle;
 }
 
@@ -1023,7 +1038,7 @@ input[type="search"] {
 	background: inherit;
 	display: table;
 	width: 100%;
-	height: calc(100vh - 85px);
+	height: calc(100vh - (calc(2rem + 2 * var(--frss-padding-top-bottom))));
 	table-layout: fixed;
 }
 
@@ -1055,7 +1070,7 @@ input[type="search"] {
 }
 
 .aside_feed .tree-folder-items .item.feed {
-	padding: 0 0.75rem;
+	padding: var(--frss-padding-top-bottom) 0.75rem;
 }
 
 .aside_feed .tree-folder-items:not(.active) {
@@ -1098,6 +1113,7 @@ input[type="search"] {
 }
 
 #new-article > a {
+	padding: calc(0.25rem + var(--frss-padding-top-bottom)) 1rem;
 	display: block;
 }
 
@@ -1126,7 +1142,7 @@ input[type="search"] {
 }
 
 .flux .flux_header .item .item-element {
-	padding: 0.5rem 0;
+	padding: var(--frss-padding-top-bottom) 0;
 	line-height: 1.5rem;
 }
 
@@ -1262,6 +1278,7 @@ a.website:hover .favicon {
 .content {
 	min-height: 20rem;
 	margin: auto;
+	padding: 0.75rem;
 	line-height: 1.5;
 	word-wrap: break-word;
 }
@@ -1356,15 +1373,19 @@ a.website:hover .favicon {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 10px 10px 10px 50px;
+	padding: 0.75rem 0.75rem 0.75rem 3.5rem;
 	position: absolute;
-	top: 1em;
+	top: 1rem;
 	right: 25%; left: 25%;
 	z-index: 9999;
 	background-color: var(--frss-background-color);
+	font-weight: bold;
+	font-size: 0.9rem;
 	border: 1px solid var(--frss-border-color);
 	opacity: 1;
+	text-align: center;
 	line-height: 2;
+	vertical-align: middle;
 	visibility: visible;
 	transition: visibility 0s, opacity .3s linear;
 }
@@ -1375,10 +1396,12 @@ a.website:hover .favicon {
 }
 
 .notification a.close {
+	padding: 0 1rem;
 	position: absolute;
 	top: 0; bottom: 0;
 	left: 0;
 	display: inline-block;
+	line-height: 3;
 }
 
 .notification a.close:hover {
@@ -1781,7 +1804,7 @@ input:checked + .slide-container .properties {
 
 .aside .category .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
-	margin: 0.6rem 0 0 0;
+	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
 	padding: 0.25rem 0.5rem;
 	min-width: 2rem;
 	display: block;
@@ -1849,7 +1872,10 @@ input:checked + .slide-container .properties {
 }
 
 .nav_menu {
+	padding-top: var(--frss-padding-top-bottom);
+	padding-bottom: var(--frss-padding-top-bottom);
 	background: inherit;
+	text-align: center;
 }
 
 .nav_mobile {
