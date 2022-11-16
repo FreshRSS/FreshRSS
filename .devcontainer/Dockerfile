@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
 	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-xml php-tokenizer php-zlib \
 	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql \
-	composer curl docker-cli-buildx git gpg make nodejs npm shellcheck shfmt sudo
+	bash composer curl docker-cli-buildx git gpg make nodejs npm shellcheck shfmt sudo
 
 RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
