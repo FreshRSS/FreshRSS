@@ -12,6 +12,7 @@
 		"EditorConfig.EditorConfig",
 		"foxundermoon.shell-format",
 		"mrmlnc.vscode-apache",
+		"ms-azuretools.vscode-docker",
 		"redhat.vscode-yaml",
 		"timonwong.shellcheck",
 		"ValeryanM.vscode-phpsab"
@@ -25,13 +26,6 @@
 			"onAutoForward": "notify"
 		}
 	},
-	"mounts": [
-		{
-			"source": "vscode-freshrss-data",
-			"target": "/home/developer/freshrss-data",
-			"type": "volume"
-		}
-	],
 	"remoteUser": "developer",
 	"postCreateCommand": "sudo .devcontainer/postCreateCommand.sh"
 }
