@@ -76,7 +76,8 @@ a.btn,
 	height: 40px;
 }
 
-.header > .item {
+.header > .item,
+.header > .item.title {
 	padding: 0px;
 }
 
