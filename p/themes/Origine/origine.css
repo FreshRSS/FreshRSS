@@ -648,14 +648,13 @@ a:hover .icon {
 }
 
 .header > .item {
-	padding: 10px;
+	padding: 0.5rem;
 	border-bottom: 1px solid var(--border-color);
 	vertical-align: middle;
 	text-align: center;
 }
 
 .header > .item.title {
-	padding: 10px 0;
 	width: 300px;
 }
 
@@ -1104,14 +1103,16 @@ a:hover .icon {
 /*===========*/
 
 @media (max-width: 840px) {
+	.header > .item {
+		padding: 0.5rem 1rem;
+	}
+
 	.header > .item.title {
-		padding: 10px 20px;
 		width: 75%;
 		text-align: left;
 	}
 
 	.header > .item.configure {
-		padding: 10px 20px;
 		width: 25%;
 		text-align: right;
 	}
@@ -1143,8 +1144,8 @@ a:hover .icon {
 	}
 
 	.post {
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 
 	.nav_menu .btn {

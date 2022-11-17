@@ -76,9 +76,10 @@ a.btn,
 	height: 40px;
 }
 
-.header > .item,
+.header > .item.configure,
 .header > .item.title {
-	padding: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 .header .item.configure .btn,
