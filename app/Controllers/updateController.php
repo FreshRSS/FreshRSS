@@ -14,7 +14,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	public static function migrateToGitEdge() {
 		$errorMessage = 'Error during git checkout to edge branch. Please change branch manually!';
 
-		if (!is_writable(FRESHRSS_PATH . '/.git/')) {
+		if (!is_writable(FRESHRSS_PATH . '/.git/config')) {
 			throw new Exception($errorMessage);
 		}
 
@@ -118,7 +118,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if ($version == '') {
 				$version = 'unknown';
 			}
-			if (is_writable(FRESHRSS_PATH)) {
+			if (touch(FRESHRSS_PATH . '/index.html')) {
 				$this->view->update_to_apply = true;
 				$this->view->message = array(
 					'status' => 'good',
@@ -217,7 +217,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public function applyAction() {
-		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH) || Minz_Configuration::get('system')->disable_update) {
+		if (FreshRSS_Context::$system_conf->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 

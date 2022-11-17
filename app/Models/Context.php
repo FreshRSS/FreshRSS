@@ -58,12 +58,7 @@ class FreshRSS_Context {
 	public static function initSystem($reload = false) {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
-			Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-			/**
-			 * @var FreshRSS_SystemConfiguration $system_conf
-			 */
-			$system_conf = Minz_Configuration::get('system');
-			FreshRSS_Context::$system_conf = $system_conf;
+			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 			// Register the configuration setter for the system configuration
 			$configurationSetter = new FreshRSS_ConfigurationSetter();
 			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
@@ -88,17 +83,12 @@ class FreshRSS_Context {
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
 			try {
 				//TODO: Keep in session what we need instead of always reloading from disk
-				Minz_Configuration::register('user',
+				FreshRSS_Context::$user_conf = FreshRSS_UserConfiguration::init(
 					USERS_PATH . '/' . $username . '/config.php',
 					FRESHRSS_PATH . '/config-user.default.php',
 					FreshRSS_Context::$system_conf->configurationSetter());
 
 				Minz_Session::_param('currentUser', $username);
-				/**
-				 * @var FreshRSS_UserConfiguration $user_conf
-				 */
-				$user_conf = Minz_Configuration::get('user');
-				FreshRSS_Context::$user_conf = $user_conf;
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
@@ -163,7 +153,7 @@ class FreshRSS_Context {
 		// Update number of read / unread variables.
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		self::$total_starred = $entryDAO->countUnreadReadFavorites();
-		self::$total_unread = FreshRSS_CategoryDAO::CountUnreads(
+		self::$total_unread = FreshRSS_CategoryDAO::countUnread(
 			self::$categories, 1
 		);
 

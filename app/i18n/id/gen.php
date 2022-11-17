@@ -196,6 +196,7 @@ return array(
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO
 		'email' => 'Email',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// TODO
 		'gnusocial' => 'GNU social',	// TODO
 		'jdh' => 'Journal du hacker',	// TODO

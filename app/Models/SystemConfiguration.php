@@ -25,6 +25,10 @@
  * @property string $unsafe_autologin_enabled
  * @property-read array<string> $trusted_sources
  */
-class FreshRSS_SystemConfiguration extends Minz_Configuration {
+final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 
+	public static function init($config_filename, $default_filename = null): FreshRSS_SystemConfiguration {
+		parent::register('system', $config_filename, $default_filename);
+		return parent::get('system');
+	}
 }

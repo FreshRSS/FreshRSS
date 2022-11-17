@@ -220,7 +220,7 @@ function token($conf) {
 	exit();
 }
 
-function checkToken($conf, $token) {
+function checkToken(FreshRSS_UserConfiguration $conf, string $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
 	if ($user !== '_' && (	//TODO: Check security consequences
