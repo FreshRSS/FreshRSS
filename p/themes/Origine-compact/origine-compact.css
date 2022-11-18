@@ -62,8 +62,7 @@ a.btn,
 	height: 40px;
 }
 
-.header > .item.configure,
-.header > .item.title {
+.header > .item {
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
