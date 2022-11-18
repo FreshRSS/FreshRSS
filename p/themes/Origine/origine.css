@@ -1212,9 +1212,14 @@ a:hover .icon {
 @media screen and (prefers-color-scheme: dark) {
 	:root {
 		--frss-background-color: #000;
-		--frss-font-color-dark: #ccc;
+		--frss-background-color-middle: #222;
+		--frss-border-color: #444;
+		--frss-font-color-grey-dark: #999;
+		--frss-font-color-dark: #ddd;
 		--frss-modal-background-color-transparent: #000000a3;
 		--frss-background-color-transparent: #000000a3;
+		--frss-scrollbar-handle: #fff1;
+		--frss-scrollbar-handle-hover: #fff4;
 
 		--background-color-light-gradient: #111;
 		--background-color-light: #111;
@@ -1265,7 +1270,7 @@ a:hover .icon {
 		--notification-close-background-color-hover: #aaa2;
 
 		--font-color: #ccc;
-		--font-color-grey: #999;
+		--font-color-grey: #aaa;
 		--font-color-light-shadowed: #555;
 		--font-color-light: #ccc;
 
@@ -1274,14 +1279,14 @@ a:hover .icon {
 		--box-shadow-color: #4446;
 		--box-shadow-color-inset: #1f1f1f;
 
-		--font-color-link: #0062be;
+		--font-color-link: #467eb3;
 		--font-color-link-hover: #0062be;
 
 		--border-color: #222;
 		--border-color-shadow-side: #333;
 		--contrast-border-color-active: #0062be;
 
-		--form-element-font-color-focus: #0062be;
+		--form-element-font-color-focus: #879db1;
 		--form-element-border-color-focus: #0062be;
 		--form-element-focus-box-shadow-color-inset: #110;
 		--form-element-border-color-invalid: #f00;
