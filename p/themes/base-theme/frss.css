@@ -334,7 +334,12 @@ button.as-link[disabled] {
 }
 
 table {
+	margin: 0.5rem 0;
 	max-width: 100%;
+}
+
+th, td {
+	padding: 0.5rem;
 }
 
 th.numeric,
@@ -1281,6 +1286,7 @@ a.website:hover .favicon {
 	padding: 0.75rem;
 	line-height: 1.5;
 	word-wrap: break-word;
+	overflow: auto;
 }
 
 .content.large {
@@ -2131,6 +2137,14 @@ input:checked + .slide-container .properties {
 
 	.reader .flux .content {
 		padding: 1rem;
+	}
+
+	table {
+		font-size: 0.9rem;
+	}
+
+	th, td {
+		padding: 0.25rem;
 	}
 
 	.notification {
