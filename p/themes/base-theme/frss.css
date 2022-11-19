@@ -2134,6 +2134,10 @@ input:checked + .slide-container .properties {
 		top: 0;
 	}
 
+	.reader .flux .content {
+		padding: 1rem;
+	}
+
 	.notification {
 		top: 0;
 		left: 0;
