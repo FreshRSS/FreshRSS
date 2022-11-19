@@ -727,6 +727,7 @@ form {
 	height: auto;
 
 	> .item {
+		padding: 0;
 		vertical-align: middle;
 
 		&.title {
@@ -933,6 +934,7 @@ form {
 
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
