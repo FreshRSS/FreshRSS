@@ -742,7 +742,7 @@ a.signin {
 	border-left: 3px solid #5cb85c;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: #fff;
 }
 

@@ -780,7 +780,7 @@ a.btn {
 	background: #ede7de;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: #f9f7f4;
 }
 

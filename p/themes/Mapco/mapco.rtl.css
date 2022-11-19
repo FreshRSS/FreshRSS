@@ -995,10 +995,10 @@ main.prompt {
 	background: #fff;
 	transition: all 0.15s ease-in-out;
 }
-.flux:hover {
+.flux .flux_header:hover {
 	background: #f9fafb;
 }
-.flux:hover:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item.title {
 	background: #f9fafb;
 }
 .flux.current {

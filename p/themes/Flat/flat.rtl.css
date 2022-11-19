@@ -728,7 +728,7 @@ a.btn {
 	border-right: 2px solid #ecf0f1;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: #fff;
 }
 

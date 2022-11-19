@@ -742,7 +742,7 @@ kbd {
 	border-left-style: solid;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: var(--background-color-hover) !important;
 }
 

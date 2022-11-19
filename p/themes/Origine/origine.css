@@ -828,15 +828,15 @@ a:hover .icon {
 	border-left: 2px solid transparent;
 }
 
-.flux:hover:not(.active) {
+.flux .flux_header:hover {
 	background-color: var(--background-color-hover) !important;
 }
 
-.flux:not(.current):hover .item.title {
+.flux .flux_header:not(.current):hover .item.title {
 	background: inherit;
 }
 
-.flux.current {
+.flux.current .flux_header {
 	background-color: var(--background-color-light);
 	border-left: 2px solid var(--contrast-border-color-active);
 }
@@ -845,7 +845,7 @@ a:hover .icon {
 	border-left: 2px solid var(--unread-article-border-color);
 }
 
-.flux.not_read:not(.current) {
+.flux.not_read .flux_header {
 	background-color: var(--unread-article-background-color);
 }
 
