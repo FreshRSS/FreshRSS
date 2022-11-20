@@ -754,11 +754,11 @@ form th {
 	width: 90%;
 	border-top: 1px solid var(--color-border-light-darker);
 }
-.flux:hover,
+.flux .flux_header:hover,
 .flux .current {
 	background-color: var(--color-background-hover);
 }
-.flux:hover:not(.current):hover .item.title,
+.flux .flux_header:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background-color: var(--color-background-hover);
 }

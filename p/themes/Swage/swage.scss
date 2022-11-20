@@ -971,7 +971,7 @@ form {
 		border-top: 1px solid var(--color-border-light-darker);
 	}
 
-	&:hover,
+	.flux_header:hover,
 	.current {
 		background-color: var(--color-background-hover);
 
