@@ -227,7 +227,7 @@ class Minz_View {
 	public static function appendStyle ($url, $media = 'all') {
 		self::$styles[] = array (
 			'url' => $url,
-			'media' => $media
+			'media' => $media,
 		);
 	}
 
