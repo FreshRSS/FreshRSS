@@ -572,6 +572,7 @@ form th {
 	height: auto;
 }
 .header > .item {
+	padding: 0;
 	vertical-align: middle;
 }
 .header > .item.title {
@@ -724,6 +725,7 @@ form th {
 }
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
