@@ -3,6 +3,8 @@
 /*=== GENERAL */
 /*============*/
 :root {
+	--frss-padding-top-bottom: 0.5rem;
+
 	--background-color-light-gradient: #eee;
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
@@ -646,7 +648,6 @@ a:hover .icon {
 }
 
 .header > .item {
-	padding: 0.5rem;
 	border-bottom: 1px solid var(--border-color);
 	vertical-align: middle;
 	text-align: center;
