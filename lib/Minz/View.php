@@ -276,6 +276,14 @@ class Minz_View {
 			'id' => $id,
 		));
 	}
+/**
+	 * Append a `<script>` element.
+	 * @param string $url
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 * @param bool $defer Use `defer` flag
+	 * @param bool $async Use `async` flag
+	 * @param string $id Add a script `id` attribute
+	 */
 	public static function appendScript ($url, $defer = true, $async = true, $id = '') {
 		self::$scripts[] = array (
 			'url' => $url,
