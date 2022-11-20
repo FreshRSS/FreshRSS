@@ -211,7 +211,14 @@ class Minz_View {
 
 		return $styles;
 	}
-	public static function prependStyle($url, $media = 'all') {
+	/**
+	 * Prepends a <link> element referencing stylesheet.
+	 *
+	 * @param string $url
+	 * @param string $media
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 */
+	public static function prependStyle($url, $media = 'all', $cond = false) {
 		array_unshift (self::$styles, array (
 			'url' => $url,
 			'media' => $media
