@@ -224,7 +224,13 @@ class Minz_View {
 			'media' => $media,
 		));
 	}
-	public static function appendStyle ($url, $media = 'all') {
+	/**
+	 * Append a `<link>` element referencing stylesheet.
+	 * @param string $url
+	 * @param string $media
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 */
+	public static function appendStyle($url, $media = 'all', $cond = false) {
 		self::$styles[] = array (
 			'url' => $url,
 			'media' => $media,
