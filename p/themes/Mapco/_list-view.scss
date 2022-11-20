@@ -10,11 +10,13 @@
 
 	@include mixins.transition(all, 0.15s, ease-in-out);
 
-	&:hover {
-		background: variables.$grey-lighter;
-
-		&:not(.current):hover .item.title {
+	.flux_header {
+		&:hover {
 			background: variables.$grey-lighter;
+
+			&:not(.current):hover .item.title {
+				background: variables.$grey-lighter;
+			}
 		}
 	}
 
