@@ -653,7 +653,17 @@ class FreshRSS_Feed extends Minz_Model {
 			foreach ($nodes as $node) {
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
-				$item['content'] = $xPathItemContent == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
+
+				$item['content'] = '';
+				$domNodeList = $xPathItemContent == '' ? [] : @$xpath->query($xPathItemContent, $node);
+				if (!empty($domNodeList)) {
+					$content = '';
+					foreach($domNodeList as $node) {
+						$content .= $doc->saveHTML($node) . "\n";
+					}
+					$item['content'] = $content;
+				}
+
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
@@ -679,8 +689,15 @@ class FreshRSS_Feed extends Minz_Model {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
 				}
 
-				if ($item['title'] . $item['content'] . $item['link'] != '') {
-					$item = Minz_Helper::htmlspecialchars_utf8($item);
+				if ($item['title'] != '' || $item['content'] != '' || $item['link'] != '') {
+					// HTML-encoding/escaping of the relevant fields (all except 'content')
+					foreach (['author', 'categories', 'guid', 'link', 'thumbnail', 'timestamp', 'title'] as $key) {
+						if (!empty($item[$key])) {
+							$item[$key] = Minz_Helper::htmlspecialchars_utf8($item[$key]);
+						}
+					}
+					// CDATA protection
+					$item['content'] = str_replace(']]>', ']]&gt;', $item['content']);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
 			}
