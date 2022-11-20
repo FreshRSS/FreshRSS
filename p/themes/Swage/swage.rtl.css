@@ -162,10 +162,8 @@ table {
 	border-collapse: collapse;
 }
 
-tr,
 td,
 th {
-	padding: 0.5em;
 	border: 1px solid var(--color-border-light-darker);
 }
 
