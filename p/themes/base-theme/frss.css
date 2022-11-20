@@ -287,8 +287,8 @@ input[type="checkbox"] {
 	width: calc(99% - 5em);
 }
 
-.dropdown-menu > .item > a:hover,
-.dropdown-menu > .item > button:hover {
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:hover {
 	text-decoration: none;
 }
 
@@ -650,13 +650,13 @@ input[type="checkbox"]:focus-visible {
 	display: block;
 }
 
-.dropdown-menu > .item {
+.dropdown-menu .item {
 	display: block;
 }
 
-.dropdown-menu > .item > a,
-.dropdown-menu > .item > .as-link,
-.dropdown-menu > .item > span {
+.dropdown-menu .item > a,
+.dropdown-menu .item > .as-link,
+.dropdown-menu .item > span {
 	display: block;
 	width: 100%;
 	white-space: nowrap;
@@ -697,6 +697,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .item ~ .dropdown-header,
+.dropdown-section ~ .dropdown-section,
 .item.separator {
 	margin-top: 5px;
 	padding-top: 5px;
@@ -1974,7 +1975,7 @@ input:checked + .slide-container .properties {
 	#panel .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
-		padding: 1rem;
+		padding: 1rem 0;
 		display: block;
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
@@ -1998,7 +1999,8 @@ input:checked + .slide-container .properties {
 		position: inherit;
 	}
 
-	.dropdown .dropdown-header {
+	.dropdown .dropdown-header,
+	.dropdown .dropdown-section {
 		line-height: 2;
 	}
 
