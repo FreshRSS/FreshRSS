@@ -1663,7 +1663,7 @@ function refreshUnreads() {
 }
 
 function toggle_bigMarkAsRead_button() {
-	var bigMarkAsRead_button = document.getElementById('bigMarkAsRead');
+	const bigMarkAsRead_button = document.getElementById('bigMarkAsRead');
 	if (bigMarkAsRead_button) {
 		if (document.querySelector('.flux.not_read') != null) {
 			bigMarkAsRead_button.style = '';
