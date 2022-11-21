@@ -655,13 +655,19 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
 
 				$item['content'] = '';
-				$domNodeList = $xPathItemContent == '' ? [] : @$xpath->query($xPathItemContent, $node);
-				if (!empty($domNodeList)) {
-					$content = '';
-					foreach($domNodeList as $child) {
-						$content .= $doc->saveHTML($child) . "\n";
+				if ($xPathItemContent != '') {
+					$result = @$xpath->evaluate($xPathItemContent, $node);
+					if ($result instanceof DOMNodeList) {
+						// List of nodes, save as HTML
+						$content = '';
+						foreach ($result as $child) {
+							$content .= $doc->saveHTML($child) . "\n";
+						}
+						$item['content'] = $content;
+					} else {
+						// Typed expression, save as-is
+						$item['content'] = strval($result);
 					}
-					$item['content'] = $content;
 				}
 
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
