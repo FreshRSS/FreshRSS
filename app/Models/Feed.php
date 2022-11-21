@@ -658,8 +658,8 @@ class FreshRSS_Feed extends Minz_Model {
 				$domNodeList = $xPathItemContent == '' ? [] : @$xpath->query($xPathItemContent, $node);
 				if (!empty($domNodeList)) {
 					$content = '';
-					foreach($domNodeList as $node) {
-						$content .= $doc->saveHTML($node) . "\n";
+					foreach($domNodeList as $child) {
+						$content .= $doc->saveHTML($child) . "\n";
 					}
 					$item['content'] = $content;
 				}
