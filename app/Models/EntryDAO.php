@@ -947,8 +947,8 @@ SQL;
 			}
 			if ($filter->getTags()) {
 				foreach ($filter->getTags() as $tag) {
-					$sub_search .= 'AND ' . static::sqlConcat($alias . 'tags ', " ' '") . ' LIKE ? ';
-					$values[] = "%{$tag} %";
+					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' LIKE ? ';
+					$values[] = "%{$tag} #%";
 				}
 			}
 			if ($filter->getInurl()) {
@@ -972,8 +972,8 @@ SQL;
 			}
 			if ($filter->getNotTags()) {
 				foreach ($filter->getNotTags() as $tag) {
-					$sub_search .= 'AND ' . static::sqlConcat($alias . 'tags ', " ' '") . ' NOT LIKE ? ';
-					$values[] = "%{$tag} %";
+					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' NOT LIKE ? ';
+					$values[] = "%{$tag} #%";
 				}
 			}
 			if ($filter->getNotInurl()) {
