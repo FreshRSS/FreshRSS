@@ -209,19 +209,40 @@ a.btn {
 	text-align: left;
 }
 
-.dropdown-header {
+.dropdown-header,
+.dropdown-section .dropdown-section-title {
 	padding: 0 5px 5px;
 	font-weight: bold;
 	text-align: left;
 }
 
-.dropdown-menu > .item > a,
-.dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link {
+.dropdown-menu .item > a,
+.dropdown-menu .item > span,
+.dropdown-menu .item > .as-link {
 	padding: 0 22px;
 	color: var(--text);
 	line-height: 2.5em;
 	min-width: 200px;
+}
+
+.dropdown-menu .dropdown-section .item > a,
+.dropdown-menu .dropdown-section .item > span,
+.dropdown-menu .dropdown-section .item > .as-link {
+	padding-left: 2rem;
+}
+
+.dropdown-menu {
+	padding-top: 0.5rem;
+}
+
+.dropdown-menu .dropdown-section .item:last-child {
+	margin-bottom: 0.5rem;
+}
+
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:hover,
+.dropdown-menu .item > label:hover:not(.noHover) {
+	/* no hover color */
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
