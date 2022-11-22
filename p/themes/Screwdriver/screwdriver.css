@@ -346,28 +346,45 @@ a.btn {
 	border-color: #171717;
 }
 
-.dropdown-header {
+.dropdown-header,
+.dropdown-section .dropdown-section-title {
 	padding: 0 5px 5px;
 	color: #ccc;
 	font-weight: bold;
 }
 
-.dropdown-menu > .item > a,
-.dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link {
+.dropdown-menu .item > a,
+.dropdown-menu .item > span,
+.dropdown-menu .item > .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
 	color: #ccc;
 	font-size: 0.8rem;
 }
 
-.dropdown-menu > .item > label {
-	color: #ccc;
+.dropdown-menu .dropdown-section .item > a,
+.dropdown-menu .dropdown-section .item > span,
+.dropdown-menu .dropdown-section .item > .as-link {
+	padding-left: 2rem;
 }
 
-.dropdown-menu > .item:hover {
+.dropdown-menu {
+	padding-top: 0.5rem;
+}
+
+.dropdown-menu .dropdown-section .item:last-child {
+	margin-bottom: 0.5rem;
+}
+
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:hover,
+.dropdown-menu .item > label:hover:not(.noHover) {
 	background: #171717;
 	color: #fff;
+}
+
+.dropdown-menu > .item > label {
+	color: #ccc;
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
@@ -381,6 +398,7 @@ a.btn {
 }
 
 .item ~ .dropdown-header,
+.dropdown-section ~ .dropdown-section,
 .item.separator {
 	border-top-color: rgba(255,255,255,0.08);
 }
