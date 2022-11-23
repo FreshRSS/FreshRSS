@@ -744,19 +744,11 @@ a.btn {
 	background: #fff3ed;
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	background: inherit;
-}
-
 .flux.favorite {
 	border-right-color: #ffc300;
 }
 
 .flux.favorite:not(.current) {
-	background: #fff6da;
-}
-
-.flux.favorite:not(.current):hover .item.title {
 	background: #fff6da;
 }
 
