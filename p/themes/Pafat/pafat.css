@@ -766,8 +766,8 @@ a.signin {
 	background: #fff6da;
 }
 
-.flux.favorite:not(.current):hover .item.title {
-	background: #fff6da;
+.flux.favorite:not(.current) .flux_header:hover {
+	background: #fff9e8;
 }
 
 .flux_header {

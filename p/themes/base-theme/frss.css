@@ -1177,7 +1177,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .item.title {
-	background-color: var(--frss-background-color);
+	background-color: inherit;
 	max-width: calc(100% - 320px);
 	position: absolute;
 }
