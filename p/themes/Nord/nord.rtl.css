@@ -1027,6 +1027,10 @@ input.extend {
 		white-space: nowrap;
 	}
 
+	.flux .website .favicon {
+		position: relative;
+	}
+
 	.notification {
 		top: 0;
 		right: 0;
