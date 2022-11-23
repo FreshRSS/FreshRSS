@@ -95,10 +95,6 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
-tr, th, td {
-	padding: 0.5em;
-}
-
 form td,
 form th {
 	font-weight: normal;

@@ -69,8 +69,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 	border: 1px solid #ddd;
 }
 
@@ -755,7 +754,7 @@ a.signin {
 	border-right: 3px solid #5cb85c;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: #fff;
 }
 

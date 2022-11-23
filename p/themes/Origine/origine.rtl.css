@@ -3,6 +3,8 @@
 /*=== GENERAL */
 /*============*/
 :root {
+	--frss-padding-top-bottom: 0.5rem;
+
 	--background-color-light-gradient: #eee;
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
@@ -156,8 +158,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 	border: 1px solid var(--border-color);
 }
 
@@ -660,8 +661,6 @@ a:hover .icon {
 }
 
 .header > .item {
-	padding-right: 0.75rem;
-	padding-left: 0.75rem;
 	border-bottom: 1px solid var(--border-color);
 	vertical-align: middle;
 	text-align: center;
@@ -841,15 +840,15 @@ a:hover .icon {
 	border-right: 2px solid transparent;
 }
 
-.flux:hover:not(.active) {
+.flux .flux_header:hover {
 	background-color: var(--background-color-hover) !important;
 }
 
-.flux:not(.current):hover .item.title {
+.flux .flux_header:not(.current):hover .item.title {
 	background: inherit;
 }
 
-.flux.current {
+.flux.current .flux_header {
 	background-color: var(--background-color-light);
 	border-right: 2px solid var(--contrast-border-color-active);
 }
@@ -858,7 +857,7 @@ a:hover .icon {
 	border-right: 2px solid var(--unread-article-border-color);
 }
 
-.flux.not_read:not(.current) {
+.flux.not_read .flux_header {
 	background-color: var(--unread-article-background-color);
 }
 
@@ -1100,14 +1099,16 @@ a:hover .icon {
 /*===========*/
 
 @media (max-width: 840px) {
+	.header > .item {
+		padding: 0.5rem 1rem;
+	}
+
 	.header > .item.title {
-		padding: 10px 20px;
 		width: 75%;
 		text-align: right;
 	}
 
 	.header > .item.configure {
-		padding: 10px 20px;
 		width: 25%;
 		text-align: left;
 	}
@@ -1139,8 +1140,8 @@ a:hover .icon {
 	}
 
 	.post {
-		padding-right: 15px;
-		padding-left: 15px;
+		padding-right: 1rem;
+		padding-left: 1rem;
 	}
 
 	.nav_menu .btn {

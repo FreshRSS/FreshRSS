@@ -162,10 +162,8 @@ table {
 	border-collapse: collapse;
 }
 
-tr,
 td,
 th {
-	padding: 0.5em;
 	border: 1px solid var(--color-border-light-darker);
 }
 
@@ -583,6 +581,7 @@ form th {
 	height: auto;
 }
 .header > .item {
+	padding: 0;
 	vertical-align: middle;
 }
 .header > .item.title {
@@ -735,6 +734,7 @@ form th {
 }
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
@@ -765,11 +765,11 @@ form th {
 	width: 90%;
 	border-top: 1px solid var(--color-border-light-darker);
 }
-.flux:hover,
+.flux .flux_header:hover,
 .flux .current {
 	background-color: var(--color-background-hover);
 }
-.flux:hover:not(.current):hover .item.title,
+.flux .flux_header:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background-color: var(--color-background-hover);
 }

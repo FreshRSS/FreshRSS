@@ -123,8 +123,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 	border: 1px solid var(--border-color-dark);
 }
 
@@ -755,7 +754,7 @@ kbd {
 	border-right-style: solid;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: var(--background-color-hover) !important;
 }
 

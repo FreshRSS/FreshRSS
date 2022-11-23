@@ -87,8 +87,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 	border: 1px solid #333;
 }
 
@@ -730,7 +729,7 @@ a.btn {
 	border-left: 2px solid #2f2f2f;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: #111;
 }
 
