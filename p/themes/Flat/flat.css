@@ -313,7 +313,7 @@ a.btn {
 /*=== Dropdown */
 .dropdown-menu {
 	margin: 0.5rem 0 0;
-	padding: 0.5rem 0;
+	padding: 0.5rem 0 0.25rem 0;
 	background: #fafafa;
 	font-size: 0.8rem;
 	border: 1px solid #95a5a6;
@@ -351,10 +351,6 @@ a.btn {
 .dropdown-menu .dropdown-section .item > span,
 .dropdown-menu .dropdown-section .item > .as-link {
 	padding-left: 2rem;
-}
-
-.dropdown-menu {
-	padding-top: 0.5rem;
 }
 
 .dropdown-menu .dropdown-section .item:last-child {
