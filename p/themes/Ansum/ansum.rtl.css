@@ -242,8 +242,9 @@ form th {
 	border: none;
 	left: 17px;
 }
-.dropdown-menu .dropdown-header {
-	padding: 1rem 1rem 1rem 0.5rem;
+.dropdown-menu .dropdown-header,
+.dropdown-menu .dropdown-section .dropdown-section-title {
+	padding: 1rem 1.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #766556;
@@ -259,16 +260,21 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:not(.addItem):hover {
+.dropdown-menu .item a:not(.addItem):hover, .dropdown-menu .item span:not(.addItem):hover, .dropdown-menu .item .as-link:not(.addItem):hover {
 	background: #ca7227;
 	color: #fff;
 }
-.dropdown-menu .item:not(.addItem):hover a, .dropdown-menu .item:not(.addItem):hover button, .dropdown-menu .item:not(.addItem):hover label {
-	text-decoration: none;
-	color: #fff;
-}
-.dropdown-menu .item:not(.addItem):hover .icon {
+.dropdown-menu .item a:not(.addItem):hover .icon, .dropdown-menu .item span:not(.addItem):hover .icon, .dropdown-menu .item .as-link:not(.addItem):hover .icon {
 	filter: grayscale(100%) brightness(2.5);
+}
+.dropdown-menu .item.dropdown-section {
+	margin-top: 0.75rem;
+}
+.dropdown-menu .item.dropdown-section ~ .dropdown-section {
+	border-top-color: #f5f0ec;
+}
+.dropdown-menu .item.dropdown-section .item a, .dropdown-menu .item.dropdown-section .item span, .dropdown-menu .item.dropdown-section .item .as-link {
+	padding-right: 2rem;
 }
 .dropdown-menu .item:not(.addItem) a:hover,
 .dropdown-menu .item:not(.addItem) button:hover {

@@ -335,12 +335,23 @@ form th {
 .dropdown-menu .dropdown-header a:hover {
 	background-color: var(--color-background-nav);
 }
+.dropdown-menu .dropdown-section .dropdown-section-title {
+	cursor: default;
+	padding: 0.25rem 0.25rem 0.125rem 0.5rem;
+	font-weight: bold;
+	color: var(--color-text-light);
+}
+.dropdown-menu .dropdown-section .item a {
+	padding: 0 22px;
+}
+.dropdown-menu .dropdown-section .item a:hover {
+	background-color: var(--color-background-nav);
+}
 .dropdown-menu::after {
 	content: none;
 }
 .dropdown-menu > .item {
-	padding: 0;
-	margin-right: 10px;
+	padding: 0 0.5rem 0 0;
 }
 .dropdown-menu > .item > a {
 	min-width: initial;

@@ -241,8 +241,9 @@ form th {
 	border: none;
 	left: 18px;
 }
-.dropdown-menu .dropdown-header {
-	padding: 1rem 1rem 1rem 0.5rem;
+.dropdown-menu .dropdown-header,
+.dropdown-menu .dropdown-section .dropdown-section-title {
+	padding: 1rem 1.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #5b6871;
@@ -258,14 +259,21 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:not(.addItem) a:hover,
-.dropdown-menu .item:not(.addItem) button:hover {
+.dropdown-menu .item a:not(.addItem):hover, .dropdown-menu .item span:not(.addItem):hover, .dropdown-menu .item .as-link:not(.addItem):hover {
 	background: #36c;
 	color: #fff;
 }
-.dropdown-menu .item:not(.addItem) a:hover .icon,
-.dropdown-menu .item:not(.addItem) button:hover .icon {
+.dropdown-menu .item a:not(.addItem):hover .icon, .dropdown-menu .item span:not(.addItem):hover .icon, .dropdown-menu .item .as-link:not(.addItem):hover .icon {
 	filter: brightness(3);
+}
+.dropdown-menu .item.dropdown-section {
+	margin-top: 0.75rem;
+}
+.dropdown-menu .item.dropdown-section ~ .dropdown-section {
+	border-top-color: #eff0f2;
+}
+.dropdown-menu .item.dropdown-section .item a, .dropdown-menu .item.dropdown-section .item span, .dropdown-menu .item.dropdown-section .item .as-link {
+	padding-right: 2rem;
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 -14px 0 0;
