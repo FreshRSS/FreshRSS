@@ -70,28 +70,14 @@
 		&.dropdown-section {
 			margin-top: 0.75rem;
 
-			 ~ .dropdown-section {
+			~ .dropdown-section {
 				border-top-color: variables.$grey-light;
-			 }
+			}
 
 			.item {
 				a, span, .as-link {
 					padding-left: 2rem;
 				}
-			}
-		}
-
-		&:not(.addItem):hover {
-			// background: variables.$main-first;
-			// color: variables.$white;
-
-			a, button, label {
-			//	text-decoration: none;
-			//	color: variables.$white;
-			}
-
-			.icon {
-				//filter: grayscale(100%) brightness(2.5);
 			}
 		}
 
