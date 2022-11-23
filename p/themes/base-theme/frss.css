@@ -394,6 +394,7 @@ td.numeric {
 	display: block;
 	float: left;
 	width: 200px;
+	text-align: right;
 }
 
 .form-group .group-controls {
@@ -1993,6 +1994,7 @@ input:checked + .slide-container .properties {
 	.form-group .group-name {
 		float: none;
 		width: auto;
+		text-align: left;
 	}
 
 	.form-group .group-controls {

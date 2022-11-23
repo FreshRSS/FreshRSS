@@ -203,7 +203,6 @@ form th {
 }
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: right;
 }
 .form-group .group-controls {
 	min-height: 25px;
@@ -918,7 +917,6 @@ a.signin {
 	}
 	.form-group .group-name {
 		padding-bottom: 0;
-		text-align: left;
 	}
 	.dropdown {
 		position: relative;
