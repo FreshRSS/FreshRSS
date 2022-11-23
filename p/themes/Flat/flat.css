@@ -128,7 +128,6 @@ form th {
 
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: right;
 }
 
 .form-group .group-controls {
@@ -972,7 +971,6 @@ a.btn {
 @media (max-width: 840px) {
 	.form-group .group-name {
 		padding-bottom: 0;
-		text-align: left;
 	}
 
 	.aside {

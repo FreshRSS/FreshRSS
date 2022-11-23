@@ -178,7 +178,6 @@ input.extend {
 }
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: right;
 }
 .form-group .group-controls {
 	min-height: 25px;
@@ -1206,9 +1205,6 @@ main.prompt {
 /*=== MOBILE */
 /*===========*/
 @media (max-width: 840px) {
-	.form-group .group-name {
-		text-align: left;
-	}
 	.aside {
 		transition: all 0.2s ease-in-out;
 	}
