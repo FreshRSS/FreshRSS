@@ -202,10 +202,8 @@ table {
 	border-collapse: collapse;
 }
 
-tr,
 td,
 th {
-	padding: 0.5em;
 	border: 1px solid var(--color-border-light-darker);
 }
 
@@ -727,6 +725,7 @@ form {
 	height: auto;
 
 	> .item {
+		padding: 0;
 		vertical-align: middle;
 
 		&.title {
@@ -933,6 +932,7 @@ form {
 
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
@@ -971,7 +971,7 @@ form {
 		border-top: 1px solid var(--color-border-light-darker);
 	}
 
-	&:hover,
+	.flux_header:hover,
 	.current {
 		background-color: var(--color-background-hover);
 
