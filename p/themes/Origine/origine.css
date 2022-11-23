@@ -839,17 +839,17 @@ a:hover .icon {
 	border-left: 2px solid transparent;
 }
 
+.flux.current {
+	background-color: var(--background-color-light);
+	border-left: 2px solid var(--contrast-border-color-active);
+}
+
 .flux .flux_header:hover {
 	background-color: var(--background-color-hover) !important;
 }
 
 .flux .flux_header:not(.current):hover .item.title {
 	background: inherit;
-}
-
-.flux.current .flux_header {
-	background-color: var(--background-color-light);
-	border-left: 2px solid var(--contrast-border-color-active);
 }
 
 .flux.not_read {
