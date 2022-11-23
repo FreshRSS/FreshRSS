@@ -431,6 +431,25 @@ form {
 		}
 	}
 
+	.dropdown-section {
+		.dropdown-section-title {
+			cursor: default;
+			padding: 0.25rem 0.5rem 0.125rem 0.25rem;
+			font-weight: bold;
+			color: var(--color-text-light);
+		}
+
+		.item {
+			a {
+				padding: 0 22px;
+
+				&:hover {
+					background-color: var(--color-background-nav);
+				}
+			}
+		}
+	}
+
 	&::after {
 		content: none;
 	}
@@ -439,8 +458,7 @@ form {
 		.item {
 
 			@extend %dropdown;
-			padding: 0;
-			margin-left: 10px;
+			padding: 0 0 0 0.5rem;
 
 			> a,
 			> span,
