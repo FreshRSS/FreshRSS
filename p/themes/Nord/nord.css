@@ -379,10 +379,8 @@ img.favicon {
 }
 
 .tree-folder-items > .item {
-	padding: 0 10px;
 	color: var(--text);
 	font-size: 0.8rem;
-	line-height: 2.5rem;
 }
 
 .tree-folder-items > .item > a {
