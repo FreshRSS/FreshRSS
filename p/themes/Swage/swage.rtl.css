@@ -554,8 +554,6 @@ form th {
 	background-color: var(--color-background-aside);
 }
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 3;
 	font-size: 0.8rem;
 }
 .tree-folder-items > .item.active {
