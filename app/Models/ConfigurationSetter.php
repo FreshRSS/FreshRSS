@@ -233,7 +233,7 @@ class FreshRSS_ConfigurationSetter {
 	private function _sticky_post(&$data, $value) {
 		$data['sticky_post'] = $this->handleBool($value);
 	}
-	
+
 	private function _darkMode(&$data, $value) {
 		$data['darkMode'] = $this->handleBool($value);
 	}
