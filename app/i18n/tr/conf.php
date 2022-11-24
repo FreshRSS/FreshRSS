@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Görünüm',
+		'darkMode' => 'Automatically dark mode (Beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Yazarlar',

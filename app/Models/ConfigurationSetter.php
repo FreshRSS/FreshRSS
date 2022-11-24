@@ -233,6 +233,10 @@ class FreshRSS_ConfigurationSetter {
 	private function _sticky_post(&$data, $value) {
 		$data['sticky_post'] = $this->handleBool($value);
 	}
+	
+	private function _darkMode(&$data, $value) {
+		$data['darkMode'] = $this->handleBool($value);
+	}
 
 	private function _bottomline_date(&$data, $value) {
 		$data['bottomline_date'] = $this->handleBool($value);

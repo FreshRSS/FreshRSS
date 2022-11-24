@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'תצוגה',
+		'darkMode' => 'Automatically dark mode (Beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
 			'display_authors' => 'Authors',	// TODO
