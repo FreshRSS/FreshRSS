@@ -6,10 +6,6 @@
 /*===========*/
 
 @media (max-width: 840px) {
-	.form-group .group-name {
-		text-align: left;
-	}
-
 	.aside {
 
 		@include mixins.transition(all, 0.2s, ease-in-out);

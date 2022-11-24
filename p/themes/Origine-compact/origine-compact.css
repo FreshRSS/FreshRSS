@@ -2,10 +2,8 @@
 
 /*=== GENERAL */
 /*============*/
-input, select, textarea {
-	padding: 3px 5px 2px 5px;
-	min-height: 25px;
-	line-height: 2;
+:root {
+	--frss-padding-top-bottom: 0.125rem;
 }
 
 /*=== COMPONENTS */
@@ -41,68 +39,37 @@ a.btn,
 	font-size: 0.9rem;
 }
 
-.horizontal-list .item {
-	line-height: 2.2;
-}
-
-.horizontal-list .item .item-element {
-	padding: 1px 0 0 0;
-}
-
 /*=== Dropdown */
 /*=== Alerts */
 /*=== Pagination */
 /*=== Boxes */
 /*=== Tree */
-.tree-folder-title {
-	padding: 0 5px;
-	line-height: 2.2;
-	font-size: 0.9rem;
-}
-
-.tree-folder-items > .item {
-	line-height: 2.4;
-}
-
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
 .header {
-	height: 40px;
-}
-
-.header > .item {
-	padding: 0px;
-}
-
-.header .item.configure .btn,
-.header .item.search .btn {
-	min-height: 18px;
-	padding: 4px 10px;
-	line-height: 1.4;
+	/* search bar and config button height = 2.1rem */
+	height: calc(2.1rem + 2 * var(--frss-padding-top-bottom));
 }
 
 .header > .item.title .logo {
-	height: 25px;
-}
-
-.header > .item.search input {
-	padding: 1px 5px;
+	/* logo is smaller than needed */
+	height: 1.5rem;
 }
 
 /*=== Body */
 #global {
-	height: calc(100vh - 40px);
+	height: calc(100vh - (calc(2.1rem + 2 * var(--frss-padding-top-bottom))))
 }
 
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	margin: 0.4em 0 0 0;
+	font-size: 0.8rem;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
-	margin: 0.5em 0 0 0;
+	font-size: 0.7rem;
 }
 
 /*=== Day indication */
@@ -118,10 +85,6 @@ a.btn,
 
 /*=== Index menu */
 /*=== Feed articles */
-.flux .item {
-	padding: 0;
-}
-
 .flux .item.thumbnail {
 	padding: 5px;
 	height: 50px;
@@ -164,14 +127,6 @@ a.btn,
 }
 
 /*=== Content of feed articles */
-.content {
-	padding: 10px 10px;
-}
-
-#stream.normal .content > h1.title {
-	display: none;
-}
-
 /*=== Notification and actualize notification */
 /*=== "Load more" part */
 #bigMarkAsRead {
@@ -183,10 +138,6 @@ a.btn,
 }
 
 /*=== Navigation menu (for articles) */
-#nav_entries {
-	line-height: 2.2;
-}
-
 /*=== READER VIEW */
 /*================*/
 /*=== GLOBAL VIEW */
@@ -208,7 +159,7 @@ a.btn,
 	}
 
 	.post {
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 }

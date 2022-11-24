@@ -1,6 +1,9 @@
 ﻿# FreshRSS changelog
 
-## 2022-11-XX FreshRSS 1.20.1-dev
+## 202X-XX-XX FreshRSS 1.21.0-dev
+
+
+## 2022-11-14 FreshRSS 1.20.1
 
 * Features
 	* Add support for custom XPath date/time format [#4703](https://github.com/FreshRSS/FreshRSS/pull/4703)
@@ -47,6 +50,7 @@
 	Blue Lagon [#4786](https://github.com/FreshRSS/FreshRSS/pull/4786);
 	Dark [#4806](https://github.com/FreshRSS/FreshRSS/pull/4806);
 	Mapco [#4648](https://github.com/FreshRSS/FreshRSS/pull/4648), [#4709](https://github.com/FreshRSS/FreshRSS/pull/4709), [#4711](https://github.com/FreshRSS/FreshRSS/pull/4711);
+	Origine [#4842](https://github.com/FreshRSS/FreshRSS/pull/4842);
 	Origine Compact [#4636](https://github.com/FreshRSS/FreshRSS/pull/4636), [#4735](https://github.com/FreshRSS/FreshRSS/pull/4735), [#4787](https://github.com/FreshRSS/FreshRSS/pull/4787);
 	Pafat [#4783](https://github.com/FreshRSS/FreshRSS/pull/4783), [#4792](https://github.com/FreshRSS/FreshRSS/pull/4792), [#4793](https://github.com/FreshRSS/FreshRSS/pull/4793),
 	[#4796](https://github.com/FreshRSS/FreshRSS/pull/4796), [#4811](https://github.com/FreshRSS/FreshRSS/pull/4811);
@@ -56,6 +60,7 @@
 * i18n
 	* Rename *tag* to *label* in some languages [#4770](https://github.com/FreshRSS/FreshRSS/pull/4770)
 	* Improve typographic quotes [#4714](https://github.com/FreshRSS/FreshRSS/pull/4714)
+	* Remove invalid i18n string [#4844](https://github.com/FreshRSS/FreshRSS/pull/4844)
 	* Add Greek [#4718](https://github.com/FreshRSS/FreshRSS/pull/4718), [#4754](https://github.com/FreshRSS/FreshRSS/pull/4754)
 	* Add Indonesian [#4706](https://github.com/FreshRSS/FreshRSS/pull/4706)
 	* Improve Brazilian Portuguese [#4669](https://github.com/FreshRSS/FreshRSS/pull/4669)
@@ -69,6 +74,9 @@
 * Compatibility
 	* Compatibility PHP 8.1+ `strip_tags()` [#4688](https://github.com/FreshRSS/FreshRSS/pull/4688)
 	* Fix `GLOB_BRACE` is not available on all platforms [#4628](https://github.com/FreshRSS/FreshRSS/pull/4628)
+* Deployment
+	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.33
+	* Docker: alternative image (Alpine 3.16) updated to PHP 8.0.25
 * Misc.
 	* Added *Linkding* as a sharing method [#4721](https://github.com/FreshRSS/FreshRSS/pull/4721)
 	* Exclude `.git/` from tests [#4824](https://github.com/FreshRSS/FreshRSS/pull/4824)

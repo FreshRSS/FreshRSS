@@ -264,6 +264,7 @@ function send_mark_read_queue(queue, asRead, callback) {
 				incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
 			}
 		}
+		toggle_bigMarkAsRead_button();
 		onScroll();
 		if (callback) {
 			callback();
@@ -1101,6 +1102,12 @@ function init_stream(stream) {
 			return false;
 		}
 
+		el = ev.target.closest('.item.share > a[data-type="email-webmail-firefox-fix"]');
+		if (el) {
+			window.open(el.href);
+			return false;
+		}
+
 		el = ev.target.closest('.item.share > a[href="POST"]');
 		if (el) {	// Share by POST
 			const f = el.parentElement.querySelector('form');
@@ -1655,6 +1662,23 @@ function refreshUnreads() {
 	req.send();
 }
 
+function toggle_bigMarkAsRead_button() {
+	const bigMarkAsRead_button = document.getElementById('bigMarkAsRead');
+	if (bigMarkAsRead_button) {
+		if (document.querySelector('.flux.not_read') != null) {
+			bigMarkAsRead_button.style = '';
+			bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+		} else {
+			if (bigMarkAsRead_button.querySelector('.jumpNext')) {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = 'hidden';
+			} else {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+				bigMarkAsRead_button.style.visibility = 'hidden';
+			}
+		}
+	}
+}
+
 // <endless_mode>
 let url_load_more = '';
 let load_more = false;
@@ -1691,6 +1715,7 @@ function load_more_posts() {
 			} else {
 				bigMarkAsRead.formAction = readAll.formAction;
 			}
+			toggle_bigMarkAsRead_button();
 		}
 
 		document.querySelectorAll('[id^=day_]').forEach(function (div) {
@@ -1843,6 +1868,7 @@ function init_main_afterDOM() {
 		init_posts();
 		init_nav_entries();
 		init_notifs_html5();
+		toggle_bigMarkAsRead_button();
 		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);
 	}

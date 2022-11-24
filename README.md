@@ -5,7 +5,7 @@
 
 # FreshRSS
 
-FreshRSS is a self-hosted RSS feed aggregator like [Leed](https://github.com/LeedRSS/Leed) or [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS is a self-hosted RSS feed aggregator.
 
 It is lightweight, easy to work with, powerful, and customizable.
 
@@ -19,20 +19,28 @@ FreshRSS natively supports basic Web scraping, based on [XPath](https://www.w3.o
 
 Finally, it supports [extensions](#extensions) for further tuning.
 
-Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
-We are a friendly community.
-
 * Official website: <https://freshrss.org>
 * Demo: <https://demo.freshrss.org/>
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
 ![FreshRSS logo](docs/img/FreshRSS-logo.png)
 
-# Disclaimer
+## Feedback and contributions
 
-FreshRSS comes with absolutely no warranty.
+Feature requests, bug reports, and other contributions are welcome. The best way is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+We are a friendly community.
+
+To facilitate contributions, the following option is available:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=edge&repo=6322699)
+
+## Screenshot
 
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
+
+## Disclaimer
+
+FreshRSS comes with absolutely no warranty.
 
 # [Documentation](https://freshrss.github.io/FreshRSS/en/)
 
@@ -48,20 +56,16 @@ FreshRSS comes with absolutely no warranty.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 7.0+
+* PHP 7.2+
 	* Required extensions: [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype), and [PDO_MySQL](https://www.php.net/pdo-mysql) or [PDO_SQLite](https://www.php.net/pdo-sqlite) or [PDO_PGSQL](https://www.php.net/pdo-pgsql)
 	* Recommended extensions: [GMP](https://www.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://www.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://www.php.net/mbstring) (for Unicode strings), [iconv](https://www.php.net/iconv) (for charset conversion), [ZIP](https://www.php.net/zip) (for import/export), [zlib](https://www.php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ or MariaDB equivalent, or SQLite 3.7.4+, or PostgreSQL 9.5+
 
-
-# Releases
+# [Installation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)
 
 The latest stable release can be found [here](https://github.com/FreshRSS/FreshRSS/releases/latest). New versions are released every two to three months.
 
 If you want a rolling release with the newest features, or want to help testing or developing the next stable version, you can use [the `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge/).
-
-
-# [Installation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)
 
 ## Automated install
 
@@ -83,7 +87,7 @@ If you want a rolling release with the newest features, or want to help testing 
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html).
 
-## Advice
+# Advice
 
 * For better security, expose only the `./p/` folder to the Web.
 	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.

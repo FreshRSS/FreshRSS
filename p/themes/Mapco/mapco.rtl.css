@@ -17,7 +17,7 @@
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 700;
-	src: url("../fonts/LatoLatin-Regular.woff") format("woff");
+	src: url("../fonts/LatoLatin-Bold.woff") format("woff");
 }
 @font-face {
 	font-family: "lato";
@@ -178,7 +178,6 @@ input.extend {
 }
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: left;
 }
 .form-group .group-controls {
 	min-height: 25px;
@@ -200,8 +199,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 	border: 1px solid #d5d8db;
 }
 
@@ -241,8 +239,9 @@ form th {
 	border: none;
 	left: 18px;
 }
-.dropdown-menu .dropdown-header {
-	padding: 1rem 1rem 1rem 0.5rem;
+.dropdown-menu .dropdown-header,
+.dropdown-menu .dropdown-section .dropdown-section-title {
+	padding: 1rem 1.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #5b6871;
@@ -258,14 +257,21 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
-.dropdown-menu .item:not(.addItem) a:hover,
-.dropdown-menu .item:not(.addItem) button:hover {
+.dropdown-menu .item a:not(.addItem):hover, .dropdown-menu .item span:not(.addItem):hover, .dropdown-menu .item .as-link:not(.addItem):hover {
 	background: #36c;
 	color: #fff;
 }
-.dropdown-menu .item:not(.addItem) a:hover .icon,
-.dropdown-menu .item:not(.addItem) button:hover .icon {
+.dropdown-menu .item a:not(.addItem):hover .icon, .dropdown-menu .item span:not(.addItem):hover .icon, .dropdown-menu .item .as-link:not(.addItem):hover .icon {
 	filter: brightness(3);
+}
+.dropdown-menu .item.dropdown-section {
+	margin-top: 0.75rem;
+}
+.dropdown-menu .item.dropdown-section ~ .dropdown-section {
+	border-top-color: #eff0f2;
+}
+.dropdown-menu .item.dropdown-section .item a, .dropdown-menu .item.dropdown-section .item span, .dropdown-menu .item.dropdown-section .item .as-link {
+	padding-right: 2rem;
 }
 .dropdown-menu .item[aria-checked=true] a::before {
 	margin: 0 -14px 0 0;
@@ -969,18 +975,13 @@ main.prompt {
 	color: #fff;
 }
 .notification a.close {
-	padding: 0 15px;
 	border-radius: 3px 0 0 3px;
-	line-height: 3em;
 }
 .notification.good a.close:hover {
 	background: #0c7540;
 }
 .notification.bad a.close:hover {
 	background: #73341f;
-}
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 .notification#actualizeProgress br {
 	display: none;
@@ -1000,10 +1001,10 @@ main.prompt {
 	background: #fff;
 	transition: all 0.15s ease-in-out;
 }
-.flux:hover {
+.flux .flux_header:hover {
 	background: #f9fafb;
 }
-.flux:hover:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item.title {
 	background: #f9fafb;
 }
 .flux.current {
@@ -1212,9 +1213,6 @@ main.prompt {
 /*=== MOBILE */
 /*===========*/
 @media (max-width: 840px) {
-	.form-group .group-name {
-		text-align: right;
-	}
 	.aside {
 		transition: all 0.2s ease-in-out;
 	}

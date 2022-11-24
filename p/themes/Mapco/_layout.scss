@@ -366,9 +366,7 @@ main.prompt {
 	}
 
 	a.close {
-		padding: 0 15px;
 		border-radius: 0 3px 3px 0;
-		line-height: 3em;
 	}
 
 	&.good a.close:hover {
@@ -380,8 +378,6 @@ main.prompt {
 	}
 
 	&#actualizeProgress {
-		line-height: 2em;
-
 		br {
 			display: none;
 		}

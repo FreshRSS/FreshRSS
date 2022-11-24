@@ -1,3 +1,7 @@
+:root {
+	--background-color-hover: #2f1d22;
+}
+
 .btn:hover {
 	background: unset;
 	border-color: #ff449a;

@@ -30,17 +30,12 @@ configurable et c’est à vous de trouver la configuration qui vous conviendra
 le plus. Voici tout de même quelques pistes pour améliorer votre quotidien
 sur FreshRSS :
 
-* [Rangez vos flux dans des
-	catégories](04_Subscriptions.md#organisation_des_flux)
-* [Configurez votre page
-	d’accueil](05_Configuration.md#personnaliser-la-vue)
-* [Configurez vos options de
-	lecture](05_Configuration.md#options-de-lecture)
-* [Mettez à jour vos flux](03_Main_view.md#rafraichir-les-flux)
-* [Filtrez les articles](03_Main_view.md#filtrer-les-articles) pour accéder
-	rapidement à ceux que vous voulez lire en priorité
-* [Retrouvez un article](03_Main_view.md#rechercher-des-articles) qui a été
-	publié il y a quelques jours ou mois
+* [Rangez vos flux dans des catégories](04_Subscriptions.md#organisation-des-flux)
+* [Configurez votre page d’accueil](05_Configuration.md#personnaliser-la-vue)
+* [Configurez vos options de lecture](05_Configuration.md#reading)
+* [Mettez à jour vos flux](03_Main_view.md#rafraîchir-les-flux)
+* [Filtrez les articles](03_Main_view.md#filtrer-les-articles) pour accéder	rapidement à ceux que vous voulez lire en priorité
+* [Retrouvez un article](03_Main_view.md#rechercher-des-articles) qui a été	publié il y a quelques jours ou mois
 * [Accédez à vos flux même sur mobile](06_Mobile_access.md)
 * [Ajoutez quelques extensions](https://github.com/FreshRSS/Extensions)
 * [Foire aux questions](07_Frequently_Asked_Questions.md)

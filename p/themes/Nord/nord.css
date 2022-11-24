@@ -16,6 +16,8 @@
 	--alert: #a3be8c;
 	--alert-bg: #8fbcbb;
 	--code-bg: #2e3440;
+
+	--frss-background-color-transparent: #2e34407f;
 }
 
 
@@ -95,10 +97,6 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
-tr, th, td {
-	padding: 0.5em;
-}
-
 form td,
 form th {
 	font-weight: normal;
@@ -138,7 +136,6 @@ table td span {
 
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: right;
 }
 
 .form-group .group-controls {
@@ -201,7 +198,7 @@ a.btn {
 
 .dropdown-menu {
 	margin: 5px 0 0;
-	padding: 5px 0;
+	padding: 0.5rem 0 0.25rem 0;
 	background: var(--accent-bg);
 	font-size: 0.8rem;
 	border: 1px solid var(--border);
@@ -209,19 +206,36 @@ a.btn {
 	text-align: left;
 }
 
-.dropdown-header {
+.dropdown-header,
+.dropdown-section .dropdown-section-title {
 	padding: 0 5px 5px;
 	font-weight: bold;
 	text-align: left;
 }
 
-.dropdown-menu > .item > a,
-.dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link {
+.dropdown-menu .item > a,
+.dropdown-menu .item > span,
+.dropdown-menu .item > .as-link {
 	padding: 0 22px;
 	color: var(--text);
 	line-height: 2.5em;
 	min-width: 200px;
+}
+
+.dropdown-menu .dropdown-section .item > a,
+.dropdown-menu .dropdown-section .item > span,
+.dropdown-menu .dropdown-section .item > .as-link {
+	padding-left: 2rem;
+}
+
+.dropdown-menu .dropdown-section .item:last-child {
+	margin-bottom: 0.5rem;
+}
+
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:hover,
+.dropdown-menu .item > label:hover:not(.noHover) {
+	/* no hover color */
 }
 
 .dropdown-menu > .item[aria-checked="true"] > a::before {
@@ -279,6 +293,7 @@ a.btn {
 }
 
 .item ~ .dropdown-header,
+.dropdown-section ~ .dropdown-section,
 .item.separator {
 	border-top-color: var(--border);
 }
@@ -383,10 +398,8 @@ img.favicon {
 }
 
 .tree-folder-items > .item {
-	padding: 0 10px;
 	color: var(--text);
 	font-size: 0.8rem;
-	line-height: 2.5rem;
 }
 
 .tree-folder-items > .item > a {
@@ -664,16 +677,6 @@ li.item.active {
 	vertical-align: middle;
 }
 
-
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
-}
-
 .notification.closed {
 	opacity: 0;
 	visibility: hidden;
@@ -742,105 +745,6 @@ li.item.active {
 .nav_menu {
 	padding: 5px 0;
 	text-align: center;
-}
-
-/*=== MOBILE */
-/*===========*/
-
-@media (max-width: 840px) {
-	.aside:target + .close-aside {
-		background: rgba(0, 0, 0, 0.2);
-		display: block;
-		font-size: 0;
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		cursor: pointer;
-		z-index: 99;
-	}
-
-	.nav_mobile {
-		display: block;
-	}
-
-	.aside {
-		position: fixed;
-		top: 0; bottom: 0;
-		left: 0;
-		width: 0;
-		overflow: hidden;
-		z-index: 100;
-	}
-
-	.aside:target,
-	.reader .aside:target {
-		width: 90%;
-		height: 100vh;
-	}
-
-	.aside_feed .configure-feeds {
-		margin-top: 10px;
-	}
-
-	.flux_header .item.website {
-		width: 40px;
-	}
-
-	.flux:not(.current):hover .item.title {
-		position: relative;
-		width: auto;
-		white-space: nowrap;
-	}
-
-	.notification {
-		top: 0;
-		left: 0;
-		right: 0;
-	}
-
-	#nav_entries {
-		width: 100%;
-	}
-
-	#panel {
-		top: 25px; bottom: 30px;
-		left: 0; right: 0;
-	}
-
-	#panel .close {
-		top: 0; right: 0;
-		left: auto; bottom: auto;
-		display: inline-block;
-		width: 30px;
-		height: 30px;
-	}
-
-	#slider.active {
-		left: 0;
-		top: 50px;
-		background-color: var(--bg);
-	}
-
-	#close-slider img {
-		display: initial;
-	}
-
-	#close-slider.active {
-		background: var(--bg);
-		display: block;
-		width: 100%;
-		height: 50px;
-		z-index: 10;
-		text-align: center;
-		line-height: 50px;
-		border-bottom: 1px solid #ddd;
-	}
-
-	.stat.half {
-		grid-column: 1 / span 2;
-	}
 }
 
 /*=== PRINTER */
@@ -1088,12 +992,107 @@ input.extend {
 /*===========*/
 
 @media (max-width: 840px) {
+	.aside:target + .close-aside {
+		background: rgba(0, 0, 0, 0.2);
+		display: block;
+		font-size: 0;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		cursor: pointer;
+		z-index: 99;
+	}
+
+	.nav_mobile {
+		display: block;
+	}
+
 	.aside {
+		position: fixed;
+		top: 0; bottom: 0;
+		left: 0;
+		width: 0;
+		overflow: hidden;
+		z-index: 100;
 		transition: width 200ms linear;
 	}
 
 	.aside.aside_feed {
 		padding: 0;
+	}
+
+	.aside:target,
+	.reader .aside:target {
+		width: 90%;
+		height: 100vh;
+	}
+
+	.aside_feed .configure-feeds {
+		margin-top: 10px;
+	}
+
+	.flux_header .item.website {
+		width: 40px;
+	}
+
+	.flux:not(.current):hover .item.title {
+		position: relative;
+		width: auto;
+		white-space: nowrap;
+	}
+
+	.flux .website .favicon {
+		position: relative;
+	}
+
+	.notification {
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	#nav_entries {
+		width: 100%;
+	}
+
+	#panel {
+		top: 25px; bottom: 30px;
+		left: 0; right: 0;
+	}
+
+	#panel .close {
+		top: 0; right: 0;
+		left: auto; bottom: auto;
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+	}
+
+	#slider.active {
+		left: 0;
+		top: 50px;
+		background-color: var(--bg);
+	}
+
+	#close-slider img {
+		display: initial;
+	}
+
+	#close-slider.active {
+		background: var(--bg);
+		display: block;
+		width: 100%;
+		height: 50px;
+		z-index: 10;
+		text-align: center;
+		line-height: 50px;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.stat.half {
+		grid-column: 1 / span 2;
 	}
 
 	.nav_menu .btn {
@@ -1120,6 +1119,10 @@ input.extend {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.post {
+		padding: 1rem;
 	}
 
 	.day .name {

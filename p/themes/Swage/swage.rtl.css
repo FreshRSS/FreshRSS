@@ -162,10 +162,8 @@ table {
 	border-collapse: collapse;
 }
 
-tr,
 td,
 th {
-	padding: 0.5em;
 	border: 1px solid var(--color-border-light-darker);
 }
 
@@ -205,7 +203,6 @@ form th {
 }
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: left;
 }
 .form-group .group-controls {
 	min-height: 25px;
@@ -335,12 +332,23 @@ form th {
 .dropdown-menu .dropdown-header a:hover {
 	background-color: var(--color-background-nav);
 }
+.dropdown-menu .dropdown-section .dropdown-section-title {
+	cursor: default;
+	padding: 0.25rem 0.25rem 0.125rem 0.5rem;
+	font-weight: bold;
+	color: var(--color-text-light);
+}
+.dropdown-menu .dropdown-section .item a {
+	padding: 0 22px;
+}
+.dropdown-menu .dropdown-section .item a:hover {
+	background-color: var(--color-background-nav);
+}
 .dropdown-menu::after {
 	content: none;
 }
 .dropdown-menu > .item {
-	padding: 0;
-	margin-right: 10px;
+	padding: 0 0.5rem 0 0;
 }
 .dropdown-menu > .item > a {
 	min-width: initial;
@@ -556,8 +564,6 @@ form th {
 	background-color: var(--color-background-aside);
 }
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 3;
 	font-size: 0.8rem;
 }
 .tree-folder-items > .item.active {
@@ -572,6 +578,7 @@ form th {
 	height: auto;
 }
 .header > .item {
+	padding: 0;
 	vertical-align: middle;
 }
 .header > .item.title {
@@ -724,6 +731,7 @@ form th {
 }
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
@@ -754,11 +762,11 @@ form th {
 	width: 90%;
 	border-top: 1px solid var(--color-border-light-darker);
 }
-.flux:hover,
+.flux .flux_header:hover,
 .flux .current {
 	background-color: var(--color-background-hover);
 }
-.flux:hover:not(.current):hover .item.title,
+.flux .flux_header:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background-color: var(--color-background-hover);
 }
@@ -824,9 +832,6 @@ form th {
 }
 .notification.bad a.close:hover {
 	background-color: var(--color-background-bad);
-}
-.notification#actualizeProgress {
-	line-height: 2;
 }
 .notification a.close {
 	display: none;
@@ -921,7 +926,6 @@ a.signin {
 	}
 	.form-group .group-name {
 		padding-bottom: 0;
-		text-align: right;
 	}
 	.dropdown {
 		position: relative;

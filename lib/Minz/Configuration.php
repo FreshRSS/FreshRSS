@@ -26,7 +26,7 @@ class Minz_Configuration {
 	 * @param object $configuration_setter an optional helper to set values in configuration
 	 */
 	public static function register($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
-		self::$config_list[$namespace] = new Minz_Configuration(
+		self::$config_list[$namespace] = new static(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
 	}
@@ -51,7 +51,7 @@ class Minz_Configuration {
 	 * Return the configuration related to a given namespace.
 	 *
 	 * @param string $namespace the name of the configuration to get.
-	 * @return Minz_Configuration object
+	 * @return static object
 	 * @throws Minz_ConfigurationNamespaceException if the namespace does not exist.
 	 */
 	public static function get($namespace) {
@@ -117,7 +117,7 @@ class Minz_Configuration {
 	 * @param string $default_filename the file containing default values, null by default.
 	 * @param object $configuration_setter an optional helper to set values in configuration
 	 */
-	private function __construct($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
+	private final function __construct($namespace, $config_filename, $default_filename = null, $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 		$this->default_filename = $default_filename;

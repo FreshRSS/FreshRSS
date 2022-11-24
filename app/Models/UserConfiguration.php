@@ -67,6 +67,10 @@
  * @property string $view_mode
  * @property array<string,mixed> $volatile
  */
-class FreshRSS_UserConfiguration extends Minz_Configuration {
+final class FreshRSS_UserConfiguration extends Minz_Configuration {
 
+	public static function init($config_filename, $default_filename = null, $configuration_setter = null): FreshRSS_UserConfiguration {
+		parent::register('user', $config_filename, $default_filename, $configuration_setter);
+		return parent::get('user');
+	}
 }
