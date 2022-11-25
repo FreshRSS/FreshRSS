@@ -32,7 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => '표시',
-		'darkMode' => 'Automatically dark mode (Beta)',	// TODO
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => '하단',
 			'display_authors' => '저자',

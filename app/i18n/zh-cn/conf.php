@@ -32,7 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => '显示',
-		'darkMode' => 'Automatically dark mode (Beta)',	// TODO
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => '底栏',
 			'display_authors' => '作者',

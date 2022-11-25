@@ -32,7 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => '表示',
-		'darkMode' => 'Automatically dark mode (Beta)',	// TODO
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',
