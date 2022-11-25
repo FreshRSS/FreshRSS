@@ -476,6 +476,7 @@ a.btn {
 	line-height: 1;
 }
 
+.tree-folder-title > .icon,
 .tree-folder-title .title .icon {
 	filter: brightness(2.5);
 }
