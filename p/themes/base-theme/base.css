@@ -199,18 +199,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-}
-
-.nav-list .item.active.empty a {
-}
-
-.nav-list .item.error a {
-}
-
-.nav-list .item.active.error a {
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	font-weight: bold;
