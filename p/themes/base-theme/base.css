@@ -394,13 +394,18 @@ a.btn {
 }
 
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
 }
 
 .header > .item.title {
 	width: 230px;
+}
+
+.header .item.title a {
+	padding: 1rem;
+	display: block;
+	height: 100%;
 }
 
 .header > .item.title h1 {
