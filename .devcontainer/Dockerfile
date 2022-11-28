@@ -2,6 +2,9 @@ FROM alpine:3.17
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+RUN apk add --no-cache tzdata && \
+	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apk add --no-cache \
 	apache2 php-apache2 \
 	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
