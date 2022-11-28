@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'ポートレート',
 			'square' => '四角',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'ディスプレイ',
 		'width' => array(
 			'content' => 'コンテンツ幅',

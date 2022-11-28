@@ -57,6 +57,7 @@ return array(
 			'portrait' => '纵向',
 			'square' => '方形',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => '显示',
 		'width' => array(
 			'content' => '内容宽度',

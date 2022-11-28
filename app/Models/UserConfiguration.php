@@ -28,6 +28,7 @@
  * @property-read string $is_admin
  * @property int|null $keep_history_default
  * @property string $language
+ * @property string $timezone
  * @property bool $lazyload
  * @property string $mail_login
  * @property bool $mark_updated_article_unread

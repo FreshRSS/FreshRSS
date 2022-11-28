@@ -42,6 +42,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function displayAction() {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::$user_conf->language = Minz_Request::param('language', 'en');
+			FreshRSS_Context::$user_conf->timezone = Minz_Request::param('timezone', '');
 			FreshRSS_Context::$user_conf->theme = Minz_Request::param('theme', FreshRSS_Themes::$defaultTheme);
 			FreshRSS_Context::$user_conf->content_width = Minz_Request::param('content_width', 'thin');
 			FreshRSS_Context::$user_conf->topline_read = Minz_Request::param('topline_read', false);
