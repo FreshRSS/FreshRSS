@@ -604,18 +604,12 @@ a.btn {
 }
 
 .header > .item {
-	padding: 10px;
 	border-bottom: 1px solid var(--border-color-grey-dark);
 	vertical-align: middle;
 	text-align: center;
 }
 
-.header > .item.title {
-	width: 230px;
-}
-
 .header > .item.title .logo {
-	margin: 0.5em 0;
 	filter: grayscale(100%) brightness(2.5);
 }
 
@@ -835,7 +829,7 @@ a.signin {
 /*=== Feed articles */
 .flux {
 	background-color: var(--background-color-grey-light);
-	border-left: 3px solid var(--border-left-article);
+	border-left: 2px solid var(--border-left-article);
 }
 
 .flux .flux_header:hover {
@@ -848,11 +842,11 @@ a.signin {
 
 .flux.current {
 	background-color: var(--background-color-grey-light);
-	border-left: 3px solid var(--border-left-article-current);
+	border-left: 2px solid var(--border-left-article-current);
 }
 
 .flux.not_read {
-	border-left: 3px solid var(--border-left-article-unread);
+	border-left: 2px solid var(--border-left-article-unread);
 }
 
 .flux .item.title a, .flux.not_read:not(.current):hover .item.title {
