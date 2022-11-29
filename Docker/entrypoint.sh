@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
-echo "$TZ" > /etc/timezone
+echo "$TZ" >/etc/timezone
 
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" {} \;
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" {} \;
