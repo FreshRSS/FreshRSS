@@ -553,8 +553,18 @@ a.btn {
 .tree-folder.active .tree-folder-title {
 	background-color: var(--background-color-category-active);
 	font-weight: bold;
-	border-top: 1px solid #666;
-	border-bottom: 1px solid #666;
+}
+
+.tree-folder.active .tree-folder-title::before {
+	background-color: #fff;
+	width: 0.5rem;
+	height: 0.5rem;
+	content: "";
+	position: absolute;
+	top: 1rem;
+	left: -0.25rem;
+	z-index: 10;
+	transform: rotate(45deg);
 }
 
 .aside_feed .configure-feeds .btn {
