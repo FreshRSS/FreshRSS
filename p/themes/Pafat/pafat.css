@@ -67,6 +67,18 @@
 	--alert-error-background-color: #fdd;
 	--alert-error-font-color: #844;
 	--alert-error-border-color: #ecc;
+
+	--border-color-red: #f00;
+
+	--border-color-white: #fff;
+
+	--border-color-grey-dark: #aaa;
+	--border-color-grey-light: #ddd;
+
+	--border-left-article: #5cb85c;
+	--border-left-article-current: #39b3d7;
+	--border-left-article-unread: #d9534f;
+	--border-left-article-favorite: #428bca;
 }
 
 
@@ -91,7 +103,7 @@ legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
 	font-size: 1.4em;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color-grey-light);
 }
 
 label {
@@ -109,7 +121,7 @@ input, select, textarea {
 	padding: 7px;
 	background-color: var(--background-color-white);
 	color: var(--font-color-grey);
-	border: 1px solid #bbb;
+	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 3px;
 	vertical-align: middle;
 }
@@ -119,11 +131,11 @@ option {
 }
 
 input:focus, select:focus, textarea:focus {
-	border-color: #aaa;
+	border-color: var(--border-color-grey-dark);
 }
 
 input:invalid, select:invalid {
-	border-color: #f00;
+	border-color: var(--border-color-red);
 	box-shadow: 0 0 2px 2px #fdd inset;
 }
 
@@ -137,7 +149,7 @@ table {
 }
 
 th, td {
-	border: 1px solid #ddd;
+	border: 1px solid var(--border-color-grey-light);
 }
 
 th {
@@ -156,7 +168,7 @@ form th {
 .form-group.form-actions {
 	padding: 5px 0;
 	background-color: var(--background-color-grey);
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--border-color-grey-light);
 }
 
 .form-group.form-actions .btn {
@@ -219,7 +231,7 @@ form th {
 	display: inline-block;
 	color: var(--font-color-grey);
 	font-size: 0.9rem;
-	border: 1px solid #aaa;
+	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 3px;
 	min-height: 29px;
 	min-width: 15px;
@@ -334,7 +346,7 @@ a.btn {
 	padding: 0 10px;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color-grey-light);
 	font-weight: bold;
 }
 
@@ -348,13 +360,13 @@ a.btn {
 	margin: 5px 0 0;
 	padding: 0.5rem 0 0.25rem 0;
 	font-size: 0.8rem;
-	border: 1px solid #aaa;
+	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 5px;
 	text-align: left;
 }
 
 .dropdown-menu::after {
-	border-color: #aaa;
+	border-color: var(--border-color-grey-dark);
 	right: 8px;
 }
 
@@ -407,7 +419,7 @@ a.btn {
 .item ~ .dropdown-header,
 .dropdown-section ~ .dropdown-section,
 .item.separator {
-	border-top-color: #ddd;
+	border-top-color: var(--border-color-grey-light);
 }
 
 /*=== Alerts */
@@ -417,9 +429,9 @@ a.btn {
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
 	font-size: 0.9em;
-	border: 1px solid #ccc;
-	border-right: 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
+	border: 1px solid var(--border-color-grey-light);
+	border-right: 1px solid var(--border-color-grey-dark);
+	border-bottom: 1px solid var(--border-color-grey-dark);
 	border-radius: 5px;
 }
 
@@ -452,16 +464,16 @@ a.btn {
 
 /*=== Pagination */
 .pagination:first-child .item {
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid var(--border-color-grey-dark);
 }
 
 .pagination:last-child .item {
-	border-top: 1px solid #aaa;
+	border-top: 1px solid var(--border-color-grey-dark);
 }
 
 /*=== Boxes */
 .box {
-	border: 1px solid #aaa;
+	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 5px;
 }
 
@@ -469,7 +481,7 @@ a.btn {
 	margin: 0;
 	padding: 5px 10px;
 	background-color: var(--background-color-grey);
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid var(--border-color-grey-dark);
 	border-radius: 5px 5px 0 0;
 }
 
@@ -579,7 +591,7 @@ a.btn {
 
 .header > .item {
 	padding: 10px;
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid var(--border-color-grey-dark);
 	vertical-align: middle;
 	text-align: center;
 }
@@ -616,7 +628,7 @@ a.signin {
 /*=== Body */
 .aside {
 	background-color: var(--background-color-white);
-	border-right: 1px solid #aaa;
+	border-right: 1px solid var(--border-color-grey-dark);
 }
 
 .aside.aside_feed {
@@ -653,7 +665,7 @@ a.signin {
 .aside.aside_feed .feed.active .item-title:not([data-unread="0"])::after {
 	background-color: transparent;
 	color: var(--font-color-white);
-	border: 1px solid #fff;
+	border: 1px solid var(--border-color-white);
 	font-weight: bold;
 }
 
@@ -775,8 +787,8 @@ a.signin {
 	padding: 0 10px;
 	background-color: var(--background-color-white);
 	color: var(--font-color-grey);
-	border-top: 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
+	border-top: 1px solid var(--border-color-grey-dark);
+	border-bottom: 1px solid var(--border-color-grey-dark);
 	font-weight: bold;
 	line-height: 3;
 }
@@ -802,14 +814,14 @@ a.signin {
 .nav_menu {
 	padding: 5px 0;
 	background-color: var(--background-color-grey-light);
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid var(--border-color-grey-dark);
 	text-align: center;
 }
 
 /*=== Feed articles */
 .flux {
 	background-color: var(--background-color-grey-light);
-	border-left: 3px solid #5cb85c;
+	border-left: 3px solid var(--border-left-article);
 }
 
 .flux .flux_header:hover {
@@ -822,11 +834,11 @@ a.signin {
 
 .flux.current {
 	background-color: var(--background-color-grey-light);
-	border-left: 3px solid #39b3d7;
+	border-left: 3px solid var(--border-left-article-current);
 }
 
 .flux.not_read {
-	border-left: 3px solid #d9534f;
+	border-left: 3px solid var(--border-left-article-unread);
 }
 
 .flux .item.title a, .flux.not_read:not(.current):hover .item.title {
@@ -834,7 +846,7 @@ a.signin {
 }
 
 .flux.favorite {
-	border-left: 2px solid #428bca;
+	border-left: 2px solid var(--border-left-article-favorite);
 }
 
 .flux.favorite:not(.current) {
@@ -847,7 +859,7 @@ a.signin {
 
 .flux_header {
 	font-size: 0.8rem;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--border-color-grey-light);
 	cursor: pointer;
 }
 
@@ -899,7 +911,7 @@ a.signin {
 	padding: 2px 5px;
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-code);
-	border: 1px solid #eee;
+	border: 1px solid var(--border-color-grey-light);
 	border-radius: 3px;
 }
 
@@ -915,8 +927,8 @@ a.signin {
 	background-color: var(--background-color-grey-light);
 	display: block;
 	color: var(--font-color-blockquote);
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	border-top: 1px solid var(--border-color-grey-light);
+	border-bottom: 1px solid var(--border-color-grey-light);
 }
 
 .content blockquote p {
@@ -926,7 +938,7 @@ a.signin {
 /*=== Notification and actualize notification */
 .notification {
 	font-size: 0.9em;
-	border: 1px solid #eeb;
+	border: 1px solid var(--notification-good-border-color);
 	border-radius: 3px;
 	box-shadow: 0 0 5px #ddd;
 	text-align: center;
@@ -975,7 +987,7 @@ a.signin {
 #nav_entries {
 	margin: 0;
 	background-color: var(--background-color-white);
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--border-color-grey-light);
 	text-align: center;
 	line-height: 3;
 	table-layout: fixed;
@@ -994,7 +1006,7 @@ a.signin {
 
 #stream.reader .flux .content {
 	background-color: var(--background-color-white);
-	border-color: #ddd;
+	border-color: var(--border-color-grey-light);
 }
 
 #stream.reader .flux .author {
@@ -1022,7 +1034,7 @@ a.signin {
 
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
-	border: 0;
+	border: none;
 	box-shadow: none;
 	text-shadow: none;
 }
@@ -1056,7 +1068,7 @@ a.signin {
 
 .stat > table td,
 .stat > table th {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color-grey-light);
 	text-align: center;
 }
 
@@ -1080,7 +1092,7 @@ a.signin {
 	#panel .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--background-color-grey);
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid var(--border-color-grey-light);
 	}
 
 	.aside.aside_feed {
@@ -1116,8 +1128,8 @@ a.signin {
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {
-		border-top: 1px solid #aaa;
-		border-left: 1px solid #aaa;
+		border-top: 1px solid var(--border-color-grey-dark);
+		border-left: 1px solid var(--border-color-grey-dark);
 	}
 
 	.day .name {
