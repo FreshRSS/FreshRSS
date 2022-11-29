@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'Portret',
 			'square' => 'Kwadrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Wyświetlanie',
 		'width' => array(
 			'content' => 'Rozmiar treści',
