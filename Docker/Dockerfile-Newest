@@ -2,9 +2,6 @@ FROM alpine:edge
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN apk add --no-cache tzdata && \
-	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
 	apache2 php82-apache2 \
