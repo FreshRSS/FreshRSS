@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'Retrato',
 			'square' => 'Cuadrado',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Visualización',
 		'width' => array(
 			'content' => 'Ancho de contenido',

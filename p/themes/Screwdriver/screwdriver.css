@@ -298,25 +298,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-	color: #f39c12;
-}
-
-.nav-list .item.active.empty a {
-	background: linear-gradient(180deg, #e4992c 0%, #d18114 100%) #e4992c;
-	background: -webkit-linear-gradient(180deg, #e4992c 0%, #d18114 100%);
-	color: #fff;
-}
-
-.nav-list .item.error a {
-	color: #bd362f;
-}
-
-.nav-list .item.active.error a {
-	background: #bd362f;
-	color: #fff;
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	background: transparent;

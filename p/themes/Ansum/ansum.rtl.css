@@ -566,17 +566,6 @@ form th {
 	color: #363330;
 	transition: all 0.15s ease-in-out;
 }
-.nav-list .item .error a {
-	color: #f5633e;
-}
-.nav-list .item:hover .error a {
-	background: #ca7227;
-	color: #363330;
-}
-.nav-list .item:hover .empty a {
-	background: #f4f762;
-	color: #363330;
-}
 .nav-list .item:hover a {
 	background: #efe3d3;
 	text-decoration: none;
@@ -585,21 +574,10 @@ form th {
 	background: #ca7227;
 	color: #fff;
 }
-.nav-list .item.active .error a {
-	background: #ca7227;
-	color: #fff;
-}
-.nav-list .item.active .empty a {
-	background: #f4f762;
-	color: #fff;
-}
 .nav-list .item.active a {
 	background: #ca7227;
 	color: #fff;
 	text-decoration: none;
-}
-.nav-list.empty a {
-	color: #f4f762;
 }
 .nav-list .nav-header {
 	padding: 0 10px;

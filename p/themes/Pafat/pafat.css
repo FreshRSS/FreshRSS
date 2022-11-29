@@ -328,24 +328,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-	color: var(--color-empty-feed);
-}
-
-.nav-list .item.active.empty a {
-	background-color: var(--color-empty-feed);
-	color: var(--font-color-white);
-}
-
-.nav-list .item.error a {
-	color: var(--color-error-feed);
-}
-
-.nav-list .item.active.error a {
-	background-color: var(--color-error-feed);
-	color: var(--font-color-white);
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	background-color: var(--background-color-grey);
@@ -550,6 +532,7 @@ a.btn {
 	line-height: 1;
 }
 
+.tree-folder-title > .icon,
 .tree-folder-title .title .icon {
 	filter: brightness(2.5);
 }

@@ -15,8 +15,6 @@
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
 
-
-
 		<div class="form-group">
 			<label class="group-name" for="new_user_language"><?= _t('admin.user.language') ?></label>
 			<div class="group-controls">
@@ -26,6 +24,20 @@
 				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ?
 					' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="new_user_timezone"><?= _t('conf.display.timezone') ?></label>
+			<div class="group-controls">
+				<select name="new_user_timezone" id="new_user_timezone">
+				<?php $timezones = array_merge([''], DateTimeZone::listIdentifiers()); ?>
+				<?php foreach ($timezones as $timezone): ?>
+				<option value="<?= $timezone ?>"<?= $timezone === '' ? ' selected="selected"' : '' ?>>
+					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . ini_get('date.timezone') . ')' : $timezone ?>
+				</option>
+				<?php endforeach; ?>
 				</select>
 			</div>
 		</div>

@@ -57,6 +57,7 @@ return array(
 			'portrait' => '세로 방향',
 			'square' => '정사각형',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => '표시',
 		'width' => array(
 			'content' => '내용 표시 너비',

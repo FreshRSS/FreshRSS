@@ -365,31 +365,10 @@ form {
 			a {
 				color: var(--color-text-light);
 			}
-
-			&.empty a,
-			.error a {
-				color: var(--color-text-light);
-			}
-
-			&.empty a {
-				background-color: var(--color-background-alert);
-			}
-
-			&.error a {
-				background-color: var(--color-background-bad);
-			}
 		}
 
 		> a {
 			padding: 0 1.5rem;
-		}
-
-		&.empty a {
-			color: var(--color-text-alert);
-		}
-
-		&.error a {
-			color: var(--color-text-bad-lighter);
 		}
 
 		.icon {
