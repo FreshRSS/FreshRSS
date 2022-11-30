@@ -985,7 +985,7 @@ a.signin {
 }
 /*=== READER VIEW */
 /*================*/
-.flux .flux_content {
+#stream.reader .flux {
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-article);
 	border: none;
