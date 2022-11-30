@@ -99,10 +99,6 @@ a {
 	outline: none;
 }
 
-a:hover {
-	color: var(--font-color-link-general-hover);
-}
-
 /*=== Forms */
 legend {
 	margin: 20px 0 5px;
@@ -275,7 +271,6 @@ a.btn {
 
 .btn-important:hover, .btn-important:active {
 	background-color: var(--background-color-button-important-hover);
-	color: var(--font-color-white);
 	border: none;
 }
 
@@ -307,6 +302,7 @@ a.btn {
 }
 
 .nav-list .item a:hover {
+	color: var(--font-color-link-general-hover);
 	background-color: var(--background-color-grey-hover);
 }
 
