@@ -1330,8 +1330,9 @@ a.website:hover .favicon {
 }
 
 .content > header .tags .icon,
+.content > header .website .favicon,
 .content > footer .tags .icon {
-	padding: 0 0 0 1rem;
+	margin: 0 0 0 0.5rem;
 	line-height: 1.5;
 }
 
