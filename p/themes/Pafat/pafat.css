@@ -824,7 +824,7 @@ a.signin {
 }
 
 .flux.current {
-	background-color: var(--background-color-grey-light);
+	background-color: var(--background-color-white);
 	border-left: 2px solid var(--border-left-article-current);
 }
 
