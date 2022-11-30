@@ -99,10 +99,6 @@ a {
 	outline: none;
 }
 
-a:hover {
-	color: var(--font-color-link-general-hover);
-}
-
 /*=== Forms */
 legend {
 	margin: 20px 0 5px;
@@ -275,7 +271,6 @@ a.btn {
 
 .btn-important:hover, .btn-important:active {
 	background-color: var(--background-color-button-important-hover);
-	color: var(--font-color-white);
 	border: none;
 }
 
@@ -307,6 +302,7 @@ a.btn {
 }
 
 .nav-list .item a:hover {
+	color: var(--font-color-link-general-hover);
 	background-color: var(--background-color-grey-hover);
 }
 
@@ -824,7 +820,7 @@ a.signin {
 }
 
 .flux.current {
-	background-color: var(--background-color-grey-light);
+	background-color: var(--background-color-white);
 	border-right: 2px solid var(--border-left-article-current);
 }
 
@@ -985,7 +981,7 @@ a.signin {
 }
 /*=== READER VIEW */
 /*================*/
-.flux .flux_content {
+#stream.reader .flux {
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-article);
 	border: none;
