@@ -77,33 +77,30 @@ class FreshRSS_Import_Service {
 		$nb_feeds = count($this->feedDAO->listFeeds());
 		$limits = FreshRSS_Context::$system_conf->limits;
 
-		// Process the OPML outlines to get a list of feeds elements indexed by
-		// their categories names.
-		$categories_to_feeds = $this->loadFeedsFromOutlines($opml_array['body'], '');
+		// Process the OPML outlines to get a list of categories and a list of
+		// feeds elements indexed by their categories names.
+		list (
+			$categories_elements,
+			$categories_to_feeds,
+		) = $this->loadFromOutlines($opml_array['body'], '');
 
 		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
-			// First, retrieve the category by its name.
+			$category_element = $categories_elements[$category_name] ?? null;
+
 			$category = null;
 			if ($forced_category) {
+				// If the category is forced, ignore the actual category name
 				$category = $forced_category;
-			} elseif ($category_name === '') {
-				// If empty, get the default category
-				$category = $default_category;
 			} elseif (isset($categories_by_names[$category_name])) {
 				// If the category already exists, get it from $categories_by_names
 				$category = $categories_by_names[$category_name];
-			} else {
+			} elseif ($category_element) {
 				// Otherwise, create the category (if possible)
 				$limit_reached = $nb_categories >= $limits['max_categories'];
 				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
 
 				if ($can_create_category) {
-					if ($dry_run) {
-						$category = new FreshRSS_Category($category_name);
-					} else {
-						$category = $this->createAndGetCategory($category_name);
-					}
-
+					$category = $this->createCategory($category_element, $dry_run);
 					if ($category) {
 						$categories_by_names[$category->name()] = $category;
 						$nb_categories++;
@@ -116,11 +113,9 @@ class FreshRSS_Import_Service {
 			}
 
 			if (!$category) {
-				// We weren't able to create the category because the user
-				// reached the limit (or because an error occurred), so we'll
-				// attach the feeds to the default category.
+				// Category can be null if the feeds weren't in a category
+				// outline, or if we weren't able to create the category.
 				$category = $default_category;
-				$this->lastStatus = false;
 			}
 
 			// Then, create the feeds one by one and attach them to the
@@ -274,18 +269,32 @@ class FreshRSS_Import_Service {
 	/**
 	 * Create and return a category.
 	 *
-	 * @param string $category_name
-	 *     The name of the category to create (must be valid).
+	 * @param array<string, string> $category_element An OPML element (must be a category element).
+	 * @param boolean $dry_run true to not create the category in database.
 	 *
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function createAndGetCategory($category_name) {
-		$id = $this->catDAO->addCategory([
-			'name' => $category_name,
-		]);
+	private function createCategory($category_element, $dry_run) {
+		$name = $category_element['text'] ?? $category_element['title'] ?? '';
+		$name = Minz_Helper::htmlspecialchars_utf8($name);
+		$category = new FreshRSS_Category($name);
 
+		if (isset($category_element['frss:opmlUrl'])) {
+			$opml_url = checkUrl($category_element['frss:opmlUrl']);
+			if ($opml_url != '') {
+				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
+				$category->_attributes('opml_url', $opml_url);
+			}
+		}
+
+		if ($dry_run) {
+			return $category;
+		}
+
+		$id = $this->catDAO->addCategoryObject($category);
 		if ($id !== false) {
-			return $this->catDAO->searchById($id);
+			$category->_id($id);
+			return $category;
 		} else {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS error during OPML category import from URL: ' . $category_name . "\n");
@@ -293,36 +302,41 @@ class FreshRSS_Import_Service {
 				Minz_Log::warning('Error during OPML category import from URL: ' . $category_name);
 			}
 
+			$this->lastStatus = false;
+
 			return null;
 		}
 	}
 
 	/**
-	 * Return the list of feed outlines by categories names.
+	 * Return the list of category and feed outlines by categories names.
 	 *
 	 * This method is applied to a list of outlines. It merges the different
 	 * list of feeds from several outlines into one array.
 	 *
 	 * @param array $outlines
-	 *     The outlines from which to extract the feeds outlines.
+	 *     The outlines from which to extract the outlines.
 	 * @param string $parent_category_name
 	 *     The name of the parent category of the current outlines.
 	 *
 	 * @return array[]
 	 */
-	private function loadFeedsFromOutlines($outlines, $parent_category_name) {
+	private function loadFromOutlines($outlines, $parent_category_name) {
+		$categories_elements = [];
 		$categories_to_feeds = [];
 
 		foreach ($outlines as $outline) {
-			// Get the feeds from the child outline (it may return several
-			// feeds if the outline is a category).
-			$outline_categories_to_feeds = $this->loadFeedsFromOutline(
-				$outline,
-				$parent_category_name
-			);
+			// Get the categories and feeds from the child outline (it may
+			// return several categories and feeds if the outline is a category).
+			list (
+				$outline_categories,
+				$outline_categories_to_feeds,
+			) = $this->loadFromOutline($outline, $parent_category_name);
 
-			// Then, we merge the initial array with the array returned by the
-			// outline.
+			// Then, we merge the initial arrays with the arrays returned by
+			// the outline.
+			$categories_elements = array_merge($categories_elements, $outline_categories);
+
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
 				if (!isset($categories_to_feeds[$category_name])) {
 					$categories_to_feeds[$category_name] = [];
@@ -335,29 +349,27 @@ class FreshRSS_Import_Service {
 			}
 		}
 
-		return $categories_to_feeds;
+		return [$categories_elements, $categories_to_feeds];
 	}
 
 	/**
-	 * Return the list of feed outlines by categories names.
+	 * Return the list of category and feed outlines by categories names.
 	 *
 	 * This method is applied to a specific outline. If the outline represents
-	 * a category (i.e. @outlines key exists), it will reapply loadFeedsFromOutlines()
+	 * a category (i.e. @outlines key exists), it will reapply loadFromOutlines()
 	 * to its children. If the outline represents a feed (i.e. xmlUrl key
 	 * exists), it will add the outline to an array accessible by its category
 	 * name.
 	 *
-	 * The method also cleans the parent_category_name so it will be directly
-	 * usable in database.
-	 *
 	 * @param array $outline
-	 *     The outline from which to extract the feeds outlines.
+	 *     The outline from which to extract the categories and feeds outlines.
 	 * @param string $parent_category_name
 	 *     The name of the parent category of the current outline.
 	 *
 	 * @return array[]
 	 */
-	private function loadFeedsFromOutline($outline, $parent_category_name) {
+	private function loadFromOutline($outline, $parent_category_name) {
+		$categories_elements = [];
 		$categories_to_feeds = [];
 
 		if ($parent_category_name === '' && isset($outline['category'])) {
@@ -366,6 +378,9 @@ class FreshRSS_Import_Service {
 			// lib_opml parses this attribute as an array of strings, so we
 			// rebuild a string here.
 			$parent_category_name = implode(', ', $outline['category']);
+			$categories_elements[$parent_category_name] = [
+				'text' => $parent_category_name,
+			];
 		}
 
 		if (isset($outline['@outlines'])) {
@@ -378,26 +393,25 @@ class FreshRSS_Import_Service {
 				$category_name = $parent_category_name;
 			}
 
-			$categories_to_feeds = $this->loadFeedsFromOutlines(
-				$outline['@outlines'],
-				$category_name
-			);
+			list (
+				$categories_elements,
+				$categories_to_feeds,
+			) = $this->loadFromOutlines($outline['@outlines'], $category_name);
+
+			unset($outline['@outlines']);
+			$categories_elements[$category_name] = $outline;
 		}
 
-		// Before adding the parent category_name in the array, we clean the name.
-		$parent_category_name = Minz_Helper::htmlspecialchars_utf8(trim($parent_category_name));
-		$parent_category = new FreshRSS_Category($parent_category_name);
-		$parent_category_name = $parent_category->name();
-
-		if (!isset($categories_to_feeds[$parent_category_name])) {
-			$categories_to_feeds[$parent_category_name] = [];
-		}
-
+		// The xmlUrl means it's a feed URL: add the outline to the array if it
+		// exists.
 		if (isset($outline['xmlUrl'])) {
-			// The xmlUrl means it's a feed URL: add the outline to the array
+			if (!isset($categories_to_feeds[$parent_category_name])) {
+				$categories_to_feeds[$parent_category_name] = [];
+			}
+
 			$categories_to_feeds[$parent_category_name][] = $outline;
 		}
 
-		return $categories_to_feeds;
+		return [$categories_elements, $categories_to_feeds];
 	}
 }
