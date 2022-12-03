@@ -1,3 +1,4 @@
 *.spc
 *.html
+*.xml
 !index.html

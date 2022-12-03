@@ -49,7 +49,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
-		'theme_not_available' => 'Het “%s” thema is niet meer beschikbaar. Kies een ander thema.',
+		'theme_not_available' => 'Het „%s” thema is niet meer beschikbaar. Kies een ander thema.',
 		'thumbnail' => array(
 			'label' => 'Miniatuur',
 			'landscape' => 'Liggend',
@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'Staand',
 			'square' => 'Vierkant',
 		),
+		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
 		'width' => array(
 			'content' => 'Inhoud breedte',
@@ -68,9 +69,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Logniveau',
+			'message' => 'Logbericht',
+			'timestamp' => 'Tijdstempel',
 		),
 		'pagination' => array(
 			'first' => 'Eerste',
@@ -102,19 +103,19 @@ return array(
 			'order' => 'Sorteren op datum',
 			'search' => 'Expressie',
 			'state' => 'Status',
-			'tags' => 'Weergeven op tag',
+			'tags' => 'Weergeven op label',
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Toon alle artikelen',
-		'get_category' => 'Toon "%s" categorie',
+		'get_category' => 'Toon „%s” categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
-		'get_feed' => 'Toon "%s" feed',
+		'get_feed' => 'Toon „%s” feed',
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
-		'search' => 'Zoek naar "%s"',
+		'search' => 'Zoek naar „%s”',
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
 		'state_2' => 'Toon ongelezen artikelen',
@@ -135,23 +136,50 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Lezen',
-		'after_onread' => 'Na “markeer alles als gelezen”,',
+		'after_onread' => 'Na „markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs en datum',
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Boven titel/tags',
+				'none' => 'Geen',
+				'with_authors' => 'In lijn met auteurs en datum',
+			),
+			'feed_title' => 'Feedtitel',
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'tags_max' => array(
+				'_' => 'Max aantal getoonde tags',
+				'help' => '0 betekent: toon alle tags en verberg er geen',
+			),
+		),
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
-		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
+		'confirm_enabled' => 'Toon een bevestigings dialoog op „markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Artikelen: openen/sluiten',
+			'articles_header_footer' => 'Artikelen: kop/voet',
+			'categories' => 'Linkernavigatie: categoriën',
+			'mark_as_read' => 'Artikelen als gelezen markeren',
+			'misc' => 'Diversen',
+			'view' => 'Weergave',
 		),
-		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
-		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
+		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met „Toon alle artikelen” configuratie)',
+		'img_with_lazyload' => 'Gebruik <em>lazy load</em> methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
@@ -160,6 +188,7 @@ return array(
 			'article_viewed' => 'als het artikel wordt bekeken',
 			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
 			'scroll' => 'tijdens het scrollen',
+			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
 			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
@@ -194,7 +223,7 @@ return array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

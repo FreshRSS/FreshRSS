@@ -12,6 +12,7 @@ parameters:
 			- lib/phpmailer/*
 			- lib/SimplePie/*
 		analyseAndScan:
+			- .git/*
 			- node_modules/*
 			# TODO: include tests
 			- tests/*

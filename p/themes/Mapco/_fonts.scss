@@ -3,7 +3,7 @@
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Lato"), url("../fonts/LatoLatin-Regular.woff") format("woff");
+	src: url("../fonts/LatoLatin-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Lato"), url("../fonts/LatoLatin-Italic.woff") format("woff");
+	src: url("../fonts/LatoLatin-Italic.woff") format("woff");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Lato"), url("../fonts/LatoLatin-Bold.woff") format("woff");
+	src: url("../fonts/LatoLatin-Bold.woff") format("woff");
 }
 
 @font-face {
@@ -27,7 +27,7 @@
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Lato"), url("../fonts/LatoLatin-BoldItalic.woff") format("woff");
+	src: url("../fonts/LatoLatin-BoldItalic.woff") format("woff");
 }
 
 @font-face {
@@ -35,7 +35,7 @@
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Spectral"), url("../fonts/Spectral-Regular.woff") format("woff");
+	src: url("../fonts/Spectral-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -43,7 +43,7 @@
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 400;
-	src: local("Spectral"), url("../fonts/Spectral-Italic.woff") format("woff");
+	src: url("../fonts/Spectral-Italic.woff") format("woff");
 }
 
 @font-face {
@@ -51,7 +51,7 @@
 	font-style: normal;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Spectral"), url("../fonts/Spectral-Bold.woff") format("woff");
+	src: url("../fonts/Spectral-Bold.woff") format("woff");
 }
 
 @font-face {
@@ -59,5 +59,5 @@
 	font-style: italic;
 	font-stretch: normal;
 	font-weight: 700;
-	src: local("Spectral"), url("../fonts/Spectral-BoldItalic.woff") format("woff");
+	src: url("../fonts/Spectral-BoldItalic.woff") format("woff");
 }

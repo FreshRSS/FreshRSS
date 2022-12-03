@@ -11,12 +11,9 @@
 
 /*=== Horizontal-list */
 .horizontal-list {
-	margin: 0;
 	padding: 0.1rem 0;
 
 	.item {
-		vertical-align: middle;
-
 		&:first-child {
 			padding-left: 0.5rem;
 		}
@@ -40,16 +37,14 @@
 		right: 17px;
 	}
 
-	.dropdown-header {
-		// padding: 0 5px 5px;
-		margin: 1rem 0.5rem 1rem 1rem;
+	.dropdown-header,
+	.dropdown-section .dropdown-section-title {
+		padding: 1rem 1.5rem;
 		font-weight: bold;
 		text-align: left;
 		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-
-
 	}
 
 	.item {
@@ -61,19 +56,40 @@
 			color: variables.$main-font-color;
 			font-size: 1rem;
 			line-height: 2.5em;
+
+			&:not(.addItem):hover {
+				background: variables.$main-first;
+				color: variables.$white;
+
+				.icon {
+					filter: grayscale(100%) brightness(2.5);
+				}
+			}
 		}
 
-		&:not(.addItem):hover {
-			background: variables.$main-first;
-			color: variables.$white;
+		&.dropdown-section {
+			margin-top: 0.75rem;
 
-			a, button, label {
-				text-decoration: none;
-				color: variables.$white;
+			~ .dropdown-section {
+				border-top-color: variables.$grey-light;
 			}
 
-			.icon {
-				filter: grayscale(100%) brightness(2.5);
+			.item {
+				a, span, .as-link {
+					padding-left: 2rem;
+				}
+			}
+		}
+
+		&:not(.addItem) {
+			a:hover,
+			button:hover {
+				background: variables.$main-first;
+				color: variables.$white;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 
@@ -83,6 +99,17 @@
 				font-weight: bold;
 			}
 		}
+
+		~ .dropdown-header {
+			margin-top: 0.75rem;
+			padding-top: 1.75rem;
+			border-top-color: variables.$grey-light;
+		}
+
+		&.separator {
+			margin-top: 0.75rem;
+			border-top-color: variables.$grey-light;
+		}
 	}
 
 	.input {
@@ -91,12 +118,6 @@
 			padding: 2px 5px;
 			border-radius: 3px;
 		}
-	}
-
-	.separator {
-		margin: 0.75rem 0;
-		border-bottom: 1px solid variables.$grey-light;
-		// display: none;
 	}
 
 }
@@ -168,24 +189,9 @@
 .pagination {
 	background: variables.$grey-light;
 	color: variables.$main-font-color;
-	font-size: 0.8em;
-	text-align: center;
 
-	.item {
-		&.pager-current {
-			background: variables.$sid-bg;
-			color: variables.$grey-light;
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: variables.$main-font-color;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-		}
+	.item a {
+		color: variables.$main-font-color;
 	}
 }
 
@@ -193,12 +199,6 @@
 #load_more.loading:hover {
 	background: url("loader.gif") center center no-repeat #34495e;
 }
-
-.content .pagination {
-	margin: 0;
-	padding: 0;
-}
-
 
 /*=== Boxes */
 .box {
@@ -213,61 +213,10 @@
 		padding: 0.5rem 0.75rem;
 		background: variables.$grey-light;
 		color: variables.$main-font-color;
-		// border-bottom: 1px solid #ddd;
 		border-radius: 2px 2px 0 0;
-
-		&:hover {
-			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
-				.icon {
-					display: none;
-					border-radius: 3px;
-					vertical-align: middle;
-				}
-
-				&:hover {
-					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
-				}
-			}
-		}
-
-		form {
-			input {
-				width: 85%;
-			}
-
-			.dropdown {
-				float: right;
-
-				a.dropdown-toggle {
-					padding: 0;
-					// float: right;
-					border-radius: 0;
-					background-image: url(icons/more.svg);
-					background-repeat: no-repeat;
-					background-position: right 8px;
-
-					img {
-						display: none;
-					}
-				}
-			}
-		}
-
-		.configure {
-			margin-right: 4px;
-		}
 	}
 
 	.box-content {
-		// max-height: 260px;
 		padding-left: 30px;
 
 		.item {
@@ -276,36 +225,29 @@
 			font-size: 1rem;
 			border-bottom: 1px solid variables.$grey-light;
 			line-height: 1.7em;
-
-			img {
-				margin-right: 0.75rem;
-			}
-
-			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
-				.icon {
-					display: none;
-					border-radius: 3px;
-					vertical-align: middle;
-				}
-
-				&:hover {
-					// background: $main-first;
-					background: url("icons/cog-white.svg") no-repeat 4px 4px variables.$main-first;
-				}
-			}
-
 		}
 
 		.item:last-child {
 			border-bottom: none;
+		}
+	}
+
+	.configure {
+		margin-right: 0.5rem;
+		padding: 0.25rem;
+		border-radius: 3px;
+
+		.icon {
+			vertical-align: middle;
+		}
+
+		&:hover {
+			border-radius: 2px;
+			background-color: variables.$main-first;
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 	}
 }
@@ -324,7 +266,7 @@
 		color: #fff;
 
 		.bigTick {
-			background: url(icons/tick-white.svg) center no-repeat;
+			filter: brightness(7);
 		}
 	}
 
@@ -336,50 +278,5 @@
 		height: 64px;
 		text-indent: -9999px;
 		white-space: nowrap;
-	}
-}
-
-// page de login
-.formLogin {
-	background: variables.$sid-bg;
-
-	.header {
-		.configure {
-			padding-right: 1rem;
-
-			img {
-				margin-right: 0.5rem;
-			}
-
-			a.signin {
-				color: variables.$white;
-			}
-		}
-	}
-
-	h1 {
-		color: variables.$white;
-	}
-
-	form#crypto-form {
-		div {
-			margin-bottom: 1rem;
-
-			label {
-				color: variables.$grey-medium;
-				font-size: 1rem;
-
-
-			}
-
-			input {
-				background: variables.$main-first-darker;
-
-				&:focus {
-					background: variables.$grey-lighter;
-					color: variables.$main-font-color;
-				}
-			}
-		}
 	}
 }

@@ -10,39 +10,82 @@ $color_aside:	#22303d;
 $color_alert:	#fa8052;
 $color_good:	#5eaabf;
 $color_bad:		#b0425b;
+$color_grey:	#e3e3e3;
 $color_stared:	#fff6da;
 $color_unread:	#fff3ed;
 $color_hover:	#fff;
+
+:root {
+	--color-text-light: #{$color_light};
+	--color-text-light-darker: #{color.adjust(  $color_light,  $lightness: -40%)};
+	--color-text-dark: #{$color_text};
+	--color-text-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-text-aside: #{$color_aside};
+	--color-text-alert: #{$color_alert};
+	--color-text-good: #{$color_good};
+	--color-text-bad: #{$color_bad};
+	--color-text-bad-lighter: #{color.adjust( $color_bad, $lightness: 10%)};
+
+	--color-text-shadow-light: #{$color_light};
+	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
+
+	--color-border-light: #{$color_light};
+	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-border-grey: #{$color_grey};
+	--color-border-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-border-bad: #{$color_bad};
+
+	--color-background-light: #{$color_light};
+	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-dark: #{$color_text};
+	--color-background-nav: #{$color_nav};
+	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
+	--color-background-aside: #{$color_aside};
+	--color-background-alert: #{$color_alert};
+	--color-background-alert-darker: #{color.adjust(  $color_alert,  $lightness: -10%)};
+	--color-background-good: #{$color_good};
+	--color-background-bad: #{color.adjust( $color_bad, $lightness: 10%)};
+	--color-background-stared: #{$color_stared};
+	--color-background-unread: #{$color_unread};
+	--color-background-hover: #{$color_hover};
+
+	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
+	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
+	--frss-scrollbar-track: rgba(0, 0, 0, 0.05);
+	--frss-scrollbar-track-hover: rgba(0, 0, 0, 0.1);
+}
 
 
 // @extend-elements
 %input {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 25px;
+	line-height: 2.25;
 	vertical-align: middle;
-	background: $color_light;
-	border: none;
-	padding-left: 5px;
+	background-color: var(--color-background-light);
+	border: 2px solid var(--color-border-grey);
+	padding-left: 8px;
 }
 
 %invalid {
-	color: $color_bad;
-	border-color: $color_bad;
+	padding-left: 5px;
+	color: var(--color-text-bad);
+	border-left-color: var(--color-border-bad);
+	border-left-width: 5px;
 	box-shadow: none;
 }
 
 %nav-list {
 	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
 %dropdown {
 	padding: 0 22px;
-	color: $color_light;
+	color: var(--color-text-light);
 	font-size: 0.8rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 %after {
@@ -58,22 +101,18 @@ $color_hover:	#fff;
 // /@extend-elements
 html,
 body {
-	height: 100%;
+	color: var(--color-text-dark);
 	font-family: Helvetica, Arial, sans-serif;
 }
 
 a {
-	color: color.adjust( $color_nav, $lightness: -10%);
+	color: var(--color-nav-lighter);
 	outline: none;
 
 	&.btn {
 		min-height: 25px;
-		line-height: 25px;
+		line-height: 1.5;
 		text-decoration: none;
-
-		&:hover {
-			background: color.adjust( $color_nav, $lightness: -10%);
-		}
 
 		.icon {
 			filter: brightness(3);
@@ -95,10 +134,6 @@ img {
 	}
 }
 
-main#stream {
-	margin-top: 35px;
-}
-
 sup {
 	top: -0.3em;
 }
@@ -106,9 +141,10 @@ sup {
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background-color: var(--color-background-aside);
 	display: inline-block;
 	width: auto;
+	color: var(--color-text-light);
 	font-size: 1.4em;
 	clear: both;
 }
@@ -118,14 +154,13 @@ label {
 }
 
 textarea {
-	background: color.adjust( $color_light, $lightness: -10% );
 	width: 360px;
 	height: 100px;
 
 	@extend %input;
 
 	&:focus {
-		border-color: color.adjust( $color_nav, $lightness: -10%);
+		border-color: var(--color-border-nav);
 	}
 }
 
@@ -135,7 +170,7 @@ select {
 	@extend %input;
 
 	&:focus {
-		border-color: color.adjust( $color_nav, $lightness: -10%);
+		border-color: var(--color-border-nav);
 	}
 
 	&:invalid {
@@ -144,12 +179,13 @@ select {
 	}
 
 	&:disabled {
-		background: $color_light;
+		background-color: var(--color-background-light);
 	}
 }
 
 select {
-	background: color.adjust( $color_light, $lightness: -10% );
+	padding-top: 7px;
+	padding-bottom: 8px;
 }
 
 input {
@@ -166,15 +202,13 @@ table {
 	border-collapse: collapse;
 }
 
-tr,
 td,
 th {
-	padding: 0.5em;
-	border: 1px solid color.adjust( $color_light, $lightness: -10%);
+	border: 1px solid var(--color-border-light-darker);
 }
 
 th {
-	background: $color_light;
+	background-color: var(--color-background-light);
 }
 
 form {
@@ -200,15 +234,15 @@ form {
 	border: 1px solid transparent;
 
 	&:hover {
-		background: $color_light;
-		border: 1px solid $color_light;
+		background-color: var(--color-background-light);
+		border: 1px solid var(--color-border-light);
 	}
 
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background: color.adjust( $color_light, $lightness: -10%);
-		border-top: 3px solid color.adjust( $color_light, $lightness: -10%);
+		background-color: var(--color-background-light-darker);
+		border-top: 3px solid var(--color-border-light-darker);
 
 		.btn {
 			margin: 0 10px;
@@ -225,7 +259,7 @@ form {
 		padding: 5px 0;
 
 		.control {
-			line-height: 2.0em;
+			line-height: 2.0;
 		}
 	}
 }
@@ -236,8 +270,9 @@ form {
 }
 
 .stick {
-	vertical-align: middle;
-	font-size: 0;
+	select {
+		margin-top: 0;
+	}
 
 	&.configure-feeds {
 
@@ -248,9 +283,9 @@ form {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	background: $color_nav;
+	background-color: var(--color-background-nav);
 	display: inline-block;
-	color: $color_light;
+	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
 	min-height: 35px;
@@ -260,26 +295,43 @@ form {
 	overflow: hidden;
 
 	&.active,
-	:active,
-	:hover {
-		background: color.adjust( $color_nav, $lightness: -10%);
+	&:active,
+	&:hover {
+		background-color: var(--color-background-nav-darker);
 		text-decoration: none;
+	}
+
+	.icon {
+		filter: brightness(3);
 	}
 }
 
 .btn-important, .btn-attention {
 	font-weight: normal;
-	background: $color_alert;
-	color: $color_light;
+	background-color: var(--color-background-alert);
+	color: var(--color-text-light);
 
 	&:hover,
 	:active {
-		background: color.adjust( $color_alert, $lightness: -10%) !important;
+		background-color: var(--color-background-alert-darker) !important;
+	}
+}
+
+.manage-list {
+	.configure {
+		.icon {
+			filter: brightness(0.4);
+			vertical-align: sub;
+		}
+
+		&:hover {
+			filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+		}
 	}
 }
 
 .switch.active {
-	background-color: #0062be;
+	background-color: var(--color-background-nav);
 
 	&:hover {
 		background-image: url('./icons/disabled-light.svg');
@@ -290,10 +342,10 @@ form {
 	.nav-header {
 
 		@extend %nav-list;
-		padding: 0 10px;
+		padding: 0 1rem;
 		font-weight: bold;
-		background: $color_aside;
-		color: $color_light;
+		background-color: var(--color-background-aside);
+		color: var(--color-text-light);
 		cursor: default;
 	}
 
@@ -302,49 +354,26 @@ form {
 		@extend %nav-list;
 
 		a:hover {
-			background: color.adjust( $color_nav, $lightness: -10%);
-			color: $color_light;
+			background-color: var(--color-background-nav-darker);
+			color: var(--color-text-light);
 		}
 
 		&.active {
-			background: color.adjust( $color_nav, $lightness: -10%);
-			color: $color_light;
+			background: var(--color-background-nav-darker);
+			color: var(--color-text-light);
 
 			a {
-				color: $color_light;
-			}
-
-			&.empty a,
-			.error a {
-				color: $color_light;
-			}
-
-			&.empty a {
-				background: $color_alert;
-			}
-
-			&.error a {
-				background: color.adjust( $color_bad, $lightness: 10%);
+				color: var(--color-text-light);
 			}
 		}
 
 		> a {
-			padding: 0 10px;
+			padding: 0 1.5rem;
 		}
 
-		&.empty a {
-			color: $color_alert;
+		.icon {
+			filter: brightness(3);
 		}
-
-		&.error a {
-			color: color.adjust( $color_bad, $lightness: 10%);
-		}
-	}
-
-	.disable {
-		text-align: center;
-		background: $color_light;
-		color: color.adjust( $color_light, $lightness: -40% );
 	}
 
 	.nav-form {
@@ -357,41 +386,47 @@ form {
 	}
 }
 
-.nav-head {
-	margin: 0;
-	text-align: right;
-	background: $color_aside;
-	color: $color_light;
-
-	a {
-		color: $color_light;
-	}
-
-	.item {
-		padding: 5px 10px;
-		font-size: 0.9rem;
-		line-height: 1.5rem;
-	}
-}
-
-.horizontal-list {
-	margin: 0;
-	padding: 0;
-
-	.item {
-		vertical-align: middle;
-	}
-}
-
 .dropdown-menu {
-	padding: 5px 0;
+	padding: 0.5rem 0 1rem 0;
 	font-size: 0.8rem;
 	text-align: left;
 	border: none;
-	background-color: color.adjust( $color_nav, $lightness: -10%);
+	background-color: var(--color-background-nav-darker);
 
 	.dropdown-header {
 		cursor: default;
+		padding: 0.5rem 10px 0.5rem 10px;
+		font-weight: bold;
+		color: var(--color-text-light);
+
+		a {
+			padding: 0 5px;
+			position: absolute;
+			right: 5px;
+
+			&:hover {
+				background-color: var(--color-background-nav);
+			}
+		}
+	}
+
+	.dropdown-section {
+		.dropdown-section-title {
+			cursor: default;
+			padding: 0.25rem 0.5rem 0.125rem 0.25rem;
+			font-weight: bold;
+			color: var(--color-text-light);
+		}
+
+		.item {
+			a {
+				padding: 0 22px;
+
+				&:hover {
+					background-color: var(--color-background-nav);
+				}
+			}
+		}
 	}
 
 	&::after {
@@ -402,8 +437,7 @@ form {
 		.item {
 
 			@extend %dropdown;
-			padding: 0;
-			margin-left: 10px;
+			padding: 0 0 0 0.5rem;
 
 			> a,
 			> span,
@@ -420,8 +454,8 @@ form {
 
 			> a:hover,
 			> button:hover {
-				background: $color_nav;
-				color: $color_light;
+				background-color: var(--color-background-nav);
+				color: var(--color-text-light);
 			}
 		}
 
@@ -440,27 +474,28 @@ form {
 	}
 }
 
-.dropdown-header {
-	padding: 0 5px 5px;
-	font-weight: bold;
-	text-align: left;
-	color: $color_light;
+.labels,
+.tags,
+.share {
+	.dropdown-menu {
+		right: auto;
+	}
 }
 
-.separator {
-	margin: 5px 0;
-	border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+.item ~ .dropdown-header,
+.item.separator {
+	border-top-color: var(--color-border-light-darker);
 	cursor: default;
 }
 
 .alert {
 	margin: 5px auto;
 	padding: 10px 15px;
-	background: $color_light;
-	color: color.adjust( $color_light, $lightness: -40% );
+	background-color: var(--color-background-light);
+	color: var(--color-text-light-darker);
 	font-size: 0.9em;
 	border: none;
-	text-shadow: 0 0 1px $color_light;
+	text-shadow: 0 0 1px var(--color-text-shadow-light);
 
 	> a {
 		color: inherit;
@@ -479,52 +514,32 @@ form {
 }
 
 .alert-warn {
-	background: $color_light;
-	color: $color_alert;
+	background-color: var(--color-background-light);
+	color: var(--color-text-alert);
 }
 
 .alert-success {
-	background: $color_light;
-	color: $color_good;
+	background-color: var(--color-background-light);
+	color: var(--color-text-good);
 }
 
 .alert-error {
-	background: $color_light;
-	color: $color_bad;
+	background-color: var(--color-background-light);
+	color: var(--color-text-bad);
 }
 
 .pagination {
-	background: color.adjust( $color_light, $lightness: -10%);
-	color: $color_text;
-	font-size: 0.8em;
-	text-align: center;
+	background: var(--color-background-light-darker);
+	color: var(--color_text);
 
-	.item {
-		&.pager-current {
-			background: $color_aside;
-			color: color.adjust( $color_light, $lightness: -10%);
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: $color_text;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-
-			&:hover {
-				background: $color_aside;
-				color: color.adjust( $color_light, $lightness: -10%);
-			}
-		}
+	.item a {
+		color: var(--color_text);
 	}
 }
 
 #load_more.loading,
 #load_more.loading:hover {
-	background: url(loader.gif) center center no-repeat $color_aside;
+	background: url(loader.gif) center center no-repeat var(--color-background-aside);
 }
 
 
@@ -533,42 +548,42 @@ form {
 
 	hr {
 		margin: 30px 10px;
-		background: color.adjust( $color_light, $lightness: -10%);
+		background: var(--color-background-light-darker);
 		height: 1px;
 		border: 0;
-		box-shadow: 0 2px 5px color.adjust( $color_light, $lightness: -10%);
+		box-shadow: 0 2px 5px var(--color-box-shadow-light);
 	}
 
 	pre {
 		margin: 10px auto;
 		padding: 10px 20px;
 		overflow: auto;
-		background: $color_text;
-		color: $color_light;
+		background-color: var(--color-background-dark);
+		color: var(--color-text-light);
 		font-size: 0.9rem;
 
 		code {
 			background: transparent;
-			color: $color_light;
+			color: var(--color-text-light);
 			border: none;
 		}
 	}
 
 	code {
 		padding: 2px 5px;
-		background: $color_light;
-		color: $color_bad;
-		border: 1px solid $color_light;
+		background-color: var(--color-background-light);
+		color: var(--color-text-bad);
+		border: 1px solid var(--color-border-light);
 	}
 
 	blockquote {
 		margin: 0;
 		padding: 5px 20px;
-		background: $color_light;
+		background-color: var(--color-background-light);
 		display: block;
-		color: color.adjust( $color_light, $lightness: -40% );
-		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
-		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+		color: var(--color-text-light-darker);
+		border-top: 1px solid var(--color-border-light-darker);
+		border-bottom: 1px solid var(--color-border-light-darker);
 
 		p {
 			margin: 0;
@@ -576,27 +591,34 @@ form {
 	}
 
 	> h1.title > a {
-		color: $color_text;
+		color: var(--color_text);
 	}
 }
 
 .box {
-	border: 1px solid color.adjust( $color_light, $lightness: -10%);
+	border: 1px solid var(--color-border-light-darker);
 
 	.box-title {
 		margin: 0;
-		padding: 5px 10px;
-		background: color.adjust( $color_light, $lightness: -10%);
-		color: color.adjust( $color_light, $lightness: -40% );
-		border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
+		padding: 7px 10px;
+		background-color: var(--color-background-aside);
+		color: var(--color-text-light);
+		border-bottom: 1px solid var(--color-border-light-darker);
+
+		a {
+			color: var(--color-text-light);
+		}
 
 		.configure {
 			margin-right: 4px;
+
+			.icon {
+				&:hover {
+					filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+				}
+			}
 		}
 	}
-
-
-
 
 	.box-content {
 		padding-left: 30px;
@@ -605,12 +627,16 @@ form {
 		.item {
 			padding: 0 10px;
 			font-size: 0.9rem;
-			line-height: 2.5em;
+			line-height: 2.5;
 
 			.configure {
 				.icon {
 					vertical-align: middle;
-					background-color: color.adjust( $color_light, $lightness: -10%);
+					filter: brightness(0.4);
+
+					&:hover {
+						filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
+					}
 				}
 			}
 		}
@@ -624,15 +650,15 @@ form {
 		}
 
 		&:not([data-unread="0"]) .box-title {
-			background: $color_nav;
+			background-color: var(--color-background-nav);
 
 			&:active {
-				background: color.adjust( $color_nav, $lightness: -10%);
+				background: var(--color-background-nav-darker);
 			}
 
 			.title {
 				font-weight: bold;
-				color: $color_light;
+				color: var(--color-text-light);
 			}
 		}
 
@@ -646,11 +672,10 @@ form {
 			font-weight: bold;
 			text-shadow: none;
 		}
+	}
 
-		.item.feed {
-			padding: 2px 10px;
-			font-size: 0.8rem;
-		}
+	&.visible-semi {
+		border-style: solid;
 	}
 }
 
@@ -658,17 +683,15 @@ form {
 	margin: 10px 0;
 }
 
-.tree-folder-title {
-	padding: 0 10px;
-	background: $color_aside;
-	height: 35px;
+.aside_feed .tree-folder-title {
+	padding: 0.3rem 0.75rem;
+	background-color: var(--color-background-aside);
 	font-size: 1rem;
 	position: relative;
-	line-height: 2.3rem;
 
 	.title {
 		background: inherit;
-		color: $color_light;
+		color: var(--color-text-light);
 
 		&:hover {
 			text-decoration: none;
@@ -677,46 +700,27 @@ form {
 }
 
 .tree-folder-items {
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 
 	> .item {
-		padding: 0 10px;
-		line-height: 2.5rem;
 		font-size: 0.8rem;
 
 		&.active {
-			background: color.adjust( $color_nav, $lightness: -10%);
+			background-color: var(--color-background-nav-darker);
 		}
 
 		> a {
 			text-decoration: none;
-			color: $color_light;
+			color: var(--color-text-light);
 		}
 	}
 }
 
-@supports (scrollbar-width: thin) {
-	#sidebar {
-		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
-	}
-
-	#sidebar:hover {
-		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
-	}
-}
-
-@supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.1);
-	}
-
-	#sidebar:hover::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.3);
-	}
-}
-
 .header {
+	height: auto;
+
 	> .item {
+		padding: 0;
 		vertical-align: middle;
 
 		&.title {
@@ -734,10 +738,6 @@ form {
 				filter: grayscale(100%) brightness(100);
 			}
 		}
-
-		&.search input {
-			width: 230px;
-		}
 	}
 
 	.item.search input:focus {
@@ -751,20 +751,46 @@ form {
 	.item.configure {
 		position: fixed;
 		right: 0;
-		z-index: 1000;
+		z-index: 95;
 		width: 35px;
+		text-align: center;
+		line-height: 0.8;
+
+		> .icon {
+			filter: brightness(3);
+			margin-right: 5px;
+			margin-top: 3px;
+		}
+
+		.dropdown .dropdown-menu {
+			max-height: calc(100vh - 45px);
+			overflow: auto;
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
 	}
 }
 
 .aside {
 	padding: 35px 0;
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 
 	@extend %aside-width;
 
 	&.aside_feed {
 		.tree {
 			margin: 0 0 50px;
+		}
+
+		.tree-folder {
+			.tree-folder-title,
+			.item.feed {
+				&:hover {
+					background-color: var(--color-background-nav-darker);
+				}
+			}
 		}
 
 		.nav-form {
@@ -788,17 +814,42 @@ form {
 
 .aside_feed {
 	.category .title:not([data-unread="0"])::after {
-		background-color: #00488b;
-		color: #fcfcfc;
+		margin: 0.5rem 0 0 0;
+		background-color: var(--color-background-nav-darker);
+		color: var(--color-text-light);
 	}
 
 	.feed .item-title:not([data-unread="0"])::after {
-		background-color: #0062be;
-		color: #fcfcfc;
+		background-color: var(--color-background-nav);
+		color: var(--color-text-light);
 	}
 
 	.tree-folder-items .dropdown-menu::after {
 		left: 2px;
+	}
+
+	.about {
+		padding: 1rem;
+		display: block;
+		text-align: center;
+		font-size: 0.8em;
+		font-style: italic;
+	}
+}
+
+.reader {
+	.aside {
+		.toggle_aside {
+			background-color: var(--color-background-aside);
+
+			.icon {
+				filter: brightness(3);
+			}
+
+			&:hover {
+				background-color: var(--color-background-nav);
+			}
+		}
 	}
 }
 
@@ -807,8 +858,6 @@ form {
 	font-size: 0.9em;
 
 	input {
-		background: color.adjust( $color_light, $lightness: -10% );
-
 		&.long {
 			height: 33px;
 			margin-top: 0px;
@@ -825,47 +874,36 @@ form {
 }
 
 .prompt {
-	text-align: center;
-
-	label {
-		text-align: left;
-	}
-
-	form {
-		margin: 10px auto 20px auto;
-		width: 200px;
-	}
-
 	input {
 		margin: 5px auto;
-		width: 100%;
-	}
-
-	p {
-		margin: 20px 0;
 	}
 }
 
+#global {
+	height: 100vh;
+}
+
 #new-article {
-	background: $color_nav;
+	background-color: var(--color-background-nav);
 	font-size: 1em;
 	text-align: center;
 	position: fixed;
 	bottom: 48px;
 	z-index: 900;
 	left: 0;
-	line-height: 1.5em;
+	line-height: 1.5;
 
 	@extend %aside-width;
 
 	> a {
-		line-height: 1.5em;
+		padding: 1rem;
+		line-height: 1.5;
 		font-weight: bold;
-		color: $color_light;
+		color: var(--color-text-light);
 
 		&:hover {
 			text-decoration: none;
-			background: color.adjust( $color_nav, $lightness: -10%);
+			background-color: var(--color-background-nav-darker);
 		}
 	}
 }
@@ -873,7 +911,7 @@ form {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
 	text-align: center;
 
 	.name {
@@ -883,65 +921,79 @@ form {
 
 .nav {
 	a {
-		color: $color_light;
+		color: var(--color-text-light);
 	}
 }
 
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
-	background-color: $color_nav;
-	position: fixed;
-	z-index: 900;
+	background-color: var(--color-background-nav);
+	position: sticky;
+	top: 0;
+	z-index: 90;
 
 	.item.search {
 		display: inline-block;
-		position: fixed;
+		position: absolute;
 		right: 40px;
+
+		input {
+			border-width: 0;
+			line-height: 1.95;
+		}
+	}
+
+	#toggle-unread,
+	#toggle-starred {
+		.icon {
+			filter: brightness(1);
+		}
 	}
 }
 
 .flux {
 	padding-right: 10px;
-	background: $color_light;
+	background-color: var(--color-background-light);
 
 	&::after {
 
 		@extend %after;
 		margin: 0 auto;
 		width: 90%;
-		border-top: 1px solid color.adjust( $color_light, $lightness: -10%);
+		border-top: 1px solid var(--color-border-light-darker);
 	}
 
-	&:hover,
+	.flux_header:hover,
 	.current {
-		background: $color_hover;
+		background-color: var(--color-background-hover);
 
 		&:not(.current):hover .item.title {
-			background: $color_hover;
+			background-color: var(--color-background-hover);
 		}
 	}
 
 	&.favorite:not(.current) {
-		background: $color_stared;
+		background-color: var(--color-background-stared);
 
 		&:hover .item.title {
-			background: $color_stared;
+			background-color: var(--color-background-stared);
 		}
 	}
 
 	&.not_read:not(.current) {
-		background: $color_unread;
+		background-color: var(--color-background-unread);
 
 		&:hover .item.title {
-			background: $color_unread;
+			background-color: var(--color-background-unread);
 		}
 	}
 
 	.item {
 		&.date {
-			color: color.adjust( $color_light, $lightness: -40% );
+			color: var(--color-text-light-darker);
 			font-size: 0.7rem;
 		}
 	}
@@ -951,12 +1003,8 @@ form {
 		text-align: center;
 	}
 
-	.website .favicon {
-		padding: 5px;
-	}
-
 	label {
-		color: $color_light;
+		color: var(--color-text-light);
 		cursor: pointer;
 	}
 }
@@ -972,9 +1020,9 @@ form {
 
 .notification {
 	padding: 10px 0;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background-color: var(--color-background-light-darker);
 	height: auto;
-	color: color.adjust( $color_light, $lightness: -40% );
+	color: var(--color-text-light-darker);
 	font-size: 1em;
 	border: none;
 	text-align: center;
@@ -989,27 +1037,23 @@ form {
 
 	&.good,
 	&.bad {
-		color: $color_light;
+		color: var(--color-text-light);
 	}
 
 	&.good {
-		background: $color_good;
+		background-color: var(--color-background-good);
 
 		a.close:hover {
-			background: $color_good;
+			background-color: var(--color-background-good);
 		}
 	}
 
 	&.bad {
-		background: color.adjust( $color_bad, $lightness: 10%);
+		background-color: var(--color-background-bad);
 
 		a.close:hover {
-			background: color.adjust( $color_bad, $lightness: 10%);
+			background-color: var(--color-background-bad);
 		}
-	}
-
-	&#actualizeProgress {
-		line-height: 2em;
 	}
 
 	a.close {
@@ -1020,22 +1064,22 @@ form {
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: color.adjust( $color_light, $lightness: -10%);
+	background: var(--color-background-light-darker);
 
 	&:hover {
-		background: $color_aside;
-		color: $color_light;
+		background-color: var(--color-background-aside);
+		color: var(--color-text-light);
 	}
 }
 
 #nav_entries {
 	margin: 0;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 
 	@extend %aside-width;
-	background: $color_aside;
+	background-color: var(--color-background-aside);
 }
 
 .stat {
@@ -1050,95 +1094,79 @@ form {
 	> table {
 		td,
 		th {
-			border-bottom: 1px solid color.adjust( $color_light, $lightness: -10%);
-		}
-	}
-
-	> .horizontal-list {
-		margin: 0 0 5px;
-
-		.item {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-
-			&:first-child {
-				width: 270px;
-			}
+			border-bottom: 1px solid var(--color-border-light-darker);
 		}
 	}
 }
 
-.formLogin {
+#overlay {
+	z-index: 100;
+}
+
+#panel {
+	z-index: 100;
+
+	.nav_menu {
+		position: relative;
+	}
+}
+
+.formLogin,
+.register {
 	#global {
 		height: 0;
 	}
 
 	.header {
-		background: $color_aside;
-		height: 55px;
+		background-color: var(--color-background-nav);
+		height: 35px;
+		position: relative;
 
 		> .item {
 			&.configure {
-				width: 200px;
-				position: unset;
+				padding: 8px;
+				width: auto;
+				position: absolute;
+				right: 0;
+				white-space: nowrap;
+				bottom: 0;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 	}
-
-	a.signin {
-		color: $color_light;
-		padding-left: 5px;
-	}
-
-	input {
-		border-top: 1px color.adjust( $color_light, $lightness: -10%);
-		border-right: 1px color.adjust( $color_light, $lightness: -10%);
-		border-bottom: 1px color.adjust( $color_light, $lightness: -10%);
-		border-left: 5px solid;
-	}
 }
 
-.loglist {
-	overflow: hidden;
-	border: 1px solid color.adjust( $color_light, $lightness: -40% );
+a.signin {
+	color: var(--color-text-light);
+	font-size: 70%;
 }
 
-.log {
-	padding: 5px 2%;
-	background: $color_light;
-	font-size: 0.8rem;
-	overflow: auto;
-
-	> .date {
-		margin: 0 10px 0 0;
-		padding: 5px 10px;
+.log-item {
+	&.log-error {
+		background-color: var(--color-background-bad);
+		color: var(--color-text-light);
 	}
 
-	&.error > .date {
-		background: color.adjust( $color_bad, $lightness: 10%);
-		color: $color_light;
+	&.log-warning {
+		background-color: var(--color-background-alert);
+		color: var(--color-text-light);
 	}
 
-	&.warning > .date {
-		background: $color_alert;
-		color: $color_light;
-	}
-
-	&.notice > .date {
-		background: color.adjust( $color_light, $lightness: -10%);
-		color: $color_light;
-	}
-
-	&.debug > .date {
-		background: $color_text;
-		color: $color_light;
+	&.log-debug {
+		background: var(--color-background-dark);
 	}
 }
 
 @media (max-width: 840px) {
-	.formLogin .header {
-		display: none;
+	body:not(.formLogin, .register) {
+		.header {
+			.item.title {
+				display: none;
+			}
+		}
 	}
 
 	.form-group .group-name {
@@ -1146,35 +1174,31 @@ form {
 		text-align: left;
 	}
 
-	.dropdown-header, .dropdown-menu > .item {
-		padding: 12px;
+	.dropdown {
+		position: relative;
 	}
 
 	#new-article {
+		margin-top: 2rem;
 		width: 100%;
-		position: sticky;
-		top: 0;
 	}
 
 	.header {
 		display: table;
 
-		.item.title .logo {
-			display: none;
+		.item {
+			padding: 0;
 		}
 
 		.item.configure {
 			padding: 0;
-			position: absolute;
-			right: 77px;
-		}
-	}
+			position: fixed;
+			right: 76px;
 
-	.header > .item.title a {
-		display: block;
-		position: absolute;
-		top: -35px;
-		left: 10px;
+			> .icon {
+				margin-top: 5px;
+			}
+		}
 	}
 
 	button.read_all.btn {
@@ -1187,21 +1211,25 @@ form {
 		text-align: center;
 	}
 
+	.flux:not(.current):hover .item.title {
+		top: auto !important;
+	}
+
 	.aside {
+		padding: 0;
 		width: 0;
 		transition: width 200ms linear;
 
 		.toggle_aside {
-			background: $color_aside;
-			display: block;
-			height: 50px;
-			line-height: 50px;
-			text-align: right;
-			padding-right: 10px;
-		}
+			background-color: var(--color-background-aside);
 
-		&.aside_feed {
-			padding: 0;
+			&:hover {
+				background-color: var(--color-background-nav);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 
 		&.aside_feed .configure-feeds {
@@ -1217,8 +1245,21 @@ form {
 		}
 	}
 
+	#slider {
+		.toggle_aside {
+			background-color: var(--color-background-aside);
+
+			&:hover {
+				background-color: var(--color-background-nav);
+			}
+
+			.icon {
+				filter: brightness(3);
+			}
+		}
+	}
+
 	.nav_menu {
-		position: initial;
 		height: 71px;
 
 		.btn {
@@ -1233,33 +1274,44 @@ form {
 			}
 		}
 
-		.search {
-			position: absolute !important;
+		.item.search {
 			top: 3px;
-			left: 37px;
+			margin-left: 77px;
+			width: calc(100% - 4 * 38px);
+			position: relative;
 
 			form {
 				display: block;
 			}
 
 			input {
-				width: 85%;
+				width: 100%;
 			}
 		}
 	}
 
 	#panel .close,
 	.dropdown-menu .toggle_aside {
-		background: $color_aside;
+		background-color: var(--color-background-aside);
 		display: block;
 		height: 50px;
-		line-height: 50px;
-		text-align: right;
+		line-height: 3.5;
+		text-align: center;
 		padding-right: 10px;
+
+		&:hover {
+			background-color: var(--color-background-nav);
+		}
 	}
 
+	.dropdown-target:target ~ .dropdown-toggle::after,
 	.dropdown-target:target ~ .dropdown-toggle.btn::after {
 		display: none;
+	}
+
+	.share .dropdown-menu {
+		right: 3%;
+		left: auto;
 	}
 
 	.day .name {
@@ -1352,76 +1404,85 @@ form {
 }
 
 button.as-link {
-	color: $color_light;
 	outline: none;
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {
-	background: color.adjust( $color_nav, $lightness: -10%);
+	background-color: var(--color-background-nav-darker);
 }
 
 .tree-folder.active .tree-folder-title {
-	background: color.adjust( $color_nav, $lightness: -10%);
+	background-color: var(--color-background-nav-darker);
 	font-weight: bold;
 }
 
 .feed.item {
 	&.empty {
-		color: $color_alert;
+		color: var(--color-text-alert);
 
 		&.active {
-			background: $color_alert;
-			color: $color_light;
+			background-color: var(--color-background-alert);
+			color: var(--color-text-light);
 
 			> a {
-				color: $color_light;
+				color: var(--color-text-light);
 			}
 		}
 
 		> a {
-			color: $color_alert;
+			color: var(--color-text-alert);
 		}
 	}
 
 	&.error {
-		color: color.adjust( $color_bad, $lightness: 10%);
+		color: var(--color-text-bad-lighter);
 
 		&.active {
-			background: color.adjust( $color_bad, $lightness: 10%);
-			color: $color_light;
+			background-color: var(--color-background-bad);
+			color: var(--color-text-light);
 
 			> a {
-				color: $color_light;
+				color: var(--color-text-light);
 			}
 		}
 
 		> a {
-			color: color.adjust( $color_bad, $lightness: 10%);
+			color: var(--color-text-bad-lighter);
 		}
 	}
 }
 
-#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
-	vertical-align: middle;
-	float: right;
-}
-
 #stream.reader .flux {
-	padding: 0 0 50px;
-	background: $color_light;
-	color: $color_aside;
+	background-color: var(--color-background-light);
+	color: var(--color-text-aside);
 	border: none;
+
+	&::after {
+		border: none;
+	}
+
+	.content {
+		border-color: var(--color-border-grey);
+	}
 
 	.author {
 		margin: 0 0 10px;
-		color: color.adjust( $color_light, $lightness: -40% );
+		color: var(--color-text-light-darker);
 		font-size: 90%;
 	}
 }
 
-#nav_menu_actions, #nav_menu_read_all {
+#nav_menu_actions {
 	ul.dropdown-menu {
-		left: 0px;
+		left: 0;
+		right: auto;
+	}
+}
+
+#nav_menu_read_all {
+	ul.dropdown-menu {
+		right: 0;
+		left: auto;
 	}
 }
 
@@ -1429,11 +1490,4 @@ button.as-link {
 	label {
 		min-height: initial;
 	}
-
-	.form-group {
-		&:hover {
-			background: initial;
-		}
-	}
-
 }

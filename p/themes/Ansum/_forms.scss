@@ -25,7 +25,6 @@
 		background: variables.$main-first;
 		color: variables.$white;
 
-		// @include transition(all, 0.15s, ease-in-out);
 		&:hover,
 		&:active {
 			background: variables.$main-first-alt;
@@ -96,6 +95,11 @@ input, select, textarea, button {
 	vertical-align: middle;
 }
 
+select {
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+
 option {
 	padding: 0 .5em;
 }
@@ -112,7 +116,8 @@ input:invalid, select:invalid {
 }
 
 input:disabled, select:disabled {
-	background: variables.$grey-light;
+	color: variables.$grey-medium-dark;
+	border-color: variables.$grey-medium-dark;
 }
 
 input.extend {
@@ -130,16 +135,8 @@ input.extend {
 		clear: both;
 	}
 
-	&:hover {
-		// background: #fff;
-		// 	border: 1px solid #eee;
-		// 	border-radius: 3px;
-		// 	border: 1px solid #eee;
-	}
-
 	.group-name {
 		padding: 10px 0;
-		text-align: right;
 	}
 
 	.group-controls {
@@ -154,7 +151,6 @@ input.extend {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		// background: #333;
 	}
 
 	&.form-actions .btn {

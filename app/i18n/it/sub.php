@@ -12,25 +12,32 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO
-		'title' => 'API',	// TODO
+		'documentation' => 'Copia il seguente URL per usarlo in un tool esterno.',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO
-		'label' => 'Subscribe',	// TODO
-		'title' => 'Bookmarklet',	// TODO
+		'documentation' => 'Trascina questo pulsante nei preferiti o fai click destro e scegli “Inserisci questo link tra i preferiti”. Successivamente clicca il pulsante “Iscriviti” in qualsiasi pagina a cui ti vuoi iscrivere.',
+		'label' => 'Iscriviti',
+		'title' => 'Segnalibro',
 	),
 	'category' => array(
 		'_' => 'Categoria',
 		'add' => 'Aggiungi categoria',
 		'archiving' => 'Archiviazione',
+		'dynamic_opml' => array(
+			'_' => 'OPML dinamico',
+			'help' => 'Fornisci l’URL ad un <a href="http://opml.org/" target="_blank">file OPML</a> per popolare dinamicamente questa categoria con i feed',
+		),
 		'empty' => 'Categoria vuota',
 		'information' => 'Informazioni',
-		'position' => 'Display position',	// TODO
-		'position_help' => 'To control category sort order',	// TODO
+		'opml_url' => 'URL OPML',
+		'position' => 'Mostra posizione',
+		'position_help' => 'Per controllare l’ordinamento della categoria',
 		'title' => 'Titolo',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accetta i cookie',
+		'accept_cookies_help' => 'Consenti al server dei feed di impostare dei cookie (salvati in memoria solo per la durata della richiesta)',
 		'add' => 'Aggiungi un Feed RSS',
 		'advanced' => 'Avanzate',
 		'archiving' => 'Archiviazione',
@@ -38,119 +45,133 @@ return array(
 			'configuration' => 'Autenticazione',
 			'help' => 'Accesso per feeds protetti',
 			'http' => 'Autenticazione HTTP',
-			'password' => 'HTTP password',	// TODO
-			'username' => 'HTTP username',	// TODO
+			'password' => 'Password HTTP',
+			'username' => 'Nome utente HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO
+		'clear_cache' => 'Cancella sempre la cache',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO
-			'append' => 'Add after existing content',	// TODO
-			'prepend' => 'Add before existing content',	// TODO
-			'replace' => 'Replace existing content',	// TODO
+			'_' => 'Azione da effettuare quando viene recuperato il contenuto di un articolo',
+			'append' => 'Aggiungi dopo il contenuto esistente',
+			'prepend' => 'Aggiungi prima del contenuto esistente',
+			'replace' => 'Rimpiazza il contenuto esistente',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO
+		'css_cookie' => 'Usa i cookie quando viene recuperato il contenuto di un articolo',
+		'css_cookie_help' => 'Esempio: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'In caso di RSS feeds troncati (attenzione, richiede molto tempo!)',
 		'css_path' => 'Percorso del foglio di stile CSS del sito di origine',
+		'css_path_filter' => array(
+			'_' => 'Il selettore CSS degli elementi da rimuovere',
+			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
 		'filteractions' => array(
-			'_' => 'Filter actions',	// TODO
-			'help' => 'Write one search filter per line.',	// TODO
+			'_' => 'Azioni di filtro',
+			'help' => 'Scrivi un filtro di ricerca per riga.',
 		),
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Tipo di sorgente del feed',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'titolo del feed',
+					'help' => 'Esempio: <code>//titolo</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> è un linguaggio di ricerca standard per utenti avanzati supportato da FreshRSS per abilitare il Web scraping.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'trovare <strong>oggetti</strong><br /><small> notizia (più importanti)</small>',
+					'help' => 'Esempio: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'oggetto autore',
+					'help' => 'Può anche essere una stringa statica. Esempio: <code>"Anonimo"</code>',
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'oggetto tag',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'oggetto contenuto',
+					'help' => 'Esempio per considerare l’oggetto intero: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'oggetto miniatura',
+					'help' => 'Esempio: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Formato personalizzato di data/ora',
+					'help' => 'Opzionale. Un formato supportato da <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, ad esempio <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'oggetto data',
+					'help' => 'Il risultato verrà analizzato da <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'oggetto titolo',
+					'help' => 'Usa in particolare l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'oggetto ID univoco',
+					'help' => 'Opzionale. Esempio: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'oggetto link (URL)',
+					'help' => 'Esempio: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relativo all’oggetto) per:',
+				'xpath' => 'XPath per:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (predefinito)',
 		),
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO
-			'reload_articles' => 'Reload articles',	// TODO
-			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
-			'title' => 'Maintenance',	// TODO
+			'clear_cache' => 'Svuota cache',
+			'clear_cache_help' => 'Svuota la cache per questo feed.',
+			'reload_articles' => 'Ricarica articoli',
+			'reload_articles_help' => 'Ricarica gli articoli e recupera il contenuto completo se è definito un selettore.',
+			'title' => 'Manutenzione',
 		),
+		'max_http_redir' => 'Numero massimo di redirect HTTP',
+		'max_http_redir_help' => 'Imposta a 0 o lascia in bianco per disabilitare, -1 per impostare un numero illimitato di redirect',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
-		'mute' => 'mute',	// TODO
+		'mute' => 'muta',
 		'no_selected' => 'Nessun feed selezionato.',
 		'number_entries' => '%d articoli',
 		'priority' => array(
-			'_' => 'Visibility',	// TODO
-			'archived' => 'Do not show (archived)',	// TODO
+			'_' => 'Visibilità',
+			'archived' => 'Non mostrare (archiviato)',
 			'main_stream' => 'Mostra in homepage',
-			'normal' => 'Show in its category',	// TODO
+			'normal' => 'Mostra nella sua categoria',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO
+		'proxy' => 'Imposta un proxy per recuperare questo feed',
+		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO
-			'show_rendered' => 'Show content',	// TODO
+			'show_raw' => 'Mostra codice sorgente',
+			'show_rendered' => 'Mostra contenuto',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO
-			'error' => 'Show only feeds with errors',	// TODO
+			'all' => 'Mostra tutti i feed',
+			'error' => 'Mostra solo feed con errori',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with errors',	// TODO
+			'error' => 'Vengono mostrati solo i feed con errori',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO
+		'ssl_verify' => 'Verifica sicurezza SSL',
 		'stats' => 'Statistiche',
 		'think_to_add' => 'Aggiungi feed.',
-		'timeout' => 'Timeout in seconds',	// TODO
+		'timeout' => 'Timeout in secondi',
 		'title' => 'Titolo',
 		'title_add' => 'Aggiungi RSS feed',
 		'ttl' => 'Non aggiornare automaticamente piu di',
-		'url' => 'Feed URL',	// TODO
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO
+		'url' => 'URL del feed',
+		'useragent' => 'Imposta lo user agent per recuperare questo feed',
+		'useragent_help' => 'Esempio: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Controlla la validita del feed ',
 		'website' => 'URL del sito',
 		'websub' => 'Notifica istantanea con WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Esporta',
-		'export_labelled' => 'Export your labelled articles',	// TODO
+		'export_labelled' => 'Esporta gli articoli etichettati',
 		'export_opml' => 'Esporta tutta la lista dei feed (OPML)',
 		'export_starred' => 'Esporta i tuoi preferiti',
 		'feed_list' => 'Elenco di %s articoli',
@@ -161,31 +182,32 @@ return array(
 		'title' => 'Importa / esporta',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO
+		'add' => 'Aggiungi un feed o una categoria',
 		'import_export' => 'Importa / esporta',
-		'label_management' => 'Label management',	// TODO
+		'label_management' => 'Gestione etichette',
 		'stats' => array(
 			'idle' => 'Feeds non aggiornati',
 			'main' => 'Statistiche principali',
 			'repartition' => 'Ripartizione articoli',
 		),
 		'subscription_management' => 'Gestione sottoscrizioni',
-		'subscription_tools' => 'Subscription tools',	// TODO
+		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO
-		'new_name' => 'New name',	// TODO
-		'old_name' => 'Old name',	// TODO
+		'name' => 'Nome',
+		'new_name' => 'Nuovo nome',
+		'old_name' => 'Vecchio nome',
 	),
 	'title' => array(
 		'_' => 'Gestione sottoscrizioni',
-		'add' => 'Add a feed or category',	// TODO
-		'add_category' => 'Add a category',	// TODO
-		'add_feed' => 'Add a feed',	// TODO
-		'add_label' => 'Add a label',	// TODO
-		'delete_label' => 'Delete a label',	// TODO
+		'add' => 'Aggiungi un feed o una categoria',
+		'add_category' => 'Aggiungi una categoria',
+		'add_dynamic_opml' => 'Aggiungi OPML dinamico',
+		'add_feed' => 'Aggiungi un feed',
+		'add_label' => 'Aggiungi un’etichetta',
+		'delete_label' => 'Cancella un’etichetta',
 		'feed_management' => 'Gestione RSS feeds',
-		'rename_label' => 'Rename a label',	// TODO
-		'subscription_tools' => 'Subscription tools',	// TODO
+		'rename_label' => 'Rinomina un’etichetta',
+		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 );

@@ -9,9 +9,7 @@ marienfressinaud/lib_opml/examples/
 marienfressinaud/lib_opml/Makefile
 marienfressinaud/lib_opml/src/functions.php
 marienfressinaud/lib_opml/tests/
-phpgt/cssxpath/.github/
-phpgt/cssxpath/.gitignore
-phpgt/cssxpath/.scrutinizer.yml
+phpgt/cssxpath/.*
 phpgt/cssxpath/composer.json
 phpgt/cssxpath/CONTRIBUTING.md
 phpgt/cssxpath/test/

@@ -268,7 +268,10 @@ encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
 peut être utilisé pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
 
-Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes :
+Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes, avec un support basique de la négation :
 
 * `(author:Alice OR intitle:bonjour) (author:Bob OR intitle:monde)`
 * `(author:Alice intitle:bonjour) OR (author:Bob intitle:monde)`
+* `!((author:Alice intitle:bonjour) OR (author:Bob intitle:monde))`
+* `(author:Alice intitle:bonjour) !(author:Bob intitle:monde)`
+* `!(S:1 OR S:2)`

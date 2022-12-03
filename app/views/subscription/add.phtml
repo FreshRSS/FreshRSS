@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
-				<input id="new-category" name="new-category" type="text" autocomplete="off"/>
+				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
 			</div>
 		</div>
 
@@ -45,7 +45,12 @@
 			<label class="group-name" for="category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
 				<select name="category" id="category">
-				<?php foreach ($this->categories as $cat) { ?>
+				<?php
+					foreach ($this->categories as $cat) {
+						if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) {
+							continue;
+						}
+				?>
 				<option value="<?= $cat->id() ?>"<?= $cat->id() == ( Minz_Request::param('cat_id') ?: 1 ) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
@@ -136,10 +141,25 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label class="group-name" for="xPathItemTimeFormat">
+						<?= _t('sub.feed.kind.html_xpath.item_timeFormat') ?></label>
+					<div class="group-controls">
+						<textarea name="xPathItemTimeFormat" id="xPathItemTimeFormat" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timeFormat.help') ?></p>
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 						<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-xpath" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="xPathItemUid"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
+						<?= _t('sub.feed.kind.html_xpath.item_uid') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathItemUid" id="xPathItemUid" rows="2" cols="64" spellcheck="false"></textarea>
 					</div>
 				</div>
 			</fieldset>
@@ -164,6 +184,27 @@
 						<input id="http_pass" name="http_pass" type="password" value="" autocomplete="new-password" />
 						<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
 					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
+				<div class="group-controls">
+					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
+					<label for="curl_params_cookiefile">
+						<input type="checkbox" name="curl_params_cookiefile" id="curl_params_cookiefile" value="1" />
+						<?= _t('sub.feed.accept_cookies') ?>
+					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.accept_cookies_help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
+				<div class="group-controls">
+					<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="extend" min="-1" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 				</div>
 			</div>
 
@@ -211,6 +252,37 @@
 				</div>
 			</div>
 		</details>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+			</div>
+		</div>
+	</form>
+
+	<h2>
+		<?= _t('sub.title.add_dynamic_opml') ?>
+		<?= _i('opml-dyn') ?>
+	</h2>
+	<form action="<?= _url('category', 'create') ?>" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
+			<div class="group-controls">
+				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input id="opml_url" name="opml_url" type="url" required="required" autocomplete="off" class="long" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.category.dynamic_opml.help') ?></p>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

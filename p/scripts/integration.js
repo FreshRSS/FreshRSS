@@ -14,7 +14,9 @@ const init_integration = function () {
 	document.querySelector('.share.add').addEventListener('click', event => {
 		const shareTypes = event.target.closest('.group-controls').querySelector('select');
 		const shareType = shareTypes.options[shareTypes.selectedIndex];
-		let newShare = event.target.closest('form').getAttribute('data-' + shareType.getAttribute('data-form'));
+		const template = document.getElementById(shareType.getAttribute('data-form') + '-share');
+		let newShare = template.content.cloneNode(true).querySelector('formgroup').outerHTML;
+
 		newShare = newShare.replace(/##label##/g, shareType.text);
 		newShare = newShare.replace(/##type##/g, shareType.value);
 		newShare = newShare.replace(/##help##/g, shareType.getAttribute('data-help'));

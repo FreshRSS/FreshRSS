@@ -1,12 +1,15 @@
 <?php /** @var FreshRSS_View $this */ ?>
 <div class="post">
-	<h2><?= $this->category->name() ?></h2>
+	<h2>
+		<?= $this->category->name() ?>
+		<?php if ($this->category->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
+	</h2>
 
 	<div>
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id()) ?>" autocomplete="off">
+	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<legend><?= _t('sub.category.information') ?></legend>
@@ -31,9 +34,36 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-
 			</div>
 		</div>
+
+		<?php if (!$this->category->isDefault()): ?>
+		<legend><?= _t('sub.category.dynamic_opml') ?> <?= _i('opml-dyn') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributes('opml_url') ?>" />
+					<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
+						<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
+					</button>
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('gen.short.blank_to_disable') ?></p>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.category.dynamic_opml.help') ?></p>
+			</div>
+		</div>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-attention confirm"
+					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+					formaction="<?= _url('category', 'empty', 'id', $this->category->id(), 'muted', 1) ?>"
+					formmethod="post"><?= _t('gen.action.delete_muted_feeds') ?></button>
+			</div>
+		</div>
+		<?php endif; ?>
 
 		<legend><?= _t('sub.category.archiving') ?></legend>
 		<?php

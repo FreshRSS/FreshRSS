@@ -63,11 +63,17 @@ class Minz_Url {
 	private static function printUri($url, $encodage) {
 		$uri = '';
 		$separator = '?';
+		$anchor = '';
 
 		if ($encodage === 'html') {
 			$and = '&amp;';
 		} else {
 			$and = '&';
+		}
+
+		if (!empty($url['params']['#'])) {
+			$anchor = '#' . ($encodage === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
+			unset($url['params']['#']);
 		}
 
 		if (isset($url['c'])
@@ -90,6 +96,12 @@ class Minz_Url {
 				$separator = $and;
 			}
 		}
+
+		if (!empty($url['#'])) {
+			$uri .= '#' . ($encodage === 'html' ? htmlspecialchars($url['#'], ENT_QUOTES, 'UTF-8') : $url['#']);
+		}
+
+		$uri .= $anchor;
 
 		return $uri;
 	}
@@ -115,6 +127,40 @@ class Minz_Url {
 		}
 
 		return $url_checked;
+	}
+
+	public static function serialize($url = []) {
+		try {
+			return base64_encode(json_encode($url, JSON_THROW_ON_ERROR));
+		} catch (\Throwable $exception) {
+			return '';
+		}
+	}
+
+	public static function unserialize($url = '') {
+		try {
+			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR);
+		} catch (\Throwable $exception) {
+			return '';
+		}
+	}
+
+	/**
+	 * Returns an array representing the URL as passed in the address bar
+	 * @return array URL representation
+	 */
+	public static function build () {
+		$url = [
+			'c' => $_GET['c'] ?? Minz_Request::defaultControllerName(),
+			'a' => $_GET['a'] ?? Minz_Request::defaultActionName(),
+			'params' => $_GET,
+		];
+
+		// post-traitement
+		unset($url['params']['c']);
+		unset($url['params']['a']);
+
+		return $url;
 	}
 }
 

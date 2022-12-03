@@ -12,12 +12,13 @@
 
 return array(
 	'action' => array(
-		'actualize' => '更新提要',
+		'actualize' => '更新订阅源',
 		'add' => '添加',
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
 		'create' => '创建',
+		'delete_muted_feeds' => '删除已暂停的订阅源',
 		'demote' => '撤销管理员',
 		'disable' => '禁用',
 		'empty' => '清空',
@@ -25,18 +26,19 @@ return array(
 		'export' => '导出',
 		'filter' => '过滤',
 		'import' => '导入',
-		'load_default_shortcuts' => '重置快捷键',
+		'load_default_shortcuts' => '加载默认快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'refresh_opml' => '刷新订阅源动态列表',
 		'remove' => '删除',
 		'rename' => '重命名',
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
-		'update' => '更新订阅',
+		'update' => '更新',
 	),
 	'auth' => array(
 		'accept_tos' => '我接受 <a href="%s">服务条款</a>',
@@ -125,7 +127,7 @@ return array(
 	'js' => array(
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',
-		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询。这将不可撤销！',
+		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
 			'body_unread_articles' => '(未读: %%d)',
@@ -138,11 +140,13 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
@@ -154,6 +158,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => '关于',
@@ -175,7 +180,7 @@ return array(
 		'system' => '系统配置',
 		'update' => '更新',
 		'user_management' => '用户管理',
-		'user_profile' => '用户帐户',
+		'user_profile' => '帐户',
 	),
 	'period' => array(
 		'days' => '天',
@@ -186,14 +191,17 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => '剪贴板',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => '邮箱',	// IGNORE
-		'facebook' => '脸书',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (webmail - 兼容 Firefox)',
+		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
@@ -204,10 +212,10 @@ return array(
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
-		'twitter' => '推特',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'Wallabag v1',	// IGNORE
 		'wallabagv2' => 'Wallabag v2',	// IGNORE
-		'web-sharing-api' => 'Web分享',
+		'web-sharing-api' => '系统分享',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

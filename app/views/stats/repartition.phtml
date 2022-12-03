@@ -31,7 +31,7 @@
 	</select>
 
 	<?php if ($this->feed) {?>
-		<a class="btn" href="<?= _url('subscription', 'index', 'id', $this->feed->id()) ?>">
+		<a class="btn" href="<?= _url('subscription', 'feed', 'id', $this->feed->id()) ?>">
 			<?= _i('configure') ?> <?= _t('gen.action.manage') ?>
 		</a>
 	<?php }?>

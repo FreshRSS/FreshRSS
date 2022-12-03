@@ -10,7 +10,7 @@ class FreshRSS_BooleanSearch {
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private $searches = array();
 
-	/** @var string 'AND' or 'OR' */
+	/** @var string 'AND' or 'OR' or 'AND NOT' */
 	private $operator;
 
 	public function __construct(string $input, int $level = 0, $operator = 'AND') {
@@ -123,7 +123,20 @@ class FreshRSS_BooleanSearch {
 				$hasParenthesis = true;
 
 				$before = trim($before);
-				if (preg_match('/\bOR$/i', $before)) {
+				if (preg_match('/[!-]$/i', $before)) {
+					// Trim trailing negation
+					$before = substr($before, 0, -1);
+
+					// The text prior to the negation is a BooleanSearch
+					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					if (count($searchBefore->searches()) > 0) {
+						$this->searches[] = $searchBefore;
+					}
+					$before = '';
+
+					// The next BooleanSearch will have to be combined with AND NOT instead of default AND
+					$nextOperator = 'AND NOT';
+				} elseif (preg_match('/\bOR$/i', $before)) {
 					// Trim trailing OR
 					$before = substr($before, 0, -2);
 
@@ -223,9 +236,7 @@ class FreshRSS_BooleanSearch {
 				$quotes = substr_count($segment, '"') + substr_count($segment, '&quot;');
 				if ($quotes % 2 === 0) {
 					$segment = trim($segment);
-					if ($segment != '') {
-						$this->searches[] = new FreshRSS_Search($segment);
-					}
+					$this->searches[] = new FreshRSS_Search($segment);
 					$segment = '';
 				}
 			}

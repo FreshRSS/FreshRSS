@@ -15,6 +15,8 @@ class Minz_Request {
 	private static $default_controller_name = 'index';
 	private static $default_action_name = 'index';
 
+	private static $originalRequest;
+
 	/**
 	 * Getteurs
 	 */
@@ -27,6 +29,13 @@ class Minz_Request {
 	public static function params() {
 		return self::$params;
 	}
+	/**
+	 * Read the URL parameter
+	 * @param string $key Key name
+	 * @param mixed $default default value, if no parameter is given
+	 * @param bool $specialchars special characters
+	 * @return mixed value of the parameter
+	 */
 	public static function param($key, $default = false, $specialchars = false) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
@@ -85,7 +94,11 @@ class Minz_Request {
 			'params' => self::$params,
 		);
 	}
+	public static function originalRequest() {
+		return self::$originalRequest;
+	}
 	public static function modifiedCurrentRequest(array $extraParams = null) {
+		unset(self::$params['ajax']);
 		$currentRequest = self::currentRequest();
 		if (null !== $extraParams) {
 			$currentRequest['params'] = array_merge($currentRequest['params'], $extraParams);
@@ -133,10 +146,8 @@ class Minz_Request {
 
 	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
-	 *
-	 * @return boolean
 	 */
-	public static function isHttps() {
+	public static function isHttps(): bool {
 		$header = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
 		if ('' != $header) {
 			return 'https' === strtolower($header);
@@ -159,10 +170,7 @@ class Minz_Request {
 		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL);
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractProtocol() {
+	private static function extractProtocol(): string {
 		if (self::isHttps()) {
 			return 'https';
 		}
@@ -202,10 +210,7 @@ class Minz_Request {
 		return self::isHttps() ? 443 : 80;
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPortForUrl() {
+	private static function extractPortForUrl(): string {
 		if (self::isHttps() && 443 !== $port = self::extractPort()) {
 			return ":{$port}";
 		}
@@ -215,10 +220,7 @@ class Minz_Request {
 		return '';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractPrefix() {
+	private static function extractPrefix(): string {
 		if ('' != $prefix = ($_SERVER['HTTP_X_FORWARDED_PREFIX'] ?? '')) {
 			return rtrim($prefix, '/ ');
 		}
@@ -235,13 +237,11 @@ class Minz_Request {
 	}
 
 	/**
-	 * Return the base_url from configuration and add a suffix if given.
-	 *
-	 * @return string base_url with a suffix.
+	 * Return the base_url from configuration
 	 */
-	public static function getBaseUrl() {
+	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
-		$url = rtrim($conf->base_url, '/\\');
+		$url = trim($conf->base_url, ' /\\"');
 		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
@@ -333,6 +333,10 @@ class Minz_Request {
 	 *                > sinon, le dispatcher recharge en interne
 	 */
 	public static function forward($url = array(), $redirect = false) {
+		if (Minz_Request::originalRequest() === null && strpos('auth', json_encode($url)) !== false) {
+			self::$originalRequest = $url;
+		}
+
 		if (!is_array($url)) {
 			header('Location: ' . $url);
 			exit();
@@ -397,17 +401,11 @@ class Minz_Request {
 		}
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractContentType() {
+	private static function extractContentType(): string {
 		return strtolower(trim($_SERVER['CONTENT_TYPE'] ?? ''));
 	}
 
-	/**
-	 * @return boolean
-	 */
-	public static function isPost() {
+	public static function isPost(): bool {
 		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
 	}
 

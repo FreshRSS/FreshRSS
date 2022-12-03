@@ -5,6 +5,7 @@ ifndef TAG
 endif
 
 PORT ?= 8080
+NETWORK ?= freshrss-network
 
 ifdef NO_DOCKER
 	PHP = $(shell which php)
@@ -38,6 +39,7 @@ build: ## Build a Docker image
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
+	docker network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
 	docker run \
 		--rm \
@@ -46,11 +48,13 @@ start: ## Start the development environment (use Docker)
 		--publish $(PORT):80 \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
+		--network $(NETWORK) \
 		freshrss/freshrss:$(TAG)
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
-	docker stop freshrss-dev
+	docker stop freshrss-dev || true
+	docker network rm $(NETWORK) || true
 
 ######################
 ## Tests and linter ##
@@ -69,27 +73,27 @@ lint-fix: bin/phpcbf ## Fix the errors detected by the linter
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/ce43e63e47a7fca052628faf1e4b14f9100ae82c/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
 bin/phpunit:
 	mkdir -p bin/
-	wget -O bin/phpunit https://phar.phpunit.de/phpunit-9.5.2.phar
-	echo 'bcf913565bc60dfb5356cf67cbbccec1d8888dbd595b0fbb8343a5019342c67c bin/phpunit' | sha256sum -c - || rm bin/phpunit
+	wget -O bin/phpunit 'https://phar.phpunit.de/phpunit-9.5.20.phar'
+	echo '6becad2da5c37f5ad101cc665ef05a2f1a6a45d2427c8edcc74f72c92fb1e05a bin/phpunit' | sha256sum -c - || rm bin/phpunit
 
 bin/phpcs:
 	mkdir -p bin/
-	wget -O bin/phpcs https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcs.phar
-	echo '4a2f6aff1b1f760216bb00c0b3070431131e3ed91307436bb1bfb252281a804a bin/phpcs' | sha256sum -c - || rm bin/phpcs
+	wget -O bin/phpcs 'https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.7.1/phpcs.phar'
+	echo '7a14323a14af9f58302d15442492ee1076a8cd72c018a816cb44965bf3a9b015 bin/phpcs' | sha256sum -c - || rm bin/phpcs
 
 bin/phpcbf:
 	mkdir -p bin/
-	wget -O bin/phpcbf https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcbf.phar
-	echo '6f64fe00dee53fa7b256f63656dc0154f5964666fc7e535fac86d0078e7dea41 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
+	wget -O bin/phpcbf 'https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.7.1/phpcbf.phar'
+	echo 'c93c0e83cbda21c21f849ccf0f4b42979d20004a5a6172ed0ea270eca7ae6fa8 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
 
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' && \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.10.1/typos-v1.10.1-x86_64-unknown-linux-musl.tar.gz' && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \

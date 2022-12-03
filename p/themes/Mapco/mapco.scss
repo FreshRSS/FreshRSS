@@ -36,9 +36,14 @@
 /*============*/
 html, body {
 	background: variables.$grey-light;
-	height: 100%;
+	color: variables.$main-font-color;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
+}
+
+body.formLogin,
+body.register {
+	background: variables.$sid-bg;
 }
 
 /*=== Links */
@@ -46,3 +51,4 @@ a, button.as-link {
 	outline: none;
 	color: variables.$main-first;
 }
+

@@ -115,9 +115,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 	}
 
 	// Update unread: category
-	elem = document.getElementById(feed_id).closest('.category');
-	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+	elem = document.getElementById(feed_id);
+	elem = elem ? elem.closest('.category') : null;
 	if (elem) {
+		feed_unreads = str2int(elem.getAttribute('data-unread'));
 		elem.setAttribute('data-unread', feed_unreads + nb);
 		elem = elem.querySelector('.title');
 		if (elem) {
@@ -147,7 +148,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	// Update unread: title
 	document.title = document.title.replace(/^((?:\([\s0-9]+\) )?)/, function (m, p1) {
 		const feed = document.getElementById(feed_id);
-		if (article || feed.closest('.active')) {
+		if (article || (feed && feed.closest('.active'))) {
 			isCurrentView = true;
 			return incLabel(p1, nb, true);
 		} else if (document.querySelector('.all.active')) {
@@ -263,6 +264,7 @@ function send_mark_read_queue(queue, asRead, callback) {
 				incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
 			}
 		}
+		toggle_bigMarkAsRead_button();
 		onScroll();
 		if (callback) {
 			callback();
@@ -425,10 +427,17 @@ function toggleContent(new_active, old_active, skipping) {
 
 	if (context.sticky_post) {	// Stick the article to the top when opened
 		const prev_article = new_active.previousElementSibling;
-		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop;
+		const nav_menu = document.querySelector('.nav_menu');
+		let nav_menu_height = 0;
 
-		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
-			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop;
+		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+			nav_menu_height = nav_menu.offsetHeight;
+		}
+
+		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
+
+		if (prev_article && prev_article.offsetParent && new_active.offsetTop - prev_article.offsetTop <= 150) {
+			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop - nav_menu_height;
 			if (relative_move) {
 				new_pos -= box_to_move.offsetTop;
 			}
@@ -703,7 +712,8 @@ function onScroll() {
 		return;
 	}
 	if (context.auto_mark_scroll) {
-		const minTop = 40 + box_to_follow.scrollTop;
+		const hidden_px = -5; // negative = pixels over the edge
+		const minTop = hidden_px + box_to_follow.scrollTop;
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 			if (div.offsetHeight > 0 &&
 					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < minTop) {
@@ -711,11 +721,18 @@ function onScroll() {
 			}
 		});
 	}
-	if (context.auto_load_more) {
-		const streamFooter = document.getElementById('stream-footer');
-		if (streamFooter && box_to_follow.offsetHeight > 0 &&
+	let streamFooter;
+	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
+		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
+			// Too close to the last pre-loaded article
 			load_more_posts();
+		} else {
+			const after = document.querySelectorAll('.flux.current ~ .flux').length;
+			if (after > 0 && after <= 5) {
+				// Too few pre-loaded articles
+				load_more_posts();
+			}
 		}
 	}
 }
@@ -761,8 +778,10 @@ function rememberOpenCategory(category_id, isOpen) {
 
 function openCategory(category_id) {
 	const category_element = document.getElementById(category_id);
+	if (!category_element) return;
 	category_element.querySelector('.tree-folder-items').classList.add('active');
 	const img = category_element.querySelector('a.dropdown-toggle img');
+	if (!img) return;
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
 	img.alt = '🔼';
 }
@@ -992,12 +1011,14 @@ function init_shortcuts() {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
 			}
+
+			const link_go_website = document.querySelector('.flux.current a.go_website');
 			const newWindow = window.open();
-			if (newWindow) {
+			if (link_go_website && newWindow) {
 				newWindow.opener = null;
-				newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				newWindow.location = link_go_website.href;
+				ev.preventDefault();
 			}
-			ev.preventDefault();
 			return;
 		}
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
@@ -1042,7 +1063,7 @@ function init_stream(stream) {
 			return ev.ctrlKey;
 		}
 
-		el = ev.target.closest('.flux .content a');
+		el = ev.target.closest('.flux .content .text a');
 		if (el) {
 			if (!el.closest('div').classList.contains('author')) {
 				el.target = '_blank';
@@ -1081,6 +1102,12 @@ function init_stream(stream) {
 			return false;
 		}
 
+		el = ev.target.closest('.item.share > a[data-type="email-webmail-firefox-fix"]');
+		if (el) {
+			window.open(el.href);
+			return false;
+		}
+
 		el = ev.target.closest('.item.share > a[href="POST"]');
 		if (el) {	// Share by POST
 			const f = el.parentElement.querySelector('form');
@@ -1091,10 +1118,10 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.content, .item.website, .item.link, .dropdown')) {
+			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
-			if (!context.sides_close_article && ev.target.matches('div.flux_content')) {
+			if (!context.sides_close_article && ev.target.matches('.flux_content')) {
 				// setting for not-closing after clicking outside article area
 				return false;
 			}
@@ -1211,7 +1238,13 @@ function init_nav_entries() {
 			const windowTop = document.scrollingElement.scrollTop;
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
-			document.scrollingElement.scrollTop = windowTop > item_top ? item_top : 0;
+			const nav_menu = document.querySelector('.nav_menu');
+			let nav_menu_height = 0;
+
+			if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+				nav_menu_height = nav_menu.offsetHeight;
+			}
+			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height : 0 - nav_menu_height;
 			return false;
 		};
 	}
@@ -1287,9 +1320,11 @@ function loadDynamicTags(div) {
 }
 
 // <actualize>
-let feed_processed = 0;
+let feeds_processed = 0;
+let categories_processed = 0;
+let to_process = 0;
 
-function updateFeed(feeds, feeds_count) {
+function refreshFeed(feeds, feeds_count) {
 	const feed = feeds.pop();
 	if (!feed) {
 		return;
@@ -1297,14 +1332,15 @@ function updateFeed(feeds, feeds_count) {
 	const req = new XMLHttpRequest();
 	req.open('POST', feed.url, true);
 	req.onloadend = function (e) {
+		feeds_processed++;
 		if (this.status != 200) {
-			return badAjax(false);
+			badAjax(false);
+		} else {
+			const div = document.getElementById('actualizeProgress');
+			div.querySelector('.progress').innerHTML = (categories_processed + feeds_processed) + ' / ' + to_process;
+			div.querySelector('.title').innerHTML = feed.title;
 		}
-		feed_processed++;
-		const div = document.getElementById('actualizeProgress');
-		div.querySelector('.progress').innerHTML = feed_processed + ' / ' + feeds_count;
-		div.querySelector('.title').innerHTML = feed.title;
-		if (feed_processed === feeds_count) {
+		if (feeds_processed === feeds_count) {
 			// Empty request to commit new articles
 			const req2 = new XMLHttpRequest();
 			req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
@@ -1317,7 +1353,7 @@ function updateFeed(feeds, feeds_count) {
 				noCommit: 0,
 			}));
 		} else {
-			updateFeed(feeds, feeds_count);
+			refreshFeed(feeds, feeds_count);
 		}
 	};
 	req.setRequestHeader('Content-Type', 'application/json');
@@ -1327,8 +1363,73 @@ function updateFeed(feeds, feeds_count) {
 	}));
 }
 
+function refreshFeeds(json) {
+	feeds_processed = 0;
+	if (!json.feeds || json.feeds.length === 0) {
+		// Empty request to commit new articles
+		const req2 = new XMLHttpRequest();
+		req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
+		req2.onloadend = function (e) {
+			context.ajax_loading = false;
+		};
+		req2.setRequestHeader('Content-Type', 'application/json');
+		req2.send(JSON.stringify({
+			_csrf: context.csrf,
+			noCommit: 0,
+		}));
+	} else {
+		const feeds_count = json.feeds.length;
+		for (let i = 10; i > 0; i--) {
+			refreshFeed(json.feeds, feeds_count);
+		}
+	}
+}
+
+function refreshDynamicOpml(categories, categories_count, next) {
+	const category = categories.pop();
+	if (!category) {
+		return;
+	}
+	const req = new XMLHttpRequest();
+	req.open('POST', category.url, true);
+	req.onloadend = function (e) {
+		categories_processed++;
+		if (this.status != 200) {
+			badAjax(false);
+		} else {
+			const div = document.getElementById('actualizeProgress');
+			div.querySelector('.progress').innerHTML = (categories_processed + feeds_processed) + ' / ' + to_process;
+			div.querySelector('.title').innerHTML = category.title;
+		}
+		if (categories_processed === categories_count) {
+			if (next) { next(); }
+		} else {
+			refreshDynamicOpml(categories, categories_count, next);
+		}
+	};
+	req.setRequestHeader('Content-Type', 'application/json');
+	req.send(JSON.stringify({
+		_csrf: context.csrf,
+		noCommit: 1,
+	}));
+}
+
+function refreshDynamicOpmls(json, next) {
+	categories_processed = 0;
+	if (json.categories && json.categories.length > 0) {
+		const categories_count = json.categories.length;
+		for (let i = 10; i > 0; i--) {
+			refreshDynamicOpml(json.categories, categories_count, next);
+		}
+	} else {
+		if (next) { next(); }
+	}
+}
+
 function init_actualize() {
 	let auto = false;
+	let nbCategoriesFirstRound = 0;
+	let skipCategories = false;
 
 	const actualize = document.getElementById('actualize');
 	if (!actualize) {
@@ -1352,33 +1453,29 @@ function init_actualize() {
 			if (!json) {
 				return badAjax(false);
 			}
-			if (auto && json.feeds.length < 1) {
+			if (auto && json.categories.length < 1 && json.feeds.length < 1) {
 				auto = false;
 				context.ajax_loading = false;
 				return false;
 			}
-			if (json.feeds.length === 0) {
-				openNotification(json.feedback_no_refresh, 'good');
-				// Empty request to commit new articles
-				const req2 = new XMLHttpRequest();
-				req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
-				req2.onloadend = function (e) {
-					context.ajax_loading = false;
-				};
-				req2.setRequestHeader('Content-Type', 'application/json');
-				req2.send(JSON.stringify({
-					_csrf: context.csrf,
-					noCommit: 0,
-				}));
-				return;
-			}
-			// Progress bar
-			const feeds_count = json.feeds.length;
-			document.body.insertAdjacentHTML('beforeend', '<div id="actualizeProgress" class="notification good">' +
+			to_process = json.categories.length + json.feeds.length + nbCategoriesFirstRound;
+			if (json.categories.length + json.feeds.length > 0 && !document.getElementById('actualizeProgress')) {
+				document.body.insertAdjacentHTML('beforeend', '<div id="actualizeProgress" class="notification good">' +
 					json.feedback_actualize + '<br /><span class="title">/</span><br /><span class="progress">0 / ' +
-					feeds_count + '</span></div>');
-			for (let i = 10; i > 0; i--) {
-				updateFeed(json.feeds, feeds_count);
+					to_process + '</span></div>');
+			} else {
+				openNotification(json.feedback_no_refresh, 'good');
+			}
+			if (json.categories.length > 0 && !skipCategories) {
+				skipCategories = true;	// To avoid risk of infinite loop
+				nbCategoriesFirstRound = json.categories.length;
+				// If some dynamic OPML categories are refreshed, need to reload the list of feeds before updating them
+				refreshDynamicOpmls(json, () => {
+					context.ajax_loading = false;
+					actualize.click();
+				});
+			} else {
+				refreshFeeds(json);
 			}
 		};
 		req.setRequestHeader('Content-Type', 'application/json');
@@ -1565,6 +1662,23 @@ function refreshUnreads() {
 	req.send();
 }
 
+function toggle_bigMarkAsRead_button() {
+	const bigMarkAsRead_button = document.getElementById('bigMarkAsRead');
+	if (bigMarkAsRead_button) {
+		if (document.querySelector('.flux.not_read') != null) {
+			bigMarkAsRead_button.style = '';
+			bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+		} else {
+			if (bigMarkAsRead_button.querySelector('.jumpNext')) {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = 'hidden';
+			} else {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+				bigMarkAsRead_button.style.visibility = 'hidden';
+			}
+		}
+	}
+}
+
 // <endless_mode>
 let url_load_more = '';
 let load_more = false;
@@ -1601,6 +1715,7 @@ function load_more_posts() {
 			} else {
 				bigMarkAsRead.formAction = readAll.formAction;
 			}
+			toggle_bigMarkAsRead_button();
 		}
 
 		document.querySelectorAll('[id^=day_]').forEach(function (div) {
@@ -1753,6 +1868,7 @@ function init_main_afterDOM() {
 		init_posts();
 		init_nav_entries();
 		init_notifs_html5();
+		toggle_bigMarkAsRead_button();
 		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);
 	}

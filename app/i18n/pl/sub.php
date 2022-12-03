@@ -24,13 +24,20 @@ return array(
 		'_' => 'Kategoria',
 		'add' => 'Dodaj kategoria',
 		'archiving' => 'Archiwizacja',
+		'dynamic_opml' => array(
+			'_' => 'Dynamiczny OPML',
+			'help' => 'Podaj adres <a href="http://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
+		),
 		'empty' => 'Pusta kategoria',
 		'information' => 'Informacje',
+		'opml_url' => 'Adres OPML',
 		'position' => 'Miejsce wyświetlania',
 		'position_help' => 'Kontrola porządku sortowania kategorii',
 		'title' => 'Tytuł',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Akceptuj ciasteczka',
+		'accept_cookies_help' => 'Pozwól serwerowi kanału na użycie ciasteczek (będą przechowywane w pamięci tylko na czas zapytania)',
 		'add' => 'Dodaj kanał',
 		'advanced' => 'Zaawansowane',
 		'archiving' => 'Archiwizacja',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Przykład: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Pozwala na ograniczenie zawartości kanałów (uwaga, wymaga więcej czasu!)',
 		'css_path' => 'Selektor CSS dla wiadomości na pierwotnej stronie',
+		'css_path_filter' => array(
+			'_' => 'Selektor CSS elementów do usunięcia',
+			'help' => 'Selector CSS może być listą, na przykład: <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Opis',
 		'empty' => 'Ten kanał jest pusty. Należy sprawdzić czy kanał w dalszym ciągu działa.',
 		'error' => 'Napotkano problem podczas dostępu do tego kanału. Należy sprawdzić czy kanał jest zawsze dostępny, a następnie go odświeżyć.',
@@ -62,55 +73,65 @@ return array(
 		'information' => 'Informacja',
 		'keep_min' => 'Minimalna liczba wiadomości do do przechowywania',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Rodzaj źródła kanału',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'nazwy kanału',
+					'help' => 'Przykład: <code>//title</code>, lub statyczny ciąg: <code>"Mój własny kanał"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> jest standardowym językiem zapytań przeznaczonym dla zaawansowanych użytkowników. FreshRSS wykorzystuje ten język aby wydobywać (scrape’ować) dane ze stron internetowych.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'znajdowania <strong>poszczególnych</strong> wiadomości<br /><small>(najważniejsza opcja)</small>',
+					'help' => 'Przykład: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'autora',
+					'help' => 'Może również być statycznym ciągiem, na przykład: <code>"Gall Anonim"</code>',
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'tagów wiadomości',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'zawartości',
+					'help' => 'Następujące zapytanie uwzględni całą wiadomość: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'miniaturki',
+					'help' => 'Przykład: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'daty',
+					'help' => 'Wynik zostanie przetworzony za pomocą funkcji <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'tytułu',
+					'help' => 'W szczególności warto użyć <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">oś XPath</a> <code>descendant::</code>, na przykład: <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'unikalnego identyfikatora',
+					'help' => 'Opcjonalne. Przykład: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'adresu (URL)',
+					'help' => 'Przykład: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (względem wiadomości) dla:',
+				'xpath' => 'XPath dla:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'rss' => 'RSS / Atom (domyślne)',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',
 			'clear_cache_help' => 'Czyści pamięć podręczną tego kanału.',
 			'reload_articles' => 'Przeładuj wiadomości',
-			'reload_articles_help' => 'Ponownie pobiera wiadomości i przetwarza treść ze strony pierwotnej, jeżeli zdefiniowany został selektor CSS.',	// DIRTY
+			'reload_articles_help' => 'Ponownie pobiera zdefiniowaną liczbę wiadomości i przetwarza treść ze strony pierwotnej, jeżeli zdefiniowany został selektor CSS.',
 			'title' => 'Konserwacja',
 		),
+		'max_http_redir' => 'Limit przekierowań HTTP',
+		'max_http_redir_help' => 'Ustaw na 0, albo pozostaw puste, by zabronić przekierowywania. Wartość -1 wyłącza limit.',
 		'moved_category_deleted' => 'Po usunięciu kategorii znajdujące się w niej kanały zostaną automatycznie przeniesione do <em>%s</em>.',
 		'mute' => 'wycisz',
 		'no_selected' => 'Brak kanałów.',
@@ -181,6 +202,7 @@ return array(
 		'_' => 'Zarządzanie subskrypcjami',
 		'add' => 'Dodaj kanał lub kategorię',
 		'add_category' => 'Dodaj kategorię',
+		'add_dynamic_opml' => 'Dodaj dynamiczny OPML',
 		'add_feed' => 'Dodaj kanał',
 		'add_label' => 'Dodaj etykietę',
 		'delete_label' => 'Usuń etykietę',

@@ -6,7 +6,7 @@
 		<a href="<?= $this->query->getUrl() ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId) ?>" autocomplete="off">
+	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, '#', 'slider') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">

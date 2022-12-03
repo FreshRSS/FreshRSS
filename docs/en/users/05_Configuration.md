@@ -50,7 +50,7 @@ If you disable every item in the top line, you’ll still be able to see it sinc
 it contains the feed name and the article title. But if you do the same thing for
 the bottom line, it will be empty.
 
-## HTML5 notification timout
+## HTML5 notification timeout
 
 After automatically updating the feeds, FreshRSS can pop up a notification using the HTML5 notification API.
 
@@ -74,7 +74,7 @@ This setting defines the number of articles to display at once before needing to
 
 The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show.
 
-## Use "lazy load" mode to load images
+## Use “lazy load” mode to load images
 
 This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
@@ -82,7 +82,7 @@ This will set images to load as they are viewed. This can save data, but will ca
 
 ## Archiving
 
-These are the global options for fetching and retaining articles from feeds. They can be overwridden by individual feed’s settings.
+These are the global options for fetching and retaining articles from feeds. They can be overridden by individual feed’s settings.
 
 ## Maintenance
 

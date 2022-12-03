@@ -26,6 +26,13 @@
  */
 
 return array(
+	'archivePH' => array(
+		'url' => 'https://archive.ph/submit/?url=~LINK~',
+		'transform' => array(),
+		'help' => 'https://archive.ph/',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'blogotext' => array(
 		'deprecated' => true,
 		'url' => '~URL~/admin/links.php?url=~LINK~',
@@ -49,6 +56,12 @@ return array(
 		'method' => 'GET',
 	),
 	'email' => array(
+		'url' => 'mailto:?subject=~TITLE~&amp;body=~LINK~',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
+	'email-webmail-firefox-fix' => array( // see https://github.com/FreshRSS/FreshRSS/issues/2666
 		'url' => 'mailto:?subject=~TITLE~&amp;body=~LINK~',
 		'transform' => array('rawurlencode'),
 		'form' => 'simple',
@@ -84,6 +97,13 @@ return array(
 		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
 		'transform' => array('rawurlencode'),
 		'help' => 'https://join-lemmy.org/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	),
+	'linkding' => array(
+		'url' => '~URL~/bookmarks/new?url=~LINK~&auto_close',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
 		'form' => 'advanced',
 		'method' => 'GET',
 	),

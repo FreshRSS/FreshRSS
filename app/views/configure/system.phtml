@@ -68,7 +68,7 @@
 		</div>
 
 		<div class="form-group" id="max-registrations-block">
-			<label class="group-name" for="max-registrations"><?= _t('admin.system.registration.number') ?></label>
+			<label class="group-name" for="max-registrations-input"><?= _t('admin.system.registration.number') ?></label>
 			<div class="group-controls">
 				<?php $number = count(listUsers()); ?>
 				<input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? FreshRSS_Context::$system_conf->limits['max_registrations'] : $number + 1; ?>" min="2"

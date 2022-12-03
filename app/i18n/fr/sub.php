@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S’abonner" sur les pages auxquelles vous voulez vous abonner.',
+		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir « Enregistrer ce lien ». Ensuite, cliquer sur le bouton « S’abonner » sur les pages auxquelles vous voulez vous abonner.',
 		'label' => 'S’abonner',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -24,13 +24,20 @@ return array(
 		'_' => 'Catégorie',
 		'add' => 'Ajouter catégorie',
 		'archiving' => 'Archivage',
+		'dynamic_opml' => array(
+			'_' => 'OPML dynamique',
+			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
+		),
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
+		'opml_url' => 'URL de l’OPML',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Autoriser les cookies',
+		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
 		'add' => 'Ajouter un flux RSS',
 		'advanced' => 'Avancé',
 		'archiving' => 'Archivage',
@@ -52,6 +59,10 @@ return array(
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
+		'css_path_filter' => array(
+			'_' => 'Sélecteur CSS des éléments à supprimer',
+			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
@@ -87,6 +98,10 @@ return array(
 					'_' => 'miniature de l’article',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
 					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
@@ -94,6 +109,10 @@ return array(
 				'item_title' => array(
 					'_' => 'titre de l’article',
 					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'identifiant unique de l’article',
+					'help' => 'Optionnel. Exemple : <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => 'lien (URL) de l’article',
@@ -111,8 +130,10 @@ return array(
 			'reload_articles_help' => 'Recharge cette quantité d’articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',	// IGNORE
 		),
+		'max_http_redir' => 'Maximum de redirections HTTP',
+		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
-		'mute' => 'muet',
+		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',	// IGNORE
 		'priority' => array(
@@ -181,6 +202,7 @@ return array(
 		'_' => 'Gestion des abonnements',
 		'add' => 'Ajouter un flux/une catégorie',
 		'add_category' => 'Ajouter une catégorie',
+		'add_dynamic_opml' => 'Ajouter un OPML dynamique',
 		'add_feed' => 'Ajouter un flux',
 		'add_label' => 'Ajouter une étiquette',
 		'delete_label' => 'Supprimer une étiquette',

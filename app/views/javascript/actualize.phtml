@@ -1,5 +1,14 @@
-<?php /** @var FreshRSS_View $this */ ?>
 <?php
+/** @var FreshRSS_View $this */
+
+$categories = [];
+foreach ($this->categories as $category) {
+	$categories[] = [
+		'url' => Minz_Url::display(array('c' => 'category', 'a' => 'refreshOpml', 'params' => array('id' => $category->id(), 'ajax' => '1')), 'php'),
+		'title' => $category->name(),
+	];
+}
+
 $feeds = array();
 foreach ($this->feeds as $feed) {
 	$feeds[] = array(
@@ -8,6 +17,7 @@ foreach ($this->feeds as $feed) {
 	);
 }
 echo json_encode(array(
+	'categories' => $categories,
 	'feeds' => $feeds,
 	'feedback_no_refresh' => _t('feedback.sub.feed.no_refresh'),
 	'feedback_actualize' => _t('feedback.sub.actualize'),

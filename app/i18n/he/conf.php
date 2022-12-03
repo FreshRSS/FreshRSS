@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'Portrait',	// TODO
 			'square' => 'Square',	// TODO
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'תצוגה',
 		'width' => array(
 			'content' => 'רוחב התוכן',
@@ -102,11 +103,11 @@ return array(
 			'order' => 'Sort by date',	// TODO
 			'search' => 'Expression',	// TODO
 			'state' => 'State',	// TODO
-			'tags' => 'Display by tag',	// TODO
+			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'הצגת כל המאמרים',
-		'get_category' => 'הצגת קטגוריה "%s"',
+		'get_category' => 'הצגת קטגוריה “%s”',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
 		'name' => 'Name',	// TODO
@@ -114,7 +115,7 @@ return array(
 		'number' => 'שאילתה מספר °%d',
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
-		'search' => 'חיפוש "%s"',
+		'search' => 'חיפוש “%s”',
 		'state_0' => 'הצגת כל המאמרים',
 		'state_1' => 'הצגת מאמרים שנקראו',
 		'state_2' => 'הצגת מאמרים שלא נקראו',
@@ -137,6 +138,32 @@ return array(
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO
@@ -145,6 +172,7 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// TODO
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
@@ -160,6 +188,7 @@ return array(
 			'article_viewed' => 'כאשר מאמר נצפה',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
 			'scroll' => 'כאשר גוללים',
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO

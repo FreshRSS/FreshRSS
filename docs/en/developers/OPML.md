@@ -36,15 +36,23 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 * `frss:xPathItemAuthor`: XPath expression for extracting an item author from the item context.
 	* Example: `"Anonymous"`
 * `frss:xPathItemTimestamp`: XPath expression for extracting an item timestamp from the item context. The result will be parsed by [`strtotime()`](https://php.net/strtotime).
+* `frss:xPathItemTimeFormat`: Date/Time format to parse the timestamp, according to [`DateTime::createFromFormat()`](https://php.net/datetime.createfromformat).
 * `frss:xPathItemThumbnail`: XPath expression for extracting an item’s thumbnail (image) URL from the item context.
 	* Example: `descendant::img/@src`
 * `frss:xPathItemCategories`: XPath expression for extracting a list of categories (tags) from the item context.
+* `frss:xPathItemUid`: XPath expression for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
 
 ### Miscellaneous
 
 * `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
-	* Example: `div.main`
+	* Example: `div.main, .summary`
+* `frss:cssFullContentFilter`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to remove the matching HTML elements from the full content retrieved by `frss:cssFullContent`.
+	* Example: `.footer, .aside`
 * `frss:filtersActionRead`: List (separated by a new line) of search queries to automatically mark a new article as read.
+
+### Dynamic OPML (reading lists)
+
+* `frss:opmlUrl`: If non-empty, indicates that this outline (category) should be dynamically populated from a remote OPML at the specified URL.
 
 ### Example
 

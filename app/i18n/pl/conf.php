@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'Portret',
 			'square' => 'Kwadrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Wyświetlanie',
 		'width' => array(
 			'content' => 'Rozmiar treści',
@@ -68,9 +69,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Poziom',
+			'message' => 'Zawartość wpisu',
+			'timestamp' => 'Czas',
 		),
 		'pagination' => array(
 			'first' => 'Początek',
@@ -106,15 +107,15 @@ return array(
 			'type' => 'Rodzaj',
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
-		'get_category' => 'Wyświetlenie kategorii "%s"',
+		'get_category' => 'Wyświetlenie kategorii “%s”',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
-		'get_feed' => 'Wyświetlenie kanału "%s"',
+		'get_feed' => 'Wyświetlenie kanału “%s”',
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',
 		'order_asc' => 'Wyświetl najpierw najstarsze wiadomości',
 		'order_desc' => 'Wyświetl najpierw najnowsze wiadomości',
-		'search' => 'Szukaj "%s"',
+		'search' => 'Szukaj “%s”',
 		'state_0' => 'Wyświetl wszystkie wiadomości',
 		'state_1' => 'Wyświetl przeczytane wiadomości',
 		'state_2' => 'Wyświetl nieprzeczytane wiadomości',
@@ -137,6 +138,32 @@ return array(
 		'_' => 'Czytanie',
 		'after_onread' => 'Po oznaczeniu wszystkich jako przeczytane,',
 		'always_show_favorites' => 'Pokaż wszystkie wiadomości po wejściu do ulubionych',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autor i data',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
+			),
+			'feed_name' => array(
+				'above_title' => 'Ponad tytułem/tagami',
+				'none' => 'Brak',
+				'with_authors' => 'W tej samej linii co autor i data',
+			),
+			'feed_title' => 'Nazwa kanału',
+			'tags' => array(
+				'_' => 'Tagi',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
+			),
+			'tags_max' => array(
+				'_' => 'Limit liczby wyświetlanych tagów',
+				'help' => '0 oznacza: wyświetl wszystkie tagi i żadnego nie zwijaj',
+			),
+		),
 		'articles_per_page' => 'Liczba wiadomości na stronę',
 		'auto_load_more' => 'Załaduj więcej wiadomości po dojściu na koniec strony',
 		'auto_remove_article' => 'Ukryj wiadomości po przeczytaniu',
@@ -144,11 +171,12 @@ return array(
 		'display_articles_unfolded' => 'Domyślnie wyświetlaj rozwinięte wiadomości',
 		'display_categories_unfolded' => 'Kategorie do rozwinięcia',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Wiadomości: otwieranie i zamykanie',
+			'articles_header_footer' => 'Wiadomości: nagłówek i stopka',
+			'categories' => 'Nawigacja po lewej: Kategorie',
+			'mark_as_read' => 'Oznacz wiadomość jako przeczytaną',
+			'misc' => 'Różne',
+			'view' => 'Widok',
 		),
 		'hide_read_feeds' => 'Ukryj kategorie i kanały nie zawierające nieprzeczytanych wiadomości (nie działa gdy włączone jest wyświetlanie wszystkich wiadomości)',
 		'img_with_lazyload' => 'Opóźnij ładowanie obrazów dopóki nie będą widoczne',
@@ -160,6 +188,7 @@ return array(
 			'article_viewed' => 'gdy wiadomość jest otworzona',
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
 			'scroll' => 'podczas przewijania',
+			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
 			'when_same_title' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach',
@@ -194,7 +223,7 @@ return array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Ta usługa jest przestarzała i zostanie usunięta w <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dodatkowe informacje znajdują się w dokumentacji" target="_blank">przyszłych wydaniach</a> FreshRSS.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE
