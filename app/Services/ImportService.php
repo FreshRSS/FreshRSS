@@ -42,11 +42,7 @@ class FreshRSS_Import_Service {
 			$libopml = new \marienfressinaud\LibOpml\LibOpml(false);
 			$opml_array = $libopml->parseString($opml_file);
 		} catch (\marienfressinaud\LibOpml\Exception $e) {
-			if (FreshRSS_Context::$isCli) {
-				fwrite(STDERR, 'FreshRSS error during OPML parsing: ' . $e->getMessage() . "\n");
-			} else {
-				Minz_Log::warning($e->getMessage());
-			}
+			self::log($e->getMessage());
 			$this->lastStatus = false;
 			return;
 		}
@@ -54,11 +50,7 @@ class FreshRSS_Import_Service {
 		$this->catDAO->checkDefault();
 		$default_category = $this->catDAO->getDefault();
 		if (!$default_category) {
-			if (FreshRSS_Context::$isCli) {
-				fwrite(STDERR, 'FreshRSS error during OPML parsing: cannot get default category' . "\n");
-			} else {
-				Minz_Log::warning('Cannot get default category');
-			}
+			self::log('Cannot get the default category');
 			$this->lastStatus = false;
 			return;
 		}
@@ -248,21 +240,12 @@ class FreshRSS_Import_Service {
 				}
 			}
 		} catch (FreshRSS_Feed_Exception $e) {
-			if (FreshRSS_Context::$isCli) {
-				fwrite(STDERR, 'FreshRSS error during OPML feed import: ' . $e->getMessage() . "\n");
-			} else {
-				Minz_Log::warning($e->getMessage());
-			}
+			self::log($e->getMessage());
 			$this->lastStatus = false;
 		}
 
 		$clean_url = SimplePie_Misc::url_remove_credentials($url);
-		if (FreshRSS_Context::$isCli) {
-			fwrite(STDERR, 'FreshRSS error during OPML feed import from URL: ' . $clean_url . ' in category ' . $category->id() . "\n");
-		} else {
-			Minz_Log::warning('Error during OPML feed import from URL: ' . $clean_url . ' in category ' . $category->id());
-		}
-
+		self::log("Cannot create {$clean_url} feed in category {$category->name()}");
 		return null;
 	}
 
@@ -296,14 +279,8 @@ class FreshRSS_Import_Service {
 			$category->_id($id);
 			return $category;
 		} else {
-			if (FreshRSS_Context::$isCli) {
-				fwrite(STDERR, 'FreshRSS error during OPML category import from URL: ' . $category_name . "\n");
-			} else {
-				Minz_Log::warning('Error during OPML category import from URL: ' . $category_name);
-			}
-
+			self::log("Cannot create category {$category->name()}");
 			$this->lastStatus = false;
-
 			return null;
 		}
 	}
@@ -413,5 +390,13 @@ class FreshRSS_Import_Service {
 		}
 
 		return [$categories_elements, $categories_to_feeds];
+	}
+
+	private static function log($message) {
+		if (FreshRSS_Context::$isCli) {
+			fwrite(STDERR, "FreshRSS error during OPML import: {$message}\n");
+		} else {
+			Minz_Log::warning("Error during OPML import: {$message}");
+		}
 	}
 }
