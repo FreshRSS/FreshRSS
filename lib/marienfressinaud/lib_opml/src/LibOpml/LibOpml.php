@@ -9,7 +9,7 @@ namespace marienfressinaud\LibOpml;
  * How to read this file?
  *
  * The first methods are dedicated to the parsing, and the next ones to the
- * reading. The two last methods are helpful methods, but you don't have to
+ * reading. The three last methods are helpful methods, but you don't have to
  * worry too much about them.
  *
  * The main methods are the public ones: parseFile, parseString and render.
@@ -236,6 +236,20 @@ class LibOpml
                         "OPML head {$name} element must be a valid RFC822 or RFC1123 date"
                     );
                 }
+            } elseif ($name === 'ownerEmail') {
+                // Testing email validity is hard. PHP filter_var() function is
+                // too strict compared to the RFC 822, so we can't use it.
+                if (strpos($value, '@') === false) {
+                    $this->throwExceptionIfStrict(
+                        'OPML head ownerEmail element must be an email address'
+                    );
+                }
+            } elseif ($name === 'ownerId' || $name === 'docs') {
+                if (!$this->checkHttpAddress($value)) {
+                    $this->throwExceptionIfStrict(
+                        "OPML head {$name} element must be a HTTP address"
+                    );
+                }
             } elseif ($name === 'expansionState') {
                 $numbers = explode(',', $value);
                 $value = array_map(function ($str_number) {
@@ -346,18 +360,26 @@ class LibOpml
 
         // Perform additional check based on the type of the outline
         $type = $outline['type'] ?? '';
-        if ($type === 'rss' && empty($outline['xmlUrl'])) {
-            $this->throwExceptionIfStrict(
-                'OPML outline xmlUrl attribute is required when type is "rss"'
-            );
-        } elseif ($type === 'link' && empty($outline['url'])) {
-            $this->throwExceptionIfStrict(
-                'OPML outline url attribute is required when type is "link"'
-            );
-        } elseif ($type === 'include' && empty($outline['url'])) {
-            $this->throwExceptionIfStrict(
-                'OPML outline url attribute is required when type is "include"'
-            );
+        if ($type === 'rss') {
+            if (empty($outline['xmlUrl'])) {
+                $this->throwExceptionIfStrict(
+                    'OPML outline xmlUrl attribute is required when type is "rss"'
+                );
+            } elseif (!$this->checkHttpAddress($outline['xmlUrl'])) {
+                $this->throwExceptionIfStrict(
+                    'OPML outline xmlUrl attribute must be a HTTP address when type is "rss"'
+                );
+            }
+        } elseif ($type === 'link' || $type === 'include') {
+            if (empty($outline['url'])) {
+                $this->throwExceptionIfStrict(
+                    "OPML outline url attribute is required when type is \"{$type}\""
+                );
+            } elseif (!$this->checkHttpAddress($outline['url'])) {
+                $this->throwExceptionIfStrict(
+                    "OPML outline url attribute must be a HTTP address when type is \"{$type}\""
+                );
+            }
         }
 
         // Load the sub-outlines in a @outlines array
@@ -475,6 +497,20 @@ class LibOpml
                             "OPML head {$name} element must be a DateTime"
                         );
                     }
+                } elseif ($name === 'ownerEmail') {
+                    // Testing email validity is hard. PHP filter_var() function is
+                    // too strict compared to the RFC 822, so we can't use it.
+                    if (strpos($value, '@') === false) {
+                        $this->throwExceptionIfStrict(
+                            'OPML head ownerEmail element must be an email address'
+                        );
+                    }
+                } elseif ($name === 'ownerId' || $name === 'docs') {
+                    if (!$this->checkHttpAddress($value)) {
+                        $this->throwExceptionIfStrict(
+                            "OPML head {$name} element must be a HTTP address"
+                        );
+                    }
                 } elseif ($name === 'expansionState') {
                     if (is_array($value)) {
                         foreach ($value as $number) {
@@ -537,9 +573,9 @@ class LibOpml
      *
      * @param \DOMElement $parent_element
      *     The DOM parent element of the current outline.
-     * @param array $array
-     *     The array to transform in a \DOMElement, it must follow the structure
-     *     defined above.
+     * @param array $outline
+     *     The outline array to transform in a \DOMElement, it must follow the
+     *     structure defined above.
      *
      * @throws \marienfressinaud\LibOpml\Exception
      *     Raised if the outline is not an array, if it doesn't contain a text
@@ -568,18 +604,26 @@ class LibOpml
         if (isset($outline['type'])) {
             $type = strtolower($outline['type']);
 
-            if ($type === 'rss' && empty($outline['xmlUrl'])) {
-                $this->throwExceptionIfStrict(
-                    'OPML outline xmlUrl attribute is required when type is "rss"'
-                );
-            } elseif ($type === 'link' && empty($outline['url'])) {
-                $this->throwExceptionIfStrict(
-                    'OPML outline url attribute is required when type is "link"'
-                );
-            } elseif ($type === 'include' && empty($outline['url'])) {
-                $this->throwExceptionIfStrict(
-                    'OPML outline url attribute is required when type is "include"'
-                );
+            if ($type === 'rss') {
+                if (empty($outline['xmlUrl'])) {
+                    $this->throwExceptionIfStrict(
+                        'OPML outline xmlUrl attribute is required when type is "rss"'
+                    );
+                } elseif (!$this->checkHttpAddress($outline['xmlUrl'])) {
+                    $this->throwExceptionIfStrict(
+                        'OPML outline xmlUrl attribute must be a HTTP address when type is "rss"'
+                    );
+                }
+            } elseif ($type === 'link' || $type === 'include') {
+                if (empty($outline['url'])) {
+                    $this->throwExceptionIfStrict(
+                        "OPML outline url attribute is required when type is \"{$type}\""
+                    );
+                } elseif (!$this->checkHttpAddress($outline['url'])) {
+                    $this->throwExceptionIfStrict(
+                        "OPML outline url attribute must be a HTTP address when type is \"{$type}\""
+                    );
+                }
             }
         }
 
@@ -635,6 +679,50 @@ class LibOpml
     }
 
     /**
+     * Return wether a value is a valid HTTP address or not.
+     *
+     * HTTP address is not strictly defined by the OPML spec, so it is assumed:
+     *
+     * - it can be parsed by parse_url
+     * - it has a host part
+     * - scheme is http or https
+     *
+     * filter_var is not used because it would reject internationalized URLs
+     * (i.e. with non ASCII chars). An alternative would be to punycode such
+     * URLs, but it's more work to do it properly, and lib_opml needs to stay
+     * simple.
+     *
+     * @param string $value
+     *
+     * @return boolean
+     *     Return true if the value is a valid HTTP address, false otherwise.
+     */
+    public function checkHttpAddress($value)
+    {
+        $value = trim($value);
+        $parsed_url = parse_url($value);
+        if (!$parsed_url) {
+            return false;
+        }
+
+        if (
+            !isset($parsed_url['scheme']) ||
+            !isset($parsed_url['host'])
+        ) {
+            return false;
+        }
+
+        if (
+            $parsed_url['scheme'] !== 'http' &&
+            $parsed_url['scheme'] !== 'https'
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Return the namespace of a qualified name. An empty string is returned if
      * the name is not namespaced.
      *
@@ -647,15 +735,15 @@ class LibOpml
      */
     private function getNamespace($qualified_name)
     {
-        $splitted_name = explode(':', $qualified_name, 2);
+        $split_name = explode(':', $qualified_name, 2);
         // count will always be 1 or 2.
-        if (count($splitted_name) === 1) {
+        if (count($split_name) === 1) {
             // If 1, there's no prefix, thus no namespace
             return '';
         } else {
             // If 2, it means it has a namespace prefix, so we get the
             // namespace from the declared ones.
-            $namespace_prefix = $splitted_name[0];
+            $namespace_prefix = $split_name[0];
             if (!isset($this->namespaces[$namespace_prefix])) {
                 throw new Exception(
                     "OPML namespace {$namespace_prefix} is not declared"

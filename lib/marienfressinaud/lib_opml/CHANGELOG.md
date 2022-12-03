@@ -1,5 +1,16 @@
 # Changelog of lib\_opml
 
+## 2022-07-25 - v0.5.0
+
+- BREAKING CHANGE: Reverse parameters in `libopml_render()`
+- BREAKING CHANGE: Validate email and URL address elements
+- Add support for PHP 7.2+
+- Add a .gitattributes file
+- Improve the documentation about usage
+- Add a note about stability in README
+- Fix a PHPDoc annotation
+- Homogeneize tests with "Newspapers" examples
+
 ## 2022-06-04 - v0.4.0
 
 - Refactor the LibOpml class to be not static
@@ -19,7 +30,7 @@
 - Don't raise most parsing errors when strict is false
 - Force type attribute to lowercase
 - Remove SimpleXML as a requirement
-- Homogeneize exception messages
+- Homogenize exception messages
 - Close pre tags in the example file
 - Improve documentation in the README
 - Improve comments in the source code
