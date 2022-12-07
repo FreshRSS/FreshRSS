@@ -57,6 +57,10 @@ a.btn,
 	height: calc(2.1rem + 2 * var(--frss-padding-top-bottom));
 }
 
+.header > .item.title a {
+	padding: 0 1rem;
+}
+
 .header > .item.title .logo {
 	/* logo is smaller than needed */
 	height: 1.5rem;

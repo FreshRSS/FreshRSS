@@ -729,6 +729,16 @@ form {
 			position: absolute;
 			text-align: center;
 
+			a {
+				padding: 0 1rem;
+
+				&:hover {
+					.logo {
+						filter: grayscale(100%) brightness(100) opacity(90%);
+					}
+				}
+			}
+
 			.logo {
 				display: inline-block;
 				height: 26px;
@@ -934,6 +944,7 @@ form {
 	position: sticky;
 	top: 0;
 	z-index: 90;
+	text-align: left;
 
 	.item.search {
 		display: inline-block;
