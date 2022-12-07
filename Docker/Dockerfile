@@ -2,8 +2,8 @@ FROM debian:11-slim
 
 ENV TZ UTC
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
 	apt-get install --no-install-recommends -y \
 	ca-certificates cron \
