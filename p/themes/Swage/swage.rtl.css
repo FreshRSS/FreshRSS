@@ -730,7 +730,6 @@ form th {
 	position: sticky;
 	top: 0;
 	z-index: 90;
-	text-align: right;
 }
 .nav_menu .item.search {
 	display: inline-block;
