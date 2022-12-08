@@ -1241,6 +1241,7 @@ a.website:hover .favicon {
 	color: var(--frss-font-color-grey-dark);
 	font-size: 0.9rem;
 	font-weight: normal;
+	overflow: hidden;
 	text-overflow: ellipsis;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
@@ -1330,8 +1331,9 @@ a.website:hover .favicon {
 }
 
 .content > header .tags .icon,
+.content > header .website .favicon,
 .content > footer .tags .icon {
-	padding: 0 0 0 1rem;
+	margin: 0 0 0 0.5rem;
 	line-height: 1.5;
 }
 

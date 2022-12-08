@@ -7,6 +7,8 @@ return array (
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
+	// A timezone identifier such as 'Europe/Paris' https://php.net/timezones or blank for server default
+	'timezone' => '',
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,

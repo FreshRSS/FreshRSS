@@ -58,6 +58,7 @@ return array(
 			'portrait' => 'Portrait',
 			'square' => 'Square',
 		),
+		'timezone' => 'Time zone',
 		'title' => 'Display',
 		'width' => array(
 			'content' => 'Content width',

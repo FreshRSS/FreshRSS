@@ -58,6 +58,7 @@ return array(
 			'portrait' => 'Portre',
 			'square' => 'Kare',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Görünüm',
 		'width' => array(
 			'content' => 'İçerik genişliği',

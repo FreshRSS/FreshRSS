@@ -58,6 +58,7 @@ return array(
 			'portrait' => 'Modo retrato',
 			'square' => 'Modo quadrado',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Exibição',
 		'width' => array(
 			'content' => 'Largura do conteúdo',

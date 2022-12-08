@@ -1,10 +1,13 @@
 #!/bin/sh
 
-php -f ./cli/prepare.php >/dev/null
+ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
+echo "$TZ" >/etc/timezone
 
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" {} \;
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" {} \;
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
+
+php -f ./cli/prepare.php >/dev/null
 
 if [ -n "$LISTEN" ]; then
 	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;

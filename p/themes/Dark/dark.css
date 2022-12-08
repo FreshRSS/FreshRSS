@@ -289,26 +289,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-	color: #c95;
-}
-
-.nav-list .item:hover.empty a,
-.nav-list .item.active.empty a {
-	background: #c95;
-	color: #fff;
-}
-
-.nav-list .item.error a {
-	color: #a44;
-}
-
-.nav-list .item:hover.error a,
-.nav-list .item.active.error a {
-	background: #a44;
-	color: #fff;
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	font-weight: bold;

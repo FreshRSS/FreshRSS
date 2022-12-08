@@ -58,6 +58,7 @@ return array(
 			'portrait' => 'Portrait',	// TODO
 			'square' => 'Square',	// TODO
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'תצוגה',
 		'width' => array(
 			'content' => 'רוחב התוכן',

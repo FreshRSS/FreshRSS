@@ -87,7 +87,7 @@ body {
 }
 
 a {
-	color: var(--color-nav-lighter);
+	color: var(--color-text-nav);
 	outline: none;
 }
 a.btn {
@@ -281,24 +281,8 @@ form th {
 .nav-list .item.active a {
 	color: var(--color-text-light);
 }
-.nav-list .item.active.empty a,
-.nav-list .item.active .error a {
-	color: var(--color-text-light);
-}
-.nav-list .item.active.empty a {
-	background-color: var(--color-background-alert);
-}
-.nav-list .item.active.error a {
-	background-color: var(--color-background-bad);
-}
 .nav-list .item > a {
 	padding: 0 1.5rem;
-}
-.nav-list .item.empty a {
-	color: var(--color-text-alert);
-}
-.nav-list .item.error a {
-	color: var(--color-text-bad-lighter);
 }
 .nav-list .item .icon {
 	filter: brightness(3);
@@ -735,6 +719,7 @@ form th {
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
+	text-align: right;
 	position: sticky;
 	top: 0;
 	z-index: 90;

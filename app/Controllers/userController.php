@@ -344,6 +344,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			$ok = self::createUser($new_user_name, $email, $passwordPlain, array(
 				'language' => Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language),
+				'timezone' => Minz_Request::param('new_user_timezone', ''),
 				'is_admin' => Minz_Request::paramBoolean('new_user_is_admin'),
 				'enabled' => true,
 			));

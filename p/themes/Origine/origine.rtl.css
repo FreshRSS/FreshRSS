@@ -391,24 +391,6 @@ a:hover .icon {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-	color: var(--empty-feed-color);
-}
-
-.nav-list .item.active.empty a {
-	background-color: var(--empty-feed-color);
-	color: var(--font-color-light);
-}
-
-.nav-list .item.error a {
-	color: var(--error-feed-color);
-}
-
-.nav-list .item.active.error a {
-	background-color: var(--error-feed-color);
-	color: var(--font-color-light);
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	background-color: var(--background-color-grey);

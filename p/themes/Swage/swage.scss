@@ -106,7 +106,7 @@ body {
 }
 
 a {
-	color: var(--color-nav-lighter);
+	color: var(--color-text-nav);
 	outline: none;
 
 	&.btn {
@@ -365,31 +365,10 @@ form {
 			a {
 				color: var(--color-text-light);
 			}
-
-			&.empty a,
-			.error a {
-				color: var(--color-text-light);
-			}
-
-			&.empty a {
-				background-color: var(--color-background-alert);
-			}
-
-			&.error a {
-				background-color: var(--color-background-bad);
-			}
 		}
 
 		> a {
 			padding: 0 1.5rem;
-		}
-
-		&.empty a {
-			color: var(--color-text-alert);
-		}
-
-		&.error a {
-			color: var(--color-text-bad-lighter);
 		}
 
 		.icon {
@@ -952,6 +931,7 @@ form {
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
+	text-align: left;
 	position: sticky;
 	top: 0;
 	z-index: 90;

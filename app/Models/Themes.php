@@ -79,7 +79,6 @@ class FreshRSS_Themes extends Minz_Model {
 		static $alts = array(
 			'add' => '➕',	//✚
 			'all' => '☰',
-			'bookmark' => '✨',	//★
 			'bookmark-add' => '➕',	//✚
 			'bookmark-tag' => '📑',
 			'category' => '🗂️',	//☷

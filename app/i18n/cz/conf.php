@@ -58,6 +58,7 @@ return array(
 			'portrait' => 'Na výšku',
 			'square' => 'Čtverec',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobrazení',
 		'width' => array(
 			'content' => 'Šířka obsahu',

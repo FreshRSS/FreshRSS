@@ -58,6 +58,7 @@ return array(
 			'portrait' => '肖像',
 			'square' => '方塊',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => '顯示',
 		'width' => array(
 			'content' => '內容寬度',

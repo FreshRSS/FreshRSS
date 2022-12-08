@@ -58,6 +58,7 @@ return array(
 			'portrait' => 'Retrach',
 			'square' => 'Carrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Afichatge',
 		'width' => array(
 			'content' => 'Largor del contengut',
