@@ -12,8 +12,10 @@
 	--background-color-hover: #f6f6f6;
 
 	--unread-article-background-color: #fff3ed;
+	--unread-article-background-color-hover: #faeee8;
 	--unread-article-border-color: #ff5300;
 	--favorite-article-background-color: #fff6da;
+	--favorite-article-background-color-hover: #fcf2d6;
 	--favorite-article-border-color: #ffc300;
 
 	--contrast-background-color: #0084cc;
@@ -844,32 +846,40 @@ a:hover .icon {
 	border-left: 2px solid var(--contrast-border-color-active);
 }
 
-.flux .flux_header:hover {
-	background-color: var(--background-color-hover) !important;
+.flux .flux_header:hover,
+.flux .flux_header:hover .item {
+	background-color: var(--background-color-hover);
 }
 
-.flux .flux_header:not(.current):hover .item.title {
-	background: inherit;
+.flux .flux_header:not(.current):hover .flux_header,
+.flux .flux_header:not(.current):hover .flux_header .item {
+	background-color: var(--background-color-hover);
 }
 
 .flux.not_read {
 	border-left: 2px solid var(--unread-article-border-color);
 }
 
-.flux.not_read .flux_header {
+.flux.not_read .flux_header .item {
 	background-color: var(--unread-article-background-color);
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	background: inherit;
+.flux.not_read:not(.current):hover .flux_header,
+.flux.not_read:not(.current):hover .flux_header .item {
+	background-color: var(--unread-article-background-color-hover);
 }
 
 .flux.favorite {
 	border-left: 2px solid var(--favorite-article-border-color);
 }
 
-.flux.favorite:not(.current) {
+.flux.favorite:not(.current) .flux_header .item {
 	background-color: var(--favorite-article-background-color);
+}
+
+.flux.favorite:not(.current):hover .flux_header,
+.flux.favorite:not(.current):hover .flux_header .item {
+	background-color: var(--favorite-article-background-color-hover);
 }
 
 .flux_header {
@@ -1224,11 +1234,13 @@ a:hover .icon {
 		--background-color-light: #111;
 		--background-color-light-shadowed: #191919;
 		--background-color-grey: #1f1f1f;
-		--background-color-hover: #090909;
+		--background-color-hover: #09090977;
 
-		--unread-article-background-color: #fff3ed10;
+		--unread-article-background-color: #201f1e;
+		--unread-article-background-color-hover: #1a1918;
 		--unread-article-border-color: #ff5300;
-		--favorite-article-background-color: #fff6da;
+		--favorite-article-background-color: #24221d;
+		--favorite-article-background-color-hover: #1d1b17;
 		--favorite-article-border-color: #ffc300;
 
 		--contrast-background-color: #0084cc;
