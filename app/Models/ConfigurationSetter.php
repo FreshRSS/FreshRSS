@@ -235,7 +235,10 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _darkMode(&$data, $value) {
-		$data['darkMode'] = $this->handleBool($value);
+		if (!in_array($value, [ 'no', 'auto'], true)) {
+			$value = 'no';
+		}
+		$data['darkMode'] = $value;
 	}
 
 	private function _bottomline_date(&$data, $value) {
