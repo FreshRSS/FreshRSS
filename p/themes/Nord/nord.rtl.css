@@ -189,13 +189,6 @@ a.btn {
 	cursor: pointer;
 }
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	font-size: 0.9rem;
-	line-height: 2.5em;
-}
-
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 0.5rem 0 0.25rem 0;
@@ -863,8 +856,18 @@ input.extend {
 }
 
 /*=== Navigation */
+.nav-list {
+	font-size: 0.9rem;
+}
+
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
+}
+
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1rem;
 }
 
 .nav-list a:hover {
@@ -872,7 +875,7 @@ input.extend {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	font-weight: bold;
 }
 

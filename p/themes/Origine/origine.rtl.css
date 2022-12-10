@@ -351,21 +351,22 @@ a:hover .icon {
 }
 
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5;
+.nav-list {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
-	background-color: var(--background-color-hover);
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
-.nav-list .item:hover a {
+.nav-list .nav-section .item:hover a {
+	background-color: var(--background-color-hover);
 	color: var(--font-color-link-hover);
 }
 
+.nav-list .nav-section .item.active:hover a,
 .nav-list .item.active {
 	background-color: var(--contrast-background-color-active);
 	color: var(--font-color-light);
@@ -376,8 +377,8 @@ a:hover .icon {
 }
 
 .nav-list .item > a,
-.nav-list .item > span {
-	padding: 0 10px;
+.nav-list .item > div {
+	padding: 0 1rem;
 }
 
 .nav-list .item > span {
@@ -390,7 +391,6 @@ a:hover .icon {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
 	border-bottom: 1px solid var(--border-color);

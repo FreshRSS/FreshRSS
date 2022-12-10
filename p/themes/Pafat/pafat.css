@@ -294,11 +294,14 @@ a.btn {
 }
 
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5;
+.nav-list {
 	font-size: 0.9rem;
+}
+
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
 .nav-list .item a:hover {
@@ -317,7 +320,7 @@ a.btn {
 }
 
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1rem;
 }
 
 .nav-list a:hover {
@@ -325,7 +328,7 @@ a.btn {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
 	border-bottom: 1px solid var(--border-color-grey-light);

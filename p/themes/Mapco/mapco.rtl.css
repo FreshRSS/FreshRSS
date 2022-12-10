@@ -565,22 +565,30 @@ form th {
 
 /* Sidebar des pages de configuration */
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+.nav-list {
 	font-size: 1rem;
+}
+.nav-list .item.nav-header,
+.nav-list .item {
+	min-height: 2.5em;
+	line-height: 2.5em;
 }
 .nav-list .item {
 	background: #303136;
 	color: #fff;
+	min-height: 2.5em;
+	line-height: 2.5em;
+}
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5em;
 }
 .nav-list .item a {
 	padding: 0 1rem;
 	color: #ffffff;
 	transition: all 0.15s ease-in-out;
 }
-.nav-list .item:hover a {
+.nav-list .item a:hover {
 	background: #17181a;
 	text-decoration: none;
 }
@@ -594,7 +602,7 @@ form th {
 	text-decoration: none;
 }
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	font-weight: bold;
 	color: #5b6871;
 	text-transform: uppercase;

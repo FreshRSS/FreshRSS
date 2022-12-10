@@ -263,11 +263,14 @@ a.btn {
 	box-shadow: 0 -1px rgba(255,255,255,0.08) inset;
 }
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+.nav-list {
 	font-size: 0.9rem;
+}
+
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
 .nav-list .item a:hover {
@@ -290,7 +293,7 @@ a.btn {
 }
 
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1rem;
 	color: #ccc;
 }
 
@@ -299,7 +302,7 @@ a.btn {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	background: transparent;
 	color: #222;
 }
