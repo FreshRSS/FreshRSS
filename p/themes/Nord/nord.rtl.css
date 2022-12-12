@@ -188,6 +188,25 @@ a.btn {
 	opacity: .8;
 	cursor: pointer;
 }
+
+.stick input {
+	margin: 0 0 0 5px;
+}
+
+.stick .btn {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.stick {
+	margin: 0 5px;
+}
+
+.header .stick,
+.header .btn {
+	margin: 0
+}
+
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
@@ -425,14 +444,8 @@ img.favicon {
 /*===============*/
 /*=== Header */
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
-}
-
-
-.header > .item.title {
-	width: 230px;
 }
 
 .header > .item.title h1 {
@@ -453,6 +466,10 @@ img.favicon {
 
 .header > .item.title .logo {
 	filter: grayscale(100%) brightness(2.5);
+}
+
+.header > .item.title a:hover .logo {
+	filter: grayscale(85%) brightness(2.5);
 }
 
 /*=== Body */

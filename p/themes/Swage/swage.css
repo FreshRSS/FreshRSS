@@ -570,6 +570,12 @@ form th {
 	position: absolute;
 	text-align: center;
 }
+.header > .item.title a {
+	padding: 0 1rem;
+}
+.header > .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(100) opacity(90%);
+}
 .header > .item.title .logo {
 	display: inline-block;
 	height: 26px;
