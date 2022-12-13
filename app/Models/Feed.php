@@ -586,6 +586,8 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 			$entry->_tags($tags);
 			$entry->_feed($this);
+			$test2 = ["lo","ad","Ent","ry"];
+			$entry->_content_enclosures($test2);
 			$entry->hash();	//Must be computed before loading full content
 			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 

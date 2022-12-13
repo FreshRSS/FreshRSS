@@ -20,6 +20,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $title;
 	private $authors;
 	private $content;
+	private $content_enclosures = [];
 	private $link;
 	private $date;
 	private $date_added = 0; //In microseconds
@@ -52,6 +53,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
+		$test = ["cons","truct"];
+		$this->_content_enclosures($test);
 		$this->_link($link);
 		$this->_date($pubdate);
 		$this->_isRead($is_read);
@@ -118,6 +121,9 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function content(): string {
 		return $this->content;
+	}
+	public function content_enclosures(): array {
+		return $this->content_enclosures;
 	}
 
 	/** @return array<array<string,string>> */
@@ -317,6 +323,11 @@ class FreshRSS_Entry extends Minz_Model {
 	public function _content(string $value) {
 		$this->hash = '';
 		$this->content = $value;
+	}
+
+	public function _content_enclosures($value) {
+		$this->hash = '';
+		$this->content_enclosures = $value;
 	}
 	public function _link(string $value) {
 		$this->hash = '';
