@@ -502,61 +502,44 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$content = html_only_entity_decode($item->get_content());
 
+			$attributeEnclosures = [];
 			if ($item->get_enclosures() != null) {
 				$elinks = array();
 				foreach ($item->get_enclosures() as $enclosure) {
 					$elink = $enclosure->get_link();
 					if ($elink != '' && empty($elinks[$elink])) {
-						$content .= '<div class="enclosure">';
-
-						if ($enclosure->get_title() != '') {
-							$content .= '<p class="enclosure-title">' . $enclosure->get_title() . '</p>';
-						}
-
-						$enclosureContent = '';
 						$elinks[$elink] = true;
+
+						$title = $enclosure->get_title() ?? '';
+						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
 						$height = $enclosure->get_height();
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();
-						if ($medium === 'image' || strpos($mime, 'image') === 0 ||
-							($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
-							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
-						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
-							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-								. ($length == null ? '' : '" data-length="' . intval($length))
-								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-						} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
-							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-								. ($length == null ? '' : '" data-length="' . intval($length))
-								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-						} else {	//e.g. application, text, unknown
-							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink
-								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-								. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
-								. '">💾</a></p>';
-						}
 
-						$thumbnailContent = '';
+						$attributeEnclosure = [
+							'url' => $elink,
+						];
+						if ($title != '') $attributeEnclosure['title'] = $title;
+						if ($description != '') $attributeEnclosure['description'] = $description;
+						if ($mime != '') $attributeEnclosure['type'] = $mime;
+						if ($medium != '') $attributeEnclosure['medium'] = $medium;
+						if ($length != '') $attributeEnclosure['length'] = intval($length);
+						if ($height != '') $attributeEnclosure['height'] = intval($height);
+						if ($width != '') $attributeEnclosure['width'] = intval($width);
+
 						if ($enclosure->get_thumbnails() != null) {
+							$attributeEnclosure['thumbnails'] = [];
 							foreach ($enclosure->get_thumbnails() as $thumbnail) {
 								if (empty($elinks[$thumbnail])) {
+									$attributeEnclosure['thumbnails'][] = $thumbnail;
 									$elinks[$thumbnail] = true;
-									$thumbnailContent .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
 								}
 							}
 						}
 
-						$content .= $thumbnailContent;
-						$content .= $enclosureContent;
-
-						if ($enclosure->get_description() != '') {
-							$content .= '<p class="enclosure-description">' . $enclosure->get_description() . '</p>';
-						}
-						$content .= "</div>\n";
+						$attributeEnclosures[] = $attributeEnclosure;
 					}
 				}
 			}
@@ -586,6 +569,7 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 			$entry->_tags($tags);
 			$entry->_feed($this);
+			$entry->_attributes('enclosure', $attributeEnclosures);
 			$entry->hash();	//Must be computed before loading full content
 			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 

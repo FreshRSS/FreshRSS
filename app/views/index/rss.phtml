@@ -51,7 +51,7 @@ foreach ($this->entries as $item) {
 				}
 			?>
 			<description><![CDATA[<?php
-	echo $item->content();
+	echo $item->content(false);
 ?>]]></description>
 			<pubDate><?= date('D, d M Y H:i:s O', $item->date(true)) ?></pubDate>
 			<guid isPermaLink="false"><?= $item->id() > 0 ? $item->id() : $item->guid() ?></guid>

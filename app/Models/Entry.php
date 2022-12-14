@@ -67,6 +67,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['content'] = '';
 		}
 		if (!empty($dao['thumbnail'])) {
+			// TODO: Update enclosure attribute instead
 			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
 		}
 		$entry = new FreshRSS_Entry(
@@ -116,15 +117,72 @@ class FreshRSS_Entry extends Minz_Model {
 			return $this->authors;
 		}
 	}
-	public function content(): string {
+	public function content(bool $withEnclosures = true): string {
+		if ($withEnclosures) {
+			$attributeEnclosures = $this->attributes('enclosure');
+			if (empty($attributeEnclosures)) {
+				return $this->content;
+			}
+
+			$description = $attributeEnclosures['description'] ?? '';
+			$elink = $attributeEnclosures['url'] ?? 0;
+			$height = $attributeEnclosures['height'] ?? 0;
+			$length = $attributeEnclosures['length'] ?? 0;
+			$medium = $attributeEnclosures['medium'] ?? '';
+			$mime = $attributeEnclosures['type'] ?? '';
+			$thumbnails = $attributeEnclosures['thumbnails'] ?? [];
+			$title = $attributeEnclosures['title'] ?? '';
+			$width = $attributeEnclosures['width'] ?? 0;
+
+			$content = $this->content;
+			$content .= '<div class="enclosure">';
+
+			if ($title != '') {
+				$content .= '<p class="enclosure-title">' . $title . '</p>';
+			}
+
+			foreach ($thumbnails as $thumbnail) {
+				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
+			}
+
+			if ($medium === 'image' || strpos($mime, 'image') === 0 ||
+				($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
+				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
+			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
+				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
+				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
+			} else {	//e.g. application, text, unknown
+				$content .= '<p class="enclosure-content"><a download="" href="' . $elink
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
+					. '">💾</a></p>';
+			}
+
+			if ($description != '') {
+				$content .= '<p class="enclosure-description">' . $description . '</p>';
+			}
+			$content .= "</div>\n";
+		}
 		return $this->content;
 	}
 
 	/** @return array<array<string,string>> */
 	public function enclosures(bool $searchBodyImages = false): array {
 		$results = [];
+		$attributeEnclosures = $this->attributes('enclosures');
+		if (is_array($attributeEnclosures)) {
+			// FreshRSS 1.20.1+: The enclosures are saved as attributes
+			$results = $attributeEnclosures;
+		}
 		try {
-			$searchEnclosures = strpos($this->content, '<p class="enclosure-content') !== false;
+			$searchEnclosures = !is_array($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$xpath = null;
 			if ($searchEnclosures || $searchBodyImages) {
@@ -133,6 +191,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$xpath = new DOMXpath($dom);
 			}
 			if ($searchEnclosures) {
+				// Legacy code < FreshRSS 1.20.1
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
 					$result = [
@@ -587,7 +646,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 			if ($entry) {
 				// l’article existe déjà en BDD, en se contente de recharger ce contenu
-				$this->content = $entry->content();
+				$this->content = $entry->content(false);
 			} else {
 				try {
 					// The article is not yet in the database, so let’s fetch it
@@ -629,7 +688,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'guid' => $this->guid(),
 			'title' => $this->title(),
 			'author' => $this->authors(true),
-			'content' => $this->content(),
+			'content' => $this->content(false),
 			'link' => $this->link(),
 			'date' => $this->date(true),
 			'hash' => $this->hash(),
@@ -677,7 +736,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'published' => $this->date(true),
 			// 'updated' => $this->date(true),
 			'title' => $this->title(),
-			'summary' => ['content' => $this->content()],
+			'summary' => ['content' => $this->content(false)],
 			'canonical' => [
 				['href' => htmlspecialchars_decode($this->link(), ENT_QUOTES)],
 			],
@@ -697,13 +756,13 @@ class FreshRSS_Entry extends Minz_Model {
 		if ($mode === 'compat') {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
-			if (mb_strlen($this->content(), 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
-				$item['summary']['content'] = mb_strcut($this->content(), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8');
+			if (mb_strlen($this->content(false), 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
+				$item['summary']['content'] = mb_strcut($this->content(false), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8');
 			}
 		} elseif ($mode === 'freshrss') {
 			$item['guid'] = $this->guid();
 			unset($item['summary']);
-			$item['content'] = ['content' => $this->content()];
+			$item['content'] = ['content' => $this->content(false)];
 		}
 		if ($category != null && $mode !== 'freshrss') {
 			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
