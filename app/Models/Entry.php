@@ -118,59 +118,64 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 	public function content(bool $withEnclosures = true): string {
+		$content = $this->content;
 		if ($withEnclosures) {
-			$attributeEnclosures = $this->attributes('enclosure');
+			$attributeEnclosures = $this->attributes('enclosures');
 			if (empty($attributeEnclosures)) {
-				return $this->content;
+				return $content;
 			}
 
-			$description = $attributeEnclosures['description'] ?? '';
-			$elink = $attributeEnclosures['url'] ?? 0;
-			$height = $attributeEnclosures['height'] ?? 0;
-			$length = $attributeEnclosures['length'] ?? 0;
-			$medium = $attributeEnclosures['medium'] ?? '';
-			$mime = $attributeEnclosures['type'] ?? '';
-			$thumbnails = $attributeEnclosures['thumbnails'] ?? [];
-			$title = $attributeEnclosures['title'] ?? '';
-			$width = $attributeEnclosures['width'] ?? 0;
+			foreach ($attributeEnclosures as $enclosure) {
+				$elink = $enclosure['url'] ?? '';
+				if ($elink == '') {
+					continue;
+				}
+				$description = $enclosure['description'] ?? '';
+				$height = $enclosure['height'] ?? 0;
+				$length = $enclosure['length'] ?? 0;
+				$medium = $enclosure['medium'] ?? '';
+				$mime = $enclosure['type'] ?? '';
+				$thumbnails = $enclosure['thumbnails'] ?? [];
+				$etitle = $enclosure['title'] ?? '';
+				$width = $enclosure['width'] ?? 0;
 
-			$content = $this->content;
-			$content .= '<div class="enclosure">';
+				$content .= '<div class="enclosure">';
 
-			if ($title != '') {
-				$content .= '<p class="enclosure-title">' . $title . '</p>';
+				if ($etitle != '') {
+					$content .= '<p class="enclosure-title">' . $etitle . '</p>';
+				}
+
+				foreach ($thumbnails as $thumbnail) {
+					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
+				}
+
+				if ($medium === 'image' || strpos($mime, 'image') === 0 ||
+					($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
+					$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
+				} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
+					$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+						. ($length == null ? '' : '" data-length="' . intval($length))
+						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+						. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+				} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
+					$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+						. ($length == null ? '' : '" data-length="' . intval($length))
+						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+						. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
+				} else {	//e.g. application, text, unknown
+					$content .= '<p class="enclosure-content"><a download="" href="' . $elink
+						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+						. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
+						. '">💾</a></p>';
+				}
+
+				if ($description != '') {
+					$content .= '<p class="enclosure-description">' . $description . '</p>';
+				}
+				$content .= "</div>\n";
 			}
-
-			foreach ($thumbnails as $thumbnail) {
-				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
-			}
-
-			if ($medium === 'image' || strpos($mime, 'image') === 0 ||
-				($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
-				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
-			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
-				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-					. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
-				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-					. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-			} else {	//e.g. application, text, unknown
-				$content .= '<p class="enclosure-content"><a download="" href="' . $elink
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
-					. '">💾</a></p>';
-			}
-
-			if ($description != '') {
-				$content .= '<p class="enclosure-description">' . $description . '</p>';
-			}
-			$content .= "</div>\n";
 		}
-		return $this->content;
+		return $content;
 	}
 
 	/** @return array<array<string,string>> */
@@ -785,7 +790,7 @@ class FreshRSS_Entry extends Minz_Model {
 				if (!empty($enclosure['length'])) {
 					$media['length'] = intval($enclosure['length']);
 				}
-				$item['enclosure'][] = $media;
+				$item['enclosures'][] = $media;
 			}
 		}
 		$author = $this->authors(true);

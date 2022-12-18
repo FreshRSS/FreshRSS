@@ -510,7 +510,7 @@ class FreshRSS_Feed extends Minz_Model {
 					if ($elink != '' && empty($elinks[$elink])) {
 						$elinks[$elink] = true;
 
-						$title = $enclosure->get_title() ?? '';
+						$etitle = $enclosure->get_title() ?? '';
 						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
@@ -521,7 +521,7 @@ class FreshRSS_Feed extends Minz_Model {
 						$attributeEnclosure = [
 							'url' => $elink,
 						];
-						if ($title != '') $attributeEnclosure['title'] = $title;
+						if ($etitle != '') $attributeEnclosure['title'] = $etitle;
 						if ($description != '') $attributeEnclosure['description'] = $description;
 						if ($mime != '') $attributeEnclosure['type'] = $mime;
 						if ($medium != '') $attributeEnclosure['medium'] = $medium;
@@ -569,7 +569,7 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 			$entry->_tags($tags);
 			$entry->_feed($this);
-			$entry->_attributes('enclosure', $attributeEnclosures);
+			$entry->_attributes('enclosures', $attributeEnclosures);
 			$entry->hash();	//Must be computed before loading full content
 			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 
