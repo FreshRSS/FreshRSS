@@ -141,32 +141,28 @@ class FreshRSS_Entry extends Minz_Model {
 
 				$content .= '<div class="enclosure">';
 
-				if ($etitle != '') {
-					$content .= '<p class="enclosure-title">' . $etitle . '</p>';
-				}
-
 				foreach ($thumbnails as $thumbnail) {
-					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
+					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
 				}
 
 				if ($medium === 'image' || strpos($mime, 'image') === 0 ||
 					($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
-					$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
+					$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
 				} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 					$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
 						. ($length == null ? '' : '" data-length="' . intval($length))
 						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-						. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+						. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 				} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
 					$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
 						. ($length == null ? '' : '" data-length="' . intval($length))
 						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-						. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
+						. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
 				} else {	//e.g. application, text, unknown
 					$content .= '<p class="enclosure-content"><a download="" href="' . $elink
 						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 						. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
-						. '">💾</a></p>';
+						. '" title="' . $etitle . '">💾</a></p>';
 				}
 
 				if ($description != '') {
