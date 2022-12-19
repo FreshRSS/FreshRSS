@@ -235,10 +235,16 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * @return array<string,string>|null
 	 */
-	public function thumbnail() {
-		foreach ($this->enclosures(true) as $enclosure) {
-			if (!empty($enclosure['url']) && empty($enclosure['type'])) {
-				return $enclosure;
+	public function thumbnail(bool $searchEnclosures = true) {
+		$thumbnail = $this->attributes('thumbnail');
+		if (!empty($thumbnail['url'])) {
+			return $thumbnail;
+		}
+		if ($searchEnclosures) {
+			foreach ($this->enclosures(true) as $enclosure) {
+				if (!empty($enclosure['url']) && empty($enclosure['type'])) {
+					return $enclosure;
+				}
 			}
 		}
 		return null;
