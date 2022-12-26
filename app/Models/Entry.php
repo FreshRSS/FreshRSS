@@ -67,8 +67,9 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['content'] = '';
 		}
 		if (!empty($dao['thumbnail'])) {
-			// TODO: Update enclosure attribute instead
-			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
+			$dao['attributes']['thumbnail'] = [
+				'url' => $dao['thumbnail'],
+			];
 		}
 		$entry = new FreshRSS_Entry(
 			$dao['id_feed'] ?? 0,
@@ -120,6 +121,11 @@ class FreshRSS_Entry extends Minz_Model {
 	public function content(bool $withEnclosures = true): string {
 		$content = $this->content;
 		if ($withEnclosures) {
+			$thumbnail = $this->attributes('thumbnail');
+			if (!empty($thumbnail['url'])) {
+				$content .= '<p class="enclosure-content"><img class="enclosure-thumbnail" src="' . $thumbnail['url'] . '" alt="" /></p>';
+			}
+
 			$attributeEnclosures = $this->attributes('enclosures');
 			if (empty($attributeEnclosures)) {
 				return $content;
