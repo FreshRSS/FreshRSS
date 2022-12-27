@@ -651,6 +651,10 @@ a:hover .icon {
 	width: 300px;
 }
 
+.header > .item.title a:hover .logo {
+	filter: brightness(1.4);
+}
+
 .header > .item.search input {
 	width: 230px;
 }
@@ -660,10 +664,6 @@ a:hover .icon {
 }
 
 /*=== Body */
-#global {
-	height: calc(100vh - 4rem);
-}
-
 .aside {
 	background-color: var(--background-color-light);
 	border-right: 1px solid var(--border-color);

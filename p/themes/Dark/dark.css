@@ -532,18 +532,17 @@ a.btn {
 /*===============*/
 /*=== Header */
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
 	border-bottom: 1px solid #333;
 }
 
-.header > .item.title {
-	width: 230px;
-}
-
 .header > .item.title .logo {
 	filter: grayscale(60%) brightness(1.1);
+}
+
+.header > .item.title a:hover .logo {
+	filter: grayscale(60%) brightness(1.5);
 }
 
 .header > .item.search input {

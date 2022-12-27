@@ -59,7 +59,7 @@ select:invalid {
 	line-height: 2.5;
 }
 
-.dropdown-menu > .item > a,
+.dropdown-menu > .item a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link,
 .dropdown-menu > .item button, .dropdown-menu > .item {
@@ -571,6 +571,12 @@ form th {
 .header > .item.title {
 	position: absolute;
 	text-align: center;
+}
+.header > .item.title a {
+	padding: 0 1rem;
+}
+.header > .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(100) opacity(90%);
 }
 .header > .item.title .logo {
 	display: inline-block;

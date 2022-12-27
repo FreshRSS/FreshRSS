@@ -91,6 +91,10 @@ input:focus {
 	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%);
 }
 
+.header > .item.title a:hover .logo {
+	filter: sepia(62%) brightness(70%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%);
+}
+
 .icon[src*="/all"],
 .icon[src*="/down"],
 .icon[src*="/help"],

@@ -672,26 +672,19 @@ form th {
 /*===============*/
 /*=== Header */
 .header {
-	padding: 0.5rem 1.35rem;
 	background: #303136;
-	display: block;
-	width: auto;
-	height: 3.5rem;
-	table-layout: none;
-}
-.header .logo {
-	margin: 11px 0 5px;
-	filter: grayscale(100%) brightness(100);
 }
 .header .item {
 	vertical-align: middle;
 }
-.header .item.title {
-	width: 280px;
-	font-weight: 400;
+.header .item.title a {
+	padding: 0.5rem 1rem;
 }
-.header .item.title a img {
-	margin-right: 0.5rem;
+.header .item.title a .logo {
+	filter: grayscale(100%) brightness(3);
+}
+.header .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(2.2);
 }
 .header .item.search input {
 	width: 230px;
@@ -731,10 +724,6 @@ form th {
 	filter: brightness(3);
 }
 .header .item.configure {
-	width: 3rem;
-	position: absolute;
-	right: 1rem;
-	top: 1rem;
 	text-align: center;
 }
 .header .item.configure .btn .icon,
@@ -751,7 +740,7 @@ form th {
 
 /*=== Body */
 #global {
-	height: calc(100% - 3.5rem);
+	height: calc(100vh - (3rem + 2 * var(--frss-padding-top-bottom)));
 }
 
 /*=== Prompt (centered) */
@@ -1227,7 +1216,7 @@ main.prompt {
 		filter: grayscale(100%) brightness(2.5);
 	}
 	.header {
-		padding: 0.5rem;
+		display: block;
 		height: 8rem;
 	}
 	.header .item.search {
@@ -1245,6 +1234,11 @@ main.prompt {
 	}
 	.header .item.search input:focus {
 		width: 100%;
+	}
+	.header .item.configure {
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 	#global {
 		height: calc(100% - 8rem);

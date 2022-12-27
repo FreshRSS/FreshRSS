@@ -595,6 +595,10 @@ a.btn {
 	filter: grayscale(100%) brightness(2.5);
 }
 
+.header > .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(4);
+}
+
 a.signin {
 	text-decoration: none;
 	color: var(--font-color-grey-light);

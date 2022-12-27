@@ -35,7 +35,7 @@
 	}
 
 	.header {
-		padding: 0.5rem;
+		display: block;
 		height: 8rem;
 
 		.item {
@@ -59,6 +59,12 @@
 
 					}
 				}
+			}
+
+			&.configure {
+				position: absolute;
+				top: 0;
+				right: 0;
 			}
 
 		}
