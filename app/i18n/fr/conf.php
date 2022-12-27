@@ -57,6 +57,7 @@ return array(
 			'portrait' => 'Portrait',	// IGNORE
 			'square' => 'Carrée',
 		),
+		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
 		'width' => array(
 			'content' => 'Largeur du contenu',

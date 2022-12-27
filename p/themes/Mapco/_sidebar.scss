@@ -151,27 +151,7 @@
 			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
-		.error {
-			a {
-				color: variables.$alert-bg;
-			}
-		}
-
 		&:hover {
-			.error {
-				a {
-					background: variables.$main-first;
-					color: variables.$sid-font-color;
-				}
-			}
-
-			.empty {
-				a {
-					background: variables.$warning-bg;
-					color: variables.$sid-font-color;
-				}
-			}
-
 			a {
 				background: variables.$sid-bg-dark;
 				text-decoration: none;
@@ -182,31 +162,11 @@
 			background: variables.$main-first;
 			color: variables.$white;
 
-			.error {
-				a {
-					background: variables.$main-first;
-					color: variables.$white;
-				}
-			}
-
-			.empty {
-				a {
-					background: variables.$warning-bg;
-					color: variables.$white;
-				}
-			}
-
 			a {
 				background: variables.$main-first;
 				color: variables.$white;
 				text-decoration: none;
 			}
-		}
-	}
-
-	&.empty {
-		a {
-			color: variables.$warning-bg;
 		}
 	}
 

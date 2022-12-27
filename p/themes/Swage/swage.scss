@@ -106,7 +106,7 @@ body {
 }
 
 a {
-	color: var(--color-nav-lighter);
+	color: var(--color-text-nav);
 	outline: none;
 
 	&.btn {
@@ -365,31 +365,10 @@ form {
 			a {
 				color: var(--color-text-light);
 			}
-
-			&.empty a,
-			.error a {
-				color: var(--color-text-light);
-			}
-
-			&.empty a {
-				background-color: var(--color-background-alert);
-			}
-
-			&.error a {
-				background-color: var(--color-background-bad);
-			}
 		}
 
 		> a {
 			padding: 0 1.5rem;
-		}
-
-		&.empty a {
-			color: var(--color-text-alert);
-		}
-
-		&.error a {
-			color: var(--color-text-bad-lighter);
 		}
 
 		.icon {
@@ -431,6 +410,25 @@ form {
 		}
 	}
 
+	.dropdown-section {
+		.dropdown-section-title {
+			cursor: default;
+			padding: 0.25rem 0.5rem 0.125rem 0.25rem;
+			font-weight: bold;
+			color: var(--color-text-light);
+		}
+
+		.item {
+			a {
+				padding: 0 22px;
+
+				&:hover {
+					background-color: var(--color-background-nav);
+				}
+			}
+		}
+	}
+
 	&::after {
 		content: none;
 	}
@@ -439,10 +437,9 @@ form {
 		.item {
 
 			@extend %dropdown;
-			padding: 0;
-			margin-left: 10px;
+			padding: 0 0 0 0.5rem;
 
-			> a,
+			a,
 			> span,
 			> .as-link,
 			button {
@@ -706,8 +703,6 @@ form {
 	background-color: var(--color-background-aside);
 
 	> .item {
-		padding: 0 10px;
-		line-height: 3;
 		font-size: 0.8rem;
 
 		&.active {
@@ -733,6 +728,16 @@ form {
 			@extend %aside-width;
 			position: absolute;
 			text-align: center;
+
+			a {
+				padding: 0 1rem;
+
+				&:hover {
+					.logo {
+						filter: grayscale(100%) brightness(100) opacity(90%);
+					}
+				}
+			}
 
 			.logo {
 				display: inline-block;
@@ -936,6 +941,7 @@ form {
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
+	text-align: left;
 	position: sticky;
 	top: 0;
 	z-index: 90;
