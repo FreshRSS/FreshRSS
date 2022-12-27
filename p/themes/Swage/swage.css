@@ -60,7 +60,7 @@ select:invalid {
 	font-size: 0.9rem;
 }
 
-.dropdown-menu > .item > a,
+.dropdown-menu > .item a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link,
 .dropdown-menu > .item button, .dropdown-menu > .item {
@@ -203,6 +203,7 @@ form th {
 }
 .form-group .group-name {
 	padding: 10px 0;
+	text-align: right;
 }
 .form-group .group-controls {
 	min-height: 25px;
@@ -569,6 +570,12 @@ form th {
 	position: absolute;
 	text-align: center;
 }
+.header > .item.title a {
+	padding: 0 1rem;
+}
+.header > .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(100) opacity(90%);
+}
 .header > .item.title .logo {
 	display: inline-block;
 	height: 26px;
@@ -911,6 +918,7 @@ a.signin {
 	}
 	.form-group .group-name {
 		padding-bottom: 0;
+		text-align: left;
 	}
 	.dropdown {
 		position: relative;

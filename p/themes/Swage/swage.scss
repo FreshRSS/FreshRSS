@@ -439,7 +439,7 @@ form {
 			@extend %dropdown;
 			padding: 0 0 0 0.5rem;
 
-			> a,
+			a,
 			> span,
 			> .as-link,
 			button {
@@ -728,6 +728,16 @@ form {
 			@extend %aside-width;
 			position: absolute;
 			text-align: center;
+
+			a {
+				padding: 0 1rem;
+
+				&:hover {
+					.logo {
+						filter: grayscale(100%) brightness(100) opacity(90%);
+					}
+				}
+			}
 
 			.logo {
 				display: inline-block;

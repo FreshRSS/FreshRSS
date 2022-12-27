@@ -1006,7 +1006,7 @@ li.drag-hover {
 .header {
 	display: table;
 	width: 100%;
-	height: calc(2rem + 2 * var(--frss-padding-top-bottom));
+	height: calc(2.5rem + 2 * var(--frss-padding-top-bottom));
 	table-layout: fixed;
 }
 
@@ -1017,7 +1017,8 @@ li.drag-hover {
 }
 
 .header > .item.title {
-	width: 250px;
+	width: 300px;
+	text-align: center;
 	white-space: nowrap;
 }
 
@@ -1025,10 +1026,20 @@ li.drag-hover {
 	display: inline-block;
 }
 
+.header > .item.title a {
+	padding: 0.25rem 1rem;
+	display: inline-block;
+}
+
 .header > .item.title .logo {
 	display: inline-block;
 	height: 2rem;
 	vertical-align: middle;
+}
+
+.header > .item.title a:hover .logo {
+	filter: brightness(1.4);
+	transition: filter 0.1s linear;
 }
 
 .header > .item.configure {
@@ -1044,7 +1055,7 @@ input[type="search"] {
 	background: inherit;
 	display: table;
 	width: 100%;
-	height: calc(100vh - (calc(2rem + 2 * var(--frss-padding-top-bottom))));
+	height: calc(100vh - (calc(2.5rem + 2 * var(--frss-padding-top-bottom) + 1px)));
 	table-layout: fixed;
 }
 
@@ -1964,6 +1975,11 @@ input:checked + .slide-container .properties {
 
 	.header > .item {
 		padding: 5px;
+	}
+
+	.header > .item.title {
+		width: 75%;
+		text-align: right;
 	}
 
 	.header > .item.title .logo {

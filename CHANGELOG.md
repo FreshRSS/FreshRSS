@@ -1,9 +1,12 @@
 ﻿# FreshRSS changelog
 
+## 202X-XX-XX FreshRSS 1.21.0-dev
+
+
 ## 2022-12-08 FreshRSS 1.20.2
 
 * Security fixes
-	* Fix security vulnerability in `ext.php` [#4928](https://github.com/FreshRSS/FreshRSS/pull/4928)
+	* [CVE-2022-23497](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-hvrj-5fwj-p7v6) Fix security vulnerability in `ext.php` [#4928](https://github.com/FreshRSS/FreshRSS/pull/4928)
 	* Apache `TraceEnable Off` [#4863](https://github.com/FreshRSS/FreshRSS/pull/4863)
 
 

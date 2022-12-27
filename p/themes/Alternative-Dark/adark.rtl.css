@@ -540,19 +540,17 @@ kbd {
 }
 
 .header > .item {
-	padding: 10px;
 	border-bottom: 1px solid var(--border-color-dark);
 	vertical-align: middle;
 	text-align: center;
 }
 
-.header > .item.title {
-	width: 230px;
+.header > .item.title .logo {
+	filter: grayscale(100%) brightness(2.5);
 }
 
-.header > .item.title .logo {
-	margin: 0.5em 0;
-	filter: grayscale(100%) brightness(2.5);
+.header > .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(2.8);
 }
 
 .header > .item.search input {
