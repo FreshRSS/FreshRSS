@@ -81,7 +81,7 @@ and with newer packages in general (Apache, PHP).
 
 ## Environment variables
 
-* `TZ`: (default is `UTC`) A [server timezone](http://php.net/timezones) (default is `UTC`)
+* `TZ`: (default is `UTC`) A [server timezone](http://php.net/timezones)
 * `CRON_MIN`: (default is disabled) Define minutes for the built-in cron job to automatically refresh feeds (see below for more advanced options)
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
@@ -303,6 +303,7 @@ services:
       options:
         max-size: 10m
     volumes:
+      # Recommended volume for FreshRSS persistent data such as configuration and SQLite databases
       - data:/var/www/FreshRSS/data
       # Optional volume for storing third-party extensions
       - extensions:/var/www/FreshRSS/extensions
@@ -314,8 +315,11 @@ services:
       # If you want to open a port 8080 on the local machine:
       - "8080:80"
     environment:
+      # A timezone http://php.net/timezones (default is UTC)
       TZ: Europe/Paris
+      # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'
+      # 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80

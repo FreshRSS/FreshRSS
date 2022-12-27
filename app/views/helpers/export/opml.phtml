@@ -26,6 +26,7 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			$outline['frss:xPathItemUri'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUri'] ?? null];
 			$outline['frss:xPathItemAuthor'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemAuthor'] ?? null];
 			$outline['frss:xPathItemTimestamp'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTimestamp'] ?? null];
+			$outline['frss:xPathItemTimeformat'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemTimeformat'] ?? null];
 			$outline['frss:xPathItemThumbnail'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemThumbnail'] ?? null];
 			$outline['frss:xPathItemCategories'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemCategories'] ?? null];
 			$outline['frss:xPathItemUid'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $xPathSettings['itemUid'] ?? null];
@@ -39,7 +40,7 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			$outline['frss:filtersActionRead'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $filters];
 		}
 		if ($feed->pathEntries() != '') {
-			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->pathEntries()];
+			$outline['frss:cssFullContent'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES)];
 		}
 		if ($feed->attributes('path_entries_filter') != '') {
 			$outline['frss:cssFullContentFilter'] = ['namespace' => FreshRSS_Export_Service::FRSS_NAMESPACE, 'value' => $feed->attributes('path_entries_filter')];

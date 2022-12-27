@@ -35,9 +35,7 @@ textarea {
 }
 
 input, select, textarea {
-	min-height: 25px;
-	padding: 5px;
-	line-height: 25px;
+	padding: 7px;
 	vertical-align: middle;
 }
 
@@ -63,8 +61,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 }
 
 th {
@@ -137,6 +134,7 @@ form th {
 	min-height: 37px;
 	min-width: 15px;
 	font-size: 0.9rem;
+	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
@@ -144,7 +142,6 @@ form th {
 
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
@@ -178,8 +175,7 @@ a.btn {
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+	line-height: 2.5;
 	font-size: 0.9rem;
 }
 
@@ -203,18 +199,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-}
-
-.nav-list .item.active.empty a {
-}
-
-.nav-list .item.error a {
-}
-
-.nav-list .item.active.error a {
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	font-weight: bold;
@@ -223,17 +207,6 @@ a.btn {
 .nav-list .nav-form {
 	padding: 3px;
 	text-align: center;
-}
-
-.nav-head {
-	margin: 0;
-	text-align: right;
-}
-
-.nav-head .item {
-	padding: 5px 10px;
-	font-size: 0.9rem;
-	line-height: 1.5rem;
 }
 
 /*=== Dropdown */
@@ -268,7 +241,7 @@ a.btn {
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 .dropdown-menu > .item:hover {
@@ -287,10 +260,6 @@ a.btn {
 .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
-}
-
-.separator {
-	margin: 5px 0;
 }
 
 /*=== Alerts */
@@ -336,7 +305,7 @@ a.btn {
 .pagination .item a {
 	display: block;
 	font-style: italic;
-	line-height: 3em;
+	line-height: 3;
 	text-decoration: none;
 }
 
@@ -370,7 +339,7 @@ a.btn {
 .box .box-content .item {
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 2.5em;
+	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -381,7 +350,7 @@ a.btn {
 .tree-folder-title {
 	position: relative;
 	padding: 0 10px;
-	line-height: 2.5rem;
+	line-height: 2.5;
 	font-size: 1rem;
 }
 
@@ -404,8 +373,6 @@ a.btn {
 }
 
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 2.5rem;
 	font-size: 0.8rem;
 }
 
@@ -427,13 +394,8 @@ a.btn {
 }
 
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
-}
-
-.header > .item.title {
-	width: 230px;
 }
 
 .header > .item.title h1 {
@@ -476,7 +438,7 @@ a.btn {
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 1.5rem;
+	line-height: 1.5;
 }
 
 /*=== Aside main page (feeds) */
@@ -554,7 +516,7 @@ a.btn {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: 0.75rem;
 	font-weight: bold;
 }
 
@@ -566,7 +528,11 @@ a.btn {
 .day {
 	padding: 0 10px;
 	font-weight: bold;
-	line-height: 3em;
+	line-height: 3;
+}
+
+.day span {
+	line-height: 1.5;
 }
 
 #new-article + .day {
@@ -672,13 +638,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 0.9em;
-	line-height: 3em;
-	z-index: 10;
-	vertical-align: middle;
 }
 
 .notification.good {
@@ -687,19 +646,10 @@ a.btn {
 .notification.bad {
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
 .notification.good a.close:hover {
 }
 
 .notification.bad a.close:hover {
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 
 /*=== "Load more" part */
@@ -718,7 +668,7 @@ a.btn {
 #nav_entries {
 	margin: 0;
 	text-align: center;
-	line-height: 3em;
+	line-height: 3;
 	table-layout: fixed;
 }
 
@@ -765,11 +715,6 @@ a.btn {
 	font-weight: bold;
 	box-shadow: none;
 	text-shadow: none;
-}
-
-.box.category .item.feed {
-	padding: 2px 10px;
-	font-size: 0.8rem;
 }
 
 /*=== DIVERS */

@@ -54,6 +54,7 @@ class FreshRSS_Category extends Minz_Model {
 	public function kind(): int {
 		return $this->kind;
 	}
+	/** @return string HTML-encoded name of the category */
 	public function name(): string {
 		return $this->name;
 	}
@@ -102,9 +103,7 @@ class FreshRSS_Category extends Minz_Model {
 				$this->hasFeedsWithError |= $feed->inError();
 			}
 
-			usort($this->feeds, function ($a, $b) {
-				return strnatcasecmp($a->name(), $b->name());
-			});
+			$this->sortFeeds();
 		}
 
 		return $this->feeds;
@@ -143,6 +142,7 @@ class FreshRSS_Category extends Minz_Model {
 		}
 
 		$this->feeds = $values;
+		$this->sortFeeds();
 	}
 
 	/**
@@ -154,6 +154,8 @@ class FreshRSS_Category extends Minz_Model {
 			$this->feeds = [];
 		}
 		$this->feeds[] = $feed;
+
+		$this->sortFeeds();
 	}
 
 	public function _attributes($key, $value) {
@@ -243,5 +245,11 @@ class FreshRSS_Category extends Minz_Model {
 		$catDAO->updateLastUpdate($this->id(), !$ok);
 
 		return $ok;
+	}
+
+	private function sortFeeds() {
+		usort($this->feeds, static function ($a, $b) {
+			return strnatcasecmp($a->name(), $b->name());
+		});
 	}
 }

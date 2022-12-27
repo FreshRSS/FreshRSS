@@ -7,6 +7,8 @@ return array (
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
+	// A timezone identifier such as 'Europe/Paris' https://php.net/timezones or blank for server default
+	'timezone' => '',
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,
@@ -41,7 +43,7 @@ return array (
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
-	'sides_close_article' => true,
+	'sides_close_article' => false,
 	'sticky_post' => true,
 	'reading_confirm' => false,
 	'auto_remove_article' => false,
@@ -58,7 +60,7 @@ return array (
 		'max_n_unread' => false,
 		'reception' => false,
 		'same_title_in_feed' => false,
-		'scroll' => true,
+		'scroll' => false,
 		'site' => true,
 	),
 	'theme' => 'Origine',

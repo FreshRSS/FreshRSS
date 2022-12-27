@@ -6,24 +6,23 @@
 /*===============*/
 /*=== Header */
 .header {
-	padding: 0.5rem 1.35rem;
 	background: variables.$sid-bg;
-	display: block;
-	width: auto;
-	height: 3.5rem;
-	table-layout: none;
 
 	.item {
 		vertical-align: middle;
 
 		&.title {
-			width: 280px;
-			font-weight: 400;
-
 			a {
-				img {
-					margin: 0.6em 0 0.3em;
+				padding: 0.5rem 1rem;
+
+				.logo {
 					filter: invert(80%);
+				}
+
+				&:hover {
+					.logo {
+						filter: invert(80%) opacity(80%);
+					}
 				}
 			}
 		}
@@ -81,10 +80,6 @@
 		}
 
 		&.configure {
-			width: 3rem;
-			position: absolute;
-			right: 1rem;
-			top: 1rem;
 			text-align: center;
 
 			.btn {
@@ -97,7 +92,7 @@
 
 /*=== Body */
 #global {
-	height: calc(100% - 3.5rem);
+	height: calc(100vh - (calc(3rem + 2 * var(--frss-padding-top-bottom))));
 }
 
 /*=== Prompt (centered) */
@@ -348,9 +343,7 @@ main.prompt {
 	}
 
 	a.close {
-		padding: 0 15px;
 		border-radius: 0 3px 3px 0;
-		line-height: 3em;
 	}
 
 	&.good a.close:hover {
@@ -362,8 +355,6 @@ main.prompt {
 	}
 
 	&#actualizeProgress {
-		line-height: 2em;
-
 		br {
 			display: none;
 		}

@@ -184,6 +184,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return null;
 	}
 
+	/** @return string HTML-encoded link of the entry */
 	public function link(): string {
 		return $this->link;
 	}
@@ -589,10 +590,10 @@ class FreshRSS_Entry extends Minz_Model {
 				$this->content = $entry->content();
 			} else {
 				try {
-					// l’article n’est pas en BDD, on va le chercher sur le site
+					// The article is not yet in the database, so let’s fetch it
 					$fullContent = self::getContentByParsing(
 						htmlspecialchars_decode($this->link(), ENT_QUOTES),
-						$feed->pathEntries(),
+						htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES),
 						$feed->attributes()
 					);
 					if ('' !== $fullContent) {

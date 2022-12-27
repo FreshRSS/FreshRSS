@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie "Als Lesezeichen hinzufügen". Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche "Abonnieren".',
+		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie „Als Lesezeichen hinzufügen“. Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche „Abonnieren“.',
 		'label' => 'Abonnieren',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivierung',
 		'dynamic_opml' => array(
 			'_' => 'Dynamisches OPML',
-			'help' => 'URL zu einer <a href=http://opml.org/ target=_blank>OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
+			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',	// IGNORE
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'Artikel-Vorschaubild',
 					'help' => 'Beispiel: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'Artikel-Datum',

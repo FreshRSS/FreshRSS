@@ -145,6 +145,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function name($raw = false): string {
 		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://(www[.])?%i', '', $this->url);
 	}
+	/** @return string HTML-encoded URL of the Web site of the feed */
 	public function website(): string {
 		return $this->website;
 	}
@@ -157,6 +158,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function priority(): int {
 		return $this->priority;
 	}
+	/** @return string HTML-encoded CSS selector */
 	public function pathEntries(): string {
 		return $this->pathEntries;
 	}
@@ -192,6 +194,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->ttl;
 	}
 
+	/** @return mixed attribute (if $key is not blank) or array of attributes, not HTML-encoded */
 	public function attributes($key = '') {
 		if ($key == '') {
 			return $this->attributes;
@@ -301,6 +304,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _priority($value) {
 		$this->priority = intval($value);
 	}
+	/** @param string $value HTML-encoded CSS selector */
 	public function _pathEntries(string $value) {
 		$this->pathEntries = $value;
 	}
@@ -320,6 +324,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
 
+	/** @param mixed $value Value, not HTML-encoded */
 	public function _attributes(string $key, $value) {
 		if ($key == '') {
 			if (is_string($value)) {
@@ -559,19 +564,22 @@ class FreshRSS_Feed extends Minz_Model {
 			$guid = safe_ascii($item->get_id(false, false));
 			unset($item);
 
-			$author_names = '';
+			$authorNames = '';
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
-					$author_names .= escapeToUnicodeAlternative(strip_tags($author->name == '' ? $author->email : $author->name), true) . '; ';
+					$authorName = $author->name != '' ? $author->name : $author->email;
+					if ($authorName != '') {
+						$authorNames .= escapeToUnicodeAlternative(strip_tags($authorName), true) . '; ';
+					}
 				}
 			}
-			$author_names = substr($author_names, 0, -2);
+			$authorNames = substr($authorNames, 0, -2);
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$hasBadGuids ? '' : $guid,
 				$title == '' ? '' : $title,
-				$author_names,
+				$authorNames,
 				$content == '' ? '' : $content,
 				$link == '' ? '' : $link,
 				$date ? $date : time()
@@ -586,10 +594,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @param array<string,mixed> $attributes
 	 * @return SimplePie|null
 	 */
-	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false, array $attributes = []) {
+	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false) {
 		if ($this->url == '') {
 			return null;
 		}
@@ -609,6 +616,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$xPathItemUri = $xPathSettings['itemUri'] ?? '';
 		$xPathItemAuthor = $xPathSettings['itemAuthor'] ?? '';
 		$xPathItemTimestamp = $xPathSettings['itemTimestamp'] ?? '';
+		$xPathItemTimeFormat = $xPathSettings['itemTimeFormat'] ?? '';
 		$xPathItemThumbnail = $xPathSettings['itemThumbnail'] ?? '';
 		$xPathItemCategories = $xPathSettings['itemCategories'] ?? '';
 		$xPathItemUid = $xPathSettings['itemUid'] ?? '';
@@ -616,8 +624,8 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
-		$html = httpGet($feedSourceUrl, $cachePath, 'html', $attributes);
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), FreshRSS_Feed::KIND_HTML_XPATH);
+		$html = httpGet($feedSourceUrl, $cachePath, 'html', $this->attributes());
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -645,10 +653,32 @@ class FreshRSS_Feed extends Minz_Model {
 			foreach ($nodes as $node) {
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
-				$item['content'] = $xPathItemContent == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
+
+				$item['content'] = '';
+				if ($xPathItemContent != '') {
+					$result = @$xpath->evaluate($xPathItemContent, $node);
+					if ($result instanceof DOMNodeList) {
+						// List of nodes, save as HTML
+						$content = '';
+						foreach ($result as $child) {
+							$content .= $doc->saveHTML($child) . "\n";
+						}
+						$item['content'] = $content;
+					} else {
+						// Typed expression, save as-is
+						$item['content'] = strval($result);
+					}
+				}
+
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				if ($xPathItemTimeFormat != '') {
+					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp'] ?? '');
+					if ($dateTime != false) {
+						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
+					}
+				}
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
 					$itemCategories = @$xpath->query($xPathItemCategories, $node);
@@ -665,8 +695,15 @@ class FreshRSS_Feed extends Minz_Model {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
 				}
 
-				if ($item['title'] . $item['content'] . $item['link'] != '') {
-					$item = Minz_Helper::htmlspecialchars_utf8($item);
+				if ($item['title'] != '' || $item['content'] != '' || $item['link'] != '') {
+					// HTML-encoding/escaping of the relevant fields (all except 'content')
+					foreach (['author', 'categories', 'guid', 'link', 'thumbnail', 'timestamp', 'title'] as $key) {
+						if (!empty($item[$key])) {
+							$item[$key] = Minz_Helper::htmlspecialchars_utf8($item[$key]);
+						}
+					}
+					// CDATA protection
+					$item['content'] = str_replace(']]>', ']]&gt;', $item['content']);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
 			}

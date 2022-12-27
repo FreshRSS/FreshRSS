@@ -26,6 +26,25 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="language"><?= _t('conf.display.timezone') ?></label>
+			<div class="group-controls">
+				<select name="timezone" id="timezone" data-leave-validation="<?= FreshRSS_Context::$user_conf->timezone ?>">
+				<?php
+					$timezones = array_merge([''], DateTimeZone::listIdentifiers());
+					if (!in_array(FreshRSS_Context::$user_conf->timezone, $timezones, true)) {
+						FreshRSS_Context::$user_conf->timezone = '';
+					}
+				?>
+				<?php foreach ($timezones as $timezone): ?>
+				<option value="<?= $timezone ?>"<?= FreshRSS_Context::$user_conf->timezone === $timezone ? ' selected="selected"' : '' ?>>
+					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . ini_get('date.timezone') . ')' : $timezone ?>
+				</option>
+				<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="theme"><?= _t('conf.display.theme') ?></label>
 			<div class="group-controls">
 				<ul class="slides">
@@ -126,7 +145,7 @@
 						<tr>
 							<th> </th>
 							<th title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i('read') ?></th>
-							<th title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i('bookmark') ?></th>
+							<th title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i('starred') ?></th>
 							<th><?= _t('conf.display.icon.related_tags') ?></th>
 							<th><?= _t('conf.display.icon.sharing') ?></th>
 							<th><?= _t('conf.display.icon.summary') ?></th>

@@ -318,17 +318,17 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			],
 			[
 				'#tag Hello OR (author:Alice inurl:example) OR (f:3 intitle:World) OR L:12',
-				' ((e.tags LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) OR ((e.author LIKE ? AND e.link LIKE ? )) OR' .
+				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) OR ((e.author LIKE ? AND e.link LIKE ? )) OR" .
 					' ((e.id_feed IN (?) AND e.title LIKE ? )) OR ((e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )) ',
-				['%tag%','%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', '12']
+				['%tag #%','%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', '12']
 			],
 			[
 				'#tag Hello (author:Alice inurl:example) (f:3 intitle:World) label:Bleu',
-				' ((e.tags LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) AND' .
+				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) AND" .
 					' ((e.author LIKE ? AND e.link LIKE ? )) AND' .
 					' ((e.id_feed IN (?) AND e.title LIKE ? )) AND' .
 					' ((e.id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (?)) )) ',
-				['%tag%', '%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', 'Bleu']
+				['%tag #%', '%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', 'Bleu']
 			],
 			[
 				'!((author:Alice intitle:hello) OR (author:Bob intitle:world))',
