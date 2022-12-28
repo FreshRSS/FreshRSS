@@ -309,8 +309,6 @@ form th {
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	padding: 1rem;
 	background: #f9fafb;
 	color: #5b6871;
 	font-size: 1rem;
@@ -1333,5 +1331,3 @@ a, button.as-link {
 	outline: none;
 	color: #36c;
 }
-
-/*# sourceMappingURL=mapco.css.map */
