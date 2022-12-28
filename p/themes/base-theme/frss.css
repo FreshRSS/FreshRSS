@@ -2171,6 +2171,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.notification {
+		padding: 0.75rem;
 		top: 0;
 		left: 0;
 		right: 0;
