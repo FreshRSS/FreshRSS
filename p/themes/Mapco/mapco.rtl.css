@@ -257,6 +257,10 @@ form th {
 	font-size: 1rem;
 	line-height: 2.5em;
 }
+.dropdown-menu .item a span.icon, .dropdown-menu .item span span.icon, .dropdown-menu .item .as-link span.icon {
+	padding: 0 0.25rem !important;
+	line-height: 1;
+}
 .dropdown-menu .item a:not(.addItem):hover, .dropdown-menu .item span:not(.addItem):hover, .dropdown-menu .item .as-link:not(.addItem):hover {
 	background: #36c;
 	color: #fff;
