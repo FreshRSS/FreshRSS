@@ -51,11 +51,16 @@
 
 		@include mixins.transition(all, 0.075s, ease-in-out);
 
-		a, span, .as-link {
+		a, .as-link {
 			padding: 0 2rem;
 			color: variables.$main-font-color;
 			font-size: 1rem;
 			line-height: 2.5em;
+
+			span.icon {
+				padding: 0 0.25rem !important;
+				line-height: 1;
+			}
 
 			&:not(.addItem):hover {
 				background: variables.$main-first;
@@ -75,7 +80,7 @@
 			}
 
 			.item {
-				a, span, .as-link {
+				a, .as-link {
 					padding-left: 2rem;
 				}
 			}
@@ -147,9 +152,6 @@
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	// width: 100%;
-	padding: 1rem;
 	background: variables.$grey-lighter;
 	color: variables.$grey-dark;
 	font-size: 1rem;
