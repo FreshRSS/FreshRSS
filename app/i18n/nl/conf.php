@@ -63,6 +63,7 @@ return array(
 			'portrait' => 'Staand',
 			'square' => 'Vierkant',
 		),
+		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
 		'width' => array(
 			'content' => 'Inhoud breedte',

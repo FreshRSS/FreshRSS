@@ -61,8 +61,7 @@ table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 }
 
 th {
@@ -200,18 +199,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-}
-
-.nav-list .item.active.empty a {
-}
-
-.nav-list .item.error a {
-}
-
-.nav-list .item.active.error a {
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	font-weight: bold;
@@ -277,8 +264,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	font-size: 0.9em;
 }
 
@@ -386,8 +371,6 @@ a.btn {
 }
 
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 3.1;
 	font-size: 0.8rem;
 }
 
@@ -409,13 +392,8 @@ a.btn {
 }
 
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
-}
-
-.header > .item.title {
-	width: 230px;
 }
 
 .header > .item.title h1 {

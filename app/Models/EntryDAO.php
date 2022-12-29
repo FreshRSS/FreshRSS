@@ -10,6 +10,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return true;
 	}
 
+	protected static function sqlConcat($s1, $s2) {
+		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
+	}
+
 	public static function sqlHexDecode(string $x): string {
 		return 'unhex(' . $x . ')';
 	}
@@ -943,8 +947,8 @@ SQL;
 			}
 			if ($filter->getTags()) {
 				foreach ($filter->getTags() as $tag) {
-					$sub_search .= 'AND ' . $alias . 'tags LIKE ? ';
-					$values[] = "%{$tag}%";
+					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' LIKE ? ';
+					$values[] = "%{$tag} #%";
 				}
 			}
 			if ($filter->getInurl()) {
@@ -968,8 +972,8 @@ SQL;
 			}
 			if ($filter->getNotTags()) {
 				foreach ($filter->getNotTags() as $tag) {
-					$sub_search .= 'AND ' . $alias . 'tags NOT LIKE ? ';
-					$values[] = "%{$tag}%";
+					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' NOT LIKE ? ';
+					$values[] = "%{$tag} #%";
 				}
 			}
 			if ($filter->getNotInurl()) {

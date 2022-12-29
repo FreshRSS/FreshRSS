@@ -63,6 +63,7 @@ return array(
 			'portrait' => 'Hochformat',
 			'square' => 'Quadrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Anzeige',
 		'width' => array(
 			'content' => 'Inhaltsbreite',

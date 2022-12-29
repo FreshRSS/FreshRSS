@@ -60,7 +60,7 @@ select:invalid {
 	font-size: 0.9rem;
 }
 
-.dropdown-menu > .item > a,
+.dropdown-menu > .item a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link,
 .dropdown-menu > .item button, .dropdown-menu > .item {
@@ -87,7 +87,7 @@ body {
 }
 
 a {
-	color: var(--color-nav-lighter);
+	color: var(--color-text-nav);
 	outline: none;
 }
 a.btn {
@@ -162,10 +162,8 @@ table {
 	border-collapse: collapse;
 }
 
-tr,
 td,
 th {
-	padding: 0.5em;
 	border: 1px solid var(--color-border-light-darker);
 }
 
@@ -284,24 +282,8 @@ form th {
 .nav-list .item.active a {
 	color: var(--color-text-light);
 }
-.nav-list .item.active.empty a,
-.nav-list .item.active .error a {
-	color: var(--color-text-light);
-}
-.nav-list .item.active.empty a {
-	background-color: var(--color-background-alert);
-}
-.nav-list .item.active.error a {
-	background-color: var(--color-background-bad);
-}
 .nav-list .item > a {
 	padding: 0 1.5rem;
-}
-.nav-list .item.empty a {
-	color: var(--color-text-alert);
-}
-.nav-list .item.error a {
-	color: var(--color-text-bad-lighter);
 }
 .nav-list .item .icon {
 	filter: brightness(3);
@@ -335,12 +317,23 @@ form th {
 .dropdown-menu .dropdown-header a:hover {
 	background-color: var(--color-background-nav);
 }
+.dropdown-menu .dropdown-section .dropdown-section-title {
+	cursor: default;
+	padding: 0.25rem 0.5rem 0.125rem 0.25rem;
+	font-weight: bold;
+	color: var(--color-text-light);
+}
+.dropdown-menu .dropdown-section .item a {
+	padding: 0 22px;
+}
+.dropdown-menu .dropdown-section .item a:hover {
+	background-color: var(--color-background-nav);
+}
 .dropdown-menu::after {
 	content: none;
 }
 .dropdown-menu > .item {
-	padding: 0;
-	margin-left: 10px;
+	padding: 0 0 0 0.5rem;
 }
 .dropdown-menu > .item > a {
 	min-width: initial;
@@ -374,8 +367,7 @@ form th {
 }
 
 .alert {
-	margin: 5px auto;
-	padding: 10px 15px;
+	margin: 0.25rem auto;
 	background-color: var(--color-background-light);
 	color: var(--color-text-light-darker);
 	font-size: 0.9em;
@@ -556,8 +548,6 @@ form th {
 	background-color: var(--color-background-aside);
 }
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 3;
 	font-size: 0.8rem;
 }
 .tree-folder-items > .item.active {
@@ -572,11 +562,18 @@ form th {
 	height: auto;
 }
 .header > .item {
+	padding: 0;
 	vertical-align: middle;
 }
 .header > .item.title {
 	position: absolute;
 	text-align: center;
+}
+.header > .item.title a {
+	padding: 0 1rem;
+}
+.header > .item.title a:hover .logo {
+	filter: grayscale(100%) brightness(100) opacity(90%);
 }
 .header > .item.title .logo {
 	display: inline-block;
@@ -724,9 +721,11 @@ form th {
 }
 
 .nav_menu {
+	padding: 0;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
+	text-align: left;
 	position: sticky;
 	top: 0;
 	z-index: 90;
@@ -754,11 +753,11 @@ form th {
 	width: 90%;
 	border-top: 1px solid var(--color-border-light-darker);
 }
-.flux:hover,
+.flux .flux_header:hover,
 .flux .current {
 	background-color: var(--color-background-hover);
 }
-.flux:hover:not(.current):hover .item.title,
+.flux .flux_header:hover:not(.current):hover .item.title,
 .flux .current:not(.current):hover .item.title {
 	background-color: var(--color-background-hover);
 }
@@ -1171,5 +1170,3 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

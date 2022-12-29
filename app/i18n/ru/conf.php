@@ -63,6 +63,7 @@ return array(
 			'portrait' => 'Вертикальный',
 			'square' => 'Квадратный',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Отображение',
 		'width' => array(
 			'content' => 'Ширина содержимого',

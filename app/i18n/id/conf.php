@@ -63,6 +63,7 @@ return array(
 			'portrait' => 'Portrait',	// TODO
 			'square' => 'Square',	// TODO
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Display',	// TODO
 		'width' => array(
 			'content' => 'Content width',	// TODO

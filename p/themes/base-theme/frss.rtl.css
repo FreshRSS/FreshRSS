@@ -118,7 +118,6 @@ h3 {
 /*=== Paragraphs */
 p {
 	margin: 1rem 0 0.5rem;
-	font-size: 1rem;
 }
 
 p.help, .prompt p.help {
@@ -287,8 +286,8 @@ input[type="checkbox"] {
 	width: calc(99% - 5em);
 }
 
-.dropdown-menu > .item > a:hover,
-.dropdown-menu > .item > button:hover {
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:hover {
 	text-decoration: none;
 }
 
@@ -334,7 +333,12 @@ button.as-link[disabled] {
 }
 
 table {
+	margin: 0.5rem 0;
 	max-width: 100%;
+}
+
+th, td {
+	padding: 0.5rem;
 }
 
 th.numeric,
@@ -390,6 +394,7 @@ td.numeric {
 	display: block;
 	float: right;
 	width: 200px;
+	text-align: left;
 }
 
 .form-group .group-controls {
@@ -650,13 +655,13 @@ input[type="checkbox"]:focus-visible {
 	display: block;
 }
 
-.dropdown-menu > .item {
+.dropdown-menu .item {
 	display: block;
 }
 
-.dropdown-menu > .item > a,
-.dropdown-menu > .item > .as-link,
-.dropdown-menu > .item > span {
+.dropdown-menu .item > a,
+.dropdown-menu .item > .as-link,
+.dropdown-menu .item > span {
 	display: block;
 	width: 100%;
 	white-space: nowrap;
@@ -697,6 +702,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .item ~ .dropdown-header,
+.dropdown-section ~ .dropdown-section,
 .item.separator {
 	margin-top: 5px;
 	padding-top: 5px;
@@ -706,6 +712,8 @@ input[type="checkbox"]:focus-visible {
 
 /*=== Alerts */
 .alert {
+	margin: 1rem auto;
+	padding: 0.75rem 1rem;
 	display: block;
 	width: 90%;
 }
@@ -1000,7 +1008,7 @@ li.drag-hover {
 .header {
 	display: table;
 	width: 100%;
-	height: calc(2rem + 2 * var(--frss-padding-top-bottom));
+	height: calc(2.5rem + 2 * var(--frss-padding-top-bottom));
 	table-layout: fixed;
 }
 
@@ -1011,7 +1019,8 @@ li.drag-hover {
 }
 
 .header > .item.title {
-	width: 250px;
+	width: 300px;
+	text-align: center;
 	white-space: nowrap;
 }
 
@@ -1019,10 +1028,20 @@ li.drag-hover {
 	display: inline-block;
 }
 
+.header > .item.title a {
+	padding: 0.25rem 1rem;
+	display: inline-block;
+}
+
 .header > .item.title .logo {
 	display: inline-block;
 	height: 2rem;
 	vertical-align: middle;
+}
+
+.header > .item.title a:hover .logo {
+	filter: brightness(1.4);
+	transition: filter 0.1s linear;
 }
 
 .header > .item.configure {
@@ -1038,7 +1057,7 @@ input[type="search"] {
 	background: inherit;
 	display: table;
 	width: 100%;
-	height: calc(100vh - (calc(2rem + 2 * var(--frss-padding-top-bottom))));
+	height: calc(100vh - (calc(2.5rem + 2 * var(--frss-padding-top-bottom) + 1px)));
 	table-layout: fixed;
 }
 
@@ -1173,7 +1192,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .item.title {
-	background-color: var(--frss-background-color);
+	background-color: inherit;
 	max-width: calc(100% - 320px);
 	position: absolute;
 }
@@ -1235,6 +1254,7 @@ a.website:hover .favicon {
 	color: var(--frss-font-color-grey-dark);
 	font-size: 0.9rem;
 	font-weight: normal;
+	overflow: hidden;
 	text-overflow: ellipsis;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
@@ -1281,6 +1301,7 @@ a.website:hover .favicon {
 	padding: 0.75rem;
 	line-height: 1.5;
 	word-wrap: break-word;
+	overflow: auto;
 }
 
 .content.large {
@@ -1323,8 +1344,9 @@ a.website:hover .favicon {
 }
 
 .content > header .tags .icon,
+.content > header .website .favicon,
 .content > footer .tags .icon {
-	padding: 0 0 0 1rem;
+	margin: 0 0 0 0.5rem;
 	line-height: 1.5;
 }
 
@@ -1962,6 +1984,11 @@ input:checked + .slide-container .properties {
 		padding: 5px;
 	}
 
+	.header > .item.title {
+		width: 75%;
+		text-align: right;
+	}
+
 	.header > .item.title .logo {
 		height: 24px;
 	}
@@ -1979,7 +2006,7 @@ input:checked + .slide-container .properties {
 	#panel .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
-		padding: 1rem;
+		padding: 1rem 0;
 		display: block;
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
@@ -1993,6 +2020,7 @@ input:checked + .slide-container .properties {
 	.form-group .group-name {
 		float: none;
 		width: auto;
+		text-align: right;
 	}
 
 	.form-group .group-controls {
@@ -2003,7 +2031,8 @@ input:checked + .slide-container .properties {
 		position: inherit;
 	}
 
-	.dropdown .dropdown-header {
+	.dropdown .dropdown-header,
+	.dropdown .dropdown-section {
 		line-height: 2;
 	}
 
@@ -2138,7 +2167,16 @@ input:checked + .slide-container .properties {
 		padding: 1rem;
 	}
 
+	table {
+		font-size: 0.9rem;
+	}
+
+	th, td {
+		padding: 0.25rem;
+	}
+
 	.notification {
+		padding: 0.75rem;
 		top: 0;
 		right: 0;
 		left: 0;
