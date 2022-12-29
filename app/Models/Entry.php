@@ -137,7 +137,13 @@ class FreshRSS_Entry extends Minz_Model {
 			$thumbnail = $this->attributes('thumbnail');
 			if (!empty($thumbnail['url']) &&
 				($allowDuplicateEnclosures || !self::containsLink($content, $thumbnail['url']))) {
-				$content .= '<p class="enclosure-content"><img class="enclosure-thumbnail" src="' . $thumbnail['url'] . '" alt="" /></p>';
+				$content .= <<<HTML
+<figure class="enclosure">
+	<p class="enclosure-content">
+		<img class="enclosure-thumbnail" src="{$thumbnail['url']}" alt="" />
+	</p>
+</figure>
+HTML;
 			}
 
 			$attributeEnclosures = $this->attributes('enclosures');
@@ -153,6 +159,7 @@ class FreshRSS_Entry extends Minz_Model {
 				if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 					continue;
 				}
+				$credit = $enclosure['credit'] ?? '';
 				$description = $enclosure['description'] ?? '';
 				$height = $enclosure['height'] ?? 0;
 				$length = $enclosure['length'] ?? 0;
@@ -162,7 +169,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$etitle = $enclosure['title'] ?? '';
 				$width = $enclosure['width'] ?? 0;
 
-				$content .= '<div class="enclosure">';
+				$content .= '<figure class="enclosure">';
 
 				foreach ($thumbnails as $thumbnail) {
 					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
@@ -188,10 +195,13 @@ class FreshRSS_Entry extends Minz_Model {
 						. '" title="' . $etitle . '">💾</a></p>';
 				}
 
-				if ($description != '') {
-					$content .= '<p class="enclosure-description">' . $description . '</p>';
+				if ($credit != '') {
+					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
 				}
-				$content .= "</div>\n";
+				if ($description != '') {
+					$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
+				}
+				$content .= "</figure>\n";
 			}
 		}
 		return $content;

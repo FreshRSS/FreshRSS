@@ -57,6 +57,7 @@ foreach ($this->entries as $item) {
 							. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
 							. '">'
 							. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
+							. (empty($enclosure['credit']) ? '' : '<media:credit>' . $enclosure['credit'] . '</media:credit>')
 							. '</media:content>', "\n";
 					}
 				}

@@ -513,6 +513,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$elink = $enclosure->get_link();
 					if ($elink != '') {
 						$etitle = $enclosure->get_title() ?? '';
+						$credit = $enclosure->get_credit() ?? null;
 						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
@@ -524,6 +525,7 @@ class FreshRSS_Feed extends Minz_Model {
 							'url' => $elink,
 						];
 						if ($etitle != '') $attributeEnclosure['title'] = $etitle;
+						if ($credit != null) $attributeEnclosure['credit'] = $credit->get_name();
 						if ($description != '') $attributeEnclosure['description'] = $description;
 						if ($mime != '') $attributeEnclosure['type'] = $mime;
 						if ($medium != '') $attributeEnclosure['medium'] = $medium;
