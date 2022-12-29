@@ -369,8 +369,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	background: #111;
 	color: #aaa;
 	font-size: 0.9em;

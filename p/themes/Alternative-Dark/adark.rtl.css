@@ -388,8 +388,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
 	font-size: 0.9em;

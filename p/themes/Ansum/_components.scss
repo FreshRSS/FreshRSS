@@ -57,6 +57,11 @@
 			font-size: 1rem;
 			line-height: 2.5em;
 
+			span.icon {
+				padding: 0 0.25rem !important;
+				line-height: 1;
+			}
+
 			&:not(.addItem):hover {
 				background: variables.$main-first;
 				color: variables.$white;
@@ -147,9 +152,6 @@
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	// width: 100%;
-	padding: 1rem;
 	background: variables.$grey-lighter;
 	color: variables.$grey-dark;
 	font-size: 1rem;
