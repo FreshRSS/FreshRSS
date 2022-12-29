@@ -132,78 +132,85 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @return string HTML content
 	 */
 	public function content(bool $withEnclosures = true, bool $allowDuplicateEnclosures = false): string {
+		if (!$withEnclosures) {
+			return $this->content;
+		}
+
 		$content = $this->content;
-		if ($withEnclosures) {
-			$thumbnail = $this->attributes('thumbnail');
-			if (!empty($thumbnail['url']) &&
-				($allowDuplicateEnclosures || !self::containsLink($content, $thumbnail['url']))) {
-				$content .= <<<HTML
+
+		$thumbnail = $this->attributes('thumbnail');
+		if (!empty($thumbnail['url'])) {
+			$elink = htmlspecialchars($thumbnail['url'], ENT_COMPAT, 'UTF-8');
+			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
+			$content .= <<<HTML
 <figure class="enclosure">
 	<p class="enclosure-content">
-		<img class="enclosure-thumbnail" src="{$thumbnail['url']}" alt="" />
+		<img class="enclosure-thumbnail" src="{$elink}" alt="" />
 	</p>
 </figure>
 HTML;
 			}
-
-			$attributeEnclosures = $this->attributes('enclosures');
-			if (empty($attributeEnclosures)) {
-				return $content;
-			}
-
-			foreach ($attributeEnclosures as $enclosure) {
-				$elink = $enclosure['url'] ?? '';
-				if ($elink == '') {
-					continue;
-				}
-				if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
-					continue;
-				}
-				$credit = $enclosure['credit'] ?? '';
-				$description = $enclosure['description'] ?? '';
-				$height = $enclosure['height'] ?? 0;
-				$length = $enclosure['length'] ?? 0;
-				$medium = $enclosure['medium'] ?? '';
-				$mime = $enclosure['type'] ?? '';
-				$thumbnails = $enclosure['thumbnails'] ?? [];
-				$etitle = $enclosure['title'] ?? '';
-				$width = $enclosure['width'] ?? 0;
-
-				$content .= '<figure class="enclosure">';
-
-				foreach ($thumbnails as $thumbnail) {
-					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
-				}
-
-				if ($medium === 'image' || strpos($mime, 'image') === 0 ||
-					($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
-					$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
-				} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
-					$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-						. ($length == null ? '' : '" data-length="' . intval($length))
-						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-						. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-				} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
-					$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-						. ($length == null ? '' : '" data-length="' . intval($length))
-						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-						. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
-				} else {	//e.g. application, text, unknown
-					$content .= '<p class="enclosure-content"><a download="" href="' . $elink
-						. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-						. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
-						. '" title="' . $etitle . '">💾</a></p>';
-				}
-
-				if ($credit != '') {
-					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
-				}
-				if ($description != '') {
-					$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
-				}
-				$content .= "</figure>\n";
-			}
 		}
+
+		$attributeEnclosures = $this->attributes('enclosures');
+		if (empty($attributeEnclosures)) {
+			return $content;
+		}
+
+		foreach ($attributeEnclosures as $enclosure) {
+			$elink = $enclosure['url'] ?? '';
+			if ($elink == '') {
+				continue;
+			}
+			$elink = htmlspecialchars($elink, ENT_COMPAT, 'UTF-8');
+			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
+				continue;
+			}
+			$credit = $enclosure['credit'] ?? '';
+			$description = $enclosure['description'] ?? '';
+			$height = $enclosure['height'] ?? 0;
+			$length = $enclosure['length'] ?? 0;
+			$medium = $enclosure['medium'] ?? '';
+			$mime = $enclosure['type'] ?? '';
+			$thumbnails = $enclosure['thumbnails'] ?? [];
+			$etitle = $enclosure['title'] ?? '';
+			$width = $enclosure['width'] ?? 0;
+
+			$content .= '<figure class="enclosure">';
+
+			foreach ($thumbnails as $thumbnail) {
+				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+			}
+
+			if ($medium === 'image' || strpos($mime, 'image') === 0 ||
+				($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
+				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
+			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
+				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
+				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
+			} else {	//e.g. application, text, unknown
+				$content .= '<p class="enclosure-content"><a download="" href="' . $elink
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
+					. '" title="' . $etitle . '">💾</a></p>';
+			}
+
+			if ($credit != '') {
+				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+			}
+			if ($description != '') {
+				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
+			}
+			$content .= "</figure>\n";
+		}
+
 		return $content;
 	}
 
