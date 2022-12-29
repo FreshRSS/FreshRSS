@@ -118,11 +118,25 @@ class FreshRSS_Entry extends Minz_Model {
 			return $this->authors;
 		}
 	}
-	public function content(bool $withEnclosures = true): string {
+
+	/**
+	 * Basic test without ambition to catch all cases such as unquoted addresses, variants of entities, HTML comments, etc.
+	 */
+	private static function containsLink(string $html, string $link): bool {
+		return preg_match('(?P<delim>[\'"])' . preg_quote($link) . '(?P=delim)', $html) == 1;
+	}
+
+	/**
+	 * @param bool $withEnclosures Set to true to include the enclosures in the returned HTML, false otherwise.
+	 * @param bool $allowDuplicateEnclosures Set to false to remove obvious enclosure duplicates (based on simple string comparison), true otherwise.
+	 * @return string HTML content
+	 */
+	public function content(bool $withEnclosures = true, bool $allowDuplicateEnclosures = false): string {
 		$content = $this->content;
 		if ($withEnclosures) {
 			$thumbnail = $this->attributes('thumbnail');
-			if (!empty($thumbnail['url'])) {
+			if (!empty($thumbnail['url']) &&
+				($allowDuplicateEnclosures || !self::containsLink($content, $thumbnail['url']))) {
 				$content .= '<p class="enclosure-content"><img class="enclosure-thumbnail" src="' . $thumbnail['url'] . '" alt="" /></p>';
 			}
 
@@ -134,6 +148,9 @@ class FreshRSS_Entry extends Minz_Model {
 			foreach ($attributeEnclosures as $enclosure) {
 				$elink = $enclosure['url'] ?? '';
 				if ($elink == '') {
+					continue;
+				}
+				if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 					continue;
 				}
 				$description = $enclosure['description'] ?? '';
