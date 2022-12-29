@@ -123,7 +123,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * Basic test without ambition to catch all cases such as unquoted addresses, variants of entities, HTML comments, etc.
 	 */
 	private static function containsLink(string $html, string $link): bool {
-		return preg_match('(?P<delim>[\'"])' . preg_quote($link) . '(?P=delim)', $html) == 1;
+		return preg_match('/(?P<delim>[\'"])' . preg_quote($link, '/') . '(?P=delim)/', $html) == 1;
 	}
 
 	/**
