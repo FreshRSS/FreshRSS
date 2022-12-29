@@ -319,8 +319,6 @@ form th {
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	padding: 1rem;
 	background: #fcfaf8;
 	color: #766556;
 	font-size: 1rem;
