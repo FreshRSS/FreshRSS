@@ -1836,9 +1836,7 @@ class SimplePie_Item
 							{
 								$width = $this->sanitize($content['attribs']['']['width'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							syslog(LOG_DEBUG, __METHOD__ . ' 1 ' . json_encode($content['attribs']['']['url']));
 							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
-							syslog(LOG_DEBUG, __METHOD__ . ' 2 ' . json_encode($url));
 
 							// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
@@ -2462,9 +2460,7 @@ class SimplePie_Item
 						}
 						if (isset($content['attribs']['']['url']))
 						{
-							syslog(LOG_DEBUG, __METHOD__ . ' 3 ' . json_encode($content['attribs']['']['url']));
 							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
-							syslog(LOG_DEBUG, __METHOD__ . ' 4 ' . json_encode($url));
 						}
 						// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
@@ -2802,9 +2798,7 @@ class SimplePie_Item
 					$url = null;
 					$width = null;
 
-					syslog(LOG_DEBUG, __METHOD__ . ' 5 ' . json_encode($content['attribs']['']['url']));
 					$url = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
-					syslog(LOG_DEBUG, __METHOD__ . ' 6 ' . json_encode($url));
 					if (isset($link['attribs']['']['type']))
 					{
 						$type = $this->sanitize($link['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
