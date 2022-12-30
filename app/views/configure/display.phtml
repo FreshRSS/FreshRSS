@@ -126,6 +126,27 @@
 			</div>
 		</div>
 
+		<?php $topline_website = FreshRSS_Context::$user_conf->topline_website; ?>
+		<div class="form-group">
+			<label class="group-name" for="topline_website"><?= _t('conf.display.website.label') ?></label>
+			<div class="group-controls">
+				<select name="topline_website" id="topline_website" required="" data-leave-validation="<?= $topline_website ?>">
+					<option value="none" <?= $topline_website === 'none' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.none') ?>
+					</option>
+					<option value="icon" <?= $topline_website === 'icon' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.icon') ?>
+					</option>
+					<option value="name" <?= $topline_website === 'name' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.name') ?>
+					</option>
+					<option value="full" <?= $topline_website === 'full' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.full') ?>
+					</option>
+				</select>
+			</div>
+		</div>
+
 		<?php $topline_thumbnail = FreshRSS_Context::$user_conf->topline_thumbnail; ?>
 		<div class="form-group">
 			<label class="group-name" for="topline_thumbnail"><?= _t('conf.display.thumbnail.label') ?></label>

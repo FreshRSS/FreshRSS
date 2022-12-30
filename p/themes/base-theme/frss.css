@@ -1180,6 +1180,10 @@ input[type="search"] {
 	width: 200px;
 }
 
+.flux .item.website.icon {
+	width: 2.5rem;
+}
+
 .website a:hover .favicon,
 a.website:hover .favicon {
 	filter: grayscale(100%);

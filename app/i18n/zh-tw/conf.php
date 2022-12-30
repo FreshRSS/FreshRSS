@@ -60,6 +60,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => '顯示',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => '內容寬度',
 			'large' => '寬',

@@ -60,6 +60,13 @@ return array(
 		),
 		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
+		'website' => array(
+			'full' => 'Icône et nom',
+			'icon' => 'Icône seulement',
+			'label' => 'Site internet',
+			'name' => 'Nom seulement',
+			'none' => 'Aucun',
+		),
 		'width' => array(
 			'content' => 'Largeur du contenu',
 			'large' => 'Large',	// IGNORE
