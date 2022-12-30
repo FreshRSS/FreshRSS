@@ -140,7 +140,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 		$thumbnail = $this->attributes('thumbnail');
 		if (!empty($thumbnail['url'])) {
-			$elink = htmlspecialchars($thumbnail['url'], ENT_COMPAT, 'UTF-8');
+			$elink = $thumbnail['url'];
 			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
 			$content .= <<<HTML
 <figure class="enclosure">
@@ -162,7 +162,6 @@ HTML;
 			if ($elink == '') {
 				continue;
 			}
-			$elink = htmlspecialchars($elink, ENT_COMPAT, 'UTF-8');
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 				continue;
 			}
