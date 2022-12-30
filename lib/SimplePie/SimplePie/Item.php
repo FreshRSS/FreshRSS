@@ -2841,9 +2841,7 @@ class SimplePie_Item
 					$url = null;
 					$width = null;
 
-					syslog(LOG_DEBUG, __METHOD__ . ' 7 ' . json_encode($content['attribs']['']['url']));
 					$url = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
-					syslog(LOG_DEBUG, __METHOD__ . ' 8 ' . json_encode($url));
 					if (isset($link['attribs']['']['type']))
 					{
 						$type = $this->sanitize($link['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
@@ -2878,9 +2876,7 @@ class SimplePie_Item
 					$url = null;
 					$width = null;
 
-					syslog(LOG_DEBUG, __METHOD__ . ' 9 ' . json_encode($enclosure[0]['attribs']['']['url']));
 					$url = $this->sanitize($enclosure[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($enclosure[0]));
-					syslog(LOG_DEBUG, __METHOD__ . ' 10 ' . json_encode($url));
 					$url = $this->feed->sanitize->https_url($url);
 					if (isset($enclosure[0]['attribs']['']['type']))
 					{
