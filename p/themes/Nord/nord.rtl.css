@@ -174,7 +174,7 @@ a.btn {
 	line-height: 25px;
 }
 
-.btn-important, .read_all, #actualize {
+.btn-important, #nav_menu_read_all .read_all, #actualize {
 	font-weight: bold !important;
 	background-color: var(--accent) !important;
 	color: var(--bg) !important;
