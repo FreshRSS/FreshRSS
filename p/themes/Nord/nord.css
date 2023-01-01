@@ -238,6 +238,7 @@ a.btn {
 	padding: 0 22px;
 	color: var(--text);
 	line-height: 2.5em;
+	font-size: inherit;
 	min-width: 200px;
 }
 
