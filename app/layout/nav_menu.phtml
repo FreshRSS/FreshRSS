@@ -190,6 +190,11 @@
 			<input type="search" name="search" class="extend" value="<?php
 				echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?= _t('index.menu.search_short') ?>" />
 
+			<?php $param_a = Minz_Request::actionName(); ?>
+			<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+			<input type="hidden" name="a" value="<?= $param_a ?>" />
+			<?php } ?>
+			
 			<?php $get = Minz_Request::param('get', ''); ?>
 			<?php if($get != '') { ?>
 			<input type="hidden" name="get" value="<?= $get ?>" />
