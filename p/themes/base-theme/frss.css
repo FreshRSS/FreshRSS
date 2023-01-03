@@ -1871,6 +1871,10 @@ input:checked + .slide-container .properties {
 	margin: 1em 0 0 0;
 }
 
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	content: "(" attr(data-unread) ") ";
+}
+
 .feed.active .item-title:not([data-unread="0"])::after {
 	color: var(--frss-font-color-light);
 	border: 1px solid var(--frss-border-color);
