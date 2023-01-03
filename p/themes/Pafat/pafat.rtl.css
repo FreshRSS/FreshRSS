@@ -540,7 +540,6 @@ a.btn {
 	background-color: var(--background-color-white);
 	width: 0.5rem;
 	height: 0.5rem;
-	content: "";
 	position: absolute;
 	top: 1rem;
 	right: -0.25rem;

@@ -218,7 +218,6 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	content: "";
 	position: absolute;
 	top: -6px;
 	right: 13px;

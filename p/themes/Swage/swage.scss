@@ -89,7 +89,6 @@ $color_hover:	#fff;
 }
 
 %after {
-	content: "";
 	display: block;
 	clear: both;
 }
@@ -427,10 +426,6 @@ form {
 				}
 			}
 		}
-	}
-
-	&::after {
-		content: none;
 	}
 
 	> {

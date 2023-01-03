@@ -103,7 +103,6 @@ form th {
 }
 
 .form-group::after {
-	content: "";
 	display: block;
 	clear: both;
 }
