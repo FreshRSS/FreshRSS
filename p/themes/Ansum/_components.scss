@@ -54,12 +54,11 @@
 		a, .as-link {
 			padding: 0 2rem;
 			color: variables.$main-font-color;
-			font-size: 1rem;
+			font-size: inherit;
 			line-height: 2.5em;
 
 			span.icon {
 				padding: 0 0.25rem !important;
-				line-height: 1;
 			}
 
 			&:not(.addItem):hover {

@@ -145,6 +145,9 @@ function init_archiving(parent) {
 const freshrssSliderLoadEvent = new Event('freshrss:slider-load');
 
 function open_slider_listener(ev) {
+	if (ev.ctrlKey || ev.shiftKey) {
+		return;
+	}
 	const a = ev.target.closest('.open-slider');
 	if (a) {
 		if (!context.ajax_loading) {
