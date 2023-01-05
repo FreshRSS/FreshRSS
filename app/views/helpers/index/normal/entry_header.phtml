@@ -42,8 +42,7 @@
 	?><li class="item thumbnail <?= $topline_thumbnail ?> <?= $topline_summary ? '' : 'small' ?>"><?php
 		$thumbnail = $this->entry->thumbnail();
 		if ($thumbnail != null):
-			?><img src="<?= htmlspecialchars($thumbnail['url'], ENT_COMPAT, 'UTF-8') ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?><?=
-				empty($thumbnail['alt']) ? '' : ' alt="' . htmlspecialchars(strip_tags($thumbnail['alt']), ENT_COMPAT, 'UTF-8') . '"' ?> /><?php
+			?><img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" /><?php
 		endif;
 	?></li><?php
 	endif; ?>

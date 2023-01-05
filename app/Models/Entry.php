@@ -126,6 +126,16 @@ class FreshRSS_Entry extends Minz_Model {
 		return preg_match('/(?P<delim>[\'"])' . preg_quote($link, '/') . '(?P=delim)/', $html) == 1;
 	}
 
+	private static function enclosureIsImage(array $enclosure): bool {
+		$elink = $enclosure['url'] ?? '';
+		$length = $enclosure['length'] ?? 0;
+		$medium = $enclosure['medium'] ?? '';
+		$mime = $enclosure['type'] ?? '';
+
+		return $elink != '' && $medium === 'image' || strpos($mime, 'image') === 0 ||
+			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
+	}
+
 	/**
 	 * @param bool $withEnclosures Set to true to include the enclosures in the returned HTML, false otherwise.
 	 * @param bool $allowDuplicateEnclosures Set to false to remove obvious enclosure duplicates (based on simple string comparison), true otherwise.
@@ -181,8 +191,7 @@ HTML;
 				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
 			}
 
-			if ($medium === 'image' || strpos($mime, 'image') === 0 ||
-				($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
+			if (self::enclosureIsImage($enclosure)) {
 				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
 			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
@@ -231,7 +240,7 @@ HTML;
 				$xpath = new DOMXpath($dom);
 			}
 			if ($searchEnclosures) {
-				// Legacy code < FreshRSS 1.20.1
+				// Legacy code for database entries < FreshRSS 1.20.1
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
 					$result = [
@@ -247,7 +256,7 @@ HTML;
 							case 'audio': $result['medium'] = 'audio'; break;
 						}
 					}
-					$results[] = $result;
+					$results[] = Minz_Helper::htmlspecialchars_utf8($result);
 				}
 			}
 			if ($searchBodyImages) {
@@ -258,10 +267,10 @@ HTML;
 						$src = $img->getAttribute('data-src');
 					}
 					if ($src != null) {
-						$results[] = [
+						$result = [
 							'url' => $src,
-							'alt' => $img->getAttribute('alt'),
 						];
+						$results[] = Minz_Helper::htmlspecialchars_utf8($result);
 					}
 				}
 			}
@@ -281,7 +290,7 @@ HTML;
 		}
 		if ($searchEnclosures) {
 			foreach ($this->enclosures(true) as $enclosure) {
-				if (!empty($enclosure['url']) && empty($enclosure['type'])) {
+				if (self::enclosureIsImage($enclosure)) {
 					return $enclosure;
 				}
 			}

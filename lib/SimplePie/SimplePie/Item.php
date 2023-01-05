@@ -434,7 +434,7 @@ class SimplePie_Item
 				}
 				else
 				{
-					$thumbnail['url'] = $this->sanitize($thumbnail['url'], SIMPLEPIE_CONSTRUCT_IRI);
+					$thumbnail['url'] = $this->sanitize($thumbnail['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 					$this->data['thumbnail'] = $thumbnail;
 				}
 			}
@@ -2856,7 +2856,7 @@ class SimplePie_Item
 				}
 			}
 
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'enclosure') as $enclosure)
+			foreach ($this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'enclosure') ?? [] as $enclosure)
 			{
 				if (isset($enclosure['attribs']['']['url']))
 				{
