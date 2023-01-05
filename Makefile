@@ -65,7 +65,7 @@ test: bin/phpunit ## Run the test suite
 
 .PHONY: lint
 lint: bin/phpcs ## Run the linter on the PHP files
-	$(PHP) ./bin/phpcs . -p -s
+	$(PHP) ./bin/phpcs . -p -s --ignore=data/cache/
 
 .PHONY: lint-fix
 lint-fix: bin/phpcbf ## Fix the errors detected by the linter

@@ -1,5 +1,7 @@
 <?php
 
+namespace Cli\I18n;
+
 class I18nValue {
 	const STATE_DIRTY = 'dirty';
 	const STATE_IGNORE = 'ignore';

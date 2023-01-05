@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nUsageValidator.php';
+use Cli\I18n\I18nValue;
+use Cli\I18n\I18nUsageValidator;
 
 class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 	private $value;

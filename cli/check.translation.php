@@ -1,10 +1,14 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
-require_once __DIR__ . '/i18n/I18nData.php';
-require_once __DIR__ . '/i18n/I18nFile.php';
-require_once __DIR__ . '/i18n/I18nUsageValidator.php';
+require(__DIR__ . '/../constants.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+
+use \RecursiveDirectoryIterator;
+use Cli\I18n\I18nCompletionValidator;
+use Cli\I18n\I18nData;
+use Cli\I18n\I18nFile;
+use Cli\I18n\I18nUsageValidator;
 
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());

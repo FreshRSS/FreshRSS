@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../../cli/i18n/I18nFile.php';
+use Cli\I18n\I18nFile;
 
 class I18nFileTest extends PHPUnit\Framework\TestCase {
 	public function test() {

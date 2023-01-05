@@ -1,5 +1,9 @@
 <?php
 
+namespace Cli\I18n;
+
+use \Exception;
+
 class I18nData {
 
 	const REFERENCE_LANGUAGE = 'en';
@@ -90,7 +94,7 @@ class I18nData {
 	 */
 	private function getNonReferenceLanguages() {
 		return array_filter(array_keys($this->data), function ($value) {
-			return static::REFERENCE_LANGUAGE !== $value;
+			return self::REFERENCE_LANGUAGE !== $value;
 		});
 	}
 
@@ -106,7 +110,7 @@ class I18nData {
 			throw new Exception('The selected language already exist.');
 		}
 		if (!is_string($reference) || !array_key_exists($reference, $this->data)) {
-			$reference = static::REFERENCE_LANGUAGE;
+			$reference = self::REFERENCE_LANGUAGE;
 		}
 		$this->data[$language] = $this->data[$reference];
 	}
@@ -118,8 +122,8 @@ class I18nData {
 	 * @return bool
 	 */
 	public function isKnown($key) {
-		return array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
-			array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
+		return array_key_exists($this->getFilenamePrefix($key), $this->data[self::REFERENCE_LANGUAGE]) &&
+			array_key_exists($key, $this->data[self::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
 	}
 
 	/**
@@ -140,11 +144,11 @@ class I18nData {
 	 * To get the siblings, we need to find all matches with the parent.
 	 */
 	private function getSiblings($key) {
-		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE])) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[self::REFERENCE_LANGUAGE])) {
 			return [];
 		}
 
-		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
+		$keys = array_keys($this->data[self::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
 		$parent = $this->getParentKey($key);
 
 		return array_values(array_filter($keys, function ($element) use ($parent) {
@@ -250,14 +254,14 @@ class I18nData {
 		if (!in_array($language, $this->getAvailableLanguages())) {
 			throw new Exception('The selected language does not exist.');
 		}
-		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
-			!array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[self::REFERENCE_LANGUAGE]) ||
+			!array_key_exists($key, $this->data[self::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key does not exist for the selected language.');
 		}
 
 		$value = new I18nValue($value);
-		if (static::REFERENCE_LANGUAGE === $language) {
-			$previousValue = $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
+		if (self::REFERENCE_LANGUAGE === $language) {
+			$previousValue = $this->data[self::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
 			foreach ($this->getAvailableLanguages() as $lang) {
 				$currentValue = $this->data[$lang][$this->getFilenamePrefix($key)][$key];
 				if ($currentValue->equal($previousValue)) {
@@ -305,7 +309,7 @@ class I18nData {
 	 *
 	 * @param string $key
 	 * @param string $language
-	 * @param boolean $reverse
+	 * @param bool $reverse
 	 */
 	public function ignore($key, $language, $reverse = false) {
 		$value = $this->data[$language][$this->getFilenamePrefix($key)][$key];
@@ -320,7 +324,7 @@ class I18nData {
 	 * Ignore all unmodified keys from a language, or reverse it.
 	 *
 	 * @param string $language
-	 * @param boolean $reverse
+	 * @param bool $reverse
 	 */
 	public function ignore_unmodified($language, $reverse = false) {
 		$my_language = $this->getLanguage($language);
@@ -340,7 +344,7 @@ class I18nData {
 	}
 
 	public function getReferenceLanguage() {
-		return $this->getLanguage(static::REFERENCE_LANGUAGE);
+		return $this->getLanguage(self::REFERENCE_LANGUAGE);
 	}
 
 	/**

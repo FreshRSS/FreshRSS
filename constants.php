@@ -16,6 +16,7 @@ define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 define('PUBLIC_RELATIVE', '..');
 define('LIB_PATH', FRESHRSS_PATH . '/lib');
 define('APP_PATH', FRESHRSS_PATH . '/app');
+define('CLI_PATH', FRESHRSS_PATH . '/cli');
 define('I18N_PATH', APP_PATH . '/i18n');
 define('CORE_EXTENSIONS_PATH', LIB_PATH . '/core-extensions');
 define('TESTS_PATH', FRESHRSS_PATH . '/tests');
