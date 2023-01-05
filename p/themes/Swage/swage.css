@@ -484,7 +484,6 @@ form th {
 .box .box-content .item {
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 2.5;
 }
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
@@ -1166,3 +1165,5 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
+
+/*# sourceMappingURL=swage.css.map */

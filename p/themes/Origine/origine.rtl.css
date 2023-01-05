@@ -679,7 +679,8 @@ a:hover .icon {
 
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
-.global .box.category .title:not([data-unread="0"])::after {
+.global .box.category .title:not([data-unread="0"])::after,
+.global .feed .item-title:not([data-unread="0"])::after {
 	background-color: var(--background-color-light-shadowed);
 	color: var(--font-color-grey);
 }

@@ -1038,6 +1038,10 @@ a.btn {
 	color: #222;
 }
 
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin-top: 1rem;
+}
+
 /*=== PANEL */
 /*===========*/
 #panel {
