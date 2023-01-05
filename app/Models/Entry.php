@@ -177,13 +177,11 @@ HTML;
 			}
 			$credit = $enclosure['credit'] ?? '';
 			$description = $enclosure['description'] ?? '';
-			$height = $enclosure['height'] ?? 0;
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
 			$mime = $enclosure['type'] ?? '';
 			$thumbnails = $enclosure['thumbnails'] ?? [];
 			$etitle = $enclosure['title'] ?? '';
-			$width = $enclosure['width'] ?? 0;
 
 			$content .= '<figure class="enclosure">';
 
@@ -222,13 +220,12 @@ HTML;
 		return $content;
 	}
 
-	/** @return array<array<string,string>> */
-	public function enclosures(bool $searchBodyImages = false): array {
-		$results = [];
+	/** @return iterable<array<string,string>> */
+	public function enclosures(bool $searchBodyImages = false) {
 		$attributeEnclosures = $this->attributes('enclosures');
 		if (is_array($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
-			$results = $attributeEnclosures;
+			yield from $attributeEnclosures;
 		}
 		try {
 			$searchEnclosures = !is_array($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
@@ -256,7 +253,7 @@ HTML;
 							case 'audio': $result['medium'] = 'audio'; break;
 						}
 					}
-					$results[] = Minz_Helper::htmlspecialchars_utf8($result);
+					yield Minz_Helper::htmlspecialchars_utf8($result);
 				}
 			}
 			if ($searchBodyImages) {
@@ -270,13 +267,12 @@ HTML;
 						$result = [
 							'url' => $src,
 						];
-						$results[] = Minz_Helper::htmlspecialchars_utf8($result);
+						yield Minz_Helper::htmlspecialchars_utf8($result);
 					}
 				}
 			}
-			return $results;
 		} catch (Exception $ex) {
-			return $results;
+			Minz_Log::debug(__METHOD__ . ' ' . $ex->getMessage());
 		}
 	}
 
