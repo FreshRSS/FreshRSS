@@ -12,37 +12,6 @@
 	</div>
 
 	<div class="item search">
-		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) { ?>
-		<form action="<?= _url('index', 'index') ?>" method="get">
-			<div class="stick">
-				<input type="search" name="search" id="search" class="extend"
-					value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
-					placeholder="<?= _t('gen.menu.search') ?>" />
-				
-				<?php $param_a = Minz_Request::actionName(); ?>
-				<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
-				<input type="hidden" name="a" value="<?= $param_a ?>" />
-				<?php } ?>
-
-				<?php $get = Minz_Request::param('get', ''); ?>
-				<?php if ($get != '') { ?>
-				<input type="hidden" name="get" value="<?= $get ?>" />
-				<?php } ?>
-
-				<?php $order = Minz_Request::param('order', ''); ?>
-				<?php if ($order != '') { ?>
-				<input type="hidden" name="order" value="<?= $order ?>" />
-				<?php } ?>
-
-				<?php $state = Minz_Request::param('state', ''); ?>
-				<?php if ($state != '') { ?>
-				<input type="hidden" name="state" value="<?= $state ?>" />
-				<?php } ?>
-
-				<button class="btn" type="submit"><?= _i('search') ?></button>
-			</div>
-		</form>
-		<?php } ?>
 	</div>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
