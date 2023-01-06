@@ -841,7 +841,7 @@ HTML;
 				if (!empty($enclosure['length'])) {
 					$media['length'] = intval($enclosure['length']);
 				}
-				$item['enclosures'][] = $media;
+				$item['enclosure'][] = $media;
 			}
 		}
 		$author = $this->authors(true);
