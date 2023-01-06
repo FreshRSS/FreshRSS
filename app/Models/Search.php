@@ -201,6 +201,13 @@ class FreshRSS_Search {
 		return $value;
 	}
 
+	private static function escapeCharacters($value) {
+		if (is_array($value)) {
+			return array_map('self::escapeCharacters', $value);
+		}
+		return addcslashes($value, '%_');
+	}
+
 	/**
 	 * Parse the search string to find entry (article) IDs.
 	 */
@@ -330,6 +337,7 @@ class FreshRSS_Search {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
+					$names_array = self::escapeCharacters($names_array);
 					$this->label_names[] = $names_array;
 				}
 			}
@@ -356,6 +364,7 @@ class FreshRSS_Search {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
+					$names_array = self::escapeCharacters($names_array);
 					$this->not_label_names[] = $names_array;
 				}
 			}
@@ -377,6 +386,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
+		$this->intitle = self::escapeCharacters($this->intitle);
 		return $input;
 	}
 
@@ -390,6 +400,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
+		$this->not_intitle = self::escapeCharacters($this->not_intitle);
 		return $input;
 	}
 
@@ -408,6 +419,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->author = self::removeEmptyValues($this->author);
+		$this->author = self::escapeCharacters($this->author);
 		return $input;
 	}
 
@@ -421,6 +433,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
+		$this->not_author = self::escapeCharacters($this->not_author);
 		return $input;
 	}
 
@@ -434,6 +447,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->inurl = self::removeEmptyValues($this->inurl);
+		$this->inurl = self::escapeCharacters($this->inurl);
 		return $input;
 	}
 
@@ -443,6 +457,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
+		$this->not_inurl = self::escapeCharacters($this->not_inurl);
 		return $input;
 	}
 
@@ -455,6 +470,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
+				$dates = self::escapeCharacters($dates);
 				list($this->min_date, $this->max_date) = parseDateInterval($dates[0]);
 			}
 		}
@@ -466,6 +482,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
+				$dates = self::escapeCharacters($dates);
 				list($this->not_min_date, $this->not_max_date) = parseDateInterval($dates[0]);
 			}
 		}
@@ -482,6 +499,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
+				$dates = self::escapeCharacters($dates);
 				list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($dates[0]);
 			}
 		}
@@ -493,6 +511,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
+				$dates = self::escapeCharacters($dates);
 				list($this->not_min_pubdate, $this->not_max_pubdate) = parseDateInterval($dates[0]);
 			}
 		}
@@ -511,6 +530,7 @@ class FreshRSS_Search {
 		}
 		$this->tags = self::removeEmptyValues($this->tags);
 		$this->tags = self::decodeSpaces($this->tags);
+		$this->tags = self::escapeCharacters($this->tags);
 		return $input;
 	}
 
@@ -521,6 +541,7 @@ class FreshRSS_Search {
 		}
 		$this->not_tags = self::removeEmptyValues($this->not_tags);
 		$this->not_tags = self::decodeSpaces($this->not_tags);
+		$this->not_tags = self::escapeCharacters($this->not_tags);
 		return $input;
 	}
 
@@ -556,6 +577,7 @@ class FreshRSS_Search {
 		} else {
 			$this->search = explode(' ', $input);
 		}
+		$this->search = self::escapeCharacters($this->search);
 		return $input;
 	}
 
@@ -577,6 +599,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_search = self::removeEmptyValues($this->not_search);
+		$this->not_search = self::escapeCharacters($this->not_search);
 		return $input;
 	}
 
