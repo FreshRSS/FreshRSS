@@ -830,10 +830,11 @@ HTML;
 			}
 		}
 		foreach ($this->enclosures() as $enclosure) {
-			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
+			if (!empty($enclosure['url'])) {
 				$media = [
 						'href' => $enclosure['url'],
-						'type' => $enclosure['type'],
+						'type' => $enclosure['type'] ?? $enclosure['medium'] ??
+							(self::enclosureIsImage($enclosure) ? 'image' : ''),
 					];
 				if (!empty($enclosure['length'])) {
 					$media['length'] = intval($enclosure['length']);
