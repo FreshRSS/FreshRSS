@@ -813,7 +813,6 @@ HTML;
 				];
 			}
 		} else {
-			unset($item['summary']);
 			$item['content'] = [
 				'content' => $this->content(false),
 			];
