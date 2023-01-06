@@ -787,7 +787,6 @@ HTML;
 			'published' => $this->date(true),
 			// 'updated' => $this->date(true),
 			'title' => $this->title(),
-			'summary' => ['content' => $this->content(false)],
 			'canonical' => [
 				['href' => htmlspecialchars_decode($this->link(), ENT_QUOTES)],
 			],
@@ -807,13 +806,20 @@ HTML;
 		if ($mode === 'compat') {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
-			if (mb_strlen($this->content(false), 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
-				$item['summary']['content'] = mb_strcut($this->content(false), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8');
+			$content = $this->content(true);
+			if (mb_strlen($content, 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
+				$item['summary'] = [
+					'content' => mb_strcut($content, 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+				];
 			}
-		} elseif ($mode === 'freshrss') {
-			$item['guid'] = $this->guid();
+		} else {
 			unset($item['summary']);
-			$item['content'] = ['content' => $this->content(false)];
+			$item['content'] = [
+				'content' => $this->content(false),
+			];
+		}
+		if ($mode === 'freshrss') {
+			$item['guid'] = $this->guid();
 		}
 		if ($category != null && $mode !== 'freshrss') {
 			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
