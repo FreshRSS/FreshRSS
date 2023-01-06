@@ -806,12 +806,9 @@ HTML;
 		if ($mode === 'compat') {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
-			$content = $this->content(true);
-			if (mb_strlen($content, 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
-				$item['summary'] = [
-					'content' => mb_strcut($content, 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
-				];
-			}
+			$item['summary'] = [
+				'content' => mb_strcut($this->content(true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+			];
 		} else {
 			$item['content'] = [
 				'content' => $this->content(false),
