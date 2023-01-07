@@ -165,7 +165,7 @@ class FreshRSS_BooleanSearch {
 				$i++;
 				while ($i < $length) {
 					$c = $input[$i];
-					$backslashed = $i >= 1 ? $input[$i - 1] === '\\' : false;
+					$backslashed = $input[$i - 1] === '\\';
 					if ($c === '(' && !$backslashed) {
 						// One nested level deeper
 						$parentheses++;
