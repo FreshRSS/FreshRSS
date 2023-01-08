@@ -293,6 +293,10 @@ a:hover .icon {
 	filter: brightness(1.1);
 }
 
+#toggle-search.active > .icon {
+	filter: invert(8%) sepia(99%) saturate(7064%) hue-rotate(248deg) brightness(99%) contrast(142%);
+}
+
 .btn.active,
 .btn:active,
 .dropdown-target:target ~ .btn.dropdown-toggle {
@@ -1133,22 +1137,6 @@ a:hover .icon {
 
 	.nav_menu .stick .btn {
 		margin: 5px 0;
-	}
-
-	.nav_menu .search {
-		display: inline-block;
-		max-width: 97%;
-	}
-
-	.nav_menu .search input {
-		padding: 3px 5px;
-		max-width: 97%;
-		width: 90px;
-		line-height: 2;
-	}
-
-	.nav_menu .search input:focus {
-		width: 400px;
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {
