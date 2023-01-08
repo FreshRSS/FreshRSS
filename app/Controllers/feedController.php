@@ -949,7 +949,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$this->view->htmlContent = $fullContent;
 			} else {
 				$this->view->selectorSuccess = false;
-				$this->view->htmlContent = $entry->content();
+				$this->view->htmlContent = $entry->content(false);
 			}
 		} catch (Exception $e) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');

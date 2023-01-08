@@ -254,8 +254,11 @@ form th {
 .dropdown-menu .item a, .dropdown-menu .item .as-link {
 	padding: 0 2rem;
 	color: #303136;
-	font-size: 1rem;
+	font-size: inherit;
 	line-height: 2.5em;
+}
+.dropdown-menu .item a span.icon, .dropdown-menu .item .as-link span.icon {
+	padding: 0 0.25rem !important;
 }
 .dropdown-menu .item a:not(.addItem):hover, .dropdown-menu .item .as-link:not(.addItem):hover {
 	background: #36c;
@@ -309,8 +312,6 @@ form th {
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	padding: 1rem;
 	background: #f9fafb;
 	color: #5b6871;
 	font-size: 1rem;

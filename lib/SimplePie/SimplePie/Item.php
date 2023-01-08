@@ -427,7 +427,16 @@ class SimplePie_Item
 		{
 			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'thumbnail'))
 			{
-				$this->data['thumbnail'] = $return[0]['attribs'][''];
+				$thumbnail = $return[0]['attribs'][''];
+				if (empty($thumbnail['url']))
+				{
+					$this->data['thumbnail'] = null;
+				}
+				else
+				{
+					$thumbnail['url'] = $this->sanitize($thumbnail['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
+					$this->data['thumbnail'] = $thumbnail;
+				}
 			}
 			else
 			{
@@ -2847,9 +2856,9 @@ class SimplePie_Item
 				}
 			}
 
-			if ($enclosure = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'enclosure'))
+			foreach ($this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'enclosure') ?? [] as $enclosure)
 			{
-				if (isset($enclosure[0]['attribs']['']['url']))
+				if (isset($enclosure['attribs']['']['url']))
 				{
 					// Attributes
 					$bitrate = null;
@@ -2867,15 +2876,15 @@ class SimplePie_Item
 					$url = null;
 					$width = null;
 
-					$url = $this->sanitize($enclosure[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($enclosure[0]));
+					$url = $this->sanitize($enclosure['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($enclosure));
 					$url = $this->feed->sanitize->https_url($url);
-					if (isset($enclosure[0]['attribs']['']['type']))
+					if (isset($enclosure['attribs']['']['type']))
 					{
-						$type = $this->sanitize($enclosure[0]['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
+						$type = $this->sanitize($enclosure['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($enclosure[0]['attribs']['']['length']))
+					if (isset($enclosure['attribs']['']['length']))
 					{
-						$length = intval($enclosure[0]['attribs']['']['length']);
+						$length = intval($enclosure['attribs']['']['length']);
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
