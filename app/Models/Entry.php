@@ -76,7 +76,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['guid'] ?? '',
 			$dao['title'] ?? '',
 			$dao['author'] ?? '',
-			$dao['content'] ?? '',
+			$dao['content'],
 			$dao['link'] ?? '',
 			$dao['date'] ?? 0,
 			$dao['is_read'] ?? false,

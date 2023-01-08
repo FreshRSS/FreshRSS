@@ -23,7 +23,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		if ($return != 0) {
 			throw new Exception($errorMessage);
 		}
-		$line = is_array($output) ? implode('', $output) : $output;
+		$line = implode('', $output);
 		if ($line !== 'master' && $line !== 'dev') {
 			return true;	// not on master or dev, nothing to do
 		}
@@ -54,14 +54,14 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$output = [];
 				exec('git status -sb --porcelain remote', $output, $return);
 			} else {
-				$line = is_array($output) ? implode('; ', $output) : $output;
+				$line = implode('; ', $output);
 				Minz_Log::warning('git fetch warning: ' . $line);
 			}
 		} catch (Exception $e) {
 			Minz_Log::warning('git fetch error: ' . $e->getMessage());
 		}
 		chdir($cwd);
-		$line = is_array($output) ? implode('; ', $output) : $output;
+		$line = implode('; ', $output);
 		return $line == '' ||
 			strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false || strpos($line, '[gone') !== false;
 	}
