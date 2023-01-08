@@ -174,7 +174,7 @@ a.btn {
 	line-height: 25px;
 }
 
-.btn-important, .read_all, #actualize {
+.btn-important, #nav_menu_read_all .read_all, #actualize {
 	font-weight: bold !important;
 	background-color: var(--accent) !important;
 	color: var(--bg) !important;
@@ -231,6 +231,7 @@ a.btn {
 	padding: 0 22px;
 	color: var(--text);
 	line-height: 2.5em;
+	font-size: inherit;
 	min-width: 200px;
 }
 
@@ -312,8 +313,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	font-size: 0.9em;
 	border-radius: 6px;
 }

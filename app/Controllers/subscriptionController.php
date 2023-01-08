@@ -118,8 +118,6 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$httpAuth = $user . ':' . $pass;
 			}
 
-			$cat = intval(Minz_Request::param('category', 0));
-
 			$feed->_ttl(intval(Minz_Request::param('ttl', FreshRSS_Feed::TTL_DEFAULT)));
 			$feed->_mute(boolval(Minz_Request::param('mute', false)));
 
@@ -230,7 +228,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
 				'website' => checkUrl(Minz_Request::param('website', '')),
 				'url' => checkUrl(Minz_Request::param('url', '')),
-				'category' => $cat,
+				'category' => intval(Minz_Request::param('category', 0)),
 				'pathEntries' => Minz_Request::param('path_entries', ''),
 				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
@@ -259,7 +257,10 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($feedDAO->updateFeed($id, $values) !== false) {
-				$feed->_categoryId($cat);
+				$feed->_categoryId($values['category']);
+				// update url and website values for faviconPrepare
+				$feed->_url($values['url'], false);
+				$feed->_website($values['website'], false);
 				$feed->faviconPrepare();
 
 				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);

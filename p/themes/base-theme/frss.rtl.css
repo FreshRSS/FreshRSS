@@ -317,7 +317,6 @@ button.as-link:hover,
 button.as-link:active {
 	background: transparent;
 	color: inherit;
-	font-size: 1.1rem;
 	border: none;
 	cursor: pointer;
 	text-align: right;
@@ -716,6 +715,8 @@ input[type="checkbox"]:focus-visible {
 
 /*=== Alerts */
 .alert {
+	margin: 1rem auto;
+	padding: 0.75rem 1rem;
 	display: block;
 	width: 90%;
 }
@@ -2173,6 +2174,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.notification {
+		padding: 0.75rem;
 		top: 0;
 		right: 0;
 		left: 0;

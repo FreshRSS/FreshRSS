@@ -325,7 +325,7 @@ a.btn {
 .dropdown-menu .item > .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
-	font-size: 0.8rem;
+	font-size: inherit;
 }
 
 .dropdown-menu .dropdown-section .item > a,
@@ -370,8 +370,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	background: #f4f4f4;
 	color: #aaa;
 	font-size: 0.9em;

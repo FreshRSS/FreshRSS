@@ -369,7 +369,7 @@ a.btn {
 	padding: 0 22px;
 	line-height: 2.5;
 	color: var(--font-color-grey);
-	font-size: 0.8rem;
+	font-size: inherit;
 }
 
 .dropdown-menu .dropdown-section .item > a,
@@ -409,8 +409,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
 	font-size: 0.9em;

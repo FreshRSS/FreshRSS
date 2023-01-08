@@ -42,8 +42,7 @@
 	?><li class="item thumbnail <?= $topline_thumbnail ?> <?= $topline_summary ? '' : 'small' ?>"><?php
 		$thumbnail = $this->entry->thumbnail();
 		if ($thumbnail != null):
-			?><img src="<?= htmlspecialchars($thumbnail['url'], ENT_COMPAT, 'UTF-8') ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?><?=
-				empty($thumbnail['alt']) ? '' : ' alt="' . htmlspecialchars(strip_tags($thumbnail['alt']), ENT_COMPAT, 'UTF-8') . '"' ?> /><?php
+			?><img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" /><?php
 		endif;
 	?></li><?php
 	endif; ?>
@@ -62,7 +61,7 @@
 			?></span><?php
 		endif;
 		if ($topline_summary):
-			?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content()), 0, 500, 'UTF-8')) ?></div><?php
+			?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
 		endif;
 	?></a></li>
 	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>" class="item-element"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>

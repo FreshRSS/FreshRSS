@@ -58,6 +58,8 @@ if [ -n "$FRESHRSS_USER" ]; then
 fi
 
 chown -R :www-data .
-chmod -R g+r . && chmod -R g+w ./data/
+chmod -R g+r .
+chmod -R g+w ./data/
+chmod g+x ./extensions/
 
 exec "$@"

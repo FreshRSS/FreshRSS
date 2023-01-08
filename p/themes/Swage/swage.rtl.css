@@ -369,8 +369,7 @@ form th {
 }
 
 .alert {
-	margin: 5px auto;
-	padding: 10px 15px;
+	margin: 0.25rem auto;
 	background-color: var(--color-background-light);
 	color: var(--color-text-light-darker);
 	font-size: 0.9em;
