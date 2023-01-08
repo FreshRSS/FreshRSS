@@ -33,7 +33,7 @@
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-search" class="dropdown-target"></div>
 
-			<a id="toggle-search" class="dropdown-toggle btn<?= (strlen(FreshRSS_Context::$search) > 0) ? ' active': ''; ?>" title="<?= _t('gen.menu.search') ?>"
+			<a id="toggle-search" class="dropdown-toggle btn<?= (strlen(FreshRSS_Context::$search) > 0) ? ' active' : ''; ?>" title="<?= _t('gen.menu.search') ?>"
 				href="#dropdown-search"><?= _i('search') ?></a>
 			<ul class="dropdown-menu">
 				<li class="item">
