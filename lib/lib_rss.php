@@ -224,6 +224,30 @@ function html_only_entity_decode($text): string {
 }
 
 /**
+ * Remove passwords in logs
+ * @param array<string,mixed>|string $log
+ * @return array<string,mixed>|string
+ */
+function sensitive_log($log) {
+	if (is_array($log)) {
+		foreach ($log as $k => $v) {
+			if (in_array($k, ['api_key', 'Passwd', 'T'])) {
+				$log[$k] = '██';
+			} else {
+				$log[$k] = sensitive_log($v);
+			}
+		}
+	} elseif (is_string($log)) {
+		$log = preg_replace([
+				'/\b(auth=.*?\/)[^&]+/i',
+				'/\b(Passwd=)[^&]+/i',
+				'/\b(Authorization)[^&]+/i',
+			], '$1█', $log);
+	}
+	return $log;
+}
+
+/**
  * @param array<string,mixed> $attributes
  */
 function customSimplePie($attributes = array()): SimplePie {
