@@ -177,8 +177,7 @@ function authorizationToUser() {
 				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {
-					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], API_LOG);
-					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
+					Minz_Log::warning('Invalid API authorisation for user ' . $user);
 					unauthorized();
 				}
 			} else {
