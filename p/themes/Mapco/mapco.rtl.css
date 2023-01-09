@@ -954,6 +954,9 @@ main.prompt {
 .notification#actualizeProgress br {
 	display: none;
 }
+.notification#actualizeProgress .title {
+	margin: 0 2rem;
+}
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
