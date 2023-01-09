@@ -99,8 +99,8 @@
 			<label class="group-name" for="darkMode"><?= _t('conf.display.darkMode') ?></label>
 			<div class="group-controls">
 				<select name="darkMode" id="darkMode" data-leave-validation="<?= FreshRSS_Context::$user_conf->darkMode ?>">
-					<option value="no"<?php FreshRSS_Context::$user_conf->darkMode === 'no' ? ' selected' : '' ?>>No</option>
-					<option value="auto"<?php FreshRSS_Context::$user_conf->darkMode === 'auto' ? ' selected' : '' ?>>Auto</option>
+					<option value="no"<?= FreshRSS_Context::$user_conf->darkMode === 'no' ? ' selected' : '' ?>>No</option>
+					<option value="auto"<?= FreshRSS_Context::$user_conf->darkMode === 'auto' ? ' selected' : '' ?>>Auto</option>
 				</select>
 			</div>
 		</div>
