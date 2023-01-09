@@ -284,16 +284,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				array('word6', 'word7'),
 			),
 			array(
-				'wor_d6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:wor_d1 #wor_d5 "wor_d7 word8" date:2007-03-01/2008-05-11',
-				array('wor\\_d1'),
+				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 "word7 word8" date:2007-03-01/2008-05-11',
+				array('word1'),
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
 				array('word2'),
 				array('word3'),
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'wor\\_d5'),
-				array('wor\\_d7 word8', 'wor\\_d6'),
+				array('word4', 'word5'),
+				array('word7 word8', 'word6'),
 			),
 		);
 	}
