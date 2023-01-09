@@ -71,7 +71,6 @@ select:invalid {
 }
 
 .flux::after, .form-group::after {
-	content: "";
 	display: block;
 	clear: both;
 }
@@ -329,9 +328,6 @@ form th {
 .dropdown-menu .dropdown-section .item a:hover {
 	background-color: var(--color-background-nav);
 }
-.dropdown-menu::after {
-	content: none;
-}
 .dropdown-menu > .item {
 	padding: 0 0 0 0.5rem;
 }
@@ -488,7 +484,6 @@ form th {
 .box .box-content .item {
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 2.5;
 }
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
@@ -1170,3 +1165,5 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
+
+/*# sourceMappingURL=swage.css.map */

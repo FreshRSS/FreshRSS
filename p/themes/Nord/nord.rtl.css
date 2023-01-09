@@ -388,7 +388,6 @@ img.favicon {
 .box .box-content .item {
 	padding: 0 10px;
 	font-size: 0.9rem;
-	line-height: 2.5em;
 }
 
 /*=== Draggable */
@@ -522,10 +521,6 @@ img.favicon {
 	background-color: var(--accent-bg);
 	font-weight: bold;
 
-}
-
-.category .title:not([data-unread="0"])::after {
-	content: attr(data-unread);
 }
 
 li.item.active {
@@ -754,7 +749,6 @@ li.item.active {
 /*===========*/
 .category .title.error::before {
 	color: var(--accent-light);
-	content: "⚠ ";
 }
 
 
@@ -794,11 +788,6 @@ li.item.active {
 	.flux_content .content a {
 		color: #000;
 	}
-
-	.flux_content .content a::after {
-		content: " [" attr(href) "] ";
-		font-style: italic;
-	}
 }
 
 /*=== PREVIEW */
@@ -832,15 +821,6 @@ li.item.active {
 
 .drag-drop-marker {
 	margin: -1px;
-}
-
-.feed .item-title:not([data-unread="0"])::before {
-	content: "(" attr(data-unread) ") ";
-	display: none
-}
-
-.feed .item-title:not([data-unread="0"])::after {
-	content: " (" attr(data-unread) ")";
 }
 
 
@@ -899,7 +879,6 @@ input.extend {
 
 /*=== Dropdown */
 .dropdown-menu::after {
-	content: "";
 	position: absolute;
 	top: -6px;
 	left: 13px;

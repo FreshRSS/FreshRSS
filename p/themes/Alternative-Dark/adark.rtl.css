@@ -582,7 +582,8 @@ kbd {
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after,
-.global .box.category .title:not([data-unread="0"])::after {
+.global .box.category .title:not([data-unread="0"])::after,
+.global .feed .item-title:not([data-unread="0"])::after {
 	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
 }
@@ -989,6 +990,10 @@ kbd {
 	top: 5px; left: 10px;
 	font-weight: bold;
 	text-shadow: none;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin: 1rem 0px 0px;
 }
 
 /*=== Slider */

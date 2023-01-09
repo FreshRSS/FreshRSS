@@ -77,6 +77,10 @@ a.btn,
 	font-size: 0.8rem;
 }
 
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin-top: 0.125rem;
+}
+
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
 	font-size: 0.7rem;
 }
