@@ -89,7 +89,6 @@ $color_hover:	#fff;
 }
 
 %after {
-	content: "";
 	display: block;
 	clear: both;
 }
@@ -429,10 +428,6 @@ form {
 		}
 	}
 
-	&::after {
-		content: none;
-	}
-
 	> {
 		.item {
 
@@ -626,7 +621,6 @@ form {
 		.item {
 			padding: 0 10px;
 			font-size: 0.9rem;
-			line-height: 2.5;
 
 			.configure {
 				.icon {

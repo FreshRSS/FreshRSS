@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
+		'darkMode' => 'Mode sombre automatique (bêta)',
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',

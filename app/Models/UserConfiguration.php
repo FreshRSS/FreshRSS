@@ -53,6 +53,7 @@
  * @property bool $sides_close_article
  * @property bool $sticky_post
  * @property string $theme
+ * @property string $darkMode
  * @property string $token
  * @property bool $topline_date
  * @property bool $topline_display_authors
