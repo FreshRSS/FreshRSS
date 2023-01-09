@@ -12,8 +12,10 @@
 	--background-color-hover: #f6f6f6;
 
 	--unread-article-background-color: #fff3ed;
+	--unread-article-background-color-hover: #faeee8;
 	--unread-article-border-color: #ff5300;
 	--favorite-article-background-color: #fff6da;
+	--favorite-article-background-color-hover: #fcf2d6;
 	--favorite-article-border-color: #ffc300;
 
 	--contrast-background-color: #0084cc;
@@ -825,32 +827,40 @@ a:hover .icon {
 	border-right: 2px solid var(--contrast-border-color-active);
 }
 
-.flux .flux_header:hover {
-	background-color: var(--background-color-hover) !important;
+.flux .flux_header:hover,
+.flux .flux_header:hover .item {
+	background-color: var(--background-color-hover);
 }
 
-.flux .flux_header:not(.current):hover .item.title {
-	background: inherit;
+.flux .flux_header:not(.current):hover .flux_header,
+.flux .flux_header:not(.current):hover .flux_header .item {
+	background-color: var(--background-color-hover);
 }
 
 .flux.not_read {
 	border-right: 2px solid var(--unread-article-border-color);
 }
 
-.flux.not_read .flux_header {
+.flux.not_read .flux_header .item {
 	background-color: var(--unread-article-background-color);
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	background: inherit;
+.flux.not_read:not(.current):hover .flux_header,
+.flux.not_read:not(.current):hover .flux_header .item {
+	background-color: var(--unread-article-background-color-hover);
 }
 
 .flux.favorite {
 	border-right: 2px solid var(--favorite-article-border-color);
 }
 
-.flux.favorite:not(.current) {
+.flux.favorite:not(.current) .flux_header .item {
 	background-color: var(--favorite-article-background-color);
+}
+
+.flux.favorite:not(.current):hover .flux_header,
+.flux.favorite:not(.current):hover .flux_header .item {
+	background-color: var(--favorite-article-background-color-hover);
 }
 
 .flux_header {
@@ -1186,5 +1196,98 @@ a:hover .icon {
 
 	.notification a.close .icon {
 		display: none;
+	}
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	:root .darkMode_auto {
+		--frss-background-color: #000;
+		--frss-background-color-middle: #222;
+		--frss-border-color: #444;
+		--frss-font-color-grey-dark: #999;
+		--frss-font-color-dark: #ddd;
+		--frss-modal-background-color-transparent: #000000a3;
+		--frss-background-color-transparent: #000000a3;
+		--frss-scrollbar-handle: #fff1;
+		--frss-scrollbar-handle-hover: #fff4;
+
+		--background-color-light-gradient: #111;
+		--background-color-light: #111;
+		--background-color-light-shadowed: #191919;
+		--background-color-grey: #1f1f1f;
+		--background-color-hover: #09090977;
+
+		--unread-article-background-color: #201f1e;
+		--unread-article-background-color-hover: #1a1918;
+		--unread-article-border-color: #ff5300;
+		--favorite-article-background-color: #24221d;
+		--favorite-article-background-color-hover: #1d1b17;
+		--favorite-article-border-color: #ffc300;
+
+		--contrast-background-color: #0084cc;
+		--contrast-background-color-gradient: #0045cc;
+		--contrast-background-color-hover: #06c;
+		--contrast-background-color-active: #038;
+		--contrast-border-color: #0062b7;
+
+		--contrast-background-font-color: #eee;
+
+		--attention-background-color-gradient1: #ea4a46;
+		--attention-background-color-gradient2: #911811;
+
+		--attention-background-color-gradient1-hover: #d14641;
+		--attention-background-color-gradient2-hover: #bd362f;
+		--attention-background-color-active: #bd362f;
+		--attention-border-color: #c44742;
+
+		--empty-feed-color: #e67e22;
+		--error-feed-color: #bd362f;
+
+		--alert-warn-background-color: #ffffe022;
+		--alert-warn-font-color: #ccc;
+		--alert-warn-border-color: #eeb;
+		--alert-success-background-color: #e8ffe814;
+		--alert-success-font-color: #96c196;
+		--alert-success-border-color: #cec;
+		--alert-error-background-color: #fdda;
+		--alert-error-font-color: #693a3a;
+		--alert-error-boder-color: #ecc;
+
+		--notification-good-background-color: #ffe;
+		--notification-good-border-color: #eeb;
+		--notification-good-font-color: #916a37;
+		--notification-bad-background-color: #fdd;
+		--notification-bad-font-color: #643838;
+		--notification-bad-border-color: #ecc;
+		--notification-close-background-color-hover: #aaa2;
+
+		--font-color: #ccc;
+		--font-color-grey: #aaa;
+		--font-color-light-shadowed: #555;
+		--font-color-light: #ccc;
+
+		--text-shadow-color: #1c1c1c;
+		--text-shadow-color-dark: #666;
+		--box-shadow-color: #4446;
+		--box-shadow-color-inset: #1f1f1f;
+
+		--font-color-link: #467eb3;
+		--font-color-link-hover: #0062be;
+
+		--border-color: #222;
+		--border-color-shadow-side: #333;
+		--contrast-border-color-active: #0062be;
+
+		--form-element-font-color-focus: #879db1;
+		--form-element-border-color-focus: #0062be;
+		--form-element-focus-box-shadow-color-inset: #110;
+		--form-element-border-color-invalid: #f00;
+		--form-element-invalid-box-shadow-color-inset: #fdd;
+	}
+
+	.btn.active,
+	.btn:active,
+	.dropdown-target:target ~ .btn.dropdown-toggle {
+		background: var(--border-color);
 	}
 }
