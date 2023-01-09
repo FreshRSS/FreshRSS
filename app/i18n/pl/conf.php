@@ -52,7 +52,7 @@ return array(
 			'_' => 'Motyw',
 			'deprecated' => array(
 				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is deprecated and will be not available anymore in a <a href=https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme target=_blank>future release of FreshRSS</a>',	// TODO
+				'description' => 'This theme is deprecated and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
 			),
 		),
 		'theme_not_available' => 'Motyw “%s” nie jest już dostępny. Wybierz inny motyw.',
