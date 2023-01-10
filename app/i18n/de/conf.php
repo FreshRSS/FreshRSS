@@ -51,8 +51,8 @@ return array(
 		'theme' => array(
 			'_' => 'Layout',
 			'deprecated' => array(
-				'_' => 'Veralted',	// TODO
-				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',	// TODO
+				'_' => 'Veralted',
+				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',
 			),
 		),
 		'theme_not_available' => 'Das Erscheinungsbild „%s“ ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
