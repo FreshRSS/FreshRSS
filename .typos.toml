@@ -3,7 +3,7 @@ ot = "ot"
 Ths2 = "Ths2"
 
 [default.extend-words]
-ba = "ba"
+referer = "referer"
 
 [files]
 extend-exclude = [
@@ -33,6 +33,7 @@ extend-exclude = [
 	"app/i18n/zh-cn/",
 	"bin/",
 	"CHANGELOG-old.md",
+	"composer.lock",
 	"data/",
 	"docs/fr/",
 	"lib/phpgt/",

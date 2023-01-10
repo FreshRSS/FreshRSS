@@ -445,7 +445,7 @@ function printStep1() {
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
 	<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
-		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" />
+		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
 	</a>
 	<?php } ?>
 <?php
@@ -676,7 +676,7 @@ if (_t('gen.dir') === 'rtl') {
 	<div class="item title">
 		<div id="logo-wrapper">
 			<a href="./">
-				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="">
+				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="" loading="lazy">
 			</a>
 		</div>
 	</div>

@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Opmaak',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
 			'display_authors' => 'Auteurs',

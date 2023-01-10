@@ -7,7 +7,7 @@
  - Possibility to control cache for client and proxies (public or private policy, life time).
  - When $feedMode is set to true, in the case of a RSS/ATOM feed,
    it puts a timestamp in the global variable $clientCacheDate to allow the sending of only the articles newer than the client's cache.
- - When $compression is set to true, compress the data before sending it to the client and persitent connections are allowed.
+ - When $compression is set to true, compress the data before sending it to the client and persistent connections are allowed.
  - When $session is set to true, automatically checks if $_SESSION has been modified during the last generation the document.
 
  Interface:
