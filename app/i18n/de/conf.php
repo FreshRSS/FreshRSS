@@ -51,7 +51,7 @@ return array(
 		'theme' => array(
 			'_' => 'Layout',
 			'deprecated' => array(
-				'_' => 'Veralted',
+				'_' => 'Veraltet',
 				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',
 			),
 		),
