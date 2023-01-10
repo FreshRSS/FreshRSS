@@ -19,16 +19,16 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Alternative Dark | Ghost | |
 | Ansum | Thomas Guesnon  | |
-| Blue Lagoon     |Mister aiR | Deprecated. Will be removed with FreshRSS V1.22.0 |
+| Blue Lagoon     |Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
-| Flat design | Marien Fressinaud | Deprecated. Will be removed with FreshRSS V1.22.0 |
+| Flat design | Marien Fressinaud | No longer supported. Will be removed with FreshRSS V1.22.0 |
 | Mapco | Thomas Guesnon  | |
 | Nord theme | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
-| Screwdriver | Mister aiR | Deprecated. Will be removed with FreshRSS V1.22.0 |
+| Screwdriver | Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
 If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
