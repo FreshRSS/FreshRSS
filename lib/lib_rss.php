@@ -224,7 +224,8 @@ function html_only_entity_decode($text): string {
 }
 
 /**
- * Remove passwords in logs
+ * Remove passwords in FreshRSS logs.
+ * See also ../cli/sensitive-log.sh for Web server logs.
  * @param array<string,mixed>|string $log
  * @return array<string,mixed>|string
  */
