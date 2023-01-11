@@ -86,7 +86,7 @@ This command adds an IGNORE comment on the translation so the key can be conside
 
 ## Add/remove/update a key
 
-If you’re developping a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don’t do that, it’s very painful. We provide another command:
+If you’re developing a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don’t do that, it’s very painful. We provide another command:
 
 ```sh
 make i18n-add-key key=the.key.to.add value='Your string in English'

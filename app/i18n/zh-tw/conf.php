@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',

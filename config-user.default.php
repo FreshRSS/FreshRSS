@@ -64,6 +64,7 @@ return array (
 		'site' => true,
 	),
 	'theme' => 'Origine',
+	'darkMode' => 'no',
 	'content_width' => 'thin',
 	'shortcuts' => array (
 		'actualize' => 'q',

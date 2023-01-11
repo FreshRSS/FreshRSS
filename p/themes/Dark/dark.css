@@ -914,6 +914,11 @@ a.btn {
 	text-shadow: none;
 }
 
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	background-color: #171717;
+	margin-top: 1rem;
+}
+
 /*=== Panel */
 #panel {
 	background: #1c1c1c;

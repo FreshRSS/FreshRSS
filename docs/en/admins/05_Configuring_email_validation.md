@@ -68,7 +68,7 @@ Once you’re done, don’t forget to reconfigure your environment to `productio
 
 ## Access the validation URL during development
 
-You might find painful to configure a SMTP server when you’re developping and
+You might find painful to configure a SMTP server when you’re developing and
 `mail` function will not work on your local machine. For the moment, there is
 no easy way to access the validation URL unless forging it. You’ll need to
 information:

@@ -1875,6 +1875,26 @@ input:checked + .slide-container .properties {
 	margin: 1em 0 0 0;
 }
 
+#stream.global .feed {
+	position: relative;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin: 0.5rem 0px 0px;
+	padding: 5px 10px;
+	min-width: 20px;
+	display: block;
+	content: attr(data-unread);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	text-align: center;
+	font-size: 0.75rem;
+	border-radius: 12px;
+	line-height: 1;
+	font-weight: initial;
+}
+
 .feed.active .item-title:not([data-unread="0"])::after {
 	color: var(--frss-font-color-light);
 	border: 1px solid var(--frss-border-color);

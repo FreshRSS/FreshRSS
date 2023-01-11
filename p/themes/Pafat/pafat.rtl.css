@@ -479,7 +479,6 @@ a.btn {
 
 .box .box-content .item {
 	font-size: 0.9rem;
-	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -543,7 +542,6 @@ a.btn {
 	background-color: var(--background-color-white);
 	width: 0.5rem;
 	height: 0.5rem;
-	content: "";
 	position: absolute;
 	top: 1rem;
 	right: -0.25rem;
@@ -1023,6 +1021,11 @@ a.signin {
 .box.category .title:not([data-unread="0"])::after {
 	background: none;
 	border: none;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	background-color: var(--background-color-category);
+	color: var(--font-color-white);
 }
 
 /*=== DIVERS */
