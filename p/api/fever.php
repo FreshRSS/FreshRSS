@@ -18,7 +18,8 @@ FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
 if (!FreshRSS_Context::$system_conf->api_enabled) {
-	Minz_Log::warning('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('Fever API: service unavailable!');
+	Minz_Log::debug('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
@@ -45,16 +46,16 @@ function debugInfo() {
 		}
 	}
 	global $ORIGINAL_INPUT;
-	return print_r(
-		array(
+	$log = sensitive_log([
 			'date' => date('c'),
 			'headers' => $ALL_HEADERS,
 			'_SERVER' => $_SERVER,
 			'_GET' => $_GET,
 			'_POST' => $_POST,
 			'_COOKIE' => $_COOKIE,
-			'INPUT' => $ORIGINAL_INPUT
-		), true);
+			'INPUT' => $ORIGINAL_INPUT,
+		]);
+	return print_r($log, true);
 }
 
 //Minz_Log::debug('----------------------------------------------------------------', API_LOG);

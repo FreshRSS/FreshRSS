@@ -97,27 +97,29 @@ function debugInfo() {
 		}
 	}
 	global $ORIGINAL_INPUT;
-	return print_r(
-		array(
+	$log = sensitive_log([
 			'date' => date('c'),
 			'headers' => $ALL_HEADERS,
 			'_SERVER' => $_SERVER,
 			'_GET' => $_GET,
 			'_POST' => $_POST,
 			'_COOKIE' => $_COOKIE,
-			'INPUT' => $ORIGINAL_INPUT
-		), true);
+			'INPUT' => $ORIGINAL_INPUT,
+		]);
+	return print_r($log, true);
 }
 
 function badRequest() {
-	Minz_Log::warning('badRequest() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('GReader API: ' . __METHOD__, API_LOG);
+	Minz_Log::debug('badRequest() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 400 Bad Request');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Bad Request!');
 }
 
 function unauthorized() {
-	Minz_Log::warning('unauthorized() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('GReader API: ' . __METHOD__, API_LOG);
+	Minz_Log::debug('unauthorized() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 401 Unauthorized');
 	header('Content-Type: text/plain; charset=UTF-8');
 	header('Google-Bad-Token: true');
@@ -125,21 +127,24 @@ function unauthorized() {
 }
 
 function notImplemented() {
-	Minz_Log::warning('notImplemented() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('GReader API: ' . __METHOD__, API_LOG);
+	Minz_Log::debug('notImplemented() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');
 }
 
 function serviceUnavailable() {
-	Minz_Log::warning('serviceUnavailable() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('GReader API: ' . __METHOD__, API_LOG);
+	Minz_Log::debug('serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
 }
 
 function checkCompatibility() {
-	Minz_Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('GReader API: ' . __METHOD__, API_LOG);
+	Minz_Log::debug('checkCompatibility() ' . debugInfo(), API_LOG);
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension! Wrong PHP configuration.');
@@ -172,8 +177,7 @@ function authorizationToUser() {
 				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {
-					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], API_LOG);
-					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
+					Minz_Log::warning('Invalid API authorisation for user ' . $user);
 					unauthorized();
 				}
 			} else {
