@@ -115,6 +115,10 @@ h3 {
 	display: none;
 }
 
+.no-desktop {
+	display: none !important;
+}
+
 /*=== Paragraphs */
 p {
 	margin: 1rem 0 0.5rem;
@@ -1991,6 +1995,10 @@ input:checked + .slide-container .properties {
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
+	}
+
+	.no-desktop {
+		display: unset !important;
 	}
 
 	.header > .item {
