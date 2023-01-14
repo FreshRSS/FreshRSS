@@ -18,8 +18,8 @@
     "url": "https://github.com/FreshRSS/FreshRSS.git"
   },
   "license": "AGPL-3.0",
-  "engines" : {
-    "node" : ">=12"
+  "engines": {
+    "node": ">=12"
   },
   "scripts": {
     "eslint": "eslint --ext .js .",
