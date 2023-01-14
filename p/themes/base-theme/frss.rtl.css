@@ -442,7 +442,7 @@ td.numeric {
 	flex-shrink: 0;
 }
 
-.stick form {
+#nav_menu_read_all form {
 	display: inline-flex;
 }
 

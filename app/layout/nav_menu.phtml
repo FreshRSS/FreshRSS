@@ -29,7 +29,7 @@
 			href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
 		<?php } ?>
 
-		<div class="dropdown">
+		<div class="dropdown no-desktop">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-search" class="dropdown-target"></div>
 
@@ -64,6 +64,7 @@
 									value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>"
 									placeholder="<?= _t('gen.menu.search') ?>" title="<?= _t('gen.menu.search') ?>" /><button class="btn" type="submit" title="<?= _t('index.menu.search_short') ?>"><?= _i('search') ?></button>
 							</div>
+							<p class="help"><?= _i('help') ?> <a href="https://freshrss.github.io/FreshRSS/en/users/03_Main_view.html#with-the-search-field" target="_blank">Search parameters</a></p>
 						</form>
 					</span>
 				</li>
