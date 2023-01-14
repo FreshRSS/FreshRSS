@@ -247,6 +247,8 @@ Finally, parentheses may be used to express more complex queries, with basic neg
 * `(author:Alice intitle:hello) !(author:Bob intitle:world)`
 * `!(S:1 OR S:2)`
 
+> ℹ️ If you need to search for a parenthesis, it needs to be escaped like `\(` or `\)`
+
 ### By sorting by date
 
 You can change the sort order by clicking the toggle button available in the header.

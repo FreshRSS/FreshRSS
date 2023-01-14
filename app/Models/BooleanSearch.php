@@ -118,8 +118,9 @@ class FreshRSS_BooleanSearch {
 		$nextOperator = 'AND';
 		while ($i < $length) {
 			$c = $input[$i];
+			$backslashed = $i >= 1 ? $input[$i - 1] === '\\' : false;
 
-			if ($c === '(') {
+			if ($c === '(' && !$backslashed) {
 				$hasParenthesis = true;
 
 				$before = trim($before);
@@ -164,11 +165,12 @@ class FreshRSS_BooleanSearch {
 				$i++;
 				while ($i < $length) {
 					$c = $input[$i];
-					if ($c === '(') {
+					$backslashed = $input[$i - 1] === '\\';
+					if ($c === '(' && !$backslashed) {
 						// One nested level deeper
 						$parentheses++;
 						$sub .= $c;
-					} elseif ($c === ')') {
+					} elseif ($c === ')' && !$backslashed) {
 						$parentheses--;
 						if ($parentheses === 0) {
 							// Found the matching closing parenthesis

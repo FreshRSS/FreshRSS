@@ -2,7 +2,7 @@
 	<div class="item title">
 		<a href="<?= _url('index', 'index') ?>">
 			<?php if (FreshRSS_Context::$system_conf->logo_html == '') { ?>
-				<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" />
+				<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
 			<?php
 				} else {
 					echo FreshRSS_Context::$system_conf->logo_html;
@@ -12,6 +12,37 @@
 	</div>
 
 	<div class="item search">
+		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) { ?>
+		<form action="<?= _url('index', 'index') ?>" method="get">
+			<div class="stick">
+				<input type="search" name="search" id="search" class="extend"
+					value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
+					placeholder="<?= _t('gen.menu.search') ?>" />
+
+				<?php $param_a = Minz_Request::actionName(); ?>
+				<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+				<input type="hidden" name="a" value="<?= $param_a ?>" />
+				<?php } ?>
+
+				<?php $get = Minz_Request::param('get', ''); ?>
+				<?php if ($get != '') { ?>
+				<input type="hidden" name="get" value="<?= $get ?>" />
+				<?php } ?>
+
+				<?php $order = Minz_Request::param('order', ''); ?>
+				<?php if ($order != '') { ?>
+				<input type="hidden" name="order" value="<?= $order ?>" />
+				<?php } ?>
+
+				<?php $state = Minz_Request::param('state', ''); ?>
+				<?php if ($state != '') { ?>
+				<input type="hidden" name="state" value="<?= $state ?>" />
+				<?php } ?>
+
+				<button class="btn" type="submit"><?= _i('search') ?></button>
+			</div>
+		</form>
+		<?php } ?>
 	</div>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -52,7 +83,7 @@
 				</li>
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="item dropdown-section">
-					<div class="dropdown-section-title">	
+					<div class="dropdown-section-title">
 						<?= _t('gen.menu.admin') ?>
 					</div>
 					<ul>
@@ -67,7 +98,7 @@
 					</ul>
 				</li>
 				<?php } ?>
-				
+
 				<li class="item dropdown-section">
 					<ul>
 						<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>

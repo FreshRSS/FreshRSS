@@ -40,11 +40,6 @@ a.btn,
 }
 
 /*=== Dropdown */
-.item ~ .dropdown-header,
-.item.separator {
-	border-top-color: #ddd;
-}
-
 /*=== Alerts */
 /*=== Pagination */
 /*=== Boxes */
@@ -75,6 +70,10 @@ a.btn,
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
 	font-size: 0.8rem;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin-top: 0.125rem;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
