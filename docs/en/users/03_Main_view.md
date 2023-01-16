@@ -1,4 +1,5 @@
 # Views
+
 FreshRSS has three primary viewing modes: Normal, Global, and Reader view.
 
 ## Normal view

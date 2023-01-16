@@ -97,12 +97,6 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 ![Feed menu](../img/users/refresh.2.png)
 
-# Filtering articles
-
-## Purpose
-
-When the number of articles stored by FreshRSS inevitably grows larger, it’s important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
-
 ---
 Read more:
 * [Normal, Global and Reader view](./03_Main_view.md)

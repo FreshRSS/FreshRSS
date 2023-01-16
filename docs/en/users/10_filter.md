@@ -1,4 +1,9 @@
-# How-to filter and search the articles
+
+# Filtering articles
+
+## Purpose
+
+When the number of articles stored by FreshRSS inevitably grows larger, it’s important to use efficient filters to display only a subset of the articles. There are several methods that filter with different criteria. Usually those methods can be combined.
 
 ## By category
 
@@ -114,7 +119,7 @@ Finally, parentheses may be used to express more complex queries, with basic neg
 
 You can change the sort order by clicking the toggle button available in the header.
 
-# Store your filters
+## Store your filters
 
 Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
 
@@ -122,7 +127,7 @@ Hopefully, there is a way to bookmark them for later use.
 We call them *user queries*.
 You can create as many as you want, the only limit is how they will be displayed on your screen.
 
-## Bookmark the current query
+### Bookmark the current query
 
 Display the user queries drop-down by clicking the button next to the state buttons.
 ![User queries drop-down](../img/users/user.queries.drop-down.empty.png)
@@ -131,7 +136,7 @@ Then click on the bookmark action.
 
 Congratulations, you’re done!
 
-## Using a bookmarked query
+### Using a bookmarked query
 
 Display the user queries drop-down by clicking the button next to the state buttons.
 ![User queries drop-down](../img/users/user.queries.drop-down.not.empty.png)
