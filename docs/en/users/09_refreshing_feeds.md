@@ -35,9 +35,6 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 ![Feed menu](../img/users/refresh.2.png)
 
-
-
-
 ## Automatic update with cron
 
 This is the recommended method.
@@ -116,16 +113,19 @@ If your FreshRSS instance uses no authentication (public instance, default user)
 ## Feed configuration of “Do not automatically refresh more often than”
 
 ### Background
+
 FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports instant push (WebSub).
 
 FreshRSS is part of an RSS ecosystem. A typical reaction that we have seen from several servers is to simply ban by, IP, user-agent, or to remove their RSS feed altogether. Bad user behaviours affect the larger community.
 
 ### Default value
+
 The default value of “Do not automatically refresh more often than” is set in Configuration -> Archiving.
 
 The lowest global/default purposely cannot be set faster than every 20 minutes, to avoid wasting resources and make sure the RSS ecosystem remains sane.
 
 ### Individual feed configuration
+
 Under the settings for individual feeds, you can go down to 15min.
 
 ---
