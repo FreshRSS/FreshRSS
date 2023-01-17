@@ -1,6 +1,42 @@
 # Refreshing feeds
 
-To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this.
+To take full advantage of FreshRSS, it needs to retrieve new items from the feeds you have subscribed to. There are several ways to do this:
+
+- [Manual update](#manual-update)
+    - [Complete update](#complete-update)
+    - [Partial update](#partial-update)
+- [Automatic update with cron](#automatic-update-with-cron)
+- [Online cron](#online-cron)
+    - [For Form Authentication](#for-form-authentication)
+    - [For HTTP authentication](#for-http-authentication)
+    - [For No authentication None](#for-no-authentication-none)
+- [Feed configuration of “Do not automatically refresh more often than”](#feed-configuration-of-do-not-automatically-refresh-more-often-than)
+    - [Background](#background)
+    - [Default value](#default-value)
+    - [Individual feed configuration](#individual-feed-configuration)
+
+## Manual update
+
+If you can’t or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
+
+### Complete update
+
+This update occurs on all feeds. To trigger it, simply click on the update link in the navigation menu.
+
+![Navigation menu](../img/users/refresh.1.png)
+
+When the update starts, a progress bar appears and changes while feeds are processed.
+
+![Progress bar](../img/users/refresh.5.png)
+
+### Partial update
+
+This update occurs on the selected feed only. To trigger it, simply click on the update link in the feed menu.
+
+![Feed menu](../img/users/refresh.2.png)
+
+
+
 
 ## Automatic update with cron
 
@@ -77,25 +113,20 @@ If your FreshRSS instance uses no authentication (public instance, default user)
 
 <https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1>
 
-## Manual update
+## Feed configuration of “Do not automatically refresh more often than”
 
-If you can’t or don’t want to use the automatic method, you can update manually. There are two methods for updating all or some of the feeds.
+### Background
+FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports instant push (WebSub).
 
-### Complete update
+FreshRSS is part of an RSS ecosystem. A typical reaction that we have seen from several servers is to simply ban by, IP, user-agent, or to remove their RSS feed altogether. Bad user behaviours affect the larger community.
 
-This update occurs on all feeds. To trigger it, simply click on the update link in the navigation menu.
+### Default value
+The default value of “Do not automatically refresh more often than” is set in Configuration -> Archiving.
 
-![Navigation menu](../img/users/refresh.1.png)
+The lowest global/default purposely cannot be set faster than every 20 minutes, to avoid wasting resources and make sure the RSS ecosystem remains sane.
 
-When the update starts, a progress bar appears and changes while feeds are processed.
-
-![Progress bar](../img/users/refresh.5.png)
-
-### Partial update
-
-This update occurs on the selected feed only. To trigger it, simply click on the update link in the feed menu.
-
-![Feed menu](../img/users/refresh.2.png)
+### Individual feed configuration
+Under the settings for individual feeds, you can go down to 15min.
 
 ---
 Read more:
