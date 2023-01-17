@@ -49,7 +49,13 @@ return array(
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
-		'theme' => 'ערכת נושא',
+		'theme' => array(
+			'_' => 'ערכת נושא',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO

@@ -21,16 +21,23 @@ pt-br, ru, tr, zh-cn.
 ## Thème
 
 Les goûts et les couleurs, ça ne se discute pas. C’est pourquoi FreshRSS
-propose huit thèmes officiels :
+propose 13 thèmes officiels :
 
-* *Blue Lagoon* par **Mister aiR**
-* *Dark* par **AD**
-* *Flat design* par **Marien Fressinaud**
-* *Origine* par **Marien Fressinaud**
-* *Origine-compact* par **Kevin Papst**
-* *Pafat* par **Plopoyop**
-* *Screwdriver* par **Mister aiR**
-* *Swage* par **Patrick Crandol**
+| Thème       | Auteur                                    | Notes                                                          |
+|:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
+| Alternative Dark | Ghost | |
+| Ansum | Thomas Guesnon  | |
+| Blue Lagoon     |Mister aiR | N'est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
+| Dark | AD | |
+| Dark pink | Miicat_47 | |
+| Flat design | Marien Fressinaud | N'est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
+| Mapco | Thomas Guesnon  | |
+| Nord theme | joelchrono12 | |
+| Origine | Marien Fressinaud | (default theme) |
+| Origine-compact | Kevin Papst | |
+| Pafat | Plopoyop | |
+| Screwdriver | Mister aiR | N'est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
+| Swage | Patrick Crandol | |
 
 Si aucun de ceux proposés ne convient, il est toujours possible de [créer
 son propre thème](../developers/04_Frontend/02_Design.md).
