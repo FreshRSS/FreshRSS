@@ -89,7 +89,7 @@ Complementary tools can be used to retrieve full article content, such as:
 
 ### Filter
 
-Articles can be automatically marked as read based on some search terms. See [filtering](./03_Main_view.md#filtering-articles) for more information on how to create these filters.
+Articles can be automatically marked as read based on some search terms. See [filtering](./10_filter.md) for more information on how to create these filters.
 
 ## Import / export
 
