@@ -76,9 +76,8 @@ $color_hover:	#fff;
 }
 
 %nav-list {
-	height: 2.5em;
+	min-height: 2.5em;
 	line-height: 2.5;
-	font-size: 0.9rem;
 }
 
 %dropdown {
@@ -338,19 +337,21 @@ form {
 }
 
 .nav-list {
-	.nav-header {
-
-		@extend %nav-list;
-		padding: 0 1rem;
-		font-weight: bold;
-		background-color: var(--color-background-aside);
-		color: var(--color-text-light);
-		cursor: default;
-	}
+	font-size: 0.9rem;
 
 	.item {
 
 		@extend %nav-list;
+
+		.nav-header {
+
+			@extend %nav-list;
+			padding: 0 1rem;
+			font-weight: bold;
+			background-color: var(--color-background-aside);
+			color: var(--color-text-light);
+			cursor: default;
+		}
 
 		a:hover {
 			background-color: var(--color-background-nav-darker);

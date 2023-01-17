@@ -54,10 +54,9 @@ select:invalid {
 	box-shadow: none;
 }
 
-.nav-list .item, .nav-list .nav-header {
-	height: 2.5em;
+.nav-list .item .nav-header, .nav-list .item {
+	min-height: 2.5em;
 	line-height: 2.5;
-	font-size: 0.9rem;
 }
 
 .dropdown-menu > .item a,
@@ -263,7 +262,10 @@ form th {
 	background-image: url("./icons/disabled-light.svg");
 }
 
-.nav-list .nav-header {
+.nav-list {
+	font-size: 0.9rem;
+}
+.nav-list .item .nav-header {
 	padding: 0 1rem;
 	font-weight: bold;
 	background-color: var(--color-background-aside);
