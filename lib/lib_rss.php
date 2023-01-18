@@ -57,6 +57,11 @@ function classAutoloader($class) {
 		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
 		$relative_class_name = substr($class, strlen($prefix));
 		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
+	} elseif (str_starts_with($class, 'marienfressinaud\\LibOpml\\')) {
+		$prefix = 'marienfressinaud\\LibOpml\\';
+		$base_dir = LIB_PATH . '/marienfressinaud/lib_opml/src/LibOpml/';
+		$relative_class_name = substr($class, strlen($prefix));
+		require $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
 		$prefix = 'PHPMailer\\PHPMailer\\';
 		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
