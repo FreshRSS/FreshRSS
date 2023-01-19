@@ -102,9 +102,9 @@ class FreshRSS extends Minz_FrontController {
 
 		$timezone = isset(FreshRSS_Context::$user_conf) ? FreshRSS_Context::$user_conf->timezone : '';
 		if ($timezone == '') {
-			$timezone = '' . ini_get('date.timezone');
+			$timezone = FreshRSS_Context::defaultTimeZone();
 		}
-		date_default_timezone_set($timezone != '' ? $timezone : 'UTC');
+		date_default_timezone_set($timezone);
 	}
 
 	private static function getThemeFileUrl($theme_id, $filename) {
