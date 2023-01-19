@@ -115,7 +115,7 @@ h3 {
 	display: none;
 }
 
-.no-desktop {
+.only-mobile {
 	display: none !important;
 }
 
@@ -2006,7 +2006,7 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
-	.no-desktop {
+	.only-mobile {
 		display: unset !important;
 	}
 

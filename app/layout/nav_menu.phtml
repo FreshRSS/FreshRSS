@@ -29,7 +29,7 @@
 			href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
 		<?php } ?>
 
-		<div class="dropdown no-desktop">
+		<div class="dropdown only-mobile">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-search" class="dropdown-target"></div>
 
