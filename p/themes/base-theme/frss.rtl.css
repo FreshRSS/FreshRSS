@@ -563,6 +563,10 @@ input[type="checkbox"]:focus-visible {
 }
 
 /*=== Navigation */
+.nav-list {
+	padding-bottom: 3rem;
+}
+
 .nav-list .nav-header,
 .nav-list .item {
 	display: block;
@@ -1813,9 +1817,14 @@ input:checked + .slide-container .properties {
 
 .item.share.error a::after,
 .category .title.error::before,
-.item.feed.error .item-title::before {
+.item.feed.error .item-title::before,
+.properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
+}
+
+.deprecated {
+	font-weight: bold;
 }
 
 .feed.item.error.active .item-title::before {
