@@ -37,7 +37,7 @@
 				?>
 				<?php foreach ($timezones as $timezone): ?>
 				<option value="<?= $timezone ?>"<?= FreshRSS_Context::$user_conf->timezone === $timezone ? ' selected="selected"' : '' ?>>
-					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . ini_get('date.timezone') . ')' : $timezone ?>
+					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . FreshRSS_Context::defaultTimeZone() . ')' : $timezone ?>
 				</option>
 				<?php endforeach; ?>
 				</select>
