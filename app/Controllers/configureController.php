@@ -132,7 +132,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'max_n_unread' => Minz_Request::paramBoolean('enable_keep_max_n_unread') ? Minz_Request::param('keep_max_n_unread', false) : false,
 				'reception' => Minz_Request::paramBoolean('mark_upon_reception'),
 				'same_title_in_feed' => Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') ?
-					Minz_Request::paramBoolean('read_when_same_title_in_feed') : false,
+					Minz_Request::param('read_when_same_title_in_feed', false) : false,
 				'scroll' => Minz_Request::paramBoolean('mark_scroll'),
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
 			);
