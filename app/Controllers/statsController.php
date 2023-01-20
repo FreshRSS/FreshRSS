@@ -10,7 +10,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -32,7 +32,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
-	private function convertToSeries($data) {
+	private function convertToSeries($data): array {
 		$series = array();
 
 		foreach ($data as $key => $value) {
@@ -42,7 +42,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		return $series;
 	}
 
-	private function convertToPieSeries($data) {
+	private function convertToPieSeries(array $data): array {
 		$series = array();
 
 		foreach ($data as $value) {
@@ -64,7 +64,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - number of article by category (entryByCategory)
 	 *   - list of most prolific feed (topFeed)
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
@@ -106,7 +106,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * to use the subscription controller to save it,
 	 * but shows the stats idle page
 	 */
-	public function feedAction() {
+	public function feedAction(): void {
 		$id = Minz_Request::param('id');
 		$ajax = Minz_Request::param('ajax');
 		if ($ajax) {
@@ -131,7 +131,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - last month
 	 *   - last week
 	 */
-	public function idleAction() {
+	public function idleAction(): void {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
@@ -216,7 +216,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * @todo verify that the metrics used here make some sense. Especially
 	 *       for the average.
 	 */
-	public function repartitionAction() {
+	public function repartitionAction(): void {
 		$statsDAO 		= FreshRSS_Factory::createStatsDAO();
 		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
 		$feedDAO 		= FreshRSS_Factory::createFeedDao();
