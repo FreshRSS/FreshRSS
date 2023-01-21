@@ -174,6 +174,7 @@ return array(
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Condivisione',
 		'shortcuts' => 'Comandi tastiera',
 		'stats' => 'Statistiche',
