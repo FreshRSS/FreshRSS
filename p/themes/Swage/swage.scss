@@ -1481,6 +1481,10 @@ button.as-link {
 	ul.dropdown-menu {
 		left: 0;
 		right: auto;
+
+		&::after {
+			display: none;
+		}
 	}
 }
 
@@ -1488,6 +1492,10 @@ button.as-link {
 	ul.dropdown-menu {
 		right: 0;
 		left: auto;
+
+		&::after {
+			display: none;
+		}
 	}
 }
 
