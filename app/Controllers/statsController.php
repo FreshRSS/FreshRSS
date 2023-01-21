@@ -32,27 +32,6 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
-	private function convertToSeries($data): array {
-		$series = array();
-
-		foreach ($data as $key => $value) {
-			$series[] = array($key, $value);
-		}
-
-		return $series;
-	}
-
-	private function convertToPieSeries(array $data): array {
-		$series = array();
-
-		foreach ($data as $value) {
-			$value['data'] = array(array(0, (int) $value['data']));
-			$series[] = $value;
-		}
-
-		return $series;
-	}
-
 	/**
 	 * This action handles the statistic main page.
 	 *
@@ -94,7 +73,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$last30DaysLabels = [];
 		for ($i = 0; $i < 30; $i++) {
-			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days'));
+			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days') ?: null);
 		}
 
 		$this->view->last30DaysLabels = $last30DaysLabels;
@@ -107,8 +86,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * but shows the stats idle page
 	 */
 	public function feedAction(): void {
-		$id = Minz_Request::param('id');
-		$ajax = Minz_Request::param('ajax');
+		$id = '' . Minz_Request::param('id', '');
+		$ajax = '' . Minz_Request::param('ajax', '');
 		if ($ajax) {
 			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats', 'ajax' => $ajax));
 		} else {
