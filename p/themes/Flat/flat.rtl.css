@@ -151,7 +151,7 @@ form th {
 
 .stick .btn:last-child,
 .stick input:last-child,
-.stick .btn + .dropdown > .btn {
+.stick .dropdown:last-child > .btn {
 	border-radius: 5px 0 0 5px;
 }
 
