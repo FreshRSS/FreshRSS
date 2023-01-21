@@ -346,10 +346,30 @@ form th {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
 }
+.dropdown-menu .help a {
+	color: var(--color-text-light);
+	text-decoration: underline;
+	text-decoration-style: dotted;
+}
+.dropdown-menu .help a:hover {
+	text-decoration-style: solid;
+}
 .dropdown-menu .input select,
 .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
+}
+
+#dropdown-search-wrapper .dropdown-menu {
+	padding-top: 1rem;
+	padding-bottom: 0.25rem;
+}
+#dropdown-search-wrapper .dropdown-menu .stick.search {
+	width: 100%;
+}
+#dropdown-search-wrapper .dropdown-menu .stick.search input[type=search] {
+	width: 100%;
+	border: 0;
 }
 
 .labels .dropdown-menu,
@@ -919,6 +939,9 @@ a.signin {
 	.dropdown {
 		position: relative;
 	}
+	.dropdown .dropdown-menu {
+		width: auto;
+	}
 	#new-article {
 		margin-top: 2rem;
 		width: 100%;
@@ -1157,6 +1180,9 @@ button.as-link {
 #nav_menu_actions ul.dropdown-menu {
 	left: 0;
 	right: auto;
+}
+#nav_menu_actions .dropdown.only-mobile {
+	display: initial !important;
 }
 
 #nav_menu_read_all ul.dropdown-menu {

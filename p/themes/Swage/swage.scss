@@ -461,11 +461,35 @@ form {
 		}
 	}
 
+	.help a {
+		color: var(--color-text-light);
+		text-decoration: underline;
+		text-decoration-style: dotted;
+
+		&:hover {
+			text-decoration-style: solid;
+		}
+	}
+
 	.input {
 		select,
 		input {
 			margin: 0 auto 5px;
 			padding: 2px 5px;
+		}
+	}
+}
+
+#dropdown-search-wrapper .dropdown-menu {
+	padding-top: 1rem;
+	padding-bottom: 0.25rem;
+
+	.stick.search {
+		width: 100%;
+
+		input[type="search"] {
+			width: 100%;
+			border: 0;
 		}
 	}
 }
@@ -1181,6 +1205,10 @@ a.signin {
 
 	.dropdown {
 		position: relative;
+
+		.dropdown-menu {
+			width: auto;
+		}
 	}
 
 	#new-article {
@@ -1481,6 +1509,10 @@ button.as-link {
 	ul.dropdown-menu {
 		left: 0;
 		right: auto;
+	}
+
+	.dropdown.only-mobile {
+		display: initial !important;
 	}
 }
 
