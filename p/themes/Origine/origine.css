@@ -1172,6 +1172,11 @@ a:hover .icon {
 		margin-bottom: 3rem;
 	}
 
+	#nav_menu_read_all .btn {
+		border-left: 1px solid var(--border-color-shadow-side);
+		border-radius: 3px;
+	}
+
 	.form-group.form-actions {
 		margin-left: -15px;
 		margin-right: -15px;
