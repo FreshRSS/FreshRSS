@@ -1181,6 +1181,11 @@ button.as-link {
 	left: 0;
 	right: auto;
 }
+
+#nav_menu_actions ul.dropdown-menu::after {
+	display: none;
+}
+
 #nav_menu_actions .dropdown.only-mobile {
 	display: initial !important;
 }
@@ -1188,6 +1193,9 @@ button.as-link {
 #nav_menu_read_all ul.dropdown-menu {
 	right: 0;
 	left: auto;
+}
+#nav_menu_read_all ul.dropdown-menu::after {
+	display: none;
 }
 
 #slider label {

@@ -94,7 +94,7 @@ return array(
 		'method' => 'GET',
 	),
 	'lemmy' => array(
-		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
+		'url' => '~URL~/create_post?url=~LINK~&title=~TITLE~',
 		'transform' => array('rawurlencode'),
 		'help' => 'https://join-lemmy.org/',
 		'form' => 'advanced',
