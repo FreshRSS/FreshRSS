@@ -669,7 +669,7 @@ form th {
 	filter: invert(80%) opacity(80%);
 }
 .header .item.search input {
-	width: 230px;
+	width: 350px;
 	color: #363330;
 	border: none;
 	border-radius: 0 2px 2px 0;
@@ -680,7 +680,6 @@ form th {
 	background-color: #efe3d3;
 }
 .header .item.search input:focus {
-	width: 350px;
 	color: #766556;
 	background-color: #fff;
 }

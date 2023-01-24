@@ -194,7 +194,8 @@ label {
 }
 
 input {
-	width: 180px;
+	max-width: 90%;
+	width: 300px;
 }
 
 input[type=number] {
@@ -211,6 +212,7 @@ input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
 	font-size: 0.8rem;
+	box-sizing: border-box;
 }
 
 input.w50,

@@ -683,7 +683,7 @@ form th {
 	filter: grayscale(100%) brightness(2.2);
 }
 .header .item.search input {
-	width: 230px;
+	width: 350px;
 	color: #ffffff;
 	border: none;
 	border-radius: 2px 0 0 2px;
@@ -694,7 +694,6 @@ form th {
 	background-color: #17181a;
 }
 .header .item.search input:focus {
-	width: 350px;
 	color: #5b6871;
 	background-color: #fff;
 }

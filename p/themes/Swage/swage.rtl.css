@@ -576,9 +576,6 @@ form th {
 	top: 5px;
 	filter: grayscale(100%) brightness(100);
 }
-.header .item.search input:focus {
-	width: 350px;
-}
 .header .item.search {
 	display: none;
 }
