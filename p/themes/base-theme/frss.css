@@ -203,8 +203,7 @@ input[type=number] {
 
 textarea,
 input[type="file"],
-input.long,
-input.extend:focus {
+input.long {
 	width: 300px;
 }
 

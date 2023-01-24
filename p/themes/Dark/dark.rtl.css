@@ -78,10 +78,6 @@ input:disabled, select:disabled {
 	border-color: #000;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;

@@ -186,12 +186,6 @@ select {
 	padding-bottom: 8px;
 }
 
-input {
-	&.extend {
-		transition: width 200ms linear;
-	}
-}
-
 option {
 	padding: 0 .5em;
 }
