@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`category` INT DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(191) NOT NULL,
-	`website` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_bin,
+	`website` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,

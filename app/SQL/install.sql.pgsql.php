@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"kind" SMALLINT DEFAULT 0, -- 1.20.0
 	"category" INT DEFAULT 0,	-- 1.20.0
 	"name" VARCHAR(255) NOT NULL,
-	"website" VARCHAR(255),
+	"website" VARCHAR(32768),
 	"description" TEXT,
 	"lastUpdate" INT DEFAULT 0,
 	"priority" SMALLINT NOT NULL DEFAULT 10,

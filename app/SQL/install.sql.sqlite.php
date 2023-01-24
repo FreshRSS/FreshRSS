@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`category` INTEGER DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(255) NOT NULL,
-	`website` VARCHAR(255),
+	`website` VARCHAR(32768),
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
