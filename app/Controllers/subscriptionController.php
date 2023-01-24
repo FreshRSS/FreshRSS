@@ -256,7 +256,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
 			}
 
-			if ($feedDAO->updateFeed($id, $values) !== false) {
+			if ($values['url'] != '' && $feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_categoryId($values['category']);
 				// update url and website values for faviconPrepare
 				$feed->_url($values['url'], false);
@@ -265,6 +265,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
 			} else {
+				if ($values['url'] == '') {
+					Minz_Log::warning('Invalid feed URL!');
+				}
 				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 			}
 		}
