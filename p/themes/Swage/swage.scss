@@ -186,12 +186,6 @@ select {
 	padding-bottom: 8px;
 }
 
-input {
-	&.extend {
-		transition: width 200ms linear;
-	}
-}
-
 option {
 	padding: 0 .5em;
 }
@@ -766,10 +760,6 @@ form {
 				filter: grayscale(100%) brightness(100);
 			}
 		}
-	}
-
-	.item.search input:focus {
-		width: 350px;
 	}
 
 	.item.search {

@@ -140,10 +140,6 @@ input:invalid, select:invalid {
 	box-shadow: 0 0 2px 2px var(--invalid-box-shadow-color) inset;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -611,7 +607,7 @@ a.signin {
 	height: 29px;
 }
 
-.header .item.search input:focus {
+.header .item.search input {
 	width: 350px;
 }
 

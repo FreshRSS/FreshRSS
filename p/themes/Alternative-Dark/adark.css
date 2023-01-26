@@ -114,10 +114,6 @@ input:disabled, select:disabled {
 	border-color: var(--border-color-dark);
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -556,10 +552,6 @@ kbd {
 }
 
 .header > .item.search input {
-	width: 230px;
-}
-
-.header .item.search input:focus {
 	width: 350px;
 }
 
