@@ -57,8 +57,8 @@
 
 		@include mixins.transition(all, 0.075s, ease-in-out);
 
-		> a, 
-		> span, 
+		> a,
+		> span,
 		> .as-link {
 			padding: 0 2rem;
 			color: variables.$main-font-color;
@@ -70,7 +70,7 @@
 			}
 		}
 
-		> a, 
+		> a,
 		> .as-link {
 			&:not(.addItem):hover {
 				background: variables.$main-first;
