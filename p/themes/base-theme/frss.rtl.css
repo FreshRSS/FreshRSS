@@ -1302,22 +1302,31 @@ a.website:hover .favicon {
 .content {
 	min-height: 20rem;
 	margin: auto;
-	padding: 0.75rem;
+	padding: 2rem 0.75rem;
 	line-height: 1.5;
 	word-wrap: break-word;
+}
+
+.content .text {
 	overflow: auto;
 }
 
+.content header,
+.content .text,
+.content footer {
+	padding: 0 3rem;
+}
+
 .content.large {
-	max-width: 1000px;
+	max-width: 1100px;
 }
 
 .content.medium {
-	max-width: 800px;
+	max-width: 900px;
 }
 
 .content.thin {
-	max-width: 550px;
+	max-width: 650px;
 }
 
 .content .article-header-topline {
@@ -1331,14 +1340,13 @@ a.website:hover .favicon {
 }
 
 .content > footer {
-	margin: 2rem 0 2rem;
 	padding-top: 1rem;
-	border-top: 2px solid var(--frss-border-color);
 	clear: both;
 }
 
 .content > footer .subtitle {
-	padding-bottom: 1rem;
+	padding: 2rem 0 1rem;
+	border-top: 2px solid var(--frss-border-color);
 }
 
 .content > header .tags,
@@ -1980,7 +1988,7 @@ input:checked + .slide-container .properties {
 }
 
 .reader .flux .content {
-	padding: 3rem;
+	padding: 3rem 0;
 	background-color: var(--frss-background-color);
 	border: 1px solid var(--frss-border-color);
 }
@@ -2187,8 +2195,10 @@ input:checked + .slide-container .properties {
 		top: 0;
 	}
 
-	.reader .flux .content {
-		padding: 1rem;
+	.content header,
+	.content .text,
+	.content footer {
+		padding: 0 1rem;
 	}
 
 	table {
