@@ -259,13 +259,14 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _url(string $value, bool $validate = true) {
 		$this->hash = '';
+		$url = $value;
 		if ($validate) {
-			$value = checkUrl($value);
+			$url = checkUrl($url);
 		}
-		if ($value == '') {
+		if ($url == '') {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
-		$this->url = $value;
+		$this->url = $url;
 	}
 	public function _kind(int $value) {
 		$this->kind = $value;
