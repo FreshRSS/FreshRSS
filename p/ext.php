@@ -13,10 +13,7 @@ const SUPPORTED_TYPES = [
 	'svg' => 'image/svg+xml',
 ];
 
-/**
- * @return string
- */
-function get_absolute_filename(string $file_name) {
+function get_absolute_filename(string $file_name): string {
 	$core_extension = realpath(CORE_EXTENSIONS_PATH . '/' . $file_name);
 	if (false !== $core_extension) {
 		return $core_extension;
@@ -40,9 +37,12 @@ function get_absolute_filename(string $file_name) {
 	return '';
 }
 
-function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
+function is_valid_path_extension(string $path, string $extensionPath, bool $isStatic = true): bool {
 	// It must be under the extension path.
 	$real_ext_path = realpath($extensionPath);
+	if ($real_ext_path == false) {
+		return false;
+	}
 
 	//Windows compatibility
 	$real_ext_path = str_replace('\\', '/', $real_ext_path);
@@ -60,7 +60,7 @@ function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
 
 	// Static files to serve must be under a `ext_dir/static/` directory.
 	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
-	list(,$static,$file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s');
+	list(, $static, $file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
 	if (null === $file || 'static' !== $static) {
 		return false;
 	}
@@ -78,16 +78,18 @@ function is_valid_path_extension($path, $extensionPath, $isStatic = true) {
  * @return bool true if it can be served, false otherwise.
  *
  */
-function is_valid_path($path) {
+function is_valid_path(string $path): bool {
 	return is_valid_path_extension($path, CORE_EXTENSIONS_PATH) || is_valid_path_extension($path, THIRDPARTY_EXTENSIONS_PATH)
 		|| is_valid_path_extension($path, USERS_PATH, false);
 }
 
+/** @return never */
 function sendBadRequestResponse(string $message = null) {
 	header('HTTP/1.1 400 Bad Request');
 	die($message);
 }
 
+/** @return never */
 function sendNotFoundResponse() {
 	header('HTTP/1.1 404 Not Found');
 	die();
