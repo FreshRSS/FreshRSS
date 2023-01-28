@@ -64,10 +64,6 @@ input:disabled, select:disabled {
 	background: #eee;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -577,10 +573,6 @@ a.btn {
 }
 
 .header > .item.search input {
-	width: 230px;
-}
-
-.header .item.search input:focus {
 	width: 350px;
 }
 

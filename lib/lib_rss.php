@@ -845,7 +845,7 @@ function errorMessageInfo($errorTitle, $error = '') {
 	$details = '';
 	// Prevent empty tags by checking if error isn not empty first
 	if ($error) {
-		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
+		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8') . "\n";
 
 		// First line is the main message, other lines are the details
 		list($message, $details) = explode("\n", $error, 2);
